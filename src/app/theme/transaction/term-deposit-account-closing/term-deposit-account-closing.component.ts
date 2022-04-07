@@ -160,32 +160,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.angForm = this.fb.group({
-      branch_code : ['', [Validators.required]],
-      temp_over_draft: [''],
-      over_draft: [''],
-      token: [''], 
-      // particulars: [''],
-      // total_amt: [''],
-      // amt: [''],
-      slip_no: [''],
-      // tran_mode: [''],
-      account_no:[''],
-      scheme:[''],
-      scheme_type:[''],
-      date:[''],
-      type:new FormControl('cash'),
-      // chequeDate:[''],
-      // chequeNo:[''],
-      // bank: [''],
-      Intdate:[''],
-
-      SAVING_PIGMY:[''],
-      chequeNo:['',[Validators.pattern]],
-      ChequeDate:['',[Validators.pattern]],
-      Token_Num:['',[Validators.pattern]],
-      particulars:[''],
-    })
+    this.createForm();
+    
 
         //Day opening Amount
         this.DayOpBal = 1000;
@@ -197,7 +173,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     
         //get syspara details
         this._service.getSysParaData().subscribe(data => {
-          debugger
+          
           // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
           this.date = data[0].CURRENT_DATE;
           console.log(this.date);
@@ -223,6 +199,35 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
   }
 
+  createForm() {
+    this.angForm = this.fb.group({
+      branch_code : ['', [Validators.required]],
+      temp_over_draft: [''],
+      over_draft: [''],
+      token: [''], 
+      // particulars: [''],
+      // total_amt: [''],
+      // amt: [''],
+      slip_no: [''],
+      // tran_mode: [''],
+      account_no:['', [Validators.required]],
+      scheme:['', [Validators.required]],
+      scheme_type:[''],
+      date:[''],
+      type:new FormControl('cash'),
+     
+      Intdate:[''],
+
+      SAVING_PIGMY:[''],
+      chequeNo:['',[Validators.pattern]],
+      ChequeDate:['',[Validators.pattern]],
+      Token_Num:['',[Validators.pattern]],
+      particulars:[''],
+      amount:['',[Validators.pattern,Validators.required]]
+     
+    });
+  }
+
   IntersetHeadDate:any;
   selectedSchemeCode() {
     this.allScheme = [];
@@ -236,7 +241,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     if (this.type == 'cash') {
       this.tranModeList = [];
       object.data.cash.forEach(ele => {
-        debugger
+        
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
@@ -353,7 +358,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     if (this.type == 'cash') {
       this.tranModeList = [];
       object.data.cash.forEach(ele => {
-        debugger
+        
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
@@ -386,7 +391,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   //submit Form
   Add(){
-    debugger
+   
     let user   = JSON.parse(localStorage.getItem('user'));
     let obj    = this.angForm.value;
     obj['user']= user;
@@ -480,7 +485,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   //Mode data
   changeMode(){
-    debugger
+   
     if(this.selectedMode.tran_drcr == 'D'){
       this.showChequeDetails = true;
     }else{
@@ -493,7 +498,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   //get customer today voucher data
   getVoucherData(){
-    debugger
+    
     let customer = this.angForm.controls['account_no'].value;
     let obj = {
       'customer' : customer.BANKACNO,
@@ -515,7 +520,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     })
     
     this._service.getVoucherPassAndUnpassData(obj).subscribe(data=>{
-      debugger
+      
       let passType   = '';
       let unpassType = '';
 
@@ -592,7 +597,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
 
   showHide(reportId) {
-    debugger
+   
     var ev = document.getElementById(reportId).hidden;
     if(ev){
       document.getElementById(reportId).hidden = false;
@@ -607,7 +612,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   //Edit Voucher Data
   editVoucher(index){
-    debugger;
+   
     this.EditFlag = true;
     this.index = index;
     var data            = this.mainMaster[index];

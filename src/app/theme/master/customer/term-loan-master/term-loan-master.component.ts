@@ -859,6 +859,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let sanctiondate
     let expirydate
     let resodate
+    // let ngexpiry
     this.columnShowButton = true
     this.termLoanService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
@@ -906,7 +907,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.sanctionAmt = data.AC_SANCTION_AMOUNT
       this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
         this.drawingPower = data.AC_DRAWPOWER_AMT,
-        this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
+        // this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
         this.intRate = data.AC_INTRATE
       this.repay = data.AC_REPAYMODE
       this.installmentType = data.INSTALLMENT_METHOD
@@ -918,6 +919,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           'BANKACNO': data.BANKACNO,
           AC_NO: data.AC_NO,
           AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+          AC_EXPIRE_DATE:(data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
           AC_IS_RECOVERY: data.AC_IS_RECOVERY,
           REF_ACNO: data.REF_ACNO,
           AC_MONTHS: data.AC_MONTHS,

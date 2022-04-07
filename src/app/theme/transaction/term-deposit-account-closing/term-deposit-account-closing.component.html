@@ -26,6 +26,13 @@
 
                                             </span>
                                         </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['branch_code'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4">
 
@@ -40,12 +47,13 @@
                                                     [(ngModel)]="date" formControlName="date" disabled>
                                             </span>
                                         </div>
+                                       
                                     </div>
 
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
+                                    <!-- <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-2">
                                         <div class="form-group form-primary form-static-label">
@@ -58,10 +66,17 @@
 
                                             </span>
                                         </div>
-                                    </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['scheme_type'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div> -->
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-6">
+                                    <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
@@ -72,14 +87,18 @@
 
                                             </span>
                                         </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['scheme'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account No.<sub
-                                                class="required">*</sub></label></div>
+                                        class="required">*</sub></label></div>
 
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="customer" formControlName="account_no"
@@ -89,8 +108,17 @@
                                                 </ng-select>
                                             </span>
                                         </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['account_no'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+                                
 
                                 <div class="row">
                                     <div class="col-md-6 solid1">
@@ -101,7 +129,9 @@
                                             <div class="col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" style="text-align: right;" maxlength="12"
+                                                        pattern="\d{1,20}(\.\d{1,2})?"  class="form-control"
+                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </span>
                                                 </div>
                                             </div>
@@ -115,18 +145,34 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Quaters</td>
-                                                        <td><input style="width:50%" type="text"></td>
-                                                        <td><input type="text"></td>
+                                                        <td>
+                                                            <input style="width:50% ; text-align: right;"  type="text"
+                                                            maxlength="3" pattern="^[0-9]+$"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" >
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" style="text-align: right;" maxlength="12"
+                                                            pattern="\d{1,20}(\.\d{1,2})?"  
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Months</td>
-                                                        <td><input style="width:50%" type="text"></td>
-                                                        <td><input type="text"></td>
+                                                        <td><input style="width:50% ; text-align: right;"  type="text"
+                                                            maxlength="3" pattern="^[0-9]+$"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" ></td>
+                                                        <td><input type="text" style="text-align: right;" maxlength="12"
+                                                            pattern="\d{1,20}(\.\d{1,2})?"  
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Days</td>
-                                                        <td><input style="width:50%" type="text"></td>
-                                                        <td><input type="text"></td>
+                                                        <td><input style="width:50% ; text-align: right;"  type="text"
+                                                            maxlength="3" pattern="^[0-9]+$"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" ></td>
+                                                        <td><input type="text" style="text-align: right;" maxlength="12"
+                                                            pattern="\d{1,20}(\.\d{1,2})?"  
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3">0 Months & 144 Days</td>
@@ -143,7 +189,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>
@@ -153,7 +201,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>
@@ -168,7 +218,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>
@@ -181,7 +233,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>   
@@ -191,7 +245,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>
@@ -201,7 +257,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>  
@@ -211,7 +269,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>  
@@ -221,7 +281,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>  
@@ -231,7 +293,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>  
@@ -241,7 +305,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>
@@ -256,7 +322,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
-                                                    <input type="text">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
                                         </div>
@@ -327,7 +395,7 @@
                                                 </div>
                                                 <div class="row">
 
-                                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
+                                                    <!-- <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
                                                         class="required">*</sub></label></div>
                                                     <div class="col-sm-2">
                                                         <div class="form-group form-primary form-static-label">
@@ -340,7 +408,14 @@
                 
                                                             </span>
                                                         </div>
-                                                    </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['scheme_type'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
                                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                                 class="required">*</sub></label></div>
                                                     <div class="col-sm-12 col-md-2">
@@ -354,10 +429,15 @@
                 
                                                             </span>
                                                         </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['scheme'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+                                                        
                                                     </div>
-                                                    
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account No.<sub
                                                         class="required">*</sub></label></div>
         
@@ -371,7 +451,18 @@
                                                                 </ng-select>
                                                             </span>
                                                         </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['account_no'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    
                                                     <div class="col-sm-12 col-md-2  "><label
                                                         for="AC_PARTICULAR">Particulars</label></div>
                                                     <div class="col-md-4">
@@ -383,6 +474,7 @@
                                                                     (click)="modalLarge.show()"></i>
                                                             </span>
                                                         </div>
+                                                        
         
                                                     </div>
                                                 </div>
@@ -393,9 +485,17 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input style="text-align: right;" type="text" class="form-control" name="amount"
-                                                                    id="amount" formControlName="amount"
+                                                                    id="amount" formControlName="amount" pattern="\d{1,20}(\.\d{1,2})?" maxlength="12"
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                             </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['amount'].invalid && (angForm.controls['amount'].dirty || angForm.controls['amount'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf="angForm.controls['amount'].errors?.pattern || angForm.controls['amount'].errors?.required || angForm.controls['amount'].errors?.maxlength">
+                                                                Input allowed only  0-9
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md" style="float: right;">
@@ -413,7 +513,7 @@
                                                                 <td>Action</td>
                                                                 <td>Cheque Number</td>
                                                                 <td>Cheque Date</td>
-                                                                <td>Scheme Type</td>
+                                                                <td>Scheme</td>
                                                                 <td>Account Number</td>
                                                                 <td>Particulars</td>
                                                                 <td style="text-align: right;">Amount</td>
@@ -424,7 +524,7 @@
                                                                     <td></td>
                                                                     <td>{{ data.chequeNo }}</td>
                                                                     <td>{{ data.ChequeDate }}</td>
-                                                                    <td>{{ data.scheme_type }}</td>
+                                                                    <td>{{ data.scheme }}</td>
                                                                     <td>{{ data.AC_NO }}</td>
                                                                     <td>{{ data.particulars }}</td>
                                                                     <td>{{ data.amount }}</td>

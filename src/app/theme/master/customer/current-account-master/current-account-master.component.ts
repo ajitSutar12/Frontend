@@ -216,6 +216,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   code: any = null
   acno: any = null
   ngIntroducer: any = null
+  branchcode: any = null
   Ncity: any //city from customer id from idmaster
   ngNcity: any = null
   jointID: any = null
@@ -978,28 +979,31 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   // Reset Function
   resetForm() {
+    
+    this.customerDoc = []
+    
+    this.createForm();
     this.resetNominee();
     this.resetJointAC()
     this.resetAttorney()
     this.PowerofAttorneyTrue = false
     this.JointAccountsTrue = false
     this.nomineeTrue = false
-    this.customerDoc = []
-    this.angForm.controls['AC_TYPE'].enable()
-    this.tempAddress = true
-    this.selectedValue = null
     this.newcustid = null
+    this.acno = null
     this.ngCategory = null
     this.ngOccupation = null
     this.ngBalCategory = null
     this.ngIntCategory = null
     this.ngCity = null
-    this.code = null
-    this.acno = null
     this.ngIntroducer = null
     this.ngNcity = null
+    this.branchcode = null
     this.jointID = null
-    this.createForm();
+    this.selectedValue = null
+    this.code = null
+    this.tempAddress = true
+    this.angForm.controls['AC_TYPE'].enable()
     this.getSystemParaDate()
   }
 
@@ -1371,31 +1375,56 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         if (this.newcustid != this.joint) {
 
           if (this.multiJointAC.length == 0) {
-
             this.multiJointAC.push(object);
-            this.resetJointAC()
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
             this.jointID = null
+            this.jointID = ''
+            this.resetJointAC()
+
           }
           else {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
 
               Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
+              this.multiJointAC.push(object);
+              this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
             } else {
               this.multiJointAC.push(object);
-              this.resetJointAC()
               this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
             }
           }
         }
         else {
           Swal.fire('', "Please Select Different Customer id", 'warning');
+          this.multiJointAC.push(object);
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
         }
       }
       else {
         Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
+        this.multiJointAC.push(object);
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
       }
     } else {
       Swal.fire('', "Please Select Customer Id", 'warning');
+      Swal.fire('', "Please Select Customer Id", 'warning');
+      this.multiJointAC.push(object);
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
     }
 
   }
@@ -1428,23 +1457,43 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       if (this.newcustid != this.jointID) {
         if (this.multiJointAC.length == 0) {
           this.multiJointAC[index] = object
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
         }
         else {
           if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
             Swal.fire("This Customer is Already Exists", "error");
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
           }
           else {
             this.multiJointAC[index] = object
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
           }
         }
       }
       else {
         Swal.fire("Please Select Different Customer id", "error");
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
       }
     } else {
       Swal.fire("Please Select Customer Id", "error");
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
     }
-    this.resetJointAC()
+    
   }
 
   delJointAc(id) {

@@ -110,7 +110,7 @@
                         <div class="col-sm">
                             <div class="card-block">
                                 <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
-                                    <ngb-tab title="1.Basic">
+                                    <ngb-tab title="Basic">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -389,7 +389,8 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_EXPDT" id="AC_EXPDT"
                                                                             class="form-control" required
-                                                                            [(ngModel)]="ngexpiry"
+                                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}"
+                                                                            [(ngModel)]="ngexpiry" placeholder="dd/mm/yyyy"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             disabled formControlName="AC_EXPDT">
                                                                         <label for="AC_EXPDT">Expiry Date<sub
@@ -928,7 +929,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="3.Introducer/Minor Details" id="introducer">
+                                    <ngb-tab title="Introducer/Minor Details" id="introducer">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
