@@ -13,8 +13,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL" required=""
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
+                    id="S_APPL" required="" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     pattern="^[0-9]+$" maxlength="3" minlength="3" min="201" max="299" title="Input allowed only 0-9"
                     formControlName="S_APPL" #autofocus />
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
@@ -95,19 +95,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                    <ng-select id="S_GLACNO" bindValue="value"
-                        [(ngModel)]="ngsglacno"
-                        formControlName="S_GLACNO" bindLabel="label"
-                        title="Compulsory Selection"
-                        [ngClass]="{'form-submitted': formSubmitted}"
-                        required placeholder="G.L. A/c No">
-                        <ng-option
-                            *ngFor="let values of acMaster"
-                            [value]="values">
-                            {{values.label}}</ng-option>
-                    </ng-select>
-                    <label for="S_GLACNO">G.L. A/c No<sub
-                            class="required"> * </sub></label>
+                  <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglacno" formControlName="S_GLACNO"
+                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    required placeholder="G.L. A/c No">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+                  <label for="S_GLACNO">G.L. A/c No<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -128,19 +122,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                    <ng-select id="S_INT_ACNO" bindValue="value"
-                        [(ngModel)]="ngintglac"
-                        formControlName="S_INT_ACNO" bindLabel="label"
-                        title="Compulsory Selection"
-                        [ngClass]="{'form-submitted': formSubmitted}"
-                        required placeholder="Interest G.L. A/c">
-                        <ng-option
-                            *ngFor="let values of acMaster"
-                            [value]="values">
-                            {{values.label}}</ng-option>
-                    </ng-select>
-                    <label for="S_INT_ACNO">Interest G.L. A/c<sub
-                            class="required"> * </sub></label>
+                  <ng-select id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac" formControlName="S_INT_ACNO"
+                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    required placeholder="Interest G.L. A/c">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+                  <label for="S_INT_ACNO">Interest G.L. A/c<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -162,19 +150,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                    <ng-select id="S_INT_CR_ACNO" bindValue="value"
-                        [(ngModel)]="ngintcreditgl"
-                        formControlName="S_INT_CR_ACNO" bindLabel="label"
-                        title="Compulsory Selection"
-                        [ngClass]="{'form-submitted': formSubmitted}"
-                        required placeholder="Interest Credit GL A/c ">
-                        <ng-option
-                            *ngFor="let values of acMaster"
-                            [value]="values">
-                            {{values.label}}</ng-option>
-                    </ng-select>
-                    <label for="S_INT_CR_ACNO">Interest Credit GL A/c <sub
-                            class="required"> * </sub></label>
+                  <ng-select id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl"
+                    formControlName="S_INT_CR_ACNO" bindLabel="label" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Credit GL A/c ">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+                  <label for="S_INT_CR_ACNO">Interest Credit GL A/c <sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -198,19 +180,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                    <ng-select id="S_RECBL_PYBL_INT_ACNO" bindValue="value"
-                        [(ngModel)]="ngpayable"
-                        formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label"
-                        title="Compulsory Selection"
-                        [ngClass]="{'form-submitted': formSubmitted}"
-                        required placeholder="Payable Int.A/c">
-                        <ng-option
-                            *ngFor="let values of acMaster"
-                            [value]="values">
-                            {{values.label}}</ng-option>
-                    </ng-select>
-                    <label for="S_RECBL_PYBL_INT_ACNO">Payable Int.A/c <sub
-                            class="required"> * </sub></label>
+                  <ng-select id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
+                    formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Payable Int.A/c">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+                  <label for="S_RECBL_PYBL_INT_ACNO">Payable Int.A/c <sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -233,19 +209,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_PENAL_ACNO" bindValue="value"
-                      [(ngModel)]="ngpenalintac"
-                      formControlName="S_PENAL_ACNO" bindLabel="label"
-                      title="Compulsory Selection"
-                      [ngClass]="{'form-submitted': formSubmitted}"
-                      required placeholder="Penal Int. A/c">
-                      <ng-option
-                          *ngFor="let values of acMaster"
-                          [value]="values">
-                          {{values.label}}</ng-option>
+                  <ng-select id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
+                    formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Penal Int. A/c">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_PENAL_ACNO">Penal Int. A/c <sub
-                          class="required"> * </sub></label>
+                  <label for="S_PENAL_ACNO">Penal Int. A/c <sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -267,19 +237,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_RECBL_PENAL_ACNO" bindValue="value"
-                      [(ngModel)]="ngrecble"
-                      formControlName="S_RECBL_PENAL_ACNO" bindLabel="label"
-                      title="Compulsory Selection"
-                      [ngClass]="{'form-submitted': formSubmitted}"
-                      required placeholder="Recble Penal Int. A/c">
-                      <ng-option
-                          *ngFor="let values of acMaster"
-                          [value]="values">
-                          {{values.label}}</ng-option>
+                  <ng-select id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble"
+                    formControlName="S_RECBL_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Recble Penal Int. A/c">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_RECBL_PENAL_ACNO">Recble Penal Int. A/c<sub
-                          class="required"> * </sub></label>
+                  <label for="S_RECBL_PENAL_ACNO">Recble Penal Int. A/c<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -302,19 +266,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_CASH_INT_ACNO" bindValue="value"
-                      [(ngModel)]="ngcashint"
-                      formControlName="S_CASH_INT_ACNO" bindLabel="label"
-                      title="Compulsory Selection"
-                      [ngClass]="{'form-submitted': formSubmitted}"
-                      required placeholder="Cash Interest A/c">
-                      <ng-option
-                          *ngFor="let values of acMaster"
-                          [value]="values">
-                          {{values.label}}</ng-option>
+                  <ng-select id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
+                    formControlName="S_CASH_INT_ACNO" bindLabel="label" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest A/c">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_CASH_INT_ACNO">Cash Interest A/c<sub
-                          class="required"> * </sub></label>
+                  <label for="S_CASH_INT_ACNO">Cash Interest A/c<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -336,19 +294,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="MATURED_BUT_NOT_PAID_GLAC" bindValue="value"
-                      [(ngModel)]="ngmaturebtntpd"
-                      formControlName="MATURED_BUT_NOT_PAID_GLAC" bindLabel="label"
-                      title="Compulsory Selection"
-                      [ngClass]="{'form-submitted': formSubmitted}"
-                      required placeholder="Mature But Not Paid GL">
-                      <ng-option
-                          *ngFor="let values of acMaster"
-                          [value]="values">
-                          {{values.label}}</ng-option>
+                  <ng-select id="MATURED_BUT_NOT_PAID_GLAC" bindValue="value" [(ngModel)]="ngmaturebtntpd"
+                    formControlName="MATURED_BUT_NOT_PAID_GLAC" bindLabel="label" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Mature But Not Paid GL">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="MATURED_BUT_NOT_PAID_GLAC">Mature But Not Paid GL<sub
-                          class="required"> * </sub></label>
+                  <label for="MATURED_BUT_NOT_PAID_GLAC">Mature But Not Paid GL<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -387,7 +339,8 @@
                     <li>
                       <h6>
                         <a (click)="OpenLink(73)" routerLinkActive="active" routerLink="/utility/schemeParameters"
-                          [ngClass]="{ isActive: intrestMethodTrue }" class="text-right f-w-600" id="pointer">Interest Method</a>
+                          [ngClass]="{ isActive: intrestMethodTrue }" class="text-right f-w-600" id="pointer">Interest
+                          Method</a>
                       </h6>
                     </li>
                     <li>
@@ -581,10 +534,11 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control" placeholder=" "
-                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                            id="MIN_INT_LIMIT" disabled pattern="\d{1,20}(\.\d{1,2})?"
-                            title="Input allowed only  0-9" formControlName="MIN_INT_LIMIT" />
+                          <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
+                            placeholder=" "
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                            id="MIN_INT_LIMIT" disabled pattern="\d{1,20}(\.\d{1,2})?" title="Input allowed only  0-9"
+                            formControlName="MIN_INT_LIMIT" />
                           <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                         </span>
                       </div>
@@ -605,10 +559,10 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input style="text-align: right;" type="text" name="ROUNDOFF_FACTOR" class="form-control" placeholder=" "
-                            id="ROUNDOFF_FACTOR" disabled maxlength="2" title="Input allowed only  0-9"
-                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                            pattern="^[0-9]+$" formControlName="ROUNDOFF_FACTOR" />
+                          <input style="text-align: right;" type="text" name="ROUNDOFF_FACTOR" class="form-control"
+                            placeholder=" " id="ROUNDOFF_FACTOR" disabled maxlength="2" title="Input allowed only  0-9"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9]+$"
+                            formControlName="ROUNDOFF_FACTOR" />
                           <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise</label>
                         </span>
                       </div>
@@ -776,6 +730,12 @@
                     </div>
                   </div>
                   <div class="col-sm">
+                    <div class="form-group form-primary form-static-label">
+                      <ng-select [(ngModel)]="ngCompoundIntBasis" formControlName="COMPOUND_INT_BASIS" bindValue="value">
+                        <ng-option *ngFor="let item of alternateOption" [value]="item">
+                          {{item.label}}</ng-option>
+                      </ng-select>
+                    </div>
                     <!-- <div class="form-group form-primary form-static-label">
                       <ng-select [ngClass]="'ng-select'" [options]="alternateOption" id="CompountInterest"
                         [multiple]="false" placeholder="Compound Interest" [disabled]="COMPOUND_INT_BASIS"
@@ -786,9 +746,10 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="COMPOUND_INT_DAYS" class="form-control" placeholder=" " [disabled]="COMPOUND_INT_BASIS"
-                          id="COMPOUND_INT_DAYS" pattern="^[0-9]+$" maxlength="3" title="Input allowed only  0-9"
-                          formControlName="COMPOUND_INT_DAYS" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )" />
+                        <input style="text-align: right;" type="text" name="COMPOUND_INT_DAYS" class="form-control"
+                          placeholder=" " [disabled]="COMPOUND_INT_BASIS" id="COMPOUND_INT_DAYS" pattern="^[0-9]+$"
+                          maxlength="3" title="Input allowed only  0-9" formControlName="COMPOUND_INT_DAYS"
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )" />
                         <label for="COMPOUND_INT_DAYS">Compount Int. Days</label>
                       </span>
                     </div>
@@ -829,10 +790,10 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" class="form-control" placeholder=" " id="S_PRODUCT_DAY_BASE"
-                          title="Input allowed only  0-9" pattern="^[0-9]+$" formControlName="S_PRODUCT_DAY_BASE"
-                          [(ngModel)]="S_PRODUCT_DAY_BASE" name="S_PRODUCT_DAY_BASE"
-                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
+                        <input style="text-align: right;" type="text" class="form-control" placeholder=" "
+                          id="S_PRODUCT_DAY_BASE" title="Input allowed only  0-9" pattern="^[0-9]+$"
+                          formControlName="S_PRODUCT_DAY_BASE" [(ngModel)]="S_PRODUCT_DAY_BASE"
+                          name="S_PRODUCT_DAY_BASE" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
                           (change)="Product_Base_Start_Day(S_PRODUCT_DAY_BASE)" />
                         <label for="S_PRODUCT_DAY_BASE">Product Base Start Day</label>
                       </span>
@@ -879,11 +840,11 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="S_PRODUCT_DAY_BASE_END" class="form-control" placeholder=" "
-                          id="S_PRODUCT_DAY_BASE_END" title="Input allowed only  0-9" pattern="^[0-9]+$"
+                        <input style="text-align: right;" type="text" name="S_PRODUCT_DAY_BASE_END" class="form-control"
+                          placeholder=" " id="S_PRODUCT_DAY_BASE_END" title="Input allowed only  0-9" pattern="^[0-9]+$"
                           formControlName="S_PRODUCT_DAY_BASE_END" [(ngModel)]="S_PRODUCT_DAY_BASE_END"
-                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
-                          name="S_PRODUCT_DAY_BASE_END" (change)="
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )" name="S_PRODUCT_DAY_BASE_END"
+                          (change)="
                             Product_Base_End_Day(S_PRODUCT_DAY_BASE_END)
                           " />
                         <label for="S_PRODUCT_DAY_BASE_END">Product Base End Day</label>
@@ -984,19 +945,14 @@
                     </div> -->
                     <div class="form-group form-primary form-static-label">
                       <span class="border-lable-flt">
-                        <ng-select id="INSTALLMENT_BASIS" bindValue="value"
-                            [(ngModel)]="nginstallmentbase" [disabled]="INSTALLMENT_BASIS"
-                            formControlName="INSTALLMENT_BASIS" bindLabel="label"
-                            title="Compulsory Selection"
-                            [ngClass]="{'form-submitted': formSubmitted}"
-                            required placeholder="Installment Base">
-                            <ng-option
-                                *ngFor="let values of simpleOption"
-                                [value]="values">
-                                {{values.label}}</ng-option>
+                        <ng-select id="INSTALLMENT_BASIS" bindValue="value" [(ngModel)]="nginstallmentbase"
+                          [disabled]="INSTALLMENT_BASIS" formControlName="INSTALLMENT_BASIS" bindLabel="label"
+                          title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
+                          placeholder="Installment Base">
+                          <ng-option *ngFor="let values of simpleOption" [value]="values">
+                            {{values.label}}</ng-option>
                         </ng-select>
-                        <label for="INSTALLMENT_BASIS">Installment Base<sub
-                                class="required"> * </sub></label>
+                        <label for="INSTALLMENT_BASIS">Installment Base<sub class="required"> * </sub></label>
                       </span>
                     </div>
                   </div>
@@ -1154,10 +1110,11 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="S_PENAL_INT_RATE" class="form-control" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                          id="S_PENAL_INT_RATE" disabled pattern="\d{1,20}(\.\d{1,2})?"
-                          title="Input allowed only  0-9" formControlName="S_PENAL_INT_RATE" />
+                        <input style="text-align: right;" type="text" name="S_PENAL_INT_RATE" class="form-control"
+                          placeholder=" "
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                          id="S_PENAL_INT_RATE" disabled pattern="\d{1,20}(\.\d{1,2})?" title="Input allowed only  0-9"
+                          formControlName="S_PENAL_INT_RATE" />
                         <label for="S_PENAL_INT_RATE">Penal Interest Rate %</label>
                       </span>
                     </div>
@@ -1185,8 +1142,9 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="S_MATUCALC" class="form-control" pattern="\d{1,20}(\.\d{1,2})?"
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                        <input style="text-align: right;" type="text" name="S_MATUCALC" class="form-control"
+                          pattern="\d{1,20}(\.\d{1,2})?"
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                           placeholder=" " id="S_MATUCALC" title="Input allowed only  0-9"
                           formControlName="S_MATUCALC" />
                         <label for="S_MATUCALC">Maturity Calculation Multiple Amount</label>
@@ -1258,8 +1216,8 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MATURE_GRACE_MONTHS" class="form-control" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                        <input style="text-align: right;" type="text" name="MATURE_GRACE_MONTHS" class="form-control"
+                          placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                           id="MATURE_GRACE_MONTHS" maxlength="3" title="Input allowed only  0-9" pattern="^[0-9]+$"
                           formControlName="MATURE_GRACE_MONTHS" />
                         <label for="MATURE_GRACE_MONTHS">Maturity Process Grace Months</label>
@@ -1283,8 +1241,8 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MATURE_GRACE_DAYS" class="form-control" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                        <input style="text-align: right;" type="text" name="MATURE_GRACE_DAYS" class="form-control"
+                          placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                           id="MATURE_GRACE_DAYS" pattern="^[0-9]+$" maxlength="3" title="Input allowed only  0-9"
                           formControlName="MATURE_GRACE_DAYS" />
                         <label for="MATURE_GRACE_DAYS">Maturity Process Grace Days</label>
@@ -1380,19 +1338,13 @@
                     </div> -->
                     <div class="form-group form-primary form-static-label">
                       <span class="border-lable-flt">
-                        <ng-select id="UNIT_OF_PERIOD" bindValue="value"
-                            [(ngModel)]="ngunittdperiod"
-                            formControlName="UNIT_OF_PERIOD" bindLabel="label"
-                            title="Compulsory Selection"
-                            [ngClass]="{'form-submitted': formSubmitted}"
-                            required placeholder="Unit of TD Period">
-                            <ng-option
-                                *ngFor="let values of unitOfPeroid"
-                                [value]="values">
-                                {{values.label}}</ng-option>
+                        <ng-select id="UNIT_OF_PERIOD" bindValue="value" [(ngModel)]="ngunittdperiod"
+                          formControlName="UNIT_OF_PERIOD" bindLabel="label" title="Compulsory Selection"
+                          [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Unit of TD Period">
+                          <ng-option *ngFor="let values of unitOfPeroid" [value]="values">
+                            {{values.label}}</ng-option>
                         </ng-select>
-                        <label for="UNIT_OF_PERIOD">Unit of TD Period<sub
-                                class="required"> * </sub></label>
+                        <label for="UNIT_OF_PERIOD">Unit of TD Period<sub class="required"> * </sub></label>
                       </span>
                     </div>
                   </div>
@@ -1401,8 +1353,8 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MIN_DAYS" class="form-control" placeholder=" " id="MIN_DAYS"
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                        <input style="text-align: right;" type="text" name="MIN_DAYS" class="form-control"
+                          placeholder=" " id="MIN_DAYS" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                           title="Input allowed only  0-9" pattern="^[0-9]+$" maxlength="4" formControlName="MIN_DAYS" />
                         <label for="MIN_DAYS">Minimum Period in Days</label>
                       </span>
@@ -1422,8 +1374,8 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MIN_MONTH" class="form-control" placeholder=" " id="MIN_MONTH"
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                        <input style="text-align: right;" type="text" name="MIN_MONTH" class="form-control"
+                          placeholder=" " id="MIN_MONTH" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                           title="Input allowed only  0-9" pattern="^[0-9]+$" maxlength="3"
                           formControlName="MIN_MONTH" />
                         <label for="MIN_MONTH">Minimum Period in Months</label>
@@ -1451,8 +1403,9 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MAX_DEP_LMT" class="form-control" pattern="^[0-9]+$" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                        <input style="text-align: right;" type="text" name="MAX_DEP_LMT" class="form-control"
+                          pattern="^[0-9]+$" placeholder=" "
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                           id="MAX_DEP_LMT" pattern="\d{1,20}(\.\d{1,2})?" title="Input allowed only  0-9"
                           formControlName="MAX_DEP_LMT" />
                         <label for="MAX_DEP_LMT">Maximum Deposit Limit</label>
@@ -1473,8 +1426,9 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MULTIPLE_OF_AMT" class="form-control" pattern="^[0-9]+$"
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                        <input style="text-align: right;" type="text" name="MULTIPLE_OF_AMT" class="form-control"
+                          pattern="^[0-9]+$"
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                           placeholder=" " id="MULTIPLE_OF_AMT" pattern="\d{1,20}(\.\d{1,2})?"
                           title="Input allowed only  0-9" formControlName="MULTIPLE_OF_AMT" />
                         <label for="MULTIPLE_OF_AMT">Multiple of Amount</label>
@@ -1497,8 +1451,8 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MULTIPLE_OF_DAYS" class="form-control" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                        <input style="text-align: right;" type="text" name="MULTIPLE_OF_DAYS" class="form-control"
+                          placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                           id="MULTIPLE_OF_DAYS" pattern="^[0-9]+$" maxlength="3" title="Input allowed only  0-9"
                           formControlName="MULTIPLE_OF_DAYS" />
                         <label for="MULTIPLE_OF_DAYS">Multiple of Days</label>
@@ -1521,8 +1475,8 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="MULTIPLE_OF_MONTH" class="form-control" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                        <input style="text-align: right;" type="text" name="MULTIPLE_OF_MONTH" class="form-control"
+                          placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                           id="MULTIPLE_OF_MONTH" pattern="^[0-9]+$" maxlength="3" title="Input allowed only  0-9"
                           formControlName="MULTIPLE_OF_MONTH" />
                         <label for="MULTIPLE_OF_MONTH">Multiple of Months</label>
@@ -1740,7 +1694,7 @@
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input type="text" name="RECEIPT_TYPE" class="form-control" placeholder=" " id="RECEIPT_TYPE"
-                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                          (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                           pattern="^[A-Za-z\./ -]+$" formControlName="RECEIPT_TYPE" maxlength="3"
                           title="Input allowed only  A-Z a-z  - / . (Space)" />
                         <label for="RECEIPT_TYPE">TD Receipt Type / Series</label>
@@ -1791,8 +1745,9 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="LESS_PREMATURE_INT_RATE" class="form-control" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                        <input style="text-align: right;" type="text" name="LESS_PREMATURE_INT_RATE"
+                          class="form-control" placeholder=" "
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                           id="LESS_PREMATURE_INT_RATE" pattern="\d{1,20}(\.\d{1,2})?" title="Input allowed only  0-9"
                           pattern="^[0-9]+$" formControlName="LESS_PREMATURE_INT_RATE" />
                         <label for="LESS_PREMATURE_INT_RATE">Premature Less Interest Rate</label>
@@ -1843,8 +1798,9 @@
                   <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
-                        <input style="text-align: right;" type="text" name="AFTER_MATURE_INT_RATE" class="form-control" placeholder=" "
-                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                        <input style="text-align: right;" type="text" name="AFTER_MATURE_INT_RATE" class="form-control"
+                          placeholder=" "
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                           id="AFTER_MATURE_INT_RATE" pattern="\d{1,20}(\.\d{1,2})?" title="Input allowed only  0-9"
                           pattern="^[0-9]+$" formControlName="AFTER_MATURE_INT_RATE" />
                         <label for="AFTER_MATURE_INT_RATE">After Mature Interest Rate</label>
@@ -1895,18 +1851,18 @@
                 </div>
                 <div class="card-footer">
                   <div class="row" style="float: right;">
-                      <div class="col-sm m-b-20">
-                          <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton">
-                              Submit
-                          </button>
-                          <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                              Update</button>&nbsp;
-                          <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                              Cancel
-                          </button>
-                      </div>
+                    <div class="col-sm m-b-20">
+                      <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton">
+                        Submit
+                      </button>
+                      <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                        Update</button>&nbsp;
+                      <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                        Cancel
+                      </button>
+                    </div>
                   </div>
-              </div>
+                </div>
 
                 <!-- <div class="col-sm">
                   <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
@@ -1940,7 +1896,7 @@
                   <tr *ngFor="let data of termDepositScheme">
                     <td>
                       <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span> 
+                        placement="bottom" ngbTooltip="Edit"></span>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
@@ -2052,40 +2008,40 @@
                   <tr class="testing">
                     <th class="testing"></th>
                     <th>
-                      <input type="text" class="form-control"  name="S_ACNOTYPE" />
+                      <input type="text" class="form-control" name="S_ACNOTYPE" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_APPL" />
+                      <input type="text" class="form-control" name="S_APPL" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_NAME" />
+                      <input type="text" class="form-control" name="S_NAME" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_SHNAME" />
+                      <input type="text" class="form-control" name="S_SHNAME" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_GLACNO" />
+                      <input type="text" class="form-control" name="S_GLACNO" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_INT_ACNO" />
+                      <input type="text" class="form-control" name="S_INT_ACNO" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_INT_CR_ACNO" />
+                      <input type="text" class="form-control" name="S_INT_CR_ACNO" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_RECBL_PYBL_INT_ACNO" />
+                      <input type="text" class="form-control" name="S_RECBL_PYBL_INT_ACNO" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_PENAL_ACNO" />
+                      <input type="text" class="form-control" name="S_PENAL_ACNO" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_RECBL_PENAL_ACNO" />
+                      <input type="text" class="form-control" name="S_RECBL_PENAL_ACNO" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_CASH_INT_ACNO" />
+                      <input type="text" class="form-control" name="S_CASH_INT_ACNO" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="MATURED_BUT_NOT_PAID_GLAC" />
+                      <input type="text" class="form-control" name="MATURED_BUT_NOT_PAID_GLAC" />
                     </th>
                     <!-- <th>
                       <input type="text" class="form-control"  name="INTEREST_RULE" />

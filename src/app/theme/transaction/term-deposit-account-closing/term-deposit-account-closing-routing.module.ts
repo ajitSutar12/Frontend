@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: TermDepositAccountClosingComponent,
     data: {
-      title: 'TermDeposit Account Closing',
+      title: 'Term Deposit Account Closing',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

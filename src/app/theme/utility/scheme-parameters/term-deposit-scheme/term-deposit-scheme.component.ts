@@ -201,7 +201,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   IS_ASSUMED_INSTALLMENTS = true;
   filterData={};
   newbtnShow: boolean;
-
+  ngCompoundIntBasis:any=null
   // S_PRODUCT_DAY_BASE: any;
   constructor(
     private http: HttpClient,
