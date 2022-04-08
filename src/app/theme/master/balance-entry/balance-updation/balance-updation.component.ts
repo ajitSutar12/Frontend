@@ -122,6 +122,8 @@ export class BalanceUpdationComponent implements OnInit {
   ngbranch: any = null;
   branchOption: any;
 
+  gridData: any;
+
 
   constructor(public _service: BalanceUpdationService,
     private http: HttpClient,
@@ -557,6 +559,7 @@ export class BalanceUpdationComponent implements OnInit {
       this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename]
       this.http.get(this.url + '/balance-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
+        this.gridData = data;
         this.arrTable.forEach(element => {
           var object = {
             AC_NO: element.AC_NO,
@@ -744,7 +747,28 @@ export class BalanceUpdationComponent implements OnInit {
 
 
   }
+
+  //filter object
+filterObject(ele, type) {
+  console.log(this.arrTable);
+  let matchArray = new Array()
+  this.arrTable = [];
+  this.gridData.forEach(element => {
+    if(type == 'AC_NAME'){
+      if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
+        this.arrTable.push(element);
+      }
+    }else{
+      if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+        this.arrTable.push(element);
+      }
+    }
+    
+  });
+}
   submit() {
+    let dataObj = this.angForm.value;
+    dataObj['gridData'] = this.arrTable;
     let notingdate
     this.formSubmitted = true;
     if (this.balanceUpdateArr.length != 0) {

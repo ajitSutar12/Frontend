@@ -124,51 +124,96 @@
                         <div class="col-sm-12">
                             <div class="col-12">
                                 <div class="table-responsive">
-                                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    <div class="scroll">
+                                        <table 
                                         class="table table-striped table-bordered table-hover compact">
                                         <thead>
-                                            <td class="td_right">Account Number</td>
-                                            <td>Account Name</td>
-                                            <td *ngIf="ledgerbalance" class="td_right">Ledger Balance</td>
-                                            <td *ngIf="productamount" class="td_right">Product Amount</td>
-                                            <td *ngIf="lastTranDate" class="td_center">Last Trans. Date</td>
-                                            <td *ngIf="lastintpaidDate" class="td_center">Last Interest paid Date</td>
-                                            <td *ngIf="closingdate" class="td_center">Closing Date</td>
-                                            <td *ngIf="debitcredit" class="td_right">Debit/Credit</td>
-                                            <td *ngIf="payableint" class="td_right">Payable Interest</td>
-                                            <td *ngIf="totalintpaid" class="td_right">Total Interest paid</td>
-                                            <td *ngIf="totalpenalint" class="td_right">Total Penal Int</td>
-                                            <td *ngIf="totalinstallmentrec" class="td_right">Total Number of Installment
-                                                Received</td>
-                                            <td *ngIf="tdsopDate" class="td_center">TDS O/p Date</td>
-                                            <td *ngIf="intinfinancialyear" class="td_right">Op.Cr.Int in Financial Year
-                                            </td>
-                                            <td *ngIf="opintpaidfinyear" class="td_right">Op.Int Paid in Financial Year
-                                            </td>
-                                            <td *ngIf="acopenDate" class="td_center">A/c Open Date</td>
-                                            <td *ngIf="lastcreditDate" class="td_center">Last Credit Date</td>
-                                            <td *ngIf="lastintDate" class="td_center">Last Interest Date</td>
-                                            <td *ngIf="opproduct" class="td_right">O/p Product</td>
-                                            <td *ngIf="balanceDate" class="td_center">Balance Date</td>
-                                            <td *ngIf="receivableint" class="td_right">Receivable Interest</td>
-                                            <td *ngIf="totalintrec" class="td_right">Total Int. Received</td>
-                                            <td *ngIf="penalint" class="td_right">Penal Interest</td>
-                                            <td *ngIf="totaldepositamt" class="td_right">Total Deposit Amt</td>
-                                            <td *ngIf="totalpostedint" class="td_right">Tot.Posted Interest</td>
-                                            <td *ngIf="npaDate" class="td_center">NPA Date</td>
-                                            <td *ngIf="isdisputeloan" class="td_right">Is Dispute Loan</td>
-                                            <td *ngIf="noofshares" class="td_right">No.of Shares</td>
-                                            <td *ngIf="shareamt" class="td_right">Share Amount</td>
-                                            <td *ngIf="accloseDate" class="td_center">AC Close Date</td>
-                                            <td *ngIf="purchaseDate" class="td_center">Purchase Date</td>
-                                            <td *ngIf="supliername">Supplier Name</td>
-                                            <td *ngIf="purchaserate" class="td_center">Purchase Rate</td>
-                                            <td *ngIf="purchasequantity" class="td_right">Purchase Rate</td>
-                                            <td *ngIf="purchasevalue" class="td_right">Purchase value</td>
-                                            <td *ngIf="openingamt" class="td_right">Opening Amount</td>
-                                            <td *ngIf="openingquantity" class="td_right">Opening Quantity</td>
-                                            <td *ngIf="lastdepreciationDate" class="td_center">Last Depreciation Date
-                                            </td>
+                                            <tr>
+                                                <td class="td_right">Account Number</td>
+                                                <td>Account Name</td>
+                                                <td *ngIf="ledgerbalance" class="td_right">Ledger Balance</td>
+                                                <td *ngIf="productamount" class="td_right">Product Amount</td>
+                                                <td *ngIf="lastTranDate" class="td_center">Last Trans. Date</td>
+                                                <td *ngIf="lastintpaidDate" class="td_center">Last Interest paid Date</td>
+                                                <td *ngIf="closingdate" class="td_center">Closing Date</td>
+                                                <td *ngIf="debitcredit" class="td_center">Debit/Credit</td>
+                                                <td *ngIf="payableint" class="td_right">Payable Interest</td>
+                                                <td *ngIf="totalintpaid" class="td_right">Total Interest paid</td>
+                                                <td *ngIf="totalpenalint" class="td_right">Total Penal Int</td>
+                                                <td *ngIf="totalinstallmentrec" class="td_right">Total Number of Installment
+                                                    Received</td>
+                                                <td *ngIf="tdsopDate" class="td_center">TDS O/p Date</td>
+                                                <td *ngIf="intinfinancialyear" class="td_right">Op.Cr.Int in Financial Year
+                                                </td>
+                                                <td *ngIf="opintpaidfinyear" class="td_right">Op.Int Paid in Financial Year
+                                                </td>
+                                                <td *ngIf="acopenDate" class="td_center">A/c Open Date</td>
+                                                <td *ngIf="lastcreditDate" class="td_center">Last Credit Date</td>
+                                                <td *ngIf="lastintDate" class="td_center">Last Interest Date</td>
+                                                <td *ngIf="opproduct" class="td_right">O/p Product</td>
+                                                <td *ngIf="balanceDate" class="td_center">Balance Date</td>
+                                                <td *ngIf="receivableint" class="td_right">Receivable Interest</td>
+                                                <td *ngIf="totalintrec" class="td_right">Total Int. Received</td>
+                                                <td *ngIf="penalint" class="td_right">Penal Interest</td>
+                                                <td *ngIf="totaldepositamt" class="td_right">Total Deposit Amt</td>
+                                                <td *ngIf="totalpostedint" class="td_right">Tot.Posted Interest</td>
+                                                <td *ngIf="npaDate" class="td_center">NPA Date</td>
+                                                <td *ngIf="isdisputeloan" class="td_right">Is Dispute Loan</td>
+                                                <td *ngIf="noofshares" class="td_right">No.of Shares</td>
+                                                <td *ngIf="shareamt" class="td_right">Share Amount</td>
+                                                <td *ngIf="accloseDate" class="td_center">AC Close Date</td>
+                                                <td *ngIf="purchaseDate" class="td_center">Purchase Date</td>
+                                                <td *ngIf="supliername">Supplier Name</td>
+                                                <td *ngIf="purchaserate" class="td_center">Purchase Rate</td>
+                                                <td *ngIf="purchasequantity" class="td_right">Purchase Rate</td>
+                                                <td *ngIf="purchasevalue" class="td_right">Purchase value</td>
+                                                <td *ngIf="openingamt" class="td_right">Opening Amount</td>
+                                                <td *ngIf="openingquantity" class="td_right">Opening Quantity</td>
+                                                <td *ngIf="lastdepreciationDate" class="td_center">Last Depreciation Date
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control" (keyup)="filterObject($event,'AC_NO')"></td>
+                                                <td><input type="text" class="form-control" style="text-transform:uppercase;" (keyup)="filterObject($event,'AC_NAME')"></td>
+                                                <td *ngIf="ledgerbalance"></td>
+                                                <td *ngIf="productamount"></td>
+                                                <td *ngIf="lastTranDate"></td>
+                                                <td *ngIf="lastintpaidDate"></td>
+                                                <td *ngIf="closingdate"></td>
+                                                <td *ngIf="debitcredit"></td>
+                                                <td *ngIf="payableint"></td>
+                                                <td *ngIf="totalintpaid"></td>
+                                                <td *ngIf="totalpenalint"></td>
+                                                <td *ngIf="totalinstallmentrec"></td>
+                                                <td *ngIf="tdsopDate"></td>
+                                                <td *ngIf="intinfinancialyear"></td>
+                                                <td *ngIf="opintpaidfinyear"></td>
+                                                <td *ngIf="acopenDate"></td>
+                                                <td *ngIf="lastcreditDate"></td>
+                                                <td *ngIf="lastintDate"></td>
+                                                <td *ngIf="opproduct"></td>
+                                                <td *ngIf="balanceDate"></td>
+                                                <td *ngIf="receivableint"></td>
+                                                <td *ngIf="totalintrec"></td>
+                                                <td *ngIf="penalint"></td>
+                                                <td *ngIf="totaldepositamt"></td>
+                                                <td *ngIf="totalpostedint"></td>
+                                                <td *ngIf="npaDate"></td>
+                                                <td *ngIf="isdisputeloan"></td>
+                                                <td *ngIf="noofshares"></td>
+                                                <td *ngIf="shareamt"></td>
+                                                <td *ngIf="accloseDate"></td>
+                                                <td *ngIf="purchaseDate"></td>
+                                                <td *ngIf="supliername"></td>
+                                                <td *ngIf="purchaserate"></td>
+                                                <td *ngIf="purchasequantity"></td>
+                                                <td *ngIf="purchasevalue"></td>
+                                                <td *ngIf="openingamt"></td>
+                                                <td *ngIf="openingquantity"></td>
+                                                <td *ngIf="lastdepreciationDate"></td>
+                                                                                                                                
+                                            </tr>
+                                           
                                         </thead>
                                         <tbody *ngIf="arrTable?.length != 0">
                                             <tr *ngFor="let data of arrTable;
@@ -476,7 +521,9 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                        </table>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

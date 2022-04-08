@@ -569,6 +569,13 @@ ng-select > div > div.single > div.value {
     text-transform: capitalize;
 }
 
+.scroll{
+    width: 100%;
+    height: 400px;
+    overflow-y:scroll;
+    
+}
+
 .fa-edit:before,
 .fa-pencil-square-o:before {
     content: "";
