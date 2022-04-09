@@ -132,12 +132,13 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="12"
                                                             pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
+                                                            formControlName="InterestRate"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" *ngIf="preMature">
                                             <div class="col-md-12">
                                                 <table>
                                                     <tr>
@@ -147,36 +148,30 @@
                                                     <tr>
                                                         <td>Quaters</td>
                                                         <td>
-                                                            <input style="width:50% ; text-align: right;" type="text"
-                                                                maxlength="3" pattern="^[0-9]+$"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                                            <input style="width:50% ; text-align: right;"
+                                                                formControlName="ClosingQuaters" type="text" disabled>
                                                         </td>
                                                         <td>
                                                             <input type="text" style="text-align: right;" maxlength="12"
-                                                                pattern="\d{1,20}(\.\d{1,2})?"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                                formControlName="QInterest" disabled>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Months</td>
                                                         <td><input style="width:50% ; text-align: right;" type="text"
-                                                                maxlength="3" pattern="^[0-9]+$"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                                                formControlName="ClosingMonth" disabled>
                                                         </td>
                                                         <td><input type="text" style="text-align: right;" maxlength="12"
-                                                                pattern="\d{1,20}(\.\d{1,2})?"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                                formControlName="MInterest" disabled>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Days</td>
                                                         <td><input style="width:50% ; text-align: right;" type="text"
-                                                                maxlength="3" pattern="^[0-9]+$"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                                                formControlName="ClosingDays" disabled>
                                                         </td>
                                                         <td><input type="text" style="text-align: right;" maxlength="12"
-                                                                pattern="\d{1,20}(\.\d{1,2})?"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                                formControlName="DInterest" disabled>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -188,6 +183,29 @@
 
                                             </div>
                                         </div>
+                                        <div class="row" *ngIf="afterMaturedInt">
+                                            <div class="col-md-12">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="2">After Matured Interest</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interest Rate</td>
+                                                        <td>
+                                                            <input style="width:50% ; text-align: right;"
+                                                                formControlName="maturedInterest" type="text">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interest Amount</td>
+                                                        <td>
+                                                            <input style="width:50% ; text-align: right;"
+                                                                formControlName="maturedIntAmt" type="text">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label><b>Total Interest @ 6.00 %</b></label>
@@ -195,7 +213,7 @@
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="TOTAL_INT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -224,7 +242,7 @@
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="EXCESS_INT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -287,7 +305,7 @@
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="TDS_AMT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -299,7 +317,7 @@
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="SURCHARGE_AMT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -311,7 +329,7 @@
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="PENAL_INT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>

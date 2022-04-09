@@ -224,19 +224,41 @@ export class TermDepositAccountClosingComponent implements OnInit {
       ChequeDate: ['', [Validators.pattern]],
       Token_Num: ['', [Validators.pattern]],
       particulars: [''],
-      amount: ['', [Validators.pattern, Validators.required]]
-
+      amount: ['', [Validators.pattern, Validators.required]],
+      ClosingQuaters: [''],
+      QInterest: ['0.00'],
+      ClosingMonth: [''],
+      MInterest: ['0.00'],
+      DInterest: ['23.05'],
+      ClosingDays: [''],
+      TDS_AMT: ['125'],
+      SURCHARGE_AMT: ['75'],
+      PENAL_INT: ['1.00'],
+      EXCESS_INT: [''],
+      InterestRate: [''],
+      maturedIntAmt: [''],
+      maturedInterest: [''],
+      TOTAL_INT: [''],
     });
   }
 
-
   getschemename
   isInterestApplicable: boolean = false
+  afterMaturedInt: boolean = false
+  monthDays
+  Quarterly
+  prematureRate
+  interestUptoCalDate
+  afterMatureIntRate
   schemechange(event) {
-    debugger
     this.getschemename = event.name
     this.selectedScheme = event.value
     this.isInterestApplicable = event.intapp
+    this.monthDays = event.monthDays
+    this.Quarterly = event.Quarterly
+    this.prematureRate = event.prematureRate
+    this.interestUptoCalDate = event.interestUptoCalDate
+    this.afterMatureIntRate = event.afterMatureIntRate
     this.getIntroducer()
   }
 
@@ -254,21 +276,22 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
   INTRATE = 0.00
   bankacno
-  lastIntDate = '---'
-  opDate = '---'
-  asOnDate = '---'
-  maturityDate = '---'
-  recNo = '---'
-  operator = '---'
-  months = '---'
-  days = '---'
+  lastIntDate
+  opDate
+  asOnDate
+  maturityDate
+  recNo
+  operator
+  months
+  days
   interestCategory
+  preMature: boolean = false
   getAccountDetails(event) {
-    debugger
+
     this.bankacno = event.bankacno
     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
-      console.log('acc data', data)
+      debugger
       this.DayOpBal = data[0].AC_SCHMAMT
       this.Pass = data[0].AC_MATUAMT
       this.INTRATE = data[0].AC_INTRATE
@@ -281,18 +304,26 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.months = data[0].AC_MONTHS
       this.days = data[0].AC_DAYS
       this.interestCategory = data[0].AC_INTCATA
+      this.preMature = data[0].preMature
+      if (data[0].post_Interest < 0) {
+        this.angForm.patchValue({
+          EXCESS_INT: data[0].post_Interest,
+          POSTED_INT: 0,
+        })
+      }
+      else if (data[0].post_Interest > 0) {
+        this.angForm.patchValue({
+          POSTED_INT: data[0].post_Interest,
+          EXCESS_INT: 0
+        })
+      }
+      else {
+        this.angForm.patchValue({
+          POSTED_INT: 0,
+          EXCESS_INT: 0
+        })
+      }
 
-      this.angForm.patchValue({
-        POSTED_INT: data[0].post_Interest
-        //   OpenDate: data[0].AC_OPDATE,
-        //   renewalDate: data[0].AC_ASON_DATE,
-        //   LastIntDate: data[0].AC_LINTEDT,
-        //   maturityDate: data[0].AC_EXPDT,
-        //   AC_Months: data[0].AC_MONTHS,
-        //   AC_DAYS: data[0].AC_DAYS,
-        //   INTRATE: data[0].INT_RATE,
-        //   POSTED_INT: data[0].post_Interest
-      })
       if (this.isInterestApplicable == true) {
         this.angForm.patchValue({
           INTREST_RATE: data[0].INT_RATE
@@ -303,39 +334,118 @@ export class TermDepositAccountClosingComponent implements OnInit {
           INTREST_RATE: '0'
         })
       }
-      let netInt: number = 0
-      var months
-      netInt = this.angForm.controls['TotalInterest'].value - data[0].post_Interest
-      if (data[0].AC_LINTEDT != "" && data[0].AC_LINTEDT != null) {
-        var date1 = data[0].AC_LINTEDT;
-        var date2 = this.angForm.controls['DATE'].value;
 
-        var b = moment(date1, "DD/MM/YYYY");
-        var a = moment(date2, "DD/MM/YYYY");
-
-        months = a.diff(b, 'months');
-
+      if (data[0].preMature == true) {
+        console.log('parseFloat(data[0].prematureRate)', parseFloat(data[0].prematureRate).toFixed(2))
+        console.log('parseFloat(this.prematureRate)', parseFloat(this.prematureRate))
+        this.angForm.patchValue({
+          InterestRate: parseFloat(data[0].prematureRate) - parseFloat(this.prematureRate)
+        })
+        this.afterMaturedInt = false
+        this.getMonthDays()
       }
       else {
-        var date1 = data[0].AC_OPDATE;
-        var date2 = this.angForm.controls['DATE'].value;
-        var b = moment(date1, "DD/MM/YYYY");
-        var a = moment(date2, "DD/MM/YYYY");
-        months = a.diff(b, 'months');
+        this.angForm.patchValue({
+          InterestRate: data[0].AC_INTRATE
+        })
+        if (this.interestUptoCalDate == 'true') {
+          this.afterMaturedInt = false
+          this.angForm.patchValue({
+            TOTAL_INT: '921.00'  //FUNCTION AMT
+          })
+        }
+        else {
+          this.afterMaturedInt = true
+          var b = moment(this.maturityDate, "DD/MM/YYYY");
+          var a = moment(this.date, "DD/MM/YYYY");
+          let Days = b.diff(a, 'days');
+          let total_int = Math.abs(Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 100))
+          this.angForm.patchValue({
+            TOTAL_INT: total_int.toFixed(2)
+          })
+        }
+        if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '') {
+          this.angForm.patchValue({
+            InterestRate: this.afterMatureIntRate
+          })
+          this.afterMaturedInt = false
+        }
       }
-      this.angForm.patchValue({
-        Months: months,
-        NET_INT: netInt
-      })
     })
-
   }
 
-  getMonthDays(){
-    let S_INTCALTP 
-   let days= ['CalculationOnDays',  'DaysProductBase']
-   let month=['MonthProductBase']
-   let monthDay=['Month&DaysBase']
+  calQuarter: number = 0
+  calMonths: number = 0
+  calDays: number = 0
+  calMonthDays: number = 0
+  getMonthDays() {
+    let Days: number = 0
+    if (this.asOnDate != null && this.asOnDate != "") {
+      var b = moment(this.asOnDate, "DD/MM/YYYY");
+      var a = moment(this.date, "DD/MM/YYYY");
+      Days = a.diff(b, 'days');
+      if (this.Quarterly != '' && this.Quarterly == 'Quarterly') {
+        this.calQuarter = Math.floor(a.diff(b, 'months') / 3)
+        if (Days > 90)
+          this.calDays = Days - 90
+        this.calMonths = 0
+      }
+      else {
+        Days = a.diff(b, 'days');
+        if (this.monthDays == 'MonthProductBase') {
+          this.calMonths = a.diff(b, 'months')
+          this.calQuarter = 0
+          this.calDays = 0
+        }
+        else if (this.monthDays == 'CalculationOnDays' || this.monthDays == 'DaysProductBase') {
+          this.calDays = a.diff(b, 'days')
+          this.calQuarter = 0
+          this.calMonths = 0
+        }
+        else if (this.monthDays == 'Month&DaysBase') {
+          this.calMonths = a.diff(b, 'months')
+          this.calDays = a.diff(b, 'days')
+          this.calDays = this.calDays - (this.calMonths * 30)
+          this.calQuarter = 0
+        }
+      }
+    }
+    else {
+      var b = moment(this.opDate, "DD/MM/YYYY");
+      var a = moment(this.date, "DD/MM/YYYY");
+      Days = a.diff(b, 'days');
+      if (this.Quarterly != '' && this.Quarterly == 'Quarterly') {
+        this.calQuarter = Math.floor(a.diff(b, 'months') / 3)
+        if (Days > 90)
+          this.calDays = Days - 90
+        this.calMonths = 0
+      }
+      else {
+        Days = a.diff(b, 'days');
+        if (this.monthDays == 'MonthProductBase') {
+          this.calMonths = a.diff(b, 'months')
+          this.calQuarter = 0
+          this.calDays = 0
+        }
+        else if (this.monthDays == 'CalculationOnDays' || this.monthDays == 'DaysProductBase') {
+          this.calDays = a.diff(b, 'days')
+          this.calQuarter = 0
+          this.calMonths = 0
+        }
+        else if (this.monthDays == 'Month&DaysBase') {
+          this.calMonths = a.diff(b, 'months')
+          this.calDays = a.diff(b, 'days')
+          this.calDays = this.calDays - (this.calMonths * 30)
+          this.calQuarter = 0
+        }
+      }
+    }
+    this.angForm.patchValue({
+      ClosingQuaters: this.calQuarter,
+      ClosingMonth: this.calMonths,
+      ClosingDays: this.calDays
+    })
+
   }
 
 
@@ -419,95 +529,6 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.totalAmt = ele.target.value + '.00';
   }
 
-  //Mode data
-  changeMode() {
-
-    if (this.selectedMode.tran_drcr == 'D') {
-      this.showChequeDetails = true;
-    } else {
-      this.showChequeDetails = false;
-    }
-    if (this.selectedCode == 'GL') {
-      this.showChequeDetails = true
-    }
-  }
-
-  //get customer today voucher data
-  getVoucherData() {
-
-    let customer = this.angForm.controls['account_no'].value;
-    let obj = {
-      'customer': customer.BANKACNO,
-      'date': this.date
-    }
-
-    //Check Account Close or not
-    let Obj = {
-      'customer_ACNO': customer.BANKACNO,
-      'type': this.selectedCode
-    }
-    this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
-      if (data == true) {
-        Swal.fire('Error!', 'Access dined Account Close Already!', 'error');
-        return 0;
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
-
-      let passType = '';
-      let unpassType = '';
-
-      //DayOfOpening 
-      this.ClearBalance = this.ClearBalance + this.DayOpBal;
-
-      //Pass condition checked
-      if (data.passObj.pass == undefined) {
-        this.Pass = 0;
-        passType = 'Cr';
-      } else {
-        this.Pass = data.passObj.pass;
-        passType = data.passObj.type;
-      }
-
-      //Unpass condition checked
-      if (data.unpassObj.UnPass == undefined) {
-        this.Unpass = 0;
-        let unpassType = 'Cr';
-      } else {
-        this.Unpass = data.unpassObj.UnPass;
-        let unpassType = data.unpassObj.type;
-      }
-
-
-      if (passType == 'Cr') {
-        this.ClearBalance = this.Pass + this.ClearBalance;
-      } else {
-        this.ClearBalance = this.Pass - this.ClearBalance;
-      }
-
-      if (unpassType == 'Cr') {
-        this.ClearBalance = this.Unpass + this.ClearBalance;
-      } else {
-        this.ClearBalance = this.Unpass - this.ClearBalance;
-      }
-      // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
-      this.AfterVoucher = this.ClearBalance;
-    }, err => {
-      console.log(err);
-    })
-  }
-
-
-  //get Input head Amount
-  getInputHeadAmt(ele, i) {
-    let value = ele.target.value;
-    this.headData[i].Amount = value;
-    console.log(this.headData);
-  }
-
   //decimal content show purpose wrote below function
   decimalAllContent($event) {
     let value = Number($event.target.value);
@@ -544,38 +565,6 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   deleteData(index) {
     this.mainMaster.splice(index, 1);
-  }
-
-  //Edit Voucher Data
-  editVoucher(index) {
-
-    this.EditFlag = true;
-    this.index = index;
-    var data = this.mainMaster[index];
-    this.selectedCode = data.scheme_type;
-    this.selectedScheme = data.scheme;
-    this.customer = data.account_no;
-    this.selectedMode = data.tran_mode;
-    this.particulars = data.particulars;
-    this.bank = data.bank;
-    this.angForm.patchValue({
-      'chequeNo': data.chequeNo,
-      'chequeDate': data.chequeDate,
-      'amt': data.Amount,
-      'particulars': data.particulars,
-      'total_amt': data.total_amt
-    })
-    // this.changeMode();
-    this.headData = data.InputHead;
-    if (this.headData.length > 0) {
-      this.headShow = true;
-    }
-
-    if (data.chequeDate != '') {
-      this.showChequeDetails = true;
-    }
-    this.showAdd = false;
-    this.showUpdate = true;
   }
 
 
