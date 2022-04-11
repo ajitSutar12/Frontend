@@ -1,9 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
-import { SchemeCodeService } from '../../../shared/elements/scheme-code.service';
-import { AcountnoService } from '../../../shared/elements/acountno.service';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
 import { TransactionTransferModeService } from '../../../shared/elements/transaction-transfer-mode.service';
 import { SchemeTypeService } from '../../../shared/elements/scheme-type.service';
@@ -13,6 +9,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
+import { TermDepositAccountClosingService } from './term-deposit-account-closing.service'
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
@@ -27,6 +24,7 @@ import { HttpClient } from '@angular/common/http';
 export class TermDepositAccountClosingComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+  @ViewChild('triggerNarrationhide') triggerNarrationhide: ElementRef<HTMLElement>;
 
   formSubmitted = false;
   //api
@@ -36,7 +34,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   // for radio button
   isTransfer: boolean = false
   branchCode: any = null
-
+  narration
   selectedBranch: number;
   selectedScheme: any;
   bank: any;
@@ -139,7 +137,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   showUpdate: boolean = false;
   customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
-
+  Scheme
   multigrid = []
 
   DatatableHideShow: boolean = true;
@@ -155,6 +153,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
+    private _TDService: TermDepositAccountClosingService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,) {
     if (this.childMessage != undefined) {
 
@@ -176,8 +175,6 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     //get syspara details
     this._service.getSysParaData().subscribe(data => {
-
-      // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
     })
 
@@ -192,6 +189,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
         return (scheme.name == 'TD')
       });
       this.allScheme = allscheme;
+    })
+
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      this.Scheme = data;
     })
 
     //Narration List
@@ -239,6 +240,14 @@ export class TermDepositAccountClosingComponent implements OnInit {
       maturedIntAmt: [''],
       maturedInterest: [''],
       TOTAL_INT: [''],
+      narration: ['', [Validators.required]],
+      TschemeAC: [''],
+      Tscheme: [''],
+      MaturedDays: [''],
+      NET_INTAMT: [''],
+      NETPAYABLEAMT: [''],
+      LEDGER_BAL: ['10000'],
+      PAYABLE_INTAMT: ['1000'],
     });
   }
 
@@ -250,6 +259,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   prematureRate
   interestUptoCalDate
   afterMatureIntRate
+
   schemechange(event) {
     this.getschemename = event.name
     this.selectedScheme = event.value
@@ -291,7 +301,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.bankacno = event.bankacno
     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
-      debugger
+      
       this.DayOpBal = data[0].AC_SCHMAMT
       this.Pass = data[0].AC_MATUAMT
       this.INTRATE = data[0].AC_INTRATE
@@ -305,6 +315,17 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.days = data[0].AC_DAYS
       this.interestCategory = data[0].AC_INTCATA
       this.preMature = data[0].preMature
+
+      if (this.isInterestApplicable == true) {
+        this.angForm.patchValue({
+          InterestRate: data[0].AC_INTRATE
+        })
+      }
+      else {
+        this.angForm.patchValue({
+          InterestRate: '0'
+        })
+      }
       if (data[0].post_Interest < 0) {
         this.angForm.patchValue({
           EXCESS_INT: data[0].post_Interest,
@@ -324,20 +345,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
       }
 
-      if (this.isInterestApplicable == true) {
-        this.angForm.patchValue({
-          INTREST_RATE: data[0].INT_RATE
-        })
-      }
-      else {
-        this.angForm.patchValue({
-          INTREST_RATE: '0'
-        })
-      }
-
       if (data[0].preMature == true) {
-        console.log('parseFloat(data[0].prematureRate)', parseFloat(data[0].prematureRate).toFixed(2))
-        console.log('parseFloat(this.prematureRate)', parseFloat(this.prematureRate))
         this.angForm.patchValue({
           InterestRate: parseFloat(data[0].prematureRate) - parseFloat(this.prematureRate)
         })
@@ -364,16 +372,43 @@ export class TermDepositAccountClosingComponent implements OnInit {
             TOTAL_INT: total_int.toFixed(2)
           })
         }
+
         if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '') {
+          var b = moment(this.maturityDate, "DD/MM/YYYY");
+          var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
+          let maturedDays = Math.abs(a.diff(b, 'days'))
+          let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
           this.angForm.patchValue({
-            InterestRate: this.afterMatureIntRate
+            InterestRate: this.afterMatureIntRate,
+            MaturedDays: maturedDays,
+            TOTAL_INT: total_int
           })
           this.afterMaturedInt = false
         }
+        else {
+          this.afterMaturedInt = true
+          var b = moment(this.maturityDate, "DD/MM/YYYY");
+          var a = moment(this.date, "DD/MM/YYYY")
+          let maturedDays = Math.abs(a.diff(b, 'days'))
+          this.angForm.patchValue({
+            MaturedDays: maturedDays,
+          })
+
+        }
+
       }
     })
   }
 
+  getMaturedIntRate() {
+    
+    let maturedIntAmt = Math.abs(this.angForm.controls['MaturedDays'].value * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
+    let total_int = maturedIntAmt + parseFloat(this.angForm.controls['maturedInterest'].value)
+    this.angForm.patchValue({
+      maturedIntAmt: maturedIntAmt.toFixed(2),
+      TOTAL_INT: total_int.toFixed(2)
+    })
+  }
   calQuarter: number = 0
   calMonths: number = 0
   calDays: number = 0
@@ -448,6 +483,172 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   }
 
+  selectedTransScheme: any = null
+  ngacno: any = null
+  schemeACNo
+  //get account no according scheme for transfer
+  getTransferAccountList(event) {
+    
+    this.obj = [this.selectedTransScheme, this.selectedBranch]
+    this.ngacno = null
+    switch (event.name) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'SH':
+        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+    }
+  }
+
+  transferGrid
+  jointShowButton: boolean = true
+  jointUpdateShow: boolean = false
+  transferACID: number
+  transferIndex: number
+  //transfer account grid functions
+  addTransferAccount() {
+    
+    this.formSubmitted = true;
+    const formVal = this.angForm.value;
+    var object = {
+      AC_NO: formVal.TschemeAC,
+      AC_TYPE: this.selectedTransScheme,
+      ACNO: this.ngacno,
+      particulars: formVal.particulars,
+      amount: formVal.amount,
+    }
+    if (formVal.Tscheme == "" || formVal.Tscheme == null) {
+      Swal.fire("Warning!", "Please Select Scheme!", "error");
+    } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Select Acoount!",
+        "info"
+      );
+    }
+    else if (formVal.amount == "" || formVal.amount == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Amount!",
+        "info"
+      );
+    }
+    else {
+      this.multigrid.push(object);
+      console.log('multi', this.multigrid)
+      this.resetgrid();
+    }
+  }
+
+  editTransferAccount(id) {
+    this.transferIndex = id
+    this.transferACID = this.multigrid[id].id;
+    this.transferGrid = this.multigrid[id]
+    this.jointShowButton = false;
+    this.jointUpdateShow = true;
+    this.angForm.patchValue({
+      particulars: this.multigrid[id].particulars,
+      amount: this.multigrid[id].amount
+    })
+    this.ngacno = this.multigrid[id].ACNO
+    this.selectedTransScheme = this.multigrid[id].AC_TYPE
+  }
+
+  updateTransferAcccount() {
+    let index = this.transferIndex;
+    this.jointShowButton = true;
+    this.jointUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      AC_NO: formVal.TschemeAC,
+      AC_TYPE: this.selectedTransScheme,
+      ACNO: this.ngacno,
+      particulars: formVal.particulars,
+      amount: formVal.amount,
+      id: this.transferACID
+    }
+    if (formVal.Tscheme == "" || formVal.Tscheme == null) {
+      Swal.fire("Warning!", "Please Select Scheme!", "error");
+    } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Select Acoount!",
+        "info"
+      );
+    }
+    else if (formVal.amount == "" || formVal.amount == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Amount!",
+        "info"
+      );
+    }
+    else {
+      this.multigrid[index] = object
+      console.log('update grid', this.multigrid)
+      this.resetgrid();
+    }
+  }
 
   //transfer and cash radio button effect
   isFormA(value) {
@@ -467,58 +668,59 @@ export class TermDepositAccountClosingComponent implements OnInit {
     el.click();
   }
 
+  //get Narration Details 
+  getFormNarration(ele) {
+    this.narration = ele;
+    let el: HTMLElement = this.triggerNarrationhide.nativeElement;
+    el.click();
+  }
+
   submit() {
-    this._service.insertVoucher(this.mainMaster).subscribe(data => {
+    const formValue = this.angForm.value
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    const dataToSend = {
+      TRAN_DATE: this.date,
+      TRAN_TYPE: formValue.SAVING_PIGMY == 'FormT' ? 'TR' : 'CS',
+      BRANCH_CODE: this.selectedBranch,
+      TRAN_ACNOTYPE: 'TD',
+      TRAN_ACTYPE: this.selectedScheme,
+      TRAN_ACNO: this.bankacno,
+      SURCHARGE_AMOUNT: formValue.SURCHARGE_AMT,
+      PENAL_INTEREST_AMOUNT: formValue.PENAL_INT,
+      NET_INTEREST_AMOUNT: formValue.NET_INTAMT,
+      TOTAL_INTEREST_AMOUNT: formValue.TOTAL_INT,
+      NET_PAYABLE_AMOUNT: formValue.NETPAYABLEAMT,
+      INTEREST_RATE: formValue.InterestRate,
+      IS_PREMATURE_CLOSE: this.preMature == true ? 1 : 0,
+      NARRATION: formValue.narration,
+      TOKEN_NO: formValue.Token_Num,
+      PAYABLE_INTEREST_AMOUNT: formValue.PAYABLE_INTAMT,
+      CHEQUE_NO: formValue.chequeNo,
+      USER: result.USER_NAME,
+      CHEQUE_DATE: (formValue.ChequeDate == '' || formValue.ChequeDate == 'Invalid date') ? '' : moment(formValue.ChequeDate).format('DD/MM/YYYY'),
+      PAID_INTEREST_AMOUNT: formValue.POSTED_INT,
+      AFT_MATURE_INT_RATE: formValue.maturedInterest,
+      AFT_MATURE_INT_AMT: formValue.maturedIntAmt
+    }
+    console.log('data to send', dataToSend)
+    this._TDService.postData(dataToSend).subscribe(data => {
       // this.getVoucherData();
-      Swal.fire('Success!', 'Voucher update Successfully !', 'success');
-      this.mainMaster = [];
-      this.headData = [];
-      this.headShow = false;
+      Swal.fire('Success!', 'Account Closed Successfully !', 'success');
+      this.multigrid = []
+      this.resetForm()
     }, err => {
       console.log(err);
     })
-
-    // Submit  transfer data in table
-    this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    var object = {
-      chequeNo: formVal.chequeNo,
-      ChequeDate: formVal.ChequeDate,
-      scheme_type: formVal.scheme_type,
-      AC_NO: formVal.AC_NO,
-      particulars: formVal.particulars,
-      amount: formVal.amount,
-    }
-    if (formVal.chequeNo == "" || formVal.chequeNo == null) {
-      Swal.fire("Warning!", "Please Insert Mandatory Record for type!", "error");
-    } else if (formVal.ChequeDate == "" || formVal.ChequeDate == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Mandatory Record for Head!",
-        "info"
-      );
-    } else if (formVal.scheme_type == "" || formVal.scheme_type == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Mandatory Record for Sub Head!",
-        "info"
-      );
-    }
-    else {
-      this.multigrid.push(object);
-      console.log(this.multigrid)
-
-    }
-    // this.multigrid.push(object);
-    this.resetgrid();
   }
 
+  resetForm() {
+    this.createForm()
+  }
   resetgrid() {
-    this.angForm.controls["chequeNo"].reset();
-    this.angForm.controls["ChequeDate"].reset();
-    this.angForm.controls["scheme_type"].reset();
+    this.angForm.controls["Tscheme"].reset();
     this.angForm.controls["particulars"].reset();
-    this.angForm.controls["AC_NO"].reset();
+    this.angForm.controls["TschemeAC"].reset();
     this.angForm.controls["amount"].reset();
 
   }
