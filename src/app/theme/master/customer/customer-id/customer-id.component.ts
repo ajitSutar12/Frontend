@@ -33,6 +33,7 @@ import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
 import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component";
 import * as moment from 'moment';
+import { DayTable } from "@fullcalendar/daygrid";
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -112,9 +113,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   url = environment.base_url;
   imageObject = new Array();
 
+  // status variables
+  yes: boolean = false
+  no: boolean = true
+
   fname = "";
   mname = "";
   lname = "";
+  fullname = "";
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -186,7 +192,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   bsValue
   maxDate: Date;
 
-
+  fileuploaded: boolean = false
+  filenotuploaded: boolean = true
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -654,6 +661,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for append data into fields
   editClickHandler(id) {
+    debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -744,11 +752,37 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = this.angForm.value;
     data["id"] = this.updateID;
     data['Document'] = this.imageObject;
+    data['F_NAME']=this.fname.toUpperCase()
+    data['L_NAME']=this.lname.toUpperCase()
+    data['M_NAME']=this.mname.toUpperCase()
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
     if (this.updatecheckdata.tdsForm?.SUBMIT_DATE != data.SUBMIT_DATE) {
       (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.SUBMIT_DATE, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY'));
+    }
+    if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+      if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+        Swal.fire({
+          icon: 'info',
+          title: 'This Aadhar Number is Already Extsts',
+        })
+        this.angForm.controls['AC_ADHARNO'].reset();
+      }
+    } else {
+      if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
+        if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value)) {
+          if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value)) {
+            if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+              Swal.fire({
+                icon: 'info',
+                title: 'This Customer is Already Exists',
+              })
+              this.resetForm();
+            }
+          }
+        }
+      }
     }
     data['FIN_YEAR'] = this.ngfinyear
     this.customerIdService.updateData(data).subscribe(() => {
@@ -879,12 +913,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fileChangeEvent(event: Event, id, valueid) {
+    debugger
     let result
     let arr = [];
     let me = this;
     let obj = {};
     let selectedObj = {};
+    
     let file = (event.target as HTMLInputElement).files[0];
+    this.documentMaster[id]['status']=true
+    
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function (ele: any) {
@@ -892,12 +930,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       let selecetedImg = ele.target.result;
       selectedObj[valueid] = selecetedImg
       obj[valueid] = result;
+      
+    
     };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+    
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
 
     let isExist: boolean = false
+   
     for (let element of this.imageObject) {
       if (Number(Object.keys(element)[0]) == valueid) {
         isExist = true
@@ -907,9 +951,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           selectedObj[valueid] = selecetedImg
           obj[valueid] = result;
           element[valueid] = result
+         
         };
+       this.documentMaster[id]['status']=true
+
         break
       }
+     
     }
     if (!isExist) {
       reader.onload = async function (ele: any) {
@@ -920,6 +968,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       };
       this.imageObject.push(obj);
       this.selectedImgArrayDetails.push(selectedObj);
+      this.documentMaster[id]['status']=true
+
     }
 
   }
@@ -940,24 +990,31 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           this.isImgPreview = true
           this.selectedImagePreview = jsonObj[key];
           throw 'Break';
+          
         }
         else {
           this.isImgPreview = false
           this.selectedImagePreview = ''
+          
         }
       });
     }
   }
 
   checkCustomer() {
+    debugger
     this.customerIdService.getData().subscribe(data => {
+      debugger
       if (data?.length != 0) {
-        if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
-          if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value)) {
-            if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value)) {
+        
+        if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
+          if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
+            if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
+              debugger
               Swal.fire({
                 title: "Are you sure?",
-                text: "This Customer is Already Exists.",
+                text: "This Customer is Already Exists." ,
+                
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#229954",
@@ -995,15 +1052,25 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let adhar: any[];
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
-        if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
-          if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-            Swal.fire({
-              icon: 'info',
-              title: 'This Aadhar Number is Already Extsts',
-            })
-            this.angForm.controls['AC_ADHARNO'].reset();
-          }
-        } else {
+        debugger
+        if (this.angForm.controls['AC_ADHARNO'].value != '') {
+
+        
+          if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+          
+            if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+              
+              Swal.fire({
+                icon: 'info',
+                title: 'This Aadhar Number is Already Extists',
+              })
+              this.angForm.controls['AC_ADHARNO'].reset();
+            
+          } 
+        }
+      }
+      
+        else {
           if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
             if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value)) {
               if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value)) {
@@ -1028,6 +1095,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   //       if (data.find(data => data['AC_PANNO'] == (this.angForm.controls['AC_PANNO'].value == ''))) {
   //         if (data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)) {
   //           Swal.fire({
+
+
   //             icon: 'info',
   //             title: 'This Pan Number is Already Extsts',
   //           })

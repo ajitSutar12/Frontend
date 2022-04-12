@@ -1153,8 +1153,9 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       this.ngrecble=Number(data.S_RECBL_PENAL_ACNO)
       this.ngcashint=Number(data.S_CASH_INT_ACNO)
       this.ngmaturebtntpd=Number(data.MATURED_BUT_NOT_PAID_GLAC)
-      this.ngunittdperiod=Number(data.UNIT_OF_PERIOD)
-      this.nginstallmentbase=Number(data.INSTALLMENT_BASIS)
+      this.ngunittdperiod=(data.UNIT_OF_PERIOD)
+      this.nginstallmentbase=(data.INSTALLMENT_BASIS)
+      this.ngCompoundIntBasis=(data.COMPOUND_INT_BASIS)
       this.angForm.patchValue({
 
         'S_ACNOTYPE': data.S_ACNOTYPE,
@@ -1191,7 +1192,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         'S_INTCALC_METHOD': data.S_INTCALC_METHOD,
         'FIX_QUARTER': (data.FIX_QUARTER=="true"?true:false),
         'QUARTER_PLUS_DAYS': (data.QUARTER_PLUS_DAYS=="true"?true:false),
-        'COMPOUND_INT_BASIS': data.COMPOUND_INT_BASIS,
+        // 'COMPOUND_INT_BASIS': data.COMPOUND_INT_BASIS,
         'COMPOUND_INT_DAYS': data.COMPOUND_INT_DAYS,
         'IS_DISCOUNTED_INT_RATE': data.IS_DISCOUNTED_INT_RATE,
         'S_INSTTYPE': data.S_INSTTYPE,
@@ -1282,6 +1283,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     this.ngmaturebtntpd=null
     this.nginstallmentbase=null
     this.ngunittdperiod=null
+    this.ngCompoundIntBasis=null
   }
 
   //Method for delete data

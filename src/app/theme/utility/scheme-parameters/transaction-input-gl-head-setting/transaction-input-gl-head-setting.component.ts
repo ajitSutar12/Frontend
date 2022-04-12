@@ -43,7 +43,7 @@ interface TransactionInput {
   styleUrls: ['./transaction-input-gl-head-setting.component.scss']
 })
 export class TransactionInputGlHeadSettingComponent implements OnInit, AfterViewInit, OnDestroy {
-  //scheme tyep variable
+  //scheme type variable
   ngSchemeType: any = null
   schemeType = [
     { id: 'GL' },
@@ -390,6 +390,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    // data['SCHEME_TYPE'] = this.ngSchemeType;
     data['FIELD_AMOUNT'] = this.ngHeadType.FieldAmount
     data['FIELD_GL'] = this.ngHeadType.FieldGL
     data['FIELD_TRAN_TABLE'] = this.ngHeadType.FIELD_TRAN_TABLE

@@ -801,12 +801,20 @@ input[type="file" i]::-webkit-file-upload-button {
     display: none !important;
 }
 
+//for file uploader
 .input-group-append .input-group-text,
 .input-group-prepend .input-group-text {
-    background-color: #cad1d6;
-    border-color: rgba(0, 0, 0, 0.15);
-    color: rgb(16, 16, 17);
+  background-color: #cad1d6;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: rgb(16, 16, 17);
 }
+
+// .input-group-append .input-group-text,
+// .input-group-prepend .input-group-text {
+//     background-color: #cad1d6;
+//     border-color: rgba(0, 0, 0, 0.15);
+//     color: rgb(16, 16, 17);
+// }
 
 // for hand cursor below css
 .grab {

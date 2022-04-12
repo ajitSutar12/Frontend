@@ -723,7 +723,7 @@
                         <label>
                           <input type="radio" value="CompountInterest" name="S_INTCALC_METHOD"
                             formControlName="S_INTCALC_METHOD" (click)="Compount_Interest(1)" />
-                          <i class="helper"></i>Compount Interest<span class="required">
+                          <i class="helper"></i>Compound Interest<span class="required">
                           </span>
                         </label>
                       </div>
@@ -731,11 +731,19 @@
                   </div>
                   <div class="col-sm">
                     <div class="form-group form-primary form-static-label">
-                      <ng-select [(ngModel)]="ngCompoundIntBasis" formControlName="COMPOUND_INT_BASIS" bindValue="value">
-                        <ng-option *ngFor="let item of alternateOption" [value]="item">
-                          {{item.label}}</ng-option>
-                      </ng-select>
+                      <span class="border-lable-flt">
+                        <ng-select id="COMPOUND_INT_BASIS" bindValue="value" [(ngModel)]="ngCompoundIntBasis"
+                           formControlName="COMPOUND_INT_BASIS" bindLabel="label"
+                          title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
+                          placeholder="Compound Interest">
+                          <ng-option *ngFor="let values of alternateOption" [value]="values">
+                            {{values.label}}</ng-option>
+                        </ng-select>
+                        
+                        <label for="COMPOUND_INT_BASIS">Compound Interest</label>
+                      </span>
                     </div>
+                    
                     <!-- <div class="form-group form-primary form-static-label">
                       <ng-select [ngClass]="'ng-select'" [options]="alternateOption" id="CompountInterest"
                         [multiple]="false" placeholder="Compound Interest" [disabled]="COMPOUND_INT_BASIS"
@@ -952,7 +960,7 @@
                           <ng-option *ngFor="let values of simpleOption" [value]="values">
                             {{values.label}}</ng-option>
                         </ng-select>
-                        <label for="INSTALLMENT_BASIS">Installment Base<sub class="required"> * </sub></label>
+                        <label for="INSTALLMENT_BASIS">Installment Base</label>
                       </span>
                     </div>
                   </div>
@@ -1344,7 +1352,7 @@
                           <ng-option *ngFor="let values of unitOfPeroid" [value]="values">
                             {{values.label}}</ng-option>
                         </ng-select>
-                        <label for="UNIT_OF_PERIOD">Unit of TD Period<sub class="required"> * </sub></label>
+                        <label for="UNIT_OF_PERIOD">Unit of TD Period</label>
                       </span>
                     </div>
                   </div>

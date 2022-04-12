@@ -134,8 +134,8 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled
+                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME" 
+                                        pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled [(ngModel)]="fullname"
                                         value="{{lname + ' ' + fname + ' ' + mname}}" formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name</label>
                                 </span>
@@ -605,6 +605,7 @@
                                                             <td>Document Name</td>
                                                             <td>Upload Attachment</td>
                                                             <td>View Document</td>
+                                                            <td>Status</td>
                                                         </tr>
                                                     </thead>
                                                     <tbody *ngIf="documentMaster?.length != 0">
@@ -619,11 +620,23 @@
                                                             </td>
                                                             <td style="align-items: center;">
                                                                 <div class="row">
-                                                                    <div class="col-sm">
+                                                                    <!-- <div class="col-sm">
                                                                         <input type="file" name="file"
                                                                             [id]="'file'+indexOfelement"
                                                                             (change)="fileChangeEvent($event, indexOfelement,data.value)">
+                                                                    </div> -->
+                                                                    <div class="col-sm">
+                                                                        <div class="input-group-prepend selfcss">
+                                                                            <span class="input-group-text">
+                                                                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                                                            </span>
+                                                                            <input type="file" name="file" id="file" style="height: auto;"
+                                                                                class="form-control" [id]="'file'+indexOfelement"
+                                                                                
+                                                                                (change)="fileChangeEvent($event, indexOfelement,data.value)" />
+                                                                        </div>
                                                                     </div>
+                                                                    
 
                                                                 </div>
                                                             </td>
@@ -635,6 +648,21 @@
                                                                         placement="right" ngbTooltip="Show Image"
                                                                         class="fa fa-fw fa-eye field-icon"></span>
                                                                 </div>
+                                                            </td>
+                                                            <td style="align-items: center;">
+                                                                <div class="col-sm-2">
+                                                                    <!-- <span *ngif="data.value?.length != 0" class="fa fa-check-circle" id="editbutton" style="color: green" 
+                                                                         placement="left" ngbTooltip="file uploaded"></span> &nbsp;
+                                                                    <span *ngif="data.value?.length == 0" class="fa fa-times-circle-o" id="deletebutton" style="color: red" 
+                                                                         placement="right" ngbTooltip="upload file"></span> -->
+                                                                        
+                                                                            <div *ngIf="data.status" class="col-sm-12 col-md-2"><label style="color: #1e5bc5">File is uploaded</label></div>
+                                                                       
+                                                                       
+                                                                            <div *ngIf="!data.status" class="col-sm-12 col-md-2"><label style="color: red">No File uploaded yet</label></div>
+                                                                        
+                                                                </div>
+
                                                             </td>
                                                         </tr>
                                                     </tbody>

@@ -14,7 +14,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="SCHEME_TYPE" [items]="schemeType" bindLabel="id"
-                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"
+                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType" 
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="Scheme Type"
                                         required>
                                     </ng-select>
@@ -53,14 +53,14 @@
                                 <div *ngIf="isSchemeWise" class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="scheme" (change)="showGLCode(1)"
-                                            [checked]="schemeWise">
+                                            [checked]="!schemeWise">
                                         <i class="helper"></i>Scheme Wise<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="scheme" (click)="showGLCode(2)"
-                                            [checked]="!schemeWise">
+                                            [checked]="schemeWise">
                                         <i class="helper"></i>GL Code Wise<span class="required"> </span>
                                     </label>
                                 </div>
