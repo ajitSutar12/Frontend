@@ -651,15 +651,15 @@
                                                             </td>
                                                             <td style="align-items: center;">
                                                                 <div class="col-sm-2">
-                                                                    <!-- <span *ngif="data.value?.length != 0" class="fa fa-check-circle" id="editbutton" style="color: green" 
+                                                                    <span *ngIf="data.status" class="fa fa-check-circle" id="editbutton" style="color: green;font-size: 20px;" 
                                                                          placement="left" ngbTooltip="file uploaded"></span> &nbsp;
-                                                                    <span *ngif="data.value?.length == 0" class="fa fa-times-circle-o" id="deletebutton" style="color: red" 
-                                                                         placement="right" ngbTooltip="upload file"></span> -->
+                                                                    <span *ngIf="!data.status" class="fa fa-times-circle-o" id="editbutton" style="color: red;font-size: 20px;" 
+                                                                         placement="left" ngbTooltip="file not uploaded"></span>
                                                                         
-                                                                            <div *ngIf="data.status" class="col-sm-12 col-md-2"><label style="color: #1e5bc5">File is uploaded</label></div>
+                                                                            <!-- <div *ngIf="data.status" class="col-sm-12 col-md-2"><label style="color: #1e5bc5">File is uploaded</label></div>
                                                                        
                                                                        
-                                                                            <div *ngIf="!data.status" class="col-sm-12 col-md-2"><label style="color: red">No File uploaded yet</label></div>
+                                                                            <div *ngIf="!data.status" class="col-sm-12 col-md-2"><label style="color: red">No File uploaded yet</label></div> -->
                                                                         
                                                                 </div>
 

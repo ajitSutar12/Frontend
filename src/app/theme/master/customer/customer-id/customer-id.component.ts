@@ -668,6 +668,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let birthdate
     let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
+      debugger
       this.updatecheckdata = data
       this.updateID = data.id;
       this.ngRisk = data.AC_RISKCATG
@@ -727,21 +728,36 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
       }
       if (data.IS_KYC_RECEIVED == true) {
+        debugger
         this.isDocument = true;
         this.imageObject = []
         this.selectedImgArrayDetails = []
+        
 
         for (const [key, value] of Object.entries(data.custdocument)) {
+          debugger
           let selectedObj = {};
           let id = data.custdocument[key].DocumentMasterID;
           selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
           this.selectedImagePreview = selectedObj[id];
           this.imageObject.push(selectedObj)
           this.selectedImgArrayDetails.push(selectedObj);
+          console.log(this.imageObject)
+          console.log(this.selectedImgArrayDetails)
+          this.documentMaster[key]['status']=true
+          // this.documentMaster['this.imageObject']['status']=true
+       
+          // let index = this.imageObject.findIndex(i=>id);
+          // let index = this.imageObject.findIndex((DocumentMasterID)=>DocumentMasterID===key);
+          // console.log(index);
+          // this.documentMaster[index]['status']=true
         }
-      } else {
+        
+      }
+       else {
         this.isDocument = false;
       }
+      
     });
   }
 
@@ -983,6 +999,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   viewImagePreview(ele, id) {
+    debugger
     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
       let jsonObj = value;
       Object.keys(jsonObj).forEach(key => {
@@ -1014,6 +1031,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               Swal.fire({
                 title: "Are you sure?",
                 text: "This Customer is Already Exists." ,
+              //   html:
+              // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+              // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
                 
                 icon: "warning",
                 showCancelButton: true,
