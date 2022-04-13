@@ -30,7 +30,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
-  
+
 
   formSubmitted = false;
   //api
@@ -147,7 +147,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       SUPPLIER_NAME: ['', [Validators.required, Validators.pattern]],
       BILL_NUM: ['', [Validators.required, Validators.pattern]],
       BILL_DATE: ['', [Validators.required]],
-      DEAD_STOCK: [''],
+      DEAD_STOCK: ['FormT'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
       CHEQUE_DATE: ['', [Validators.required]],
@@ -162,6 +162,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       Quantity: [''],
       Total_AMT: [''],
     })
+    this.isFormA(1)
   }
 
   //get branch selection wise effect
@@ -284,6 +285,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   //get sys para current date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      debugger
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
       })
@@ -301,6 +303,14 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.angForm.patchValue({
         TRAN_YEAR: transactionDate
       })
+      var date = new Date(data.CURRENT_DATE);
+      var year = date.getFullYear();
+      var month = new Date(date).getMonth();
+      var day = new Date(date).getDate();
+      var exe_day = month + 3
+      var nextDate = new Date(year, exe_day, day);
+
+
 
     })
   }
@@ -401,7 +411,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.accountedit = null
   }
 
-  editClickHandler(id) {}
+  editClickHandler(id) { }
 
 
 }

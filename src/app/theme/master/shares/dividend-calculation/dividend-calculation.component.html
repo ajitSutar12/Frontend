@@ -89,13 +89,12 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="DIV_FROMDATE" id="DIV_FROMDATE"
-                                    [bsValue]="bsValue"
-                                        [maxDate]="maxDate"
-                                        class="form-control" [(ngModel)]="divfromdate" 
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="fromdate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="DIV_FROMDATE"
+                                        [bsValue]="bsValue" [maxDate]="maxDate" class="form-control"
+                                        [(ngModel)]="divfromdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="fromdate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="DIV_FROMDATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                        (bsValueChange)="checkDivYear()" bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -115,9 +114,8 @@
                                         class="form-control" [(ngModel)]="divtodate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="todate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="DIV_TODATE"
-                                       
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                        (bsValueChange)="checkDivYear()" bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"

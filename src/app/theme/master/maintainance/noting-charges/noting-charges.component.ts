@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, } from '@angular/core';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -52,11 +52,14 @@ interface NotingCharges {
   styleUrls: ['./noting-charges.component.scss']
 })
 
-export class NotingChargesComponent implements OnInit {
+export class NotingChargesComponent implements OnInit, OnDestroy {
   //api 
   url = environment.base_url;
   formSubmitted = false;
   angForm: FormGroup;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   dtExportButtonOptions: any = {};
 
@@ -86,7 +89,7 @@ export class NotingChargesComponent implements OnInit {
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
-  dtTrigger: Subject<any> = new Subject();
+  // dtTrigger: Subject<any> = new Subject();
   page: number;
   filterData = {};
 
@@ -145,8 +148,18 @@ export class NotingChargesComponent implements OnInit {
       this.angForm.controls['BRANCH'].disable()
       this.ngBranchCode = result.branch.id
     }
+    this.dtOptions = {
+      // Declare the use of the extension in the dom parameter
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      dom: 'Bfrtip',
+    };
   }
 
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -271,7 +284,7 @@ export class NotingChargesComponent implements OnInit {
     if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
       this.showTable = true
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
-
+      // this.dtTrigger.unsubscribe();
       this.http.get(this.url + '/noting-charges/glacno/' + this.ngscheme).subscribe((data) => {
         this.S_GLACNO = data
       })
@@ -288,8 +301,9 @@ export class NotingChargesComponent implements OnInit {
             NARRATION: ''
           }
           this.notingChargesArr.push(object)
-        
+
         });
+        this.dtTrigger.next();
       });
     }
     else {
@@ -299,27 +313,27 @@ export class NotingChargesComponent implements OnInit {
       })
       this.arrTable = []
       this.notingChargesArr = []
-      
+
     }
   }
-    //filter object
-    filterObject(ele, type) {
-      debugger
-      console.log(this.notingChargesArr);
-      let matchArray = new Array()
-      this.notingChargesArr = [];
-      this.gridData.forEach(element => {
-          if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
-            this.notingChargesArr.push(element);
-          }
-        else if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
-          this.notingChargesArr.push(element);
-          
-        }
-        
-        
-      });
-    }
+  //filter object
+  filterObject(ele, type) {
+    debugger
+    console.log(this.notingChargesArr);
+    let matchArray = new Array()
+    this.notingChargesArr = [];
+    this.gridData.forEach(element => {
+      if (JSON.stringify(element.AC_NO).includes(ele.target.value)) {
+        this.notingChargesArr.push(element);
+      }
+      else if (JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())) {
+        this.notingChargesArr.push(element);
+
+      }
+
+
+    });
+  }
   //get charge amount to all account number
   getCommanChargeAmount() {
     this.notingChargesArr.forEach(item => item.TRAN_AMOUNT = this.angForm.controls['TRAN_AMOUNT'].value);

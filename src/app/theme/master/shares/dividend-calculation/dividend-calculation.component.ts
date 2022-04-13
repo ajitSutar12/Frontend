@@ -245,8 +245,8 @@ export class DividendCalculationComponent implements OnInit {
           Dividend: this.shareDividend,
         });
       });
+      this.getDivTOYear();
     this.getAccountList();
-    this.getDivTOYear();
   }
 
   createForm() {
@@ -354,79 +354,79 @@ export class DividendCalculationComponent implements OnInit {
   DIV_FROM_MONTH;
   DIV_TO_MONTH;
 
-  // checkDivYear(event) {
-  //   // let value1;
-  //   // let value2;
-  //   // value1 = moment(this.divfromdate).format("DD/MM/YYYY");
-  //   // console.log(value1);
-  //   // value2 = moment(this.divtodate).format("DD/MM/YYYY");
-  //   // console.log(value2);
-  //   // if (this.divfromdate == null || this.divtodate == null) {
+  checkDivYear() {
+    // let value1;
+    // let value2;
+    // value1 = moment(this.divfromdate).format("DD/MM/YYYY");
+    // console.log(value1);
+    // value2 = moment(this.divtodate).format("DD/MM/YYYY");
+    // console.log(value2);
+    // if (this.divfromdate == null || this.divtodate == null) {
 
-  //   // } 
-  //   // else {
-  //   //     if (moment(value2).isAfter(value1)) {
+    // } 
+    // else {
+    //     if (moment(value2).isAfter(value1)) {
           
-  //   //     } 
-  //   //     else if (moment(value1) === moment(value2)) {
-  //   //       Swal.fire("To date should be after from date");
-  //   //       this.angForm.controls["DIV_FROMDATE"].reset();
-  //   //       this.angForm.controls["DIV_TODATE"].reset();
-  //   //     } 
-  //   //     else {
-  //   //       Swal.fire("To date should be after from date");
-  //   //       this.angForm.controls["DIV_FROMDATE"].reset();
-  //   //       this.angForm.controls["DIV_TODATE"].reset();
-  //   //     }
-  //   // }
+    //     } 
+    //     else if (moment(value1) === moment(value2)) {
+    //       Swal.fire("To date should be after from date");
+    //       this.angForm.controls["DIV_FROMDATE"].reset();
+    //       this.angForm.controls["DIV_TODATE"].reset();
+    //     } 
+    //     else {
+    //       Swal.fire("To date should be after from date");
+    //       this.angForm.controls["DIV_FROMDATE"].reset();
+    //       this.angForm.controls["DIV_TODATE"].reset();
+    //     }
+    // }
 
-  //   //Date range
-  //   let startDate = this.angForm.controls["DIV_FROMDATE"].value;
-  //   let endDate = this.angForm.controls["DIV_TODATE"].value;
-  //   var full = [];
-  //   startDate = moment(this.divfromdate).format("DD/MM/YYYY");
-  //   endDate = moment(this.divtodate).format("DD/MM/YYYY");
-  //   var startDT = startDate;
+    //Date range
+    let startDate = this.angForm.controls["DIV_FROMDATE"].value;
+    let endDate = this.angForm.controls["DIV_TODATE"].value;
+    var full = [];
+    startDate = moment(this.divfromdate).format("DD/MM/YYYY");
+    endDate = moment(this.divtodate).format("DD/MM/YYYY");
+    var startDT = startDate;
 
-  //   full = startDT.split(" ");
-  //   var sdate = full[0].split(/\//);
+    full = startDT.split(" ");
+    var sdate = full[0].split(/\//);
 
-  //   this.startYr = sdate[2];
-  //   this.DIV_FROM_MONTH = sdate[1];
+    this.startYr = sdate[2];
+    this.DIV_FROM_MONTH = sdate[1];
 
-  //   var full = [];
-  //   var endDT = endDate;
-  //   full = endDT.split(" ");
-  //   var date = full[0].split(/\//);
+    var full = [];
+    var endDT = endDate;
+    full = endDT.split(" ");
+    var date = full[0].split(/\//);
 
-  //   this.endYr = date[2];
-  //   this.DIV_TO_MONTH = date[1];
+    this.endYr = date[2];
+    this.DIV_TO_MONTH = date[1];
 
-  //   let obj = [this.startYr, this.endYr];
-  //   this.http
-  //     .get(this.url + "/dividend-calculation/divYrcheck/" + obj)
-  //     .subscribe((data) => {
-  //       if (data["historyCheck"] == "Already Posted") {
-  //         this.send["Flag"] = "history";
-  //         Swal.fire("Warning!", "Dividend Already Posted !", "warning");
-  //       } else if (data["divCheck"] == "Already Processed") {
-  //         Swal.fire({
-  //           text: "Dividend Already Processed.Do You Want To Overwrite?",
-  //           icon: "warning",
-  //           showCancelButton: true,
-  //           confirmButtonColor: "#229954",
-  //           cancelButtonColor: "#d33",
-  //           confirmButtonText: "Yes, Overwrite it!",
-  //         }).then((result) => {
-  //           if (result.isConfirmed) {
-  //             this.send["Flag"] = "Overwrite";
-  //           } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //             this.send["Flag"] = "Insert";
-  //           }
-  //         });
-  //       }
-  //     });
-  // }
+    let obj = [this.startYr, this.endYr];
+    this.http
+      .get(this.url + "/dividend-calculation/divYrcheck/" + obj)
+      .subscribe((data) => {
+        if (data["historyCheck"] == "Already Posted") {
+          this.send["Flag"] = "history";
+          Swal.fire("Warning!", "Dividend Already Posted !", "warning");
+        } else if (data["divCheck"] == "Already Processed") {
+          Swal.fire({
+            text: "Dividend Already Processed.Do You Want To Overwrite?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#229954",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Overwrite it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.send["Flag"] = "Overwrite";
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              this.send["Flag"] = "Insert";
+            }
+          });
+        }
+      });
+  }
 
   getAccNumbers() {
     this.arrTable = [];
@@ -471,7 +471,6 @@ export class DividendCalculationComponent implements OnInit {
       console.log(this.angForm.value);
     }
     
-    this.send["Flag"] = "Insert";
 
     const formVal = this.angForm.value;
     let data: any = localStorage.getItem("user");
