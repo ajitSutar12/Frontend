@@ -58,7 +58,7 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
-                <span class="border-lable-flt">
+                <span class="border-lable-flt" autofocus>
                   <ng-select
                     [(ngModel)]="newcustid"
                     id="AC_CUSTID"
@@ -94,8 +94,7 @@
                   (angForm.controls['AC_CUSTID'].dirty ||
                     angForm.controls['AC_CUSTID'].touched)
                 "
-                class="alert alert-danger"
-              >
+                class="alert alert-danger">
                 <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
                   This field is required
                 </div>
@@ -1221,6 +1220,7 @@
                                       pattern="^[0-9]+$"
                                       minlength="6"
                                       maxlength="6"
+                                      required
                                       title="Input allowed only  0-9"
                                       (keypress)="
                                         ($event.charCode >= 48 &&

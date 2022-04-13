@@ -661,14 +661,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for append data into fields
   editClickHandler(id) {
-    debugger
+    
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     let birthdate
     let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
-      debugger
+     
       this.updatecheckdata = data
       this.updateID = data.id;
       this.ngRisk = data.AC_RISKCATG
@@ -728,14 +728,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
       }
       if (data.IS_KYC_RECEIVED == true) {
-        debugger
+        
         this.isDocument = true;
         this.imageObject = []
         this.selectedImgArrayDetails = []
         
 
         for (const [key, value] of Object.entries(data.custdocument)) {
-          debugger
+         
           let selectedObj = {};
           let id = data.custdocument[key].DocumentMasterID;
           selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
@@ -929,7 +929,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fileChangeEvent(event: Event, id, valueid) {
-    debugger
+  
     let result
     let arr = [];
     let me = this;
@@ -999,7 +999,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   viewImagePreview(ele, id) {
-    debugger
+    
     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
       let jsonObj = value;
       Object.keys(jsonObj).forEach(key => {
@@ -1019,15 +1019,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkCustomer() {
-    debugger
+    
     this.customerIdService.getData().subscribe(data => {
-      debugger
+     
       if (data?.length != 0) {
         
         if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
           if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
             if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
-              debugger
+              
               Swal.fire({
                 title: "Are you sure?",
                 text: "This Customer is Already Exists." ,
@@ -1072,7 +1072,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let adhar: any[];
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
-        debugger
+        
         if (this.angForm.controls['AC_ADHARNO'].value != '') {
 
         
