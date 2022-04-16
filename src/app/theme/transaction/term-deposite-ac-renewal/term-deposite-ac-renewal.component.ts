@@ -115,6 +115,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       scheme: ['',[Validators.required]],
       account_no: ['',[Validators.required]],
       NormalInt:[''],
+      NormalIntCheck:[''],
       IntUpto:[''],
       NormalIntRadio:[''],
       PayableCheck:[''],

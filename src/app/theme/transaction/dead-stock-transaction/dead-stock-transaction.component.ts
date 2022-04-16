@@ -23,7 +23,7 @@ import Swal from 'sweetalert2';
 export class DeadStockTransactionComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
- 
+
 
   formSubmitted = false;
   //api
@@ -211,11 +211,11 @@ export class DeadStockTransactionComponent implements OnInit {
       let transactionDate
       let prev = Number(nyear[2]) - 1
       if (nyear[1] > 3) {
-        transactionDate = prev + nyear[2]
-      }
-      else {
         let next = Number(nyear[2]) + 1
         transactionDate = nyear[2] + next
+      }
+      else {
+        transactionDate = prev + nyear[2]
       }
       this.angForm.patchValue({
         TRAN_YEAR: transactionDate
@@ -459,8 +459,76 @@ export class DeadStockTransactionComponent implements OnInit {
     this.accountedit = null
     this.depTotal = 0
     this.totalAmt = 0
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
   }
 
-  editClickHandler(id) {}
 
+  addNewData() {
+    this.ngBranchCode = null
+    this.schemeedit = null
+    this.accountedit = null
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.depTotal = 0
+    this.totalAmt = 0
+    this.resetForm();
+
+  }
+  editClickHandler(id) { }
+
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Deadstock Purchase approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Deadstock Purchase rejected successfully',
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+  public visibleAnimate = false;
+  public visible = false;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateID: number = 0;
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
 }

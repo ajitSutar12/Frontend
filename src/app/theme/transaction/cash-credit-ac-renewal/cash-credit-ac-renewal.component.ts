@@ -55,7 +55,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
   // interface variable
   cashcreditloanrenewal: CashCreditLoanRenewal[];
-
+  updateID: number = 0;
   // dropdown variables
   ngscheme: any = null
   ngBranchCode: any = null
@@ -96,10 +96,10 @@ export class CashCreditAcRenewalComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,) {
 
-      if (this.childMessage != undefined) {
+    if (this.childMessage != undefined) {
 
-        this.editClickHandler(this.childMessage);
-      }
+      this.editClickHandler(this.childMessage);
+    }
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -200,7 +200,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
     }
-  
+
   }
 
   getBranch() {
@@ -374,6 +374,97 @@ export class CashCreditAcRenewalComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-  editClickHandler(id) {}
+  editClickHandler(id) {
+    this._service.getFormData(id).subscribe((data) => {
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.updateID = data.id;
+      this.angForm.patchValue({
+        AC_NO: data.AC_NO,
+        BANKACNO: data.AC_NO,
+        EFFECT_DATE: data.EFFECT_DATE,
+        AC_TYPE: data.AC_TYPE,
+        BRANCH_CODE: data.BRANCH_CODE,
+        INT_RATE: data.NEW_INTEREST_RATE,
+        AC_MONTHS: data.NEW_MONTH,
+        PENAL_INT_RATE: data.PENAL_INT_RATE,
+        AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
+        AC_SECURITY_AMT: data.AC_SECURITY_AMT,
+        AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
+        AC_INSTALLMENT: data.AC_INSTALLMENT,
+        AC_RENEWAL_COUNTER: data.AC_RENEWAL_COUNTER,
+
+        //disable fields value
+
+        AC_OPDATE: data.AC_OPDATE,
+        RENEWAL_DATE: data.NEW_ASON_DATE,
+        OLDAC_MONTHS: data.OLD_MONTH,
+        OLDAC_EXPIRE_DATE: data.OLD_EXPIRY_DATE,
+        OLDAC_SANCTION_AMOUNT: data.OLD_SANCTION_LIMIT,
+        OLDAC_SANCTION_DATE: data.OLD_SANCTION_DATE,
+        OLDAC_SECURITY_AMT: data.OLD_SECURITY_AMOUNT,
+        OLDAC_DRAWPOWER_AMT: data.OLD_DRAWING_POWER,
+        OLDAC_INSTALLMENT: data.OLD_AC_INSTALLMENT,
+      })
+    })
+  }
+
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Cash Credit Account Renew approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Cash Credit Account Renew rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+  public visibleAnimate = false;
+  public visible = false;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
 
 }

@@ -3,7 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment} from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class DeadStockPurchaseService {
@@ -26,12 +26,12 @@ export class DeadStockPurchaseService {
   }
 
   //get narration data
-  getNarrationMaster():Observable<any>{
-    return this.http.get(this.url+'/narration')
+  getNarrationMaster(): Observable<any> {
+    return this.http.get(this.url + '/narration')
   }
   // For append data
   getFormData(id: any): Observable<any> {
-    return this.http.get(this.url + '/dead-stock-purchase/' + id).pipe(catchError(this.handleError));
+    return this.http.get(this.url + '/deadstock-purchase/' + id).pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
@@ -40,6 +40,16 @@ export class DeadStockPurchaseService {
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/dead-stock-purchase/delete/' + id).pipe(catchError(this.handleError));
+  }
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/deadstock-purchase/approve', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/deadstock-purchase/reject', data).pipe(catchError(this.handleError));
   }
 
 }

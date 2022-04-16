@@ -61,8 +61,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" bindValue="id" [(ngModel)]="ngacno"
-                                        formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                    <ng-select id="AC_NO" bindValue="id" [(ngModel)]="ngacno" formControlName="AC_NO"
+                                        bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         (change)="getAccountDetails($event)" placeholder="">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
@@ -578,9 +578,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit()">Renew</button>
+                        <div class="col-sm" style="float: right;">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                (click)="submit()">
+                                Renew
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                Cancel
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                                Approve</button>
                         </div>
                     </div>
                 </div>
@@ -588,5 +599,3 @@
         </div>
     </div>
 </div>
-
-

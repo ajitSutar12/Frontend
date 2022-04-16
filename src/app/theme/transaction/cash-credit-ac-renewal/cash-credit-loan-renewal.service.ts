@@ -47,4 +47,15 @@ export class CashCreditLoanRenewalService {
       .delete(this.url + "/cash-credit-ac-renewal/delete/" + id)
       .pipe(catchError(this.handleError));
   }
+
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/cash-credit-ac-renewal/approve', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/cash-credit-ac-renewal/reject', data).pipe(catchError(this.handleError));
+  }
 }

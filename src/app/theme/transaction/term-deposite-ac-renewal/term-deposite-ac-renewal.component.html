@@ -254,7 +254,7 @@
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
                                             <input  type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
-                                                formControlName="NormalInt" (click)="normalCheck($event)">
+                                                formControlName="NormalIntCheck" (click)="normalCheck($event)">
                                             <label class="border-checkbox-label" for="AC_IS_RECOVERY">Normal
                                                 Interest</label>
                                         </div>
@@ -285,28 +285,28 @@
                                     <div class="form-radio">
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                <input type="radio" (change)="changeNormal($event)" name="DEBIT"
                                                     [disabled]="NormalCheck" formControlName="NormalIntRadio"
                                                     value="cash" >
                                                 <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                <input type="radio" (change)="changeNormal($event)" name="DEBIT"
                                                     [disabled]="NormalCheck" formControlName="NormalIntRadio"
                                                     value="AddInDeposit">
                                                 <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                <input type="radio" (change)="changeNormal($event)" name="DEBIT"
                                                     [disabled]="NormalCheck" formControlName="NormalIntRadio"
                                                     value="transfer">
                                                 <i class="helper"></i>Transfer </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                <input type="radio" (change)="changeNormal($event)" name="DEBIT"
                                                     [disabled]="NormalCheck" formControlName="NormalIntRadio"
                                                     value="keepaspayable">
                                                 <i class="helper"></i>Keep As Payable </label>

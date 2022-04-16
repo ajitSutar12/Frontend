@@ -31,7 +31,7 @@ export class DeadStockTransactionService {
   }
   // For append data
   getFormData(id: any): Observable<any> {
-    return this.http.get(this.url + '/dead-stock-transaction/' + id).pipe(catchError(this.handleError));
+    return this.http.get(this.url + '/deadstock-purchase/' + id).pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
@@ -40,6 +40,17 @@ export class DeadStockTransactionService {
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/dead-stock-transaction/delete/' + id).pipe(catchError(this.handleError));
+  }
+
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/deadstock-purchase/approve', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/deadstock-purchase/reject', data).pipe(catchError(this.handleError));
   }
 
 }

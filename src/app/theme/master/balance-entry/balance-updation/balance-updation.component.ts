@@ -554,7 +554,7 @@ export class BalanceUpdationComponent implements OnInit {
     this.balanceUpdateArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
-    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
+    if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
       this.showTable = true
       this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename]
       this.http.get(this.url + '/balance-updation/accounts/' + this.mem).subscribe((data) => {
@@ -590,7 +590,7 @@ export class BalanceUpdationComponent implements OnInit {
       });
     }
     else {
-      Swal.fire("To Account Number Must Be Greater Than From Account Number");
+      Swal.fire("Must Select To Account Number");
       this.angForm.patchValue({
         TO_AC: ''
       })

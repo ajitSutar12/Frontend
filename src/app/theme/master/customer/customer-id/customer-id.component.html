@@ -134,9 +134,10 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME" 
-                                        pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled [(ngModel)]="fullname"
-                                        value="{{lname + ' ' + fname + ' ' + mname}}" formControlName="AC_NAME">
+                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
+                                        pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled
+                                        [(ngModel)]="fullname" value="{{lname + ' ' + fname + ' ' + mname}}"
+                                        formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name</label>
                                 </span>
                             </div>
@@ -352,7 +353,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" style="text-align: right;" name="AC_PIN" class="form-control"
@@ -371,7 +372,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="AC_MOBILENO"
@@ -391,7 +392,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="AC_PHONE_RES"
@@ -411,7 +412,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="AC_PHONE_OFFICE"
@@ -448,8 +451,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -460,7 +461,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="IRTDSDFY" value="IRTDSDFY"
@@ -620,23 +623,20 @@
                                                             </td>
                                                             <td style="align-items: center;">
                                                                 <div class="row">
-                                                                    <!-- <div class="col-sm">
-                                                                        <input type="file" name="file"
-                                                                            [id]="'file'+indexOfelement"
-                                                                            (change)="fileChangeEvent($event, indexOfelement,data.value)">
-                                                                    </div> -->
                                                                     <div class="col-sm">
                                                                         <div class="input-group-prepend selfcss">
                                                                             <span class="input-group-text">
-                                                                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                                                                <i class="fa fa-upload"
+                                                                                    aria-hidden="true"></i>
                                                                             </span>
-                                                                            <input type="file" name="file" id="file" style="height: auto;"
-                                                                                class="form-control" [id]="'file'+indexOfelement"
-                                                                                
+                                                                            <input type="file" name="file" id="file"
+                                                                                style="height: auto;"
+                                                                                class="form-control"
+                                                                                [id]="'file'+indexOfelement"
                                                                                 (change)="fileChangeEvent($event, indexOfelement,data.value)" />
                                                                         </div>
                                                                     </div>
-                                                                    
+
 
                                                                 </div>
                                                             </td>
@@ -651,16 +651,16 @@
                                                             </td>
                                                             <td style="align-items: center;">
                                                                 <div class="col-sm-2">
-                                                                    <span *ngIf="data.status" class="fa fa-check-circle" id="editbutton" style="color: green;font-size: 20px;" 
-                                                                         placement="left" ngbTooltip="file uploaded"></span> &nbsp;
-                                                                    <span *ngIf="!data.status" class="fa fa-times-circle-o" id="editbutton" style="color: red;font-size: 20px;" 
-                                                                         placement="left" ngbTooltip="file not uploaded"></span>
-                                                                        
-                                                                            <!-- <div *ngIf="data.status" class="col-sm-12 col-md-2"><label style="color: #1e5bc5">File is uploaded</label></div>
-                                                                       
-                                                                       
-                                                                            <div *ngIf="!data.status" class="col-sm-12 col-md-2"><label style="color: red">No File uploaded yet</label></div> -->
-                                                                        
+                                                                    <span *ngIf="data.status" class="fa fa-check-circle"
+                                                                        id="editbutton"
+                                                                        style="color: green;font-size: 20px;"
+                                                                        placement="left"
+                                                                        ngbTooltip="file uploaded"></span> &nbsp;
+                                                                    <span *ngIf="!data.status"
+                                                                        class="fa fa-times-circle-o" id="editbutton"
+                                                                        style="color: red;font-size: 20px;"
+                                                                        placement="left"
+                                                                        ngbTooltip="file not uploaded"></span>
                                                                 </div>
 
                                                             </td>
@@ -689,7 +689,7 @@
                                                     </div>
 
                                                     <div class="app-modal-footer">
-                                                        <button type="button" class="btn btn-primary ripple light"
+                                                        <button type="button" class="btn btn-outline-primary btn-sm"
                                                             (click)="modalLarge.hide()">Close</button>
                                                     </div>
                                                 </app-modal-basic>

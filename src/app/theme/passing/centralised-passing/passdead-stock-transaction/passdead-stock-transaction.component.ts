@@ -17,10 +17,10 @@ class DataTableResponse {
 interface DeadStockTransaction {
   TRAN_NO: number
   TRAN_AMOUNT: number
-  
+
   NARRATION: string
   TRAN_ENTRY_TYPE: string
-  
+
 }
 @Component({
   selector: 'app-passdead-stock-transaction',
@@ -84,18 +84,18 @@ export class PassdeadStockTransactionComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.mySubscription = interval(1000).subscribe((x => {
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/dead-stock-transaction/passing',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.deadStockTransactionData = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
+          this.http
+            .post<DataTableResponse>(
+              this.url + '/deadstock-purchase/Tranpassing',
+              dataTableParameters
+            ).subscribe(resp => {
+              this.deadStockTransactionData = resp.data;
+              callback({
+                recordsTotal: resp.recordsTotal,
+                recordsFiltered: resp.recordsTotal,
+                data: []
+              });
             });
-          });
         }));
       },
       columnDefs: [{
@@ -114,7 +114,7 @@ export class PassdeadStockTransactionComponent implements OnInit {
           title: 'Amount',
           data: 'TRAN_AMOUNT'
         },
-        
+
         {
           title: 'Supplier Name ',
           data: 'TRAN_SUPPLIER_NAME'
@@ -123,18 +123,18 @@ export class PassdeadStockTransactionComponent implements OnInit {
           title: 'Narration',
           data: 'NARRATION'
         },
-        
+
         {
           title: 'Entry Type',
           data: 'TRAN_ENTRY_TYPE'
         },
-        
+
       ],
       dom: 'Blrtip',
 
     };
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
   //get saving customer data

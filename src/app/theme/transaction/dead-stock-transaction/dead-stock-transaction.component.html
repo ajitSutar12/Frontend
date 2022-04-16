@@ -385,10 +385,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit()">
+                        <div class="col-sm" style="float: right;">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                (click)="submit()">
                                 Submit
                             </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                Cancel
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                                Approve</button>
                         </div>
                     </div>
                 </div>

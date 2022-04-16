@@ -17,27 +17,34 @@
                                                 <tbody *ngIf="deadStockPurchase?.length != 0">
                                                     <tr *ngFor="let data of deadStockPurchase">
                                                         <td>
-                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                          placement="bottom" ngbTooltip="Edit" (click)="modalLarge.show();getDeadStockPurchaseData(data)"></span>
+                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                placement="bottom" ngbTooltip="Edit"
+                                                                (click)="modalLarge.show();getDeadStockPurchaseData(data)"></span>
                                                         </td>
                                                         <td [ngClass]="data.TRAN_NO === '' ? 'td_center' : 'td_right'">
                                                             {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
                                                         </td>
-                                                        
-                                                        <td [ngClass]="data.TRAN_AMOUNT === '' ? 'td_center' : 'td_right'">
+
+                                                        <td
+                                                            [ngClass]="data.TRAN_AMOUNT === '' ? 'td_center' : 'td_right'">
                                                             {{ data.TRAN_AMOUNT === "" ? "-" : data.TRAN_AMOUNT }}
                                                         </td>
-                                                        
-                                                        <td [ngClass]="data.TRAN_SUPPLIER_NAME === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_SUPPLIER_NAME === "" ? "-" : data.TRAN_SUPPLIER_NAME }}
+
+                                                        <td
+                                                            [ngClass]="data.TRAN_SUPPLIER_NAME === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.TRAN_SUPPLIER_NAME === "" ? "-" :
+                                                            data.TRAN_SUPPLIER_NAME }}
                                                         </td>
-                                                        <td [ngClass]="data.NARRATION === '' ? 'td_center' : 'td_right'">
+                                                        <td
+                                                            [ngClass]="data.NARRATION === '' ? 'td_center' : 'td_right'">
                                                             {{ data.NARRATION === "" ? "-" : data.NARRATION }}
                                                         </td>
-                                                        <td [ngClass]="data.TRAN_ENTRY_TYPE === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_ENTRY_TYPE === "" ? "-" : data.TRAN_ENTRY_TYPE }}
+                                                        <td
+                                                            [ngClass]="data.TRAN_ENTRY_TYPE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.TRAN_ENTRY_TYPE === "" ? "-" : data.TRAN_ENTRY_TYPE
+                                                            }}
                                                         </td>
-                                                        
+
                                                     </tr>
 
                                                 </tbody>
@@ -60,21 +67,22 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-      <h4 class="modal-title">Dead Stock Purchase</h4>
-      <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">Dead Stock Purchase</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="app-modal-body">
-      <perfect-scrollbar style="overflow-y: auto;">
-        <app-dead-stock-purchase [childMessage]="deadStockPurchaseData" (getUserData)="getData($event)"></app-dead-stock-purchase>
-       
-        
-        
-      </perfect-scrollbar>
+        <perfect-scrollbar style="overflow-y: auto;">
+            <app-dead-stock-purchase [childMessage]="deadStockPurchaseData" (getUserData)="getData($event)">
+            </app-dead-stock-purchase>
+
+
+
+        </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-      <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-        (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
+            (click)="modalLarge.hide();">Close</button>
     </div>
-  </app-modal-basic>
+</app-modal-basic>

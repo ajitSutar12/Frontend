@@ -47,4 +47,15 @@ export class TermDepositAccountClosingService {
       .delete(this.url + "/term-deposit-account-closing/delete/" + id)
       .pipe(catchError(this.handleError));
   }
+
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/term-deposit-account-closing/approve', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/term-deposit-account-closing/reject', data).pipe(catchError(this.handleError));
+  }
 }

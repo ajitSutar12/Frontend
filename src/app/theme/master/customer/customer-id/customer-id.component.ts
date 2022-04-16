@@ -661,14 +661,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for append data into fields
   editClickHandler(id) {
-    
+
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     let birthdate
     let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
-     
+
       this.updatecheckdata = data
       this.updateID = data.id;
       this.ngRisk = data.AC_RISKCATG
@@ -728,78 +728,90 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
       }
       if (data.IS_KYC_RECEIVED == true) {
-        
+
         this.isDocument = true;
         this.imageObject = []
         this.selectedImgArrayDetails = []
-        
+
 
         for (const [key, value] of Object.entries(data.custdocument)) {
-         
+          this.documentMaster.forEach(ele => {
+            if (data.custdocument.find(data => data['DocumentMasterID'] == ele['value'])) {
+              ele['status'] = true;
+            } else {
+              ele['status'] = false;
+            }
+          })
           let selectedObj = {};
           let id = data.custdocument[key].DocumentMasterID;
           selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
           this.selectedImagePreview = selectedObj[id];
           this.imageObject.push(selectedObj)
           this.selectedImgArrayDetails.push(selectedObj);
-          console.log(this.imageObject)
-          console.log(this.selectedImgArrayDetails)
-          this.documentMaster[key]['status']=true
-          // this.documentMaster['this.imageObject']['status']=true
-       
-          // let index = this.imageObject.findIndex(i=>id);
-          // let index = this.imageObject.findIndex((DocumentMasterID)=>DocumentMasterID===key);
-          // console.log(index);
-          // this.documentMaster[index]['status']=true
         }
-        
       }
-       else {
+      else {
         this.isDocument = false;
       }
-      
+
     });
   }
 
   //Method for update data
   updateData() {
+
     let date
     let sudate
     let data = this.angForm.value;
     data["id"] = this.updateID;
     data['Document'] = this.imageObject;
-    data['F_NAME']=this.fname.toUpperCase()
-    data['L_NAME']=this.lname.toUpperCase()
-    data['M_NAME']=this.mname.toUpperCase()
+    data['F_NAME'] = this.fname.toUpperCase()
+    data['L_NAME'] = this.lname.toUpperCase()
+    data['M_NAME'] = this.mname.toUpperCase()
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
     if (this.updatecheckdata.tdsForm?.SUBMIT_DATE != data.SUBMIT_DATE) {
       (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.SUBMIT_DATE, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY'));
     }
-    if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
-      if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-        Swal.fire({
-          icon: 'info',
-          title: 'This Aadhar Number is Already Extsts',
-        })
-        this.angForm.controls['AC_ADHARNO'].reset();
-      }
-    } else {
-      if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
-        if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value)) {
-          if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value)) {
+    this.customerIdService.getData().subscribe(data => {
+      if (data?.length != 0) {
+        if (this.angForm.controls['AC_ADHARNO'].value != '' && this.angForm.controls['AC_ADHARNO'].value != null) {
+
+          if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+
             if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+              let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
               Swal.fire({
                 icon: 'info',
-                title: 'This Customer is Already Exists',
+                title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
               })
-              this.resetForm();
+              this.angForm.controls['AC_ADHARNO'].reset();
+            }
+          }
+        }
+        else {
+          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
+            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
+              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
+                if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())
+                  if (id.id != this.angForm.controls['AC_NO'].value) {
+                    Swal.fire({
+                      icon: 'info',
+                      title: 'This Customer is Already Exists Having Customer ID ' + id.id
+                    })
+                    this.resetForm();
+                  }
+                }
+              }
             }
           }
         }
       }
-    }
+    })
+
+
     data['FIN_YEAR'] = this.ngfinyear
     this.customerIdService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
@@ -929,16 +941,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fileChangeEvent(event: Event, id, valueid) {
-  
+
     let result
     let arr = [];
     let me = this;
     let obj = {};
     let selectedObj = {};
-    
+
     let file = (event.target as HTMLInputElement).files[0];
-    this.documentMaster[id]['status']=true
-    
+    this.documentMaster[id]['status'] = true
+
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function (ele: any) {
@@ -946,18 +958,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       let selecetedImg = ele.target.result;
       selectedObj[valueid] = selecetedImg
       obj[valueid] = result;
-      
-    
+
+
     };
-      // this.fileuploaded=true,
-      // this.filenotuploaded=false
-    
+    // this.fileuploaded=true,
+    // this.filenotuploaded=false
+
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
 
     let isExist: boolean = false
-   
+
     for (let element of this.imageObject) {
       if (Number(Object.keys(element)[0]) == valueid) {
         isExist = true
@@ -967,13 +979,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           selectedObj[valueid] = selecetedImg
           obj[valueid] = result;
           element[valueid] = result
-         
+
         };
-       this.documentMaster[id]['status']=true
+        this.documentMaster[id]['status'] = true
 
         break
       }
-     
+
     }
     if (!isExist) {
       reader.onload = async function (ele: any) {
@@ -984,7 +996,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       };
       this.imageObject.push(obj);
       this.selectedImgArrayDetails.push(selectedObj);
-      this.documentMaster[id]['status']=true
+      this.documentMaster[id]['status'] = true
 
     }
 
@@ -999,7 +1011,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   viewImagePreview(ele, id) {
-    
+
     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
       let jsonObj = value;
       Object.keys(jsonObj).forEach(key => {
@@ -1007,34 +1019,33 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           this.isImgPreview = true
           this.selectedImagePreview = jsonObj[key];
           throw 'Break';
-          
+
         }
         else {
           this.isImgPreview = false
           this.selectedImagePreview = ''
-          
+
         }
       });
     }
   }
 
   checkCustomer() {
-    
+
     this.customerIdService.getData().subscribe(data => {
-     
+
       if (data?.length != 0) {
-        
         if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
           if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
             if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
-              
+              let id = data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())
               Swal.fire({
                 title: "Are you sure?",
-                text: "This Customer is Already Exists." ,
-              //   html:
-              // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-              // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
-                
+                text: "This Customer is Already Exists Having Customer ID " + id.id,
+                //   html:
+                // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+                // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
+
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#229954",
@@ -1072,34 +1083,33 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let adhar: any[];
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
-        
-        if (this.angForm.controls['AC_ADHARNO'].value != '') {
+        if (this.angForm.controls['AC_ADHARNO'].value != '' && this.angForm.controls['AC_ADHARNO'].value != null) {
 
-        
           if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
-          
+
             if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-              
+              let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
               Swal.fire({
                 icon: 'info',
-                title: 'This Aadhar Number is Already Extists',
+                title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
               })
               this.angForm.controls['AC_ADHARNO'].reset();
-            
-          } 
+            }
+          }
         }
-      }
-      
         else {
-          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
-            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value)) {
-              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value)) {
+          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
+            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
+              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
                 if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-                  Swal.fire({
-                    icon: 'info',
-                    title: 'This Customer is Already Exists',
-                  })
-                  this.resetForm();
+                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())
+                  if (id.id != this.angForm.controls['AC_NO'].value) {
+                    Swal.fire({
+                      icon: 'info',
+                      title: 'This Customer is Already Exists Having Customer ID ' + id.id
+                    })
+                    this.resetForm();
+                  }
                 }
               }
             }

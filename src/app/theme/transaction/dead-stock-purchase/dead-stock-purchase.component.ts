@@ -51,7 +51,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   minDate: Date;
   ngbilldate: any = null
   ngchequedate: any = null
-
+  updateID: number = 0;
   isTransfer: boolean = false
 
   dtElement: DataTableDirective;
@@ -279,13 +279,15 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.ngBranchCode = null
     this.schemeedit = null
     this.accountedit = null
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
     this.resetForm();
 
   }
   //get sys para current date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-      debugger
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
       })
@@ -294,24 +296,15 @@ export class DeadStockPurchaseComponent implements OnInit {
       let transactionDate
       let prev = Number(nyear[2]) - 1
       if (nyear[1] > 3) {
-        transactionDate = prev + nyear[2]
-      }
-      else {
         let next = Number(nyear[2]) + 1
         transactionDate = nyear[2] + next
+      }
+      else {
+        transactionDate = prev + nyear[2]
       }
       this.angForm.patchValue({
         TRAN_YEAR: transactionDate
       })
-      var date = new Date(data.CURRENT_DATE);
-      var year = date.getFullYear();
-      var month = new Date(date).getMonth();
-      var day = new Date(date).getDate();
-      var exe_day = month + 3
-      var nextDate = new Date(year, exe_day, day);
-
-
-
     })
   }
 
@@ -411,7 +404,101 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.accountedit = null
   }
 
-  editClickHandler(id) { }
+  editClickHandler(id) {
+    this._service.getFormData(id).subscribe((data) => {
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.updateID = data.id;
+      if (data.TRAN_TYPE == 'CS') {
+        this.isFormA(2)
+      }
+      else if (data.TRAN_TYPE == 'TR') {
+        this.isFormA(1)
+      }
+      this.angForm.patchValue({
+        Total_AMT: data.TRAN_AMOUNT,
+        ACNOTYPE: data.TRANSFER_ACNOTYPE,
+        AC_TYPE: data.TRANSFER_ACTYPE,
+        AC_NO: data.TRANSFER_ACNO,
+        TRAN_GLACNO: data.ACNOTYPE == 'GL' ? data.AC_NO : data.GL_ACNO,
+        CHEQUE_DATE: data.CHEQUE_DATE,
+        CHEQUE_NUM: data.CHEQUE_NO,
+        SUPPLIER_NAME: data.TRAN_SUPPLIER_NAME,
+        GST_NO: data.GST_NO,
+        CGST_AMT: data.CGST_AMT,
+        SGST_AMT: data.SGST_AMT,
+        IGST_AMT: data.IGST_AMT,
+        BILL_DATE: data.SUPPLIER_BILL_DATE,
+        BILL_NUM: data.SUPPLIER_BILL_NO,
+        NARRATION: data.NARRATION,
+        DEAD_STOCK: data.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
+        TRAN_YEAR: data.TRAN_YEAR,
+        TRAN_DATE: data.TRAN_DATE,
+        BRANCH_CODE: data.BRANCH_CODE
+      })
+    })
+
+  }
+
+
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Deadstock Purchase approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Deadstock Purchase rejected successfully',
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+  public visibleAnimate = false;
+  public visible = false;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
 
 
 }

@@ -667,5 +667,5 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
-
+ 
 }

@@ -34,7 +34,7 @@ interface TermDepositClosingVoucher {
 })
 export class DepositClosingVoucherComponent implements OnInit {
   @ViewChild(TermDepositAccountClosingComponent) child: TermDepositAccountClosingComponent;
-  @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
+  @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
   dtElement: DataTableDirective;

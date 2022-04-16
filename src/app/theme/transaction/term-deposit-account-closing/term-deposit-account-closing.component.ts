@@ -6,7 +6,6 @@ import { SchemeTypeService } from '../../../shared/elements/scheme-type.service'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { TermDepositAccountClosingService } from './term-deposit-account-closing.service'
@@ -29,7 +28,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   formSubmitted = false;
   //api
   url = environment.base_url;
-
+  updateID: number = 0;
 
   // for radio button
   isTransfer: boolean = false
@@ -207,11 +206,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       temp_over_draft: [''],
       over_draft: [''],
       token: [''],
-      // particulars: [''],
-      // total_amt: [''],
-      // amt: [''],
       slip_no: [''],
-      // tran_mode: [''],
       account_no: ['', [Validators.required]],
       scheme: ['', [Validators.required]],
       scheme_type: [''],
@@ -301,7 +296,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.bankacno = event.bankacno
     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
-      
+
       this.DayOpBal = data[0].AC_SCHMAMT
       this.Pass = data[0].AC_MATUAMT
       this.INTRATE = data[0].AC_INTRATE
@@ -401,7 +396,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
 
   getMaturedIntRate() {
-    
+
     let maturedIntAmt = Math.abs(this.angForm.controls['MaturedDays'].value * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
     let total_int = maturedIntAmt + parseFloat(this.angForm.controls['maturedInterest'].value)
     this.angForm.patchValue({
@@ -488,7 +483,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   schemeACNo
   //get account no according scheme for transfer
   getTransferAccountList(event) {
-    
+
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
     switch (event.name) {
@@ -567,7 +562,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   transferIndex: number
   //transfer account grid functions
   addTransferAccount() {
-    
+
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     var object = {
@@ -797,8 +792,100 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.headShow = false;
     this.showChequeDetails = false;
   }
-  editClickHandler(id) { }
+  editClickHandler(id) {
+    this._TDService.getFormData(id).subscribe((data) => {
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.updateID = data.id;
+      this.angForm.patchValue({
+        branch_code: data.BRANCH_CODE,
+        account_no: data.TRAN_ACNO,
+        scheme: data.TRAN_ACTYPE,
+        date: data.TRAN_DATE,
+        SAVING_PIGMY: data.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
+        chequeNo: data.CHEQUE_NO,
+        ChequeDate: data.CHEQUE_DATE,
+        Token_Num: data.TOKEN_NO,
+        SURCHARGE_AMT: data.SURCHARGE_AMT,
+        PENAL_INT: data.PENAL_INTEREST_AMOUNT,
+        InterestRate: data.INTEREST_RATE,
+        maturedIntAmt: data.AFT_MATURE_INT_AMT,
+        maturedInterest: data.AFT_MATURE_INT_RATE,
+        POSTED_INT: data.PAID_INTEREST_AMOUNT,
+        TOTAL_INT: data.TOTAL_INTEREST_AMOUNT,
+        narration: data.NARRATION,
+        NET_INTAMT: data.NET_INTEREST_AMOUNT,
+        NETPAYABLEAMT: data.NET_PAYABLE_AMOUNT,
+        PAYABLE_INTAMT: data.PAYABLE_INTEREST_AMOUNT,
+      })
+
+    })
+  }
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._TDService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Term Deposit Account Closing approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 
 
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._TDService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Term Deposit Account Closing rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+  public visibleAnimate = false;
+  public visible = false;
+  showButton: boolean = true;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
 
 }

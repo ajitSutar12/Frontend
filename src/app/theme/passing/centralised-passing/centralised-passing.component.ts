@@ -80,7 +80,10 @@ export class CentralisedPassingComponent implements OnInit {
         this.pigmy_master = data.pigmyCount;
         this.cash_credit_master = data.cashCount;
         this.loan_master = data.loanCount;
-
+        this.deposit_closing = data.depositClosingTran
+        this.cash_remitance = data.cashRenewCount
+        this.dead_stock_purchase = data.deadstockPurchase
+        this.dead_stock_transaction = data.deadstockTransaction
       })
     }));
   }

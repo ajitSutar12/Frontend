@@ -89,7 +89,7 @@ export class PassdeadStockPurchaseComponent implements OnInit {
         this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/dead-stock-purchase/passing',
+            this.url + '/deadstock-purchase/passing',
             dataTableParameters
           ).subscribe(resp => {
             this.deadStockPurchase = resp.data;
