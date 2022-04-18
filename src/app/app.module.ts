@@ -19,6 +19,7 @@ import { UserAuthInterceptor } from './user-auth.interceptor';
 import {ConnectionServiceModule} from 'ng-connection-service';  
 import{StrictNumberOnlyDirective} from'././restrictinput';
 import { NgPasswordValidatorModule } from 'ng-password-validator';
+// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 
@@ -42,7 +43,8 @@ import { NgPasswordValidatorModule } from 'ng-password-validator';
     HttpClientModule,
     HotkeyModule.forRoot(), // adding HotkeysModule
     ConnectionServiceModule ,
-    NgPasswordValidatorModule 
+    NgPasswordValidatorModule ,
+    // InfiniteScrollModule,
   ],
   providers: [MenuItems,
     {

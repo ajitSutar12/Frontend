@@ -16,6 +16,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import { __asyncDelegator } from 'tslib';
 
 class DataTableResponse {
   data: any[];
@@ -58,6 +59,11 @@ export class BalanceUpdationComponent implements OnInit {
   ngscheme: any = null
   ngfromac: any = null
   ngtoac: any = null
+
+  // for infinite Scrolling
+  
+  // sum = 10;
+  direction = "";
 
   private dataSub: Subscription = null;
 
@@ -116,6 +122,7 @@ export class BalanceUpdationComponent implements OnInit {
 
   scheme: any[];
   arrTable
+  
   ToAC: any[];
   fromAC: any[];
   // getschemename: any;
@@ -133,6 +140,7 @@ export class BalanceUpdationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) {
+      
 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -143,12 +151,19 @@ export class BalanceUpdationComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     // this.getSystemParaDate()
-
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       dom: 'ftip'
     };
+
+    this.dtExportButtonOptions = {
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+    }
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
         return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
@@ -588,6 +603,7 @@ export class BalanceUpdationComponent implements OnInit {
           this.balanceUpdateArr.push(object)
         });
       });
+
     }
     else {
       Swal.fire("Must Select To Account Number");
@@ -748,6 +764,10 @@ export class BalanceUpdationComponent implements OnInit {
 
   }
 
+//   onScroll () {
+//     console.log('scrolled!!')
+// }
+
   //filter object
 filterObject(ele, type) {
   console.log(this.arrTable);
@@ -862,4 +882,48 @@ filterObject(ele, type) {
     this.updateShow = false;
     this.resetForm();
   }
+
+  // scrollHandler(event){
+    
+    
+    
+  // }
+  yourFunction(){
+    debugger
+    $('tbody').on('scroll',function(){
+      alert('hellow');
+    });
+    console.log('now you are scrolling');
+  }
+
+  // for infinite scrolling function
+  // onScrollDown(ev: any) {
+  //   debugger
+  //   alert('work');
+  //   console.log("scrolled down!!", ev);
+
+  //   this.balanceUpdateArr
+  //   this.appendItems();
+    
+  //   this.direction = "scroll down";
+  // }
+  
+   // for infinite scrolling function
+  // appendItems() {
+  //   debugger
+  //   this.addItems("push");
+  // }
+   
+   // for infinite scrolling function
+  // addItems(_method: string) {
+  //   console.log("scroll function")
+  //   this.arrTable= [ ];
+  //   for (let data = 0; data < this.balanceUpdateArr; ++data) {
+  //     if( _method === 'push'){
+  //       this.arrTable.push([data].join(""));
+  //     }else if( _method === 'unshift'){
+  //       this.arrTable.unshift([data].join(""));
+  //     }
+  //   }
+  // }
 }

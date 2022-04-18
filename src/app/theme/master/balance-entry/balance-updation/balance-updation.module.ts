@@ -14,7 +14,9 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { BalanceUpdationService } from './balance-updation.service'
+import { BalanceUpdationService } from './balance-updation.service';
+// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 @NgModule({
   imports: [
@@ -25,7 +27,8 @@ import { BalanceUpdationService } from './balance-updation.service'
     NgSelectModule,
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    // InfiniteScrollModule,
   ],
   declarations: [BalanceUpdationComponent],
   providers: [

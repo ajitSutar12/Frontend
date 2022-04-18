@@ -844,3 +844,10 @@ input[type="file" i]::-webkit-file-upload-button {
     padding-bottom: 5% !important;
     transition: all ease-in 0.3s;
 }
+
+.search-results {
+    // margin: 40px;
+    height: 350px;
+    width: 100%;
+    overflow: auto;
+}
