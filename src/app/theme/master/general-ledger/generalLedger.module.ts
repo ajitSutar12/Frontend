@@ -5,17 +5,18 @@ import { GeneralLedgerComponent } from './general-ledger.component';
 import { GeneralLedgerRoutingModule } from './generalLedger-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {SelectOptionService} from '../../../shared/elements/select-option.service';
-import {SelectModule} from 'ng-select';
+// import {SelectModule} from 'ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
     CommonModule,
     GeneralLedgerRoutingModule,
     SharedModule,
-    SelectModule
+    // SelectModule
+    NgSelectModule,
   ],
   declarations: [GeneralLedgerComponent],
   providers: [SelectOptionService,

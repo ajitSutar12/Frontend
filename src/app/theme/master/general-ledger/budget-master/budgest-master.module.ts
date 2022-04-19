@@ -5,9 +5,12 @@ import { BudgetMasterComponent } from './budget-master.component';
 import { BudgetMasterRoutingModule } from './budget-master-routing.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 
 @NgModule({
   imports: [
@@ -17,10 +20,11 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    SelectModule
+    // SelectModule
+    NgSelectModule
   ],
-  declarations: [BudgetMasterComponent],
-  providers:[{
+  declarations: [BudgetMasterComponent,],
+  providers:[ OwnbranchMasterService,ACMasterDropdownService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

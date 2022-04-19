@@ -1,10 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
 import { animate, style, transition, trigger } from "@angular/animations";
 import Swal from "sweetalert2";
 import { BudgetserviceService } from "./budget-master.component.service";
@@ -12,6 +7,10 @@ import { BudgetserviceService } from "./budget-master.component.service";
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { environment} from '../../../../../environments/environment'
+import { HttpClient } from '@angular/common/http';
+import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { first } from "rxjs/operators";
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 
 // For fetching values from backend
@@ -27,67 +26,54 @@ interface budget {
 })
 export class BudgetMasterComponent implements OnInit {
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  
+  formSubmitted = false;
+  //api 
+  url = environment.base_url;
 
-  url =environment.base_url
   angForm: FormGroup;
-  timeLeft: number;
-  dtElement: DataTableDirective;
-  dtTrigger: Subject<any> = new Subject();
 
+
+  
+  
+  timeLeft: number;
+  
 
   dtExportButtonOptions: any = {};
 
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID:number;
+  ngbranch: any = null;
+  branchOption: any;
+  ngfinyear: any = null
 
   message = {
     BudgetYear: "",
   };
 
-  constructor(private fb: FormBuilder, private _budget: BudgetserviceService) {
-    this.createForm();
+  
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,private _budget: BudgetserviceService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
+    private config: NgSelectConfig,) {
+    
   }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: "fake-data/budget_master.json",
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-            // + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>'
-          },
-        },
-        {
-          title: "Account Number",
-          data: "AccountNumber",
-        },
-        {
-          title: "Account Name",
-          data: "AccountName",
-        },
-        {
-          title: "Allocated Budget Amount",
-          data: "AllocatedBudgetAmount",
-        },
-      ],
-      dom: "Bfrtip",
-      buttons: ["copy", "print", "excel", "csv"],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $("td", row).off("click");
-        $("td", row).on("click", "#editbtn", () => {
-          self.editClickHandler(data);
-        });
-        $("td", row).on("click", "#delbtn", () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      },
-    };
+    this.createForm();
+
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      
+      this.branchOption = data;
+      let obj = { label:'All', value: 0, name: 0 };
+       this.branchOption.push(obj)
+      
+
+    })
+   
   }
 
   runTimer() {
@@ -101,8 +87,9 @@ export class BudgetMasterComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      BudgetYear: ["", [Validators.required, Validators.pattern]],
-      radio: [""],
+      FIN_YEAR: ["", [Validators.required, Validators.pattern]],
+      BRANCH_CODE:['',[Validators.required]],
+      
     });
   }
   //Method to insert data into database on submitting form
@@ -113,8 +100,8 @@ export class BudgetMasterComponent implements OnInit {
     }
     const formVal = this.angForm.value;
     const dataToSend = {
-      budgetYear: formVal.BudgetYear,
-      radio: formVal.radio,
+      // budgetYear: formVal.BudgetYear,
+      // radio: formVal.radio,
     };
     // console.log(this.angForm.value);
     this._budget.postData(dataToSend).subscribe(
@@ -127,6 +114,23 @@ export class BudgetMasterComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+   //method for adding hyphen in date
+   addhyphen(data: any) {
+    let date = new Date().getFullYear() + 1;
+    let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
+    if (result > date) {
+      Swal.fire("Warning!", "please enter valid Year ", "warning");
+      (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
+    }
+    else {
+      if (data.length == 4) {
+        result += 1;
+        this.ngfinyear = data + "-" + result;
+      }
+
+    }
   }
 
   //function for edit button clicked
@@ -165,24 +169,16 @@ export class BudgetMasterComponent implements OnInit {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      
        this.resetForm();
     })
   }
-  ngAfterViewInit() {
-    this.myInputField.nativeElement.focus();
-    }
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
+  
+  
     // Reset Function
     resetForm() {
       this.createForm();
+      this.ngbranch=null
     }
     
 }

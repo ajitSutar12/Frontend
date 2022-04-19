@@ -16,6 +16,8 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BalanceUpdationService } from './balance-updation.service';
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+// import { LazyLoadEvent } from 'primeng/primeng';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { BalanceUpdationService } from './balance-updation.service';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     // InfiniteScrollModule,
+    NgxDatatableModule,
+    // LazyLoadEvent,
   ],
   declarations: [BalanceUpdationComponent],
   providers: [

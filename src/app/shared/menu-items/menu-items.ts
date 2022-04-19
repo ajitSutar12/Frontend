@@ -121,7 +121,7 @@ const MENUITEMS = [
               },
               {
                 state: 'budget-master',
-                name: 'Budget Master',
+                name: 'Budget Allocation Master',
                 id: 7
               },
             ]

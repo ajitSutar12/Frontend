@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, HostListener,ChangeDetectorRef} from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { BalanceUpdationService } from './balance-updation.service';
@@ -17,6 +17,8 @@ import { Subject } from 'rxjs-compat';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { __asyncDelegator } from 'tslib';
+
+
 
 class DataTableResponse {
   data: any[];
@@ -131,8 +133,15 @@ export class BalanceUpdationComponent implements OnInit {
 
   gridData: any;
 
+  public dataSource: any[];
+  public data: any[];
+  public cols: any[];
+  public totalRecords;
 
-  constructor(public _service: BalanceUpdationService,
+
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    public _service: BalanceUpdationService,
     private http: HttpClient,
     public DebitService: DebitService, private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -146,6 +155,11 @@ export class BalanceUpdationComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+  }
+
+  ///Scrolling function
+  @HostListener('window:scroll',['$event']) getScrollHeight(event){
+    console.log('scroll function is working');
   }
 
   ngOnInit(): void {
@@ -174,7 +188,21 @@ export class BalanceUpdationComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
+
+    // scrolling function
+    this.data = this._service.getData(100000);
+    this.totalRecords = this.data.length;
+
+    this.cols = [
+      
+      { field: 'ThreadId', header: 'ThreadId' },
+      { field: 'Timestamp', header: 'Timestamp' },
+      { field: 'TrackingId', header: 'TrackingId' },
+      { field: 'UserId', header: 'UserId' },
+    ];
   }
+
+ 
   branchCode
   branchid
   getschemename
