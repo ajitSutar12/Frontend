@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs/operators';
+import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-view',
@@ -6,47 +14,88 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-view.component.scss']
 })
 export class CustomerViewComponent implements OnInit {
-  dtExportButtonOptions : any = {};
 
-  constructor() { }
+  formSubmitted = false;
+  //api 
+  url = environment.base_url;
+
+  // Created Form Group
+  angForm: FormGroup;
+
+  // dropdown variables
+  ngcustomer:any=null
+  Cust_ID: any[] //customer id from idmaster
+
+  //array of document of customer
+  customerDoc = []
+
+  //temp address flag variable
+  tempAddress: boolean = true;
+
+  // image purpose
+  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
+  signture: string = '../../../../assets/sign/signture.jpg';
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private customerID: CustomerIDMasterDropdownService,
+    private customerIdService: CustomerIdService,
+    private config: NgSelectConfig,
+  ) { }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.createForm();
+
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+    })
+   
   }
+
+  createForm() {
+    this.angForm = this.fb.group({
+      AC_CUSTID: ["", [Validators.required]],
+      CLOSED_AC:["",],
+      AC_NAME:['',],
+      AC_PANNO:['',],
+      
+    });
+  }
+
+  hideImage() {
+    // document.getElementById("full").src = "";
+    this.previewImg = '';
+    this.PreviewDiv = false;
+  }
+  previewImg: string;
+  PreviewDiv: boolean = false;
+  showImage(img) {
+    var src = img;
+    console.log(src)
+    var largeSrc = src.replace('small', 'large');
+    this.previewImg = src;
+    this.PreviewDiv = true;
+    // document.getElementById('full').src = largeSrc;
+  }
+
+   //function to get existing customer data according selection
+   getCustomer(id) {
+    this.customerIdService.getFormData(id).subscribe(data => {
+      this.customerDoc = data.custdocument
+      this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
+      
+     
+      this.angForm.patchValue({
+        
+        AC_NAME: data.AC_NAME,
+        AC_PANNO: data.AC_PANNO,
+        
+      })
+    })
+   
+  }
+
+ 
 
 }

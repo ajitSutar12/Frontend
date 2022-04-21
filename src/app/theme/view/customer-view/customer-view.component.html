@@ -1,148 +1,180 @@
 <!--Customer View  -->
-<div class="row">
-    <div class="col-12">
-        <div class="card">
+<div style="width: 270px;height: 335px;z-index: 1000;
+    position: absolute;margin-top: 14%;margin-left:51%" *ngIf="PreviewDiv">
+    <img [src]="previewImg" width="400" height="300">
+</div>
+<form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
             <div class="card-header">
-                <h5>Customer View</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+              <h5>Customer View</h5>
+              <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                  Fields marked with (<sub class="required"> * </sub>) are mandatory
+              </h6>
             </div>
-            <form  action="javascript:">
-                <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm">
-
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="CustomerID"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="CustomerID"
-                                    required=""
-                                  />
-                                  <label for="CustomerID"
-                                    >Customer ID<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="Name"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="Name"
-                                    required=""
-                                  />
-                                  <label for="Name"
-                                    >Name<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="Address"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="Address"
-                                    required=""
-                                  />
-                                  <label for="Address"
-                                    >Address<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer Id<sub
+                  class="required">*</sub></label></div>
+                <div class="col-sm-12 col-md-4">
+                  <div class="form-group form-primary form-static-label">
+                      <span class="border-lable-flt">
+                        <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
+                        formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
+                         style="width: 85%;" title="Compulsory Selection"
+                        required placeholder="">
+                        <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                            {{values.label}}</ng-option>
+                    </ng-select>
+                      </span>
+                  </div>
+                  <div class="form-group form-primary form-static-label"
+                      *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
+                          This field is required.
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-2"> <label for="AC_NAME">Name:</label></div>
+                <div class="col-sm-12 col-md-2">
+                  <input
+                    type="text"
+                    name="AC_NAME"
+                    class="form-control"
+                    placeholder=" "
+                    id="AC_NAME"
+                    formControlName="AC_NAME"
+                    disabled
+                  />
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-2"> <label>Address:</label></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-2"> <label>Pan Number:</label></div>
+                <div class="col-sm-12 col-md-4">
+                  <input
+                    type="text"
+                    name="AC_PANNO"
+                    class="form-control"
+                    placeholder=" "
+                    id="AC_PANNO"
+                    formControlName="AC_PANNO"
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-12 col-md-2"> <label>Adhar Number:</label></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-4"> <label>Number of Accounts:</label></div>
+                <div class="col-sm">
+                  <div class="checkbox checkbox-primary">
+                    <div class="border-checkbox-group border-checkbox-group-primary">
+                        <input type="checkbox" class="border-checkbox" id="CLOSED_AC"
+                            formControlName="CLOSED_AC">
+                        <label class="border-checkbox-label" for="CLOSED_AC">Display Closed Accounts</label>
                     </div>
-                    <div class="row">
-                        <div class="col-sm">
+                  </div>
+                </div>
+               
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+                  <button class="btn btn-danger" style="cursor: default"></button>
+                </div>
+                <div class="col-sm-2">
+                  <label>Closed Accounts</label>
+                </div>
+                <div class="col-sm-1">
+                  <button class="btn btn-primary"></button>  
+                </div>
+                <div class="col-sm-2">
+                  <label>Open Accounts</label>
+                </div>
+                <div class="col-sm-1">
+                  <button class="btn btn-secondary"></button>
+                </div>
+                <div class="col-sm-2">
+                  <label>Lien Accounts</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="table-responsive">
+                    <table style="border: 1px solid;"></table>
+                  </div>
+                </div>
 
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="Mobile"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="Mobile"
-                                    required=""
-                                  />
-                                  <label for="Mobile"
-                                    >Mobile<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xm-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+                Details
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="user-avatar-section">
+                                    <div class="d-flex align-items-center flex-column">
+                                        <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
+                                            height="110" width="110" (mouseover)="showImage(customerImg)"
+                                            (mouseout)="hideImage()" alt="User avatar" />
+                                        <div class="user-info text-center">
+                                            <h4>Ajit Sutar</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="user-avatar-section">
+                                    <div class="d-flex align-items-center flex-column">
+                                        <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
+                                            (mouseover)="showImage(signture)" (mouseout)="hideImage()"
+                                            height="50" width="110" alt="User avatar" />
+                                    </div>
+                                </div>
+                                <div class="info-container">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-75">
+                                            <span class="fw-bolder me-25">Status:</span>
+                                            <span class="badge bg-light-success">Active</span>
+                                        </li>
 
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="NoofAccounts"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="NoofAccounts"
-                                    required=""
-                                  />
-                                  <label for="NoofAccounts"
-                                    >No of Accounts<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="border-checkbox-section">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
-                                    <label class="border-checkbox-label" for="checkbox1">Display Closed Accounts<span class="required"> </span></label>
+                                        <li class="mb-75">
+                                            <span class="fw-bolder me-25">PAN ID:</span>
+                                            <span>ADFE2323D</span>
+                                        </li>
+                                        <li class="mb-75">
+                                            <span class="fw-bolder me-25">Contact:</span>
+                                            <span>+91 7636456273</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light">Signature & photo </button>
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light">Print Loan Details</button>
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light">Guarrentor Details</button>
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light">Add</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-9">
-
-                        </div>
-                       
-                    </div>
                 </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-<div class="card">
-    <div class="card-block">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                </table>
             </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
+</form>
+
+
