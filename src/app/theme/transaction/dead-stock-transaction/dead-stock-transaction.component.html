@@ -52,10 +52,8 @@
                                         disabled>
                                 </span>
                             </div>
-
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_TYPE">Transaction Type<sub
                                     class="required">*</sub></label></div>
@@ -77,9 +75,7 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-sm">
-
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
@@ -242,31 +238,6 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <ng-select id="ITEM_CODE" [items]="itemcode" [(ngModel)]="ngItem"
-                                        bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
-                                        (change)="getItemDetails($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="Item Code">
-                                    </ng-select>
-                                    <label for="ITEM_CODE">Item Code<sub class="required">*
-                                        </sub></label>
-                                </span>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-sm-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" class="form-control" name="Quantity"
-                                        id="Quantity" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        (focus)="selectAllContent($event)" formControlName="Quantity"
-                                        (keyup)="getRate()">
-                                    <label for="Quantity">Quantity<sub class="required">*
-                                        </sub></label>
-                                </span>
-                            </div>
-                        </div> -->
                         <div class="col-md"><label for="Quantity">Quantity<sub class="required">*</sub></label></div>
                         <div class="col-md">
                             <div class="form-group input-group">
@@ -278,17 +249,6 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                        id="Rate" formControlName="Rate" (focus)="selectAllContent($event)"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                    <label for="Rate">Rate<sub class="required">*
-                                        </sub></label>
-                                </span>
-                            </div>
-                        </div> -->
                         <div class="col-md"><label for="Rate">Rate<sub class="required">*</sub></label></div>
                         <div class="col-md">
                             <div class="form-group input-group">
@@ -299,18 +259,6 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" class="form-control" name="amount"
-                                        id="amount" formControlName="amount" (keyup)="getRate()"
-                                        (focus)="selectAllContent($event)"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                    <label for="amount">Amount<sub class="required">*
-                                        </sub></label>
-                                </span>
-                            </div>
-                        </div> -->
                         <div class="col-md"><label for="amount">Amount<sub class="required">*</sub></label></div>
                         <div class="col-md">
                             <div class="form-group input-group">
@@ -345,20 +293,20 @@
                                                 <td>{{data.ITEM_CODE}} {{data.ITEM_NAME}}</td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="Quantity" id="Quantity" value="{{data.Quantity}}"
+                                                        name="ITEM_QTY" id="ITEM_QTY" value="{{data.ITEM_QTY}}"
                                                         #Quantity
                                                         (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value,Rate.name,Rate.value,Amount.name,Amount.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="Rate" id="Rate" value="{{data.Rate}}" #Rate disabled
+                                                        name="ITEM_RATE" id="ITEM_RATE" value="{{data.ITEM_RATE}}" #Rate disabled
                                                         (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value,Rate.name,Rate.value,Amount.name,Amount.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="Amount" id="Amount" value="{{data.Amount}}" #Amount
+                                                        name="TRAN_AMOUNT" id="TRAN_AMOUNT" value="{{data.TRAN_AMOUNT}}" #Amount
                                                         (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value,Rate.name,Rate.value,Amount.name,Amount.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>

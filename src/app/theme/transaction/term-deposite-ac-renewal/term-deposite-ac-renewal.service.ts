@@ -31,15 +31,10 @@ export class TermDepositeAcRenewalService {
       })
     );
   }
-  // For append data
-  getFormData(id: any): Observable<any> {
-    return this.http
-      .get(this.url + "/term-deposite-ac-renewal/" + id)
-      .pipe(catchError(this.handleError));
-  }
+
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/term-deposite-ac-renewal/update", data);
+    return this.http.put(this.url + "/cash-credit-ac-renewal/updateTermDeposit", data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
@@ -49,7 +44,24 @@ export class TermDepositeAcRenewalService {
   }
 
   //Interest Category List
-  interestCategory():Observable<any>{
-    return this.http.get(this.url+'/interest-category-master').pipe(catchError(this.handleError));
+  interestCategory(): Observable<any> {
+    return this.http.get(this.url + '/interest-category-master').pipe(catchError(this.handleError));
+  }
+
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/cash-credit-ac-renewal/TermRenewApprov', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/cash-credit-ac-renewal/TermRenewReject', data).pipe(catchError(this.handleError));
+  }
+  // For append data
+  getFormData(id: any): Observable<any> {
+    return this.http
+      .get(this.url + "/cash-credit-ac-renewal/" + id)
+      .pipe(catchError(this.handleError));
   }
 }

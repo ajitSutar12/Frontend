@@ -42,11 +42,11 @@ export class PassdeadStockTransactionComponent implements OnInit {
   filterData = {};
   url = environment.base_url;
   // Store data from backend
-  deadStockTransaction: DeadStockTransaction[];
+  deadStockTransactionData: DeadStockTransaction[];
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  deadStockTransactionData: any = {};
+  // deadStockTransactionData: any = {};
   ngOnInit(): void {
 
     this.dtExportButtonOptions = {
@@ -115,10 +115,10 @@ export class PassdeadStockTransactionComponent implements OnInit {
           data: 'TRAN_AMOUNT'
         },
 
-        {
-          title: 'Supplier Name ',
-          data: 'TRAN_SUPPLIER_NAME'
-        },
+        // {
+        //   title: 'Supplier Name ',
+        //   data: 'TRAN_SUPPLIER_NAME'
+        // },
         {
           title: 'Narration',
           data: 'NARRATION'
@@ -137,9 +137,10 @@ export class PassdeadStockTransactionComponent implements OnInit {
   ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
+  deadStockTransaction
   //get saving customer data
   getDeadStockTransactionData(data) {
-    this.deadStockTransactionData = data.id;
+    this.deadStockTransaction = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;

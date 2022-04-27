@@ -17,23 +17,25 @@
                                                 <tbody *ngIf="termDepositAcRenewal?.length != 0">
                                                     <tr *ngFor="let data of termDepositAcRenewal">
                                                         <td>
-                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                                            placement="bottom" ngbTooltip="Edit" (click)="modalLarge.show();getTermDepositAcRenewalData(data)"></span>
+                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                placement="bottom" ngbTooltip="Edit"
+                                                                (click)="modalLarge.show();getTermDepositAcRenewalData(data)"></span>
                                                         </td>
                                                         <td [ngClass]="data.TRAN_NO === '' ? 'td_center' : 'td_right'">
                                                             {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
                                                         </td>
-                                                        <td [ngClass]="data.TRAN_ACNO === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_ACNO === "" ? "-" : data.TRAN_ACNO }}
-                                                        </td>
                                                         <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
                                                             {{ data.AC_TYPE === "" ? "-" : data.AC_TYPE }}
                                                         </td>
-                                                        
-                                                        <td [ngClass]="data.NEW_RECEIPTNO === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.NEW_RECEIPTNO === "" ? "-" : data.NEW_RECEIPTNO }}
+                                                        <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.AC_NO === "" ? "-" : data.AC_NO }}
                                                         </td>
-                                                        
+                                                        <td
+                                                            [ngClass]="data.NEW_RECEIPTNO === '' ||  data.NEW_RECEIPTNO === null? 'td_center' : 'td_right'">
+                                                            {{ data.NEW_RECEIPTNO === "" || data.NEW_RECEIPTNO === null?
+                                                            "-" : data.NEW_RECEIPTNO }}
+                                                        </td>
+
                                                     </tr>
 
                                                 </tbody>
@@ -56,22 +58,23 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-      <h4 class="modal-title">Term Deposit Account Renewal</h4>
-      <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">Term Deposit Account Renewal</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="app-modal-body">
-      <perfect-scrollbar style="overflow-y: auto;">
-        <app-term-deposite-ac-renewal  [childMessage]="termDepositAcRenewalData" (getUserData)="getData($event)"></app-term-deposite-ac-renewal>
-        
-        
-        
-        
-      </perfect-scrollbar>
+        <perfect-scrollbar style="overflow-y: auto;">
+            <app-term-deposite-ac-renewal [childMessage]="termDepositAcRenewalData" (getUserData)="getData($event)">
+            </app-term-deposite-ac-renewal>
+
+
+
+
+        </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-      <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-        (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
+            (click)="modalLarge.hide();">Close</button>
     </div>
-  </app-modal-basic>
+</app-modal-basic>

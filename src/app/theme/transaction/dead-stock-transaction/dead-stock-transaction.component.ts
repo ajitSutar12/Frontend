@@ -273,6 +273,21 @@ export class DeadStockTransactionComponent implements OnInit {
       }
     }
   }
+  isFormUpdate(value) {
+    if (this.ngtransactiontype == 'Sales') {
+      document.getElementById('formC').removeAttribute("disabled");
+      if (value == 1) {
+        this.GLAccount = true
+        this.Resolution = true
+        this.Narration = true;
+      }
+      else if (value == 2) {
+        this.GLAccount = false
+        this.Resolution = true
+        this.Narration = true;
+      }
+    }
+  }
 
   depTotal: number = 0
 
@@ -280,15 +295,15 @@ export class DeadStockTransactionComponent implements OnInit {
   addItem() {
     const formVal = this.angForm.value;
     let object = {
-      id: formVal.ITEM_CODE?.id,
+      itemId: formVal.ITEM_CODE?.id,
+      ITEM_GLACNO: formVal.ITEM_CODE.GL_ACNO,
       ITEM_CODE: formVal.ITEM_CODE?.ITEM_CODE,
       ITEM_TYPE: formVal.ITEM_CODE?.ITEM_TYPE,
       ITEM_NAME: formVal.ITEM_CODE?.ITEM_NAME,
-      Quantity: formVal.Quantity,
-      Rate: formVal.Rate,
-      Amount: formVal.amount,
+      ITEM_QTY: formVal.Quantity,
+      ITEM_RATE: formVal.Rate,
+      TRAN_AMOUNT: formVal.amount,
     }
-
     if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
       Swal.fire("Warning!", "Please Insert Mandatory Record for item!", "info");
     } else if (formVal.Quantity == "" || formVal.Quantity == null) {
@@ -299,9 +314,9 @@ export class DeadStockTransactionComponent implements OnInit {
       Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
     }
     else if (this.itemArr.length != 0) {
-      if (this.itemArr.some(item => item.id === object.id)) {
+      if (this.itemArr.some(item => item.id === object.itemId)) {
         this.itemArr.forEach((element) => {
-          if (element.id == object.id) {
+          if (element.id == object.itemId) {
             Swal.fire('', 'This Item is Already Exists!', 'info');
           }
         })
@@ -313,7 +328,7 @@ export class DeadStockTransactionComponent implements OnInit {
         }
         this.itemArr.push(object)
         this.resetItem()
-        this.totalAmt = this.totalAmt + parseInt(object.Amount)
+        this.totalAmt = this.totalAmt + parseInt(object.TRAN_AMOUNT)
         this.angForm.patchValue({
           Total_AMT: this.totalAmt
         })
@@ -326,7 +341,7 @@ export class DeadStockTransactionComponent implements OnInit {
       }
       this.itemArr.push(object)
       this.resetItem()
-      this.totalAmt = this.totalAmt + parseInt(object.Amount)
+      this.totalAmt = this.totalAmt + parseInt(object.TRAN_AMOUNT)
       this.angForm.patchValue({
         Total_AMT: this.totalAmt
       })
@@ -449,6 +464,54 @@ export class DeadStockTransactionComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
+  updateData() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let billDate
+    let chequeDate
+    // if (this.itemArr.length != 0) {
+    if (this.angForm.controls['Total_AMT'].value > 0) {
+      const formVal = this.angForm.value
+      const dataToSend = {
+        id: this.updateID,
+        itemArr: this.itemArr,
+        BRANCH_CODE: this.ngBranchCode,
+        TRAN_DATE: formVal.TRAN_DATE,
+        TRAN_YEAR: formVal.TRAN_YEAR,
+        // RESO_DATE: (formVal.RESOLUTION_DATE == '' || formVal.RESOLUTION_DATE == 'Invalid date' || formVal.RESOLUTION_DATE == null || formVal.RESOLUTION_DATE == undefined) ? billDate = '' : billDate = moment(formVal.RESOLUTION_DATE).format('DD/MM/YYYY'),
+        DEAD_STOCK: formVal.DEAD_STOCK,
+        AC_TYPE: formVal.AC_TYPE,
+        AC_NO: formVal.AC_NO,
+        RESO_NO: formVal.RESOLUTION_NUM,
+        NARRATION: formVal.NARRATION,
+        Total_AMT: formVal.Total_AMT,
+        USER: result.USER_NAME,
+        ACNOTYPE: this.getschemename,
+        GL_ACNO: this.GL_ACNO,
+        tranType: this.tranType,
+        depTotal: this.depTotal
+      }
+      if (this.updatecheckdata.RESO_DATE != formVal.RESOLUTION_DATE) {
+        (formVal.RESOLUTION_DATE == 'Invalid date' || formVal.RESOLUTION_DATE == '' || formVal.RESOLUTION_DATE == null) ? (billDate = '', formVal['RESOLUTION_DATE'] = billDate) : (billDate = formVal.RESOLUTION_DATE, dataToSend['RESO_DATE'] = moment(billDate).format('DD/MM/YYYY'))
+      } else {
+        dataToSend['RESO_DATE'] = formVal.RESOLUTION_DATE
+      }
+      this._service.updateData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          this.formSubmitted = false
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.resetForm()
+      this.itemArr = []
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
+  }
 
 
   // Reset Function
@@ -477,27 +540,108 @@ export class DeadStockTransactionComponent implements OnInit {
     this.resetForm();
 
   }
-  editClickHandler(id) { }
+  updatecheckdata
+  editClickHandler(id) {
+    this._service.getFormData(id).subscribe((data) => {
+      this.updatecheckdata = data
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.updateID = data.id;
+      if (data.TRAN_ENTRY_TYPE == 'SEL') {
+        this.ngtransactiontype = 'Sales'
+      }
+      if (data.TRAN_TYPE == 'CS')
+        this.isFormUpdate(2)
+      else
+        this.isFormUpdate(1)
+
+
+      this.getschemename = data.TRANSFER_ACNOTYPE
+      this.schemeedit = Number(data.TRANSFER_ACTYPE)
+      this.GL_ACNO = data.TRAN_GLACNO
+      this.tranType = data.TRAN_ENTRY_TYPE
+      if (data.TRAN_ENTRY_TYPE == 'SEL') {
+        this.tranType = 'Sales'
+      }
+      else if (data.TRAN_ENTRY_TYPE == 'BRK') {
+        this.tranType = 'Breakage'
+      }
+      else if (data.TRAN_ENTRY_TYPE == 'GIN') {
+        this.tranType = 'Gain'
+      }
+      else if (data.TRAN_ENTRY_TYPE == 'LOS') {
+        this.tranType = 'Loss'
+      }
+      else if (data.TRAN_ENTRY_TYPE == 'DPR') {
+        this.tranType = 'Depriciation'
+      }
+      else if (data.TRAN_ENTRY_TYPE == 'TRF') {
+        this.tranType = 'Transfer'
+      }
+      this.getIntroducer()
+      this.angForm.patchValue({
+        BRANCH_CODE: data.BRANCH_CODE,
+        TRAN_DATE: data.TRAN_DATE,
+        TRAN_YEAR: data.TRAN_YEAR,
+        TRANSACTION_TYPE: data.TRAN_ENTRY_TYPE,
+        DEAD_STOCK: data.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
+        AC_TYPE: Number(data.TRANSFER_ACTYPE),
+        AC_NO: data.TRANSFER_ACNO,
+        RESOLUTION_DATE: data.RESO_DATE,
+        RESOLUTION_NUM: data.RESO_NO,
+        NARRATION: data.NARRATION,
+        Total_AMT: data.TRAN_AMOUNT
+      })
+      this.totalAmt = data.TRAN_AMOUNT
+      this.itemArr = data.deadstockHead
+    })
+  }
 
   //approve account
   Approve() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    let obj = {
-      id: this.updateID,
-      user: user.id
-    }
-    this._service.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Deadstock Purchase approved successfully',
-        'success'
-      );
-      var button = document.getElementById('trigger');
-      button.click();
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
 
-    }, err => {
-      console.log('something is wrong');
-    })
+    let billDate
+    let chequeDate
+    // if (this.itemArr.length != 0) {
+    if (this.angForm.controls['Total_AMT'].value > 0) {
+      const formVal = this.angForm.value
+      const dataToSend = {
+        id: this.updateID,
+        itemArr: this.itemArr,
+        BRANCH_CODE: this.ngBranchCode,
+        TRAN_DATE: formVal.TRAN_DATE,
+        TRAN_YEAR: formVal.TRAN_YEAR,
+        DEAD_STOCK: formVal.DEAD_STOCK,
+        AC_TYPE: formVal.AC_TYPE,
+        AC_NO: formVal.AC_NO,
+        RESO_NO: formVal.RESOLUTION_NUM,
+        NARRATION: formVal.NARRATION,
+        Total_AMT: formVal.Total_AMT,
+        USER: result.USER_NAME,
+        ACNOTYPE: this.getschemename,
+        GL_ACNO: this.GL_ACNO,
+        tranType: this.tranType,
+        depTotal: this.depTotal,
+        userID: result.id
+      }
+      if (this.updatecheckdata.RESO_DATE != formVal.RESOLUTION_DATE) {
+        (formVal.RESOLUTION_DATE == 'Invalid date' || formVal.RESOLUTION_DATE == '' || formVal.RESOLUTION_DATE == null) ? (billDate = '', formVal['RESOLUTION_DATE'] = billDate) : (billDate = formVal.RESOLUTION_DATE, dataToSend['RESO_DATE'] = moment(billDate).format('DD/MM/YYYY'))
+      } else {
+        dataToSend['RESO_DATE'] = formVal.RESOLUTION_DATE
+      }
+      this.resetForm()
+      this.itemArr = []
+      this.depTotal = 0
+    }
   }
 
 
@@ -511,7 +655,7 @@ export class DeadStockTransactionComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       Swal.fire(
         'Rejected',
-        'Deadstock Purchase rejected successfully',
+        'Deadstock Transaction rejected successfully',
       );
       var button = document.getElementById('trigger');
       button.click();

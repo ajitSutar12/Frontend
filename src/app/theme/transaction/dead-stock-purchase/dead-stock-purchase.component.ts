@@ -178,7 +178,14 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.GL_ACNO = event.glacno
     this.getIntroducer()
   }
-
+  getAmount() {
+    let quantity = this.angForm.controls['Quantity'].value
+    let rate = this.angForm.controls['Rate'].value
+    let amount = quantity * rate
+    this.angForm.patchValue({
+      amount: amount
+    })
+  }
 
   //get account no according scheme for introducer
   getIntroducer() {
@@ -202,14 +209,16 @@ export class DeadStockPurchaseComponent implements OnInit {
   //add items details in array
   addItem() {
     const formVal = this.angForm.value;
+    
     let object = {
-      id: formVal.ITEM_CODE?.id,
+      itemId: formVal.ITEM_CODE?.id,
+      ITEM_GLACNO: formVal.ITEM_CODE.GL_ACNO,
       ITEM_CODE: formVal.ITEM_CODE?.ITEM_CODE,
       ITEM_TYPE: formVal.ITEM_CODE?.ITEM_TYPE,
       ITEM_NAME: formVal.ITEM_CODE?.ITEM_NAME,
-      Quantity: formVal.Quantity,
-      Rate: formVal.Rate,
-      Amount: formVal.amount,
+      ITEM_QTY: formVal.Quantity,
+      ITEM_RATE: formVal.Rate,
+      TRAN_AMOUNT: formVal.amount,
     }
 
     if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
@@ -222,9 +231,9 @@ export class DeadStockPurchaseComponent implements OnInit {
       Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
     }
     else if (this.itemArr.length != 0) {
-      if (this.itemArr.some(item => item.id === object.id)) {
+      if (this.itemArr.some(item => item.id === object.itemId)) {
         this.itemArr.forEach((element) => {
-          if (element.id == object.id) {
+          if (element.id == object.itemId) {
             Swal.fire('', 'This Item is Already Exists!', 'info');
           }
         })
@@ -232,19 +241,11 @@ export class DeadStockPurchaseComponent implements OnInit {
       else {
         this.itemArr.push(object)
         this.resetItem()
-        // this.totalAmt = this.totalAmt + parseInt(object.Amount)
-        // this.angForm.patchValue({
-        //   Total_AMT: this.totalAmt
-        // })
       }
     }
     else {
       this.itemArr.push(object)
       this.resetItem()
-      // this.totalAmt = this.totalAmt + parseInt(object.Amount)
-      // this.angForm.patchValue({
-      //   Total_AMT: this.totalAmt
-      // })
     }
 
   }
@@ -385,6 +386,68 @@ export class DeadStockPurchaseComponent implements OnInit {
     }
   }
 
+  updateData() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let billDate
+    let chequeDate
+    // if (this.itemArr.length != 0) {
+    if (this.angForm.controls['Total_AMT'].value > 0) {
+      const formVal = this.angForm.value
+      const dataToSend = {
+        id: this.updateID,
+        itemArr: this.itemArr,
+        BRANCH_CODE: this.ngBranchCode,
+        TRAN_DATE: formVal.TRAN_DATE,
+        TRAN_YEAR: formVal.TRAN_YEAR,
+        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+        BILL_NUM: formVal.BILL_NUM,
+        DEAD_STOCK: formVal.DEAD_STOCK,
+        AC_TYPE: formVal.AC_TYPE,
+        AC_NO: formVal.AC_NO,
+        CHEQUE_NUM: formVal.CHEQUE_NUM,
+        NARRATION: formVal.NARRATION,
+        CGST_AMT: formVal.CGST_AMT,
+        SGST_AMT: formVal.SGST_AMT,
+        IGST_AMT: formVal.IGST_AMT,
+        GST_NO: formVal.GST_NO,
+        Total_AMT: formVal.Total_AMT,
+        USER: result.USER_NAME,
+        ACNOTYPE: this.getschemename,
+        GL_ACNO: this.GL_ACNO
+      }
+
+      if (this.updatecheckdata.SUPPLIER_BILL_DATE != formVal.BILL_DATE) {
+        (formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == '' || formVal.BILL_DATE == null) ? (billDate = '', formVal['BILL_DATE'] = billDate) : (billDate = formVal.BILL_DATE, dataToSend['BILL_DATE'] = moment(billDate).format('DD/MM/YYYY'))
+      } else {
+        dataToSend['BILL_DATE'] = formVal.BILL_DATE
+      }
+      if (this.updatecheckdata.CHEQUE_DATE != formVal.CHEQUE_DATE) {
+        (formVal.CHEQUE_DATE == 'Invalid date' || formVal.CHEQUE_DATE == '' || formVal.CHEQUE_DATE == null) ? (chequeDate = '', formVal['CHEQUE_DATE'] = chequeDate) : (chequeDate = formVal.CHEQUE_DATE, dataToSend['CHEQUE_DATE'] = moment(chequeDate).format('DD/MM/YYYY'))
+      } else {
+        dataToSend['CHEQUE_DATE'] = formVal.CHEQUE_DATE
+      }
+
+      this._service.updateData(dataToSend).subscribe(
+        (data) => {
+
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          this.formSubmitted = false
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.resetForm()
+      this.itemArr = []
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
+
+
+  }
+
   // Reset Function
   resetForm() {
     this.createForm();
@@ -403,9 +466,10 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.schemeedit = null
     this.accountedit = null
   }
-
+  updatecheckdata
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
+      this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
         this.updateShow = true;
@@ -422,11 +486,15 @@ export class DeadStockPurchaseComponent implements OnInit {
       else if (data.TRAN_TYPE == 'TR') {
         this.isFormA(1)
       }
+      this.schemeedit = Number(data.TRANSFER_ACTYPE)
+      this.ngBranchCode = data.BRANCH_CODE
+      this.getschemename = data.TRANSFER_ACNOTYPE
+      this.getIntroducer()
       this.angForm.patchValue({
         Total_AMT: data.TRAN_AMOUNT,
         ACNOTYPE: data.TRANSFER_ACNOTYPE,
-        AC_TYPE: data.TRANSFER_ACTYPE,
-        AC_NO: data.TRANSFER_ACNO,
+        AC_TYPE: Number(data.TRANSFER_ACTYPE),
+        AC_NO: Number(data.TRANSFER_ACNO),
         TRAN_GLACNO: data.ACNOTYPE == 'GL' ? data.AC_NO : data.GL_ACNO,
         CHEQUE_DATE: data.CHEQUE_DATE,
         CHEQUE_NUM: data.CHEQUE_NO,
@@ -443,6 +511,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         TRAN_DATE: data.TRAN_DATE,
         BRANCH_CODE: data.BRANCH_CODE
       })
+      this.itemArr = data.deadstockHead
     })
 
   }
@@ -450,23 +519,63 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //approve account
   Approve() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    let obj = {
-      id: this.updateID,
-      user: user.id
-    }
-    this._service.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Deadstock Purchase approved successfully',
-        'success'
-      );
-      var button = document.getElementById('trigger');
-      button.click();
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let billDate
+    let chequeDate
+    // if (this.itemArr.length != 0) {
+    if (this.angForm.controls['Total_AMT'].value > 0) {
+      const formVal = this.angForm.value
+      const dataToSend = {
+        id: this.updateID,
+        itemArr: this.itemArr,
+        BRANCH_CODE: this.ngBranchCode,
+        TRAN_DATE: formVal.TRAN_DATE,
+        TRAN_YEAR: formVal.TRAN_YEAR,
+        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+        BILL_NUM: formVal.BILL_NUM,
+        DEAD_STOCK: formVal.DEAD_STOCK,
+        AC_TYPE: formVal.AC_TYPE,
+        AC_NO: formVal.AC_NO,
+        CHEQUE_NUM: formVal.CHEQUE_NUM,
+        NARRATION: formVal.NARRATION,
+        CGST_AMT: formVal.CGST_AMT,
+        SGST_AMT: formVal.SGST_AMT,
+        IGST_AMT: formVal.IGST_AMT,
+        GST_NO: formVal.GST_NO,
+        Total_AMT: formVal.Total_AMT,
+        USER: result.USER_NAME,
+        ACNOTYPE: this.getschemename,
+        GL_ACNO: this.GL_ACNO,
+        userID: result.id
+      }
 
-    }, err => {
-      console.log('something is wrong');
-    })
+      if (this.updatecheckdata.SUPPLIER_BILL_DATE != formVal.BILL_DATE) {
+        (formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == '' || formVal.BILL_DATE == null) ? (billDate = '', formVal['BILL_DATE'] = billDate) : (billDate = formVal.BILL_DATE, dataToSend['BILL_DATE'] = moment(billDate).format('DD/MM/YYYY'))
+      } else {
+        dataToSend['BILL_DATE'] = formVal.BILL_DATE
+      }
+      if (this.updatecheckdata.CHEQUE_DATE != formVal.CHEQUE_DATE) {
+        (formVal.CHEQUE_DATE == 'Invalid date' || formVal.CHEQUE_DATE == '' || formVal.CHEQUE_DATE == null) ? (chequeDate = '', formVal['CHEQUE_DATE'] = chequeDate) : (chequeDate = formVal.CHEQUE_DATE, dataToSend['CHEQUE_DATE'] = moment(chequeDate).format('DD/MM/YYYY'))
+      } else {
+        dataToSend['CHEQUE_DATE'] = formVal.CHEQUE_DATE
+      }
+      this._service.approve(dataToSend).subscribe(data => {
+        Swal.fire(
+          'Approved',
+          'Deadstock Purchase approved successfully',
+          'success'
+        );
+        var button = document.getElementById('trigger');
+        button.click();
+
+      }, err => {
+        console.log('something is wrong');
+      })
+      this.resetForm()
+      this.itemArr = []
+    }
+
   }
 
 
@@ -483,6 +592,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         'Deadstock Purchase rejected successfully',
       );
       var button = document.getElementById('trigger');
+      this.resetForm()
       button.click();
     }, err => {
       console.log('something is wrong');

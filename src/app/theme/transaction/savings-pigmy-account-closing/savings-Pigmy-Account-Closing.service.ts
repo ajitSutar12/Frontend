@@ -34,7 +34,7 @@ export class SavingPigmyAccountClosingService {
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http
-      .get(this.url + "/savings-pigmy-account-closing/" + id)
+      .get(this.url + "/saving-pigmy-account-closing/" + id)
       .pipe(catchError(this.handleError));
   }
   //Updation Operation
@@ -48,18 +48,29 @@ export class SavingPigmyAccountClosingService {
       .pipe(catchError(this.handleError));
   }
 
-  getSchemeCodeList():Observable<any>{
-    return this.http.get(this.url+'/scheme-parameters')
+  getSchemeCodeList(): Observable<any> {
+    return this.http.get(this.url + '/scheme-parameters')
   }
 
   //get narration data
-  getNarrationMaster():Observable<any>{
-    return this.http.get(this.url+'/narration')
+  getNarrationMaster(): Observable<any> {
+    return this.http.get(this.url + '/narration')
   }
 
   //get syspara 
-  getSysParaData():Observable<any>{
-    return this.http.get(this.url+'/system-master-parameters');
+  getSysParaData(): Observable<any> {
+    return this.http.get(this.url + '/system-master-parameters');
+  }
+
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/saving-pigmy-account-closing/approve', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/saving-pigmy-account-closing/reject', data).pipe(catchError(this.handleError));
   }
 
 }

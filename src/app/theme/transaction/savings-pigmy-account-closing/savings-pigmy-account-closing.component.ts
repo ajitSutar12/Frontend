@@ -30,7 +30,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   formSubmitted = false;
   //api
   url = environment.base_url;
-
+  newbtnShow: boolean = false;
   transferGrid
   jointShowButton: boolean = true
   jointUpdateShow: boolean = false
@@ -52,7 +52,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   ngglacno: any = null;
   selectedScheme: any = null
   multigrid = [];
-
+  updateID: number = 0;
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -564,21 +564,75 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
   //function for edit button clicked
-  editClickHandler(info: any): void {
-    // this.message.BranchCode = info.SchemeCode;
-    // this.message.OtherChargesGLAccount = info.OtherChargesGLAccount;
-    // this.message.TokenNo = info.TokenNo;
-    // this.message.InterestRate = info.InterestRate;
-    // this.message.TotalInterest = info.TotalInterest;
-    // this.message.OtherChargesAmount = info.OtherChargesAmount;
-    // this.message.SchemeCode = info.SchemeCode;
-    // this.message.AccountNumber = info.AccountNumber;
-    // this.message.HOSubGL = info.HOSubGL;
-    // this.message.Amount = info.Amount;
-    // this.message.AccountName = info.AccountName;
+  editClickHandler(id) {
+    this._service.getFormData(id).subscribe((data) => {
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.updateID = data.id;
+      this.angForm.patchValue({
+        branch_code: data.BRANCH_CODE,
+      })
+    })
 
-    // this.showButton = false;
-    // this.updateShow = true;
+  }
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.createForm()
+  }
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving and Pigmy Account Closing approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving and Pigmy Account Closing rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 
   //function for delete button clicked

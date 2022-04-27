@@ -93,6 +93,7 @@ export class PassdeadStockPurchaseComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.deadStockPurchase = resp.data;
+            console.log('table data',this.deadStockPurchase)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
