@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { BatchVoucherService } from './batch-voucher.service';
 import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownService/company-group-master-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
-
+import * as moment from 'moment';
 
 
 @Component({
@@ -26,12 +26,12 @@ export class BatchVoucherComponent implements OnInit {
   company_code: any//From companygroupmaster
   company_data: any;
   gridData: any;
-  company_main_data:any;
+  company_main_data: any;
 
   selectedBranch: any;
   selectCompanyCode: any;
-  totalAmt:number = 0;
-  filterArray:any;
+  totalAmt: number = 0;
+  filterArray: any;
   narrationList: any;
   particulars: any;
   dtTrigger: any;
@@ -53,12 +53,12 @@ export class BatchVoucherComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-   this.createForm()
+    this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
 
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-  //debugger
+      //debugger
       this.branch_code = data;
       this.selectedBranch = user.branchId;
     })
@@ -79,7 +79,7 @@ export class BatchVoucherComponent implements OnInit {
     })
   }
 
-  createForm(){
+  createForm() {
     this.angForm = this.fb.group({
       branch_code: ['', [Validators.required]],
       company_code: ['', [Validators.required]],
@@ -89,55 +89,57 @@ export class BatchVoucherComponent implements OnInit {
       voucherAmount: [''],
       particulars: [''],
       TotalAmt: [''],
-      date:['']
+      date: [''],
+      Scheme: [''],
+      SchemeACNO: [''],
     })
   }
- //Get Company Code Details
- getCompanyData(ele) {
-  this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
-    this.company_data = data;
-  }, err => {
-    console.log(err);
-  })
+  //Get Company Code Details
+  getCompanyData(ele) {
+    this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
+      this.company_data = data;
+    }, err => {
+      console.log(err);
+    })
 
-  this.CompanyGroupMasterDropdownService.getCompanyGridData(this.selectCompanyCode).subscribe(data => {
-    this.company_main_data = data[0];
-    this.gridData = data[0].comapnylink;
-    this.filterArray = data[0].comapnylink;
-    this.filterArray.forEach(element => {
-      this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+    this.CompanyGroupMasterDropdownService.getCompanyGridData(this.selectCompanyCode).subscribe(data => {
+      this.company_main_data = data[0];
+      this.gridData = data[0].comapnylink;
+      this.filterArray = data[0].comapnylink;
+      this.filterArray.forEach(element => {
+        this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+      });
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  //filter object
+  filterObject(ele, type) {
+    console.log(this.gridData);
+    let matchArray = new Array()
+    this.filterArray = [];
+    this.gridData.forEach(element => {
+      if (type == 'AC_TYPE') {
+        if (JSON.stringify(element.AC_TYPE).includes(ele.target.value)) {
+          this.filterArray.push(element);
+        }
+      } else {
+        if (JSON.stringify(element.AC_NO).includes(ele.target.value)) {
+          this.filterArray.push(element);
+        }
+      }
+
     });
-  }, err => {
-    console.log(err);
-  })
-}
-
-//filter object
-filterObject(ele, type) {
-  console.log(this.gridData);
-  let matchArray = new Array()
-  this.filterArray = [];
-  this.gridData.forEach(element => {
-    if(type == 'AC_TYPE'){
-      if(JSON.stringify(element.AC_TYPE).includes(ele.target.value)){
-        this.filterArray.push(element);
-      }
-    }else{
-      if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
-        this.filterArray.push(element);
-      }
-    }
-    
-  });
-}
+  }
 
 
-  changeAmount(ele,i){
-// debugger
+  changeAmount(ele, i) {
+    // debugger
     this.filterArray[i].DEFAULT_AMOUNT = Number(ele.target.value);
     this.totalAmt = 0;
     this.filterArray.forEach(element => {
-  //debugger
+      //debugger
       this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
     });
   }
@@ -148,30 +150,117 @@ filterObject(ele, type) {
     el.click();
   }
 
-  Submit(){
-//debugger
+  Submit() {
+    //debugger
     var obj = this.angForm.value;
-    if(Number(obj.voucherAmount) != Number(this.totalAmt)){
+    if (Number(obj.voucherAmount) != Number(this.totalAmt)) {
       Swal.fire('Error!', 'Voucher amount not equal to Total Amount', 'error');
     }
-
+    let cheqDate
+    const formVal = this.angForm.value
     //create a object
     let dataObj = this.angForm.value;
-    dataObj['gridData'] = this.filterArray;
+    dataObj['ChequeDate'] = (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date' || formVal.ChequeDate == null || formVal.ChequeDate == undefined) ? cheqDate = '' : cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY'),
+      dataObj['gridData'] = this.filterArray;
     dataObj['schemeData'] = this.company_data;
     dataObj['companyData'] = this.company_main_data;
     dataObj['user'] = JSON.parse(localStorage.getItem('user'));
 
-    this._service.submitData(dataObj).subscribe(data=>{
+    this._service.submitData(dataObj).subscribe(data => {
 
-    },err=>{
+    }, err => {
       console.log(err);
     })
   }
-  editClickHandler(id) {}
+  updatecheckdata
+  public visibleAnimate = false;
+  public visible = false;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateID
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+  editClickHandler(id) {
+    this._service.getFormData(id).subscribe((data) => {
+      this.updateID = data.id
+      this.updatecheckdata = data
+      if (data.TRAN_STATUS == 0) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.selectedBranch = data.BRANCH_CODE
+      this.angForm.patchValue({
+        date: data.TRAN_DATE,
+        Scheme: data.TRAN_ACNOTYPE,
+        SchemeACNO: data.TRAN_ACNO,
+        chequeNo: data.CHEQUE_NO,
+        ChequeDate: data.CHEQUE_DATE,
+        voucherAmount: data.TRAN_AMOUNT,
+
+
+      })
+
+    })
+  }
+
+  updateData() {
+
+  }
+
+  //approve account
+  Approve() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Batch Voucher approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  //reject account
+  reject() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Batch Voucher rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  addNewData() {
+    this.createForm()
+  }
+
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
       dtInstance.columns().every(function () {

@@ -86,6 +86,9 @@ export class CentralisedPassingComponent implements OnInit {
         this.dead_stock_transaction = data.deadstockTransaction
         this.saving_pigmy_closing = data.savingPigmyClosingTran
         this.term_deposit_ac_renewal = data.termDepositRenewCount
+        this.voucher = data.voucherPassing
+        this.batch_voucher = data.batchVoucherPassing
+        this.multi_voucher = data.multiVoucherPassing
       })
     }));
   }
