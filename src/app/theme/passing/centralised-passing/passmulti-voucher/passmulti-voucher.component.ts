@@ -88,7 +88,7 @@ export class PassmultiVoucherComponent implements OnInit {
         this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/multi-voucher/passing',
+            this.url + '/voucher/multiPassing',
             dataTableParameters
           ).subscribe(resp => {
             this.multiVoucher = resp.data;

@@ -49,4 +49,10 @@ export class MultiVoucherService {
     checkAccountCloseOrNot(data): Observable<any> {
         return this.http.post(this.url + '/voucher/checkAccountCloseDetails', data);
     }
+    // For append data
+    getFormData(id: any): Observable<any> {
+        return this.http
+            .get(this.url + "/voucher/" + id)
+            .pipe(catchError(this.handleError));
+    }
 }
