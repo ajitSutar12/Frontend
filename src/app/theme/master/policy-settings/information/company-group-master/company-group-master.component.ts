@@ -114,7 +114,6 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private _service: VoucherEntryService,
     private ownbranchMasterService: OwnbranchMasterService,
-
     private config: NgSelectConfig,) { }
 
 
@@ -226,9 +225,6 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
       this.branchCode = result.branch.CODE
 
     }
-    // this.subSalaryDivision.getSalaryMasterList().pipe(first()).subscribe(data => {
-    //   this.division = data;
-    // })
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
@@ -456,7 +452,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   acno: any = null
-  obj: any
+  obj: any 
   account: any[]
   ngacno: any
 

@@ -280,7 +280,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.code = this.scheme[0].value
       this.schemeCode = this.scheme[0].name
     })
-
+ 
     this.cityMasterService
       .getcityList()
       .pipe(first())

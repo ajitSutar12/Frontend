@@ -13,7 +13,7 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { DataTableDirective } from "angular-datatables";
 class DataTableResponse {
   data: any[];
-  draw: number;
+  draw: number; 
   recordsFiltered: number;
   recordsTotal: number;
 }

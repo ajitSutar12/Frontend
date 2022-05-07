@@ -18,7 +18,25 @@ export class SchemeTypeDropdownService {
         { value: 'SH', label: 'SH' },
         { value: 'TD', label: 'TD' },
     ];
-
+    public static readonly PLAYER_TWO: Array<IOption> = [
+        
+        { value: 'CA', label: 'CA' },
+        { value: 'PG', label: 'PG' },
+        { value: 'SB', label: 'SB' },
+        { value: 'TD', label: 'TD' },
+    ];
+    public static readonly PLAYER_THREE: Array<IOption> = [
+        
+        { value: 'IV', label: 'IV' },
+        { value: 'GL', label: 'GL' },
+        { value: 'AG', label: 'AG' },
+    ];
+    public static readonly PLAYER_FOUR: Array<IOption> = [
+        
+        { value: 'LN', label: 'LN' },
+        { value: 'CC', label: 'CC' },
+        { value: 'DS', label: 'DS' },
+    ];
     getCharacters(): Array<IOption> {
         return this.cloneOptions(SchemeTypeDropdownService.PLAYER_ONE);
     }
@@ -26,7 +44,24 @@ export class SchemeTypeDropdownService {
     loadCharacters(): Observable<Array<IOption>> {
         return this.loadOptions(SchemeTypeDropdownService.PLAYER_ONE);
     }
-
+    get_CAPGSBTD_Characters(): Array<IOption> {
+        return this.cloneOptions(SchemeTypeDropdownService.PLAYER_TWO);
+    }
+    load_CAPGSBTD_Characters(): Observable<Array<IOption>> {
+        return this.loadOptions(SchemeTypeDropdownService.PLAYER_TWO);
+    }
+    get_IVGLAG_Characters(): Array<IOption> {
+        return this.cloneOptions(SchemeTypeDropdownService.PLAYER_THREE);
+    }
+    load_IVGLAG_Characters(): Observable<Array<IOption>> {
+        return this.loadOptions(SchemeTypeDropdownService.PLAYER_THREE);
+    }
+    get_LNCCDS_Characters(): Array<IOption> {
+        return this.cloneOptions(SchemeTypeDropdownService.PLAYER_FOUR);
+    }
+    load_LNCCDS_Characters(): Observable<Array<IOption>> {
+        return this.loadOptions(SchemeTypeDropdownService.PLAYER_FOUR);
+    }
     getCharactersWithDisabled(): Array<IOption> {
         const characters: Array<IOption> = this.cloneOptions(SchemeTypeDropdownService.PLAYER_ONE);
         characters[1].disabled = true;

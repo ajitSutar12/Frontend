@@ -6,6 +6,7 @@ import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { BnkTrialBalComponent } from './bnk-trial-bal/bnk-trial-bal.component';
 @NgModule({
   imports: [
     CommonModule,

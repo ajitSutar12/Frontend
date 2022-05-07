@@ -643,6 +643,28 @@ export class DeadStockTransactionComponent implements OnInit {
       this.depTotal = 0
     }
   }
+  // editClickHandler(id) { }
+
+  // //approve account
+  // Approve() {
+  //   let user = JSON.parse(localStorage.getItem('user'));
+  //   let obj = {
+  //     id: this.updateID,
+  //     user: user.id
+  //   }
+  //   this._service.approve(obj).subscribe(data => {
+  //     Swal.fire(
+  //       'Approved',
+  //       'Deadstock Purchase approved successfully',
+  //       'success'
+  //     );
+  //     var button = document.getElementById('trigger');
+  //     button.click();
+
+  //   }, err => {
+  //     console.log('something is wrong');
+  //   })
+  // }
 
 
   //reject account
@@ -655,7 +677,7 @@ export class DeadStockTransactionComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       Swal.fire(
         'Rejected',
-        'Deadstock Transaction rejected successfully',
+        'Deadstock Purchase rejected successfully',
       );
       var button = document.getElementById('trigger');
       button.click();

@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>General account Statement Printing </h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="BRANCH">Branch</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        (change)="getAccountList($event)" placeholder="Scheme Code">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
+                                        formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
+                                        <ng-option *ngFor="let values of fromAC" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
+                                    <label for="FROM_AC">From Account Number<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
+                                        bindLabel="label" title="Compulsory Selection" 
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
+                                        <ng-option *ngFor="let values of ToAC" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
+                                    <label for="TO_AC">To Account Number<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TO_AC'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="submit($event)">View</button>      
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="card-block" *ngIf="showRepo">
+                        <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -31,7 +31,6 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   formSubmitted = false;
   //api
   url = environment.base_url;
-
   transferGrid
   jointShowButton: boolean = true
   jointUpdateShow: boolean = false
@@ -53,7 +52,6 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   ngglacno: any = null;
   selectedScheme: any = null
   multigrid = [];
-
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
