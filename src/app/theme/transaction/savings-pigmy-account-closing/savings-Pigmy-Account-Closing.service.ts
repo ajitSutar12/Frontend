@@ -72,4 +72,15 @@ export class SavingPigmyAccountClosingService {
   reject(data: any): Observable<any> {
     return this.http.post(this.url + '/saving-pigmy-account-closing/reject', data).pipe(catchError(this.handleError));
   }
+
+  // //approve master
+  // approve(data: any): Observable<any> {
+  //   return this.http.post(this.url + '/saving-pigmy-account-closing/approve', data).pipe(catchError(this.handleError));
+  // }
+
+
+  // //reject master
+  // reject(data: any): Observable<any> {
+  //   return this.http.post(this.url + '/saving-pigmy-account-closing/reject', data).pipe(catchError(this.handleError));
+  // }
 }

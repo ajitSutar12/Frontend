@@ -792,10 +792,6 @@ export class BalanceUpdationComponent implements OnInit {
 
   }
 
-//   onScroll () {
-//     console.log('scrolled!!')
-// }
-
   //filter object
 filterObject(ele, type) {
   console.log(this.arrTable);

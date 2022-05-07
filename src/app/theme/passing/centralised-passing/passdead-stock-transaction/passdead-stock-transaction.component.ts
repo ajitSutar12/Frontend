@@ -115,10 +115,10 @@ export class PassdeadStockTransactionComponent implements OnInit {
           data: 'TRAN_AMOUNT'
         },
 
-        // {
-        //   title: 'Supplier Name ',
-        //   data: 'TRAN_SUPPLIER_NAME'
-        // },
+        {
+          title: 'Supplier Name ',
+          data: 'TRAN_SUPPLIER_NAME'
+        },
         {
           title: 'Narration',
           data: 'NARRATION'

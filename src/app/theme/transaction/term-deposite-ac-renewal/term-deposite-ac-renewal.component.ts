@@ -199,6 +199,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     })
   }
 
+ 
+
   //Customer change function
   TotalDays: number;
   getVoucherData() {

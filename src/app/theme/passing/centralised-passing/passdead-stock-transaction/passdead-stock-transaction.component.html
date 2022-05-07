@@ -18,8 +18,7 @@
                                                     <tr *ngFor="let data of deadStockTransactionData">
                                                         <td>
                                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                                placement="bottom" ngbTooltip="Edit"
-                                                                (click)="modalLarge.show();getDeadStockTransactionData(data)"></span>
+                                          placement="bottom" ngbTooltip="Edit" (click)="modalLarge.show();getDeadStockTransactionData(data)"></span>
                                                         </td>
                                                         <td [ngClass]="data.TRAN_NO === '' ? 'td_center' : 'td_right'">
                                                             {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
