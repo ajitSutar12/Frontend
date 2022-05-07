@@ -23,7 +23,7 @@ export class SavingPigmyAccountClosingService {
   constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/savings-pigmy-account-closing/insert", data).pipe(
+    return this.http.post(this.url + "/saving-pigmy-account-closing/insert", data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
@@ -39,12 +39,12 @@ export class SavingPigmyAccountClosingService {
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/savings-pigmy-account-closing/update", data);
+    return this.http.put(this.url + "/saving-pigmy-account-closing/update", data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http
-      .delete(this.url + "/savings-pigmy-account-closing/delete/" + id)
+      .delete(this.url + "/saving-pigmy-account-closing/delete/" + id)
       .pipe(catchError(this.handleError));
   }
 
@@ -72,5 +72,4 @@ export class SavingPigmyAccountClosingService {
   reject(data: any): Observable<any> {
     return this.http.post(this.url + '/saving-pigmy-account-closing/reject', data).pipe(catchError(this.handleError));
   }
-
 }

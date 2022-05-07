@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: SavingsPigmyAccountClosingComponent,
     data: {
-      title: 'Saving-Pigmy Account Closing',
+      title: 'SavingsPigmyAccountClosing',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

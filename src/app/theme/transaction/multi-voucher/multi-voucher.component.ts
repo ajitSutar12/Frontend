@@ -176,8 +176,6 @@ export class MultiVoucherComponent implements OnInit {
 
     //get syspara details
     this._service.getSysParaData().subscribe(data => {
-      debugger
-      // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
     })
 
@@ -406,6 +404,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   submit() {
+    console.log('submit data',this.mainMaster)
     this._service.insertVoucher(this.mainMaster).subscribe(data => {
       // this.getVoucherData();
       Swal.fire('Success!', 'Voucher update Successfully !', 'success');
@@ -618,8 +617,9 @@ export class MultiVoucherComponent implements OnInit {
   updateID
 
   editClickHandler(id) {
+  
     this._service.getFormData(id).subscribe((data) => {
-      this.updateID = data.id
+      this.updateID = data.TRAN_NO
       console.log('edit',data)
       this.updatecheckdata = data
       if (data.TRAN_STATUS == 0) {
@@ -631,6 +631,57 @@ export class MultiVoucherComponent implements OnInit {
         this.updateShow = false;
         this.newbtnShow = true;
       }
+       this.mainMaster=data
+      this.angForm.patchValue({
+
+      })
     })
   }
+
+  updateData() {
+
+  }
+
+  //approve account
+  Approve() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Multi Voucher approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  //reject account
+  reject() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Multi Voucher rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  addNewData() {
+    this.createForm()
+  }
+
 }

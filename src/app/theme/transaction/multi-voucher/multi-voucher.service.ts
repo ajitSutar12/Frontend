@@ -50,9 +50,10 @@ export class MultiVoucherService {
         return this.http.post(this.url + '/voucher/checkAccountCloseDetails', data);
     }
     // For append data
-    getFormData(id: any): Observable<any> {
-        return this.http
-            .get(this.url + "/voucher/" + id)
-            .pipe(catchError(this.handleError));
+    getFormData(id): Observable<any> {
+        console.log(id,'id')
+        // return this.http.post(this.url + '/voucher/editMulti', id);
+        return this.http.get(this.url + "/voucher/editMulti/" + id).pipe(catchError(this.handleError));
+
     }
 }
