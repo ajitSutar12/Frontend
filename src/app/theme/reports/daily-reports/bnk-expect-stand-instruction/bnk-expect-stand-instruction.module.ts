@@ -13,6 +13,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkExpectStandInstructionComponent } from './bnk-expect-stand-instruction.component';
 import {BnkExpectStandInstructionRoutingModule} from './bnk-expect-stand-instruction-routing.module'
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -40,6 +41,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     },
     SystemMasterParametersService,
+    OwnbranchMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

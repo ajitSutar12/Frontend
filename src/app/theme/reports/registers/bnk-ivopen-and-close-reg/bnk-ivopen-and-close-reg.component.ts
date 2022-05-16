@@ -38,6 +38,7 @@ allScheme: any[];
   ToAC: any;
   ngfromac: any;
   ngtoac: any;
+  showRepo: boolean = false;
 constructor(
   private fb: FormBuilder,
   private http: HttpClient,
@@ -97,11 +98,13 @@ View(event){
   event.preventDefault();
   this.formSubmitted = true;
   if (this.angForm.valid) {
-  // this.showRepo = true;
+   this.showRepo = true;
   let obj = this.angForm.value
-  let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-  let scheme = obj.S_ACNOTYPE
-  const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+  let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  let BRANCH_CODE = obj.BRANCH_CODE
+  let GROUP_BY = obj.GROUP_BY
+  const url = "http://localhost/NewReport/report-code/Report/examples/InvestRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "'  &BRANCH_CODE='" + BRANCH_CODE + "' ";
   console.log(url);
   this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   // let ageCaldate

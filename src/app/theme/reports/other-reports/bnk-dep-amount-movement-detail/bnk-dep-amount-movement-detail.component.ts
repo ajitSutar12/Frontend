@@ -106,14 +106,15 @@ export class BnkDepAmountMovementDetailComponent implements OnInit {
   src: any;
   submit(event) {
     debugger
-    this.showRepo = true;
+    // this.showRepo = true;
     let obj = this.angForm.value
     let startDate = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
     let enddate = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
     let scheme = obj.S_ACNOTYPE
     const url = "http://localhost/NewReport/report-code/Report/examples/DepositCashAmt.php?startDate='" + startDate + "'&enddate='" + enddate + "'&scheme='" + scheme + "'&";
     console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    window.open(url, '_blank');
+    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     // let ageCaldate
 
     event.preventDefault();

@@ -57,7 +57,7 @@ export class BnkTrialBalComponent implements OnInit {
   src:any;
   submit(event) {
     debugger
-    this.showRepo = true;
+    // this.showRepo = true;
     let obj = this.angForm.value
     let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
     let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
@@ -65,6 +65,7 @@ export class BnkTrialBalComponent implements OnInit {
     const url="http://localhost/NewReport/report-code/Report/examples/TrialBal.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
     console.log(url);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    window.open(url, '_blank');
     // let ageCaldate
 
     // event.preventDefault();

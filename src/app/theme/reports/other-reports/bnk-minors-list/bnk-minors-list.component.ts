@@ -118,19 +118,23 @@ export class BnkMinorsListComponent implements OnInit {
 
 
   src: any;
+  reportWindow 
   submit(event) {
     debugger
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
-    this.showRepo = true;
+    // this.showRepo = true;
     let obj = this.angForm.value
-    let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
+    let date =obj.MINAGECAl_DATE==this.defaultDate?obj.MINAGECAl_DATE: moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
+    console.log(date);
     let scheme = obj.S_ACNOTYPE
     let Branch = obj.BRANCH_CODE
     const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='"+date+"'&scheme='"+scheme+"'&Branch='"+Branch+"'&";
     console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  
+    this.reportWindow=window.open(url, '_blank');
     // let ageCaldate
     }
     else {
@@ -180,6 +184,7 @@ export class BnkMinorsListComponent implements OnInit {
 
   close() {
     this.resetForm()
+    this.reportWindow=window.close();
   }
 
   // Reset Function

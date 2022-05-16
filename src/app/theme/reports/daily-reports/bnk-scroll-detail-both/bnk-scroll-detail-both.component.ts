@@ -52,16 +52,18 @@ export class BnkScrollDetailBothComponent implements OnInit {
     this.formSubmitted = true;
     if (this.angForm.valid) {
       console.log(this.angForm.value);
-    this.showRepo = true;
+    // this.showRepo = true;
 
     let obj = this.angForm.value
-    // let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    // let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
     
 
-    // const url="http://localhost/NewReport/report-code/Report/examples/DeadstockBalanceList.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
+     const url="http://localhost/NewReport/report-code/Report/examples/DeadstockBalanceList.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
     // console.log(url);
     // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+    window.open(url, '_blank');
   }else {
     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
   }

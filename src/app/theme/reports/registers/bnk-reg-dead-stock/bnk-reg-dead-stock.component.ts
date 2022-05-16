@@ -43,6 +43,7 @@ export class BnkRegDeadStockComponent implements OnInit {
     { id: 6, name: "Loss" },
     { id: 7, name: "Transfer" },
   ];
+  showRepo: boolean = false;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -59,8 +60,8 @@ export class BnkRegDeadStockComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      START_AC_NO: ['', [Validators.required]],
-      END_AC_NO: ['', [Validators.required]],
+      START_AC_NO: [''],
+      END_AC_NO: [''],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       GROUP_BY: ['', [Validators.required]],
@@ -92,11 +93,13 @@ export class BnkRegDeadStockComponent implements OnInit {
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
-    // this.showRepo = true;
+     this.showRepo = true;
     let obj = this.angForm.value
-    let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-    let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+    let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let BRANCH_CODE = obj.BRANCH_CODE
+    // const url = "http://localhost/NewReport/report-code/Report/examples/DeadStoackRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "'  &BRANCH_CODE='" + BRANCH_CODE + "'";
+    const url = "http://localhost/NewReport/report-code/Report/examples/DeadStoackRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "' ";
     console.log(url);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     // let ageCaldate

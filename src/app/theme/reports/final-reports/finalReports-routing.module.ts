@@ -17,10 +17,10 @@ const routes: Routes = [
         path: 'BnkTrialBal',
         loadChildren: () => import('./bnk-trial-bal/bnk-trial-bal.module').then(m => m.BnkTrialBalModule)
       },
-      // {
-      //   path: 'BnkNomineeList',
-      //   loadChildren: () => import('./bnk-nominee-list/bnk-nominee-list.module').then(m => m.BnkNomineeListModule)
-      // },
+      {
+        path: 'BnkTrialBaldetail',
+        loadChildren: () => import('./bnk-trial-baldetail/bnk-trial-baldetail.module').then(m => m.BnkTrialBaldetailModule)
+      },
       // {
       //   path: 'BnkGuaranterList',
       //   loadChildren: () => import('./bnk-guaranter-list/bnk-guaranter-list.module').then(m => m.BnkGuaranterListModule)

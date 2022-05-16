@@ -69,7 +69,7 @@ schemeType: string = 'TD'
   src:any;
   submit(event) {
     debugger
-    this.showRepo = true;
+    // this.showRepo = true;
     let obj = this.angForm.value
     let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
     let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
@@ -78,7 +78,7 @@ schemeType: string = 'TD'
     // const url="http://localhost/NewReport/report-code/Report/examples/BnkABTypeBALDeposit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";  // const url="http://localhost/NewReport/report-code/Report/examples/DeadstockBalanceList.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
     console.log(url);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    // let ageCaldate
+    window.open(url, '_blank');
 
     // event.preventDefault();
     // this.formSubmitted = true;

@@ -16,6 +16,8 @@ export class BnkRegStandingInstructionComponent implements OnInit {
   angForm: FormGroup;
   //  variable for validation
   formSubmitted = false;
+
+  showRepo=false;
   // branch name 
   selectedBranch: number;
   branch_codeList: any = null
@@ -45,10 +47,10 @@ export class BnkRegStandingInstructionComponent implements OnInit {
   ) {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      AC_TYPE: ['', [Validators.required]],
+    
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
-      REVOKE_INST: ['', [Validators.required]],
+      REVOKE_INST: [''],
     })
   }
   ngOnInit(): void {
@@ -75,16 +77,18 @@ export class BnkRegStandingInstructionComponent implements OnInit {
   src: any;
   View(event){
     event.preventDefault();
+    this.showRepo=true;
     this.formSubmitted = true;
     if (this.angForm.valid) {
     // this.showRepo = true;
     let obj = this.angForm.value
-    let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-    let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+    let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    let branch = obj.BRANCH_CODE;
+    const url = "http://localhost/NewReport/report-code/Report/examples/StandingRevokeInstr.php?startDate='" + startdate +"'&enddate='" + enddate + "'&branch='"+branch+"'";
     console.log(url);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    // let ageCaldate
+
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');

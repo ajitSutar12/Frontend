@@ -88,14 +88,15 @@ export class BnkGurDetailsListComponent implements OnInit {
     this.formSubmitted = true;
     // if(this.angForm.valid){
 
-    this.showRepo = true;
+    // this.showRepo = true;
     let obj = this.angForm.value
     let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
     let scheme = obj.S_ACNOTYPE
     const url = "http://localhost/NewReport/report-code/Report/examples/GuaranterList.php";
     // const url = "http://localhost/NewReport/report-code/Report/examples/Nomineelist.php?startDate='" + date + "'&scheme='" + scheme + "'&";
     console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    window.open(url, '_blank');
    
   // }
   // else {

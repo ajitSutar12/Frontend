@@ -1,4 +1,4 @@
-import {AfterViewInit,Component,OnDestroy,OnInit,ViewChild,Input,Output,EventEmitter,ElementRef,}from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -10,9 +10,11 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment";
-import { DomSanitizer} from '@angular/platform-browser';
-import { first } from "rxjs/operators";
+import { DomSanitizer } from '@angular/platform-browser';
+// dropdown
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { first } from "rxjs/operators";
+
 
 
 @Component({
@@ -21,8 +23,12 @@ import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branc
   styleUrls: ['./bnk-expect-int-instruct-credit.component.scss']
 })
 export class BnkExpectIntInstructCreditComponent implements OnInit {
+  // Date variables
+  todate: any = null;
+  fromdate: any = null
   maxDate: Date;
   minDate: Date;
+  bsValue = new Date();
   formSubmitted = false;
 
   showRepo: boolean = false;
@@ -36,8 +42,8 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
 
   selectedType
   Types = [
-    { id: 1, name: "Success" },
-    { id: 2, name: "Failure" },
+    { id: 1, name: "S" , value:"Success" },
+    { id: 2, name: "F", value:"Failure"},
   ];
 
   selectedSorting
@@ -74,46 +80,65 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngbranch = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      STATUS: ["", [Validators.pattern, Validators.required]],
-      START_DATE: ["", [Validators.pattern, Validators.required]],
-      END_DATE: ["", [Validators.pattern, Validators.required]],
-      SORT_ON: ["", [Validators.pattern, Validators.required]],
-      FREQUENCY: ["", [Validators.pattern, Validators.required]],
+      BRANCH_CODE: ["", [ Validators.required]],
+      STATUS: ["", [ Validators.required]],
+      START_DATE: ["", [ Validators.required]],
+      END_DATE: ["", [ Validators.required]],
+      SORT_ON: [""],
+      FREQUENCY: [""],
+      NEWPAGE: [""],
     });
   }
   src: any;
   submit(event) {
     debugger
-    this.showRepo = true;
+    // this.showRepo = true;
     event.preventDefault(); 
     this.formSubmitted = true;
     if (this.angForm.valid) {
       console.log(this.angForm.value);
     let obj = this.angForm.value
-    // let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    // let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-
-
-    // const url="http://localhost/NewReport/report-code/Report/examples/DeadstockBalanceList.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
-    // console.log(url);
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  
+    let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    let branch = obj.BRANCH_CODE;
+    let status = obj.STATUS;
+    console.log(status)
+    const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'&branch='"+branch+"'&status="+status+"";
+    // const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
+    console.log(url);
+    //  this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+     window.open(url, '_blank');
   }
   else {
    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
  }
+
+
     //To clear form
     // this.resetForm();
     this.formSubmitted = false;
     // }
 
   }
-
+  obj1: any
+  getBranch() {
+    this.obj1 = [this.ngbranch]
+  }
   close() {
     this.resetForm()
   }

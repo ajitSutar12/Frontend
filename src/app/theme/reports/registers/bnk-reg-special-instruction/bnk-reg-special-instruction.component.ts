@@ -29,6 +29,7 @@ ngBranchCode
  maxDate: Date;
  minDate: Date;
  bsValue = new Date();
+  showRepo: boolean = false;
 constructor(
   private fb: FormBuilder,
   private http: HttpClient,
@@ -47,7 +48,7 @@ createForm(
     BRANCH_CODE: ['', [Validators.required]],
     START_DATE: ['', [Validators.required]],
     END_DATE: ['', [Validators.required]],
-    REVOKE_INST: ['', [Validators.required]],
+    REVOKE_INST: [''],
   })
 }
 ngOnInit(): void {
@@ -76,11 +77,11 @@ View(event){
   event.preventDefault();
   this.formSubmitted = true;
   if (this.angForm.valid) {
-  // this.showRepo = true;
+ this.showRepo = true;
   let obj = this.angForm.value
-  let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-  let scheme = obj.S_ACNOTYPE
-  const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+  let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+  const url = "http://localhost/NewReport/report-code/Report/examples/SpecialRevokeInstrut.php?startDate='" + startdate + "'&enddate='" + enddate + "'";
   console.log(url);
   this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   // let ageCaldate

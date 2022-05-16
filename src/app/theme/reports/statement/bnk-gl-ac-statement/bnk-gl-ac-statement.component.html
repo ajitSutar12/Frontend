@@ -11,6 +11,7 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-md-1"> <label for="BRANCH">Branch<sub class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -21,7 +22,6 @@
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH">Branch</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -32,6 +32,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-1">   <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label></div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -42,7 +43,7 @@
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
+                                  
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -53,6 +54,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-1"><label for="FROM_AC">From Account Number<sub class="required"> * </sub></label></div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -62,7 +64,7 @@
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="FROM_AC">From Account Number<sub class="required"> * </sub></label>
+                                    
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -73,6 +75,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-1"> <label for="TO_AC">To Account Number<sub class="required"> * </sub></label></div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -82,7 +85,7 @@
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="TO_AC">To Account Number<sub class="required"> * </sub></label>
+                                   
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -90,6 +93,51 @@
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_AC'].errors?.required">
                                     This field is required
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"> <label for="START_DATE">Starting Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="START_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['START_DATE'].invalid && (angForm.controls['START_DATE'].dirty || angForm.controls['START_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['START_DATE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label></div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                        class="form-control" [(ngModel)]="todate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="END_DATE" 
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['END_DATE'].errors?.required || angForm.controls['END_DATE'].invalid ">
+                                    This field is required.
                                 </div>
                             </div>
                         </div>

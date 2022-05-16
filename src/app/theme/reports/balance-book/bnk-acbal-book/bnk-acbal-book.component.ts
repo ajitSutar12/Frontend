@@ -178,7 +178,8 @@ export class BnkACBalBookComponent implements OnInit {
         
         const url="http://localhost/NewReport/report-code/Report/examples/DeadstockBalanceList.php";
         console.log(url);
-        this.router.navigateByUrl(url);
+        window.open(url, '_blank');
+
       }
       else {
         Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');

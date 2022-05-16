@@ -125,7 +125,7 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
     this.formSubmitted = true;
     if (this.angForm.valid) {
 
-      this.showRepo = true;
+      // this.showRepo = true;
       let obj = this.angForm.value
       let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
       let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
@@ -134,7 +134,8 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
 
       const url = "http://localhost/NewReport/report-code/Report/examples/NonGuarantorList.php?startDate='"+startdate+"' &enddate='"+enddate+"' &scheme='"+scheme+"' &branch='"+branch+"' &";
       console.log(url);
-      this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      window.open(url, '_blank');
 
     }
     else {

@@ -404,7 +404,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   submit() {
-    console.log('submit data',this.mainMaster)
+    console.log('submit data', this.mainMaster)
     this._service.insertVoucher(this.mainMaster).subscribe(data => {
       // this.getVoucherData();
       Swal.fire('Success!', 'Voucher update Successfully !', 'success');
@@ -552,11 +552,11 @@ export class MultiVoucherComponent implements OnInit {
     this.EditFlag = true;
     this.index = index;
     var data = this.mainMaster[index];
-    this.selectedCode = data.scheme_type;
-    this.selectedScheme = data.scheme;
+    this.selectedCode = data.scheme_type == '' || data.scheme_type == null ? data.TRAN_ACNOTYPE : data.scheme_type;
+    this.selectedScheme = data.scheme == '' || data.scheme == null ? Number(data.TRAN_ACTYPE) : data.scheme;
     this.customer = data.account_no;
     this.selectedMode = data.tran_mode;
-    this.particulars = data.particulars;
+    this.particulars = data.particulars=='' || data.particulars == null ? data.NARRATION : data.particulars;
     this.bank = data.bank;
     this.angForm.patchValue({
       'chequeNo': data.chequeNo,
@@ -617,10 +617,10 @@ export class MultiVoucherComponent implements OnInit {
   updateID
 
   editClickHandler(id) {
-  
+
     this._service.getFormData(id).subscribe((data) => {
       this.updateID = data.TRAN_NO
-      console.log('edit',data)
+      console.log('edit', data)
       this.updatecheckdata = data
       if (data.TRAN_STATUS == 0) {
         this.showButton = false;
@@ -631,7 +631,7 @@ export class MultiVoucherComponent implements OnInit {
         this.updateShow = false;
         this.newbtnShow = true;
       }
-       this.mainMaster=data
+      this.mainMaster = data
       this.angForm.patchValue({
 
       })

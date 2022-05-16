@@ -19,6 +19,7 @@ export class BnkRegAccountComponent implements OnInit {
   angForm: FormGroup;
   //  variable for validation
   formSubmitted = false;
+  showRepo = false;
   // branch name 
   selectedBranch: number;
   branch_codeList: any = null
@@ -103,11 +104,12 @@ export class BnkRegAccountComponent implements OnInit {
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
-    // this.showRepo = true;
+    this.showRepo = true;
     let obj = this.angForm.value
     let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
     let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+    const url = "http://localhost/NewReport/report-code/Report/examples/AccountStatement.php";
+    // const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
     console.log(url);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     // let ageCaldate
@@ -116,5 +118,7 @@ export class BnkRegAccountComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
+
+  close(){}
 
 }

@@ -11,9 +11,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BnkExpectIntInstructComponent } from './bnk-expect-int-instruct.component';
-import {BnkExpectIntInstructRoutingModule} from './bnk-expect-int-instruct-routing..module';
-import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { BnkTrialBaldetailComponent } from './bnk-trial-baldetail.component';
+import {BnkTrialBaldetailRoutingModule} from './bnk-trial-baldetail-routing.module'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -28,11 +27,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkExpectIntInstructRoutingModule
+    BnkTrialBaldetailRoutingModule
   ],
 
-  declarations: [BnkExpectIntInstructComponent],
-  exports:[BnkExpectIntInstructComponent],
+  declarations: [BnkTrialBaldetailComponent],
+  exports:[BnkTrialBaldetailComponent],
   providers: [
     {
 
@@ -41,7 +40,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     },
     SystemMasterParametersService,
-    OwnbranchMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
@@ -49,4 +47,4 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
   ]
 })
-export class BnkExpectIntInstructModule { }
+export class BnkTrialBaldetailModule { }

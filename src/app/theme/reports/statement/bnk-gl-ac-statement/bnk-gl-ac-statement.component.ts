@@ -41,8 +41,12 @@ export class BnkGlAcStatementComponent implements OnInit {
   ToAC
   fromAC
   getschemename
-  minDate: any;
-  maxDate: Date;
+ // Date variables
+ todate: any = null;
+ fromdate:any=null
+ maxDate: Date;
+ minDate: Date;
+ bsValue = new Date();
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -85,7 +89,9 @@ export class BnkGlAcStatementComponent implements OnInit {
       AC_TYPE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.required]],
       TO_AC: ['', [Validators.required]],
-      BRANCH: ['', [Validators.required]]
+      BRANCH: ['', [Validators.required]],
+      START_DATE: ['', [Validators.required]],
+      END_DATE: ['', [Validators.required]],
     });
   }
   getBranch() {
@@ -128,9 +134,11 @@ export class BnkGlAcStatementComponent implements OnInit {
     debugger
     this.showRepo = true;
     let obj = this.angForm.value
-    let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-    // const url="http://localhost/NewReport/report-code/Report/examples/GLaccStatement.php?startDate='"+date+"'";
-    const url="http://localhost/NewReport/report-code/Report/examples/GLaccStatement.php";
+    let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let endDate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    let branch = obj.BRANCH;
+     const url="http://localhost/NewReport/report-code/Report/examples/GLaccStatement.php?startDate='"+startDate+"'&endDate='"+endDate+"'&branch='"+branch+"'";
+    // const url="http://localhost/NewReport/report-code/Report/examples/GLaccStatement.php";
     console.log(url);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
    

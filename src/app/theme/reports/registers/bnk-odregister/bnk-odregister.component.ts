@@ -34,6 +34,7 @@ export class BnkODRegisterComponent implements OnInit {
   minDate: Date;
   bsValue = new Date();
   selectedCode: any;
+  showRepo: boolean =false;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -52,9 +53,11 @@ export class BnkODRegisterComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
-      OD_TEMP:  new FormControl('OD_TEMP'),
-      START_AC_NO: ['', [Validators.required]],
-      END_AC_NO: ['', [Validators.required]],
+      OD_TEMP:  new FormControl('TemporaryOverDraft'),
+      START_AC_NO: [''],
+      // START_AC_NO: ['', [Validators.required]],
+      END_AC_NO: [''],
+      // END_AC_NO: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
      
@@ -95,11 +98,16 @@ export class BnkODRegisterComponent implements OnInit {
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
-    // this.showRepo = true;
+     this.showRepo = true;
     let obj = this.angForm.value
-    let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-    let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+    let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let BRANCH_CODE = obj.BRANCH_CODE
+    let OD_TEMP = obj.OD_TEMP
+    let ACOPEN = obj.ACOPEN
+    let GROUP_BY = obj.GROUP_BY
+    const url = "http://localhost/NewReport/report-code/Report/examples/BnkODRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "'  &BRANCH_CODE='" + BRANCH_CODE + "' &OD_TEMP='" + OD_TEMP + "'";
+   //  const url = "http://localhost/NewReport/report-code/Report/examples/InsuranceRegister.php?startDate='" + startDate + "'&enddate='" + enddate + "'&BRANCH_CODE='" + BRANCH_CODE + "'&AC_TYPE='" + AC_TYPE + "'&ACOPEN='" + ACOPEN + "'&GROUP_BY='" + GROUP_BY + "'";
     console.log(url);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     // let ageCaldate

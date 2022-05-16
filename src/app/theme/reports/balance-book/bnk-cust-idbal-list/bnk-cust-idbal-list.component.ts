@@ -23,8 +23,7 @@ import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/
   styleUrls: ['./bnk-cust-idbal-list.component.scss']
 })
 export class BnkCustIDBalListComponent implements OnInit {
-  maxDate: Date;
-  minDate: Date;
+
   formSubmitted = false;
 
   showRepo: boolean = false;
@@ -38,6 +37,13 @@ export class BnkCustIDBalListComponent implements OnInit {
   id: any;
   Cust_ID: any[] //customer id from idmaster
   newcustid: any = null;
+
+    // Date variables
+    todate: any = null;
+    fromdate:any=null
+    maxDate: Date;
+    minDate: Date;
+    bsValue = new Date();
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -65,9 +71,11 @@ export class BnkCustIDBalListComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      AC_CUSTID: ["", [Validators.required]],
+      BRANCH_CODE: [""],
+      AC_CUSTID: [""],
       PRINT_CUSTID: [""],
+      START_DATE: [""],
+      END_DATE: [""],
       
     });
   }
@@ -78,21 +86,24 @@ export class BnkCustIDBalListComponent implements OnInit {
     
     event.preventDefault();
     this.formSubmitted = true;
-    // if(this.angForm.valid){
+     if(this.angForm.valid){
 
-    this.showRepo = true;
+    // this.showRepo = true;
     let obj = this.angForm.value
-    let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/CustomerIdWiseList.php";
-    // const url = "http://localhost/NewReport/report-code/Report/examples/Nomineelist.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+    let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    let branch = obj.BRANCH_CODE;
+    // const url = "http://localhost/NewReport/report-code/Report/examples/CustomerIdWiseList.php";
+    const url = "http://localhost/NewReport/report-code/Report/examples/CustomerIdWiseList.php?startDate='" + startdate +"'&endDate='" + enddate + "'";
     console.log(url);
+
+    window.open(url, '_blank');
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
    
-  // }
-  // else {
-    // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-  // }
+   }
+  else {
+     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+   }
   
 }
   close(){

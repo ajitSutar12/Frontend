@@ -66,9 +66,12 @@ export class BnkDayBookSummaryComponent implements OnInit {
   }
   submit(event) {
     debugger
-    this.showRepo = true;
+    // this.showRepo = true;
     const url="http://localhost/NewReport/report-code/Report/examples/DayBookReport.php";
     console.log(url);
+
+    window.open(url, '_blank');
+    
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     event.preventDefault();
     this.formSubmitted = true;

@@ -62,7 +62,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="START_AC_NO" [(ngModel)]="ngacno" bindValue="value" formControlName="START_AC_NO"
                                         title="Compulsory Selection" bindLabel="label"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" 
                                         placeholder="Account Number">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.name}}</ng-option>
@@ -85,7 +85,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="END_AC_NO" [(ngModel)]="ngacno" bindValue="value" formControlName="END_AC_NO"
                                         title="Compulsory Selection" bindLabel="label"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" 
                                         placeholder="Account Number">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.name}}</ng-option>
@@ -149,12 +149,12 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="OD_TEMP">
+                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="TemporaryOverDraft">
                                         <i class="helper"></i>Temporary OD</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="OD_PERODIC">
+                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="PeriodicallyOverDraft">
                                         <i class="helper"></i>Periodically OD</label>
                                 </div>
                             </div>
@@ -167,6 +167,9 @@
                                 View
                             </button>
                         </div>
+                    </div>
+                    <div class="card-block" *ngIf="showRepo"  routerLink="/reports/Report_Frame">
+                        <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
                     </div>
                 </div>
                 

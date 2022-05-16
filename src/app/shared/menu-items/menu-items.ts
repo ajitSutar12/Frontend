@@ -1006,14 +1006,14 @@ const MENUITEMS = [
               },
               {
                 state: 'BnkACBalBook',
-                name: 'Account Balance List',
+                name: 'Account Balance Book',
                 id: 218
               },
-              {
-                state: 'BnkACBalList',
-                name: 'Leadger Balance List A,B type Member Loan and Deposit',
-                id: 219
-              },
+              // {
+              //   state: 'BnkACBalList',
+              //   name: 'Account Balance List',
+              //   id: 219
+              // },
               {
                 state: 'BnkCustIDBalList',
                 name: 'Customer ID wise Balance List',
@@ -1273,13 +1273,13 @@ const MENUITEMS = [
               {
                 state: 'BnkTrialBal',
                 name: 'Trial Balance ',
-                id: 202
+                id: 191
               },
-              // {
-              //   state: 'BnkNomineeList',
-              //   name: 'Nominee List',
-              //   id: 191
-              // },
+               {
+                 state: 'BnkTrialBaldetail',
+                 name: 'Trial Balance Detail',
+                 id: 191
+               },
              
 
             ]

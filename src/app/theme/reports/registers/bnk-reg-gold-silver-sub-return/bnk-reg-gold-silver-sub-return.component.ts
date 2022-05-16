@@ -36,6 +36,7 @@ allScheme: any[];
   ToAC: any;
   ngfromac: any;
   ngtoac: any;
+  showRepo: boolean = false;
 constructor(
   private fb: FormBuilder,
   private http: HttpClient,
@@ -56,7 +57,6 @@ createForm() {
     START_DATE: ['', [Validators.required]],
     END_DATE: ['', [Validators.required]],
     SUBMISSION:  new FormControl('SUBMISSION'),
-    PRINT_CLOSEAC: ['', [Validators.required]],
   })
 }
 ngOnInit(): void {
@@ -94,11 +94,13 @@ View(event){
   event.preventDefault();
   this.formSubmitted = true;
   if (this.angForm.valid) {
-  // this.showRepo = true;
+  this.showRepo = true;
   let obj = this.angForm.value
-  let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-  let scheme = obj.S_ACNOTYPE
-  const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
+  let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  let BRANCH_CODE = obj.BRANCH_CODE
+  // const url = "http://localhost/NewReport/report-code/Report/examples/goldsilversubmreturn.php";
+   const url = "http://localhost/NewReport/report-code/Report/examples/goldsilversubmreturn.php?startDate='" + startDate + "' &enddate='" + enddate + "' ";
   console.log(url);
   this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   // let ageCaldate

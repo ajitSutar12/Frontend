@@ -103,55 +103,6 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     })
   }
 
-  // createForm() {
-  //   this.angForm = this.fb.group({
-  //     branch_code: ['', [Validators.required]],
-  //     date: [''],
-  //     scheme_type: ['', [Validators.required]],
-  //     scheme: ['', [Validators.required]],
-  //     account_no: ['', [Validators.required]],
-  //     NormalInt: [''],
-  //     NormalIntCheck: [''],
-  //     IntUpto: [''],
-  //     NormalIntRadio: [''],
-  //     PayableCheck: [''],
-  //     new_matu_date: [''],
-  //     new_maturity_amt: [''],
-  //     new_last_date: [''],
-  //     new_rate: [''],
-  //     new_deposit: [''],
-  //     new_receipt: [''],
-  //     new_day: [''],
-  //     new_month: [''],
-  //     new_ason_date: [''],
-  //     new_category: [''],
-  //     renewal_tran_no: [''],
-  //     payable_account_no: ['', [Validators.required]],
-  //     payable_scheme: ['', [Validators.required]],
-  //     payable_scheme_type: ['', [Validators.required]],
-  //     PayableIntRadio: [''],
-  //     payableCheck: [''],
-  //     normal_account_no: ['', [Validators.required]],
-  //     normal_scheme: ['', [Validators.required]],
-  //     normal_scheme_type: ['', [Validators.required]],
-  //     old_last_trn_date: [''],
-  //     old_int_cate: [''],
-  //     old_last_int_date: [''],
-  //     old_total_int_paid: [''],
-  //     old_intrate: [''],
-  //     old_month: [''],
-  //     old_receipt_no: [''],
-  //     old_ac_ason_date: [''],
-  //     old_ac_matuamt: [''],
-  //     old_ac_expdt: [''],
-  //     old_Ac_op_date: [''],
-  //     old_deposit_Amt: [''],
-  //     payableInt: [''],
-  //     AC_RENEWAL_COUNTER: [0],
-  //     TRAN_NO: [0]
-  //   })
-  // }
-
   createForm() {
     this.angForm = this.fb.group({
       branch_code: ['', [Validators.required]],
@@ -195,11 +146,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       old_ac_expdt: [''],
       old_Ac_op_date: [''],
       old_deposit_Amt: [''],
-      payableInt: ['']
+      payableInt: [''],
+      AC_RENEWAL_COUNTER: [0],
+      TRAN_NO: [0]
     })
   }
-
- 
 
   //Customer change function
   TotalDays: number;

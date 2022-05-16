@@ -7,6 +7,7 @@ import {SharedModule} from '../../../shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BnkTrialBalComponent } from './bnk-trial-bal/bnk-trial-bal.component';
+import { BnkTrialBaldetailComponent } from './bnk-trial-baldetail/bnk-trial-baldetail.component';
 @NgModule({
   imports: [
     CommonModule,

@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import { BnkInstructionsStandingDebitComponent } from './bnk-instructions-standing-debit.component';
+import { BnkTrialBaldetailComponent } from './bnk-trial-baldetail.component';
 const routes: Routes = [
   {
     path: '',
-    component:  BnkInstructionsStandingDebitComponent,
+    component:  BnkTrialBaldetailComponent,
     data: {
-      title: 'Interest Instructions Execution List (Failure/Success)',
+      title: 'Trial Balance Details ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class  BnkInstructionsStandingDebitRoutingModule { }
+export class  BnkTrialBaldetailRoutingModule { }
