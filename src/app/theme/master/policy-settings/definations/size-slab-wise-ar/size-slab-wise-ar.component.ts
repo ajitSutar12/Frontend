@@ -174,7 +174,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
           data: 'ACNOTYPE'
         },
         {
-          title: 'Int.Category',
+          title: 'Interest Category',
           data: 'INT_CATEGORY'
         }
       ],

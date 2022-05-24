@@ -15,9 +15,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="NARRATION" maxlength="200" class="form-control"
                                         [ngClass]="{'form-submitted': formSubmitted}" #autofocus placeholder=" "
-                                        id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NARRATION"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47">
+                                        id="label-name" required="" 
+                                        formControlName="NARRATION">
                                     <label for="label-name">Narration<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -26,7 +25,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NARRATION'].errors?.pattern || angForm.controls['NARRATION'].errors?.required || angForm.controls['NARRATION'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    This field is required
                                 </div>
                             </div>
                         </div>

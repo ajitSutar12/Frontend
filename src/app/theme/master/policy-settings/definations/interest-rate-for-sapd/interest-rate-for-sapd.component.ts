@@ -178,7 +178,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
           title: 'Scheme Type',
           data: 'ACNOTYPE'
         }, {
-          title: 'Int.Category',
+          title: 'Interest Category',
           data: 'INT_CATEGORY'
         },
         {

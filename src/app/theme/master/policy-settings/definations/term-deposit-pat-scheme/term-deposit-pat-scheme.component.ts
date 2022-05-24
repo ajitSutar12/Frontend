@@ -181,7 +181,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
           title: 'Scheme Type',
           data: 'AC_TYPE'
         }, {
-          title: 'Int.Category',
+          title: 'Interest Category',
           data: 'INT_CATEGORY'
         },
       ],
@@ -196,14 +196,18 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     //   console.log('Scheme Data',data)
     // })
 
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+    // this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
    
-      var filtered = data.filter(function (scheme) {
+    //   var filtered = data.filter(function (scheme) {
 
-        return (scheme.id == 'TD');
-      });
-      this.scheme = filtered;
-      // this.scheme = data;
+    //     return (scheme.id == 'TD');
+    //   });
+    //   this.scheme = filtered;
+    //   // this.scheme = data;
+    // })
+
+    this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
+      this.scheme.push(data)
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -294,11 +298,14 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       this.updateID = data.id;
 
       //after clicking edit to get value in dropdown
-      this.ngscheme = Number(data.AC_TYPE)
-      this.ngintcat = Number(data.INT_CATEGORY)
+      this.angForm.controls['ACNOTYPE'].disable()
+      // this.ngscheme = Number(data.ACNOTYPE)
+      this.angForm.controls['INT_CATEGORY'].disable()
+      // this.ngintcat = Number(data.INT_CATEGORY)
+      this.angForm.controls['EFFECT_DATE'].disable()
       this.angForm.patchValue({
 
-        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        // 'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         //'EFFECT_DATE': data.EFFECT_DATE,
         // 'AC_TYPE': data.AC_TYPE,
         // 'INT_CATEGORY': data.INT_CATEGORY

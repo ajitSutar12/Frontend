@@ -174,7 +174,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
           data: 'ACNOTYPE'
         },
         {
-          title: 'Int.Category',
+          title: 'Interest Category',
           data: 'INT_CATEGORY'
         },
 

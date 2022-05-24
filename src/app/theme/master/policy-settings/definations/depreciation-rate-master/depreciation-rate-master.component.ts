@@ -160,7 +160,7 @@ export class DepreciationRateMasterComponent implements OnInit {
           title: 'Action'
         },
         {
-          title: 'Last Int. Date',
+          title: 'Last Depreciation Date',
           data: 'EFFECT_DATE'
         },
         {

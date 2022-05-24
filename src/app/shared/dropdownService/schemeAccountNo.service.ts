@@ -28,7 +28,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/saving-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -40,7 +40,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/saving-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -76,7 +76,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/share-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -122,7 +122,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/current-account-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -133,7 +133,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/current-account-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -156,24 +156,24 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-loan-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
             }));
     }
 
-    public getTermLoanSchemeListGridData(id):Observable<any>{
-        let data = {'id':id};
-        return this.http.post(this.url+'/term-loan-master/scheme/',data);
-      }
+    public getTermLoanSchemeListGridData(id): Observable<any> {
+        let data = { 'id': id };
+        return this.http.post(this.url + '/term-loan-master/scheme/', data);
+    }
 
     public getTermLoanMasterAcListForBalUpdation(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/term-loan-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -195,7 +195,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-deposits-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -206,7 +206,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-deposits-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -218,7 +218,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/gl-account-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.AC_NO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.AC_NO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -242,7 +242,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/gl-account-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.AC_NO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.AC_NO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -265,7 +265,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/dispute-loan-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -276,7 +276,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/dispute-loan-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -299,7 +299,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/cash-credit-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -311,7 +311,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/cash-credit-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -333,7 +333,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/anamat-gsm/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -344,7 +344,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/anamat-gsm/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -367,7 +367,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-account-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -379,7 +379,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-account-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -403,7 +403,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -415,7 +415,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -474,7 +474,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/investment/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

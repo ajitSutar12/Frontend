@@ -191,7 +191,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
           title: 'Scheme Type',
           data: 'ACNOTYPE'
         }, {
-          title: 'Int.Category',
+          title: 'Interest Category',
           data: 'INT_CATEGORY'
         },
       ],
@@ -290,12 +290,14 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       this.updateID = data.id;
 
       //after clicking edit to get value in dropdown
-      this.ngscheme = Number(data.ACNOTYPE)
-      this.ngintcat = Number(data.INT_CATEGORY)
-      console.log(this.ngscheme)
+      this.angForm.controls['ACNOTYPE'].disable()
+      // this.ngscheme = Number(data.ACNOTYPE)
+      this.angForm.controls['INT_CATEGORY'].disable()
+      // this.ngintcat = Number(data.INT_CATEGORY)
+      this.angForm.controls['EFFECT_DATE'].disable()
       this.angForm.patchValue({
-
-        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        
+        // 'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         //'EFFECT_DATE': data.EFFECT_DATE,
         // ngscheme:data.ACNOTYPE,
         // 'ACNOTYPE': data.ACNOTYPE,
@@ -311,7 +313,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.tomonths = (document.getElementById("TO_months") as HTMLInputElement).value;
 
 
-    if ((this.fromdays == "" && this.todays == "") || (this.fromdays == "" && this.todays == "")) {
+    if ((this.fromdays == "" && this.todays == "") || (this.frommonths == "" && this.tomonths == "")) {
 
       Swal.fire(
         'Invalid Input',
@@ -320,15 +322,23 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       )
 
     }
-    if ((this.fromdays == 0 || this.todays == 0) || (this.fromdays == 0 || this.todays == 0)) {
+    if ((this.fromdays == 0 || this.todays == 0)) {
 
       Swal.fire(
         'Invalid Input',
-        'Days Or Month Range Value Should Not Be Zero ',
+        'Days Range Value Should Not Be Zero ',
         'warning'
       )
 
     }
+    if ((this.frommonths == 0 || this.tomonths == 0)) {
+      Swal.fire(
+        'Invalid Input',
+        'Month Range Value Should Not Be Zero ',
+        'warning'
+      )
+    }
+
 
   }
 
@@ -452,6 +462,10 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   addNewData() {
+    
+    this.angForm.controls['ACNOTYPE'].enable()
+    this.angForm.controls['INT_CATEGORY'].enable()
+    this.angForm.controls['EFFECT_DATE'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -519,6 +533,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   // Reset Function
   resetForm() {
+    // this.angForm.controls['ACNOTYPE'].enable()
+    // this.angForm.controls['INT_CATEGORY'].enable()
+    // this.angForm.controls['EFFECT_DATE'].enable()
     this.createForm();
     this.ngscheme = null
     this.ngintcat = null

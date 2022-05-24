@@ -68,11 +68,11 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="INT_CATEGORY" bindValue="value" [(ngModel)]="ngintcat"
                                     formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Int.Category">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category">
                                     <ng-option *ngFor="let values of interestcategory" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
-                                  <label for="INT_CATEGORY">Int.Category<sub class="required"> * </sub></label>
+                                  <label for="INT_CATEGORY">Interest Category<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INT_CATEGORY'].invalid && (angForm.controls['INT_CATEGORY'].dirty || angForm.controls['INT_CATEGORY'].touched)" class="alert alert-danger">

@@ -546,6 +546,48 @@ export class MultiVoucherComponent implements OnInit {
     this.mainMaster.splice(index, 1);
   }
 
+  // editVoucher(index) {
+  //   debugger;
+  //   this.EditFlag = true;
+  //   this.index = index;
+  //   var data = this.mainMaster[index];
+  //   this.selectedCode = data.scheme_type;
+  //   this.selectedScheme = data.scheme;
+  //   this.customer = data.account_no;
+  //   this.selectedMode = data.tran_mode;
+  //   this.particulars = data.particulars;
+  //   this.bank = data.bank;
+  //   this.angForm.patchValue({
+  //     'chequeNo': data.chequeNo,
+  //     'chequeDate': data.chequeDate,
+  //     'amt': data.Amount,
+  //     'particulars': data.particulars,
+  //     'total_amt': data.total_amt
+  //   })
+  //   // this.changeMode();
+  //   console.log(this.headData)
+  //   this.headData = data.InputHead;
+
+  //         // this.headData.forEach(element => {
+  //         //   debugger
+  //         //   if (data.InputHead.find(data => data['HEAD_TYPE'] == element['HEAD_TYPE'])) {
+  //         //     let details = data.InputHead.find(data => data['HEAD_TYPE'] == element['HEAD_TYPE'])
+  //         //     element['date'] = this.IntersetHeadDate;
+  //         //     element['Amount'] = details.Amount
+  //         //   }
+  //         // });
+  //   if (this.headData.length > 0) {
+  //     this.headShow = true;
+  //   }
+
+  //   if (data.chequeDate != '') {
+  //     this.showChequeDetails = true;
+  //   }
+  //   this.showAdd = false;
+  //   this.showUpdate = true;
+  // }
+
+
   //Edit Voucher Data
   editVoucher(index) {
     debugger;
@@ -553,10 +595,43 @@ export class MultiVoucherComponent implements OnInit {
     this.index = index;
     var data = this.mainMaster[index];
     this.selectedCode = data.scheme_type == '' || data.scheme_type == null ? data.TRAN_ACNOTYPE : data.scheme_type;
-    this.selectedScheme = data.scheme == '' || data.scheme == null ? Number(data.TRAN_ACTYPE) : data.scheme;
+    this.selectedSchemeCode();
+    this.selectedScheme = data.scheme
+    // != '' || data.scheme != null ? data.scheme : Number(data.TRAN_ACTYPE);
+    this.getIntroducer()
+    //get Head details
+    let obj = { 'code': this.selectedCode };
+    let date = this.date;
+    var rowData = date.split('/');
+    let lastdate = Number(rowData[0]) - 1;
+    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
+    this._service.getHeadDetails(obj).subscribe(Source => {
+      if (Source.length != 0) {
+        this.headData = Source;
+        this.headShow = true;
+        this.headData.forEach(element => {
+          debugger
+          if (data.InputHead.find(data => data['HEAD_TYPE'] == element['HEAD_TYPE'])) {
+            let details = data.InputHead.find(data => data['HEAD_TYPE'] == element['HEAD_TYPE'])
+            element['date'] = this.IntersetHeadDate;
+            element['Amount'] = details.Amount
+          }
+        });
+      } else {
+        this.headShow = false;
+      }
+    }, err => {
+      console.log(err);
+    })
+
+    this.mainMaster[index].InputHead = this.headData
+
+
+
+    // obj['InputHead'] = this.headData;
     this.customer = data.account_no;
     this.selectedMode = data.tran_mode;
-    this.particulars = data.particulars=='' || data.particulars == null ? data.NARRATION : data.particulars;
+    this.particulars = data.particulars == '' || data.particulars == null || data.particulars == undefined ? data.NARRATION : data.particulars;
     this.bank = data.bank;
     this.angForm.patchValue({
       'chequeNo': data.chequeNo,
@@ -565,6 +640,16 @@ export class MultiVoucherComponent implements OnInit {
       'particulars': data.particulars,
       'total_amt': data.total_amt
     })
+    // if (this.mainMaster[index].InputHead .length > 0) {
+    //   this.headShow = true;
+    // }
+
+    // if (data.chequeDate != '') {
+    //   this.showChequeDetails = true;
+    // }
+    // this.showAdd = false;
+    // this.showUpdate = true;
+
     // this.changeMode();
     this.headData = data.InputHead;
     if (this.headData.length > 0) {
@@ -617,9 +702,9 @@ export class MultiVoucherComponent implements OnInit {
   updateID
 
   editClickHandler(id) {
-
     this._service.getFormData(id).subscribe((data) => {
-      this.updateID = data.TRAN_NO
+      debugger
+      this.updateID = data[0].TRAN_NO
       console.log('edit', data)
       this.updatecheckdata = data
       if (data.TRAN_STATUS == 0) {
@@ -632,8 +717,11 @@ export class MultiVoucherComponent implements OnInit {
         this.newbtnShow = true;
       }
       this.mainMaster = data
-      this.angForm.patchValue({
-
+      this.mainMaster.forEach(element => {
+        if (this.TranModeTransfer.find(data => data['id'] == element['tran_mode'].id)) {
+          let data = this.TranModeTransfer.find(data => data['id'] == element['tran_mode'].id)
+          element['tran_mode'].value = data.value
+        }
       })
     })
   }
@@ -644,8 +732,9 @@ export class MultiVoucherComponent implements OnInit {
 
   //approve account
   Approve() {
+    debugger
     let obj = {
-      id: this.updateID,
+      TRAN_NO: this.updateID,
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
@@ -664,7 +753,7 @@ export class MultiVoucherComponent implements OnInit {
   //reject account
   reject() {
     let obj = {
-      id: this.updateID,
+      TRAN_NO: this.updateID,
     }
     this._service.reject(obj).subscribe(data => {
       Swal.fire(

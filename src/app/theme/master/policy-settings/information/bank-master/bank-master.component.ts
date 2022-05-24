@@ -174,7 +174,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       DD_APPLICABLE: [false],
       BANKERS_COMM_APPLICABLE: [false],
       RIGHT_TO_PREPARE_DD: [false],
-      PARTICIPATE_IN_CLEARING: [false],
+      PARTICIPATE_IN_CLEARING: [true],
       GL_ACNO: ['', [Validators.pattern]],
       HO_SUB_GLACNO: ['', [Validators.pattern]],
       BANKCODE: ['', [Validators.pattern]],

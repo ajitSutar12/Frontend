@@ -85,9 +85,10 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   // dropdown variables
   ngschemetype:any=null
 
-  //title select variables
+  
   // schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
-  schemeType: string = 'TD'
+  //Scheme type variable
+  schemeType: string =  'PG'
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -181,13 +182,20 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       dom: 'Blrtip',
     };
     
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      var filtered = data.filter(function (scheme) {
+    // this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+    //   var filtered = data.filter(function (scheme) {
 
-        return (scheme.id == 'TD');
+    //     return (scheme.id == 'TD');
+    //   });
+    //   this.scheme = filtered;
+    //   // this.scheme = data;
+    // })
+
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'PG');
       });
       this.scheme = filtered;
-      // this.scheme = data;
     })
     this.createForm();
   }
@@ -263,10 +271,12 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       this.multiField = data.rate
       this.updateID = data.id;
       console.log( this.multiField)
+      this.angForm.controls['AC_ACNOTYPE'].disable()
+      this.angForm.controls['EFFECT_DATE'].disable()
       this.angForm.patchValue({
-        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        // 'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         // 'EFFECT_DATE': data.EFFECT_DATE,
-        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+        // 'AC_ACNOTYPE': data.AC_ACNOTYPE,
       })
     })
   }
