@@ -7,6 +7,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { HttpClient } from '@angular/common/http';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import * as moment from 'moment';
 import { Subject } from 'rxjs-compat';
 import { DataTableDirective } from 'angular-datatables';
@@ -26,59 +27,85 @@ export class SharesLedgerViewComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  
+
   // dropdown variables
   allScheme: any[]
-  ngscheme:any=null
-  accountedit:any=null
+  ngscheme: any = null
+  accountedit: any = null
   schemeACNo: any;
 
   // Date variables
   todate: any = null;
-  fromdate:any=null
+  fromdate: any = null
   maxDate: any;
   minDate: any;
   bsValue = new Date();
+  // for grid variable declaration
+  dormantac: boolean = false
+  acclosedon: boolean = false
+  freezeac: boolean = false
+  obj: any
+  getschemename: any
+  bankacno
+  acno
+  acCloseDate
+  freezStataus
+  transactions
+  tableData = []
+  drcr
+  debitTotal: number = 0
+  creditTotal: number = 0
+  debitDivTotal: number = 0
+  creditDivTotal: number = 0
+  normalInt: number = 0
+  recpayInt: number = 0
+  overDueAmt: number = 0
+  penalInt: number = 0
+  recpenalInt: number = 0
+  otherAmount: number = 0
+  addedPenal: number = 0
+  grandTotal: number = 0
+  accountOpenDate: any = null
+  branch_code//from ownbranchmaster
+  ngBranchCode: any = null
 
-  
-
-  constructor( 
+  constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    
-    ) {
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate());
-      this.maxDate.setDate(this.maxDate.getDate())
-     }
+
+  ) {
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate());
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm()
-
-    
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'SH');
       });
       this.allScheme = filtered;
     })
-    
-    
+    //branch List
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
   }
-  
+
   createForm() {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
       FROM_DATE: ['', [Validators.required]],
       TO_DATE: ['', [Validators.required]],
-      AC_OPDATE:['', [Validators.required]],
-
+      AC_OPDATE: ['', [Validators.required]],
+      BRANCH_CODE: ['', [Validators.required]],
     });
   }
 
@@ -87,56 +114,234 @@ export class SharesLedgerViewComponent implements OnInit {
 
     this.getschemename = event.name
     this.ngscheme = event.value
-    this.getIntroducer()
+    this.getAccountlist()
 
 
   }
-  obj: any
-  getschemename: any
-  //get account no according scheme for introducer
-  getIntroducer() {
-
+  // Fetching account from seleted scheme
+  getAccountlist() {
+    this.accountedit = null
+    this.tableData = []
+    this.transactions = null
+    this.debitTotal = 0
+    this.creditTotal = 0
+    this.debitDivTotal = 0
+    this.rebitTotal = 0
+    this.bonusTotal = 0
+    this.totalShares = 0
+    this.creditDivTotal = 0
+    this.normalInt = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
+    let obj = [this.ngscheme, this.ngBranchCode]
     switch (this.getschemename) {
-
       case 'SH':
-
-        this.schemeAccountNoService.getShareSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-
+        this.schemeAccountNoService.getShareMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data
         })
         break;
-      
-    }
-  }
-  submit() {
-    console.log(this.angForm.valid);
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
     }
   }
 
-  counter = 0;
-  
 
-  // checking date 
-  checkDate(event){
+  //get account details
+  getAccountDetails(event) {
+    debugger
+    this.tableData = []
+    this.transactions = null
+    this.debitTotal = 0
+    this.debitDivTotal = 0
+    this.creditDivTotal = 0
+    this.creditTotal = 0
+    this.rebitTotal = 0
+    this.bonusTotal = 0
+    this.totalShares = 0
+    this.normalInt = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
+    this.acno = event.label
+    this.bankacno = event.bankacno
+    this.dormantac = event.dormant
+    this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
+    this.acCloseDate = event.acClose == null || event.acClose == '' ? '' : event.acClose
+    this.freezeac = event.freez == null || event.freez == '' ? false : true
+    this.freezStataus = event.freez == null || event.freez == '' ? '' : event.freez
+    let maturedAmount = Number(event.autoMaturedPayableAmt) + Number(event.autoMaturedIntrestAmt)
+    this.angForm.patchValue({
+      AC_OPDATE: event.opendate,
+      AMOUNT: maturedAmount
+    })
+    this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
+    this.accountOpenDate = this.accountOpenDate._d
+  }
 
-    this.counter = this.counter+1;
-    if(this.counter>2 && event.length!=0){
-        let value1
-      let value2
-      value1 = moment(this.fromdate).format('DD/MM/YYYY');
-      // console.log(value1)
-      value2 = moment(this.todate).format('DD/MM/YYYY');
-      // console.log(value2)
-      if(moment(value1).isSame(value2)){
-        Swal.fire("from date should not be same as to date")
-        this.angForm.controls['TO_DATE'].reset()
+  rebitTotal: number = 0
+  bonusTotal: number = 0
+  totalShares: number = 0
+  //transactions list in table
+  getTransactionsDeatils() {
+    this.tableData = []
+    this.debitTotal = 0
+    this.creditTotal = 0
+    this.debitDivTotal = 0
+    this.creditDivTotal = 0
+    this.normalInt = 0
+    this.rebitTotal = 0
+    this.bonusTotal = 0
+    this.totalShares = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
+    this.transactions = null
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
+    this.http.post(this.url + '/ledger-view/shareView', obj).subscribe((data) => {
+      let closeBal = 0
+      let grandOpening = 0
+      grandOpening = Math.abs(data[0]?.openingBal)
+      closeBal = Math.abs(data[0]?.openingBal)
+      data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
+      this.transactions = this.sortData(data);
+      console.log(this.transactions, 'Tran data')
+      if (this.transactions.length != 0) {
+        let divBal = 0
+        let obj = {
+          TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
+          NARRATION: 'Opening Balance',
+          closeBalance: closeBal,
+          dividendBalance: divBal
+        }
+        this.tableData.push(obj)
+        this.transactions.forEach((element) => {
+          debugger
+          if (element.TRAN_SOURCETYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+            if (element.TRAN_MODE == '7') {
+              element['DIVIDEND_AMOUNT'] = element.OTHER2_AMOUNT
+            }
+            //total credit and debit amount
+            if (element.TRAN_STATUS != '0') {
+
+              if (element.WARRENT_DATE != null && element.WARRENT_DATE != '') {
+                element['TRAN_DRCR'] = 'C'
+                element['TRAN_TYPE'] = 'UP'
+                element['TRAN_DATE'] = element.WARRENT_DATE
+                element['drcr'] = 'Cr'
+              }
+              else if (element.DIV_PAID_DATE != null && element.DIV_PAID_DATE != '') {
+                element['TRAN_DRCR'] = 'D'
+                element['TRAN_TYPE'] = 'PD'
+                element['TRAN_DATE'] = element.DIV_PAID_DATE
+                element['drcr'] = 'Dr'
+              }
+              else if (element.TRAN_DATE != null && element.TRAN_DATE != '' && element.REBIT_PAID_DATE == null) {
+                element['TRAN_DATE'] = element.TRAN_DATE
+                element['TRAN_DRCR'] = 'C'
+                element['TRAN_TYPE'] = 'UP'
+                element['drcr'] = 'Cr'
+                element['isRebit'] = true
+              }
+              else if (element.REBIT_PAID_DATE != null && element.REBIT_PAID_DATE != '') {
+                element['TRAN_DATE'] = element.REBIT_PAID_DATE
+                element['TRAN_DRCR'] = 'D'
+                element['TRAN_TYPE'] = 'PD'
+                element['drcr'] = 'Dr'
+                element['isRebit'] = true
+              }
+              if (element.isRebit == true) {
+                element['REBIT_AMOUNT'] = element.TRAN_AMOUNT
+                element['TRAN_AMOUNT'] = '0.00'
+                element.TRAN_DRCR == 'C' ? this.rebitTotal = this.rebitTotal + Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal + 0
+                element.TRAN_DRCR == 'D' ? this.rebitTotal = this.rebitTotal - Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal - 0
+              }
+              if (element.isRebit == undefined) {
+                if (element.TRAN_DRCR == 'C') {
+                  element.TRAN_AMOUNT != undefined ? this.creditTotal = this.creditTotal + Number(element.TRAN_AMOUNT) : this.creditTotal = this.creditTotal + 0
+                  element.DIVIDEND_AMOUNT != undefined ? this.creditDivTotal = this.creditDivTotal + Number(element.DIVIDEND_AMOUNT) : this.creditDivTotal = this.creditDivTotal + 0
+                }
+                if (element.TRAN_DRCR == 'D') {
+                  element.TRAN_AMOUNT != undefined ? this.debitTotal = this.debitTotal + Number(element.TRAN_AMOUNT) : this.debitTotal = this.debitTotal + 0
+                  element.DIVIDEND_AMOUNT != undefined ? this.debitDivTotal = this.debitDivTotal + Number(element.DIVIDEND_AMOUNT) : this.debitDivTotal = this.debitDivTotal + 0
+                }
+                //closing balance calculation
+                if (this.drcr == 'Cr') {
+                  element.TRAN_DRCR == 'C' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
+                  element['closeBalance'] = closeBal
+                  element.TRAN_DRCR == 'C' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
+                  element['dividendBalance'] = divBal
+                }
+                else if (this.drcr == 'Dr') {
+                  element.TRAN_DRCR == 'D' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
+                  element['closeBalance'] = closeBal
+                  element.TRAN_DRCR == 'D' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
+                  element['dividendBalance'] = divBal
+                }
+                if (element.TOTAL_SHARES != null || element.TOTAL_SHARES != '' || element.NO_OF_SHARES != null || element.NO_OF_SHARES != '') {
+                  element.TOTAL_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.TOTAL_SHARES) : this.totalShares = this.totalShares + 0
+                  element.NO_OF_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.NO_OF_SHARES) : this.totalShares = this.totalShares + 0
+                }
+              }
+              else {
+                element['closeBalance'] = closeBal
+                element['dividendBalance'] = divBal
+              }
+              this.tableData.push(element)
+            }
+          }
+        });
+        console.log(this.tableData, 'table')
+        //grand total amount
+        this.grandTotal = this.creditTotal + grandOpening
       }
-    }
-    
+      else {
+        this.tableData = []
+        this.debitTotal = 0
+        this.creditTotal = 0
+        this.debitDivTotal = 0
+        this.creditDivTotal = 0
+        this.normalInt = 0
+        this.rebitTotal = 0
+        this.bonusTotal = 0
+        this.totalShares = 0
+        this.recpayInt = 0
+        this.overDueAmt = 0
+        this.penalInt = 0
+        this.recpenalInt = 0
+        this.otherAmount = 0
+        this.addedPenal = 0
+        this.grandTotal = 0
+        Swal.fire('Info', 'No Records Found', 'info')
+      }
+    })
   }
-  
 
+  sortData(data) {
+    return data.sort((a, b) => {
+      console.log(a,'a',b,'b')
+      if (a.TRAN_DATE != undefined || b.TRAN_DATE != undefined) {
+        return <any>new Date(a.TRAN_DATE) - <any>new Date(b.TRAN_DATE);
+      }
+      else if (a.DIV_PAID_DATE != null && a.DIV_PAID_DATE != '' || b.DIV_PAID_DATE != null && b.DIV_PAID_DATE != '') {
+        return <any>new Date(a.DIV_PAID_DATE) - <any>new Date(b.DIV_PAID_DATE);
+      }
+      else if (a.REBIT_PAID_DATE != null && a.REBIT_PAID_DATE != '' || b.REBIT_PAID_DATE != null && b.REBIT_PAID_DATE != '') {
+        return <any>new Date(a.REBIT_PAID_DATE) - <any>new Date(b.REBIT_PAID_DATE);
+      }
+      else if (a.WARRENT_DATE != null && a.WARRENT_DATE != '' || b.WARRENT_DATE != null && b.WARRENT_DATE != '') {
+        return <any>new Date(a.WARRENT_DATE) - <any>new Date(b.WARRENT_DATE);
+      }
+    });
+  }
 }

@@ -54,16 +54,16 @@ export class LedgerViewComponent implements OnInit {
   transactions
   tableData = []
   drcr
-  debitTotal = 0
-  creditTotal = 0
-  normalInt = 0
-  recpayInt = 0
-  overDueAmt = 0
-  penalInt = 0
-  recpenalInt = 0
-  otherAmount = 0
-  addedPenal = 0
-  grandTotal = 0
+  debitTotal: number = 0
+  creditTotal: number = 0
+  normalInt: number = 0
+  recpayInt: number = 0
+  overDueAmt: number = 0
+  penalInt: number = 0
+  recpenalInt: number = 0
+  otherAmount: number = 0
+  addedPenal: number = 0
+  grandTotal: number = 0
 
   constructor(
     private fb: FormBuilder,
@@ -121,6 +121,18 @@ export class LedgerViewComponent implements OnInit {
   // Fetching account from seleted scheme
   getAccountlist() {
     this.accountedit = null
+    this.tableData = []
+    this.transactions = null
+    this.debitTotal = 0
+    this.creditTotal = 0
+    this.normalInt = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
     let obj = [this.ngscheme, this.ngBranchCode]
     switch (this.getschemename) {
       case 'SB':
@@ -185,6 +197,17 @@ export class LedgerViewComponent implements OnInit {
   getAccountDetails(event) {
     debugger
     this.tableData = []
+    this.transactions = null
+    this.debitTotal = 0
+    this.creditTotal = 0
+    this.normalInt = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
     this.bankacno = event.bankacno
     this.dormantac = event.dormant
     this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
@@ -202,58 +225,97 @@ export class LedgerViewComponent implements OnInit {
 
   //transactions list in table
   getTransactionsDeatils() {
+    this.tableData = []
+    this.debitTotal = 0
+    this.creditTotal = 0
+    this.normalInt = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
+    this.transactions = null
     let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY')]
     this.http.post(this.url + '/ledger-view/allAccount', obj).subscribe((data) => {
-      debugger
-      this.transactions = data
       let closeBal = 0
+      let grandOpening = 0
+      grandOpening = Math.abs(data[0]?.openingBal)
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
-      let obj = {
-        TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
-        NARRATION: 'Opening Balance',
-        closeBalance: closeBal
-      }
-      this.tableData.push(obj)
-      this.transactions.forEach((element) => {
-        // if (element.TRAN_SOURCETYPE != 'Opening Balance' && element.TRAN_STATUS!='2') {
-
-        //record wise other amount 
-        let otherAmt = 0
-        otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)
-        element['otherAmt'] = otherAmt
-
-        //total credit and debit amount
-        if (element.TRAN_STATUS != '0') {
-          if (element.TRAN_DRCR == 'D') { this.debitTotal = this.debitTotal + Number(element.TRAN_AMOUNT) }
-          if (element.TRAN_DRCR == 'C') { this.creditTotal = this.creditTotal + Number(element.TRAN_AMOUNT) }
-          //closing balance calculation
-          if (this.drcr == 'Cr') {
-            element.TRAN_DRCR == 'C' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
-            element['closeBalance'] = closeBal
-          }
-          else if (this.drcr == 'Dr') {
-            element.TRAN_DRCR == 'D' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
-            element['closeBalance'] = closeBal
-          }
+      // this.transactions = data
+      this.transactions = this.sortData(data);
+      if (this.transactions.length != 0) {
+        let obj = {
+          TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
+          NARRATION: 'Opening Balance',
+          closeBalance: closeBal
         }
+        this.tableData.push(obj)
+        this.transactions.forEach((element) => {
+          debugger
+          if (element.TRAN_SOURCETYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+            //record wise other amount 
+            let otherAmt = 0
+            otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)
+            element['otherAmt'] = otherAmt
 
-        //column wise total amount
-        this.normalInt = this.normalInt + Number(element.INTEREST_AMOUNT)
-        this.recpayInt = this.recpayInt + Number(element.RECPAY_INT_AMOUNT)
-        this.overDueAmt = this.overDueAmt + Number(element.OTHER10_AMOUNT)
-        this.penalInt = this.penalInt + Number(element.PENAL_INTEREST)
-        this.recpenalInt = this.recpenalInt + Number(element.REC_PENAL_INT_AMOUNT)
-        this.addedPenal = this.addedPenal + Number(element.ADDED_PENAL_INTEREST)
-        this.otherAmount = this.otherAmount + otherAmt
+            //total credit and debit amount
+            if (element.TRAN_STATUS != '0') {
+              if (element.TRAN_DRCR == 'D') { this.debitTotal = this.debitTotal + Number(element.TRAN_AMOUNT) }
+              if (element.TRAN_DRCR == 'C') { this.creditTotal = this.creditTotal + Number(element.TRAN_AMOUNT) }
+              //closing balance calculation
+              if (this.drcr == 'Cr') {
+                element.TRAN_DRCR == 'C' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
+                element['closeBalance'] = closeBal
+              }
+              else if (this.drcr == 'Dr') {
+                element.TRAN_DRCR == 'D' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
+                element['closeBalance'] = closeBal
+              }
+              //column wise total amount
+              element.INTEREST_AMOUNT != undefined ? this.normalInt = this.normalInt + Number(element.INTEREST_AMOUNT) : this.normalInt = this.normalInt + 0
+              element.RECPAY_INT_AMOUNT != undefined ? this.recpayInt = this.recpayInt + Number(element.RECPAY_INT_AMOUNT) : this.recpayInt = this.recpayInt + 0
+              element.OTHER10_AMOUNT != undefined ? this.overDueAmt = this.overDueAmt + Number(element.OTHER10_AMOUNT) : this.overDueAmt = this.overDueAmt + 0
+              element.PENAL_INTEREST != undefined ? this.penalInt = this.penalInt + Number(element.PENAL_INTEREST) : this.penalInt = this.penalInt + 0
+              element.REC_PENAL_INT_AMOUNT != undefined ? this.recpenalInt = this.recpenalInt + Number(element.REC_PENAL_INT_AMOUNT) : this.recpenalInt = this.recpenalInt + 0
+              element.ADDED_PENAL_INTEREST != undefined ? this.addedPenal = this.addedPenal + Number(element.ADDED_PENAL_INTEREST) : this.addedPenal = this.addedPenal + 0
+              this.otherAmount = this.otherAmount + otherAmt
+            }
+            else {
+              element['closeBalance'] = closeBal
+            }
+            this.tableData.push(element)
+          }
+        });
+        console.log(this.tableData, 'table')
+        //grand total amount
+        this.grandTotal = this.creditTotal + grandOpening
 
-        this.tableData.push(element)
-        // }
-      });
-      debugger
-      console.log(this.tableData, 'table')
-      //grand total amount
-      this.grandTotal = this.creditTotal + Number(data[0].openingBal)
+      }
+      else {
+        this.tableData = []
+        this.debitTotal = 0
+        this.creditTotal = 0
+        this.normalInt = 0
+        this.recpayInt = 0
+        this.overDueAmt = 0
+        this.penalInt = 0
+        this.recpenalInt = 0
+        this.otherAmount = 0
+        this.addedPenal = 0
+        this.grandTotal = 0
+        Swal.fire('Info', 'No Records Found', 'info')
+      }
     })
+
+    console.log(this.tableData, 'sorted data')
+  }
+
+  sortData(data) {
+    return data.sort((a, b) => {
+      return <any>new Date(a.TRAN_DATE) - <any>new Date(b.TRAN_DATE);
+    });
   }
 }

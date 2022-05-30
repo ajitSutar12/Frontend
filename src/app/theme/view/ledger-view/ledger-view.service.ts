@@ -25,6 +25,12 @@ export class LegderViewService {
 
     //Deletion Operation
     deleteData(date: any): Observable<any> {
+
         return this.http.delete(this.url + '/holiday/delete/' + date).pipe(catchError(this.handleError));
+    }
+
+    // For append data
+    getFormData(id: any): Observable<any> {
+        return this.http.get(this.url + '/ledger-view/customerView' + id).pipe(catchError(this.handleError));
     }
 }

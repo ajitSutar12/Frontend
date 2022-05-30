@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 // import { BrowserModule } from '@angular/platform-browser';
 import { CustomerViewComponent } from './customer-view.component';
 import { CustomerViewRoutingModule } from './customer-view-routing.module'
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import {DataTablesModule} from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
-import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
+import { LegderViewService } from '../ledger-view/ledger-view.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,10 +19,10 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
     SharedModule,
     NgSelectModule,
     DataTablesModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule, ReactiveFormsModule
   ],
   declarations: [CustomerViewComponent],
-  providers:[CustomerIDMasterDropdownService,CustomerIdService,{
+  providers: [CustomerIDMasterDropdownService, LegderViewService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

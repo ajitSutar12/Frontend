@@ -4,8 +4,8 @@ import { environment } from 'src/environments/environment';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
-import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
-import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
+import { CustomerIDMasterDropdownService } from '../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { LegderViewService } from '../ledger-view/ledger-view.service';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -23,7 +23,7 @@ export class CustomerViewComponent implements OnInit {
   angForm: FormGroup;
 
   // dropdown variables
-  ngcustomer:any=null
+  ngcustomer: any = null
   Cust_ID: any[] //customer id from idmaster
 
   //array of document of customer
@@ -40,7 +40,7 @@ export class CustomerViewComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private customerID: CustomerIDMasterDropdownService,
-    private customerIdService: CustomerIdService,
+    private customerIdService: LegderViewService,
     private config: NgSelectConfig,
   ) { }
 
@@ -50,21 +50,19 @@ export class CustomerViewComponent implements OnInit {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
-   
+
   }
 
   createForm() {
     this.angForm = this.fb.group({
       AC_CUSTID: ["", [Validators.required]],
-      CLOSED_AC:["",],
-      AC_NAME:['',],
-      AC_PANNO:['',],
-      
+      CLOSED_AC: ["",],
+      AC_NAME: ['',],
+      AC_PANNO: ['',],
     });
   }
 
   hideImage() {
-    // document.getElementById("full").src = "";
     this.previewImg = '';
     this.PreviewDiv = false;
   }
@@ -76,26 +74,19 @@ export class CustomerViewComponent implements OnInit {
     var largeSrc = src.replace('small', 'large');
     this.previewImg = src;
     this.PreviewDiv = true;
-    // document.getElementById('full').src = largeSrc;
   }
 
-   //function to get existing customer data according selection
-   getCustomer(id) {
-    this.customerIdService.getFormData(id).subscribe(data => {
+  //function to get existing customer data according selection
+  getCustomer(eve) {
+    this.customerIdService.getFormData(eve.value).subscribe(data => {
+      debugger
+      console.log('data', data)
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
-      
-     
       this.angForm.patchValue({
-        
         AC_NAME: data.AC_NAME,
         AC_PANNO: data.AC_PANNO,
-        
       })
     })
-   
   }
-
- 
-
 }
