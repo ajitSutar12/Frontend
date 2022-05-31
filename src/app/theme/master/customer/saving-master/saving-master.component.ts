@@ -197,7 +197,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   allScheme //account type for introducer
   introducerACNo //account no for introducer
   isDisabled = true;
-  newcustid: any = null; 
+  newcustid: any = null;
   cate: string = null;
   jointID: any = null;
   datemax: any;
@@ -842,7 +842,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
-  } 
+  }
 
   //Method for append data into fields
   editClickHandler(id) {

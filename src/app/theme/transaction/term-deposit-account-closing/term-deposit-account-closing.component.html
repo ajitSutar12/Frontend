@@ -98,11 +98,12 @@
                                     </div>
                                     <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account Number<sub
                                                 class="required">*</sub></label></div>
+
                                     <div class="col-sm-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select bindValue="value" [(ngModel)]="customer"
-                                                    formControlName="account_no" (change)="getAccountDetails($event)">
+                                                <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                                    (change)="getAccountDetails($event)" bindValue="value">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.label}} {{item.name}}</ng-option>
                                                 </ng-select>
@@ -117,6 +118,9 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <div class="row">
                                     <div class="col-md-6 solid1">
                                         <div class="row">
@@ -190,6 +194,8 @@
 
                                                     </tr>
                                                 </table>
+                                                <!-- <hr> -->
+
                                             </div>
                                         </div>
                                         <div class="row" *ngIf="afterMaturedInt">
@@ -223,8 +229,7 @@
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        (change)="getNetInterest()" pattern="\d{1,20}(\.\d{1,2})?"
-                                                        formControlName="TOTAL_INT"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="TOTAL_INT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -236,8 +241,7 @@
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        (change)="getNetInterest()" pattern="\d{1,20}(\.\d{1,2})?"
-                                                        formControlName="POSTED_INT"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="POSTED_INT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -254,7 +258,7 @@
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="NET_INTAMT"     (change)="getNetPayAmount()"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="NET_INTAMT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -299,6 +303,18 @@
                                                 </span>
                                             </div>
                                         </div>
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                Matured Process Amt
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text"  style="text-align: right;" maxlength="12"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"  
+            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                </span>
+                                            </div>
+                                        </div> -->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 Payable Interest
@@ -313,13 +329,12 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                - Net Interest/Excess Interest
+                                                - Net Interest
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
                                                         pattern="\d{1,20}(\.\d{1,2})?" formControlName="NET_INTAMT"
-                                                        (change)="getNetPayAmount()"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -332,7 +347,6 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
                                                         pattern="\d{1,20}(\.\d{1,2})?" formControlName="TDS_AMT"
-                                                        (change)="getNetPayAmount()"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -345,7 +359,6 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
                                                         pattern="\d{1,20}(\.\d{1,2})?" formControlName="SURCHARGE_AMT"
-                                                        (change)="getNetPayAmount()"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -358,7 +371,6 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
                                                         pattern="\d{1,20}(\.\d{1,2})?" formControlName="PENAL_INT"
-                                                        (change)="getNetPayAmount()"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -453,6 +465,28 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
+
+                                                    <!-- <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
+                                                        class="required">*</sub></label></div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                                                    formControlName="scheme_type">
+                                                                    <ng-option *ngFor="let item of allSchemeCode"
+                                                                        [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
+                                                                </ng-select>
+                
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['scheme_type'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
                                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                                 class="required">*</sub></label></div>
                                                     <div class="col-sm-12 col-md-2">
@@ -466,6 +500,7 @@
                                                                         [value]="item">
                                                                         {{item.id}} {{item.label}}</ng-option>
                                                                 </ng-select>
+
                                                             </span>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
@@ -582,7 +617,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                   
                                 </div>
                                 <div class="row">
                                     <div class="col-sm" style="float: right;">
@@ -590,18 +625,14 @@
                                             (click)="submit()">
                                             Submit
                                         </button>
-                                        <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                            *ngIf="newbtnShow">
+                                        <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                             Cancel
                                         </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                            *ngIf="updateShow">
+                                        <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                                             Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
-                                            (click)="reject()">
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
                                             Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
-                                            (click)="Approve()">
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
                                             Approve</button>
                                     </div>
                                 </div>

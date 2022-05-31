@@ -512,7 +512,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toggleOpened(e) {
-    // debugger
+    debugger
     if (this.windowWidth <= 992) {
       this.toggleOn = this.verticalNavType === 'offcanvas' ? true : this.toggleOn;
       if (this.navRight === 'nav-on') {

@@ -18,7 +18,7 @@
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        placeholder="Branch">
+                                        placeholder="">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -175,7 +175,7 @@
                                             <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
                                                 (change)="schemechange($event)" formControlName="AC_TYPE"
                                                 bindLabel="label" title="Compulsory Selection" required
-                                                placeholder="Transfer Scheme Code">
+                                                placeholder="">
                                                 <ng-option *ngFor="let values of scheme" [value]="values">
                                                     {{values.label}}</ng-option>
                                             </ng-select>
@@ -197,7 +197,7 @@
                                         <span class="border-lable-flt">
                                             <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
                                                 formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
-                                                required placeholder="Account No.">
+                                                required placeholder="">
                                                 <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                     {{values.label}} {{values.name}}</ng-option>
                                             </ng-select>
@@ -301,7 +301,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="ITEM_CODE" [items]="itemcode" [(ngModel)]="ngItem"
                                         bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="">
                                         <ng-option *ngFor="let values of itemcode" [value]="values">
                                             {{values.ITEM_NAME}}</ng-option>
                                     </ng-select>
@@ -323,7 +323,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                        id="Rate" formControlName="Rate" (keyup)="getAmount()"
+                                        id="Rate" formControlName="Rate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                 </span>
                             </div>
@@ -333,7 +333,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="amount"
-                                        id="amount" formControlName="amount" disabled
+                                        id="amount" formControlName="amount"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                 </span>
                             </div>
@@ -362,20 +362,20 @@
                                                 <td>{{data.ITEM_CODE}} {{data.ITEM_NAME}}</td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="ITEM_QTY" id="ITEM_QTY" value="{{data.ITEM_QTY}}"
+                                                        name="Quantity" id="Quantity" value="{{data.Quantity}}"
                                                         #Quantity
                                                         (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="ITEM_RATE" id="ITEM_RATE" value="{{data.ITEM_RATE}}" #Rate
+                                                        name="Rate" id="Rate" value="{{data.Rate}}" #Rate
                                                         (change)="getColumnValue(data.ITEM_CODE,Rate.name,Rate.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="TRAN_AMOUNT" id="TRAN_AMOUNT" value="{{data.TRAN_AMOUNT}}" #Amount
+                                                        name="Amount" id="Amount" value="{{data.Amount}}" #Amount
                                                         (change)="getColumnValue(data.ITEM_CODE,Amount.name,Amount.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>

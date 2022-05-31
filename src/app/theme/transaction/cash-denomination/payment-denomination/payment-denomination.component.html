@@ -3,117 +3,410 @@
         <div class="card">
             <div class="card-header">
                 <h5>Cash Payment Denomination</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
-            <form class="form-material">
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">Transaction No<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Transaction No.<span class="required"> *</span></label>
+                                <span class="border-lable-flt">
+                                    <ng-select id="TRANSACTION_NO" bindValue="value" [(ngModel)]="ngTransactionNo"
+                                        formControlName="TRANSACTION_NO" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="">
+                                        <!-- <ng-option *ngFor="let values of TRANSACTION_NO" [value]="values">
+                                            {{values.label}}</ng-option> -->
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TRANSACTION_NO'].invalid && (angForm.controls['TRANSACTION_NO'].dirty || angForm.controls['TRANSACTION_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TRANSACTION_NO'].errors?.required">
+                                    This field is required.
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Token No.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Scheme<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Account No.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Particulars<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Denomination Amt.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <label class="float-label">Cashier:</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Transaction Amt.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Ledger Balance<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Transcation Type<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light">Add</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-9">
-    
-                        </div>
-                    <div class="col-sm">
-                    <h6><span class="required">* </span>: Required Fields</h6>
-                </div>
-                </div>
+                        <div class="col-sm-12 col-md-4">
 
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="TOKEN_NO">Token No</label></div>
+                        <div class="col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" maxlength="12"
+                                    pattern="^[0-9]+$" class="form-control"
+                                        formControlName="TOKEN_NO"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="SCHEME">Scheme<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="SCHEME" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="SCHEME" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="">
+                                        <!-- <ng-option *ngFor="let values of SCHEME" [value]="values">
+                                            {{values.label}}</ng-option> -->
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SCHEME'].invalid && (angForm.controls['SCHEME'].dirty || angForm.controls['SCHEME'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['SCHEME'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="ACCOUNT_NO">Account No<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="ACCOUNT_NO" bindValue="value" [(ngModel)]="ngaccount"
+                                        formControlName="ACCOUNT_NO" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="">
+                                        <!-- <ng-option *ngFor="let values of ACCOUNT_NO" [value]="values">
+                                            {{values.label}}</ng-option> -->
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['ACCOUNT_NO'].invalid && (angForm.controls['ACCOUNT_NO'].dirty || angForm.controls['ACCOUNT_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['ACCOUNT_NO'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"><label
+                            for="NARRATION">Particulars</label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
 
-                    
+                                    <textarea class="form-control"
+                                        formControlName="NARRATION"></textarea>
+                                   
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">Denomination Amount</label></div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" maxlength="12"
+                                    pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
+                                        formControlName="DENOMINATION_AMT"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                </span>
+                            </div>
+                        </div> 
+                        <div class="col-sm-12 col-md-2"> <label>Cashier:</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_AMT">Transaction Amount<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TRANSACTION_AMT"
+                                    class="form-control" placeholder=" "
+                                    id="TRANSACTION_AMT" required=""
+                                     style="text-align: right;"
+                                    pattern="\d{1,20}(\.\d{1,2})?"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                    title="Input allowed only  0-9"
+                                    formControlName="TRANSACTION_AMT"
+                                    [ngClass]="{'form-submitted': formSubmitted}">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TRANSACTION_AMT'].invalid && (angForm.controls['TRANSACTION_AMT'].dirty || angForm.controls['TRANSACTION_AMT'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['TRANSACTION_AMT'].errors?.pattern || angForm.controls['TRANSACTION_AMT'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="LEDGER_BAL">Ledger Balance</label></div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input style="text-align: right;" class="form-control"  name="TRANSACTION_AMT" formControlName="LEDGER_BAL"
+                                    pattern="\d{1,20}(\.\d{1,2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                    title="Input allowed only  0-9" [ngClass]="{'form-submitted': formSubmitted}"
+                                     type="text">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['LEDGER_BAL'].invalid && (angForm.controls['LEDGER_BAL'].dirty || angForm.controls['LEDGER_BAL'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['LEDGER_BAL'].errors?.pattern || angForm.controls['LEDGER_BAL'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_TYPE">Transaction Type</label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TRANSACTION_TYPE"
+                                    class="form-control" placeholder=" "
+                                    id="TRANSACTION_TYPE"
+                                    pattern="^[A-Za-z\./ -]+$"
+                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                    title="Input allowed only  A-Z a-z  - / . (Space)"
+                                    formControlName="TRANSACTION_TYPE" >
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-outline-primary btn-sm">
+                                Update
+                            </button>
+                        </div>
+                        
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
-                            </table>
-                        </div>
-                    </div>
+
+<div class="card" style="width:500px;">
+    <div class="card-header">
+        <h5>Cash out Denomination</h5>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="solid">
+                    <table>
+                        <tr>
+                            <td align="right">
+                                2000 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                1000 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                500 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                200 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                100 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                50 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                20 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                10 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                5 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td align="right"> 
+                                2 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                1 X
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                         <tr>
+                            <td align="right">  
+                               Coins Cost
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <div></div>
+                        <div class="h1"></div>
+                        <div></div>
+                       <tr>
+                        <td align="right">  
+                           Total Cash
+                        </td>
+                        <td>
+                            <input type="text" value="0.00">
+                        </td>
+                    </tr>
+                    </table>
                 </div>
             </div>
+            &nbsp;
+            <div class="col-md">
+                <div class="solid1">
+                    <!-- <h3><span>Available</span></h3> -->
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <div></div>
+                        <div class="h2"></div>
+                        <div></div>
+                       <tr>
+                            <td>
+                                <input type="text" style="text-align:right;"  value="0.00">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+           
 
         </div>
+        
     </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-outline-primary btn-sm">
+                    Payment
+                </button>
+                <button class="btn btn-outline-primary btn-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>

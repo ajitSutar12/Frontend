@@ -23,7 +23,7 @@ export class SavingPigmyAccountClosingService {
   constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/saving-pigmy-account-closing/insert", data).pipe(
+    return this.http.post(this.url + "/savings-pigmy-account-closing/insert", data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
@@ -34,42 +34,32 @@ export class SavingPigmyAccountClosingService {
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http
-      .get(this.url + "/saving-pigmy-account-closing/" + id)
+      .get(this.url + "/savings-pigmy-account-closing/" + id)
       .pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/saving-pigmy-account-closing/update", data);
+    return this.http.put(this.url + "/savings-pigmy-account-closing/update", data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http
-      .delete(this.url + "/saving-pigmy-account-closing/delete/" + id)
+      .delete(this.url + "/savings-pigmy-account-closing/delete/" + id)
       .pipe(catchError(this.handleError));
   }
 
-  getSchemeCodeList(): Observable<any> {
-    return this.http.get(this.url + '/scheme-parameters')
+  getSchemeCodeList():Observable<any>{
+    return this.http.get(this.url+'/scheme-parameters')
   }
 
   //get narration data
-  getNarrationMaster(): Observable<any> {
-    return this.http.get(this.url + '/narration')
+  getNarrationMaster():Observable<any>{
+    return this.http.get(this.url+'/narration')
   }
 
   //get syspara 
-  getSysParaData(): Observable<any> {
-    return this.http.get(this.url + '/system-master-parameters');
+  getSysParaData():Observable<any>{
+    return this.http.get(this.url+'/system-master-parameters');
   }
 
-  //approve master
-  approve(data: any): Observable<any> {
-    return this.http.post(this.url + '/saving-pigmy-account-closing/approve', data).pipe(catchError(this.handleError));
-  }
-
-
-  //reject master
-  reject(data: any): Observable<any> {
-    return this.http.post(this.url + '/saving-pigmy-account-closing/reject', data).pipe(catchError(this.handleError));
-  }
 }

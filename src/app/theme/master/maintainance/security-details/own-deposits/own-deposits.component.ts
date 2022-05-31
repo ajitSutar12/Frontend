@@ -271,30 +271,39 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getBranch() {
+   
     this.getIntroducer()
   }
   obj1: any
   getschemename: any
+
   getIntro(event) {
+  
     this.getschemename = event.name
     this.getIntroducer()
   }
+
    //get account no according scheme for introducer
-   getIntroducer() {    
+   getIntroducer() {
+     
     this.obj1 = [this.ngscheme, this.ngbranch]
     switch (this.getschemename) {
-      case 'TD':   
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => { 
+      case 'TD':
+        
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => {
+          
           this.ACNo = data;
           console.log()
         })
         break;
-      case 'PG':       
+      case 'PG':
+        
         this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj1).pipe(first()).subscribe(data => {
+         
           this.ACNo = data;
         })
         break;
-
+      
     }
   }
 

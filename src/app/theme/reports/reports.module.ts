@@ -18,8 +18,6 @@ import { ReportsRoutingModule } from './reports-routing.module';
 // import { StatementComponent } from './statement/statement.component';
 // import { DailyReportsComponent } from './daily-reports/daily-reports.component';
 // import { AllReportsWithSearchingComponent } from './all-reports-with-searching/all-reports-with-searching.component';
-// import { ReportFrameComponent } from './report-frame/report-frame.component';
-// import { PigmyReportComponent } from './pigmy-report/pigmy-report.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 

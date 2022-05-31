@@ -12,21 +12,25 @@ import { OpeningSharesTransactionsEntryComponent } from './opening-shares-transa
 import { RebitInterestTransactionComponent } from './rebit-interest-transaction/rebit-interest-transaction.component';
 import { glMasterService } from '../../../shared/elements/gl-master.service';
 import {DataTablesModule} from 'angular-datatables';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SelectOptionService} from '../../../shared/elements/select-option.service';
-import {SelectModule} from 'ng-select';
+// import {SelectModule} from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 @NgModule({
   imports: [
     CommonModule,
     ShareTransactionsRoutingModule,
     SharedModule,
     DataTablesModule,
-    SelectModule
+    // SelectModule,
+    NgSelectModule,
+    FormsModule, ReactiveFormsModule,
   ],
   declarations: [ShareTransactionsComponent, IssueNewSharesComponent, SharesTransferComponent, MembershipCancellationComponent, FoundPaymentTransactionComponent, OpeningSharesTransactionsEntryComponent, RebitInterestTransactionComponent],
-  providers: [SelectOptionService,glMasterService,
+  providers: [SelectOptionService,glMasterService,SchemeCodeDropdownService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

@@ -223,7 +223,7 @@ export class MasterSavingComponent implements OnInit {
   ngOnDestroy(){
     this.mySubscription.unsubscribe();
   }
-  //get saving customer data 
+  //get saving customer data
   getSavingData(data){
     this.savingData = data.id;
     this.child.editClickHandler(data.id);

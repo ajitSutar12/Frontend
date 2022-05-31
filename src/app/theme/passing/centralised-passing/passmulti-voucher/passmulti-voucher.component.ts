@@ -16,15 +16,15 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface MultiVoucher {
-  TRAN_NO: string;
-  TRAN_AMOUNT: string;
-  TRAN_DRCR: string;
-  TRAN_TIME: string;
-  TRAN_ACTYPE: string;
-  TRAN_TYPE: string;
-  TRAN_ACNO: string;
-  USER_CODE: string;
-
+  TRAN_NO:string;
+  TRAN_AMOUNT:string;
+  TRAN_DRCR:string;
+  TRAN_TIME:string;
+  TRAN_ACTYPE:string;
+  TRAN_TYPE:string;
+  TRAN_ACNO:string;
+  USER_CODE:string;
+    
 }
 @Component({
   selector: 'app-passmulti-voucher',
@@ -86,18 +86,18 @@ export class PassmultiVoucherComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.mySubscription = interval(1000).subscribe((x => {
-          this.http
-            .post<DataTableResponse>(
-              this.url + '/voucher/multiPassing',
-              dataTableParameters
-            ).subscribe(resp => {
-              this.multiVoucher = resp.data;
-              callback({
-                recordsTotal: resp.recordsTotal,
-                recordsFiltered: resp.recordsTotal,
-                data: []
-              });
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/multi-voucher/passing',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.multiVoucher = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
             });
+          });
         }));
       },
       columnDefs: [{
@@ -117,13 +117,41 @@ export class PassmultiVoucherComponent implements OnInit {
           data: 'TRAN_AMOUNT'
         },
         {
-          title: 'Date',
-          data: 'TRAN_DATE'
+          title: 'Debit/Credit',
+          data: 'TRAN_DRCR'
         },
         {
           title: 'Time',
           data: 'TRAN_TIME'
         },
+        {
+          title: 'Scheme Type',
+          data: 'TRAN_ACTYPE'
+        },
+        // {
+        //   title: 'Scheme',
+        //   data: 'scheme'
+        // },
+        {
+          title: 'Transaction Type',
+          data: 'TRAN_TYPE'
+        },
+        {
+          title: 'Account Number',
+          data: 'TRAN_ACNO'
+        },
+        // {
+        //   title: 'Account Name',
+        //   data: 'TRAN_ACNO'
+        // },
+        {
+          title: 'User',
+          data: 'USER_CODE'
+        },
+        // {
+        //   title: 'User Name',
+        //   // data: 'AC_OPDATE'
+        // },
       ],
       dom: 'Blrtip',
 
@@ -131,13 +159,13 @@ export class PassmultiVoucherComponent implements OnInit {
 
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.mySubscription.unsubscribe();
   }
   //get saving customer data
   getMultiVoucherData(data) {
-    this.multiVoucherData = data.TRAN_NO;
-    this.child.editClickHandler(data.TRAN_NO);
+    this.multiVoucherData = data.id;
+    this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

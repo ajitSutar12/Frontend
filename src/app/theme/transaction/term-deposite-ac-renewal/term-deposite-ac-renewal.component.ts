@@ -6,7 +6,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { TermDepositeAcRenewalService } from './term-deposite-ac-renewal.service';
 import * as moment from 'moment';
-import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-term-deposite-ac-renewal',
   templateUrl: './term-deposite-ac-renewal.component.html',
@@ -15,10 +15,10 @@ import Swal from 'sweetalert2';
 export class TermDepositeAcRenewalComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
-  updateID: number = 0;
+
 
   selectedBranch: any;
-  selectedIntCate: any;
+  selectedIntCate:any;
   selectedCode: any;
   selectedScheme: any;
   customer: any;
@@ -27,7 +27,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   customerNormal: any;
   selectedCodePayable: any;
   selectedSchemePayable: any;
-  renewalAsOnDate: any;
+  renewalAsOnDate:any;
   customerPayable: any;
   angForm: FormGroup;
 
@@ -40,20 +40,20 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   allScheme = new Array()//from schme master
   master: any;
   allSchemeCode: any//from schme master
-  allSchemeCodeNormal: any;
-  allSchemeCodePayable: any;
+  allSchemeCodeNormal:any;
+  allSchemeCodePayable:any;
   isture: boolean = true;
 
-  NormalCheck: boolean = true;
-  transferShowNormal: boolean = false;
-  payableTranferShow: boolean = false;
-  InterestDate: any;
-  current_date: any;
+  NormalCheck:boolean = true;
+  transferShowNormal:boolean = false;
+  payableTranferShow:boolean = false;
+  InterestDate : any;
+  current_date : any;
 
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-  InterestCategoryData: any;
+  InterestCategoryData : any;
 
 
   constructor(private fb: FormBuilder,
@@ -62,7 +62,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private Multiservice: MultiVoucherService,
     private _service: TermDepositeAcRenewalService,
-  ) {
+  ) { 
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
@@ -70,13 +70,15 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm()
-
+    
     let user = JSON.parse(localStorage.getItem('user'));
 
     this.current_date = user.branch.syspara.CURRENT_DATE;
+    console.log(this.current_date);
 
     //get syspara details
     this.multiService.getSysParaData().subscribe(data => {
+      debugger
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
     })
@@ -90,77 +92,78 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     //Scheme Code
     this.Multiservice.getSchemeCodeList().subscribe(data => {
       this.master = data;
-      this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
+      this.allSchemeCode       = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
       this.allSchemeCodeNormal = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
-      this.allSchemeCodePayable = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
+      this.allSchemeCodePayable= [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
       this.selectedCode = 'TD';
       this.selectedSchemeCode()
     })
 
     //Data
-    this._service.interestCategory().subscribe(data => {
+    this._service.interestCategory().subscribe(data=>{
       this.InterestCategoryData = data;
+      console.log(this.InterestCategoryData);
     })
   }
 
-  createForm() {
+  createForm()
+  {
     this.angForm = this.fb.group({
-      branch_code: ['', [Validators.required]],
+      branch_code: ['',[Validators.required]],
       date: [''],
-      scheme_type: ['', [Validators.required]],
-      scheme: ['', [Validators.required]],
-      account_no: ['', [Validators.required]],
-      NormalInt: [''],
-      NormalIntCheck: [''],
-      IntUpto: [''],
-      NormalIntRadio: [''],
-      PayableCheck: [''],
-      new_matu_date: [''],
-      new_maturity_amt: [''],
-      new_last_date: [''],
-      new_rate: [''],
-      new_deposit: [''],
-      new_receipt: [''],
-      new_day: [''],
-      new_month: [''],
-      new_ason_date: [''],
-      new_category: [''],
-      renewal_tran_no: [''],
-      payable_account_no: ['', [Validators.required]],
-      payable_scheme: ['', [Validators.required]],
-      payable_scheme_type: ['', [Validators.required]],
-      PayableIntRadio: [''],
-      payableCheck: [''],
-      normal_account_no: ['', [Validators.required]],
-      normal_scheme: ['', [Validators.required]],
-      normal_scheme_type: ['', [Validators.required]],
-      old_last_trn_date: [''],
-      old_int_cate: [''],
-      old_last_int_date: [''],
-      old_total_int_paid: [''],
-      old_intrate: [''],
-      old_month: [''],
-      old_receipt_no: [''],
-      old_ac_ason_date: [''],
-      old_ac_matuamt: [''],
-      old_ac_expdt: [''],
-      old_Ac_op_date: [''],
-      old_deposit_Amt: [''],
-      payableInt: [''],
-      AC_RENEWAL_COUNTER: [0],
-      TRAN_NO: [0]
+      scheme_type: ['',[Validators.required]],
+      scheme: ['',[Validators.required]],
+      account_no: ['',[Validators.required]],
+      NormalInt:[''],
+      NormalIntCheck:[''],
+      IntUpto:[''],
+      NormalIntRadio:[''],
+      PayableCheck:[''],
+      new_matu_date:[''],
+      new_maturity_amt:[''],
+      new_last_date:[''],
+      new_rate:[''],
+      new_deposit:[''],
+      new_receipt:[''],
+      new_day:[''],
+      new_month:[''],
+      new_ason_date:[''],
+      new_category:[''],
+      renewal_tran_no:[''],
+      payable_account_no:['',[Validators.required]],
+      payable_scheme:['',[Validators.required]],
+      payable_scheme_type:['',[Validators.required]],
+      PayableIntRadio:[''],
+      payableCheck:[''],
+      normal_account_no:['',[Validators.required]],
+      normal_scheme:['',[Validators.required]],
+      normal_scheme_type:['',[Validators.required]],
+      old_last_trn_date:[''],
+      old_int_cate:[''],
+      old_last_int_date:[''],
+      old_total_int_paid:[''],
+      old_intrate:[''],
+      old_month:[''],
+      old_receipt_no:[''],
+      old_ac_ason_date:[''],
+      old_ac_matuamt:[''],
+      old_ac_expdt:[''],
+      old_Ac_op_date:[''],
+      old_deposit_Amt:[''],
+      payableInt:['']
     })
   }
 
   //Customer change function
-  TotalDays: number;
+  TotalDays : number;
   getVoucherData() {
+    console.log(this.customer);
     this.selectedIntCate = this.customer.AC_INTCATA;
     this.renewalAsOnDate = this.customer.AC_EXPDT;
     this.angForm.patchValue({
-      'new_month': this.customer.AC_MONTHS,
-      'new_day': this.customer.AC_DAYS,
-      'new_deposit': this.customer.AC_SCHMAMT,
+      'new_month':this.customer.AC_MONTHS,
+      'new_day' : this.customer.AC_DAYS,
+      'new_deposit' : this.customer.AC_SCHMAMT,
       'new_rate': this.customer.AC_INTRATE,
       'new_last_date': this.customer.AC_LINTEDT,
       'new_maturity_amt': this.customer.AC_MATUAMT,
@@ -203,7 +206,9 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
       case 'TD':
         this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          debugger
           this.introducerACNo = data;
+          console.log(this.introducerACNo);
         })
         break;
 
@@ -248,6 +253,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
 
   getIntroducerNormal() {
+    debugger
     this.introducerACNoNormal = [];
     this.obj = [this.selectedSchemeNormal.id, this.selectedBranch]
     switch (this.selectedCodeNormal) {
@@ -277,7 +283,9 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
       case 'TD':
         this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          debugger
           this.introducerACNoNormal = data;
+          console.log(this.introducerACNoNormal);
         })
         break;
 
@@ -349,7 +357,9 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
       case 'TD':
         this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          debugger
           this.introducerACNoPayable = data;
+          console.log(this.introducerACNoPayable);
         })
         break;
 
@@ -399,7 +409,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     });
   }
 
-  allSchemeNormal: any;
+  allSchemeNormal :any;
   selectedSchemeCodeNormal() {
     this.allSchemeNormal = [];
     this.master.forEach(element => {
@@ -408,8 +418,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
     });
   }
-  allSchemePayable: any;
-  selectedSchemeCodePayable() {
+  allSchemePayable:any;
+  selectedSchemeCodePayable(){
     this.allSchemePayable = [];
     this.master.forEach(element => {
       if (element.S_ACNOTYPE == this.selectedCodePayable) {
@@ -417,189 +427,68 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
     });
   }
-  showButton: boolean = true;
-  updateShow: boolean = false;
-  newbtnShow: boolean = false;
-  updatecheckdata
-  editClickHandler(id) {
+  editClickHandler(id) {}
 
-    this._service.getFormData(id).subscribe((data) => {
-      this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN == null) {
-        this.showButton = false;
-        this.updateShow = true;
-        this.newbtnShow = true;
-      } else {
-        this.showButton = false;
-        this.updateShow = false;
-        this.newbtnShow = true;
-      }
-      this.updateID = data.id;
-      this.date = data.RENEWAL_DATE
-      let normalType
-      if (data.NORMAL_INT_TRTYPE == 'DP') {
-        normalType = 'AddInDeposit'
-      }
-      else if (data.NORMAL_INT_TRTYPE == 'CS') {
-        normalType = 'cash';
-      } else if (data.NormalIntRadio == 'TR') {
-        normalType = 'transfer';
-      } else {
-        normalType = 'KP';
-      }
-      this.selectedScheme = Number(data.AC_TYPE)
-      this.updateID = data.id
-      this.angForm.patchValue({
-        branch_code: data.BRANCH_CODE,
-        old_month: data.OLD_MONTH,
-        old_ac_expdt: data.OLD_EXPIRY_DATE,
-        date: data.RENEWAL_DATE,
-        scheme_type: data.AC_ACNOTYPE,
-        // scheme: Number(data.AC_TYPE),
-        account_no: data.AC_NO,
-        new_deposit: data.RENEWAL_AMOUNT,
-        new_month: data.NEW_MONTH,
-        new_day: data.NEW_DAYS,
-        new_ason_date: data.NEW_ASON_DATE,
-        NormalIntRadio: normalType,
-        AC_RENEWAL_COUNTER: data.AC_RENEWAL_COUNTER,
-        TRAN_NO: data.TRAN_NO
-      })
-    })
-  }
-
-  updateData() {
-    let billDate
-    let chequeDate
-    let obj = this.angForm.value;
-    let dataToSend = this.angForm.value
-    if (this.updatecheckdata.NEW_EXPIRY_DATE != obj.new_matu_date) {
-      (obj.new_matu_date == 'Invalid date' || obj.new_matu_date == '' || obj.new_matu_date == null) ? (billDate = '', obj['new_matu_date'] = billDate) : (billDate = obj.new_matu_date, dataToSend['new_matu_date'] = moment(billDate).format('DD/MM/YYYY'))
-    } else {
-      dataToSend['new_matu_date'] = obj.new_matu_date
-    }
-    dataToSend['current_date'] = this.date;
-    dataToSend['user'] = JSON.parse(localStorage.getItem('user'))
-    dataToSend['id'] = this.updateID,
-      this._service.updateData(dataToSend).subscribe(
-        (data) => {
-          Swal.fire("Success!", "Data Updated Successfully !", "success");
-          this.resetForm()
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-
-  }
-  //approve account
-  Approve() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    let obj = {
-      id: this.updateID,
-      user: user.id,
-      TRAN_NO: this.angForm.controls['TRAN_NO'].value
-    }
-    this._service.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Term Deposit Account Renewal approved successfully',
-        'success'
-      );
-      var button = document.getElementById('trigger');
-      button.click();
-
-    }, err => {
-      console.log('something is wrong');
-    })
-  }
-
-
-  //reject account
-  reject() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    let obj = {
-      id: this.updateID,
-      user: user.id,
-      TRAN_NO: this.angForm.controls['TRAN_NO'].value
-    }
-    this._service.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Term Deposit Account Renewal rejected successfully',
-        'success'
-      );
-      var button = document.getElementById('trigger');
-      button.click();
-    }, err => {
-      console.log('something is wrong');
-    })
-  }
-
-  resetForm() {
-    this.createForm()
-  }
-
-  changeNormal(ele) {
-    if (ele.target.value == 'transfer') {
+  changeNormal(ele){
+    if(ele.target.value == 'transfer'){
       this.transferShowNormal = true;
     }
-    else if (ele.target.value == 'AddInDeposit') {
-      let depositeAmount = this.angForm.controls['new_deposit'].value;
-      let intValue = this.angForm.controls['NormalInt'].value;
+    else if(ele.target.value == 'AddInDeposit'){
+        let depositeAmount  = this.angForm.controls['new_deposit'].value;
+        let intValue        = this.angForm.controls['NormalInt'].value;
 
-      let Int = Number(depositeAmount) + Number(intValue);
+        let Int =  Number(depositeAmount) + Number(intValue);
 
-      this.angForm.patchValue({
-        'new_deposit': Int
-      })
+        this.angForm.patchValue({
+          'new_deposit' : Int
+        })
     }
-    else {
+    else{
       this.transferShowNormal = false;
     }
   }
 
-  normalCheck(ele) {
-    if (ele.target.checked) {
+  normalCheck(ele){
+    if(ele.target.checked){
       this.NormalCheck = false;
       this.InterestDate = this.current_date;
     }
   }
 
-  PayableCheck: boolean = true;
-  payableInt(ele) {
-    if (ele.target.checked) {
+  PayableCheck:boolean = true;
+  payableInt(ele){
+    if(ele.target.checked){
       this.PayableCheck = false;
     }
   }
 
-  payableStatus(ele) {
-    if (ele.target.value == 'transfer') {
+  payableStatus(ele){
+    if(ele.target.value == 'transfer'){
       this.payableTranferShow = true;
-    } else if (ele.target.value == 'AddInDeposit') {
+    }else if(ele.target.value == 'AddInDeposit'){
       let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
-      let IntAmt = Number(this.angForm.controls['payableInt'].value);
+      let IntAmt         = Number(this.angForm.controls['payableInt'].value);
 
-      let Int = depositeAmount + IntAmt;
+      let Int =  depositeAmount +  IntAmt;
 
       this.angForm.patchValue({
         'new_deposit': Int
       })
     }
-    else {
+    else{
       this.payableTranferShow = false;
     }
   }
 
-  submit() {
+  submit(){
 
 
     let obj = this.angForm.value;
-    obj['current_date'] = this.date;
+    obj['current_date'] =  this.date;
     obj['user'] = JSON.parse(localStorage.getItem('user'))
-    this._service.postData(obj).subscribe(data => {
+    this._service.postData(obj).subscribe(data=>{
       alert('Data insert succssfully');
-    }, err => {
+    },err=>{
       console.log(err?.error?.message)
     })
   }

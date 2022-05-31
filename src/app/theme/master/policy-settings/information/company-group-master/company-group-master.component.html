@@ -83,7 +83,17 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
+                            <!-- <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="schemeType" [multiple]="false"
+                                    maxlength="2" placeholder="Scheme Type*" required title="Compulsory Selection"
+                                    formControlName="AC_ACNOTYPE"
+                                    [ngClass]="{'form-submitted': formSubmitted}">
+                                </ng-select>
+
+                            </div> -->
                             <div class="form-group form-primary form-static-label">
+                                <!-- <span class="border-lable-flt"> -->
+
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedCode" formControlName="AC_ACNOTYPE" bindValue="id"
                                         bindLabel="S_ACNOTYPE" [ngClass]="{'form-submitted': formSubmitted}" required
@@ -93,6 +103,15 @@
                                     </ng-select>
                                     <label for="AC_ACNOTYPE">Scheme Type<sub class="required">*</sub></label>
                                 </span>
+                                <!-- <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Scheme Type">
+                                        <ng-option *ngFor="let values of schemeType" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                                </span> -->
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_ACNOTYPE'].invalid && (angForm.controls['AC_ACNOTYPE'].dirty || angForm.controls['AC_ACNOTYPE'].touched)"
@@ -103,6 +122,14 @@
                             </div>
                         </div>
                         <div class="col-sm">
+                            <!-- <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
+                                    placeholder="Scheme Code*" [(ngModel)]="acno" (selected)="getIntroducer(acno)"
+                                    required title="Compulsory Selection" formControlName="AC_TYPE"
+                                    [ngClass]="{'form-submitted': formSubmitted}">
+                                </ng-select>
+
+                            </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" [(ngModel)]="ngscheme" formControlName="AC_TYPE"

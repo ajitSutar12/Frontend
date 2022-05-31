@@ -97,6 +97,14 @@ const routes: Routes = [
         path: 'goldsilverreturnentry',
         loadChildren: () => import('./gold-silver-return-entry/gold-silver-return-entry.module').then(m => m.GoldSilverReturnEntryModule)
       },
+      {
+        path: 'locker',
+        loadChildren: () => import('./locker/locker.module').then(m => m.LockerModule)
+      },
+      {
+        path: 'cashier',
+        loadChildren: () => import('./cashier/cashier.module').then(m =>m.CashierModule)
+      },
     ]
   }
 ];

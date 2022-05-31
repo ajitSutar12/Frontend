@@ -17,24 +17,32 @@
                                                 <tbody *ngIf="multiVoucher?.length != 0">
                                                     <tr *ngFor="let data of multiVoucher">
                                                         <td>
-                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                                placement="bottom" ngbTooltip="Edit"
-                                                                (click)="modalLarge.show();getMultiVoucherData(data)"></span>
+                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                                                                placement="bottom" ngbTooltip="Edit" (click)="modalLarge.show();getMultiVoucherData(data)"></span>
                                                         </td>
                                                         <td [ngClass]="data.TRAN_NO === '' ? 'td_center' : 'td_right'">
                                                             {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
                                                         </td>
-                                                        <td
-                                                            [ngClass]="data.TRAN_AMOUNT === '' ? 'td_center' : 'td_right'">
+                                                        <td [ngClass]="data.TRAN_ACNO === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.TRAN_ACNO === "" ? "-" : data.TRAN_ACNO }}
+                                                        </td>
+                                                        <td [ngClass]="data.TRAN_AMOUNT === '' ? 'td_center' : 'td_right'">
                                                             {{ data.TRAN_AMOUNT === "" ? "-" : data.TRAN_AMOUNT }}
                                                         </td>
-                                                        <td
-                                                            [ngClass]="data.TRAN_DATE === '' ? 'td_center' : 'td_center'">
-                                                            {{ data.TRAN_DATE === "" ? "-" : data.TRAN_DATE }}
+                                                        <td [ngClass]="data.TRAN_DRCR === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.TRAN_DRCR === "" ? "-" : data.TRAN_DRCR }}
                                                         </td>
-                                                        <td
-                                                            [ngClass]="data.TRAN_TIME === '' ? 'td_center' : 'td_right'">
+                                                        <td [ngClass]="data.TRAN_TIME === '' ? 'td_center' : 'td_right'">
                                                             {{ data.TRAN_TIME === "" ? "-" : data.TRAN_TIME }}
+                                                        </td>
+                                                        <td [ngClass]="data.TRAN_ACTYPE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.TRAN_ACTYPE === "" ? "-" : data.TRAN_ACTYPE }}
+                                                        </td>
+                                                        <td [ngClass]="data.TRAN_TYPE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.TRAN_TYPE === "" ? "-" : data.TRAN_TYPE }}
+                                                        </td>
+                                                        <td [ngClass]="data.USER_CODE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.USER_CODE === "" ? "-" : data.USER_CODE }}
                                                         </td>
                                                     </tr>
 
@@ -58,21 +66,21 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Multi Voucher</h4>
-        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
+      <h4 class="modal-title">Multi Voucher</h4>
+      <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="app-modal-body">
-        <perfect-scrollbar style="overflow-y: auto;">
-            <app-multi-voucher [childMessage]="multiVoucherData" (getUserData)="getData($event)"></app-multi-voucher>
-
-
-
-        </perfect-scrollbar>
+      <perfect-scrollbar style="overflow-y: auto;">
+        <app-multi-voucher [childMessage]="multiVoucherData" (getUserData)="getData($event)"></app-multi-voucher>
+        
+        
+        
+      </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalLarge.hide();">Close</button>
+      <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
+        (click)="modalLarge.hide();">Close</button>
     </div>
-</app-modal-basic>
+  </app-modal-basic>

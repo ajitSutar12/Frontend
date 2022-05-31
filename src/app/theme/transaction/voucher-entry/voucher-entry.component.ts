@@ -42,11 +42,11 @@ export class VoucherEntryComponent implements OnInit {
   syspara: any;
   // Created Form Group
   angForm: FormGroup;
-  Pass: number = 0;
-  Unpass: number = 0;
-  ClearBalance: number = 0;
-  AfterVoucher: number = 0;
-  InputHeadAmt: number = 0.00;
+  Pass:number = 0;
+  Unpass:number = 0;
+  ClearBalance:number =0;
+  AfterVoucher:number=0;
+  InputHeadAmt:number = 0.00;
 
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
@@ -104,12 +104,12 @@ export class VoucherEntryComponent implements OnInit {
 
   bankName = [
     {
-      name: 'Bank of India',
-      id: 1
+      name:'Bank of India',
+      id  : 1
     },
     {
       name: 'State bank of India',
-      id: 2
+      id  : 2
     }
   ]
 
@@ -119,12 +119,12 @@ export class VoucherEntryComponent implements OnInit {
   isture: boolean = true;
   totalAmt: any;
   showChequeDetails: boolean = false;
-  DayOpBal: number;
-  headData: any;
+  DayOpBal : number;
+  headData : any;
   headShow: boolean = false;
   lastday: any;
 
-  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
+  customerImg:string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
   maxDate: Date;
   dtTrigger: any;
@@ -138,7 +138,7 @@ export class VoucherEntryComponent implements OnInit {
     private _service: VoucherEntryService,
     private savingMasterService: SavingMasterService,
     private fb: FormBuilder,
-    private router: Router
+    private router : Router
   ) {
     if (this.childMessage != undefined) {
 
@@ -146,11 +146,11 @@ export class VoucherEntryComponent implements OnInit {
     }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
-  }
+   }
 
   ngOnInit(): void {
     this.createForm();
-
+    
 
     //Day opening Amount
     this.DayOpBal = 1000;
@@ -164,6 +164,7 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getSysParaData().subscribe(data => {
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
+      console.log(this.date);
     })
 
     //branch List
@@ -174,6 +175,7 @@ export class VoucherEntryComponent implements OnInit {
 
     //Scheme Code
     this._service.getSchemeCodeList().subscribe(data => {
+      console.log(data);
       this.master = data;
       this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
 
@@ -184,33 +186,33 @@ export class VoucherEntryComponent implements OnInit {
       this.narrationList = data;
     })
 
-
+    
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      branch_code: ['', [Validators.required]],
+      branch_code : ['', [Validators.required]],
       temp_over_draft: [''],
       over_draft: [''],
-      token: [''],
+      token: [''], 
       particulars: [''],
       total_amt: [''],
       amt: [''],
       slip_no: [''],
       tran_mode: ['', [Validators.required]],
-      account_no: ['', [Validators.required]],
-      scheme: ['', [Validators.required]],
-      scheme_type: ['', [Validators.required]],
-      date: [''],
-      type: new FormControl('cash'),
-      chequeDate: [''],
-      chequeNo: [''],
+      account_no:['', [Validators.required]],
+      scheme:['', [Validators.required]],
+      scheme_type:['', [Validators.required]],
+      date:[''],
+      type:new FormControl('cash'),
+      chequeDate:[''],
+      chequeNo:[''],
       bank: [''],
-      Intdate: ['']
+      Intdate:['']
     })
   }
 
-  IntersetHeadDate: any;
+  IntersetHeadDate:any;
   selectedSchemeCode() {
     this.allScheme = [];
     this.master.forEach(element => {
@@ -235,24 +237,26 @@ export class VoucherEntryComponent implements OnInit {
     }
 
     //get Head details
-    let obj = { 'code': this.selectedCode };
-    let date = this.date;
-    var rowData = date.split('/');
-    let lastdate = Number(rowData[0]) - 1;
+    let obj       = {'code': this.selectedCode};
+    let date      = this.date;
+    var rowData   = date.split('/');
+    let lastdate  = Number(rowData[0])-1;
     // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
-    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
-    this._service.getHeadDetails(obj).subscribe(data => {
-      if (data.length != 0) {
+    this.IntersetHeadDate    = lastdate+'/'+rowData[1]+'/'+rowData[2];
+    console.log('IntrestDate', this.IntersetHeadDate);
+    this._service.getHeadDetails(obj).subscribe(data=>{
+      if(data.length !=0){
         this.headData = data;
         this.headShow = true;
         this.headData.forEach(element => {
           element['date'] = this.IntersetHeadDate;
           element['Amount'] = 0.00
         });
-      } else {
+        console.log(this.headData);
+      }else{
         this.headShow = false;
       }
-    }, err => {
+    },err=>{
       console.log(err);
     })
   }
@@ -358,12 +362,13 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   //submit Form
-  submit() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    let obj = this.angForm.value;
-    obj['user'] = user;
+  submit(){
+    let user   = JSON.parse(localStorage.getItem('user'));
+    let obj    = this.angForm.value;
+    obj['user']= user;
     obj['InputHead'] = this.headData;
-    this._service.insertVoucher(obj).subscribe(data => {
+    console.log(obj);
+    this._service.insertVoucher(obj).subscribe(data=>{
       this.getVoucherData();
       Swal.fire('Success!', 'Voucher update Successfully !', 'success');
       this.angForm.controls['temp_over_draft'].reset()
@@ -384,109 +389,110 @@ export class VoucherEntryComponent implements OnInit {
       this.angForm.controls['bank'].reset()
       this.headData = [];
       this.headShow = false;
-    }, err => {
+    },err=>{
       console.log(err);
     })
   }
   // Reset Function
   resetForm() {
     this.createForm();
-
+    
   }
 
   //get Amount Details
-  getAmt(ele) {
-    this.totalAmt = ele.target.value + '.00';
+  getAmt(ele){
+    this.totalAmt =  ele.target.value+'.00';
   }
 
   //Mode data
-  changeMode() {
-    if (this.selectedMode.tran_drcr == 'D') {
+  changeMode(){
+    if(this.selectedMode.tran_drcr == 'D'){
       this.showChequeDetails = true;
       this.angForm.controls['chequeNo'].reset()
       this.angForm.controls['chequeDate'].reset()
       this.angForm.controls['bank'].reset()
 
     }
-    else {
+    else{
       this.showChequeDetails = false;
     }
-    if (this.selectedCode == 'GL') {
+    if(this.selectedCode == 'GL'){
       this.showChequeDetails = true
     }
   }
 
   //get customer today voucher data
-  getVoucherData() {
+  getVoucherData(){
     let customer = this.angForm.controls['account_no'].value;
     let obj = {
-      'customer': customer.BANKACNO,
-      'date': this.date
+      'customer' : customer.BANKACNO,
+      'date'     : this.date
     }
 
     //Check Account Close or not
     let Obj = {
-      'customer_ACNO': customer.BANKACNO,
+      'customer_ACNO' : customer.BANKACNO,
       'type': this.selectedCode
     }
-    this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
-      if (data == true) {
+    this._service.checkAccountCloseOrNot(Obj).subscribe(data=>{
+      if(data == true){
         Swal.fire('Error!', 'Access dined Account Close Already!', 'error');
         return 0;
       }
-    }, err => {
+    },err=>{
       console.log(err);
     })
-
-    this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
-      let passType = '';
+    
+    this._service.getVoucherPassAndUnpassData(obj).subscribe(data=>{
+      let passType   = '';
       let unpassType = '';
 
       //DayOfOpening 
       this.ClearBalance = this.ClearBalance + this.DayOpBal;
 
       //Pass condition checked
-      if (data.passObj.pass == undefined) {
-        this.Pass = 0;
-        passType = 'Cr';
-      } else {
-        this.Pass = data.passObj.pass;
-        passType = data.passObj.type;
+      if(data.passObj.pass == undefined){
+        this.Pass =  0;
+        passType  = 'Cr';
+      }else{
+        this.Pass =  data.passObj.pass;
+        passType  = data.passObj.type;
       }
 
       //Unpass condition checked
-      if (data.unpassObj.UnPass == undefined) {
+      if(data.unpassObj.UnPass == undefined){
         this.Unpass = 0;
         let unpassType = 'Cr';
-      } else {
+      }else{
         this.Unpass = data.unpassObj.UnPass;
         let unpassType = data.unpassObj.type;
       }
 
 
-      if (passType == 'Cr') {
+      if(passType == 'Cr'){ 
         this.ClearBalance = this.Pass + this.ClearBalance;
-      } else {
+      }else{
         this.ClearBalance = this.Pass - this.ClearBalance;
       }
 
-      if (unpassType == 'Cr') {
+      if(unpassType == 'Cr'){
         this.ClearBalance = this.Unpass + this.ClearBalance;
-      } else {
+      }else{
         this.ClearBalance = this.Unpass - this.ClearBalance;
       }
       // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
       this.AfterVoucher = this.ClearBalance;
-    }, err => {
+    },err=>{
       console.log(err);
     })
   }
 
 
   //get Input head Amount
-  getInputHeadAmt(ele, i) {
+  getInputHeadAmt(ele,i){
     let value = ele.target.value;
     this.headData[i].Amount = value;
+    console.log(this.headData);
   }
 
   //decimal content show purpose wrote below function
@@ -501,182 +507,20 @@ export class VoucherEntryComponent implements OnInit {
     this.previewImg = '';
     this.PreviewDiv = false;
   }
-  previewImg: string;
-  PreviewDiv: boolean = false;
+  previewImg:string;
+  PreviewDiv : boolean = false;
   showImage(img) {
     var src = img;
+    console.log(src)
     var largeSrc = src.replace('small', 'large');
     this.previewImg = src;
     this.PreviewDiv = true;
     // document.getElementById('full').src = largeSrc;
   }
-
-  updatecheckdata
-  public visibleAnimate = false;
-  public visible = false;
-  updateShow: boolean = false;
-  newbtnShow: boolean = false;
-  // Variables for hide/show add and update button
-  showButton: boolean = true;
-  updateID
-
-  onCloseModal() {
-    this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
-  }
-
-  editClickHandler(id) {
-    this._service.getFormData(id).subscribe((data) => {
-      debugger
-      console.log('edit', data)
-      this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN == null) {
-        this.showButton = false;
-        this.updateShow = true;
-        this.newbtnShow = true;
-      } else {
-        this.showButton = false;
-        this.updateShow = false;
-        this.newbtnShow = true;
-      }
-      this.updateID = data.id;
-      this.selectedBranch = data.BRANCH_CODE
-      this.selectedCode = data.TRAN_ACNOTYPE
-      this.selectedScheme = Number(data.TRAN_ACTYPE)
-      this.selectedMode = data.TRAN_MODE
-      this.introducerACNo = [];
-      this.obj = [this.selectedScheme, this.selectedBranch]
-      switch (this.selectedCode) {
-        case 'SB':
-          this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'SH':
-          this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'CA':
-          this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'LN':
-          this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'TD':
-          this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'DS':
-          this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'CC':
-          this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'GS':
-          this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'PG':
-          this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'AG':
-          this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-
-        case 'IV':
-          this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
-          })
-          break;
-      }
-
-      this.angForm.patchValue({
-        type: data.TRAN_TYPE == 'CS' ? 'cash' : data.TRAN_TYPE == 'TR' ? 'transfer' : '',
-        date: data.TRAN_DATE,
-        account_no: data.TRAN_ACNO,
-        chequeNo: data.CHEQUE_NO,
-        chequeDate: data.CHEQUE_DATE,
-        amt: data.TRAN_AMOUNT,
-        total_amt: data.TRAN_AMOUNT,
-        particulars: data.NARRATION,
-        token: data.TOKEN_NO,
-
-      })
-    })
-
-  }
-
-  updateData() {
-
-  }
-
-  //approve account
-  Approve() {
-    let obj = {
-      id: this.updateID,
-    }
-    this._service.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Voucher approved successfully',
-        'success'
-      );
-      var button = document.getElementById('trigger');
-      button.click();
-
-    }, err => {
-      console.log('something is wrong');
-    })
-  }
-
-  //reject account
-  reject() {
-    let obj = {
-      id: this.updateID,
-    }
-    this._service.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Voucher rejected successfully',
-        'success'
-      );
-      var button = document.getElementById('trigger');
-      button.click();
-    }, err => {
-      console.log('something is wrong');
-    })
-  }
-
-
-  addNewData() {
-    this.createForm()
-  }
+  editClickHandler(id) {}
 
   ngAfterViewInit(): void {
+    this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
       dtInstance.columns().every(function () {

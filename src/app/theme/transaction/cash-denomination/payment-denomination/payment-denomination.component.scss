@@ -1,3 +1,37 @@
 .required {
     color: red;
   }
+
+  div.solid {
+    border-style: solid;
+    padding:2%;
+    width: 240px;
+  }
+  .h1{
+    content: "";
+    width: 210px;
+    height: 2px;
+    display: block;
+    background: black;
+    position: absolute;
+    
+  }
+
+  div.solid1 {
+    border-style: solid;
+    padding:2%;
+    width: 175px;
+  }
+  .h2{
+    content: "";
+    width: 150px;
+    height: 2px;
+    display: block;
+    background: black;
+    position: absolute;
+    
+  }
+
+  div.solid1 h3 span{
+    background-color: white;
+}

@@ -63,13 +63,13 @@
                                         <div class="form-radio">
                                             <div class="radio radio-inline">
                                                 <label>
-                                                    <input type="radio" name="type" value="cash" formControlName="type"
+                                                    <input type="radio" name="DEBIT" value="cash" formControlName="type"
                                                         [checked]="true" (change)="transactionMode('cash')">
                                                     <i class="helper"></i>Cash </label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label>
-                                                    <input type="radio" name="type" value="transfer"
+                                                    <input type="radio" name="DEBIT" value="transfer"
                                                         formControlName="type" (change)="transactionMode('transfer')">
                                                     <i class="helper"></i>Transfer </label>
                                             </div>
@@ -354,29 +354,10 @@
                                                     </div>
                                                 </div> -->
                                         </div>
-                                        <!-- <div class="row">
+                                        <div class="row">
                                             <div class="col-md-12 text-center">
                                                 <button type="button" class="btn btn-outline-primary btn-sm"
                                                     (click)="submit()">Update</button>
-                                            </div>
-                                        </div> -->
-                                        <div class="row">
-                                            <div class="col-sm" style="float: right;">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                                    (click)="submit()">
-                                                    Update
-                                                </button>
-                                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                                    *ngIf="newbtnShow">
-                                                    Cancel
-                                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                                    *ngIf="updateShow">
-                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                                    Approve</button>
                                             </div>
                                         </div>
                                     </div>

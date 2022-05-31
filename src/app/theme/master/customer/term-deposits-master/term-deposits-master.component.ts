@@ -199,7 +199,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //url to display document
   documentUrl = this.url + '/'
   //array of document of customer
-  customerDoc = [] 
+  customerDoc = []
   schemeCode
 
   selectedValue: any = null

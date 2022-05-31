@@ -7,12 +7,23 @@ import { CashInDenominationRoutingModule } from './cash-in-denomination-routing.
 import {DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     CashInDenominationRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
+
   
   ],
   declarations: [CashInDenominationComponent],

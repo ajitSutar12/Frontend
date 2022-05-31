@@ -1,14 +1,9 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http'
-import { environment } from "src/environments/environment";
-import { first } from 'rxjs/operators';
-import { Subject } from "rxjs";
-import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-// import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FileUploader, FileLikeObject } from 'ng2-file-upload';
+ 
 
-
+const URL = 'http://localhost:3000/fileupload/';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-all-reports-with-searching',
@@ -16,55 +11,171 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
   styleUrls: ['./all-reports-with-searching.component.scss']
 })
 export class AllReportsWithSearchingComponent implements OnInit {
-   // Created Form Group
-   angForm: FormGroup;
-  scheme: any[];
-  formSubmitted:false;
-  toduedate;
-  fromduedate;
-  ngscheme
-  selectedValue
-  fromAC
-  ngfromac
-  ToAC
-  ngtoac
-  maxDate: Date;
-  minDate: Date;
-  showButton :boolean =true;
 
-  constructor(private fb: FormBuilder, 
-    private http: HttpClient,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,
-    // private ownbranchMasterService: OwnbranchMasterService,
-    ) { 
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-    }
+  
+  // dtExportButtonOptions: any = {}; //Datatable variable
+ 
+  // dataSub: any;
+  // StatementTypeService: any;
+  // characters: any;
+  // timeLeft: number;
+
+
+     //object created to get data when row is clicked
+    //  message = {
+    //   Code: "",
+     
+    // };
+
+  //function for delete button clicked
+  // delClickHandler(info:any):void  {
+  //   this.message.Code=info.Code;
+  //       Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "Do you want to delete Statement Code." + this.message.Code + "  data", 
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#229954',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire(
+  //         'Deleted!',
+  //         'Your data has been deleted.',
+  //         'success'
+  //       )
+  //     } else if (
+  //       result.dismiss === Swal.DismissReason.cancel
+  //     ) {
+  //       Swal.fire(
+  //         'Cancelled',
+  //         'Your data is safe.',
+  //         'error'
+  //       )
+  //     }
+  //   })
+  // } 
+
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
-      });
-      this.scheme = allscheme;
-    })
-    // this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-    //   this.branch_code = data;
-    // })
+
+    // this.dtExportButtonOptions = {
+    //   ajax: 'fake-data/0.RepoDataDemo.json',
+    //   columns: [
+    //     {
+    //       title: 'Action',
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
+    //       }
+    //     },
+    //     {
+    //       data: 'id',
+    //       title: 'id'
+    //     },
+    //     {
+    //       data: 'firstName',
+    //       title: 'firstName'
+    //     },
+    //     {
+    //       data: 'lastName',
+    //       title: 'lastName'
+    //     },
+    //     {
+    //       data: 'id',
+    //       title: 'id'
+    //     },
+    //     {
+    //       data: 'firstName',
+    //       title: 'firstName'
+    //     },
+    //     {
+    //       data: 'lastName',
+    //       title: 'lastName'
+    //     },
+    //     {
+    //       data: 'firstName',
+    //       title: 'firstName'
+    //     },
+    //     {
+    //       data: 'lastName',
+    //       title: 'lastName'
+    //     },
+    //     {
+    //       data: 'firstName',
+    //       title: 'firstName'
+    //     },
+    //     {
+    //       data: 'lastName',
+    //       title: 'lastName'
+    //     },{
+    //       data: 'firstName',
+    //       title: 'firstName'
+    //     },
+    //     {
+    //       data: 'lastName',
+    //       title: 'lastName'
+    //     }
+        
+        
+        
+
+    //    ],
+    //   dom: 'Bfrtip',
+    //   buttons: [
+    //     'copy',
+    //     'print',
+    //     'excel',
+    //     'csv'
+    //   ],
+    //    //row click handler code
+    //    rowCallback: (row: Node, data: any[] | Object, index: number) => {
+    //     const self = this;
+    //     $('td', row).off('click');
+    //     $('td', row).on('click', '#editbtn', () => {
+    //       self.editClickHandler(data);
+    //     });
+    //     $('td', row).on('click', '#delbtn', () => {
+    //       self.delClickHandler(data);
+    //     });
+    //     return row;
+    //   }
+    //  };
+    // this.runTimer();
+    // this.dataSub = this.StatementTypeService.loadCharacters().subscribe((options) => {
+    //   this.characters = options;
+    // });
   }
-  createForm() {
-    this.angForm = this.fb.group({
-      FROM_DATE:[""],
-      TO_DATE:[""],
-      REPOTYPE:[""],
-      BRANCH:[""],
-      AC_TYPE:[""],
-      FROM_AC:[""],
-      TO_AC:[""],
-     
+  // editClickHandler(data: Object | any[]) {
+  //   throw new Error('Method not implemented.');
+  // }
+  // runTimer() {
+  //   const timer = setInterval(() => {
+  //     this.timeLeft -= 1;
+  //     if (this.timeLeft === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+ 
+  // }
+  
+  public uploader: FileUploader = new FileUploader({
+    url: URL,
+    disableMultipart : false,
+    autoUpload: true,
+    method: 'post',
+    itemAlias: 'attachment',
+    allowedFileType: ['image', 'pdf']
+
+
     });
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    const file: File = event[0];
+    console.log(file);
+
   }
+  
 }

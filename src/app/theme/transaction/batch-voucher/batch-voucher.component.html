@@ -6,7 +6,7 @@
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
-
+                
             </div>
             <div class="card-body">
                 <form [formGroup]="angForm" novalidate>
@@ -30,7 +30,7 @@
                                     <div *ngIf="angForm.controls['branch_code'].errors?.required">
                                         This field is required
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                             <div class="col-md-5"></div>
                             <div class="col-md-1"><label for="date">Date</label></div>
@@ -38,10 +38,10 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                            [isDisabled]="isture" [(ngModel)]="date" disabled formControlName="date">
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                        [isDisabled]="isture" [(ngModel)]="date" disabled formControlName="date">
                                     </span>
-
+                                
                                 </div>
                             </div>
                         </div>
@@ -52,8 +52,7 @@
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select (change)="getCompanyData($event)" [(ngModel)]="selectCompanyCode"
-                                            name="date" formControlName="company_code">
+                                        <ng-select (change)="getCompanyData($event)" [(ngModel)]="selectCompanyCode" name="date" formControlName="company_code">
                                             <ng-option *ngFor="let item of company_code" [value]="item.value">
                                                 {{item.value}} {{item.name}}</ng-option>
                                         </ng-select>
@@ -66,7 +65,7 @@
                                     <div *ngIf="angForm.controls['company_code'].errors?.required">
                                         This field is required
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="row">
@@ -76,8 +75,7 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" disabled readonly class="form-control"
-                                            formControlName="Scheme" [value]="company_data?.AC_ACNOTYPE">
+                                        <input type="text" disabled readonly class="form-control" [value]="company_data?.AC_ACNOTYPE">
                                     </span>
                                 </div>
                             </div>
@@ -87,11 +85,10 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" disabled readonly class="form-control"
-                                            formControlName="SchemeACNO" [value]="company_data?.AC_NO">
+                                        <input type="text" disabled readonly class="form-control" [value]="company_data?.AC_NO">
                                     </span>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2">
@@ -102,12 +99,12 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="ledger_balance" value="0.00" disabled
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                class="form-control" placeholder=" " id="ledger_balance" maxlength="15"
-                                                title="Input allowed only  0-9" required
-                                                formControlName="ledger_balance">
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            class="form-control" placeholder=" " id="ledger_balance" maxlength="15"
+                                            title="Input allowed only  0-9" required
+                                            formControlName="ledger_balance">
                                         </span>
-
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -117,8 +114,9 @@
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" name="chequeNo" class="form-control" placeholder=" "
-                                            id="chequeNo" value="" style="text-transform: capitalize;"
+                                        <input type="text" name="chequeNo" class="form-control"
+                                            placeholder=" " id="chequeNo" value=""
+                                            style="text-transform: capitalize;"
                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                             formControlName="chequeNo">
                                     </span>
@@ -130,8 +128,8 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <input type="text" placeholder="dd/mm/yyyy"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                        formControlName="ChequeDate">
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker formControlName="ChequeDate"
+                                    >
                                 </div>
                             </div>
                             <div class="col-md-1"></div>
@@ -142,9 +140,10 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="voucherAmount"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" placeholder=" " id="voucherAmount" maxlength="15"
-                                            title="Input allowed only  0-9" required formControlName="voucherAmount">
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        class="form-control" placeholder=" " id="voucherAmount" maxlength="15"
+                                        title="Input allowed only  0-9" required
+                                        formControlName="voucherAmount">
                                     </span>
                                 </div>
 
@@ -180,61 +179,44 @@
                                             <td></td>
                                             <td>{{item.AC_TYPE}}</td>
                                             <td>{{item.AC_NO}}</td>
-                                            <td><input type="text"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                    value="{{item.DEFAULT_AMOUNT}}" (focusout)="changeAmount($event,i)">
-                                            </td>
+                                            <td><input type="text" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" value="{{item.DEFAULT_AMOUNT}}" (focusout)="changeAmount($event,i)" ></td>
                                         </tr>
-
+                                      
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label></div>
-                            <div class="col-md-5">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <textarea class="form-control" formControlName="particulars"
-                                            [(ngModel)]="particulars"></textarea>
-                                        <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
-                                    </span>
-                                </div>
+                            </div>  
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2  "><label
+                                    for="AC_PARTICULAR">Particulars</label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <textarea class="form-control" formControlName="particulars"
+                                                [(ngModel)]="particulars"></textarea>
+                                            <i class="fa fa-info-circle errspan"
+                                                (click)="modalLarge.show()"></i>
+                                        </span>
+                                    </div>
 
-                            </div>
+                                </div>
                             <div class="col-sm-12 col-md-2">
                                 <label for="">Total Amount</label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" class="form-control"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            [value]="totalAmt" readonly formControlName="TotalAmt">
+                                        <input type="text" class="form-control" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"  [value]="totalAmt" readonly formControlName="TotalAmt">
                                     </span>
-
-                                </div>
+                                                             
+                                </div>  
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm" style="float: right;">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                    (click)="Submit()">
-                                    Submit
-                                </button>
-                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                    *ngIf="newbtnShow">
-                                    Cancel
-                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                    *ngIf="updateShow">
-                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                    Approve</button>
-                            </div>
+                            <div class="col-md-12 text-center">
+                                <button class="btn-sm" (click)="Submit()">Submit</button>
+                            </div>  
                         </div>
                     </div>
                 </form>

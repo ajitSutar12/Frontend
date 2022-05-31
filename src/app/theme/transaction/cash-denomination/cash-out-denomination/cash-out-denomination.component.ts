@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cash-out-denomination',
@@ -7,46 +11,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CashOutDenominationComponent implements OnInit {
 
-  dtExportButtonOptions: any = {};
-  constructor() { }
+  formSubmitted = false;
+  //api
+  url = environment.base_url;
+
+  // Formgroup variable
+  angForm: FormGroup;
+
+  ngcashier:any=null
+
+  // date variables
+  maxDate: Date;
+  minDate: Date;
+  ngtrandate:any=null
+  
+  constructor(
+    private fb: FormBuilder, private http: HttpClient,
+    private config: NgSelectConfig,
+  ) { 
+
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    
+  }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.createForm()
 
   }
+
+  createForm() {
+    this.angForm = this.fb.group({
+      
+      
+      TRAN_DATE:['',[Validators.required]],
+      CASHIER:['',[Validators.required]],
+      DENOMINATION_AMT:['',[Validators.pattern]],
+      OPEN_CASH:['',[Validators.pattern]],
+      TOTAL_AMT:['',[Validators.pattern]],
+      TOTAL_WITHDRAWAL:['',[Validators.pattern]],
+
+
+    })
+    
+  }
+  
 }

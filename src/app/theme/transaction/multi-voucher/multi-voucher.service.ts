@@ -49,22 +49,4 @@ export class MultiVoucherService {
     checkAccountCloseOrNot(data): Observable<any> {
         return this.http.post(this.url + '/voucher/checkAccountCloseDetails', data);
     }
-    // For append data
-    getFormData(id): Observable<any> {
-        console.log(id, 'id')
-        // return this.http.post(this.url + '/voucher/editMulti', id);
-        return this.http.get(this.url + "/voucher/editMulti/" + id).pipe(catchError(this.handleError));
-
-    }
-
-    //approve master
-    approve(data: any): Observable<any> {
-        return this.http.post(this.url + '/voucher/multiApprove', data).pipe(catchError(this.handleError));
-    }
-
-
-    //reject master
-    reject(data: any): Observable<any> {
-        return this.http.post(this.url + '/voucher/multiReject', data).pipe(catchError(this.handleError));
-    }
 }

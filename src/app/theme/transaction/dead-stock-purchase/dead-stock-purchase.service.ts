@@ -35,7 +35,7 @@ export class DeadStockPurchaseService {
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + '/deadstock-purchase/update', data);
+    return this.http.put(this.url + '/dead-stock-purchase/update', data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {

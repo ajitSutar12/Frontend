@@ -35,7 +35,7 @@ export class DeadStockTransactionService {
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + '/deadstock-purchase/tranUpdate', data);
+    return this.http.put(this.url + '/dead-stock-transaction/update', data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
@@ -44,7 +44,7 @@ export class DeadStockTransactionService {
 
   //approve master
   approve(data: any): Observable<any> {
-    return this.http.post(this.url + '/deadstock-purchase/DeadstockTranapprove', data).pipe(catchError(this.handleError));
+    return this.http.post(this.url + '/deadstock-purchase/approve', data).pipe(catchError(this.handleError));
   }
 
 

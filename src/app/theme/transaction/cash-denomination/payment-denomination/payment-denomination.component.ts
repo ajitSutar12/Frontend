@@ -1,4 +1,9 @@
+import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms'; 
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-payment-denomination',
@@ -6,48 +11,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-denomination.component.scss']
 })
 export class PaymentDenominationComponent implements OnInit {
+  formSubmitted = false;
+  //api
+  url = environment.base_url;
 
-  dtExportButtonOptions: any = {};
-  constructor() { }
+  // Formgroup variable
+  angForm: FormGroup;
+
+  ngTransactionNo:any=null
+  ngscheme:any=null
+  ngaccount:any=null
+  constructor(
+    private fb: FormBuilder, private http: HttpClient,
+    private config: NgSelectConfig,
+  ) { }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.createForm()
 
+  }
+
+  createForm() {
+    this.angForm = this.fb.group({
+      TRANSACTION_NO:['',[Validators.required]],
+      TOKEN_NO:['',[Validators.pattern]],
+      SCHEME:['',[Validators.required]],
+      ACCOUNT_NO:['',[Validators.required]],
+      NARRATION:['',],
+      DENOMINATION_AMT:['',],
+      TRANSACTION_AMT:['',[Validators.required]],
+      LEDGER_BAL:['',[Validators.pattern]],
+      TRANSACTION_TYPE:['',[Validators.pattern]],
+      
+    })
+    
   }
 
 }
