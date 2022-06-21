@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -126,7 +126,7 @@ export class GlAccountsMasterComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url+'/gl-account-master',
+            this.url + '/gl-account-master',
             dataTableParameters
           ).subscribe(resp => {
             this.glAccountMaster = resp.data;
@@ -207,7 +207,6 @@ export class GlAccountsMasterComponent implements OnInit {
     let branchCode = result.branch.id;
     const dataToSend = {
       'BRANCH_CODE': branchCode,
-      'AC_NO': formVal.AC_NO,
       'AC_NAME': formVal.AC_NAME,
       'AC_BCD': formVal.AC_BCD,
       'IS_DIRECT_ENTRY_ALLOW': formVal.IS_DIRECT_ENTRY_ALLOW,
@@ -248,7 +247,7 @@ export class GlAccountsMasterComponent implements OnInit {
     })
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;

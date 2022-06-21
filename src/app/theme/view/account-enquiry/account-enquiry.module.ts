@@ -1,22 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AccountEnquiryComponent } from './account-enquiry.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { AccountEnquiryRoutingModule } from './account-enquiry-routing.module';
-import {DataTablesModule} from 'angular-datatables';
+import { SharedModule } from '../../../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccountEnquiryComponent } from './account-enquiry.component';
+import { DataTablesModule } from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
-
-
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 @NgModule({
   imports: [
+
     CommonModule,
-    AccountEnquiryRoutingModule,
-    DataTablesModule
+    SharedModule,
+    DataTablesModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    AccountEnquiryRoutingModule
   ],
   declarations: [AccountEnquiryComponent],
-  providers:[{
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, ACMasterDropdownService, OwnbranchMasterService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

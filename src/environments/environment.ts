@@ -7,9 +7,10 @@ export const environment = {
   // base_url : 'http://134.209.159.164:4000'
   // base_url : 'http://192.168.1.230:4000'
   // base_url: 'http://192.168.1.179:4000'
-  // base_url: 'http://139.59.86.29:4000'
-  // base_url : 'http://localhost:3000'
-  base_url: 'http://localhost:4000'
+  // base_url: 'http://139.59.86.29:4000'  //CBS regular build
+  // base_url: 'http://139.59.86.29:7276'   //CBS test server
+  base_url: 'http://localhost:3000'
+  // base_url: 'http://localhost:4000'
 
   // base_url: 'http://192.168.1.154:4000'  //sudam sir PC
 };
