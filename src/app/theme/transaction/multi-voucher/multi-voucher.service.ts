@@ -49,4 +49,35 @@ export class MultiVoucherService {
     checkAccountCloseOrNot(data): Observable<any> {
         return this.http.post(this.url + '/voucher/checkAccountCloseDetails', data);
     }
+
+    
+  // Check Zero Balance of account
+
+  checkZeroBalance(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/ZeroBalanceAc', data);
+  }
+
+  clearWithdrawBal(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/clearWithdrawBal', data);
+  }
+
+  CheckAccountCloseFlagInDailytran(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/CheckAccountCloseFlagInDailytran', data);
+  }
+
+  CheckLoginFlagInDpmaster(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/CheckLoginFlagInDpmaster', data);
+  }
+
+  specialInstruction(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/specialInstruction', data);
+  }
+
+  CheckPanNoInIDMaster(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/CheckPanNoInIDMaster', data);
+  }
+
+  ClearVoucherSameBal(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/ClearVoucherSameBal', data);
+  }
 }

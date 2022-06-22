@@ -38,8 +38,8 @@ export class MultiVoucherComponent implements OnInit {
 
   selectedBranch: number;
   selectedScheme: any;
-  bank:any;
-  customer:any;
+  bank: any;
+  customer: any;
   selectedCode: string;
   selectedMode: any;
   branch_codeList: any = null
@@ -54,14 +54,13 @@ export class MultiVoucherComponent implements OnInit {
   syspara: any;
   // Created Form Group
   angForm: FormGroup;
-  Pass:number = 0;
-  Unpass:number = 0;
-  ClearBalance:number =0;
-  AfterVoucher:number=0;
-  InputHeadAmt:number = 0.00;
-  EditFlag:boolean = false;
-  index:number;
-
+  Pass: number = 0;
+  Unpass: number = 0;
+  ClearBalance: number = 0;
+  AfterVoucher: number = 0;
+  InputHeadAmt: number = 0.00;
+  EditFlag: boolean = false;
+  index: number;
   //object created to get data when row is clicked
 
   TranModeTransfer = [
@@ -114,12 +113,12 @@ export class MultiVoucherComponent implements OnInit {
 
   bankName = [
     {
-      name:'Bank of India',
-      id  : 1
+      name: 'Bank of India',
+      id: 1
     },
     {
       name: 'State bank of India',
-      id  : 2
+      id: 2
     }
   ]
 
@@ -129,14 +128,14 @@ export class MultiVoucherComponent implements OnInit {
   isture: boolean = true;
   totalAmt: any;
   showChequeDetails: boolean = false;
-  DayOpBal : number;
-  headData : any;
+  DayOpBal: number;
+  headData: any;
   headShow: boolean = false;
   lastday: any;
-  mainMaster= new Array();
-  showAdd:boolean = true;
-  showUpdate:boolean =false;
-  customerImg:string = '../../../../assets/images/user-card/img-round4.jpg';
+  mainMaster = new Array();
+  showAdd: boolean = true;
+  showUpdate: boolean = false;
+  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
   maxDate: Date;
 
@@ -153,7 +152,7 @@ export class MultiVoucherComponent implements OnInit {
     private _service: MultiVoucherService,
     private savingMasterService: SavingMasterService,
     private fb: FormBuilder,
-    private router : Router
+    private router: Router
   ) {
     if (this.childMessage != undefined) {
 
@@ -161,7 +160,7 @@ export class MultiVoucherComponent implements OnInit {
     }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
-   }
+  }
 
   ngOnInit(): void {
     this.createForm()
@@ -176,7 +175,7 @@ export class MultiVoucherComponent implements OnInit {
 
     //get syspara details
     this._service.getSysParaData().subscribe(data => {
-      debugger
+
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
       console.log(this.date);
@@ -200,34 +199,34 @@ export class MultiVoucherComponent implements OnInit {
       this.narrationList = data;
     })
 
-    
+
   }
 
-  createForm(){
+  createForm() {
     this.angForm = this.fb.group({
-      branch_code : ['',[Validators.required]],
+      branch_code: ['', [Validators.required]],
       temp_over_draft: [''],
       over_draft: [''],
-      token: [''], 
+      token: [''],
       particulars: [''],
       total_amt: [''],
       amt: [''],
       slip_no: [''],
-      tran_mode: ['',[Validators.required]],
-      account_no:['',[Validators.required]],
-      scheme:['',[Validators.required]],
-      scheme_type:['',[Validators.required]],
-      date:[''],
-      type:new FormControl('cash'),
-      chequeDate:[''],
-      chequeNo:[''],
+      tran_mode: ['', [Validators.required]],
+      account_no: ['', [Validators.required]],
+      scheme: ['', [Validators.required]],
+      scheme_type: ['', [Validators.required]],
+      date: [''],
+      type: new FormControl('cash'),
+      chequeDate: [''],
+      chequeNo: [''],
       bank: [''],
-      Intdate:['']
+      Intdate: ['']
     })
 
   }
 
-  IntersetHeadDate:any;
+  IntersetHeadDate: any;
   selectedSchemeCode() {
     this.allScheme = [];
     this.master.forEach(element => {
@@ -240,7 +239,7 @@ export class MultiVoucherComponent implements OnInit {
     if (this.type == 'cash') {
       this.tranModeList = [];
       object.data.cash.forEach(ele => {
-        debugger
+
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
@@ -253,15 +252,15 @@ export class MultiVoucherComponent implements OnInit {
     }
 
     //get Head details
-    let obj       = {'code': this.selectedCode};
-    let date      = this.date;
-    var rowData   = date.split('/');
-    let lastdate  = Number(rowData[0])-1;
+    let obj = { 'code': this.selectedCode };
+    let date = this.date;
+    var rowData = date.split('/');
+    let lastdate = Number(rowData[0]) - 1;
     // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
-    this.IntersetHeadDate    = lastdate+'/'+rowData[1]+'/'+rowData[2];
+    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
     console.log('IntrestDate', this.IntersetHeadDate);
-    this._service.getHeadDetails(obj).subscribe(data=>{
-      if(data.length !=0){
+    this._service.getHeadDetails(obj).subscribe(data => {
+      if (data.length != 0) {
         this.headData = data;
         this.headShow = true;
         this.headData.forEach(element => {
@@ -269,10 +268,10 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0.00
         });
         console.log(this.headData);
-      }else{
+      } else {
         this.headShow = false;
       }
-    },err=>{
+    }, err => {
       console.log(err);
     })
   }
@@ -357,7 +356,7 @@ export class MultiVoucherComponent implements OnInit {
     if (this.type == 'cash') {
       this.tranModeList = [];
       object.data.cash.forEach(ele => {
-        debugger
+
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
@@ -379,138 +378,138 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   //submit Form
-  Add(){
-    debugger
-    let user   = JSON.parse(localStorage.getItem('user'));
-    let obj    = this.angForm.value;
-    obj['user']= user;
+  Add() {
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = this.angForm.value;
+    obj['user'] = user;
     obj['InputHead'] = this.headData;
     console.log(obj);
     this.mainMaster.push(obj);
-      this.angForm.controls['temp_over_draft'].reset()
-      this.angForm.controls['over_draft'].reset()
-      this.angForm.controls['token'].reset()
-      this.angForm.controls['particulars'].reset()
-      this.angForm.controls['total_amt'].reset()
-      this.angForm.controls['amt'].reset()
-      this.angForm.controls['slip_no'].reset()
-      this.angForm.controls['tran_mode'].reset()
-      this.angForm.controls['account_no'].reset()
-      this.angForm.controls['scheme'].reset()
-      this.angForm.controls['scheme_type'].reset()
-      this.angForm.controls['type'].reset()
-      this.angForm.controls['chequeDate'].reset()
-      this.angForm.controls['chequeDate'].reset()
-      this.angForm.controls['chequeNo'].reset()
-      this.angForm.controls['bank'].reset()
-      // this.getVoucherData();
-      this.headData = [];
-      this.headShow = false;
-      this.showChequeDetails = false;
-    
+    this.angForm.controls['temp_over_draft'].reset()
+    this.angForm.controls['over_draft'].reset()
+    this.angForm.controls['token'].reset()
+    this.angForm.controls['particulars'].reset()
+    this.angForm.controls['total_amt'].reset()
+    this.angForm.controls['amt'].reset()
+    this.angForm.controls['slip_no'].reset()
+    this.angForm.controls['tran_mode'].reset()
+    this.angForm.controls['account_no'].reset()
+    this.angForm.controls['scheme'].reset()
+    this.angForm.controls['scheme_type'].reset()
+    this.angForm.controls['type'].reset()
+    this.angForm.controls['chequeDate'].reset()
+    this.angForm.controls['chequeDate'].reset()
+    this.angForm.controls['chequeNo'].reset()
+    this.angForm.controls['bank'].reset()
+    // this.getVoucherData();
+    this.headData = [];
+    this.headShow = false;
+    this.showChequeDetails = false;
+
   }
 
-  submit(){
-    this._service.insertVoucher(this.mainMaster).subscribe(data=>{
+  submit() {
+    this._service.insertVoucher(this.mainMaster).subscribe(data => {
       // this.getVoucherData();
       Swal.fire('Success!', 'Voucher update Successfully !', 'success');
       this.mainMaster = [];
       this.headData = [];
       this.headShow = false;
-    },err=>{
+    }, err => {
       console.log(err);
     })
   }
 
   //get Amount Details
-  getAmt(ele){
-    this.totalAmt =  ele.target.value+'.00';
+  getAmt(ele) {
+    this.totalAmt = ele.target.value + '.00';
   }
 
   //Mode data
-  changeMode(){
-    debugger
-    if(this.selectedMode.tran_drcr == 'D'){
+  changeMode() {
+
+    if (this.selectedMode.tran_drcr == 'D') {
       this.showChequeDetails = true;
-    }else{
+    } else {
       this.showChequeDetails = false;
     }
-    if(this.selectedCode == 'GL'){
+    if (this.selectedCode == 'GL') {
       this.showChequeDetails = true
     }
   }
 
   //get customer today voucher data
-  getVoucherData(){
-    debugger
+  getVoucherData() {
+
     let customer = this.angForm.controls['account_no'].value;
     let obj = {
-      'customer' : customer.BANKACNO,
-      'date'     : this.date
+      'customer': customer.BANKACNO,
+      'date': this.date
     }
 
     //Check Account Close or not
     let Obj = {
-      'customer_ACNO' : customer.BANKACNO,
+      'customer_ACNO': customer.BANKACNO,
       'type': this.selectedCode
     }
-    this._service.checkAccountCloseOrNot(Obj).subscribe(data=>{
-      if(data == true){
+    this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
+      if (data == true) {
         Swal.fire('Error!', 'Access dined Account Close Already!', 'error');
         return 0;
       }
-    },err=>{
+    }, err => {
       console.log(err);
     })
-    
-    this._service.getVoucherPassAndUnpassData(obj).subscribe(data=>{
-      debugger
-      let passType   = '';
+
+    this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
+
+      let passType = '';
       let unpassType = '';
 
       //DayOfOpening 
       this.ClearBalance = this.ClearBalance + this.DayOpBal;
 
       //Pass condition checked
-      if(data.passObj.pass == undefined){
-        this.Pass =  0;
-        passType  = 'Cr';
-      }else{
-        this.Pass =  data.passObj.pass;
-        passType  = data.passObj.type;
+      if (data.passObj.pass == undefined) {
+        this.Pass = 0;
+        passType = 'Cr';
+      } else {
+        this.Pass = data.passObj.pass;
+        passType = data.passObj.type;
       }
 
       //Unpass condition checked
-      if(data.unpassObj.UnPass == undefined){
+      if (data.unpassObj.UnPass == undefined) {
         this.Unpass = 0;
         let unpassType = 'Cr';
-      }else{
+      } else {
         this.Unpass = data.unpassObj.UnPass;
         let unpassType = data.unpassObj.type;
       }
 
 
-      if(passType == 'Cr'){ 
+      if (passType == 'Cr') {
         this.ClearBalance = this.Pass + this.ClearBalance;
-      }else{
+      } else {
         this.ClearBalance = this.Pass - this.ClearBalance;
       }
 
-      if(unpassType == 'Cr'){
+      if (unpassType == 'Cr') {
         this.ClearBalance = this.Unpass + this.ClearBalance;
-      }else{
+      } else {
         this.ClearBalance = this.Unpass - this.ClearBalance;
       }
       // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
       this.AfterVoucher = this.ClearBalance;
-    },err=>{
+    }, err => {
       console.log(err);
     })
   }
 
 
   //get Input head Amount
-  getInputHeadAmt(ele,i){
+  getInputHeadAmt(ele, i) {
     let value = ele.target.value;
     this.headData[i].Amount = value;
     console.log(this.headData);
@@ -528,8 +527,8 @@ export class MultiVoucherComponent implements OnInit {
     this.previewImg = '';
     this.PreviewDiv = false;
   }
-  previewImg:string;
-  PreviewDiv : boolean = false;
+  previewImg: string;
+  PreviewDiv: boolean = false;
   showImage(img) {
     var src = img;
     console.log(src)
@@ -541,45 +540,45 @@ export class MultiVoucherComponent implements OnInit {
 
 
   showHide(reportId) {
-    debugger
+
     var ev = document.getElementById(reportId).hidden;
-    if(ev){
+    if (ev) {
       document.getElementById(reportId).hidden = false;
-    }else{
-      document.getElementById(reportId).hidden = true; 
+    } else {
+      document.getElementById(reportId).hidden = true;
     }
   }
 
-  deleteData(index){
-    this.mainMaster.splice(index,1);
+  deleteData(index) {
+    this.mainMaster.splice(index, 1);
   }
 
   //Edit Voucher Data
-  editVoucher(index){
-    debugger;
+  editVoucher(index) {
+
     this.EditFlag = true;
     this.index = index;
-    var data            = this.mainMaster[index];
-    this.selectedCode   = data.scheme_type;
-    this.selectedScheme = data.scheme;  
-    this.customer       = data.account_no;
-    this.selectedMode   = data.tran_mode;
-    this.particulars    = data.particulars;
-    this.bank           = data.bank;
+    var data = this.mainMaster[index];
+    this.selectedCode = data.scheme_type;
+    this.selectedScheme = data.scheme;
+    this.customer = data.account_no;
+    this.selectedMode = data.tran_mode;
+    this.particulars = data.particulars;
+    this.bank = data.bank;
     this.angForm.patchValue({
       'chequeNo': data.chequeNo,
       'chequeDate': data.chequeDate,
       'amt': data.Amount,
       'particulars': data.particulars,
-      'total_amt':data.total_amt
+      'total_amt': data.total_amt
     })
     // this.changeMode();
     this.headData = data.InputHead;
-    if(this.headData.length > 0){
+    if (this.headData.length > 0) {
       this.headShow = true;
     }
 
-    if(data.chequeDate !=''){
+    if (data.chequeDate != '') {
       this.showChequeDetails = true;
     }
     this.showAdd = false;
@@ -587,7 +586,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
 
-  update(){
+  update() {
     this.mainMaster[this.index] = this.angForm.value;
     this.showAdd = true;
     this.showUpdate = false;
@@ -615,5 +614,138 @@ export class MultiVoucherComponent implements OnInit {
     this.showChequeDetails = false;
   }
 
-  editClickHandler(id) {}
+  editClickHandler(id) { }
+
+  // Check Voucher Conditions On Amount Field
+  checkCondition($event) {
+    let obj = {
+      value: Number($event.target.value),
+      clearBalance: this.ClearBalance,
+      accountNo: this.angForm.controls['account_no'].value.BANKACNO,
+      schemeType: this.angForm.controls['scheme_type'].value,
+      scheme: this.angForm.controls['scheme'].value.S_APPL,
+      tran: this.selectedMode.tran_drcr,
+      tranMode: this.selectedMode.id,
+    }
+
+    if (obj.value == 200000) {
+
+      Swal.fire({
+        title: 'Are you sure?',
+        html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed == false) {
+          this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset();
+        }
+      })
+
+    } else {
+      this._service.checkZeroBalance(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset();
+        }
+      }, err => {
+        console.log(err);
+      })
+
+      this._service.clearWithdrawBal(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset();
+        }
+      }, err => {
+        console.log(err);
+      })
+
+      this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+        }
+      }, err => {
+        console.log(err);
+      })
+
+      this._service.ClearVoucherSameBal(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset();
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+  }
+
+  // Check Voucher Conditions On Account Field
+  checkAccountCondition() {
+    let tempacno = this.customer
+    let obj = {
+      clearBalance: this.ClearBalance,
+      accountNo: this.angForm.controls['account_no'].value.BANKACNO,
+      schemeType: this.angForm.controls['scheme_type'].value,
+      scheme: this.angForm.controls['scheme'].value.S_APPL,
+    }
+
+    this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.customer = null
+      }
+    }, err => {
+      console.log(err);
+    })
+
+    this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.customer = null
+      }
+    }, err => {
+      console.log(err);
+    })
+
+    this._service.specialInstruction(obj).subscribe(data => {
+      console.log('data.DETAILS', data.DETAILS)
+
+      if (data != 0) {
+        if (data.restriction == true) {
+          this.customer = null
+        } else {
+          this.customer = tempacno
+        }
+
+        Swal.fire({
+          title: 'Warning',
+          icon: 'warning',
+          html:
+            data.message + '<br>' +
+            '<span style="font-weight:bold;">Instruction:</span>' + '<br>'
+            + data.DETAILS
+        })
+      }
+    }, err => {
+      console.log(err);
+    })
+
+    this._service.CheckLoginFlagInDpmaster(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.customer = null
+      }
+    }, err => {
+      console.log(err);
+    })
+
+  }
 }

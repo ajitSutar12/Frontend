@@ -30,10 +30,10 @@
                 <div class="card">
                     <div class="card-header">
                         <h5>Voucher Entry</h5>
-                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
-                </h6>
-                        
+                        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                            Fields marked with (<sub class="required"> * </sub>) are mandatory
+                        </h6>
+
                     </div>
                     <div class="card-body">
                         <form [formGroup]="angForm" novalidate>
@@ -51,13 +51,11 @@
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
-                                            class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)" class="alert alert-danger">
                                             <div *ngIf="angForm.controls['branch_code'].errors?.required">
                                                 This field is required
                                             </div>
-                                        </div>   
+                                        </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-radio">
@@ -104,13 +102,11 @@
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
-                                            class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)" class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme_type'].errors?.required">
                                                 This field is required
                                             </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                 class="required">*</sub></label></div>
@@ -125,13 +121,11 @@
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
-                                            class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)" class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme'].errors?.required">
                                                 This field is required
                                             </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
 
@@ -142,19 +136,18 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select formControlName="account_no" (change)="getVoucherData()">
+                                                <ng-select formControlName="account_no" [(ngModel)]="selectedAccountno"
+                                                    (change)="getVoucherData(); checkAccountCondition()">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
-                                            class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)" class="alert alert-danger">
                                             <div *ngIf="angForm.controls['account_no'].errors?.required">
                                                 This field is required
                                             </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -164,20 +157,18 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedMode" formControlName="tran_mode"
-                                                    (change)="changeMode()">
+                                                    (change)="changeMode();checktranCondition()">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
                                                 </ng-select>
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['tran_mode'].invalid && (angForm.controls['tran_mode'].dirty || angForm.controls['tran_mode'].touched)"
-                                            class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['tran_mode'].invalid && (angForm.controls['tran_mode'].dirty || angForm.controls['tran_mode'].touched)" class="alert alert-danger">
                                             <div *ngIf="angForm.controls['tran_mode'].errors?.required">
                                                 This field is required
                                             </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div *ngIf="showChequeDetails">
@@ -193,7 +184,7 @@
                                                         formControlName="chequeNo">
                                                 </span>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque Date</label>
                                         </div>
@@ -202,7 +193,7 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                        [maxDate]="maxDate"  formControlName="chequeDate">
+                                                        [maxDate]="maxDate" formControlName="chequeDate">
                                                 </span>
                                             </div>
                                         </div>
@@ -243,7 +234,8 @@
                                                 <input type="text" name="AC_PARTICULAR"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value=""
-                                                    style="text-transform: capitalize;" maxlength="15" (focusout)="decimalAllContent($event)"
+                                                    style="text-transform: capitalize;" maxlength="15"
+                                                    (focusout)="decimalAllContent($event); checkCondition($event)"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                                     formControlName="amt" (keyup)="getAmt($event)">
 
@@ -285,21 +277,13 @@
                                                             <!-- <td>{{i+1}}</td> -->
                                                             <td>{{item.DESCRIPTION}}</td>
                                                             <td *ngIf="item.INTEREST_DATE_INPUT">
-                                                                <input type="text" placeholder="dd/mm/yyyy"
-                                                                    class="form-control"
-                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                    bsDatepicker [(ngModel)]="IntersetHeadDate"
-                                                                    formControlName="Intdate">
+                                                                <input type="text" placeholder="dd/mm/yyyy" class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="IntersetHeadDate" formControlName="Intdate">
                                                             </td>
                                                             <td *ngIf="!item.INTEREST_DATE_INPUT"></td>
-                                                            <td><input type="text"
-                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                    style="width: 100%;border:none;text-align: right;"
-                                                                    (keyup)="getInputHeadAmt($event,i)"
-                                                                    (focusout)="decimalAllContent($event)" value="0.00">
+                                                            <td><input type="text" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" style="width: 100%;border:none;text-align: right;" (keyup)="getInputHeadAmt($event,i)" (focusout)="decimalAllContent($event)"
+                                                                    value="0.00">
                                                             </td>
-                                                            <td class="bg-light-danger text-right"><span
-                                                                    class="text-danger">0.00</span></td>
+                                                            <td class="bg-light-danger text-right"><span class="text-danger">0.00</span></td>
                                                             <td>{{item.DRCR_APPLICABLE == 'C'?'Cr':'Dr'}}</td>
                                                         </tr>
                                                     </tbody>
@@ -313,8 +297,7 @@
                                 <div class="col-md-12">
                                     <div class="solid">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2  "><label
-                                                    for="AC_PARTICULAR">Particulars</label></div>
+                                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label></div>
                                             <div class="col-md-5">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -356,8 +339,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 text-center">
-                                                <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    (click)="submit()">Update</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit()">Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -391,9 +373,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-primary"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{DayOpBal}}.00</div>
+                                    <div class="fw-bolder transaction-title text-primary" style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr" aria-hidden="true"></i> {{DayOpBal}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -409,9 +389,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{Pass}}.00</div>
+                                    <div class="fw-bolder transaction-title text-success" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> {{Pass}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -427,9 +405,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
+                                    <div class="fw-bolder transaction-title text-danger" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -446,9 +422,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
+                                    <div class="fw-bolder transaction-title text-danger" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> 0.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -464,9 +438,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-info"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
+                                    <div class="fw-bolder transaction-title text-info" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> 0.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -483,9 +455,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-info"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
+                                    <div class="fw-bolder transaction-title text-info" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> {{overdraftAmt}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md">
@@ -501,9 +471,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{ClearBalance}}.00</div>
+                                    <div class="fw-bolder transaction-title text-success" style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr" aria-hidden="true"></i> {{ClearBalance}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -520,9 +488,7 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                    <div class="fw-bolder transaction-title text-success" style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr" aria-hidden="true"></i> {{AfterVoucher}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -530,9 +496,7 @@
                                     <div class="card-body">
                                         <div class="user-avatar-section">
                                             <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
-                                                    height="110" width="110" (mouseover)="showImage(customerImg)"
-                                                    (mouseout)="hideImage()" alt="User avatar" />
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="110" width="110" (mouseover)="showImage(customerImg)" (mouseout)="hideImage()" alt="User avatar" />
                                                 <div class="user-info text-center">
                                                     <h4>Ajit Sutar</h4>
                                                     <!-- <span class="badge bg-light-secondary">Author</span> -->
@@ -541,9 +505,7 @@
                                         </div>
                                         <div class="user-avatar-section">
                                             <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
-                                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                                    height="50" width="110" alt="User avatar" />
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture" (mouseover)="showImage(signture)" (mouseout)="hideImage()" height="50" width="110" alt="User avatar" />
 
                                             </div>
                                         </div>
@@ -621,8 +583,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
-                        (click)="modalLarge.hide()">Close</button>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide (click)="modalLarge.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>
