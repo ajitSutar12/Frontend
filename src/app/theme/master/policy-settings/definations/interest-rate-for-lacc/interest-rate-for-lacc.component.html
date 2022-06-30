@@ -98,7 +98,7 @@
                                             <input style="text-align: right;" type="text" name="FROM_AMOUNT" class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 id="FROM_AMOUNT" (focusout)="compareamount()"
-                                                pattern="\d{1,2}(\.\d{0,2})?" maxlength="13"
+                                                pattern="\d{1,12}(\.\d{0,2})?" maxlength="13"
                                                 title="Input allowed only 0-9" formControlName="FROM_AMOUNT">
                                             <label for="FROM_AMOUNT">From Amount</label>
                                         </span>
@@ -116,7 +116,7 @@
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" name="TO_AMOUNT" class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" id="toamt"
-                                                pattern="\d{1,2}(\.\d{0,2})?" maxlength="13" (focusout)="compareamount()"
+                                                pattern="\d{1,12}(\.\d{0,2})?" maxlength="13" (focusout)="compareamount()"
                                                 title="Input allowed only 0-9" formControlName="TO_AMOUNT">
                                             <label for="TO_AMOUNT">Upto Amount</label>
                                         </span>

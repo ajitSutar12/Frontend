@@ -969,7 +969,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     let isExist: boolean = false
-
     for (let element of this.imageObject) {
       if (Number(Object.keys(element)[0]) == valueid) {
         isExist = true
@@ -979,14 +978,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           selectedObj[valueid] = selecetedImg
           obj[valueid] = result;
           element[valueid] = result
-
         };
         this.documentMaster[id]['status'] = true
-
         break
       }
-
     }
+
     if (!isExist) {
       reader.onload = async function (ele: any) {
         result = await reader.result;
@@ -997,9 +994,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.imageObject.push(obj);
       this.selectedImgArrayDetails.push(selectedObj);
       this.documentMaster[id]['status'] = true
-
     }
-
   }
 
   // method for close modal on add and close click
@@ -1013,13 +1008,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   viewImagePreview(ele, id) {
 
     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+
       let jsonObj = value;
       Object.keys(jsonObj).forEach(key => {
         if (id == key) {
           this.isImgPreview = true
           this.selectedImagePreview = jsonObj[key];
           throw 'Break';
-
         }
         else {
           this.isImgPreview = false
@@ -1031,9 +1026,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkCustomer() {
-
     this.customerIdService.getData().subscribe(data => {
-
       if (data?.length != 0) {
         if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
           if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {

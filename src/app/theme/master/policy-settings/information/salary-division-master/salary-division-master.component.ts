@@ -138,7 +138,6 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
             this.url + '/salary-division-master',
             dataTableParameters
           ).subscribe(resp => {
-            console.log(resp.data)
             this.salarymasters = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -255,7 +254,6 @@ let data: any = localStorage.getItem('user');
     this.updateShow = true;
     this.newbtnShow = true;
     this.salaryDivisionService.getFormData(id).subscribe(data => {
-      console.log(data)
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE),
       this.angForm.patchValue({

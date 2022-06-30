@@ -5,7 +5,7 @@
     display: none;
 }
 
-ng-select.ng-select > div > div.single {
+ng-select.ng-select>div>div.single {
     background-color: white;
     color: black;
     padding: 1px 20px 3px 11px !important;
@@ -17,7 +17,8 @@ ng-select.ng-select > div > div.single {
 #ngselect {
     height: 80%;
 }
-.ng-select > div {
+
+.ng-select>div {
     border: 1px solid #ddd;
     box-sizing: border-box;
     cursor: pointer;
@@ -49,6 +50,7 @@ ng-select.ng-select > div > div.single {
     *zoom: 1;
     zoom: 1;
 }
+
 .dataTables_wrapper .dataTables_length {
     float: right;
 }
@@ -108,6 +110,20 @@ input[type="checkbox"]:focus {
     cursor: pointer;
     color: green;
 }
+
+#viewbutton {
+    // z-index: 1000;
+    left: 45px;
+    position: absolute;
+    margin-top: 2px;
+    margin-left: -26px;
+    margin-right: -10px;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    color: rgb(56, 91, 234);
+}
+
 #deletebutton {
     // z-index: 1000;
     left: 45px;
@@ -190,6 +206,7 @@ input[type="checkbox"]:focus {
     height: 40px;
     padding-top: 7px;
 }
+
 // .btn-sm,
 // .btn-group-sm > .btn {
 //     padding: 8px 14px;
@@ -205,7 +222,7 @@ th {
 }
 
 .btn-sm,
-.btn-group-sm > .btn {
+.btn-group-sm>.btn {
     padding: 8px 14px;
     line-height: 16px;
     font-size: 12px;
@@ -251,7 +268,7 @@ th {
     height: 32px;
 }
 
-.ng-select > div {
+.ng-select>div {
     border: 1px solid #ddd;
     box-sizing: border-box;
     cursor: pointer;
@@ -341,7 +358,7 @@ th {
     padding-top: 6px;
 }
 
-select-dropdown > div,
+select-dropdown>div,
 .below {
     z-index: 999;
 }
@@ -351,13 +368,13 @@ select-dropdown > div,
 //     background: white;
 // }
 
-ng-select > div {
+ng-select>div {
     border-radius: 5px;
     height: 35px;
     padding: 1px;
 }
 
-ng-select > div > div.single > div.toggle {
+ng-select>div>div.single>div.toggle {
     font-size: 10px !important;
     color: black !important;
 }
@@ -370,6 +387,7 @@ ng-select > div > div.single > div.toggle {
     box-shadow: none !important;
     margin-bottom: 0;
 }
+
 .shadow {
     box-shadow: 0 0px 27px 0 RGB(0 0 0 / 12%) !important;
 }
@@ -378,6 +396,7 @@ ng-select > div > div.single > div.toggle {
 .table th {
     padding: 0.25rem 0.75rem !important;
 }
+
 // .col-sm .ng-tns-c146-1{
 // max-width: 10px;
 // }
@@ -399,6 +418,7 @@ ng-select > div > div.single > div.toggle {
     margin: -13px;
     margin-right: -28px;
 }
+
 .dataTables_wrapper {
     position: relative;
     clear: both;
@@ -406,20 +426,19 @@ ng-select > div > div.single > div.toggle {
     align-items: left;
     width: 1;
 }
+
 .card .card-header {
     background-color: #8d1b54;
     border-bottom: none;
     padding: 2px;
     position: relative;
-    background-image: -webkit-linear-gradient(
-        top,
-        #dae7f6,
-        #cddef3 45%,
-        #abc7ec 46%,
-        #abc7ec 50%,
-        #b8cfee 51%,
-        #cbddf3
-    );
+    background-image: -webkit-linear-gradient(top,
+            #dae7f6,
+            #cddef3 45%,
+            #abc7ec 46%,
+            #abc7ec 50%,
+            #b8cfee 51%,
+            #cbddf3);
     align-items: center;
 }
 
@@ -485,16 +504,16 @@ ng-select > div > div.single > div.toggle {
 //     color: #fff !important;
 // }
 
-.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a {
     background: #d9e7f8;
     color: black !important;
 }
 
-.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a .pcoded-micon {
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a .pcoded-micon {
     color: black !important;
 }
 
-.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a:after {
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a:after {
     color: black !important;
 }
 
@@ -518,8 +537,8 @@ ng-select > div > div.single > div.toggle {
     }
 }
 
-ng-select > div > div.single > div.placeholder,
-ng-select > div > div.single > div.value {
+ng-select>div>div.single>div.placeholder,
+ng-select>div>div.single>div.value {
     flex: 1;
     line-height: 35px !important;
     overflow: hidden;
@@ -528,7 +547,7 @@ ng-select > div > div.single > div.value {
 }
 
 .border-lable-flt label,
-.border-lable-flt > span {
+.border-lable-flt>span {
     position: absolute;
     left: 0;
 
@@ -557,30 +576,29 @@ ng-select > div > div.single > div.value {
 
 .table.dataTable[class*="table-"] thead th {
     // background-color: #8d1b54;
-    background-image: -webkit-linear-gradient(
-        top,
-        #dae7f6,
-        #cddef3 45%,
-        #abc7ec 46%,
-        #abc7ec 50%,
-        #b8cfee 51%,
-        #cbddf3
-    );
+    background-image: -webkit-linear-gradient(top,
+            #dae7f6,
+            #cddef3 45%,
+            #abc7ec 46%,
+            #abc7ec 50%,
+            #b8cfee 51%,
+            #cbddf3);
     color: black;
     text-transform: capitalize;
 }
 
-.scroll{
+.scroll {
     width: 100%;
     height: 400px;
-    overflow-y:scroll;
-    
+    overflow-y: scroll;
+
 }
 
 .fa-edit:before,
 .fa-pencil-square-o:before {
     content: "";
-    padding-left: 13px;
+    padding-left: 0 px;
+    // padding-left: 13px;
 }
 
 .dataTables_length {
@@ -596,6 +614,7 @@ ng-select > div > div.single > div.value {
 .pcoded-main-container {
     background: #fff !important;
 }
+
 .col-sm.ng-tns-c146-1 {
     padding-top: 0px;
 }
@@ -659,22 +678,22 @@ ng-select > div > div.single > div.value {
     z-index: 1;
 }
 
-.checkbox input[type="checkbox"]:focus + label::before {
+.checkbox input[type="checkbox"]:focus+label::before {
     outline: thin dotted;
     outline: 2px auto green;
     outline-offset: 2px;
 }
 
-.checkbox input[type="checkbox"]:checked + label::after {
+.checkbox input[type="checkbox"]:checked+label::after {
     font-family: "FontAwesome";
     content: "\f00c";
 }
 
-.checkbox input[type="checkbox"]:disabled + label {
+.checkbox input[type="checkbox"]:disabled+label {
     opacity: 0.65;
 }
 
-.checkbox input[type="checkbox"]:disabled + label::before {
+.checkbox input[type="checkbox"]:disabled+label::before {
     background-color: #eeeeee;
     cursor: not-allowed;
 }
@@ -687,12 +706,12 @@ ng-select > div > div.single > div.value {
     margin-top: 0;
 }
 
-.checkbox-primary input[type="checkbox"]:checked + label::before {
+.checkbox-primary input[type="checkbox"]:checked+label::before {
     background-color: white;
     border-color: black;
 }
 
-.checkbox-primary input[type="checkbox"]:checked + label::after {
+.checkbox-primary input[type="checkbox"]:checked+label::after {
     color: black;
 }
 
@@ -705,6 +724,7 @@ ng-select > div > div.single > div.value {
     box-shadow: 0 0px 27px 0 RGB(0 0 0 / 8%);
     // padding-top: 0px;
 }
+
 .border-secondary {
     // padding-top: 0px;
     border: blue;
@@ -726,19 +746,18 @@ ng-select > div > div.single > div.value {
 
 thead td {
     // background-color: #8d1b54;
-    background-image: -webkit-linear-gradient(
-        top,
-        #dae7f6,
-        #cddef3 45%,
-        #abc7ec 46%,
-        #abc7ec 50%,
-        #b8cfee 51%,
-        #cbddf3
-    );
+    background-image: -webkit-linear-gradient(top,
+            #dae7f6,
+            #cddef3 45%,
+            #abc7ec 46%,
+            #abc7ec 50%,
+            #b8cfee 51%,
+            #cbddf3);
     color: black;
     text-transform: capitalize;
     font-weight: bold;
 }
+
 // .table.compact td,
 // .table.compact th {
 //   padding: 0.45rem;
@@ -747,7 +766,7 @@ th.ng-tns-c146-1 {
     background-color: white !important;
 }
 
-.checkbox input[type="checkbox"]:checked + label::after {
+.checkbox input[type="checkbox"]:checked+label::after {
     font-family: "FontAwesome";
     content: "\f00c";
     top: 8px;
@@ -761,15 +780,13 @@ th.ng-tns-c146-1 {
 
 .fc th {
     // background: #cbddf3;
-    background-image: -webkit-linear-gradient(
-        top,
-        #dae7f6,
-        #cddef3 45%,
-        #abc7ec 46%,
-        #abc7ec 50%,
-        #b8cfee 51%,
-        #cbddf3
-    );
+    background-image: -webkit-linear-gradient(top,
+            #dae7f6,
+            #cddef3 45%,
+            #abc7ec 46%,
+            #abc7ec 50%,
+            #b8cfee 51%,
+            #cbddf3);
     height: 2em;
     color: #000;
     border-color: #448aff;
@@ -796,6 +813,7 @@ input[type="file" i]::-webkit-file-upload-button {
         display: none;
     }
 }
+
 input[type="file" i]::-webkit-file-upload-button {
     font: inherit;
     -webkit-appearance: button;
@@ -805,9 +823,9 @@ input[type="file" i]::-webkit-file-upload-button {
 //for file uploader
 .input-group-append .input-group-text,
 .input-group-prepend .input-group-text {
-  background-color: #cad1d6;
-  border-color: rgba(0, 0, 0, 0.15);
-  color: rgb(16, 16, 17);
+    background-color: #cad1d6;
+    border-color: rgba(0, 0, 0, 0.15);
+    color: rgb(16, 16, 17);
 }
 
 // .input-group-append .input-group-text,
@@ -836,7 +854,7 @@ input[type="file" i]::-webkit-file-upload-button {
     opacity: 1;
 }
 
-.ng-select.ng-select-disabled > .ng-select-container {
+.ng-select.ng-select-disabled>.ng-select-container {
     background-color: white !important;
 }
 
@@ -851,4 +869,11 @@ input[type="file" i]::-webkit-file-upload-button {
     height: 350px;
     width: 100%;
     overflow: auto;
+}
+
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
+    color: #333;
+    background-color: #e0e6ef;
 }

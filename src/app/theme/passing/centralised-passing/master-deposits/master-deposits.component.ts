@@ -157,10 +157,10 @@ export class MasterDepositsComponent implements OnInit {
               this.url + '/term-deposits-master/passing',
               dataTableParameters
             ).subscribe(resp => {
-              this.termDepositMaster = resp.data;
+              this.termDepositMaster = resp?.data;
               callback({
-                recordsTotal: resp.recordsTotal,
-                recordsFiltered: resp.recordsTotal,
+                recordsTotal: resp?.recordsTotal,
+                recordsFiltered: resp?.recordsTotal,
                 data: []
               });
             });

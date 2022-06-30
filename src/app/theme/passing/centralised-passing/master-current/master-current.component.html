@@ -35,19 +35,21 @@
                                                 class="table table-striped table-bordered table-hover compact">
                                                 <tbody *ngIf="currentAccountMaster?.length != 0">
                                                     <tr *ngFor="let data of currentAccountMaster">
-                                                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                            (click)="editClickHandler(data.id)" placement="bottom"
-                                                            ngbTooltip="Edit"
-                                                            (click)="modalLarge.show();getCurrentData(data)"></span>
-                                                        <!-- <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'"> {{
-                                            data.AC_ACNOTYPE === "" ? "-" : data.AC_ACNOTYPE }} </td> -->
-                                                        <td
-                                                            [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
-                                                            {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" :
-                                                            data.DPMaster.S_APPL }}
+                                                        <td>
+                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                                ngbTooltip="Edit"
+                                                                (click)="modalLarge.show();getCurrentData(data)"></span>
+                                                        </td>
+                                                        <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.AC_TYPE
+                                                            === "" || data.AC_TYPE== null? "-" : data.DPMaster.S_APPL }}
                                                         </td>
                                                         <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
                                                             {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}
+                                                        </td>
+                                                        <td [ngClass]="data.AC_NAME  === '' ? 'td_center' : 'td_left'">
+                                                            {{ data.AC_NAME === "" ? "-" : data.AC_NAME }}
                                                         </td>
                                                         <td
                                                             [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">

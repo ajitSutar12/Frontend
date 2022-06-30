@@ -311,9 +311,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           this.url + '/share-master',
           dataTableParameters
         ).subscribe(resp => {
-
           let master = new Array()
-
           this.shareMaster = resp.data;
           callback({
             recordsTotal: resp.recordsTotal,
@@ -404,7 +402,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
-      console.log(data)
     })
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
@@ -512,6 +509,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onCloseModal();
   }
 
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
 
   customer(event) {
     let data: any = localStorage.getItem('user');

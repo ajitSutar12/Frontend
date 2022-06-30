@@ -170,7 +170,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
             this.url + '/interest-rate-for-term-deposit',
             dataTableParameters
           ).subscribe(resp => {
-            console.log(resp.data)
             this.termDepositInterestRate = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -202,7 +201,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-   
+
       var filtered = data.filter(function (scheme) {
 
         return (scheme.id == 'TD');
@@ -228,7 +227,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.angForm = this.fb.group({
       ACNOTYPE: ['', [Validators.required]],
       INT_CATEGORY: ['', [Validators.required]],
-      EFFECT_DATE: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(4)]],
+      EFFECT_DATE: ['', [Validators.required]],
       FROM_DAYS: ['', [Validators.pattern]],
       FROM_MONTHS: ['', [Validators.pattern]],
       TO_DAYS: ['', [Validators.pattern]],
@@ -283,25 +282,18 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = true;
     this.addShowButton = true
     this.termDepositInterestRateService.getFormData(id).subscribe(data => {
-
       this.updatecheckdata = data
-      console.log("edit", data)
       this.multiField = data.rate
       this.updateID = data.id;
 
       //after clicking edit to get value in dropdown
       this.angForm.controls['ACNOTYPE'].disable()
-      // this.ngscheme = Number(data.ACNOTYPE)
+      this.ngscheme = Number(data.ACNOTYPE)
       this.angForm.controls['INT_CATEGORY'].disable()
-      // this.ngintcat = Number(data.INT_CATEGORY)
+      this.ngintcat = Number(data.INT_CATEGORY)
       this.angForm.controls['EFFECT_DATE'].disable()
       this.angForm.patchValue({
-        
-        // 'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
-        //'EFFECT_DATE': data.EFFECT_DATE,
-        // ngscheme:data.ACNOTYPE,
-        // 'ACNOTYPE': data.ACNOTYPE,
-        // 'INT_CATEGORY': data.INT_CATEGORY
+        EFFECT_DATE: data.EFFECT_DATE
       })
     })
   }
@@ -378,7 +370,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   //check  if percentage  is below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    console.log(ele);
     if (ele <= 100) {
       console.log(ele);
     }
@@ -388,8 +379,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   //disabledate on keyup
   disabledate(data: any) {
-
-    console.log(data);
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
@@ -438,16 +427,19 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   // }
   //Method for update data 
   updateData() {
-    let effectdate
+    let effectdt
     let data = this.angForm.value;
-    console.log("updatedata", data)
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField;
-    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
-      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+    data['ACNOTYPE'] = this.ngscheme
+    data['INT_CATEGORY'] = this.ngintcat
+    if (this.updatecheckdata.EFFECT_DATE != this.effectdate) {
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdt = '', data['EFFECT_DATE'] = effectdt) : (effectdt = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdt).format('DD/MM/YYYY'))
+    }
+    else {
+      data['EFFECT_DATE'] = this.effectdate
     }
     this.termDepositInterestRateService.updateData(data).subscribe(() => {
-      console.log("update", data)
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
@@ -462,7 +454,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   addNewData() {
-    
+
     this.angForm.controls['ACNOTYPE'].enable()
     this.angForm.controls['INT_CATEGORY'].enable()
     this.angForm.controls['EFFECT_DATE'].enable()
@@ -586,8 +578,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         PENAL_INT_RATE: formVal.PENAL_INT_RATE,
       }
       this.multiField.push(object);
-      console.log(this.multiField)
-
       this.resetField()
     }
 

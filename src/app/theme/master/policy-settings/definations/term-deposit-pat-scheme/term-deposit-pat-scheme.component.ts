@@ -160,7 +160,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
             this.url + '/pat-scheme-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
-            console.log(resp.data)
             this.termDepositPatScheme = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -188,26 +187,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       dom: 'Blrtip',
     };
     this.runTimer();
-    // this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
-    // this.TermemeDepositeSchMasterDropdownService.getTermdepositeschemeMasterList().pipe(first()).subscribe(data => {
-    //   this.scheme = data;
-    //   console.log('Scheme Data',data)
-    // })
-
-    // this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-   
-    //   var filtered = data.filter(function (scheme) {
-
-    //     return (scheme.id == 'TD');
-    //   });
-    //   this.scheme = filtered;
-    //   // this.scheme = data;
-    // })
-
     this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
-      this.scheme.push(data)
+      this.scheme = data
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -222,28 +203,17 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       MONTHS: ['', [Validators.pattern]],
       DAYS: ['', [Validators.pattern]],
       INT_RATE: ['', [Validators.pattern]],
-
     });
   }
   //disabledate on keyup
   disabledate(data: any) {
-
-    console.log(data);
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
-
       }
     }
   }
-
-  // if value present in datatable
-
-
-
-
-
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
@@ -283,32 +253,24 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
-
     let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.addShowButton = true
-
-
     this.termDepositPatSchemeService.getFormData(id).subscribe(data => {
+      debugger
       this.updatecheckdata = data
-
       this.multiField = data.rate
       this.updateID = data.id;
-
       //after clicking edit to get value in dropdown
-      this.angForm.controls['ACNOTYPE'].disable()
-      // this.ngscheme = Number(data.ACNOTYPE)
+      this.angForm.controls['AC_TYPE'].disable()
+      this.ngscheme = Number(data.AC_TYPE)
       this.angForm.controls['INT_CATEGORY'].disable()
-      // this.ngintcat = Number(data.INT_CATEGORY)
+      this.ngintcat = Number(data.INT_CATEGORY)
       this.angForm.controls['EFFECT_DATE'].disable()
       this.angForm.patchValue({
-
-        // 'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
-        //'EFFECT_DATE': data.EFFECT_DATE,
-        // 'AC_TYPE': data.AC_TYPE,
-        // 'INT_CATEGORY': data.INT_CATEGORY
+        EFFECT_DATE: data.EFFECT_DATE
       })
     })
   }
@@ -319,9 +281,15 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
-    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
+    if (this.updatecheckdata.EFFECT_DATE != this.effectdate) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
+    else {
+      data['EFFECT_DATE'] = this.effectdate
+    }
+    data['AC_TYPE'] = this.ngscheme
+    data['INT_CATEGORY'] = this.ngintcat
+    console.log(data, 'update data')
     this.termDepositPatSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -337,6 +305,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   }
 
   addNewData() {
+    this.angForm.controls['AC_TYPE'].enable()
+    this.angForm.controls['INT_CATEGORY'].enable()
+    this.angForm.controls['EFFECT_DATE'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -447,6 +418,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
   // Reset Function
   resetForm() {
+    this.angForm.controls['AC_TYPE'].enable()
+    this.angForm.controls['INT_CATEGORY'].enable()
+    this.angForm.controls['EFFECT_DATE'].enable()
     this.createForm();
     this.ngscheme = null
     this.ngintcat = null

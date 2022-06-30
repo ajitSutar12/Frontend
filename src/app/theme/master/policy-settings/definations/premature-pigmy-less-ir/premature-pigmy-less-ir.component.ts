@@ -83,12 +83,12 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   //for search functionality
   filterData = {};
   // dropdown variables
-  ngschemetype:any=null
+  ngschemetype: any = null
 
-  
+
   // schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
   //Scheme type variable
-  schemeType: string =  'PG'
+  schemeType: string = 'PG'
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -98,7 +98,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
-  effectdate:any=null
+  effectdate: any = null
   maxDate: Date;
   minDate: Date;
   constructor(
@@ -110,13 +110,13 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService,
     private config: NgSelectConfig,) {
-      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      // console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    
+
   }
 
   ngOnInit(): void {
@@ -153,7 +153,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url +'/premature-pigmy-less-int-rate',
+            this.url + '/premature-pigmy-less-int-rate',
             dataTableParameters
           ).subscribe(resp => {
             this.prematurePigmy = resp.data;
@@ -181,7 +181,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       ],
       dom: 'Blrtip',
     };
-    
+
     // this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
     //   var filtered = data.filter(function (scheme) {
 
@@ -209,73 +209,74 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       LESS_INT_RATE: ['']
     });
   }
-      //disabledate on keyup
-      disabledate(data:any){
-    
-        console.log(data);
-        if(data != ""){
-          if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
-            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
-                
-          }
-        } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    console.log(data);
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
       }
+    }
+  }
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
-    if(this.multiField.length!=0){
-      this.formSubmitted=true;
+    if (this.multiField.length != 0) {
+      this.formSubmitted = true;
 
       const formVal = this.angForm.value;
       const dataToSend = {
-      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      // 'EFFECT_DATE': formVal.EFFECT_DATE,
-      'FieldData': this.multiField,
+        'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        // 'EFFECT_DATE': formVal.EFFECT_DATE,
+        'FieldData': this.multiField,
+      }
+      this.prematurePigmyService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiField = []
     }
-    this.prematurePigmyService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiField = []
-    }
-    else{
+    else {
       Swal.fire(
         'Warning',
         'Please Input Slab Details ',
         'warning'
-        )
+      )
     }
-    
+
   }
-  updatecheckdata:any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
-    
+
     let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.addShowButton = true
     this.prematurePigmyService.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       console.log("edit", data)
       this.multiField = data.rate
       this.updateID = data.id;
-      console.log( this.multiField)
+      console.log(this.multiField)
       this.angForm.controls['AC_ACNOTYPE'].disable()
       this.angForm.controls['EFFECT_DATE'].disable()
+      this.ngschemetype = Number(data.AC_ACNOTYPE)
       this.angForm.patchValue({
         // 'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
-        // 'EFFECT_DATE': data.EFFECT_DATE,
+        EFFECT_DATE: data.EFFECT_DATE,
         // 'AC_ACNOTYPE': data.AC_ACNOTYPE,
       })
     })
@@ -287,9 +288,13 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != this.effectdate) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
-      }
+    }
+    else {
+      data['EFFECT_DATE'] = this.effectdate
+    }
+    data['AC_ACNOTYPE'] = this.ngschemetype
     this.prematurePigmyService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -302,33 +307,33 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       this.resetForm();
     })
   }
-//comparing from amount and to amount
-compareamount() {
-  let from = Number((document.getElementById("frommonths") as HTMLInputElement).value);
-  let to = Number((document.getElementById("tomonths") as HTMLInputElement).value);
-  if(to != 0){
-    if (from > to) {
-      Swal.fire(  
-        'Warning!',
-        'From Months Should Be Less Than To Months',
-        'warning'
-      );
-      (document.getElementById("tomonths") as HTMLInputElement).value = ""
+  //comparing from amount and to amount
+  compareamount() {
+    let from = Number((document.getElementById("frommonths") as HTMLInputElement).value);
+    let to = Number((document.getElementById("tomonths") as HTMLInputElement).value);
+    if (to != 0) {
+      if (from > to) {
+        Swal.fire(
+          'Warning!',
+          'From Months Should Be Less Than To Months',
+          'warning'
+        );
+        (document.getElementById("tomonths") as HTMLInputElement).value = ""
+      }
+    }
+
+  }
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
     }
   }
- 
-}
- //check  if margin values are below 100
- checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
-  }
-  else{
-    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
-  }
-}
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
@@ -409,8 +414,10 @@ console.log(ele);
 
   // Reset Function
   resetForm() {
+    this.angForm.controls['AC_ACNOTYPE'].enable()
+    this.angForm.controls['EFFECT_DATE'].enable()
     this.createForm();
-    this.ngschemetype=null
+    this.ngschemetype = null
   }
 
   rerender(): void {
@@ -422,6 +429,8 @@ console.log(ele);
     });
   }
   addNewData() {
+    this.angForm.controls['AC_ACNOTYPE'].enable()
+    this.angForm.controls['EFFECT_DATE'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -429,28 +438,28 @@ console.log(ele);
     this.resetForm();
   }
   addField() {
-    
+
     let tomonth = (document.getElementById("tomonths") as HTMLInputElement).value;
     let intrate = (document.getElementById("LESS_INT_RATE") as HTMLInputElement).value;
-    if(tomonth == ""){
-      Swal.fire('Info','Please Input To Month','info')
+    if (tomonth == "") {
+      Swal.fire('Info', 'Please Input To Month', 'info')
     }
-    if(intrate == ""){
-      Swal.fire('Info','Please Add Interest','info')
+    if (intrate == "") {
+      Swal.fire('Info', 'Please Add Interest', 'info')
     }
-    if(tomonth != ""  && intrate != ""){
+    if (tomonth != "" && intrate != "") {
       const formVal = this.angForm.value;
       var object = {
-      FROM_MONTHS: formVal.FROM_MONTHS,
-      TO_MONTHS: formVal.TO_MONTHS,
-      LESS_INT_RATE: formVal.LESS_INT_RATE,
-     
+        FROM_MONTHS: formVal.FROM_MONTHS,
+        TO_MONTHS: formVal.TO_MONTHS,
+        LESS_INT_RATE: formVal.LESS_INT_RATE,
+
+      }
+      this.multiField.push(object);
+      console.log(this.multiField)
+      this.resetField()
     }
-    this.multiField.push(object);
-    console.log(this.multiField)
-    this.resetField()
-    }
-    
+
   }
   resetField() {
     this.angForm.controls['FROM_MONTHS'].reset();

@@ -113,7 +113,6 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     else if (this.getschemename == 'CC') {
       let effectDate = moment(this.angForm.controls['EFFECT_DATE'].value).format('YYYY-DD-MM')
       this._interestRateChange.getCCData().subscribe(data => {
-        console.log('effect date', data)
         if (data?.length != 0) {
           if (data.find(data => data['EFFECT_DATE'] != (effectDate == ''))) {
             if (data.find(data => data['EFFECT_DATE'] == effectDate)) {
@@ -183,7 +182,6 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
       if (this.getschemename == 'TD') {
         this.http.get(this.url + '/term-deposits-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
-          console.log(this.tableArr,'table')
           this.gridData = data;
         });
       }
@@ -191,14 +189,12 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
         this.http.get(this.url + '/cash-credit-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
           this.gridData = data;
-          console.log('table cc data', data)
         });
       }
       else if (this.getschemename == 'LN') {
         this.http.get(this.url + '/term-loan-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
           this.gridData = data;
-          console.log('table ln data', data)
         });
       }
       this.dtTrigger.next();
@@ -219,22 +215,21 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   }
   //filter object
   filterObject(ele, type) {
-    console.log(this.gridData);
     let matchArray = new Array()
     this.tableArr = [];
     this.gridData.forEach(element => {
-      
-      if(type == 'AC_NAME'){
-        if(JSON.stringify(element.termLoan.AC_NAME||element.AC_NAME).includes(ele.target.value.toUpperCase())){
+      debugger
+      if (type == 'AC_NAME') {
+        if (JSON.stringify(element?.termLoan?.AC_NAME || element.AC_NAME).includes(ele.target.value.toUpperCase())) {
           this.tableArr.push(element);
         }
       }
-      else{
-        if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+      else {
+        if (JSON.stringify(element.BANKACNO).includes(ele.target.value)) {
           this.tableArr.push(element);
         }
       }
-      
+
     });
   }
   //radio button selection variable 

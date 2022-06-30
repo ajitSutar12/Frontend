@@ -15,6 +15,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 @Component({
   selector: 'app-voucher-entry',
   templateUrl: './voucher-entry.component.html',
@@ -52,6 +53,10 @@ export class VoucherEntryComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+
+
+  // for show hide photo and signature
+  ShowDocuments: boolean = false
 
   //object created to get data when row is clicked
 
@@ -138,6 +143,7 @@ export class VoucherEntryComponent implements OnInit {
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private _service: VoucherEntryService,
     private savingMasterService: SavingMasterService,
+    private _ACMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -249,9 +255,12 @@ export class VoucherEntryComponent implements OnInit {
       if (data.length != 0) {
         this.headData = data;
         this.headShow = true;
+
+
         this.headData.forEach(element => {
           element['date'] = this.IntersetHeadDate;
           element['Amount'] = 0.00
+          element['Balance'] = 0.00
         });
         console.log(this.headData);
       } else {
@@ -332,6 +341,13 @@ export class VoucherEntryComponent implements OnInit {
           this.introducerACNo = data;
         })
         break;
+
+      case 'GL':
+        this._ACMasterDropdownService.getACMasterList1().subscribe(data => {
+          console.log('data', data)
+          this.introducerACNo = data;
+        })
+        break;
     }
   }
 
@@ -407,7 +423,8 @@ export class VoucherEntryComponent implements OnInit {
 
   //Mode data
   changeMode() {
-    if (this.selectedMode.tran_drcr == 'D') {
+
+    if (this.selectedMode.tran_type == 'TR') {
       this.showChequeDetails = true;
       this.angForm.controls['chequeNo'].reset()
       this.angForm.controls['chequeDate'].reset()
@@ -417,13 +434,33 @@ export class VoucherEntryComponent implements OnInit {
     else {
       this.showChequeDetails = false;
     }
-    if (this.selectedCode == 'GL') {
-      this.showChequeDetails = true
+    // if (this.selectedCode == 'GL') {
+    //   this.showChequeDetails = true
+    // }
+  }
+
+  Customer_Name
+  Customer_Pan_No
+  Customer_Contact_No
+  showlgindetails() {
+    if (this.selectedAccountno != null) {
+      this.ShowDocuments = true
+      let tempdata = this.angForm.controls['account_no'].value.idmaster
+      console.log(this.angForm.controls['account_no'].value)
+      console.log(tempdata)
+      this.Customer_Name = this.angForm.controls['account_no'].value.idmaster['AC_NAME']
+      this.Customer_Pan_No = (this.angForm.controls['account_no'].value.idmaster['AC_PANNO'] == '' ? '-' : this.angForm.controls['AC_PANNO'].value.idmaster['AC_PANNO'])
+      this.Customer_Contact_No = (this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'] == '' ? '-' : this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'])
+      // if((this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'])
+    } else {
+      this.ShowDocuments = false
     }
   }
 
+
   //get customer today voucher data
   getVoucherData() {
+    //Hide / Show and show account wie Photo and signature
     let customer = this.angForm.controls['account_no'].value;
     let obj = {
       'customer': customer.BANKACNO,
@@ -532,7 +569,8 @@ export class VoucherEntryComponent implements OnInit {
       tran: this.selectedMode.tran_drcr,
       tranMode: this.selectedMode.id,
       odAmount: this.overdraftAmt,
-      currentDate: this.date
+      currentDate: this.date,
+      totalAmt: this.angForm.controls['total_amt'].value
     }
 
     if (obj.value == 200000) {
@@ -554,104 +592,224 @@ export class VoucherEntryComponent implements OnInit {
       })
 
     } else {
-      this._service.checkZeroBalance(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.checkZeroBalance(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.clearWithdrawBal(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.clearWithdrawBal(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.ClearVoucherSameBal(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.ClearVoucherSameBal(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.MinBalanceChecking(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.MinBalanceChecking(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.CheckClearBalAndAmt(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.CheckClearBalAndAmt(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.InstructionFreezeAc(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.InstructionFreezeAc(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
-      this._service.CashWithdraw(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      }, err => {
-        console.log(err);
-      })
+      if (obj) {
+        this._service.CashWithdraw(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
 
+      if (obj) {
+        this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.DepositAndTotalInstallments(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.DepositAndDepositAmount(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      //total amt
+      if (obj) {
+        this._service.SysAndScheCheckTotalAmt(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
     }
   }
 
@@ -668,115 +826,261 @@ export class VoucherEntryComponent implements OnInit {
       schemeType: this.angForm.controls['scheme_type'].value,
       scheme: this.angForm.controls['scheme'].value.S_APPL,
       usertype: result.RoleDefine[0].RoleId,
-
-
+      currentDate: this.date
     }
 
-    this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.selectedAccountno = null
-      }
-    }, err => {
-      console.log(err);
-    })
+    if (obj) {
+      this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.selectedAccountno = null;
+          this.showlgindetails()
 
-    this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.selectedAccountno = null
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.specialInstruction(obj).subscribe(data => {
-      console.log('data.DETAILS', data.DETAILS)
-
-      if (data != 0) {
-        if (data.restriction == true) {
-          this.selectedAccountno = null
-        } else {
-          this.selectedAccountno = tempacno
         }
+      }, err => {
+        console.log(err);
+      })
+    }
 
-        Swal.fire({
-          title: 'Warning',
-          icon: 'warning',
-          html:
-            data.message + '<br>' +
-            '<span style="font-weight:bold;">Instruction:</span>' + '<br>'
-            + data.DETAILS
-        })
-      }
-    }, err => {
-      console.log(err);
-    })
+    if (obj) {
+      this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.selectedAccountno = null;
+          this.showlgindetails()
 
-    this._service.CheckLoginFlagInDpmaster(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.selectedAccountno = null
-      }
-    }, err => {
-      console.log(err);
-    })
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
 
-    this._service.checkDormantAccount(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.selectedAccountno = null
-      }
-    }, err => {
-      console.log(err);
-    })
+    if (obj) {
+      this._service.specialInstruction(obj).subscribe(data => {
+        console.log('data.DETAILS', data.DETAILS)
 
-    this._service.InstructionFreezeAc(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire({
-          title: 'Are you sure?',
-          text: data.message,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          cancelButtonText: 'No',
-          confirmButtonText: 'Yes'
-        }).then((result) => {
-          if (result.isConfirmed == false) {
+        if (data != 0) {
+          if (data.restriction == true) {
             this.selectedAccountno = null
-          }
-        })
-      }
-    }, err => {
-      console.log(err);
-    })
+            this.showlgindetails()
 
+          } else {
+            this.selectedAccountno = tempacno
+          }
+
+          Swal.fire({
+            title: 'Warning',
+            icon: 'warning',
+            html:
+              data.message + '<br>' +
+              '<span style="font-weight:bold;">Instruction:</span>' + '<br>'
+              + data.DETAILS
+          })
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+
+    if (obj) {
+      this._service.CheckLoginFlagInDpmaster(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.selectedAccountno = null
+          this.showlgindetails()
+
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+
+    if (obj) {
+      this._service.checkDormantAccount(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.selectedAccountno = null
+          this.showlgindetails()
+
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+
+    if (obj) {
+      this._service.InstructionFreezeAc(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: data.message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+            if (result.isConfirmed == false) {
+              this.selectedAccountno = null
+              this.showlgindetails()
+
+            }
+          })
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+
+    if (obj) {
+      this._service.RecurringTypeDeposite(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+
+    if (obj) {
+      this._service.IsDirectEntryAllow(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
   }
+
 
   // Check Voucher Conditions On Transaction Mode
   checktranCondition() {
-    let temptranmode = this.selectedMode
+
     let obj = {
+      accountNo: this.angForm.controls['account_no'].value.AC_NO,
+      schemeType: this.angForm.controls['scheme_type'].value,
+      scheme: this.angForm.controls['scheme'].value.S_APPL,
+      tran: this.selectedMode.tran_drcr,
+      tranMode: this.selectedMode.id,
+      currentDate: this.date
+    }
+
+    if (obj) {
+      if (this.selectedMode.id == 7 && this.selectedCode == 'SH') {
+        this.angForm.controls['amt'].disable();
+        this.angForm.controls['particulars'].disable();
+        let other2amounttotal
+        this._service.calculateDividend(obj).subscribe(data => {
+          other2amounttotal = data.Bcount
+          let str = []
+          for (let x in data.calculationdata) {
+            str.push(data.calculationdata[x].DIV_FROM_YEAR)
+          }
+
+          this.headData.forEach(element => {
+            if (element.FIELD_TRAN_TABLE == 'OTHER2_AMOUNT') {
+              element['Balance'] = other2amounttotal
+            }
+          });
+
+          this.angForm.patchValue({
+            'amt': data.count,
+            'particulars': str + ' Paid Dividend'
+          })
+
+
+        })
+
+      }
+    }
+
+
+    let temptranmode = this.selectedMode
+    if (obj) {
+      this._service.StandingOrInterestInstruction(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.selectedMode = null
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+
+    if (obj) {
+      this._service.LienMarkChecking(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+  }
+
+  // Check Voucher Conditions On Interest Date
+  getColumnValue(event) {
+    if (event != null) {
+      console.log('event', event)
+      let obj = {
+        accountNo: this.angForm.controls['account_no'].value?.BANKACNO,
+        schemeType: this.angForm.controls['scheme_type'].value,
+        scheme: this.angForm.controls['scheme'].value?.S_APPL,
+        tran: this.selectedMode.tran_drcr,
+        tranMode: this.selectedMode.id,
+        currentDate: this.date,
+        interestDate: moment(event).format('DD/MM/YYYY')
+      }
+
+      if (obj) {
+        this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+
+      if (obj) {
+        this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+    }
+  }
+
+  checkTokenCondition(event) {
+    let obj = {
+      value: Number(event.target.value),
+      clearBalance: this.ClearBalance,
       accountNo: this.angForm.controls['account_no'].value.BANKACNO,
       schemeType: this.angForm.controls['scheme_type'].value,
       scheme: this.angForm.controls['scheme'].value.S_APPL,
       tran: this.selectedMode.tran_drcr,
       tranMode: this.selectedMode.id,
+      tran_type: this.selectedMode.tran_type,
+      odAmount: this.overdraftAmt,
+      currentDate: this.date
     }
 
-    this._service.StandingOrInterestInstruction(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.selectedMode = null
-      }
-    }, err => {
-      console.log(err);
-    })
+    if (obj) {
+      this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
 
   }
-
-  editClickHandler(id) { }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -797,5 +1101,171 @@ export class VoucherEntryComponent implements OnInit {
         });
       });
     });
+  }
+
+  updatecheckdata
+  public visibleAnimate = false;
+  public visible = false;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateID
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+
+  editClickHandler(id) {
+    this._service.getFormData(id).subscribe((data) => {
+      debugger
+      console.log('edit', data)
+      this.updatecheckdata = data
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.updateID = data.id;
+      this.selectedBranch = data.BRANCH_CODE
+      this.selectedCode = data.TRAN_ACNOTYPE
+      this.selectedScheme = Number(data.TRAN_ACTYPE)
+      this.selectedMode = data.TRAN_MODE
+      this.introducerACNo = [];
+      this.obj = [this.selectedScheme, this.selectedBranch]
+      switch (this.selectedCode) {
+        case 'SB':
+          this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'SH':
+          this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'CA':
+          this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'LN':
+          this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'TD':
+          this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'DS':
+          this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'CC':
+          this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'GS':
+          this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'PG':
+          this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'AG':
+          this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+
+        case 'IV':
+          this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+          })
+          break;
+      }
+
+      this.angForm.patchValue({
+        type: data.TRAN_TYPE == 'CS' ? 'cash' : data.TRAN_TYPE == 'TR' ? 'transfer' : '',
+        date: data.TRAN_DATE,
+        account_no: data.TRAN_ACNO,
+        chequeNo: data.CHEQUE_NO,
+        chequeDate: data.CHEQUE_DATE,
+        amt: data.TRAN_AMOUNT,
+        total_amt: data.TRAN_AMOUNT,
+        particulars: data.NARRATION,
+        token: data.TOKEN_NO,
+
+
+      })
+    })
+
+  }
+
+  updateData() {
+
+  }
+
+  //approve account
+  Approve() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Voucher approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  //reject account
+  reject() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Voucher rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  addNewData() {
+    this.createForm()
   }
 }

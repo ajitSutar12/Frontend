@@ -614,7 +614,84 @@ export class MultiVoucherComponent implements OnInit {
     this.showChequeDetails = false;
   }
 
-  editClickHandler(id) { }
+  updatecheckdata
+  public visibleAnimate = false;
+  public visible = false;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateID
+
+  editClickHandler(id) {
+
+    this._service.getFormData(id).subscribe((data) => {
+      this.updateID = data.TRAN_NO
+      console.log('edit', data)
+      this.updatecheckdata = data
+      if (data.TRAN_STATUS == 0) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.mainMaster = data
+      this.angForm.patchValue({
+
+      })
+    })
+  }
+
+  updateData() {
+
+  }
+
+  //approve account
+  Approve() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Multi Voucher approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  //reject account
+  reject() {
+    let obj = {
+      id: this.updateID,
+    }
+    this._service.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Multi Voucher rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  addNewData() {
+    this.createForm()
+  }
+
+
 
   // Check Voucher Conditions On Amount Field
   checkCondition($event) {

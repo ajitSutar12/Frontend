@@ -26,6 +26,7 @@ import * as moment from 'moment';
 export class SavingsPigmyAccountClosingComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+  @ViewChild('narrationhide') narrationhide: ElementRef<HTMLElement>;
 
   formSubmitted = false;
   //api
@@ -56,10 +57,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   dataSub: Subscription;
   characters: IOption[];
   sysparaData: any;
-
+  ngFnarration: any = null
   // for radio button
   isTransfer: boolean = false
   master: any;
@@ -199,10 +201,10 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       amount: [''],
       DepositAmount: [''],
       OpenDate: [''],
-      SVR_CHARGE_GLCODE: [''],
-      SVR_CHARGE_RATE: [''],
-      COMM_GLCODE: [''],
-      CommsionAmt: [''],
+      OTHER_CHARGES_GLACNO: [''],
+      OTHER_CHARGES_AMOUNT: [''],
+      COMMISSION_GLACNO: [''],
+      COMMISSION_CHARGES: [''],
       Months: [''],
       renewalDate: [''],
       maturityDate: [''],
@@ -218,6 +220,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       NET_INT: [''],
       PENAL_INT: ['1000'],
       NETPAYABLE_AMT: [''],
+      Fnarration: [''],
     });
   }
 
@@ -231,7 +234,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.ngGlAcno = Number(event.SVR_CHARGE_GLCODE)
     this.getschemename = event.name
     this.ngscheme = event.value
-    this.SVR_CHARGE_RATE = event.SVR_CHARGE_RATE
+    this.OTHER_CHARGES_AMOUNT = event.SVR_CHARGE_RATE
     this.isInterestApplicable = event.intapp
     this.getAccountlist()
   }
@@ -261,10 +264,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
 
     }
   }
+  transferAcnoType
   //get account no according scheme for transfer
   getTransferAccountList(event) {
+    debugger
     this.obj = [this.ngschemecode, this.ngBranchCode]
     this.ngacno = null
+    this.transferAcnoType = event.name
     switch (event.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
@@ -412,27 +418,40 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     })
 
   }
-  SVR_CHARGE_GLCODE
-  SVR_CHARGE_RATE
+  OTHER_CHARGES_GLACNO
+  OTHER_CHARGES_AMOUNT
+  isPrematureClose = 0
   calculation() {
     this.angForm.patchValue({
-      SVR_CHARGE_GLCODE: this.SVR_CHARGE_GLCODE,
-      SVR_CHARGE_RATE: this.SVR_CHARGE_RATE
+      OTHER_CHARGES_GLACNO: this.OTHER_CHARGES_GLACNO,
+      OTHER_CHARGES_AMOUNT: this.OTHER_CHARGES_AMOUNT
+    })
+  }
+
+  getNetInterest() {
+    let ledger_bal = this.angForm.controls['LEDGER_BAL'].value
+    let net_int = this.angForm.controls['NET_INT'].value
+    let other_charge_amt = this.angForm.controls['OTHER_CHARGES_AMOUNT'].value
+    let comm_amt = this.angForm.controls['COMMISSION_CHARGES'].value
+    let penal_amt = this.angForm.controls['PENAL_INT'].value
+    let netInt = (Number(ledger_bal) + Number(net_int) - Number(other_charge_amt) - Number(comm_amt) - Number(penal_amt)).toFixed(2)
+    this.angForm.patchValue({
+      NETPAYABLE_AMT: netInt
     })
   }
 
   //transfer account grid functions
   addTransferAccount() {
+    debugger
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     var object = {
-      chequeNo: formVal.chequeNo,
-      ChequeDate: (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date') ? '' : moment(formVal.ChequeDate).format('DD/MM/YYYY'),
-      AC_NO: formVal.TschemeAC,
-      AC_TYPE: this.ngschemecode,
+      TRANSFER_ACNO: formVal.TschemeAC,
+      TRANSFER_ACTYPE: this.ngschemecode,
       ACNO: this.ngacno,
-      particulars: formVal.NARRATION,
-      amount: formVal.amount,
+      NARRATION: formVal.NARRATION,
+      TRAN_AMOUNT: formVal.amount,
+      TRANSFER_ACNOTYPE: this.transferAcnoType
     }
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
@@ -464,13 +483,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
-      chequeNo: this.multigrid[id].chequeNo,
-      ChequeDate: this.multigrid[id].ChequeDate,
-      NARRATION: this.multigrid[id].particulars,
-      amount: this.multigrid[id].amount
+      NARRATION: this.multigrid[id].NARRATION,
+      amount: this.multigrid[id].TRAN_AMOUNT
     })
     this.ngacno = this.multigrid[id].ACNO
-    this.ngschemecode = this.multigrid[id].AC_TYPE
+    this.ngschemecode = this.multigrid[id].TRANSFER_ACTYPE
+    this.transferAcnoType = this.multigrid[id].TRANSFER_ACNOTYPE
   }
 
   updateTransferAcccount() {
@@ -479,27 +497,22 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.jointUpdateShow = false;
     let cheqDate
     const formVal = this.angForm.value;
-    if (this.transferGrid.ChequeDate != formVal.ChequeDate) {
-      cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY');
-    } else {
-      cheqDate = formVal.ChequeDate
-    }
     var object = {
-      chequeNo: formVal.chequeNo,
-      ChequeDate: cheqDate,
-      AC_NO: formVal.TschemeAC,
-      AC_TYPE: this.ngschemecode,
+      TRANSFER_ACNO: formVal.TschemeAC,
+      TRANSFER_ACTYPE: this.ngschemecode,
       ACNO: this.ngacno,
-      particulars: formVal.NARRATION,
-      amount: formVal.amount,
+      NARRATION: formVal.NARRATION,
+      TRAN_AMOUNT: formVal.amount,
+      TRANSFER_ACNOTYPE: this.transferAcnoType,
       id: this.transferACID
     }
+
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
     } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
       Swal.fire(
         "Warning!",
-        "Please Select Acoount!",
+        "Please Select Account!",
         "info"
       );
     }
@@ -520,8 +533,6 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   resetgrid() {
     this.ngacno = null
     this.ngschemecode = null
-    this.angForm.controls["chequeNo"].reset();
-    this.angForm.controls["ChequeDate"].reset();
     this.angForm.controls["NARRATION"].reset();
     this.angForm.controls["amount"].reset();
   }
@@ -537,25 +548,56 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
   submit() {
-    // TRAN_DATE
-    // TRAN_TYPE
-    // BRANCH_CODE
-    // TRAN_ACNOTYPE
-    // TRAN_ACTYPE
-    // TRAN_ACNO
-    // SURCHARGE_AMOUNT
-    // PENAL_INTEREST_AMOUNT
-    // NET_INTEREST_AMOUNT
-    // TOTAL_INTEREST_AMOUNT
-    // NET_PAYABLE_AMOUNT
-    // INTEREST_RATE
-    // IS_PREMATURE_CLOSE
-    // NARRATION
-    // TRAN_STATUS
-    // TOKEN_NO
-    // PAYABLE_INTEREST_AMOUNT
-    // CHEQUE_NO
-    // USER
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    const dataToSend = {
+      LEDGER_BAL: formVal.LEDGER_BAL,
+      TRAN_DATE: formVal.DATE,
+      TRAN_TYPE: formVal.SAVING_PIGMY == 'FormT' ? 'TR' : 'CS',
+      BRANCH_CODE: this.ngBranchCode,
+      TRAN_ACNOTYPE: this.getschemename,
+      TRAN_ACTYPE: this.ngscheme,
+      TRAN_ACNO: this.bankacno,
+      PAID_INTEREST_AMOUNT: formVal.POSTED_INT,
+      OTHER_CHARGES_AMOUNT: formVal.OTHER_CHARGES_AMOUNT,
+      PENAL_INTEREST_AMOUNT: formVal.PENAL_INT,
+      NET_INTEREST_AMOUNT: formVal.NET_INT,
+      TOTAL_INTEREST_AMOUNT: formVal.TotalInterest,
+      NET_PAYABLE_AMOUNT: formVal.NETPAYABLE_AMT,
+      INTEREST_RATE: formVal.INTREST_RATE,
+      IS_PREMATURE_CLOSE: this.isPrematureClose,
+      NARRATION: formVal.Fnarration,
+      TOKEN_NO: formVal.Token_Num,
+      COMMISSION_CHARGES: formVal.COMMISSION_CHARGES,
+      COMMISSION_GLACNO: formVal.COMMISSION_GLACNO,
+      OTHER_CHARGES_GLACNO: formVal.OTHER_CHARGES_GLACNO,
+      PAYABLE_INTEREST_AMOUNT: formVal.PAYABLE_INT,
+      CHEQUE_NO: formVal.chequeNo,
+      CHEQUE_DATE: (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date') ? '' : moment(formVal.ChequeDate).format('DD/MM/YYYY'),
+      USER: result.id,
+      multigrid: this.multigrid
+    }
+    this._service.postData(dataToSend).subscribe(data => {
+      // this.getVoucherData();
+      Swal.fire('Success!', 'Account Closed Successfully !', 'success');
+      this.multigrid = []
+      this.resetForm()
+    }, err => {
+      console.log(err);
+    })
+
+  }
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.createForm()
   }
   //function toggle update to add button
   updateData() {
@@ -563,22 +605,60 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     // this.updateShow = false;
   }
 
+  updatecheckdata
+  updateID
+  TRAN_NO
   //function for edit button clicked
-  editClickHandler(info: any): void {
-    // this.message.BranchCode = info.SchemeCode;
-    // this.message.OtherChargesGLAccount = info.OtherChargesGLAccount;
-    // this.message.TokenNo = info.TokenNo;
-    // this.message.InterestRate = info.InterestRate;
-    // this.message.TotalInterest = info.TotalInterest;
-    // this.message.OtherChargesAmount = info.OtherChargesAmount;
-    // this.message.SchemeCode = info.SchemeCode;
-    // this.message.AccountNumber = info.AccountNumber;
-    // this.message.HOSubGL = info.HOSubGL;
-    // this.message.Amount = info.Amount;
-    // this.message.AccountName = info.AccountName;
-
-    // this.showButton = false;
-    // this.updateShow = true;
+  editClickHandler(id): void {
+    this._service.getFormData(id).subscribe((data) => {
+      debugger
+      console.log('edit', data)
+      this.updatecheckdata = data
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
+      this.date = data.TRAN_DATE
+      this.updateID = data.id;
+      this.TRAN_NO = data.TRAN_NO
+      this.multigrid = data.depoclosetran
+      if (data.TRAN_TYPE == 'CS') {
+        this.isFormA(1)
+      }
+      else {
+        this.isFormA(2)
+      }
+      data.TRAN_ACNOTYPE == 'SB' ? this.isHideForSaving = false : this.isHideForSaving = true
+      this.getschemename = data.TRAN_ACNOTYPE
+      this.ngscheme = Number(data.TRAN_ACTYPE)
+      this.ngBranchCode = data.BRANCH_CODE
+      this.getAccountlist()
+      this.angForm.patchValue({
+        TRAN_NO: data.TRAN_NO,
+        BRANCH_CODE: data.BRANCH_CODE,
+        SAVING_PIGMY: data.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
+        chequeNo: data.CHEQUE_NO,
+        ChequeDate: data.CHEQUE_DATE,
+        Fnarration: data.NARRATION,
+        NET_INT: data.NET_INTEREST_AMOUNT,
+        NETPAYABLE_AMT: data.NET_PAYABLE_AMOUNT,
+        OTHER_CHARGES_AMOUNT: data.OTHER_CHARGES_AMOUNT,
+        OTHER_CHARGES_GLACNO: data.OTHER_CHARGES_GLACNO,
+        POSTED_INT: data.PAID_INTEREST_AMOUNT,
+        PAYABLE_INT: data.PAYABLE_INTEREST_AMOUNT,
+        PENAL_INT: data.PENAL_INTEREST_AMOUNT,
+        TotalInterest: data.TOTAL_INTEREST_AMOUNT,
+        AC_NO: data.TRAN_ACNO,
+        AC_TYPE: Number(data.TRAN_ACTYPE),
+        DATE: data.TRAN_DATE,
+        Token_Num: data.TOKEN_NO,
+      })
+    })
   }
 
   //function for delete button clicked
@@ -611,6 +691,53 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     // })
   }
 
+  //approve account
+  Approve() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    const dataToSend = {
+      id: this.updateID,
+      TRAN_NO: this.TRAN_NO,
+      USER: result.id
+    }
+    this._service.approve(dataToSend).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving and Pigmy Account Closing approved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  //reject account
+  reject() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    const dataToSend = {
+      id: this.updateID,
+      TRAN_NO: this.TRAN_NO,
+      USER: result.id
+    }
+    this._service.reject(dataToSend).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving and Pigmy Account Closing rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
   OpenLink(val) {
     // 
     if (val == 1) {
@@ -627,6 +754,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   getNarration(ele) {
     this.narration = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
+
+  //get Narration Details 
+  getFormNarration(ele) {
+    this.ngFnarration = ele;
+    let el: HTMLElement = this.narrationhide.nativeElement;
     el.click();
   }
 

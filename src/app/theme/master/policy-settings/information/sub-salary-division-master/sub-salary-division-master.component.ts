@@ -138,7 +138,6 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
             this.url + '/sub-salary-division-master',
             dataTableParameters
           ).subscribe(resp => {
-            console.log(resp.data)
             this.subsalarymasters = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -271,7 +270,6 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     this.newbtnShow = true;
     this.subSalaryDivisionService.getFormData(id).subscribe(data => {
       this.ngBranchCode = Number(data.BRANCH_CODE),
-        console.log(data)
       this.updateID = data.id;
       this.ngdivcode = data.SAL_CODE
       this.angForm.patchValue({

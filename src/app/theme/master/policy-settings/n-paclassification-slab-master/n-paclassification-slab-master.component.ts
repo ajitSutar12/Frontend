@@ -36,8 +36,8 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   angForm: FormGroup;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
-  dtExportButtonOptions: DataTables.Settings = {};
   dtElement: DataTableDirective;
+  dtExportButtonOptions: DataTables.Settings = {};
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   //variables for pagination
@@ -298,7 +298,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
     }
   }
   //add object into array
-  addField() {    
+  addField() {
     let fromDay = (document.getElementById("FROM_DAYS") as HTMLInputElement).value;
     let today = (document.getElementById("TO_DAYS") as HTMLInputElement).value;
     let fromMonth = (document.getElementById("FROM_MONTHS") as HTMLInputElement).value;
@@ -401,7 +401,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
     })
   }
   //update object in multifield array
-  updateField() {    
+  updateField() {
     let fromDay = (document.getElementById("FROM_DAYS") as HTMLInputElement).value;
     let today = (document.getElementById("TO_DAYS") as HTMLInputElement).value;
     let fromMonth = (document.getElementById("FROM_MONTHS") as HTMLInputElement).value;

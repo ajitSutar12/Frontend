@@ -39,7 +39,7 @@ export class TermDepositAccountClosingService {
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/term-deposit-account-closing/update", data);
+    return this.http.put(this.url + "/term-deposit-account-closing/updateTermDepositClosing", data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {

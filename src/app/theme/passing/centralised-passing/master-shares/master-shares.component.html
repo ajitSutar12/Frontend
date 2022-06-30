@@ -90,7 +90,7 @@
                                                             {{ data.AC_OPDATE === "" ? "-" : data.AC_OPDATE }}
                                                         </td>
                                                         <td [ngClass]="data.AC_BRANCH=== '' ? 'td_center' : 'td_right'">
-                                                            {{ data.AC_BRANCH === "" ? "-" : data.AC_BRANCH }}
+                                                            {{ data.AC_BRANCH === "" ? "-" : data.BranchCodeMaster.CODE  }}
                                                         </td>
                                                         <!-- <td [ngClass]="data.AC_SALARYDIVISION_CODE === '' ? 'td_center' : 'td_left'">
                                             {{ data.AC_SALARYDIVISION_CODE === "" ? "-" : data.AC_SALARYDIVISION_CODE }}

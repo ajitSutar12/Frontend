@@ -1782,6 +1782,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     $event.target.value = data;
   }
 
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
 
   //approve account
   Approve() {

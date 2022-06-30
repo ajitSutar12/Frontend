@@ -53,9 +53,9 @@ interface CurrentAccountMaster {
   styleUrls: ['./master-current.component.scss']
 })
 export class MasterCurrentComponent implements OnInit {
-  @ViewChild(CurrentAccountMasterComponent ) child: CurrentAccountMasterComponent ; 
+  @ViewChild(CurrentAccountMasterComponent) child: CurrentAccountMasterComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
- 
+
   dtExportButtonOptions: any = {};
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
@@ -66,7 +66,7 @@ export class MasterCurrentComponent implements OnInit {
   url = environment.base_url;
   // Store data from backend
   currentAccountMaster: CurrentAccountMaster[];
-  currentData :any;
+  currentData: any;
   constructor(private http: HttpClient,) { }
   ngOnInit(): void {
     // this.dtExportButtonOptions = {
@@ -140,18 +140,18 @@ export class MasterCurrentComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.mySubscription = interval(1000).subscribe((x => {
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/current-account-master/passing',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.currentAccountMaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
+          this.http
+            .post<DataTableResponse>(
+              this.url + '/current-account-master/passing',
+              dataTableParameters
+            ).subscribe(resp => {
+              this.currentAccountMaster = resp.data;
+              callback({
+                recordsTotal: resp.recordsTotal,
+                recordsFiltered: resp.recordsTotal,
+                data: []
+              });
             });
-          });
         }));
       },
       columnDefs: [{
@@ -169,6 +169,10 @@ export class MasterCurrentComponent implements OnInit {
         {
           title: 'Account Number',
           data: ' BANKACNO'
+        },
+        {
+          title: 'Member Name',
+          data: 'AC_NAME'
         },
         {
           title: 'Customer ID',
@@ -199,25 +203,25 @@ export class MasterCurrentComponent implements OnInit {
     };
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
 
-    //get saving customer data
-    getCurrentData(data){
-      this.currentData = data.id;
-      this.child.editClickHandler(data.id);
-      this.child.DatatableHideShow = false;
-      this.child.rejectShow = true;
-      this.child.approveShow = true;
-    }
-    public getData(value): void {
-      let el: HTMLElement = this.myDiv.nativeElement;
-      el.click();
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }
+  //get saving customer data
+  getCurrentData(data) {
+    this.currentData = data.id;
+    this.child.editClickHandler(data.id);
+    this.child.DatatableHideShow = false;
+    this.child.rejectShow = true;
+    this.child.approveShow = true;
+  }
+  public getData(value): void {
+    let el: HTMLElement = this.myDiv.nativeElement;
+    el.click();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
+  }
 
 
 }

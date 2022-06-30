@@ -77,7 +77,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   newbtnShow: boolean = false;
 
   updateID: number = 0;
-  ngToAccount: any=null
+  ngToAccount: any = null
   companyCode: any;
   schemeCode: any;
   ngcompany: any = null
@@ -85,7 +85,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   //Scheme type variable
   schemeType: string = 'GL'
   account: any[]
-  ngAccount: any=null
+  ngAccount: any = null
   //for search functionality
   filterData = {};
   ngBranchCode
@@ -207,7 +207,6 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.schemeCodeService.getAllSchemeList().pipe(first()).subscribe(data => {
       console.log(data)
       var filtered = data.filter(function (scheme) {
-        debugger
         return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'GS' || scheme.name == 'SH');
       });
       this.schemeCode = filtered;
@@ -219,9 +218,9 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.angForm = this.fb.group({
       COMP_CODE: ['', [Validators.required]],
       CODE: ['', [Validators.required]],
-      FROM_AC: ['',[Validators.required]],
-      TO_AC: ['',[Validators.required]],
-      BRANCH_CODE: ['',[Validators.required]]
+      FROM_AC: ['', [Validators.required]],
+      TO_AC: ['', [Validators.required]],
+      BRANCH_CODE: ['', [Validators.required]]
 
     });
   }
@@ -235,7 +234,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       'FROM_AC': formVal.FROM_AC,
       'TO_AC': formVal.TO_AC,
       'BRANCH_CODE': this.ngBranchCode,
-      'Company_Data':this.multiData
+      'Company_Data': this.multiData
     }
     this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -275,17 +274,17 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.newbtnShow = true;
 
     this.companyGroupLinkMasterService.getFormData(id).subscribe(data => {
-      
+
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE)
-      this.ngcompany=Number(data.COMP_CODE)
-      this.ngcode=Number(data.CODE)
+      this.ngcompany = Number(data.COMP_CODE)
+      this.ngcode = Number(data.CODE)
       this.ngAccount = Number(data.FROM_AC)
-      this.ngToAccount =Number(data.TO_AC)
-     
+      this.ngToAccount = Number(data.TO_AC)
+
       this.multiData = []
-        
-      
+
+
     })
   }
   addNewData() {
@@ -410,7 +409,6 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   }
   scheme: any
   getAccount(event) {
-    console.log(event)
     this._allAcc
     this.account = null
     this.scheme = event.name
@@ -480,24 +478,19 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   multiData: any
   accountno: any
   checkValidaion() {
-    debugger
-    console.log(this.angForm.controls['TO_AC'].value)
     var fromac = this.angForm.controls['FROM_AC'].value
     var toac = this.angForm.controls['TO_AC'].value;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
     this.accountno = [fromac, toac, branchCode]
-    debugger
     if (this.angForm.controls['TO_AC'].value == '' || this.angForm.controls['TO_AC'].value == null) {
 
     } else if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
-      console.log('true')
       switch (this.scheme) {
         case 'SB':
           this.http.get(this.url + '/saving-master/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
 
 
@@ -508,7 +501,6 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
           })
           this.http.get(this.url + '/share-master/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
           break;
 
@@ -516,7 +508,6 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
           this.http.get(this.url + '/current-account-master/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
           break;
 
@@ -524,7 +515,6 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
           this.http.get(this.url + '/term-loan-master/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
           break;
 
@@ -532,21 +522,18 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
           this.http.get(this.url + '/term-deposits-master/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
           break;
         case 'CC':
 
           this.http.get(this.url + '/cash-credit-master/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
           break;
 
         case 'GS':
           this.http.get(this.url + '/anamat-gsm/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
 
           break;
@@ -555,7 +542,6 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
           this.http.get(this.url + '/pigmy-account-master/listalldata' + this.accountno).subscribe((data) => {
             this.multiData = data;
-            console.log('multiShare', this.multiData)
           });
           break;
       }
@@ -579,14 +565,11 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   }
 
   //set Amount Data when edit
-  setAmountData(data,index){
-    console.log('test',data.target.value);
-
-    if(this.multiData[index].hasOwnProperty('Amount')){
+  setAmountData(data, index) {
+    if (this.multiData[index].hasOwnProperty('Amount')) {
       this.multiData[index].Amount = data.target.value;
-    }else{
+    } else {
       this.multiData[index]['Amount'] = data.target.value;
     }
-    console.log(this.multiData);
   }
 }

@@ -25,6 +25,18 @@ export class ACMasterDropdownService {
             }));
     }
 
+    public getACMasterList1() {
+        this.acMasterObject = [];
+        return this.http.get<any>(this.url + '/gl-account-master')
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { AC_NAME: element.AC_NAME, id: element.id, AC_NO: element.AC_NO };
+                    this.acMasterObject.push(obj)
+                });
+                return this.acMasterObject;
+            }));
+    }
+
     public getACMasterbranch(branchid) {
         this.acMasterObject = [];
         return this.http.get<any>(this.url + '/gl-account-master/branch/' + branchid)

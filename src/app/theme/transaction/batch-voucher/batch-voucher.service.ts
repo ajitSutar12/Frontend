@@ -10,22 +10,40 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root'
 })
 export class BatchVoucherService {
-    // Variable for handleError
-    [x: string]: any;
-    // API 
-    url = environment.base_url;
-    constructor(private http: HttpClient) { }
+  // Variable for handleError
+  [x: string]: any;
+  // API 
+  url = environment.base_url;
+  constructor(private http: HttpClient) { }
   //get syspara 
   getSysParaData(): Observable<any> {
     return this.http.get(this.url + '/system-master-parameters');
   }
 
   //get narration data
-  getNarrationMaster():Observable<any>{
-    return this.http.get(this.url+'/narration')
+  getNarrationMaster(): Observable<any> {
+    return this.http.get(this.url + '/narration')
   }
 
-  submitData(data):Observable<any>{
-    return this.http.post(this.url+'/voucher/insertBatchVoucher',data);
+  submitData(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/insertBatchVoucher', data);
+  }
+
+  // For append data
+  getFormData(id: any): Observable<any> {
+    return this.http
+      .get(this.url + "/voucher/" + id)
+      .pipe(catchError(this.handleError));
+  }
+
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/batchApprove', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/batchReject', data).pipe(catchError(this.handleError));
   }
 }

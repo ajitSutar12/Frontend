@@ -303,6 +303,8 @@ export class AccountEnquiryComponent implements OnInit {
   }
 
   LAST_OD_DATE
+  AC_NO
+  nominee
   //get account details
   getAccountDetails(event) {
     console.log('element', event)
@@ -314,7 +316,10 @@ export class AccountEnquiryComponent implements OnInit {
     this.guardianName = event.AC_GRDNAME
     this.opendate = event.AC_OPDATE
     this.bankacno = event.BANKACNO
+    this.AC_NO = event.AC_NO
     this.LAST_OD_DATE = event.LAST_OD_DATE
+    this.nominee = event?.nomineeDetails //powerOfAttorney    //jointAccounts
+    console.log('nominee', this.nominee)
     event?.jointAccounts?.forEach((element, index) => {
       if (index == 0) {
         this.jointHolderName = element.JOINT_ACNAME
@@ -346,7 +351,8 @@ export class AccountEnquiryComponent implements OnInit {
       date: moment(this.angForm.controls['DATE'].value).format('DD/MM/YYYY'),
       AC_ACNOTYPE: this.getschemename,
       AC_TYPE: this.ngscheme,
-      LAST_OD_DATE: this.LAST_OD_DATE
+      LAST_OD_DATE: this.LAST_OD_DATE,
+      AC_NO: this.AC_NO
     }
     this.http.post<any>(this.url + '/ledger-view/accountView', obj).subscribe((data) => {
       this.transactionData = data

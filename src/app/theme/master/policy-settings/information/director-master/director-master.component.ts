@@ -188,7 +188,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-      
+
     })
     this._cityMaster.getcityList1().pipe(first()).subscribe(data => {
       this.city = data;
@@ -265,9 +265,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.updateShow = true;
     this.newbtnShow = true;
     this.directorMasterService.getFormData(id).subscribe(data => {
-      
       this.updateID = data.id;
-      this.ngCity = Number(data.AC_CTCODE)
       this.ngBranchCode = Number(data.BRANCH_CODE)
       this.angForm.patchValue({
         'CODE': data.CODE,
@@ -280,18 +278,17 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_MOBILENO': data.AC_MOBILENO,
         'SMS_REQUIRED': data.SMS_REQUIRED,
         'IS_CURRENT_BODY_MEMBER': data.IS_CURRENT_BODY_MEMBER,
-        'AC_CTCODE': data.AC_CTCODE,
-
       })
+      this.ngCity = Number(data.AC_CTCODE)
     })
   }
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
-    
+
     data['id'] = this.updateID;
     this.directorMasterService.updateData(data).subscribe(() => {
-      
+
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;

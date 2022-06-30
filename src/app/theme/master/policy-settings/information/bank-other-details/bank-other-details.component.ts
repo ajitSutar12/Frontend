@@ -170,46 +170,46 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           data: 'NAME'
         },
         {
-          title:'Account Number',
-          data:'SBI_BANKCODE'
+          title: 'Account Number',
+          data: 'SBI_BANKCODE'
         },
         {
-          title:'Pan Number',
-          data:'PAN_NO'
+          title: 'Pan Number',
+          data: 'PAN_NO'
         },
         {
-          title:'GST Number',
-          data:'GST_NO'
-        },
-        
-        {
-          title:'Flat Premise Name',
-          data:'FLAT_PRM_NAME'
-        },
-        {
-          title:'Town/City/District',
-          data:'CITY_CODE'
-        },
-        {
-          title:'State',
-          data:'STATE'
-        },
-        {
-          title:'Pin Code',
-          data:'PIN_CODE'
-        },
-        
-        {
-          title:'Mobile Number',
-          data:'MOB_NUM'
-        },
-        
-        {
-          title:'Email',
-          data:'EMAIL'
+          title: 'GST Number',
+          data: 'GST_NO'
         },
 
-        
+        {
+          title: 'Flat Premise Name',
+          data: 'FLAT_PRM_NAME'
+        },
+        {
+          title: 'Town/City/District',
+          data: 'CITY_CODE'
+        },
+        {
+          title: 'State',
+          data: 'STATE'
+        },
+        {
+          title: 'Pin Code',
+          data: 'PIN_CODE'
+        },
+
+        {
+          title: 'Mobile Number',
+          data: 'MOB_NUM'
+        },
+
+        {
+          title: 'Email',
+          data: 'EMAIL'
+        },
+
+
       ],
       dom: 'Blrtip',
     }
@@ -242,39 +242,45 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
 
   // Method to insert data into database through NestJS
   submit() {
-    this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'BANK_CODE': formVal.BANK_CODE,
-      'NAME': formVal.NAME,
-      'SHORT_NAME': formVal.SHORT_NAME,
-      'TAN_NO': formVal.TAN_NO,
-      'PAN_NO': formVal.PAN_NO,
-      'FLAT_PRM_NO': formVal.FLAT_PRM_NO,
-      'FLAT_PRM_NAME': formVal.FLAT_PRM_NAME,
-      'RD_LANE_NAME': formVal.RD_LANE_NAME,
-      'AREA_LOCATION': formVal.AREA_LOCATION,
-      'CITY_CODE': formVal.CITY_CODE,
-      'STATE': formVal.STATE,
-      'PIN_CODE': formVal.PIN_CODE,
-      'PHONE_OFFICE': formVal.PHONE_OFFICE,
-      'MOB_NUM': formVal.MOB_NUM,
-      'EMAIL': formVal.EMAIL,
-      'SBI_BANKCODE': formVal.SBI_BANKCODE,
-      'GST_NO': formVal.GST_NO,
-    }
-    this.bankDetails.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
+    this.http.get(this.url + '/bank-other-details').subscribe(existData => {
+      if (existData == '' || existData == null) {
+        this.formSubmitted = true;
+        const formVal = this.angForm.value;
+        const dataToSend = {
+          'BANK_CODE': formVal.BANK_CODE,
+          'NAME': formVal.NAME,
+          'SHORT_NAME': formVal.SHORT_NAME,
+          'TAN_NO': formVal.TAN_NO,
+          'PAN_NO': formVal.PAN_NO,
+          'FLAT_PRM_NO': formVal.FLAT_PRM_NO,
+          'FLAT_PRM_NAME': formVal.FLAT_PRM_NAME,
+          'RD_LANE_NAME': formVal.RD_LANE_NAME,
+          'AREA_LOCATION': formVal.AREA_LOCATION,
+          'CITY_CODE': formVal.CITY_CODE,
+          'STATE': formVal.STATE,
+          'PIN_CODE': formVal.PIN_CODE,
+          'PHONE_OFFICE': formVal.PHONE_OFFICE,
+          'MOB_NUM': formVal.MOB_NUM,
+          'EMAIL': formVal.EMAIL,
+          'SBI_BANKCODE': formVal.SBI_BANKCODE,
+          'GST_NO': formVal.GST_NO,
+        }
+        this.bankDetails.postData(dataToSend).subscribe(data1 => {
+          Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+        }, (error) => {
+          console.log(error)
+        })
+        //To clear form
+        this.resetForm();
+      }
+      else {
+        Swal.fire('Info!', 'Data Already Exist!', 'info');
+      }
     })
-    //To clear form
-    this.resetForm();
-
   }
 
   addNewData() {
@@ -291,7 +297,6 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     this.updateShow = true;
     this.newbtnShow = true;
     this.bankDetails.getFormData(id).subscribe(data => {
-      console.log(data)
       this.updateID = data.id;
       this.angForm.patchValue({
         'BANK_CODE': data.BANK_CODE,
@@ -316,7 +321,6 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
   }
   //Method for update data 
   updateData() {
-    debugger
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.bankDetails.updateData(data).subscribe(() => {

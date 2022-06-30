@@ -58,7 +58,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   getschemename
   showTable: boolean = false
   mem
-  arrTable: any; 
+  arrTable: any;
   npaEntryArray = []
   gridData: any;
   Code: any;
@@ -81,6 +81,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
         return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
       });
       this.scheme = allscheme;
+      console.log(this.scheme)
     })
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -122,7 +123,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       case 'DS':
         this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
-          this.fromAC = data 
+          this.fromAC = data
         })
         break;
 
@@ -143,7 +144,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     }
     this.getschemename = event.name
   }
-  getTable() { 
+  getTable() {
     this.arrTable = []
     this.npaEntryArray = []
     var memFrom = this.npaOpeningForm.controls['FROM_AC'].value
@@ -167,26 +168,26 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   }
 
   //filter object
-filterObject(ele, type) {
-  console.log(this.arrTable);
-  let matchArray = new Array()
-  this.arrTable = [];
-  this.gridData.forEach(element => {
-    if(type == 'AC_NAME'){
-      if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
-        this.arrTable.push(element);
+  filterObject(ele, type) {
+    console.log(this.arrTable);
+    let matchArray = new Array()
+    this.arrTable = [];
+    this.gridData.forEach(element => {
+      if (type == 'AC_NAME') {
+        if (JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())) {
+          this.arrTable.push(element);
+        }
+      } else {
+        if (JSON.stringify(element.AC_NO).includes(ele.target.value)) {
+          this.arrTable.push(element);
+        }
       }
-    }else{
-      if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
-        this.arrTable.push(element);
-      }
-    }
-    
-  });
-}
+
+    });
+  }
 
 
-//select content of field
+  //select content of field
   selectAllContent($event) {
     $event.target.select();
   }

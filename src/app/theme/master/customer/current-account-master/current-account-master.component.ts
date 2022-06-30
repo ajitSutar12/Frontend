@@ -979,9 +979,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   // Reset Function
   resetForm() {
-    
+
     this.customerDoc = []
-    
+
     this.createForm();
     this.resetNominee();
     this.resetJointAC()
@@ -1034,6 +1034,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     })
   }
 
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
   viewImagePreview(ele, id) {
     this.selectedImagePreview = id;
   }
@@ -1493,7 +1496,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
       this.resetJointAC()
     }
-    
+
   }
 
   delJointAc(id) {
