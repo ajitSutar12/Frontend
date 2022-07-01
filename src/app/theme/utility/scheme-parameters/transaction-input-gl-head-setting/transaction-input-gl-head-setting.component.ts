@@ -77,7 +77,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   //Gl account master variable
   ngGlCode: any = null
   glcode
-  showGL: boolean = false
+  showGL: boolean = true
 
   //debit/credit applicable variable
   ngDebitCredit: any = null
@@ -202,7 +202,6 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     };
 
     this.acmaster.getACMasterList().pipe(first()).subscribe(data => {
-      console.log(data,'glcode')
       this.glcode = data;
     })
   }
@@ -211,19 +210,19 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     this.angForm = this.fb.group({
       SCHEME_TYPE: ['', [Validators.required]],
       FIELD_AMOUNT: ['', [Validators.required]],
-      FIELD_GL: ['', []],
-      FIELD_INTEREST_DATE: ['', []],
-      FIELD_TRAN_TABLE: ['', []],
+      FIELD_GL: [''],
+      FIELD_INTEREST_DATE: [''],
+      FIELD_TRAN_TABLE: [''],
       GL_CODE: [],
-      GL_CODE_FROM_SCHEME_FIELD: ['', []],
+      GL_CODE_FROM_SCHEME_FIELD: [''],
       DESCRIPTION: ['', [Validators.required]],
       SHORT_NAME: ['', [Validators.required]],
-      CHECK_REQUIRE: ['', []],
-      DRCR_APPLICABLE: ['', []],
-      INTEREST_DATE_INPUT: ['', []],
-      HEAD_TYPE: ['', []],
-      IS_NOTING_REQUIRED: ['', []],
-      IS_GLBAL_MAINTAIN: ['', []],
+      CHECK_REQUIRE: [''],
+      DRCR_APPLICABLE: [''],
+      INTEREST_DATE_INPUT: [''],
+      HEAD_TYPE: [''],
+      IS_NOTING_REQUIRED: [''],
+      IS_GLBAL_MAINTAIN: [''],
     })
   }
 
@@ -234,12 +233,16 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         FIELD_INTEREST_DATE: "INTEREST_DATE"
       })
       this.isSchemeWise = true
+      this.schemeWise = false
+      this.showGL = false
     }
     else if (event.label == "Other2_amount" || event.label == "Other3_amount" || event.label == "Other4_amount" || event.label == "Other5_amount" || event.label == "Other6_amount" || event.label == "Other7_amount" || event.label == "Other8_amount" || event.label == "Other9_amount" || event.label == "Other11_amount" || event.label == "Overdue_Interest") {
       this.angForm.patchValue({
         FIELD_INTEREST_DATE: ""
       })
       this.isSchemeWise = false
+      this.showGL = true
+      this.schemeWise = true
       this.angForm.controls['INTEREST_DATE_INPUT'].disable()
       this.angForm.patchValue({
         INTEREST_DATE_INPUT: ""
@@ -250,6 +253,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         FIELD_INTEREST_DATE: ""
       })
       this.isSchemeWise = true
+      this.schemeWise = false
+      this.showGL = false
       this.angForm.controls['INTEREST_DATE_INPUT'].disable()
       this.angForm.patchValue({
         INTEREST_DATE_INPUT: ""
@@ -258,7 +263,6 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   }
 
   showGLCode(value) {
-    console.log('this.ngHeadType.label', this.ngHeadType.label)
     if (value == 1) {
       this.showGL = false
       if (this.ngHeadType.label == 'Interest') {
@@ -298,7 +302,6 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   }
 
   patchGlNo(event) {
-    console.log('pat eventt', event)
     this.angForm.patchValue({
       GL_CODE_FROM_SCHEME_FIELD: "",
       GL_CODE: event.name
@@ -319,14 +322,13 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         GL_CODE_FROM_SCHEME_FIELD: formVal.GL_CODE_FROM_SCHEME_FIELD,
         DESCRIPTION: formVal.DESCRIPTION,
         SHORT_NAME: formVal.SHORT_NAME,
-        CHECK_REQUIRE: formVal.CHECK_REQUIRE,
+        CHECK_REQUIRE: (formVal.CHECK_REQUIRE == true ? '1' : '0'),
         DRCR_APPLICABLE: formVal.DRCR_APPLICABLE.id,
-        INTEREST_DATE_INPUT: formVal.INTEREST_DATE_INPUT,
+        INTEREST_DATE_INPUT: (formVal.INTEREST_DATE_INPUT == true ? '1' : '0'),
         HEAD_TYPE: this.ngHeadType.HeadType,                          //formVal.HEAD_TYPE,
-        IS_NOTING_REQUIRED: formVal.IS_NOTING_REQUIRED,
-        IS_GLBAL_MAINTAIN: formVal.IS_GLBAL_MAINTAIN
+        IS_NOTING_REQUIRED: (formVal.IS_NOTING_REQUIRED == true ? '1' : '0'),
+        IS_GLBAL_MAINTAIN: (formVal.IS_GLBAL_MAINTAIN == true ? '1' : '0')
       }
-      console.log('datasend', dataToSend)
       this._transInput.postData(dataToSend).subscribe(data => {
         Swal.fire('Success!', 'Data Added Successfully !', 'success');
         this.formSubmitted = false;
@@ -348,8 +350,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     this.updateShow = true;
     this.newbtnShow = true;
     this._transInput.getFormData(id).subscribe(data => {
-      console.log('edit data', data)
-      data.GL_CODE == null ? (this.schemeWise = true, this.showGLCode(1)) : (this.schemeWise = false, this.showGL = true, this.ngGlCode = data.GL_CODE);
+
+      // data.GL_CODE == null ? (this.schemeWise = true, this.showGLCode(1)) : (this.schemeWise = false, this.showGL = true, this.ngGlCode = data.GL_CODE);
       // data.GL_CODE == null ? (this.schemeWise = true, this.showGL = false, this.ngGlCode = null) : (this.schemeWise = false, this.showGL = true, this.ngGlCode = data.GL_CODE);
       this.updateID = data.id
       if (data.DRCR_APPLICABLE == "C") {
@@ -377,12 +379,22 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         GL_CODE_FROM_SCHEME_FIELD: data.GL_CODE_FROM_SCHEME_FIELD,
         DESCRIPTION: data.DESCRIPTION,
         SHORT_NAME: data.SHORT_NAME,
-        CHECK_REQUIRE: data.CHECK_REQUIRE,
-        INTEREST_DATE_INPUT: data.INTEREST_DATE_INPUT,
+        CHECK_REQUIRE: (data.CHECK_REQUIRE == '1' ? true : false),
+        INTEREST_DATE_INPUT: (data.INTEREST_DATE_INPUT == '1' ? true : false),
         HEAD_TYPE: data.HEAD_TYPE,
-        IS_NOTING_REQUIRED: data.IS_NOTING_REQUIRED,
-        IS_GLBAL_MAINTAIN: data.IS_GLBAL_MAINTAIN
+        IS_NOTING_REQUIRED: (data.IS_NOTING_REQUIRED == '1' ? true : false),
+        IS_GLBAL_MAINTAIN: (data.IS_GLBAL_MAINTAIN == '1' ? true : false)
       })
+
+      debugger
+      if (data.GL_CODE == null) {
+        this.schemeWise = false;
+        this.showGLCode(1);
+      } else {
+        this.schemeWise = true;
+        this.showGL = true;
+        this.ngGlCode = data.GL_CODE
+      }
     })
   }
 
@@ -395,7 +407,10 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     data['FIELD_GL'] = this.ngHeadType.FieldGL
     data['FIELD_TRAN_TABLE'] = this.ngHeadType.FIELD_TRAN_TABLE
     data['DRCR_APPLICABLE'] = this.ngDebitCredit.id,
-      console.log('update data to send', data)
+      data['CHECK_REQUIRE'] = (data.CHECK_REQUIRE == true ? '1' : '0')
+    data['INTEREST_DATE_INPUT'] = (data.INTEREST_DATE_INPUT == true ? '1' : '0')
+    data['IS_NOTING_REQUIRED'] = (data.IS_NOTING_REQUIRED == true ? '1' : '0')
+    data['IS_GLBAL_MAINTAIN'] = (data.IS_GLBAL_MAINTAIN == true ? '1' : '0')
     this._transInput.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -417,12 +432,13 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
 
   resetForm() {
     this.createForm()
+    this.showGL = true
+    this.schemeWise = true
     this.ngSchemeType = null
     this.ngHeadType = null
     this.ngGlCode = null
     this.ngDebitCredit = null
-    this.schemeWise = true
-    this.showGL = false
+    
   }
 
   ngAfterViewInit(): void {

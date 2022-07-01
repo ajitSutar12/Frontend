@@ -175,7 +175,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
           data: 'S_SHNAME'
         },
         {
-          title: 'G.L. A/c No.',
+          title: 'GL Account Number',
           data: 'S_GLACNO'
         },
         {
@@ -267,7 +267,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       SHARES_FACE_VALUE: ['', [Validators.pattern]],
       MAX_SHARES_LIMIT: ['', [Validators.pattern]],
       DIVIDEND_PERCENTAGE: ['', [Validators.pattern]],
-      IS_ADD_BONUS_IN_DIVIDEND: [false],
+      IS_ADD_BONUS_IN_DIVIDEND: [],
       INT_ROUND_OFF: [''],
       ROUNDOFF_FACTOR: ['', [Validators.pattern]],
       SANCT_LIMIT_PERCENTAGE: ['', [Validators.pattern]],
@@ -299,21 +299,22 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       'S_NAME': formVal.S_NAME,
       'S_GLACNO': formVal.S_GLACNO,
       'MEMBER_TYPE': formVal.MEMBER_TYPE,
-      'IS_AUTO_NO': formVal.IS_AUTO_NO,
+
       'SHARES_FACE_VALUE': formVal.SHARES_FACE_VALUE,
       'MAX_SHARES_LIMIT': formVal.MAX_SHARES_LIMIT,
       'DIVIDEND_PERCENTAGE': formVal.DIVIDEND_PERCENTAGE,
       'INTEREST_RULE': formVal.INTEREST_RULE,
-      'IS_ADD_BONUS_IN_DIVIDEND': formVal.IS_ADD_BONUS_IN_DIVIDEND,
-      'BALANCE_ADD_APPLICABLE': formVal.BALANCE_ADD_APPLICABLE,
+      'IS_AUTO_NO': (formVal.IS_AUTO_NO == true ? '1' : '0'),
+      'IS_ADD_BONUS_IN_DIVIDEND': (formVal.IS_ADD_BONUS_IN_DIVIDEND == true ? '1' : '0'),
+      'BALANCE_ADD_APPLICABLE': (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
       'ROUNDOFF_FACTOR': formVal.ROUNDOFF_FACTOR,
-      'INT_ROUND_OFF': formVal.INT_ROUND_OFF,
+      'INT_ROUND_OFF': (formVal.INT_ROUND_OFF == true ? '1' : '0'),
       'SANCT_LIMIT_PERCENTAGE': formVal.SANCT_LIMIT_PERCENTAGE,
       'RETIREMENT_YEARS': formVal.RETIREMENT_YEARS,
       'SH_CERTIFICATE_METHOD': formVal.SH_CERTIFICATE_METHOD,
 
     }
-   
+
     this.sharesSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
@@ -335,7 +336,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = true;
     this.sharesSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngglacno=Number(data.S_GLACNO)
+      this.ngglacno = Number(data.S_GLACNO)
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
@@ -343,15 +344,15 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         'S_NAME': data.S_NAME,
         // 'S_GLACNO': data.S_GLACNO,
         'MEMBER_TYPE': data.MEMBER_TYPE,
-        'IS_AUTO_NO': (data.IS_AUTO_NO=="true"?true:false),
+        'IS_AUTO_NO': (data.IS_AUTO_NO == '1' ? true : false),
         'SHARES_FACE_VALUE': data.SHARES_FACE_VALUE,
         'MAX_SHARES_LIMIT': data.MAX_SHARES_LIMIT,
         'DIVIDEND_PERCENTAGE': data.DIVIDEND_PERCENTAGE,
         'INTEREST_RULE': data.INTEREST_RULE,
-        'IS_ADD_BONUS_IN_DIVIDEND': data.IS_ADD_BONUS_IN_DIVIDEND,
-        'BALANCE_ADD_APPLICABLE':(data.BALANCE_ADD_APPLICABLE=="true"?true:false),
+        'IS_ADD_BONUS_IN_DIVIDEND': (data.IS_ADD_BONUS_IN_DIVIDEND == '1' ? true : false),
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
-        'INT_ROUND_OFF':data.INT_ROUND_OFF,
+        'INT_ROUND_OFF': (data.INT_ROUND_OFF == '1' ? true : false),
         'SANCT_LIMIT_PERCENTAGE': data.SANCT_LIMIT_PERCENTAGE,
         'RETIREMENT_YEARS': data.RETIREMENT_YEARS,
         'SH_CERTIFICATE_METHOD': data.SH_CERTIFICATE_METHOD,
@@ -363,6 +364,10 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['IS_AUTO_NO'] = (data.IS_AUTO_NO == true ? '1' : '0')
+    data['IS_ADD_BONUS_IN_DIVIDEND'] = (data.IS_ADD_BONUS_IN_DIVIDEND == true ? '1' : '0')
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
+    data['INT_ROUND_OFF'] = (data.INT_ROUND_OFF == true ? '1' : '0')
     this.sharesSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -383,7 +388,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   resetForm() {
     this.createForm();
-    this.ngglacno=null
+    this.ngglacno = null
   }
   //Method for delete data
   delClickHandler(id: number) {

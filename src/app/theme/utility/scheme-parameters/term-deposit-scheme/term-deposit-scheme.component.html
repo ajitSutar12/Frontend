@@ -97,11 +97,11 @@
                 <span class="border-lable-flt">
                   <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglacno" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    required placeholder="G.L. A/c No">
+                    required placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_GLACNO">G.L. A/c No<sub class="required"> * </sub></label>
+                  <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -124,11 +124,11 @@
                 <span class="border-lable-flt">
                   <ng-select id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac" formControlName="S_INT_ACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    required placeholder="Interest G.L. A/c">
+                    required placeholder="Interest GL Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_INT_ACNO">Interest G.L. A/c<sub class="required"> * </sub></label>
+                  <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -152,11 +152,11 @@
                 <span class="border-lable-flt">
                   <ng-select id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl"
                     formControlName="S_INT_CR_ACNO" bindLabel="label" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Credit GL A/c ">
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Credit GL Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_INT_CR_ACNO">Interest Credit GL A/c <sub class="required"> * </sub></label>
+                  <label for="S_INT_CR_ACNO">Interest Credit GL Account  <sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -182,11 +182,11 @@
                 <span class="border-lable-flt">
                   <ng-select id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
                     formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Payable Int.A/c">
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Payable Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_RECBL_PYBL_INT_ACNO">Payable Int.A/c <sub class="required"> * </sub></label>
+                  <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account <sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -211,11 +211,11 @@
                 <span class="border-lable-flt">
                   <ng-select id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
                     formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Penal Int. A/c">
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_PENAL_ACNO">Penal Int. A/c <sub class="required"> * </sub></label>
+                  <label for="S_PENAL_ACNO">Penal Interest Account  <sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -239,11 +239,11 @@
                 <span class="border-lable-flt">
                   <ng-select id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble"
                     formControlName="S_RECBL_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Recble Penal Int. A/c">
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Recble Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_RECBL_PENAL_ACNO">Recble Penal Int. A/c<sub class="required"> * </sub></label>
+                  <label for="S_RECBL_PENAL_ACNO">Recble Penal Interest Account <sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -268,11 +268,11 @@
                 <span class="border-lable-flt">
                   <ng-select id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
                     formControlName="S_CASH_INT_ACNO" bindLabel="label" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest A/c">
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_CASH_INT_ACNO">Cash Interest A/c<sub class="required"> * </sub></label>
+                  <label for="S_CASH_INT_ACNO">Cash Interest Account<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -499,7 +499,7 @@
                         <input class="border-checkbox" type="checkbox" name="POST_TO_INDIVIDUAL_AC"
                           id="POST_TO_INDIVIDUAL_AC" formControlName="POST_TO_INDIVIDUAL_AC" disabled />
                         <label class="border-checkbox-label" for="POST_TO_INDIVIDUAL_AC">
-                          Is Post Interest to A/c ?
+                          Is Post Interest to Account ?
                         </label>
                       </div>
                     </div>
@@ -525,13 +525,13 @@
                         <input class="border-checkbox" type="checkbox" name="IS_INT_ON_DEPO_AMT" id="IS_INT_ON_DEPO_AMT"
                           formControlName="IS_INT_ON_DEPO_AMT" disabled />
                         <label class="border-checkbox-label" for="IS_INT_ON_DEPO_AMT">
-                          Is Calculate Interest On Deposit Amt (Scheme Amt) ..?
+                          Is Calculate Interest On Deposit Amount (Scheme Amount) ..?
                         </label>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
                           <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
@@ -556,7 +556,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
                           <input style="text-align: right;" type="text" name="ROUNDOFF_FACTOR" class="form-control"
@@ -638,7 +638,7 @@
                           <input class="border-checkbox" type="checkbox" name="IS_DAYSBASE_INSTRUCTION"
                             id="IS_DAYSBASE_INSTRUCTION" formControlName="IS_DAYSBASE_INSTRUCTION" />
                           <label class="border-checkbox-label" for="IS_DAYSBASE_INSTRUCTION">Is Days Base
-                            Int.Instruction
+                            Interest Instruction
                           </label>
                         </div>
                       </div>
@@ -664,7 +664,7 @@
                           ">
                           <input class="border-checkbox" type="checkbox" name="IS_INTUPTODATE" id="IS_INTUPTODATE"
                             formControlName="IS_INTUPTODATE" />
-                          <label class="border-checkbox-label" for="IS_INTUPTODATE">Interest up to Int.Calculation Date
+                          <label class="border-checkbox-label" for="IS_INTUPTODATE">Interest up to Interest Calculation Date
                           </label>
                         </div>
                       </div>
@@ -758,7 +758,7 @@
                           placeholder=" " [disabled]="COMPOUND_INT_BASIS" id="COMPOUND_INT_DAYS" pattern="^[0-9]+$"
                           maxlength="3" title="Input allowed only  0-9" formControlName="COMPOUND_INT_DAYS"
                           (keypress)="($event.charCode >= 48 && $event.charCode < 58 )" />
-                        <label for="COMPOUND_INT_DAYS">Compount Int. Days</label>
+                        <label for="COMPOUND_INT_DAYS">Compount Interest Days</label>
                       </span>
                     </div>
                     <div class="form-group form-primary form-static-label" *ngIf="
@@ -906,7 +906,7 @@
                         <input class="border-checkbox" type="checkbox" name="IS_PRODUCTUPTODATE" id="IS_PRODUCTUPTODATE"
                           formControlName="IS_PRODUCTUPTODATE" />
                         <label class="border-checkbox-label" for="IS_PRODUCTUPTODATE">
-                          Product up to Int Calculation Date
+                          Product up to Interest Calculation Date
                         </label>
                       </div>
                     </div>
@@ -925,8 +925,8 @@
                   <div class="form-radio">
                     <div class="radio radio-inline">
                       <label>
-                        <input type="radio" value="OneTime" name="S_INSTTYPE" value="true" formControlName="S_INSTTYPE"
-                          (click)="installmentAmount(1)" />
+                        <input type="radio" value="OneTime" name="S_INSTTYPE" formControlName="S_INSTTYPE"
+                          (change)="installmentAmount(1)" [checked]="schemeWise"/>
                         <i class="helper"></i>One Time
                         <span class="required"> </span>
                       </label>
@@ -936,7 +936,7 @@
                     <div class="radio radio-inline">
                       <label>
                         <input type="radio" value="Monthly" name="S_INSTTYPE" formControlName="S_INSTTYPE"
-                          (click)="installmentAmount(2)" />
+                          (change)="installmentAmount(2)" [checked]="!schemeWise"/>
                         <i class="helper"></i>Monthly<span class="required">
                         </span>
                       </label>
@@ -944,7 +944,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md">
+                  <div class="col-sm-6">
                     <!-- <div class="form-group form-primary form-static-label">
                       <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [disabled]="INSTALLMENT_BASIS"
                         [multiple]="false" placeholder="Installment Base " title="Compulsory Selection"
@@ -990,7 +990,7 @@
                         <input class="border-checkbox" type="checkbox" disabled name="INSTALLMENT_COMPULSORY_IN_PAT"
                           id="INSTALLMENT_COMPULSORY_IN_PAT" formControlName="INSTALLMENT_COMPULSORY_IN_PAT" />
                         <label class="border-checkbox-label" for="INSTALLMENT_COMPULSORY_IN_PAT">
-                          Installment Compulsory in Multiple Amt
+                          Installment Compulsory in Multiple Amount
                         </label>
                       </div>
                     </div>
@@ -1052,7 +1052,7 @@
               </div>
               <div class="card-block">
                 <div class="row">
-                  <div class="col-md">
+                  <div class="col-sm">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input type="text" name="DEPOSIT_PENAL_INT_CALC_DAY" class="form-control" placeholder=" "
@@ -1108,14 +1108,14 @@
                         <input class="border-checkbox" type="checkbox" disabled name="POST_PENALINT_IN_INTEREST"
                           id="POST_PENALINT_IN_INTEREST" formControlName="POST_PENALINT_IN_INTEREST" />
                         <label class="border-checkbox-label" for="POST_PENALINT_IN_INTEREST">
-                          Post Penal Interest to A/c
+                          Post Penal Interest to Account
                         </label>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="S_PENAL_INT_RATE" class="form-control"
@@ -1147,7 +1147,7 @@
               </div>
               <div class="card-block">
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="S_MATUCALC" class="form-control"
@@ -1169,7 +1169,7 @@
                         <input class="border-checkbox" type="checkbox" disabled name="IS_CAL_MATURITY_AMT"
                           id="IS_CAL_MATURITY_AMT" formControlName="IS_CAL_MATURITY_AMT" checked />
                         <label class="border-checkbox-label" for="IS_CAL_MATURITY_AMT">
-                          Is Calculated Maturity Amt.In Master
+                          Is Calculated Maturity Amount In Master
                         </label>
                       </div>
                     </div>
@@ -1221,7 +1221,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MATURE_GRACE_MONTHS" class="form-control"
@@ -1246,7 +1246,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MATURE_GRACE_DAYS" class="form-control"
@@ -1278,7 +1278,7 @@
                         <input class="border-checkbox" type="checkbox" name="IS_AUTO_CUTTING" id="IS_AUTO_CUTTING"
                           formControlName="IS_AUTO_CUTTING" />
                         <label class="border-checkbox-label" for="IS_AUTO_CUTTING">
-                          Auto Cutting Loan A/cs (Liened)
+                          Auto Cutting Loan Accounts (Liened)
                         </label>
                       </div>
                     </div>
@@ -1337,7 +1337,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md">
+                  <div class="col-sm-6">
                     <!-- <div class="form-group form-primary form-static-label">
                       <ng-select [ngClass]="'ng-select'" [options]="unitOfPeroid" [multiple]="false"
                         placeholder="Unit of TD Period" required title="Compulsory Selection"
@@ -1358,7 +1358,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MIN_DAYS" class="form-control"
@@ -1379,7 +1379,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MIN_MONTH" class="form-control"
@@ -1408,7 +1408,7 @@
               </div>
               <div class="card-block">
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MAX_DEP_LMT" class="form-control"
@@ -1431,7 +1431,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MULTIPLE_OF_AMT" class="form-control"
@@ -1456,7 +1456,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MULTIPLE_OF_DAYS" class="form-control"
@@ -1480,7 +1480,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="MULTIPLE_OF_MONTH" class="form-control"
@@ -1534,7 +1534,7 @@
                         <input class="border-checkbox" type="checkbox" name="S_INTPAID_ON_CLOSING"
                           id="S_INTPAID_ON_CLOSING" formControlName="S_INTPAID_ON_CLOSING" />
                         <label class="border-checkbox-label" for="S_INTPAID_ON_CLOSING">
-                          Is Interest Paid on A/c Closing ?
+                          Is Interest Paid on Account Closing ?
                         </label>
                       </div>
                     </div>
@@ -1624,7 +1624,7 @@
                         <input class="border-checkbox" type="checkbox" name="IS_ALLOW_SI_MINBAL" id="IS_ALLOW_SI_MINBAL"
                           formControlName="IS_ALLOW_SI_MINBAL" />
                         <label class="border-checkbox-label" for="IS_ALLOW_SI_MINBAL">
-                          Is Allow Standing Instruction Minimum Bal.?
+                          Is Allow Standing Instruction Minimum Balance?
                         </label>
                       </div>
                     </div>
@@ -1691,14 +1691,14 @@
                         <input class="border-checkbox" type="checkbox" name="RECEIPT_NO_INPUT" id="RECEIPT_NO_INPUT"
                           formControlName="RECEIPT_NO_INPUT" />
                         <label class="border-checkbox-label" for="RECEIPT_NO_INPUT">
-                          Is FD Receipt No. Input ?
+                          Is FD Receipt Number Input ?
                         </label>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input type="text" name="RECEIPT_TYPE" class="form-control" placeholder=" " id="RECEIPT_TYPE"
@@ -1750,7 +1750,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="LESS_PREMATURE_INT_RATE"
@@ -1776,7 +1776,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input type="text" name="PREMATURE_INTRATE_ASPER" class="form-control" placeholder=" "
@@ -1803,7 +1803,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-6">
                     <div class="form-group input-group">
                       <span class="border-lable-flt">
                         <input style="text-align: right;" type="text" name="AFTER_MATURE_INT_RATE" class="form-control"

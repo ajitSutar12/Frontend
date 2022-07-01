@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="scheme" (click)="showGLCode(2)"
+                                        <input type="radio" name="scheme" (change)="showGLCode(2)"
                                             [checked]="schemeWise">
                                         <i class="helper"></i>GL Code Wise<span class="required"> </span>
                                     </label>
@@ -71,11 +71,11 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="glAcno" bindValue="value" [(ngModel)]="ngGlCode" bindLabel="label"
                                         placeholder="GL A/c Number" (change)="patchGlNo($event)"
-                                        formControlName="GL_CODE">
+                                        formControlName="GL_CODE" >
                                         <ng-option *ngFor="let values of glcode" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="glAcno">GL A/c Number</label>
+                                    <label for="glAcno">GL Account Number</label>
                                 </span>
                             </div>
 

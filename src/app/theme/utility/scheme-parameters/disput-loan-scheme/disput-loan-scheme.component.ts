@@ -77,8 +77,8 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   formSubmitted = false;
   //api 
   url = environment.base_url;
-  
-@ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -107,18 +107,18 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-  
+
 
   //Dropdown option variable
   acMaster: any
-  ngglacno:any=null
-  ngintglac:any=null
-  ngreceivableintac:any=null
-  ngpenalintac:any=null
-  ngrecblepenalintac:any=null
-  ngrecbleoverdueint:any=null
-  ngoutstandingintac:any=null
-  nginstallmentmethod:any=null
+  ngglacno: any = null
+  ngintglac: any = null
+  ngreceivableintac: any = null
+  ngpenalintac: any = null
+  ngrecblepenalintac: any = null
+  ngrecbleoverdueint: any = null
+  ngoutstandingintac: any = null
+  nginstallmentmethod: any = null
 
 
   installmentMethod: Array<IOption> = this.installmentMethodService.getCharacters();
@@ -198,12 +198,12 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
       columns: [
         {
           title: 'Action',
-          
+
         },
         {
           title: 'Type',
           data: 'S_ACNOTYPE',
-         
+
         },
         {
           title: 'Scheme Code',
@@ -218,31 +218,31 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
           data: 'S_SHNAME',
         },
         {
-          title: 'G.L. A/c No.',
+          title: 'GL Account Number',
           data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL A/c',
+          title: 'Interest GL Account',
           data: 'S_INT_ACNO',
         },
         {
-          title: 'Receivable Int. A/c',
+          title: 'Receivable Interest Account',
           data: 'S_RECBL_PYBL_INT_ACNO',
         },
         {
-          title: 'Penal Int. A/c',
+          title: 'Penal Interest Account',
           data: 'S_PENAL_ACNO',
         },
         {
-          title: 'Recble Penal Int. A/c',
+          title: 'Recble Penal Interest Account',
           data: 'S_RECBL_PENAL_ACNO',
         },
         {
-          title: 'Recble Overdue Int.',
+          title: 'Recble Overdue Interest',
           data: 'S_RECBL_ODUE_INT_ACNO',
         },
         {
-          title: 'Outstanding Int. A/c',
+          title: 'Outstanding Interest Account',
           data: 'S_OUTSTANDING_INT_ACNO',
         },
         // {
@@ -423,29 +423,29 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
       S_RECBL_ODUE_INT_ACNO: [''],
       S_OUTSTANDING_INT_ACNO: [''],
       IS_DEPO_LOAN: [''],
-      S_INT_APPLICABLE: [false],
-      POST_TO_INDIVIDUAL_AC: [false],
-      S_RECEIVABLE_INT_ALLOW: [false],
-      IS_INT_ON_RECINT: [false],
-      IS_INT_ON_OTHERAMT: [false],
+      S_INT_APPLICABLE: [],
+      POST_TO_INDIVIDUAL_AC: [],
+      S_RECEIVABLE_INT_ALLOW: [],
+      IS_INT_ON_RECINT: [],
+      IS_INT_ON_OTHERAMT: [],
       MIN_INT_LIMIT: ['', [Validators.pattern]],
-      S_PENAL_INT_APPLICABLE: [false],
-      IS_POST_PENAL_TO_AC: [false],
-      POST_PENALINT_IN_INTEREST: [false],
+      S_PENAL_INT_APPLICABLE: [],
+      IS_POST_PENAL_TO_AC: [],
+      POST_PENALINT_IN_INTEREST: [],
       S_PENAL_INT_RATE: ['', [Validators.pattern]],
       PENAL_METHOD: [''],
-      S_DUE_LIST_ALLOW: [false],
-      GRACE_PERIOD_APPLICABLE: [false],
-      MORATORIUM_APPLICABLE: [false],
-      STAND_INSTRUCTION_ALLOW: [false],
-      BALANCE_ADD_APPLICABLE: [false],
-      IS_UNSECURED_LOAN: [false],
-      IS_OVERDUE_CHARGES_APPLY: [false],
+      S_DUE_LIST_ALLOW: [],
+      GRACE_PERIOD_APPLICABLE: [],
+      MORATORIUM_APPLICABLE: [],
+      STAND_INSTRUCTION_ALLOW: [],
+      BALANCE_ADD_APPLICABLE: [],
+      IS_UNSECURED_LOAN: [],
+      IS_OVERDUE_CHARGES_APPLY: [],
       ROUNDOFF_FACTOR: ['', [Validators.pattern]],
-      S_INSTTYPE: [false],
+      S_INSTTYPE: [],
       INSTALLMENT_METHOD: [''],
       IS_OVERDUE_ON_INSTALLMENT: ['', [Validators.pattern, Validators.max(3)]],
-      IS_SHOW_INT_AS_RECINT_IFDUEBAL: [false],
+      IS_SHOW_INT_AS_RECINT_IFDUEBAL: [],
       MIN_DUE_INSTALLMENTS: ['', [Validators.pattern]],
     });
   }
@@ -467,30 +467,32 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
       'S_RECBL_ODUE_INT_ACNO': formVal.S_RECBL_ODUE_INT_ACNO,
       'S_OUTSTANDING_INT_ACNO': formVal.S_OUTSTANDING_INT_ACNO,
       'IS_DEPO_LOAN': formVal.IS_DEPO_LOAN,
-      'S_INT_APPLICABLE': formVal.S_INT_APPLICABLE,
-      'POST_TO_INDIVIDUAL_AC': formVal.POST_TO_INDIVIDUAL_AC,
-      'S_RECEIVABLE_INT_ALLOW': formVal.S_RECEIVABLE_INT_ALLOW,
-      'IS_INT_ON_RECINT': formVal.IS_INT_ON_RECINT,
-      'IS_INT_ON_OTHERAMT': formVal.IS_INT_ON_OTHERAMT,
       'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT,
-      'S_PENAL_INT_APPLICABLE': formVal.S_PENAL_INT_APPLICABLE,
-      'IS_POST_PENAL_TO_AC': formVal.IS_POST_PENAL_TO_AC,
-      'POST_PENALINT_IN_INTEREST': formVal.POST_PENALINT_IN_INTEREST,
       'S_PENAL_INT_RATE': formVal.S_PENAL_INT_RATE,
       'PENAL_METHOD': formVal.PENAL_METHOD,
-      'S_DUE_LIST_ALLOW': formVal.S_DUE_LIST_ALLOW,
-      'GRACE_PERIOD_APPLICABLE': formVal.GRACE_PERIOD_APPLICABLE,
-      'MORATORIUM_APPLICABLE': formVal.MORATORIUM_APPLICABLE,
-      'STAND_INSTRUCTION_ALLOW': formVal.STAND_INSTRUCTION_ALLOW,
-      'BALANCE_ADD_APPLICABLE': formVal.BALANCE_ADD_APPLICABLE,
-      'IS_UNSECURED_LOAN': formVal.IS_UNSECURED_LOAN,
-      'IS_OVERDUE_CHARGES_APPLY': formVal.IS_OVERDUE_CHARGES_APPLY,
       'ROUNDOFF_FACTOR': formVal.ROUNDOFF_FACTOR,
-      'S_INSTTYPE': formVal.S_INSTTYPE,
       'INSTALLMENT_METHOD': formVal.INSTALLMENT_METHOD,
       'IS_OVERDUE_ON_INSTALLMENT': formVal.IS_OVERDUE_ON_INSTALLMENT,
-      'IS_SHOW_INT_AS_RECINT_IFDUEBAL': formVal.IS_SHOW_INT_AS_RECINT_IFDUEBAL,
-      'MIN_DUE_INSTALLMENTS': formVal.MIN_DUE_INSTALLMENTS
+      'MIN_DUE_INSTALLMENTS': formVal.MIN_DUE_INSTALLMENTS,
+
+      'IS_SHOW_INT_AS_RECINT_IFDUEBAL': (formVal.IS_SHOW_INT_AS_RECINT_IFDUEBAL == true ? '1' : '0'),
+      'S_INSTTYPE': (formVal.S_INSTTYPE == true ? '1' : '0'),
+      'S_DUE_LIST_ALLOW': (formVal.S_DUE_LIST_ALLOW == true ? '1' : '0'),
+      'GRACE_PERIOD_APPLICABLE': (formVal.GRACE_PERIOD_APPLICABLE == true ? '1' : '0'),
+      'MORATORIUM_APPLICABLE': (formVal.MORATORIUM_APPLICABLE == true ? '1' : '0'),
+      'STAND_INSTRUCTION_ALLOW': (formVal.STAND_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      'BALANCE_ADD_APPLICABLE': (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
+      'IS_UNSECURED_LOAN': (formVal.IS_UNSECURED_LOAN == true ? '1' : '0'),
+      'IS_OVERDUE_CHARGES_APPLY': (formVal.IS_OVERDUE_CHARGES_APPLY == true ? '1' : '0'),
+      'S_PENAL_INT_APPLICABLE': (formVal.S_PENAL_INT_APPLICABLE == true ? '1' : '0'),
+      'IS_POST_PENAL_TO_AC': (formVal.IS_POST_PENAL_TO_AC == true ? '1' : '0'),
+      'POST_PENALINT_IN_INTEREST': (formVal.POST_PENALINT_IN_INTEREST == true ? '1' : '0'),
+      'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
+      'POST_TO_INDIVIDUAL_AC': (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
+      'S_RECEIVABLE_INT_ALLOW': (formVal.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0'),
+      'IS_INT_ON_RECINT': (formVal.IS_INT_ON_RECINT == true ? '1' : '0'),
+      'IS_INT_ON_OTHERAMT': (formVal.IS_INT_ON_OTHERAMT == true ? '1' : '0'),
+
     }
     this.disputLoanSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -513,14 +515,14 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
     this.newbtnShow = true;
     this.disputLoanSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngglacno=Number(data.S_GLACNO)
-      this.ngintglac=Number(data.S_INT_ACNO)
-      this.ngreceivableintac=Number(data.S_RECBL_PYBL_INT_ACNO)
-      this.ngpenalintac=Number(data.S_PENAL_ACNO)
-      this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
-      this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
-      this.ngoutstandingintac=Number(data.S_OUTSTANDING_INT_ACNO)
-      this.nginstallmentmethod=data.INSTALLMENT_METHOD
+      this.ngglacno = Number(data.S_GLACNO)
+      this.ngintglac = Number(data.S_INT_ACNO)
+      this.ngreceivableintac = Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngpenalintac = Number(data.S_PENAL_ACNO)
+      this.ngrecblepenalintac = Number(data.S_RECBL_PENAL_ACNO)
+      this.ngrecbleoverdueint = Number(data.S_RECBL_ODUE_INT_ACNO)
+      this.ngoutstandingintac = Number(data.S_OUTSTANDING_INT_ACNO)
+      this.nginstallmentmethod = data.INSTALLMENT_METHOD
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
@@ -534,30 +536,30 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
         // 'S_RECBL_ODUE_INT_ACNO': data.S_RECBL_ODUE_INT_ACNO,
         // 'S_OUTSTANDING_INT_ACNO': data.S_OUTSTANDING_INT_ACNO,
         'IS_DEPO_LOAN': data.IS_DEPO_LOAN,
-        'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
-        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
-        'S_RECEIVABLE_INT_ALLOW': (data.S_RECEIVABLE_INT_ALLOW=="true"?true:false),
-        'IS_INT_ON_RECINT': (data.IS_INT_ON_RECINT=="true"?true:false),
-        'IS_INT_ON_OTHERAMT': (data.IS_INT_ON_OTHERAMT=="true"?true:false),
+        'S_INT_APPLICABLE': (data.S_INT_APPLICABLE == '1' ? true : false),
+        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC == '1' ? true : false),
+        'S_RECEIVABLE_INT_ALLOW': (data.S_RECEIVABLE_INT_ALLOW == '1' ? true : false),
+        'IS_INT_ON_RECINT': (data.IS_INT_ON_RECINT == '1' ? true : false),
+        'IS_INT_ON_OTHERAMT': (data.IS_INT_ON_OTHERAMT == '1' ? true : false),
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-        'S_PENAL_INT_APPLICABLE': (data.S_PENAL_INT_APPLICABLE=="true"?true:false),
-        'IS_POST_PENAL_TO_AC':(data.IS_POST_PENAL_TO_AC=="true"?true:false),
-        'POST_PENALINT_IN_INTEREST': (data.POST_PENALINT_IN_INTEREST=="true"?true:false),
+        'S_PENAL_INT_APPLICABLE': (data.S_PENAL_INT_APPLICABLE == '1' ? true : false),
+        'IS_POST_PENAL_TO_AC': (data.IS_POST_PENAL_TO_AC == '1' ? true : false),
+        'POST_PENALINT_IN_INTEREST': (data.POST_PENALINT_IN_INTEREST == '1' ? true : false),
         'S_PENAL_INT_RATE': data.S_PENAL_INT_RATE,
         'PENAL_METHOD': data.PENAL_METHOD,
-        'S_DUE_LIST_ALLOW': (data.S_DUE_LIST_ALLOW=="true"?true:false),
+        'S_DUE_LIST_ALLOW': (data.S_DUE_LIST_ALLOW == '1' ? true : false),
         'GRACE_PERIOD_APPLICABLE': data.GRACE_PERIOD_APPLICABLE,
         'MORATORIUM_APPLICABLE': data.MORATORIUM_APPLICABLE,
-        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
-        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
-        'IS_UNSECURED_LOAN': (data.IS_UNSECURED_LOAN=="true"?true:false),
-        'IS_OVERDUE_CHARGES_APPLY': (data.IS_OVERDUE_CHARGES_APPLY=="true"?true:false),
+        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
+        'IS_UNSECURED_LOAN': (data.IS_UNSECURED_LOAN == '1' ? true : false),
+        'IS_OVERDUE_CHARGES_APPLY': (data.IS_OVERDUE_CHARGES_APPLY == '1' ? true : false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
-        'S_INSTTYPE': (data.S_INSTTYPE=="true"?true:false),
+        'S_INSTTYPE': (data.S_INSTTYPE == '1' ? true : false),
         // 'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
         'IS_OVERDUE_ON_INSTALLMENT': data.IS_OVERDUE_ON_INSTALLMENT,
-        'IS_SHOW_INT_AS_RECINT_IFDUEBAL': (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL=="true"?true:false),
-        'MIN_DUE_INSTALLMENTS': (data.MIN_DUE_INSTALLMENTS=="true"?true:false),
+        'IS_SHOW_INT_AS_RECINT_IFDUEBAL': (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL == '1' ? true : false),
+        'MIN_DUE_INSTALLMENTS': (data.MIN_DUE_INSTALLMENTS == '1' ? true : false),
       })
     })
   }
@@ -566,6 +568,23 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['IS_SHOW_INT_AS_RECINT_IFDUEBAL'] = (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL == true ? '1' : '0')
+    data['S_INSTTYPE'] = (data.S_INSTTYPE == true ? '1' : '0')
+    data['S_DUE_LIST_ALLOW'] = (data.S_DUE_LIST_ALLOW == true ? '1' : '0')
+    data['GRACE_PERIOD_APPLICABLE'] = (data.GRACE_PERIOD_APPLICABLE == true ? '1' : '0')
+    data['MORATORIUM_APPLICABLE'] = (data.MORATORIUM_APPLICABLE == true ? '1' : '0')
+    data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
+    data['IS_UNSECURED_LOAN'] = (data.IS_UNSECURED_LOAN == true ? '1' : '0')
+    data['IS_OVERDUE_CHARGES_APPLY'] = (data.IS_OVERDUE_CHARGES_APPLY == true ? '1' : '0')
+    data['S_PENAL_INT_APPLICABLE'] = (data.S_PENAL_INT_APPLICABLE == true ? '1' : '0')
+    data['IS_POST_PENAL_TO_AC'] = (data.IS_POST_PENAL_TO_AC == true ? '1' : '0')
+    data['POST_PENALINT_IN_INTEREST'] = (data.POST_PENALINT_IN_INTEREST == true ? '1' : '0')
+    data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
+    data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
+    data['S_RECEIVABLE_INT_ALLOW'] = (data.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0')
+    data['IS_INT_ON_RECINT'] = (data.IS_INT_ON_RECINT == true ? '1' : '0')
+    data['IS_INT_ON_OTHERAMT'] = (data.IS_INT_ON_OTHERAMT == true ? '1' : '0')
     this.disputLoanSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -587,13 +606,13 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngglacno=null
-    this.ngintglac=null
-    this.ngreceivableintac=null
-    this.ngpenalintac=null
-    this.ngrecblepenalintac=null
-    this.ngrecbleoverdueint=null
-    this.ngoutstandingintac=null
+    this.ngglacno = null
+    this.ngintglac = null
+    this.ngreceivableintac = null
+    this.ngpenalintac = null
+    this.ngrecblepenalintac = null
+    this.ngrecbleoverdueint = null
+    this.ngoutstandingintac = null
   }
   ngAfterViewInit(): void {
     this.myInputField.nativeElement.focus();

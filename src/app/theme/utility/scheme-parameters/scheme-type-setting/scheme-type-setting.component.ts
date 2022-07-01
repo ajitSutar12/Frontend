@@ -39,7 +39,7 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface SchemeType {
-  id:number;
+  id: number;
   S_ACNOTYPE: string;
   S_NAME: string;
   S_SINGLE_VOUCHER: string;
@@ -63,12 +63,11 @@ interface SchemeType {
   styleUrls: ["./scheme-type-setting.component.scss"],
 })
 export class SchemeTypeSettingComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   //api
   url = environment.base_url;
-  
+
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -113,7 +112,7 @@ export class SchemeTypeSettingComponent
   filterData = {};
 
   //dropdown variables
-  ngscheme:any=null
+  ngscheme: any = null
 
   //title select variables
   schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
@@ -183,50 +182,7 @@ export class SchemeTypeSettingComponent
       },
 
 
-    // this.createForm();
-    // // Fetching Server side data
-    // this.dtExportButtonOptions = {
-    //   pagingType: "full_numbers",
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     let datatableRequestParam: any;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-    //     dataTableParameters.columns.forEach((element) => {
-    //       if (element.search.value != "") {
-    //         let string = element.search.value;
-    //         this.filterData[element.data] = string;
-    //       } else {
-    //         let getColumnName = element.data;
-    //         let columnValue = element.value;
-    //         if (this.filterData.hasOwnProperty(element.data)) {
-    //           let value = this.filterData[getColumnName];
-    //           if (columnValue != undefined || value != undefined) {
-    //             delete this.filterData[element.data];
-    //           }
-    //         }
-    //       }
-    //     });
-    //     this.http
-    //       .post<DataTableResponse>(
-    //         this.url + "/scheme-type",
-    //         dataTableParameters
-    //       )
-    //       .subscribe((resp) => {
-    //         this.schemetypes = resp.data;
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsTotal,
-    //           data: [],
-    //         });
-    //       });
-    //   },
       columns: [
         {
           title: "Action",
@@ -239,8 +195,8 @@ export class SchemeTypeSettingComponent
           },
         },
         {
-          title:"id",
-          data:"id",
+          title: "id",
+          data: "id",
         },
         {
           title: "Type",
@@ -250,59 +206,7 @@ export class SchemeTypeSettingComponent
           title: "Description",
           data: "S_NAME",
         },
-        // {
-        //   title: "Is Single Voucher Required?",
-        //   data: "S_SINGLE_VOUCHER",
-        // },
-        // {
-        //   title: "Is Multi Vouchers Required?",
-        //   data: "S_MULTY_VOUCHER",
-        // },
-        
-        // {
-        //   title: "Is Required Cash payment Lock?",
-        //   data: "S_CASH_PAID_LOCK ",
-        // },
-        // {
-        //   title: "Show Message when cash payment min Rs.",
-        //   data: "S_CASH_PAID_MIN_AMT",
-        // },
-        // {
-        //   title: "Is Local Clearing Applicable?",
-        //   data: "S_LOCAL_CLEARING",
-        // },
-        // {
-        //   title: "Is Cheue Book Required?",
-        //   data: "S_CHEQUE_BOOK",
-        // },
-        // {
-        //   title: "Is Demand Draft Applicable?",
-        //   data: "S_DEMAND_DRAFT",
-        // },
-        // {
-        //   title: "Is Pay Order Applicable?",
-        //   data: "IS_PO_APPL",
-        // },
-        // {
-        //   title: "Is Temporary Overdraft Applicable?",
-        //   data: "S_TEMP_OVERDRFT",
-        // },
-        // {
-        //   title: "Is Periodically Overdraft Applicable?",
-        //   data: "S_PERIODCL_OVERDRFT",
-        // },
-        // {
-        //   title: "Is Special Instruction Applicable?",
-        //   data: "S_SPECIAL_INSTRUCTION",
-        // },
-        // {
-        //   title: "Is Subsidiary Print Required?",
-        //   data: "S_SUB_PRINT",
-        // },
-        // {
-        //   title: "Is freeze A/C applicable",
-        //   data: "S_FREEZE_APPLICABLE",
-        // },
+
       ],
       dom: "Blrtip",
     };
@@ -317,7 +221,7 @@ export class SchemeTypeSettingComponent
     if ($event.target.checked) {
       document.getElementById("S_CASH_PAID_MIN_AMT").removeAttribute("disabled");
     } else {
-      document.getElementById("S_CASH_PAID_MIN_AMT") .setAttribute("disabled", "true");
+      document.getElementById("S_CASH_PAID_MIN_AMT").setAttribute("disabled", "true");
       // this.angForm.controls.POST_TO_INDIVIDUAL_AC.reset();
       this.angForm.controls.S_CASH_PAID_MIN_AMT.reset();
     }
@@ -334,22 +238,22 @@ export class SchemeTypeSettingComponent
 
   createForm() {
     this.angForm = this.fb.group({
-      id:[''],
+      id: [''],
       S_ACNOTYPE: ["GL"],
       S_NAME: ["", [Validators.required, Validators.pattern]],
-      S_SINGLE_VOUCHER: [false],
-      S_MULTY_VOUCHER: [false],
-      S_CASH_PAID_LOCK: [false],
+      S_SINGLE_VOUCHER: [],
+      S_MULTY_VOUCHER: [],
+      S_CASH_PAID_LOCK: [],
       S_CASH_PAID_MIN_AMT: ["", [Validators.pattern]],
-      S_LOCAL_CLEARING: [false],
-      S_CHEQUE_BOOK: [false],
-      S_DEMAND_DRAFT: [false],
-      IS_PO_APPL: [false],
-      S_TEMP_OVERDRFT: [false],
-      S_PERIODCL_OVERDRFT: [false],
-      S_SPECIAL_INSTRUCTION: [false],
-      S_SUB_PRINT: [false],
-      S_FREEZE_APPLICABLE: [false],
+      S_LOCAL_CLEARING: [],
+      S_CHEQUE_BOOK: [],
+      S_DEMAND_DRAFT: [],
+      IS_PO_APPL: [],
+      S_TEMP_OVERDRFT: [],
+      S_PERIODCL_OVERDRFT: [],
+      S_SPECIAL_INSTRUCTION: [],
+      S_SUB_PRINT: [],
+      S_FREEZE_APPLICABLE: [],
     });
   }
   // Method to insert data into database through NestJS
@@ -357,22 +261,22 @@ export class SchemeTypeSettingComponent
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
-      id:formVal.id,
+      id: formVal.id,
       S_ACNOTYPE: formVal.S_ACNOTYPE,
       S_NAME: formVal.S_NAME,
-      S_SINGLE_VOUCHER: formVal.S_SINGLE_VOUCHER,
-      S_MULTY_VOUCHER: formVal.S_MULTY_VOUCHER,
-      S_CASH_PAID_LOCK: formVal.S_CASH_PAID_LOCK,
+      S_SINGLE_VOUCHER: (formVal.S_SINGLE_VOUCHER == true ? '1' : '0'),
+      S_MULTY_VOUCHER: (formVal.S_MULTY_VOUCHER == true ? '1' : '0'),
+      S_CASH_PAID_LOCK: (formVal.S_CASH_PAID_LOCK == true ? '1' : '0'),
       S_CASH_PAID_MIN_AMT: formVal.S_CASH_PAID_MIN_AMT,
-      S_LOCAL_CLEARING: formVal.S_LOCAL_CLEARING,
-      S_CHEQUE_BOOK: formVal.S_CHEQUE_BOOK,
-      S_DEMAND_DRAFT: formVal.S_DEMAND_DRAFT,
-      IS_PO_APPL: formVal.IS_PO_APPL,
-      S_TEMP_OVERDRFT: formVal.S_TEMP_OVERDRFT,
-      S_PERIODCL_OVERDRFT: formVal.S_PERIODCL_OVERDRFT,
-      S_SPECIAL_INSTRUCTION: formVal.S_SPECIAL_INSTRUCTION,
-      S_SUB_PRINT: formVal.S_SUB_PRINT,
-      S_FREEZE_APPLICABLE: formVal.S_FREEZE_APPLICABLE,
+      S_LOCAL_CLEARING: (formVal.S_LOCAL_CLEARING == true ? '1' : '0'),
+      S_CHEQUE_BOOK: (formVal.S_CHEQUE_BOOK == true ? '1' : '0'),
+      S_DEMAND_DRAFT: (formVal.S_DEMAND_DRAFT == true ? '1' : '0'),
+      IS_PO_APPL: (formVal.IS_PO_APPL == true ? '1' : '0'),
+      S_TEMP_OVERDRFT: (formVal.S_TEMP_OVERDRFT == true ? '1' : '0'),
+      S_PERIODCL_OVERDRFT: (formVal.S_PERIODCL_OVERDRFT == true ? '1' : '0'),
+      S_SPECIAL_INSTRUCTION: (formVal.S_SPECIAL_INSTRUCTION == true ? '1' : '0'),
+      S_SUB_PRINT: (formVal.S_SUB_PRINT == true ? '1' : '0'),
+      S_FREEZE_APPLICABLE: (formVal.S_FREEZE_APPLICABLE ? '1' : '0'),
     };
     this.schemetypeservice.postData(dataToSend).subscribe(
       (data1) => {
@@ -396,25 +300,24 @@ export class SchemeTypeSettingComponent
     this.updateShow = true;
     this.newbtnShow = true;
     this.schemetypeservice.getFormData(id).subscribe((data) => {
-      console.log(data);
       this.updateID = data.id;
       this.angForm.patchValue({
-        id:data.id,
+        id: data.id,
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_NAME: data.S_NAME,
-        S_SINGLE_VOUCHER: (data.S_SINGLE_VOUCHER=="true"?true:false),
-        S_MULTY_VOUCHER: (data.S_MULTY_VOUCHER=="true"?true:false),
-        S_CASH_PAID_LOCK: (data.S_CASH_PAID_LOCK=="true"?true:false),
+        S_SINGLE_VOUCHER: (data.S_SINGLE_VOUCHER == '1' ? true : false),
+        S_MULTY_VOUCHER: (data.S_MULTY_VOUCHER == '1' ? true : false),
+        S_CASH_PAID_LOCK: (data.S_CASH_PAID_LOCK == '1' ? true : false),
         S_CASH_PAID_MIN_AMT: data.S_CASH_PAID_MIN_AMT,
-        S_LOCAL_CLEARING:(data.S_LOCAL_CLEARING=="true"?true:false),
-        S_CHEQUE_BOOK:(data.S_CHEQUE_BOOK=="true"?true:false),
-        S_DEMAND_DRAFT: (data.S_DEMAND_DRAFT=="true"?true:false),
-        IS_PO_APPL: (data.IS_PO_APPL=="true"?true:false),
-        S_TEMP_OVERDRFT:(data.S_TEMP_OVERDRFT=="true"?true:false),
-        S_PERIODCL_OVERDRFT:(data.S_PERIODCL_OVERDRFT=="true"?true:false),
-        S_SPECIAL_INSTRUCTION:(data.S_SPECIAL_INSTRUCTION=="true"?true:false),
-        S_SUB_PRINT: (data.S_SUB_PRINT=="true"?true:false),
-        S_FREEZE_APPLICABLE:(data.S_FREEZE_APPLICABLE=="true"?true:false),
+        S_LOCAL_CLEARING: (data.S_LOCAL_CLEARING == '1' ? true : false),
+        S_CHEQUE_BOOK: (data.S_CHEQUE_BOOK == '1' ? true : false),
+        S_DEMAND_DRAFT: (data.S_DEMAND_DRAFT == '1' ? true : false),
+        IS_PO_APPL: (data.IS_PO_APPL == '1' ? true : false),
+        S_TEMP_OVERDRFT: (data.S_TEMP_OVERDRFT == '1' ? true : false),
+        S_PERIODCL_OVERDRFT: (data.S_PERIODCL_OVERDRFT == '1' ? true : false),
+        S_SPECIAL_INSTRUCTION: (data.S_SPECIAL_INSTRUCTION == '1' ? true : false),
+        S_SUB_PRINT: (data.S_SUB_PRINT == '1' ? true : false),
+        S_FREEZE_APPLICABLE: (data.S_FREEZE_APPLICABLE == '1' ? true : false),
       });
     });
   }
@@ -422,6 +325,21 @@ export class SchemeTypeSettingComponent
   updateData() {
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data['S_SINGLE_VOUCHER'] = (data.S_SINGLE_VOUCHER == true ? '1' : '0')
+    data['S_MULTY_VOUCHER'] = (data.S_MULTY_VOUCHER == true ? '1' : '0')
+    data['S_CASH_PAID_LOCK'] = (data.S_CASH_PAID_LOCK == true ? '1' : '0')
+    data['S_LOCAL_CLEARING'] = (data.S_LOCAL_CLEARING == true ? '1' : '0')
+    data['S_CHEQUE_BOOK'] = (data.S_CHEQUE_BOOK == true ? '1' : '0')
+    data['S_DEMAND_DRAFT'] = (data.S_DEMAND_DRAFT == true ? '1' : '0')
+    data['IS_PO_APPL'] = (data.IS_PO_APPL == true ? '1' : '0')
+    data['S_TEMP_OVERDRFT'] = (data.S_TEMP_OVERDRFT == true ? '1' : '0')
+    data['S_PERIODCL_OVERDRFT'] = (data.S_PERIODCL_OVERDRFT == true ? '1' : '0')
+    data['S_SPECIAL_INSTRUCTION'] = (data.S_SPECIAL_INSTRUCTION == true ? '1' : '0')
+    data['S_SUB_PRINT'] = (data.S_SUB_PRINT == true ? '1' : '0')
+    data['S_FREEZE_APPLICABLE'] = (data.S_FREEZE_APPLICABLE ? '1' : '0')
+
+
+
     this.schemetypeservice.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -443,7 +361,7 @@ export class SchemeTypeSettingComponent
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngscheme=null
+    this.ngscheme = null
   }
   //function for delete button clicked
   delClickHandler() {

@@ -48,8 +48,8 @@ export class PigmyAgentSchemeComponent
   implements OnInit, AfterViewInit, OnDestroy {
   //api
   url = environment.base_url;
-  
-@ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -200,7 +200,7 @@ export class PigmyAgentSchemeComponent
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ["AG"],
-      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(301),Validators.max(399)]],
+      S_APPL: ["", [Validators.required, Validators.pattern, Validators.min(301), Validators.max(399)]],
       S_NAME: ["", [Validators.required, Validators.pattern]],
       S_SHNAME: ["", [Validators.required, Validators.pattern]],
       S_INT_APPLICABLE: [""],
@@ -218,11 +218,12 @@ export class PigmyAgentSchemeComponent
       S_APPL: formVal.S_APPL,
       S_NAME: formVal.S_NAME,
       S_SHNAME: formVal.S_SHNAME,
-      S_INT_APPLICABLE: formVal.S_INT_APPLICABLE,
       MIN_INT_LIMIT: formVal.MIN_INT_LIMIT,
-      STAND_INSTRUCTION_ALLOW: formVal.STAND_INSTRUCTION_ALLOW,
-      WITHDRAWAL_APPLICABLE: formVal.WITHDRAWAL_APPLICABLE,
-      BALANCE_ADD_APPLICABLE: formVal.BALANCE_ADD_APPLICABLE,
+      STAND_INSTRUCTION_ALLOW: (formVal.STAND_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      WITHDRAWAL_APPLICABLE: (formVal.WITHDRAWAL_APPLICABLE == true ? '1' : '0'),
+      BALANCE_ADD_APPLICABLE: (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
+      S_INT_APPLICABLE: (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
+
     };
     console.log(formVal);
     this.pigmyagentService.postData(dataToSend).subscribe(
@@ -253,11 +254,11 @@ export class PigmyAgentSchemeComponent
         S_APPL: data.S_APPL,
         S_NAME: data.S_NAME,
         S_SHNAME: data.S_SHNAME,
-        S_INT_APPLICABLE: data.S_INT_APPLICABLE,
+        S_INT_APPLICABLE: (data.S_INT_APPLICABLE == '1' ? true : false),
         MIN_INT_LIMIT: data.MIN_INT_LIMIT,
-        STAND_INSTRUCTION_ALLOW:(data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
-        WITHDRAWAL_APPLICABLE: (data.WITHDRAWAL_APPLICABLE=="true"?true:false),
-        BALANCE_ADD_APPLICABLE: (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
+        STAND_INSTRUCTION_ALLOW: (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
+        WITHDRAWAL_APPLICABLE: (data.WITHDRAWAL_APPLICABLE == '1' ? true : false),
+        BALANCE_ADD_APPLICABLE: (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
       });
     });
   }
@@ -265,6 +266,10 @@ export class PigmyAgentSchemeComponent
   updateData() {
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
+    data['WITHDRAWAL_APPLICABLE'] = (data.WITHDRAWAL_APPLICABLE == true ? '1' : '0')
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
+    data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
     this.pigmyagentService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;

@@ -61,7 +61,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //api 
   url = environment.base_url;
- 
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -95,9 +95,9 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //Dropdown option variable
   acMaster: any
-  ngsglac:any=null
-  ngintglac:any=null
-  ngintapplicapble:any=null
+  ngsglac: any = null
+  ngintglac: any = null
+  ngintapplicapble: any = null
   //ngoverdraft:any=null
 
   interestApplicableTypeOption: Array<IOption> = this.interestApplicableTypeService.getCharacters();
@@ -118,7 +118,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   S_PRODUCT_DAY_BASE;
   S_PRODUCT_DAY_BASE_END;
   OVERDRAFT_INTEREST_APPLICABLE;
-  filterData={};
+  filterData = {};
   newbtnShow: boolean;
 
   constructor(
@@ -195,11 +195,11 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           data: 'S_SHNAME',
         },
         {
-          title: 'G.L. A/c No.',
+          title: 'GL Account Number',
           data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL A/c',
+          title: 'Interest GL Account',
           data: 'S_INT_ACNO',
         },
         // {
@@ -275,37 +275,37 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['CA'],
 
-      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(151),Validators.max(199)]],
+      S_APPL: ["", [Validators.required, Validators.pattern, Validators.min(151), Validators.max(199)]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],
       S_GLACNO: ['', [Validators.required]],
       S_INT_ACNO: ['', [Validators.required]],
-      S_INT_APPLICABLE: [false],
-      POST_TO_INDIVIDUAL_AC: [false],
+      S_INT_APPLICABLE: [],
+      POST_TO_INDIVIDUAL_AC: [],
       S_PRODUCT_DAY_BASE: ['', [Validators.required, Validators.pattern, Validators.max(31)]],
       S_PRODUCT_DAY_BASE_END: ['', [Validators.required, Validators.pattern, Validators.max(31)]],
       MIN_INT_LIMIT: ['', [Validators.pattern]],
-      STAND_INSTRUCTION_ALLOW: [false],
+      STAND_INSTRUCTION_ALLOW: [],
       ROUNDOFF_FACTOR: ['', [Validators.pattern]],
       CHEQUEBOOK_MIN_BAL: ['', [Validators.pattern]],
-      BALANCE_ADD_APPLICABLE: [false],
-      DORMANT_FLAG_APPLICABLE: [false],
+      BALANCE_ADD_APPLICABLE: [],
+      DORMANT_FLAG_APPLICABLE: [],
       OVERDRAFT_INTEREST_APPLICABLE: [''],
       OVERDRAFT_INTEREST_RATE: ['', [Validators.pattern]]
     })
   }
 
-    //check  if margin values are below 100
-    checkinterest(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  //check  if margin values are below 100
+  checkinterest(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
   // Method to insert data into database through NestJS
   submit() {
     this.formSubmitted = true;
@@ -317,16 +317,16 @@ console.log(ele);
       'S_SHNAME': formVal.S_SHNAME,
       'S_GLACNO': formVal.S_GLACNO,
       'S_INT_ACNO': formVal.S_INT_ACNO,
-      'S_INT_APPLICABLE': formVal.S_INT_APPLICABLE,
-      'POST_TO_INDIVIDUAL_AC': formVal.POST_TO_INDIVIDUAL_AC,
+      'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
+      'POST_TO_INDIVIDUAL_AC': (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
+      'STAND_INSTRUCTION_ALLOW': (formVal.STAND_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      'BALANCE_ADD_APPLICABLE': (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
+      'DORMANT_FLAG_APPLICABLE': (formVal.DORMANT_FLAG_APPLICABLE == true ? '1' : '0'),
       'S_PRODUCT_DAY_BASE': formVal.S_PRODUCT_DAY_BASE,
       'S_PRODUCT_DAY_BASE_END': formVal.S_PRODUCT_DAY_BASE_END,
       'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT,
-      'STAND_INSTRUCTION_ALLOW': formVal.STAND_INSTRUCTION_ALLOW,
       'ROUNDOFF_FACTOR': formVal.ROUNDOFF_FACTOR,
       'CHEQUEBOOK_MIN_BAL': formVal.CHEQUEBOOK_MIN_BAL,
-      'BALANCE_ADD_APPLICABLE': formVal.BALANCE_ADD_APPLICABLE,
-      'DORMANT_FLAG_APPLICABLE': formVal.DORMANT_FLAG_APPLICABLE,
       'OVERDRAFT_INTEREST_APPLICABLE': formVal.OVERDRAFT_INTEREST_APPLICABLE,
       'OVERDRAFT_INTEREST_RATE': formVal.OVERDRAFT_INTEREST_RATE
     }
@@ -352,8 +352,8 @@ console.log(ele);
     this.newbtnShow = true
     this.currentSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngsglac=Number(data.S_GLACNO)
-      this.ngintglac=Number(data.S_INT_ACNO)
+      this.ngsglac = Number(data.S_GLACNO)
+      this.ngintglac = Number(data.S_INT_ACNO)
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
@@ -361,19 +361,36 @@ console.log(ele);
         'S_SHNAME': data.S_SHNAME,
         // 'S_GLACNO': data.S_GLACNO,
         // 'S_INT_ACNO': data.S_INT_ACNO,
-        'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
-        'POST_TO_INDIVIDUAL_AC':(data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
+        'S_INT_APPLICABLE': (data.S_INT_APPLICABLE == '1' ? true : false),
+        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC == '1' ? true : false),
         'S_PRODUCT_DAY_BASE': data.S_PRODUCT_DAY_BASE,
         'S_PRODUCT_DAY_BASE_END': data.S_PRODUCT_DAY_BASE_END,
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-        'STAND_INSTRUCTION_ALLOW':(data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
+        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
         'CHEQUEBOOK_MIN_BAL': data.CHEQUEBOOK_MIN_BAL,
-        'BALANCE_ADD_APPLICABLE':(data.BALANCE_ADD_APPLICABLE=="true"?true:false),
-        'DORMANT_FLAG_APPLICABLE':(data.DORMANT_FLAG_APPLICABLE=="true"?true:false),
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
+        'DORMANT_FLAG_APPLICABLE': (data.DORMANT_FLAG_APPLICABLE == '1' ? true : false),
         'OVERDRAFT_INTEREST_APPLICABLE': data.OVERDRAFT_INTEREST_APPLICABLE,
         'OVERDRAFT_INTEREST_RATE': data.OVERDRAFT_INTEREST_RATE
       })
+
+      if (data.S_INT_APPLICABLE == '1') {
+        document.getElementById('POST_TO_INDIVIDUAL_AC').removeAttribute("disabled");
+        document.getElementById('S_PRODUCT_DAY_BASE').removeAttribute("disabled");
+        document.getElementById('S_PRODUCT_DAY_BASE_END').removeAttribute("disabled");
+        document.getElementById('MIN_INT_LIMIT').removeAttribute("disabled");
+      }
+      else {
+        document.getElementById('POST_TO_INDIVIDUAL_AC').setAttribute("disabled", "true");
+        document.getElementById('S_PRODUCT_DAY_BASE').setAttribute("disabled", "true");
+        document.getElementById('S_PRODUCT_DAY_BASE_END').setAttribute("disabled", "true");
+        document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true");
+        this.angForm.controls['POST_TO_INDIVIDUAL_AC'].reset()
+        this.angForm.controls['S_PRODUCT_DAY_BASE'].reset()
+        this.angForm.controls['S_PRODUCT_DAY_BASE_END'].reset()
+        this.angForm.controls['MIN_INT_LIMIT'].reset()
+      }
     })
   }
 
@@ -381,6 +398,11 @@ console.log(ele);
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
+    data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
+    data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
+    data['DORMANT_FLAG_APPLICABLE'] = (data.DORMANT_FLAG_APPLICABLE == true ? '1' : '0')
     this.currentSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -403,9 +425,9 @@ console.log(ele);
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngsglac=null
-    this.ngintglac=null
-    this.ngintapplicapble=null
+    this.ngsglac = null
+    this.ngintglac = null
+    this.ngintapplicapble = null
   }
 
   //Method for delete data
@@ -495,6 +517,10 @@ console.log(ele);
       document.getElementById('S_PRODUCT_DAY_BASE').setAttribute("disabled", "true");
       document.getElementById('S_PRODUCT_DAY_BASE_END').setAttribute("disabled", "true");
       document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true");
+      this.angForm.controls['POST_TO_INDIVIDUAL_AC'].reset()
+      this.angForm.controls['S_PRODUCT_DAY_BASE'].reset()
+      this.angForm.controls['S_PRODUCT_DAY_BASE_END'].reset()
+      this.angForm.controls['MIN_INT_LIMIT'].reset()
     }
   }
 

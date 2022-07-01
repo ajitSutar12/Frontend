@@ -75,14 +75,14 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   updateID: number = 0;
   //Dropdown option variable
   acMaster: any
-  ngglac:any=null
-  nglocker:any=null
-  ngreceivablelocker:any=null
-  ngschemecode:any=null
+  ngglac: any = null
+  nglocker: any = null
+  ngreceivablelocker: any = null
+  ngschemecode: any = null
 
 
 
-  filterData={} 
+  filterData = {}
   newbtnShow: boolean;
 
   constructor(
@@ -160,7 +160,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           data: 'S_SHNAME'
         },
         {
-          title: 'G.L. Account No.',
+          title: 'GL Account Number',
           data: 'S_GLACNO'
         },
         {
@@ -190,7 +190,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       S_APPL: ['', [Validators.required]],
       S_SHNAME: ['', [Validators.pattern, Validators.required]],
       S_NAME: ['', [Validators.pattern, Validators.required]],
-      S_GLACNO: ['',[ Validators.required]],
+      S_GLACNO: ['', [Validators.required]],
       LOCKER_RENT_ACNO: [''],
       LOCKER_RECBL_RENT_ACNO: [''],
       LOCKER_DEPOSIT_APPLICABLE: ['']
@@ -208,7 +208,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       'S_GLACNO': formVal.S_GLACNO,
       'LOCKER_RENT_ACNO': formVal.LOCKER_RENT_ACNO,
       'LOCKER_RECBL_RENT_ACNO': formVal.LOCKER_RECBL_RENT_ACNO,
-      'LOCKER_DEPOSIT_APPLICABLE': formVal.LOCKER_DEPOSIT_APPLICABLE,
+      'LOCKER_DEPOSIT_APPLICABLE': (formVal.LOCKER_DEPOSIT_APPLICABLE == true ? '1' : '0'),
 
     }
     console.log(dataToSend);
@@ -234,9 +234,9 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = true;
     this.lockersSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngglac=Number(data.S_GLACNO)
-      this.nglocker=Number(data.LOCKER_RECBL_RENT_ACNO)
-      this.ngreceivablelocker=Number(data.LOCKER_RECBL_RENT_ACNO)
+      this.ngglac = Number(data.S_GLACNO)
+      this.nglocker = Number(data.LOCKER_RECBL_RENT_ACNO)
+      this.ngreceivablelocker = Number(data.LOCKER_RECBL_RENT_ACNO)
       // this.ngschemecode=Number(data.S_APPL)
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
@@ -246,7 +246,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         // 'S_GLACNO': data.S_GLACNO,
         // 'LOCKER_RENT_ACNO': data.LOCKER_RENT_ACNO,
         // 'LOCKER_RECBL_RENT_ACNO': data.LOCKER_RECBL_RENT_ACNO,
-        'LOCKER_DEPOSIT_APPLICABLE': (data.LOCKER_DEPOSIT_APPLICABLE=="true"?true:false),
+        'LOCKER_DEPOSIT_APPLICABLE': (data.LOCKER_DEPOSIT_APPLICABLE == '1' ? true : false),
 
       })
     })
@@ -255,6 +255,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['LOCKER_DEPOSIT_APPLICABLE'] = (data.LOCKER_DEPOSIT_APPLICABLE == true ? '1' : '0')
     this.lockersSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -269,9 +270,9 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   resetForm() {
     this.createForm();
-    this.ngglac=null
-    this.nglocker=null
-    this.ngreceivablelocker=null
+    this.ngglac = null
+    this.nglocker = null
+    this.ngreceivablelocker = null
   }
   addNewData() {
     this.showButton = true;
@@ -280,63 +281,63 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.resetForm();
   }
   //Method for delete data
-   delClickHandler(id: number) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to delete bank master data.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#229954',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.lockersSchemeService.deleteData(id).subscribe(data1 => {
-            this.lockeScheme = data1;
-            Swal.fire(
-              'Deleted!',
-              'Your data has been deleted.',
-              'success'
-            )
-          }), (error) => {
-            console.log(error)
-          }
-          // to reload after delete of data
-          this.rerender();
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
+  delClickHandler(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want to delete bank master data.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#229954',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.lockersSchemeService.deleteData(id).subscribe(data1 => {
+          this.lockeScheme = data1;
           Swal.fire(
-            'Cancelled',
-            'Your data is safe.',
-            'error'
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
           )
+        }), (error) => {
+          console.log(error)
         }
-      })
-    }
-    
+        // to reload after delete of data
+        this.rerender();
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelled',
+          'Your data is safe.',
+          'error'
+        )
+      }
+    })
+  }
 
-    ngAfterViewInit(): void {
-      this.myInputField.nativeElement.focus();
-      this.dtTrigger.next();
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
-        dtInstance.columns().every(function () {
-          const that = this;
-          $('input', this.footer()).on('keyup change', function () {
-            if (this['value'] != '') {
-              that
-                .search(this['value'])
-                .draw();
-            } else {
-              that
-                .search(this['value'])
-                .draw();
-            }
-          });
+
+  ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
         });
       });
-    }
+    });
+  }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

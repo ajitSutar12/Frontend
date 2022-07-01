@@ -46,7 +46,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
 
   //api 
   url = environment.base_url;
-  
+
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -81,7 +81,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
 
   //Variable to route list
   firstTrue = true;
-  filterData={};
+  filterData = {};
   newbtnShow: boolean;
 
   constructor(
@@ -123,7 +123,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
         });
         this.http
           .post<DataTableResponse>(
-            this.url+'/general-ledger-scheme',
+            this.url + '/general-ledger-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.generalLedgerScheme = resp.data;
@@ -181,9 +181,9 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
       S_APPL: ['', [Validators.required, Validators.pattern]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],
-      S_INT_APPLICABLE: [false],
-      STAND_INSTRUCTION_ALLOW: [false],
-      INT_INSTRUCTION_ALLOW: [false],
+      S_INT_APPLICABLE: [],
+      STAND_INSTRUCTION_ALLOW: [],
+      INT_INSTRUCTION_ALLOW: [],
       MIN_INT_LIMIT: ['', [Validators.pattern]]
     })
   }
@@ -196,10 +196,10 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
       'S_APPL': formVal.S_APPL,
       'S_NAME': formVal.S_NAME,
       'S_SHNAME': formVal.S_SHNAME,
-      'S_INT_APPLICABLE': formVal.S_INT_APPLICABLE,
-      'STAND_INSTRUCTION_ALLOW': formVal.STAND_INSTRUCTION_ALLOW,
-      'INT_INSTRUCTION_ALLOW': formVal.INT_INSTRUCTION_ALLOW,
-      'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT,
+      'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
+      'STAND_INSTRUCTION_ALLOW': (formVal.STAND_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      'INT_INSTRUCTION_ALLOW': (formVal.INT_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT
     }
     this.generalLedgerSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -222,14 +222,30 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     this.newbtnShow = true;
     this.generalLedgerSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
+
+
+      if (data.S_INT_APPLICABLE == '1') {
+        document.getElementById('STAND_INSTRUCTION_ALLOW').removeAttribute("disabled");
+        document.getElementById('INT_INSTRUCTION_ALLOW').removeAttribute("disabled");
+        document.getElementById('MIN_INT_LIMIT').removeAttribute("disabled");
+      }
+      else {
+        document.getElementById('STAND_INSTRUCTION_ALLOW').setAttribute("disabled", "true");
+        document.getElementById('INT_INSTRUCTION_ALLOW').setAttribute("disabled", "true");
+        document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true");
+        this.angForm.controls.STAND_INSTRUCTION_ALLOW.reset();
+        this.angForm.controls.INT_INSTRUCTION_ALLOW.reset();
+        this.angForm.controls.MIN_INT_LIMIT.reset();
+      }
+
       this.angForm.setValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
         'S_SHNAME': data.S_SHNAME,
-        'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
-        'STAND_INSTRUCTION_ALLOW': data.STAND_INSTRUCTION_ALLOW,
-        'INT_INSTRUCTION_ALLOW': data.INT_INSTRUCTION_ALLOW,
+        'S_INT_APPLICABLE': (data.S_INT_APPLICABLE == '1' ? true : false),
+        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
+        'INT_INSTRUCTION_ALLOW': (data.INT_INSTRUCTION_ALLOW == '1' ? true : false),
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT
       })
     })
@@ -239,6 +255,11 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
+    data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
+    data['INT_INSTRUCTION_ALLOW'] = (data.INT_INSTRUCTION_ALLOW == true ? '1' : '0')
+
+
     this.generalLedgerSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

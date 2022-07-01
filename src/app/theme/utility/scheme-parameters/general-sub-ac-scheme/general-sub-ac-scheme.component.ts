@@ -44,7 +44,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
 
   //api 
   url = environment.base_url;
-  
+
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -81,7 +81,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   acMaster: any
   filterData = {};
   newbtnShow: boolean;
-  ngglac:any=null
+  ngglac: any = null
 
   constructor(public generalSubAcSchemeService: GeneralSubAcSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
@@ -154,7 +154,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
           data: 'S_SHNAME'
         },
         {
-          title: 'G.L. A/c No.',
+          title: 'GL Account Number',
           data: 'S_GLACNO'
         },
         // {
@@ -180,11 +180,11 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['GS'],
 
-      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(801),Validators.max(899)]],
+      S_APPL: ["", [Validators.required, Validators.pattern, Validators.min(801), Validators.max(899)]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],
       S_GLACNO: ['', [Validators.required, Validators.pattern]],
-      BALANCE_ADD_APPLICABLE: [false],
+      BALANCE_ADD_APPLICABLE: [],
     });
   }
 
@@ -198,7 +198,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
       'S_NAME': formVal.S_NAME,
       'S_SHNAME': formVal.S_SHNAME,
       'S_GLACNO': formVal.S_GLACNO,
-      'BALANCE_ADD_APPLICABLE': formVal.BALANCE_ADD_APPLICABLE,
+      'BALANCE_ADD_APPLICABLE': (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
     }
     this.generalSubAcSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -222,14 +222,14 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     this.newbtnShow = true;
     this.generalSubAcSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngglac=Number(data.S_GLACNO)
+      this.ngglac = Number(data.S_GLACNO)
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
         'S_SHNAME': data.S_SHNAME,
         // 'S_GLACNO': data.S_GLACNO,
-        'BALANCE_ADD_APPLICABLE': data.BALANCE_ADD_APPLICABLE,
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
       })
     })
   }
@@ -238,6 +238,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
     this.generalSubAcSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -253,7 +254,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
 
   resetForm() {
     this.createForm();
-    this.ngglac=null
+    this.ngglac = null
   }
   addNewData() {
     this.showButton = true;

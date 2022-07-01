@@ -88,13 +88,13 @@
                                         formControlName="S_GLACNO" bindLabel="label"
                                         title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="G.L. A/c No">
+                                        required placeholder="GL Account Number">
                                         <ng-option
                                             *ngFor="let values of acMaster"
                                             [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="S_GLACNO">G.L. A/c No<sub
+                                    <label for="S_GLACNO">GL Account Number<sub
                                             class="required"> * </sub></label>
                                 </span>
                             </div>
@@ -120,13 +120,13 @@
                                         formControlName="S_INT_ACNO" bindLabel="label"
                                         title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Interest G.L. A/c">
+                                        required placeholder="Interest GL Account">
                                         <ng-option
                                             *ngFor="let values of acMaster"
                                             [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="S_INT_ACNO">Interest G.L. A/c<sub
+                                    <label for="S_INT_ACNO">Interest GL Account<sub
                                             class="required"> * </sub></label>
                                 </span>
                             </div>
@@ -162,7 +162,7 @@
                                             <h6> <a (click)="OpenLink(43)" routerLink="/utility/schemeParameters"
                                                     routerLinkActive="active" [ngClass]="{'isActive': ChequeBookMinBal}"
                                                     class="text-right f-w-600" id="pointer">
-                                                    Cheque Book Min. Bal.</a></h6>
+                                                    Cheque Book Minimum Balance</a></h6>
                                         </li>
                                         <li>
                                             <h6> <a (click)="OpenLink(44)" routerLink="/utility/schemeParameters"
@@ -176,7 +176,7 @@
                                                     routerLinkActive="active"
                                                     [ngClass]="{'isActive': OverdraftIntApplicable}"
                                                     class="text-right f-w-600" id="pointer">
-                                                    Overdraft Int. Applicable</a></h6>
+                                                    Overdraft Interest Applicable</a></h6>
                                         </li>
                                     </ul>
                                 </div>
@@ -209,7 +209,7 @@
                                                             formControlName="POST_TO_INDIVIDUAL_AC" disabled>
                                                         <label class="border-checkbox-label"
                                                             for="POST_TO_INDIVIDUAL_AC">Is
-                                                            Post Interest to A/c ?</label>
+                                                            Post Interest to Account ?</label>
                                                     </div>
                                                 </div>
                                             </div>

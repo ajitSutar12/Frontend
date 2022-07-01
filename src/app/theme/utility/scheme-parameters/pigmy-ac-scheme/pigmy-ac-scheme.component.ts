@@ -63,8 +63,8 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   formSubmitted = false;
   //api 
   url = environment.base_url;
-  
-@ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -112,10 +112,10 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   //Dropdown option variable
   acMaster: any
   newbtnShow: boolean;
-  ngglacno:any=null
-  ngintglac:any=null
-  ngpayableintac:any=null
-  ngservicecharges:any=null
+  ngglacno: any = null
+  ngintglac: any = null
+  ngpayableintac: any = null
+  ngservicecharges: any = null
 
   constructor(
     private http: HttpClient,
@@ -189,13 +189,13 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           title: 'Short Name',
         },
         {
-          title: 'G.L. A/c No.',
+          title: 'GL Account Number',
         },
         {
-          title: 'Interest GL A/c',
+          title: 'Interest GL Account',
         },
         {
-          title: 'Payable Int.A/c',
+          title: 'Payable Interest Account',
         },
         // {
         //   title: 'Is Interest Applicable? ',
@@ -265,51 +265,51 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['PG'],
-      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(401),Validators.max(499)]],
+      S_APPL: ["", [Validators.required, Validators.pattern, Validators.min(401), Validators.max(499)]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],
       S_GLACNO: ['', [Validators.required]],
       S_INT_ACNO: ['', [Validators.required]],
       S_RECBL_PYBL_INT_ACNO: [''],
-      S_INT_APPLICABLE: [false],
-      POST_TO_INDIVIDUAL_AC: [false],
-      S_PAYABLE_INT_ALLOW: [false],
+      S_INT_APPLICABLE: [],
+      POST_TO_INDIVIDUAL_AC: [],
+      S_PAYABLE_INT_ALLOW: [],
       S_PRODUCT_DAY_BASE: [0, [Validators.pattern]],
       S_PRODUCT_DAY_BASE_END: [0, [Validators.pattern]],
       MIN_INT_LIMIT: ['', [Validators.pattern]],
-      STAND_INSTRUCTION_ALLOW: [false],
-      IS_AUTO_CUT_INSTRUCTION: [false],
-      IS_ALLOW_SI_MINBAL: [false],
-      WITHDRAWAL_APPLICABLE: [false],
-      S_INTPAID_ON_CLOSING: [false],
+      STAND_INSTRUCTION_ALLOW: [],
+      IS_AUTO_CUT_INSTRUCTION: [],
+      IS_ALLOW_SI_MINBAL: [],
+      WITHDRAWAL_APPLICABLE: [],
+      S_INTPAID_ON_CLOSING: [],
       ROUNDOFF_FACTOR: [''],
-      BALANCE_ADD_APPLICABLE: [false],
-      PREMATURE_COMPOUND_INT: [false],
+      BALANCE_ADD_APPLICABLE: [],
+      PREMATURE_COMPOUND_INT: [],
       PIGMY_MACHINE_SCHEME: ['', [Validators.pattern]],
-      OVERDRAFT_INTEREST_APPLICABLE: [false],
+      OVERDRAFT_INTEREST_APPLICABLE: [],
       OVERDRAFT_INTEREST_RATE: ['', [Validators.pattern]],
       SVR_CHARGE_GLCODE: [''],
       SVR_CHARGE_RATE: ['', [Validators.pattern]]
     })
   }
 
- // Method check scheme code 
+  // Method check scheme code 
 
- checkscheme(S_APPL){
-   let schemecode =document.getElementById("S_APPL") as HTMLInputElement;
+  checkscheme(S_APPL) {
+    let schemecode = document.getElementById("S_APPL") as HTMLInputElement;
 
-  this.pigmyAcSchemeService.getFormData(S_APPL).subscribe(data => {
-    this.angForm.setValue({
-    'S_APPL': data.S_APPL,
+    this.pigmyAcSchemeService.getFormData(S_APPL).subscribe(data => {
+      this.angForm.setValue({
+        'S_APPL': data.S_APPL,
+      })
     })
-  })
-  if(schemecode=S_APPL){
-    Swal.fire('Scheme code value already present ');
+    if (schemecode = S_APPL) {
+      Swal.fire('Scheme code value already present ');
+    }
+    else {
+      this.submit();
+    }
   }
-  else{
-    this.submit();
-  }
- } 
 
 
   // Method to insert data into database through NestJS
@@ -324,22 +324,22 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       'S_GLACNO': formVal.S_GLACNO,
       'S_INT_ACNO': formVal.S_INT_ACNO,
       'S_RECBL_PYBL_INT_ACNO': formVal.S_RECBL_PYBL_INT_ACNO,
-      'S_INT_APPLICABLE': formVal.S_INT_APPLICABLE,
-      'POST_TO_INDIVIDUAL_AC': formVal.POST_TO_INDIVIDUAL_AC,
-      'S_PAYABLE_INT_ALLOW': formVal.S_PAYABLE_INT_ALLOW,
       'S_PRODUCT_DAY_BASE': formVal.S_PRODUCT_DAY_BASE,
       'S_PRODUCT_DAY_BASE_END': formVal.S_PRODUCT_DAY_BASE_END,
       'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT,
-      'STAND_INSTRUCTION_ALLOW': formVal.STAND_INSTRUCTION_ALLOW,
-      'IS_AUTO_CUT_INSTRUCTION': formVal.IS_AUTO_CUT_INSTRUCTION,
-      'IS_ALLOW_SI_MINBAL': formVal.IS_ALLOW_SI_MINBAL,
-      'WITHDRAWAL_APPLICABLE': formVal.WITHDRAWAL_APPLICABLE,
-      'S_INTPAID_ON_CLOSING': formVal.S_INTPAID_ON_CLOSING,
+      'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
+      'POST_TO_INDIVIDUAL_AC': (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
+      'S_PAYABLE_INT_ALLOW': (formVal.S_PAYABLE_INT_ALLOW == true ? '1' : '0'),
+      'STAND_INSTRUCTION_ALLOW': (formVal.STAND_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      'IS_AUTO_CUT_INSTRUCTION': (formVal.IS_AUTO_CUT_INSTRUCTION == true ? '1' : '0'),
+      'IS_ALLOW_SI_MINBAL': (formVal.IS_ALLOW_SI_MINBAL == true ? '1' : '0'),
+      'WITHDRAWAL_APPLICABLE': (formVal.WITHDRAWAL_APPLICABLE == true ? '1' : '0'),
+      'S_INTPAID_ON_CLOSING': (formVal.S_INTPAID_ON_CLOSING == true ? '1' : '0'),
+      'BALANCE_ADD_APPLICABLE': (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
+      'PREMATURE_COMPOUND_INT': (formVal.PREMATURE_COMPOUND_INT == true ? '1' : '0'),
+      'OVERDRAFT_INTEREST_APPLICABLE': (formVal.OVERDRAFT_INTEREST_APPLICABLE == true ? '1' : '0'),
       'ROUNDOFF_FACTOR': formVal.ROUNDOFF_FACTOR,
-      'BALANCE_ADD_APPLICABLE': formVal.BALANCE_ADD_APPLICABLE,
-      'PREMATURE_COMPOUND_INT': formVal.PREMATURE_COMPOUND_INT,
       'PIGMY_MACHINE_SCHEME': formVal.PIGMY_MACHINE_SCHEME,
-      'OVERDRAFT_INTEREST_APPLICABLE': formVal.OVERDRAFT_INTEREST_APPLICABLE,
       'OVERDRAFT_INTEREST_RATE': formVal.OVERDRAFT_INTEREST_RATE,
       'SVR_CHARGE_GLCODE': formVal.SVR_CHARGE_GLCODE,
       'SVR_CHARGE_RATE': formVal.SVR_CHARGE_RATE
@@ -347,10 +347,10 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.pigmyAcSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
-          // to reload after insertion of data
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload();
-          });
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
     }, (error) => {
       console.log(error)
     })
@@ -365,10 +365,10 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = true;
     this.pigmyAcSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngglacno=Number(data.S_GLACNO)
-      this.ngintglac=Number(data.S_INT_ACNO)
-      this.ngpayableintac=Number(data.S_RECBL_PYBL_INT_ACNO)
-      this.ngservicecharges=Number(data.SVR_CHARGE_GLCODE)
+      this.ngglacno = Number(data.S_GLACNO)
+      this.ngintglac = Number(data.S_INT_ACNO)
+      this.ngpayableintac = Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngservicecharges = Number(data.SVR_CHARGE_GLCODE)
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
@@ -377,22 +377,22 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         // 'S_GLACNO': data.S_GLACNO,
         // 'S_INT_ACNO': data.S_INT_ACNO,
         // 'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
-        'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
-        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
-        'S_PAYABLE_INT_ALLOW': (data.S_PAYABLE_INT_ALLOW=="true"?true:false),
+        'S_INT_APPLICABLE': (data.S_INT_APPLICABLE == '1' ? true : false),
+        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC == '1' ? true : false),
+        'S_PAYABLE_INT_ALLOW': (data.S_PAYABLE_INT_ALLOW == '1' ? true : false),
         'S_PRODUCT_DAY_BASE': data.S_PRODUCT_DAY_BASE,
         'S_PRODUCT_DAY_BASE_END': data.S_PRODUCT_DAY_BASE_END,
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
-        'IS_AUTO_CUT_INSTRUCTION': (data.IS_AUTO_CUT_INSTRUCTION=="true"?true:false),
-        'IS_ALLOW_SI_MINBAL': (data.IS_ALLOW_SI_MINBAL=="true"?true:false),
-        'WITHDRAWAL_APPLICABLE': (data.WITHDRAWAL_APPLICABLE=="true"?true:false),
-        'S_INTPAID_ON_CLOSING': (data.S_INTPAID_ON_CLOSING=="true"?true:false),
+        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
+        'IS_AUTO_CUT_INSTRUCTION': (data.IS_AUTO_CUT_INSTRUCTION == '1' ? true : false),
+        'IS_ALLOW_SI_MINBAL': (data.IS_ALLOW_SI_MINBAL == '1' ? true : false),
+        'WITHDRAWAL_APPLICABLE': (data.WITHDRAWAL_APPLICABLE == '1' ? true : false),
+        'S_INTPAID_ON_CLOSING': (data.S_INTPAID_ON_CLOSING == '1' ? true : false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
-        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
-        'PREMATURE_COMPOUND_INT': (data.PREMATURE_COMPOUND_INT=="true"?true:false),
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
+        'PREMATURE_COMPOUND_INT': (data.PREMATURE_COMPOUND_INT == '1' ? true : false),
         'PIGMY_MACHINE_SCHEME': data.PIGMY_MACHINE_SCHEME,
-        'OVERDRAFT_INTEREST_APPLICABLE': (data.OVERDRAFT_INTEREST_APPLICABLE=="true"?true:false),
+        'OVERDRAFT_INTEREST_APPLICABLE': (data.OVERDRAFT_INTEREST_APPLICABLE == '1' ? true : false),
         'OVERDRAFT_INTEREST_RATE': data.OVERDRAFT_INTEREST_RATE,
         // 'SVR_CHARGE_GLCODE': data.SVR_CHARGE_GLCODE,
         'SVR_CHARGE_RATE': data.SVR_CHARGE_RATE
@@ -404,6 +404,17 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
+    data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
+    data['S_PAYABLE_INT_ALLOW'] = (data.S_PAYABLE_INT_ALLOW == true ? '1' : '0')
+    data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
+    data['IS_AUTO_CUT_INSTRUCTION'] = (data.IS_AUTO_CUT_INSTRUCTION == true ? '1' : '0')
+    data['IS_ALLOW_SI_MINBAL'] = (data.IS_ALLOW_SI_MINBAL == true ? '1' : '0')
+    data['WITHDRAWAL_APPLICABLE'] = (data.WITHDRAWAL_APPLICABLE == true ? '1' : '0')
+    data['S_INTPAID_ON_CLOSING'] = (data.S_INTPAID_ON_CLOSING == true ? '1' : '0')
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
+    data['PREMATURE_COMPOUND_INT'] = (data.PREMATURE_COMPOUND_INT == true ? '1' : '0')
+    data['OVERDRAFT_INTEREST_APPLICABLE'] = (data.OVERDRAFT_INTEREST_APPLICABLE == true ? '1' : '0')
     this.pigmyAcSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -426,11 +437,11 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngglacno=null
-    this.ngintglac=null
-    this.ngpayableintac=null
-    this.ngservicecharges=null
-  
+    this.ngglacno = null
+    this.ngintglac = null
+    this.ngpayableintac = null
+    this.ngservicecharges = null
+
   }
   //Method for delete data
   // delClickHandler(id: number) {

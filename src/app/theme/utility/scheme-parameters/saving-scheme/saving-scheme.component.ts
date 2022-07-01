@@ -114,8 +114,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Dropdown option variable
   acMaster: any;
-  ngglacno:any=null
-  nginterestgl:any=null
+  ngglacno: any = null
+  nginterestgl: any = null
 
   S_PRODUCT_DAY_BASE;
 
@@ -128,7 +128,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
     private http: HttpClient,
-    private config: NgSelectConfig,) {}
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -198,11 +198,11 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "S_SHNAME",
         },
         {
-          title: "G.L. A/c No.",
+          title: "GL Account Number",
           data: "S_GLACNO",
         },
         {
-          title: "Interest GL A/c",
+          title: "Interest GL Account",
           data: "S_INT_ACNO",
         },
         // {
@@ -351,6 +351,12 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         .getElementById("S_PRODUCT_DAY_BASE_END")
         .setAttribute("disabled", "true");
       document.getElementById("MIN_INT_LIMIT").setAttribute("disabled", "true");
+
+      this.angForm.controls['POST_TO_INDIVIDUAL_AC'].reset()
+      this.angForm.controls['IS_DAYBASE_INT_CALCULATION'].reset()
+      this.angForm.controls['S_PRODUCT_DAY_BASE'].reset()
+      this.angForm.controls['S_PRODUCT_DAY_BASE_END'].reset()
+      this.angForm.controls['MIN_INT_LIMIT'].reset()
     }
   }
   //Function to enable/Disable fields according selection of product day base start day
@@ -408,7 +414,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ["SB"],
-      S_APPL: ["", [Validators.required, Validators.min(101),Validators.max(150)]],
+      S_APPL: ["", [Validators.required, Validators.min(101), Validators.max(150)]],
       S_NAME: ["", [Validators.required, Validators.pattern]],
       S_SHNAME: ["", [Validators.required, Validators.pattern]],
       S_GLACNO: [""],
@@ -444,20 +450,20 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       S_SHNAME: formVal.S_SHNAME,
       S_GLACNO: formVal.S_GLACNO,
       S_INT_ACNO: formVal.S_INT_ACNO,
-      S_INT_APPLICABLE: formVal.S_INT_APPLICABLE,
-      POST_TO_INDIVIDUAL_AC: formVal.POST_TO_INDIVIDUAL_AC,
-      IS_DAYBASE_INT_CALCULATION: formVal.IS_DAYBASE_INT_CALCULATION,
+      S_INT_APPLICABLE: (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
+      POST_TO_INDIVIDUAL_AC: (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
+      IS_DAYBASE_INT_CALCULATION: (formVal.IS_DAYBASE_INT_CALCULATION == true ? '1' : '0'),
+      STAND_INSTRUCTION_ALLOW: (formVal.STAND_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      IS_INSTRUCTION_UPTO_MATURITY: (formVal.IS_INSTRUCTION_UPTO_MATURITY == true ? '1' : '0'),
+      BALANCE_ADD_APPLICABLE: (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
+      DORMANT_FLAG_APPLICABLE: (formVal.DORMANT_FLAG_APPLICABLE == true ? '1' : '0'),
+      OVERDRAFT_INTEREST_APPLICABLE: (formVal.OVERDRAFT_INTEREST_APPLICABLE == true ? '1' : '0'),
       S_PRODUCT_DAY_BASE: formVal.S_PRODUCT_DAY_BASE,
       S_PRODUCT_DAY_BASE_END: formVal.S_PRODUCT_DAY_BASE_END,
       MIN_INT_LIMIT: formVal.MIN_INT_LIMIT,
-      STAND_INSTRUCTION_ALLOW: formVal.STAND_INSTRUCTION_ALLOW,
-      IS_INSTRUCTION_UPTO_MATURITY: formVal.IS_INSTRUCTION_UPTO_MATURITY,
       ROUNDOFF_FACTOR: formVal.ROUNDOFF_FACTOR,
       CHEQUEBOOK_MIN_BAL: formVal.CHEQUEBOOK_MIN_BAL,
-      BALANCE_ADD_APPLICABLE: formVal.BALANCE_ADD_APPLICABLE,
-      DORMANT_FLAG_APPLICABLE: formVal.DORMANT_FLAG_APPLICABLE,
       MIN_BAL_FOR_INT: formVal.MIN_BAL_FOR_INT,
-      OVERDRAFT_INTEREST_APPLICABLE: formVal.OVERDRAFT_INTEREST_APPLICABLE,
       OVERDRAFT_INTEREST_RATE: formVal.OVERDRAFT_INTEREST_RATE,
     };
     this.savingschemeservice.postData(dataToSend).subscribe(
@@ -484,8 +490,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = true;
     this.savingschemeservice.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
-      this.ngglacno=Number(data.S_GLACNO)
-      this.nginterestgl=Number(data.S_INT_ACNO)
+      this.ngglacno = Number(data.S_GLACNO)
+      this.nginterestgl = Number(data.S_INT_ACNO)
       this.angForm.patchValue({
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_APPL: data.S_APPL,
@@ -493,29 +499,70 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         S_SHNAME: data.S_SHNAME,
         // S_GLACNO: data.S_GLACNO,
         // S_INT_ACNO: data.S_INT_ACNO,
-        S_INT_APPLICABLE: data.S_INT_APPLICABLE,
-        POST_TO_INDIVIDUAL_AC:(data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
-        IS_DAYBASE_INT_CALCULATION:(data.IS_DAYBASE_INT_CALCULATION=="true"?true:false),
+        S_INT_APPLICABLE: (data.S_INT_APPLICABLE == '1' ? true : false),
+        POST_TO_INDIVIDUAL_AC: (data.POST_TO_INDIVIDUAL_AC == '1' ? true : false),
+        IS_DAYBASE_INT_CALCULATION: (data.IS_DAYBASE_INT_CALCULATION == '1' ? true : false),
         S_PRODUCT_DAY_BASE: data.S_PRODUCT_DAY_BASE,
         S_PRODUCT_DAY_BASE_END: data.S_PRODUCT_DAY_BASE_END,
         MIN_INT_LIMIT: data.MIN_INT_LIMIT,
-        STAND_INSTRUCTION_ALLOW:(data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
-        IS_INSTRUCTION_UPTO_MATURITY:(data.IS_INSTRUCTION_UPTO_MATURITY=="true"?true:false),
+        STAND_INSTRUCTION_ALLOW: (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
+        IS_INSTRUCTION_UPTO_MATURITY: (data.IS_INSTRUCTION_UPTO_MATURITY == '1' ? true : false),
         ROUNDOFF_FACTOR: data.ROUNDOFF_FACTOR,
         CHEQUEBOOK_MIN_BAL: data.CHEQUEBOOK_MIN_BAL,
-        BALANCE_ADD_APPLICABLE:(data.BALANCE_ADD_APPLICABLE=="true"?true:false),
-        DORMANT_FLAG_APPLICABLE:(data.DORMANT_FLAG_APPLICABLE=="true"?true:false),
+        BALANCE_ADD_APPLICABLE: (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
+        DORMANT_FLAG_APPLICABLE: (data.DORMANT_FLAG_APPLICABLE == '1' ? true : false),
         MIN_BAL_FOR_INT: data.MIN_BAL_FOR_INT,
-        OVERDRAFT_INTEREST_APPLICABLE:(data.OVERDRAFT_INTEREST_APPLICABLE=="true"?true:false),
+        OVERDRAFT_INTEREST_APPLICABLE: (data.OVERDRAFT_INTEREST_APPLICABLE == '1' ? true : false),
         OVERDRAFT_INTEREST_RATE: data.OVERDRAFT_INTEREST_RATE,
- 
+
       });
+
+
+      if (data.S_INT_APPLICABLE == '1') {
+        document
+          .getElementById("POST_TO_INDIVIDUAL_AC")
+          .removeAttribute("disabled");
+        document
+          .getElementById("IS_DAYBASE_INT_CALCULATION")
+          .removeAttribute("disabled");
+        document.getElementById("S_PRODUCT_DAY_BASE").removeAttribute("disabled");
+        document
+          .getElementById("S_PRODUCT_DAY_BASE_END")
+          .removeAttribute("disabled");
+        document.getElementById("MIN_INT_LIMIT").removeAttribute("disabled");
+      } else {
+        document
+          .getElementById("POST_TO_INDIVIDUAL_AC")
+          .setAttribute("disabled", "true");
+        document
+          .getElementById("IS_DAYBASE_INT_CALCULATION")
+          .removeAttribute("disabled");
+        document
+          .getElementById("S_PRODUCT_DAY_BASE")
+          .setAttribute("disabled", "true");
+        document
+          .getElementById("S_PRODUCT_DAY_BASE_END")
+          .setAttribute("disabled", "true");
+        document.getElementById("MIN_INT_LIMIT").setAttribute("disabled", "true");
+        this.angForm.controls['POST_TO_INDIVIDUAL_AC'].reset()
+        this.angForm.controls['S_PRODUCT_DAY_BASE'].reset()
+        this.angForm.controls['S_PRODUCT_DAY_BASE_END'].reset()
+        this.angForm.controls['MIN_INT_LIMIT'].reset()
+      }
     });
   }
   //Method for update data
   updateData() {
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
+    data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
+    data['IS_DAYBASE_INT_CALCULATION'] = (data.IS_DAYBASE_INT_CALCULATION == true ? '1' : '0')
+    data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
+    data['IS_INSTRUCTION_UPTO_MATURITY'] = (data.IS_INSTRUCTION_UPTO_MATURITY == true ? '1' : '0')
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
+    data['DORMANT_FLAG_APPLICABLE'] = (data.DORMANT_FLAG_APPLICABLE == true ? '1' : '0')
+    data['OVERDRAFT_INTEREST_APPLICABLE'] = (data.OVERDRAFT_INTEREST_APPLICABLE == true ? '1' : '0')
     this.savingschemeservice.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -538,8 +585,10 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngglacno=null
-    this.nginterestgl=null
+    this.ngglacno = null
+    this.nginterestgl = null
+    this.angForm.controls['S_PRODUCT_DAY_BASE'].reset()
+    this.angForm.controls['S_PRODUCT_DAY_BASE_END'].reset()
   }
   //Method for delete data
   delClickHandler(id: number) {

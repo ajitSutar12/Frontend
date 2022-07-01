@@ -86,8 +86,8 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   formSubmitted = false;
   //api 
   url = environment.base_url;
-  
-@ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -120,14 +120,14 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   //title select variables
   //Dropdown option variable
   acMaster: any
-  ngglacno:any=null
-  ngintglac:any=null
-  ngreceivableintac:any=null
-  ngpenalintac:any=null
-  ngrecblepenalintac:any=null
-  ngrecbleoverdueint:any=null
-  ngoutstandingintac:any=null
-  nginstallment:any=null
+  ngglacno: any = null
+  ngintglac: any = null
+  ngreceivableintac: any = null
+  ngpenalintac: any = null
+  ngrecblepenalintac: any = null
+  ngrecbleoverdueint: any = null
+  ngoutstandingintac: any = null
+  nginstallment: any = null
 
 
   installmentMethod: Array<IOption> = this.installmentMethodService.getCharacters();
@@ -150,7 +150,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
 
   //variable to get ID to update
   updateID: number = 0;
-  filterData={};
+  filterData = {};
   newbtnShow: boolean;
 
   constructor(public installmentMethodService: InstallmentMethodService,
@@ -208,7 +208,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       columns: [
         {
           title: 'Action',
-        
+
         },
         {
           title: 'Type',
@@ -227,31 +227,31 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
           data: 'S_SHNAME',
         },
         {
-          title: 'G.L. A/c No.',
+          title: 'GL Account Number',
           data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL A/c',
+          title: 'Interest GL Account',
           data: 'S_INT_ACNO',
         },
         {
-          title: 'Receivable Int. A/c',
+          title: 'Receivable Interest Account',
           data: 'S_RECBL_PYBL_INT_ACNO',
         },
         {
-          title: 'Penal Int. A/c',
+          title: 'Penal Interest Account',
           data: 'S_PENAL_ACNO',
         },
         {
-          title: 'Recble Penal Int. A/c',
+          title: 'Recble Penal Interest Account',
           data: 'S_RECBL_PENAL_ACNO',
         },
         {
-          title: 'Recble Overdue Int.',
+          title: 'Recble Overdue Interest',
           data: 'S_RECBL_ODUE_INT_ACNO',
         },
         {
-          title: 'Outstanding Int. A/c',
+          title: 'Outstanding Interest Account',
           data: 'S_OUTSTANDING_INT_ACNO',
         },
         // {
@@ -477,7 +477,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['LN'],
-      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(501),Validators.max(599)]],
+      S_APPL: ["", [Validators.required, Validators.pattern, Validators.min(501), Validators.max(599)]],
       S_NAME: ['', [Validators.pattern, Validators.required]],
       S_SHNAME: ['', [Validators.pattern, Validators.required]],
       S_GLACNO: ['', [Validators.required]],
@@ -487,39 +487,39 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       S_RECBL_PENAL_ACNO: [''],
       S_RECBL_ODUE_INT_ACNO: [''],
       S_OUTSTANDING_INT_ACNO: [''],
-      S_INT_APPLICABLE: [false],
-      POST_TO_INDIVIDUAL_AC: [false],
-      S_RECEIVABLE_INT_ALLOW: [false],
-      IS_INT_ON_RECINT: [false],
-      IS_INT_ON_OTHERAMT: [false],
-      IS_INTUPTODATE: [false],
-      IS_NO_POST_INT_AFT_OD: [false],
+      S_INT_APPLICABLE: [],
+      POST_TO_INDIVIDUAL_AC: [],
+      S_RECEIVABLE_INT_ALLOW: [],
+      IS_INT_ON_RECINT: [],
+      IS_INT_ON_OTHERAMT: [],
+      IS_INTUPTODATE: [],
+      IS_NO_POST_INT_AFT_OD: [],
       INTEREST_METHOD: [''],
       MIN_INT_LIMIT: ['', [Validators.pattern]],
-      S_PENAL_INT_APPLICABLE: [false],
-      IS_POST_PENAL_TO_AC: [false],
-      POST_PENALINT_IN_INTEREST: [false],
-      IS_REC_PENAL_APPL: [false],
-      IS_CAL_PENAL_AFTER_EXPIRY: [false],
+      S_PENAL_INT_APPLICABLE: [],
+      IS_POST_PENAL_TO_AC: [],
+      POST_PENALINT_IN_INTEREST: [],
+      IS_REC_PENAL_APPL: [],
+      IS_CAL_PENAL_AFTER_EXPIRY: [],
       S_PENAL_INT_RATE: ['', [Validators.pattern]],
       PENAL_METHOD: [''],
-      S_DUE_LIST_ALLOW: [false],
-      GRACE_PERIOD_APPLICABLE: [false],
-      MORATORIUM_APPLICABLE: [false],
-      STAND_INSTRUCTION_ALLOW: [false],
-      BALANCE_ADD_APPLICABLE: [false],
-      IS_UNSECURED_LOAN: [false],
-      IS_OVERDUE_CHARGES_APPLY: [false],
+      S_DUE_LIST_ALLOW: [],
+      GRACE_PERIOD_APPLICABLE: [],
+      MORATORIUM_APPLICABLE: [],
+      STAND_INSTRUCTION_ALLOW: [],
+      BALANCE_ADD_APPLICABLE: [],
+      IS_UNSECURED_LOAN: [],
+      IS_OVERDUE_CHARGES_APPLY: [],
       MAX_LOAN_LMT: ['', [Validators.pattern]],
       ROUNDOFF_FACTOR: ['', [Validators.pattern]],
       DEFAULT_LOAN_PERIOD: ['', [Validators.pattern]],
-      IS_LOAN_PERIOD_LOCK: [false],
+      IS_LOAN_PERIOD_LOCK: [],
       MIN_LOAN_PERIOD: ['', [Validators.pattern]],
       MAX_LOAN_PERIOD: ['', [Validators.pattern]],
       S_INSTTYPE: [''],
       INSTALLMENT_METHOD: [''],
       IS_OVERDUE_ON_INSTALLMENT: ['', [Validators.pattern, Validators.max(3)]],
-      IS_SHOW_INT_AS_RECINT_IFDUEBAL: [false],
+      IS_SHOW_INT_AS_RECINT_IFDUEBAL: [],
       MIN_DUE_INSTALLMENTS: ['', [Validators.pattern, Validators.maxLength]],
       IS_DEPO_LOAN: [''],
     });
@@ -542,39 +542,45 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       'S_RECBL_ODUE_INT_ACNO': formVal.S_RECBL_ODUE_INT_ACNO,
       'S_OUTSTANDING_INT_ACNO': formVal.S_OUTSTANDING_INT_ACNO,
       'IS_DEPO_LOAN': formVal.IS_DEPO_LOAN,
-      'S_INT_APPLICABLE': formVal.S_INT_APPLICABLE,
-      'POST_TO_INDIVIDUAL_AC': formVal.POST_TO_INDIVIDUAL_AC,
-      'S_RECEIVABLE_INT_ALLOW': formVal.S_RECEIVABLE_INT_ALLOW,
-      'IS_INT_ON_RECINT': formVal.IS_INT_ON_RECINT,
-      'IS_INT_ON_OTHERAMT': formVal.IS_INT_ON_OTHERAMT,
-      'IS_INTUPTODATE': formVal.IS_INTUPTODATE,
-      'IS_NO_POST_INT_AFT_OD': formVal.IS_NO_POST_INT_AFT_OD,
+      'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
+      'POST_TO_INDIVIDUAL_AC': (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
+      'S_RECEIVABLE_INT_ALLOW': (formVal.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0'),
+      'IS_INT_ON_RECINT': (formVal.IS_INT_ON_RECINT == true ? '1' : '0'),
+      'IS_INT_ON_OTHERAMT': (formVal.IS_INT_ON_OTHERAMT == true ? '1' : '0'),
+      'IS_INTUPTODATE': (formVal.IS_INTUPTODATE == true ? '1' : '0'),
+      'IS_NO_POST_INT_AFT_OD': (formVal.IS_NO_POST_INT_AFT_OD == true ? '1' : '0'),
+      'S_PENAL_INT_APPLICABLE': (formVal.S_PENAL_INT_APPLICABLE == true ? '1' : '0'),
+      'IS_POST_PENAL_TO_AC': (formVal.IS_POST_PENAL_TO_AC == true ? '1' : '0'),
+      'POST_PENALINT_IN_INTEREST': (formVal.POST_PENALINT_IN_INTEREST == true ? '1' : '0'),
+      'IS_REC_PENAL_APPL': (formVal.IS_REC_PENAL_APPL == true ? '1' : '0'),
+      'IS_CAL_PENAL_AFTER_EXPIRY': (formVal.IS_CAL_PENAL_AFTER_EXPIRY == true ? '1' : '0'),
+      'S_DUE_LIST_ALLOW': (formVal.S_DUE_LIST_ALLOW == true ? '1' : '0'),
+      'GRACE_PERIOD_APPLICABLE': (formVal.GRACE_PERIOD_APPLICABLE == true ? '1' : '0'),
+      'MORATORIUM_APPLICABLE': (formVal.MORATORIUM_APPLICABLE == true ? '1' : '0'),
+      'STAND_INSTRUCTION_ALLOW': (formVal.STAND_INSTRUCTION_ALLOW == true ? '1' : '0'),
+      'BALANCE_ADD_APPLICABLE': (formVal.BALANCE_ADD_APPLICABLE == true ? '1' : '0'),
+      'IS_UNSECURED_LOAN': (formVal.IS_UNSECURED_LOAN == true ? '1' : '0'),
+      'IS_OVERDUE_CHARGES_APPLY': (formVal.IS_OVERDUE_CHARGES_APPLY == true ? '1' : '0'),
+      'IS_LOAN_PERIOD_LOCK': (formVal.IS_LOAN_PERIOD_LOCK == true ? '1' : '0'),
+      'IS_SHOW_INT_AS_RECINT_IFDUEBAL': (formVal.IS_SHOW_INT_AS_RECINT_IFDUEBAL == true ? '1' : '0'),
+      'S_INSTTYPE': (formVal.S_INSTTYPE == true ? '1' : '0'),
+
       'INTEREST_METHOD': formVal.INTEREST_METHOD,
       'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT,
-      'S_PENAL_INT_APPLICABLE': formVal.S_PENAL_INT_APPLICABLE,
-      'IS_POST_PENAL_TO_AC': formVal.IS_POST_PENAL_TO_AC,
-      'POST_PENALINT_IN_INTEREST': formVal.POST_PENALINT_IN_INTEREST,
-      'IS_REC_PENAL_APPL': formVal.IS_REC_PENAL_APPL,
-      'IS_CAL_PENAL_AFTER_EXPIRY': formVal.IS_CAL_PENAL_AFTER_EXPIRY,
+
       'S_PENAL_INT_RATE': formVal.S_PENAL_INT_RATE,
       'PENAL_METHOD': formVal.PENAL_METHOD,
-      'S_DUE_LIST_ALLOW': formVal.S_DUE_LIST_ALLOW,
-      'GRACE_PERIOD_APPLICABLE': formVal.GRACE_PERIOD_APPLICABLE,
-      'MORATORIUM_APPLICABLE': formVal.MORATORIUM_APPLICABLE,
-      'STAND_INSTRUCTION_ALLOW': formVal.STAND_INSTRUCTION_ALLOW,
-      'BALANCE_ADD_APPLICABLE': formVal.BALANCE_ADD_APPLICABLE,
-      'IS_UNSECURED_LOAN': formVal.IS_UNSECURED_LOAN,
-      'IS_OVERDUE_CHARGES_APPLY': formVal.IS_OVERDUE_CHARGES_APPLY,
+
       'MAX_LOAN_LMT': formVal.MAX_LOAN_LMT,
       'ROUNDOFF_FACTOR': formVal.ROUNDOFF_FACTOR,
       'DEFAULT_LOAN_PERIOD': formVal.DEFAULT_LOAN_PERIOD,
-      'IS_LOAN_PERIOD_LOCK': formVal.IS_LOAN_PERIOD_LOCK,
+
       'MIN_LOAN_PERIOD': formVal.MIN_LOAN_PERIOD,
       'MAX_LOAN_PERIOD': formVal.MAX_LOAN_PERIOD,
-      'S_INSTTYPE': formVal.S_INSTTYPE,
+
       'INSTALLMENT_METHOD': formVal.INSTALLMENT_METHOD,
       'IS_OVERDUE_ON_INSTALLMENT': formVal.IS_OVERDUE_ON_INSTALLMENT,
-      'IS_SHOW_INT_AS_RECINT_IFDUEBAL': formVal.IS_SHOW_INT_AS_RECINT_IFDUEBAL,
+
       'MIN_DUE_INSTALLMENTS': formVal.MIN_DUE_INSTALLMENTS,
     }
     this.termLoanSchemeService.postData(dataToSend).subscribe(data1 => {
@@ -596,19 +602,19 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
-    
+
     this.newbtnShow = true;
     this.termLoanSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngglacno=Number(data.S_GLACNO)
-      this.ngintglac=Number(data.S_INT_ACNO)
-      this.ngreceivableintac=Number(data.S_RECBL_PYBL_INT_ACNO)
-      this.ngpenalintac=Number(data.S_PENAL_ACNO)
-      this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
-      this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
-      this.ngoutstandingintac=Number(data.S_OUTSTANDING_INT_ACNO)
-      this.nginstallment=data.INSTALLMENT_METHOD
-      
+      this.ngglacno = Number(data.S_GLACNO)
+      this.ngintglac = Number(data.S_INT_ACNO)
+      this.ngreceivableintac = Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngpenalintac = Number(data.S_PENAL_ACNO)
+      this.ngrecblepenalintac = Number(data.S_RECBL_PENAL_ACNO)
+      this.ngrecbleoverdueint = Number(data.S_RECBL_ODUE_INT_ACNO)
+      this.ngoutstandingintac = Number(data.S_OUTSTANDING_INT_ACNO)
+      this.nginstallment = data.INSTALLMENT_METHOD
+
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
@@ -622,42 +628,101 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         // 'S_RECBL_ODUE_INT_ACNO': data.S_RECBL_ODUE_INT_ACNO,
         // 'S_OUTSTANDING_INT_ACNO': data.S_OUTSTANDING_INT_ACNO,
         'IS_DEPO_LOAN': data.IS_DEPO_LOAN,
-        'S_INT_APPLICABLE': (data.S_INT_APPLICABLE=="true"?true:false),
-        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
-        'S_RECEIVABLE_INT_ALLOW': (data.S_RECEIVABLE_INT_ALLOW=="true"?true:false),
-        'IS_INT_ON_RECINT': (data.IS_INT_ON_RECINT=="true"?true:false),
-        'IS_INT_ON_OTHERAMT': (data.IS_INT_ON_OTHERAMT=="true"?true:false),
-        'IS_INTUPTODATE': (data.IS_INTUPTODATE=="true"?true:false),
-        'IS_NO_POST_INT_AFT_OD': (data.IS_NO_POST_INT_AFT_OD=="true"?true:false),
+        'S_INT_APPLICABLE': (data.S_INT_APPLICABLE == '1' ? true : false),
+        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC == '1' ? true : false),
+        'S_RECEIVABLE_INT_ALLOW': (data.S_RECEIVABLE_INT_ALLOW == '1' ? true : false),
+        'IS_INT_ON_RECINT': (data.IS_INT_ON_RECINT == '1' ? true : false),
+        'IS_INT_ON_OTHERAMT': (data.IS_INT_ON_OTHERAMT == '1' ? true : false),
+        'IS_INTUPTODATE': (data.IS_INTUPTODATE == '1' ? true : false),
+        'IS_NO_POST_INT_AFT_OD': (data.IS_NO_POST_INT_AFT_OD == '1' ? true : false),
         'INTEREST_METHOD': data.INTEREST_METHOD,
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-        'S_PENAL_INT_APPLICABLE': (data.S_PENAL_INT_APPLICABLE=="true"?true:false),
-        'IS_POST_PENAL_TO_AC': (data.IS_POST_PENAL_TO_AC=="true"?true:false),
-        'POST_PENALINT_IN_INTEREST': (data.POST_PENALINT_IN_INTEREST=="true"?true:false),
-        'IS_REC_PENAL_APPL': (data.IS_REC_PENAL_APPL=="true"?true:false),
-        'IS_CAL_PENAL_AFTER_EXPIRY': (data.IS_CAL_PENAL_AFTER_EXPIRY=="true"?true:false),
+        'S_PENAL_INT_APPLICABLE': (data.S_PENAL_INT_APPLICABLE == '1' ? true : false),
+        'IS_POST_PENAL_TO_AC': (data.IS_POST_PENAL_TO_AC == '1' ? true : false),
+        'POST_PENALINT_IN_INTEREST': (data.POST_PENALINT_IN_INTEREST == '1' ? true : false),
+        'IS_REC_PENAL_APPL': (data.IS_REC_PENAL_APPL == '1' ? true : false),
+        'IS_CAL_PENAL_AFTER_EXPIRY': (data.IS_CAL_PENAL_AFTER_EXPIRY == '1' ? true : false),
         'S_PENAL_INT_RATE': data.S_PENAL_INT_RATE,
         'PENAL_METHOD': data.PENAL_METHOD,
-        'S_DUE_LIST_ALLOW': (data.S_DUE_LIST_ALLOW=="true"?true:false),
-        'GRACE_PERIOD_APPLICABLE': (data.GRACE_PERIOD_APPLICABLE=="true"?true:false),
-        'MORATORIUM_APPLICABLE': data.MORATORIUM_APPLICABLE,
-        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
-        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
-        'IS_UNSECURED_LOAN': (data.IS_UNSECURED_LOAN=="true"?true:false),
-        'IS_OVERDUE_CHARGES_APPLY': (data.IS_OVERDUE_CHARGES_APPLY=="true"?true:false),
+        'S_DUE_LIST_ALLOW': (data.S_DUE_LIST_ALLOW == '1' ? true : false),
+        'GRACE_PERIOD_APPLICABLE': (data.GRACE_PERIOD_APPLICABLE == '1' ? true : false),
+        'MORATORIUM_APPLICABLE': (data.MORATORIUM_APPLICABLE == '1' ? true : false),
+        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE == '1' ? true : false),
+        'IS_UNSECURED_LOAN': (data.IS_UNSECURED_LOAN == '1' ? true : false),
+        'IS_OVERDUE_CHARGES_APPLY': (data.IS_OVERDUE_CHARGES_APPLY == '1' ? true : false),
         'MAX_LOAN_LMT': data.MAX_LOAN_LMT,
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
         'DEFAULT_LOAN_PERIOD': data.DEFAULT_LOAN_PERIOD,
-        'IS_LOAN_PERIOD_LOCK': (data.IS_LOAN_PERIOD_LOCK=="true"?true:false),
+        'IS_LOAN_PERIOD_LOCK': (data.IS_LOAN_PERIOD_LOCK == '1' ? true : false),
         'MIN_LOAN_PERIOD': data.MIN_LOAN_PERIOD,
         'MAX_LOAN_PERIOD': data.MAX_LOAN_PERIOD,
-        'S_INSTTYPE': data.S_INSTTYPE,
+        'S_INSTTYPE': (data.S_INSTTYPE == '1' ? true : false),
         // 'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
-        
+
         'IS_OVERDUE_ON_INSTALLMENT': data.IS_OVERDUE_ON_INSTALLMENT,
-        'IS_SHOW_INT_AS_RECINT_IFDUEBAL': data.IS_SHOW_INT_AS_RECINT_IFDUEBAL,
+        'IS_SHOW_INT_AS_RECINT_IFDUEBAL': (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL == '1' ? true : false),
         'MIN_DUE_INSTALLMENTS': data.MIN_DUE_INSTALLMENTS
       })
+
+      if (data.S_INT_APPLICABLE == '1') {
+        document.getElementById("POST_TO_INDIVIDUAL_AC").removeAttribute("disabled");
+        document.getElementById("S_RECEIVABLE_INT_ALLOW").removeAttribute("disabled");
+        document.getElementById("IS_INT_ON_RECINT").removeAttribute("disabled");
+        document.getElementById("IS_INT_ON_OTHERAMT").removeAttribute("disabled");
+        document.getElementById("IS_INTUPTODATE").removeAttribute("disabled");
+        document.getElementById("IS_NO_POST_INT_AFT_OD").removeAttribute("disabled");
+        document.getElementById("INTEREST_METHOD").removeAttribute("disabled");
+        document.getElementById("INTEREST_METHOD1").removeAttribute("disabled");
+        document.getElementById("INTEREST_METHOD2").removeAttribute("disabled");
+        document.getElementById("MIN_INT_LIMIT").removeAttribute("disabled");
+      }
+      else {
+        document.getElementById("POST_TO_INDIVIDUAL_AC").setAttribute("disabled", "true");
+        document.getElementById("S_RECEIVABLE_INT_ALLOW").setAttribute("disabled", "true");
+        document.getElementById("IS_INT_ON_RECINT").setAttribute("disabled", "true");
+        document.getElementById("IS_INT_ON_OTHERAMT").setAttribute("disabled", "true");
+        document.getElementById("IS_INTUPTODATE").setAttribute("disabled", "true");
+        document.getElementById("IS_NO_POST_INT_AFT_OD").setAttribute("disabled", "true");
+        document.getElementById("INTEREST_METHOD").setAttribute("disabled", "true");
+        document.getElementById("INTEREST_METHOD1").setAttribute("disabled", "true");
+        document.getElementById("INTEREST_METHOD2").setAttribute("disabled", "true");
+        document.getElementById("MIN_INT_LIMIT").setAttribute("disabled", "true");
+        this.angForm.controls.POST_TO_INDIVIDUAL_AC.reset();
+        this.angForm.controls.S_RECEIVABLE_INT_ALLOW.reset();
+        this.angForm.controls.IS_INT_ON_RECINT.reset();
+        this.angForm.controls.IS_INT_ON_OTHERAMT.reset();
+        this.angForm.controls.IS_INTUPTODATE.reset();
+        this.angForm.controls.IS_NO_POST_INT_AFT_OD.reset();
+        this.angForm.controls.INTEREST_METHOD.reset();
+        this.angForm.controls.MIN_INT_LIMIT.reset();
+      }
+
+      if (data.S_PENAL_INT_APPLICABLE == '1') {
+        document.getElementById("IS_POST_PENAL_TO_AC").removeAttribute("disabled");
+        document.getElementById("IS_REC_PENAL_APPL").removeAttribute("disabled");
+        document.getElementById("IS_CAL_PENAL_AFTER_EXPIRY").removeAttribute("disabled");
+        this.S_PENAL_ACNO = true;
+      }
+      else {
+        document.getElementById("IS_POST_PENAL_TO_AC").setAttribute("disabled", "true");
+        document.getElementById("IS_REC_PENAL_APPL").setAttribute("disabled", "true");
+        document.getElementById("IS_CAL_PENAL_AFTER_EXPIRY").setAttribute("disabled", "true");
+        document.getElementById("POST_PENALINT_IN_INTEREST").setAttribute("disabled", "true");
+        this.S_PENAL_ACNO = false;
+        this.angForm.controls.IS_POST_PENAL_TO_AC.reset();
+        this.angForm.controls.IS_REC_PENAL_APPL.reset();
+        this.angForm.controls.IS_CAL_PENAL_AFTER_EXPIRY.reset();
+        this.angForm.controls.POST_PENALINT_IN_INTEREST.reset();
+      }
+
+      if (data.IS_POST_PENAL_TO_AC == '1') {
+        document.getElementById("POST_PENALINT_IN_INTEREST").removeAttribute("disabled");
+      }
+      else {
+        document.getElementById("POST_PENALINT_IN_INTEREST").setAttribute("disabled", "true");
+        this.angForm.controls.POST_PENALINT_IN_INTEREST.reset();
+      }
     })
   }
 
@@ -665,16 +730,39 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
+    data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
+    data['S_RECEIVABLE_INT_ALLOW'] = (data.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0')
+    data['IS_INT_ON_RECINT'] = (data.IS_INT_ON_RECINT == true ? '1' : '0')
+    data['IS_INT_ON_OTHERAMT'] = (data.IS_INT_ON_OTHERAMT == true ? '1' : '0')
+    data['IS_INTUPTODATE'] = (data.IS_INTUPTODATE == true ? '1' : '0')
+    data['IS_NO_POST_INT_AFT_OD'] = (data.IS_NO_POST_INT_AFT_OD == true ? '1' : '0')
+    data['S_PENAL_INT_APPLICABLE'] = (data.S_PENAL_INT_APPLICABLE == true ? '1' : '0')
+    data['IS_POST_PENAL_TO_AC'] = (data.IS_POST_PENAL_TO_AC == true ? '1' : '0')
+    data['POST_PENALINT_IN_INTEREST'] = (data.POST_PENALINT_IN_INTEREST == true ? '1' : '0')
+    data['IS_REC_PENAL_APPL'] = (data.IS_REC_PENAL_APPL == true ? '1' : '0')
+    data['IS_CAL_PENAL_AFTER_EXPIRY'] = (data.IS_CAL_PENAL_AFTER_EXPIRY == true ? '1' : '0')
+    data['S_DUE_LIST_ALLOW'] = (data.S_DUE_LIST_ALLOW == true ? '1' : '0')
+    data['GRACE_PERIOD_APPLICABLE'] = (data.GRACE_PERIOD_APPLICABLE == true ? '1' : '0')
+    data['MORATORIUM_APPLICABLE'] = (data.MORATORIUM_APPLICABLE == true ? '1' : '0')
+    data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
+    data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
+    data['IS_UNSECURED_LOAN'] = (data.IS_UNSECURED_LOAN == true ? '1' : '0')
+    data['IS_OVERDUE_CHARGES_APPLY'] = (data.IS_OVERDUE_CHARGES_APPLY == true ? '1' : '0')
+    data['IS_LOAN_PERIOD_LOCK'] = (data.IS_LOAN_PERIOD_LOCK == true ? '1' : '0')
+    data['IS_SHOW_INT_AS_RECINT_IFDUEBAL'] = (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL == true ? '1' : '0')
+    data['S_INSTTYPE'] = (data.S_INSTTYPE == true ? '1' : '0')
+
     this.termLoanSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      
-    this.newbtnShow = false;
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();
-    });
-     // this.rerender();
+
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
+      // this.rerender();
       this.resetForm();
     })
   }
@@ -686,14 +774,14 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   }
   resetForm() {
     this.createForm();
-    this.ngglacno=null
-    this.ngintglac=null
-    this.ngreceivableintac=null
-    this.ngpenalintac=null
-    this.ngrecblepenalintac=null
-    this.ngrecbleoverdueint=null
-    this.ngoutstandingintac=null
-    this.nginstallment=null
+    this.ngglacno = null
+    this.ngintglac = null
+    this.ngreceivableintac = null
+    this.ngpenalintac = null
+    this.ngrecblepenalintac = null
+    this.ngrecbleoverdueint = null
+    this.ngoutstandingintac = null
+    this.nginstallment = null
   }
 
   ngAfterViewInit(): void {
