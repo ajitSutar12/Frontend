@@ -223,7 +223,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           data: "DEPR_CATEGORY",
         },
         {
-          title: "Purchase Qty",
+          title: "Purchase Quantity",
           data: "PURCHASE_QUANTITY",
         },
         {
@@ -240,7 +240,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           data: "LAST_DEPR_DATE",
         },
         {
-          title: "GL A/C Number",
+          title: "GL Account Number",
           data: "GL_ACNO",
         },
       ],

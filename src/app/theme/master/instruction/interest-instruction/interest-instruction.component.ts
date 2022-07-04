@@ -610,7 +610,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       'TRAN_TYPE': formVal.TRAN_TYPE,
       'REVOKE_DATE': formVal.REVOKE_DATE,
       'ADV_NARRATION': formVal.ADV_NARRATION,
-      'DEFAULT_INTEREST_APPLICABLE': formVal.DEFAULT_INTEREST_APPLICABLE,
+      'DEFAULT_INTEREST_APPLICABLE': (formVal.DEFAULT_INTEREST_APPLICABLE == true ? '1' : '0'),
     };
     this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
     this.startDT == this.angForm.controls['FROM_DATE'].value ? dataToSend['FROM_DATE'] = this.startDT : dataToSend['FROM_DATE'] = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
@@ -750,7 +750,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         'TRAN_TYPE': data.TRAN_TYPE,
         'REVOKE_DATE': data.REVOKE_DATE,
         'ADV_NARRATION': data.ADV_NARRATION,
-        'DEFAULT_INTEREST_APPLICABLE': data.DEFAULT_INTEREST_APPLICABLE == '0' ? false : true,
+        'DEFAULT_INTEREST_APPLICABLE': (data.DEFAULT_INTEREST_APPLICABLE == '1' ? true : false),
       })
     })
     this.angForm.controls['LAST_EXEC_DATE'].enable()
@@ -766,6 +766,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     let startDate
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['DEFAULT_INTEREST_APPLICABLE'] = (data.DEFAULT_INTEREST_APPLICABLE == true ? '1' : '0')
     if (this.updatecheckdata.INSTRUCTION_DATE != data.INSTRUCTION_DATE) {
       (data.INSTRUCTION_DATE == 'Invalid date' || data.INSTRUCTION_DATE == '' || data.INSTRUCTION_DATE == null) ? (fromdate = '', data['INSTRUCTION_DATE'] = fromdate) : (fromdate = data.INSTRUCTION_DATE, data['INSTRUCTION_DATE'] = moment(fromdate).format('DD/MM/YYYY'))
     }

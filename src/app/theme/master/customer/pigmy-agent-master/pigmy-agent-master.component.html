@@ -969,8 +969,8 @@
                                             {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
                                         <td [ngClass]="data.AC_NAME  === '' ? 'td_center' : 'td_left'">
                                             {{ data.AC_NAME === "" ? "-" : data.AC_NAME }} </td>
-                                        <td [ngClass]="data.PIGMY_ACTYPE === '' ? 'td_center' : 'td_left'">
-                                            {{data.PIGMY_ACTYPE === ''? '-' : data.PIGMY_ACTYPE}}</td>
+                                        <td [ngClass]="data.PGDPMaster?.S_APPL === '' ? 'td_center' : 'td_left'">
+                                            {{data.PGDPMaster?.S_APPL === ''? '-' : data.PGDPMaster?.S_APPL}}</td>
                                         <td class="td_right"
                                             [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
                                             {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>

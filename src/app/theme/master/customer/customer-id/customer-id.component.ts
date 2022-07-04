@@ -267,7 +267,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "AC_NO",
         },
         {
-          title: "Member No",
+          title: "Member Number",
           data: "AC_MEMBNO",
         },
         {
@@ -292,11 +292,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "AC_RISKCATG",
         },
         {
-          title: "Adhar Card No.",
+          title: "Adhar Card Number",
           data: "AC_ADHARNO",
         },
         {
-          title: "PAN No.",
+          title: "PAN Number",
           data: "AC_PANNO",
         },
         {
@@ -440,10 +440,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_PHONE_OFFICE: ["", [Validators.pattern]],
       AC_EMAILID: ["", [Validators.pattern]],
       TDSDOCUMNET: [""],
-      AC_IS_RECOVERY: [false],
-      TDS_REQUIRED: [false],
-      SMS_REQUIRED: [false],
-      IS_KYC_RECEIVED: [false],
+      AC_IS_RECOVERY: [],
+      TDS_REQUIRED: [],
+      SMS_REQUIRED: [],
+      IS_KYC_RECEIVED: [],
       FIN_YEAR: [""],
       SUBMIT_DATE: [""],
       FORM_TYPE: [""],
@@ -489,10 +489,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_PHONE_OFFICE': formVal.AC_PHONE_OFFICE,
         'AC_EMAILID': formVal.AC_EMAILID,
         'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-        'TDS_REQUIRED': formVal.TDS_REQUIRED,
-        'SMS_REQUIRED': formVal.SMS_REQUIRED,
-        'IS_KYC_RECEIVED': formVal.IS_KYC_RECEIVED,
-        'TDSDOCUMNET': formVal.TDSDOCUMNET,
+        'TDS_REQUIRED': (formVal.TDS_REQUIRED == true ? '1' : '0'),
+        'SMS_REQUIRED': (formVal.SMS_REQUIRED == true ? '1' : '0'),
+        'IS_KYC_RECEIVED': (formVal.IS_KYC_RECEIVED == true ? '1' : '0'),
+        'TDSDOCUMNET': (formVal.TDSDOCUMNET == true ? '1' : '0'),
         'AC_HONO': formVal.AC_HONO,
         'AC_WARD': formVal.AC_WARD,
         'AC_ADDR': formVal.AC_ADDR,
@@ -702,10 +702,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_PHONE_RES: data.AC_PHONE_RES,
           AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
           AC_EMAILID: data.AC_EMAILID,
-          TDSDOCUMNET: data.TDSDOCUMNET,
-          TDS_REQUIRED: data.TDS_REQUIRED,
-          SMS_REQUIRED: data.SMS_REQUIRED,
-          IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
+          TDSDOCUMNET: (data.TDSDOCUMNET == '1' ? true : false),
+          TDS_REQUIRED: (data.TDS_REQUIRED == '1' ? true : false),
+          SMS_REQUIRED: (data.SMS_REQUIRED == '1' ? true : false),
+          IS_KYC_RECEIVED: (data.IS_KYC_RECEIVED == '1' ? true : false),
           FORM_TYPE: data.tdsForm?.FORM_TYPE,
           TDS_RATE: data.tdsForm?.TDS_RATE,
           TDS_LIMIT: data.tdsForm?.TDS_LIMIT,
@@ -764,6 +764,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let sudate
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data['TDS_REQUIRED'] = (data.TDS_REQUIRED == true ? '1' : '0')
+    data['SMS_REQUIRED'] = (data.SMS_REQUIRED == true ? '1' : '0')
+    data['IS_KYC_RECEIVED'] = (data.IS_KYC_RECEIVED == true ? '1' : '0')
+    data['TDSDOCUMNET'] = (data.TDSDOCUMNET == true ? '1' : '0')
     data['Document'] = this.imageObject;
     data['F_NAME'] = this.fname.toUpperCase()
     data['L_NAME'] = this.lname.toUpperCase()

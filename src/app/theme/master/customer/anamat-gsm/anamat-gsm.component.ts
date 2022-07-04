@@ -415,7 +415,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_PIN: [''],
       BANKACNO: [''],
       AC_OPDATE: ['', [Validators.required]],
-      AC_IS_RECOVERY: [false],
+      AC_IS_RECOVERY: [],
       DEBIT: new FormControl('DEBIT'),
       AC_PARTICULAR: ['', [Validators.required, Validators.pattern]],
     });
@@ -449,7 +449,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         // AC_OPDATE: formVal.AC_OPDATE,
         AC_OPDATE: opdate,
         // 'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
-        AC_IS_RECOVERY: formVal.AC_IS_RECOVERY,
+        AC_IS_RECOVERY: (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
         DEBIT: formVal.DEBIT,
         AC_PARTICULAR: formVal.AC_PARTICULAR,
       };
@@ -509,7 +509,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_MEMBTYPE: data.AC_MEMBTYPE,
         AC_MEMBNO: data.AC_MEMBNO,
         AC_OPDATE: data.AC_OPDATE,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        AC_IS_RECOVERY: (data.AC_IS_RECOVERY == '1' ? true : false),
         DEBIT: data.DEBIT,
         AC_PARTICULAR: data.AC_PARTICULAR,
       });
@@ -523,17 +523,17 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     data["id"] = this.updateID;
     let opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
     data["AC_OPDATE"] = opdate;
-
-    this.anamatGSMService.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload();
+    data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0'),
+      this.anamatGSMService.updateData(data).subscribe(() => {
+        Swal.fire("Success!", "Record Updated Successfully !", "success");
+        this.showButton = true;
+        this.updateShow = false;
+        this.newbtnShow = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload();
+        });
+        this.resetForm();
       });
-      this.resetForm();
-    });
   }
 
   addNewData() {

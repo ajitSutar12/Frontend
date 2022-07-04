@@ -382,7 +382,8 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_EXPIRE_DATE"
                                                                         id="AC_EXPIRE_DATE" class="form-control"
-                                                                        required [(ngModel)]="ngexpiry" placeholder="dd/mm/yyyy"
+                                                                        required [(ngModel)]="ngexpiry"
+                                                                        placeholder="dd/mm/yyyy"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="AC_EXPIRE_DATE" disabled>
                                                                     <label for="AC_EXPIRE_DATE">Expiry Date<sub
@@ -827,7 +828,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="AC_COREG_NO">
-                                                                    <label for="AC_COREG_NO">No.</label>
+                                                                    <label for="AC_COREG_NO">Number</label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -889,7 +890,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="AC_RESO_NO">
-                                                                    <label for="AC_RESO_NO">No.</label>
+                                                                    <label for="AC_RESO_NO">Number</label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -1647,7 +1648,7 @@
                                                                                         disabled
                                                                                         formControlName="GAC_MEMBNO">
                                                                                     <label for="GAC_MEMBNO">Member
-                                                                                        No</label>
+                                                                                        Number</label>
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -1714,7 +1715,7 @@
                                                                                 <thead>
                                                                                     <td>Action</td>
                                                                                     <td>Customer Id</td>
-                                                                                    <td>Member no</td>
+                                                                                    <td>Member Number</td>
                                                                                     <td>Member Scheme</td>
                                                                                     <td>Full Name</td>
                                                                                     <td>Expiry Date</td>
@@ -2063,8 +2064,8 @@
                                                 (click)="editClickHandler(data.id)" placement="bottom"
                                                 ngbTooltip="Edit"></span>
                                         </td>
-                                        <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_TYPE === ''? '-' : data.AC_TYPE}}</td>
+                                        <td [ngClass]="data.LNCCMaster?.S_APPL === '' ? 'td_center' : 'td_right'">
+                                            {{data.LNCCMaster?.S_APPL === ''? '-' : data.LNCCMaster?.S_APPL}}</td>
                                         <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
                                             {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}
                                         </td>
@@ -2103,10 +2104,10 @@
                                             {{data.AC_INTRATE === ''? '-' : data.AC_INTRATE}}</td>
                                         <td [ngClass]="data.AC_INSTALLMENT === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_INSTALLMENT === ''? '-' : data.AC_INSTALLMENT}}</td>
-                                        <td [ngClass]="data.AC_AUTHORITY === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_AUTHORITY === ''? '-' : data.AC_AUTHORITY}}</td>
-                                        <td [ngClass]="data.AC_PURPOSE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_PURPOSE === ''? '-' : data.AC_PURPOSE}}</td>
+                                        <td [ngClass]="data.authority?.NAME === '' ? 'td_center' : 'td_right'">
+                                            {{data.authority?.NAME === ''? '-' : data.authority?.NAME}}</td>
+                                        <td [ngClass]="data.purpose?.NAME === '' ? 'td_center' : 'td_right'">
+                                            {{data.purpose?.NAME === ''? '-' : data.purpose?.NAME}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="cashCreditMaster?.length == 0">

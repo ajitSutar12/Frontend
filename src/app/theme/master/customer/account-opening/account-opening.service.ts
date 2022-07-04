@@ -35,5 +35,16 @@ export class InvestmentService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/investment/delete/' + id).pipe(catchError(this.handleError));
     }  
+
+    //approve master
+    approve(data: any): Observable<any> {
+        return this.http.post(this.url + '/investment/approve', data).pipe(catchError(this.handleError));
+    }
+
+
+    //reject master
+    reject(data: any): Observable<any> {
+        return this.http.post(this.url + '/investment/reject', data).pipe(catchError(this.handleError));
+    }
 }
 

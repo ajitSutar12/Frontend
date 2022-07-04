@@ -167,7 +167,7 @@ export class MasterInvestmentsComponent implements OnInit {
           data: 'INVEST_BRANCH'
         },
         {
-          title: 'A/c Open Date',
+          title: 'Account Open Date',
           data: 'AC_OPDATE'
         },
         {
@@ -179,7 +179,7 @@ export class MasterInvestmentsComponent implements OnInit {
           data: 'AC_EXPDT'
         },
         {
-          title: 'Receipt No.',
+          title: 'Receipt Number',
           data: 'AC_REF_RECEIPTNO'
         },
         {
@@ -195,10 +195,10 @@ export class MasterInvestmentsComponent implements OnInit {
           title: 'Maturity Amount',
           data: 'AC_MATUAMT'
         },
-        {
-          title: 'Account Closed Date',
-          data: 'AC_CLOSEDT'
-        },
+        // {
+        //   title: 'Account Closed Date',
+        //   data: 'AC_CLOSEDT'
+        // },
       ],
       dom: 'Blrtip',
     };

@@ -162,6 +162,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
             dataTableParameters
           ).subscribe(resp => {
             this.investmentMaster = resp.data;
+            console.log('this.investmentMaster', this.investmentMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -198,7 +199,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
           data: 'INVEST_BRANCH'
         },
         {
-          title: 'A/c Open Date',
+          title: 'Account Open Date',
           data: 'AC_OPDATE'
         },
         {
@@ -210,7 +211,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
           data: 'AC_EXPDT'
         },
         {
-          title: 'Receipt No.',
+          title: 'Receipt Number',
           data: 'AC_REF_RECEIPTNO'
         },
         {
@@ -226,10 +227,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
           title: 'Maturity Amount',
           data: 'AC_MATUAMT'
         },
-        // {
-        //   title: 'Account Closed Date',
-        //   data: 'AC_CLOSEDT'
-        // },
+       
       ],
       dom: 'Blrtip',
     };
@@ -307,15 +305,16 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     this.investmentService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-     
-     
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+
+
     }, (error) => {
       console.log(error)
     })
-
+    this.ngBank = null
+    this.addNewData()
     //To clear form
     this.resetForm();
   }
@@ -414,7 +413,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      
+
       this.resetForm();
     })
   }

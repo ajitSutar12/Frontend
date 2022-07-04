@@ -401,6 +401,7 @@ export class CashCreditMasterComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.cashCreditMaster = resp.data;
+            console.log('this.cashCreditMaster', this.cashCreditMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -590,7 +591,7 @@ export class CashCreditMasterComponent implements OnInit {
       AC_OPDATE: ['', [Validators.required]],
       AC_OPEN_OLD_DATE: [''],
       AC_BIRTH_DT: [''],
-      AC_IS_RECOVERY: [false],
+      AC_IS_RECOVERY: [],
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
       REF_ACNO: [''],
@@ -717,7 +718,7 @@ export class CashCreditMasterComponent implements OnInit {
         'AC_OPDATE': temdate,
         'AC_OPEN_OLD_DATE': (formVal.AC_OPEN_OLD_DATE == '' || formVal.AC_OPEN_OLD_DATE == 'Invalid date' || formVal.AC_OPEN_OLD_DATE == null || formVal.AC_OPEN_OLD_DATE == undefined) ? redate = '' : redate = moment(formVal.AC_OPEN_OLD_DATE).format('DD/MM/YYYY'),
         'REF_ACNO': formVal.REF_ACNO,
-        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'AC_IS_RECOVERY': (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
         'AC_INTCATA': formVal.AC_INTCATA,
         'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
         'AC_SANCTION_DATE': (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date') ? sanctiondate = '' : sanctiondate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'), 'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
@@ -747,7 +748,7 @@ export class CashCreditMasterComponent implements OnInit {
         'AC_RESO_NO': formVal.AC_RESO_NO,
         'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resodate = '' : resodate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
         AC_ADDFLAG: formVal.AC_ADDFLAG,
-        'IS_WEAKER': formVal.IS_WEAKER,
+        'IS_WEAKER': (formVal.IS_WEAKER == true ? '1' : '0'),
         AC_ADDTYPE: this.addType,
         AC_THONO: formVal.AC_THONO,
         AC_TWARD: formVal.AC_TWARD,
@@ -922,13 +923,13 @@ export class CashCreditMasterComponent implements OnInit {
           'BANKACNO': data.BANKACNO,
           AC_NO: data.AC_NO,
           AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-          AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+          AC_IS_RECOVERY: (data.AC_IS_RECOVERY == '1' ? true : false),
           REF_ACNO: data.REF_ACNO,
           AC_MONTHS: data.AC_MONTHS,
           AC_INSTALLMENT: data.AC_INSTALLMENT,
           AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
           AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
-          IS_WEAKER: data.IS_WEAKER,
+          IS_WEAKER: (data.IS_WEAKER == '1' ? true : false),
           AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
           AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
           AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
@@ -974,6 +975,8 @@ export class CashCreditMasterComponent implements OnInit {
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
+    data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
+    data['IS_WEAKER'] = (data.IS_WEAKER == true ? '1' : '0')
 
     let date
     let opdate

@@ -89,6 +89,8 @@ export class CentralisedPassingComponent implements OnInit {
         this.voucher = data.voucherPassing
         this.batch_voucher = data.batchVoucherPassing
         this.multi_voucher = data.multiVoucherPassing
+        this.dead_stock_master = data.deadstockmasterCount
+
       })
     }));
   }

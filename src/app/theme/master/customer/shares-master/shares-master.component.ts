@@ -659,7 +659,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_SBNO: ['', [Validators.pattern]],
       AC_RESNO: ['', [Validators.required, Validators.pattern]],
       AC_RESDT: ['', [Validators.required]],
-      AC_IS_RECOVERY: [false],
+      AC_IS_RECOVERY: [],
       AC_INSTALLMENT: ['', [Validators.pattern]],
       REF_ACNO: ['', [Validators.pattern]],
       AC_NARR: ['', [Validators.pattern]],
@@ -741,7 +741,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_NAME': formVal.AC_NAME,
         'AC_CATG': parseInt(formVal.AC_CATG),
         'EMP_NO': formVal.EMP_NO,
-        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'AC_IS_RECOVERY': (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
         'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
         'AC_JOIN_DATE': (formVal.AC_JOIN_DATE == '' || formVal.AC_JOIN_DATE == 'Invalid date' || formVal.AC_JOIN_DATE == null || formVal.AC_JOIN_DATE == undefined) ? joindate = '' : joindate = moment(formVal.AC_JOIN_DATE).format('DD/MM/YYYY'),
         'AC_OPDATE': temdate,
@@ -966,7 +966,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           'AC_SBNO': data.AC_SBNO,
           'AC_RESNO': data.AC_RESNO,
           'AC_RESDT': (data.AC_RESDT == 'Invalid date' || data.AC_RESDT == '' || data.AC_RESDT == null) ? resdate = '' : resdate = data.AC_RESDT,
-          'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
+          'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
           'AC_INSTALLMENT': data.AC_INSTALLMENT,
           'REF_ACNO': data.REF_ACNO,
           'AC_NARR': data.AC_NARR,
@@ -1003,6 +1003,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_TYPE'] = this.schemeCode
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
+    data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == '1' ? true : false)
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {

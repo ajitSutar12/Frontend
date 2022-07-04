@@ -129,7 +129,7 @@ export class MasterDeadStockComponent implements OnInit {
         this.mySubscription = interval(1000).subscribe((x => {
           this.http
             .post<DataTableResponse>(
-              this.url + "/dead-stock-master",
+              this.url + "/dead-stock-master/passing",
               dataTableParameters
             )
             .subscribe((resp) => {
@@ -145,14 +145,6 @@ export class MasterDeadStockComponent implements OnInit {
       columns: [
         {
           title: "Action",
-          // render: function (data: any, type: any, full: any) {
-          //   return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          // },
-        },
-
-        {
-          title: "Item Type",
-          data: "ITEM_TYPE",
         },
         {
           title: "Item Code",
@@ -163,59 +155,38 @@ export class MasterDeadStockComponent implements OnInit {
           data: "ITEM_NAME",
         },
         {
-          title: "Purchase Date",
-          data: "PURCHASE_DATE",
-        },
-        {
-          title: "Depr Category",
-          data: "DEPR_CATEGORY",
-        },
-        {
-          title: "Op.Balance Date",
-          data: "OP_BAL_DATE",
-        },
-        {
           title: "SupplierName",
           data: "SUPPLIER_NAME",
         },
         {
-          title: "Opening Amount",
-          data: "OP_BALANCE",
+          title: "Purchase Date",
+          data: "PURCHASE_DATE",
         },
         {
-          title: "Quantity",
-          data: "OP_QUANTITY",
+          title: "Depreciation Category",
+          data: "DEPR_CATEGORY",
         },
-
         {
-          title: "PURCHASE QUANTITY",
-          data: "PURCHASE_OP_QUANTITY",
+          title: "Purchase Quantity",
+          data: "PURCHASE_QUANTITY",
         },
         {
           title: "Purchase Rate",
           data: "PURCHASE_RATE",
         },
-        {
-          title: "Purchase Qty",
-          data: "PURCHASE_QUANTITY",
-        },
+
         {
           title: "Purchase Value",
           data: "PURCHASE_VALUE",
         },
-
         {
           title: "Last Depreciation Date",
           data: "LAST_DEPR_DATE",
         },
         {
-          title: "GL A/C No",
+          title: "GL Account Number",
           data: "GL_ACNO",
         },
-        // {
-        //    title: 'Total Records',
-        //    data: 'TotalRecords'
-        //  },
       ],
       dom: "Blrtip",
     };

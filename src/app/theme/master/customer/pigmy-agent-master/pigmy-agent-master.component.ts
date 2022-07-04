@@ -238,6 +238,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
             dataTableParameters
           ).subscribe(resp => {
             this.pigmyAgentMaster = resp.data;
+            console.log('this.pigmyAgentMaster', this.pigmyAgentMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,

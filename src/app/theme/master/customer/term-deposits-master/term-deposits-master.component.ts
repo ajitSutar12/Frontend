@@ -594,7 +594,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //get maturity date
   getMaturityDate() {
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-      if (data.S_INTASON == true) {
+      if (data.S_INTASON == '1') {
         document.getElementById('AC_ASON_DATE').removeAttribute("disabled");
       }
       else {
@@ -631,7 +631,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         })
       }
 
-      if (data.PERIOD_APPLICABLE == true) {
+      if (data.PERIOD_APPLICABLE == '1') {
         document.getElementById('AC_MONTHS').removeAttribute("disabled");
         document.getElementById('AC_DAYS').removeAttribute("disabled");
       }
@@ -642,7 +642,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
 
-      if (data.RECEIPT_NO_INPUT == true) {
+      if (data.RECEIPT_NO_INPUT == '1') {
         document.getElementById('AC_REF_RECEIPTNO').removeAttribute("disabled");
       }
       else {
@@ -771,7 +771,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       }
 
-      if (data.UNIT_OF_PERIOD == "Both" && data.IS_AUTO_PERIOD_CALCULATE == true) {
+      if (data.UNIT_OF_PERIOD == "Both" && data.IS_AUTO_PERIOD_CALCULATE == '1') {
         if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH && this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
           Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset()
@@ -811,7 +811,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       var days = a.diff(b, 'days');
 
-      if (data.IS_AUTO_PERIOD_CALCULATE == true) {
+      if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
         this.angForm.patchValue({
           AC_MONTHS: months,
           AC_DAYS: days,
@@ -911,7 +911,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     } else {
       this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-        if (data.S_INTCALC_METHOD == true) {
+        if (data.S_INTCALC_METHOD == '1') {
           if (data.COMPOUND_INT_BASIS == "Yearly") {
             PeriodEndDate = EndDate
             VcumPeriod = 12
@@ -1118,7 +1118,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
-      
+
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
 
@@ -1250,7 +1250,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_CATG': formVal.AC_CATG,
         'AC_OPR_CODE': formVal.AC_OPR_CODE,
         'AC_INTCATA': formVal.AC_INTCATA,
-        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'AC_IS_RECOVERY': (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
         'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
         'AC_ASON_DATE': asondate,
         // 'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asondate = '' : asondate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
@@ -1259,7 +1259,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         // 'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? maturitydate = '' : maturitydate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
         'AC_MATUAMT': formVal.AC_MATUAMT,
-        'IS_DISCOUNTED_INT_RATE': formVal.IS_DISCOUNTED_INT_RATE,
+        'IS_DISCOUNTED_INT_RATE': (formVal.IS_DISCOUNTED_INT_RATE == true ? '1' : '0'),
 
         //temp address 
         AC_ADDFLAG: formVal.AC_ADDFLAG,
@@ -1272,7 +1272,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_TCTCODE: formVal.AC_TCTCODE,
         AC_TPIN: formVal.AC_TPIN,
         //minor and introducer
-        'AC_MINOR': formVal.AC_MINOR,
+        'AC_MINOR': (formVal.AC_MINOR == true ? '1' : '0'),
         'AC_MBDATE': formVal.AC_MBDATE,
         'AC_GRDNAME': formVal.AC_GRDNAME,
         'AC_GRDRELE': formVal.AC_GRDRELE,
@@ -1330,7 +1330,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.newbtnShow = true;
 
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
-      
+
       this.updateID = data.id;
       this.updatecheckdata = data
       this.getCustomer(data.AC_CUSTID)
@@ -1358,13 +1358,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         // AC_INTCATA: data.AC_INTCATA,
         'AC_MONTHS': data.AC_MONTHS,
         'AC_SCHMAMT': data.AC_SCHMAMT,
-        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
+        'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
         'AC_REF_RECEIPTNO': data.AC_REF_RECEIPTNO,
         'AC_ASON_DATE': data.AC_ASON_DATE,
         'AC_MATUAMT': data.AC_MATUAMT,
-        'IS_DISCOUNTED_INT_RATE': data.IS_DISCOUNTED_INT_RATE,
+        'IS_DISCOUNTED_INT_RATE': (data.IS_DISCOUNTED_INT_RATE == '1' ? true : false),
         //minor and introducer
-        'AC_MINOR': data.AC_MINOR,
+        'AC_MINOR': (data.AC_MINOR == '1' ? true : false),
         'AC_MBDATE': data.AC_MBDATE,
         'AC_GRDNAME': data.AC_GRDNAME,
         'AC_GRDRELE': data.AC_GRDRELE,
@@ -1398,6 +1398,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
     data['id'] = this.updateID;
+    data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
+    data['IS_DISCOUNTED_INT_RATE'] = (data.IS_DISCOUNTED_INT_RATE == true ? '1' : '0')
+    data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
     // (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
     // (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),
 
@@ -2174,7 +2177,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {
       // this.recurringCompoundInterest()
-      if (data.IS_CAL_MATURITY_AMT != true) {
+      if (data.IS_CAL_MATURITY_AMT != '1') {
         this.setMaturityDate()
       }
       else {
@@ -2183,13 +2186,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "SimpleInterest") {
             this.simpleInterestCalculation()
           } else if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "CompountInterest") {
-            if (data.COMPOUND_INT_BASIS == "Monthly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+            if (data.COMPOUND_INT_BASIS == "Monthly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
-            } else if (data.COMPOUND_INT_BASIS == "Quarterly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+            } else if (data.COMPOUND_INT_BASIS == "Quarterly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 3;
-            } else if (data.COMPOUND_INT_BASIS == "Half Yearly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+            } else if (data.COMPOUND_INT_BASIS == "Half Yearly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 6;
-            } else if (data.COMPOUND_INT_BASIS == "Yearly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+            } else if (data.COMPOUND_INT_BASIS == "Yearly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 12;
             }
 
@@ -2249,7 +2252,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             this.angForm.patchValue({
               AC_MATUAMT: 0
             })
-          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "SimpleInterest") {
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "SimpleInterest") {
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
 
@@ -2272,7 +2275,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             this.angForm.patchValue({
               AC_MATUAMT: Maturity
             })
-          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "CompountInterest") {
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "CompountInterest") {
             var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 3;
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
@@ -2311,7 +2314,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
             } else {
               this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-                if (data.S_INTCALC_METHOD == true) {
+                if (data.S_INTCALC_METHOD == '1') {
                   if (data.COMPOUND_INT_BASIS == "Yearly") {
                     PeriodEndDate = EndDate
                     VcumPeriod = 12
@@ -2399,7 +2402,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             this.recurringSimpleInterest()
           } else if (data.S_INTCALTP == "MonthProductBase" && data.S_INTCALC_METHOD == "CompountInterest") {
             this.recurringCompoundInterest()
-          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "SimpleInterest") {
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "SimpleInterest") {
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
 
@@ -2421,7 +2424,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             this.angForm.patchValue({
               AC_MATUAMT: Maturity
             })
-          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "CompountInterest") {
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "CompountInterest") {
             this.recurringCompoundInterest()
           } else if (data.S_INTCALTP == "DaysProductBase" && data.S_INTCALC_METHOD == "SimpleInterest") {
             this.recurringSimpleInterest()

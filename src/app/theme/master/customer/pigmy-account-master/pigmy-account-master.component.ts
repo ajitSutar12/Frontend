@@ -499,7 +499,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       //joint ac
       JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
-      OPERATOR: [true],
+      OPERATOR: [],
 
     });
     let sysdate = new Date()
@@ -879,7 +879,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_TPIN: formVal.AC_TPIN,
 
         //minor and introducer
-        'AC_MINOR': formVal.AC_MINOR,
+        'AC_MINOR': (formVal.AC_MINOR == true ? '1' : '0'),
         'AC_MBDATE': formVal.AC_MBDATE,
         'AC_GRDNAME': formVal.AC_GRDNAME,
         'AC_GRDRELE': formVal.AC_GRDRELE,
@@ -888,7 +888,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_INTRACNO': formVal.AC_INTRACNO,
         'AC_INTRNAME': formVal.AC_INTRNAME,
         'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-        'PG_COMM_TYPE': formVal.PG_COMM_TYPE,
+        'PG_COMM_TYPE': (formVal.PG_COMM_TYPE == true ? '1' : '0'),
         //Nominee 
         'NomineeData': this.multiNominee,
         //Joint Account
@@ -1084,12 +1084,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           'AC_MONTHS': data.AC_MONTHS,
           'AC_SCHMAMT': data.AC_SCHMAMT,
           //minor and introducer
-          'AC_MINOR': data.AC_MINOR,
+          'AC_MINOR': (data.AC_MINOR == '1' ? true : false),
           'AC_MBDATE': data.AC_MBDATE,
           'AC_GRDNAME': data.AC_GRDNAME,
           'AC_GRDRELE': data.AC_GRDRELE,
           'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
-          'PG_COMM_TYPE': data.PG_COMM_TYPE,
+          'PG_COMM_TYPE': (data.PG_COMM_TYPE == '1' ? true : false),
           //nominee controls (NOMINEELINK table)
           'AC_NNAME': data.AC_NNAME,
           'AC_NRELA': data.AC_NRELA,
@@ -1124,6 +1124,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['id'] = this.updateID;
+    data['AC_MINOR']= (data.AC_MINOR == true ? '1' : '0')
+    data['PG_COMM_TYPE']= (data.PG_COMM_TYPE == true ? '1' : '0')
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
@@ -1482,7 +1484,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
-      OPERATOR: value,
+      OPERATOR:value,
     }
     if (formVal.AC_CUSTID != "") {
 

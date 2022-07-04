@@ -122,7 +122,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_OPDATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker>
-                                    <label for="AC_OPDATE">A/c Open Date<sub class="required"> * </sub></label>
+                                    <label for="AC_OPDATE">Account Open Date<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -314,7 +314,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="DatatableHideShow">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-block">

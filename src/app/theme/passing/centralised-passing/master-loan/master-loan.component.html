@@ -101,11 +101,12 @@
                                                             {{data.AC_INSTALLMENT === ''? '-' : data.AC_INSTALLMENT}}
                                                         </td>
                                                         <td
-                                                            [ngClass]="data.AC_AUTHORITY === '' ? 'td_center' : 'td_left'">
-                                                            {{data.AC_AUTHORITY === ''? '-' : data.AC_AUTHORITY}}</td>
-                                                        <td
-                                                            [ngClass]="data.AC_PURPOSE === '' ? 'td_center' : 'td_left'">
-                                                            {{data.AC_PURPOSE === ''? '-' : data.AC_PURPOSE}}</td>
+                                                        [ngClass]="data.authority?.NAME === '' ? 'td_center' : 'td_right'">
+                                                        {{data.authority?.NAME === ''? '-' : data.authority?.NAME}}
+                                                    </td>
+                                                    <td
+                                                        [ngClass]="data.purpose?.NAME === '' ? 'td_center' : 'td_right'">
+                                                        {{data.purpose?.NAME === ''? '-' : data.purpose?.NAME}}</td>
                                                     </tr>
                                                 </tbody>
                                                 <tbody *ngIf="termLoanMaster?.length == 0">
