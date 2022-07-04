@@ -76,7 +76,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        [ngClass]="{'form-submitted': formSubmitted}" [(ngModel)]="startDateT"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="FROM_DATE" bsDatepicker>
                                     <label for="FROM_DATE">Start From<sub class="required">*
@@ -152,7 +152,7 @@
                                         (change)="getDebitDeatils($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme">
                                         <ng-option *ngFor="let values of debitScheme" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="cashScheme">Scheme <sub class="required"> * </sub></label>
                                 </span>
@@ -218,7 +218,7 @@
                                         (change)="getCreditDetails($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                         <ng-option *ngFor="let values of allscheme" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="CR_ACTYPE">Scheme <sub class="required"> * </sub></label>
                                 </span>

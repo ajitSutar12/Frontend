@@ -81,7 +81,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
         return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
       });
       this.scheme = allscheme;
-      console.log(this.scheme)
     })
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -149,7 +148,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     this.npaEntryArray = []
     var memFrom = this.npaOpeningForm.controls['FROM_AC'].value
     var memTo = this.npaOpeningForm.controls['TO_AC'].value
-    if (this.npaOpeningForm.controls['FROM_AC'].value < this.npaOpeningForm.controls['TO_AC'].value) {
+    if (this.npaOpeningForm.controls['FROM_AC'].value <= this.npaOpeningForm.controls['TO_AC'].value) {
       this.showTable = true
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/term-loan-master/npaopening/' + this.mem).subscribe((data) => {
@@ -169,7 +168,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
 
   //filter object
   filterObject(ele, type) {
-    console.log(this.arrTable);
     let matchArray = new Array()
     this.arrTable = [];
     this.gridData.forEach(element => {
@@ -226,7 +224,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
         this.npaEntryArray.push(object)
       }
     }
-    console.log(this.npaEntryArray)
   }
 
   //push amount in npaEntryArray array
@@ -264,7 +261,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
         this.npaEntryArray.push(object)
       }
     }
-    console.log(this.npaEntryArray)
   }
 
   getDepositAmount(id, acno, AC_OP_TOTAL_DEPOSITAMT, AC_ACTDATE, OP_POSTED_INT, IS_DISPUTE_LOAN) {
@@ -302,7 +298,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
         this.npaEntryArray.push(object)
       }
     }
-    console.log(this.npaEntryArray)
   }
 
   checkDisputeFlag(id, acno, flag, AC_ACTDATE, OP_POSTED_INT, AC_OP_TOTAL_DEPOSITAMT) {
@@ -356,7 +351,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       const dataToSend = {
         'npaEntryArray': this.npaEntryArray
       };
-      console.log(dataToSend)
       this._npaService.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Updated Successfully !", "success");

@@ -59,9 +59,9 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   angForm: FormGroup;
 
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
+  // dtTrigger: Subject<any> = new Subject<any>();
 
-  dtExportButtonOptions: any = {};
+  // dtExportButtonOptions: any = {};
 
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -87,9 +87,9 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   ngBranchCode: any = null
 
   // For reloading angular datatable after CRUD operation
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
-  // dtTrigger: Subject<any> = new Subject();
+  // @ViewChild(DataTableDirective, { static: false })
+  // dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
   page: number;
   filterData = {};
 
@@ -149,11 +149,9 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       this.ngBranchCode = result.branch.id
     }
     this.dtOptions = {
-      // Declare the use of the extension in the dom parameter
-      pagingType: "full_numbers",
-      paging: true,
+      pagingType: 'full_numbers',
       pageLength: 10,
-      dom: 'Bfrtip',
+      dom: 'ftip'
     };
   }
 
@@ -281,10 +279,10 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     this.notingChargesArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
-    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
+    if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
       this.showTable = true
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
-      // this.dtTrigger.unsubscribe();
+      this.dtTrigger.unsubscribe();
       this.http.get(this.url + '/noting-charges/glacno/' + this.ngscheme).subscribe((data) => {
         this.S_GLACNO = data
       })
@@ -318,8 +316,6 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   }
   //filter object
   filterObject(ele, type) {
-    debugger
-    console.log(this.notingChargesArr);
     let matchArray = new Array()
     this.notingChargesArr = [];
     this.gridData.forEach(element => {
@@ -328,10 +324,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       }
       else if (JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())) {
         this.notingChargesArr.push(element);
-
       }
-
-
     });
   }
   //get charge amount to all account number
@@ -539,27 +532,6 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngAfterViewInit(): void {
-
-    this.dtTrigger.next();
-    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-    //   $('#notingtable tfoot tr').appendTo('#notingtable thead');
-    //   dtInstance.columns().every(function () {
-    //     const that = this;
-    //     $('input', this.footer()).on('keyup change', function () {
-    //       if (this['value'] != '') {
-    //         that
-    //           .search(this['value'])
-    //           .draw();
-    //       } else {
-    //         that
-    //           .search(this['value'])
-    //           .draw();
-    //       }
-    //     });
-    //   });
-    // });
-  }
 
   updateData() {
     let notingdate

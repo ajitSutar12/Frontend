@@ -76,7 +76,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
 
   //variable to get ID to update
   updateID: number = 0;
-
+  startDT
   //filter variable
   filterData = {};
   //variables for pagination
@@ -226,7 +226,6 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       dom: 'Blrtip',
     };
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      console.log(data)
       var allscheme = data.filter(function (scheme) {
         return (scheme.name != 'AG' && scheme.name != 'CA' && scheme.name != 'IV' && scheme.name != 'GS' && scheme.name != 'DS');
       });
@@ -265,10 +264,11 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       isAutoBalance: ['',],
     });
   }
-
+  instructionDate
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      this.instructionDate = data.CURRENT_DATE
       this.angForm.patchValue({
         INSTRUCTION_DATE: data.CURRENT_DATE
       })
@@ -315,6 +315,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.angForm.controls['DAYS'].enable()
     }
     this.ngFrequency = null
+    this.startDT = this.angForm.controls['FROM_DATE'].value
   }
   //calculation for start date based on sepcific days
   fromDate() {
@@ -334,10 +335,19 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.angForm.patchValue({
       FROM_DATE: newDate
     })
+    this.startDT = this.angForm.controls['FROM_DATE'].value
   }
+  startDateT
+  endDate
   //calculation of next execution day based on frequency
   setNextExeDate(next_exe_day) {
-    let startDate = this.angForm.controls['FROM_DATE'].value
+    let startDate
+    if (this.startDT == this.startDateT) {
+      startDate = this.startDT
+    }
+    else {
+      startDate = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
+    }
     var startfull = []
     var formatfullDate = startDate;
     startfull = formatfullDate.split(' ');
@@ -430,6 +440,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
         TO_DATE: newDate
       })
     }
+    this.endDate = this.angForm.controls['TO_DATE'].value
   }
 
   //get account no according scheme
@@ -565,6 +576,14 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
         'PAYINT_AMOUNT': formVal.PAYINT_AMOUNT,
         'IS_AUTO_CUT_LNPGCOM': formVal.IS_AUTO_CUT_LNPGCOM,
       };
+      if (this.startDT == this.startDateT) {
+        dataToSend['FROM_DATE'] = this.startDT
+      }
+      else {
+        dataToSend['FROM_DATE'] = moment(formVal.FROM_DATE).format('DD/MM/YYYY')
+      }
+      this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
+      this.endDate == this.angForm.controls['TO_DATE'].value ? dataToSend['TO_DATE'] = this.instructionDate : dataToSend['TO_DATE'] = moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY')
       this._service.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -740,6 +759,8 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
+      this.angForm.controls['LAST_EXEC_DATE'].disable()
+      this.angForm.controls['REVOKE_DATE'].disable()
       this.resetForm();
     })
   }
@@ -791,10 +812,14 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.ngAccno = null
     this.crno = null
     this.ngCrAccno = null
+    this.angForm.controls['LAST_EXEC_DATE'].disable()
+    this.angForm.controls['REVOKE_DATE'].disable()
   }
 
   //reset function while update
   addNewData() {
+    this.angForm.controls['LAST_EXEC_DATE'].disable()
+    this.angForm.controls['REVOKE_DATE'].disable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;

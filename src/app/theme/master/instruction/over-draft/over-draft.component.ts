@@ -183,7 +183,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       AC_TYPE: ["", [Validators.required]],
       AC_NO: ["", [Validators.required]],
-      AC_SODAMT: [""],
+      AC_SODAMT: ["", [Validators.pattern]],
+      radioOverdraft: ["PeriodicallyOverDraft", [Validators.required]],
       AC_ODAMT: ["", [Validators.pattern,]],
       AC_ODDAYS: ["", [Validators.pattern,]],
       AC_ODDATE: ["", []],
@@ -206,6 +207,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this._overdraft.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.PeriodicallyOverDraftTrue = true
+        this.TemporaryOverDraftTrue = false
         this.formSubmitted = false;
       },
       (error) => {
@@ -226,7 +229,17 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.updatecheckdata = data
       this.updatecheckdata = data
       this.updateID = data.id;
-      this.angForm.setValue({
+      if (data.AC_SODAMT != '' && data.AC_SODAMT != null) {
+        this.angForm.patchValue({
+          radioOverdraft: 'PeriodicallyOverDraft'
+        })
+      }
+      else {
+        this.angForm.patchValue({
+          radioOverdraft: 'TemporaryOverDraft'
+        })
+      }
+      this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
         AC_SODAMT: data.AC_SODAMT,
@@ -266,8 +279,11 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_SODAMT: '',
       AC_ODDAYS: '',
       AC_ODDATE: '',
+      radioOverdraft: 'PeriodicallyOverDraft'
     })
+    this.OpenLink(1)
     this.ngscheme = null
+    this.schemeACNo = []
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
@@ -316,7 +332,18 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_ODDAYS: data[0]?.AC_ODDAYS,
           AC_ODDATE: data[0]?.AC_ODDATE,
         })
-        if (data[0].AC_SODAMT == 'PeriodicallyOverDraft') {
+        if (data[0].AC_SODAMT != '' && data[0].AC_SODAMT != null) {
+          this.angForm.patchValue({
+            radioOverdraft: 'PeriodicallyOverDraft'
+          })
+        }
+        else {
+          this.angForm.patchValue({
+            radioOverdraft: 'TemporaryOverDraft'
+          })
+        }
+
+        if (data[0].AC_SODAMT != '' && data[0].AC_SODAMT != null) {
           this.PeriodicallyOverDraftTrue = true
           this.TemporaryOverDraftTrue = false
         }
@@ -331,6 +358,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_SODAMT: '',
           AC_ODDAYS: '',
           AC_ODDATE: '',
+          radioOverdraft: ''
         })
         this.PeriodicallyOverDraftTrue = false
         this.TemporaryOverDraftTrue = false
@@ -406,9 +434,10 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.PeriodicallyOverDraftTrue = true;
       this.periodoverdraft = true
       this.TemporaryOverDraftTrue = false;
+      this.angForm.controls['AC_ODAMT'].reset()
     }
     if (val == 2) {
-      this.angForm.controls['AC_ODAMT'].reset()
+      this.angForm.controls['AC_SODAMT'].reset()
       this.PeriodicallyOverDraftTrue = false;
       this.periodoverdraft = false
       this.TemporaryOverDraftTrue = true;

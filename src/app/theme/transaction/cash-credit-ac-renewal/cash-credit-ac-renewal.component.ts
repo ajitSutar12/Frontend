@@ -181,9 +181,11 @@ export class CashCreditAcRenewalComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
     }
+    this.getSystemParaDate()
   }
   addNewData() {
     this.showButton = true;
+    this.newbtnShow = false
     this.resetForm();
   }
   resetForm() {
@@ -216,7 +218,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
   getAccountNumber() {
     let obj = [this.ngscheme, this.getschemename, this.ngBranchCode]
     this.http.get(this.url + '/cash-credit-ac-renewal/accounts/' + obj).subscribe((data) => {
-      console.log(data)
       this.schemeACNo = data;
     })
   }
@@ -275,6 +276,54 @@ export class CashCreditAcRenewalComponent implements OnInit {
     })
   }
 
+  getEditAccountDetails() {
+    this.http.get(this.url + '/cash-credit-ac-renewal/details/' + this.bankacno).subscribe((data) => {
+      this.angForm.patchValue({
+        AC_OPDATE: data[0].AC_OPDATE,
+        OLDAC_MONTHS: data[0].AC_MONTHS,
+        OLDAC_EXPIRE_DATE: data[0].AC_EXPIRE_DATE,
+        OLDAC_SANCTION_AMOUNT: data[0].AC_SANCTION_AMOUNT,
+        OLDAC_SANCTION_DATE: data[0].AC_SANCTION_DATE,
+        OLDAC_SECURITY_AMT: data[0].AC_SECURITY_AMT,
+        OLDAC_DRAWPOWER_AMT: data[0].AC_DRAWPOWER_AMT,
+        OLDAC_INSTALLMENT: data[0].AC_INSTALLMENT,
+        AC_MONTHS: data[0].AC_MONTHS,
+        // AC_EXPIRE_DATE: data[0].AC_EXPIRE_DATE,
+        AC_SANCTION_AMOUNT: data[0].AC_SANCTION_AMOUNT,
+        AC_SANCTION_DATE: this.sysparaData.CURRENT_DATE,
+
+        AC_RESO_DATE: this.sysparaData.CURRENT_DATE,
+        EFFECT_DATE: this.sysparaData.CURRENT_DATE,
+        AC_SECURITY_AMT: data[0].AC_SECURITY_AMT,
+        AC_DRAWPOWER_AMT: data[0].AC_DRAWPOWER_AMT,
+        AC_INSTALLMENT: data[0].AC_INSTALLMENT,
+        LAST_INTDATE: data[0].AC_LINTEDT == null || data[0].AC_LINTEDT == '' ? data[0].AC_OPDATE : data[0].AC_LINTEDT
+      })
+      this.int_category = Number(data[0].AC_INTCATA)
+
+      var TranDT = moment(data[0].AC_EXPIRE_DATE, "DD/MM/YYYY");
+      var DivTODate = moment(TranDT, 'DD/MM/YYYY').add(data[0].AC_MONTHS, 'M').format('DD/MM/YYYY')
+      this.expiryDate = DivTODate
+      this.angForm.patchValue({
+        AC_EXPIRE_DATE: DivTODate
+      })
+    })
+    this.http.get(this.url + '/cash-credit-ac-renewal/renewCount/' + this.bankacno).subscribe((data) => {
+      this.angForm.patchValue({
+        AC_RENEWAL_COUNTER: data
+      })
+
+    })
+    let mem = [this.AC_NO, this.ngBranchCode, this.getschemename, this.ngscheme]
+    this.http.get(this.url + '/cash-credit-ac-renewal/interest/' + mem).subscribe((data) => {
+      this.angForm.patchValue({
+        INT_RATE: data[0]?.INT_RATE,
+        PENAL_INT_RATE: data[0]?.PENAL_INT_RATE
+      })
+    })
+  }
+
+
   getExpiryDate() {
     var TranDT = moment(this.angForm.controls['OLDAC_EXPIRE_DATE'].value, "DD/MM/YYYY");
     var DivTODate = moment(TranDT, 'DD/MM/YYYY').add(this.angForm.controls['AC_MONTHS'].value, 'M').format('DD/MM/YYYY')
@@ -297,7 +346,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
   submit() {
     this.formSubmitted = true
     if (this.angForm.valid) {
-      console.log(this.angForm.valid)
       const formVal = this.angForm.value;
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
@@ -378,7 +426,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this._service.getFormData(id).subscribe((data) => {
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
-        this.updateShow = true;
+        this.updateShow = false;
         this.newbtnShow = true;
       } else {
         this.showButton = false;
@@ -386,11 +434,20 @@ export class CashCreditAcRenewalComponent implements OnInit {
         this.newbtnShow = true;
       }
       this.updateID = data.id;
+      this.ngscheme = data.AC_TYPE
+      this.ngBranchCode = data.BRANCH_CODE
+      this.getschemename = data.AC_ACNOTYPE
+      this.getAccountNumber()
+      this.ngacno = data.LNMASTERID
+      this.AC_NO = data.Acc_NO
+      this.LNMASTERID = data.LNMASTERID
+      this.bankacno = data.AC_NO
+      this.getEditAccountDetails()
       this.angForm.patchValue({
-        AC_NO: data.AC_NO,
+        // AC_TYPE: data.AC_TYPE,
+        // AC_NO: data.AC_NO,
         BANKACNO: data.AC_NO,
         EFFECT_DATE: data.EFFECT_DATE,
-        AC_TYPE: data.AC_TYPE,
         BRANCH_CODE: data.BRANCH_CODE,
         INT_RATE: data.NEW_INTEREST_RATE,
         AC_MONTHS: data.NEW_MONTH,
@@ -429,7 +486,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
         'Cash Credit Account Renew approved successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
 
     }, err => {
@@ -451,7 +508,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
         'Cash Credit Account Renew rejected successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
     }, err => {
       console.log('something is wrong');

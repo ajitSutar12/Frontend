@@ -18,7 +18,7 @@
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme">
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
                                 </span>
@@ -38,7 +38,7 @@
                                         bindLabel="label" title="Compulsory Selection" (change)="getBankAcno($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
                                     <label for="AC_NO">Account No<sub class="required"> * </sub></label>
                                 </span>

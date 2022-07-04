@@ -253,7 +253,6 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.schemeCodeDropdownService.getTermDepositSchemeRD().pipe(first()).subscribe(TDdata => {
       this.allscheme.push(TDdata)
     })
-
   }
   cashoption: boolean = false
   transferoption: boolean = false
@@ -272,10 +271,11 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.angForm.patchValue({
         CR_PARTICULARS: '',
         CR_AC_NO: '',
-        ADV_NARRATION: ''
+        ADV_NARRATION: '',
+        CR_ACTYPE: null
       })
       this.ngCrAccno = null
-      document.getElementById('cashScheme').setAttribute("required", "true")
+      // document.getElementById('cashScheme').setAttribute("required", "true")
     }
     else if (val == 2) {
       this.cashTrue = false;
@@ -285,6 +285,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.angForm.patchValue({
         DR_PARTICULARS: '',
         DR_AC_NO: '',
+        DR_ACTYPE: null
       })
       this.ngAccno = null
       if (this.transferTrue == true) {
@@ -299,10 +300,11 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.transferTrue = false;
     }
   }
-
+  instructionDate
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      this.instructionDate = data.CURRENT_DATE
       this.angForm.patchValue({
         INSTRUCTION_DATE: data.CURRENT_DATE
       })
@@ -324,6 +326,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         break;
     }
   }
+  startDT
   //calculation of start day based on execution day
   setStartDate(exe_day) {
     this.angForm.patchValue({
@@ -364,6 +367,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.angForm.controls['DAYS'].enable()
     }
     this.ngFrequency = null
+    this.startDT = this.angForm.controls['FROM_DATE'].value
   }
   //calculation for start date based on sepcific days
   fromDate() {
@@ -383,10 +387,19 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.angForm.patchValue({
       FROM_DATE: newDate
     })
+    this.startDT = this.angForm.controls['FROM_DATE'].value
   }
+  TODate
   //calculation of next execution day based on frequency
   setNextExeDate(next_exe_day) {
-    let startDate = this.angForm.controls['FROM_DATE'].value
+    // let startDate = this.angForm.controls['FROM_DATE'].value
+    let startDate
+    if (this.startDT == this.angForm.controls['FROM_DATE'].value) {
+      startDate = this.startDT
+    }
+    else {
+      startDate = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
+    }
     var startfull = []
     var formatfullDate = startDate;
     startfull = formatfullDate.split(' ');
@@ -479,6 +492,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         NEXT_EXE_DATE: newDate
       })
     }
+    this.TODate = this.angForm.controls['NEXT_EXE_DATE'].value
   }
 
   //get account no according scheme
@@ -548,24 +562,24 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   createForm() {
     this.getSystemParaDate()
     this.angForm = this.fb.group({
-      INSTRUCTION_NO: [''],
-      INSTRUCTION_DATE: [''],
+      INSTRUCTION_NO: [],
+      INSTRUCTION_DATE: [],
       EXECUTION_DAY: ['', [Validators.required]],
       DAYS: ['', [Validators.pattern]],
       FROM_DATE: ['', [Validators.required]],
-      NEXT_EXE_DATE: ['',],
-      DR_ACTYPE: ['',],
-      DR_AC_NO: ['',],
-      DR_PARTICULARS: [''],
-      CR_ACTYPE: ['',],
-      CR_AC_NO: ['',],
-      CR_PARTICULARS: ['',],
+      NEXT_EXE_DATE: [],
+      DR_ACTYPE: [],
+      DR_AC_NO: [],
+      DR_PARTICULARS: [],
+      CR_ACTYPE: [],
+      CR_AC_NO: [],
+      CR_PARTICULARS: [],
       SI_FREQUENCY: ['', [Validators.required]],
-      LAST_EXEC_DATE: ['',],
+      LAST_EXEC_DATE: [],
       TRAN_TYPE: ['Transfer', [Validators.required]],
-      REVOKE_DATE: ['',],
-      ADV_NARRATION: ['',],
-      DEFAULT_INTEREST_APPLICABLE: ['',],
+      REVOKE_DATE: [],
+      ADV_NARRATION: [],
+      DEFAULT_INTEREST_APPLICABLE: [false],
     });
     this.OpenLink(2)
   }
@@ -598,6 +612,10 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       'ADV_NARRATION': formVal.ADV_NARRATION,
       'DEFAULT_INTEREST_APPLICABLE': formVal.DEFAULT_INTEREST_APPLICABLE,
     };
+    this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
+    this.startDT == this.angForm.controls['FROM_DATE'].value ? dataToSend['FROM_DATE'] = this.startDT : dataToSend['FROM_DATE'] = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
+    this.TODate == this.angForm.controls['NEXT_EXE_DATE'].value ? dataToSend['NEXT_EXE_DATE'] = this.TODate : dataToSend['NEXT_EXE_DATE'] = moment(this.angForm.controls['NEXT_EXE_DATE'].value).format('DD/MM/YYYY')
+
     this._interestInstruction.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -624,6 +642,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['LAST_EXEC_DATE'].enable()
+    this.angForm.controls['REVOKE_DATE'].enable()
     this._interestInstruction.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
       let data1: any = localStorage.getItem('user');
@@ -730,7 +750,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         'TRAN_TYPE': data.TRAN_TYPE,
         'REVOKE_DATE': data.REVOKE_DATE,
         'ADV_NARRATION': data.ADV_NARRATION,
-        'DEFAULT_INTEREST_APPLICABLE': data.DEFAULT_INTEREST_APPLICABLE,
+        'DEFAULT_INTEREST_APPLICABLE': data.DEFAULT_INTEREST_APPLICABLE == '0' ? false : true,
       })
     })
     this.angForm.controls['LAST_EXEC_DATE'].enable()
@@ -750,10 +770,10 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       (data.INSTRUCTION_DATE == 'Invalid date' || data.INSTRUCTION_DATE == '' || data.INSTRUCTION_DATE == null) ? (fromdate = '', data['INSTRUCTION_DATE'] = fromdate) : (fromdate = data.INSTRUCTION_DATE, data['INSTRUCTION_DATE'] = moment(fromdate).format('DD/MM/YYYY'))
     }
     if (this.updatecheckdata.FROM_DATE != data.FROM_DATE) {
-      (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? (startDate = '', data['FROM_DATE'] = startDate) : (startDate = data.FROM_DATE, data['FROM_DATE'] = moment(startDate).format('DD/MM/YYYY'))
+      (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? (startDate = '', data['FROM_DATE'] = startDate) : (startDate = data.FROM_DATE, data['FROM_DATE'] = startDate)
     }
     if (this.updatecheckdata.NEXT_EXE_DATE != data.NEXT_EXE_DATE) {
-      (data.NEXT_EXE_DATE == 'Invalid date' || data.NEXT_EXE_DATE == '' || data.NEXT_EXE_DATE == null) ? (todate = '', data['NEXT_EXE_DATE'] = todate) : (todate = data.NEXT_EXE_DATE, data['NEXT_EXE_DATE'] = moment(todate).format('DD/MM/YYYY'))
+      (data.NEXT_EXE_DATE == 'Invalid date' || data.NEXT_EXE_DATE == '' || data.NEXT_EXE_DATE == null) ? (todate = '', data['NEXT_EXE_DATE'] = todate) : (todate = data.NEXT_EXE_DATE, data['NEXT_EXE_DATE'] = todate)
     }
     if (this.updatecheckdata.LAST_EXEC_DATE != data.LAST_EXEC_DATE) {
       (data.LAST_EXEC_DATE == 'Invalid date' || data.LAST_EXEC_DATE == '' || data.LAST_EXEC_DATE == null) ? (lastExe = '', data['LAST_EXEC_DATE'] = lastExe) : (lastExe = data.LAST_EXEC_DATE, data['LAST_EXEC_DATE'] = moment(lastExe).format('DD/MM/YYYY'))
@@ -763,6 +783,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     }
     this._interestInstruction.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.angForm.controls['LAST_EXEC_DATE'].disable()
+      this.angForm.controls['REVOKE_DATE'].disable()
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -787,6 +809,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
 
   //reset function while update
   addNewData() {
+    this.angForm.controls['LAST_EXEC_DATE'].disable()
+    this.angForm.controls['REVOKE_DATE'].disable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;

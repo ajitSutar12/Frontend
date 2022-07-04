@@ -144,7 +144,7 @@ export class DeadStockTransactionComponent implements OnInit {
       TRAN_YEAR: [''],
       TRANSACTION_TYPE: ['', [Validators.required]],
       ITEM_CODE: [''],
-      DEAD_STOCK: [''],
+      DEAD_STOCK: ['FormT'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
       RESOLUTION_DATE: ['', [Validators.required]],
@@ -230,18 +230,25 @@ export class DeadStockTransactionComponent implements OnInit {
     el.click();
   }
   tranType
+  radioDeadStock
   changetransaction() {
+    debugger
     this.tranType = this.ngtransactiontype.label
     if (this.ngtransactiontype.label == 'Sales') {
       this.angForm.patchValue({
         DEAD_STOCK: 'FormT'
       })
       this.angForm.controls['DEAD_STOCK'].enable()
+      this.radioDeadStock = 'FormT'
     }
     else {
+      // this.angForm.patchValue({
+      //   DEAD_STOCK: 'FormT'
+      // })
       this.angForm.patchValue({
         DEAD_STOCK: 'FormT'
       })
+      this.radioDeadStock = 'FormT'
       this.angForm.controls['DEAD_STOCK'].disable()
     }
     this.GLAccount = true
@@ -272,6 +279,7 @@ export class DeadStockTransactionComponent implements OnInit {
         this.Narration = true;
       }
     }
+    console.log('radio', this.radioDeadStock)
   }
   isFormUpdate(value) {
     if (this.ngtransactiontype == 'Sales') {
@@ -293,6 +301,7 @@ export class DeadStockTransactionComponent implements OnInit {
 
   //add items details in array
   addItem() {
+    console.log('radio', this.radioDeadStock)
     const formVal = this.angForm.value;
     let object = {
       itemId: formVal.ITEM_CODE?.id,
@@ -430,13 +439,15 @@ export class DeadStockTransactionComponent implements OnInit {
     // if (this.itemArr.length != 0) {
     if (this.angForm.controls['Total_AMT'].value > 0) {
       const formVal = this.angForm.value
+      console.log('forval', this.angForm.value)
       const dataToSend = {
         itemArr: this.itemArr,
         BRANCH_CODE: this.ngBranchCode,
         TRAN_DATE: formVal.TRAN_DATE,
         TRAN_YEAR: formVal.TRAN_YEAR,
         RESO_DATE: (formVal.RESOLUTION_DATE == '' || formVal.RESOLUTION_DATE == 'Invalid date' || formVal.RESOLUTION_DATE == null || formVal.RESOLUTION_DATE == undefined) ? billDate = '' : billDate = moment(formVal.RESOLUTION_DATE).format('DD/MM/YYYY'),
-        DEAD_STOCK: formVal.DEAD_STOCK,
+        DEAD_STOCK: this.radioDeadStock,
+        // DEAD_STOCK: formVal.DEAD_STOCK,
         AC_TYPE: formVal.AC_TYPE,
         AC_NO: formVal.AC_NO,
         RESO_NO: formVal.RESOLUTION_NUM,
@@ -448,6 +459,7 @@ export class DeadStockTransactionComponent implements OnInit {
         tranType: this.tranType,
         depTotal: this.depTotal
       }
+      console.log('data', dataToSend)
       this._service.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Updated Successfully !", "success");
@@ -507,6 +519,8 @@ export class DeadStockTransactionComponent implements OnInit {
       );
       this.resetForm()
       this.itemArr = []
+      var button = document.getElementById('triggerhide');
+      button.click();
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
@@ -543,7 +557,6 @@ export class DeadStockTransactionComponent implements OnInit {
   updatecheckdata
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
-      debugger
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -644,7 +657,7 @@ export class DeadStockTransactionComponent implements OnInit {
           'Approved',
           'Deadstock Transaction approved successfully',
         );
-        var button = document.getElementById('trigger');
+        var button = document.getElementById('triggerhide');
         button.click();
       }, err => {
         console.log('something is wrong');
@@ -668,7 +681,7 @@ export class DeadStockTransactionComponent implements OnInit {
         'Rejected',
         'Deadstock Transaction rejected successfully',
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
     }, err => {
       console.log('something is wrong');

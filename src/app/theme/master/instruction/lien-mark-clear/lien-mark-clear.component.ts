@@ -180,8 +180,6 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       dom: 'Blrtip',
     };
 
-    this.runTimer();
-
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
         return (scheme.value == 'TD' || scheme.value == 'PG' || scheme.value == 'SB');
@@ -189,16 +187,6 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       this.allScheme = filtered;
     })
   }
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-
-  }
-
   createForm() {
     this.angForm = this.fb.group({
       DEPO_AC_TYPE: ['',],
@@ -223,14 +211,12 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         })
         break;
       case 'TD':
-        console.log("Term Deposit");
         this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'PG':
-        console.log("Pigmy account");
         this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
@@ -280,7 +266,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         LEDGER_BAL: data.LEDGER_BAL,
         DEPOSIT_AMT: data.DEPOSIT_AMT,
         RECEIPT_NO: data.RECEIPT_NO,
-        IS_LIEN_MARK_CLEAR: data.IS_LIEN_MARK_CLEAR,
+        IS_LIEN_MARK_CLEAR: data.IS_LIEN_MARK_CLEAR == '0' ? false : true,
         AC_TYPE: data.AC_TYPE,
         BALANCE_OF_LOAN_ACCOUNT: data.BALANCE_OF_LOAN_ACCOUNT,
         AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
@@ -327,6 +313,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     this.updateShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data['IS_LIEN_MARK_CLEAR'] = data.IS_LIEN_MARK_CLEAR == false ? '0' : '1'
     this._lien.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;

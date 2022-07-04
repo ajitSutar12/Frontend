@@ -31,9 +31,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">GL Account<sub
+                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">General Account<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="GL_AC" bindValue="value" [(ngModel)]="glaccount"
@@ -52,19 +52,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-12 col-md">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" formControlName="ENTRIES" name="ENTRIES" value="FormT"
-                                            id="formT">
+                                            id="formT" (change)="getTable()">
                                         <i class="helper"></i>All Entries
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" value="FormC" formControlName="ENTRIES" id="formC"
-                                            name="ENTRIES">
+                                            name="ENTRIES" (change)="getTable()">
                                         <i class="helper"></i>Pending Entries
                                     </label>
                                 </div>

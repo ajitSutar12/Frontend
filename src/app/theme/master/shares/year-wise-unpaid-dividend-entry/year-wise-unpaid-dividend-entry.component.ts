@@ -15,10 +15,7 @@ import { YearwiseunpaidService } from "./year-wise-unpaid-dividend-entry.service
 // dynamic dropdown
 import { SchemeCodeDropdownService } from "../../../../shared/dropdownService/scheme-code-dropdown.service";
 import { SalaryDMasterdropdownService } from "../../../../shared/dropdownService/salary-division-master-dropdown.service";
-import { ShareMasterDropdownService } from "../../../../shared/dropdownService/share-master-dropdown.service";
-import { ShareSchemeDropdownService } from "../../../../shared/dropdownService/share-scheme-dropdown.Service";
-import { ShareMasterService } from "../../customer/shares-master/shares-master.service";
-import { CustomerIdService } from "../../customer/customer-id/customer-id.service";
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
@@ -111,7 +108,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   formSubmitted: boolean = false;
   // dropdown options
   SchemeCodeObject: any[];//S_NAME from Schemedata
-  SalaryDMasterObject: any;//AC_SALARYDIVISION_CODE FROM SHMASTER
+  SalaryDMasterObject//AC_SALARYDIVISION_CODE FROM SHMASTER
   ShareMasterObject: any[];//AC_NO From SHMASTER -member from
   ShareMasterObjectB: any[];//AC_NO From SHMASTER -member to
   shareNameObject: any[];
@@ -136,93 +133,13 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     private YearwiseunpaidService: YearwiseunpaidService,
     private fb: FormBuilder,
     private SalaryDMasterdropdownService: SalaryDMasterdropdownService,
-    private ShareMasterDropdownService: ShareMasterDropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private customerIdService: CustomerIdService,
-    private ShareSchemeDropdownService: ShareSchemeDropdownService,
-    private ShareMasterService: ShareMasterService
+    private schemeAccountNoService: SchemeAccountNoService,
   ) { }
 
   ngOnInit(): void {
     this.createForm();
     this.shareDatatable()
-    // this.dtExportButtonOptions = {
-    //   pagingType: 'full_numbers',
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     let datatableRequestParam: any;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
-
-    //     dataTableParameters.columns.forEach(element => {
-    //       console.log('element', element)
-    //       if (element.value != '') {
-    //         let string = element.search.value;
-    //         this.filterData[element.data] = string;
-    //       } else {
-    //         let getColumnName = element.data;
-    //         let columnValue = element.value;
-    //         if (this.filterData.hasOwnProperty(element.data)) {
-    //           let value = this.filterData[getColumnName];
-    //           if (columnValue != undefined || value != undefined) {
-    //             delete this.filterData[element.data];
-    //           }
-    //         }
-    //       }
-    //     });
-    //     dataTableParameters['filterData'] = this.filterData;
-    //     // this.http.post<DataTableResponse>(
-    //     //   this.url + '/share-master/',
-    //     //   dataTableParameters
-    //     // ).subscribe(resp => {
-    //     //   this.multiShare = resp.data;
-    //     //   callback({
-    //     //     recordsTotal: resp.recordsTotal,
-    //     //     recordsFiltered: resp.recordsTotal,
-    //     //     data: []
-    //     //   });
-    //     // });
-
-
-    //     // this.http.get(this.url + '/year-wise-unpaid-dividend-entry/' + mem).subscribe((data) => {
-    //     //   this.multiShare = data;
-    //     //   console.log('data', data)
-    //     //   console.log('in get multiShare', this.multiShare)
-    //     // });
-    //   },
-    //   columnDefs: [{
-    //     targets: '_all',
-    //     defaultContent: ""
-    //   }],
-    //   // columns: [
-    //   //   // {
-    //   //   //   title: 'Action',
-    //   //   // },
-    //   //   {
-    //   //     title: 'Member No',
-    //   //     data: 'AC_NO'
-    //   //   },
-    //   //   {
-    //   //     title: 'Member Name',
-    //   //     data: 'AC_NAME'
-    //   //   },
-    //   //   {
-    //   //     title: 'DIVIDEND_AMOUNT',
-    //   //     data: 'DIVIDEND_AMOUNT'
-    //   //   },
-    //   //   {
-    //   //     title: 'MEMBER_CLOSE_DATE',
-    //   //     data: 'MEMBER_CLOSE_DATE'
-    //   //   },
-    //   // ],
-    //   dom: 'Blrtip',
-    // };
-
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType)
       .pipe(first())
       .subscribe((data) => {
@@ -231,38 +148,21 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let branchCode = result.branch.CODE
+    let branchCode = result.branch.id
     if (result.RoleDefine[0].Role.id == 1) {
-      this.SalaryDMasterdropdownService.getSalaryDMasterList(branchCode)
-        .pipe(first())
-        .subscribe((data) => {
-          this.SalaryDMasterObject = data;
-        });
+      this.SalaryDMasterdropdownService.getSalaryDMasterList(branchCode).subscribe((data) => {
+        this.SalaryDMasterObject = data;
+      });
     }
     else {
-      this.SalaryDMasterdropdownService.getSalaryDMasterList(branchCode)
-        .pipe(first())
-        .subscribe((data) => {
-          this.SalaryDMasterObject = data;
-        });
-
+      this.SalaryDMasterdropdownService.getSalaryDMasterList(branchCode).subscribe((data) => {
+        this.SalaryDMasterObject = data;
+      });
     }
-
-
-    this.ShareMasterDropdownService.getShareAccountMasterNameList()
-      .pipe(first())
-      .subscribe((data) => {
-        this.ShareMasterObject = data;
-        console.log(' this.ShareMasterObject', this.ShareMasterObject)
-        this.ShareMasterObjectB = data;
-        console.log(' this.ShareMasterObjectB', this.ShareMasterObjectB)
-      });
-
-    this.ShareMasterDropdownService.getGLAccountMasterList()
-      .pipe(first())
-      .subscribe((data) => {
-        this.shareNameObject = data;
-      });
+    // this.ShareMasterDropdownService.getShareAccountMasterNameList().subscribe((data) => {
+    //   this.ShareMasterObject = data;
+    //   this.ShareMasterObjectB = data;
+    // });
   }
 
   //formcontrols with validation
@@ -281,6 +181,24 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       AC_NOFrom: [""],
       AC_NOTo: [""],
     });
+  }
+
+  //get account no according scheme
+  getShareAccounts(event) {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let obj = [this.acType, branchCode]
+    this.ngAcnoFrom = null
+    this.ngAcnoTo = null
+    switch (event.id) {
+      case 'SH':
+        this.schemeAccountNoService.getShareSchemeList1(obj).subscribe(data => {
+          this.ShareMasterObject = data;
+          this.ShareMasterObjectB = data;
+        })
+        break;
+    }
   }
 
   shareDatatable() {
@@ -334,7 +252,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       //     });
       // },
     };
-    console.log('in share table')
   }
 
   //get dividend year to value based on dividend year from
@@ -354,16 +271,14 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //load table as per dividend from to range
   getDividendTable() {
-    console.log('acType', this.acType)
     var memFrom = this.angForm.controls['AC_NOFrom'].value
     var memTo = this.angForm.controls['AC_NOTo'].value
-    if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
+    if (this.angForm.controls['AC_NOFrom'].value <= this.angForm.controls['AC_NOTo'].value) {
       this.showTable = true
-      this.mem = [memFrom, memTo]
+      this.mem = [memFrom, memTo, this.acType]
       // this.shareDatatable()
       this.http.get(this.url + '/year-wise-unpaid-dividend-entry/' + this.mem).subscribe((data) => {
         this.multiShare = data;
-        console.log('multiShare', this.multiShare)
         this.multiShare.forEach(element => {
           if (element.shareDividend == null) {
             element.shareDividend = 0
@@ -382,16 +297,13 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //push close date in multiDividend array
   getCloseDate(shareID, shareDivId, acno, date) {
-    console.log('date', date)
     if (date != '') {
-      debugger
       if (this.multiDividend.length != 0) {
         if (this.multiDividend.some(item => item.AC_NO === acno)) {
           this.multiDividend.forEach((element) => {
             if (element.AC_NO == acno) {
               element['MEMBER_CLOSE_DATE'] = date
               // element['MEMBER_CLOSE_DATE'] = (date == '' || date == 'Invalid date') ? date = '' : date = moment(date).format('DD/MM/YYYY')
-              console.log('ele date', element['MEMBER_CLOSE_DATE'])
             }
           })
         } else {
@@ -402,7 +314,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
             MEMBER_CLOSE_DATE: date,
             // MEMBER_CLOSE_DATE: (date == '' || date == 'Invalid date') ? date = '' : date = moment(date).format('DD/MM/YYYY')
           }
-          console.log('object date', object['MEMBER_CLOSE_DATE'])
           this.multiDividend.push(object)
         }
       }
@@ -414,7 +325,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
           MEMBER_CLOSE_DATE: date,
           // MEMBER_CLOSE_DATE: (date == '' || date == 'Invalid date') ? date = '' : date = moment(date).format('DD/MM/YYYY'),
         }
-        console.log('object date', object['MEMBER_CLOSE_DATE'])
         this.multiDividend.push(object)
       }
     }
@@ -480,7 +390,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       'TOTAL_SHARES': formVal.TOTAL_SHARES,
       'ShareDividend': this.multiDividend
     };
-    console.log('dataTosend', dataToSend)
     this.YearwiseunpaidService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");

@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
@@ -33,9 +33,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub
+                        <div class="col-sm-12 col-md-3"> <label for="WARRENT_DATE">Dividend Warrent Date<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-1">
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 [disabled]="angForm.invalid">Process</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"

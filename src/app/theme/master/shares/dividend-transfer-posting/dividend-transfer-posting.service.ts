@@ -19,7 +19,7 @@ export class DividendTransferPostingService {
     postData(data: any): Observable<any> {
         return this.http.post(this.url + '/dividend-transfer-posting/insert', data).pipe(map((res) => res),
             catchError((error) => {
-                Swal.fire('Please Input Proper Data !');
+                // Swal.fire('Please Input Proper Data !');
                 return throwError(error);
             })
         )

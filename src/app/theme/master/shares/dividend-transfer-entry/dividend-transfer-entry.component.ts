@@ -122,7 +122,7 @@ export class DividendTransferEntryComponent implements OnInit {
   updateDataPyatrans() {
     this.showButton = true;
     this.updateShow = false;
-    
+
     let data = this.angForm.value;
     data['AC_TYPE'] = this.schemeDT
     data['AC_NO'] = Number(this.updatememno)
@@ -133,8 +133,8 @@ export class DividendTransferEntryComponent implements OnInit {
     this.schemeDT = null
     this.updatememno = null
     this.resetForm();
-console.log(this.selectedValue)
-console.log(this.memValue)
+    console.log(this.selectedValue)
+    console.log(this.memValue)
     // this.selectedValue = null
     // this.memValue = null
     // this.form.reset();
@@ -234,7 +234,6 @@ console.log(this.memValue)
       // console.log(info.name)
 
       if ((info[0].label != null && info[0].value != null && info[0].name != null) || (info[0].label != "" && info[0].value != "" && info[0].name != "")) {
-        debugger
         this.ngBranchCode = info[0].label
         this.ngDivACType = Number(info[0].value)
 
@@ -243,7 +242,6 @@ console.log(this.memValue)
         this.allScheme.forEach(async (element) => {
           // debugger
           if (element.value == this.ngDivACType) {
-            debugger
             this.getschemename = element.name
             console.log(this.getschemename)
           }
@@ -259,7 +257,6 @@ console.log(this.memValue)
 
           case 'SH':
             this._schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
-              debugger
               this.divTransferNO = data;
             })
             break;
@@ -325,7 +322,6 @@ console.log(this.memValue)
 
   resetForm() {
     this.createForm();
-    debugger
     this.ngBranchCode = null
     this.ngDivACType = null
     this.ngDivACNO = null

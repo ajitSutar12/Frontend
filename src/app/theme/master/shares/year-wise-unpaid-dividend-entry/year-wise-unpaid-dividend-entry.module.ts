@@ -19,7 +19,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 
 @NgModule({
   imports: [
@@ -42,6 +42,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ShareMasterService,
     ShareSchemeDropdownService,
     CustomerIdService,
+    SchemeAccountNoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, HostListener,ChangeDetectorRef} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, HostListener, ChangeDetectorRef } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { BalanceUpdationService } from './balance-updation.service';
@@ -63,7 +63,7 @@ export class BalanceUpdationComponent implements OnInit {
   ngtoac: any = null
 
   // for infinite Scrolling
-  
+
   // sum = 10;
   direction = "";
 
@@ -124,7 +124,7 @@ export class BalanceUpdationComponent implements OnInit {
 
   scheme: any[];
   arrTable
-  
+
   ToAC: any[];
   fromAC: any[];
   // getschemename: any;
@@ -149,7 +149,7 @@ export class BalanceUpdationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) {
-      
+
 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -158,7 +158,7 @@ export class BalanceUpdationComponent implements OnInit {
   }
 
   ///Scrolling function
-  @HostListener('window:scroll',['$event']) getScrollHeight(event){
+  @HostListener('window:scroll', ['$event']) getScrollHeight(event) {
     console.log('scroll function is working');
   }
 
@@ -190,11 +190,11 @@ export class BalanceUpdationComponent implements OnInit {
     })
 
     // scrolling function
-    this.data = this._service.getData(100000);
-    this.totalRecords = this.data.length;
+    // this.data = this._service.getData(100000);
+    // this.totalRecords = this.data.length;
 
     this.cols = [
-      
+
       { field: 'ThreadId', header: 'ThreadId' },
       { field: 'Timestamp', header: 'Timestamp' },
       { field: 'TrackingId', header: 'TrackingId' },
@@ -202,7 +202,7 @@ export class BalanceUpdationComponent implements OnInit {
     ];
   }
 
- 
+
   branchCode
   branchid
   getschemename
@@ -792,28 +792,23 @@ export class BalanceUpdationComponent implements OnInit {
 
   }
 
-//   onScroll () {
-//     console.log('scrolled!!')
-// }
-
   //filter object
-filterObject(ele, type) {
-  console.log(this.arrTable);
-  let matchArray = new Array()
-  this.arrTable = [];
-  this.gridData.forEach(element => {
-    if(type == 'AC_NAME'){
-      if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
-        this.arrTable.push(element);
+  filterObject(ele, type) {
+    let matchArray = new Array()
+    this.arrTable = [];
+    this.gridData.forEach(element => {
+      if (type == 'AC_NAME') {
+        if (JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())) {
+          this.arrTable.push(element);
+        }
+      } else {
+        if (JSON.stringify(element.AC_NO).includes(ele.target.value)) {
+          this.arrTable.push(element);
+        }
       }
-    }else{
-      if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
-        this.arrTable.push(element);
-      }
-    }
-    
-  });
-}
+
+    });
+  }
   submit() {
     let dataObj = this.angForm.value;
     dataObj['gridData'] = this.arrTable;
@@ -911,47 +906,4 @@ filterObject(ele, type) {
     this.resetForm();
   }
 
-  // scrollHandler(event){
-    
-    
-    
-  // }
-  yourFunction(){
-    debugger
-    $('tbody').on('scroll',function(){
-      alert('hellow');
-    });
-    console.log('now you are scrolling');
-  }
-
-  // for infinite scrolling function
-  // onScrollDown(ev: any) {
-  //   debugger
-  //   alert('work');
-  //   console.log("scrolled down!!", ev);
-
-  //   this.balanceUpdateArr
-  //   this.appendItems();
-    
-  //   this.direction = "scroll down";
-  // }
-  
-   // for infinite scrolling function
-  // appendItems() {
-  //   debugger
-  //   this.addItems("push");
-  // }
-   
-   // for infinite scrolling function
-  // addItems(_method: string) {
-  //   console.log("scroll function")
-  //   this.arrTable= [ ];
-  //   for (let data = 0; data < this.balanceUpdateArr; ++data) {
-  //     if( _method === 'push'){
-  //       this.arrTable.push([data].join(""));
-  //     }else if( _method === 'unshift'){
-  //       this.arrTable.unshift([data].join(""));
-  //     }
-  //   }
-  // }
 }

@@ -13,9 +13,6 @@ import { Router } from '@angular/router';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { TDSFormSubmissionService } from './tds-form-submission.service';
-
-
-
 // For fetching values from backend
 interface TDSFormSubmission {
   id: number;
@@ -29,8 +26,6 @@ interface TDSFormSubmission {
   // USER_CODE:string
 
 }
-
-
 @Component({
   selector: 'app-tds-form-submission',
   templateUrl: './tds-form-submission.component.html',
@@ -42,29 +37,20 @@ export class TDSFormSubmissionComponent implements OnInit {
   formSubmitted = false;
   //api 
   url = environment.base_url;
-
   angForm: FormGroup;
-
-
   showButton: boolean = true;
   // Store data from backend
   tdsformsubmission: TDSFormSubmission[];
-
   isTdsFormA: boolean = false;
-
   // for date 
   ngSubmitDate: any = null
   maxDate: Date;
   minDate: Date;
-
   // dropdown variables
   ngcustomer: any = null;
   Cust_ID: any[] //customer id from idmaster
-
-
   ngfinyear: any = null
   dtElement: any;
-
 
   constructor(
     private fb: FormBuilder,
@@ -80,11 +66,9 @@ export class TDSFormSubmissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
-
     this.createForm()
   }
 
@@ -118,7 +102,6 @@ export class TDSFormSubmissionComponent implements OnInit {
     let ngSubmitDate
     this.formSubmitted = true;
     if (this.angForm.valid) {
-      debugger
       if (this.isTdsFormA == true && this.angForm.controls['TDS_RATE'].value == '' && this.angForm.controls['TDS_LIMIT'].value == '') {
         Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
       }
@@ -145,8 +128,6 @@ export class TDSFormSubmissionComponent implements OnInit {
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
-
-
   }
 
   //method for adding hyphen in date
@@ -165,7 +146,6 @@ export class TDSFormSubmissionComponent implements OnInit {
 
     }
   }
-
 
   addNewData() {
     this.showButton = true;

@@ -176,7 +176,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     this.memFrom = this.angForm.controls['AC_NOFrom'].value
     this.memTo = this.angForm.controls['AC_NOTo'].value
     this.branch = this.angForm.controls['BRANCH'].value
-    if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
+    if (this.angForm.controls['AC_NOFrom'].value <= this.angForm.controls['AC_NOTo'].value) {
       this.dtTrigger.unsubscribe();
       this.mem = [this.memFrom, this.memTo, this.branch]
       if (this.getschemename == 'TD') {
@@ -205,7 +205,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   }
   //table show or hide
   viewCurrentInt() {
-    if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
+    if (this.angForm.controls['AC_NOFrom'].value <= this.angForm.controls['AC_NOTo'].value) {
       this.showTable = true
     }
     else {
@@ -218,7 +218,6 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     let matchArray = new Array()
     this.tableArr = [];
     this.gridData.forEach(element => {
-      debugger
       if (type == 'AC_NAME') {
         if (JSON.stringify(element?.termLoan?.AC_NAME || element.AC_NAME).includes(ele.target.value.toUpperCase())) {
           this.tableArr.push(element);
@@ -229,7 +228,6 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
           this.tableArr.push(element);
         }
       }
-
     });
   }
   //radio button selection variable 

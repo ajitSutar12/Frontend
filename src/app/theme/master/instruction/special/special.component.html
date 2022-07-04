@@ -35,7 +35,7 @@
                     formControlName="TRAN_ACTYPE" bindLabel="label" title="Compulsory Selection"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                     <ng-option *ngFor="let values of allScheme" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.id}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="TRAN_ACTYPE">Scheme<sub class="required"> * </sub></label>
                 </span>
@@ -55,7 +55,7 @@
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     required placeholder="Account No">
                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.label}} {{values.name}}</ng-option>
                   </ng-select>
                   <label for="TRAN_ACNO">Account No<sub class="required"> * </sub></label>
                 </span>

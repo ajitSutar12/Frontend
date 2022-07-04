@@ -96,8 +96,8 @@ export class DividendCalculationComponent implements OnInit {
   warrentdate: any = null;
   maxDate: Date;
   minDate: Date;
-  fromdate:Date;
-  todate:Date
+  fromdate: Date;
+  todate: Date
   bsValue = new Date();
 
   private dataSub: Subscription = null;
@@ -136,9 +136,9 @@ export class DividendCalculationComponent implements OnInit {
     // finYear = finYear - 1;
     var full = [];
     var fullDate = `03/31/${finYear}`;
-    this.fromdate=new Date(fullDate)
+    this.fromdate = new Date(fullDate)
     this.fromdate.setDate(this.fromdate.getDate());
-    this.todate=new Date(fullDate)
+    this.todate = new Date(fullDate)
     this.todate.setDate(this.fromdate.getDate());
     // this.fromdate = moment(this.divfromdate).subtract(1, "year").toDate();
     // const todate = moment(this.divtodate).subtract(1, "year");
@@ -236,17 +236,17 @@ export class DividendCalculationComponent implements OnInit {
       .pipe(first())
       .subscribe((data) => {
         this.scheme = data;
-        this.ngscheme = data[0].value;
-        this.shareDividend = data[0].dividend;
-        this.divMethod = data[0].divMethod;
-        this.isAddBonusInDividend = data[0].isAddBonus;
-        this.INT_ROUND_OFF = data[0].INT_ROUND_OFF;
-        this.angForm.patchValue({
-          Dividend: this.shareDividend,
-        });
+        // this.ngscheme = data[0].value;
+        // this.shareDividend = data[0].dividend;
+        // this.divMethod = data[0].divMethod;
+        // this.isAddBonusInDividend = data[0].isAddBonus;
+        // this.INT_ROUND_OFF = data[0].INT_ROUND_OFF;
+        // this.angForm.patchValue({
+        //   Dividend: this.shareDividend,
+        // });
       });
-      this.getDivTOYear();
-    this.getAccountList();
+    this.getDivTOYear();
+    // this.getAccountList();
   }
 
   createForm() {
@@ -269,7 +269,13 @@ export class DividendCalculationComponent implements OnInit {
     let data1: any = localStorage.getItem("user");
     let result = JSON.parse(data1);
     let branchCode = result.branch.id;
-    let trandate = this.angForm.controls["DIV_FROMDATE"].value;
+    let trandate
+    if (this.formFromDate != this.divfromdate) {
+      trandate = moment(this.angForm.controls["DIV_FROMDATE"].value).format('DD/MM/YYYY')
+    }
+    else {
+      trandate = this.formFromDate
+    }
     var full = [];
     var fullDate = trandate;
     full = fullDate.split(" ");
@@ -321,8 +327,9 @@ export class DividendCalculationComponent implements OnInit {
     $event.target.select();
   }
 
+  formFromDate
+  formEndDate
   getDivTOYear() {
-
     let finYear;
     var sysDate = new Date();
     var year = sysDate.getFullYear();
@@ -341,7 +348,10 @@ export class DividendCalculationComponent implements OnInit {
     let end = moment(start).add(12, "M");
     var endDT = moment(end).subtract(1, "days").format("DD/MM/YYYY");
     let starting = moment(start).format("DD/MM/YYYY");
-    let ending = moment(end).format("DD/MM/YYYY");
+    this.formFromDate = starting
+    this.divfromdate = starting
+    this.formEndDate = endDT
+    this.divtodate = endDT
     this.angForm.patchValue({
       DIV_FROMDATE: starting,
       DIV_TODATE: endDT,
@@ -354,38 +364,28 @@ export class DividendCalculationComponent implements OnInit {
   DIV_FROM_MONTH;
   DIV_TO_MONTH;
 
+
   checkDivYear() {
-    // let value1;
-    // let value2;
-    // value1 = moment(this.divfromdate).format("DD/MM/YYYY");
-    // console.log(value1);
-    // value2 = moment(this.divtodate).format("DD/MM/YYYY");
-    // console.log(value2);
-    // if (this.divfromdate == null || this.divtodate == null) {
-
-    // } 
-    // else {
-    //     if (moment(value2).isAfter(value1)) {
-          
-    //     } 
-    //     else if (moment(value1) === moment(value2)) {
-    //       Swal.fire("To date should be after from date");
-    //       this.angForm.controls["DIV_FROMDATE"].reset();
-    //       this.angForm.controls["DIV_TODATE"].reset();
-    //     } 
-    //     else {
-    //       Swal.fire("To date should be after from date");
-    //       this.angForm.controls["DIV_FROMDATE"].reset();
-    //       this.angForm.controls["DIV_TODATE"].reset();
-    //     }
-    // }
-
     //Date range
-    let startDate = this.angForm.controls["DIV_FROMDATE"].value;
-    let endDate = this.angForm.controls["DIV_TODATE"].value;
+    let startDate
+    let endDate
+    let divdatef = this.angForm.controls["DIV_FROMDATE"].value
+    let divdatet = this.angForm.controls["DIV_TODATE"].value
+    if (this.formFromDate != this.divfromdate) {
+      startDate = moment(this.angForm.controls["DIV_FROMDATE"].value).format('DD/MM/YYYY')
+    }
+    else {
+      startDate = this.formFromDate
+    }
+    if (this.formEndDate != this.divtodate) {
+      endDate = moment(this.angForm.controls["DIV_TODATE"].value).format('DD/MM/YYYY')
+    }
+    else {
+      endDate = this.formEndDate
+    }
     var full = [];
-    startDate = moment(this.divfromdate).format("DD/MM/YYYY");
-    endDate = moment(this.divtodate).format("DD/MM/YYYY");
+    // startDate = moment(this.divfromdate).format("DD/MM/YYYY");
+    // endDate = moment(this.divtodate).format("DD/MM/YYYY");
     var startDT = startDate;
 
     full = startDT.split(" ");
@@ -435,7 +435,7 @@ export class DividendCalculationComponent implements OnInit {
     var memTo = this.angForm.controls["TO_AC"].value;
     if (
       this.angForm.controls["FROM_AC"].value <
-        this.angForm.controls["TO_AC"].value &&
+      this.angForm.controls["TO_AC"].value &&
       this.angForm.controls["TO_AC"].value != ""
     ) {
       let mem = [memFrom, memTo, this.ngscheme];
@@ -459,19 +459,15 @@ export class DividendCalculationComponent implements OnInit {
           });
         });
     }
-    console.log(this.divArr, "div arr");
   }
 
   divArr = [];
   arrTable;
 
   submit() {
-    console.log(this.angForm.valid);
     if (this.angForm.valid) {
       console.log(this.angForm.value);
     }
-    
-
     const formVal = this.angForm.value;
     let data: any = localStorage.getItem("user");
     let result = JSON.parse(data);
@@ -482,10 +478,7 @@ export class DividendCalculationComponent implements OnInit {
       divMethod: this.divMethod,
       Dividend: formVal.Dividend,
       Bonus: formVal.Bonus,
-      WARRENT_DATE:
-        formVal.WARRENT_DATE == "" || formVal.WARRENT_DATE == "Invalid date"
-          ? ""
-          : moment(formVal.WARRENT_DATE).format("DD/MM/YYYY"),
+      WARRENT_DATE: formVal.WARRENT_DATE == "" || formVal.WARRENT_DATE == "Invalid date" ? "" : moment(formVal.WARRENT_DATE).format("DD/MM/YYYY"),
       DIV_FROM_YEAR: this.startYr,
       DIV_TO_YEAR: this.endYr,
       ACTYPE: this.ngscheme,
@@ -495,14 +488,18 @@ export class DividendCalculationComponent implements OnInit {
       send: this.send,
       isAddBonus: this.isAddBonusInDividend,
     };
-    console.log(dataToSend);
-    this._service.postData(dataToSend).subscribe((data) => {
-      this.formSubmitted = false;
-      Swal.fire("Success!", "Data Updated Successfully !", "success");
-    });
-    this.arrTable = [];
-    this.divArr = [];
-    this.resetForm();
+    if (this.send != 'history') {
+      this._service.postData(dataToSend).subscribe((data) => {
+        this.formSubmitted = false;
+        Swal.fire("Success!", "Data Updated Successfully !", "success");
+      });
+      this.arrTable = [];
+      this.divArr = [];
+      this.resetForm();
+    }
+    else {
+      Swal.fire("Warning!", "Dividend Already Posted!", "warning");
+    }
   }
 
   /**

@@ -41,7 +41,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   InterestArr = []
   filterArray: any[];
   gridData: any;
-    constructor(
+  constructor(
     private http: HttpClient, private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
     private _service: InterestPostingFlagUpdationService,
@@ -76,7 +76,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       BRANCH: ['', [Validators.required]]
     });
   }
-//clear scheme and account no
+  //clear scheme and account no
   getBranch() {
     this.ngscheme = null
     this.ngfromac = null
@@ -84,9 +84,8 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     this.arrTable = []
     this.InterestArr = []
   }
-//get scheme wise account number
+  //get scheme wise account number
   getSchemeAcno(event) {
-    debugger
     let obj = [this.ngscheme, this.ngBranchCode]
     this.ngfromac = null
     this.ngtoac = null
@@ -164,7 +163,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     this.InterestArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
-    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
+    if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value) {
       this.showTable = true
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/interest-posting-updation/accounts/' + this.mem).subscribe((data) => {
@@ -195,16 +194,16 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     let matchArray = new Array()
     this.InterestArr = [];
     this.gridData.forEach(element => {
-      if(type == 'AC_NAME'){
-        if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
+      if (type == 'AC_NAME') {
+        if (JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())) {
           this.InterestArr.push(element);
         }
-      }else{
-        if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+      } else {
+        if (JSON.stringify(element.AC_NO).includes(ele.target.value)) {
           this.InterestArr.push(element);
         }
       }
-      
+
     });
   }
   //update checkbox status in array

@@ -28,13 +28,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer Id<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer ID<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-
-
                                     <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         title="Compulsory Selection" required placeholder="Customer Id"
@@ -53,6 +51,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="SUBMIT_DATE">Submission Date</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -73,9 +73,6 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <h6>Form Type</h6>
                             <div class="form-radio">

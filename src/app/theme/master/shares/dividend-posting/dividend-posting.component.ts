@@ -190,13 +190,13 @@ export class DividendPostingComponent implements OnInit {
   selectedDivFromYear
   selectedDivToYear
 
-  getWarrentDetails(event) {    
+  getWarrentDetails(event) {
     this.selectedWarrentDate = event.WARRENT_DATE
     this.selectedDivFromYear = event.DIV_FROM_YEAR
     this.selectedDivToYear = event.DIV_TO_YEAR
   }
 
-  submit() {    
+  submit() {
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       const dataToSend = {
@@ -216,12 +216,13 @@ export class DividendPostingComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this._service.postData(dataToSend).subscribe((data) => {
-            Swal.fire("Processed!", "success");
+            Swal.fire('Success!', "Processed!", "success");
           }),
             (error) => {
               console.log(error);
             };
         } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire('Info!', "Processing Cancelled!", "info");
           this.createForm()
           this.ngscheme = null
           this.ngwarrentDate = null

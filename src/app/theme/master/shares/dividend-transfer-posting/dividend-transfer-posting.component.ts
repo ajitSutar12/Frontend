@@ -178,7 +178,6 @@ export class DividendTransferPostingComponent implements OnInit {
 
 
   submit() {
-
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       console.log(this.angForm.value);
@@ -186,7 +185,6 @@ export class DividendTransferPostingComponent implements OnInit {
     const formVal = this.angForm.value;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-
     const dataToSend = {
       DIV_TRANSFER_ACTYPE: this.ngscheme,
       DIV_TRANSFER_ACNO: this.ngtoac,
@@ -196,10 +194,9 @@ export class DividendTransferPostingComponent implements OnInit {
       USER: result.USER_NAME,
       isTransferReserve: this.isTransferReserve
     }
-
-
     this._service.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      console.log(data1, 'posting data')
+      data1.length != 0 ? Swal.fire('Success!', 'Data Added Successfully !', 'success') : Swal.fire('Info!', 'No Any Records Found!', 'info');
     }, (error) => {
       console.log(error)
     })

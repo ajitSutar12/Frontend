@@ -209,7 +209,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   //add items details in array
   addItem() {
     const formVal = this.angForm.value;
-    
+
     let object = {
       itemId: formVal.ITEM_CODE?.id,
       ITEM_GLACNO: formVal.ITEM_CODE.GL_ACNO,
@@ -440,12 +440,12 @@ export class DeadStockPurchaseComponent implements OnInit {
       );
       this.resetForm()
       this.itemArr = []
+      var button = document.getElementById('triggerhide');
+      button.click();
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
-
-
   }
 
   // Reset Function
@@ -566,7 +566,7 @@ export class DeadStockPurchaseComponent implements OnInit {
           'Deadstock Purchase approved successfully',
           'success'
         );
-        var button = document.getElementById('trigger');
+        var button = document.getElementById('triggerhide');
         button.click();
 
       }, err => {
@@ -591,7 +591,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         'Rejected',
         'Deadstock Purchase rejected successfully',
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       this.resetForm()
       button.click();
     }, err => {

@@ -163,7 +163,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
           title: 'Date',
           data: 'TRAN_DATE'
         }, {
-          title: 'Agent AC Type',
+          title: 'Agent Account Type',
           data: 'AGENT_ACTYPE'
         },
         {

@@ -80,18 +80,17 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" formControlName="DEAD_STOCK" name="DEAD_STOCK" value="FormT"
-                                            id="formT" (change)="isFormA(1)">
+                                            id="formT" (change)="isFormA(1)" [(ngModel)]="radioDeadStock">
                                         <i class="helper"></i>Transfer
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" value="FormC" formControlName="DEAD_STOCK" id="formC"
-                                            name="DEAD_STOCK" (change)="isFormA(2)">
+                                        <input type="radio" formControlName="DEAD_STOCK" id="formC" name="DEAD_STOCK"
+                                            (change)="isFormA(2)" value="FormC">
                                         <i class="helper"></i>Cash
                                     </label>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -108,7 +107,7 @@
                                                 bindLabel="label" title="Compulsory Selection" required
                                                 placeholder="Transfer Scheme Code">
                                                 <ng-option *ngFor="let values of ACMasterDropdown" [value]="values">
-                                                    {{values.label}}</ng-option>
+                                                    {{values.id}} {{values.label}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -123,7 +122,7 @@
 
                                 <div class="col-sm-12 col-md-2"> <label for="AC_NO">Transfer GL Account Number<sub
                                             class="required">*</sub></label></div>
-                                <div class="col-sm-12 col-md-2">
+                                <div class="col-sm-12 col-md-4">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
@@ -200,7 +199,7 @@
                         <div class="col-sm-12">
                             <div class="row" *ngIf="Narration">
                                 <div class="col-sm-12 col-md-2"><label for="NARRATION">Narration</label></div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
 
@@ -225,7 +224,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md"><label for="ITEM_CODE">Item Code<sub class="required">*</sub></label></div>
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <ng-select id="ITEM_CODE" [items]="itemcode" [(ngModel)]="ngItem"
@@ -239,7 +238,7 @@
                             </div>
                         </div>
                         <div class="col-md"><label for="Quantity">Quantity<sub class="required">*</sub></label></div>
-                        <div class="col-md">
+                        <div class="col-md-1">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="Quantity"
@@ -300,13 +299,15 @@
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="ITEM_RATE" id="ITEM_RATE" value="{{data.ITEM_RATE}}" #Rate disabled
+                                                        name="ITEM_RATE" id="ITEM_RATE" value="{{data.ITEM_RATE}}" #Rate
+                                                        disabled
                                                         (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value,Rate.name,Rate.value,Amount.name,Amount.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="TRAN_AMOUNT" id="TRAN_AMOUNT" value="{{data.TRAN_AMOUNT}}" #Amount
+                                                        name="TRAN_AMOUNT" id="TRAN_AMOUNT" value="{{data.TRAN_AMOUNT}}"
+                                                        #Amount
                                                         (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value,Rate.name,Rate.value,Amount.name,Amount.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>

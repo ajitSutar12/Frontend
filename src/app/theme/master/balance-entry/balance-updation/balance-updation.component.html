@@ -99,7 +99,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
-                                        bindLabel="label" title="Compulsory Selection" (change)="getTable()" 
+                                        bindLabel="label" title="Compulsory Selection" (change)="getTable()"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -123,409 +123,437 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="col-12">
-                                <div class="table-responsive"> 
+                                <div class="table-responsive">
                                     <div class="search-results">
                                         <table id="mytable"
-                                        class="table table-striped table-bordered table-hover compact">
-                                        <thead>
-                                            <tr>
-                                                <td class="td_right">Account Number</td>
-                                                <td>Account Name</td>
-                                                <td *ngIf="ledgerbalance" class="td_right">Ledger Balance</td>
-                                                <td *ngIf="productamount" class="td_right">Product Amount</td>
-                                                <td *ngIf="lastTranDate" class="td_center">Last Trans. Date</td>
-                                                <td *ngIf="lastintpaidDate" class="td_center">Last Interest paid Date</td>
-                                                <td *ngIf="closingdate" style="width: 10px;" class="td_center">Closing Date</td>
-                                                <td *ngIf="debitcredit" class="td_center">Debit/Credit</td>
-                                                <td *ngIf="payableint" class="td_right">Payable Interest</td>
-                                                <td *ngIf="totalintpaid" class="td_right">Total Interest paid</td>
-                                                <td *ngIf="totalpenalint" class="td_right">Total Penal Int</td>
-                                                <td *ngIf="totalinstallmentrec" class="td_right">Total Number of Installment
-                                                    Received</td>
-                                                <td *ngIf="tdsopDate" class="td_center">TDS O/p Date</td>
-                                                <td *ngIf="intinfinancialyear" class="td_right">Op.Cr.Int in Financial Year
-                                                </td>
-                                                <td *ngIf="opintpaidfinyear" class="td_right">Op.Int Paid in Financial Year
-                                                </td>
-                                                <td *ngIf="acopenDate" class="td_center">A/c Open Date</td>
-                                                <td *ngIf="lastcreditDate" class="td_center">Last Credit Date</td>
-                                                <td *ngIf="lastintDate" class="td_center">Last Interest Date</td>
-                                                <td *ngIf="opproduct" class="td_right">O/p Product</td>
-                                                <td *ngIf="balanceDate" class="td_center">Balance Date</td>
-                                                <td *ngIf="receivableint" class="td_right">Receivable Interest</td>
-                                                <td *ngIf="totalintrec" class="td_right">Total Int. Received</td>
-                                                <td *ngIf="penalint" class="td_right">Penal Interest</td>
-                                                <td *ngIf="totaldepositamt" class="td_right">Total Deposit Amt</td>
-                                                <td *ngIf="totalpostedint" class="td_right">Tot.Posted Interest</td>
-                                                <td *ngIf="npaDate" class="td_center">NPA Date</td>
-                                                <td *ngIf="isdisputeloan" class="td_right">Is Dispute Loan</td>
-                                                <td *ngIf="noofshares" class="td_right">No.of Shares</td>
-                                                <td *ngIf="shareamt" class="td_right">Share Amount</td>
-                                                <td *ngIf="accloseDate" class="td_center">AC Close Date</td>
-                                                <td *ngIf="purchaseDate" class="td_center">Purchase Date</td>
-                                                <td *ngIf="supliername">Supplier Name</td>
-                                                <td *ngIf="purchaserate" class="td_center">Purchase Rate</td>
-                                                <td *ngIf="purchasequantity" class="td_right">Purchase Rate</td>
-                                                <td *ngIf="purchasevalue" class="td_right">Purchase value</td>
-                                                <td *ngIf="openingamt" class="td_right">Opening Amount</td>
-                                                <td *ngIf="openingquantity" class="td_right">Opening Quantity</td>
-                                                <td *ngIf="lastdepreciationDate" class="td_center">Last Depreciation Date
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="text" class="form-control" (keyup)="filterObject($event,'AC_NO')"></td>
-                                                <td><input type="text" class="form-control" style="text-transform:uppercase;" (keyup)="filterObject($event,'AC_NAME')"></td>
-                                                <td *ngIf="ledgerbalance"></td>
-                                                <td *ngIf="productamount"></td>
-                                                <td *ngIf="lastTranDate"></td>
-                                                <td *ngIf="lastintpaidDate"></td>
-                                                <td *ngIf="closingdate"></td>
-                                                <td *ngIf="debitcredit"></td>
-                                                <td *ngIf="payableint"></td>
-                                                <td *ngIf="totalintpaid"></td>
-                                                <td *ngIf="totalpenalint"></td>
-                                                <td *ngIf="totalinstallmentrec"></td>
-                                                <td *ngIf="tdsopDate"></td>
-                                                <td *ngIf="intinfinancialyear"></td>
-                                                <td *ngIf="opintpaidfinyear"></td>
-                                                <td *ngIf="acopenDate"></td>
-                                                <td *ngIf="lastcreditDate"></td>
-                                                <td *ngIf="lastintDate"></td>
-                                                <td *ngIf="opproduct"></td>
-                                                <td *ngIf="balanceDate"></td>
-                                                <td *ngIf="receivableint"></td>
-                                                <td *ngIf="totalintrec"></td>
-                                                <td *ngIf="penalint"></td>
-                                                <td *ngIf="totaldepositamt"></td>
-                                                <td *ngIf="totalpostedint"></td>
-                                                <td *ngIf="npaDate"></td>
-                                                <td *ngIf="isdisputeloan"></td>
-                                                <td *ngIf="noofshares"></td>
-                                                <td *ngIf="shareamt"></td>
-                                                <td *ngIf="accloseDate"></td>
-                                                <td *ngIf="purchaseDate"></td>
-                                                <td *ngIf="supliername"></td>
-                                                <td *ngIf="purchaserate"></td>
-                                                <td *ngIf="purchasequantity"></td>
-                                                <td *ngIf="purchasevalue"></td>
-                                                <td *ngIf="openingamt"></td>
-                                                <td *ngIf="openingquantity"></td>
-                                                <td *ngIf="lastdepreciationDate"></td>
-                                                                                                                                
-                                            </tr>
-                                           
-                                        </thead>
-                                        <tbody *ngIf="arrTable?.length != 0">
-                                            <tr *ngFor="let data of arrTable;
+                                            class="table table-striped table-bordered table-hover compact">
+                                            <thead>
+                                                <tr>
+                                                    <td class="td_right">Account Number</td>
+                                                    <td>Account Name</td>
+                                                    <td *ngIf="ledgerbalance" class="td_right">Ledger Balance</td>
+                                                    <td *ngIf="productamount" class="td_right">Product Amount</td>
+                                                    <td *ngIf="lastTranDate" class="td_center">Last Transaction Date
+                                                    </td>
+                                                    <td *ngIf="lastintpaidDate" class="td_center">Last Interest paid
+                                                        Date</td>
+                                                    <td *ngIf="closingdate" style="width: 10px;" class="td_center">
+                                                        &nbsp; &nbsp; Closing Date &nbsp; &nbsp; &nbsp; </td>
+                                                    <td *ngIf="debitcredit" class="td_center">Debit/Credit</td>
+                                                    <td *ngIf="payableint" class="td_right">Payable Interest</td>
+                                                    <td *ngIf="totalintpaid" class="td_right">Total Interest paid</td>
+                                                    <td *ngIf="totalpenalint" class="td_right">Total Penal Interest</td>
+                                                    <td *ngIf="totalinstallmentrec" class="td_right">Total Number of
+                                                        Installment Received</td>
+                                                    <td *ngIf="tdsopDate" class="td_center">TDS Opening Date &nbsp;</td>
+                                                    <td *ngIf="intinfinancialyear" class="td_right">Opening Credit
+                                                        Interest in Financial Year </td>
+                                                    <td *ngIf="opintpaidfinyear" class="td_right">Opening Interest Paid
+                                                        in Financial Year </td>
+                                                    <td *ngIf="acopenDate" class="td_center">Account Open Date</td>
+                                                    <td *ngIf="lastcreditDate" class="td_center">Last Credit Date</td>
+                                                    <td *ngIf="lastintDate" class="td_center">Last Interest Date</td>
+                                                    <td *ngIf="opproduct" class="td_right">O/p Product</td>
+                                                    <td *ngIf="balanceDate" class="td_center">Balance Date</td>
+                                                    <td *ngIf="receivableint" class="td_right">Receivable Interest</td>
+                                                    <td *ngIf="totalintrec" class="td_right">Total Interest Received
+                                                    </td>
+                                                    <td *ngIf="penalint" class="td_right">Penal Interest</td>
+                                                    <td *ngIf="totaldepositamt" class="td_right">Total Deposit Amount
+                                                    </td>
+                                                    <td *ngIf="totalpostedint" class="td_right">Total Posted Interest
+                                                    </td>
+                                                    <td *ngIf="npaDate" class="td_center">NPA Date</td>
+                                                    <td *ngIf="isdisputeloan" class="td_right">Is Dispute Loan</td>
+                                                    <td *ngIf="noofshares" class="td_right">Number of Shares</td>
+                                                    <td *ngIf="shareamt" class="td_right">Share Amount</td>
+                                                    <td *ngIf="accloseDate" class="td_center">Account Close Date</td>
+                                                    <td *ngIf="purchaseDate" class="td_center">Purchase Date</td>
+                                                    <td *ngIf="supliername">Supplier Name</td>
+                                                    <td *ngIf="purchaserate" class="td_center">Purchase Rate</td>
+                                                    <td *ngIf="purchasequantity" class="td_right">Purchase Rate</td>
+                                                    <td *ngIf="purchasevalue" class="td_right">Purchase value</td>
+                                                    <td *ngIf="openingamt" class="td_right">Opening Amount</td>
+                                                    <td *ngIf="openingquantity" class="td_right">Opening Quantity</td>
+                                                    <td *ngIf="lastdepreciationDate" class="td_center">Last Depreciation
+                                                        Date
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" class="form-control"
+                                                            (keyup)="filterObject($event,'AC_NO')"></td>
+                                                    <td><input type="text" class="form-control"
+                                                            style="text-transform:uppercase;"
+                                                            (keyup)="filterObject($event,'AC_NAME')"></td>
+                                                    <td *ngIf="ledgerbalance"></td>
+                                                    <td *ngIf="productamount"></td>
+                                                    <td *ngIf="lastTranDate"></td>
+                                                    <td *ngIf="lastintpaidDate"></td>
+                                                    <td *ngIf="closingdate"></td>
+                                                    <td *ngIf="debitcredit"></td>
+                                                    <td *ngIf="payableint"></td>
+                                                    <td *ngIf="totalintpaid"></td>
+                                                    <td *ngIf="totalpenalint"></td>
+                                                    <td *ngIf="totalinstallmentrec"></td>
+                                                    <td *ngIf="tdsopDate"></td>
+                                                    <td *ngIf="intinfinancialyear"></td>
+                                                    <td *ngIf="opintpaidfinyear"></td>
+                                                    <td *ngIf="acopenDate"></td>
+                                                    <td *ngIf="lastcreditDate"></td>
+                                                    <td *ngIf="lastintDate"></td>
+                                                    <td *ngIf="opproduct"></td>
+                                                    <td *ngIf="balanceDate"></td>
+                                                    <td *ngIf="receivableint"></td>
+                                                    <td *ngIf="totalintrec"></td>
+                                                    <td *ngIf="penalint"></td>
+                                                    <td *ngIf="totaldepositamt"></td>
+                                                    <td *ngIf="totalpostedint"></td>
+                                                    <td *ngIf="npaDate"></td>
+                                                    <td *ngIf="isdisputeloan"></td>
+                                                    <td *ngIf="noofshares"></td>
+                                                    <td *ngIf="shareamt"></td>
+                                                    <td *ngIf="accloseDate"></td>
+                                                    <td *ngIf="purchaseDate"></td>
+                                                    <td *ngIf="supliername"></td>
+                                                    <td *ngIf="purchaserate"></td>
+                                                    <td *ngIf="purchasequantity"></td>
+                                                    <td *ngIf="purchasevalue"></td>
+                                                    <td *ngIf="openingamt"></td>
+                                                    <td *ngIf="openingquantity"></td>
+                                                    <td *ngIf="lastdepreciationDate"></td>
+
+                                                </tr>
+
+                                            </thead>
+                                            <tbody *ngIf="arrTable?.length != 0">
+                                                <tr *ngFor="let data of arrTable;
                                         let indexOfelement = index">
-                                                <td class="td_right">{{data.AC_NO}}</td>
-                                                <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
-                                                    data.AC_NAME}}
-                                                </td>
-                                                <td *ngIf="ledgerbalance" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="TRAN_AMOUNT" id="ledger_balance" #ledger_balance
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)">
-                                                </td>
-                                                <td *ngIf="productamount" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="AC_PRODUCT" id="product_amount" #AC_PRODUCT
-                                                        value="{{data.AC_PRODUCT == null || data.AC_PRODUCT == '' ? '' : data.AC_PRODUCT }}"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PRODUCT.value,AC_PRODUCT.name)">
-                                                </td>
-                                                <td *ngIf="lastTranDate" class="td_center">
-                                                    <input type="text" name="AC_ACTDATE" id="tran_date"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_ACTDATE == null || data.AC_ACTDATE == '' ? '' : data.AC_ACTDATE }}"
-                                                        #AC_ACTDATE
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_ACTDATE.value,AC_ACTDATE.name)"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="lastintpaidDate" class="td_center">
-                                                    <input type="text" name="AC_LINTEDT" id="last_int_paid"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_LINTEDT == null || data.AC_LINTEDT == '' ? '' : data.AC_LINTEDT }}"
-                                                        #AC_LINTEDT
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_LINTEDT.value,AC_LINTEDT.name)"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="closingdate" class="td_center">
-                                                    <input type="text" name="AC_CLOSEDT" id="closing_date"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_CLOSEDT == null || data.AC_CLOSEDT == '' ? '' : data.AC_CLOSEDT }}"
-                                                        #AC_CLOSEDT
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_CLOSEDT.value,AC_CLOSEDT.name)"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="debitcredit" class="td_left">
-                                                    <div class="form-radio">
-                                                        <div class="radio radio-inline">
-                                                            <label>
-                                                                <input type="radio" [value]="data.AC_OP_CD" #AC_OP_CD
-                                                                    [attr.checked]="data.AC_OP_CD" name="{{data.id}}"
-                                                                    value="D"
-                                                                    (change)="getDebitCredit(data.id,data.AC_NO,data.BANKACNO,1)">
-                                                                <i class="helper"></i>Debit<span> </span>
-                                                            </label>
+                                                    <td class="td_right">{{data.AC_NO}}</td>
+                                                    <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
+                                                        data.AC_NAME}}
+                                                    </td>
+                                                    <td *ngIf="ledgerbalance" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="TRAN_AMOUNT" id="ledger_balance"
+                                                            #ledger_balance
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)">
+                                                    </td>
+                                                    <td *ngIf="productamount" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="AC_PRODUCT" id="product_amount"
+                                                            #AC_PRODUCT
+                                                            value="{{data.AC_PRODUCT == null || data.AC_PRODUCT == '' ? '' : data.AC_PRODUCT }}"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PRODUCT.value,AC_PRODUCT.name)">
+                                                    </td>
+                                                    <td *ngIf="lastTranDate" class="td_center">
+                                                        <input type="text" name="AC_ACTDATE" id="tran_date"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_ACTDATE == null || data.AC_ACTDATE == '' ? '' : data.AC_ACTDATE }}"
+                                                            #AC_ACTDATE
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_ACTDATE.value,AC_ACTDATE.name)"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="lastintpaidDate" class="td_center">
+                                                        <input type="text" name="AC_LINTEDT" id="last_int_paid"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_LINTEDT == null || data.AC_LINTEDT == '' ? '' : data.AC_LINTEDT }}"
+                                                            #AC_LINTEDT
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_LINTEDT.value,AC_LINTEDT.name)"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="closingdate" class="td_center">
+                                                        <input type="text" name="AC_CLOSEDT" id="closing_date"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_CLOSEDT == null || data.AC_CLOSEDT == '' ? '' : data.AC_CLOSEDT }}"
+                                                            #AC_CLOSEDT
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_CLOSEDT.value,AC_CLOSEDT.name)"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="debitcredit" class="td_left">
+                                                        <div class="form-radio">
+                                                            <div class="radio radio-inline">
+                                                                <label>
+                                                                    <input type="radio" [value]="data.AC_OP_CD"
+                                                                        #AC_OP_CD
+                                                                        [attr.checked]="data.AC_OP_CD=='D'?'':null"
+                                                                        name="{{data.id}}" value="D"
+                                                                        (change)="getDebitCredit(data.id,data.AC_NO,data.BANKACNO,1)">
+                                                                    <i class="helper"></i>Debit<span> </span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="radio radio-inline">
+                                                                <label>
+                                                                    <input type="radio" [value]="data.AC_OP_CD"
+                                                                        #AC_OP_CD
+                                                                        [attr.checked]="data.AC_OP_CD=='C'?'':null"
+                                                                        name="{{data.id}}" value="C"
+                                                                        (change)="getDebitCredit(data.id,data.AC_NO,data.BANKACNO,2)">
+                                                                    <i class="helper"></i>Credit<span> </span>
+                                                                </label>
+                                                            </div>
                                                         </div>
-                                                        <div class="radio radio-inline">
-                                                            <label>
-                                                                <input type="radio" [value]="data.AC_OP_CD" #AC_OP_CD
-                                                                    [attr.checked]="data.AC_OP_CD" name="{{data.id}}"
-                                                                    value="C"
-                                                                    (change)="getDebitCredit(data.id,data.AC_NO,data.BANKACNO,2)">
-                                                                <i class="helper"></i>Credit<span> </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td *ngIf="payableint" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="payable_int" id="payable_int" #RECPAY_INT_AMOUNT
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,RECPAY_INT_AMOUNT.value,RECPAY_INT_AMOUNT.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </td>
-                                                <td *ngIf="totalintpaid" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="AC_PAID_INT_OP" id="total_int_paid" #AC_PAID_INT_OP
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PAID_INT_OP.value,AC_PAID_INT_OP.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </td>
-                                                <td *ngIf="totalpenalint" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="AC_PINT_OP" id="total_penal_int" #AC_PINT_OP
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PINT_OP.value,AC_PINT_OP.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </td>
-                                                <td *ngIf="totalinstallmentrec" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        #AC_ODEPINS name="AC_ODEPINS" id="total_install_rec"
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_ODEPINS.value,AC_ODEPINS.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                                </td>
-                                                <td *ngIf="tdsopDate" class="td_center" class="td_right">
-                                                    <input type="text" name="LAST_TDS_DATE" id="LAST_TDS_DATE"
-                                                        #LAST_TDS_DATE placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.LAST_TDS_DATE == null || data.LAST_TDS_DATE == '' ? '' : data.LAST_TDS_DATE }}"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,LAST_TDS_DATE.value,LAST_TDS_DATE.name)"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="intinfinancialyear" class="td_right" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        #OP_CR_INT_FIN_YEAR name="OP_CR_INT_FIN_YEAR" id="int_fin_year"
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_CR_INT_FIN_YEAR.value,OP_CR_INT_FIN_YEAR.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </td>
-                                                <td *ngIf="opintpaidfinyear" class="td_right" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        #OP_INT_PAID_FIN_YEAR name="OP_INT_PAID_FIN_YEAR"
-                                                        id="op_int_fin_year"
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_INT_PAID_FIN_YEAR.value,OP_INT_PAID_FIN_YEAR.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </td>
-                                                <td *ngIf="acopenDate" class="td_center" class="td_right">
-                                                    <input type="text" name="AC_OPDATE" id="AC_OPDATE" #AC_OPDATE
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_OPDATE == null || data.AC_OPDATE == '' ? '' : data.AC_OPDATE }}"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_OPDATE.value,AC_OPDATE.name)"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="lastcreditDate" class="td_center" class="td_right">
-                                                    <input type="text" name="AC_ACTDATE" id="AC_ACTDATE"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_ACTDATE == null || data.AC_ACTDATE == '' ? '' : data.AC_ACTDATE }}"
-                                                        #AC_ACTDATE
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_ACTDATE.value,AC_ACTDATE.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="lastintDate" class="td_center">
-                                                    <input type="text" name="AC_LINTEDT" id="AC_LINTEDT"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_LINTEDT == null || data.AC_LINTEDT == '' ? '' : data.AC_LINTEDT }}"
-                                                        #AC_LINTEDT
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_LINTEDT.value,AC_LINTEDT.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="opproduct" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        #AC_PRODUCT name="op_product" id="op_product"
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PRODUCT.value,AC_PRODUCT.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                                </td>
-                                                <td *ngIf="balanceDate" class="td_center">
-                                                    <input type="text" name="AC_BALDATE" id="AC_BALDATE"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_BALDATE == null || data.AC_BALDATE == '' ? '' : data.AC_BALDATE }}"
-                                                        #AC_BALDATE
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_BALDATE.value,AC_BALDATE.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="receivableint" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="RECPAY_INT_AMOUNT" id="RECPAY_INT_AMOUNT"
-                                                        #RECPAY_INT_AMOUNT
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,RECPAY_INT_AMOUNT.value,RECPAY_INT_AMOUNT.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="payableint" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="payable_int" id="payable_int"
+                                                            #RECPAY_INT_AMOUNT
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,RECPAY_INT_AMOUNT.value,RECPAY_INT_AMOUNT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="totalintpaid" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="AC_PAID_INT_OP"
+                                                            id="total_int_paid" #AC_PAID_INT_OP
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PAID_INT_OP.value,AC_PAID_INT_OP.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="totalpenalint" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="AC_PINT_OP" id="total_penal_int"
+                                                            #AC_PINT_OP
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PINT_OP.value,AC_PINT_OP.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="totalinstallmentrec" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" #AC_ODEPINS name="AC_ODEPINS"
+                                                            id="total_install_rec"
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_ODEPINS.value,AC_ODEPINS.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                                    </td>
+                                                    <td *ngIf="tdsopDate" class="td_center" class="td_right">
+                                                        <input type="text" name="LAST_TDS_DATE" id="LAST_TDS_DATE"
+                                                            #LAST_TDS_DATE placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.LAST_TDS_DATE == null || data.LAST_TDS_DATE == '' ? '' : data.LAST_TDS_DATE }}"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,LAST_TDS_DATE.value,LAST_TDS_DATE.name)"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="intinfinancialyear" class="td_right" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" #OP_CR_INT_FIN_YEAR
+                                                            name="OP_CR_INT_FIN_YEAR" id="int_fin_year"
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_CR_INT_FIN_YEAR.value,OP_CR_INT_FIN_YEAR.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="opintpaidfinyear" class="td_right" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" #OP_INT_PAID_FIN_YEAR
+                                                            name="OP_INT_PAID_FIN_YEAR" id="op_int_fin_year"
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_INT_PAID_FIN_YEAR.value,OP_INT_PAID_FIN_YEAR.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="acopenDate" class="td_center" class="td_right">
+                                                        <input type="text" name="AC_OPDATE" id="AC_OPDATE" #AC_OPDATE
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_OPDATE == null || data.AC_OPDATE == '' ? '' : data.AC_OPDATE }}"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_OPDATE.value,AC_OPDATE.name)"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="lastcreditDate" class="td_center" class="td_right">
+                                                        <input type="text" name="AC_ACTDATE" id="AC_ACTDATE"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_ACTDATE == null || data.AC_ACTDATE == '' ? '' : data.AC_ACTDATE }}"
+                                                            #AC_ACTDATE
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_ACTDATE.value,AC_ACTDATE.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="lastintDate" class="td_center">
+                                                        <input type="text" name="AC_LINTEDT" id="AC_LINTEDT"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_LINTEDT == null || data.AC_LINTEDT == '' ? '' : data.AC_LINTEDT }}"
+                                                            #AC_LINTEDT
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_LINTEDT.value,AC_LINTEDT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="opproduct" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" #AC_PRODUCT name="op_product"
+                                                            id="op_product"
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PRODUCT.value,AC_PRODUCT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                                    </td>
+                                                    <td *ngIf="balanceDate" class="td_center">
+                                                        <input type="text" name="AC_BALDATE" id="AC_BALDATE"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_BALDATE == null || data.AC_BALDATE == '' ? '' : data.AC_BALDATE }}"
+                                                            #AC_BALDATE
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_BALDATE.value,AC_BALDATE.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="receivableint" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="RECPAY_INT_AMOUNT"
+                                                            id="RECPAY_INT_AMOUNT" #RECPAY_INT_AMOUNT
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,RECPAY_INT_AMOUNT.value,RECPAY_INT_AMOUNT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="totalintrec" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="AC_PAID_INT_OP" id="AC_PAID_INT_OP" #AC_PAID_INT_OP
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PAID_INT_OP.value,AC_PAID_INT_OP.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="totalintrec" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="AC_PAID_INT_OP"
+                                                            id="AC_PAID_INT_OP" #AC_PAID_INT_OP
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PAID_INT_OP.value,AC_PAID_INT_OP.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="penalint" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="penal_int" id="penal_int" #PENAL_INTEREST
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,PENAL_INTEREST.value,PENAL_INTEREST.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="penalint" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="penal_int" id="penal_int"
+                                                            #PENAL_INTEREST
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,PENAL_INTEREST.value,PENAL_INTEREST.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="totaldepositamt" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="AC_OP_TOTAL_DEPOSITAMT" id="AC_OP_TOTAL_DEPOSITAMT"
-                                                        #AC_OP_TOTAL_DEPOSITAMT
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_OP_TOTAL_DEPOSITAMT.value,AC_OP_TOTAL_DEPOSITAMT.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="totaldepositamt" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="AC_OP_TOTAL_DEPOSITAMT"
+                                                            id="AC_OP_TOTAL_DEPOSITAMT" #AC_OP_TOTAL_DEPOSITAMT
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_OP_TOTAL_DEPOSITAMT.value,AC_OP_TOTAL_DEPOSITAMT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="totalpostedint" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="OP_POSTED_INT" id="OP_POSTED_INT" #OP_POSTED_INT
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_POSTED_INT.value,OP_POSTED_INT.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </td>
-                                                <td *ngIf="npaDate" class="td_center">
-                                                    <input type="text" name="OP_NPA_DATE" id="OP_NPA_DATE"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.OP_NPA_DATE == null || data.OP_NPA_DATE == '' ? '' : data.OP_NPA_DATE }}"
-                                                        #OP_NPA_DATE
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_NPA_DATE.value,OP_NPA_DATE.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="isdisputeloan" class="td_right">
-                                                    <input type="checkbox" class="border-checkbox" id="IS_DISPUTE_LOAN"
-                                                        #IS_DISPUTE_LOAN
-                                                        [value]="data.IS_DISPUTE_LOAN===true ? true : null"
-                                                        [attr.checked]="data.IS_DISPUTE_LOAN===true ? true :null"
-                                                        (change)="checkInterestFlag(data.id,data.AC_NO,data.BANKACNO,$event)">
-                                                </td>
-                                                <td *ngIf="noofshares" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="NO_OF_SHARES" id="NO_OF_SHARES" #NO_OF_SHARES
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,NO_OF_SHARES.value,NO_OF_SHARES.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="totalpostedint" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="OP_POSTED_INT" id="OP_POSTED_INT"
+                                                            #OP_POSTED_INT
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_POSTED_INT.value,OP_POSTED_INT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="npaDate" class="td_center">
+                                                        <input type="text" name="OP_NPA_DATE" id="OP_NPA_DATE"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.OP_NPA_DATE == null || data.OP_NPA_DATE == '' ? '' : data.OP_NPA_DATE }}"
+                                                            #OP_NPA_DATE
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_NPA_DATE.value,OP_NPA_DATE.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="isdisputeloan" class="td_right">
+                                                        <input type="checkbox" class="border-checkbox"
+                                                            id="IS_DISPUTE_LOAN" #IS_DISPUTE_LOAN
+                                                            [value]="data.IS_DISPUTE_LOAN===true ? true : null"
+                                                            [attr.checked]="data.IS_DISPUTE_LOAN===true ? true :null"
+                                                            (change)="checkInterestFlag(data.id,data.AC_NO,data.BANKACNO,$event)">
+                                                    </td>
+                                                    <td *ngIf="noofshares" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="NO_OF_SHARES" id="NO_OF_SHARES"
+                                                            #NO_OF_SHARES
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,NO_OF_SHARES.value,NO_OF_SHARES.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="shareamt" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="TRAN_AMOUNT" id="shareamt" #TRAN_AMOUNT
-                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,TRAN_AMOUNT.value,TRAN_AMOUNT.name)"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="shareamt" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="TRAN_AMOUNT" id="shareamt"
+                                                            #TRAN_AMOUNT
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,TRAN_AMOUNT.value,TRAN_AMOUNT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="accloseDate" class="td_center">
-                                                    <input type="text" name="AC_CLOSEDT" id="AC_CLOSEDT"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.AC_CLOSEDT == null || data.AC_CLOSEDT == '' ? '' : data.AC_CLOSEDT }}"
-                                                        #AC_CLOSEDT
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_CLOSEDT.value,AC_CLOSEDT.name)"
-                                                        bsDatepicker>
-                                                </td>
-                                                <td *ngIf="purchaseDate" class="td_center">
-                                                    <input type="text" name="PURCHASE_DATE" id="PURCHASE_DATE"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.PURCHASE_DATE == null || data.PURCHASE_DATE == '' ? '' : data.PURCHASE_DATE }}"
-                                                        #PURCHASE_DATE
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="accloseDate" class="td_center">
+                                                        <input type="text" name="AC_CLOSEDT" id="AC_CLOSEDT"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.AC_CLOSEDT == null || data.AC_CLOSEDT == '' ? '' : data.AC_CLOSEDT }}"
+                                                            #AC_CLOSEDT
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_CLOSEDT.value,AC_CLOSEDT.name)"
+                                                            bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="purchaseDate" class="td_center">
+                                                        <input type="text" name="PURCHASE_DATE" id="PURCHASE_DATE"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.PURCHASE_DATE == null || data.PURCHASE_DATE == '' ? '' : data.PURCHASE_DATE }}"
+                                                            #PURCHASE_DATE
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            bsDatepicker>
 
 
-                                                </td>
-                                                <td *ngIf="supliername" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="SUPPLIER_NAME" id="SUPPLIER_NAME" #SUPPLIER_NAME
-                                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47">
+                                                    </td>
+                                                    <td *ngIf="supliername" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="SUPPLIER_NAME" id="SUPPLIER_NAME"
+                                                            #SUPPLIER_NAME
+                                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47">
 
-                                                </td>
-                                                <td *ngIf="purchaserate" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="PURCHASE_RATE" id="PURCHASE_RATE" #PURCHASE_RATE
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="purchaserate" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="PURCHASE_RATE" id="PURCHASE_RATE"
+                                                            #PURCHASE_RATE
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="purchasequantity" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="PURCHASE_QUANTITY" id="PURCHASE_QUANTITY"
-                                                        #PURCHASE_QUANTITY
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="purchasequantity" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="PURCHASE_QUANTITY"
+                                                            id="PURCHASE_QUANTITY" #PURCHASE_QUANTITY
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="purchasevalue" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="PURCHASE_VALUE" id="PURCHASE_VALUE" #PURCHASE_VALUE
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="purchasevalue" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="PURCHASE_VALUE"
+                                                            id="PURCHASE_VALUE" #PURCHASE_VALUE
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="openingamt" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="OP_BALANCE" id="OP_BALANCE" #OP_BALANCE
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="openingamt" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="OP_BALANCE" id="OP_BALANCE"
+                                                            #OP_BALANCE
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="openingquantity" class="td_right">
-                                                    <input style="text-align: right;" type="text" class="form-control"
-                                                        name="OP_QUANTITY" id="OP_QUANTITY" #OP_QUANTITY
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </td>
+                                                    <td *ngIf="openingquantity" class="td_right">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="OP_QUANTITY" id="OP_QUANTITY"
+                                                            #OP_QUANTITY
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
-                                                </td>
-                                                <td *ngIf="lastdepreciationDate" class="td_center">
-                                                    <input type="text" name="LAST_DEPR_DATE" id="LAST_DEPR_DATE"
-                                                        placeholder="dd/mm/yyyy" class="form-control"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.LAST_DEPR_DATE == null || data.LAST_DEPR_DATE == '' ? '' : data.LAST_DEPR_DATE }}"
-                                                        #LAST_DEPR_DATE
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        bsDatepicker>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <tbody *ngIf="arrTable?.length == 0">
-                                            <tr>
-                                                <td colspan="12" class="no-data-available" style="text-align: center;">
-                                                    No data!
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                                    </td>
+                                                    <td *ngIf="lastdepreciationDate" class="td_center">
+                                                        <input type="text" name="LAST_DEPR_DATE" id="LAST_DEPR_DATE"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.LAST_DEPR_DATE == null || data.LAST_DEPR_DATE == '' ? '' : data.LAST_DEPR_DATE }}"
+                                                            #LAST_DEPR_DATE
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            bsDatepicker>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="arrTable?.length == 0">
+                                                <tr>
+                                                    <td colspan="12" class="no-data-available"
+                                                        style="text-align: center;">
+                                                        No data!
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
-                                       
-                                       
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -535,12 +563,3 @@
         </div>
     </div>
 </div>
-<!-- <script type="text/javascript">
-    // $(document).ready(function(){
-    //     $("mytable").Datatable();
-    // });
-    $(document).ready(function () {
-  $('#mytable').DataTable();
-  $('.dataTables_length').addClass('bs-select');
-});
-</script> -->

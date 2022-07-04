@@ -15,7 +15,7 @@
                 <span class="border-lable-flt">
                   <ng-select bindValue="value" [(ngModel)]="acType" id="ACTYPE" bindLabel="label"
                     formControlName="ACTYPE" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    required placeholder="Scheme">
+                    required placeholder="Scheme" (change)="getShareAccounts($event)">
                     <ng-option *ngFor="let values of SchemeCodeObject" [value]="values">
                       {{values.label}} </ng-option>
                   </ng-select>
@@ -129,7 +129,7 @@
                     formControlName="AC_NOFrom" title="Compulsory Selection"
                     [ngClass]="{'form-submitted': formSubmitted}" placeholder="Member From">
                     <ng-option *ngFor="let values of ShareMasterObject" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.label}} {{values.name}}</ng-option>
                   </ng-select>
                   <label for="AC_NOFrom">Member From</label>
                 </span>
@@ -147,7 +147,7 @@
                     formControlName="AC_NOTo" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     placeholder="Member To" (change)="getDividendTable()">
                     <ng-option *ngFor="let values of ShareMasterObjectB" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.label}} {{values.name}}</ng-option>
                   </ng-select>
                   <label for="AC_NOTo">Member To</label>
                 </span>
@@ -234,7 +234,7 @@
                     </tbody>
                     <tbody *ngIf="multiShare?.length == 0">
                       <tr>
-                        <td class="no-data-available">No data!</td>
+                        <td colspan="4" class="no-data-available">No data!</td>
                       </tr>
                     </tbody>
                   </table>

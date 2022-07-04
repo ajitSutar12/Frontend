@@ -212,15 +212,15 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   createForm() {
     this.angForm = this.fb.group({
       INSTRUCTION_NO: ['',],
-      INSTRUCTION_DATE: ['',],
+      INSTRUCTION_DATE: [],
       TRAN_ACTYPE: ['', [Validators.required]],
       TRAN_ACNO: ['', [Validators.required]],
       FROM_DATE: ['', [Validators.required]],
       TO_DATE: ['', [Validators.required]],
       DRCR_APPLY: ['', [Validators.required]],
-      IS_RESTRICT: [''],
+      IS_RESTRICT: [false],
       DETAILS: ['', [Validators.required]],
-      REVOKE_DATE: ['',]
+      REVOKE_DATE: []
     });
     let sysdate = new Date()
     // let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
@@ -233,6 +233,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNewData() {
+    this.angForm.controls['REVOKE_DATE'].disable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -240,7 +241,6 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.acno = null
     this.ngacno = null
     this.ngexecuteon = null
-    this.angForm.controls['REVOKE_DATE'].disable()
   }
 
   submit() {
@@ -259,7 +259,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
         TO_DATE: (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date' || formVal.TO_DATE == null || formVal.TO_DATE == undefined) ? todate = '' : todate = moment(formVal.TO_DATE).format('DD/MM/YYYY'),
         // TO_DATE: formVal.TO_DATE,
         DRCR_APPLY: formVal.DRCR_APPLY,
-        IS_RESTRICT: formVal.IS_RESTRICT,
+        IS_RESTRICT: formVal.IS_RESTRICT == false ? '0' : '1',
         DETAILS: formVal.DETAILS,
       };
       this._special.postData(dataToSend).subscribe(
@@ -303,7 +303,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
         FROM_DATE: data.FROM_DATE,
         TO_DATE: data.TO_DATE,
         DRCR_APPLY: data.DRCR_APPLY,
-        IS_RESTRICT: data.IS_RESTRICT,
+        IS_RESTRICT: data.IS_RESTRICT == '0' ? false : true,
         DETAILS: data.DETAILS,
         REVOKE_DATE: data.REVOKE_DATE,
       });
@@ -396,6 +396,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data['IS_RESTRICT'] = data.IS_RESTRICT == false ? '0' : '1'
     if (this.updatecheckdata.FROM_DATE != data.FROM_DATE) {
       (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? (fromdate = '', data['FROM_DATE'] = fromdate) : (fromdate = data.FROM_DATE, data['FROM_DATE'] = moment(fromdate).format('DD/MM/YYYY'))
     }
@@ -555,6 +556,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   // Reset Function
   resetForm() {
+    this.angForm.controls['REVOKE_DATE'].disable()
     this.createForm();
     this.acno = null
     this.ngacno = null
