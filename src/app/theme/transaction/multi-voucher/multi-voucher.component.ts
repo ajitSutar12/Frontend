@@ -15,6 +15,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -228,6 +229,7 @@ export class MultiVoucherComponent implements OnInit {
 
   IntersetHeadDate: any;
   selectedSchemeCode() {
+    debugger
     this.allScheme = [];
     this.master.forEach(element => {
       if (element.S_ACNOTYPE == this.selectedCode) {
@@ -260,13 +262,17 @@ export class MultiVoucherComponent implements OnInit {
     this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
     console.log('IntrestDate', this.IntersetHeadDate);
     this._service.getHeadDetails(obj).subscribe(data => {
+      debugger
       if (data.length != 0) {
-        this.headData = data;
-        this.headShow = true;
-        this.headData.forEach(element => {
-          element['date'] = this.IntersetHeadDate;
-          element['Amount'] = 0.00
-        });
+
+        if (!this.headflag) {
+          this.headData = data;
+          this.headShow = true;
+          this.headData.forEach(element => {
+            element['date'] = this.IntersetHeadDate;
+            element['Amount'] = 0.00
+          });
+        }
         console.log(this.headData);
       } else {
         this.headShow = false;
@@ -277,9 +283,12 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   //get account no according scheme for introducer
-  getIntroducer() {
+  submitScheme: any;
+  getIntroducer(item) {
+    // debugger
     this.introducerACNo = [];
-    this.obj = [this.selectedScheme.id, this.selectedBranch]
+    this.submitScheme = item;
+    this.obj = [item.id, this.selectedBranch]
     switch (this.selectedCode) {
       case 'SB':
         this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
@@ -347,6 +356,7 @@ export class MultiVoucherComponent implements OnInit {
         })
         break;
     }
+    console.log(this.introducerACNo);
   }
 
   //Transaction mode select
@@ -379,12 +389,16 @@ export class MultiVoucherComponent implements OnInit {
 
   //submit Form
   Add() {
-
+    debugger
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = this.angForm.value;
     obj['user'] = user;
     obj['InputHead'] = this.headData;
+    obj['tran_mode'] = this.submitTranMode;
+    obj['scheme'] = this.submitScheme;
+    obj['account_no'] = this.submitAccountNo;
     console.log(obj);
+
     this.mainMaster.push(obj);
     this.angForm.controls['temp_over_draft'].reset()
     this.angForm.controls['over_draft'].reset()
@@ -406,6 +420,15 @@ export class MultiVoucherComponent implements OnInit {
     this.headData = [];
     this.headShow = false;
     this.showChequeDetails = false;
+    this.submitAccountNo = {};
+    this.submitScheme = {};
+    this.submitTranMode = {};
+    this.selectedCode = undefined;
+    this.selectedScheme = '';
+    this.selectedMode = '';
+    this.customer = '';
+
+    this.calculateVoucher()
 
   }
 
@@ -427,9 +450,10 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   //Mode data
-  changeMode() {
-
-    if (this.selectedMode.tran_drcr == 'D') {
+  submitTranMode: any;
+  changeMode(item) {
+    this.submitTranMode = item;
+    if (item.tran_drcr == 'D') {
       this.showChequeDetails = true;
     } else {
       this.showChequeDetails = false;
@@ -440,8 +464,9 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   //get customer today voucher data
-  getVoucherData() {
-
+  submitAccountNo: any;
+  getVoucherData(item) {
+    this.submitAccountNo = item;
     let customer = this.angForm.controls['account_no'].value;
     let obj = {
       'customer': customer.BANKACNO,
@@ -513,6 +538,7 @@ export class MultiVoucherComponent implements OnInit {
     let value = ele.target.value;
     this.headData[i].Amount = value;
     console.log(this.headData);
+    this.totalAmt = Number(value) + Number(this.totalAmt) + '.00'
   }
 
   //decimal content show purpose wrote below function
@@ -554,16 +580,24 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   //Edit Voucher Data
+  headflag: boolean = false;
   editVoucher(index) {
-
+    this.headflag = true;
+    debugger
     this.EditFlag = true;
     this.index = index;
     var data = this.mainMaster[index];
+    console.log(data);
     this.selectedCode = data.scheme_type;
-    this.selectedScheme = data.scheme;
-    this.customer = data.account_no;
-    this.selectedMode = data.tran_mode;
+    this.selectedSchemeCode()
+    this.selectedScheme = data.scheme.id;
+    this.getIntroducer(data.scheme)
+    this.customer = data.account_no.id;
+    this.selectedMode = data.tran_mode.id;
     this.particulars = data.particulars;
+    this.submitAccountNo = data.account_no;
+    this.submitScheme = data.scheme;
+    this.submitTranMode = data.tran_mode;
     this.bank = data.bank;
     this.angForm.patchValue({
       'chequeNo': data.chequeNo,
@@ -572,13 +606,13 @@ export class MultiVoucherComponent implements OnInit {
       'particulars': data.particulars,
       'total_amt': data.total_amt
     })
-    // this.changeMode();
+    this.changeMode(data.tran_mode);
     this.headData = data.InputHead;
     if (this.headData.length > 0) {
       this.headShow = true;
     }
 
-    if (data.chequeDate != '') {
+    if (data.chequeDate != undefined) {
       this.showChequeDetails = true;
     }
     this.showAdd = false;
@@ -587,7 +621,16 @@ export class MultiVoucherComponent implements OnInit {
 
 
   update() {
-    this.mainMaster[this.index] = this.angForm.value;
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = this.angForm.value;
+    obj['user'] = user;
+    obj['InputHead'] = this.headData;
+    obj['tran_mode'] = this.submitTranMode;
+    obj['scheme'] = this.submitScheme;
+    obj['account_no'] = this.submitAccountNo;
+    console.log(obj);
+    this.mainMaster[this.index] = obj;
     this.showAdd = true;
     this.showUpdate = false;
     this.EditFlag = false;
@@ -612,6 +655,7 @@ export class MultiVoucherComponent implements OnInit {
     this.headData = [];
     this.headShow = false;
     this.showChequeDetails = false;
+    this.calculateVoucher()
   }
 
   updatecheckdata
@@ -622,26 +666,35 @@ export class MultiVoucherComponent implements OnInit {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateID
-
+  item1: any;
   editClickHandler(id) {
+    console.log(id);
 
     this._service.getFormData(id).subscribe((data) => {
-      this.updateID = data.TRAN_NO
-      console.log('edit', data)
-      this.updatecheckdata = data
-      if (data.TRAN_STATUS == 0) {
-        this.showButton = false;
-        this.updateShow = true;
-        this.newbtnShow = true;
-      } else {
-        this.showButton = false;
-        this.updateShow = false;
-        this.newbtnShow = true;
-      }
+      debugger
+      this.updateID = data[0].TRAN_NO
+      // console.log('edit', data)
+      // this.updatecheckdata = data
+      // if (data.TRAN_STATUS == 0) {
+      //   this.showButton = false;
+      //   this.updateShow = true;
+      //   this.newbtnShow = true;
+      // } else {
+      //   this.showButton = false;
+      //   this.updateShow = false;
+      //   this.newbtnShow = true;
+      // }
       this.mainMaster = data
-      this.angForm.patchValue({
-
-      })
+      // this.selectedCode = data[0].scheme.S_SHNAME;
+      // this.selectedSchemeCode()
+      // this.selectedScheme = data[0].scheme.id;
+      // this.getIntroducer(data[0].scheme);
+      // this.customer = data[0].account_no.id;
+      // this.selectedMode = data[0].tran_mode.id;
+      // this.angForm.patchValue({
+      //     scheme : this.selectedScheme,
+      //     particulars:data[0].NARRATION
+      // })
     })
   }
 
@@ -649,10 +702,24 @@ export class MultiVoucherComponent implements OnInit {
 
   }
 
+  totalCredit = 0;
+  totalDebit = 0;
+  calculateVoucher() {
+    this.totalCredit = 0;
+    this.totalDebit = 0;
+    for (let item of this.mainMaster) {
+      if (item.tran_mode.tran_drcr == 'C') {
+        this.totalCredit = this.totalCredit + Number(item.total_amt)
+      } else {
+        this.totalDebit = this.totalDebit + Number(item.total_amt);
+      }
+    }
+  }
+
   //approve account
   Approve() {
     let obj = {
-      id: this.updateID,
+      id: Number(this.updateID),
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(

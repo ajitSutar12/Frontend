@@ -113,7 +113,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                                <ng-select [(ngModel)]="selectedScheme" bindValue="id" (change)="getIntroducer($event)"
                                                     formControlName="scheme">
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
                                                         {{item.S_APPL}} {{item.S_NAME}}</ng-option>
@@ -136,8 +136,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select formControlName="account_no" [(ngModel)]="selectedAccountno"
-                                                    (change)="getVoucherData(); checkAccountCondition();showlgindetails();">
+                                                <ng-select formControlName="account_no" bindValue="id" [(ngModel)]="selectedAccountno"
+                                                    (change)="getVoucherData($event); checkAccountCondition();showlgindetails();">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
@@ -156,8 +156,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedMode" formControlName="tran_mode"
-                                                    (change)="changeMode();checktranCondition()">
+                                                <ng-select [(ngModel)]="selectedMode" bindValue="id" formControlName="tran_mode"
+                                                    (change)="changeMode($event);checktranCondition()">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
                                                 </ng-select>
@@ -430,8 +430,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing
-                                            </h6>
+                                            <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing</h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
@@ -559,9 +558,7 @@
                                                     <span class="fw-bolder me-25">Contact:</span>
                                                     <span>+91 {{Customer_Contact_No}}</span>
                                                 </li>
-
                                             </ul>
-
                                         </div>
                                     </div>
                                 </div>
@@ -596,7 +593,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide (click)="modalLarge.hide()">Close</button>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggerhide" #triggerhide (click)="modalLarge.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>

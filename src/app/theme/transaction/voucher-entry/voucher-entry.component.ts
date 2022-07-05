@@ -253,6 +253,8 @@ export class VoucherEntryComponent implements OnInit {
     console.log('IntrestDate', this.IntersetHeadDate);
     this._service.getHeadDetails(obj).subscribe(data => {
       if (data.length != 0) {
+
+        if(!this.headFlag){
         this.headData = data;
         this.headShow = true;
 
@@ -263,6 +265,7 @@ export class VoucherEntryComponent implements OnInit {
           element['Balance'] = 0.00
         });
         console.log(this.headData);
+      }
       } else {
         this.headShow = false;
       }
@@ -272,9 +275,11 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   //get account no according scheme for introducer
-  getIntroducer() {
+  Submitscheme :any;
+  getIntroducer(item) {
     this.introducerACNo = [];
-    this.obj = [this.selectedScheme.id, this.selectedBranch]
+    this.obj = [item.id, this.selectedBranch]
+    this.Submitscheme = item
     switch (this.selectedCode) {
       case 'SB':
         this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
@@ -373,6 +378,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //get Narration Details 
   getNarration(ele) {
+    debugger
     this.particulars = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
@@ -384,9 +390,12 @@ export class VoucherEntryComponent implements OnInit {
     let obj = this.angForm.value;
     obj['user'] = user;
     obj['InputHead'] = this.headData;
+    obj['scheme'] = this.Submitscheme;
+    obj['account_no'] = this.submitCustomer;
+    obj['tran_mode']  = this.submitTranMode;
     console.log(obj);
     this._service.insertVoucher(obj).subscribe(data => {
-      this.getVoucherData();
+      // this.getVoucherData();
       Swal.fire('Success!', 'Voucher update Successfully !', 'success');
       this.angForm.controls['temp_over_draft'].reset()
       this.angForm.controls['over_draft'].reset()
@@ -422,8 +431,9 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   //Mode data
-  changeMode() {
-
+  submitTranMode : any;
+  changeMode(item) {
+    this.submitTranMode = item;
     if (this.selectedMode.tran_type == 'TR') {
       this.showChequeDetails = true;
       this.angForm.controls['chequeNo'].reset()
@@ -457,9 +467,10 @@ export class VoucherEntryComponent implements OnInit {
     }
   }
 
-
+  submitCustomer : any;
   //get customer today voucher data
-  getVoucherData() {
+  getVoucherData(item) {
+    this.submitCustomer = item;
     //Hide / Show and show account wie Photo and signature
     let customer = this.angForm.controls['account_no'].value;
     let obj = {
@@ -1110,13 +1121,14 @@ export class VoucherEntryComponent implements OnInit {
   newbtnShow: boolean = false;
   // Variables for hide/show add and update button
   showButton: boolean = true;
-  updateID
+  updateID:any;
 
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
 
+  headFlag : boolean = false;
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
       debugger
@@ -1134,8 +1146,13 @@ export class VoucherEntryComponent implements OnInit {
       this.updateID = data.id;
       this.selectedBranch = data.BRANCH_CODE
       this.selectedCode = data.TRAN_ACNOTYPE
-      this.selectedScheme = Number(data.TRAN_ACTYPE)
-      this.selectedMode = data.TRAN_MODE
+      this.selectedSchemeCode();
+      this.headFlag = true;
+      this.headData = data.InputHead;
+      this.headShow = true;
+      this.selectedScheme = data.scheme.id
+
+      this.selectedMode = data.tran_mode[0].id;
       this.introducerACNo = [];
       this.obj = [this.selectedScheme, this.selectedBranch]
       switch (this.selectedCode) {
@@ -1205,6 +1222,8 @@ export class VoucherEntryComponent implements OnInit {
           })
           break;
       }
+
+      this.selectedAccountno = data.account_no[0].id
 
       this.angForm.patchValue({
         type: data.TRAN_TYPE == 'CS' ? 'cash' : data.TRAN_TYPE == 'TR' ? 'transfer' : '',

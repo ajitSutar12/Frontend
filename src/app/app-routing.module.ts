@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AdminComponent} from './layout/admin/admin.component';
 import {AuthComponent} from './layout/auth/auth.component';
+import {DatatablekitComponent} from './datatablekit/datatablekit.component';
 
 const routes: Routes = [
   {
@@ -156,6 +157,10 @@ const routes: Routes = [
         loadChildren: () => import('./theme/maintenance/offline-ui/offline-ui.module').then(m => m.OfflineUiModule)
       }
     ]
+  },
+  {
+    path:'datatableKit',
+    component: DatatablekitComponent
   }
 ];
 

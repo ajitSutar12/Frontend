@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
 import { AdminComponent } from './layout/admin/admin.component';
@@ -19,6 +20,7 @@ import { UserAuthInterceptor } from './user-auth.interceptor';
 import {ConnectionServiceModule} from 'ng-connection-service';  
 import{StrictNumberOnlyDirective} from'././restrictinput';
 import { NgPasswordValidatorModule } from 'ng-password-validator';
+import { DatatablekitComponent } from './datatablekit/datatablekit.component';
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
@@ -30,7 +32,8 @@ import { NgPasswordValidatorModule } from 'ng-password-validator';
     AuthComponent,
     BreadcrumbsComponent,
     HotKeysComponent,
-    StrictNumberOnlyDirective
+    StrictNumberOnlyDirective,
+    DatatablekitComponent
   
   ],
   imports: [
@@ -44,6 +47,7 @@ import { NgPasswordValidatorModule } from 'ng-password-validator';
     HotkeyModule.forRoot(), // adding HotkeysModule
     ConnectionServiceModule ,
     NgPasswordValidatorModule ,
+    DataTablesModule
     // InfiniteScrollModule,
   ],
   providers: [MenuItems,

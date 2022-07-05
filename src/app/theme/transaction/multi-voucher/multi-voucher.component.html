@@ -97,7 +97,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
-                                                    formControlName="scheme_type">
+                                                    formControlName="scheme_type" >
                                                     <ng-option *ngFor="let item of allSchemeCode"
                                                         [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
                                                 </ng-select>
@@ -117,10 +117,11 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
-                                                    formControlName="scheme">
+                                                <ng-select [(ngModel)]="selectedScheme"  bindValue="id"
+                                                    (change)="getIntroducer($event)"  formControlName="scheme">
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
-                                                        {{item.S_APPL}} {{item.S_NAME}}</ng-option>
+                                                        {{item.S_APPL}} {{item.S_NAME}}
+                                                    </ng-option>
                                                 </ng-select>
 
                                             </span>
@@ -142,8 +143,9 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="customer" formControlName="account_no"
-                                                    (change)="getVoucherData();checkAccountCondition()">
+                                                <ng-select [(ngModel)]="customer" bindValue="id"
+                                                    formControlName="account_no"
+                                                    (change)="getVoucherData($event);checkAccountCondition()">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
@@ -164,8 +166,8 @@
                                     <div class="col-sm-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedMode" formControlName="tran_mode"
-                                                    (change)="changeMode()">
+                                                <ng-select [(ngModel)]="selectedMode" bindValue="id"
+                                                    formControlName="tran_mode" (change)="changeMode($event)" >
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
                                                 </ng-select>
@@ -387,6 +389,15 @@
                                                 </tr>
                                             </ng-container>
                                         </table>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                Total Credit : {{totalCredit}}
+                                            </div>
+                                            <div class="col-md-3">
+                                                Total Debit  : {{totalDebit}}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -658,7 +669,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide" #triggerhide
                         (click)="modalLarge.hide()">Close</button>
                 </div>
             </div>
