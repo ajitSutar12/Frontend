@@ -230,7 +230,6 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   isHideForSaving: boolean = true
   isInterestApplicable: boolean = false
   schemechange(event) {
-    debugger
     this.ngGlAcno = Number(event.SVR_CHARGE_GLCODE)
     this.getschemename = event.name
     this.ngscheme = event.value
@@ -366,19 +365,29 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
   bankacno
+  OpenDate
+  renewalDate
+  INTRATE
+  LastIntDate
+  maturityDate
   getAccountDetails(event) {
     this.bankacno = event.bankacno
     let mem = [this.bankacno, this.getschemename, this.ngscheme]
     this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data) => {
       console.log('acc data', data)
+      this.OpenDate = data[0].AC_OPDATE
+      this.renewalDate = data[0].AC_ASON_DATE
+      this.INTRATE = data[0].INT_RATE
+      this.LastIntDate = data[0].AC_LINTEDT
+      this.maturityDate = data[0].AC_EXPDT
       this.angForm.patchValue({
-        OpenDate: data[0].AC_OPDATE,
-        renewalDate: data[0].AC_ASON_DATE,
-        LastIntDate: data[0].AC_LINTEDT,
-        maturityDate: data[0].AC_EXPDT,
+        // OpenDate: data[0].AC_OPDATE,
+        // renewalDate: data[0].AC_ASON_DATE,
+        // LastIntDate: data[0].AC_LINTEDT,
+        // maturityDate: data[0].AC_EXPDT,
         AC_Months: data[0].AC_MONTHS,
         AC_DAYS: data[0].AC_DAYS,
-        INTRATE: data[0].INT_RATE,
+        // INTRATE: data[0].INT_RATE,
         POSTED_INT: data[0].post_Interest
       })
       if (this.isInterestApplicable == true) {
@@ -611,12 +620,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   //function for edit button clicked
   editClickHandler(id): void {
     this._service.getFormData(id).subscribe((data) => {
-      debugger
       console.log('edit', data)
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
-        this.updateShow = true;
+        this.updateShow = false;
         this.newbtnShow = true;
       } else {
         this.showButton = false;
@@ -658,6 +666,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         DATE: data.TRAN_DATE,
         Token_Num: data.TOKEN_NO,
       })
+      this.accountedit = data.TRAN_ACNO
     })
   }
 
@@ -706,7 +715,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         'Saving and Pigmy Account Closing approved successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
 
     }, err => {
@@ -729,7 +738,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         'Saving and Pigmy Account Closing rejected successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
 
     }, err => {

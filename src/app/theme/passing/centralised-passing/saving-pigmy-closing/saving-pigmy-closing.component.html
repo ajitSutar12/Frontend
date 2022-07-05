@@ -39,7 +39,8 @@
                                                         </td>
                                                         <td
                                                             [ngClass]="data.TRAN_ACTYPE === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_ACTYPE === "" ? "-" : data.TRAN_ACTYPE }}
+                                                            {{ data.TRAN_ACTYPE === "" ? "-" :
+                                                            data?.depocloseTran?.S_APPL }}
                                                         </td>
                                                         <td
                                                             [ngClass]="data.TRAN_ACNO === '' ? 'td_center' : 'td_right'">
@@ -85,7 +86,7 @@
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
+        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
             (click)="modalLarge.hide();">Close</button>
     </div>
 </app-modal-basic>

@@ -101,7 +101,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select bindValue="value" [(ngModel)]="customer"
+                                                <ng-select bindValue="bankacno" [(ngModel)]="customer"
                                                     formControlName="account_no" (change)="getAccountDetails($event)">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.label}} {{item.name}}</ng-option>
@@ -126,7 +126,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" style="text-align: right;" maxlength="12"
+                                                        <input type="text" style="text-align: righ t;" maxlength="12"
                                                             pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
                                                             formControlName="InterestRate"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
@@ -254,7 +254,8 @@
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="NET_INTAMT"     (change)="getNetPayAmount()"
+                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="NET_INTAMT"
+                                                        (change)="getNetPayAmount()"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -570,10 +571,10 @@
                                                             <tbody *ngIf="multigrid?.length != 0">
                                                                 <tr>
                                                                     <td></td>
-                                                                    <td>{{ data.AC_TYPE }}</td>
-                                                                    <td>{{ data.ACNO }}</td>
+                                                                    <td>{{ data?.AC_TYPE }}</td>
+                                                                    <td>{{ data?.ACNO }}</td>
                                                                     <td>{{ data?.particulars }}</td>
-                                                                    <td>{{ data.amount }}</td>
+                                                                    <td>{{ data?.amount }}</td>
                                                                 </tr>
                                                             </tbody>
 

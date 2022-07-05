@@ -232,7 +232,6 @@ export class DeadStockTransactionComponent implements OnInit {
   tranType
   radioDeadStock
   changetransaction() {
-    debugger
     this.tranType = this.ngtransactiontype.label
     if (this.ngtransactiontype.label == 'Sales') {
       this.angForm.patchValue({
@@ -279,7 +278,6 @@ export class DeadStockTransactionComponent implements OnInit {
         this.Narration = true;
       }
     }
-    console.log('radio', this.radioDeadStock)
   }
   isFormUpdate(value) {
     if (this.ngtransactiontype == 'Sales') {
@@ -295,13 +293,17 @@ export class DeadStockTransactionComponent implements OnInit {
         this.Narration = true;
       }
     }
+    else {
+      this.GLAccount = true
+      this.Resolution = true
+      this.Narration = true;
+    }
   }
 
   depTotal: number = 0
 
   //add items details in array
   addItem() {
-    console.log('radio', this.radioDeadStock)
     const formVal = this.angForm.value;
     let object = {
       itemId: formVal.ITEM_CODE?.id,
@@ -433,13 +435,11 @@ export class DeadStockTransactionComponent implements OnInit {
   submit() {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-
     let billDate
     let chequeDate
     // if (this.itemArr.length != 0) {
     if (this.angForm.controls['Total_AMT'].value > 0) {
       const formVal = this.angForm.value
-      console.log('forval', this.angForm.value)
       const dataToSend = {
         itemArr: this.itemArr,
         BRANCH_CODE: this.ngBranchCode,
@@ -459,7 +459,6 @@ export class DeadStockTransactionComponent implements OnInit {
         tranType: this.tranType,
         depTotal: this.depTotal
       }
-      console.log('data', dataToSend)
       this._service.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Updated Successfully !", "success");
@@ -576,7 +575,6 @@ export class DeadStockTransactionComponent implements OnInit {
       else
         this.isFormUpdate(1)
 
-
       this.getschemename = data.TRANSFER_ACNOTYPE
       this.schemeedit = Number(data.TRANSFER_ACTYPE)
       this.GL_ACNO = data.TRAN_GLACNO
@@ -654,8 +652,8 @@ export class DeadStockTransactionComponent implements OnInit {
       }
       this._service.approve(dataToSend).subscribe(data => {
         Swal.fire(
-          'Approved',
-          'Deadstock Transaction approved successfully',
+          'Success',
+          'Deadstock Transaction approved successfully', 'success'
         );
         var button = document.getElementById('triggerhide');
         button.click();
@@ -678,8 +676,8 @@ export class DeadStockTransactionComponent implements OnInit {
     }
     this._service.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Deadstock Transaction rejected successfully',
+        'Success',
+        'Deadstock Transaction rejected successfully', 'success'
       );
       var button = document.getElementById('triggerhide');
       button.click();

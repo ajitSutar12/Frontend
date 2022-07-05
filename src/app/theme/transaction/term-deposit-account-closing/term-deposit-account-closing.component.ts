@@ -248,7 +248,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
 
   getschemename
-  isInterestApplicable: boolean = false
+  isInterestApplicable
   afterMaturedInt: boolean = false
   monthDays
   Quarterly
@@ -312,7 +312,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.interestCategory = data[0].AC_INTCATA
       this.preMature = data[0].preMature
 
-      if (this.isInterestApplicable == true) {
+      if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
           InterestRate: data[0].AC_INTRATE
         })
@@ -341,7 +341,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
       }
 
-      if (data[0].preMature == true) {
+      if (data[0].preMature == '1') {
         this.angForm.patchValue({
           InterestRate: parseFloat(data[0].prematureRate) - parseFloat(this.prematureRate)
         })
@@ -352,7 +352,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.angForm.patchValue({
           InterestRate: data[0].AC_INTRATE
         })
-        if (this.interestUptoCalDate == 'true') {
+        if (this.interestUptoCalDate == '1') {
           this.afterMaturedInt = false
           this.angForm.patchValue({
             TOTAL_INT: '921.00'  //FUNCTION AMT
@@ -835,9 +835,9 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.getschemename = data.TRAN_ACNOTYPE
       this.selectedScheme = Number(data.TRAN_ACTYPE)
       this.selectedBranch = data.BRANCH_CODE
-      data.IS_PREMATURE_CLOSE == 1 ? this.preMature = true : this.preMature = false
+      data.IS_PREMATURE_CLOSE == '1' ? this.preMature = true : this.preMature = false
       this.getIntroducer()
-      this.customer = Number(data.TRAN_ACNO)
+      this.customer = data.TRAN_ACNO
       this.bankacno = data.TRAN_ACNO
       this.angForm.patchValue({
         TRAN_NO: data.TRAN_NO,
@@ -906,6 +906,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       Swal.fire('Success!', 'Account Close Updated Successfully !', 'success');
       this.multigrid = []
       this.resetForm()
+      var button = document.getElementById('trigger');
+      button.click();
     }, err => {
       console.log(err);
     })

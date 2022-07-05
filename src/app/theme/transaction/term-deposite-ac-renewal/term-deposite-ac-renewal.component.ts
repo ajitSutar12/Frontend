@@ -485,6 +485,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         (data) => {
           Swal.fire("Success!", "Data Updated Successfully !", "success");
           this.resetForm()
+          var button = document.getElementById('triggerhide');
+          button.click();
         },
         (error) => {
           console.log(error);
@@ -506,7 +508,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         'Term Deposit Account Renewal approved successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
 
     }, err => {
@@ -529,7 +531,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         'Term Deposit Account Renewal rejected successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
     }, err => {
       console.log('something is wrong');
