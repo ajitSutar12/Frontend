@@ -578,7 +578,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_OPDATE: data.CURRENT_DATE,
         AC_ASON_DATE: data.CURRENT_DATE
       })
-      if (data.ON_LINE === true) {
+      if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
       } else {
         this.angForm.controls['AC_OPDATE'].enable()

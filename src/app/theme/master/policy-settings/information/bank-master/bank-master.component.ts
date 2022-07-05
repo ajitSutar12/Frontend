@@ -171,10 +171,10 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       LEDGER_CODE: ['', [Validators.pattern]],
       BANK_NAME: ['', [Validators.pattern]],
       BANK_SHORTNAME: ['', [Validators.pattern, Validators.required]],
-      DD_APPLICABLE: [false],
-      BANKERS_COMM_APPLICABLE: [false],
-      RIGHT_TO_PREPARE_DD: [false],
-      PARTICIPATE_IN_CLEARING: [true],
+      DD_APPLICABLE: [],
+      BANKERS_COMM_APPLICABLE: [],
+      RIGHT_TO_PREPARE_DD: [],
+      PARTICIPATE_IN_CLEARING: [],
       GL_ACNO: ['', [Validators.pattern]],
       HO_SUB_GLACNO: ['', [Validators.pattern]],
       BANKCODE: ['', [Validators.pattern]],
@@ -190,10 +190,10 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'LEDGER_CODE': formVal.LEDGER_CODE,
       'BANK_NAME': formVal.BANK_NAME,
       'BANK_SHORTNAME': formVal.BANK_SHORTNAME,
-      'DD_APPLICABLE': formVal.DD_APPLICABLE,
-      'BANKERS_COMM_APPLICABLE': formVal.BANKERS_COMM_APPLICABLE,
-      'RIGHT_TO_PREPARE_DD': formVal.RIGHT_TO_PREPARE_DD,
-      'PARTICIPATE_IN_CLEARING': formVal.PARTICIPATE_IN_CLEARING,
+      'DD_APPLICABLE': (formVal.DD_APPLICABLE == true ? '1' :'0'),
+      'BANKERS_COMM_APPLICABLE':( formVal.BANKERS_COMM_APPLICABLE == true ? '1' :'0' ),
+      'RIGHT_TO_PREPARE_DD': (formVal.RIGHT_TO_PREPARE_DD == true ? '1' :'0'),
+      'PARTICIPATE_IN_CLEARING': (formVal.PARTICIPATE_IN_CLEARING == true ? '1' :'0'),
       'GL_ACNO': formVal.GL_ACNO,
       'HO_SUB_GLACNO': formVal.HO_SUB_GLACNO,
       'BANKCODE': formVal.BANKCODE,
@@ -233,10 +233,10 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'LEDGER_CODE': data.LEDGER_CODE,
         'BANK_NAME': data.BANK_NAME,
         'BANK_SHORTNAME': data.BANK_SHORTNAME,
-        'DD_APPLICABLE': data.DD_APPLICABLE,
-        'BANKERS_COMM_APPLICABLE': data.BANKERS_COMM_APPLICABLE,
-        'RIGHT_TO_PREPARE_DD': data.RIGHT_TO_PREPARE_DD,
-        'PARTICIPATE_IN_CLEARING': data.PARTICIPATE_IN_CLEARING,
+        'DD_APPLICABLE': (data.DD_APPLICABLE == '1'? true : false ),
+        'BANKERS_COMM_APPLICABLE': (data.BANKERS_COMM_APPLICABLE == '1'? true : false) ,
+        'RIGHT_TO_PREPARE_DD': (data.RIGHT_TO_PREPARE_DD == '1'? true : false),
+        'PARTICIPATE_IN_CLEARING': (data.PARTICIPATE_IN_CLEARING== '1'? true : false),
         'GL_ACNO': data.GL_ACNO,
         'HO_SUB_GLACNO': data.HO_SUB_GLACNO,
         'BANKCODE': data.BANKCODE,
@@ -247,11 +247,16 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data ['DD_APPLICABLE'] = (data.DD_APPLICABLE == true ? '1':'0'),
+    data ['BANKERS_COMM_APPLICABLE'] = (data.BANKERS_COMM_APPLICABLE == true ? '1':'0'),
+    data ['RIGHT_TO_PREPARE_DD'] = (data.RIGHT_TO_PREPARE_DD == true ? '1':'0'),
+    data ['PARTICIPATE_IN_CLEARING'] = (data.PARTICIPATE_IN_CLEARING == true ? '1':'0'),
     this.bankService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Bank Master Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+    
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });

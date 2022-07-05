@@ -1170,7 +1170,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.openingDate = data.CURRENT_DATE
       // this.ngredate = data.CURRENT_DATE
 
-      if (data.ON_LINE === true) {
+      if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
       } else {
         this.angForm.controls['AC_OPDATE'].enable()
@@ -1357,87 +1357,87 @@ export class CashCreditMasterComponent implements OnInit {
 
     this._SecurityCode.getFormData(code).subscribe(data => {
 
-      if (data.BOOK_DEBTS == true) {
+      if (data.BOOK_DEBTS == '1') {
         this.BOOK_DEBTS = true
       } else {
         this.BOOK_DEBTS = false
       }
 
-      if (data.CUST_INSURANCE == true) {
+      if (data.CUST_INSURANCE == '1') {
         this.CUST_INSURANCE = true
       } else {
         this.CUST_INSURANCE = false
       }
 
-      if (data.FIRE_POLICY == true) {
+      if (data.FIRE_POLICY == '1') {
         this.FIRE_POLICY = true
       } else {
         this.FIRE_POLICY = false
       }
 
-      if (data.FURNITURE_FIXTURE == true) {
+      if (data.FURNITURE_FIXTURE == '1') {
         this.FURNITURE_FIXTURE = true
       }
       else {
         this.FURNITURE_FIXTURE = false
       }
 
-      if (data.GOLD_SILVER == true) {
+      if (data.GOLD_SILVER == '1') {
         this.GOLD_SILVER = true
       }
       else {
         this.GOLD_SILVER = false
       }
 
-      if (data.GOVT_SECU_LIC == true) {
+      if (data.GOVT_SECU_LIC == '1') {
         this.GOVT_SECU_LIC = true
       } else {
         this.GOVT_SECU_LIC = false
       }
 
-      if (data.LAND_BUILDING == true) {
+      if (data.LAND_BUILDING == '1') {
         this.LAND_BUILDING = true
       } else {
         this.LAND_BUILDING = false
       }
 
-      if (data.MARKET_SHARE == true) {
+      if (data.MARKET_SHARE == '1') {
         this.MARKET_SHARE = true
       } else {
         this.MARKET_SHARE = false
       }
 
-      if (data.OTHER_SECURITY == true) {
+      if (data.OTHER_SECURITY == '1') {
         this.OTHER_SECURITY = true
       } else {
         this.OTHER_SECURITY = false
       }
 
-      if (data.OWN_DEPOSIT == true) {
+      if (data.OWN_DEPOSIT == '1') {
         this.OWN_DEPOSIT = true
       } else {
         this.OWN_DEPOSIT = false
       }
 
-      if (data.PLANT_MACHINARY == true) {
+      if (data.PLANT_MACHINARY == '1') {
         this.PLANT_MACHINARY = true
       } else {
         this.PLANT_MACHINARY = false
       }
 
-      if (data.PLEDGE_STOCK == true) {
+      if (data.PLEDGE_STOCK == '1') {
         this.PLEDGE_STOCK = true
       } else {
         this.PLEDGE_STOCK = false
       }
 
-      if (data.STOCK_STATEMENT == true) {
+      if (data.STOCK_STATEMENT == '1') {
         this.STOCK_STATEMENT = true
       } else {
         this.STOCK_STATEMENT = false
       }
 
-      if (data.VEHICLE == true) {
+      if (data.VEHICLE == '1') {
         this.VEHICLE = true
       } else {
         this.VEHICLE = false

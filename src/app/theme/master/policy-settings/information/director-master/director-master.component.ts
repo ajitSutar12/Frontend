@@ -207,8 +207,8 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_ADDR3: ['', [Validators.pattern]],
       AC_PIN: ['', [Validators.pattern]],
       AC_MOBILENO: ['', [Validators.pattern]],
-      SMS_REQUIRED: [false],
-      IS_CURRENT_BODY_MEMBER: [false],
+      SMS_REQUIRED: [],
+      IS_CURRENT_BODY_MEMBER: [],
       BRANCH_CODE: []
     });
   }
@@ -226,8 +226,8 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_ADDR3': formVal.AC_ADDR3,
       'AC_PIN': formVal.AC_PIN,
       'AC_MOBILENO': formVal.AC_MOBILENO,
-      'SMS_REQUIRED': formVal.SMS_REQUIRED,
-      'IS_CURRENT_BODY_MEMBER': formVal.IS_CURRENT_BODY_MEMBER,
+      'SMS_REQUIRED': (formVal.SMS_REQUIRED == true? '1':'0'),
+      'IS_CURRENT_BODY_MEMBER':(formVal.IS_CURRENT_BODY_MEMBER == true? '1':'0'),
       'BRANCH_CODE': this.ngBranchCode
     }
     this.directorMasterService.postData(dataToSend).subscribe(data1 => {
@@ -276,8 +276,8 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_ADDR3': data.AC_ADDR3,
         'AC_PIN': data.AC_PIN,
         'AC_MOBILENO': data.AC_MOBILENO,
-        'SMS_REQUIRED': data.SMS_REQUIRED,
-        'IS_CURRENT_BODY_MEMBER': data.IS_CURRENT_BODY_MEMBER,
+        'SMS_REQUIRED': (data.SMS_REQUIRED == '1'? true:false),
+        'IS_CURRENT_BODY_MEMBER': (data.IS_CURRENT_BODY_MEMBER == '1'? true:false),
       })
       this.ngCity = Number(data.AC_CTCODE)
     })
@@ -287,12 +287,15 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let data = this.angForm.value;
 
     data['id'] = this.updateID;
+    data['SMS_REQUIRED']= (data.SMS_REQUIRED  == true? '1':'0' ),
+    data['IS_CURRENT_BODY_MEMBER']= (data.IS_CURRENT_BODY_MEMBER  == true? '1':'0' ),
     this.directorMasterService.updateData(data).subscribe(() => {
-
+     
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+     
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });

@@ -132,7 +132,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) {
-    
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -203,7 +203,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "DEPO_AC_TYPE",
         },
         {
-          title: "Account No",
+          title: "Account Number",
           data: "DEPO_AC_NO",
         },
         {
@@ -237,18 +237,18 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
       dom: "Blrtip",
     };
-    
+
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'TD' || scheme.name == 'PG');
       });
       this.schemeList = filtered;
-      
+
     })
-    
-      this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-        this.branchOption = data;
-      })
+
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
   }
 
   createForm() {
@@ -271,88 +271,95 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getBranch() {
-   
+
     this.getIntroducer()
   }
   obj1: any
   getschemename: any
 
   getIntro(event) {
-  
+
     this.getschemename = event.name
     this.getIntroducer()
   }
 
-   //get account no according scheme for introducer
-   getIntroducer() {
-     
+  //get account no according scheme for introducer
+  getIntroducer() {
+
     this.obj1 = [this.ngscheme, this.ngbranch]
     switch (this.getschemename) {
       case 'TD':
-        
+
         this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => {
-          
+
           this.ACNo = data;
           console.log()
         })
         break;
       case 'PG':
-        
+
         this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj1).pipe(first()).subscribe(data => {
-         
+
           this.ACNo = data;
         })
         break;
-      
+
     }
   }
 
 
   submit(event) {
-    
+
     let submissiondate
     event.preventDefault();
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      
-     
-      const formVal = this.angForm.value;
-    
-      const dataToSend = {
-      AC_TYPE: this.scheme,
-      AC_NO: this.Accountno,
-      AC_ACNOTYPE: this.AC_ACNOTYPE,
-      BRANCH_CODE: formVal.BRANCH_CODE,
-      DEPO_AC_TYPE: formVal.DEPO_AC_TYPE,
-      DEPO_AC_NO: formVal.DEPO_AC_NO,
-      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-     
-      RECEIPT_NO: formVal.RECEIPT_NO,
-      DEPOSIT_AMT: formVal.DEPOSIT_AMT,
-      REMARK: formVal.REMARK,
-      MATURITY_DATE: formVal.MATURITY_DATE,
-      MARGIN: formVal.MARGIN,
-      LEDGER_Bal: formVal.LEDGER_Bal,
-      AC_INTRNAME: formVal.AC_INTRNAME,
-    };
-    
-    this._deposite.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
 
-        
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+
+      const formVal = this.angForm.value;
+
+      const dataToSend = {
+        AC_TYPE: this.scheme,
+        AC_NO: this.Accountno,
+        AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: formVal.BRANCH_CODE,
+        DEPO_AC_TYPE: formVal.DEPO_AC_TYPE,
+        DEPO_AC_NO: formVal.DEPO_AC_NO,
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+
+        RECEIPT_NO: formVal.RECEIPT_NO,
+        DEPOSIT_AMT: formVal.DEPOSIT_AMT,
+        REMARK: formVal.REMARK,
+        MATURITY_DATE: formVal.MATURITY_DATE,
+        MARGIN: formVal.MARGIN,
+        LEDGER_Bal: formVal.LEDGER_Bal,
+        AC_INTRNAME: formVal.AC_INTRNAME,
+      };
+
+      this._deposite.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+
+          let info = []
+          info.push(data.id)
+          info.push("ownDeposit")
+
+          this.newItemEvent(info);
+
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
     }
 
 
@@ -366,43 +373,43 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = true;
     this.newbtnShow = true;
     this._deposite.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-     //sending values to parent
-     let dropdown: any = {};
-     dropdown.scheme = data.AC_TYPE;
-    
-     dropdown.account = data.AC_NO;
-   
-     let obj1 = {
-       'AccountType' :data.AC_TYPE,
-       'AccountNo': data.AC_NO,
-       'SchemeType':data.AC_ACNOTYPE
-     }
-     this.newOwnDepositEvent.emit(obj1);
-     this.updateID = data.id;
-      
+      this.updatecheckdata = data
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
 
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
+      dropdown.account = data.AC_NO;
+
+      let obj1 = {
+        'AccountType': data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType': data.AC_ACNOTYPE
+      }
+      this.newOwnDepositEvent.emit(obj1);
+      this.updateID = data.id;
+
+
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
       //after clicking edit to get value in dropdown
-      this.ngbranch=Number(data.BRANCH_CODE)
-      this.ngscheme=Number(data.DEPO_AC_TYPE)
-      this.ngacno=Number(data.DEPO_AC_NO)
-     console.log( this.ngacno)
-      
-        this.angForm.patchValue({
-         
-          AC_ACNOTYPE: data.AC_ACNOTYPE,
-          'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-         
-          RECEIPT_NO: data.RECEIPT_NO,
-          DEPOSIT_AMT: data.DEPOSIT_AMT,
-          REMARK: data.REMARK,
-          MATURITY_DATE: data.MATURITY_DATE,
-          MARGIN: data.MARGIN,
-          LEDGER_Bal: data.LEDGER_Bal,
-          AC_INTRNAME: data.AC_INTRNAME,
-        });
+      this.ngbranch = Number(data.BRANCH_CODE)
+      this.ngscheme = Number(data.DEPO_AC_TYPE)
+      this.ngacno = Number(data.DEPO_AC_NO)
+      console.log(this.ngacno)
+
+      this.angForm.patchValue({
+
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+
+        RECEIPT_NO: data.RECEIPT_NO,
+        DEPOSIT_AMT: data.DEPOSIT_AMT,
+        REMARK: data.REMARK,
+        MATURITY_DATE: data.MATURITY_DATE,
+        MARGIN: data.MARGIN,
+        LEDGER_Bal: data.LEDGER_Bal,
+        AC_INTRNAME: data.AC_INTRNAME,
+      });
     });
   }
 
@@ -413,8 +420,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
     if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
     }
@@ -453,7 +460,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
           Swal.fire("Deleted!", "Your Data Has Been Deleted.", "success");
         }),
           (error) => {
-            
+
           };
         // to reload after delete of data
         this.rerender();
@@ -463,16 +470,16 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
- 
-  if(ele <= 100){
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
 
+    if (ele <= 100) {
+
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
-  }
-}
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -496,14 +503,14 @@ checkmargin(ele:any){
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngbranch=null
-    this.ngscheme=null
-    this.ngacno=null
-    
+    this.ngbranch = null
+    this.ngscheme = null
+    this.ngacno = null
+
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
-      
+
     }
     this.newOwnDepositEvent.emit(obj1);
   }

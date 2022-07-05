@@ -56,7 +56,7 @@ interface PlantMaster {
 })
 export class PlantAndMachineryComponent
   implements OnInit, AfterViewInit, OnDestroy {
-    formSubmitted = false;
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newPlantandMachiEvent = new EventEmitter<any>();
   datemax: string;
@@ -79,8 +79,8 @@ export class PlantAndMachineryComponent
   updateID: number; //variable for updating
 
   // for date 
-  submissiondate:any=null
-  acquisitiondate:any=null
+  submissiondate: any = null
+  acquisitiondate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -102,13 +102,13 @@ export class PlantAndMachineryComponent
     private http: HttpClient,
     public router: Router
   ) {
-    
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
 
-   }
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -235,58 +235,63 @@ export class PlantAndMachineryComponent
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-    
+
       const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme,
-      AC_NO: this.Accountno,
-      AC_ACNOTYPE: this.AC_ACNOTYPE,
-      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-     
-      MACHINE_NAME: formVal.MACHINE_NAME,
-      MACHINE_TYPE: formVal.MACHINE_TYPE,
-      DISTINCTIVE_NO: formVal.DISTINCTIVE_NO,
-      SPECIFICATION: formVal.SPECIFICATION,
-      'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquisitiondate = '' : acquisitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
-      
-      NEW_EQUIPEMENT: formVal.NEW_EQUIPEMENT,
-      SUPPLIER_NAME: formVal.SUPPLIER_NAME,
-      PURCHASE_PRICE: formVal.PURCHASE_PRICE,
-      MARGIN: formVal.MARGIN,
-      REMARK: formVal.REMARK,
-    };
-    this._plant.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-        
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+      const dataToSend = {
+        AC_TYPE: this.scheme,
+        AC_NO: this.Accountno,
+        AC_ACNOTYPE: this.AC_ACNOTYPE,
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+
+        MACHINE_NAME: formVal.MACHINE_NAME,
+        MACHINE_TYPE: formVal.MACHINE_TYPE,
+        DISTINCTIVE_NO: formVal.DISTINCTIVE_NO,
+        SPECIFICATION: formVal.SPECIFICATION,
+        'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquisitiondate = '' : acquisitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
+
+        NEW_EQUIPEMENT: (formVal.NEW_EQUIPEMENT == true ? '1' : '0'),
+        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+        PURCHASE_PRICE: formVal.PURCHASE_PRICE,
+        MARGIN: formVal.MARGIN,
+        REMARK: formVal.REMARK,
+      };
+      this._plant.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("plantMachinary")
+  
+          this.newItemEvent(info);
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
     }
-    
+
   }
 
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-  
+
     if (ele <= 100) {
-      
+
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -295,40 +300,40 @@ export class PlantAndMachineryComponent
     this.updateShow = true;
     this.newbtnShow = true;
     this._plant.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-      
+      this.updatecheckdata = data
+
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO;
       let obj1 = {
-        'AccountType' :data.AC_TYPE,
+        'AccountType': data.AC_TYPE,
         'AccountNo': data.AC_NO,
-        'SchemeType':data.AC_ACNOTYPE
+        'SchemeType': data.AC_ACNOTYPE
       }
       this.newPlantandMachiEvent.emit(obj1);
       this.updateID = data.id;
-      
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
-        this.angForm.patchValue({
 
-         
-          AC_ACNOTYPE: data.AC_ACNOTYPE,
-          'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-         
-          MACHINE_NAME: data.MACHINE_NAME,
-          MACHINE_TYPE: data.MACHINE_TYPE,
-          DISTINCTIVE_NO: data.DISTINCTIVE_NO,
-          SPECIFICATION: data.SPECIFICATION,
-          'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquisitiondate = '' : acquisitiondate = data.AQUISITION_DATE,
-          
-          NEW_EQUIPEMENT: data.NEW_EQUIPEMENT,
-          SUPPLIER_NAME: data.SUPPLIER_NAME,
-          PURCHASE_PRICE: data.PURCHASE_PRICE,
-          MARGIN: data.MARGIN,
-          REMARK: data.REMARK,
-        });
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
+      this.angForm.patchValue({
+
+
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+
+        MACHINE_NAME: data.MACHINE_NAME,
+        MACHINE_TYPE: data.MACHINE_TYPE,
+        DISTINCTIVE_NO: data.DISTINCTIVE_NO,
+        SPECIFICATION: data.SPECIFICATION,
+        'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquisitiondate = '' : acquisitiondate = data.AQUISITION_DATE,
+
+        NEW_EQUIPEMENT: (data.NEW_EQUIPEMENT == '1' ? true : false),
+        SUPPLIER_NAME: data.SUPPLIER_NAME,
+        PURCHASE_PRICE: data.PURCHASE_PRICE,
+        MARGIN: data.MARGIN,
+        REMARK: data.REMARK,
+      });
     });
   }
 
@@ -340,15 +345,15 @@ export class PlantAndMachineryComponent
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.AQUISITION_DATE!=data.AQUISITION_DATE){
-        (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? (submissiondate = '', data['AQUISITION_DATE'] = acquisitiondate) : (acquisitiondate = data.AQUISITION_DATE, data['AQUISITION_DATE'] = moment(acquisitiondate).format('DD/MM/YYYY'))
-        }
-        
+    }
+    if (this.updatecheckdata.AQUISITION_DATE != data.AQUISITION_DATE) {
+      (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? (submissiondate = '', data['AQUISITION_DATE'] = acquisitiondate) : (acquisitiondate = data.AQUISITION_DATE, data['AQUISITION_DATE'] = moment(acquisitiondate).format('DD/MM/YYYY'))
+    }
+
     this._plant.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -412,9 +417,9 @@ export class PlantAndMachineryComponent
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
-     
+
     }
     this.newPlantandMachiEvent.emit(obj1);
   }

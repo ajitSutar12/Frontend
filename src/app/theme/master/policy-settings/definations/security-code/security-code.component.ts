@@ -76,7 +76,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   page: number = 1;
   //filter variable
   filterData = {};
-  check:boolean= true;
+  check: boolean = true;
 
   showDialog = false;
   @Input() visible: boolean;
@@ -120,7 +120,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.http
           .post<DataTableResponse>(
             this.url + '/security-code',
-            
+
             dataTableParameters
           ).subscribe(resp => {
             this.securityCode = resp.data;
@@ -207,7 +207,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       SECU_NAME: ['', [Validators.pattern, Validators.required]],
       SECU_CODE: [''],
       MARGIN: ['', [Validators.pattern, Validators.max]],
-      FIRE_POLICY: new  FormControl('firepolicy'),
+      FIRE_POLICY: new FormControl('firepolicy'),
       MARKET_SHARE: [''],
       BOOK_DEBTS: [''],
       PLEDGE_STOCK: [''],
@@ -230,20 +230,20 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       'SECU_CODE': formVal.SECU_CODE,
       'SECU_NAME': formVal.SECU_NAME,
       'MARGIN': formVal.MARGIN,
-      'FIRE_POLICY': formVal.FIRE_POLICY,
-      'MARKET_SHARE': formVal.MARKET_SHARE,
-      'BOOK_DEBTS': formVal.BOOK_DEBTS,
-      'PLEDGE_STOCK': formVal.PLEDGE_STOCK,
-      'STOCK_STATEMENT': formVal.STOCK_STATEMENT,
-      'GOVT_SECU_LIC': formVal.GOVT_SECU_LIC,
-      'PLANT_MACHINARY': formVal.PLANT_MACHINARY,
-      'FURNITURE_FIXTURE': formVal.FURNITURE_FIXTURE,
-      'VEHICLE': formVal.VEHICLE,
-      'OWN_DEPOSIT': formVal.OWN_DEPOSIT,
-      'LAND_BUILDING': formVal.LAND_BUILDING,
-      'GOLD_SILVER': formVal.GOLD_SILVER,
-      'OTHER_SECURITY': formVal.OTHER_SECURITY,
-      'CUST_INSURANCE': formVal.CUST_INSURANCE,
+      'FIRE_POLICY': (formVal.FIRE_POLICY == true ? '1' : '0'),
+      'MARKET_SHARE': (formVal.MARKET_SHARE == true ? '1' : '0'),
+      'BOOK_DEBTS': (formVal.BOOK_DEBTS == true ? '1' : '0'),
+      'PLEDGE_STOCK': (formVal.PLEDGE_STOCK == true ? '1' : '0'),
+      'STOCK_STATEMENT': (formVal.STOCK_STATEMENT == true ? '1' : '0'),
+      'GOVT_SECU_LIC': (formVal.GOVT_SECU_LIC == true ? '1' : '0'),
+      'PLANT_MACHINARY': (formVal.PLANT_MACHINARY == true ? '1' : '0'),
+      'FURNITURE_FIXTURE': (formVal.FURNITURE_FIXTURE == true ? '1' : '0'),
+      'VEHICLE': (formVal.VEHICLE == true ? '1' : '0'),
+      'OWN_DEPOSIT': (formVal.OWN_DEPOSIT == true ? '1' : '0'),
+      'LAND_BUILDING': (formVal.LAND_BUILDING == true ? '1' : '0'),
+      'GOLD_SILVER': (formVal.GOLD_SILVER == true ? '1' : '0'),
+      'OTHER_SECURITY': (formVal.OTHER_SECURITY == true ? '1' : '0'),
+      'CUST_INSURANCE': (formVal.CUST_INSURANCE == true ? '1' : '0'),
     }
     this.securityCodeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -258,23 +258,23 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     this.resetForm();
   }
-   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
 
   // Reset Function
   resetForm() {
@@ -330,20 +330,20 @@ console.log(ele);
         'SECU_CODE': data.SECU_CODE,
         'SECU_NAME': data.SECU_NAME,
         'MARGIN': data.MARGIN,
-        'FIRE_POLICY': data.FIRE_POLICY,
-        'MARKET_SHARE': data.MARKET_SHARE,
-        'BOOK_DEBTS': data.BOOK_DEBTS,
-        'PLEDGE_STOCK': data.PLEDGE_STOCK,
-        'STOCK_STATEMENT': data.STOCK_STATEMENT,
-        'GOVT_SECU_LIC': data.GOVT_SECU_LIC,
-        'PLANT_MACHINARY': data.PLANT_MACHINARY,
-        'FURNITURE_FIXTURE': data.FURNITURE_FIXTURE,
-        'VEHICLE': data.VEHICLE,
-        'OWN_DEPOSIT': data.OWN_DEPOSIT,
-        'LAND_BUILDING': data.LAND_BUILDING,
-        'GOLD_SILVER': data.GOLD_SILVER,
-        'OTHER_SECURITY': data.OTHER_SECURITY,
-        'CUST_INSURANCE': data.CUST_INSURANCE,
+        'FIRE_POLICY': (data.FIRE_POLICY == '1' ? true : false),
+        'MARKET_SHARE': (data.MARKET_SHARE == '1' ? true : false),
+        'BOOK_DEBTS': (data.BOOK_DEBTS == '1' ? true : false),
+        'PLEDGE_STOCK': (data.PLEDGE_STOCK == '1' ? true : false),
+        'STOCK_STATEMENT': (data.STOCK_STATEMENT == '1' ? true : false),
+        'GOVT_SECU_LIC': (data.GOVT_SECU_LIC == '1' ? true : false),
+        'PLANT_MACHINARY': (data.PLANT_MACHINARY == '1' ? true : false),
+        'FURNITURE_FIXTURE': (data.FURNITURE_FIXTUR == '1' ? true : false),
+        'VEHICLE': (data.VEHICLE == '1' ? true : false),
+        'OWN_DEPOSIT': (data.OWN_DEPOSIT == '1' ? true : false),
+        'LAND_BUILDING': (data.LAND_BUILDING == '1' ? true : false),
+        'GOLD_SILVER': (data.GOLD_SILVER == '1' ? true : false),
+        'OTHER_SECURITY': (data.OTHER_SECURITY == '1' ? true : false),
+        'CUST_INSURANCE': (data.CUST_INSURANCE == '1' ? true : false),
 
       })
     })
@@ -352,6 +352,20 @@ console.log(ele);
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['FURNITURE_FIXTURE'] = (data.FURNITURE_FIXTURE == true ? '1' : '0')
+    data['MARKET_SHARE'] = (data.MARKET_SHARE == true ? '1' : '0')
+    data['VEHICLE'] = (data.VEHICLE == true ? '1' : '0')
+    data['BOOK_DEBTS'] = (data.BOOK_DEBTS == true ? '1' : '0')
+    data['OWN_DEPOSIT'] = (data.OWN_DEPOSIT == true ? '1' : '0')
+    data['PLEDGE_STOCK'] = (data.PLEDGE_STOCK == true ? '1' : '0')
+    data['LAND_BUILDING'] = (data.LAND_BUILDING == true ? '1' : '0')
+    data['STOCK_STATEMENT'] = (data.STOCK_STATEMENT == true ? '1' : '0')
+    data['GOLD_SILVER'] = (data.GOLD_SILVER == true ? '1' : '0')
+    data['GOVT_SECU_LIC'] = (data.GOVT_SECU_LIC == true ? '1' : '0')
+    data['OTHER_SECURITY'] = (data.OTHER_SECURITY == true ? '1' : '0')
+    data['CUST_INSURANCE'] = (data.CUST_INSURANCE == true ? '1' : '0')
+    data['PLANT_MACHINARY'] = (data.PLANT_MACHINARY == true ? '1' : '0')
+    data['FIRE_POLICY'] = (data.FIRE_POLICY == true ? '1' : '0')
     this.securityCodeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;

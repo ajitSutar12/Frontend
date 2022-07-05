@@ -297,6 +297,11 @@ export class GovtSecurityAndLicComponent
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("govSecurity")
+  
+          this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });

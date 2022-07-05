@@ -612,7 +612,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.tempopendate = data.CURRENT_DATE
       this.openingDate = data.CURRENT_DATE
 
-      if (data.ON_LINE === true) {
+      if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
       } else {
         this.angForm.controls['AC_OPDATE'].enable()

@@ -378,7 +378,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_OPDATE: data.CURRENT_DATE
       })
 
-      if (data.ON_LINE === true) {
+      if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
       } else {
         this.angForm.controls['AC_OPDATE'].enable()

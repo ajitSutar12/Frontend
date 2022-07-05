@@ -179,7 +179,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "POLICY_DUE_DATE",
         },
         {
-          title: "Policy No.",
+          title: "Policy Number",
           data: "POLICY_NO",
         },
         {
@@ -264,6 +264,11 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       this._fire.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
+          let info = []
+          info.push(data.id)
+          info.push("firePolicy")
+
+          this.newItemEvent(info);
           this.formSubmitted = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()

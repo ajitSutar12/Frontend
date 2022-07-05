@@ -233,7 +233,7 @@ export class FurnitureAndFixtureComponent
         ARTICLE_MAKE: formVal.ARTICLE_MAKE,
         'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquistitiondate = '' : acquistitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
 
-        NEW_ARTICLE: formVal.NEW_ARTICLE,
+        NEW_ARTICLE: (formVal.NEW_ARTICLE == true ? '1' : '0'),
         SUPPLIER_NAME: formVal.SUPPLIER_NAME,
         PURCHASE_PRICE: formVal.PURCHASE_PRICE,
         MARGIN: formVal.MARGIN,
@@ -243,6 +243,11 @@ export class FurnitureAndFixtureComponent
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("furniture")
+  
+          this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
@@ -299,7 +304,7 @@ export class FurnitureAndFixtureComponent
         ARTICLE_NAME: data.ARTICLE_NAME,
         ARTICLE_MAKE: data.ARTICLE_MAKE,
         'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquistitiondate = '' : acquistitiondate = data.AQUISITION_DATE,
-        NEW_ARTICLE: data.NEW_ARTICLE,
+        NEW_ARTICLE: (data.NEW_ARTICLE == '1' ? true : false),
         SUPPLIER_NAME: data.SUPPLIER_NAME,
         PURCHASE_PRICE: data.PURCHASE_PRICE,
         MARGIN: data.MARGIN,
@@ -316,7 +321,8 @@ export class FurnitureAndFixtureComponent
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"] = this.scheme
+    data['NEW_ARTICLE'] = (data.NEW_ARTICLE == true ? '1' : '0'),
+      data["AC_TYPE"] = this.scheme
     data["AC_NO"] = this.Accountno
     if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))

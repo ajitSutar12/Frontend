@@ -292,11 +292,11 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
           // to reload after insertion of data
-          // let info = []
-          // info.push(data.id)
-          // info.push("book")
+          let info = []
+          info.push(data.id)
+          info.push("book")
 
-          // this.newItemEvent(info);
+          this.newItemEvent(info);
 
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()

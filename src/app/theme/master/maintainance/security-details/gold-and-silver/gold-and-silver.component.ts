@@ -300,6 +300,11 @@ export class GoldAndSilverComponent
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("goldSilver")
+  
+          this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });

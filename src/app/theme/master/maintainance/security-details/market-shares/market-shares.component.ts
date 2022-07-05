@@ -273,6 +273,11 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("marketShare")
+
+          this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
