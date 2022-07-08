@@ -88,7 +88,18 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     private http: HttpClient,
     private generalLedgerSchemeService: GeneralLedgerSchemeService,
     private s1Service: S1Service,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) {
+    this.generalLedgerSchemeService.getData().subscribe(data => {
+      if (data.length == 0) {
+        this.showButton = true
+        this.updateShow = false
+
+      } else {
+        this.updateShow = true
+        this.showButton = false
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.createForm();

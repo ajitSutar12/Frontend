@@ -40,8 +40,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="DISTANCE" class="form-control" placeholder=" " maxlength="4"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="Distance" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTANCE">
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        id="Distance" pattern="^[0-9.]+$" title="Input allowed only  0-9" formControlName="DISTANCE">
                                     <label for="Distance">Distance from Branch(in km)</label>
                                 </span>
                             </div>

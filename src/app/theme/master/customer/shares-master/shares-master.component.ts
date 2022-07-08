@@ -657,7 +657,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_SALARYDIVISION_CODE: [''],
       SUB_SALARYDIVISION_CODE: [''],
       AC_SBNO: ['', [Validators.pattern]],
-      AC_RESNO: ['', [Validators.required, Validators.pattern]],
+      AC_RESNO: ['', [Validators.required]],
       AC_RESDT: ['', [Validators.required]],
       AC_IS_RECOVERY: [],
       AC_INSTALLMENT: ['', [Validators.pattern]],

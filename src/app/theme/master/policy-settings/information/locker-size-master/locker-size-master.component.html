@@ -45,8 +45,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
-                                    #autofocus id="SIZE_NAME" required="" maxlength="50" pattern="^[A-Za-z\./ -]+$"
-                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        #autofocus id="SIZE_NAME" required="" maxlength="50"
                                         title="Input allowed only  A-Z a-z- / . (Space)" formControlName="SIZE_NAME">
                                     <label for="SIZE_NAME">Locker Size<sub class="required">* </sub></label>
                                 </span>
@@ -56,15 +55,16 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SIZE_NAME'].errors?.pattern || angForm.controls['SIZE_NAME'].errors?.required || angForm.controls['SIZE_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z  - / . (Space)
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="footer-email" class="form-control" placeholder=" "
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                    <input style="text-align: right;" type="text" name="footer-email"
+                                        class="form-control" placeholder=" "
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         id="RENT" required="" pattern="\d{1,20}(\.\d{1,5})?"
                                         title="Input allowed only  0-9 ." formControlName="RENT">
                                     <label for="RENT">Locker Rent/Deposit<sub class="required">*
@@ -82,12 +82,12 @@
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton"
-                            [disabled]="angForm.invalid">Submit</button>
+                                [disabled]="angForm.invalid">Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                            *ngIf="newbtnShow">Cancel</button>
+                                *ngIf="newbtnShow">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                            [disabled]="angForm.invalid">Update</button>&nbsp;
-                            
+                                [disabled]="angForm.invalid">Update</button>&nbsp;
+
                         </div>
                     </div>
                 </form>
@@ -102,12 +102,13 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover compact">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="lockerSizeMaster?.length != 0">
                                     <tr *ngFor="let data of lockerSizeMaster">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span>&nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span>&nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td class="td_right">{{ data.SIZE_SR_NO}}</td>

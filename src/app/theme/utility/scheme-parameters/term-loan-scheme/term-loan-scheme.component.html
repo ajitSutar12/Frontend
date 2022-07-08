@@ -567,7 +567,7 @@
                             <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
                               placeholder=" " id="MIN_INT_LIMIT"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              pattern="\d{2}(\.\d{1,2})?" title="Input allowed only . 0-9"
+                              pattern="\d{1,5}(\.\d{1,2})?" title="Input allowed only . 0-9"
                               formControlName="MIN_INT_LIMIT" disabled />
                             <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                           </span>

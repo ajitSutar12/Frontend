@@ -181,7 +181,7 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.angForm = this.fb.group({
       LOCKER_TONO: ['', [Validators.required, Validators.pattern]],
       LOCKER_FROMNO: ['', [Validators.required, Validators.pattern]],
-      RACK_DESC: ['', [Validators.required, Validators.pattern]],
+      RACK_DESC: ['', [Validators.required]],
       RACK_NO: [''],
       BRANCH_CODE: [''],
     });

@@ -45,8 +45,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="RACK_DESC" class="form-control" placeholder=" " #autofocus
-                                        id="RACK_DESC" required="" pattern="^[A-Za-z\*#./ -]+$" maxlength="50"
-                                       
+                                        id="RACK_DESC" required="" maxlength="50"
                                         title="Input allowed only  A-Z a-z  - * # / . (Space)"
                                         formControlName="RACK_DESC">
                                     <label for="RACK_DESC">Rack Description<sub class="required">* </sub></label>
@@ -56,7 +55,7 @@
                                 *ngIf="angForm.controls['RACK_DESC'].invalid && (angForm.controls['RACK_DESC'].dirty || angForm.controls['RACK_DESC'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['RACK_DESC'].errors?.pattern || angForm.controls['RACK_DESC'].errors?.required || angForm.controls['RACK_DESC'].errors?.maxlength">
+                                    *ngIf="angForm.controls['RACK_DESC'].errors?.required || angForm.controls['RACK_DESC'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - * # / . (Space)
                                 </div>
                             </div>
@@ -64,8 +63,9 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="LOCKER_FROMNO" class="form-control" placeholder=" "
-                                        id="LOCKER_FROMNO" required="" pattern="^[0-9]+$" maxlength="10"
+                                    <input style="text-align: right;" type="text" name="LOCKER_FROMNO"
+                                        class="form-control" placeholder=" " id="LOCKER_FROMNO" required=""
+                                        pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (focusout)="check()" title="Input allowed only  0-9"
                                         formControlName="LOCKER_FROMNO">
@@ -84,7 +84,8 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="LOCKER_TONO" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="LOCKER_TONO"
+                                        class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="LOCKER_TONO"
                                         required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         (focusout)="check()" formControlName="LOCKER_TONO" maxlength="10">
