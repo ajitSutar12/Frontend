@@ -252,6 +252,7 @@ export class VoucherEntryComponent implements OnInit {
     this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
     console.log('IntrestDate', this.IntersetHeadDate);
     this._service.getHeadDetails(obj).subscribe(data => {
+      debugger
       if (data.length != 0) {
 
         if(!this.headFlag){
@@ -540,6 +541,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //get Input head Amount
   getInputHeadAmt(ele, i) {
+    debugger
     let value = ele.target.value;
     this.headData[i].Amount = value;
     console.log(this.headData);
@@ -1146,9 +1148,10 @@ export class VoucherEntryComponent implements OnInit {
       this.updateID = data.id;
       this.selectedBranch = data.BRANCH_CODE
       this.selectedCode = data.TRAN_ACNOTYPE
-      this.selectedSchemeCode();
+      ;
       this.headFlag = true;
       this.headData = data.InputHead;
+      this.selectedSchemeCode()
       this.headShow = true;
       this.selectedScheme = data.scheme.id
 

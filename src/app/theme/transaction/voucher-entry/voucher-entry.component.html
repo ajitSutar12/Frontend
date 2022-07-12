@@ -281,7 +281,7 @@
                                                             </td>
                                                             <td *ngIf="!item.INTEREST_DATE_INPUT"></td>
                                                             <td><input type="text" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" style="width: 100%;border:none;text-align: right;" (keyup)="getInputHeadAmt($event,i)" (focusout)="decimalAllContent($event)"
-                                                                    value="0.00">
+                                                                    value="{{item.Amount}}">
                                                             </td>
                                                             <td class="bg-light-danger text-right"><span class="text-danger">{{item.Balance}}</span></td>
                                                             <td>{{item.DRCR_APPLICABLE == 'C'?'Cr':'Dr'}}</td>

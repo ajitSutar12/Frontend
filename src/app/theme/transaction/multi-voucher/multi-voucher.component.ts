@@ -582,6 +582,7 @@ export class MultiVoucherComponent implements OnInit {
   //Edit Voucher Data
   headflag: boolean = false;
   editVoucher(index) {
+    debugger
     this.headflag = true;
     debugger
     this.EditFlag = true;
@@ -594,7 +595,7 @@ export class MultiVoucherComponent implements OnInit {
     this.getIntroducer(data.scheme)
     this.customer = data.account_no.id;
     this.selectedMode = data.tran_mode.id;
-    this.particulars = data.particulars;
+    this.particulars = data.data[0].NARRATION;
     this.submitAccountNo = data.account_no;
     this.submitScheme = data.scheme;
     this.submitTranMode = data.tran_mode;
@@ -602,7 +603,7 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       'chequeNo': data.chequeNo,
       'chequeDate': data.chequeDate,
-      'amt': data.Amount,
+      'amt': data.data[0].TRAN_AMOUNT,
       'particulars': data.particulars,
       'total_amt': data.total_amt
     })
