@@ -2,6 +2,22 @@
     color: red;
 }
 
+a {
+    cursor: pointer;
+    // color: rgb(44, 139, 234);
+    // text-decoration: underline;
+}
+
+.table-responsive {
+    display: inline-block;
+    width: 100%;
+    overflow-x: auto;
+    padding-top: -46px;
+    margin: 0px;
+    margin-right: 0px;
+    padding-right: 15px;
+}
+
 div.solid {
     // border-style: solid;
     border-style: ridge;
@@ -10,6 +26,7 @@ div.solid {
     margin-bottom: 3px;
     padding-right: 12px;
 }
+
 .main-body .page-wrapper {
     padding: 0.4rem;
     padding-bottom: 4% !important;
@@ -61,6 +78,7 @@ label {
     align-items: center;
     font-size: 11px;
 }
+
 .input-group .border-lable-flt .form-control {
     border-radius: 0.25rem;
     height: 25px;

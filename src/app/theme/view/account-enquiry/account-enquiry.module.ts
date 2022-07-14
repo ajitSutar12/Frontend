@@ -13,6 +13,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { LedgerViewModule } from '../ledger-view/ledger-view.module'
 @NgModule({
   imports: [
 
@@ -24,10 +25,11 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    AccountEnquiryRoutingModule
+    AccountEnquiryRoutingModule,
+    LedgerViewModule
   ],
   declarations: [AccountEnquiryComponent],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, ACMasterDropdownService, OwnbranchMasterService,{
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, ACMasterDropdownService, OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

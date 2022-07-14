@@ -98,6 +98,7 @@
                                                     [minDate]="accountOpenDate" [maxDate]="maxDate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="DATE"
+                                                    (bsValueChange)="getTransactionDetails()"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -139,7 +140,7 @@
                                     <div class="col-sm" *ngIf="isOpeningDetails">
                                         <h5
                                             style="text-align: center; color: rgb(14 168 14); font-size: 12.5px; font-weight: 800;">
-                                            Opening Details</h5>
+                                            Deposit Details</h5>
                                     </div>
                                     <div class="col-sm" *ngIf="isPigmyDetails">
                                         <h5
@@ -214,14 +215,14 @@
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.PIGMY_ACTYPE">
                                         <span
-                                            style="color: #3e8cd0; text-align: left;"><label>{{accountData?.PIGMY_ACTYPE}}</label></span>
+                                            style="color: #3e8cd0; text-align: left;"><label>{{PIGMY_ACTYPE}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isATypeMemNo">
                                         <span><label>'A' Type Member No:</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isATypeMemNo">
                                         <span
-                                            style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MEMBNO}}</label></span>
+                                            style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MEMBNO==null?'---':accountData?.AC_MEMBNO}}</label></span>
                                     </div>
                                     <div class="col-sm-4" *ngIf="!accountData?.PIGMY_ACTYPE"></div>
                                     <div class="col-sm-2" *ngIf="isAgentScheme">
@@ -394,7 +395,7 @@
                                         <span><label>Expected Installments : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isrecurringScheme"><span
-                                            style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.expectedInstallment}</label></span>
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.expectedInstallment}}</label></span>
                                     </div>
                                 </div>
                                 <!-- <div class="row">
@@ -438,7 +439,7 @@
                                         <span><label>Introduced By : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0; padding-right:10px; text-align: left;"><label>{{accountData?.AC_INTRNAME}}</label></span>
+                                            style="color: #3e8cd0; padding-right:10px; text-align: left;"><label>{{introducerName}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Salary Division : </label></span>
@@ -472,6 +473,79 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="solid" *ngIf="GLRecordShow">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h5
+                                            style="text-align: center; color: rgb(14 168 14); font-size: 12.5px; font-weight: 800;">
+                                            General Ledger Details</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Opening Balance : </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.openingBal}}</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Current Balance: </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.totalClosingBal}}</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Scheme Link To: </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Balance Sheet Code: </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Subsidiary Code: </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Expenses Code: </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Daily Liquidity Code: </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span><label>Friday Liquidity Code: </label></span>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align: right;"><span
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -490,86 +564,103 @@
                             <div class="info-container">
                                 <ul class="list-unstyled">
                                     <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Ledger View</a>
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Attorney</a>
+                                        <a (click)="modalLarge.show(); viewView('ledgerView')"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Ledger View</a>
+                                        <a (click)="modalLarge.show(); viewView('attorney')" *ngIf="attorneyView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Attorney</a>
                                     </li>
-                                    <!-- <li class="mb-75">
+                                    <li class="mb-75" *ngIf="securityView">
                                         <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Attorney</a>
-                                    </li> -->
-                                    <li class="mb-75">
+                                                aria-hidden="true"></i>&nbsp; Security</a>
+                                    </li>
+                                    <li class="mb-75" *ngIf="interestReceivedHistoryView">
+                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
+                                                aria-hidden="true"></i>&nbsp; Interest Received History </a>
+                                    </li>
+                                    <li class="mb-75" *ngIf="interestPaidHistoryView">
                                         <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
                                                 aria-hidden="true"></i>&nbsp; Interest Paid History</a>
                                     </li>
-                                    <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Interest Posted History</a>
+                                    <li class="mb-75" *ngIf="interestPostedHistoryView">
+                                        <a (click)="modalLarge.show(); viewView('interestPostedHistory')"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Interest Posted
+                                            History</a>
                                     </li>
-                                    <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Interest Instructions</a>
+                                    <li class="mb-75" *ngIf="interestInstructionView">
+                                        <a (click)="modalLarge.show(); viewView('interestInstructions')"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Interest
+                                            Instructions</a>
                                     </li>
-                                    <li class="mb-75">
+                                    <li class="mb-75" *ngIf="intrestProjectionView">
                                         <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
                                                 aria-hidden="true"></i>&nbsp; Interest Projection</a>
                                     </li>
-                                    <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Payable Interest</a>
+                                    <li class="mb-75" *ngIf="payableInterestView">
+                                        <a (click)="modalLarge.show(); viewView('payableInterest')"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Payable
+                                            Interest</a>
                                     </li>
                                     <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Lien Information</a>
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; TDS Details</a>
+                                        <a (click)="modalLarge.show(); viewView('lienInfo')"
+                                            *ngIf="lienInformationView"><i class="fa fa-book fa-fw"
+                                                aria-hidden="true"></i>&nbsp; Lien
+                                            Information</a>
+                                        <a (click)="modalLarge.show(); viewView('tdsDetail')" *ngIf="tdsDetailsView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; TDS Details</a>
                                     </li>
-                                    <!-- <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; TDS Details</a>
-                                    </li> -->
                                     <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Product View</a> <a
-                                            href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
+                                        <a (click)="modalLarge.show(); viewView('goldsilver')"
+                                            *ngIf="securityDetailsView"><i class="fa fa-book fa-fw"
+                                                aria-hidden="true"></i>&nbsp; Goldsilver
+                                            Details</a>
+                                        <a (click)="modalLarge.show(); viewView('guaranter')" *ngIf="gaurantorView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Guarantor</a>
+                                    </li>
+                                    <li class="mb-75">
+                                        <a (click)="modalLarge.show(); viewView('productview')" *ngIf="productView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Product View</a>
+                                        <a (click)="modalLarge.show(); viewView('oldDeposits')"
+                                            *ngIf="oldDepositsView"><i class="fa fa-book fa-fw"
                                                 aria-hidden="true"></i>&nbsp; Old Deposits</a>
+                                        <a (click)="modalLarge.show(); viewView('coborrower')" *ngIf="coborrowerView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Coborrower</a>
                                     </li>
-                                    <!-- <li class="mb-75">
+                                    <li class="mb-75" *ngIf="npaView">
                                         <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Old Deposits</a>
-                                    </li> -->
-                                    <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Joint Holders</a> <a
-                                            href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Nominee</a>
+                                                aria-hidden="true"></i>&nbsp; NPA</a>
                                     </li>
                                     <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Account Information</a>
+                                        <a (click)="modalLarge.show(); viewView('joints')" *ngIf="jointHolderView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Joint Holders</a>
+                                        <a (click)="modalLarge.show(); viewView('nominee')" *ngIf="nomineeView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Nominee</a>
                                     </li>
-                                    <!-- <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Nominee</a>
-                                    </li> -->
                                     <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Documents</a> <a
-                                            href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
+                                        <a (click)="modalLarge.show(); viewView('accountInfo')"
+                                            *ngIf="accountInformationView"><i class="fa fa-book fa-fw"
+                                                aria-hidden="true"></i>&nbsp; Account
+                                            Information</a>
+                                    </li>
+                                    <li class="mb-75">
+                                        <a href="/view/accountEnquiry" *ngIf="receivableInterestView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Receivable
+                                            Interest</a>
+                                    </li>
+                                    <li class="mb-75">
+                                        <a (click)="modalLarge.show(); viewView('document')" *ngIf="documentsView"><i
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Documents</a> <a
+                                            (click)="modalLarge.show(); viewView('customerID')"
+                                            *ngIf="customerIdView"><i class="fa fa-book fa-fw"
                                                 aria-hidden="true"></i>&nbsp; Customer ID</a>
                                     </li>
-                                    <!-- <li class="mb-75">
-                                        <a href="/view/accountEnquiry"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Customer ID</a>
-                                    </li> -->
                                 </ul>
                             </div>
                         </div>
                         <div class="user-avatar-section">
                             <div class="d-flex align-items-center flex-column">
                                 <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50" width="80"
-                                    (mouseover)="showImage(customerImg)" (mouseout)="hideImage()" alt="User avatar" />
+                                    *ngIf="getschemename !='GL'" (mouseover)="showImage(customerImg)"
+                                    (mouseout)="hideImage()" alt="User avatar" />
                                 <div class="user-info text-center">
                                     <h5 style="font-size: 13px; font-weight: 800;">{{accountData?.AC_NAME}}
                                     </h5>
@@ -580,13 +671,13 @@
                             <div class="d-flex align-items-center flex-column">
                                 <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
                                     (mouseover)="showImage(signture)" (mouseout)="hideImage()" height="25" width="80"
-                                    alt="User avatar" />
+                                    alt="User avatar" *ngIf="getschemename !='GL'" />
 
                             </div>
                         </div>
                         <div class="info-container">
                             <ul class="list-unstyled">
-                                <li class="mb-75">
+                                <li class="mb-75" *ngIf="getschemename !='GL'">
                                     <label class="fw-bolder me-25">Status:</label>
                                     <span class="badge bg-light-success">Active</span>
                                 </li>
@@ -626,3 +717,1050 @@
         </div>
     </div>
 </div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">View</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row" *ngIf="IsLedgerView">
+                <div class="col-12">
+                    <ng-container *ngIf="IsLedgerView">
+                        <app-ledger-view [accBranch]="ngBranchCode" [accSchemeName]="getschemename"
+                            [accScheme]="ngscheme" [accAcNo]="accountedit" [accFromDate]="accFromDate"
+                            [accToDate]="fromdate" [accountEvent]="accountEvent"> </app-ledger-view>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsJointView">
+                <div class="col-sm-12">
+                    <div class="row"
+                        *ngIf="accountData?.jointAccounts.length != 0 && accountData?.jointAccounts !=undefined">
+                        <div class="col-12">
+                            <h5>Joint Holders</h5>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row"
+                        *ngIf="accountData?.jointAccounts?.length != 0 && accountData?.jointAccounts !=undefined">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact"
+                                    *ngIf="accountData?.jointAccounts?.length != 0 && accountData?.jointAccounts !=undefined">
+                                    <thead>
+                                        <td style="max-width: 20px">Customer ID</td>
+                                        <td>Name</td>
+                                        <td style="max-width: 15px">Operation</td>
+                                    </thead>
+                                    <tbody *ngIf="jointAccounts?.length != 0">
+                                        <tr *ngFor="
+                                let data of accountData?.jointAccounts;
+                                let indexOfelement = index
+                              ">
+                                            <td class="td_right" [ngClass]="
+                                  data.JOINT_AC_CUSTID === ''
+                                    ? 'td_center'
+                                    : 'td_right'
+                                ">
+                                                {{
+                                                data.JOINT_AC_CUSTID === ""
+                                                ? "-"
+                                                : data.JOINT_AC_CUSTID
+                                                }}
+                                            </td>
+                                            <td class="td_left" [ngClass]="
+                                  data.JOINT_ACNAME === ''
+                                    ? 'td_center'
+                                    : 'td_right'
+                                ">
+                                                {{
+                                                data.JOINT_ACNAME === ""
+                                                ? "-"
+                                                : data.JOINT_ACNAME
+                                                }}
+                                            </td>
+                                            <td class="td_left" [ngClass]="
+                                  data.OPERATOR === ''
+                                    ? 'td_left'
+                                    : 'td_right'
+                                ">
+                                                {{
+                                                data.OPERATOR === ""
+                                                ? "-"
+                                                : data.OPERATOR
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="accountData?.jointAccounts?.length == 0">
+                                        <tr>
+                                            <td class="no-data-available" colspan="4" style="text-align: center">
+                                                No data!
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.jointAccounts.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Joint Holders</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsNomineeView">
+                <div class="col-12">
+                    <div class="row"
+                        *ngIf="accountData?.nomineeDetails?.length != 0 && accountData?.nomineeDetails !=undefined">
+                        <div class="col-sm-12">
+                            <h6>Nominee Accounts Details</h6>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover compact"
+                                        style="width: 100%;"
+                                        *ngIf="accountData?.nomineeDetails?.length != 0 && accountData?.nomineeDetails !=undefined">
+                                        <thead>
+                                            <td>Name</td>
+                                            <td>Relation</td>
+                                            <td>Age</td>
+                                            <td>Nomination Date</td>
+                                            <td>Details</td>
+                                            <td>City</td>
+                                            <td>Pin code</td>
+                                        </thead>
+                                        <tbody *ngIf="accountData.nomineeDetails?.length != 0">
+                                            <tr *ngFor="let nominee of accountData.nomineeDetails;
+                    let indexOfelement = index">
+                                                <td>{{ nominee.AC_NNAME }}</td>
+                                                <td>{{ nominee.AC_NRELA }}</td>
+                                                <td class="td_right"
+                                                    [ngClass]="nominee.AGE === ''  || nominee.AGE == null ? 'td_center' : 'td_right'">
+                                                    {{nominee.AGE === '' || nominee.AGE ==
+                                                    null ? '-' : nominee.AGE}}</td>
+                                                <td class="td_center"
+                                                    [ngClass]="nominee.AC_NDATE === '' ? 'td_center' : 'td_center'">
+                                                    {{nominee.AC_NDATE === ''? '-' :
+                                                    nominee.AC_NDATE}}
+                                                </td>
+                                                <td class="td_left"
+                                                    [ngClass]="nominee.AC_NADDR === '' || nominee.AC_NADDR == null ? 'td_center' : 'td_left'">
+                                                    {{nominee.AC_NADDR === '' ||
+                                                    nominee.AC_NADDR == null ? '-' :
+                                                    nominee.AC_NADDR}}
+                                                </td>
+                                                <td class="td_left"
+                                                    [ngClass]="nominee.AC_NCTCODE === '' ? 'td_center' : 'td_left'">
+                                                    {{nominee.AC_NCTCODE === ''? '-' :
+                                                    nominee.AC_CITYNAME}}
+                                                </td>
+                                                <td class="td_center"
+                                                    [ngClass]="nominee.AC_NPIN === ''|| nominee.AC_NPIN == null ? 'td_center' : 'td_right'">
+                                                    {{nominee.AC_NPIN === '' ||
+                                                    nominee.AC_NPIN == null ? '-' :
+                                                    nominee.AC_NPIN}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody *ngIf="accountData.nomineeDetails?.length == 0">
+                                            <tr>
+                                                <td colspan="7" class="no-data-available" style="text-align: center;">
+                                                    No data!
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.nomineeDetails.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Nominee</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAttorneyView">
+                <div class="col-12">
+                    <div class="row"
+                        *ngIf="accountData?.powerOfAttorney?.length != 0 && accountData?.powerOfAttorney !=undefined">
+                        <div class="col-sm-12">
+                            <h6>Attorneys</h6>
+                        </div>
+                    </div>
+                    <div class="row"
+                        *ngIf="accountData?.powerOfAttorney?.length != 0 && accountData?.powerOfAttorney !=undefined">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact"
+                                    *ngIf="accountData?.powerOfAttorney?.length != 0">
+                                    <thead>
+                                        <td>Name</td>
+                                        <td style="max-width: 15px">
+                                            Appointed on
+                                        </td>
+                                        <td style="max-width: 15px">Expiry Date</td>
+                                    </thead>
+                                    <tbody *ngIf="accountData?.powerOfAttorney?.length != 0">
+                                        <tr *ngFor="
+                                    let data of accountData?.powerOfAttorney;
+                                    let indexOfelement = index
+                                  ">
+                                            <td [ngClass]="
+                                      data.ATTERONEY_NAME === ''
+                                        ? 'td_center'
+                                        : 'td_left'
+                                    ">
+                                                {{
+                                                data.ATTERONEY_NAME === ""
+                                                ? "-"
+                                                : data.ATTERONEY_NAME
+                                                }}
+                                            </td>
+                                            <td class="td_center" [ngClass]="
+                                      data.DATE_APPOINTED === ''
+                                        ? 'td_center'
+                                        : 'td_center'
+                                    " style="max-width: 15px">
+                                                {{
+                                                data.DATE_APPOINTED === ""
+                                                ? "-"
+                                                : data.DATE_APPOINTED
+                                                }}
+                                            </td>
+                                            <td class="td_center" [ngClass]="
+                                      data.DATE_EXPIRY === ''
+                                        ? 'td_center'
+                                        : 'td_center'
+                                    " style="max-width: 15px">
+                                                {{
+                                                data.DATE_EXPIRY === ""
+                                                ? "-"
+                                                : data.DATE_EXPIRY
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.powerOfAttorney.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Attorney</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsGuaranterView">
+                <div class="col-12">
+                    <div class="row"
+                        *ngIf="accountData?.guaranterMaster?.length != 0 && accountData?.guaranterMaster !=undefined">
+                        <div class="col-sm-12">
+                            <h5>GUARANTER DETAILS</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row"
+                        *ngIf="accountData?.guaranterMaster?.length != 0 && accountData?.guaranterMaster !=undefined">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class=" table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Customer Id</td>
+                                        <td>Member no</td>
+                                        <td>Member Scheme</td>
+                                        <td>Full Name</td>
+                                        <td>Expiry Date</td>
+                                    </thead>
+                                    <tbody *ngIf="accountData?.guaranterMaster?.length != 0">
+                                        <tr
+                                            *ngFor="let data of accountData?.guaranterMaster; let indexOfelement=index;">
+                                            <td>{{data.GAC_CUSTID }}
+                                            </td>
+                                            <td>{{data.AC_MEMBNO ==''|| data.AC_MEMBNO == null ?'---': data.AC_MEMBNO}}
+                                            </td>
+                                            <td>{{data.AC_MEMBTYPE==''|| data.AC_MEMBTYPE == null
+                                                ?'---':data.AC_MEMBTYPE}}
+                                            </td>
+                                            <td>{{data.AC_NAME }}</td>
+                                            <td>{{data.EXP_DATE }}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="accountData?.guaranterMaster?.length == 0">
+                                        <tr>
+                                            <td colspan="6" class="no-data-available">
+                                                No data!
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.guaranterMaster?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>GUARANTER DETAILS</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsCoborrowerView">
+                <div class="col-12">
+                    <div class="row"
+                        *ngIf="accountData?.CoborrowerMaster?.length != 0 && accountData?.CoborrowerMaster !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Coborrowers</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.CoborrowerMaster?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Customer ID</td>
+                                        <td>Full Name</td>
+
+                                    </thead>
+                                    <tbody *ngIf="accountData?.CoborrowerMaster?.length != 0">
+
+                                        <tr
+                                            *ngFor="let data of accountData?.CoborrowerMaster; let indexOfelement=index;">
+                                            <td>{{data.CAC_CUSTID }}
+                                            </td>
+                                            <td>{{data.AC_NAME }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.CoborrowerMaster?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Coborrowers</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsOldDepositsView">
+                <div class="col-12">
+                    <div class="row" *ngIf="oldDepositArr?.length != 0 && oldDepositArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Old Deposits</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="oldDepositArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td> Renewal Counter</td>
+                                        <td> As on Date</td>
+                                        <td> Months</td>
+                                        <td> Days</td>
+                                        <td> Maturity Date</td>
+                                        <td> Deposit Amount</td>
+                                        <td> Maturiy AFmount</td>
+                                        <td> Rate</td>
+                                        <td> Receipt Number</td>
+                                    </thead>
+                                    <tbody *ngIf="oldDepositArr?.length != 0">
+                                        <tr *ngFor="let data of oldDepositArr; let indexOfelement=index;">
+                                            <td>{{data.AC_RENEWAL_COUNTER }}</td>
+                                            <td>{{data.OLD_ASON_DATE }}</td>
+                                            <td>{{data.OLD_MONTH}}</td>
+                                            <td>{{data.OLD_DAYS}}</td>
+                                            <td>{{data.OLD_EXPIRY_DATE}}</td>
+                                            <td>{{data.OLD_AC_SCHEME_AMT}}</td>
+                                            <td>{{data.OLD_MATUAMT}}</td>
+                                            <td>{{data.OLD_INTEREST_RATE=='' ||
+                                                data.OLD_INTEREST_RATE==null?'---':data.OLD_INTEREST_RATE}}</td>
+                                            <td>{{data.OLD_RECEIPT_NO=='' ||
+                                                data.OLD_RECEIPT_NO==null?'---':data.OLD_RECEIPT_NO }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="oldDepositArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Old Deposits</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsInterestInstructionView">
+                <div class="col-12">
+                    <div class="row" *ngIf="interestInstructionArr?.length != 0 && interestInstructionArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Interest Instruction</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="interestInstructionArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Scheme Type</td>
+                                        <td>Scheme Code</td>
+                                        <td>Account Number</td>
+                                        <td>Account Name</td>
+                                        <td>Instruction Mode</td>
+                                        <td>Last Execution Date</td>
+                                    </thead>
+                                    <tbody *ngIf="interestInstructionArr?.length != 0">
+                                        <tr *ngFor="let data of interestInstructionArr; let indexOfelement=index;">
+                                            <td>{{data.interestCr.S_ACNOTYPE }}</td>
+                                            <td>{{data.interestCr.S_APPL }}</td>
+                                            <td>{{data.CR_AC_NO}}</td>
+                                            <td>{{accountData?.AC_NAME}}</td>
+                                            <td>{{data.TRAN_TYPE}}</td>
+                                            <td>{{data.LAST_EXEC_DATE}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="interestInstructionArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Interest Instruction</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsGoldSilverView">
+                <div class="col-12">
+                    <div class="row" *ngIf="goldsilverArr?.length != 0 && goldsilverArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Gold Silver Details</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="goldsilverArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Serial Number</td>
+                                        <td>Submission Date</td>
+                                        <td>Exp. Date</td>
+                                        <td>Receipt Number</td>
+                                        <td>Article Details</td>
+                                        <td>Nominee</td>
+                                        <td>Nominee Relation</td>
+                                        <td>Total Weight</td>
+                                        <td>Clear Weight</td>
+                                        <td>Gold Loan Details</td>
+                                    </thead>
+                                    <tbody *ngIf="goldsilverArr?.length != 0">
+                                        <tr *ngFor="let data of goldsilverArr; let indexOfelement=index;">
+                                            <td>{{ indexOfelement+1 }}</td>
+                                            <td>{{data.SUBMISSION_DATE }}</td>
+                                            <td>{{data?.AC_EXPIRE_DATE }}</td>
+                                            <td>{{data.BAG_RECEIPT_NO}}</td>
+                                            <td>{{data.ARTICLE_NAME}}</td>
+                                            <td>{{data.NOMINEE}}</td>
+                                            <td>{{data.NOMINEE_RELATION}}</td>
+                                            <td>{{data.TOTAL_WEIGHT_GMS}}</td>
+                                            <td>{{data.CLEAR_WEIGHT_GMS}}</td>
+                                            <td>{{data.REMARK}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="goldsilverArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Gold Silver Details</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsLienInformationView">
+                <div class="col-12">
+                    <div class="row" *ngIf="lienInfoArr?.length != 0 && lienInfoArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Lien Information</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="lienInfoArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+
+                                        <td>Scheme Type</td>
+                                        <td>Scheme Code</td>
+                                        <td>Scheme Name</td>
+                                        <td>Account Number</td>
+                                        <td>Account Name</td>
+                                        <td>Security Code</td>
+                                        <td>Remark</td>
+                                    </thead>
+                                    <tbody *ngIf="lienInfoArr?.length != 0">
+                                        <tr *ngFor="let data of lienInfoArr; let indexOfelement=index;">
+                                            <td>{{data.AC_ACNOTYPE }}</td>
+                                            <td>{{data.AC_TYPE }}</td>
+                                            <td>{{data?.S_NAME}}</td>
+                                            <td>{{data.AC_NO}}</td>
+                                            <td>{{accountData?.AC_NAME}}</td>
+                                            <td>{{data.SECU_CODE}}</td>
+                                            <td>{{data.REMARK}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="lienInfoArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Lien Information</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsCustomerIDView">
+                <div class="col-12">
+                    <div class="row" *ngIf="customerIDArr?.length != 0 && customerIDArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Customer ID</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="customerIDArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Customer ID</td>
+                                        <td>Scheme Type</td>
+                                        <td>Scheme Code</td>
+                                        <td>Account Number</td>
+                                        <td>Account Name</td>
+                                        <td>Ledger Balance</td>
+                                    </thead>
+                                    <tbody *ngIf="customerIDArr?.length != 0">
+                                        <tr *ngFor="let data of customerIDArr; let indexOfelement=index;">
+                                            <td>{{customerID }}</td>
+                                            <td>{{data.ACNOTYPE }}</td>
+                                            <td>{{data.ACTYPE }}</td>
+                                            <td>{{data.BANKACNO}}</td>
+                                            <td>{{data.AC_NAME}}</td>
+                                            <td>{{data.ledgerBal}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="customerIDArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Customer ID</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsInterestPostedHistoryView">
+                <div class="col-12">
+                    <div class="row"
+                        *ngIf="interestPostedHistoryArr?.length != 0 && interestPostedHistoryArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Interest Posted History</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="interestPostedHistoryArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Transaction Number</td>
+                                        <td>Transaction Date</td>
+                                        <td>Amount</td>
+                                        <td>Interest Amount</td>
+                                        <td>Particulars</td>
+                                    </thead>
+                                    <tbody *ngIf="interestPostedHistoryArr?.length != 0">
+                                        <tr *ngFor="let data of interestPostedHistoryArr; let indexOfelement=index;">
+                                            <td>{{data.TRAN_NO }}</td>
+                                            <td>{{data.TRAN_DATE }}</td>
+                                            <td>{{data.TRAN_AMOUNT }}</td>
+                                            <td>{{data.INTEREST_AMOUNT}}</td>
+                                            <td>{{data.NARRATION}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="interestPostedHistoryArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Interest Posted History</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsPayableInterestView">
+                <div class="col-12">
+                    <div class="row" *ngIf="payableInterestArr?.length != 0 && payableInterestArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Payable Interest Details</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="payableInterestArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Transaction Date</td>
+                                        <td>Debit/Credit</td>
+                                        <td>Receivable/Payable Amount</td>
+                                        <td>Particulars</td>
+                                    </thead>
+                                    <tbody *ngIf="payableInterestArr?.length != 0">
+                                        <tr *ngFor="let data of payableInterestArr; let indexOfelement=index;">
+                                            <td>{{data.TRAN_DATE }}</td>
+                                            <td>{{data.TRAN_DRCR }}</td>
+                                            <td>{{data.RECPAY_INT_AMOUNT}}</td>
+                                            <td>{{data.NARRATION}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="payableInterestArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Payable Interest Details</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsAccountInfoView">
+                <div class="col-12">
+                    <div class="row" *ngIf="accountInfoArr.length != 0 && accountInfoArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Account Information</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountInfoArr.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Serial Number</td>
+                                        <td>Name</td>
+                                        <td>Receipt Printed</td>
+                                        <td>Phone No. (R )</td>
+                                        <td>Phone No. (O )</td>
+                                        <td>Address Line 1</td>
+                                        <td>Address Line2</td>
+                                        <td>Address Line3</td>
+                                        <td>City</td>
+                                    </thead>
+                                    <tbody *ngIf="accountInfoArr.length != 0">
+                                        <tr *ngFor="let data of accountInfoArr; let indexOfelement=index;">
+                                            <td>{{indexOfelement+1 }}</td>
+                                            <td>{{accountData?.AC_NAME }}</td>
+                                            <td></td>
+                                            <td>{{data.AC_PHONE_RES}}</td>
+                                            <td>{{data.AC_PHONE_OFFICE}}</td>
+                                            <td>{{data.AC_GALLI}}</td>
+                                            <td>{{data.AC_ADDR}}</td>
+                                            <td>{{data.AC_AREA}}</td>
+                                            <td>{{data.city.CITY_NAME}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountInfoArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Account Information</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsTDSDetailsView">
+                <div class="col-12">
+                    <div class="row" *ngIf="tdsDeatilsArr?.length != 0 && tdsDeatilsArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>TDS Details</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="tdsDeatilsArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Type</td>
+                                        <td>Scheme</td>
+                                        <td>Account Number</td>
+                                        <td>Interest Paid</td>
+                                        <td>Last TDS Date</td>
+                                        <td>TDS Paid</td>
+                                    </thead>
+                                    <tbody *ngIf="tdsDeatilsArr?.length != 0">
+                                        <tr *ngFor="let data of tdsDeatilsArr; let indexOfelement=index;">
+                                            <td>{{data.AC_ACNOTYPE }}</td>
+                                            <td>{{data.AC_TYPE }}</td>
+                                            <td>{{data.AC_NO}}</td>
+                                            <td>{{data.INTEREST_AMOUNT}}</td>
+                                            <td>{{data.LAST_TDS_DATE}}</td>
+                                            <td>{{data.TDS_AMOUNT}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="tdsDeatilsArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>TDS Details</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsDocumentView">
+                <div class="col-12">
+                    <div class="row" *ngIf="accountData?.custdocument?.length != 0 && tdsDeatilsArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>Documents</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.idmaster?.custdocument?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td style="max-width: 10px">Code</td>
+                                        <td>Description</td>
+                                        <td style="max-width: 25px">
+                                            View Document
+                                        </td>
+                                    </thead>
+                                    <tbody *ngIf="accountData?.idmaster?.custdocument?.length != 0">
+                                        <tr *ngFor="
+                                    let data of accountData?.idmaster?.custdocument;
+                                    let indexOfelement = index
+                                  ">
+                                            <td>{{ indexOfelement + 1 }}</td>
+                                            <td>{{ data.DocumentMaster.NAME }}</td>
+                                            <td style="align-items: center">
+                                                <div class="col-sm-2">
+                                                    <span style="
+                                          font-size: 20px;
+                                          color: #0f459b;
+                                          cursor: pointer;
+                                        " (click)="
+                                          modalDoc.show();
+                                          viewImagePreview(
+                                            $event,
+                                            documentUrl + data.PATH
+                                          )
+                                        " placement="right" ngbTooltip="Show Image"
+                                                        class="fa fa-fw fa-eye field-icon"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="accountData?.custdocument?.length == 0">
+                                        <tr>
+                                            <td class="no-data-available" colspan="3" style="text-align: center">
+                                                No data!
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <app-modal-basic #modalDoc [dialogClass]="'modal-md'">
+                                    <div class="app-modal-header">
+                                        <h4 class="modal-title">Document</h4>
+                                        <button type="button" class="close basic-close" (click)="modalDoc.hide()">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="app-modal-body">
+                                        <perfect-scrollbar>
+                                            <img [src]="selectedImagePreview" alt="docu" class="form-control"
+                                                style="width: 100%; height: 100%" />
+                                        </perfect-scrollbar>
+                                    </div>
+                                    <div class="app-modal-footer">
+                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                            (click)="modalDoc.hide()">
+                                            Close
+                                        </button>
+                                    </div>
+                                </app-modal-basic>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="accountData?.custdocument?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Documents</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="IsProductView">
+                <div class="col-12">
+                    <div class="row" *ngIf="productViewArr?.length != 0 && productViewArr !=undefined">
+                        <div class="col-sm-12">
+                            <h5>{{productName}} product</h5>
+                        </div>
+                        <div class="col-sm">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="productViewArr?.length != 0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td *ngFor="let data of productViewArr[0] | keyvalue;">
+                                            {{data.key}}
+                                        </td>
+                                        <!-- <td>Date</td>
+                                        <td>Scheme Type</td>
+                                        <td>Scheme</td>
+                                        <td>Account Number</td>
+                                        <td>Months</td>
+                                        <td>Months Product</td>
+                                        <td>Number of Days</td>
+                                        <td>Days Products</td>
+                                        <td>Interest</td>
+                                        <td>Interest Rate</td>
+                                        <td>Overdue</td>
+                                        <td>Due Products</td>
+                                        <td>Penal Interest</td> -->
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of productViewArr; let indexOfelement=index;">
+                                            <td *ngFor="let ele of data | keyvalue;">{{ele.value}}</td>
+                                            <!-- <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="productViewArr?.length == 0">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>{{productName}} product</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    No Records!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
+            (click)="modalLarge.hide()">Close</button>
+    </div>
+</app-modal-basic>
