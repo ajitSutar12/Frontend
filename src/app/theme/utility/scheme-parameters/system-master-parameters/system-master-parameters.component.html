@@ -51,9 +51,9 @@
                                                                     <input type="text" name="BANK_NAME"
                                                                         class="form-control" placeholder=" "
                                                                         id="BANK_NAME" required=""
-                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        pattern="^[A-Za-z\.,/ -]+$"
                                                                         formControlName="BANK_NAME" maxlength="90"
-                                                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || $event.charCode == 44"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
                                                                     <label for="BANK_NAME">Bank Name<sub
                                                                             class="required">*
@@ -66,7 +66,7 @@
                                                                 <div
                                                                     *ngIf="angForm.controls['BANK_NAME'].errors?.pattern || angForm.controls['BANK_NAME'].errors?.required || angForm.controls['BANK_NAME'].errors?.maxlength">
                                                                     This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    a-z - / . , (Space)
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -85,25 +85,15 @@
                                                                         formControlName="BRANCH_CODE" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Branch Code">
+                                                                        required placeholder="Branch Code"
+                                                                        [disabled]="BRANCH_CODE">
                                                                         <ng-option
                                                                             *ngFor="let values of OwnbranchMasterDropdown"
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="BRANCH_CODE">Branch Code<sub
-                                                                            class="required"> * </sub></label>
+                                                                    <label for="BRANCH_CODE">Branch Code</label>
                                                                 </span>
-                                                            </div>
-
-
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf=" angForm.controls['BRANCH_CODE'].errors?.required || angForm.controls['BRANCH_CODE'].errors?.maxlength">
-                                                                    This field is required
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2813,18 +2803,10 @@
                                                                                 </ng-option>
                                                                             </ng-select>
                                                                             <label for="BACK_DAY_OPTION">Back Day Open
-                                                                                Options<sub class="required"> *
-                                                                                </sub></label>
+                                                                                Options</label>
                                                                         </span>
                                                                     </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['BACK_DAY_OPTION'].invalid && (angForm.controls['BACK_DAY_OPTION'].dirty || angForm.controls['BACK_DAY_OPTION'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf=" angForm.controls['BACK_DAY_OPTION'].errors?.required ">
-                                                                            This field is required
-                                                                        </div>
-                                                                    </div>
+
                                                                 </div>
                                                                 <div class="col-sm">
                                                                     <div class="checkbox checkbox-primary">
@@ -2983,6 +2965,7 @@
                                                                             Submit
                                                                         </button>
                                                                         <button class="btn btn-outline-primary btn-sm"
+                                                                            [disabled]="angForm.invalid"
                                                                             (click)="updateData()" *ngIf="updateShow">
                                                                             Update</button>&nbsp;
                                                                         <button class="btn btn-outline-primary btn-sm"

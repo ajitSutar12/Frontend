@@ -179,7 +179,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url
-
   WeeklyandHalfHoliday = [{ value: 'No Holiday', label: 'No Holiday', key: 7 },
   { value: 'Sunday', label: 'Sunday', key: 0 },
   { value: 'Monday', label: 'Monday', key: 1 },
@@ -290,7 +289,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   ngcurrentdate: any = null
   ngpigmypreviousdate: any = null
   ngpigmycurrentdate: any = null
-
+  BRANCH_CODE: boolean = true
   maxDate: Date;
   minDate: Date;
   constructor(
@@ -309,8 +308,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate());
-
+    // this.BRANCH_CODE = true
     this.systemMasterParametersService.getData().subscribe(data => {
+
       if (data.length == 0) {
         this.showButton = true
         this.updateShow = false
@@ -326,6 +326,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
   ngOnInit(): void {
     this.createForm();
+    this.angForm.controls['BRANCH_CODE'].disable()
+    this.angForm.controls['BACK_DAY_OPTION'].disable()
+
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -495,7 +498,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       SYSPARA_CODE: ['A'],
       BANK_CODE: ['', [Validators.pattern, Validators.required]],
       BANK_NAME: ['', [Validators.pattern, Validators.required]],
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
+      BRANCH_CODE: [''],
       //BRANCH_NAME:['',[Validators.pattern, Validators.required]],
       ADDRESS: ['', [Validators.pattern, Validators.required]],
       COMPANY_START_DATE: ['', [Validators.required]],
@@ -830,7 +833,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   selectedRoleName: string;
 
   editClickHandler(id) {
-
+    this.angForm.controls['BANK_CODE'].disable()
     let ngbankstartdate
     let ngpreviousdate
     let ngcurrentdate

@@ -6,6 +6,15 @@ import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { BnkDayBookSummaryComponent } from './bnk-day-book-summary/bnk-day-book-summary.component';
+import { BnkScrollDetailBothComponent } from './bnk-scroll-detail-both/bnk-scroll-detail-both.component';
+import { BnkSubsidaryDetailComponent } from './bnk-subsidary-detail/bnk-subsidary-detail.component';
+import { BnkInstructionsInterestDebitComponent } from './bnk-instructions-interest-debit/bnk-instructions-interest-debit.component';
+import { BnkInstructionsStandingDebitComponent } from './bnk-instructions-standing-debit/bnk-instructions-standing-debit.component';
+import { BnkExpectStandingInstCreditComponent } from './bnk-expect-standing-inst-credit/bnk-expect-standing-inst-credit.component';
+import { BnkExpectStandInstructionComponent } from './bnk-expect-stand-instruction/bnk-expect-stand-instruction.component';
+import { BnkExpectIntInstructCreditComponent } from './bnk-expect-int-instruct-credit/bnk-expect-int-instruct-credit.component';
+import { BnkExpectIntInstructComponent } from './bnk-expect-int-instruct/bnk-expect-int-instruct.component';
 
 
 

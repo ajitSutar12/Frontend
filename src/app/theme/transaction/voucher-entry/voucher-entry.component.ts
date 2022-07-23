@@ -16,6 +16,8 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+
 @Component({
   selector: 'app-voucher-entry',
   templateUrl: './voucher-entry.component.html',
@@ -144,6 +146,7 @@ export class VoucherEntryComponent implements OnInit {
     private _service: VoucherEntryService,
     private savingMasterService: SavingMasterService,
     private _ACMasterDropdownService: ACMasterDropdownService,
+    private _CustomerIdService: CustomerIdService,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -254,18 +257,18 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getHeadDetails(obj).subscribe(data => {
       if (data.length != 0) {
 
-        if(!this.headFlag){
-        this.headData = data;
-        this.headShow = true;
+        if (!this.headFlag) {
+          this.headData = data;
+          this.headShow = true;
 
 
-        this.headData.forEach(element => {
-          element['date'] = this.IntersetHeadDate;
-          element['Amount'] = 0.00
-          element['Balance'] = 0.00
-        });
-        console.log(this.headData);
-      }
+          this.headData.forEach(element => {
+            element['date'] = this.IntersetHeadDate;
+            element['Amount'] = 0.00
+            element['Balance'] = 0.00
+          });
+          console.log(this.headData);
+        }
       } else {
         this.headShow = false;
       }
@@ -275,7 +278,7 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   //get account no according scheme for introducer
-  Submitscheme :any;
+  Submitscheme: any;
   getIntroducer(item) {
     this.introducerACNo = [];
     this.obj = [item.id, this.selectedBranch]
@@ -392,11 +395,17 @@ export class VoucherEntryComponent implements OnInit {
     obj['InputHead'] = this.headData;
     obj['scheme'] = this.Submitscheme;
     obj['account_no'] = this.submitCustomer;
-    obj['tran_mode']  = this.submitTranMode;
+    obj['tran_mode'] = this.submitTranMode;
     console.log(obj);
     this._service.insertVoucher(obj).subscribe(data => {
       // this.getVoucherData();
-      Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+      // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+      Swal.fire({
+        icon: 'success',
+        title: 'Voucher update Successfully !',
+        html:
+          '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>'
+      })
       this.angForm.controls['temp_over_draft'].reset()
       this.angForm.controls['over_draft'].reset()
       this.angForm.controls['token'].reset()
@@ -431,10 +440,10 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   //Mode data
-  submitTranMode : any;
+  submitTranMode: any;
   changeMode(item) {
     this.submitTranMode = item;
-    if (this.selectedMode.tran_type == 'TR') {
+    if (this.submitTranMode.tran_type == 'TR') {
       this.showChequeDetails = true;
       this.angForm.controls['chequeNo'].reset()
       this.angForm.controls['chequeDate'].reset()
@@ -453,21 +462,22 @@ export class VoucherEntryComponent implements OnInit {
   Customer_Pan_No
   Customer_Contact_No
   showlgindetails() {
-    if (this.selectedAccountno != null) {
+    if (this.angForm.controls['account_no'].value != null) {
       this.ShowDocuments = true
-      let tempdata = this.angForm.controls['account_no'].value.idmaster
-      console.log(this.angForm.controls['account_no'].value)
-      console.log(tempdata)
-      this.Customer_Name = this.angForm.controls['account_no'].value.idmaster['AC_NAME']
-      this.Customer_Pan_No = (this.angForm.controls['account_no'].value.idmaster['AC_PANNO'] == '' ? '-' : this.angForm.controls['AC_PANNO'].value.idmaster['AC_PANNO'])
-      this.Customer_Contact_No = (this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'] == '' ? '-' : this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'])
+      console.log(this.submitCustomer.idmasterID)
+      this._CustomerIdService.getFormData(this.submitCustomer.idmasterID).subscribe(data => {
+        this.Customer_Name = data.AC_NAME
+        this.Customer_Pan_No = data.AC_PANNO
+        this.Customer_Contact_No = data.AC_MOBILENO
+      })
+
       // if((this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'])
     } else {
       this.ShowDocuments = false
     }
   }
 
-  submitCustomer : any;
+  submitCustomer: any;
   //get customer today voucher data
   getVoucherData(item) {
     this.submitCustomer = item;
@@ -964,10 +974,18 @@ export class VoucherEntryComponent implements OnInit {
       })
     }
   }
-
+  tokenshowhide: boolean = false
 
   // Check Voucher Conditions On Transaction Mode
   checktranCondition() {
+
+    debugger
+    if (this.angForm.controls['type'].value == 'cash' && this.submitTranMode.tran_drcr == 'D') {
+      this.tokenshowhide = true
+    } else {
+      this.tokenshowhide = false
+
+    }
 
     let obj = {
       accountNo: this.angForm.controls['account_no'].value.AC_NO,
@@ -1121,14 +1139,14 @@ export class VoucherEntryComponent implements OnInit {
   newbtnShow: boolean = false;
   // Variables for hide/show add and update button
   showButton: boolean = true;
-  updateID:any;
+  updateID: any;
 
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
 
-  headFlag : boolean = false;
+  headFlag: boolean = false;
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
       debugger

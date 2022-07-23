@@ -35,7 +35,7 @@ export class BnkMinorsListComponent implements OnInit {
   ACNo: any;
   defaultDate: any
   //title select variables
-  schemetype: Array<IOption> = this.SchemeTypes.get_CAPGSBTD_Characters();
+  // schemetype: Array<IOption> = this.SchemeTypes.get_CAPGSBTD_Characters();
 
   selectedOption = "3";
   isDisabled = true;

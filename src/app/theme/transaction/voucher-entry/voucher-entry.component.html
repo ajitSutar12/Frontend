@@ -51,7 +51,9 @@
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)" class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
+                                            class="alert alert-danger">
                                             <div *ngIf="angForm.controls['branch_code'].errors?.required">
                                                 This field is required
                                             </div>
@@ -102,7 +104,9 @@
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)" class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
+                                            class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme_type'].errors?.required">
                                                 This field is required
                                             </div>
@@ -113,15 +117,17 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedScheme" bindValue="id" (change)="getIntroducer($event)"
-                                                    formControlName="scheme">
+                                                <ng-select [(ngModel)]="selectedScheme" bindValue="id"
+                                                    (change)="getIntroducer($event)" formControlName="scheme">
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
                                                         {{item.S_APPL}} {{item.S_NAME}}</ng-option>
                                                 </ng-select>
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)" class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
+                                            class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme'].errors?.required">
                                                 This field is required
                                             </div>
@@ -136,14 +142,17 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select formControlName="account_no" bindValue="id" [(ngModel)]="selectedAccountno"
+                                                <ng-select formControlName="account_no" bindValue="id"
+                                                    [(ngModel)]="selectedAccountno"
                                                     (change)="getVoucherData($event); checkAccountCondition();showlgindetails();">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)" class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
+                                            class="alert alert-danger">
                                             <div *ngIf="angForm.controls['account_no'].errors?.required">
                                                 This field is required
                                             </div>
@@ -156,7 +165,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedMode" bindValue="id" formControlName="tran_mode"
+                                                <ng-select [(ngModel)]="selectedMode" bindValue="id"
+                                                    formControlName="tran_mode"
                                                     (change)="changeMode($event);checktranCondition()">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
@@ -164,7 +174,9 @@
 
                                             </span>
                                         </div>
-                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['tran_mode'].invalid && (angForm.controls['tran_mode'].dirty || angForm.controls['tran_mode'].touched)" class="alert alert-danger">
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['tran_mode'].invalid && (angForm.controls['tran_mode'].dirty || angForm.controls['tran_mode'].touched)"
+                                            class="alert alert-danger">
                                             <div *ngIf="angForm.controls['tran_mode'].errors?.required">
                                                 This field is required
                                             </div>
@@ -277,13 +289,22 @@
                                                             <!-- <td>{{i+1}}</td> -->
                                                             <td>{{item.DESCRIPTION}}</td>
                                                             <td *ngIf="item.INTEREST_DATE_INPUT">
-                                                                <input type="text" placeholder="dd/mm/yyyy" class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="IntersetHeadDate" formControlName="Intdate" (bsValueChange)="getColumnValue($event)">
+                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                    class="form-control"
+                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                    bsDatepicker [(ngModel)]="IntersetHeadDate"
+                                                                    formControlName="Intdate"
+                                                                    (bsValueChange)="getColumnValue($event)">
                                                             </td>
                                                             <td *ngIf="!item.INTEREST_DATE_INPUT"></td>
-                                                            <td><input type="text" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" style="width: 100%;border:none;text-align: right;" (keyup)="getInputHeadAmt($event,i)" (focusout)="decimalAllContent($event)"
-                                                                    value="0.00">
+                                                            <td><input type="text"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    style="width: 100%;border:none;text-align: right;"
+                                                                    (keyup)="getInputHeadAmt($event,i)"
+                                                                    (focusout)="decimalAllContent($event)" value="0.00">
                                                             </td>
-                                                            <td class="bg-light-danger text-right"><span class="text-danger">{{item.Balance}}</span></td>
+                                                            <td class="bg-light-danger text-right"><span
+                                                                    class="text-danger">{{item.Balance}}</span></td>
                                                             <td>{{item.DRCR_APPLICABLE == 'C'?'Cr':'Dr'}}</td>
                                                         </tr>
                                                     </tbody>
@@ -297,7 +318,8 @@
                                 <div class="col-md-12">
                                     <div class="solid">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label></div>
+                                            <div class="col-sm-12 col-md-2  "><label
+                                                    for="AC_PARTICULAR">Particulars</label></div>
                                             <div class="col-md-5">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -309,9 +331,9 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Token
+                                            <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label for="AC_PARTICULAR">Token
                                                     Number</label></div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2" *ngIf="tokenshowhide">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" class="form-control"
@@ -340,17 +362,22 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm" style="float: right;">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()">
+                                                <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                    *ngIf="showButton" (click)="submit()">
                                                     Update
                                                 </button>
-                                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                                                    *ngIf="newbtnShow">
                                                     Cancel
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                                    *ngIf="updateShow">
                                                     Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                                <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
+                                                    (click)="reject()">
                                                     Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                                    (click)="Approve()">
                                                     Approve</button>
                                             </div>
                                         </div>
@@ -386,7 +413,9 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-primary" style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr" aria-hidden="true"></i> {{DayOpBal}}.00</div>
+                                    <div class="fw-bolder transaction-title text-primary"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{DayOpBal}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -402,7 +431,9 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> {{Pass}}.00</div>
+                                    <div class="fw-bolder transaction-title text-success"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{Pass}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -418,7 +449,9 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-danger" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
+                                    <div class="fw-bolder transaction-title text-danger"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -430,11 +463,14 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing</h6>
+                                            <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing
+                                            </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-danger" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> 0.00</div>
+                                    <div class="fw-bolder transaction-title text-danger"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> 0.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -450,7 +486,9 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-info" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> 0.00</div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> 0.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -462,12 +500,15 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Temparory overdraft Amount
+                                            <h6 class="transaction-title" style="font-size: 12px;">Temparory overdraft
+                                                Amount
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-info" style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr" aria-hidden="true"></i> {{overdraftAmt}}.00</div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{overdraftAmt}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md">
@@ -483,7 +524,9 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success" style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr" aria-hidden="true"></i> {{ClearBalance}}.00</div>
+                                    <div class="fw-bolder transaction-title text-success"
+                                        style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{ClearBalance}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -500,7 +543,9 @@
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success" style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr" aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                    <div class="fw-bolder transaction-title text-success"
+                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12" *ngIf="ShowDocuments">
@@ -508,7 +553,9 @@
                                     <div class="card-body">
                                         <div class="user-avatar-section">
                                             <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="110" width="110" (mouseover)="showImage(customerImg)" (mouseout)="hideImage()" alt="User avatar" />
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
+                                                    height="110" width="110" (mouseover)="showImage(customerImg)"
+                                                    (mouseout)="hideImage()" alt="User avatar" />
                                                 <div class="user-info text-center">
                                                     <h4>{{Customer_Name}}</h4>
                                                     <!-- <span class="badge bg-light-secondary">Author</span> -->
@@ -517,7 +564,9 @@
                                         </div>
                                         <div class="user-avatar-section">
                                             <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture" (mouseover)="showImage(signture)" (mouseout)="hideImage()" height="50" width="110" alt="User avatar" />
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
+                                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
+                                                    height="50" width="110" alt="User avatar" />
 
                                             </div>
                                         </div>
@@ -593,7 +642,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggerhide" #triggerhide (click)="modalLarge.hide()">Close</button>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggerhide"
+                        #triggerhide (click)="modalLarge.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>

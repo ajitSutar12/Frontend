@@ -46,7 +46,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="RACK_DESC" class="form-control" placeholder=" " #autofocus
                                         id="RACK_DESC" required="" maxlength="50"
-                                        title="Input allowed only  A-Z a-z  - * # / . (Space)"
+                                        title="Input allowed only  A-Z a-z 0-9 - * # / . (Space)"
                                         formControlName="RACK_DESC">
                                     <label for="RACK_DESC">Rack Description<sub class="required">* </sub></label>
                                 </span>
@@ -56,7 +56,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['RACK_DESC'].errors?.required || angForm.controls['RACK_DESC'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - * # / . (Space)
+                                    This field is required and Input allowed only A-Z a-z 0-9F- * # / . (Space)
                                 </div>
                             </div>
                         </div>

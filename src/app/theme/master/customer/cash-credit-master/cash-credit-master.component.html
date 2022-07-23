@@ -823,22 +823,21 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_COREG_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_COREG_NO" pattern="^[0-9-/. ]+$"
+                                                                        id="AC_COREG_NO" 
                                                                         style="text-align: right;"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 65 && $event.charCode <= 90)"
-                                                                        title="Input allowed only  0-9"
+                                                                       
                                                                         formControlName="AC_COREG_NO">
                                                                     <label for="AC_COREG_NO">Number</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label"
+                                                            <!-- <div class="form-group form-primary form-static-label"
                                                                 *ngIf="angForm.controls['AC_COREG_NO'].invalid && (angForm.controls['AC_COREG_NO'].dirty || angForm.controls['AC_COREG_NO'].touched)"
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['AC_COREG_NO'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
@@ -885,22 +884,21 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_RESO_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_RESO_NO" pattern="^[0-9-/. ]+$"
+                                                                        id="AC_RESO_NO" 
                                                                         style="text-align: right;"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 65 && $event.charCode <= 90)"
-                                                                        title="Input allowed only  0-9"
+                                                                         title="Input allowed only  0-9"
                                                                         formControlName="AC_RESO_NO">
                                                                     <label for="AC_RESO_NO">Number</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label"
+                                                            <!-- <div class="form-group form-primary form-static-label"
                                                                 *ngIf="angForm.controls['AC_RESO_NO'].invalid && (angForm.controls['AC_RESO_NO'].dirty || angForm.controls['AC_RESO_NO'].touched)"
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['AC_RESO_NO'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">

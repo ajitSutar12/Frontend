@@ -41,7 +41,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  ACNo: any;
  defaultDate: any
  //title select variables
- schemetype: Array<IOption> = this.SchemeTypes.get_LNCCDS_Characters();
+//  schemetype: Array<IOption> = this.SchemeTypes.get_LNCCDS_Characters();
 
  selectedOption = "3";
  isDisabled = true;
@@ -82,9 +82,9 @@ export class BnkSubsidaryDetailComponent implements OnInit {
    this.createForm();
    this.getSystemParaDate();
 
-   this.dataSub = this.SchemeTypes.load_LNCCDS_Characters().subscribe((options) => {
-     this.characters = options;
-   });
+  //  this.dataSub = this.SchemeTypes.load_LNCCDS_Characters().subscribe((options) => {
+  //    this.characters = options;
+  //  });
    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
      var filtered = data.filter(function (scheme) {
        return (scheme.name == 'TD' || scheme.name == 'PG');

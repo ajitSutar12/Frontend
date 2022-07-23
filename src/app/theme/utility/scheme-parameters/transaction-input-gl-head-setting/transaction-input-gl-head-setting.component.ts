@@ -46,7 +46,6 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   //scheme type variable
   ngSchemeType: any = null
   schemeType = [
-    { id: 'GL' },
     { id: 'GS' },
     { id: 'IV' },
     { id: 'LN' },
@@ -438,7 +437,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     this.ngHeadType = null
     this.ngGlCode = null
     this.ngDebitCredit = null
-    
+
   }
 
   ngAfterViewInit(): void {

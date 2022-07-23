@@ -624,7 +624,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_COREG_NO: ['', [Validators.pattern]],
       AC_COREG_DATE: [''],
       AC_COREG_AMT: ['', [Validators.pattern]],
-      AC_RESO_NO: ['', [Validators.pattern]],
+      AC_RESO_NO: [''],
       AC_RESO_DATE: [''],
       AC_HONO: [''],
       AC_WARD: [''],
