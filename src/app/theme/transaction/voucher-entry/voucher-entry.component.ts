@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { data } from 'jquery';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-voucher-entry',
@@ -55,6 +56,7 @@ export class VoucherEntryComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  url = environment.base_url;
 
 
   // for show hide photo and signature
@@ -107,7 +109,7 @@ export class VoucherEntryComponent implements OnInit {
     { key: 'SH', data: { cash: [1, 4, 5, 7], transfer: [1, 4, 5, 7] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
     { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
-    { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
+    { key: 'TD', data: { cash: [1, 4, 5, 6, 10, 14], transfer: [1, 4, 5, 6, 9, 10, 14] } },
   ]
 
   bankName = [
@@ -127,13 +129,19 @@ export class VoucherEntryComponent implements OnInit {
   isture: boolean = true;
   totalAmt: any;
   showChequeDetails: boolean = false;
-  DayOpBal: number;
+  DayOpBal: number = 0;
   headData: any;
   headShow: boolean = false;
   lastday: any;
   overdraftAmt
-  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
-  signture: string = '../../../../assets/sign/signture.jpg';
+  // customerImg: string
+  // signture: string
+  customerImg = '../../../../assets/images/nouser.png';
+  signture = '../../../../assets/images/nosignature.png';
+  Customer_Name
+  Customer_Pan_No = '---'
+  Customer_Contact_No = '---'
+  Status
   maxDate: Date;
   dtTrigger: any;
   dtElement: any;
@@ -163,7 +171,7 @@ export class VoucherEntryComponent implements OnInit {
 
 
     //Day opening Amount
-    this.DayOpBal = 1000;
+    // this.DayOpBal = 1000;
     // get session branch data
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'cash';
@@ -174,7 +182,6 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getSysParaData().subscribe(data => {
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
-      console.log(this.date);
     })
 
     //branch List
@@ -185,7 +192,6 @@ export class VoucherEntryComponent implements OnInit {
 
     //Scheme Code
     this._service.getSchemeCodeList().subscribe(data => {
-      console.log(data);
       this.master = data;
       this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
 
@@ -222,9 +228,15 @@ export class VoucherEntryComponent implements OnInit {
     })
   }
 
+  resetscheme(event) {
+    console.log(event)
+  }
+
   IntersetHeadDate: any;
   selectedSchemeCode() {
+
     this.allScheme = [];
+
     this.master.forEach(element => {
       if (element.S_ACNOTYPE == this.selectedCode) {
         this.allScheme.push(element)
@@ -253,7 +265,6 @@ export class VoucherEntryComponent implements OnInit {
     let lastdate = Number(rowData[0]) - 1;
     // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
     this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
-    console.log('IntrestDate', this.IntersetHeadDate);
     this._service.getHeadDetails(obj).subscribe(data => {
       if (data.length != 0) {
 
@@ -267,7 +278,6 @@ export class VoucherEntryComponent implements OnInit {
             element['Amount'] = 0.00
             element['Balance'] = 0.00
           });
-          console.log(this.headData);
         }
       } else {
         this.headShow = false;
@@ -423,6 +433,19 @@ export class VoucherEntryComponent implements OnInit {
       this.angForm.controls['chequeNo'].reset()
       this.angForm.controls['bank'].reset()
       this.headData = [];
+
+      this.DayOpBal = 0
+      this.Pass = 0
+      this.Unpass = 0
+      this.sanctionamt = 0
+      this.ClearBalance = 0
+      this.overdraftAmt = 0
+      this.AfterVoucher = 0
+      this.customerImg = '../../../../assets/images/nouser.png';
+      this.signture = '../../../../assets/images/nosignature.png'
+      this.Status = '0'
+      this.Customer_Pan_No = '---'
+      this.Customer_Contact_No = '---'
       this.headShow = false;
     }, err => {
       console.log(err);
@@ -458,9 +481,7 @@ export class VoucherEntryComponent implements OnInit {
     // }
   }
 
-  Customer_Name
-  Customer_Pan_No
-  Customer_Contact_No
+
   showlgindetails() {
     if (this.angForm.controls['account_no'].value != null) {
       this.ShowDocuments = true
@@ -469,6 +490,23 @@ export class VoucherEntryComponent implements OnInit {
         this.Customer_Name = data.AC_NAME
         this.Customer_Pan_No = data.AC_PANNO
         this.Customer_Contact_No = data.AC_MOBILENO
+        this.Status = this.submitCustomer.IS_DORMANT
+        if (data.custdocument.length != 0) {
+          data.custdocument.forEach(element => {
+            if (element.DocumentMasterID == 1) {
+              this.customerImg = this.url + '/' + element.PATH;
+            }
+            if (element.DocumentMasterID == 2) {
+              this.signture = this.url + '/' + element.PATH;
+            }
+
+          });
+
+
+        } else {
+          this.customerImg = '../../../../assets/images/nouser.png';
+          this.signture = '../../../../assets/images/nosignature.png'
+        }
       })
 
       // if((this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'])
@@ -502,49 +540,49 @@ export class VoucherEntryComponent implements OnInit {
     //   console.log(err);
     // })
 
-    this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
-      let passType = '';
-      let unpassType = '';
+    // this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
+    //   let passType = '';
+    //   let unpassType = '';
 
-      //DayOfOpening 
-      this.ClearBalance = this.ClearBalance + this.DayOpBal;
+    //   //DayOfOpening 
+    //   this.ClearBalance = this.ClearBalance + this.DayOpBal;
 
-      //Pass condition checked
-      if (data.passObj.pass == undefined) {
-        this.Pass = 0;
-        this.overdraftAmt = 0
-        passType = 'Cr';
-      } else {
-        this.Pass = data.passObj.pass;
-        passType = data.passObj.type;
-      }
+    //   //Pass condition checked
+    //   if (data.passObj.pass == undefined) {
+    //     this.Pass = 0;
+    //     this.overdraftAmt = 0
+    //     passType = 'Cr';
+    //   } else {
+    //     this.Pass = data.passObj.pass;
+    //     passType = data.passObj.type;
+    //   }
 
-      //Unpass condition checked
-      if (data.unpassObj.UnPass == undefined) {
-        this.Unpass = 0;
-        let unpassType = 'Cr';
-      } else {
-        this.Unpass = data.unpassObj.UnPass;
-        let unpassType = data.unpassObj.type;
-      }
+    //   //Unpass condition checked
+    //   if (data.unpassObj.UnPass == undefined) {
+    //     this.Unpass = 0;
+    //     let unpassType = 'Cr';
+    //   } else {
+    //     this.Unpass = data.unpassObj.UnPass;
+    //     let unpassType = data.unpassObj.type;
+    //   }
 
 
-      if (passType == 'Cr') {
-        this.ClearBalance = this.Pass + this.ClearBalance;
-      } else {
-        this.ClearBalance = this.Pass - this.ClearBalance;
-      }
+    //   if (passType == 'Cr') {
+    //     this.ClearBalance = this.Pass + this.ClearBalance;
+    //   } else {
+    //     this.ClearBalance = this.Pass - this.ClearBalance;
+    //   }
 
-      if (unpassType == 'Cr') {
-        this.ClearBalance = this.Unpass + this.ClearBalance;
-      } else {
-        this.ClearBalance = this.Unpass - this.ClearBalance;
-      }
-      // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
-      this.AfterVoucher = this.ClearBalance;
-    }, err => {
-      console.log(err);
-    })
+    //   if (unpassType == 'Cr') {
+    //     this.ClearBalance = this.Unpass + this.ClearBalance;
+    //   } else {
+    //     this.ClearBalance = this.Unpass - this.ClearBalance;
+    //   }
+    //   // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
+    //   this.AfterVoucher = this.ClearBalance;
+    // }, err => {
+    //   console.log(err);
+    // })
   }
 
 
@@ -552,7 +590,27 @@ export class VoucherEntryComponent implements OnInit {
   getInputHeadAmt(ele, i) {
     let value = ele.target.value;
     this.headData[i].Amount = value;
-    console.log(this.headData);
+    let tran = this.submitTranMode.tran_drcr
+
+    console.log('this.headData', this.headData)
+    this.headData.forEach(element => {
+      this.totalAmt = Number(element.Amount) + Number(this.totalAmt)
+    });
+
+    // 
+  }
+  extenstionaftervoucher = ''
+
+  getaftervoucher(event) {
+    let value = Number(event.target.value);
+    let tran = this.submitTranMode.tran_drcr
+    if (tran == 'D') {
+      this.AfterVoucher = this.ClearBalance - value
+      this.extenstionaftervoucher = 'Dr'
+    } else {
+      this.AfterVoucher = this.ClearBalance + value
+      this.extenstionaftervoucher = 'Cr'
+    }
   }
 
   //decimal content show purpose wrote below function
@@ -571,7 +629,6 @@ export class VoucherEntryComponent implements OnInit {
   PreviewDiv: boolean = false;
   showImage(img) {
     var src = img;
-    console.log(src)
     var largeSrc = src.replace('small', 'large');
     this.previewImg = src;
     this.PreviewDiv = true;
@@ -584,254 +641,317 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       value: Number($event.target.value),
       clearBalance: this.ClearBalance,
-      accountNo: this.angForm.controls['account_no'].value.BANKACNO,
-      schemeType: this.angForm.controls['scheme_type'].value,
-      scheme: this.angForm.controls['scheme'].value.S_APPL,
-      tran: this.selectedMode.tran_drcr,
-      tranMode: this.selectedMode.id,
+      accountNo: this.submitCustomer.BANKACNO,
+      schemeType: this.selectedCode,
+      scheme: this.Submitscheme.S_APPL,
+      tran: this.submitTranMode.tran_drcr,
+      tranMode: this.submitTranMode.id,
       odAmount: this.overdraftAmt,
       currentDate: this.date,
-      totalAmt: this.angForm.controls['total_amt'].value
+      totalAmt: this.angForm.controls['total_amt'].value,
+      type: this.typeclearbal
     }
 
-    if (obj.value == 200000) {
+    // if (obj.value >= 200000) {
 
-      Swal.fire({
-        title: 'Are you sure?',
-        html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'No',
-        confirmButtonText: 'Yes'
-      }).then((result) => {
-        if (result.isConfirmed == false) {
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        }
-      })
+    //   Swal.fire({
+    //     title: 'Are you sure?',
+    //     html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     cancelButtonText: 'No',
+    //     confirmButtonText: 'Yes'
+    //   }).then((result) => {
+    //     if (result.isConfirmed == false) {
+    //       this.angForm.controls['amt'].reset();
+    //       this.angForm.controls['total_amt'].reset();
+    //     }
+    //   })
 
-    } else {
-      if (obj) {
-        this._service.checkZeroBalance(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
+    // } else {
+    //   this._service.checkZeroBalance(obj).subscribe(data => {
+    //     if (data != 0) {
+    //       Swal.fire('Error!', data.message, 'error');
+    //       this.angForm.controls['amt'].reset();
+    //       this.angForm.controls['total_amt'].reset();
+    //     } else {
+    //       this._service.clearWithdrawBal(obj).subscribe(data => {
+    //         if (data != 0) {
+    //           Swal.fire('Error!', data.message, 'error');
+    //           this.angForm.controls['amt'].reset();
+    //           this.angForm.controls['total_amt'].reset();
+    //         } else {
+    //           this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
+    //             if (data != 0) {
+    //               Swal.fire('Error!', data.message, 'error');
+    //             } else {
+    //               this._service.ClearVoucherSameBal(obj).subscribe(data => {
+    //                 if (data != 0) {
+    //                   Swal.fire('Error!', data.message, 'error');
+    //                   this.angForm.controls['amt'].reset();
+    //                   this.angForm.controls['total_amt'].reset();
+    //                 } else {
+    //                   this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
+    //                     if (data != 0) {
+    //                       Swal.fire('Error!', data.message, 'error');
+    //                       this.angForm.controls['amt'].reset();
+    //                       this.angForm.controls['total_amt'].reset();
+    //                     } else {
+    //                       this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
+    //                         if (data != 0) {
+    //                           Swal.fire('Error!', data.message, 'error');
+    //                           this.angForm.controls['amt'].reset();
+    //                           this.angForm.controls['total_amt'].reset();
+    //                         } else {
+    //                           this._service.InstructionFreezeAc(obj).subscribe(data => {
+    //                             if (data != 0) {
+    //                               Swal.fire('Error!', data.message, 'error');
+    //                               this.angForm.controls['amt'].reset();
+    //                               this.angForm.controls['total_amt'].reset();
+    //                             } else {
+    //                               this._service.CheckClearBalAndAmt(obj).subscribe(data => {
+    //                                 if (data != 0) {
+    //                                   Swal.fire('Error!', data.message, 'error');
+    //                                   this.angForm.controls['amt'].reset();
+    //                                   this.angForm.controls['total_amt'].reset();
+    //                                 } else {
+    //                                   this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
+    //                                     if (data != 0) {
+    //                                       Swal.fire('Error!', data.message, 'error');
+    //                                     } else {
+    //                                       this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
+    //                                         if (data != 0) {
+    //                                           Swal.fire('Error!', data.message, 'error');
+    //                                         }
+    //                                       }, err => {
+    //                                         console.log(err);
+    //                                       })
+    //                                     }
+    //                                   })
+    //                                 }
+    //                               }, err => {
+    //                                 console.log(err);
+    //                               })
+    //                             }
+    //                           }, err => {
+    //                             console.log(err);
+    //                           })
+    //                         }
+    //                       }, err => {
+    //                         console.log(err);
+    //                       })
+    //                     }
+    //                   }, err => {
+    //                     console.log(err);
+    //                   })
+    //                 }
+    //               }, err => {
+    //                 console.log(err);
+    //               })
+    //             }
+    //           }, err => {
+    //             console.log(err);
+    //           })
+    //         }
+    //       }, err => {
+    //         console.log(err);
+    //       })
+    //     }
+    //   }, err => {
+    //     console.log(err);
+    //   })
+    // }
+
+
+    // if (this.selectedCode == 'SB') {
+    //   this._service.MinBalanceChecking(obj).subscribe(data => {
+    //     if (data != 0) {
+    //       Swal.fire('Error!', data.message, 'error');
+    //       this.angForm.controls['amt'].reset();
+    //       this.angForm.controls['total_amt'].reset();
+    //     }
+    //   }, err => {
+    //     console.log(err);
+    //   })
+
+    // }
+    this._service.DepositAndTotalInstallments(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.clearWithdrawBal(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
+    this._service.DepositAndDepositAmount(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
 
-      if (obj) {
-        this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.ClearVoucherSameBal(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
+    this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
+    this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
+    this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.MinBalanceChecking(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
+    this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.CheckClearBalAndAmt(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
+    this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.InstructionFreezeAc(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
+    this._service.ZeroBalance(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.angForm.controls['amt'].reset();
+        this.angForm.controls['total_amt'].reset();
       }
+    }, err => {
+      console.log(err);
+    })
 
-      if (obj) {
-        this._service.CashWithdraw(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-            this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
 
-      if (obj) {
-        this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
 
-      if (obj) {
-        this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
+    //   this._service.CashWithdraw(obj).subscribe(data => {
+    //     if (data != 0) {
+    //       Swal.fire('Error!', data.message, 'error');
+    //       this.angForm.controls['amt'].reset();
+    //       this.angForm.controls['total_amt'].reset();
+    //     }
+    // else{
+    //   this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
+    //     if (data != 0) {
+    //       Swal.fire('Error!', data.message, 'error');
+    //     }
+    // else{
+    //   this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
+    //     if (data != 0) {
+    //       Swal.fire('Error!', data.message, 'error');
+    //     } else{
+    //   this._service.DepositAndTotalInstallments(obj).subscribe(data => {
+    //     if (data != 0) {
+    //       Swal.fire('Error!', data.message, 'error');
+    //     } else{
+    //   this._service.DepositAndDepositAmount(obj).subscribe(data => {
+    //     if (data != 0) {
+    //       Swal.fire('Error!', data.message, 'error');
+    //     } else{
+    // this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
+    //   if (data != 0) {
+    //     Swal.fire('Error!', data.message, 'error');
+    //   } else {
+    //     this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
+    //       if (data != 0) {
+    //         Swal.fire('Error!', data.message, 'error');
+    //       } else {
+    //         this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+    //           if (data != 0) {
+    //             Swal.fire('Error!', data.message, 'error');
+    //           } else {
+    //             this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
+    //               if (data != 0) {
+    //                 Swal.fire('Error!', data.message, 'error');
+    //               } else {
+    //                 this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
+    //                   if (data != 0) {
+    //                     Swal.fire('Error!', data.message, 'error');
+    //                   } else {
+    //                     this._service.SysAndScheCheckTotalAmt(obj).subscribe(data => {
+    //                       if (data != 0) {
+    //                         Swal.fire('Error!', data.message, 'error');
+    //                       }
+    //                     }, err => {
+    //                       console.log(err);
+    //                     })
+    //                   }
+    //                 }, err => {
+    //                   console.log(err);
+    //                 })
+    //               }
+    //             }, err => {
+    //               console.log(err);
+    //             })
+    //           }
+    //         }, err => {
+    //           console.log(err);
+    //         })
+    //       }
+    //     }, err => {
+    //       console.log(err);
+    //     })
+    //   }
+    // }, err => {
+    //   console.log(err);
+    // })
 
-      if (obj) {
-        this._service.DepositAndTotalInstallments(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      if (obj) {
-        this._service.DepositAndDepositAmount(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      if (obj) {
-        this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      if (obj) {
-        this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      if (obj) {
-        this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      if (obj) {
-        this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      if (obj) {
-        this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      //total amt
-      if (obj) {
-        this._service.SysAndScheCheckTotalAmt(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-    }
+    // }
+    //   }, err => {
+    //     console.log(err);
+    //   })
+    // }
+    //   }, err => {
+    //     console.log(err);
+    //   })
+    // }
+    //   }, err => {
+    //     console.log(err);
+    //   })
+    // }
+    //   }, err => {
+    //     console.log(err);
+    //   })
+    // }
+    //   }, err => {
+    //     console.log(err);
+    //   })
   }
 
   // Check Voucher Conditions On Account Field
@@ -839,147 +959,112 @@ export class VoucherEntryComponent implements OnInit {
 
     let data1: any = localStorage.getItem('user');
     let result = JSON.parse(data1);
-    console.log(result.RoleDefine[0].RoleId)
-    let tempacno = this.selectedAccountno
+    let tempacno = this.submitCustomer.BANKACNO
     let obj = {
       clearBalance: this.ClearBalance,
-      accountNo: this.angForm.controls['account_no'].value.BANKACNO,
-      schemeType: this.angForm.controls['scheme_type'].value,
-      scheme: this.angForm.controls['scheme'].value.S_APPL,
+      accountNo: this.submitCustomer.BANKACNO,
+      accno: this.submitCustomer.AC_NO,
+      schemeType: this.selectedCode,
+      scheme: this.Submitscheme.S_APPL,
       usertype: result.RoleDefine[0].RoleId,
       currentDate: this.date
     }
 
-    if (obj) {
-      this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.selectedAccountno = null;
-          this.showlgindetails()
-
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
-
-    if (obj) {
-      this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.selectedAccountno = null;
-          this.showlgindetails()
-
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
-
-    if (obj) {
-      this._service.specialInstruction(obj).subscribe(data => {
-        console.log('data.DETAILS', data.DETAILS)
-
-        if (data != 0) {
-          if (data.restriction == true) {
-            this.selectedAccountno = null
-            this.showlgindetails()
-
-          } else {
-            this.selectedAccountno = tempacno
-          }
-
-          Swal.fire({
-            title: 'Warning',
-            icon: 'warning',
-            html:
-              data.message + '<br>' +
-              '<span style="font-weight:bold;">Instruction:</span>' + '<br>'
-              + data.DETAILS
-          })
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
-
-    if (obj) {
-      this._service.CheckLoginFlagInDpmaster(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.selectedAccountno = null
-          this.showlgindetails()
-
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
-
-    if (obj) {
-      this._service.checkDormantAccount(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.selectedAccountno = null
-          this.showlgindetails()
-
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
-
-    if (obj) {
-      this._service.InstructionFreezeAc(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire({
-            title: 'Are you sure?',
-            text: data.message,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'No',
-            confirmButtonText: 'Yes'
-          }).then((result) => {
-            if (result.isConfirmed == false) {
+    this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.selectedAccountno = null;
+        this.showlgindetails()
+      } else {
+        this._service.specialInstruction(obj).subscribe(data => {
+          if (data != 0) {
+            if (data.restriction == 1) {
               this.selectedAccountno = null
               this.showlgindetails()
 
+            } else {
+              this.selectedAccountno = tempacno
             }
-          })
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
 
-    if (obj) {
-      this._service.RecurringTypeDeposite(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
+            Swal.fire({
+              title: 'Warning',
+              icon: 'warning',
+              html:
+                data.message + '<br>' +
+                '<span style="font-weight:bold;">Instruction:</span>' + '<br>'
+                + data.DETAILS
+            })
+          } else {
+            this._service.CheckLoginFlagInDpmaster(obj).subscribe(data => {
+              if (data != 0) {
+                Swal.fire('Error!', data.message, 'error');
+                this.selectedAccountno = null
+                this.showlgindetails()
 
-    if (obj) {
-      this._service.IsDirectEntryAllow(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
+              } else {
+                this._service.checkDormantAccount(obj).subscribe(data => {
+                  if (data != 0) {
+                    Swal.fire('Error!', data.message, 'error');
+                    this.selectedAccountno = null
+                    this.showlgindetails()
+
+                  } else {
+                    this._service.InstructionFreezeAc(obj).subscribe(data => {
+                      if (data != 0) {
+                        Swal.fire({
+                          title: 'Are you sure?',
+                          text: data.message,
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          cancelButtonText: 'No',
+                          confirmButtonText: 'Yes'
+                        }).then((result) => {
+                          if (result.isConfirmed == false) {
+                            this.selectedAccountno = null
+                            this.showlgindetails()
+
+                          }
+                        })
+                      } else {
+                        this._service.IsDirectEntryAllow(obj).subscribe(data => {
+                          if (data != 0) {
+                            Swal.fire('Error!', data.message, 'error');
+                          }
+                        }, err => {
+                          console.log(err);
+                        })
+
+                      }
+                    }, err => {
+                      console.log(err);
+                    })
+                  }
+                }, err => {
+                  console.log(err);
+                })
+              }
+            }, err => {
+              console.log(err);
+            })
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+    }, err => {
+      console.log(err);
+    })
+
+
+
   }
   tokenshowhide: boolean = false
 
   // Check Voucher Conditions On Transaction Mode
   checktranCondition() {
 
-    debugger
     if (this.angForm.controls['type'].value == 'cash' && this.submitTranMode.tran_drcr == 'D') {
       this.tokenshowhide = true
     } else {
@@ -988,100 +1073,99 @@ export class VoucherEntryComponent implements OnInit {
     }
 
     let obj = {
-      accountNo: this.angForm.controls['account_no'].value.AC_NO,
-      schemeType: this.angForm.controls['scheme_type'].value,
-      scheme: this.angForm.controls['scheme'].value.S_APPL,
-      tran: this.selectedMode.tran_drcr,
-      tranMode: this.selectedMode.id,
+      accountNo: this.submitCustomer.BANKACNO,
+      schemeType: this.selectedCode,
+      scheme: this.Submitscheme.S_APPL,
+      tran: this.submitTranMode.tran_drcr,
+      tranMode: this.submitTranMode.id,
       currentDate: this.date
     }
 
-    if (obj) {
-      if (this.selectedMode.id == 7 && this.selectedCode == 'SH') {
-        this.angForm.controls['amt'].disable();
-        this.angForm.controls['particulars'].disable();
-        let other2amounttotal
-        this._service.calculateDividend(obj).subscribe(data => {
-          other2amounttotal = data.Bcount
-          let str = []
-          for (let x in data.calculationdata) {
-            str.push(data.calculationdata[x].DIV_FROM_YEAR)
+    if (this.submitTranMode.id == 7 && this.selectedCode == 'SH') {
+      this.angForm.controls['amt'].disable();
+      this.angForm.controls['particulars'].disable();
+      let other2amounttotal
+      this._service.calculateDividend(obj).subscribe(data => {
+        other2amounttotal = data.Bcount
+        let str = []
+        for (let x in data.calculationdata) {
+          str.push(data.calculationdata[x].DIV_FROM_YEAR)
+        }
+        this.headData.forEach(element => {
+          if (element.FIELD_TRAN_TABLE == 'OTHER2_AMOUNT') {
+            element['Balance'] = other2amounttotal
           }
-
-          this.headData.forEach(element => {
-            if (element.FIELD_TRAN_TABLE == 'OTHER2_AMOUNT') {
-              element['Balance'] = other2amounttotal
-            }
-          });
-
-          this.angForm.patchValue({
-            'amt': data.count,
-            'particulars': str + ' Paid Dividend'
-          })
-
-
+        });
+        this.angForm.patchValue({
+          'amt': data.count,
+          'particulars': str + ' Paid Dividend'
         })
+      })
+    }
 
+    this._service.StandingOrInterestInstruction(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+        this.selectedMode = null
+      } else {
+        this._service.VoucherPassing(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+          } else {
+            this._service.LienMarkChecking(obj).subscribe(data => {
+              if (data != 0) {
+                Swal.fire('Error!', data.message, 'error');
+              } else {
+                this._service.RecurringTypeDeposite(obj).subscribe(data => {
+                  if (data != 0) {
+                    Swal.fire('Error!', data.message, 'error');
+                  }
+                }, err => {
+                  console.log(err);
+                })
+              }
+            }, err => {
+              console.log(err);
+            })
+          }
+        }, err => {
+          console.log(err);
+        })
       }
-    }
-
-
-    let temptranmode = this.selectedMode
-    if (obj) {
-      this._service.StandingOrInterestInstruction(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-          this.selectedMode = null
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
-
-    if (obj) {
-      this._service.LienMarkChecking(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
+    }, err => {
+      console.log(err);
+    })
   }
 
   // Check Voucher Conditions On Interest Date
   getColumnValue(event) {
     if (event != null) {
-      console.log('event', event)
       let obj = {
-        accountNo: this.angForm.controls['account_no'].value?.BANKACNO,
-        schemeType: this.angForm.controls['scheme_type'].value,
-        scheme: this.angForm.controls['scheme'].value?.S_APPL,
-        tran: this.selectedMode.tran_drcr,
-        tranMode: this.selectedMode.id,
+        accountNo: this.submitCustomer.BANKACNO,
+        schemeType: this.selectedCode,
+        scheme: this.Submitscheme.S_APPL,
+        tran: this.submitTranMode.tran_drcr,
+        tranMode: this.submitTranMode.id,
         currentDate: this.date,
         interestDate: moment(event).format('DD/MM/YYYY')
       }
 
-      if (obj) {
-        this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
-
-      if (obj) {
-        this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
-          if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
-          }
-        }, err => {
-          console.log(err);
-        })
-      }
+      this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Error!', data.message, 'error');
+          this.angForm.controls['Intdate'].reset()
+        } else {
+          this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+            if (data != 0) {
+              Swal.fire('Error!', data.message, 'error');
+            }
+          }, err => {
+            console.log(err);
+          })
+        }
+      }, err => {
+        console.log(err);
+      })
     }
   }
 
@@ -1089,25 +1173,24 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       value: Number(event.target.value),
       clearBalance: this.ClearBalance,
-      accountNo: this.angForm.controls['account_no'].value.BANKACNO,
-      schemeType: this.angForm.controls['scheme_type'].value,
-      scheme: this.angForm.controls['scheme'].value.S_APPL,
-      tran: this.selectedMode.tran_drcr,
-      tranMode: this.selectedMode.id,
-      tran_type: this.selectedMode.tran_type,
+      accountNo: this.submitCustomer.BANKACNO,
+      schemeType: this.selectedCode,
+      scheme: this.Submitscheme.S_APPL,
+      tran: this.submitTranMode.tran_drcr,
+      tranMode: this.submitTranMode.id,
+      tran_type: this.submitTranMode.tran_type,
       odAmount: this.overdraftAmt,
       currentDate: this.date
     }
 
-    if (obj) {
-      this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
-        if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
-        }
-      }, err => {
-        console.log(err);
-      })
-    }
+
+    this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Error!', data.message, 'error');
+      }
+    }, err => {
+      console.log(err);
+    })
 
   }
 
@@ -1149,8 +1232,6 @@ export class VoucherEntryComponent implements OnInit {
   headFlag: boolean = false;
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
-      debugger
-      console.log('edit', data)
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -1304,5 +1385,67 @@ export class VoucherEntryComponent implements OnInit {
 
   addNewData() {
     this.createForm()
+  }
+  SideView: boolean = false
+  ShowLNCC: boolean = false
+  sanctionamt
+  passextension
+  unpassextension
+  getschemename: boolean = true
+  typeclearbal
+  tempDayOpBal
+  extensionopenbal
+  SideDetails() {
+    this.SideView = true
+    if (this.submitCustomer.AC_ACNOTYPE == 'LN' || this.submitCustomer.AC_ACNOTYPE == 'CC') {
+      this.ShowLNCC = true
+      this.sanctionamt = (this.submitCustomer.AC_SANCTION_AMOUNT != null ? this.submitCustomer.AC_SANCTION_AMOUNT : 0)
+    } else {
+      this.ShowLNCC = false
+    }
+    this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
+
+    var startdate = this.angForm.controls['date'].value
+    // startdate = startdate.subtract(1, 'd');
+    // startdate = startdate.format("DD-MM-YYYY");
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    let obj = {
+      scheme: this.Submitscheme.S_APPL,
+      acno: this.submitCustomer.BANKACNO,
+      date: addInFrom
+    }
+
+    this._service.getledgerbalance(obj).subscribe(data => {
+      this.DayOpBal = Math.abs(data);
+      if (data < 0) {
+        this.extensionopenbal = 'Cr'
+      } else {
+        this.extensionopenbal = 'Dr'
+      }
+      this.tempDayOpBal = data;
+    })
+    this._service.getPassedUnpassedBalance(obj).subscribe(data => {
+      this.Pass = Math.abs(data.passedamt)
+      this.Unpass = Math.abs(data.unpassamt)
+      this.passextension = (data.passextension != undefined ? data.passextension : '')
+      this.unpassextension = (data.unpassextension != undefined ? data.unpassextension : '')
+      // this.ClearBalance = this.DayOpBal + this.Pass
+      var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+      var pass = (data.passedamt <= 0 ? Math.abs(data.passedamt) : (-data.passedamt))
+      var unpass = (data.unpassamt <= 0 ? Math.abs(data.unpassamt) : (-data.unpassamt))
+
+      let value = open + pass + unpass
+      if (value < 0) {
+        this.ClearBalance = Math.abs(value)
+        this.typeclearbal = 'Dr'
+      } else {
+        this.ClearBalance = Math.abs(value)
+        this.typeclearbal = 'Cr'
+      }
+    })
+
+
+
   }
 }

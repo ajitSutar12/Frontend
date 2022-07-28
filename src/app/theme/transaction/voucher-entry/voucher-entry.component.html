@@ -96,7 +96,8 @@
                                     <div class="col-sm-2">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                                <ng-select [(ngModel)]="selectedCode"
+                                                    (change)="selectedSchemeCode();resetscheme($event)"
                                                     formControlName="scheme_type">
                                                     <ng-option *ngFor="let item of allSchemeCode"
                                                         [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
@@ -144,7 +145,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select formControlName="account_no" bindValue="id"
                                                     [(ngModel)]="selectedAccountno"
-                                                    (change)="getVoucherData($event); checkAccountCondition();showlgindetails();">
+                                                    (change)="getVoucherData($event); checkAccountCondition();showlgindetails();SideDetails()">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
@@ -247,6 +248,7 @@
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value=""
                                                     style="text-transform: capitalize;" maxlength="15"
+                                                    (keyup)="getaftervoucher($event)"
                                                     (focusout)="decimalAllContent($event); checkCondition($event)"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                                     formControlName="amt" (keyup)="getAmt($event)">
@@ -331,7 +333,8 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label for="AC_PARTICULAR">Token
+                                            <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label
+                                                    for="AC_PARTICULAR">Token
                                                     Number</label></div>
                                             <div class="col-md-2" *ngIf="tokenshowhide">
                                                 <div class="form-group input-group">
@@ -415,7 +418,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-primary"
                                         style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{DayOpBal}}.00</div>
+                                            aria-hidden="true"></i> {{DayOpBal}}.00 {{extensionopenbal}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -433,7 +436,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{Pass}}.00</div>
+                                            aria-hidden="true"></i> {{Pass}}.00 {{passextension}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -451,7 +454,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-danger"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
+                                            aria-hidden="true"></i> <span>{{Unpass}}.00 {{unpassextension}}</span></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -473,7 +476,7 @@
                                             aria-hidden="true"></i> 0.00</div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" *ngIf="ShowLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
                                         <div class="avatar bg-light-info rounded float-start">
@@ -488,7 +491,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-info"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
+                                            aria-hidden="true"></i> {{sanctionamt}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -526,7 +529,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{ClearBalance}}.00</div>
+                                            aria-hidden="true"></i> {{ClearBalance}}.00 {{typeclearbal}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -544,21 +547,37 @@
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{AfterVoucher}}.00{{extenstionaftervoucher}}</div>
                                 </div>
                             </div>
-                            <div class="col-md-12" *ngIf="ShowDocuments">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="user-avatar-section">
+                                        <div>
+                                            <span class="user-avatar-section">
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50"
+                                                    width="80" *ngIf="getschemename !='GL'"
+                                                    (mouseover)="showImage(customerImg)" (mouseout)="hideImage()"
+                                                    alt="User avatar" />
+                                            </span> &nbsp; &nbsp;
+                                            <span class="user-avatar-section">
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
+                                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
+                                                    height="25" width="80" alt="User avatar"
+                                                    *ngIf="getschemename !='GL'" />
+                                            </span>
+                                        </div>
+                                        <div class="user-info text-center">
+                                            <h6>{{Customer_Name}}</h6>
+                                        </div>
+                                        <!-- <div class="user-avatar-section">
                                             <div class="d-flex align-items-center flex-column">
                                                 <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
                                                     height="110" width="110" (mouseover)="showImage(customerImg)"
                                                     (mouseout)="hideImage()" alt="User avatar" />
                                                 <div class="user-info text-center">
                                                     <h4>{{Customer_Name}}</h4>
-                                                    <!-- <span class="badge bg-light-secondary">Author</span> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -569,7 +588,7 @@
                                                     height="50" width="110" alt="User avatar" />
 
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- <div class="d-flex justify-content-around my-2 pt-75">
                                             <div class="d-flex align-items-start me-2">
@@ -596,7 +615,9 @@
                                             <ul class="list-unstyled">
                                                 <li class="mb-75">
                                                     <span class="fw-bolder me-25">Status:</span>
-                                                    <span class="badge bg-light-success">Active</span>
+                                                    <span class="badge bg-light-success">{{Status == true || Status ==
+                                                        1? 'Inactive' :
+                                                        'Active'}}</span>
                                                 </li>
 
                                                 <li class="mb-75">

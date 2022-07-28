@@ -195,7 +195,7 @@ export class LedgerViewComponent implements OnInit {
 
   //get account details
   getAccountDetails(event) {
-    debugger
+    
     this.tableData = []
     this.transactions = null
     this.debitTotal = 0

@@ -129,7 +129,7 @@ export class MultiVoucherComponent implements OnInit {
   isture: boolean = true;
   totalAmt: any;
   showChequeDetails: boolean = false;
-  DayOpBal: number;
+  DayOpBal: number = 0;
   headData: any;
   headShow: boolean = false;
   lastday: any;
@@ -167,7 +167,7 @@ export class MultiVoucherComponent implements OnInit {
     this.createForm()
 
     //Day opening Amount
-    this.DayOpBal = 1000;
+    // this.DayOpBal = 1000;
     // get session branch data
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'tranfer';
@@ -400,6 +400,8 @@ export class MultiVoucherComponent implements OnInit {
     console.log(obj);
 
     this.mainMaster.push(obj);
+    this.DayOpBal = 0
+
     this.angForm.controls['temp_over_draft'].reset()
     this.angForm.controls['over_draft'].reset()
     this.angForm.controls['token'].reset()
@@ -489,42 +491,42 @@ export class MultiVoucherComponent implements OnInit {
 
     this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
 
-      let passType = '';
-      let unpassType = '';
+      // let passType = '';
+      // let unpassType = '';
 
-      //DayOfOpening 
-      this.ClearBalance = this.ClearBalance + this.DayOpBal;
+      // //DayOfOpening 
+      // this.ClearBalance = this.ClearBalance + this.DayOpBal;
 
-      //Pass condition checked
-      if (data.passObj.pass == undefined) {
-        this.Pass = 0;
-        passType = 'Cr';
-      } else {
-        this.Pass = data.passObj.pass;
-        passType = data.passObj.type;
-      }
+      // //Pass condition checked
+      // if (data.passObj.pass == undefined) {
+      //   this.Pass = 0;
+      //   passType = 'Cr';
+      // } else {
+      //   this.Pass = data.passObj.pass;
+      //   passType = data.passObj.type;
+      // }
 
-      //Unpass condition checked
-      if (data.unpassObj.UnPass == undefined) {
-        this.Unpass = 0;
-        let unpassType = 'Cr';
-      } else {
-        this.Unpass = data.unpassObj.UnPass;
-        let unpassType = data.unpassObj.type;
-      }
+      // //Unpass condition checked
+      // if (data.unpassObj.UnPass == undefined) {
+      //   this.Unpass = 0;
+      //   let unpassType = 'Cr';
+      // } else {
+      //   this.Unpass = data.unpassObj.UnPass;
+      //   let unpassType = data.unpassObj.type;
+      // }
 
 
-      if (passType == 'Cr') {
-        this.ClearBalance = this.Pass + this.ClearBalance;
-      } else {
-        this.ClearBalance = this.Pass - this.ClearBalance;
-      }
+      // if (passType == 'Cr') {
+      //   this.ClearBalance = this.Pass + this.ClearBalance;
+      // } else {
+      //   this.ClearBalance = this.Pass - this.ClearBalance;
+      // }
 
-      if (unpassType == 'Cr') {
-        this.ClearBalance = this.Unpass + this.ClearBalance;
-      } else {
-        this.ClearBalance = this.Unpass - this.ClearBalance;
-      }
+      // if (unpassType == 'Cr') {
+      //   this.ClearBalance = this.Unpass + this.ClearBalance;
+      // } else {
+      //   this.ClearBalance = this.Unpass - this.ClearBalance;
+      // }
       // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
       this.AfterVoucher = this.ClearBalance;
     }, err => {
@@ -891,5 +893,90 @@ export class MultiVoucherComponent implements OnInit {
       console.log(err);
     })
 
+  }
+
+  SideView: boolean = false
+  ShowLNCC: boolean = false
+  sanctionamt
+  passextension
+  unpassextension
+  getschemename: boolean = true
+  typeclearbal
+  overdraftAmt
+
+  SideDetails() {
+    this.SideView = true
+    if (this.submitAccountNo.AC_ACNOTYPE == 'LN' || this.submitAccountNo.AC_ACNOTYPE == 'CC') {
+      this.ShowLNCC = true
+      this.sanctionamt = (this.submitAccountNo.AC_SANCTION_AMOUNT != null ? this.submitAccountNo.AC_SANCTION_AMOUNT : 0)
+    } else {
+      this.ShowLNCC = false
+    }
+    this.overdraftAmt = Number(this.submitAccountNo.AC_ODAMT) + Number(this.submitAccountNo.AC_SODAMT)
+
+    var startdate = this.angForm.controls['date'].value
+    // startdate = startdate.subtract(1, 'd');
+    // startdate = startdate.format("DD-MM-YYYY");
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    let obj = {
+      scheme: this.submitScheme.S_APPL,
+      acno: this.submitAccountNo.BANKACNO,
+      date: addInFrom
+    }
+
+    this._service.getledgerbalance(obj).subscribe(data => {
+      this.DayOpBal = data;
+    })
+
+    this._service.getPassedUnpassedBalance(obj).subscribe(data => {
+      this.Pass = Math.abs(data.passedamt)
+      this.Unpass = Math.abs(data.unpassamt)
+      this.passextension = (data.passextension != undefined ? data.passextension : '')
+      this.unpassextension = (data.unpassextension != undefined ? data.unpassextension : '')
+      // this.ClearBalance = this.DayOpBal + this.Pass
+      let value = this.DayOpBal + data.passedamt
+      if (value < 0) {
+        this.ClearBalance = Math.abs(value)
+        this.typeclearbal = 'Dr'
+      } else {
+        this.ClearBalance = Math.abs(value)
+        this.typeclearbal = 'Cr'
+      }
+    })
+  }
+
+  ShowDocuments: boolean = false
+  showlgindetails() {
+    if (this.angForm.controls['account_no'].value != null) {
+      this.ShowDocuments = true
+      console.log(this.submitAccountNo.idmasterID)
+      // this._CustomerIdService.getFormData(this.submitCustomer.idmasterID).subscribe(data => {
+      //   this.Customer_Name = data.AC_NAME
+      //   this.Customer_Pan_No = data.AC_PANNO
+      //   this.Customer_Contact_No = data.AC_MOBILENO
+      //   this.Status = this.submitCustomer.IS_DORMANT
+      //   if (data.custdocument.length != 0) {
+      //     data.custdocument.forEach(element => {
+      //       if (element.DocumentMasterID == 1) {
+      //         this.customerImg = this.url + '/' + element.PATH;
+      //       }
+      //       if (element.DocumentMasterID == 2) {
+      //         this.signture = this.url + '/' + element.PATH;
+      //       }
+
+      //     });
+
+
+      //   } else {
+      //     this.customerImg = '../../../../assets/images/nouser.png';
+      //     this.signture = '../../../../assets/images/nosignature.png'
+      //   }
+      // })
+
+      // if((this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'])
+    } else {
+      this.ShowDocuments = false
+    }
   }
 }
