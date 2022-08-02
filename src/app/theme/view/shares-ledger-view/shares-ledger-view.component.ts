@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -16,7 +16,7 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: './shares-ledger-view.component.html',
   styleUrls: ['./shares-ledger-view.component.scss']
 })
-export class SharesLedgerViewComponent implements OnInit {
+export class SharesLedgerViewComponent implements OnInit, OnChanges {
   angForm: FormGroup;
   formSubmitted = false;
 
@@ -69,6 +69,16 @@ export class SharesLedgerViewComponent implements OnInit {
   branch_code//from ownbranchmaster
   ngBranchCode: any = null
 
+
+  //passing data from parent to child component
+  @Input() accBranch: any;
+  @Input() accScheme: any;
+  @Input() accAcNo: any;
+  @Input() accFromDate: any;
+  @Input() accToDate: any;
+  @Input() accSchemeName: any;
+  @Input() accountEvent: any;
+  showView: boolean = true
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -82,6 +92,198 @@ export class SharesLedgerViewComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
+  }
+
+  ngOnChanges() {
+    this.createForm()
+    this.showView = false
+    this.ngBranchCode = this.accBranch
+    this.ngscheme = this.accScheme
+    this.getschemename = this.accSchemeName
+    this.getAccountlist()
+    this.accountedit = this.accAcNo
+    this.fromdate = this.accFromDate
+    this.todate = this.accToDate
+    this.accountEvent = this.accountEvent
+    this.changeAccountDetails(this.accountEvent)
+    this.getLedgerTransactionsDeatils()
+    this.angForm.controls['BRANCH_CODE'].disable()
+    this.angForm.controls['AC_TYPE'].disable()
+    this.angForm.controls['AC_NO'].disable()
+    this.angForm.controls['FROM_DATE'].disable()
+    this.angForm.controls['TO_DATE'].disable()
+  }
+
+  changeAccountDetails(event) {
+    this.tableData = []
+    this.transactions = null
+    this.debitTotal = 0
+    this.debitDivTotal = 0
+    this.creditDivTotal = 0
+    this.creditTotal = 0
+    this.rebitTotal = 0
+    this.bonusTotal = 0
+    this.totalShares = 0
+    this.normalInt = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
+    this.acno = event.AC_NO
+    this.bankacno = event.BANKACNO
+    this.dormantac = event.IS_DORMANT
+    this.acclosedon = event.AC_CLOSEDT == null || event.AC_CLOSEDT == '' ? false : true
+    this.acCloseDate = event.AC_CLOSEDT == null || event.AC_CLOSEDT == '' ? '' : event.AC_CLOSEDT
+    this.freezeac = event.AC_FREEZE_STATUS == null || event.AC_FREEZE_STATUS == '' ? false : true
+    this.freezStataus = event.AC_FREEZE_STATUS == null || event.AC_FREEZE_STATUS == '' ? '' : event.AC_FREEZE_STATUS
+    let maturedAmount = Number(event.AUTO_MATURED_PAYABLEAMT) + Number(event.AUTO_MATURED_INTERESTAMT)
+    this.angForm.patchValue({
+      AC_OPDATE: event.AC_OPDATE,
+      AMOUNT: maturedAmount
+    })
+    this.accountOpenDate = moment(event.AC_OPDATE, 'DD/MM/YYYY')
+    this.accountOpenDate = this.accountOpenDate._d
+  }
+
+  getLedgerTransactionsDeatils() {
+    this.tableData = []
+    this.debitTotal = 0
+    this.creditTotal = 0
+    this.debitDivTotal = 0
+    this.creditDivTotal = 0
+    this.normalInt = 0
+    this.rebitTotal = 0
+    this.bonusTotal = 0
+    this.totalShares = 0
+    this.recpayInt = 0
+    this.overDueAmt = 0
+    this.penalInt = 0
+    this.recpenalInt = 0
+    this.otherAmount = 0
+    this.addedPenal = 0
+    this.grandTotal = 0
+    this.transactions = null
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.fromdate).format('DD/MM/YYYY'), moment(this.todate).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
+    this.http.post(this.url + '/ledger-view/shareView', obj).subscribe((data) => {
+      let closeBal = 0
+      let grandOpening = 0
+      grandOpening = Math.abs(data[0]?.openingBal)
+      closeBal = Math.abs(data[0]?.openingBal)
+      data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
+      this.transactions = this.sortData(data);
+      console.log(this.transactions, 'Tran data')
+      if (this.transactions.length != 0) {
+        let divBal = 0
+        let obj = {
+          TRAN_DATE: moment(this.fromdate).format('DD/MM/YYYY'),
+          NARRATION: 'Opening Balance',
+          closeBalance: closeBal,
+          dividendBalance: divBal
+        }
+        this.tableData.push(obj)
+        this.transactions.forEach((element) => {
+          debugger
+          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+            if (element.TRAN_MODE == '7') {
+              element['DIVIDEND_AMOUNT'] = element.OTHER2_AMOUNT
+            }
+            //total credit and debit amount
+            if (element.TRAN_STATUS != '0') {
+
+              if (element.WARRENT_DATE != null && element.WARRENT_DATE != '') {
+                element['TRAN_DRCR'] = 'C'
+                element['TRAN_TYPE'] = 'UP'
+                element['TRAN_DATE'] = element.WARRENT_DATE
+                element['drcr'] = 'Cr'
+              }
+              else if (element.DIV_PAID_DATE != null && element.DIV_PAID_DATE != '') {
+                element['TRAN_DRCR'] = 'D'
+                element['TRAN_TYPE'] = 'PD'
+                element['TRAN_DATE'] = element.DIV_PAID_DATE
+                element['drcr'] = 'Dr'
+              }
+              else if (element.TRAN_DATE != null && element.TRAN_DATE != '' && element.REBIT_PAID_DATE == null) {
+                element['TRAN_DATE'] = element.TRAN_DATE
+                element['TRAN_DRCR'] = 'C'
+                element['TRAN_TYPE'] = 'UP'
+                element['drcr'] = 'Cr'
+                element['isRebit'] = true
+              }
+              else if (element.REBIT_PAID_DATE != null && element.REBIT_PAID_DATE != '') {
+                element['TRAN_DATE'] = element.REBIT_PAID_DATE
+                element['TRAN_DRCR'] = 'D'
+                element['TRAN_TYPE'] = 'PD'
+                element['drcr'] = 'Dr'
+                element['isRebit'] = true
+              }
+              if (element.isRebit == true) {
+                element['REBIT_AMOUNT'] = element.TRAN_AMOUNT
+                element['TRAN_AMOUNT'] = '0.00'
+                element.TRAN_DRCR == 'C' ? this.rebitTotal = this.rebitTotal + Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal + 0
+                element.TRAN_DRCR == 'D' ? this.rebitTotal = this.rebitTotal - Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal - 0
+              }
+              if (element.isRebit == undefined) {
+                if (element.TRAN_DRCR == 'C') {
+                  element.TRAN_AMOUNT != undefined ? this.creditTotal = this.creditTotal + Number(element.TRAN_AMOUNT) : this.creditTotal = this.creditTotal + 0
+                  element.DIVIDEND_AMOUNT != undefined ? this.creditDivTotal = this.creditDivTotal + Number(element.DIVIDEND_AMOUNT) : this.creditDivTotal = this.creditDivTotal + 0
+                }
+                if (element.TRAN_DRCR == 'D') {
+                  element.TRAN_AMOUNT != undefined ? this.debitTotal = this.debitTotal + Number(element.TRAN_AMOUNT) : this.debitTotal = this.debitTotal + 0
+                  element.DIVIDEND_AMOUNT != undefined ? this.debitDivTotal = this.debitDivTotal + Number(element.DIVIDEND_AMOUNT) : this.debitDivTotal = this.debitDivTotal + 0
+                }
+                //closing balance calculation
+                if (this.drcr == 'Cr') {
+                  element.TRAN_DRCR == 'C' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
+                  element['closeBalance'] = closeBal
+                  element.TRAN_DRCR == 'C' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
+                  element['dividendBalance'] = divBal
+                }
+                else if (this.drcr == 'Dr') {
+                  element.TRAN_DRCR == 'D' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
+                  element['closeBalance'] = closeBal
+                  element.TRAN_DRCR == 'D' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
+                  element['dividendBalance'] = divBal
+                }
+                if (element.TOTAL_SHARES != null || element.TOTAL_SHARES != '' || element.NO_OF_SHARES != null || element.NO_OF_SHARES != '') {
+                  element.TOTAL_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.TOTAL_SHARES) : this.totalShares = this.totalShares + 0
+                  element.NO_OF_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.NO_OF_SHARES) : this.totalShares = this.totalShares + 0
+                }
+              }
+              else {
+                element['closeBalance'] = closeBal
+                element['dividendBalance'] = divBal
+              }
+              this.tableData.push(element)
+            }
+          }
+        });
+        console.log(this.tableData, 'table')
+        //grand total amount
+        this.grandTotal = this.creditTotal + grandOpening
+      }
+      else {
+        this.tableData = []
+        this.debitTotal = 0
+        this.creditTotal = 0
+        this.debitDivTotal = 0
+        this.creditDivTotal = 0
+        this.normalInt = 0
+        this.rebitTotal = 0
+        this.bonusTotal = 0
+        this.totalShares = 0
+        this.recpayInt = 0
+        this.overDueAmt = 0
+        this.penalInt = 0
+        this.recpenalInt = 0
+        this.otherAmount = 0
+        this.addedPenal = 0
+        this.grandTotal = 0
+        Swal.fire('Info', 'No Records Found', 'info')
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -207,8 +409,10 @@ export class SharesLedgerViewComponent implements OnInit {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
+    debugger
     let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
     this.http.post(this.url + '/ledger-view/shareView', obj).subscribe((data) => {
+      debugger
       let closeBal = 0
       let grandOpening = 0
       grandOpening = Math.abs(data[0]?.openingBal)
@@ -227,7 +431,7 @@ export class SharesLedgerViewComponent implements OnInit {
         this.tableData.push(obj)
         this.transactions.forEach((element) => {
           debugger
-          if (element.TRAN_SOURCETYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             if (element.TRAN_MODE == '7') {
               element['DIVIDEND_AMOUNT'] = element.OTHER2_AMOUNT
             }
@@ -329,7 +533,7 @@ export class SharesLedgerViewComponent implements OnInit {
 
   sortData(data) {
     return data.sort((a, b) => {
-      console.log(a,'a',b,'b')
+      console.log(a, 'a', b, 'b')
       if (a.TRAN_DATE != undefined || b.TRAN_DATE != undefined) {
         return <any>new Date(a.TRAN_DATE) - <any>new Date(b.TRAN_DATE);
       }

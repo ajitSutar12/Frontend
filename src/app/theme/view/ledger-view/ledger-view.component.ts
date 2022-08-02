@@ -66,6 +66,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   grandTotal: number = 0
 
   opendate
+  disableFields: boolean = false
 
   //passing data from parent to child component
   @Input() accBranch: any;
@@ -96,7 +97,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     debugger
     this.createForm()
     this.showView = false
-    this.accountedit = null
+    this.disableFields = true
     this.ngBranchCode = this.accBranch
     this.ngscheme = this.accScheme
     this.getschemename = this.accSchemeName
@@ -176,7 +177,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
         }
         this.tableData.push(obj)
         this.transactions.forEach((element) => {
-          if (element.TRAN_SOURCETYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             //record wise other amount 
             let otherAmt = 0
             otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)
@@ -408,7 +409,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
         }
         this.tableData.push(obj)
         this.transactions.forEach((element) => {
-          if (element.TRAN_SOURCETYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             //record wise other amount 
             let otherAmt = 0
             otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)

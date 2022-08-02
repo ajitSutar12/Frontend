@@ -19,6 +19,7 @@ export class CustomerIDMasterDropdownService {
         return this.http.get<any>(this.url + '/customer-id')
             .pipe(map(ele => {
                 ele.forEach(element => {
+                    // let obj = { label: element.AC_NAME, value: element.id, name: element.AC_NO };
                     let obj = { label: element.AC_NO + ' ' + element.AC_NAME, value: element.id, name: element.AC_NO };
                     this.customerIDMasterObject.push(obj)
                 });

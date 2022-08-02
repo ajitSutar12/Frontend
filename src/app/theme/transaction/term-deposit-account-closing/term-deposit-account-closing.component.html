@@ -185,10 +185,9 @@
                                                                 formControlName="DInterest" disabled>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td colspan="3">0 Months & 144 Days</td>
-
-                                                    </tr>
+                                                    </tr> -->
                                                 </table>
                                             </div>
                                         </div>
@@ -218,7 +217,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><b>Total Interest @ 6.00 %</b></label>
+                                                <label><b>Total Interest @ {{intRateShow}} %</b></label>
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
@@ -568,13 +567,20 @@
                                                                 <td style="text-align: right;">Amount</td>
                                                             </thead>
 
-                                                            <tbody *ngIf="multigrid?.length != 0">
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td>{{ data?.AC_TYPE }}</td>
-                                                                    <td>{{ data?.ACNO }}</td>
-                                                                    <td>{{ data?.particulars }}</td>
-                                                                    <td>{{ data?.amount }}</td>
+                                                            <tbody *ngIf="multigrid.length != 0">
+                                                                <tr *ngFor="let data of multigrid;
+                                                                let indexOfelement = index">
+                                                                    <td> <span class="fa fa-fw fa-edit field-icon"
+                                                                            id="editbutton"
+                                                                            (click)="editTransferAccount(indexOfelement)"
+                                                                            placement="top" ngbTooltip="Edit"></span>
+                                                                    </td>
+                                                                    <td>{{ data.Scheme== undefined || data.Scheme==null
+                                                                        ? data.depoCloseTranAc.S_APPL: data.Scheme }}
+                                                                    </td>
+                                                                    <td>{{ data.TRANSFER_ACNO }}</td>
+                                                                    <td>{{ data.NARRATION }}</td>
+                                                                    <td>{{ data.TRAN_AMOUNT }}</td>
                                                                 </tr>
                                                             </tbody>
 
@@ -693,7 +699,8 @@
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">{{asOnDate}}</div>
+                                            style="margin-left: auto;order: 2;font-size: 12px;">
+                                            {{asOnDate==null?'---':asOnDate}}</div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

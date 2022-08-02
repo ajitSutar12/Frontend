@@ -214,22 +214,21 @@ export class TermDepositAccountClosingComponent implements OnInit {
       type: new FormControl('cash'),
       POSTED_INT: [''],
       Intdate: [''],
-
-      SAVING_PIGMY: [''],
+      SAVING_PIGMY: ['FormC'],
       chequeNo: ['', [Validators.pattern]],
       ChequeDate: ['', [Validators.pattern]],
       Token_Num: ['', [Validators.pattern]],
       particulars: [''],
       amount: ['', [Validators.pattern, Validators.required]],
       ClosingQuaters: [''],
-      QInterest: ['0.00'],
+      QInterest: [],
       ClosingMonth: [''],
-      MInterest: ['0.00'],
-      DInterest: ['23.05'],
+      MInterest: [],
+      DInterest: [],
       ClosingDays: [''],
-      TDS_AMT: ['125'],
-      SURCHARGE_AMT: ['75'],
-      PENAL_INT: ['1.00'],
+      TDS_AMT: [],
+      SURCHARGE_AMT: [],
+      PENAL_INT: [],
       EXCESS_INT: [''],
       InterestRate: [''],
       maturedIntAmt: [''],
@@ -241,8 +240,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       MaturedDays: [''],
       NET_INTAMT: [''],
       NETPAYABLEAMT: [''],
-      LEDGER_BAL: ['10000'],
-      PAYABLE_INTAMT: ['1000'],
+      LEDGER_BAL: [],
+      PAYABLE_INTAMT: [],
       TRAN_NO: ['']
     });
   }
@@ -292,6 +291,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   days
   interestCategory
   preMature: boolean = false
+  intRateShow = 0
   getAccountDetails(event) {
 
     this.bankacno = event.bankacno
@@ -310,17 +310,26 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.months = data[0].AC_MONTHS
       this.days = data[0].AC_DAYS
       this.interestCategory = data[0].AC_INTCATA
+
       this.preMature = data[0].preMature
+      this.angForm.patchValue({
+        LEDGER_BAL: data[0].LedgerBal,
+        PAYABLE_INTAMT: data[0].payableInterest,
+        TDS_AMT: data[0].tds_amt,
+        PENAL_INT: data[0].penalInterest
+      })
 
       if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
           InterestRate: data[0].AC_INTRATE
         })
+        this.intRateShow = data[0].AC_INTRATE
       }
       else {
         this.angForm.patchValue({
           InterestRate: '0'
         })
+        this.intRateShow = 0
       }
       if (data[0].post_Interest < 0) {
         this.angForm.patchValue({
@@ -346,16 +355,18 @@ export class TermDepositAccountClosingComponent implements OnInit {
           InterestRate: parseFloat(data[0].prematureRate) - parseFloat(this.prematureRate)
         })
         this.afterMaturedInt = false
+        this.intRateShow = parseFloat(data[0].prematureRate) - parseFloat(this.prematureRate)
         this.getMonthDays()
       }
       else {
         this.angForm.patchValue({
           InterestRate: data[0].AC_INTRATE
         })
+        this.intRateShow = data[0].AC_INTRATE
         if (this.interestUptoCalDate == '1') {
           this.afterMaturedInt = false
           this.angForm.patchValue({
-            TOTAL_INT: '921.00'  //FUNCTION AMT
+            TOTAL_INT: data[0].InterestAmount  //FUNCTION AMT
           })
         }
         else {
@@ -379,6 +390,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
             MaturedDays: maturedDays,
             TOTAL_INT: total_int
           })
+          this.intRateShow = this.afterMatureIntRate
           this.afterMaturedInt = false
         }
         else {
@@ -401,14 +413,15 @@ export class TermDepositAccountClosingComponent implements OnInit {
         NET_INTAMT: netInt
       })
     })
+    this.getNetPayAmount()
   }
   getNetPayAmount() {
 
-    let ledgerAmt = this.angForm.controls['LEDGER_BAL'].value
-    let netAmt = this.angForm.controls['NET_INTAMT'].value
-    let TDSAmt = this.angForm.controls['TDS_AMT'].value
-    let surchargeAmt = this.angForm.controls['SURCHARGE_AMT'].value
-    let penalAmt = this.angForm.controls['PENAL_INT'].value
+    let ledgerAmt = Number(this.angForm.controls['LEDGER_BAL'].value)
+    let netAmt = Number(this.angForm.controls['NET_INTAMT'].value)
+    let TDSAmt = Number(this.angForm.controls['TDS_AMT'].value)
+    let surchargeAmt = Number(this.angForm.controls['SURCHARGE_AMT'].value)
+    let penalAmt = Number(this.angForm.controls['PENAL_INT'].value)
     let totalNetAmt = (ledgerAmt - netAmt - TDSAmt - surchargeAmt - penalAmt).toFixed(2)
     this.angForm.patchValue({
       NETPAYABLEAMT: totalNetAmt
@@ -426,7 +439,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   getMaturedIntRate() {
 
     let maturedIntAmt = Math.abs(this.angForm.controls['MaturedDays'].value * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
-    let total_int = maturedIntAmt + parseFloat(this.angForm.controls['maturedInterest'].value)
+    let total_int = maturedIntAmt + parseFloat(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
     this.angForm.patchValue({
       maturedIntAmt: maturedIntAmt.toFixed(2),
       TOTAL_INT: total_int.toFixed(2)
@@ -498,20 +511,150 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
       }
     }
+
+    let daysInterest = ((Number(this.angForm.controls['LEDGER_BAL'].value) * this.calDays * Number(this.angForm.controls['InterestRate'].value)) / 36500).toFixed(2)
+    let monthInterest = ((Number(this.angForm.controls['LEDGER_BAL'].value) * this.calMonths * Number(this.angForm.controls['InterestRate'].value)) / 1200).toFixed(2)
+    let qurterInterest = ((Number(this.angForm.controls['LEDGER_BAL'].value) * this.calQuarter * Number(this.angForm.controls['InterestRate'].value)) / 1200).toFixed(2)
+    let totalInterest = (Number(daysInterest) + Number(monthInterest) + Number(qurterInterest)).toFixed(2)
     this.angForm.patchValue({
       ClosingQuaters: this.calQuarter,
       ClosingMonth: this.calMonths,
-      ClosingDays: this.calDays
+      ClosingDays: this.calDays,
+      DInterest: Math.abs(Number(daysInterest)),
+      MInterest: Math.abs(Number(monthInterest)),
+      QInterest: Math.abs(Number(qurterInterest)),
+      TOTAL_INT: Math.abs(Number(totalInterest))
     })
 
+  }
+
+  getEditData() {
+    let mem = [this.bankacno, this.getschemename, this.selectedScheme]
+    this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
+
+      this.DayOpBal = data[0].AC_SCHMAMT
+      this.Pass = data[0].AC_MATUAMT
+      this.INTRATE = data[0].AC_INTRATE
+      this.lastIntDate = data[0].AC_LINTEDT
+      this.opDate = data[0].AC_OPDATE
+      this.asOnDate = data[0].AC_ASON_DATE
+      this.maturityDate = data[0].AC_EXPDT
+      this.recNo = data[0].AC_REF_RECEIPTNO
+      this.operator = data[0].operation
+      this.months = data[0].AC_MONTHS
+      this.days = data[0].AC_DAYS
+      this.interestCategory = data[0].AC_INTCATA
+      this.preMature = data[0].preMature
+      this.angForm.patchValue({
+        LEDGER_BAL: data[0].LedgerBal,
+        PAYABLE_INTAMT: data[0].payableInterest,
+        TDS_AMT: data[0].tds_amt
+      })
+
+      if (this.isInterestApplicable == '1') {
+        this.angForm.patchValue({
+          InterestRate: data[0].AC_INTRATE
+        })
+        this.intRateShow = data[0].AC_INTRATE
+      }
+      else {
+        this.angForm.patchValue({
+          InterestRate: '0'
+        })
+        this.intRateShow = 0
+      }
+      if (data[0].post_Interest < 0) {
+        this.angForm.patchValue({
+          EXCESS_INT: data[0].post_Interest,
+          POSTED_INT: 0,
+        })
+      }
+      else if (data[0].post_Interest > 0) {
+        this.angForm.patchValue({
+          POSTED_INT: data[0].post_Interest,
+          EXCESS_INT: 0
+        })
+      }
+      else {
+        this.angForm.patchValue({
+          POSTED_INT: 0,
+          EXCESS_INT: 0
+        })
+      }
+
+      if (data[0].preMature == '1') {
+        this.angForm.patchValue({
+          InterestRate: parseFloat(data[0].prematureRate) - parseFloat(this.prematureRate)
+        })
+        this.afterMaturedInt = false
+        this.intRateShow = parseFloat(data[0].prematureRate) - parseFloat(this.prematureRate)
+        this.getMonthDays()
+      }
+      else {
+        this.angForm.patchValue({
+          InterestRate: data[0].AC_INTRATE
+        })
+        this.intRateShow = data[0].AC_INTRATE
+        if (this.interestUptoCalDate == '1') {
+          this.afterMaturedInt = false
+          this.angForm.patchValue({
+            TOTAL_INT: data[0].InterestAmount  //FUNCTION AMT
+          })
+        }
+        else {
+          this.afterMaturedInt = true
+          var b = moment(this.maturityDate, "DD/MM/YYYY");
+          var a = moment(this.date, "DD/MM/YYYY");
+          let Days = b.diff(a, 'days');
+          let total_int = Math.abs(Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 100))
+          this.angForm.patchValue({
+            TOTAL_INT: total_int.toFixed(2)
+          })
+        }
+
+        if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '') {
+          var b = moment(this.maturityDate, "DD/MM/YYYY");
+          var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
+          let maturedDays = Math.abs(a.diff(b, 'days'))
+          let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
+          this.angForm.patchValue({
+            InterestRate: this.afterMatureIntRate,
+            MaturedDays: maturedDays,
+            TOTAL_INT: total_int
+          })
+          this.intRateShow = this.afterMatureIntRate
+          this.afterMaturedInt = false
+        }
+        else {
+          this.afterMaturedInt = true
+          var b = moment(this.maturityDate, "DD/MM/YYYY");
+          var a = moment(this.date, "DD/MM/YYYY")
+          let maturedDays = Math.abs(a.diff(b, 'days'))
+          this.angForm.patchValue({
+            MaturedDays: maturedDays,
+          })
+
+        }
+
+      }
+
+      let total_int = this.angForm.controls['TOTAL_INT'].value
+      let post_int = this.angForm.controls['POSTED_INT'].value
+      let netInt = (total_int - post_int).toFixed(2)
+      this.angForm.patchValue({
+        NET_INTAMT: netInt
+      })
+    })
+    this.getNetPayAmount()
   }
 
   selectedTransScheme: any = null
   ngacno: any = null
   schemeACNo
+  transferSchemeDetails
   //get account no according scheme for transfer
   getTransferAccountList(event) {
-
+    this.transferSchemeDetails = event
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
     switch (event.name) {
@@ -594,18 +737,19 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     var object = {
-      AC_NO: formVal.TschemeAC,
-      AC_TYPE: this.selectedTransScheme,
+      Scheme: this.transferSchemeDetails.id,
+      TRANSFER_ACNO: formVal.TschemeAC,
+      TRANSFER_ACTYPE: this.selectedTransScheme,
       ACNO: this.ngacno,
-      particulars: formVal.particulars,
-      amount: formVal.amount,
+      NARRATION: formVal.particulars,
+      TRAN_AMOUNT: formVal.amount,
     }
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
     } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
       Swal.fire(
         "Warning!",
-        "Please Select Acoount!",
+        "Please Select Account!",
         "info"
       );
     }
@@ -618,6 +762,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     }
     else {
       this.multigrid.push(object);
+      console.log(this.multigrid)
       this.resetgrid();
     }
   }
@@ -629,11 +774,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
-      particulars: this.multigrid[id].particulars,
-      amount: this.multigrid[id].amount
+      particulars: this.multigrid[id].NARRATION,
+      amount: this.multigrid[id].TRAN_AMOUNT
     })
     this.ngacno = this.multigrid[id].ACNO
-    this.selectedTransScheme = this.multigrid[id].AC_TYPE
+    this.selectedTransScheme = this.multigrid[id].TRANSFER_ACTYPE
   }
 
   updateTransferAcccount() {
@@ -642,11 +787,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.jointUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
-      AC_NO: formVal.TschemeAC,
-      AC_TYPE: this.selectedTransScheme,
+      Scheme: this.transferSchemeDetails.id,
+      TRANSFER_ACNO: formVal.TschemeAC,
+      TRANSFER_ACTYPE: this.selectedTransScheme,
       ACNO: this.ngacno,
-      particulars: formVal.particulars,
-      amount: formVal.amount,
+      NARRATION: formVal.particulars,
+      TRAN_AMOUNT: formVal.amount,
       id: this.transferACID
     }
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
@@ -710,6 +856,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       SURCHARGE_AMOUNT: formValue.SURCHARGE_AMT,
       PENAL_INTEREST_AMOUNT: formValue.PENAL_INT,
       NET_INTEREST_AMOUNT: formValue.NET_INTAMT,
+      EXCESS_INTEREST: formValue.EXCESS_INT,
       TOTAL_INTEREST_AMOUNT: formValue.TOTAL_INT,
       NET_PAYABLE_AMOUNT: formValue.NETPAYABLEAMT,
       INTEREST_RATE: formValue.InterestRate,
@@ -723,8 +870,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
       CHEQUE_DATE: (formValue.ChequeDate == '' || formValue.ChequeDate == 'Invalid date') ? '' : moment(formValue.ChequeDate).format('DD/MM/YYYY'),
       PAID_INTEREST_AMOUNT: formValue.POSTED_INT,
       AFT_MATURE_INT_RATE: formValue.maturedInterest,
-      AFT_MATURE_INT_AMT: formValue.maturedIntAmt
+      AFT_MATURE_INT_AMT: formValue.maturedIntAmt,
+      multigrid: this.multigrid
     }
+    console.log(dataToSend, 'datatosend')
     this._TDService.postData(dataToSend).subscribe(data => {
       // this.getVoucherData();
       Swal.fire('Success!', 'Account Closed Successfully !', 'success');
@@ -737,6 +886,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   resetForm() {
     this.createForm()
+    this.isTransfer = false
+    this.customer = null
   }
   resetgrid() {
     this.angForm.controls["Tscheme"].reset();
@@ -820,6 +971,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   updatecheckdata
   editClickHandler(id) {
     this._TDService.getFormData(id).subscribe((data) => {
+      console.log(data, 'edit data')
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -839,6 +991,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.getIntroducer()
       this.customer = data.TRAN_ACNO
       this.bankacno = data.TRAN_ACNO
+      if (data.TRAN_TYPE == 'TR') {
+        this.isTransfer = true
+        this.multigrid = data.multigrid
+      }
       this.angForm.patchValue({
         TRAN_NO: data.TRAN_NO,
         branch_code: data.BRANCH_CODE,
@@ -862,6 +1018,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         TDS_AMT: data.TDS_AMOUNT,
         SURCHARGE_AMT: data.SURCHARGE_AMOUNT
       })
+      // this.getEditData()
     })
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgSelectConfig } from '@ng-select/ng-select';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service'
@@ -12,8 +11,6 @@ import { Subject } from 'rxjs-compat';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
-import { data } from 'jquery';
-
 @Component({
   selector: 'app-account-enquiry',
   templateUrl: './account-enquiry.component.html',
@@ -59,36 +56,22 @@ export class AccountEnquiryComponent implements OnInit {
   accFromDate
 
   GLRecordShow: boolean = false
-
+  ShareRecordShow: boolean = false
   isrecurringScheme: boolean = false
+  loanSchemeShow: boolean = false
   REBATE_INTRATE
   idmaster
   opendate
   accountData
-  overdraftAmt
-  // openingBal = 1000
-  // tdsAmount = 100
-  // totalCloseBal = 100
-  // passedAmount = 1000
-  // unpassedAmt = 1000
-  // overdraftInt = 10
-  // payableInt = 10
-  // currentInt = 10
-  // penalInt = 10
-  // totalInt = 10
-  // intOnMonth = 10
-  // intOnDays = 10
-  // closingBal = 22100
-  // passbookBal = 20000
-  // expectedInstallment = 5
-  // receivedInstallment = 4
-  // dueInstallment = 1
+  overdraftAmt = null
   interestOnMonth: boolean = false
   interestOnDays: boolean = false
   isATypeMemNo: boolean = false
-  isOpeningDetails: boolean = true
+  isOpeningDetails: boolean = false
+  isMemberDetails: boolean = false
   isTotalProducts: boolean = false
   isPigmyDetails: boolean = false
+  isloanDetails: boolean = false
   isAgentScheme: boolean = false
   isAgentCode: boolean = false
   isRenewalDate: boolean = false
@@ -125,19 +108,19 @@ export class AccountEnquiryComponent implements OnInit {
   accountInformationView: boolean = false
   documentsView: boolean = false
   customerIdView: boolean = false
-
   securityView: boolean = false
   interestReceivedHistoryView: boolean = false
   securityDetailsView: boolean = false
   gaurantorView: boolean = false
   receivableInterestView: boolean = false
   coborrowerView: boolean = false
-
+  accountEvent
+  leftMonth
+  introducerName
+  totalInterest = 0
   constructor(private fb: FormBuilder,
     private http: HttpClient,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,
-    private ACMasterDropdownService: ACMasterDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,) {
     var date = moment();
     date = date.subtract(1, "days");
@@ -197,10 +180,9 @@ export class AccountEnquiryComponent implements OnInit {
     this.acCloseDate = null
     this.freezStataus = null
     this.dormantac = false
-    this.REBATE_INTRATE = null
+    this.REBATE_INTRATE = 0
     this.transactionData = null
   }
-
 
   schemechange(event) {
     this.getschemename = event.name
@@ -213,7 +195,8 @@ export class AccountEnquiryComponent implements OnInit {
     this.freezStataus = null
     this.schemeCode = event.id
     this.transactionData = null
-    this.REBATE_INTRATE = event.rebateRate
+    this.REBATE_INTRATE = event.rebateRate == undefined ? 0 : Number(event.rebateRate)
+    this.IsLedgerView = false
     event.schemeMethod == 'SimpleasperSharesClosingBalance' ? this.isrecurringScheme = true : this.isrecurringScheme = false
     this.getAccountlist()
   }
@@ -228,7 +211,9 @@ export class AccountEnquiryComponent implements OnInit {
         this.isLastTranDate = true
         this.isOpeningDetails = true
         this.isATypeMemNo = true
+        this.isMemberDetails = false
         this.isPigmyDetails = false
+        this.isloanDetails = false
         this.isRenewalDate = false
         this.interestOnDays = true
         this.interestOnMonth = true
@@ -237,7 +222,7 @@ export class AccountEnquiryComponent implements OnInit {
 
         //view icon show
         this.attorneyView = true
-        this.interestPaidHistoryView = true
+        this.interestPaidHistoryView = false
         this.interestInstructionView = true
         this.lienInformationView = true
         this.tdsDetailsView = true
@@ -265,8 +250,10 @@ export class AccountEnquiryComponent implements OnInit {
       case 'CA':
         this.isLastTranDate = true
         this.isOpeningDetails = true
+        this.isMemberDetails = false
         this.isATypeMemNo = true
         this.isPigmyDetails = false
+        this.isloanDetails = false
         this.isRenewalDate = false
         this.interestOnDays = true
         this.interestOnMonth = true
@@ -275,7 +262,7 @@ export class AccountEnquiryComponent implements OnInit {
 
         //view icon show
         this.attorneyView = true
-        this.interestPaidHistoryView = true
+        this.interestPaidHistoryView = false
         this.interestInstructionView = true
         this.lienInformationView = true
         this.tdsDetailsView = true
@@ -303,8 +290,10 @@ export class AccountEnquiryComponent implements OnInit {
       case 'AG':
         this.isLastTranDate = true
         this.isOpeningDetails = true
+        this.isMemberDetails = false
         this.isATypeMemNo = true
         this.isPigmyDetails = false
+        this.isloanDetails = false
         this.isRenewalDate = false
         this.interestOnDays = true
         this.interestOnMonth = true
@@ -313,7 +302,7 @@ export class AccountEnquiryComponent implements OnInit {
 
         //view icon show
         this.attorneyView = true
-        this.interestPaidHistoryView = true
+        this.interestPaidHistoryView = false
         this.interestInstructionView = true
         this.lienInformationView = true
         this.tdsDetailsView = true
@@ -341,7 +330,8 @@ export class AccountEnquiryComponent implements OnInit {
       case 'GS':
         //view icon show
         this.attorneyView = true
-        this.interestPaidHistoryView = true
+        this.interestPaidHistoryView = false
+        this.isMemberDetails = false
         this.interestInstructionView = true
         this.lienInformationView = true
         this.tdsDetailsView = true
@@ -368,7 +358,9 @@ export class AccountEnquiryComponent implements OnInit {
         break;
       case 'PG':
         this.isOpeningDetails = false
+        this.isMemberDetails = false
         this.isPigmyDetails = true
+        this.isloanDetails = false
         this.isRenewalDate = true
         this.isATypeMemNo = false
         this.isBankBranch = false
@@ -376,7 +368,7 @@ export class AccountEnquiryComponent implements OnInit {
 
         //view icon show
         this.attorneyView = true
-        this.interestPaidHistoryView = true
+        this.interestPaidHistoryView = false
         this.interestInstructionView = true
         this.lienInformationView = true
         this.tdsDetailsView = true
@@ -404,8 +396,10 @@ export class AccountEnquiryComponent implements OnInit {
       case 'TD':
         this.isLastTranDate = true
         this.isOpeningDetails = true
+        this.isMemberDetails = false
         this.isATypeMemNo = true
         this.isPigmyDetails = false
+        this.isloanDetails = false
         this.isRenewalDate = false
         this.interestOnDays = true
         this.interestOnMonth = true
@@ -440,6 +434,10 @@ export class AccountEnquiryComponent implements OnInit {
         })
         break;
       case 'LN':
+        this.isOpeningDetails = false
+        this.isMemberDetails = false
+        this.isPigmyDetails = false
+        this.isloanDetails = true
         //view icon show
         this.attorneyView = false
         this.interestPaidHistoryView = false
@@ -473,6 +471,10 @@ export class AccountEnquiryComponent implements OnInit {
         })
         break;
       case 'CC':
+        this.isloanDetails = true
+        this.isOpeningDetails = false
+        this.isMemberDetails = false
+        this.isPigmyDetails = false
         //view icon show
         this.attorneyView = false
         this.interestPaidHistoryView = false
@@ -503,6 +505,10 @@ export class AccountEnquiryComponent implements OnInit {
         break;
       case 'SH':
         //view icon show
+        this.isMemberDetails = true
+        this.isOpeningDetails = false
+        this.isPigmyDetails = false
+        this.isloanDetails = false
         this.attorneyView = false
         this.interestPaidHistoryView = false
         this.interestInstructionView = false
@@ -512,7 +518,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.jointHolderView = false
         this.interestPostedHistoryView = false
         this.payableInterestView = false
-        this.productView = true
+        this.productView = false
         this.nomineeView = true
         this.accountInformationView = true
         this.intrestProjectionView = false
@@ -530,6 +536,10 @@ export class AccountEnquiryComponent implements OnInit {
         })
         break;
       case 'GL':
+        this.isloanDetails = false
+        this.isMemberDetails = false
+        this.isOpeningDetails = false
+        this.isPigmyDetails = false
         //view icon show
         this.attorneyView = false
         this.interestPaidHistoryView = false
@@ -557,12 +567,15 @@ export class AccountEnquiryComponent implements OnInit {
           this.schemeACNo = data
         })
         this.GLRecordShow = true
+        this.ShareRecordShow = false
         break;
       case 'IV':
         this.isLastTranDate = true
         this.isOpeningDetails = true
+        this.isMemberDetails = false
         this.isATypeMemNo = true
         this.isPigmyDetails = false
+        this.isloanDetails = false
         this.isRenewalDate = false
         this.interestOnDays = true
         this.interestOnMonth = true
@@ -571,7 +584,7 @@ export class AccountEnquiryComponent implements OnInit {
 
         //view icon show
         this.attorneyView = true
-        this.interestPaidHistoryView = true
+        this.interestPaidHistoryView = false
         this.interestInstructionView = true
         this.lienInformationView = true
         this.tdsDetailsView = true
@@ -599,18 +612,48 @@ export class AccountEnquiryComponent implements OnInit {
     }
   }
 
-  accountEvent
-  introducerName
   //get account details
   getAccountDetails(event) {
     this.accountEvent = event
+    this.accountData = event
+    this.IsLedgerView = false
     if (this.getschemename == 'GL') {
       this.accountData = null
       this.transactionData = null
+      this.loanSchemeShow = false
+      this.ShareRecordShow = false
     }
     else {
-      console.log('element', event)
-      this.accountData = event
+      if (this.getschemename == 'SH') {
+        this.ShareRecordShow = true
+        if (this.accountEvent.AC_RETIRE_DATE != null && this.accountEvent.AC_RETIRE_DATE != '' && this.accountEvent.AC_RETIRE_DATE != 'Invalid date') {
+          this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data => {
+            let retireDate = moment(this.accountEvent.AC_RETIRE_DATE, "DD/MM/YYYY");
+            let sysparaCurrentDate = moment(data['CURRENT_DATE'], "DD/MM/YYYY");
+            this.leftMonth = retireDate.diff(sysparaCurrentDate, 'months');
+          })
+        }
+        else {
+          this.leftMonth = 0
+        }
+      }
+      else if (this.getschemename == 'LN' || this.getschemename == 'CC') {
+        this.loanSchemeShow = true
+        this.ShareRecordShow = false
+        this.accountData = null
+        this.transactionData = null
+        this.leftMonth = 0
+        this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data => {
+          let date = this.accountEvent.AC_OPEN_OLD_DATE == '' || this.accountEvent.AC_OPEN_OLD_DATE == null ? moment(this.accountEvent.AC_SANCTION_DATE, "DD/MM/YYYY") : moment(this.accountEvent.AC_OPEN_OLD_DATE, "DD/MM/YYYY")
+          let sysparaCurrentDate = moment(data['CURRENT_DATE'], "DD/MM/YYYY");
+          this.accountEvent['totalInstallment'] = sysparaCurrentDate.diff(date, 'months');
+        })
+      }
+      else {
+        this.loanSchemeShow = false
+        this.ShareRecordShow = false
+        this.leftMonth = 0
+      }
       this.GLRecordShow = false
       this.tableData = []
       this.transactions = null
@@ -632,7 +675,10 @@ export class AccountEnquiryComponent implements OnInit {
         }
       });
       this.idmaster = event.idmaster
-      this.overdraftAmt = Number(event.AC_ODAMT)
+      let periodOverdraft = event.AC_SODAMT == undefined || event.AC_SODAMT == null ? 0 : Number(event.AC_SODAMT)
+      let tempOverdraft = event.AC_ODAMT == undefined || event.AC_ODAMT == null ? 0 : Number(event.AC_ODAMT)
+      let overdraftAmount = periodOverdraft + tempOverdraft
+      this.overdraftAmt = overdraftAmount
       this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
       this.acCloseDate = event.AC_CLOSEDT == null || event.AC_CLOSEDT == '' ? null : event.AC_CLOSEDT
       this.freezeac = event.AC_FREEZE_STATUS == null || event.AC_FREEZE_STATUS == '' ? false : true
@@ -649,35 +695,90 @@ export class AccountEnquiryComponent implements OnInit {
 
   transactionData
   GLtransactionData
+  SHtransactionData
+  loantransactionData
   customerID
+  divtransferScheme = null
+  divtransferName = null
+  openingNumberShares = 0
+  numberofshares = 0
+  loanTotalInterest = 0
+  loanTotalReceivable = 0
+  rebateIntrest = 0
 
   getTransactionDetails() {
-    let obj = {
-      scheme: this.schemeCode,
-      bankacno: this.bankacno,
-      date: moment(this.angForm.controls['DATE'].value).format('DD/MM/YYYY'),
-      AC_ACNOTYPE: this.getschemename,
-      AC_TYPE: this.ngscheme,
-      LAST_OD_DATE: this.LAST_OD_DATE,
-      AC_NO: this.AC_NO,
-      pigmyAgent: this.accountData?.PIGMY_ACTYPE,
-      shareActype: this.accountData?.idmaster?.AC_MEMBTYPE,
-      shareAcno: this.accountData?.idmaster?.AC_MEMBNO
+    if (this.accountedit != null && this.fromdate != null && this.fromdate != '') {
+      let obj = {
+        scheme: this.schemeCode,
+        bankacno: this.bankacno,
+        date: moment(this.angForm.controls['DATE'].value).format('DD/MM/YYYY'),
+        AC_ACNOTYPE: this.getschemename,
+        AC_TYPE: this.ngscheme,
+        LAST_OD_DATE: this.LAST_OD_DATE,
+        AC_NO: this.AC_NO,
+        pigmyAgent: this.accountData?.PIGMY_ACTYPE,
+        shareActype: this.accountData?.idmaster?.AC_MEMBTYPE,
+        shareAcno: this.accountData?.idmaster?.AC_MEMBNO,
+        divtransferscheme: this.accountData?.DIV_TRANSFER_ACNOTYPE,
+        divtransferactype: this.accountData?.DIV_TRANSFER_ACTYPE,
+        divtransferacno: this.accountData?.DIV_TRANSFER_ACNO,
+        divtransferBranch: this.accountData?.DIV_TRANSFER_BRANCH,
+        installmentAmount: this.accountEvent?.AC_INSTALLMENT
+      }
+      this.http.post<any>(this.url + '/ledger-view/accountView', obj).subscribe((data) => {
+        if (this.getschemename == 'GL') {
+          this.accountData = null
+          this.transactionData = null
+          this.SHtransactionData = null
+          this.loantransactionData = null
+          this.GLtransactionData = data
+          this.GLRecordShow = true
+          this.loanSchemeShow = false
+          this.ShareRecordShow = false
+        }
+        else if (this.getschemename == 'SH') {
+          this.GLtransactionData = null
+          this.loantransactionData = null
+          this.SHtransactionData = data
+          this.transactionData = null
+          this.loanSchemeShow = false
+          this.GLRecordShow = false
+          this.ShareRecordShow = true
+          this.divtransferScheme = data.divtransferScheme
+          this.divtransferName = data.divtransferCode
+          let facevalue = this.accountData.shareMaster.SHARES_FACE_VALUE == undefined || this.accountData.shareMaster.SHARES_FACE_VALUE == null ? 0 : Number(this.accountData.shareMaster.SHARES_FACE_VALUE)
+          let openingBalance = Number(this.SHtransactionData.openingBal)
+          let shareAmount = Number(this.SHtransactionData.passedAmount)
+          facevalue == 0 ? this.openingNumberShares = 0 : this.openingNumberShares = Math.floor(openingBalance / facevalue);
+          facevalue == 0 ? this.numberofshares = 0 : this.numberofshares = Math.floor(shareAmount / facevalue);
+        }
+        else if (this.getschemename == 'LN' || this.getschemename == 'CC') {
+          this.accountData = null
+          this.loanSchemeShow = true
+          this.ShareRecordShow = false
+          this.GLRecordShow = false
+          this.transactionData = null
+          this.SHtransactionData = null
+          this.loantransactionData = data
+          this.GLtransactionData = null
+          this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(this.loantransactionData.currentInt)
+          this.loanTotalInterest = this.loantransactionData.penalInt + this.loantransactionData.receiveablePenal + this.loantransactionData.overdueInt + this.loantransactionData.payableInt + this.loantransactionData.currentInt
+          this.loanTotalReceivable = this.loanTotalInterest + this.loantransactionData.otherReceivedAmount + this.loantransactionData.totalClosingBal
+          this.rebateIntrest = Math.round((this.loantransactionData.rebateAmount * this.REBATE_INTRATE) / 100)
+        }
+        else {
+          this.ShareRecordShow = false
+          this.loanSchemeShow = false
+          this.GLRecordShow = false
+          this.GLtransactionData = null
+          this.SHtransactionData = null
+          this.loantransactionData = null
+          this.transactionData = data
+          this.PIGMY_ACTYPE = data.pigmyScheme
+          this.introducerName = data.introducer
+        }
+      })
     }
-    this.http.post<any>(this.url + '/ledger-view/accountView', obj).subscribe((data) => {
-      if (this.getschemename == 'GL') {
-        this.accountData = null
-        this.transactionData = null
-        this.GLtransactionData = data
-        console.log(this.GLtransactionData, 'gl tran data')
-      }
-      else {
-        this.transactionData = data
-        this.PIGMY_ACTYPE = data.pigmyScheme
-        this.introducerName = data.introducer
-        console.log(this.transactionData, 'com tran data')
-      }
-    })
   }
   PIGMY_ACTYPE
   productName = ''
@@ -687,6 +788,7 @@ export class AccountEnquiryComponent implements OnInit {
   payableInterestArr = []
   interestInstructionArr = []
   interestPostedHistoryArr = []
+  interestReceivedHistoryArr = []
   customerIDArr = []
   goldsilverArr = []
   productViewArr = []
@@ -702,6 +804,8 @@ export class AccountEnquiryComponent implements OnInit {
   IsPayableInterestView: boolean = false
   IsInterestInstructionView: boolean = false
   IsInterestPostedHistoryView: boolean = false
+  IsInterestReceivedHistoryView: boolean = false
+  IsInterestPaidHistoryView: boolean = false
   IsCustomerIDView: boolean = false
   IsGoldSilverView: boolean = false
   IsLienInformationView: boolean = false
@@ -723,12 +827,15 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
       this.IsProductView = false
       this.IsAccountInfoView = false
       this.productViewArr = []
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.lienInfoArr = []
       this.goldsilverArr = []
       this.customerIDArr = []
@@ -752,6 +859,9 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
@@ -781,6 +891,9 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
@@ -810,11 +923,14 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
       this.IsAccountInfoView = false
       this.IsProductView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.productViewArr = []
       this.lienInfoArr = []
       this.goldsilverArr = []
@@ -839,6 +955,9 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsAccountInfoView = false
       this.IsGoldSilverView = false
@@ -868,8 +987,11 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsLienInformationView = false
       this.IsProductView = false
       this.IsAccountInfoView = false
@@ -887,6 +1009,8 @@ export class AccountEnquiryComponent implements OnInit {
     else if (view == 'oldDeposits') {
       this.IsJointView = false
       this.IsLedgerView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsNomineeView = false
       this.IsAttorneyView = false
       this.IsGuaranterView = false
@@ -897,6 +1021,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
@@ -928,11 +1053,14 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
       this.IsAccountInfoView = false
       this.IsProductView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.productViewArr = []
       this.lienInfoArr = []
       this.goldsilverArr = []
@@ -952,6 +1080,8 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsNomineeView = false
       this.IsAttorneyView = false
       this.IsGuaranterView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsCoborrowerView = false
       this.IsOldDepositsView = false
       this.IsTDSDetailsView = false
@@ -959,6 +1089,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = true
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsAccountInfoView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
@@ -981,6 +1112,44 @@ export class AccountEnquiryComponent implements OnInit {
         this.payableInterestArr = data
       })
     }
+    else if (view == 'interestReceivedHistory') {
+      this.IsJointView = false
+      this.IsLedgerView = false
+      this.IsNomineeView = false
+      this.IsAttorneyView = false
+      this.IsGuaranterView = false
+      this.IsCoborrowerView = false
+      this.IsOldDepositsView = false
+      this.IsTDSDetailsView = false
+      this.IsDocumentView = false
+      this.IsPayableInterestView = false
+      this.IsInterestInstructionView = false
+      this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = true
+      this.interestPostedHistoryArr = []
+      this.IsInterestPaidHistoryView = false
+      this.IsAccountInfoView = false
+      this.IsCustomerIDView = false
+      this.IsGoldSilverView = false
+      this.IsLienInformationView = false
+      this.IsProductView = false
+      this.productViewArr = []
+      this.lienInfoArr = []
+      this.goldsilverArr = []
+      this.customerIDArr = []
+      this.payableInterestArr = []
+      this.interestInstructionArr = []
+      this.oldDepositArr = []
+      this.tdsDeatilsArr = []
+      this.accountInfoArr = []
+      let obj = [
+        this.getschemename,
+        this.bankacno
+      ]
+      this.http.get<any>(this.url + '/ledger-view/interestReceivedHistoryView/' + obj).subscribe((data) => {
+        this.interestReceivedHistoryArr = data
+      })
+    }
     else if (view == 'interestPostedHistory') {
       this.IsJointView = false
       this.IsLedgerView = false
@@ -994,6 +1163,9 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = true
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
+      this.IsInterestPaidHistoryView = false
       this.IsAccountInfoView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
@@ -1028,7 +1200,10 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsDocumentView = false
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = true
+      this.IsInterestPaidHistoryView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
@@ -1063,7 +1238,10 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsDocumentView = false
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
+      this.IsInterestPaidHistoryView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsCustomerIDView = false
       this.IsGoldSilverView = true
       this.IsAccountInfoView = false
@@ -1099,6 +1277,9 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsAccountInfoView = false
@@ -1133,6 +1314,9 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
@@ -1164,35 +1348,6 @@ export class AccountEnquiryComponent implements OnInit {
         this.productName = ''
       }
       this.productViewArr = this.transactionData.productView
-      // this.productViewArr = [
-      //   {
-      //     "Tran_date": "30/09/2022",
-      //     "SchemeType": "TD",
-      //     "SchemeCode": 40,
-      //     "AcNO": 101101201211018,
-      //     "days": 9678,
-      //     "product": 9687678,
-      //     "intrate": "11",
-      //     "amount": 2919.57,
-      //     "var1": 0,
-      //     "var2": 0,
-      //     "var3": 0
-      //   },
-      //   {
-      //     "SchemeType": "LN",
-      //     "SchemeCode": 410,
-      //     "AcNO": 101101201211018,
-      //     "days": 100,
-      //     "product": 1456,
-      //     "intrate": "11",
-      //     "amount": 2919.57,
-      //     "var1": 1,
-      //     "Tran_date": "30/09/2021",
-      //     "var2": 2,
-      //     "var3": 3
-      //   },
-      // ]
-      console.log(this.productViewArr, 'product arr')
     }
     else if (view == 'accountInfo') {
       this.IsJointView = false
@@ -1204,9 +1359,12 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsOldDepositsView = false
       this.IsTDSDetailsView = false
       this.IsDocumentView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = false
       this.IsAccountInfoView = true
       this.IsGoldSilverView = false
@@ -1227,7 +1385,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.accountInfoArr[0]['AC_PHONE_RES'] = this.idmaster.AC_PHONE_RES
       this.accountInfoArr[0]['AC_PHONE_OFFICE'] = this.idmaster.AC_PHONE_OFFICE
     }
-    else if (view == 'ledgerView') {
+    else if (view == 'interestPaidHistory') {
       this.IsJointView = false
       this.IsNomineeView = false
       this.IsAttorneyView = false
@@ -1236,10 +1394,44 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsOldDepositsView = false
       this.IsTDSDetailsView = false
       this.IsDocumentView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
       this.IsCustomerIDView = false
+      this.IsInterestPaidHistoryView = true
+      this.IsAccountInfoView = false
+      this.IsGoldSilverView = false
+      this.IsLienInformationView = false
+      this.IsProductView = false
+      this.IsLedgerView = false
+      this.productViewArr = []
+      this.lienInfoArr = []
+      this.goldsilverArr = []
+      this.interestInstructionArr = []
+      this.interestPostedHistoryArr = []
+      this.oldDepositArr = []
+      this.tdsDeatilsArr = []
+      this.payableInterestArr = []
+      this.accountInfoArr = []
+    }
+    else if (view == 'ledgerView') {
+      this.IsJointView = false
+      this.IsNomineeView = false
+      this.IsAttorneyView = false
+      this.IsGuaranterView = false
+      this.IsCoborrowerView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
+      this.IsOldDepositsView = false
+      this.IsTDSDetailsView = false
+      this.IsDocumentView = false
+      this.IsPayableInterestView = false
+      this.IsInterestInstructionView = false
+      this.IsInterestPostedHistoryView = false
+      this.IsCustomerIDView = false
+      this.IsInterestPaidHistoryView = false
       this.IsAccountInfoView = false
       this.IsGoldSilverView = false
       this.IsLienInformationView = false
@@ -1264,6 +1456,8 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsNomineeView = false
       this.IsAttorneyView = false
       this.IsGuaranterView = false
+      this.IsInterestReceivedHistoryView = false
+      this.interestReceivedHistoryArr = []
       this.IsCoborrowerView = false
       this.IsOldDepositsView = false
       this.IsTDSDetailsView = false
@@ -1271,6 +1465,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.IsPayableInterestView = false
       this.IsInterestInstructionView = false
       this.IsInterestPostedHistoryView = false
+      this.IsInterestPaidHistoryView = false
       this.IsCustomerIDView = true
       this.IsAccountInfoView = false
       this.IsGoldSilverView = false

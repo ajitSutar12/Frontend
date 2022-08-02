@@ -165,6 +165,7 @@ export class VoucherComponent implements OnInit {
   }
   //get saving customer data
   getVoucherData(data) {
+    debugger
     this.voucherData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

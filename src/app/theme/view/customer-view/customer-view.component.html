@@ -17,76 +17,96 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer Id<sub class="required">*</sub></label>
-                </div>
-                <div class="col-sm col-md">
-                  <div class="form-group form-primary form-static-label">
-                    <span class="border-lable-flt">
-                      <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
-                        (change)="getCustomer($event)" formControlName="AC_CUSTID"
-                        [ngClass]="{'form-submitted': formSubmitted}" title="Compulsory Selection" required
-                        placeholder="">
-                        <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                          {{values.label}}</ng-option>
-                      </ng-select>
-                    </span>
-                  </div>
-                  <div class="form-group form-primary form-static-label"
-                    *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
-                    class="alert alert-danger">
-                    <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                      This field is required.
+                <div class="col-12">
+                  <div class="solid">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer ID<sub
+                            class="required">*</sub></label>
+                      </div>
+                      <div class="col-sm col-md">
+                        <div class="form-group form-primary form-static-label">
+                          <span class="border-lable-flt">
+                            <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
+                              (keyup)="filterObject($event)" (change)="getCustomer($event)"
+                              formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
+                              title="Compulsory Selection" required placeholder="" [loading]="loadingCustomer">
+                              <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                {{values.label}}</ng-option>
+                            </ng-select>
+                          </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label"
+                          *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
+                          class="alert alert-danger">
+                          <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
+                            This field is required.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm col-md"> <label>Number of Accounts:{{noOfAccounts}}</label></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm">
+                        <div class="checkbox checkbox-primary">
+                          <div class="border-checkbox-group border-checkbox-group-primary">
+                            <input type="checkbox" class="border-checkbox" id="CLOSED_AC"
+                              (change)="displayClosedAccounts($event)" formControlName="CLOSED_AC">
+                            <label class="border-checkbox-label" for="CLOSED_AC">Display Closed Accounts</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-1">
+                        <button class="btn btn-danger"></button>
+                      </div>
+                      <div class="col-sm-2">
+                        <label>Closed Accounts</label>
+                      </div>
+                      <div class="col-sm-1">
+                        <button class="btn btn-primary"></button>
+                      </div>
+                      <div class="col-sm-2">
+                        <label>Open Accounts</label>
+                      </div>
+                      <!-- <div class="col-sm-1">
+                        <button class="btn btn-secondary"></button>
+                      </div>
+                      <div class="col-sm-2">
+                        <label>Lien Accounts</label>
+                      </div> -->
                     </div>
                   </div>
                 </div>
-                <!-- </div>
-              <div class="row"> -->
-                <div class="col-sm col-md"> <label>Number of Accounts:{{noOfAccounts}}</label></div>
-
               </div>
-              <div class="row">
-                <div class="col-sm">
-                  <div class="checkbox checkbox-primary">
-                    <div class="border-checkbox-group border-checkbox-group-primary">
-                      <input type="checkbox" class="border-checkbox" id="CLOSED_AC"
-                        (change)="displayClosedAccounts($event)" formControlName="CLOSED_AC">
-                      <label class="border-checkbox-label" for="CLOSED_AC">Display Closed Accounts</label>
-                    </div>
+              <div class="row" *ngIf="accountsList.length == 0 && ngcustomer!=null">
+                <div class="col-12">
+                  <div class="preloader3 loader-block">
+                    <div class="circ1"></div>
+                    <div class="circ2"></div>
+                    <div class="circ3"></div>
+                    <div class="circ4"></div>
                   </div>
                 </div>
-                <div class="col-sm-1">
-                  <button class="btn btn-danger"></button>
-                </div>
-                <div class="col-sm-2">
-                  <label>Closed Accounts</label>
-                </div>
-                <div class="col-sm-1">
-                  <button class="btn btn-primary"></button>
-                </div>
-                <div class="col-sm-2">
-                  <label>Open Accounts</label>
-                </div>
-                <div class="col-sm-1">
-                  <button class="btn btn-secondary"></button>
-                </div>
-                <div class="col-sm-2">
-                  <label>Lien Accounts</label>
-                </div>
               </div>
               <div class="row">
+                <div class="col-12">
+                  <span></span>
+                </div>
+              </div>
+              <div class="row" *ngIf="accountsList?.length != 0">
                 <div class="col-sm-6">
-                  <div class="table-responsive">
+                  <div class="table-responsive solid">
                     <table class="table table-striped table-bordered table-hover compact"
                       *ngIf="accountsList?.length != 0">
                       <thead>
-                        <td style="align-items: center; width: 5px;">View</td>
-                        <td style="align-items: center; width: 8px;">Branch</td>
-                        <td style="align-items: center; width: 8px;">Scheme</td>
-                        <td style="align-items: center; width: 15px;">Account Number</td>
+                        <td style="align-items: center; width: 4px;">View</td>
+                        <td style="align-items: center; width: 7px;">Branch</td>
+                        <td style="align-items: center; width: 7px;">Scheme</td>
+                        <td style="align-items: center; width: 14px;">Account Number</td>
                       </thead>
                       <tbody *ngIf="accountsList?.length != 0">
                         <tr *ngFor="let data of accountsList;
-                        let indexOfelement = index">
+                        let indexOfelement = index"
+                          [ngStyle]="{'color': (data.AC_CLOSEDT != null) ? '#ff5252' : '#226de9'}">
                           <td style="align-items: center; width: 5px;">
                             <div class="col-sm-2">
                               <span style="font-size: 15px;color: #0f459b; cursor: pointer;" (click)="viewDetails(data)"
@@ -102,29 +122,433 @@
                   </div>
                 </div>
                 <div class="col-sm-6" *ngIf="showDetails">
+                  <div class="solid">
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <span><label>Opening Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.AC_OPDATE}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <span><label>Balance: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.Balance}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='SH'">
+                      <div class="col-sm-5">
+                        <span><label>Number of Shares: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.numberofshares}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='SH'">
+                      <div class="col-sm-5">
+                        <span><label>Dividend Amount: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.unpaidDividendAmount}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='SH'">
+                      <div class="col-sm-5">
+                        <span><label>Bonus Amount: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.unpaidBonusAmount}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE!='CA' && accountDetails.AC_ACNOTYPE!='AG' && accountDetails.AC_ACNOTYPE!='GS'  && accountDetails.AC_ACNOTYPE!='SH'">
+                      <div class="col-sm-5">
+                        <span><label>Interest Amount: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.InterestAmount}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='PG' || accountDetails.AC_ACNOTYPE=='TD'">
+                      <div class="col-sm-5">
+                        <span><label>Interest Rate: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.interestrate}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='LN' ">
+                      <div class="col-sm-5">
+                        <span><label>Scheme: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.LNCCMaster.S_APPL}}
+                            {{accountDetails.LNCCMaster.S_NAME}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='PG' ">
+                      <div class="col-sm-5">
+                        <span><label>Scheme: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.PGMaster.S_APPL}}
+                            {{accountDetails.PGMaster.S_NAME}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='SH' ">
+                      <div class="col-sm-5">
+                        <span><label>Scheme: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.shareMaster.S_APPL}}
+                            {{accountDetails.shareMaster.S_NAME}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='TD' || accountDetails.AC_ACNOTYPE=='SB' ||accountDetails.AC_ACNOTYPE=='CA' || accountDetails.AC_ACNOTYPE=='AG' ||accountDetails.AC_ACNOTYPE=='IV' || accountDetails.AC_ACNOTYPE=='GS'">
+                      <div class="col-sm-5">
+                        <span><label>Scheme: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.DPMaster.S_APPL}}
+                            {{accountDetails.DPMaster.S_NAME}} </label><span class="spanClass"
+                            *ngIf="accountDetails.DPMaster.INTEREST_RULE=='SimpleasperSharesClosingBalance'"> (Recurring
+                            Scheme)</span> </span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='AG'">
+                      <div class="col-sm-5">
+                        <span><label>Pigmy Scheme: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.pigmyAgentPigmy==null ?
+                            '---':accountDetails.pigmyAgentPigmy}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Sanction Limit: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.AC_SANCTION_AMOUNT==null ||
+                            accountDetails.AC_SANCTION_AMOUNT==''?'---':
+                            accountDetails.AC_SANCTION_AMOUNT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Drawing Power: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.AC_DRAWPOWER_AMT==null ||
+                            accountDetails.AC_DRAWPOWER_AMT==''?'---':
+                            accountDetails.AC_DRAWPOWER_AMT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='PG' || accountDetails.AC_ACNOTYPE=='TD'">
+                      <div class="col-sm-5">
+                        <span><label>Deposit Amount: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.AC_SCHMAMT==null ||
+                            accountDetails.AC_SCHMAMT==''?'---':
+                            accountDetails.AC_SCHMAMT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='TD'">
+                      <div class="col-sm-5">
+                        <span><label>Maturity Amount: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.AC_MATUAMT==null?'---':accountDetails.AC_MATUAMT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='PG' || accountDetails.AC_ACNOTYPE=='TD' || accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC'">
+                      <div class="col-sm-5">
+                        <span><label>Period Months: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.AC_MONTHS==null ||
+                            accountDetails.AC_MONTHS==''?'---':accountDetails.AC_MONTHS}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='TD'">
+                      <div class="col-sm-5">
+                        <span><label>Period Days: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"><label>{{accountDetails.AC_DAYS==null ||
+                            accountDetails.AC_DAYS==''?'---':accountDetails.AC_DAYS}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='PG' || accountDetails.AC_ACNOTYPE=='TD'">
+                      <div class="col-sm-5">
+                        <span><label>Maturity Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.AC_EXPDT==null?'---':accountDetails.AC_EXPDT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Expiry Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.AC_EXPIRE_DATE==null?'---':accountDetails.AC_EXPIRE_DATE}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Installment Type: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.INSTALLMENT_METHOD==null?'---':accountDetails.INSTALLMENT_METHOD}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Installment: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.AC_INSTALLMENT==null?'---':accountDetails.AC_INSTALLMENT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Receivable Penal: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.receiveablePenal==null?'---':accountDetails.receiveablePenal}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Penal Interest: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.penalInt==null?'---':accountDetails.penalInt}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Overdue Interest: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.overdueInt==null?'---':accountDetails.overdueInt}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Receivable Interest: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.receivableInterest==null?'---':accountDetails.receivableInterest}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Next Installment Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.nextInstallmentDate==null?'---':accountDetails.nextInstallmentDate}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row"
+                      *ngIf="accountDetails.AC_ACNOTYPE=='LN' || accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Overdue Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.overdueDate==null?'---':accountDetails.overdueDate}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='PG'">
+                      <div class="col-sm-5">
+                        <span><label>Agent Scheme: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.AGENT_ACTYPE==null?'---':accountDetails.AGENT_ACTYPE}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Suite Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.CASE_SUITE_DATE==null?'---':accountDetails.CASE_SUITE_DATE}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Suite Amount: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.SUITE_AMT==null?'---':accountDetails.SUITE_AMT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Court Order Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.COURT_ORDER_DATE==null?'---':accountDetails.COURT_ORDER_DATE}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Court: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.COURT==null?'---':accountDetails.COURT}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Case Number: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.COURT_CASE_NO==null?'---':accountDetails.COURT_CASE_NO}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Advocate: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.ADVOCATE==null?'---':accountDetails.ADVOCATE}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Loan Stage: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.LOAN_STAGE==null?'---':accountDetails.LOAN_STAGE}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_ACNOTYPE=='DS'">
+                      <div class="col-sm-5">
+                        <span><label>Old Scheme Account Number: </label></span>
+                      </div>
+                      <div class="col-sm"><span
+                          class="spanClass"><label>{{accountDetails.REF_OLD_AC_NO==null?'---':accountDetails.REF_OLD_AC_NO}}</label></span>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="accountDetails.AC_CLOSEDT != null">
+                      <div class="col-sm-5">
+                        <span><label>Account Closed Date: </label></span>
+                      </div>
+                      <div class="col-sm"><span class="spanClass"
+                          style="color: #ff5252;"><label>{{accountDetails.AC_CLOSEDT==null?'---':accountDetails.AC_CLOSEDT}}</label></span>
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
-                    <div class="solid">
-                      <div class="row">
-                        <div class="col-sm-12">
-                          Opening Date:{{accountDetails.AC_OPDATE}}
-                        </div>
-                        <div class="col-sm-12">
-                          Balance:{{accountDetails.AC_OPDATE}}
-                        </div>
-                        <div class="col-sm-12"
-                          *ngIf="accountDetails.AC_ACNOTYPE=='CC' || accountDetails.AC_ACNOTYPE=='LN' ">
-                          Scheme:{{accountDetails.LNCCMaster.S_NAME}}
-                        </div>
-                        <div class="col-sm-12" *ngIf="accountDetails.AC_ACNOTYPE=='PG' ">
-                          Scheme:{{accountDetails.PGMaster.S_NAME}}
-                        </div>
-                        <div class="col-sm-12" *ngIf="accountDetails.AC_ACNOTYPE=='SH' ">
-                          Scheme:{{accountDetails.shareMaster.S_NAME}}
-                        </div>
-                        <div class="col-sm-12"
-                          *ngIf="accountDetails.AC_ACNOTYPE=='TD' || accountDetails.AC_ACNOTYPE=='SB' ||accountDetails.AC_ACNOTYPE=='CA' || accountDetails.AC_ACNOTYPE=='AG' ||accountDetails.AC_ACNOTYPE=='IV' || accountDetails.AC_ACNOTYPE=='GS'  ">
-                          Scheme:{{accountDetails.DPMaster.S_NAME}}
-                        </div>
+                    <div class="col-sm-12">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="accountDetails?.lienData?.length != 0 && accountDetails?.lienData!=undefined">
+                    <div class="col-sm-12">
+                      <span><label style="color: chocolate;"> Lien Details</label></span>
+                    </div>
+                    <div class="col-sm">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="accountDetails?.lienData?.length != 0 && accountDetails?.lienData!=undefined">
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table class=" table table-striped table-bordered table-hover compact">
+                          <thead>
+                            <td>Scheme</td>
+                            <td>Account No</td>
+                            <td>Ledger Balance</td>
+                            <td>Deposit Amount</td>
+                            <td>TD Receipt No</td>
+                            <td>Is Lien Mark Clear</td>
+                            <td>Loan Ac No</td>
+                            <td>Loan Os Balance</td>
+                            <td>Loan Expiry Date</td>
+                          </thead>
+                          <tbody *ngIf="accountDetails?.lienData?.length != 0">
+                            <tr *ngFor="let data of accountDetails?.lienData let indexOfelement=index;">
+                              <td>{{ data.DEPO_AC_TYPE }}</td>
+                              <td>{{ data.DEPO_AC_NO }}</td>
+                              <td>{{ data.LEDGER_BAL }}</td>
+                              <td>{{ data.DEPOSIT_AMT }}</td>
+                              <td>{{ data.RECEIPT_NO }}</td>
+                              <td>{{ data.IS_LIEN_MARK_CLEAR == '1' ? 'Yes' : 'No' }}</td>
+                              <td>{{ data.AC_TYPE }}</td>
+                              <td>{{ data.BALANCE_OF_LOAN_ACCOUNT }}</td>
+                              <td>{{ data.AC_EXPIRE_DATE }}</td>
+                            </tr>
+                          </tbody>
+                          <tbody *ngIf="accountDetails?.lienData?.length == 0">
+                            <tr>
+                              <td colspan="6" class="no-data-available">
+                                No data!
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div class="row"
+                    *ngIf="accountDetails?.sharetranData?.length != 0 && accountDetails?.sharetranData!=undefined">
+                    <div class="col-sm-12">
+                      <span><label style="color: chocolate;"> Shares Details</label></span>
+                    </div>
+                    <div class="col-sm">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div class="row"
+                    *ngIf="accountDetails?.sharetranData?.length != 0 && accountDetails?.sharetranData!=undefined">
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table class=" table table-striped table-bordered table-hover compact">
+                          <thead>
+                            <td>Transaction Amount</td>
+                            <td>Certificate no</td>
+                            <td>Shares From Number</td>
+                            <td>Shares To Number</td>
+                            <td>Face Value</td>
+                          </thead>
+                          <tbody *ngIf="accountDetails?.sharetranData?.length != 0">
+                            <tr *ngFor="let data of accountDetails?.sharetranData let indexOfelement=index;">
+                              <td>{{data.TRAN_AMOUNT }}</td>
+                              <td>{{data.CERTIFICATE_NO }}</td>
+                              <td>{{data.SHARES_FROM_NO }} </td>
+                              <td>{{data.SHARES_TO_NO }}</td>
+                              <td>{{data.FACE_VALUE }}</td>
+                            </tr>
+                          </tbody>
+                          <tbody *ngIf="accountDetails?.sharetranData?.length == 0">
+                            <tr>
+                              <td colspan="6" class="no-data-available">
+                                No data!
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
@@ -141,7 +565,7 @@
                   <div class="row"
                     *ngIf="accountDetails?.guaranterMaster?.length != 0 && accountDetails?.guaranterMaster !=undefined">
                     <div class="col-sm-12">
-                      <span>GUARANTER DETAILS</span>
+                      <span><label style="color: chocolate;">GUARANTER DETAILS</label></span>
                     </div>
                     <div class="col-sm">
                       <span></span>
@@ -184,7 +608,7 @@
                   <div class="row"
                     *ngIf="accountDetails?.nomineeDetails?.length != 0 && accountDetails?.nomineeDetails !=undefined">
                     <div class="col-sm-12">
-                      <h6>Nominee Accounts Details</h6>
+                      <span><label style="color: chocolate;">Nominee Accounts Details</label></span>
                     </div>
                     <div class="col-sm">
                       <span></span>
@@ -253,15 +677,10 @@
                       <span></span>
                     </div>
                   </div>
-                  <!-- <div class="row">
-                    <div class="col-sm-12">
-                      <span></span>
-                    </div>
-                  </div> -->
                   <div class="row"
                     *ngIf="accountDetails?.jointAccounts?.length != 0 && accountDetails?.jointAccounts !=undefined">
                     <div class="col-sm-12">
-                      <h6>Joint Accounts Details</h6>
+                      <span><label style="color: chocolate;">Joint Accounts Details</label></span>
                     </div>
                     <div class="col-sm">
                       <span></span>
@@ -340,50 +759,50 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              Details
+              <h5>Details</h5>
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
                   <div class="card">
                     <div class="card-body">
-                      <div class="user-avatar-section">
-                        <div class="d-flex align-items-center flex-column">
-                          <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="110" width="110"
+                      <div class="align-items-center">
+                        <span class="user-avatar-section">
+                          <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50" width="80"
                             (mouseover)="showImage(customerImg)" (mouseout)="hideImage()" alt="User avatar" />
-                          <div class="user-info text-center">
-                            <h6>{{AC_NAME}}</h6>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="user-avatar-section">
-                        <div class="d-flex align-items-center flex-column">
+                        </span> &nbsp; &nbsp;
+                        <span class="user-avatar-section">
                           <img class="img-fluid rounded mt-3 mb-2" [src]="signture" (mouseover)="showImage(signture)"
-                            (mouseout)="hideImage()" height="50" width="110" alt="User avatar" />
-                        </div>
+                            (mouseout)="hideImage()" height="25" width="80" alt="User avatar" />
+                        </span>
+                      </div>
+                      <div class="user-info">
+                        <h5 style="font-size: 13px; font-weight: 800;">{{AC_NAME}}
+                        </h5>
                       </div>
                       <div class="info-container">
                         <ul class="list-unstyled">
                           <li class="mb-75">
-                            <span class="fw-bolder me-25">Status:</span>
+                            <label class="fw-bolder me-25">Status:</label>
                             <span class="badge bg-light-success">Active</span>
+                          </li>
+                          <li class="mb-75">
+                            <label class="fw-bolder me-25">Adhar Card Number:</label>
+                            <span style="color: green;">{{adharNo}}</span>
                           </li>
 
                           <li class="mb-75">
-                            <span class="fw-bolder me-25">Adhar No:</span>
-                            <span>{{adharNo}}</span>
+                            <label class="fw-bolder me-25">PAN ID:</label>
+                            <span style="color: green;">{{PANNO}}</span>
                           </li>
                           <li class="mb-75">
-                            <span class="fw-bolder me-25">PAN ID:</span>
-                            <span>{{PANNO}}</span>
+                            <label class="fw-bolder me-25">Contact:</label>
+                            <span style="color: green;">{{contact}}</span>
                           </li>
                           <li class="mb-75">
-                            <span class="fw-bolder me-25">Contact:</span>
-                            <span>{{contact}}</span>
-                          </li>
-                          <li class="mb-75">
-                            <span class="fw-bolder me-25">Address:</span>
-                            <span>{{AC_HONO}} {{AC_WARD}} {{AC_GALLI}} {{AC_AREA}} {{AC_ADDR}} {{AC_PIN}}</span>
+                            <label class="fw-bolder me-25">Address:</label>
+                            <span style="color: green;">{{AC_HONO}} {{AC_WARD}} {{AC_GALLI}} {{AC_AREA}} {{AC_ADDR}}
+                              {{AC_PIN}}</span>
                           </li>
                         </ul>
                       </div>
