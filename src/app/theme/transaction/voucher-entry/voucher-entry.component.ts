@@ -18,6 +18,8 @@ import { data } from 'jquery';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { environment } from '../../../../environments/environment';
+import { join } from 'path';
+import { number } from 'ngx-custom-validators/src/app/number/validator';
 
 @Component({
   selector: 'app-voucher-entry',
@@ -130,7 +132,7 @@ export class VoucherEntryComponent implements OnInit {
   totalAmt: any;
   showChequeDetails: boolean = false;
   DayOpBal: number = 0;
-  headData: any;
+  headData = [];
   headShow: boolean = false;
   lastday: any;
   overdraftAmt
@@ -228,15 +230,20 @@ export class VoucherEntryComponent implements OnInit {
     })
   }
 
-  resetscheme(event) {
-    console.log(event)
+  resetscheme() {
+    console.log(this.tempschmetype)
+    if (this.tempschmetype != this.selectedCode) {
+      this.selectedScheme = null
+      this.selectedAccountno = null
+      this.introducerACNo = []
+    }
   }
-
+  tempschmetype
   IntersetHeadDate: any;
   selectedSchemeCode() {
 
     this.allScheme = [];
-
+    this.headData = []
     this.master.forEach(element => {
       if (element.S_ACNOTYPE == this.selectedCode) {
         this.allScheme.push(element)
@@ -257,42 +264,21 @@ export class VoucherEntryComponent implements OnInit {
         this.tranModeList.push(obj);
       })
     }
-
-    //get Head details
-    let obj = { 'code': this.selectedCode };
-    let date = this.date;
-    var rowData = date.split('/');
-    let lastdate = Number(rowData[0]) - 1;
-    // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
-    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
-    this._service.getHeadDetails(obj).subscribe(data => {
-      if (data.length != 0) {
-
-        if (!this.headFlag) {
-          this.headData = data;
-          this.headShow = true;
-
-
-          this.headData.forEach(element => {
-            element['date'] = this.IntersetHeadDate;
-            element['Amount'] = 0.00
-            element['Balance'] = 0.00
-          });
-        }
-      } else {
-        this.headShow = false;
-      }
-    }, err => {
-      console.log(err);
-    })
   }
+
+
 
   //get account no according scheme for introducer
   Submitscheme: any;
   getIntroducer(item) {
+    this.tempschmetype = this.selectedCode
     this.introducerACNo = [];
     this.obj = [item.id, this.selectedBranch]
     this.Submitscheme = item
+    if (this.tempscheme != this.selectedScheme) {
+      this.selectedAccountno = null
+    }
+
     switch (this.selectedCode) {
       case 'SB':
         this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
@@ -391,7 +377,6 @@ export class VoucherEntryComponent implements OnInit {
 
   //get Narration Details 
   getNarration(ele) {
-    debugger
     this.particulars = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
@@ -447,6 +432,13 @@ export class VoucherEntryComponent implements OnInit {
       this.Customer_Pan_No = '---'
       this.Customer_Contact_No = '---'
       this.headShow = false;
+      this.maturityamt = 0
+      this.depositamt = 0
+      this.expirydate = ''
+      this.sanctiondate = ''
+      this.asondate = ''
+      this.opendate = ''
+      this.renewaldate = ''
     }, err => {
       console.log(err);
     })
@@ -459,12 +451,23 @@ export class VoucherEntryComponent implements OnInit {
 
   //get Amount Details
   getAmt(ele) {
-    this.totalAmt = ele.target.value + '.00';
+    let count = 0
+    if (this.headData.length != 0) {
+      this.headData.forEach(element => {
+        count = Number(element.Amount) + Number(count)
+      });
+      let num = Number(ele.target.value) + Number(count)
+      this.totalAmt = num + '.00'
+    } else {
+      this.totalAmt = ele.target.value + '.00'
+    }
   }
 
   //Mode data
   submitTranMode: any;
   changeMode(item) {
+
+    this.headData = []
     this.submitTranMode = item;
     if (this.submitTranMode.tran_type == 'TR') {
       this.showChequeDetails = true;
@@ -479,7 +482,238 @@ export class VoucherEntryComponent implements OnInit {
     // if (this.selectedCode == 'GL') {
     //   this.showChequeDetails = true
     // }
+
+    //get Head details
+    let obj = { 'code': this.selectedCode };
+    let headType = [
+      { FieldAmount: 'INTEREST_AMOUNT' },
+      { FieldAmount: 'PENAL_INT_AMOUNT' },
+      { FieldAmount: 'REC_PENAL_INT_AMOUNT' },
+      { FieldAmount: 'RECPAY_INT_AMOUNT' },
+      { FieldAmount: 'RECPAY_INT_AMOUNT' },
+      { FieldAmount: 'OTHER2_AMOUNT' },
+      { FieldAmount: 'OTHER3_AMOUNT' },
+      { FieldAmount: 'OTHER4_AMOUNT' },
+      { FieldAmount: 'OTHER5_AMOUNT' },
+      { FieldAmount: 'OTHER6_AMOUNT' },
+      { FieldAmount: 'OTHER7_AMOUNT' },
+      { FieldAmount: 'OTHER8_AMOUNT' },
+      { FieldAmount: 'OTHER9_AMOUNT' },
+      { FieldAmount: 'OTHER11_AMOUNT' },
+      { FieldAmount: 'OTHER10_AMOUNT' }
+    ]
+    let date = this.date;
+    var rowData = date.split('/');
+    let lastdate = Number(rowData[0]) - 1;
+    // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
+    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
+    this._service.getHeadDetails(obj).subscribe(data => {
+      if (data.length != 0) {
+
+        if (!this.headFlag) {
+          // this.headData = data;
+          this.headShow = true;
+          for (let i = 0; i <= headType.length; i++) {
+            let value = {}
+            value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
+            if (value != undefined) {
+              if (this.submitTranMode.tran_drcr == value['DRCR_APPLICABLE'] || value['DRCR_APPLICABLE'] == 'B') {
+                this.headData.push(value)
+              }
+
+            }
+          }
+        }
+      } else {
+        this.headShow = false;
+      }
+    }, err => {
+      console.log(err);
+    })
   }
+
+  updateheadbalance() {
+    let newobj = {
+      accountNo: this.submitCustomer.BANKACNO,
+      scheme: this.Submitscheme.S_APPL,
+      currentDate: this.date,
+      schemeType: this.selectedCode,
+    }
+
+    let balancedata
+    this._service.getInputHeadBal(newobj).subscribe(data1 => {
+      balancedata = data1
+      this.headData.forEach(element => {
+        let newobj = {
+          acno: element?.GL_CODE,
+          scheme: '101',
+          date: this.date,
+          schemeType: this.selectedCode,
+        }
+
+
+
+        if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+          element['date'] = this.IntersetHeadDate;
+          element['Amount'] = 0.00
+          element['Balance'] = Math.abs(data1.intpenal.InterestAmount)
+          element['tempBalance'] = data1.intpenal.InterestAmount
+          element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
+          element['Amount'] = 0.00
+          element['Balance'] = Math.abs(data1.intpenal.PenalInterest)
+          element['tempBalance'] = data1.intpenal.PenalInterest
+          element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
+          element['Amount'] = 0.00
+          element['Balance'] = Math.abs(data1.recpaypen)
+          element['tempBalance'] = data1.recpaypen
+          element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
+          element['Amount'] = 0.00
+          element['Balance'] = Math.abs(data1.recpaybal)
+          element['tempBalance'] = data1.recpaybal
+          element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
+          element['Amount'] = 0.00
+          element['Balance'] = Math.abs(data1.recpaybal)
+          element['tempBalance'] = data1.recpaybal
+          element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER3_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+
+        } else if (element.FIELD_AMOUNT == 'OTHER4_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+
+        } else if (element.FIELD_AMOUNT == 'OTHER5_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+
+        } else if (element.FIELD_AMOUNT == 'OTHER6_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+
+        } else if (element.FIELD_AMOUNT == 'OTHER7_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+
+        } else if (element.FIELD_AMOUNT == 'OTHER8_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER9_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER11_AMOUNT') {
+          element['Amount'] = 0.00
+          if (element?.GL_CODE != null) {
+            this._service.getledgerbalance(newobj).subscribe(data2 => {
+
+              console.log('data', data2)
+
+              element['Balance'] = Math.abs(data2)
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
+          element['Amount'] = 0.00
+          element['Balance'] = Math.abs(data1.overduebal)
+          element['tempBalance'] = data1.overduebal
+          element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
+        }
+
+      });
+
+    })
+  }
+
+
 
 
   showlgindetails() {
@@ -514,11 +748,12 @@ export class VoucherEntryComponent implements OnInit {
       this.ShowDocuments = false
     }
   }
-
+  tempscheme
   submitCustomer: any;
   //get customer today voucher data
   getVoucherData(item) {
     this.submitCustomer = item;
+    this.tempscheme = this.selectedScheme
     //Hide / Show and show account wie Photo and signature
     let customer = this.angForm.controls['account_no'].value;
     let obj = {
@@ -593,22 +828,46 @@ export class VoucherEntryComponent implements OnInit {
     let tran = this.submitTranMode.tran_drcr
 
     console.log('this.headData', this.headData)
+    let count = 0
     this.headData.forEach(element => {
-      this.totalAmt = Number(element.Amount) + Number(this.totalAmt)
-    });
 
+      count = Number(element.Amount) + Number(count)
+
+    });
+    this.totalAmt = count + Number(this.angForm.controls['amt'].value)
     // 
   }
+
+  checkheadcondition(event, i) {
+    console.log('event', event)
+    let value = event.target.value;
+    this.headData[i].Amount = value
+    let data = this.headData[i]
+
+    if (data.FIELD_AMOUNT != 'PENAL_INT_AMOUNT') {
+      if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(data.Amount) != Number(data.Balance)) {
+        Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
+        this.headData[i].Amount = '0.00'
+      } else {
+        if (data.CHECK_REQUIRE == '1' && Number(data.Amount) != Number(data.Balance)) {
+          Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
+          this.headData[i].Amount = '0.00'
+        }
+      }
+
+    }
+  }
+
   extenstionaftervoucher = ''
 
   getaftervoucher(event) {
     let value = Number(event.target.value);
     let tran = this.submitTranMode.tran_drcr
     if (tran == 'D') {
-      this.AfterVoucher = this.ClearBalance - value
+      this.AfterVoucher = Math.abs(this.tempDayOpBal - value)
       this.extenstionaftervoucher = 'Dr'
     } else {
-      this.AfterVoucher = this.ClearBalance + value
+      this.AfterVoucher = Math.abs(this.tempDayOpBal + value)
       this.extenstionaftervoucher = 'Cr'
     }
   }
@@ -638,6 +897,7 @@ export class VoucherEntryComponent implements OnInit {
 
   // Check Voucher Conditions On Amount Field
   checkCondition($event) {
+
     let obj = {
       value: Number($event.target.value),
       clearBalance: this.ClearBalance,
@@ -652,306 +912,255 @@ export class VoucherEntryComponent implements OnInit {
       type: this.typeclearbal
     }
 
-    // if (obj.value >= 200000) {
+    if (Number(obj.value) >= 200000) {
 
-    //   Swal.fire({
-    //     title: 'Are you sure?',
-    //     html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     cancelButtonText: 'No',
-    //     confirmButtonText: 'Yes'
-    //   }).then((result) => {
-    //     if (result.isConfirmed == false) {
-    //       this.angForm.controls['amt'].reset();
-    //       this.angForm.controls['total_amt'].reset();
-    //     }
-    //   })
+      Swal.fire({
+        title: 'Are you sure?',
+        html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed == false) {
+          this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset();
+        } else {
+          this.checkamtcondition($event)
+        }
+      })
 
-    // } else {
-    //   this._service.checkZeroBalance(obj).subscribe(data => {
-    //     if (data != 0) {
-    //       Swal.fire('Error!', data.message, 'error');
-    //       this.angForm.controls['amt'].reset();
-    //       this.angForm.controls['total_amt'].reset();
-    //     } else {
-    //       this._service.clearWithdrawBal(obj).subscribe(data => {
-    //         if (data != 0) {
-    //           Swal.fire('Error!', data.message, 'error');
-    //           this.angForm.controls['amt'].reset();
-    //           this.angForm.controls['total_amt'].reset();
-    //         } else {
-    //           this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
-    //             if (data != 0) {
-    //               Swal.fire('Error!', data.message, 'error');
-    //             } else {
-    //               this._service.ClearVoucherSameBal(obj).subscribe(data => {
-    //                 if (data != 0) {
-    //                   Swal.fire('Error!', data.message, 'error');
-    //                   this.angForm.controls['amt'].reset();
-    //                   this.angForm.controls['total_amt'].reset();
-    //                 } else {
-    //                   this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
-    //                     if (data != 0) {
-    //                       Swal.fire('Error!', data.message, 'error');
-    //                       this.angForm.controls['amt'].reset();
-    //                       this.angForm.controls['total_amt'].reset();
-    //                     } else {
-    //                       this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
-    //                         if (data != 0) {
-    //                           Swal.fire('Error!', data.message, 'error');
-    //                           this.angForm.controls['amt'].reset();
-    //                           this.angForm.controls['total_amt'].reset();
-    //                         } else {
-    //                           this._service.InstructionFreezeAc(obj).subscribe(data => {
-    //                             if (data != 0) {
-    //                               Swal.fire('Error!', data.message, 'error');
-    //                               this.angForm.controls['amt'].reset();
-    //                               this.angForm.controls['total_amt'].reset();
-    //                             } else {
-    //                               this._service.CheckClearBalAndAmt(obj).subscribe(data => {
-    //                                 if (data != 0) {
-    //                                   Swal.fire('Error!', data.message, 'error');
-    //                                   this.angForm.controls['amt'].reset();
-    //                                   this.angForm.controls['total_amt'].reset();
-    //                                 } else {
-    //                                   this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
-    //                                     if (data != 0) {
-    //                                       Swal.fire('Error!', data.message, 'error');
-    //                                     } else {
-    //                                       this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
-    //                                         if (data != 0) {
-    //                                           Swal.fire('Error!', data.message, 'error');
-    //                                         }
-    //                                       }, err => {
-    //                                         console.log(err);
-    //                                       })
-    //                                     }
-    //                                   })
-    //                                 }
-    //                               }, err => {
-    //                                 console.log(err);
-    //                               })
-    //                             }
-    //                           }, err => {
-    //                             console.log(err);
-    //                           })
-    //                         }
-    //                       }, err => {
-    //                         console.log(err);
-    //                       })
-    //                     }
-    //                   }, err => {
-    //                     console.log(err);
-    //                   })
-    //                 }
-    //               }, err => {
-    //                 console.log(err);
-    //               })
-    //             }
-    //           }, err => {
-    //             console.log(err);
-    //           })
-    //         }
-    //       }, err => {
-    //         console.log(err);
-    //       })
-    //     }
-    //   }, err => {
-    //     console.log(err);
-    //   })
-    // }
-
-
-    // if (this.selectedCode == 'SB') {
-    //   this._service.MinBalanceChecking(obj).subscribe(data => {
-    //     if (data != 0) {
-    //       Swal.fire('Error!', data.message, 'error');
-    //       this.angForm.controls['amt'].reset();
-    //       this.angForm.controls['total_amt'].reset();
-    //     }
-    //   }, err => {
-    //     console.log(err);
-    //   })
-
-    // }
-    this._service.DepositAndTotalInstallments(obj).subscribe(data => {
+    }
+  }
+  checkamtcondition($event) {
+    let obj = {
+      value: Number($event.target.value),
+      clearBalance: this.ClearBalance,
+      accountNo: this.submitCustomer.BANKACNO,
+      schemeType: this.selectedCode,
+      scheme: this.Submitscheme.S_APPL,
+      tran: this.submitTranMode.tran_drcr,
+      tranMode: this.submitTranMode.id,
+      odAmount: this.overdraftAmt,
+      currentDate: this.date,
+      totalAmt: this.angForm.controls['total_amt'].value,
+      type: this.typeclearbal
+    }
+    this._service.checkZeroBalance(obj).subscribe(data => {
       if (data != 0) {
         Swal.fire('Error!', data.message, 'error');
         this.angForm.controls['amt'].reset();
         this.angForm.controls['total_amt'].reset();
+      } else {
+        this._service.clearWithdrawBal(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Error!', data.message, 'error');
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+          } else {
+            this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
+              if (data != 0) {
+                Swal.fire('Error!', data.message, 'error');
+                this.angForm.controls['amt'].reset();
+                this.angForm.controls['total_amt'].reset();
+              } else {
+                this._service.ClearVoucherSameBal(obj).subscribe(data => {
+                  if (data != 0) {
+                    Swal.fire('Error!', data.message, 'error');
+                    this.angForm.controls['amt'].reset();
+                    this.angForm.controls['total_amt'].reset();
+                  } else {
+                    this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
+                      if (data != 0) {
+                        Swal.fire('Error!', data.message, 'error');
+                        this.angForm.controls['amt'].reset();
+                        this.angForm.controls['total_amt'].reset();
+                      } else {
+                        this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
+                          if (data != 0) {
+                            Swal.fire('Error!', data.message, 'error');
+                            this.angForm.controls['amt'].reset();
+                            this.angForm.controls['total_amt'].reset();
+                          } else {
+                            this._service.InstructionFreezeAc(obj).subscribe(data => {
+                              if (data != 0) {
+                                Swal.fire('Error!', data.message, 'error');
+                                this.angForm.controls['amt'].reset();
+                                this.angForm.controls['total_amt'].reset();
+                              } else {
+                                this._service.MinBalanceChecking(obj).subscribe(data => {
+                                  if (data != 0) {
+                                    Swal.fire('Error!', data.message, 'error');
+                                    this.angForm.controls['amt'].reset();
+                                    this.angForm.controls['total_amt'].reset();
+                                  } else {
+                                    this._service.CheckClearBalAndAmt(obj).subscribe(data => {
+                                      if (data != 0) {
+                                        Swal.fire('Error!', data.message, 'error');
+                                        this.angForm.controls['amt'].reset();
+                                        this.angForm.controls['total_amt'].reset();
+                                      } else {
+                                        this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
+                                          if (data != 0) {
+                                            Swal.fire('Error!', data.message, 'error');
+                                            this.angForm.controls['amt'].reset();
+                                            this.angForm.controls['total_amt'].reset();
+                                          } else {
+                                            this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
+                                              if (data != 0) {
+                                                Swal.fire('Error!', data.message, 'error');
+                                                this.angForm.controls['amt'].reset();
+                                                this.angForm.controls['total_amt'].reset();
+                                              } else {
+                                                this._service.DepositAndTotalInstallments(obj).subscribe(data => {
+                                                  if (data != 0) {
+                                                    Swal.fire('Error!', data.message, 'error');
+                                                    this.angForm.controls['amt'].reset();
+                                                    this.angForm.controls['total_amt'].reset();
+                                                  } else {
+                                                    this._service.DepositAndDepositAmount(obj).subscribe(data => {
+                                                      if (data != 0) {
+                                                        Swal.fire('Error!', data.message, 'error');
+                                                        this.angForm.controls['amt'].reset();
+                                                        this.angForm.controls['total_amt'].reset();
+                                                      } else {
+                                                        this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
+                                                          if (data != 0) {
+                                                            Swal.fire('Error!', data.message, 'error');
+                                                            this.angForm.controls['amt'].reset();
+                                                            this.angForm.controls['total_amt'].reset();
+                                                          } else {
+                                                            this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
+                                                              if (data != 0) {
+                                                                Swal.fire('Error!', data.message, 'error');
+                                                                this.angForm.controls['amt'].reset();
+                                                                this.angForm.controls['total_amt'].reset();
+                                                              } else {
+                                                                this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
+                                                                  if (data != 0) {
+                                                                    Swal.fire('Error!', data.message, 'error');
+                                                                    this.angForm.controls['amt'].reset();
+                                                                    this.angForm.controls['total_amt'].reset();
+                                                                  } else {
+                                                                    this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
+                                                                      if (data != 0) {
+                                                                        Swal.fire('Error!', data.message, 'error');
+                                                                        this.angForm.controls['amt'].reset();
+                                                                        this.angForm.controls['total_amt'].reset();
+                                                                      } else {
+                                                                        this._service.ZeroBalance(obj).subscribe(data => {
+                                                                          if (data != 0) {
+                                                                            Swal.fire('Error!', data.message, 'error');
+                                                                            this.angForm.controls['amt'].reset();
+                                                                            this.angForm.controls['total_amt'].reset();
+                                                                          } else {
+
+                                                                            this._service.CashWithdraw(obj).subscribe(data => {
+                                                                              if (data != 0) {
+                                                                                Swal.fire('Error!', data.message, 'error');
+                                                                                this.angForm.controls['amt'].reset();
+                                                                                this.angForm.controls['total_amt'].reset();
+                                                                              } else {
+
+                                                                                this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                  if (data != 0) {
+                                                                                    Swal.fire('Error!', data.message, 'error');
+                                                                                    this.angForm.controls['amt'].reset();
+                                                                                    this.angForm.controls['total_amt'].reset();
+                                                                                  } else {
+                                                                                    this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                      if (data != 0) {
+                                                                                        Swal.fire('Error!', data.message, 'error');
+                                                                                        this.angForm.controls['amt'].reset();
+                                                                                        this.angForm.controls['total_amt'].reset();
+                                                                                      }
+                                                                                    }, err => {
+                                                                                      console.log(err);
+                                                                                    })
+                                                                                  }
+                                                                                }, err => {
+                                                                                  console.log(err);
+                                                                                })
+                                                                              }
+                                                                            }, err => {
+                                                                              console.log(err);
+                                                                            })
+                                                                          }
+                                                                        }, err => {
+                                                                          console.log(err);
+                                                                        })
+                                                                      }
+                                                                    }, err => {
+                                                                      console.log(err);
+                                                                    })
+
+                                                                  }
+                                                                }, err => {
+                                                                  console.log(err);
+                                                                })
+                                                              }
+                                                            }, err => {
+                                                              console.log(err);
+                                                            })
+                                                          }
+                                                        }, err => {
+                                                          console.log(err);
+                                                        })
+                                                      }
+                                                    }, err => {
+                                                      console.log(err);
+                                                    })
+
+                                                  }
+                                                }, err => {
+                                                  console.log(err);
+                                                })
+                                              }
+                                            }, err => {
+                                              console.log(err);
+                                            })
+                                          }
+                                        }, err => {
+                                          console.log(err);
+                                        })
+                                      }
+                                    }, err => {
+                                      console.log(err);
+                                    })
+                                  }
+                                }, err => {
+                                  console.log(err);
+                                })
+                              }
+                            }, err => {
+                              console.log(err);
+                            })
+                          }
+                        }, err => {
+                          console.log(err);
+                        })
+                      }
+                    }, err => {
+                      console.log(err);
+                    })
+                  }
+                }, err => {
+                  console.log(err);
+                })
+              }
+            }, err => {
+              console.log(err);
+            })
+          }
+        }, err => {
+          console.log(err);
+        })
       }
     }, err => {
       console.log(err);
     })
-
-    this._service.DepositAndDepositAmount(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-
-        this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
-      }
-    }, err => {
-      console.log(err);
-    })
-
-    this._service.ZeroBalance(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
-        this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
-      }
-    }, err => {
-      console.log(err);
-    })
-
-
-
-    //   this._service.CashWithdraw(obj).subscribe(data => {
-    //     if (data != 0) {
-    //       Swal.fire('Error!', data.message, 'error');
-    //       this.angForm.controls['amt'].reset();
-    //       this.angForm.controls['total_amt'].reset();
-    //     }
-    // else{
-    //   this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
-    //     if (data != 0) {
-    //       Swal.fire('Error!', data.message, 'error');
-    //     }
-    // else{
-    //   this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
-    //     if (data != 0) {
-    //       Swal.fire('Error!', data.message, 'error');
-    //     } else{
-    //   this._service.DepositAndTotalInstallments(obj).subscribe(data => {
-    //     if (data != 0) {
-    //       Swal.fire('Error!', data.message, 'error');
-    //     } else{
-    //   this._service.DepositAndDepositAmount(obj).subscribe(data => {
-    //     if (data != 0) {
-    //       Swal.fire('Error!', data.message, 'error');
-    //     } else{
-    // this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
-    //   if (data != 0) {
-    //     Swal.fire('Error!', data.message, 'error');
-    //   } else {
-    //     this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
-    //       if (data != 0) {
-    //         Swal.fire('Error!', data.message, 'error');
-    //       } else {
-    //         this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
-    //           if (data != 0) {
-    //             Swal.fire('Error!', data.message, 'error');
-    //           } else {
-    //             this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
-    //               if (data != 0) {
-    //                 Swal.fire('Error!', data.message, 'error');
-    //               } else {
-    //                 this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
-    //                   if (data != 0) {
-    //                     Swal.fire('Error!', data.message, 'error');
-    //                   } else {
-    //                     this._service.SysAndScheCheckTotalAmt(obj).subscribe(data => {
-    //                       if (data != 0) {
-    //                         Swal.fire('Error!', data.message, 'error');
-    //                       }
-    //                     }, err => {
-    //                       console.log(err);
-    //                     })
-    //                   }
-    //                 }, err => {
-    //                   console.log(err);
-    //                 })
-    //               }
-    //             }, err => {
-    //               console.log(err);
-    //             })
-    //           }
-    //         }, err => {
-    //           console.log(err);
-    //         })
-    //       }
-    //     }, err => {
-    //       console.log(err);
-    //     })
-    //   }
-    // }, err => {
-    //   console.log(err);
-    // })
-
-    // }
-    //   }, err => {
-    //     console.log(err);
-    //   })
-    // }
-    //   }, err => {
-    //     console.log(err);
-    //   })
-    // }
-    //   }, err => {
-    //     console.log(err);
-    //   })
-    // }
-    //   }, err => {
-    //     console.log(err);
-    //   })
-    // }
-    //   }, err => {
-    //     console.log(err);
-    //   })
   }
 
   // Check Voucher Conditions On Account Field
@@ -1064,7 +1273,8 @@ export class VoucherEntryComponent implements OnInit {
 
   // Check Voucher Conditions On Transaction Mode
   checktranCondition() {
-
+    console.log(this.angForm.controls['type'].value)
+    console.log(this.submitTranMode.tran_drcr)
     if (this.angForm.controls['type'].value == 'cash' && this.submitTranMode.tran_drcr == 'D') {
       this.tokenshowhide = true
     } else {
@@ -1246,6 +1456,7 @@ export class VoucherEntryComponent implements OnInit {
       this.selectedBranch = data.BRANCH_CODE
       this.selectedCode = data.TRAN_ACNOTYPE
       this.selectedSchemeCode();
+
       this.headFlag = true;
       this.headData = data.InputHead;
       this.headShow = true;
@@ -1337,6 +1548,13 @@ export class VoucherEntryComponent implements OnInit {
 
 
       })
+
+      // this.resetscheme();
+      // this.checkAccountCondition();
+      // this.showlgindetails();
+      // this.SideDetails();
+      // this.checktranCondition();
+      // this.updateheadbalance()
     })
 
   }
@@ -1388,20 +1606,47 @@ export class VoucherEntryComponent implements OnInit {
   }
   SideView: boolean = false
   ShowLNCC: boolean = false
+  ShownotLNCC: boolean = false
   sanctionamt
   passextension
   unpassextension
-  getschemename: boolean = true
+
   typeclearbal
   tempDayOpBal
   extensionopenbal
+  maturityamt = 0
+  depositamt = 0
+  expirydate = ''
+  sanctiondate = ''
+  asondate = ''
+  opendate = ''
+  renewaldate = ''
   SideDetails() {
+    this.AfterVoucher = 0
+    this.extenstionaftervoucher = ''
+    this.angForm.controls['amt'].reset()
+    this.angForm.controls['total_amt'].reset()
     this.SideView = true
-    if (this.submitCustomer.AC_ACNOTYPE == 'LN' || this.submitCustomer.AC_ACNOTYPE == 'CC') {
+    if (this.submitCustomer.AC_ACNOTYPE == 'LN' || this.submitCustomer.AC_ACNOTYPE == 'CC' || this.submitCustomer.AC_ACNOTYPE == 'DS') {
       this.ShowLNCC = true
+      this.ShownotLNCC = false
       this.sanctionamt = (this.submitCustomer.AC_SANCTION_AMOUNT != null ? this.submitCustomer.AC_SANCTION_AMOUNT : 0)
+      this.sanctiondate = (this.submitCustomer.AC_SANCTION_DATE != null ? this.submitCustomer.AC_SANCTION_DATE : '---')
+      this.expirydate = (this.submitCustomer.AC_EXPIRE_DATE != null ? this.submitCustomer.AC_EXPIRE_DATE : '---')
+      this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
+      this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
+      this.renewaldate = (this.submitCustomer.AC_OPEN_OLD_DATE != null ? this.submitCustomer.AC_OPEN_OLD_DATE : '---')
+    } else if (this.submitCustomer.AC_ACNOTYPE == 'TD' || this.submitCustomer.AC_ACNOTYPE == 'PG' || this.submitCustomer.AC_ACNOTYPE == 'IV') {
+      this.ShowLNCC = false
+      this.ShownotLNCC = true
+      this.expirydate = (this.submitCustomer.AC_EXPDT != null ? this.submitCustomer.AC_EXPDT : '---')
+      this.maturityamt = (this.submitCustomer.AC_MATUAMT != null ? this.submitCustomer.AC_MATUAMT : 0)
+      this.depositamt = (this.submitCustomer.AC_SCHMAMT != null ? this.submitCustomer.AC_SCHMAMT : 0)
+      this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
+      this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
     } else {
       this.ShowLNCC = false
+      this.ShownotLNCC = false
     }
     this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
 
@@ -1424,26 +1669,27 @@ export class VoucherEntryComponent implements OnInit {
         this.extensionopenbal = 'Dr'
       }
       this.tempDayOpBal = data;
-    })
-    this._service.getPassedUnpassedBalance(obj).subscribe(data => {
-      this.Pass = Math.abs(data.passedamt)
-      this.Unpass = Math.abs(data.unpassamt)
-      this.passextension = (data.passextension != undefined ? data.passextension : '')
-      this.unpassextension = (data.unpassextension != undefined ? data.unpassextension : '')
-      // this.ClearBalance = this.DayOpBal + this.Pass
-      var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
-      var pass = (data.passedamt <= 0 ? Math.abs(data.passedamt) : (-data.passedamt))
-      var unpass = (data.unpassamt <= 0 ? Math.abs(data.unpassamt) : (-data.unpassamt))
+      this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
+        this.Pass = Math.abs(data1.passedamt)
+        this.Unpass = Math.abs(data1.unpassamt)
+        this.passextension = (data1.passextension != undefined ? data1.passextension : '')
+        this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
+        // this.ClearBalance = this.DayOpBal + this.Pass
+        var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+        var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
+        var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
 
-      let value = open + pass + unpass
-      if (value < 0) {
-        this.ClearBalance = Math.abs(value)
-        this.typeclearbal = 'Dr'
-      } else {
-        this.ClearBalance = Math.abs(value)
-        this.typeclearbal = 'Cr'
-      }
+        let value = open + pass + unpass
+        if (value < 0) {
+          this.ClearBalance = Math.abs(value)
+          this.typeclearbal = 'Dr'
+        } else {
+          this.ClearBalance = Math.abs(value)
+          this.typeclearbal = 'Cr'
+        }
+      })
     })
+
 
 
 

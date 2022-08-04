@@ -14,9 +14,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="SCHEME_TYPE" [items]="schemeType" bindLabel="id"
-                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType" 
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Scheme Type"
-                                        required>
+                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"
+                                        (change)="checkduplicate()" [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="Scheme Type" required>
                                     </ng-select>
                                     <label for="SCHEME_TYPE">Scheme Type<sub class="required"> * </sub></label>
                                 </span>
@@ -33,7 +33,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FIELD_AMOUNT" [items]="headType" bindLabel="label"
-                                        formControlName="FIELD_AMOUNT" (change)="getHeadType($event)"
+                                        formControlName="FIELD_AMOUNT" (change)="getHeadType($event);checkduplicate()"
                                         [(ngModel)]="ngHeadType" [ngClass]="{'form-submitted': formSubmitted}"
                                         placeholder="Head Type" required>
                                     </ng-select>
@@ -71,7 +71,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="glAcno" bindValue="value" [(ngModel)]="ngGlCode" bindLabel="label"
                                         placeholder="GL A/c Number" (change)="patchGlNo($event)"
-                                        formControlName="GL_CODE" >
+                                        formControlName="GL_CODE">
                                         <ng-option *ngFor="let values of glcode" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>

@@ -24,6 +24,7 @@ import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+import { first } from "rxjs/operators";
 
 
 
@@ -72,6 +73,8 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
   //api 
   url = environment.base_url;
   //autofocus
@@ -134,102 +137,116 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.createForm();
-    // Fetching Server side data
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/market-shares",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.marketmaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._marketservice.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.marketmaster = data
+    })
+    this.dtTrigger.next();
+    // Fetching Server side data
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/market-shares",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.marketmaster = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
 
-        {
-          title: "Co. Code",
-          data: "CO_CODE",
-        },
-        {
-          title: "Company Name ",
-          data: "CO_NAME",
-        },
-        {
-          title: "Market Value",
-          data: "MARKET_VALUE",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "No. of Shares",
-          data: "SHARES",
-        },
-        {
-          title: "Subm. Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Updated By",
-          data: "UPDATED_BY",
-        },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+
+    //     {
+    //       title: "Company Code",
+    //       data: "CO_CODE",
+    //     },
+    //     {
+    //       title: "Company Name ",
+    //       data: "CO_NAME",
+    //     },
+    //     {
+    //       title: "Market Value",
+    //       data: "MARKET_VALUE",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "No. of Shares",
+    //       data: "SHARES",
+    //     },
+    //     {
+    //       title: "Subm. Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Updated By",
+    //       data: "UPDATED_BY",
+    //     },
+    //     {
+    //       title: "Release Date",
+    //       data: "RELEASE_DATE",
+    //     },
+    //     {
+    //       title: "Release By",
+    //       data: "RELEASE_BY",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
 
 
-        {
-          title: "Release Date",
-          data: "RELEASE_DATE",
-        },
-        {
-          title: "Release By",
-          data: "RELEASE_BY",
-        },
-      ],
-      dom: "Blrtip",
-
-
-    };
+    // };
   }
 
   createForm() {
@@ -257,6 +274,8 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
 
         CO_CODE: formVal.CO_CODE,
@@ -342,6 +361,7 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele <= 100) {
     }
     else {
+      this.angForm.controls['MARGIN'].reset()
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
     }
   }

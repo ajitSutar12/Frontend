@@ -38,8 +38,10 @@ export class DeadstockmasterService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/dead-stock-master/delete/' + id).pipe(catchError(this.handleError));
     }
+    castObject = []
+    obj = {}
     public getDeadstockList() {
-        return this.http.get<any>(this.url + '/')
+        return this.http.get<any>(this.url + '/dead-stock-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.NAME, value: element.id };

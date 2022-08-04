@@ -14,7 +14,7 @@ export class pleadgestockService {
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/pleadge-stock/insert", data).pipe(
@@ -40,5 +40,9 @@ export class pleadgestockService {
     return this.http
       .delete(this.url + "/pleadge-stock/delete/" + id)
       .pipe(catchError(this.handleError));
+  }
+
+  getdatatable(data): Observable<any> {
+    return this.http.post(this.url + "/pleadge-stock/getdatatable", data);
   }
 }

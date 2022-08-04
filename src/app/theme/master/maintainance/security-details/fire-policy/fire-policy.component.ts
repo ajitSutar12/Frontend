@@ -75,6 +75,8 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -113,107 +115,130 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
 
+
   }
 
   ngOnInit(): void {
     this.createForm();
+
+    console.log(this.scheme, this.Accountno, this.AC_ACNOTYPE)
+
     // Fetching Server side data
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/fire-policy",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.firemaster = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Policy Due Date",
+    //       data: "POLICY_DUE_DATE",
+    //     },
+    //     {
+    //       title: "Policy Number",
+    //       data: "POLICY_NO",
+    //     },
+    //     {
+    //       title: "Policy Amount",
+    //       data: "POLICY_AMT",
+    //     },
+    //     {
+    //       title: "Policy Nature",
+    //       data: "POLICY_NATURE",
+    //     },
+    //     {
+    //       title: "Insurance Code",
+    //       data: "INSU_CO_CODE",
+    //     },
+    //     {
+    //       title: "Address",
+    //       data: "ADDRESS",
+    //     },
+    //     {
+    //       title: "City",
+    //       data: "CITY",
+    //     },
+    //     {
+    //       title: "Premium Amount",
+    //       data: "PREMIUM",
+    //     },
+    //     {
+    //       title: "Premium Due Date",
+    //       data: "PREMIUM_DUE_DATE",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+
+    // };
+
+    console.log(this.scheme, this.Accountno, this.AC_ACNOTYPE)
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/fire-policy",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.firemaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._fire.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.firemaster = data
+    })
+    this.dtTrigger.next();
 
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Policy Due Date",
-          data: "POLICY_DUE_DATE",
-        },
-        {
-          title: "Policy Number",
-          data: "POLICY_NO",
-        },
-        {
-          title: "Policy Amount",
-          data: "POLICY_AMT",
-        },
-        {
-          title: "Policy Nature",
-          data: "POLICY_NATURE",
-        },
-        {
-          title: "Insurance Code",
-          data: "INSU_CO_CODE",
-        },
-        {
-          title: "Address",
-          data: "ADDRESS",
-        },
-        {
-          title: "City",
-          data: "CITY",
-        },
-        {
-          title: "Premium Amount",
-          data: "PREMIUM",
-        },
-        {
-          title: "Premium Due Date",
-          data: "PREMIUM_DUE_DATE",
-        },
-      ],
-      dom: "Blrtip",
-
-    };
     this._insurancedropdownservice.getInsuranceMasterList().pipe(first()).subscribe(data => {
       this.insuranceNo = data;
     })
@@ -245,11 +270,14 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.angForm.valid) {
 
       const formVal = this.angForm.value;
-
+      console.log(this.scheme, this.Accountno, this.AC_ACNOTYPE)
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
+
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
         'POLICY_DUE_DATE': (formVal.POLICY_DUE_DATE == '' || formVal.POLICY_DUE_DATE == 'Invalid date') ? policyduedate = '' : policyduedate = moment(formVal.POLICY_DUE_DATE).format('DD/MM/YYYY'),
         POLICY_NO: formVal.POLICY_NO,
@@ -396,23 +424,23 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#informationtable tfoot tr').appendTo('#informationtable thead');
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
-          } else {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   $('#informationtable tfoot tr').appendTo('#informationtable thead');
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     $('input', this.footer()).on('keyup change', function () {
+    //       if (this['value'] != '') {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       } else {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       }
+    //     });
+    //   });
+    // });
   }
   // Reset Function
   resetForm() {

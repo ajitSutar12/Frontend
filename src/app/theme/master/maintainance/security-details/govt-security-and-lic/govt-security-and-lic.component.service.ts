@@ -17,7 +17,7 @@ export class governmentsecuritycomponentservice {
   constructor(private http: HttpClient) {
     console.log(this.url);
   }
-  
+
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http
@@ -48,5 +48,10 @@ export class governmentsecuritycomponentservice {
     return this.http
       .delete(this.url + "/govt-security-and-lic/delete/" + id)
       .pipe(catchError(this.handleError));
+  }
+
+
+  getdatatable(data): Observable<any> {
+    return this.http.post(this.url + "/govt-security-and-lic/getdatatable", data);
   }
 }

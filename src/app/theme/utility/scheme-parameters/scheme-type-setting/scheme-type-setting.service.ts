@@ -19,10 +19,10 @@ export class SchemetypeService {
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + '/scheme-type/insert', data).pipe(map((res) => res),
-    catchError((error) => {
-      Swal.fire('Please Input Proper Data !');
-      return throwError(error);
-    })
+      catchError((error) => {
+        Swal.fire('Please Input Proper Data !');
+        return throwError(error);
+      })
     )
   }
   // For append data
@@ -36,6 +36,10 @@ export class SchemetypeService {
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/scheme-type/delete/' + id).pipe(catchError(this.handleError));
+  }
+
+  duplicatecheck(data): Observable<any> {
+    return this.http.post(this.url + '/scheme-type/duplicatecheck', data);
   }
 }
 

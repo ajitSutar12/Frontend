@@ -14,7 +14,7 @@ export class goldandsilverService {
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/gold-and-silver/insert", data).pipe(
@@ -40,5 +40,9 @@ export class goldandsilverService {
     return this.http
       .delete(this.url + "/gold-and-silver/delete/" + id)
       .pipe(catchError(this.handleError));
+  }
+
+  getdatatable(data): Observable<any> {
+    return this.http.post(this.url + "/gold-and-silver/getdatatable", data);
   }
 }

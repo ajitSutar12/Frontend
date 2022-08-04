@@ -442,5 +442,17 @@ export class SchemeTypeSettingComponent
       this.otherTrue = true;
     }
   }
+
+  checkduplicate() {
+    let obj = {
+      scheme: this.ngscheme
+    }
+    this.schemetypeservice.duplicatecheck(obj).subscribe(data => {
+      if (data.length != 0) {
+        this.ngscheme = null
+        Swal.fire('Error', 'This scheme is already exists', 'error')
+      }
+    })
+  }
 }
 

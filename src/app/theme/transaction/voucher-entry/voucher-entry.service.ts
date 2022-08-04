@@ -213,5 +213,9 @@ export class VoucherEntryService {
     return this.http.post(this.url + '/voucher/ZeroBalance', data);
   }
 
+  getInputHeadBal(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/getInputHeadBal', data);
+  }
+
 
 }

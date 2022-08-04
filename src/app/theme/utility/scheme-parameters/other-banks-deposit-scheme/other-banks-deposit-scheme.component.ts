@@ -137,7 +137,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
 
   //variable to get ID to update
   updateID: number = 0;
-
+  COMPOUND_INT_DAYS: boolean = false
   //Dropdown option variable
   acMaster: any
   ngglac: any = null
@@ -490,6 +490,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       S_RECBL_PENAL_ACNO: [''],
       S_CASH_INT_ACNO: [''],
       INTEREST_RULE: [''],
+      // TEMP_INTEREST_RULE: [''],
       IS_RECURRING_TYPE: [''],
       // IS_CALLDEPOSIT_TYPE: [''],
       //  REINVESTMENT: [''],
@@ -513,7 +514,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       IS_ASSUMED_INSTALLMENTS: [],
       INSTALLMENT_COMPULSORY_IN_PAT: [],
       S_PENAL_INT_APPLICABLE: [],
-      DEPOSIT_PENAL_INT_CALC_DAY: ['', [Validators.pattern, Validators.required, Validators.max(31)]],
+      DEPOSIT_PENAL_INT_CALC_DAY: ['', [Validators.pattern, Validators.max(31)]],
       POST_PENALINT_IN_INTEREST: [],
       S_MATUCALC: ['', [Validators.pattern]],
       IS_CAL_MATURITY_AMT: [],
@@ -562,7 +563,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
 
       'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT,
       'S_INTCALTP': formVal.S_INTCALTP,
-      'S_INTCALC_METHOD': formVal.S_INTCALC_METHOD,
+      'S_INTCALC_METHOD': (formVal.S_INTCALC_METHOD == true ? '1' : '0'),
       'COMPOUND_INT_BASIS': formVal.COMPOUND_INT_BASIS,
       'COMPOUND_INT_DAYS': formVal.COMPOUND_INT_DAYS,
       'S_PRODUCT_DAY_BASE': formVal.S_PRODUCT_DAY_BASE,
@@ -966,10 +967,12 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
   //Function to enable/Disable fields according selection of Interest method list
   interestMethod(value) {
     if (value == 1) {
-      this.COMPOUND_INT_BASIS = true;
+      this.COMPOUND_INT_DAYS = true;
+      this.angForm.controls['COMPOUND_INT_BASIS'].disable()
     }
     else {
-      this.COMPOUND_INT_BASIS = false;
+      this.COMPOUND_INT_DAYS = false;
+      this.angForm.controls['COMPOUND_INT_BASIS'].enable()
     }
   }
 
@@ -1001,11 +1004,13 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
   isInstallmentAmount(value) {
     if (value == 1) {
       this.INSTALLMENT_BASIS = true;
+      this.angForm.controls['INSTALLMENT_BASIS'].disable()
       document.getElementById('IS_ASSUMED_INSTALLMENTS').setAttribute("disabled", "true");
       document.getElementById('INSTALLMENT_COMPULSORY_IN_PAT').setAttribute("disabled", "true");
     }
     else {
       this.INSTALLMENT_BASIS = false;
+      this.angForm.controls['INSTALLMENT_BASIS'].enable()
       document.getElementById('IS_ASSUMED_INSTALLMENTS').removeAttribute("disabled");
       document.getElementById('INSTALLMENT_COMPULSORY_IN_PAT').removeAttribute("disabled");
     }
@@ -1041,26 +1046,56 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
   //Function to enable/Disable fields according selection of deposit scheme type list
   isPatDeposit(value) {
     if (value == 1) {
+      this.angForm.patchValue({
+        INTEREST_RULE: '1',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '0',
+      })
       this.angForm.controls['S_MATUCALC'].enable();
       this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(true);
       this.angForm.controls['FIXED_MATURITY_AMT'].setValue(true);
     }
     else if (value == 2) {
+      this.angForm.patchValue({
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '1',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '0',
+      })
       this.angForm.controls['S_MATUCALC'].disable();
       this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
       this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
     }
     else if (value == 3) {
+      this.angForm.patchValue({
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '1',
+        REINVESTMENT: '0',
+      })
       this.angForm.controls['S_MATUCALC'].disable();
       this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
       this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
     }
     else if (value == 4) {
+      this.angForm.patchValue({
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '1',
+      })
       this.angForm.controls['S_MATUCALC'].disable();
       this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
       this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
     }
     else if (value == 5) {
+      this.angForm.patchValue({
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '0',
+      })
       this.angForm.controls['S_MATUCALC'].disable();
       this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
       this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
@@ -1101,5 +1136,18 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    this.otherBanksDepositSchemeService.duplicatecheck(obj).subscribe(data => {
+      if (data.length != 0) {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'This scheme Code is already exists', 'error')
+      }
+    })
   }
 }

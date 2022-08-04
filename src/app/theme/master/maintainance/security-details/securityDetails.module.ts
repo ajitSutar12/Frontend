@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from "@angular/common";
 
 import { DataTablesModule } from "angular-datatables";
@@ -8,28 +8,28 @@ import { ColorPickerModule } from "ngx-color-picker";
 import { SecurityDetailsComponent } from "./security-details.component";
 import { SecurityDetailsRoutingModule } from "./securityDetails-routing.module";
 
-import { OwnDepositsComponent } from "./own-deposits/own-deposits.component";
-import { OtherSecurityComponent } from "./other-security/other-security.component";
-import { FirePolicyComponent } from "./fire-policy/fire-policy.component";
-import { MarketSharesComponent } from "./market-shares/market-shares.component";
-import { StockStatementComponent } from "./stock-statement/stock-statement.component";
-import { GovtSecurityAndLicComponent } from "./govt-security-and-lic/govt-security-and-lic.component";
-import { PlantAndMachineryComponent } from "./plant-and-machinery/plant-and-machinery.component";
-import { FurnitureAndFixtureComponent } from "./furniture-and-fixture/furniture-and-fixture.component";
-import { VehicleComponent } from "./vehicle/vehicle.component";
-import { LandAndBuildingsComponent } from "./land-and-buildings/land-and-buildings.component";
-import { GoldAndSilverComponent } from "./gold-and-silver/gold-and-silver.component";
+import { OwnDepositsModule } from "./own-deposits/own-deposits.module";
+import { OtherSecurityModule } from "./other-security/other-security.module";
+import { FirePolicyModule } from "./fire-policy/fire-policy.module";
+// import { FirePolicyComponent } from "./fire-policy/fire-policy.component";
+import { MarketSharesModule } from "./market-shares/market-shares.module";
+import { StockStatementModule } from "./stock-statement/stock-statement.module";
+import { GovtSecurityAndLicModule } from "./govt-security-and-lic/govt-security-and-lic.module";
+import { PlantAndMachineryModule } from "./plant-and-machinery/plant-and-machinery.module";
+import { FurnitureAndFixtureModule } from "./furniture-and-fixture/furniture-and-fixture.module";
+import { VehicleModule } from "./vehicle/vehicle.module";
+import { LandAndBuildingsModule } from "./land-and-buildings/land-and-buildings.module";
+import { GoldAndSilverModule } from "./gold-and-silver/gold-and-silver.module";
 
-import { CustomerInsuranceComponent } from "./customer-insurance/customer-insurance.component";
-import { BookDebtsComponent } from "./book-debts/book-debts.component";
-import { PleadgeStockComponent } from "./pleadge-stock/pleadge-stock.component";
+import { CustomerInsuranceModule } from "./customer-insurance/customer-insurance.module";
+import { BookDebtsModule } from "./book-debts/book-debts.module";
+import { PleadgeStockModule } from "./pleadge-stock/pleadge-stock.module";
 
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
 import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 //import { SelectModule } from "ng-select";
 import { NgSelectModule } from '@ng-select/ng-select';
-import { OtherSecurity2Component } from "./other-security2/other-security2.component";
 import { glMasterService } from "../../../../shared/elements/gl-master.service";
 // import { GoldsilverService } from "../../../../shared/elements/goldsilver.service";
 // import { InsuranceMasterDropdownService } from "../../../../shared/dropdownService/insurance-master-dropdown.service";
@@ -59,7 +59,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SecurityMasterdropdownService } from 'src/app/shared/dropdownService/security-master-dropdown.service';
 import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
-
+import { VoucherEntryService } from '../../../transaction/voucher-entry/voucher-entry.service'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -76,23 +76,39 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    FirePolicyModule,
+    BookDebtsModule,
+    CustomerInsuranceModule,
+    FurnitureAndFixtureModule,
+    GoldAndSilverModule,
+    GovtSecurityAndLicModule,
+    LandAndBuildingsModule,
+    MarketSharesModule,
+    OtherSecurityModule,
+    OwnDepositsModule,
+    PleadgeStockModule,
+    StockStatementModule,
+    VehicleModule,
+    PlantAndMachineryModule
   ],
   exports: [SecurityDetailsComponent,
-    OtherSecurityComponent,
-    FirePolicyComponent,
-    MarketSharesComponent,
-    StockStatementComponent,
-    GovtSecurityAndLicComponent,
-    PlantAndMachineryComponent,
-    FurnitureAndFixtureComponent,
-    VehicleComponent,
-    LandAndBuildingsComponent,
-    GoldAndSilverComponent,
-    CustomerInsuranceComponent,
-    BookDebtsComponent,
-    PleadgeStockComponent,
-    OwnDepositsComponent],
+    OtherSecurityModule,
+    // FirePolicyComponent,
+    MarketSharesModule,
+    StockStatementModule,
+    GovtSecurityAndLicModule,
+    PlantAndMachineryModule,
+    FurnitureAndFixtureModule,
+    VehicleModule,
+    LandAndBuildingsModule,
+    GoldAndSilverModule,
+    CustomerInsuranceModule,
+    BookDebtsModule,
+    PleadgeStockModule,
+    OwnDepositsModule,
+
+    FirePolicyModule],
   providers: [
     GoldsilverService,
     GoldsilverService,
@@ -102,6 +118,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     Ac2Service,
     S2Service,
     SecurityCodeService,
+    VoucherEntryService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -134,22 +151,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations: [
     SecurityDetailsComponent,
-    OtherSecurityComponent,
-    FirePolicyComponent,
-    MarketSharesComponent,
-    StockStatementComponent,
-    GovtSecurityAndLicComponent,
-    PlantAndMachineryComponent,
-    FurnitureAndFixtureComponent,
-    VehicleComponent,
-    LandAndBuildingsComponent,
-    GoldAndSilverComponent,
-    CustomerInsuranceComponent,
-    BookDebtsComponent,
-    PleadgeStockComponent,
-    OwnDepositsComponent,
-    OtherSecurity2Component,
-
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+
 })
 export class SecurityDetailsModule { }

@@ -14,7 +14,7 @@ export class firepolicycomponentservice {
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/fire-policy/insert", data).pipe(
@@ -35,6 +35,13 @@ export class firepolicycomponentservice {
   updateData(data): Observable<any> {
     return this.http.put(this.url + "/fire-policy/update", data);
   }
+
+  getdatatable(data): Observable<any> {
+    return this.http.post(this.url + "/fire-policy/getdatatable", data);
+  }
+
+  
+
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http

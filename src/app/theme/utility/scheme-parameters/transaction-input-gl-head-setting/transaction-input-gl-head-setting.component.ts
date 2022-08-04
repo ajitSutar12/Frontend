@@ -385,7 +385,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         IS_GLBAL_MAINTAIN: (data.IS_GLBAL_MAINTAIN == '1' ? true : false)
       })
 
-      debugger
+
       if (data.GL_CODE == null) {
         this.schemeWise = false;
         this.showGLCode(1);
@@ -464,5 +464,21 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  checkduplicate() {
+    let obj = {
+      scheme: this.ngSchemeType.id,
+      fieldamount: this.ngHeadType.FieldAmount
+    }
+    if (this.ngSchemeType.id != null && this.ngHeadType.FieldAmount != null) {
+      this._transInput.duplicatecheck(obj).subscribe(data => {
+        if (data.length != 0) {
+          this.ngHeadType = null
+          Swal.fire('Error', 'This record already exists', 'error')
+        }
+      })
+    }
+
   }
 }

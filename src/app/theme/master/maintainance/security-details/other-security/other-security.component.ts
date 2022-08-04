@@ -25,6 +25,8 @@ import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+import { first } from "rxjs/operators";
+
 
 // Handling datatable data
 class DataTableResponse {
@@ -65,6 +67,8 @@ export class OtherSecurityComponent
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -102,83 +106,102 @@ export class OtherSecurityComponent
 
   ngOnInit(): void {
     this.createForm();
-    // Fetching Server side data
+
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/other-security",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.securitymasters = resp.data;
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._security.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.securitymasters = data
+    })
+    this.dtTrigger.next();
 
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
 
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
+    // Fetching Server side data
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-        {
-          title: "Date of Submission",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Short Details",
-          data: "SHORT_DETAILS",
-        },
-        {
-          title: "Total Valuet",
-          data: "TOTAL_VALUE",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Security Details",
-          data: "DETAILS",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/other-security",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.securitymasters = resp.data;
+
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+
+    //     {
+    //       title: "Date of Submission",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Short Details",
+    //       data: "SHORT_DETAILS",
+    //     },
+    //     {
+    //       title: "Total Valuet",
+    //       data: "TOTAL_VALUE",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Security Details",
+    //       data: "DETAILS",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
   }
 
   createForm() {
@@ -204,6 +227,9 @@ export class OtherSecurityComponent
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
+
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
 
         SHORT_DETAILS: formVal.SHORT_DETAILS,
@@ -216,10 +242,10 @@ export class OtherSecurityComponent
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
           let info = []
-        info.push(data.id)
-        info.push("otherSecurity")
+          info.push(data.id)
+          info.push("otherSecurity")
 
-        this.newItemEvent(info);
+          this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
@@ -278,6 +304,7 @@ export class OtherSecurityComponent
 
     }
     else {
+      this.angForm.controls['MARGIN'].reset()
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
     }
   }

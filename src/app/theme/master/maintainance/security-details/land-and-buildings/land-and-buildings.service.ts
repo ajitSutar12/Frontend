@@ -14,7 +14,7 @@ export class landandbuildingsService {
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/land-and-buildings/insert", data).pipe(
@@ -40,5 +40,9 @@ export class landandbuildingsService {
     return this.http
       .delete(this.url + "/land-and-buildings/delete/" + id)
       .pipe(catchError(this.handleError));
+  }
+
+  getdatatable(data): Observable<any> {
+    return this.http.post(this.url + "/land-and-buildings/getdatatable", data);
   }
 }

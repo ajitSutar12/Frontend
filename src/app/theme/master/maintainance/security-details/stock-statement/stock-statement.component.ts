@@ -23,6 +23,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../../environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+import { first } from "rxjs/operators";
 
 // Handling datatable data
 class DataTableResponse {
@@ -58,7 +59,7 @@ interface StockMaster {
 })
 export class StockStatementComponent
   implements OnInit, AfterViewInit, OnDestroy {
-    formSubmitted = false;
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newStockEvent = new EventEmitter<any>();
   datemax: string;
@@ -70,6 +71,8 @@ export class StockStatementComponent
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
   //api
   //api
   url = environment.base_url;
@@ -109,8 +112,8 @@ export class StockStatementComponent
   filterData = {};
 
   // for date 
-  submissiondate:any=null
-  statementdate:any=null
+  submissiondate: any = null
+  statementdate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -120,107 +123,127 @@ export class StockStatementComponent
     private http: HttpClient,
     public router: Router
   ) {
-    
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
 
-   }
+  }
 
   ngOnInit(): void {
     this.createForm();
+
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/stock-statement",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.stockmasters = resp.data;
-           
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Statement Date",
-          data: "STATEMENT_DATE",
-        },
-        {
-          title: "Raw Materials",
-          data: "RAW_MATERIAL",
-        },
-        {
-          title: "R/M Margin %",
-          data: "RAW_MARGIN",
-        },
-        {
-          title: "Work In Progress",
-          data: "WORK_PROGRESS",
-        },
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._stock.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.stockmasters = data
+    })
+    this.dtTrigger.next();
 
-        {
-          title: "Finished Goods",
-          data: "FINISHED_GOODS",
-        },
-        {
-          title: "W/P Margin %",
-          data: "WORK_MARGIN",
-        },
-        {
-          title: "F/G Margin %",
-          data: "FINISHED_MARGIN",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/stock-statement",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.stockmasters = resp.data;
+
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Statement Date",
+    //       data: "STATEMENT_DATE",
+    //     },
+    //     {
+    //       title: "Raw Materials",
+    //       data: "RAW_MATERIAL",
+    //     },
+    //     {
+    //       title: "R/M Margin %",
+    //       data: "RAW_MARGIN",
+    //     },
+    //     {
+    //       title: "Work In Progress",
+    //       data: "WORK_PROGRESS",
+    //     },
+
+    //     {
+    //       title: "Finished Goods",
+    //       data: "FINISHED_GOODS",
+    //     },
+    //     {
+    //       title: "W/P Margin %",
+    //       data: "WORK_MARGIN",
+    //     },
+    //     {
+    //       title: "F/G Margin %",
+    //       data: "FINISHED_MARGIN",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
+
+
   }
 
   createForm() {
@@ -243,16 +266,18 @@ export class StockStatementComponent
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
-      
+
       const formVal = this.angForm.value;
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-       
+
         'STATEMENT_DATE': (formVal.STATEMENT_DATE == '' || formVal.STATEMENT_DATE == 'Invalid date') ? statementdate = '' : statementdate = moment(formVal.STATEMENT_DATE).format('DD/MM/YYYY'),
-        
+
         RAW_MATERIAL: formVal.RAW_MATERIAL,
         RAW_MARGIN: formVal.RAW_MARGIN,
         WORK_PROGRESS: formVal.WORK_PROGRESS,
@@ -262,7 +287,7 @@ export class StockStatementComponent
         REMARK: formVal.REMARK,
         LEDGER_Bal: formVal.LEDGER_Bal,
       };
-      
+
       this._stock.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -270,12 +295,12 @@ export class StockStatementComponent
           let info = []
           info.push(data.id)
           info.push("stockStatement")
-  
+
           this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
-          
+
         },
         (error) => {
           console.log(error);
@@ -284,52 +309,52 @@ export class StockStatementComponent
       //To clear form
       this.resetForm();
     }
-   
+
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {
-    
+
     //check  if given value  is below 100
-   
+
     if (ele <= 100) {
-     
+
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
-    
+
     let submissiondate
     let statementdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._stock.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-   
+      this.updatecheckdata = data
+
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO;
       let obj1 = {
-        'AccountType' :data.AC_TYPE,
+        'AccountType': data.AC_TYPE,
         'AccountNo': data.AC_NO,
-        'SchemeType':data.AC_ACNOTYPE
+        'SchemeType': data.AC_ACNOTYPE
       }
       this.newStockEvent.emit(obj1);
       (this.updateID = data.id);
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
       this.angForm.patchValue({
-        
+
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-       
+
         'STATEMENT_DATE': (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? statementdate = '' : statementdate = data.STATEMENT_DATE,
-        
+
         RAW_MATERIAL: data.RAW_MATERIAL,
         RAW_MARGIN: data.RAW_MARGIN,
         WORK_PROGRESS: data.WORK_PROGRESS,
@@ -349,14 +374,14 @@ export class StockStatementComponent
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.STATEMENT_DATE!=data.STATEMENT_DATE){
-        (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? (statementdate = '', data['STATEMENT_DATE'] = statementdate) : (statementdate = data.STATEMENT_DATE, data['STATEMENT_DATE'] = moment(statementdate).format('DD/MM/YYYY'))
-        }
+    }
+    if (this.updatecheckdata.STATEMENT_DATE != data.STATEMENT_DATE) {
+      (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? (statementdate = '', data['STATEMENT_DATE'] = statementdate) : (statementdate = data.STATEMENT_DATE, data['STATEMENT_DATE'] = moment(statementdate).format('DD/MM/YYYY'))
+    }
     this._stock.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -422,9 +447,9 @@ export class StockStatementComponent
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
-     
+
     }
     this.newStockEvent.emit(obj1);
   }

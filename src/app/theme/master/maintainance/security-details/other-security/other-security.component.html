@@ -13,15 +13,10 @@
                 <span class="border-lable-flt">
                   <!-- <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus /> -->
-                    <input type="text" placeholder="dd/mm/yyyy"
-                                            name="SUBMISSION_DATE" id="SUBMISSION_DATE"
-                                            class="form-control" [(ngModel)]="submissiondate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            
-                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="SUBMISSION_DATE"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
+                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="SUBMISSION_DATE"
+                    class="form-control" [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]="maxDate"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="SUBMISSION_DATE">Date of Submission<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -34,17 +29,16 @@
                   This field is required
                 </div>
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
-                  Fill valid Date 
-               </div>
+                  Fill valid Date
+                </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="SHORT_DETAILS" class="form-control" placeholder=" " id="short_details"
-                  [ngClass]="{'form-submitted': formSubmitted}"
-                    required=""  maxlength="90"
-                     formControlName="SHORT_DETAILS" />
+                    [ngClass]="{'form-submitted': formSubmitted}" required="" maxlength="90"
+                    formControlName="SHORT_DETAILS" />
                   <label for="short_details">Short Details<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -57,7 +51,7 @@
                     angForm.controls['SHORT_DETAILS'].errors?.pattern ||
                     angForm.controls['SHORT_DETAILS'].errors?.required
                   ">
-                  This field is required 
+                  This field is required
                 </div>
               </div>
             </div>
@@ -68,9 +62,9 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="TOTAL_VALUE" class="form-control" placeholder=" " id="total_value"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
-                    formControlName="TOTAL_VALUE" />
+                    [ngClass]="{'form-submitted': formSubmitted}"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="TOTAL_VALUE" />
                   <label for="total_value">Total Value<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -91,7 +85,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="MARGIN" class="form-control" placeholder=" " #margin
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     (keyup)="checkmargin(margin.value)" id="margin" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="MARGIN" />
                   <label for="margin">Margin %</label>
@@ -111,9 +105,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="DETAILS" class="form-control" placeholder=" " id="security_details"
-                  [ngClass]="{'form-submitted': formSubmitted}"
-                    required=""  maxlength="4000"
-                      formControlName="DETAILS" />
+                    [ngClass]="{'form-submitted': formSubmitted}" required="" maxlength="4000"
+                    formControlName="DETAILS" />
                   <label for="security_details">Security Details<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -126,18 +119,19 @@
                     angForm.controls['DETAILS'].errors?.pattern ||
                     angForm.controls['DETAILS'].errors?.required
                   ">
-                  This field is required 
+                  This field is required
                 </div>
               </div>
             </div>
-            
+
           </div>
           <div class="row">
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm"  (click)="submit($event)" *ngIf="showButton">Submit</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button> &nbsp;
-              <button class="btn btn-outline-primary btn-sm"  (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
+              &nbsp;
+              <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
             </div>
           </div>
 
@@ -156,12 +150,19 @@
               <div class="table-responsive">
                 <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
+                  <thead>
+                    <th style="text-transform: captalize;">Action</th>
+                    <th style="text-transform: captalize;">Submission Date</th>
+                    <th style="text-transform: captalize;">Short Details</th>
+                    <th style="text-transform: captalize;">Total Value</th>
+                    <th style="text-transform: captalize;">Margin</th>
+                    <th style="text-transform: captalize;">Security Details</th>
+                  </thead>
                   <tbody *ngIf="securitymasters?.length != 0">
                     <tr *ngFor="let data of securitymasters">
                       <td>
-                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement="bottom"
-                                            ngbTooltip="Edit"></span> 
+                        <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                          placement="bottom" ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
@@ -178,7 +179,7 @@
                       <td colspan="6" class="no-data-available">No data!</td>
                     </tr>
                   </tbody>
-                  <tfoot #filters class="filters">
+                  <!-- <tfoot #filters class="filters">
                     <tr class="testing">
                       <th class="testing"></th>
                       <th><input type="text" class="form-control" name="SUBMISSION_DATE" /></th>
@@ -187,7 +188,7 @@
                       <th><input type="text" class="form-control" name="MARGIN" /></th>
                       <th><input type="text" class="form-control" name="DETAILS" /></th> 
                     </tr>
-                  </tfoot>
+                  </tfoot> -->
                 </table>
               </div>
             </div>
