@@ -779,7 +779,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.resetgrid();
       }
 
-      console.log(this.multigrid)
+      console.log(this.multigrid,'multigrid')
 
     }
   }
