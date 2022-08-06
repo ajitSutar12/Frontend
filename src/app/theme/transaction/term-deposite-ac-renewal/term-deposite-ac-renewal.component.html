@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
+                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account Number<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-6">
                                 <div class="form-group form-primary form-static-label">
@@ -184,7 +184,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Receipt No</label>
+                                    <label>Receipt Number</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -199,16 +199,26 @@
                                 <div class="col-md-2 labelWidth">
                                     <label>Months & Days</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1 col-sm-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly style="text-align: right;"
-                                                value="{{customer?.AC_MONTHS}}" formControlName="old_month">
+                                            <input style="text-align: right;" value="{{customer?.AC_MONTHS}}" readonly
+                                                type="text" class="form-control" formControlName="old_month">
                                         </span>
                                     </div>
                                 </div>
+                                <!-- <span>&</span> -->
+                                <div class="col-md-1 col-sm-6">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" value="{{customer?.AC_DAYS}}"
+                                                readonly formControlName="old_days">
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-2 labelWidth">
-                                    <label>Int. Rate</label>
+                                    <label>Interest Rate</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -219,7 +229,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Total Int. Paid</label>
+                                    <label>Total Interest Paid</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -232,7 +242,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2 labelWidth">
-                                    <label>Last Intrest Date</label>
+                                    <label>Last Interest Date</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -248,13 +258,13 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled style="text-align: right;"
-                                                value="{{customer?.AC_INTCATA}}" formControlName="old_int_cate">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.intCategory?.NAME}}" formControlName="old_int_cate">
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Last Trn Date</label>
+                                    <label>Last Transaction Date</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -274,7 +284,7 @@
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
                                             <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
-                                                formControlName="NormalIntCheck" (click)="normalCheck($event)">
+                                                formControlName="NormalIntCheck" (change)="getnormalCheck($event)">
                                             <label class="border-checkbox-label" for="AC_IS_RECOVERY">Normal
                                                 Interest</label>
                                         </div>
@@ -286,9 +296,9 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="IntUpto" [isDisabled]="NormalCheck"
-                                                [(ngModel)]="InterestDate">
+                                                [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                bsDatepicker formControlName="IntUpto" [(ngModel)]="InterestDate"
+                                                [disabled]="NormalCheck">
                                         </span>
                                     </div>
                                 </div>
@@ -407,7 +417,8 @@
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
                                             <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY1"
-                                                formControlName="NormalInt" (click)="payableInt($event)">
+                                                formControlName="payableInterestcheck"
+                                                (change)="getpayableInterest($event)">
                                             <label class="border-checkbox-label" for="AC_IS_RECOVERY1">Payable
                                                 Interest</label>
 
@@ -415,12 +426,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">Payable Int</label></div>
+                                <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">Payable Interest</label></div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="payableInt" [disabled]="PayableCheck">
+                                                formControlName="payableInt" disabled>
                                         </span>
                                     </div>
                                 </div>
@@ -431,22 +442,22 @@
                                         <div class="radio radio-inline">
                                             <label>
                                                 <input type="radio" name="PayableIntRadio"
-                                                    formControlName="PayableIntRadio" (click)="payableStatus($event)"
-                                                    value="cash">
+                                                    formControlName="PayableIntRadio" (change)="payableStatus($event)"
+                                                    value="cash" [disabled]="PayableCheck">
                                                 <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
                                                 <input type="radio" name="PayableIntRadio"
-                                                    formControlName="PayableIntRadio" (click)="payableStatus($event)"
-                                                    value="AddInDeposit">
+                                                    formControlName="PayableIntRadio" (change)="payableStatus($event)"
+                                                    value="AddInDeposit" [disabled]="PayableCheck">
                                                 <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
                                                 <input type="radio" name="PayableIntRadio"
-                                                    formControlName="PayableIntRadio" (click)="payableStatus($event)"
-                                                    value="transfer">
+                                                    formControlName="PayableIntRadio" (change)="payableStatus($event)"
+                                                    value="transfer" [disabled]="PayableCheck">
                                                 <i class="helper"></i>Transfer </label>
                                         </div>
                                     </div>
@@ -525,7 +536,7 @@
                             <h1><span>Renewal Details</span></h1>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Renewal Tran No.</label>
+                                    <label>Renewal Tran Number</label>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
@@ -554,7 +565,8 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="new_ason_date" [(ngModel)]="renewalAsOnDate">
+                                                (change)="getMaturityDate()" formControlName="new_ason_date"
+                                                [(ngModel)]="renewalAsOnDate">
                                         </span>
                                     </div>
                                 </div>
@@ -567,7 +579,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_month">
+                                                (change)="getTotalDays()" formControlName="new_month">
                                         </span>
                                     </div>
                                 </div>
@@ -575,7 +587,8 @@
                                 <div class="col-md-1 col-sm-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="new_day">
+                                            <input type="text" class="form-control" formControlName="new_day"
+                                                (change)="getTotalDays()">
                                         </span>
                                     </div>
                                 </div>
@@ -584,13 +597,13 @@
                                 </div>
                                 <div class="col-md-3">{{TotalDays}}</div>
                                 <div class="col-md-1">
-                                    Receipt No.
+                                    Receipt Number
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_receipt">
+                                                value="{{customer?.AC_REF_RECEIPTNO}}" formControlName="new_receipt">
                                         </span>
                                     </div>
                                 </div>
@@ -603,7 +616,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_deposit">
+                                                formControlName="new_deposit"
+                                                [disabled]="!isCalulateMaturityAmountFlag">
                                         </span>
                                     </div>
                                 </div>
@@ -618,15 +632,14 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-3"></div>
-                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">New Last Interest Date</label>
+                                <div class="col-md"></div>
+                                <div class="col-sm-6 col-md-1"> <label for="AC_EXPDT">New Last Interest Date</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="new_last_date">
+                                                formControlName="new_last_date" [(ngModel)]="InterestDate" disabled>
                                         </span>
                                     </div>
                                 </div>

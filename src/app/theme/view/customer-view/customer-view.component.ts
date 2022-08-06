@@ -123,7 +123,7 @@ export class CustomerViewComponent implements OnInit {
   allAccounts = []
   //function to get existing customer data according selection
   getCustomer(eve) {
-    debugger
+    
     this.accountsList = []
     this.allAccounts = []
     this.withoutClosedAccount = []

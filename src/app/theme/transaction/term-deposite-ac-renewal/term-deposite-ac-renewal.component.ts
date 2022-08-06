@@ -54,7 +54,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   InterestCategoryData: any;
-
+  maxDate: Date;
 
   constructor(private fb: FormBuilder,
     private multiService: MultiVoucherService,
@@ -63,6 +63,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     private Multiservice: MultiVoucherService,
     private _service: TermDepositeAcRenewalService,
   ) {
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate());
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
@@ -112,6 +114,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       account_no: ['', [Validators.required]],
       NormalInt: [''],
       NormalIntCheck: [''],
+      payableInterestcheck: [''],
       IntUpto: [''],
       NormalIntRadio: [''],
       PayableCheck: [''],
@@ -140,13 +143,14 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       old_total_int_paid: [''],
       old_intrate: [''],
       old_month: [''],
+      old_days: [''],
       old_receipt_no: [''],
       old_ac_ason_date: [''],
       old_ac_matuamt: [''],
       old_ac_expdt: [''],
       old_Ac_op_date: [''],
       old_deposit_Amt: [''],
-      payableInt: [''],
+      payableInt: [0],
       AC_RENEWAL_COUNTER: [0],
       TRAN_NO: [0]
     })
@@ -154,8 +158,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   //Customer change function
   TotalDays: number;
+  funAmtPayableInterest = 0
+  funInterestRate = 0
+  funAmtNormalInterest = 0
+  isCalulateMaturityAmountFlag: boolean = false
+  ledgerBalance = 0
   getVoucherData() {
-    this.selectedIntCate = this.customer.AC_INTCATA;
+    this.selectedIntCate = Number(this.customer.AC_INTCATA);
     this.renewalAsOnDate = this.customer.AC_EXPDT;
     this.angForm.patchValue({
       'new_month': this.customer.AC_MONTHS,
@@ -168,83 +177,69 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
     //Calculate Total Days
     let total = Number(this.customer.AC_MONTHS) / 12 * 365;
-    this.TotalDays = total + Number(this.customer.AC_DAYS);
+    this.TotalDays = Math.round(total + Number(this.customer.AC_DAYS));
+    this.getMaturityDate()
+    let obj = {
+      Scheme: this.selectedScheme.S_APPL,
+      AC_TYPE: this.selectedScheme.id,
+      BANKACNO: this.customer.BANKACNO,
+      Date: this.date,
+    }
+    this._service.getAccountDeatils(obj).subscribe(data => {
+      this.angForm.patchValue({
+        old_total_int_paid: data.totalinterest,
+        new_rate:data.InterestRate
+      })
+      this.funAmtNormalInterest = data.normalInterest
+      this.funAmtPayableInterest = data.paybableInterest
+      this.isCalulateMaturityAmountFlag = data.isCalulateMaturityAmountFlag
+      this.funInterestRate = data.InterestRate
+      this.ledgerBalance = data.ledgerBal
+      let cust = data
+      this.getMaturityAmount()
+    })
 
+  }
+
+  getMaturityAmount() {
+    if (this.isCalulateMaturityAmountFlag) {
+      this.angForm.patchValue({
+        new_deposit: this.ledgerBalance
+      })
+    }
+    else {
+      this.angForm.patchValue({
+        new_deposit: this.ledgerBalance
+      })
+    }
+  }
+
+  getTotalDays() {
+    //Calculate Total Days
+    let total = Number(this.angForm.controls['new_month'].value) / 12 * 365;
+    this.TotalDays = Math.round(total + Number(this.angForm.controls['new_day'].value));
+    this.getMaturityDate()
+  }
+
+  getMaturityDate() {
+    let date = moment(this.renewalAsOnDate, 'DD/MM/YYYY').add(this.TotalDays, 'days').format('DD/MM/YYYY')
+    this.angForm.patchValue({
+      new_ason_date: date
+    })
   }
 
   //get account no according scheme for introducer
   async getIntroducer() {
+    this.customer = null
     this.introducerACNo = [];
     this.obj = [this.selectedScheme.id, this.selectedBranch]
     switch (this.selectedCode) {
-      case 'SB':
-        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'SH':
-        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'CA':
-        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'LN':
-        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
       case 'TD':
-        this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'DS':
-        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'CC':
-        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'GS':
-        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'PG':
-        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'AG':
-        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'IV':
-        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+        this._service.termDepositExpiryAccount(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
     }
-
-
   }
 
   getIntroducerNormal() {
@@ -542,9 +537,19 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this.createForm()
   }
 
+  isNormalIntAdded: boolean = false
   changeNormal(ele) {
     if (ele.target.value == 'transfer') {
       this.transferShowNormal = true;
+      if (this.isNormalIntAdded) {
+        let depositeAmount = this.angForm.controls['new_deposit'].value;
+        let intValue = this.angForm.controls['NormalInt'].value;
+        let Int = Number(depositeAmount) - Number(intValue);
+        this.angForm.patchValue({
+          'new_deposit': Int
+        })
+        this.isNormalIntAdded = false
+      }
     }
     else if (ele.target.value == 'AddInDeposit') {
       let depositeAmount = this.angForm.controls['new_deposit'].value;
@@ -555,29 +560,72 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.angForm.patchValue({
         'new_deposit': Int
       })
+      this.isNormalIntAdded = true
+      this.transferShowNormal = false;
     }
     else {
       this.transferShowNormal = false;
+      if (this.isNormalIntAdded) {
+        let depositeAmount = this.angForm.controls['new_deposit'].value;
+        let intValue = this.angForm.controls['NormalInt'].value;
+        let Int = Number(depositeAmount) - Number(intValue);
+        this.angForm.patchValue({
+          'new_deposit': Int
+        })
+        this.isNormalIntAdded = false
+      }
     }
   }
 
-  normalCheck(ele) {
+  getnormalCheck(ele) {
     if (ele.target.checked) {
       this.NormalCheck = false;
       this.InterestDate = this.current_date;
+      this.angForm.patchValue({
+        NormalInt: this.funAmtNormalInterest,
+        NormalIntRadio: 'cash'
+      })
+    }
+    else {
+      this.NormalCheck = true;
+      this.InterestDate = null;
+      this.angForm.patchValue({
+        NormalInt: null,
+        NormalIntRadio: ''
+      })
     }
   }
 
   PayableCheck: boolean = true;
-  payableInt(ele) {
+  getpayableInterest(ele) {
     if (ele.target.checked) {
       this.PayableCheck = false;
+      this.angForm.patchValue({
+        payableInt: this.funAmtPayableInterest,
+        PayableIntRadio: 'cash'
+      })
+    }
+    else {
+      this.PayableCheck = true;
+      this.angForm.patchValue({
+        payableInt: null,
+        PayableIntRadio: ''
+      })
     }
   }
-
+  isPayableIntAdded: boolean = false
   payableStatus(ele) {
     if (ele.target.value == 'transfer') {
       this.payableTranferShow = true;
+      if (this.isPayableIntAdded) {
+        let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
+        let IntAmt = Number(this.angForm.controls['payableInt'].value);
+        let Int = depositeAmount - IntAmt;
+        this.angForm.patchValue({
+          'new_deposit': Int
+        })
+        this.isPayableIntAdded = false
+      }
     } else if (ele.target.value == 'AddInDeposit') {
       let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
       let IntAmt = Number(this.angForm.controls['payableInt'].value);
@@ -587,15 +635,24 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.angForm.patchValue({
         'new_deposit': Int
       })
+      this.isPayableIntAdded = true
+      this.payableTranferShow = false;
     }
     else {
+      if (this.isPayableIntAdded) {
+        let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
+        let IntAmt = Number(this.angForm.controls['payableInt'].value);
+        let Int = depositeAmount - IntAmt;
+        this.angForm.patchValue({
+          'new_deposit': Int
+        })
+        this.isPayableIntAdded = false
+      }
       this.payableTranferShow = false;
     }
   }
 
   submit() {
-
-
     let obj = this.angForm.value;
     obj['current_date'] = this.date;
     obj['user'] = JSON.parse(localStorage.getItem('user'))
