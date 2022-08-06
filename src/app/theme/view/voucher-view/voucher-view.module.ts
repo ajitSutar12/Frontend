@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { VoucherViewComponent } from './voucher-view.component';
 import { VoucherViewRoutingModule } from './voucher-view-routing.module'
-import {SharedModule} from '../../../shared/shared.module';
-import {DataTablesModule} from 'angular-datatables';
+import { SharedModule } from '../../../shared/shared.module';
+import { DataTablesModule } from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { BsDatepickerModule,DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+import { VoucherEntryModule } from '../../transaction/voucher-entry/voucher-entry.module'
+import { MultiVoucherModule } from '../../transaction/multi-voucher/multi-voucher.module'
 
 @NgModule({
   imports: [
@@ -24,10 +24,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     FormsModule, ReactiveFormsModule,
+    VoucherEntryModule,
+    MultiVoucherModule
   ],
-
+  exports: [VoucherViewComponent],
   declarations: [VoucherViewComponent],
-  providers:[OwnbranchMasterService,SystemMasterParametersService,{
+  providers: [OwnbranchMasterService, SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

@@ -10,7 +10,7 @@
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate>
                 <div class="card-block">
-                    <div class="row">
+                    <div class="row solid">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
@@ -18,7 +18,8 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
+                                        (change)="getBranch($event);viewVoucher()">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -44,37 +45,51 @@
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                        bsDatepicker (bsValueChange)="viewVoucher()">
                                 </span>
                             </div>
+                        </div>
+                        <div class="col-sm">
+                            Number of records:{{tableData?.length }}
                         </div>
                         <div class="col-sm">
                             <button type="button" class="btn btn-outline-primary btn-sm"
                                 (click)="viewVoucher()">View</button>
                         </div>
                     </div>
-
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="isLoading">
+    <div class="col-12">
+        <div class="preloader3 loader-block">
+            <div class="circ1"></div>
+            <div class="circ2"></div>
+            <div class="circ3"></div>
+            <div class="circ4"></div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="tableData?.length != 0">
     <div class="col-12">
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
                 <thead>
+                    <!-- <td>Action</td> -->
                     <td>Record Number</td>
                     <td class="td_center">Time</td>
                     <td>Scheme</td>
                     <td class="td_right">Account Number</td>
                     <td>Name</td>
+                    <td>Transaction Source Type</td>
                     <td>Type</td>
-                    <td>Dr/CR</td>
+                    <td>Debit/Credit</td>
                     <td>Amount</td>
                     <td>User</td>
                     <td>Interest Amount</td>
-                    <td>Recbl/Payable Interest</td>
+                    <td>Receivable /Payable Interest</td>
                     <td>Receivable Overdue Interest</td>
                     <td>Penal Interest</td>
                     <td>Receivable Penal</td>
@@ -85,14 +100,20 @@
                 <tbody *ngIf="tableData?.length != 0">
                     <tr *ngFor="let data of tableData;
                 let indexOfelement = index">
+                        <!-- <td>
+                            <span class="fa fa-fw fa-eye field-icon" id="viewbutton" style="align-items: right;"
+                                (click)="modalLarge.show();getVoucherData(data)" placement="bottom"
+                                ngbTooltip="View"></span>
+                        </td> -->
                         <td>{{data.TRAN_NO}}</td>
                         <td>{{data?.TRAN_TIME}}</td>
-                        <td>{{data.TRAN_ACTYPE}}</td>
+                        <td>{{data.TRAN_ACNOTYPE=='GL'?data.TRAN_ACTYPE:data.S_APPL}}</td>
                         <td>{{data.TRAN_ACNO}}</td>
                         <td>{{data.AC_NAME}}</td>
+                        <td>{{data.TRAN_SOURCE_TYPE}}</td>
                         <td *ngIf="data.TRAN_TYPE== 'CS'">Cash</td>
                         <td *ngIf="data.TRAN_TYPE== 'TR'">Transfer</td>
-                        <td *ngIf="data.TRAN_TYPE== 'JV'">General Ledger</td>
+                        <td *ngIf="data.TRAN_TYPE== 'JV'">Transfer</td>
                         <td *ngIf="data.TRAN_TYPE== 'IS'">Issue</td>
                         <td *ngIf="data.TRAN_TYPE== 'CN'">Cancel</td>
                         <td *ngIf="data.TRAN_TYPE== 'CL'">Clearing Voucher</td>
@@ -123,3 +144,27 @@
         </div>
     </div>
 </div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Voucher</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <ng-container *ngIf="voucherMenu == 'voucher'">
+                <app-voucher-entry [childMessage]="voucherData"></app-voucher-entry>
+            </ng-container>
+            <ng-container *ngIf="voucherMenu == 'multi'">
+                <app-multi-voucher [childMessage]="multiVoucherData">
+                </app-multi-voucher>
+            </ng-container>
+        </perfect-scrollbar>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
+            (click)="modalLarge.hide();">Close</button>
+    </div>
+</app-modal-basic>

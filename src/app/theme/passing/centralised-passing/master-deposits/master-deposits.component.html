@@ -36,8 +36,10 @@
                                                 <tbody *ngIf="termDepositMaster?.length != 0">
                                                     <tr *ngFor="let data of termDepositMaster">
                                                         <td>
-                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                                            placement="bottom" ngbTooltip="Edit" (click)="modalLarge.show();getTermDepositData(data)"></span>
+                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                                ngbTooltip="Edit"
+                                                                (click)="modalLarge.show();getTermDepositData(data)"></span>
                                                         </td>
                                                         <td
                                                             [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
@@ -135,18 +137,19 @@
 
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-      <h4 class="modal-title">Saving Master</h4>
-      <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">Term Deposit Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="app-modal-body">
-      <perfect-scrollbar style="overflow-y: auto;">
-        <app-term-deposits-master [childMessage]="termDepositData" (getUserData)="getData($event)"></app-term-deposits-master>
-      </perfect-scrollbar>
+        <perfect-scrollbar style="overflow-y: auto;">
+            <app-term-deposits-master [childMessage]="termDepositData" (getUserData)="getData($event)">
+            </app-term-deposits-master>
+        </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-      <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-        (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
+            (click)="modalLarge.hide();">Close</button>
     </div>
-  </app-modal-basic>
+</app-modal-basic>

@@ -32,6 +32,9 @@ export class TermDepositeAcRenewalService {
     );
   }
 
+  getAccountDeatils(obj) {
+    return this.http.post(this.url + '/cash-credit-ac-renewal/TDAccountDeatils', obj).pipe(catchError(this.handleError));
+  }
   //Updation Operation
   updateData(data): Observable<any> {
     return this.http.put(this.url + "/cash-credit-ac-renewal/updateTermDeposit", data);
@@ -46,6 +49,11 @@ export class TermDepositeAcRenewalService {
   //Interest Category List
   interestCategory(): Observable<any> {
     return this.http.get(this.url + '/interest-category-master').pipe(catchError(this.handleError));
+  }
+
+  //Interest Category List
+  termDepositExpiryAccount(schemeid): Observable<any> {
+    return this.http.get(this.url + '/cash-credit-ac-renewal/scheme/' + schemeid).pipe(catchError(this.handleError));
   }
 
   //approve master
