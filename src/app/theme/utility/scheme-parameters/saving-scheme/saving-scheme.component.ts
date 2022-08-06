@@ -488,6 +488,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.savingschemeservice.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.ngglacno = Number(data.S_GLACNO)
@@ -573,6 +574,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         dtInstance.ajax.reload();
       });
       this.angForm.reset();
+      this.angForm.controls['S_APPL'].enable()
+
     });
   }
 
@@ -587,6 +590,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.createForm();
     this.ngglacno = null
     this.nginterestgl = null
+    this.angForm.controls['S_APPL'].enable()
+
     this.angForm.controls['S_PRODUCT_DAY_BASE'].reset()
     this.angForm.controls['S_PRODUCT_DAY_BASE_END'].reset()
   }
@@ -688,6 +693,26 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.chequeBookMinBalTrue = false;
       this.balanceEntryAllowTrue = false;
       this.overdraftIntApplicableTrue = true;
+    }
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 101 && Number(obj.scheme) <= 150) {
+        this.savingschemeservice.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 101 to 150 this range', 'error')
+      }
     }
   }
 }

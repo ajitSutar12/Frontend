@@ -6,10 +6,10 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class InstallmentMethodService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'EMI', label: 'EMI' },
-        { value: 'Reducing', label: 'Reducing' },
-        { value: 'Plain', label: 'Plain' },
-        { value: 'WithInterest', label: 'With Interest' }       
+        { value: 'E', label: 'EMI' },
+        { value: 'R', label: 'Reducing' },
+        { value: 'I', label: 'Plain' },
+        { value: 'Null', label: 'With Interest' }       
     ];
    
     getCharacters(): Array<IOption> {

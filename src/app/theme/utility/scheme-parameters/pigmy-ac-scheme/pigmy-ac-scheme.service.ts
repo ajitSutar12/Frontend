@@ -38,8 +38,12 @@ export class PigmyAcSchemeService {
         return this.http.delete(this.url + '/pigmy-ac-scheme/delete/' + id).pipe(catchError(this.handleError));
     }
     //scheme code 
-    schemeData(S_APPL:any): Observable<any>{
+    schemeData(S_APPL: any): Observable<any> {
         return this.http.get(this.url + '/pigmy-ac-scheme/' + S_APPL).pipe(catchError(this.handleError));
+    }
+
+    duplicatecheck(data): Observable<any> {
+        return this.http.post(this.url + '/scheme-parameters/duplicatecheck', data);
     }
 }
 

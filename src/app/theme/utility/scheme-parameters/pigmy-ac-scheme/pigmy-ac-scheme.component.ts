@@ -363,6 +363,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.pigmyAcSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngglacno = Number(data.S_GLACNO)
@@ -425,6 +426,8 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         dtInstance.ajax.reload();
       });
       this.resetForm();
+      this.angForm.controls['S_APPL'].enable()
+
     })
   }
 
@@ -441,6 +444,8 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.ngintglac = null
     this.ngpayableintac = null
     this.ngservicecharges = null
+    this.angForm.controls['S_APPL'].enable()
+
 
   }
   //Method for delete data
@@ -625,4 +630,23 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     });
   }
 
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 401 && Number(obj.scheme) <= 499) {
+        this.pigmyAcSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 401 to 499 this range', 'error')
+      }
+    }
+  }
 }

@@ -5,9 +5,9 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class InterestApplicableTypeService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'NormalInterest', label: 'Normal Interest' },
-        { value: 'PenalInterest', label: 'Penal Interest' },
-        { value: 'NotApplicable', label: 'Not Applicable' }
+        { value: 'I', label: 'Normal Interest' },
+        { value: 'P', label: 'Penal Interest' },
+        { value: 'Null', label: 'Not Applicable' }
     ];
 
     getCharacters(): Array<IOption> {

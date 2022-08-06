@@ -30,7 +30,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { nullSafeIsEquivalent, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 // Handling datatable data
 class DataTableResponse {
@@ -219,9 +219,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   updateShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
-
-
-
   simpleOption: Array<IOption> = this.StatementTypeService.getCharacters();
   IntrestCalculationMethod: Array<IOption> = this.IntrestCalculationMethodService.getCharacters();
   // WeeklyandHalfHoliday: Array<IOption> = this.WeeklyHolidayService.getCharacters();
@@ -232,7 +229,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   timeLeft = 5;
   private dataSub: Subscription = null;
   dropDown;
-
   // dropdown ngModel variables
   //tab1 variable
   ngbranch: any = null
@@ -272,8 +268,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   ngsgstGL: any = null
   ngigstGL: any = null
   ngdividend: any = null
-
-
   selectedItems: any;
   FaceValueDividendTrue = true;
   OtherSettings_True = false;
@@ -301,7 +295,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     public StatementTypeService: StatementTypeService,
     public selectOptionService: SelectOptionService,
     public systemMasterParametersService: SystemMasterParametersService,
-
     private fb: FormBuilder,
     private config: NgSelectConfig) {
     this.maxDate = new Date();
@@ -320,9 +313,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         this.showButton = false
       }
     })
-
   }
-
 
   ngOnInit(): void {
     this.createForm();
@@ -421,6 +412,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.dataSub = this.StatementTypeService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
+
     this.OwnbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
 
       this.OwnbranchMasterDropdown = data;
@@ -430,10 +422,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
       this.ACMasterDropdown = data;
     })
-
-
-
-
   }
   dateArr = []
   getWeeklyHoliday(event) {
@@ -492,7 +480,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     }
   }
 
-
   createForm() {
     this.angForm = this.fb.group({
       SYSPARA_CODE: ['A'],
@@ -522,7 +509,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       INWARD_BILL_RECEIVABLE_ACNO: [''],
       BCBR_DR_GLACNO: [''],
       BCBR_DR_SUB_GLACNO: [''],
-
       BILL_RECEIVABLE_ACNO: [''],
       BILL_FOR_COLLECTION_ACNO: [''],
       CLG_SUSPENCE_ACNO: [''],
@@ -531,7 +517,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       IS_PROCESS_FOR_MONTH: [''],
       RECOVERY_DR_ACNO: ['', [Validators.required, Validators.pattern]],
       IS_PROCESS_UPTO_TRANDATE: [''],
-
       HO_GLACNO: ['', [Validators.required]],
       BG_DR_ACNO: [''],
       BG_CR_ACNO: [''],
@@ -548,8 +533,6 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       MICR_CHARGES_ACNO: [''],
       MICR_CHARGES_AMOUNT: ['', [Validators.pattern]],
       MICR_CHARGES_INWORD_CLG: ['', [Validators.pattern]],
-
-
       GRACE_PERIOD: ['', [Validators.pattern]],
       MORATORIUM_PERIOD: ['', [Validators.pattern]],
       DIV_CALCU_MONTH: ['', [Validators.required]],
@@ -596,14 +579,11 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       IS_HO_SUB_GLACNO_REQUIRED: [''],
       IS_REQUIRE_CLEARING_OPTION: [''],
       IS_ALLOW_USER_MULTI_LOGIN: [''],
-
       IS_BANKERS_COMM_TRAN_REQD: [''],
       IS_IBCIBR_VOUCH_REQD: [''],
       DEPRECIATION_WITH_HALFFULLRATE: [''],
       IS_AUTO_UPDATE_SHARES_NO: [''],
       WITHDRW_CLOSING_FOR_GURMEMBERS: [''],
-
-
       PREVIOUS_DATE: ['', [Validators.required]],
       CURRENT_DATE: ['', [Validators.required]],
       DAY_BEGIN_EXECUTED: new FormControl('DayBeginExecuted'),
@@ -617,20 +597,69 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       ON_LINE: [''],
       IS_RECEIPT_PRINT_DESIGNMETHOD: [''],
       CLG_HOUSE_METHOD: ['', [Validators.required]],
-      LINES_PER_PASSBOOKPAGE: ['', [Validators.pattern]]
-
-
-
-
-
-
-
-
-
+      LINES_PER_PASSBOOKPAGE: ['', [Validators.pattern]],
+      FROM_DATE: ['', [Validators.pattern]],
+      TO_DATE: ['', [Validators.pattern]],
+      AMOUNT: ['', [Validators.pattern]],
     });
   }
-  OpenLink(val) {
 
+  multiField = []
+  ngfromdate
+  ngtodate
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_DATE: (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date') ? this.ngfromdate = '' : this.ngfromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY'),
+      TO_DATE: (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date') ? this.ngtodate = '' : this.ngtodate = moment(formVal.TO_DATE).format('DD/MM/YYYY'),
+      AMOUNT: formVal.AMOUNT,
+    }
+    this.multiField.push(object);
+    this.resetField()
+  }
+
+  updateField() {
+    let index = this.intIndex;
+    this.addShowButton = true;
+    this.UpdateShowButton = false;
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_DATE: (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date') ? this.ngfromdate = '' : this.ngfromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY'),
+      TO_DATE: (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date') ? this.ngtodate = '' : this.ngtodate = moment(formVal.TO_DATE).format('DD/MM/YYYY'),
+      AMOUNT: formVal.AMOUNT,
+      id: this.intID
+    }
+    this.multiField[index] = object;
+    this.resetField()
+  }
+
+  intIndex: number
+  intID: number
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+
+  editField(id) {
+    this.intIndex = id
+    this.intID = this.multiField[id].id;
+    this.addShowButton = false;
+    this.UpdateShowButton = true;
+    this.angForm.patchValue({
+      FROM_DATE: this.multiField[id].FROM_DATE,
+      TO_DATE: this.multiField[id].TO_DATE,
+      AMOUNT: this.multiField[id].AMOUNT,
+
+    })
+  }
+
+  resetField() {
+    this.angForm.controls['FROM_DATE'].reset()
+    this.angForm.controls['TO_DATE'].reset()
+    this.angForm.controls['AMOUNT'].reset()
+    this.ngtodate = null
+    this.ngfromdate = null
+  }
+
+  OpenLink(val) {
     if (val == 101) {
       this.FaceValueDividendTrue = true;
       this.OtherSettings_True = false;
@@ -650,15 +679,14 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       this.angForm.controls['IS_PROCESS_FOR_MONTH'].reset();
       this.angForm.controls['IS_PROCESS_UPTO_TRANDATE'].reset();
       this.angForm.controls['RECOVERY_DR_ACNO'].reset();
-
     }
-
   }
   //to switch to next tab 
   @ViewChild('ctdTabset') ctdTabset;
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
   }
+
   submit() {
     let ngbankstartdate
     let ngpreviousdate
@@ -669,7 +697,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
     this.formSubmitted = true;
     const formVal = this.angForm.value;
-
+    this.share = true
     const dataToSend = {
 
       // Bank Details tab:
@@ -808,6 +836,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       'CGST_GLACNO': formVal.CGST_GLACNO,
       'SGST_GLACNO': formVal.SGST_GLACNO,
       'IGST_GLACNO': formVal.IGST_GLACNO,
+      'sharefield': this.multiField
     }
     let array
 
@@ -826,6 +855,11 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.angForm.controls['COMPANY_START_DATE'].reset()
     //To clear form
     this.resetForm();
+  }
+
+  share: boolean = false
+  addsharepart() {
+    this.share = true
   }
 
   //Method for append data into fields
@@ -905,7 +939,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       this.ngpreviousdate = data.PREVIOUS_DATE
       this.ngpigmypreviousdate = data.PIGMY_PREVIOUS_DATE
       this.ngpigmycurrentdate = data.PIGMY_CURRENT_DATE
-
+      this.multiField = data.SYSPARAID
       this.angForm.patchValue({
 
         // Bank Details tab:
@@ -1005,7 +1039,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     let ngpigmycurrentdate
 
     let data = this.angForm.value;
-
+    delete data.AMOUNT;
+    delete data.FROM_DATE;
+    delete data.TO_DATE;
     data['id'] = this.updateID;
     data['IS_ALLOW_CLG_TALLY_VOUCHER'] = (data.IS_ALLOW_CLG_TALLY_VOUCHER == true ? '1' : '0')
     data['IS_CLG_DATE_ADD'] = (data.IS_CLG_DATE_ADD == true ? '1' : '0')
@@ -1044,7 +1080,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     data['WITHDRW_CLOSING_FOR_GURMEMBERS'] = (data.WITHDRW_CLOSING_FOR_GURMEMBERS == true ? '1' : '0')
     data['ON_LINE'] = (data.ON_LINE == true ? '1' : '0')
     data['IS_RECEIPT_PRINT_DESIGNMETHOD'] = (data.IS_RECEIPT_PRINT_DESIGNMETHOD == true ? '1' : '0')
-
+    data['sharefield'] = this.multiField
 
     if (this.updatecheckdata.COMPANY_START_DATE != data.COMPANY_START_DATE) {
       (data.COMPANY_START_DATE == 'Invalid date' || data.COMPANY_START_DATE == '' || data.COMPANY_START_DATE == null) ? (ngbankstartdate = '', data['COMPANY_START_DATE'] = ngbankstartdate) : (ngbankstartdate = data.COMPANY_START_DATE, data['COMPANY_START_DATE'] = moment(ngbankstartdate).format('DD/MM/YYYY'))
