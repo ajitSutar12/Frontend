@@ -16,7 +16,7 @@
                                     <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         required="" pattern="^[0-9]+$" maxlength="3" minlength="3" min="401" max="499"
-                                        title="Input allowed only 0-9" #autofocus
+                                        title="Input allowed only 0-9" #autofocus (focusout)="checkDuplicate($event)"
                                         formControlName="S_APPL">
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>

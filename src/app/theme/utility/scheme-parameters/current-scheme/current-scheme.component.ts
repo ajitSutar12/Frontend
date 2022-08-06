@@ -350,6 +350,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true
+    this.angForm.controls['S_APPL'].disable()
     this.currentSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngsglac = Number(data.S_GLACNO)
@@ -413,6 +414,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         dtInstance.ajax.reload();
       });
       this.resetForm();
+      this.angForm.controls['S_APPL'].enable()
     })
   }
 
@@ -428,6 +430,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.ngsglac = null
     this.ngintglac = null
     this.ngintapplicapble = null
+    this.angForm.controls['S_APPL'].enable()
   }
 
   //Method for delete data
@@ -592,5 +595,25 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 151 && Number(obj.scheme) <= 200) {
+        this.currentSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 151 to 200 this range', 'error')
+      }
+    }
   }
 }

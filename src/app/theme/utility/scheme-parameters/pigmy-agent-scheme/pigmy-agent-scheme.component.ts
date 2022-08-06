@@ -247,6 +247,7 @@ export class PigmyAgentSchemeComponent
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.pigmyagentService.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -279,6 +280,8 @@ export class PigmyAgentSchemeComponent
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
       });
+      this.angForm.controls['S_APPL'].enable()
+
       this.angForm.reset();
     });
   }
@@ -291,6 +294,8 @@ export class PigmyAgentSchemeComponent
   // Reset Function
   resetForm() {
     this.createForm();
+    this.angForm.controls['S_APPL'].enable()
+
   }
   //Method for delete data
   delClickHandler(id: number) {
@@ -363,6 +368,26 @@ export class PigmyAgentSchemeComponent
     if (val == 106) {
       this.CommissionApplicableTrue = false;
       this.OtherSettings1True = true;
+    }
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 301 && Number(obj.scheme) <= 399) {
+        this.pigmyagentService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 301 to 399 this range', 'error')
+      }
     }
   }
 }

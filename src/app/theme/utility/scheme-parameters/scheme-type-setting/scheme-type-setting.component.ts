@@ -299,6 +299,7 @@ export class SchemeTypeSettingComponent
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_ACNOTYPE'].disable()
     this.schemetypeservice.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.angForm.patchValue({
@@ -349,6 +350,8 @@ export class SchemeTypeSettingComponent
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
       });
+      this.angForm.controls['S_ACNOTYPE'].enable()
+
       this.angForm.reset();
     });
   }
@@ -447,12 +450,14 @@ export class SchemeTypeSettingComponent
     let obj = {
       scheme: this.ngscheme
     }
-    this.schemetypeservice.duplicatecheck(obj).subscribe(data => {
-      if (data.length != 0) {
-        this.ngscheme = null
-        Swal.fire('Error', 'This scheme is already exists', 'error')
-      }
-    })
+    if (obj.scheme != '') {
+      this.schemetypeservice.duplicatecheck(obj).subscribe(data => {
+        if (data.length != 0) {
+          this.ngscheme = null
+          Swal.fire('Error', 'This scheme is already exists', 'error')
+        }
+      })
+    }
   }
 }
 

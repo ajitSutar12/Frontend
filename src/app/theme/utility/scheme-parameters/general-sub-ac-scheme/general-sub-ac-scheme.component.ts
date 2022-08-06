@@ -220,6 +220,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.generalSubAcSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngglac = Number(data.S_GLACNO)
@@ -249,12 +250,16 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
       this.newbtnShow = false;
       //this.rerender();
       this.resetForm();
+      this.angForm.controls['S_APPL'].enable()
+
     })
   }
 
   resetForm() {
     this.createForm();
     this.ngglac = null
+    this.angForm.controls['S_APPL'].enable()
+
   }
   addNewData() {
     this.showButton = true;
@@ -296,5 +301,25 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 801 && Number(obj.scheme) <= 899) {
+        this.generalSubAcSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 801 to 899 this range', 'error')
+      }
+    }
   }
 }

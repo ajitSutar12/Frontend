@@ -38,5 +38,9 @@ export class GeneralSubAcSchemeService {
         console.log(data.S_GLACNO)
         return this.http.get(this.url + '/general-sub-ac-scheme/getOneColumn', data.S_GLACNO);
     }
+
+    duplicatecheck(data): Observable<any> {
+        return this.http.post(this.url + '/scheme-parameters/duplicatecheck', data);
+    }
 }
 

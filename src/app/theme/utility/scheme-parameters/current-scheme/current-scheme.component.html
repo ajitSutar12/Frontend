@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="S_APPL" class="form-control"
                                         placeholder=" " id="S_APPL" required="" pattern="^[0-9]+$" maxlength="3"
-                                        minlength="3" min="151" max="200"
+                                        minlength="3" min="151" max="200" (focusout)="checkDuplicate($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only 0-9" #autofocus formControlName="S_APPL">
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>

@@ -10,7 +10,7 @@ export class InstallmentBaseService {
         { value: 'Q', label: 'QUARTERLY' },
         { value: 'H', label: 'HALF YEARLY' },
         { value: 'Y', label: 'YEARLY' },
-        { value: null, label: 'NO INSTALLMENT' }
+        { value: 'Null', label: 'NO INSTALLMENT' }
     ];
 
     getCharacters(): Array<IOption> {
