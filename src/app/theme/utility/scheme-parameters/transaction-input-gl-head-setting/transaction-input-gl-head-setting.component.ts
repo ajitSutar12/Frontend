@@ -46,7 +46,6 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   //scheme type variable
   ngSchemeType: any = null
   schemeType = [
-    { id: 'GL' },
     { id: 'GS' },
     { id: 'IV' },
     { id: 'LN' },
@@ -349,6 +348,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['SCHEME_TYPE'].disable()
+    this.angForm.controls['FIELD_AMOUNT'].disable()
     this._transInput.getFormData(id).subscribe(data => {
 
       // data.GL_CODE == null ? (this.schemeWise = true, this.showGLCode(1)) : (this.schemeWise = false, this.showGL = true, this.ngGlCode = data.GL_CODE);
@@ -386,7 +387,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         IS_GLBAL_MAINTAIN: (data.IS_GLBAL_MAINTAIN == '1' ? true : false)
       })
 
-      debugger
+
       if (data.GL_CODE == null) {
         this.schemeWise = false;
         this.showGLCode(1);
@@ -438,7 +439,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     this.ngHeadType = null
     this.ngGlCode = null
     this.ngDebitCredit = null
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -465,5 +466,21 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  checkduplicate() {
+    let obj = {
+      scheme: this.ngSchemeType.id,
+      fieldamount: this.ngHeadType.FieldAmount
+    }
+    if (this.ngSchemeType.id != null && this.ngHeadType.FieldAmount != null) {
+      this._transInput.duplicatecheck(obj).subscribe(data => {
+        if (data.length != 0) {
+          this.ngHeadType = null
+          Swal.fire('Error', 'This record already exists', 'error')
+        }
+      })
+    }
+
   }
 }

@@ -36,5 +36,9 @@ export class CurrentSchemeService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/current-scheme/delete/' + id).pipe(catchError(this.handleError));
     }
+
+    duplicatecheck(data): Observable<any> {
+        return this.http.post(this.url + '/scheme-parameters/duplicatecheck', data);
+    }
 }
 

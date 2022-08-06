@@ -16,14 +16,14 @@ export class TermDepositSchemeService {
 
   constructor(private http: HttpClient) { }
 
-   //Insertion Operation
-   postData(data: any): Observable<any> {
+  //Insertion Operation
+  postData(data: any): Observable<any> {
     return this.http.post(this.url + '/term-deposit-scheme/insert', data).pipe(map((res) => res),
-    catchError((error) => {
-      let errorMessage = 'Please add valid length';
-      Swal.fire('Kindly Add Valid Length !');
-      return throwError(errorMessage);
-    })
+      catchError((error) => {
+        let errorMessage = 'Please add valid length';
+        Swal.fire('Kindly Add Valid Length !');
+        return throwError(errorMessage);
+      })
     )
   }
 
@@ -43,7 +43,11 @@ export class TermDepositSchemeService {
   getAllData(): Observable<any> {
     return this.http.get(this.url + '/term-deposit-scheme/').pipe(catchError(this.handleError));
   }
-  
+
+  duplicatecheck(data): Observable<any> {
+    return this.http.post(this.url + '/scheme-parameters/duplicatecheck', data);
+  }
+
 }
 
 

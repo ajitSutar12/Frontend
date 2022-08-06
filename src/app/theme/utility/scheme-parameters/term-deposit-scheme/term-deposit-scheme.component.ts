@@ -686,9 +686,12 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   Compount_Interest(value) {
     if (value == 1) {
       this.COMPOUND_INT_BASIS = false;
+      this.angForm.controls['COMPOUND_INT_BASIS'].enable()
     }
     else if (value == 2) {
       this.COMPOUND_INT_BASIS = true;
+      this.angForm.controls['COMPOUND_INT_BASIS'].disable()
+
     }
   }
 
@@ -777,8 +780,9 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     if (value == 1) {
       this.schemeWise == true
       this.angForm.patchValue({
-        'S_INSTTYPE': 'OneTime'
+        'S_INSTTYPE': '0'
       })
+      this.angForm.controls['INSTALLMENT_BASIS'].disable()
       this.INSTALLMENT_BASIS = true;
       document.getElementById('IS_ASSUMED_INSTALLMENTS').setAttribute("disabled", "true");
       document.getElementById('INSTALLMENT_COMPULSORY_IN_PAT').setAttribute("disabled", "true");
@@ -790,10 +794,12 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     }
     else {
       this.angForm.patchValue({
-        'S_INSTTYPE': 'Monthly'
+        'S_INSTTYPE': '1'
       })
       this.schemeWise == false
       this.INSTALLMENT_BASIS = false;
+      this.angForm.controls['INSTALLMENT_BASIS'].enable()
+
       document.getElementById('IS_ASSUMED_INSTALLMENTS').removeAttribute("disabled");
       document.getElementById('INSTALLMENT_COMPULSORY_IN_PAT').removeAttribute("disabled");
       document.getElementById('PREMATURE_ON_DEPOSIT_INST').removeAttribute("disabled");
@@ -802,21 +808,90 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
 
     }
   }
+  INTEREST_RULE: boolean = false
+  IS_RECURRING_TYPE: boolean = false
+  IS_CALLDEPOSIT_TYPE: boolean = false
+  REINVESTMENT: boolean = false
+  ALLROLE: boolean = false
 
   PatDeposits(value) {
 
     if (value == 1) {
+      this.INTEREST_RULE = true
+      this.IS_RECURRING_TYPE = false
+      this.IS_CALLDEPOSIT_TYPE = false
+      this.REINVESTMENT = false
+      this.ALLROLE = false
       this.angForm.patchValue({
-        'IS_CAL_MATURITY_AMT': true,
-        'FIXED_MATURITY_AMT': true
+        INTEREST_RULE: '1',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '0',
       })
+      this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(true);
+      this.angForm.controls['FIXED_MATURITY_AMT'].setValue(true);
     }
-    else {
+    else if (value == 2) {
+      this.INTEREST_RULE = false
+      this.IS_RECURRING_TYPE = true
+      this.IS_CALLDEPOSIT_TYPE = false
+      this.REINVESTMENT = false
+      this.ALLROLE = false
       this.angForm.patchValue({
-        'IS_CAL_MATURITY_AMT': false,
-        'FIXED_MATURITY_AMT': false,
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '1',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '0',
       })
+      this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
+      this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
     }
+    else if (value == 3) {
+      this.INTEREST_RULE = false
+      this.IS_RECURRING_TYPE = false
+      this.IS_CALLDEPOSIT_TYPE = true
+      this.REINVESTMENT = false
+      this.ALLROLE = false
+      this.angForm.patchValue({
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '1',
+        REINVESTMENT: '0',
+      })
+      this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
+      this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
+    }
+    else if (value == 4) {
+      this.INTEREST_RULE = false
+      this.IS_RECURRING_TYPE = false
+      this.IS_CALLDEPOSIT_TYPE = false
+      this.REINVESTMENT = true
+      this.ALLROLE = false
+      this.angForm.patchValue({
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '1',
+      })
+      this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
+      this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
+    }
+    else if (value == 5) {
+      this.INTEREST_RULE = false
+      this.IS_RECURRING_TYPE = false
+      this.IS_CALLDEPOSIT_TYPE = false
+      this.REINVESTMENT = false
+      this.ALLROLE = true
+      this.angForm.patchValue({
+        INTEREST_RULE: '0',
+        IS_RECURRING_TYPE: '0',
+        IS_CALLDEPOSIT_TYPE: '0',
+        REINVESTMENT: '0',
+      })
+      this.angForm.controls['IS_CAL_MATURITY_AMT'].setValue(false);
+      this.angForm.controls['FIXED_MATURITY_AMT'].setValue(false);
+    }
+
 
   }
 
@@ -1041,6 +1116,46 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   submit() {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
+
+    this.INTEREST_RULE = false
+    this.IS_RECURRING_TYPE = false
+    this.IS_CALLDEPOSIT_TYPE = false
+    this.REINVESTMENT = false
+    this.ALLROLE = true
+    let pat
+    let rec
+    let calldepo
+    let reinv
+
+    if (formVal.INTEREST_RULE == 1) {
+      pat = 1
+      rec = 0
+      calldepo = 0
+      reinv = 0
+    } else if (formVal.INTEREST_RULE == 2) {
+      pat = 0
+      rec = 1
+      calldepo = 0
+      reinv = 0
+    } else if (formVal.INTEREST_RULE == 3) {
+      pat = 0
+      rec = 0
+      calldepo = 1
+      reinv = 0
+    } else if (formVal.INTEREST_RULE == 4) {
+      pat = 0
+      rec = 0
+      calldepo = 0
+      reinv = 1
+    } else if (formVal.INTEREST_RULE == 4) {
+      pat = 0
+      rec = 0
+      calldepo = 0
+      reinv = 0
+    }
+
+
+
     const dataToSend = {
 
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -1055,10 +1170,10 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       'S_RECBL_PENAL_ACNO': formVal.S_RECBL_PENAL_ACNO,
       'S_CASH_INT_ACNO': formVal.S_CASH_INT_ACNO,
       'MATURED_BUT_NOT_PAID_GLAC': formVal.MATURED_BUT_NOT_PAID_GLAC,
-      'INTEREST_RULE': formVal.INTEREST_RULE,
-      'IS_RECURRING_TYPE': formVal.IS_RECURRING_TYPE,
-      'IS_CALLDEPOSIT_TYPE': formVal.IS_CALLDEPOSIT_TYPE,
-      'REINVESTMENT': formVal.REINVESTMENT,
+      'INTEREST_RULE': pat,
+      'IS_RECURRING_TYPE': rec,
+      'IS_CALLDEPOSIT_TYPE': calldepo,
+      'REINVESTMENT': reinv,
       'MIN_INT_LIMIT': formVal.MIN_INT_LIMIT,
       'ROUNDOFF_FACTOR': formVal.ROUNDOFF_FACTOR,
       'S_INTCALTP': formVal.S_INTCALTP,
@@ -1151,6 +1266,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.TermDepositSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngsglacno = Number(data.S_GLACNO)
@@ -1254,12 +1370,81 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
 
 
       })
+
+      if (data.INTEREST_RULE == '1' && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') {
+        this.INTEREST_RULE = true
+        this.IS_RECURRING_TYPE = false
+        this.IS_CALLDEPOSIT_TYPE = false
+        this.REINVESTMENT = false
+        this.ALLROLE = false
+      } else if (data.INTEREST_RULE == '0' && data.IS_RECURRING_TYPE == '1' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') {
+        this.INTEREST_RULE = false
+        this.IS_RECURRING_TYPE = true
+        this.IS_CALLDEPOSIT_TYPE = false
+        this.REINVESTMENT = false
+        this.ALLROLE = false
+      } else if (data.INTEREST_RULE == '0' && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '1' && data.REINVESTMENT == '0') {
+        this.INTEREST_RULE = false
+        this.IS_RECURRING_TYPE = false
+        this.IS_CALLDEPOSIT_TYPE = true
+        this.REINVESTMENT = false
+        this.ALLROLE = false
+      } else if (data.INTEREST_RULE == '0' && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '1') {
+        this.INTEREST_RULE = false
+        this.IS_RECURRING_TYPE = false
+        this.IS_CALLDEPOSIT_TYPE = false
+        this.REINVESTMENT = true
+        this.ALLROLE = false
+      } else if (data.INTEREST_RULE == '0' && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') {
+        this.INTEREST_RULE = false
+        this.IS_RECURRING_TYPE = false
+        this.IS_CALLDEPOSIT_TYPE = false
+        this.REINVESTMENT = false
+        this.ALLROLE = true
+      }
     })
   }
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    let pat
+    let rec
+    let calldepo
+    let reinv
+
+    if (data.INTEREST_RULE == 1) {
+      pat = 1
+      rec = 0
+      calldepo = 0
+      reinv = 0
+    } else if (data.INTEREST_RULE == 2) {
+      pat = 0
+      rec = 1
+      calldepo = 0
+      reinv = 0
+    } else if (data.INTEREST_RULE == 3) {
+      pat = 0
+      rec = 0
+      calldepo = 1
+      reinv = 0
+    } else if (data.INTEREST_RULE == 4) {
+      pat = 0
+      rec = 0
+      calldepo = 0
+      reinv = 1
+    } else if (data.INTEREST_RULE == 4) {
+      pat = 0
+      rec = 0
+      calldepo = 0
+      reinv = 0
+    }
+
     data['id'] = this.updateID;
+    data['INTEREST_RULE'] = pat
+    data['IS_RECURRING_TYPE'] = rec;
+    data['IS_CALLDEPOSIT_TYPE'] = calldepo;
+    data['REINVESTMENT'] = reinv;
+
     data['WITHDRAWAL_APPLICABLE'] = (data.WITHDRAWAL_APPLICABLE == true ? '1' : '0')
     data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
     data['S_INTPAID'] = (data.S_INTPAID == true ? '1' : '0')
@@ -1310,6 +1495,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         dtInstance.ajax.reload();
       });
       this.resetForm();
+      this.angForm.controls['S_APPL'].enable()
     })
   }
   addNewData() {
@@ -1332,6 +1518,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     this.nginstallmentbase = null
     this.ngunittdperiod = null
     this.ngCompoundIntBasis = null
+    this.angForm.controls['S_APPL'].enable()
   }
 
   //Method for delete data
@@ -1413,6 +1600,26 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       }
     }, 1000);
 
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 201 && Number(obj.scheme) <= 299) {
+        this.TermDepositSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 201 to 299 this range', 'error')
+      }
+    }
   }
 
 }

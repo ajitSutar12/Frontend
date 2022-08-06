@@ -23,6 +23,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../../environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+import { first } from "rxjs/operators";
 
 // Handling datatable data
 class DataTableResponse {
@@ -72,6 +73,9 @@ export class GovtSecurityAndLicComponent
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
+
   //api
   url = environment.base_url;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
@@ -136,111 +140,127 @@ export class GovtSecurityAndLicComponent
     this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/govt-security-and-lic",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.governmentmasters = resp.data;
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._govsecurity.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.governmentmasters = data
+    })
+    this.dtTrigger.next();
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Cert/Policy Date",
-          data: "CERT_POLICY_DATE",
-        },
-        {
-          title: "Cert/Policy No.",
-          data: "CERT_POLICY_NO",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Assured Name",
-          data: "ASSURED_NAME",
-        },
-        {
-          title: "Paid Up Amount",
-          data: "PAIDUP_AMT",
-        },
-        {
-          title: "Sum of Assured",
-          data: "SUM_ASSURED",
-        },
-        {
-          title: "Premium Amount",
-          data: "PREMIUM",
-        },
-        {
-          title: "Surrender Value",
-          data: "SURRENDER_VALUE",
-        },
-        {
-          title: "Premium Due Date",
-          data: "PREMIUM_DUE_DATE",
-        },
-        {
-          title: "Matured Due Date",
-          data: "MATURE_DUE_DATE",
-        },
-        {
-          title: "Nominee",
-          data: "NOMINEE",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/govt-security-and-lic",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.governmentmasters = resp.data;
+
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Cert/Policy Date",
+    //       data: "CERT_POLICY_DATE",
+    //     },
+    //     {
+    //       title: "Cert/Policy No.",
+    //       data: "CERT_POLICY_NO",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Assured Name",
+    //       data: "ASSURED_NAME",
+    //     },
+    //     {
+    //       title: "Paid Up Amount",
+    //       data: "PAIDUP_AMT",
+    //     },
+    //     {
+    //       title: "Sum of Assured",
+    //       data: "SUM_ASSURED",
+    //     },
+    //     {
+    //       title: "Premium Amount",
+    //       data: "PREMIUM",
+    //     },
+    //     {
+    //       title: "Surrender Value",
+    //       data: "SURRENDER_VALUE",
+    //     },
+    //     {
+    //       title: "Premium Due Date",
+    //       data: "PREMIUM_DUE_DATE",
+    //     },
+    //     {
+    //       title: "Matured Due Date",
+    //       data: "MATURE_DUE_DATE",
+    //     },
+    //     {
+    //       title: "Nominee",
+    //       data: "NOMINEE",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
   }
 
   createForm() {
@@ -275,6 +295,8 @@ export class GovtSecurityAndLicComponent
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
 
         'CERT_POLICY_DATE': (formVal.CERT_POLICY_DATE == '' || formVal.CERT_POLICY_DATE == 'Invalid date') ? certicatedate = '' : certicatedate = moment(formVal.CERT_POLICY_DATE).format('DD/MM/YYYY'),
@@ -300,7 +322,7 @@ export class GovtSecurityAndLicComponent
           let info = []
           info.push(data.id)
           info.push("govSecurity")
-  
+
           this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -374,6 +396,7 @@ export class GovtSecurityAndLicComponent
     if (ele <= 100) {
 
     } else {
+      this.angForm.controls['MARGIN'].reset()
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }

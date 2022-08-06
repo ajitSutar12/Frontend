@@ -36,6 +36,10 @@ export class TranscationInputSettingService {
 
         return this.http.put(this.url + '/transcation-input-gl-head-setting/update', data);
     }
+
+    duplicatecheck(data): Observable<any> {
+        return this.http.post(this.url + '/transcation-input-gl-head-setting/duplicatecheck', data);
+    }
     //Deletion Operation
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/transcation-input-gl-head-setting/delete/' + id).pipe(catchError(this.handleError));

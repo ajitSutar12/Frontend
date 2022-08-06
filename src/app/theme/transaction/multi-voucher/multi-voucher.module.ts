@@ -18,6 +18,9 @@ import { TransactionTransferModeService } from 'src/app/shared/elements/transact
 import { SchemeTypeService } from 'src/app/shared/elements/scheme-type.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
+import { VoucherEntryService } from '../voucher-entry/voucher-entry.service'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -31,11 +34,11 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
     DatepickerModule.forRoot(),
   ],
   declarations: [MultiVoucherComponent],
-  exports:[MultiVoucherComponent],
+  exports: [MultiVoucherComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  }, SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService,TransactionCashModeService,TransactionTransferModeService,SchemeTypeService,SchemeCodeDropdownService,SavingMasterService,]
+  }, SystemMasterParametersService, VoucherEntryService, CustomerIdService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,]
 })
 export class MultiVoucherModule { }

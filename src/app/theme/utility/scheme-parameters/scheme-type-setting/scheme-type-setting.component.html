@@ -18,14 +18,12 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                    <ng-select id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
-                        formControlName="S_ACNOTYPE" bindLabel="label"
-                        title="Compulsory Selection"
-                        [ngClass]="{'form-submitted': formSubmitted}"
-                        required placeholder="Scheme Type">
-                        <ng-option *ngFor="let values of schemetype" [value]="values">{{values.label}}</ng-option>      
-                    </ng-select>
-                    <label for="S_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                  <ng-select id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme" formControlName="S_ACNOTYPE"
+                    bindLabel="label" title="Compulsory Selection" (change)="checkduplicate()"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type">
+                    <ng-option *ngFor="let values of schemetype" [value]="values">{{values.label}}</ng-option>
+                  </ng-select>
+                  <label for="S_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
                 </span>
               </div>
             </div>
@@ -33,7 +31,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
-                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="50"
                     formControlName="S_NAME" />
                   <label for="S_NAME">Description<sub class="required">* </sub></label>
@@ -116,7 +114,8 @@
                               ">
                               <input class="border-checkbox" type="checkbox" id="S_MULTY_VOUCHER"
                                 formControlName="S_MULTY_VOUCHER" />
-                              <label class="border-checkbox-label" for="S_MULTY_VOUCHER">Is Multi Voucher Required?</label>
+                              <label class="border-checkbox-label" for="S_MULTY_VOUCHER">Is Multi Voucher
+                                Required?</label>
                             </div>
                           </div>
                         </div>
@@ -130,23 +129,24 @@
                                 formControlName="S_CASH_PAID_LOCK" (click)="cashpaymentlock($event)" />
                               <label class="border-checkbox-label" for="S_CASH_PAID_LOCK">Is Required Cash Payment
                                 Lock?
-                                
+
                               </label>
                             </div>
                           </div>
-                          
+
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
-                              <input style="text-align: right;" type="text" name="S_CASH_PAID_MIN_AMT" class="form-control" placeholder=" "
-                                id="S_CASH_PAID_MIN_AMT"  pattern="\d{1,20}(\.\d{1,2})?"
+                              <input style="text-align: right;" type="text" name="S_CASH_PAID_MIN_AMT"
+                                class="form-control" placeholder=" " id="S_CASH_PAID_MIN_AMT"
+                                pattern="\d{1,20}(\.\d{1,2})?"
                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                 title="Input allowed only  0-9/ . (Space)" maxlength="20,2"
                                 formControlName="S_CASH_PAID_MIN_AMT" disabled />
                               <label for="S_CASH_PAID_MIN_AMT">Show Message when cash Payment Min Rs.
-                             
-                                
+
+
                               </label>
                             </span>
                           </div>
@@ -176,7 +176,7 @@
                       <div class="card-header">
                         <h5>Clearing</h5>
                       </div>
-                    
+
                       <div class="card-block">
                         <div class="row">
                           <div class="col-sm">
@@ -189,7 +189,7 @@
                                   formControlName="S_LOCAL_CLEARING" />
                                 <label class="border-checkbox-label" for="S_LOCAL_CLEARING">Is Local Clearing
                                   Applicable?
-                                  
+
                                 </label>
                               </div>
                             </div>
@@ -204,7 +204,7 @@
                                 <input class="border-checkbox" type="checkbox" id="S_CHEQUE_BOOK"
                                   formControlName="S_CHEQUE_BOOK" />
                                 <label class="border-checkbox-label" for="S_CHEQUE_BOOK">Is Cheue Book Required?
-                                  
+
                                 </label>
                               </div>
                             </div>
@@ -222,8 +222,8 @@
                                   formControlName="S_DEMAND_DRAFT" />
                                 <label class="border-checkbox-label" for="S_DEMAND_DRAFT">Is Demand Draft
                                   Applicable?
-                                
-                                
+
+
                                 </label>
                               </div>
                             </div>
@@ -237,7 +237,7 @@
                                 <input class="border-checkbox" type="checkbox" id="IS_PO_APPL"
                                   formControlName="IS_PO_APPL" />
                                 <label class="border-checkbox-label" for="IS_PO_APPL">Is Pay Order Applicable?
-                                 
+
                                 </label>
                               </div>
                             </div>
@@ -267,7 +267,7 @@
                                   formControlName="S_TEMP_OVERDRFT" />
                                 <label class="border-checkbox-label" for="S_TEMP_OVERDRFT">Is Temporary Overdraft
                                   Applicable
-                                  
+
                                   ?</label>
                               </div>
                             </div>
@@ -283,7 +283,7 @@
                                   formControlName="S_PERIODCL_OVERDRFT" />
                                 <label class="border-checkbox-label" for="S_PERIODCL_OVERDRFT">Is Periodically Overdraft
                                   Applicable?
-                                  
+
                                 </label>
                               </div>
                             </div>
@@ -313,7 +313,7 @@
                                   formControlName="S_SPECIAL_INSTRUCTION" />
                                 <label class="border-checkbox-label" for="S_SPECIAL_INSTRUCTION">Is Special Instruction
                                   Applicable?
-                                 
+
                                 </label>
                               </div>
                             </div>
@@ -329,7 +329,7 @@
                                   formControlName="S_SUB_PRINT" />
                                 <label class="border-checkbox-label" for="S_SUB_PRINT">Is Subsidiary Print
                                   Required?
-                                  
+
                                 </label>
                               </div>
                             </div>
@@ -346,7 +346,7 @@
                                   formControlName="S_FREEZE_APPLICABLE" />
                                 <label class="border-checkbox-label" for="S_FREEZE_APPLICABLE">Is Freeze Account
                                   Applicable?
-                                  
+
                                 </label>
                               </div>
                             </div>
@@ -360,10 +360,10 @@
             </div>
           </div>
           <div class="row">
-            
+
             <div class="col-sm">
-              <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" [disabled]="angForm.invalid" (click)="submit()"
-                [disabled]="angForm.invalid">Submit</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" [disabled]="angForm.invalid"
+                (click)="submit()" [disabled]="angForm.invalid">Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
                 [disabled]="angForm.invalid">Update</button> &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
@@ -389,7 +389,7 @@
                   <tr *ngFor="let data of schemetypes">
                     <td>
                       <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span> 
+                        placement="bottom" ngbTooltip="Edit"></span>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
@@ -418,16 +418,16 @@
                 </tbody>
                 <tfoot #filters class="filters">
                   <tr class="testing">
-              
+
                     <th class="testing"></th>
                     <th>
-                      <input type="text" class="form-control"  name="id" />
+                      <input type="text" class="form-control" name="id" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_ACNOTYPE" />
+                      <input type="text" class="form-control" name="S_ACNOTYPE" />
                     </th>
                     <th>
-                      <input type="text" class="form-control"  name="S_NAME" />
+                      <input type="text" class="form-control" name="S_NAME" />
                     </th>
                     <!-- <th>
                       <input type="text" class="form-control"  name="S_SINGLE_VOUCHER" />

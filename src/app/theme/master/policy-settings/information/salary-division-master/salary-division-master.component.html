@@ -27,7 +27,7 @@
                                     #autofocus id="FullName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
-                                    <label for="FullName">Full Name<sub class="required">* </sub></label>
+                                    <label for="FullName">Division Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)" class="alert alert-danger">

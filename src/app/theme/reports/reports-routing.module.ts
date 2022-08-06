@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
+const routes: Routes = [ 
   {
     path: '',
     data: {
@@ -83,7 +83,16 @@ const routes: Routes = [
         path: 'finalReports',
         loadChildren: () => import('./final-reports/finalReports.module').then(m => m.FinalReportsModule)
       },
-
+      //
+      {
+        path: 'Report_Frame',
+        loadChildren: () => import('./report-frame/report-frame.Module').then(m => m.ReportFrameModule)
+      },
+      //
+      {
+        path: 'PigmyReport',
+        loadChildren: () => import('./pigmy-report/pigmy-report.module').then(m => m.PigmyReportModule)
+      },
     ]
   }
 ];

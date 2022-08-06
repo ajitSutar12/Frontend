@@ -223,7 +223,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       TAN_NO: ['', [Validators.pattern]],
       PAN_NO: ['', [Validators.pattern, Validators.required]],
       FLAT_PRM_NO: ['', [Validators.pattern]],
-      FLAT_PRM_NAME: ['', [Validators.pattern]],
+      FLAT_PRM_NAME: ['', []],
       RD_LANE_NAME: ['', [Validators.pattern]],
       AREA_LOCATION: ['', [Validators.pattern]],
       CITY_CODE: ['', [Validators.pattern]],

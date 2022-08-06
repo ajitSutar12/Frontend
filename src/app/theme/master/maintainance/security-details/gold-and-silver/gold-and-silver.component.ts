@@ -26,6 +26,7 @@ import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { first } from "rxjs/operators";
 
 // Handling datatable data
 class DataTableResponse {
@@ -72,6 +73,8 @@ export class GoldAndSilverComponent
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -126,110 +129,126 @@ export class GoldAndSilverComponent
     this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/gold-and-silver",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.goldMaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Item Type",
-          data: "ITEM_TYPE",
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Bag Receipt No.",
-          data: "BAG_RECEIPT_NO",
-        },
-        {
-          title: "Gold Box No.",
-          data: "GOLD_BOX_NO",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Article Name",
-          data: "ARTICLE_NAME",
-        },
-        {
-          title: "Total Weight",
-          data: "TOTAL_WEIGHT_GMS",
-        },
-        {
-          title: "Clear Weight",
-          data: "CLEAR_WEIGHT_GMS",
-        },
-        {
-          title: "Rate",
-          data: "RATE",
-        },
-        {
-          title: "Total Value",
-          data: "TOTAL_VALUE",
-        },
-        {
-          title: "Details",
-          data: "REMARK",
-        },
-        {
-          title: "Nominee",
-          data: "NOMINEE",
-        },
-        {
-          title: "Nominee Relation",
-          data: "NOMINEE_RELATION",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._goldsilverService.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.goldMaster = data
+    })
+
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/gold-and-silver",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.goldMaster = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Item Type",
+    //       data: "ITEM_TYPE",
+    //     },
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Bag Receipt No.",
+    //       data: "BAG_RECEIPT_NO",
+    //     },
+    //     {
+    //       title: "Gold Box No.",
+    //       data: "GOLD_BOX_NO",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Article Name",
+    //       data: "ARTICLE_NAME",
+    //     },
+    //     {
+    //       title: "Total Weight",
+    //       data: "TOTAL_WEIGHT_GMS",
+    //     },
+    //     {
+    //       title: "Clear Weight",
+    //       data: "CLEAR_WEIGHT_GMS",
+    //     },
+    //     {
+    //       title: "Rate",
+    //       data: "RATE",
+    //     },
+    //     {
+    //       title: "Total Value",
+    //       data: "TOTAL_VALUE",
+    //     },
+    //     {
+    //       title: "Details",
+    //       data: "REMARK",
+    //     },
+    //     {
+    //       title: "Nominee",
+    //       data: "NOMINEE",
+    //     },
+    //     {
+    //       title: "Nominee Relation",
+    //       data: "NOMINEE_RELATION",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
 
     this.runTimer();
     this.dataSub = this._golddrop.loadCharacters().subscribe((options) => {
@@ -282,6 +301,8 @@ export class GoldAndSilverComponent
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
         ITEM_TYPE: formVal.ITEM_TYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
         BAG_RECEIPT_NO: formVal.BAG_RECEIPT_NO,
@@ -303,7 +324,7 @@ export class GoldAndSilverComponent
           let info = []
           info.push(data.id)
           info.push("goldSilver")
-  
+
           this.newItemEvent(info);
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -470,4 +491,25 @@ export class GoldAndSilverComponent
     });
   }
 
+  total() {
+    // value="({{ ClearWeight * rate}}).toFixed(2)"
+    let weight
+    let rate
+    if (this.angForm.controls['CLEAR_WEIGHT_GMS'].value == '' || this.angForm.controls['CLEAR_WEIGHT_GMS'].value == undefined) {
+      weight = 0
+    } else {
+      weight = this.angForm.controls['CLEAR_WEIGHT_GMS'].value
+    }
+
+    if (this.angForm.controls['RATE'].value == '' || this.angForm.controls['RATE'].value == undefined) {
+      rate = 0
+    } else {
+      rate = this.angForm.controls['RATE'].value
+    }
+    let tot = (weight * rate).toFixed(2)
+    this.angForm.patchValue({
+      TOTAL_VALUE: tot
+    })
+
+  }
 }

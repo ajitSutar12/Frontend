@@ -201,7 +201,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       SIZE_SR_NO: ['', [Validators.required]],
       LOCKER_NO: ['', [Validators.required, Validators.pattern]],
       KEY_NO: ['', [Validators.required, Validators.pattern]],
-      BRANCH_CODE:['']
+      BRANCH_CODE: ['', [Validators.required]]
     });
   }
 
@@ -253,7 +253,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     this.newbtnShow = true;
     this.lockerRackWiseMasterService.getFormData(id).subscribe(data => {
       this.ngBranchCode = Number(data.BRANCH_CODE),
-      this.updateID = data.id;
+        this.updateID = data.id;
       this.angForm.patchValue({
         'RACK_NO': data.RACK_NO,
         'LOCKER_NO': data.LOCKER_NO,
@@ -376,7 +376,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       this.dtTrigger.next();
     });
   }
-  getlocker(event){
+  getlocker(event) {
     console.log(event)
     console.log(this.ngBranchCode)
     this.lockerSMaster.getLockerSMasterListbranch(this.ngBranchCode).pipe(first()).subscribe(data => {

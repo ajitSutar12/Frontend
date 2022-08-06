@@ -5,9 +5,9 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class UnitOfTDPeriodService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'BOTH', label: 'BOTH' },
-        { value: 'DAYS', label: 'DAYS' },
-        { value: 'MONTHS', label: 'MONTHS' }
+        { value: 'B', label: 'BOTH' },
+        { value: 'D', label: 'DAYS' },
+        { value: 'M', label: 'MONTHS' }
     ];
 
     getCharacters(): Array<IOption> {

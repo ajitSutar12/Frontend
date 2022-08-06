@@ -29,6 +29,10 @@ export class GeneralLedgerSchemeService {
     getFormData(id: any): Observable<any> {
         return this.http.get(this.url + '/general-ledger-scheme/' + id).pipe(catchError(this.handleError));
     }
+
+    getData(): Observable<any> {
+        return this.http.get(this.url + '/general-ledger-scheme/').pipe(catchError(this.handleError));
+    }
     //Updation Operation
     updateData(data): Observable<any> {
         return this.http.put(this.url + '/general-ledger-scheme/update', data);

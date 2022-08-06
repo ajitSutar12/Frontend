@@ -65,6 +65,14 @@ export class VoucherEntryService {
   reject(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/reject', data).pipe(catchError(this.handleError));
   }
+  // ledger balance function
+  getledgerbalance(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/getledgerbalance', data).pipe(catchError(this.handleError));
+  }
+
+  getPassedUnpassedBalance(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/getPassedUnpassedBalance', data).pipe(catchError(this.handleError));
+  }
 
 
   // Check Zero Balance of account
@@ -195,6 +203,18 @@ export class VoucherEntryService {
 
   calculateDividend(data): Observable<any> {
     return this.http.post(this.url + '/voucher/calculateDividend', data);
+  }
+
+  VoucherPassing(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/VoucherPassing', data);
+  }
+
+  ZeroBalance(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/ZeroBalance', data);
+  }
+
+  getInputHeadBal(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/getInputHeadBal', data);
   }
 
 

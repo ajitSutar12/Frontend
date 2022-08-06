@@ -334,6 +334,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.sharesSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngglacno = Number(data.S_GLACNO)
@@ -378,6 +379,8 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.newbtnShow = false;
       //this.rerender();
       this.resetForm();
+      this.angForm.controls['S_APPL'].enable()
+
     })
   }
   addNewData() {
@@ -389,6 +392,8 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   resetForm() {
     this.createForm();
     this.ngglacno = null
+    this.angForm.controls['S_APPL'].enable()
+
   }
   //Method for delete data
   delClickHandler(id: number) {
@@ -459,5 +464,25 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 901 && Number(obj.scheme) <= 999) {
+        this.sharesSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 901 to 999 this range', 'error')
+      }
+    }
   }
 }

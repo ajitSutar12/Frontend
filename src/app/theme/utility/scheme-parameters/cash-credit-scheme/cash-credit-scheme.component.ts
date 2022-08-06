@@ -494,6 +494,21 @@ export class CashCreditSchemeComponent implements OnInit {
   submit() {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
+    let Gold
+    let depo
+    if (formVal.IS_DEPO_LOAN == '1') {
+      Gold = 0
+      depo = 1
+
+    } else if (formVal.IS_DEPO_LOAN == '0') {
+      Gold = 1
+      depo = 0
+
+    } else if (formVal.IS_DEPO_LOAN == '2') {
+      Gold = 0
+      depo = 0
+    }
+
     const dataToSend = {
       S_ACNOTYPE: formVal.S_ACNOTYPE,
       S_APPL: formVal.S_APPL,
@@ -526,8 +541,8 @@ export class CashCreditSchemeComponent implements OnInit {
       OVERDRAFT_INTEREST_APPLICABLE: formVal.OVERDRAFT_INTEREST_APPLICABLE,
       OVERDRAFT_INTEREST_RATE: formVal.OVERDRAFT_INTEREST_RATE,
       CHEQUEBOOK_MIN_BAL: formVal.CHEQUEBOOK_MIN_BAL,
-      IS_DEPO_LOAN: formVal.IS_DEPO_LOAN,
-      IS_GOLDLOAN: formVal.IS_GOLDLOAN,
+      IS_DEPO_LOAN: depo,
+      IS_GOLDLOAN: Gold,
     };
     this.cashcreditservice.postData(dataToSend).subscribe(
       (data1) => {
@@ -547,11 +562,15 @@ export class CashCreditSchemeComponent implements OnInit {
     this.angForm.reset();
   }
 
+  IS_DEPO_LOAN: boolean = false
+  IS_GOLDLOAN: boolean = false
+  IS_BOTH: boolean = false
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.cashcreditservice.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.ngglacno = Number(data.S_GLACNO)
@@ -597,6 +616,20 @@ export class CashCreditSchemeComponent implements OnInit {
 
 
       });
+
+      if (data.IS_DEPO_LOAN == '1' && data.IS_GOLDLOAN == '0') {
+        this.IS_DEPO_LOAN = true
+        this.IS_GOLDLOAN = false
+        this.IS_BOTH = false
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '1') {
+        this.IS_DEPO_LOAN = false
+        this.IS_GOLDLOAN = true
+        this.IS_BOTH = false
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '0') {
+        this.IS_DEPO_LOAN = false
+        this.IS_GOLDLOAN = false
+        this.IS_BOTH = true
+      }
 
       if (data.S_INT_APPLICABLE == '1') {
         document
@@ -677,7 +710,26 @@ export class CashCreditSchemeComponent implements OnInit {
   //Method for update data
   updateData() {
     let data = this.angForm.value;
+    let Gold
+    let depo
+    if (data.IS_DEPO_LOAN == '1') {
+      Gold = 0
+      depo = 1
+
+    } else if (data.IS_DEPO_LOAN == '0') {
+      Gold = 1
+      depo = 0
+
+    } else if (data.IS_DEPO_LOAN == '2') {
+      Gold = 0
+      depo = 0
+    }
+
+
     data["id"] = this.updateID;
+
+    data['IS_DEPO_LOAN'] = depo
+    data['IS_GOLDLOAN'] = Gold
     data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
     data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
     data['S_RECEIVABLE_INT_ALLOW'] = (data.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0')
@@ -702,6 +754,8 @@ export class CashCreditSchemeComponent implements OnInit {
         dtInstance.ajax.reload();
       });
       this.angForm.reset();
+      this.angForm.controls['S_APPL'].enable()
+
     });
   }
   addNewData() {
@@ -831,6 +885,54 @@ export class CashCreditSchemeComponent implements OnInit {
       this.OverDraftInteresttypeTrue = false;
       this.otherSettingsTrue = false;
       this.cashCredittypeTrue = true;
+    }
+  }
+
+  isDepoloan(value) {
+    if (value == 1) {
+      this.IS_DEPO_LOAN = true
+      this.IS_GOLDLOAN = false
+      this.IS_BOTH = false
+      this.angForm.patchValue({
+        'IS_DEPO_LOAN': 1,
+        'IS_GOLDLOAN': 0
+      })
+    } else if (value == 2) {
+      this.IS_DEPO_LOAN = false
+      this.IS_GOLDLOAN = true
+      this.IS_BOTH = false
+      this.angForm.patchValue({
+        'IS_DEPO_LOAN': 0,
+        'IS_GOLDLOAN': 1
+      })
+    } else if (value == 3) {
+      this.IS_DEPO_LOAN = false
+      this.IS_GOLDLOAN = false
+      this.IS_BOTH = true
+      this.angForm.patchValue({
+        'IS_DEPO_LOAN': 0,
+        'IS_GOLDLOAN': 0
+      })
+    }
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 601 && Number(obj.scheme) <= 699) {
+        this.cashcreditservice.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 601 to 699 this range', 'error')
+      }
     }
   }
 }

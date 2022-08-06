@@ -13,6 +13,9 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { SecurityMasterdropdownService } from 'src/app/shared/dropdownService/security-master-dropdown.service';
 import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { VoucherEntryService } from '../../../transaction/voucher-entry/voucher-entry.service'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-security-details',
@@ -25,6 +28,7 @@ export class SecurityDetailsComponent implements OnInit {
   Accountno: any;
   schemeedit: any;
   accountedit: any;
+  accountedit1: any;
   acno: any;
 
 
@@ -51,6 +55,7 @@ export class SecurityDetailsComponent implements OnInit {
   //Scheme type variable
   schemeType: string = 'CC'
   schemeType1: string = 'LN'
+  ngBranchCode: any
 
   Data: any;
   security: any[]
@@ -58,7 +63,7 @@ export class SecurityDetailsComponent implements OnInit {
   //title select variables
   simpleOption: Array<IOption> = this.S1Service.getCharacters();
   Ac: Array<IOption> = this.Ac1Service.getCharacters();
-
+  branch_code: any[]
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -77,51 +82,68 @@ export class SecurityDetailsComponent implements OnInit {
     private _SecurityCode: SecurityCodeService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private _voucher: VoucherEntryService,
+
     private config: NgSelectConfig,) { }
   ngOnInit(): void {
     this.createForm()
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Name',
-          data: 'name'
-        }, {
-          title: 'Position',
-          data: 'position'
-        }, {
-          title: 'Office',
-          data: 'office'
-        }, {
-          title: 'Age',
-          data: 'age'
-        }, {
-          title: 'Start Date',
-          data: 'date'
-        }, {
-          title: 'Salary',
-          data: 'salary'
-        }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    console.log(result)
+    if (result.RoleDefine[0].RoleId == 1) {
+      this.ngBranchCode = result.branchId
+      this.angForm.controls['BRANCH_CODE'].enable()
+    } else {
+      this.ngBranchCode = result.branchId
+      this.angForm.controls['BRANCH_CODE'].disable()
 
-    };
+    }
 
+    // this.dtExportButtonOptions = {
+    //   ajax: 'fake-data/datatable-data.json',
+    //   columns: [
+    //     {
+    //       title: 'Action',
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
+    //       }
+    //     },
+    //     {
+    //       title: 'Name',
+    //       data: 'name'
+    //     }, {
+    //       title: 'Position',
+    //       data: 'position'
+    //     }, {
+    //       title: 'Office',
+    //       data: 'office'
+    //     }, {
+    //       title: 'Age',
+    //       data: 'age'
+    //     }, {
+    //       title: 'Start Date',
+    //       data: 'date'
+    //     }, {
+    //       title: 'Salary',
+    //       data: 'salary'
+    //     }],
+    //   dom: 'Bfrtip',
+    //   buttons: [
+    //     'copy',
+    //     'print',
+    //     'excel',
+    //     'csv'
+    //   ]
+
+    // };
 
     this.runTimer();
 
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
 
+    })
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'LN' || scheme.name == 'CC');
@@ -135,8 +157,6 @@ export class SecurityDetailsComponent implements OnInit {
   }
 
 
-
-
   // newItemEvent(scheme){
   //   console.log(scheme)
   // }
@@ -147,44 +167,28 @@ export class SecurityDetailsComponent implements OnInit {
     this.schemeedit = event.value
     this.getIntroducer()
 
-
   }
+
   obj: any
   getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
 
-
-    let data1: any = localStorage.getItem('user');
-    let result = JSON.parse(data1);
-    let branchCode = result.branch.id;
-
-    this.obj = [this.schemeedit, branchCode]
-
+    this.obj = [this.schemeedit, this.ngBranchCode]
 
     switch (this.getschemename) {
-
       case 'CC':
-
         this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
-
         })
         break;
       case 'LN':
-
         this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
-
-
         })
         break;
-
-
     }
   }
-
-
 
   runTimer() {
     const timer = setInterval(() => {
@@ -200,22 +204,23 @@ export class SecurityDetailsComponent implements OnInit {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
-      LEDGER_BAL: ['']
+      LEDGER_BAL: [''],
+      SECURITY_CODE: [''],
+      BRANCH_CODE: [''],
+
     });
   }
   submit() {
     // this.formSubmitted = true;
-
-
     if (this.angForm.valid) {
- 
+
     }
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
   }
-  
+
   //output functionality
   addItem(newItem: any) {
 
@@ -232,14 +237,31 @@ export class SecurityDetailsComponent implements OnInit {
     newItem.AccountNo == null ? this.accountedit = null : this.accountedit = newItem.AccountNo
   }
 
-
   Accountnochange(event) {
 
-    this.Accountno = event.value;
-    this.accountedit = event.value
+    this.Accountno = event.bankacno;
+    this.accountedit = event.bankacno
+    this.accountedit1 = event.value
 
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    console.log(result.branch.syspara.CURRENT_DATE)
+    let datadate = result.branch.syspara.CURRENT_DATE
+    var addInFrom = moment(datadate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    let obj = {
+      scheme: this.schemeedit,
+      acno: event.bankacno,
+      date: addInFrom
+    }
+    this._voucher.getledgerbalance(obj).subscribe(data => {
+      this.angForm.patchValue({
+
+        'LEDGER_BAL': Math.abs(data)
+      })
+    })
 
   }
+
   OpenLink(val) {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;

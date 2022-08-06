@@ -16,7 +16,7 @@
                   <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
                     id="S_APPL" required="" #autofocus pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3"
                     minlength="3" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="901" max="999"
-                    formControlName="S_APPL" #autofocus />
+                    (focusout)="checkDuplicate($event)" formControlName="S_APPL" #autofocus />
 
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
@@ -211,9 +211,9 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input style="text-align: right;" type="text" name="MAX_SHARES_LIMIT" class="form-control"
-                              placeholder=" " id="MAX_SHARES_LIMIT"
+                              placeholder=" " id="MAX_SHARES_LIMIT" maxlength="10"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              pattern="\d{1,2}(\.\d{1,2})?" title="Input allowed only . 0-9"
+                              pattern="\d{1,9}(\.\d{1,2})?" title="Input allowed only . 0-9"
                               formControlName="MAX_SHARES_LIMIT" />
                             <label for="MAX_SHARES_LIMIT">Maximum Number of Shares Limit</label>
                           </span>
@@ -262,8 +262,7 @@
                       <div class="row">
                         <div class="radio radio-inline">
                           <label>
-                            <input type="radio" value="Compounding" name="INTEREST_RULE"
-                              formControlName="INTEREST_RULE" />
+                            <input type="radio" value="0" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>0. Compounding<span class="required">
                             </span>
                           </label>
@@ -272,8 +271,7 @@
                       <div class="row">
                         <div class="radio radio-inline">
                           <label>
-                            <input type="radio" value="SimpleasperSharesClosingBalance" name="INTEREST_RULE"
-                              formControlName="INTEREST_RULE" />
+                            <input type="radio" value="1" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>1. Simple as per Shares Closing
                             Balance<span class="required"> </span>
                           </label>
@@ -282,8 +280,7 @@
                       <div class="row">
                         <div class="radio radio-inline">
                           <label>
-                            <input type="radio" value="SimpleDaysBasis+Transactionwise" name="INTEREST_RULE"
-                              formControlName="INTEREST_RULE" />
+                            <input type="radio" value="2" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>2. Simple Days Basis +
                             Transaction wise<span class="required"> </span>
                           </label>
@@ -292,8 +289,7 @@
                       <div class="row">
                         <div class="radio radio-inline">
                           <label>
-                            <input type="radio" value="TransactionWise" name="INTEREST_RULE"
-                              formControlName="INTEREST_RULE" />
+                            <input type="radio" value="3" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>3. Transaction Wise<span class="required">
                             </span>
                           </label>
@@ -302,8 +298,7 @@
                       <div class="row">
                         <div class="radio radio-inline">
                           <label>
-                            <input type="radio" value="MonthBasis+Transactionwise" name="INTEREST_RULE"
-                              formControlName="INTEREST_RULE" />
+                            <input type="radio" value="4" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>4. Month Basis + Transaction
                             wise<span class="required"> </span>
                           </label>
@@ -451,7 +446,7 @@
                           <div class="row">
                             <div class="radio radio-inline">
                               <label>
-                                <input type="radio" value="CreditAmountOnDate" name="SH_CERTIFICATE_METHOD"
+                                <input type="radio" value="1" name="SH_CERTIFICATE_METHOD"
                                   formControlName="SH_CERTIFICATE_METHOD" />
                                 <i class="helper"></i>Credit Amount On Date<span class="required">
                                 </span>
@@ -462,7 +457,7 @@
                           <div class="row">
                             <div class="radio radio-inline">
                               <label>
-                                <input type="radio" value="ClosingBalance" name="SH_CERTIFICATE_METHOD"
+                                <input type="radio" value="2" name="SH_CERTIFICATE_METHOD"
                                   formControlName="SH_CERTIFICATE_METHOD" />
                                 <i class="helper"></i>Closing Balance<span class="required">
                                 </span>
@@ -472,7 +467,7 @@
                           <div class="row">
                             <div class="radio radio-inline">
                               <label>
-                                <input type="radio" value="CreditAmountBetweenDates" name="SH_CERTIFICATE_METHOD"
+                                <input type="radio" value="3" name="SH_CERTIFICATE_METHOD"
                                   formControlName="SH_CERTIFICATE_METHOD" />
                                 <i class="helper"></i>Credit Amount Between
                                 Dates<span class="required"> </span>

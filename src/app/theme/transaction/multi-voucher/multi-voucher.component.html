@@ -96,8 +96,9 @@
                                     <div class="col-sm-2">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
-                                                    formControlName="scheme_type" >
+                                                <ng-select [(ngModel)]="selectedCode"
+                                                    (change)="selectedSchemeCode();resetscheme()"
+                                                    formControlName="scheme_type">
                                                     <ng-option *ngFor="let item of allSchemeCode"
                                                         [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
                                                 </ng-select>
@@ -117,8 +118,8 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedScheme"  bindValue="id"
-                                                    (change)="getIntroducer($event)"  formControlName="scheme">
+                                                <ng-select [(ngModel)]="selectedScheme" bindValue="id"
+                                                    (change)="getIntroducer($event)" formControlName="scheme">
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
                                                         {{item.S_APPL}} {{item.S_NAME}}
                                                     </ng-option>
@@ -137,7 +138,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account No.<sub
+                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account Number<sub
                                                 class="required">*</sub></label></div>
 
                                     <div class="col-sm-6">
@@ -145,7 +146,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="customer" bindValue="id"
                                                     formControlName="account_no"
-                                                    (change)="getVoucherData($event);checkAccountCondition()">
+                                                    (change)="getVoucherData($event);checkAccountCondition();showlgindetails();SideDetails()">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
@@ -167,7 +168,8 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedMode" bindValue="id"
-                                                    formControlName="tran_mode" (change)="changeMode($event)" >
+                                                    formControlName="tran_mode"
+                                                    (change)="changeMode($event);checktranCondition();updateheadbalance()">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
                                                 </ng-select>
@@ -258,7 +260,8 @@
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR"
                                                     style="text-transform: capitalize;" maxlength="15"
-                                                    (focusout)="decimalAllContent($event);checkCondition($event)"
+                                                    (keyup)="getaftervoucher($event)"
+                                                    (focusout)="decimalAllContent($event); checkCondition($event);checkamtcondition($event)"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                                     formControlName="amt" (keyup)="getAmt($event)">
 
@@ -291,32 +294,63 @@
                                                             <!-- <th>Sr  No</th> -->
                                                             <td>Head</td>
                                                             <td>Interset Date</td>
-                                                            <td style="text-align: right;">Interset Amt</td>
+                                                            <td style="text-align: right;"> Amount</td>
                                                             <td style="text-align: right;">Balance</td>
                                                             <td>Type</td>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody *ngIf="headData?.length != 0">
                                                             <tr *ngFor="let item of headData;let i=index">
                                                                 <!-- <td>{{i+1}}</td> -->
                                                                 <td>{{item.DESCRIPTION}}</td>
-                                                                <td *ngIf="item.INTEREST_DATE_INPUT">
+                                                                <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         class="form-control"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         bsDatepicker [(ngModel)]="IntersetHeadDate"
-                                                                        formControlName="Intdate">
+                                                                        formControlName="Intdate"
+                                                                        (bsValueChange)="getColumnValue($event)">
                                                                 </td>
-                                                                <td *ngIf="!item.INTEREST_DATE_INPUT"></td>
-                                                                <td><input type="text"
+                                                                <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
+                                                                <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'">
+                                                                    <input type="text"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event)"
-                                                                        value="{{EditFlag?item.Amount:0.00}}">
+                                                                        value="0.00">
                                                                 </td>
+                                                                <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'">
+                                                                    <input type="text"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        style="width: 100%;border:none;text-align: right;"
+                                                                        (keyup)="getInputHeadAmt($event,i)"
+                                                                        (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
+                                                                        value="0.00">
+                                                                </td>
+                                                                <!-- <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
+                                                                        type="text"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        style="width: 100%;border:none;text-align: right;"
+                                                                        (keyup)="getInputHeadAmt($event,i)"
+                                                                        (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
+                                                                        value="0.00">
+                                                                </td>
+                                                                <td *ngIf="item.FIELD_AMOUNT != 'PENAL_INT_AMOUNT'"><input
+                                                                        type="text"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        style="width: 100%;border:none;text-align: right;"
+                                                                        (keyup)="getInputHeadAmt($event,i)"
+                                                                        (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
+                                                                        value="0.00">
+                                                                </td> -->
                                                                 <td class="bg-light-danger text-right"><span
-                                                                        class="text-danger">0.00</span></td>
-                                                                <td>{{item.DRCR_APPLICABLE == 'C'?'Cr':'Dr'}}</td>
+                                                                        class="text-danger">{{item.Balance}}</span></td>
+                                                                <td>{{item.type}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tbody *ngIf="headData?.length == 0">
+                                                            <tr>
+                                                                <td colspan="5" class="no-data-available">No data!</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -379,7 +413,7 @@
                                                                 <td>{{i.SHORT_NAME}}</td>
                                                                 <td>{{i.date}}</td>
                                                                 <td>{{i.Amount}}</td>
-                                                                <td>0.00</td>
+                                                                <td>{{i.Balance}}</td>
                                                                 <td>{{i.DRCR_APPLICABLE == 'C'?CR:DR}}</td>
                                                             </tr>
                                                         </tbody>
@@ -395,7 +429,7 @@
                                                 Total Credit : {{totalCredit}}
                                             </div>
                                             <div class="col-md-3">
-                                                Total Debit  : {{totalDebit}}
+                                                Total Debit : {{totalDebit}}
                                             </div>
                                         </div>
                                     </div>
@@ -473,13 +507,14 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Day Opening Bal.</h6>
+                                            <h6 class="transaction-title" style="font-size: 12px;">Day Opening Balance
+                                            </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-primary"
                                         style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{DayOpBal}}.00</div>
+                                            aria-hidden="true"></i> {{DayOpBal}}.00 {{extensionopenbal}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -497,7 +532,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{Pass}}.00</div>
+                                            aria-hidden="true"></i> {{Pass}}.00 {{passextension}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -515,7 +550,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-danger"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
+                                            aria-hidden="true"></i> <span>{{Unpass}}.00 {{unpassextension}}</span></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -529,11 +564,185 @@
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing
                                             </h6>
+                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-danger"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
                                             aria-hidden="true"></i> 0.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Temparory overdraft
+                                                Amount
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{overdraftAmt}}.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Open Date
+
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> {{opendate}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShownotLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">As On Date
+
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> {{asondate}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShowLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Sanction Date
+
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> {{sanctiondate}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Expiry Date
+
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> {{expirydate}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShowLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Renewal Date
+
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> {{renewaldate}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShowLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Sanctions Amount</h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{sanctionamt}}.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShownotLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount
+
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{depositamt}}.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="ShownotLNCC">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
+
+                                            </h6>
+                                            <!-- <small>Starbucks</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-info"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{maturityamt}}.00</div>
                                 </div>
                             </div>
                             <div class="col-md">
@@ -551,7 +760,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{ClearBalance}}.00</div>
+                                            aria-hidden="true"></i> {{ClearBalance}}.00 {{typeclearbal}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -569,21 +778,37 @@
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{AfterVoucher}}.00{{extenstionaftervoucher}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="user-avatar-section">
+                                        <div>
+                                            <span class="user-avatar-section">
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50"
+                                                    width="80" *ngIf="selectedCode !='GL'"
+                                                    (mouseover)="showImage(customerImg)" (mouseout)="hideImage()"
+                                                    alt="User avatar" />
+                                            </span> &nbsp; &nbsp;
+                                            <span class="user-avatar-section">
+                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
+                                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
+                                                    height="25" width="80" alt="User avatar"
+                                                    *ngIf="selectedCode !='GL'" />
+                                            </span>
+                                        </div>
+                                        <div class="user-info text-center">
+                                            <h6>{{Customer_Name}}</h6>
+                                        </div>
+                                        <!-- <div class="user-avatar-section">
                                             <div class="d-flex align-items-center flex-column">
                                                 <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
                                                     height="110" width="110" (mouseover)="showImage(customerImg)"
                                                     (mouseout)="hideImage()" alt="User avatar" />
                                                 <div class="user-info text-center">
-                                                    <h4>Ajit Sutar</h4>
-                                                    <!-- <span class="badge bg-light-secondary">Author</span> -->
+                                                    <h4>{{Customer_Name}}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -594,47 +819,47 @@
                                                     height="50" width="110" alt="User avatar" />
 
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- <div class="d-flex justify-content-around my-2 pt-75">
-                                          <div class="d-flex align-items-start me-2">
-                                            <span class="badge bg-light-primary p-75 rounded">
-                                              <i data-feather="check" class="font-medium-2"></i>
-                                            </span>
-                                            <div class="ms-75">
-                                              <h4 class="mb-0">1.23k</h4>
-                                              <small>Tasks Done</small>
+                                            <div class="d-flex align-items-start me-2">
+                                              <span class="badge bg-light-primary p-75 rounded">
+                                                <i data-feather="check" class="font-medium-2"></i>
+                                              </span>
+                                              <div class="ms-75">
+                                                <h4 class="mb-0">1.23k</h4>
+                                                <small>Tasks Done</small>
+                                              </div>
                                             </div>
-                                          </div>
-                                          <div class="d-flex align-items-start">
-                                            <span class="badge bg-light-primary p-75 rounded">
-                                              <i data-feather="briefcase" class="font-medium-2"></i>
-                                            </span>
-                                            <div class="ms-75">
-                                              <h4 class="mb-0">568</h4>
-                                              <small>Projects Done</small>
+                                            <div class="d-flex align-items-start">
+                                              <span class="badge bg-light-primary p-75 rounded">
+                                                <i data-feather="briefcase" class="font-medium-2"></i>
+                                              </span>
+                                              <div class="ms-75">
+                                                <h4 class="mb-0">568</h4>
+                                                <small>Projects Done</small>
+                                              </div>
                                             </div>
-                                          </div>
-                                        </div> -->
+                                          </div> -->
                                         <!-- <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4> -->
                                         <div class="info-container">
                                             <ul class="list-unstyled">
                                                 <li class="mb-75">
                                                     <span class="fw-bolder me-25">Status:</span>
-                                                    <span class="badge bg-light-success">Active</span>
+                                                    <span class="badge bg-light-success">{{Status == true || Status ==
+                                                        1? 'Inactive' :
+                                                        'Active'}}</span>
                                                 </li>
 
                                                 <li class="mb-75">
                                                     <span class="fw-bolder me-25">PAN ID:</span>
-                                                    <span>ADFE2323D</span>
+                                                    <span>{{Customer_Pan_No}}</span>
                                                 </li>
                                                 <li class="mb-75">
                                                     <span class="fw-bolder me-25">Contact:</span>
-                                                    <span>+91 7636456273</span>
+                                                    <span>+91 {{Customer_Contact_No}}</span>
                                                 </li>
-
                                             </ul>
-
                                         </div>
                                     </div>
                                 </div>
@@ -669,8 +894,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide" #triggerhide
-                        (click)="modalLarge.hide()">Close</button>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide"
+                        #triggerhide (click)="modalLarge.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>

@@ -51,9 +51,9 @@
                                                                     <input type="text" name="BANK_NAME"
                                                                         class="form-control" placeholder=" "
                                                                         id="BANK_NAME" required=""
-                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        pattern="^[A-Za-z\.,/ -]+$"
                                                                         formControlName="BANK_NAME" maxlength="90"
-                                                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || $event.charCode == 44"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
                                                                     <label for="BANK_NAME">Bank Name<sub
                                                                             class="required">*
@@ -66,7 +66,7 @@
                                                                 <div
                                                                     *ngIf="angForm.controls['BANK_NAME'].errors?.pattern || angForm.controls['BANK_NAME'].errors?.required || angForm.controls['BANK_NAME'].errors?.maxlength">
                                                                     This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    a-z - / . , (Space)
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -85,25 +85,15 @@
                                                                         formControlName="BRANCH_CODE" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Branch Code">
+                                                                        required placeholder="Branch Code"
+                                                                        [disabled]="BRANCH_CODE">
                                                                         <ng-option
                                                                             *ngFor="let values of OwnbranchMasterDropdown"
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="BRANCH_CODE">Branch Code<sub
-                                                                            class="required"> * </sub></label>
+                                                                    <label for="BRANCH_CODE">Branch Code</label>
                                                                 </span>
-                                                            </div>
-
-
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf=" angForm.controls['BRANCH_CODE'].errors?.required || angForm.controls['BRANCH_CODE'].errors?.maxlength">
-                                                                    This field is required
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -133,11 +123,6 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <!-- <input type="date" name="COMPANY_START_DATE"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="COMPANY_START_DATE"
-                                                                        max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                        formControlName="COMPANY_START_DATE"> -->
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="COMPANY_START_DATE"
                                                                         id="COMPANY_START_DATE" class="form-control"
@@ -1191,7 +1176,7 @@
                                                                         formControlName="AUTHORIZED_SHARE_CAPITAL_CODE"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required
+                                                                        required (change)="addsharepart()"
                                                                         placeholder="Share Capital Statement No">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
@@ -1226,6 +1211,147 @@
                                                                     
                                                             </div> -->
 
+                                                    </div>
+                                                    <div class="row" *ngIf="share">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" placeholder="dd/mm/yyyy"
+                                                                        name="FROM_DATE" id="FROM_DATE"
+                                                                        class="form-control"
+                                                                        [(ngModel)]="ngfromdate"
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                        [maxDate]="maxDate"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        formControlName="FROM_DATE"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                        bsDatepicker>
+                                                                    <label for="FROM_DATE">From Date
+                                                                        <sub class="required">* </sub></label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['FROM_DATE'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" placeholder="dd/mm/yyyy"
+                                                                        name="TO_DATE" id="TO_DATE" class="form-control"
+                                                                        [(ngModel)]="ngtodate"
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                        [maxDate]="maxDate"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        formControlName="TO_DATE"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                        bsDatepicker>
+                                                                    <label for="TO_DATE">To Date
+                                                                        <sub class="required">* </sub></label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['TO_DATE'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input style="text-align: right;" type="text"
+                                                                        name="AMOUNT" class="form-control"
+                                                                        placeholder=" " pattern="\d{1,20}(\.\d{1,2})?"
+                                                                        id="AMOUNT"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                                        maxlength="20" title="Input allowed only  0-9"
+                                                                        formControlName="AMOUNT">
+                                                                    <label for="AMOUNT">Amount
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['AMOUNT'].invalid && (angForm.controls['AMOUNT'].dirty || angForm.controls['AMOUNT'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf="angForm.controls['AMOUNT'].errors?.pattern || angForm.controls['AMOUNT'].errors?.maxlength">
+                                                                    Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm">
+                                                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="addShowButton"
+                                                                (click)="addField()">Add</button>&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="UpdateShowButton"
+                                                                (click)="updateField()">Update</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="share">
+                                                        <div class="col-sm">
+                                                            <div class="table-responsive">
+                                                                <table
+                                                                    class="table table-striped table-bordered table-hover compact">
+
+                                                                    <thead>
+
+                                                                        <td>Action</td>
+                                                                        <td>From Date</td>
+                                                                        <td>To Date</td>
+                                                                        <td>Amount</td>
+
+                                                                    </thead>
+                                                                    <tbody *ngIf="multiField?.length != 0">
+
+
+                                                                        <tr
+                                                                            *ngFor="let data of multiField; let indexOfelement=index;">
+                                                                            <td>
+                                                                                <span
+                                                                                    class="fa fa-fw fa-edit field-icon"
+                                                                                    id="editbutton"
+                                                                                    (click)="editField(indexOfelement)"
+                                                                                    placement="bottom"
+                                                                                    ngbTooltip="Edit"></span> &nbsp;
+
+                                                                                <!-- <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editField(indexOfelement)">Edit</button> &nbsp;
+                                                                                <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delField(indexOfelement)">Delete</button> -->
+                                                                            </td>
+
+                                                                            <td class="td_right">{{data.FROM_DATE ===
+                                                                                ''? '-' : data.FROM_DATE
+                                                                                }}</td>
+                                                                            <td class="td_right">{{data.TO_DATE === ''?
+                                                                                '-' : data.TO_DATE}}
+                                                                            </td>
+                                                                            <td class="td_right">{{data.AMOUNT ===
+                                                                                ''? '-'
+                                                                                :data.AMOUNT}}</td>
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                                    <tbody *ngIf="multiField?.length == 0">
+                                                                        <tr>
+                                                                            <td colspan="12" class="no-data-available"
+                                                                                style="text-align: center;">No data!
+                                                                            </td>
+
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm">
@@ -2813,18 +2939,10 @@
                                                                                 </ng-option>
                                                                             </ng-select>
                                                                             <label for="BACK_DAY_OPTION">Back Day Open
-                                                                                Options<sub class="required"> *
-                                                                                </sub></label>
+                                                                                Options</label>
                                                                         </span>
                                                                     </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['BACK_DAY_OPTION'].invalid && (angForm.controls['BACK_DAY_OPTION'].dirty || angForm.controls['BACK_DAY_OPTION'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf=" angForm.controls['BACK_DAY_OPTION'].errors?.required ">
-                                                                            This field is required
-                                                                        </div>
-                                                                    </div>
+
                                                                 </div>
                                                                 <div class="col-sm">
                                                                     <div class="checkbox checkbox-primary">
@@ -2983,6 +3101,7 @@
                                                                             Submit
                                                                         </button>
                                                                         <button class="btn btn-outline-primary btn-sm"
+                                                                            [disabled]="angForm.invalid"
                                                                             (click)="updateData()" *ngIf="updateShow">
                                                                             Update</button>&nbsp;
                                                                         <button class="btn btn-outline-primary btn-sm"

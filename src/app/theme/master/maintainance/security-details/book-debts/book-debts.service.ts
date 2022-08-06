@@ -14,7 +14,7 @@ export class BookdebtsService {
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/book-debts/insert", data).pipe(
@@ -40,5 +40,9 @@ export class BookdebtsService {
     return this.http
       .delete(this.url + "/book-debts/delete/" + id)
       .pipe(catchError(this.handleError));
+  }
+
+  getdatatable(data): Observable<any> {
+    return this.http.post(this.url + "/book-debts/getdatatable", data);
   }
 }

@@ -14,7 +14,7 @@ export class furnitureandfixtureservice {
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/furniture-and-fixture/insert", data).pipe(
@@ -40,5 +40,9 @@ export class furnitureandfixtureservice {
     return this.http
       .delete(this.url + "/furniture-and-fixture/delete/" + id)
       .pipe(catchError(this.handleError));
+  }
+
+  getdatatable(data): Observable<any> {
+    return this.http.post(this.url + "/furniture-and-fixture/getdatatable", data);
   }
 }

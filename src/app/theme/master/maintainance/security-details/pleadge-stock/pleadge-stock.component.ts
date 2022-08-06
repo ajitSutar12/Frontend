@@ -70,6 +70,8 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -77,11 +79,11 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number; //variable for updating
-// for date 
-submissiondate:any=null
-storagedate:any=null
-maxDate: Date;
-minDate: Date;
+  // for date 
+  submissiondate: any = null
+  storagedate: any = null
+  maxDate: Date;
+  minDate: Date;
 
 
   // Store data from backend
@@ -100,8 +102,8 @@ minDate: Date;
     private http: HttpClient,
     private _pleadge: pleadgestockService,
     public router: Router
-  ) { 
-    
+  ) {
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -110,105 +112,122 @@ minDate: Date;
 
   ngOnInit(): void {
     this.createForm();
-    // Fetching Server side data
+
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/pleadge-stock",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.pleadgeMaster = resp.data;
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._pleadge.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.pleadgeMaster = data
+    })
+    this.dtTrigger.next();
+    // Fetching Server side data
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Storage Memo No.",
-          data: "STORAGE_MEMO_NO",
-        },
-        {
-          title: "Storage Date.",
-          data: "STORAGE_DATE",
-        },
-        {
-          title: "Goods Qty",
-          data: "GOODS_QTY",
-        },
-        {
-          title: "Manufacturer/Mill",
-          data: "MANUF_MILL",
-        },
-        {
-          title: "Description",
-          data: "DISCRIPTION",
-        },
-        {
-          title: "Bal. Quantity",
-          data: "BALANCE_QTY",
-        },
-        {
-          title: "Rate",
-          data: "RATE",
-        },
-        {
-          title: "Value",
-          data: "VALUE",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/pleadge-stock",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.pleadgeMaster = resp.data;
+
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Storage Memo No.",
+    //       data: "STORAGE_MEMO_NO",
+    //     },
+    //     {
+    //       title: "Storage Date.",
+    //       data: "STORAGE_DATE",
+    //     },
+    //     {
+    //       title: "Goods Qty",
+    //       data: "GOODS_QTY",
+    //     },
+    //     {
+    //       title: "Manufacturer/Mill",
+    //       data: "MANUF_MILL",
+    //     },
+    //     {
+    //       title: "Description",
+    //       data: "DISCRIPTION",
+    //     },
+    //     {
+    //       title: "Bal. Quantity",
+    //       data: "BALANCE_QTY",
+    //     },
+    //     {
+    //       title: "Rate",
+    //       data: "RATE",
+    //     },
+    //     {
+    //       title: "Value",
+    //       data: "VALUE",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
   }
 
   createForm() {
@@ -234,63 +253,66 @@ minDate: Date;
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-     
+
       const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme,
-      AC_NO: this.Accountno,
-      AC_ACNOTYPE: this.AC_ACNOTYPE,
-      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      
-      STORAGE_MEMO_NO: formVal.STORAGE_MEMO_NO,
-      'STORAGE_DATE': (formVal.STORAGE_DATE == '' || formVal.STORAGE_DATE == 'Invalid date') ? storagedate = '' : storagedate = moment(formVal.STORAGE_DATE).format('DD/MM/YYYY'),
-      
-      GOODS_QTY: formVal.GOODS_QTY,
-      MANUF_MILL: formVal.MANUF_MILL,
-      DISCRIPTION: formVal.DISCRIPTION,
-      BALANCE_QTY: formVal.BALANCE_QTY,
-      RATE: formVal.RATE,
-      VALUE: formVal.VALUE,
-      MARGIN: formVal.MARGIN,
-      REMARK: formVal.REMARK,
-    };
+      const dataToSend = {
+        AC_TYPE: this.scheme,
+        AC_NO: this.Accountno,
+        AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
 
-    this._pleadge.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.formSubmitted = false;
-        let info = []
-        info.push(data.id)
-        info.push("pleadge")
+        STORAGE_MEMO_NO: formVal.STORAGE_MEMO_NO,
+        'STORAGE_DATE': (formVal.STORAGE_DATE == '' || formVal.STORAGE_DATE == 'Invalid date') ? storagedate = '' : storagedate = moment(formVal.STORAGE_DATE).format('DD/MM/YYYY'),
 
-        this.newItemEvent(info);
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+        GOODS_QTY: formVal.GOODS_QTY,
+        MANUF_MILL: formVal.MANUF_MILL,
+        DISCRIPTION: formVal.DISCRIPTION,
+        BALANCE_QTY: formVal.BALANCE_QTY,
+        RATE: formVal.RATE,
+        VALUE: formVal.VALUE,
+        MARGIN: formVal.MARGIN,
+        REMARK: formVal.REMARK,
+      };
+
+      this._pleadge.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("pleadge")
+
+          this.newItemEvent(info);
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
     }
 
-    
+
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    
+
     if (ele <= 100) {
-     
+
     }
     else {
+      this.angForm.controls['MARGIN'].reset()
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -300,37 +322,37 @@ minDate: Date;
     this.updateShow = true;
     this.newbtnShow = true;
     this._pleadge.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO;
-    
+
       let obj1 = {
-        'AccountType' :data.AC_TYPE,
+        'AccountType': data.AC_TYPE,
         'AccountNo': data.AC_NO,
-        'SchemeType':data.AC_ACNOTYPE
+        'SchemeType': data.AC_ACNOTYPE
       }
       this.newPleadgeEvent.emit(obj1);
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
-        this.angForm.patchValue({
-         
-          'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-          
-          STORAGE_MEMO_NO: data.STORAGE_MEMO_NO,
-          'STORAGE_DATE': (data.STORAGE_DATE == 'Invalid date' || data.STORAGE_DATE == '' || data.STORAGE_DATE == null) ? storagedate = '' : storagedate = data.STORAGE_DATE,
-          
-          GOODS_QTY: data.GOODS_QTY,
-          MANUF_MILL: data.MANUF_MILL,
-          DISCRIPTION: data.DISCRIPTION,
-          BALANCE_QTY: data.BALANCE_QTY,
-          RATE: data.RATE,
-          VALUE: data.VALUE,
-          MARGIN: data.MARGIN,
-          REMARK: data.REMARK,
-        });
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
+      this.angForm.patchValue({
+
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+
+        STORAGE_MEMO_NO: data.STORAGE_MEMO_NO,
+        'STORAGE_DATE': (data.STORAGE_DATE == 'Invalid date' || data.STORAGE_DATE == '' || data.STORAGE_DATE == null) ? storagedate = '' : storagedate = data.STORAGE_DATE,
+
+        GOODS_QTY: data.GOODS_QTY,
+        MANUF_MILL: data.MANUF_MILL,
+        DISCRIPTION: data.DISCRIPTION,
+        BALANCE_QTY: data.BALANCE_QTY,
+        RATE: data.RATE,
+        VALUE: data.VALUE,
+        MARGIN: data.MARGIN,
+        REMARK: data.REMARK,
+      });
     });
   }
   addNewData() {
@@ -369,14 +391,14 @@ minDate: Date;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme;
-    data["AC_NO"]=this.Accountno;
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme;
+    data["AC_NO"] = this.Accountno;
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.STORAGE_DATE!=data.STORAGE_DATE){
-        (data.STORAGE_DATE == 'Invalid date' || data.STORAGE_DATE == '' || data.STORAGE_DATE == null) ? (storagedate = '', data['STORAGE_DATE'] = storagedate) : (storagedate = data.STORAGE_DATE, data['STORAGE_DATE'] = moment(storagedate).format('DD/MM/YYYY'))
-        }
+    }
+    if (this.updatecheckdata.STORAGE_DATE != data.STORAGE_DATE) {
+      (data.STORAGE_DATE == 'Invalid date' || data.STORAGE_DATE == '' || data.STORAGE_DATE == null) ? (storagedate = '', data['STORAGE_DATE'] = storagedate) : (storagedate = data.STORAGE_DATE, data['STORAGE_DATE'] = moment(storagedate).format('DD/MM/YYYY'))
+    }
     this._pleadge.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -389,7 +411,7 @@ minDate: Date;
     });
   }
   ngAfterViewInit(): void {
-   
+
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -413,7 +435,7 @@ minDate: Date;
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
     }
     this.newPleadgeEvent.emit(obj1);

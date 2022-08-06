@@ -310,7 +310,6 @@
                                     <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
                                         id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_PARTICULAR" [ngClass]="{'form-submitted': formSubmitted}"
                                         required>
                                     <label for="AC_PARTICULAR">Reason<sub class="required">* </sub></label>

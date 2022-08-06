@@ -84,6 +84,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() scheme: any;
   @Input() Accountno: any;
   @Input() AC_ACNOTYPE: any;
+  @Input() branchCode: any;
+  @Input() sec_code: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -143,100 +145,129 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    console.log(result)
+    if (result.RoleDefine[0].RoleId == 1) {
+      this.ngbranch = result.branchId
+      this.angForm.controls['BRANCH_CODE'].enable()
+    } else {
+      this.ngbranch = result.branchId
+      this.angForm.controls['BRANCH_CODE'].disable()
+
+    }
+
     this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      dom: 'ftip'
+    }
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/own-deposits",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.depositemasters = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._deposite.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.depositemasters = data
+    })
+    this.dtTrigger.next();
 
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Branch",
-          data: "BRANCH_CODE",
-        },
-        {
-          title: "Scheme",
-          data: "DEPO_AC_TYPE",
-        },
-        {
-          title: "Account Number",
-          data: "DEPO_AC_NO",
-        },
-        {
-          title: "Date of Submission",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Receipt Number",
-          data: "RECEIPT_NO",
-        },
-        {
-          title: "Deposit Amount",
-          data: "DEPOSIT_AMT",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-        {
-          title: "Maturity Date",
-          data: "MATURITY_DATE",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Ledger Balance",
-          data: "LEDGER_Bal",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/own-deposits",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.depositemasters = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Branch",
+    //       data: "BRANCH_CODE",
+    //     },
+    //     {
+    //       title: "Scheme",
+    //       data: "DEPO_AC_TYPE",
+    //     },
+    //     {
+    //       title: "Account Number",
+    //       data: "DEPO_AC_NO",
+    //     },
+    //     {
+    //       title: "Date of Submission",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Receipt Number",
+    //       data: "RECEIPT_NO",
+    //     },
+    //     {
+    //       title: "Deposit Amount",
+    //       data: "DEPOSIT_AMT",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //     {
+    //       title: "Maturity Date",
+    //       data: "MATURITY_DATE",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Ledger Balance",
+    //       data: "LEDGER_Bal",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
 
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
@@ -276,10 +307,12 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   obj1: any
   getschemename: any
-
+  schemecode: any
   getIntro(event) {
 
     this.getschemename = event.name
+    this.schemecode = event.code
+
     this.getIntroducer()
   }
 
@@ -290,15 +323,14 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     switch (this.getschemename) {
       case 'TD':
 
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => {
-
+        this._deposite.getTermDeposit(this.obj1).pipe(first()).subscribe(data => {
           this.ACNo = data;
-          console.log()
+
         })
         break;
       case 'PG':
 
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj1).pipe(first()).subscribe(data => {
+        this._deposite.getPigmyAccount(this.obj1).pipe(first()).subscribe(data => {
 
           this.ACNo = data;
         })
@@ -306,7 +338,30 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
   }
+  temacno
+  bindvalue(event) {
+    console.log(this.ngacno)
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    console.log(result.branch.syspara.CURRENT_DATE)
+    let datadate = result.branch.syspara.CURRENT_DATE
+    this.temacno = event.BANKACNO
+    var addInFrom = moment(datadate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    let obj = {
+      scheme: this.schemecode,
+      acno: event.BANKACNO,
+      date: addInFrom
+    }
+    this._deposite.getledgerbalance(obj).subscribe(data => {
+      this.angForm.patchValue({
+        'RECEIPT_NO': event.AC_REF_RECEIPTNO,
+        'DEPOSIT_AMT': event.AC_SCHMAMT,
+        'MATURITY_DATE': event.AC_EXPDT,
+        'LEDGER_Bal': Math.abs(data)
+      })
+    })
 
+  }
 
   submit(event) {
 
@@ -323,9 +378,11 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
-        BRANCH_CODE: formVal.BRANCH_CODE,
+        BRANCH_CODE: this.branchCode,
+        SECU_CODE: this.sec_code,
+        // BRANCH_CODE: formVal.BRANCH_CODE,
         DEPO_AC_TYPE: formVal.DEPO_AC_TYPE,
-        DEPO_AC_NO: formVal.DEPO_AC_NO,
+        DEPO_AC_NO: this.temacno,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
 
         RECEIPT_NO: formVal.RECEIPT_NO,

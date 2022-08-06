@@ -88,7 +88,18 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     private http: HttpClient,
     private generalLedgerSchemeService: GeneralLedgerSchemeService,
     private s1Service: S1Service,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) {
+    this.generalLedgerSchemeService.getData().subscribe(data => {
+      if (data.length == 0) {
+        this.showButton = true
+        this.updateShow = false
+
+      } else {
+        this.updateShow = true
+        this.showButton = false
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -220,6 +231,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
     this.generalLedgerSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
 
@@ -269,6 +281,8 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
       this.updateShow = false;
       this.newbtnShow = false;
       //this.rerender();
+      this.angForm.controls['S_APPL'].enable()
+
       this.resetForm();
     })
   }
@@ -281,6 +295,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
   //reset form
   resetForm() {
     this.createForm()
+    this.angForm.controls['S_APPL'].enable()
   }
 
   //Method for delete data
@@ -377,5 +392,26 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) == 980) {
+        this.generalLedgerSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code 980', 'error')
+      }
+
+    }
   }
 }

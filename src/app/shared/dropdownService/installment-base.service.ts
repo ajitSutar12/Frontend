@@ -6,11 +6,11 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class InstallmentBaseService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'MONTHLY', label: 'MONTHLY' },
-        { value: 'QUARTERLY', label: 'QUARTERLY' },
-        { value: 'HALFYEARLY', label: 'HALF YEARLY' },
-        { value: 'YEARLY', label: 'YEARLY' },
-        { value: 'NULL', label: 'NO INSTALLMENT' }
+        { value: 'M', label: 'MONTHLY' },
+        { value: 'Q', label: 'QUARTERLY' },
+        { value: 'H', label: 'HALF YEARLY' },
+        { value: 'Y', label: 'YEARLY' },
+        { value: 'Null', label: 'NO INSTALLMENT' }
     ];
 
     getCharacters(): Array<IOption> {

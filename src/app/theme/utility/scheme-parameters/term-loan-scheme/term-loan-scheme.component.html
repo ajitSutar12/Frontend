@@ -14,7 +14,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
-                    id="S_APPL" required="" pattern="^[0-9]+$"
+                    id="S_APPL" required="" pattern="^[0-9]+$" (focusout)="checkDuplicate($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" title="Input allowed only  0-9"
                     maxlength="3" minlength="3" min="501" max="599" formControlName="S_APPL" #autofocus />
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
@@ -307,7 +307,8 @@
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Outstanding Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_OUTSTANDING_INT_ACNO">Outstanding Interest Account<sub class="required"> * </sub></label>
+                  <label for="S_OUTSTANDING_INT_ACNO">Outstanding Interest Account<sub class="required"> *
+                    </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -384,38 +385,27 @@
                   </div>
                   <div class="card-block">
                     <div class="form-radio">
-                      <div class="row">
-                        <div class="col-sm">
-                          <div class="radio radio-inline">
-                            <label>
-                              <input type="radio" name="IS_DEPO_LOAN" value="IsDepositAgainstLoan" checked="checked"
-                                formControlName="IS_DEPO_LOAN" />
-                              <i class="helper"></i>Is Deposite Against Loan
-                            </label>
-                          </div>
-                        </div>
+                      <div class="radio radio-inline">
+                        <label>
+                          <input type="radio" name="IS_DEPO_LOAN" value='1' [checked]="IS_DEPO_LOAN"
+                            formControlName="IS_DEPO_LOAN" (click)="isDepoloan(1)">
+                          <i class="helper"></i>Is Deposit against CC
+                        </label>
                       </div>
-                      <div class="row">
-                        <div class="col-sm">
-                          <div class="radio radio-inline">
-                            <label>
-                              <input type="radio" name="IS_DEPO_LOAN" value="IsGoldAgainstLoan"
-                                formControlName="IS_DEPO_LOAN" />
-                              <i class="helper"></i>Is Gold Against Loan
-                            </label>
-                          </div>
-                        </div>
+                      <div class="radio radio-inline">
+                        <label>
+                          <input type="radio" name="IS_DEPO_LOAN" value='0' [checked]="IS_GOLDLOAN"
+                            formControlName="IS_DEPO_LOAN" (click)="isDepoloan(2)">
+                          <i class="helper"></i>Is Gold against CC
+
+                        </label>
                       </div>
-                      <div class="row">
-                        <div class="col-sm">
-                          <div class="radio radio-inline">
-                            <label>
-                              <input type="radio" name="IS_DEPO_LOAN" value="Othertypeofloan"
-                                formControlName="IS_DEPO_LOAN" />
-                              <i class="helper"></i>Other type of loan
-                            </label>
-                          </div>
-                        </div>
+                      <div class="radio radio-inline">
+                        <label>
+                          <input type="radio" name="IS_DEPO_LOAN" [checked]="IS_BOTH" value="2"
+                            formControlName="IS_DEPO_LOAN" (click)="isDepoloan(3)">
+                          <i class="helper"></i>Other CC
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -535,23 +525,23 @@
                     <div class="form-radio">
                       <div class="radio radio-inline">
                         <label>
-                          <input type="radio" value="StandardInterestCalculation" name="INTEREST_METHOD"
-                            id="INTEREST_METHOD" formControlName="INTEREST_METHOD" disabled />
+                          <input type="radio" value="0" name="INTEREST_METHOD" id="INTEREST_METHOD"
+                            formControlName="INTEREST_METHOD" disabled />
                           <i class="helper"></i>0- Standard Interest Calculation
                         </label>
                       </div>
                       <div class="radio radio-inline">
                         <label>
-                          <input type="radio" value="InterestCalculationforHalf&FullMonth" id="INTEREST_METHOD1"
-                            name="INTEREST_METHOD" formControlName="INTEREST_METHOD" disabled />
+                          <input type="radio" value="1" id="INTEREST_METHOD1" name="INTEREST_METHOD"
+                            formControlName="INTEREST_METHOD" disabled />
                           <i class="helper"></i>1- Interest Calculation for Half
                           & Full Month
                         </label>
                       </div>
                       <div class="radio radio-inline">
                         <label>
-                          <input type="radio" value="InterestCalculationofNextMonth" id="INTEREST_METHOD2"
-                            name="INTEREST_METHOD" formControlName="INTEREST_METHOD" disabled />
+                          <input type="radio" value="2" id="INTEREST_METHOD2" name="INTEREST_METHOD"
+                            formControlName="INTEREST_METHOD" disabled />
                           <i class="helper"></i>2 - Interest Calculation of Next
                           Month
                         </label>
@@ -567,7 +557,7 @@
                             <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
                               placeholder=" " id="MIN_INT_LIMIT"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              pattern="\d{2}(\.\d{1,2})?" title="Input allowed only . 0-9"
+                              pattern="\d{1,5}(\.\d{1,2})?" title="Input allowed only . 0-9"
                               formControlName="MIN_INT_LIMIT" disabled />
                             <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                           </span>
@@ -676,7 +666,7 @@
                             <input style="text-align: right;" type="text" name="S_PENAL_INT_RATE" class="form-control"
                               placeholder=" "
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              id="S_PENAL_INT_RATE" maxlength="5" max="100" pattern="\d{2}(\.\d{1,2})?"
+                              id="S_PENAL_INT_RATE" maxlength="5" max="100" pattern="\d{1,2}(\.\d{1,2})?"
                               title="Input allowed only . 0-9" formControlName="S_PENAL_INT_RATE" />
                             <label for="S_PENAL_INT_RATE">Penal Interest Rate %</label>
                           </span>
@@ -704,8 +694,8 @@
                         <div class="col-sm">
                           <div class="radio radio-inline">
                             <label>
-                              <input type="radio" value="AsperTransactionLID" name="PENAL_METHOD"
-                                formControlName="PENAL_METHOD" checked="checked" />
+                              <input type="radio" value="0" name="PENAL_METHOD" formControlName="PENAL_METHOD"
+                                checked="checked" />
                               <i class="helper"></i>(0) As per Transaction (LID)
                             </label>
                           </div>
@@ -715,8 +705,7 @@
                         <div class="col-sm">
                           <div class="radio radio-inline">
                             <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperDueInstallment"
-                                formControlName="PENAL_METHOD" />
+                              <input type="radio" name="PENAL_METHOD" value="1" formControlName="PENAL_METHOD" />
                               <i class="helper"></i>(1) As per Due Installment
                             </label>
                           </div>
@@ -726,8 +715,7 @@
                         <div class="col-sm">
                           <div class="radio radio-inline">
                             <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperTransaction(LID)"
-                                formControlName="PENAL_METHOD" />
+                              <input type="radio" name="PENAL_METHOD" value="2" formControlName="PENAL_METHOD" />
                               <i class="helper"></i>(2) As per Transaction (LID)
                             </label>
                           </div>
@@ -737,8 +725,7 @@
                         <div class="col-sm">
                           <div class="radio radio-inline">
                             <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperTransaction"
-                                formControlName="PENAL_METHOD" />
+                              <input type="radio" name="PENAL_METHOD" value="3" formControlName="PENAL_METHOD" />
                               <i class="helper"></i>(3) As per Transaction (BED)
                             </label>
                           </div>
@@ -748,8 +735,7 @@
                         <div class="col-sm">
                           <div class="radio radio-inline">
                             <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperLastTrasaction"
-                                formControlName="PENAL_METHOD" />
+                              <input type="radio" name="PENAL_METHOD" value="4" formControlName="PENAL_METHOD" />
                               <i class="helper"></i>(4) As per Last Trasaction
                             </label>
                           </div>
@@ -759,8 +745,7 @@
                         <div class="col-sm">
                           <div class="radio radio-inline">
                             <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperLedgerBalance"
-                                formControlName="PENAL_METHOD" />
+                              <input type="radio" name="PENAL_METHOD" value="5" formControlName="PENAL_METHOD" />
                               <i class="helper"></i>(5) As per Ledger Balance
                             </label>
                           </div>
@@ -776,7 +761,8 @@
                             ">
                             <input class="border-checkbox" type="checkbox" id="S_DUE_LIST_ALLOW"
                               formControlName="S_DUE_LIST_ALLOW" />
-                            <label class="border-checkbox-label" for="S_DUE_LIST_ALLOW">Calculate Overdue Only After Account
+                            <label class="border-checkbox-label" for="S_DUE_LIST_ALLOW">Calculate Overdue Only After
+                              Account
                               Expired ?</label>
                           </div>
                         </div>
@@ -1073,12 +1059,12 @@
                           <span class="border-lable-flt">
                             <ng-select id="INSTALLMENT_METHOD" bindValue="value" [(ngModel)]="nginstallment"
                               formControlName="INSTALLMENT_METHOD" bindLabel="label" title="Compulsory Selection"
-                              [disabled]="INSTALLMENT_METHOD" [ngClass]="{'form-submitted': formSubmitted}" required
+                              [disabled]="INSTALLMENT_METHOD" [ngClass]="{'form-submitted': formSubmitted}"
                               placeholder="Installment Method">
                               <ng-option *ngFor="let values of installmentMethod" [value]="values">{{values.label}}
                               </ng-option>
                             </ng-select>
-                            <label for="INSTALLMENT_METHOD">Installment Method<sub class="required"> * </sub></label>
+                            <label for="INSTALLMENT_METHOD">Installment Method</label>
                           </span>
                         </div>
                       </div>
@@ -1096,8 +1082,9 @@
                               class="form-control" placeholder=" "
                               (keypress)="($event.charCode >= 48 && $event.charCode <= 51)" max="3" maxlength="1"
                               id="IS_OVERDUE_ON_INSTALLMENT" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                              formControlName="IS_OVERDUE_ON_INSTALLMENT" />
-                            <label for="IS_OVERDUE_ON_INSTALLMENT">Overdue Rule Code (0-1-2-3)</label>
+                              formControlName="IS_OVERDUE_ON_INSTALLMENT" required />
+                            <label for="IS_OVERDUE_ON_INSTALLMENT">Overdue Rule Code (0-1-2-3)<sub class="required"> *
+                              </sub></label>
                           </span>
                         </div>
                         <div class="form-group form-primary form-static-label" *ngIf="
@@ -1114,7 +1101,9 @@
                               angForm.controls['IS_OVERDUE_ON_INSTALLMENT']
                                 .errors?.max ||
                               angForm.controls['IS_OVERDUE_ON_INSTALLMENT']
-                                .errors?.maxlength
+                                .errors?.maxlength ||
+                                angForm.controls['IS_OVERDUE_ON_INSTALLMENT']
+                                  .errors?.required
                             ">
                             Input allowed only 0-9
                           </div>

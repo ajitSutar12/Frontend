@@ -14,15 +14,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" #autofocus/> -->
-                    <input type="text" placeholder="dd/mm/yyyy"
-                  name="SUBMISSION_DATE" id="subm_date"
-                  class="form-control" [(ngModel)]="submissiondate"
-                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                 
-                  [ngClass]="{'form-submitted': formSubmitted}"
-                  formControlName="SUBMISSION_DATE"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                  bsDatepicker>
+                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                    [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]="maxDate"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -35,8 +30,8 @@
                   This field is required
                 </div>
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
-                  Fill valid Date 
-               </div>
+                  Fill valid Date
+                </div>
               </div>
             </div>
             <div class="col-sm">
@@ -45,15 +40,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="STATEMENT_DATE"  /> -->
-                    <input type="text" placeholder="dd/mm/yyyy"
-                  name="STATEMENT_DATE" id="stmt_date"
-                  class="form-control" [(ngModel)]="statementdate"
-                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                  [minDate]="minDate"
-                  [ngClass]="{'form-submitted': formSubmitted}"
-                  formControlName="STATEMENT_DATE"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                  bsDatepicker>
+                  <input type="text" placeholder="dd/mm/yyyy" name="STATEMENT_DATE" id="stmt_date" class="form-control"
+                    [(ngModel)]="statementdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
+                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="STATEMENT_DATE"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -66,15 +56,16 @@
                   This field is required
                 </div>
                 <div *ngIf="angForm.controls['STATEMENT_DATE'].invalid">
-                  Fill valid Date 
-               </div>
+                  Fill valid Date
+                </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="raw_material" class="form-control" placeholder=" " id="raw_material"
-                    pattern="\d{1,20}(\.\d{2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                    pattern="\d{1,20}(\.\d{2})?"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only 0-9" formControlName="RAW_MATERIAL" />
                   <label for="raw_material">Raw Material Cost</label>
                 </span>
@@ -93,10 +84,9 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="rm_margin" class="form-control" placeholder=" " id="rm_margin"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     #marginmaterialcost (keyup)="checkmargin(marginmaterialcost.value)" pattern="\d{1,5}(\.\d{2})?"
-                    maxlength="3"
-                    title="Input allowed only  0-9" formControlName="RAW_MARGIN" />
+                    maxlength="3" title="Input allowed only  0-9" formControlName="RAW_MARGIN" />
                   <label for="rm_margin">(Margin) Raw Material Cost </label>
                 </span>
               </div>
@@ -116,8 +106,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="wp_goods" class="form-control" placeholder=" " id="wp_goods"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9" formControlName="WORK_PROGRESS" />
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="\d{1,20}(\.\d{2})?"
+                    title="Input allowed only 0-9" formControlName="WORK_PROGRESS" />
                   <label for="wp_goods">Work In Progress Goods</label>
                 </span>
               </div>
@@ -135,7 +125,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="wp_margin" class="form-control" placeholder=" " id="wp_margin"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     #marginworkprogress (keyup)="checkmargin(marginworkprogress.value)" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="WORK_MARGIN" />
                   <label for="wp_margin">(Margin) Work In Progress Goods</label>
@@ -155,7 +145,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="fg_cost" class="form-control" placeholder=" " id="fg_cost" required=""
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                    [ngClass]="{'form-submitted': formSubmitted}"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="FINISHED_GOODS" />
                   <label for="fg_cost">Finished Goods Cost<sub class="required">* </sub></label>
                 </span>
@@ -179,7 +170,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="fg_margin" class="form-control" placeholder=" " id="fg_margin" required=""
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    [ngClass]="{'form-submitted': formSubmitted}"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     #margingoodscost (keyup)="checkmargin(margingoodscost.value)" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="FINISHED_MARGIN" />
                   <label for="fg_margin">(Margin) Finished Goods Cost<sub class="required">* </sub></label>
@@ -202,10 +194,10 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
-                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z 0-9  - / . (Space)" maxlength="90"
                     formControlName="REMARK" />
-                  <label for="remarks">REMARK</label>
+                  <label for="remarks">Remark</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -221,16 +213,17 @@
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
               <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button> &nbsp;
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
+              &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-          </div>
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-<ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'>
+<!-- <ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'> -->
   <div class="row">
     <div class="col-12">
       <div class="card shadow">
@@ -240,12 +233,22 @@
               <div class="table-responsive">
                 <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
+                  <thead>
+                    <th style="text-transform: captalize;">Action</th>
+                    <th style="text-transform: captalize;">Submission Date</th>
+                    <th style="text-transform: captalize;">Raw Materials</th>
+                    <th style="text-transform: captalize;">R/M Margin</th>
+                    <th style="text-transform: captalize;">Work In Progress</th>
+                    <th style="text-transform: captalize;">Finished Goods</th>
+                    <th style="text-transform: captalize;">W/P Margin</th>
+                    <th style="text-transform: captalize;">F/G Margin</th>
+                    <th style="text-transform: captalize;">Remarks</th>
+                  </thead>
                   <tbody *ngIf="stockmasters?.length != 0">
                     <tr *ngFor="let data of stockmasters">
                       <td>
-                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                            (click)="editClickHandler(data.id)" placement="bottom"
-                            ngbTooltip="Edit"></span>
+                        <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                          placement="bottom" ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
@@ -266,7 +269,7 @@
                       <td colspan="6" class="no-data-available">No data!</td>
                     </tr>
                   </tbody>
-                  <tfoot #filters class="filters">
+                  <!-- <tfoot #filters class="filters">
                     <tr class="testing">
                       <th class="testing"></th>
                       <th>
@@ -297,7 +300,7 @@
                         <input type="text" class="form-control" name="REMARK" />
                       </th>
                     </tr>
-                  </tfoot>
+                  </tfoot> -->
                 </table>
               </div>
             </div>
@@ -306,4 +309,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+<!-- </ng-container> -->

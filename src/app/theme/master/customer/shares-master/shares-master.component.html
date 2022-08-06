@@ -922,11 +922,9 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_RESNO"
                                                                             class="form-control" placeholder=" "
-                                                                            id="AC_RESNO" required="" maxlength="4"
-                                                                            pattern="^[0-9]+$"
+                                                                            id="AC_RESNO" required="" maxlength="10"
                                                                             title="Input allowed only 0-9"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                             formControlName="AC_RESNO">
                                                                         <label for="AC_RESNO">Resolution Number<sub
                                                                                 class="required">*
@@ -937,7 +935,7 @@
                                                                     *ngIf="angForm.controls['AC_RESNO'].invalid && (angForm.controls['AC_RESNO'].dirty || angForm.controls['AC_RESNO'].touched)"
                                                                     class="alert alert-danger">
                                                                     <div
-                                                                        *ngIf="angForm.controls['AC_RESNO'].errors?.pattern || angForm.controls['AC_RESNO'].errors?.maxlength || angForm.controls['AC_RESNO'].errors?.required">
+                                                                        *ngIf="angForm.controls['AC_RESNO'].errors?.maxlength || angForm.controls['AC_RESNO'].errors?.required">
                                                                         This field is required and Input allowed only
                                                                         0-9
                                                                     </div>

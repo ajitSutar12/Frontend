@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {IOption} from 'ng-select';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { IOption } from 'ng-select';
 
 
 @Injectable()
 export class GoldsilverService {
-  public static readonly PLAYER_ONE: Array<IOption> = [
-    {value: '0', label: 'Gold'},
-    {value: '1', label: 'Silver'},
-    {value: '2', label: 'Platinum'},
-    {value: '3', label: 'Diamond'},
-  ];
+    public static readonly PLAYER_ONE: Array<IOption> = [
+        { value: 'G', label: 'Gold' },
+        { value: 'S', label: 'Silver' },
+        { value: 'P', label: 'Platinum' },
+        { value: 'D', label: 'Diamond' },
+    ];
 
 
 
@@ -29,7 +29,7 @@ export class GoldsilverService {
         return characters;
     }
 
-   
+
 
     private loadOptions(options: Array<IOption>): Observable<Array<IOption>> {
         return new Observable((obs) => {

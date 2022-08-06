@@ -1,85 +1,248 @@
-<!-- <div class="row">
-    <div class="col-12">
-        <div class="card">
-            
-            <div class="card-block">
-
-                <button class="btn btn-primary ripple light">View Report</button>
-               
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- All Report -->
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
-                            </table>
-                        </div>
+            <div class="card-header">
+                <h5>All Report </h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" >
+                <div class="card-block">            
+                    <div class="row"  style="width: 100%;">
+                        <iframe src="http://localhost/NewReport/report-code/Report/examples/index.html" frameborder="0"  style="width: 100%;height: 500px;"></iframe>
                     </div>
                 </div>
-            </div>
-
-        </div>
-    </div>
-</div> -->
-<div class="card">
-    <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="row">
-                        <label class="col-sm-3 col-form-label" for="files">Documents</label>
-                        <div class="col-sm-9">
-                            <span class="hidden-file">
-                                <input type="file" #fileInput ng2FileSelect [uploader]="uploader"
-                                    (onFileSelected)="onFileSelected($event)" />
-                            </span>
-                            <div class="btn-group" (click)="fileInput.click()">
-                                <button type="button" class="btn btn-primary btn-group-icon btn-group-divider">
-                                    <i class="ion-plus-round"></i>
-                                </button>
-                                <button type="button" class="btn btn-primary">
-                                    Add Documents
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-9 mt-5">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Size</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of uploader.queue">
-                            <td>
-                                {{ item?.file?.name }}
-                            </td>
-                            <td>
-                                {{ item?.file?.size/1024/1024 | number:'.2' }} MB
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                    Remove
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+<!-- Trial Balance Printing -->
+ <!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Trial Balance Printing </h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" >
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                              <span class="border-lable-flt">
+                                   <input type="text" placeholder="dd/mm/yyyy"
+                                   name="FROM_DATE" id="FROM_DATE"
+                                   class="form-control" [(ngModel)]="fromduedate"
+                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                   [minDate]="minDate"
+                                   [ngClass]="{'form-submitted': formSubmitted}"
+                                   formControlName="FROM_DATE"
+                                   (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                   bsDatepicker>
+                                <label for="FROM_DATE">From Date<sub class="required">* </sub></label>
+                              </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="
+                                angForm.controls['FROM_DATE'].invalid &&
+                                (angForm.controls['FROM_DATE'].dirty ||
+                                  angForm.controls['FROM_DATE'].touched)
+                              " class="alert alert-danger">
+                              <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
+                                This field is required
+                              </div>
+                              <div *ngIf="angForm.controls['FROM_DATE'].invalid">
+                                 Fill valid Date 
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm">
+                            <div class="form-group input-group">
+                              <span class="border-lable-flt">
+                                  <input type="text" placeholder="dd/mm/yyyy"
+                                  name="TO_DATE" id="to_date"
+                                  class="form-control" [(ngModel)]="toduedate"
+                                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                  [minDate]="minDate"
+                                  [ngClass]="{'form-submitted': formSubmitted}"
+                                  formControlName="TO_DATE"
+                                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                  bsDatepicker>
+                                <label for="to_date">To Date<sub class="required">* </sub></label>
+                              </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="
+                                angForm.controls['TO_DATE'].invalid &&
+                                (angForm.controls['TO_DATE'].dirty ||
+                                  angForm.controls['TO_DATE'].touched)
+                              " class="alert alert-danger">
+                              <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
+                                This field is required
+                              </div>
+                              <div *ngIf="angForm.controls['TO_DATE'].invalid">
+                                 Fill valid Date 
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="REPOTYPE" checked="checked"
+                                            formControlName="REPOTYPE" value="CONSISE">
+                                        <i class="helper"></i>Consice
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="REPOTYPE"
+                                            formControlName="REPOTYPE" value="DETAIL">
+                                        <i class="helper"></i>Detail
+                                        
+                                    </label>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <iframe src="http://localhost/NewReport/report-code/Report/examples/BnkAgentPigmyCommDetail.php" 
+                        frameborder="0"></iframe>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>  -->
+
+
+<!-- B Type Deposite Loan  -->
+ <!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>B Type Deposite Loan </h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" >
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
+                                    <ng-select bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE"
+                                        bindLabel="label" formControlName="AC_TYPE" 
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Scheme Type<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                              <span class="border-lable-flt">
+                                   <input type="text" placeholder="dd/mm/yyyy"
+                                   name="FROM_DATE" id="FROM_DATE"
+                                   class="form-control" [(ngModel)]="fromduedate"
+                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                   [minDate]="minDate"
+                                   [ngClass]="{'form-submitted': formSubmitted}"
+                                   formControlName="FROM_DATE"
+                                   (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                   bsDatepicker>
+                                <label for="FROM_DATE">From Date<sub class="required">* </sub></label>
+                              </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="
+                                angForm.controls['FROM_DATE'].invalid &&
+                                (angForm.controls['FROM_DATE'].dirty ||
+                                  angForm.controls['FROM_DATE'].touched)
+                              " class="alert alert-danger">
+                              <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
+                                This field is required
+                              </div>
+                              <div *ngIf="angForm.controls['FROM_DATE'].invalid">
+                                 Fill valid Date 
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm">
+                            <div class="form-group input-group">
+                              <span class="border-lable-flt">
+                                  <input type="text" placeholder="dd/mm/yyyy"
+                                  name="TO_DATE" id="to_date"
+                                  class="form-control" [(ngModel)]="toduedate"
+                                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                  [minDate]="minDate"
+                                  [ngClass]="{'form-submitted': formSubmitted}"
+                                  formControlName="TO_DATE"
+                                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                  bsDatepicker>
+                                <label for="to_date">To Date<sub class="required">* </sub></label>
+                              </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="
+                                angForm.controls['TO_DATE'].invalid &&
+                                (angForm.controls['TO_DATE'].dirty ||
+                                  angForm.controls['TO_DATE'].touched)
+                              " class="alert alert-danger">
+                              <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
+                                This field is required
+                              </div>
+                              <div *ngIf="angForm.controls['TO_DATE'].invalid">
+                                 Fill valid Date 
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="REPOTYPE" checked="checked"
+                                            formControlName="REPOTYPE" value="DEPOSITE">
+                                        <i class="helper"></i>Deposite
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="REPOTYPE"
+                                            formControlName="REPOTYPE" value="LOAN">
+                                        <i class="helper"></i>Loan
+                                        
+                                    </label>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <iframe src="http://localhost/NewReport/report-code/Report/examples/BnkAgentPigmyCommDetail.php" 
+                        frameborder="0"></iframe>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>   -->

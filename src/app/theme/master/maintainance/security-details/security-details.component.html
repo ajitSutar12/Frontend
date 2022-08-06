@@ -11,10 +11,19 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" [(ngModel)]="schemeedit" placeholder="Scheme" required title="Compulsory Selection" #scheme (ngModelChange)="schemechange()" formControlName="AC_TYPE">
-                                </ng-select>
-                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
+                                        formControlName="BRANCH_CODE">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="BRANCH_CODE">Branch</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
@@ -26,23 +35,12 @@
                                     <label for="AC_TYPE">Scheme</label>
                                 </span>
                             </div>
-                            <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
-                                <div
-                                *ngIf="angForm.controls['Scheme'].errors?.required">
-                                Please Select Scheme
-                                </div>
-                            </div> -->
-
                         </div>
                         <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="schemeACNo" 
-                                (selected)="getAccountno(accountedit)" [multiple]="false" placeholder="Account No." required title="Compulsory Selection" #ACCOUNT  [(ngModel)]="accountedit" (ngModelChange)="Accountnochange()" formControlName="AC_NO">
-                                </ng-select>
-                            </div> -->
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
+                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit1"
                                         (change)="Accountnochange($event)" formControlName="AC_NO" bindLabel="label"
                                         title="Compulsory Selection" required placeholder="Account No.">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
@@ -51,12 +49,6 @@
                                     <label for="AC_NO">Account Number</label>
                                 </span>
                             </div>
-                            <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)" class="alert alert-danger">
-                                <div
-                                *ngIf="angForm.controls['Scheme'].errors?.required">
-                                Please Select Account No.
-                                </div>
-                            </div> -->
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
@@ -76,7 +68,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="To" class="form-control" placeholder=" " id="LEDGER_BAL"
-                                        required="" formControlName="LEDGER_BAL">
+                                        required="" formControlName="LEDGER_BAL" disabled>
                                     <label for="LEDGER_BAL">Ledger Balance</label>
                                 </span>
                             </div>
@@ -177,56 +169,57 @@
         <div class="card-block">
             <div *ngIf="ownDepositsTrue">
                 <app-own-deposits [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newOwnDepositEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newOwnDepositEvent)="addItem($event)">
                 </app-own-deposits>
             </div>
             <div *ngIf="otherSecurityTrue">
                 <app-other-security [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newOtherSecurityEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newOtherSecurityEvent)="addItem($event)">
                 </app-other-security>
             </div>
             <div *ngIf="firePolicyTrue">
                 <app-fire-policy [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newfirePolicyEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newfirePolicyEvent)="addItem($event)">
                 </app-fire-policy>
             </div>
             <div *ngIf="marketSharesTrue">
                 <app-market-shares [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newmarketShareEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newmarketShareEvent)="addItem($event)">
                 </app-market-shares>
             </div>
             <div *ngIf="stockStatementTrue">
                 <app-stock-statement [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newStockEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newStockEvent)="addItem($event)">
                 </app-stock-statement>
             </div>
             <div *ngIf="govtSecurityAndLicTrue">
                 <app-govt-security-and-lic [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newgovtSecurityEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newgovtSecurityEvent)="addItem($event)">
                 </app-govt-security-and-lic>
             </div>
             <div *ngIf="plantAndMachineryTrue">
                 <app-plant-and-machinery [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newPlantandMachiEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newPlantandMachiEvent)="addItem($event)">
                 </app-plant-and-machinery>
             </div>
             <div *ngIf="furnitureAndFixtureTrue">
                 <app-furniture-and-fixture [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newfurnitureFixEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newfurnitureFixEvent)="addItem($event)">
                 </app-furniture-and-fixture>
             </div>
             <div *ngIf="vehicleTrue">
                 <app-vehicle [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newVehicalEvent)="addItem($event)"></app-vehicle>
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newVehicalEvent)="addItem($event)">
+                </app-vehicle>
             </div>
             <div *ngIf="landAndBuildingsTrue">
                 <app-land-and-buildings [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newLandBuldingEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newLandBuldingEvent)="addItem($event)">
                 </app-land-and-buildings>
             </div>
             <div *ngIf="goldAndSilverTrue">
                 <app-gold-and-silver [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newGoldsilverEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newGoldsilverEvent)="addItem($event)">
                 </app-gold-and-silver>
             </div>
             <!-- <div *ngIf="otherSecurityTrue2">
@@ -235,17 +228,18 @@
             </div> -->
             <div *ngIf="customerInsuranceTrue">
                 <app-customer-insurance [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode"
                     (newcustomerInsuranceEvent)="addItem($event)">
                 </app-customer-insurance>
             </div>
             <div *ngIf="bookDebtsTrue">
                 <app-book-debts [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newbookEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newbookEvent)="addItem($event)">
                 </app-book-debts>
             </div>
             <div *ngIf="pleadgeStockTrue">
                 <app-pleadge-stock [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newPleadgeEvent)="addItem($event)">
+                    [sec_code]="ngsecurityCode" [branchCode]="ngBranchCode" (newPleadgeEvent)="addItem($event)">
                 </app-pleadge-stock>
             </div>
         </div>
