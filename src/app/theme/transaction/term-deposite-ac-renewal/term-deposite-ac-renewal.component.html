@@ -46,7 +46,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
-                                            formControlName="scheme_type">
+                                            formControlName="scheme_type" disable>
                                             <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
                                                 {{item.S_ACNOTYPE}}</ng-option>
                                         </ng-select>
@@ -88,7 +88,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                        <ng-select [(ngModel)]="customerAc" formControlName="account_no"
                                             (change)="getVoucherData()">
                                             <ng-option *ngFor="let item of introducerACNo" [value]="item">{{item.AC_NO}}
                                                 {{item.AC_NAME}}</ng-option>
@@ -298,7 +298,7 @@
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                 bsDatepicker formControlName="IntUpto" [(ngModel)]="InterestDate"
-                                                [disabled]="NormalCheck">
+                                                [disabled]="NormalCheck" (bsValueChange)="formatInterestDate()">
                                         </span>
                                     </div>
                                 </div>
@@ -616,7 +616,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_deposit"
+                                                formControlName="new_deposit" (change)="getMaturityAmount()"
                                                 [disabled]="!isCalulateMaturityAmountFlag">
                                         </span>
                                     </div>
@@ -628,7 +628,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_rate">
+                                                formControlName="new_rate" (change)="getMaturityAmount()">
                                         </span>
                                     </div>
                                 </div>

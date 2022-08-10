@@ -212,13 +212,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       AC_DAYS: [''],
       INTRATE: [''],
       INTREST_RATE: [''],
-      CalCulateAmt: [4342],
-      TotalInterest: [4342],
-      LEDGER_BAL: [4342],
-      PAYABLE_INT: [4342],
+      CalCulateAmt: [],
+      TotalInterest: [],
+      LEDGER_BAL: [],
+      PAYABLE_INT: [],
       POSTED_INT: [''],
       NET_INT: [''],
-      PENAL_INT: ['1000'],
+      PENAL_INT: [],
       NETPAYABLE_AMT: [''],
       Fnarration: [''],
     });
@@ -228,7 +228,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   obj: any
   getschemename: any
   isHideForSaving: boolean = true
-  isInterestApplicable: boolean = false
+  isInterestApplicable
   schemechange(event) {
     this.ngGlAcno = Number(event.SVR_CHARGE_GLCODE)
     this.getschemename = event.name
@@ -381,16 +381,15 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.LastIntDate = data[0].AC_LINTEDT
       this.maturityDate = data[0].AC_EXPDT
       this.angForm.patchValue({
-        // OpenDate: data[0].AC_OPDATE,
-        // renewalDate: data[0].AC_ASON_DATE,
-        // LastIntDate: data[0].AC_LINTEDT,
-        // maturityDate: data[0].AC_EXPDT,
         AC_Months: data[0].AC_MONTHS,
         AC_DAYS: data[0].AC_DAYS,
-        // INTRATE: data[0].INT_RATE,
-        POSTED_INT: data[0].post_Interest
+        POSTED_INT: data[0].post_Interest,
+        LEDGER_BAL: data[0].ledgerBal,
+        PAYABLE_INT: data[0].payableInterest,
+        PENAL_INT: data[0].penalInterest,
+        TotalInterest: data[0].currentInterest
       })
-      if (this.isInterestApplicable == true) {
+      if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
           INTREST_RATE: data[0].INT_RATE
         })

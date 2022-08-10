@@ -14,8 +14,10 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownService/company-group-master-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
-import {TermDepositeAcRenewalService} from './term-deposite-ac-renewal.service'
+import { TermDepositeAcRenewalService } from './term-deposite-ac-renewal.service'
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
+//date pipe
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -29,7 +31,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
     SharedModule,
   ],
   declarations: [TermDepositeAcRenewalComponent],
-  exports:[TermDepositeAcRenewalComponent],
+  exports: [TermDepositeAcRenewalComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
@@ -40,6 +42,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
     MultiVoucherService,
     SavingMasterService,
     TermDepositeAcRenewalService,
+    DatePipe
   ]
 })
 export class TermDepositeAcRenewalModule { }
