@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TermDepositAccountClosingComponent } from './term-deposit-account-closing.component';
 import { TermDepositAccountClosingRoutingModule } from './term-deposit-account-closing-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
-import {DataTablesModule} from 'angular-datatables';
+import { SharedModule } from '../../../shared/shared.module';
+import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,8 +20,9 @@ import { TransactionTransferModeService } from 'src/app/shared/elements/transact
 import { SchemeTypeService } from 'src/app/shared/elements/scheme-type.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
-import {TermDepositAccountClosingService} from './term-deposit-account-closing.service'
+import { TermDepositAccountClosingService } from './term-deposit-account-closing.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 
 @NgModule({
   imports: [
@@ -29,18 +30,18 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     TermDepositAccountClosingRoutingModule,
     SharedModule,
     DataTablesModule,
-    FormsModule,ReactiveFormsModule,
+    FormsModule, ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
   ],
   declarations: [TermDepositAccountClosingComponent],
-  exports:[TermDepositAccountClosingComponent],
+  exports: [TermDepositAccountClosingComponent],
   providers: [SchemeCodeService, AcountnoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
-    },TermDepositAccountClosingService,SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService,TransactionCashModeService,TransactionTransferModeService,SchemeTypeService,SchemeCodeDropdownService,SavingMasterService,]
+    }, TermDepositAccountClosingService, SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, CustomerIdService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,]
 })
 export class TermDepositAccountClosingModule { }

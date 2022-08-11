@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAccountNo.service';
 import { HttpClient } from '@angular/common/http';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 @Component({
   selector: 'app-term-deposit-account-closing',
   templateUrl: './term-deposit-account-closing.component.html',
@@ -134,8 +135,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   mainMaster = new Array();
   showAdd: boolean = true;
   showUpdate: boolean = false;
-  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
-  signture: string = '../../../../assets/sign/signture.jpg';
+  customerImg = '../../../../assets/images/nouser.png';
+  signture = '../../../../assets/images/nosignature.png';
   Scheme
   multigrid = []
 
@@ -153,6 +154,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private _TDService: TermDepositAccountClosingService,
+    private _CustomerIdService: CustomerIdService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,) {
     if (this.childMessage != undefined) {
 
@@ -258,6 +260,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   interestUptoCalDate
   afterMatureIntRate
 
+  dormant
   schemechange(event) {
     this.getschemename = event.name
     this.selectedScheme = event.value
@@ -297,9 +300,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
   interestCategory
   preMature: boolean = false
   intRateShow = 0
+  Customer_info
+  customerId
   getAccountDetails(event) {
-
     this.bankacno = event.bankacno
+    this.customerId = event.id
+    this.dormant = event.dormant
     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
 
@@ -419,6 +425,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       })
     })
     // this.getNetPayAmount()
+    this.showCustomerDeatils()
   }
   getNetPayAmount() {
     let ledgerAmt = Number(this.angForm.controls['LEDGER_BAL'].value)
@@ -885,18 +892,115 @@ export class TermDepositAccountClosingComponent implements OnInit {
         "info"
       );
     }
+    // else {
+    // if (object.TRANSFER_ACNO != this.bankacno) {
+    //   this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+    //   if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
+    //     this.transferTotalAmount = this.transferTotalAmount - Number(this.multigrid[index].TRAN_AMOUNT)
+    //     this.multigrid[index] = object
+    //     this.jointShowButton = true;
+    //     this.jointUpdateShow = false;
+    //     this.resetgrid();
+    //   }
+    //   else {
+    //     Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+    //     this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+    //   }
+    // }
+    // else {
+    //   Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+    //   this.resetgrid();
+    // }
     else {
-      this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-      if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
-        this.transferTotalAmount = this.transferTotalAmount - Number(this.multigrid[index].TRAN_AMOUNT)
-        this.multigrid[index] = object
-        this.jointShowButton = true;
-        this.jointUpdateShow = false;
-        this.resetgrid();
+      if (object.TRANSFER_ACNO != this.bankacno) {
+        let termAmount = 0
+        if (this.transferSchemeDetails.name == 'TD' && this.transferSchemeDetails.installmentType == 0) {
+          let obj = {
+            Scheme: this.transferSchemeDetails.id,
+            BANKACNO: object.TRANSFER_ACNO,
+            Date: this.date
+          }
+          let ledgerBal
+          this.http.post(this.url + '/term-deposit-account-closing/ledgerBalance', obj).subscribe((bal) => {
+            ledgerBal = bal
+            termAmount = Number(this.transferAccountDetails.depositAmount) - Number(ledgerBal)
+          })
+          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+          if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
+            if (formVal.amount >= termAmount) {
+              this.multigrid[index] = object
+              this.jointShowButton = true;
+              this.jointUpdateShow = false;
+              this.resetgrid();
+            }
+            else {
+              Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
+              this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+            }
+          }
+          else {
+            Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+            this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+          }
+        }
+        else if (this.transferSchemeDetails.name == 'LN' || this.transferSchemeDetails.name == 'DS') {
+          let obj = {
+            Scheme: this.transferSchemeDetails.id,
+            BANKACNO: object.TRANSFER_ACNO,
+            Date: this.date
+          }
+          let ledgerBal
+          this.http.post(this.url + '/term-deposit-account-closing/ledgerBalance', obj).subscribe((bal) => {
+            ledgerBal = bal
+            if (Number(ledgerBal) == Number(formVal.amount)) {
+              object['AC_CLOSED'] = '1'
+              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+              if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
+                this.multigrid[index] = object
+                this.jointShowButton = true;
+                this.jointUpdateShow = false;
+                this.resetgrid();
+              }
+              else {
+                Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+                this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+              }
+            }
+            else if (Number(ledgerBal) > Number(formVal.amount)) {
+              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+              if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
+                this.multigrid[index] = object
+                this.jointShowButton = true;
+                this.jointUpdateShow = false;
+                this.resetgrid();
+              }
+              else {
+                Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+                this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+              }
+            }
+            else if (Number(ledgerBal) < Number(formVal.amount)) {
+              Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
+            }
+          })
+        }
+        else {
+          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+          if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
+            this.multigrid[index] = object
+            this.jointShowButton = true;
+            this.jointUpdateShow = false;
+            this.resetgrid();
+          }
+          else {
+            Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+            this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+          }
+        }
       }
       else {
-        Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
-        this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+        Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+        this.resetgrid();
       }
     }
   }
@@ -924,6 +1028,28 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.narration = ele;
     let el: HTMLElement = this.triggerNarrationhide.nativeElement;
     el.click();
+  }
+  Status
+  showCustomerDeatils() {
+    if (this.angForm.controls['account_no'].value != null) {
+      this._CustomerIdService.getFormData(this.customerId).subscribe(data => {
+        this.Customer_info = data
+        this.Status = this.dormant
+        if (data.custdocument.length != 0) {
+          data.custdocument.forEach(element => {
+            if (element.DocumentMasterID == 1) {
+              this.customerImg = this.url + '/' + element.PATH;
+            }
+            if (element.DocumentMasterID == 2) {
+              this.signture = this.url + '/' + element.PATH;
+            }
+          });
+        } else {
+          this.customerImg = '../../../../assets/images/nouser.png';
+          this.signture = '../../../../assets/images/nosignature.png'
+        }
+      })
+    }
   }
 
   submit() {
@@ -966,6 +1092,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         // this.getVoucherData();
         Swal.fire('Success!', 'Account Closed Successfully !', 'success');
         this.multigrid = []
+        this.customerImg = '../../../../assets/images/nouser.png';
+        this.signture = '../../../../assets/images/nosignature.png'
         this.resetForm()
       }, err => {
         console.log(err);
@@ -1047,6 +1175,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.getschemename = data.TRAN_ACNOTYPE
       this.selectedScheme = Number(data.TRAN_ACTYPE)
       this.selectedBranch = data.BRANCH_CODE
+      this.customerId = data.customerID
+      this.dormant = data.dormant
       data.IS_PREMATURE_CLOSE == '1' ? this.preMature = true : this.preMature = false
       this.getIntroducer()
       this.customer = data.TRAN_ACNO
@@ -1084,6 +1214,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         SURCHARGE_AMT: data.SURCHARGE_AMOUNT
       })
       // this.getEditData()
+      this.showCustomerDeatils()
     })
   }
 
