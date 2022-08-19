@@ -15,16 +15,16 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface VoucherEntry {
-  TRAN_NO:string;
-  TRAN_AMOUNT:string;
-  TRAN_DRCR:string;
-  TRAN_TIME:string;
-  TRAN_ACTYPE:string;
-  TRAN_TYPE:string;
-  TRAN_ACNO:string;
-  USER_CODE:string;
-    
-  
+  TRAN_NO: string;
+  TRAN_AMOUNT: string;
+  TRAN_DRCR: string;
+  TRAN_TIME: string;
+  TRAN_ACTYPE: string;
+  TRAN_TYPE: string;
+  TRAN_ACNO: string;
+  USER_CODE: string;
+
+
 }
 @Component({
   selector: 'app-voucher',
@@ -87,18 +87,18 @@ export class VoucherComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.mySubscription = interval(1000).subscribe((x => {
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/voucher/passing',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.voucherEntry = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
+          this.http
+            .post<DataTableResponse>(
+              this.url + '/voucher/passing',
+              dataTableParameters
+            ).subscribe(resp => {
+              this.voucherEntry = resp.data;
+              callback({
+                recordsTotal: resp.recordsTotal,
+                recordsFiltered: resp.recordsTotal,
+                data: []
+              });
             });
-          });
         }));
       },
       columnDefs: [{
@@ -157,15 +157,14 @@ export class VoucherComponent implements OnInit {
       dom: 'Blrtip',
 
     };
-    
+
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
   //get saving customer data
   getVoucherData(data) {
-    debugger
     this.voucherData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

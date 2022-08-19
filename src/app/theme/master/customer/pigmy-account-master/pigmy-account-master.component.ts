@@ -551,7 +551,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.patchValue({
           AC_EXPDT: expiryDate
         })
-      } else {
+      } else if (this.openingDate != undefined) {
         var full = []
         var fullDate = this.openingDate;
         full = fullDate.split(' ');
@@ -623,7 +623,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
-      this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
       if (data.castMaster == null) {
         data.castMaster = ""
       }
@@ -660,7 +660,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_ADDR: permadd?.AC_ADDR,
         AC_GALLI: permadd?.AC_GALLI,
         AC_AREA: permadd?.AC_AREA,
-        AC_CTCODE: permadd.city?.CITY_NAME,
+        AC_CTCODE: permadd?.city?.CITY_NAME,
         AC_PIN: permadd?.AC_PIN,
       })
       data.custAddress.forEach(async (element) => {
@@ -1124,8 +1124,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['id'] = this.updateID;
-    data['AC_MINOR']= (data.AC_MINOR == true ? '1' : '0')
-    data['PG_COMM_TYPE']= (data.PG_COMM_TYPE == true ? '1' : '0')
+    data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
+    data['PG_COMM_TYPE'] = (data.PG_COMM_TYPE == true ? '1' : '0')
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
@@ -1484,7 +1484,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
-      OPERATOR:value,
+      OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
 

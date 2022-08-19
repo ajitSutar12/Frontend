@@ -19,6 +19,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
 import { environment } from 'src/environments/environment';
 import { VoucherEntryService } from '../voucher-entry/voucher-entry.service'
+import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 
 // Handling datatable data
 class DataTableResponse {
@@ -162,6 +163,7 @@ export class MultiVoucherComponent implements OnInit {
     private _vservice: VoucherEntryService,
     private savingMasterService: SavingMasterService,
     private fb: FormBuilder,
+    private _bankmasterService: BankMasterService,
     private router: Router,
     private _CustomerIdService: CustomerIdService,
 
@@ -196,6 +198,10 @@ export class MultiVoucherComponent implements OnInit {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
       this.selectedBranch = user.branchId;
+    })
+
+    this._bankmasterService.getBankList().subscribe(banks => {
+      this.bankName = banks
     })
 
     //Scheme Code
@@ -1530,15 +1536,14 @@ export class MultiVoucherComponent implements OnInit {
     let balancedata
     this._vservice.getInputHeadBal(newobj).subscribe(data1 => {
       balancedata = data1
-      this.headData.forEach(element => {
+      // this.headData.forEach(element =>
+      for (let element of this.headData) {
         let newobj = {
           acno: element?.GL_CODE,
           scheme: '101',
           date: this.date,
           schemeType: this.selectedCode,
         }
-
-
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;
@@ -1695,7 +1700,8 @@ export class MultiVoucherComponent implements OnInit {
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
         }
 
-      });
+      }
+      // );
 
     })
   }

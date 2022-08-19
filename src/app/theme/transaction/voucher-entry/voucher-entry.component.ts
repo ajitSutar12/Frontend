@@ -8,19 +8,15 @@ import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { VoucherEntryService } from './voucher-entry.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { environment } from '../../../../environments/environment';
-import { join } from 'path';
-import { number } from 'ngx-custom-validators/src/app/number/validator';
-
+import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 @Component({
   selector: 'app-voucher-entry',
   templateUrl: './voucher-entry.component.html',
@@ -157,6 +153,7 @@ export class VoucherEntryComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private _ACMasterDropdownService: ACMasterDropdownService,
     private _CustomerIdService: CustomerIdService,
+    private _bankmasterService: BankMasterService,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -186,6 +183,9 @@ export class VoucherEntryComponent implements OnInit {
       this.date = data[0].CURRENT_DATE;
     })
 
+    this._bankmasterService.getBankList().subscribe(banks => {
+      this.bankName = banks
+    })
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -222,7 +222,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme: ['', [Validators.required]],
       scheme_type: ['', [Validators.required]],
       date: [''],
-      type: new FormControl('cash'),
+      type: ['cash'],
       chequeDate: [''],
       chequeNo: [''],
       bank: [''],
@@ -231,9 +231,9 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   resetscheme() {
-    console.log(this.tempschmetype)
     if (this.tempschmetype != this.selectedCode) {
       this.selectedScheme = null
+      this.selectedMode = null
       this.selectedAccountno = null
       this.introducerACNo = []
     }
@@ -357,6 +357,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //Transaction mode select
   transactionMode(mode) {
+    this.selectedMode = null
     this.type = mode;
     let object = this.TranData.find(t => t.key === this.selectedCode);
     if (this.type == 'cash') {
@@ -364,6 +365,9 @@ export class VoucherEntryComponent implements OnInit {
       object.data.cash.forEach(ele => {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
+      })
+      this.angForm.patchValue({
+        chequeDate: null
       })
     } else {
       this.tranModeList = [];
@@ -397,7 +401,7 @@ export class VoucherEntryComponent implements OnInit {
       // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
       Swal.fire({
         icon: 'success',
-        title: 'Voucher update Successfully !',
+        title: 'Voucher update Successfully!',
         html:
           '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>'
       })
@@ -414,11 +418,14 @@ export class VoucherEntryComponent implements OnInit {
       this.angForm.controls['scheme_type'].reset()
       this.angForm.controls['type'].reset()
       this.angForm.controls['chequeDate'].reset()
-      this.angForm.controls['chequeDate'].reset()
       this.angForm.controls['chequeNo'].reset()
       this.angForm.controls['bank'].reset()
+      this.angForm.patchValue({
+        type: 'cash',
+      })
       this.headData = [];
-
+      this.selectedMode = null
+      this.Customer_Name = null
       this.DayOpBal = 0
       this.Pass = 0
       this.Unpass = 0
@@ -439,6 +446,7 @@ export class VoucherEntryComponent implements OnInit {
       this.asondate = ''
       this.opendate = ''
       this.renewaldate = ''
+      this.showChequeDetails = false;
     }, err => {
       console.log(err);
     })
@@ -457,8 +465,10 @@ export class VoucherEntryComponent implements OnInit {
         count = Number(element.Amount) + Number(count)
       });
       let num = Number(ele.target.value) + Number(count)
+      // this.totalAmt = num 
       this.totalAmt = num + '.00'
     } else {
+      // this.totalAmt = ele.target.value 
       this.totalAmt = ele.target.value + '.00'
     }
   }
@@ -717,7 +727,7 @@ export class VoucherEntryComponent implements OnInit {
 
 
   showlgindetails() {
-    if (this.angForm.controls['account_no'].value != null) {
+    if (this.angForm.controls['account_no'].value != null && this.selectedCode != 'GL') {
       this.ShowDocuments = true
       console.log(this.submitCustomer.idmasterID)
       this._CustomerIdService.getFormData(this.submitCustomer.idmasterID).subscribe(data => {
@@ -824,34 +834,29 @@ export class VoucherEntryComponent implements OnInit {
   //get Input head Amount
   getInputHeadAmt(ele, i) {
     let value = ele.target.value;
-    this.headData[i].Amount = value;
+    if (Number(this.headData[i].Amount) != 0)
+      this.totalAmt = Number(this.headData[i].Amount) - this.totalAmt
+    this.headData[i].Amount = Number(value);
     let tran = this.submitTranMode.tran_drcr
-
-    console.log('this.headData', this.headData)
     let count = 0
-    this.headData.forEach(element => {
-
+    for (let element of this.headData) {
       count = Number(element.Amount) + Number(count)
-
-    });
+    }
     this.totalAmt = count + Number(this.angForm.controls['amt'].value)
-    // 
   }
 
   checkheadcondition(event, i) {
-    console.log('event', event)
     let value = event.target.value;
     this.headData[i].Amount = value
     let data = this.headData[i]
-
     if (data.FIELD_AMOUNT != 'PENAL_INT_AMOUNT') {
-      if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(data.Amount) != Number(data.Balance)) {
-        Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
+      if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(data.Amount)) {
         this.headData[i].Amount = '0.00'
+        Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
       } else {
         if (data.CHECK_REQUIRE == '1' && Number(data.Amount) != Number(data.Balance)) {
-          Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
           this.headData[i].Amount = '0.00'
+          Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
         }
       }
 
@@ -1321,14 +1326,17 @@ export class VoucherEntryComponent implements OnInit {
         this._service.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
             Swal.fire('Error!', data.message, 'error');
+            this.selectedMode = null
           } else {
             this._service.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
                 Swal.fire('Error!', data.message, 'error');
+                this.selectedMode = null
               } else {
                 this._service.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
                     Swal.fire('Error!', data.message, 'error');
+                    this.selectedMode = null
                   }
                 }, err => {
                   console.log(err);
@@ -1538,7 +1546,7 @@ export class VoucherEntryComponent implements OnInit {
       this.angForm.patchValue({
         type: data.TRAN_TYPE == 'CS' ? 'cash' : data.TRAN_TYPE == 'TR' ? 'transfer' : '',
         date: data.TRAN_DATE,
-        account_no: data.TRAN_ACNO,
+        // account_no: data.TRAN_ACNO,
         chequeNo: data.CHEQUE_NO,
         chequeDate: data.CHEQUE_DATE,
         amt: data.TRAN_AMOUNT,
@@ -1552,7 +1560,7 @@ export class VoucherEntryComponent implements OnInit {
       // this.resetscheme();
       // this.checkAccountCondition();
       // this.showlgindetails();
-      // this.SideDetails();
+      this.SideDetails();
       // this.checktranCondition();
       // this.updateheadbalance()
     })
@@ -1648,6 +1656,8 @@ export class VoucherEntryComponent implements OnInit {
       this.ShowLNCC = false
       this.ShownotLNCC = false
     }
+    this.submitCustomer.AC_ODAMT == undefined ? this.submitCustomer.AC_ODAMT = 0 : this.submitCustomer.AC_ODAMT = this.submitCustomer.AC_ODAMT
+    this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
     this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
 
     var startdate = this.angForm.controls['date'].value
