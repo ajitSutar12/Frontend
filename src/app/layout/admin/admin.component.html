@@ -310,13 +310,8 @@
                   </div>
                   <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title="tooltip goes here" [attr.item-border]="itemBorder"
                     [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"
-<<<<<<< HEAD
-                    *ngFor="let asideItem of menuListData"  appAccordionLink group="{{asideItem.state}}">
-                 
-=======
                     *ngFor="let asideItem of menuListData" appAccordionLink group="{{asideItem.state}}">
-
->>>>>>> origin/master
+                    
                     <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
                       group="{{asideItem.state}}">
                       <a [routerLinkActive]="['active']" class="ripple" href="{{asideItem.external}}"
