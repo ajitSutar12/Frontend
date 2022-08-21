@@ -50,10 +50,10 @@ export class DayBeginComponent implements OnInit {
 
   //get sys para current date
   getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.angForm.patchValue({
-        'DATE': data.CURRENT_DATE,
-      })
+    this._service.getSysparaDetails().subscribe(data => {
+      console.log(data);
+      this.ngdate = data[0].CURRENT_DATE;
+    
       
     })
   }

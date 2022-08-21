@@ -24,4 +24,9 @@ export class DayBeginService {
         })
     )
    }
+   getSysparaDetails():Observable<any>{
+    return this.http.get(this.url + '/system-master-parameters').pipe(map((res)=>res),catchError((error)=>{
+      return throwError(error)
+    }))
+  }
 }
