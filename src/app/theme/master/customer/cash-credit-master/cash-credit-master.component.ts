@@ -401,7 +401,6 @@ export class CashCreditMasterComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.cashCreditMaster = resp.data;
-            console.log('this.cashCreditMaster', this.cashCreditMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -1527,7 +1526,7 @@ export class CashCreditMasterComponent implements OnInit {
         this.angForm.patchValue({
           AC_EXPIRE_DATE: expiryDate
         })
-      } else {
+      } else if (this.openingDate != undefined) {
         var full = []
         var fullDate = this.openingDate;
         full = fullDate.split(' ');

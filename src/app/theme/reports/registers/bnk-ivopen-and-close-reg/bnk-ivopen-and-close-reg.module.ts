@@ -15,7 +15,9 @@ import { BnkIVOpenAndCloseRegComponent } from './bnk-ivopen-and-close-reg.compon
 import {BnkIVOpenAndCloseRegRoutingModule} from './bnk-ivopen-and-close-reg-routing.module';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { Iframe3Module } from '../iframe3/iframe3.module';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -30,7 +32,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkIVOpenAndCloseRegRoutingModule
+    BnkIVOpenAndCloseRegRoutingModule,
+    Iframe3Module
   ],
 
   declarations: [BnkIVOpenAndCloseRegComponent],

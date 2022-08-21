@@ -16,7 +16,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { LedgerViewModule } from '../ledger-view/ledger-view.module'
 import { SharesLedgerViewModule } from '../shares-ledger-view/shares-ledger-view.module'
 import { InterestPaidHistoryModule } from '../other-view/interest-paid-history/interest-paid-history.module'
-
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +33,7 @@ import { InterestPaidHistoryModule } from '../other-view/interest-paid-history/i
     InterestPaidHistoryModule
   ],
   declarations: [AccountEnquiryComponent],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, ACMasterDropdownService, OwnbranchMasterService, {
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, CustomerIdService,ACMasterDropdownService, OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

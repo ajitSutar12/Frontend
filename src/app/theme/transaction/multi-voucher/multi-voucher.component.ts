@@ -141,8 +141,8 @@ export class MultiVoucherComponent implements OnInit {
   mainMaster = new Array();
   showAdd: boolean = true;
   showUpdate: boolean = false;
-  customerImg = '../../../../assets/images/nouser.png';
-  signture = '../../../../assets/images/nosignature.png';
+  customerImg = 'assets/images/nouser.png';
+  signture = 'assets/images/nosignature.png';
   Customer_Name
   Customer_Pan_No = '---'
   Customer_Contact_No = '---'
@@ -1001,7 +1001,7 @@ export class MultiVoucherComponent implements OnInit {
 
 
         } else {
-          this.customerImg = '../../../../assets/images/nouser.png';
+          this.customerImg = 'assets/images/nouser.png';
           this.signture = '../../../../assets/images/nosignature.png'
         }
       })

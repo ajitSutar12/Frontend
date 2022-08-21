@@ -278,7 +278,7 @@
                                                                         value="{{ AC_SANCTION_AMOUNT != null ?AC_SANCTION_AMOUNT.toFixed(2) : 0.00}}"
                                                                         [(ngModel)]="sanctionAmt"
                                                                         formControlName="AC_SANCTION_AMOUNT"
-                                                                        (ngModelChange)="changeAmt(); calculation()"
+                                                                        (ngModelChange)="changeAmt();"
                                                                         [ngClass]="{'form-submitted': formSubmitted}">
                                                                     <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
                                                                             class="required">*
@@ -332,7 +332,6 @@
                                                                         title="Input allowed only  0-9"
                                                                         style="text-align: right;"
                                                                         [(ngModel)]="drawingPower"
-                                                                        (focusout)="calculation()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         value="{{ AC_DRAWPOWER_AMT != null ?AC_DRAWPOWER_AMT.toFixed(2) : 0.00}}"
                                                                         formControlName="AC_DRAWPOWER_AMT"
@@ -361,7 +360,7 @@
                                                                         formControlName="AC_MONTHS"
                                                                         style="text-align: right;" maxlength="3"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                        (ngModelChange)="getExpiryDate();calculation()"
+                                                                        (ngModelChange)="getExpiryDate();"
                                                                         [ngClass]="{'form-submitted': formSubmitted}">
                                                                     <label for="AC_MONTHS">Period(Months)<sub
                                                                             class="required">*
@@ -823,9 +822,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_COREG_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_COREG_NO" 
-                                                                        style="text-align: right;"
-                                                                       
+                                                                        id="AC_COREG_NO" style="text-align: right;"
                                                                         formControlName="AC_COREG_NO">
                                                                     <label for="AC_COREG_NO">Number</label>
                                                                 </span>
@@ -884,9 +881,8 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_RESO_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_RESO_NO" 
-                                                                        style="text-align: right;"
-                                                                         title="Input allowed only  0-9"
+                                                                        id="AC_RESO_NO" style="text-align: right;"
+                                                                        title="Input allowed only  0-9"
                                                                         formControlName="AC_RESO_NO">
                                                                     <label for="AC_RESO_NO">Number</label>
                                                                 </span>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SharedModule} from '../../../../shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -10,9 +10,11 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkScrollDetailBothComponent } from './bnk-scroll-detail-both.component';
 import {BnkScrollDetailBothRoutingModule} from './bnk-scroll-detail-both-routing.module'
+import{Iframe1Module} from '../iframe1/iframe1.module'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -27,7 +29,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkScrollDetailBothRoutingModule
+    BnkScrollDetailBothRoutingModule,
+    Iframe1Module
   ],
 
   declarations: [BnkScrollDetailBothComponent],
@@ -40,11 +43,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     },
     SystemMasterParametersService,
+
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
     },
-  ]
+    OwnbranchMasterService,
+  ],
+  schemas:[NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BnkScrollDetailBothModule { }

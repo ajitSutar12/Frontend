@@ -58,7 +58,7 @@
                 </div>
               </div>
             </li> -->
-            
+
             <!-- </perfect-scrollbar> -->
 
           </ul>
@@ -118,7 +118,8 @@
               (click)="toggleProfileNotification()">
               <a href="javascript:">
 
-                <img [src]="profilePath" class="img-radius" alt="User-Profile-Image" onError="this.src='assets/images/user.png'">
+                <img [src]="profilePath" class="img-radius" alt="User-Profile-Image"
+                  onError="this.src='assets/images/user.png'">
                 <span>{{userData.F_NAME}} {{userData.L_NAME}}</span>
                 <i class="icon-angle-down"></i>
               </a>
@@ -329,7 +330,7 @@
                   <ul class="pcoded-item pcoded-left-item" [attr.item-border]="itemBorder"
                     [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"
                     *ngFor="let asideItem of menuListData" appAccordionLink group="{{asideItem.state}}">
-                    
+
                     <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
                       group="{{asideItem.state}}">
                       <a [routerLinkActive]="['active']" class="ripple" href="{{asideItem.external}}"
@@ -398,8 +399,9 @@
                             </li>
 
                             <li (mouseleave)="fireClickLeave($event)" [routerLinkActive]="['active']"
-                              class="pcoded-hasmenu" [attr.dropdown-icon]="dropDownIcon" [attr.subitem-icon]="subItemIcon"
-                              *ngIf="asideChildren.type === 'sub'" appAccordionLink group="sub-toggled">
+                              class="pcoded-hasmenu" [attr.dropdown-icon]="dropDownIcon"
+                              [attr.subitem-icon]="subItemIcon" *ngIf="asideChildren.type === 'sub'" appAccordionLink
+                              group="sub-toggled">
                               <a (mouseover)="fireClick($event)" [routerLinkActive]="['active']" href="javascript:;"
                                 appAccordionToggle>
                                 <div class="ripple menu-ripple"></div>
@@ -412,21 +414,20 @@
                               <ul class="pcoded-submenu">
                                 <ng-template ngFor let-asideChildrenSub [ngForOf]="asideChildren.children">
                                   <div *ngIf="asideChildrenSub !=null">
-                                  <li [routerLinkActive]="['active']">
-                                    <a [routerLinkActive]="['active']"
-                                    [routerLink]="['/', asideItem.state, asideChildren.state, asideChildrenSub.state]"
-                                    target="{{asideChildrenSub.target ? '_blank' : '_self'}}"
-                                      >
-                                      
-                                      <div class="ripple menu-ripple"></div>
-                                      <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
-                                      <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span>
-                                      <span *ngFor="let asideChildrenSubBadge of asideChildrenSub.badge"
-                                        class="pcoded-badge label label-{{ asideChildrenSubBadge.type }}">{{asideChildrenSubBadge.value}}</span>
-                                      <span class="pcoded-mcaret"></span>
-                                    </a>
-                                  </li>
-                                </div>
+                                    <li [routerLinkActive]="['active']">
+                                      <a [routerLinkActive]="['active']"
+                                        [routerLink]="['/', asideItem.state, asideChildren.state, asideChildrenSub.state]"
+                                        target="{{asideChildrenSub.target ? '_blank' : '_self'}}">
+
+                                        <div class="ripple menu-ripple"></div>
+                                        <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
+                                        <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span>
+                                        <span *ngFor="let asideChildrenSubBadge of asideChildrenSub.badge"
+                                          class="pcoded-badge label label-{{ asideChildrenSubBadge.type }}">{{asideChildrenSubBadge.value}}</span>
+                                        <span class="pcoded-mcaret"></span>
+                                      </a>
+                                    </li>
+                                  </div>
                                 </ng-template>
                               </ul>
                             </li>
@@ -510,17 +511,17 @@
     <span class="text-muted">
       <div class="row">
         <div class="col-md-3">
-          <h6 style="color:black">Branch: {{barnchName}}  Today Date: {{currentDate}}</h6>
+          <h6 style="color:black">Branch: {{barnchName}} Today Date: {{currentDate}}</h6>
         </div>
         <div class="col-md-8">
-          <marquee behavior="scroll" direction="left" scrollamount="5">
+          <!-- <marquee behavior="scroll" direction="left" scrollamount="5">
             <label class="text"><b>Tomorrow there will be holiday to bank.........</b>
             </label>
-          </marquee>
+          </marquee> -->
         </div>
       </div>
-     
-     
+
+
     </span>
   </div>
 </footer>

@@ -1,4 +1,4 @@
-import {AfterViewInit,Component,OnDestroy,OnInit,ViewChild,Input,Output,EventEmitter,ElementRef,}from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -10,103 +10,127 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment";
-import { DomSanitizer} from '@angular/platform-browser';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bnk-day-book-summary',
   templateUrl: './bnk-day-book-summary.component.html',
-  styleUrls: ['./bnk-day-book-summary.component.scss']
+  styleUrls: ['./bnk-day-book-summary.component.scss'],
+  providers: [OwnbranchMasterService]
 })
 export class BnkDayBookSummaryComponent implements OnInit {
   dt: any;
   dataDisplay: any;
-  maxDate: Date;
-  minDate: Date;
   formSubmitted = false;
-  src:any;
+  src: any;
   showRepo: boolean = false;
   // Created Form Group
-  angForm: FormGroup;
+  ngForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url
+  maxDate: Date;
+  minDate: Date;
+  startingdate: any = null
+  endingdate: any = null
+  branchOption: any[];
+  ngbranch: any = null
+  iframe1url: any = ' ';
+  clicked: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private _ownbranchmasterservice: OwnbranchMasterService,
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
- 
+
 
   ngOnInit(): void {
+    this.createForm()
 
-    // // debugger
-    //  this.http.get(this.url).subscribe(Response => {
-    //      // If Response comes function
-    //      // hideloader() is called
-    //      if (Response) {
-    //        hideloader();
-    //      }
-    //      console.log(Response)
-    //      this.dt = Response;
-    //      this.dataDisplay = this.dt.data;
-    //    });
-    //  // Function is defined
-    //  function hideloader() {
-    //    // Setting display of spinner
-    //    // element to none
-    //    document.getElementById('loading').style.display = 'none';
-    //  }
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.ngForm.controls['BRANCH'].enable()
+    //   this.ngbranch = result.branch.id
+    // }
+    // else {
+    //   this.ngForm.controls['BRANCH'].disable()
+    //   this.ngbranch = result.branch.id
+    // }
+
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+
   }
-  submit(event) {
-    debugger
-    // this.showRepo = true;
-    const url="http://localhost/NewReport/report-code/Report/examples/DayBookReport.php";
-    console.log(url);
 
-    window.open(url, '_blank');
-    
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  createForm() {
+    this.ngForm = this.fb.group({
+      Branch: ['', [Validators.required]],
+      Type: ['', [Validators.required]],
+      Starting_Date: [''],
+      Denomination_Detail_Required: [''],
+      Group_Profit_And_Loss_Account: ['']
+    });
+  }
+
+  selectedType
+  Types = [
+    { id: 1, value: "Summary" },
+    { id: 2, value: "Details" },
+    { id: 3, value: "Subsidairy Grouping" },
+  ];
+
+
+  View(event) {
+
     event.preventDefault();
     this.formSubmitted = true;
 
-    // // if (this.angForm.valid) {
-    //   const formVal = this.angForm.value;
-    //   const dataToSend = {
-    //     'startDate': (formVal.startDate == '' || formVal.startDate == 'Invalid date') ? ageCaldate = '' : ageCaldate = moment(formVal.startDate).format('DD/MM/YYYY'),
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
 
-    //   };
-    //   this._OtherReportService.postData(dataToSend).subscribe(
-    //     (data) => {
-    //       Swal.fire("Success!", "Data Added Successfully !", "success");
-    //       this.formSubmitted = false;
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
+    if (this.ngForm.valid) {
 
-
-    //To clear form
-    // this.resetForm();
-    this.formSubmitted = false;
-    // }
+      // this.showRepo = true;
+      let obj = this.ngForm.value
+      let stdate = moment(obj.Starting_Date).format('DD/MM/YYYY');
+      let Branch = obj.Branch;
+      let Type = obj.Type;
+      let checkb1 = obj.Group_Profit_And_Loss_Account;
+      let checkb2 = obj.Denomination_Detail_Required;
+      this.iframe1url = this.report_url + "/DayBookReport.php?stdate='" + stdate + "'&Branch='" + Branch + "'&Type='" + Type + "'&checkb1='" + checkb1 + "'&checkb2='" + checkb2 + "'&bankName='" + bankName + "'";
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
 
   }
-  close(){
+
+  obj1: any
+  getBranch() {
+    this.obj1 = [this.ngbranch]
+  }
+  close() {
     this.resetForm()
   }
 
   // Reset Function
   resetForm() {
-    // this.createForm();
+    this.createForm()
     this.showRepo = false;
+    this.clicked = false;
   }
- 
+
 }

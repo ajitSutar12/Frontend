@@ -8,18 +8,20 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
-
+import { environment } from '../../../../../environments/environment'
 @Component({
   selector: 'app-bnk-reg-account',
   templateUrl: './bnk-reg-account.component.html',
-  styleUrls: ['./bnk-reg-account.component.scss']
+  styleUrls: ['./bnk-reg-account.component.scss'],
+  providers: [OwnbranchMasterService]
 })
 export class BnkRegAccountComponent implements OnInit {
   // Created Form Group
   angForm: FormGroup;
   //  variable for validation
   formSubmitted = false;
-  showRepo = false;
+
+  clicked: boolean = false;
   // branch name 
   selectedBranch: number;
   branch_codeList: any = null
@@ -27,24 +29,28 @@ export class BnkRegAccountComponent implements OnInit {
   branchCode: any = null
   ngBranchCode
   ngscheme
+  report_url = environment.report_url
   allScheme: any[];
-   // Date variables
-   todate: any = null;
-   fromdate:any=null
-   maxDate: Date;
-   minDate: Date;
-   bsValue = new Date();
+  // Date variables
+  todate: any = null;
+  fromdate: any = null
+  maxDate: Date;
+  minDate: Date;
+  bsValue = new Date();
+  iframeurl: any = ' ';
+  showRepo: boolean = false;
 
-   selectedType
-   Types = [
-     { id: 1, name: "None" },
-     { id: 2, name: "City" },
-     { id: 2, name: "Cast" },
-     { id: 2, name: "Occupation" },
-     { id: 2, name: "Category" },
-     { id: 2, name: "Operation" },
-     { id: 2, name: "Interest Category" },
-   ];
+
+  selectedType
+  Types = [
+    { id: 1, name: "None" },
+    { id: 2, name: "City" },
+    { id: 2, name: "Cast" },
+    { id: 2, name: "Occupation" },
+    { id: 2, name: "Category" },
+    { id: 2, name: "Operation" },
+    { id: 2, name: "Interest Category" },
+  ];
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -57,13 +63,17 @@ export class BnkRegAccountComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
-   }
+  }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
-      ACOPEN:  new FormControl('ACOPEN'),
+      // ACOPEN: new FormControl('ACOPEN'),
+      // ACCLOSE: new FormControl('ACCLOSE'),
+      ACOPEN: [],
+      ACCLOSE: [],
+
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       GROUP_BY: ['', [Validators.required]],
@@ -71,16 +81,16 @@ export class BnkRegAccountComponent implements OnInit {
   }
   ngOnInit(): void {
     this.createForm()
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngBranchCode = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngBranchCode = result.branch.id
-    }
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['BRANCH_CODE'].enable()
+    //   this.ngBranchCode = result.branch.id
+    // }
+    // else {
+    //   this.angForm.controls['BRANCH_CODE'].disable()
+    //   this.ngBranchCode = result.branch.id
+    // }
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -88,7 +98,7 @@ export class BnkRegAccountComponent implements OnInit {
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'AG' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH'||scheme.name == 'GL')
+        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'AG' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
       });
       this.allScheme = allscheme;
     })
@@ -96,29 +106,46 @@ export class BnkRegAccountComponent implements OnInit {
     // this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
     //   this.allScheme.push(data)
     // })
-   
+
 
   }
-  src: any;
-  View(event){
+  View(event) {
+
     event.preventDefault();
     this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+
     if (this.angForm.valid) {
-    this.showRepo = true;
-    let obj = this.angForm.value
-    let date = moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-    let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/AccountStatement.php";
-    // const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='" + date + "'&scheme='" + scheme + "'&";
-    console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    // let ageCaldate
+
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let AC_TYPE = obj.AC_TYPE;
+      let BRANCH_CODE = obj.BRANCH_CODE;
+      let ACOPEN = obj.ACOPEN;
+      let ACCLOSE = obj.ACCLOSE;
+      let GROUP_BY = obj.GROUP_BY;
+
+      this.iframeurl = this.report_url + "/InsuranceRegister.php?stdate='" + stdate + "'etdate='" + etdate + "'AC_TYPE='" + AC_TYPE + "'BRANCH_CODE='" + BRANCH_CODE + "'ACOPEN='" + ACOPEN + "'ACCLOSE='" + ACCLOSE + "'GROUP_BY='" + GROUP_BY + "'&bankName='" + bankName + "' ";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
+
   }
 
-  close(){}
+  close() {
+    this.resetForm()
+  }
 
+  resetForm() {
+    this.createForm()
+    this.showRepo = false;
+    this.clicked = false;
+  }
 }

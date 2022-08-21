@@ -961,35 +961,40 @@ const MENUITEMS = [
                  id: 205
               },
                {
-                 state: 'BnkInstructionsInterestDebit',
+                 state: 'IntInstructionExecutionFailure',
                  name: 'Interest Instructions Execution List (Failure/Success)',
                  id: 206
                },
                {
-                 state: 'BnkInstructionsStandingDebit',
+                 state: 'StandingInstExecutionFailure',
                  name: 'Standing Instructions Execution List (Failure/Success)',
                   id: 207
                },
                {
-                 state: 'BnkExpectStandingInstCredit',
+                 state: 'StandingInstExecutionCredit',
                  name: 'Standing Instructions Execution List (Expected Credit Scheme)',
                   id: 208
                },
                {
-                 state: 'BnkExpectStandInstruction',
+                 state: 'StandingInstExecutionDebit',
                  name: 'Standing Instructions Execution List (Expected Debit Scheme )',
                   id: 209
                },
                {
-                 state: 'BnkExpectIntInstructCredit',
+                 state: 'IntInstructExecutionCredit',
                  name: 'Interest Instructions Execution List (Expected Credit Scheme)',
                   id: 210
                },
                {
-                 state: 'BnkExpectIntInstruct',
+                 state: 'IntInstructExecutionDebit',
                  name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                   id: 211
                },
+               {
+                state: 'TFormDayBookComponent',
+                name: 'T Form Day Book Details/Summary',
+                 id: 212
+              },
              
 
             ]
@@ -1049,21 +1054,21 @@ const MENUITEMS = [
                 name: 'Deadstock Balance List',
                 id: 203
               },
-              {
-                state: 'BnkLedgerABTypeList',
-                name: 'Leadger Balance List A,B type Member Loan and Deposit',
-                id: 204
-              },
+              // {
+              //   state: 'BnkLedgerABTypeList',
+              //   name: 'Leadger Balance List A,B type Member Loan and Deposit',
+              //   id: 204
+              // },
               {
                 state: 'BnkACBalBook',
                 name: 'Account Balance Book',
                 id: 218
               },
-              // {
-              //   state: 'BnkACBalList',
-              //   name: 'Account Balance List',
-              //   id: 219
-              // },
+              {
+                state: 'BnkACBalList',
+                name: 'Account Balance List',
+                id: 219
+              },
               {
                 state: 'BnkCustIDBalList',
                 name: 'Customer ID wise Balance List',
@@ -1089,11 +1094,11 @@ const MENUITEMS = [
                 name: 'Deadstock Balance List with depreciation',
                 id: 224
               },
-              {
-                state: 'BnkOtherBalList',
-                name: 'Other Receivable Balance List ',
-                id: 225
-              },
+              // {
+              //   state: 'BnkOtherBalList',
+              //   name: 'Other Receivable Balance List ',
+              //   id: 225
+              // },
              
 
             ]
@@ -1297,11 +1302,7 @@ const MENUITEMS = [
                name: 'Non Guarantor (A-Type Members Only) List',
                id: 199
              },
-            //  {
-            //    state: 'BnkMinorsList',
-            //    name: 'Minor List ',
-            //    id: 200
-            //  },
+            
 
             ]
           },
@@ -1328,9 +1329,38 @@ const MENUITEMS = [
                {
                  state: 'BnkTrialBaldetail',
                  name: 'Trial Balance Detail',
-                 id: 191
+                 id: 200
                },
-             
+               {
+                state: 'BalanceSheet',
+                name: 'Balance Sheet',
+                id: 201
+               },
+               {
+                state: 'NBalanceSheet',
+                name: 'N Form Balance Sheet',
+                id: 202
+               },
+               {
+                state: 'ProfitLossAccount',
+                name: 'Profit & Loss Account',
+                id: 203
+               },
+               {
+                state: 'NProfitLoss',
+                name: 'N Form Profit & Loss Account',
+                id: 204
+               },
+               {
+                state: 'RecePayRep',
+                name: 'Receipt & Payment Report',
+                id: 205
+               },
+               {
+                state: 'RecePayRepDetails',
+                name: 'Receipt & Payment Report Detail',
+                id: 206
+               },
 
             ]
           },

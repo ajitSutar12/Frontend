@@ -15,6 +15,8 @@ import { BnkRegGoldSilverSubReturnComponent } from './bnk-reg-gold-silver-sub-re
 import {BnkRegGoldSilverSubReturnRoutingModule} from './bnk-reg-gold-silver-sub-return-routing.module';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { Iframe3Module } from '../iframe3/iframe3.module';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -29,7 +31,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkRegGoldSilverSubReturnRoutingModule
+    BnkRegGoldSilverSubReturnRoutingModule,
+    Iframe3Module
   ],
 
   declarations: [BnkRegGoldSilverSubReturnComponent],

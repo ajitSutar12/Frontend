@@ -134,8 +134,8 @@ export class VoucherEntryComponent implements OnInit {
   overdraftAmt
   // customerImg: string
   // signture: string
-  customerImg = '../../../../assets/images/nouser.png';
-  signture = '../../../../assets/images/nosignature.png';
+  customerImg = 'assets/images/nouser.png';
+  signture = 'assets/images/nosignature.png';
   Customer_Name
   Customer_Pan_No = '---'
   Customer_Contact_No = '---'
@@ -433,8 +433,8 @@ export class VoucherEntryComponent implements OnInit {
       this.ClearBalance = 0
       this.overdraftAmt = 0
       this.AfterVoucher = 0
-      this.customerImg = '../../../../assets/images/nouser.png';
-      this.signture = '../../../../assets/images/nosignature.png'
+      this.customerImg = 'assets/images/nouser.png';
+      this.signture = 'assets/images/nosignature.png'
       this.Status = '0'
       this.Customer_Pan_No = '---'
       this.Customer_Contact_No = '---'
@@ -748,8 +748,8 @@ export class VoucherEntryComponent implements OnInit {
 
 
         } else {
-          this.customerImg = '../../../../assets/images/nouser.png';
-          this.signture = '../../../../assets/images/nosignature.png'
+          this.customerImg = 'assets/images/nouser.png';
+          this.signture = 'assets/images/nosignature.png'
         }
       })
 

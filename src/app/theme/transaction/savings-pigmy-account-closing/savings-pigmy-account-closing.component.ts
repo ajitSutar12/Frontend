@@ -84,8 +84,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   mainMaster = new Array();
   showAdd: boolean = true;
   showUpdate: boolean = false;
-  customerImg = '../../../../assets/images/nouser.png';
-  signture = '../../../../assets/images/nosignature.png';
+  customerImg = 'assets/images/nouser.png';
+  signture = 'assets/images/nosignature.png';
   ngCommission: any = null
   GlACNo
   DatatableHideShow: boolean = true;
@@ -737,7 +737,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             }
           });
         } else {
-          this.customerImg = '../../../../assets/images/nouser.png';
+          this.customerImg = 'assets/images/nouser.png';
           this.signture = '../../../../assets/images/nosignature.png'
         }
       })

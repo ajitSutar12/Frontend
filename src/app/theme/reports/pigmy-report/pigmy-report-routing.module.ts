@@ -32,7 +32,9 @@ children:[
    {
      path: 'BnkPigmyCommissionRepo',
      loadChildren: () => import('./bnk-pigmy-commission-repo/bnk-pigmy-commission-repo.module').then(m => m.BnkPigmyCommissionRepoModule)
-   }
+   },
+  
+
 
 ]
   }

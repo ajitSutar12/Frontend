@@ -722,7 +722,7 @@
                                         <span><label>Last Interest Date : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{accountEvent?.AC_LINTEDT}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_LINTEDT}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -1097,7 +1097,21 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="align-items-center">
+                        <div>
+                            <span class="user-avatar-section">
+                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50"
+                                    width="80" *ngIf="getschemename !='GL'"
+                                    (mouseover)="showImage(customerImg)" (mouseout)="hideImage()"
+                                    alt="User avatar" />
+                            </span> &nbsp; &nbsp;
+                            <span class="user-avatar-section">
+                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
+                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
+                                    height="25" width="80" alt="User avatar"
+                                    *ngIf="getschemename !='GL'" />
+                            </span>
+                        </div>
+                        <!-- <div class="align-items-center">
                             <span class="user-avatar-section">
                                 <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50" width="80"
                                     *ngIf="getschemename !='GL'" (mouseover)="showImage(customerImg)"
@@ -1108,7 +1122,7 @@
                                     (mouseover)="showImage(signture)" (mouseout)="hideImage()" height="25" width="80"
                                     alt="User avatar" *ngIf="getschemename !='GL'" />
                             </span>
-                        </div>
+                        </div> -->
                         <div class="user-info">
                             <h5 style="font-size: 13px; font-weight: 800;">{{accountEvent?.AC_NAME}}
                             </h5>

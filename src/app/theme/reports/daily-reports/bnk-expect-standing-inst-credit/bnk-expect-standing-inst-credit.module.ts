@@ -14,6 +14,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkExpectStandingInstCreditComponent } from './bnk-expect-standing-inst-credit.component';
 import {BnkExpectStandingInstCreditRoutingModule} from './bnk-expect-standing-inst-credit-routing.module'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import{Iframe1Module} from '../iframe1/iframe1.module';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -28,7 +31,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkExpectStandingInstCreditRoutingModule
+    BnkExpectStandingInstCreditRoutingModule,
+    Iframe1Module
   ],
 
   declarations: [BnkExpectStandingInstCreditComponent],
@@ -47,6 +51,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: UserAuthInterceptor,
       multi: true
     },
-  ]
+  ],
+  schemas:[NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BnkExpectStandingInstCreditModule { }

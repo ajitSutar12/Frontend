@@ -9,6 +9,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { environment } from "src/environments/environment";
 @Component({
   selector: 'app-bnk-ivopen-and-close-reg',
   templateUrl: './bnk-ivopen-and-close-reg.component.html',
@@ -19,6 +20,11 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
 angForm: FormGroup;
 //  variable for validation
 formSubmitted = false;
+clicked:boolean=false;
+
+iframeurl : any = '';
+
+
 // branch name 
 selectedBranch: number;
 branch_codeList: any = null
@@ -94,8 +100,13 @@ ngOnInit(): void {
 
 }
 src: any;
+report_url = environment.report_url
 View(event){
   event.preventDefault();
+  
+  let userData = JSON.parse(localStorage.getItem('user'));
+  let bankName = userData.branch.syspara.BANK_NAME;
+
   this.formSubmitted = true;
   if (this.angForm.valid) {
    this.showRepo = true;
@@ -104,13 +115,13 @@ View(event){
   let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
   let BRANCH_CODE = obj.BRANCH_CODE
   let GROUP_BY = obj.GROUP_BY
-  const url = "http://localhost/NewReport/report-code/Report/examples/InvestRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "'  &BRANCH_CODE='" + BRANCH_CODE + "' ";
-  console.log(url);
-  this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  // let ageCaldate
+  
+  this.iframeurl = this.report_url + "/OpenDepositReport.php?startDate='"+startDate+"'&endDate='"+enddate+"'&branch='"+BRANCH_CODE+"'&bankName='" + bankName + "' ";
+  this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   }
 }
 
@@ -144,4 +155,16 @@ View(event){
     }
     this.getschemename = event.name
   }
+  
+close(){
+  this.resetForm()
+}
+
+// Reset Function
+resetForm() {
+  this.createForm()
+  this.showRepo = false;
+  this.clicked=false;
+}
+
 }

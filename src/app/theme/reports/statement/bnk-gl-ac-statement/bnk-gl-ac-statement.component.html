@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>General account Statement Printing </h5>
+                <h5>General account Statement</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
@@ -11,13 +11,13 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="BRANCH">Branch<sub class="required">*</sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH">Branch<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
+                                        formControlName="BRANCH" bindLabel="label" (change)="getBranch()"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
@@ -32,18 +32,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1">   <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label></div>
-                        <div class="col-sm">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub class="required"> *
+                                </sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
-                                        (change)="getAccountList($event)" placeholder="Scheme Code">
+                                        (change)="getIntro($event)" placeholder="Scheme Code" required>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                  
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -54,17 +54,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"><label for="FROM_AC">From Account Number<sub class="required"> * </sub></label></div>
-                        <div class="col-sm">
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"><label for="Starting Account">Starting Account <sub class="required"> *
+                                </sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
+                                         required placeholder="Starting Account">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -75,17 +81,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"> <label for="TO_AC">To Account Number<sub class="required"> * </sub></label></div>
-                        <div class="col-sm">
+                        <div class="col-sm-12 col-md-2"> <label for="Ending Account">Ending Account<sub class="required"> *
+                                </sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
-                                        bindLabel="label" title="Compulsory Selection" 
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
+                                        bindLabel="label" title="Compulsory Selection"
+                                         required placeholder="Ending Account" (change)="loadAcno()">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                   
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -96,18 +103,19 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                     <div class="row">
-                        <div class="col-md-1"> <label for="START_DATE">Starting Date<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="START_DATE">Starting Date<sub
+                                    class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
                                         class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="START_DATE"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"  
+                                        [maxDate]="maxDate"
+                                         formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -120,15 +128,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label></div>
-                        <div class="col-md-2">
+                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">Ending Date<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
                                         class="form-control" [(ngModel)]="todate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="END_DATE" 
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"  [minDate]="fromdate"
+                                     formControlName="END_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -136,25 +144,54 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['END_DATE'].errors?.required || angForm.controls['END_DATE'].invalid ">
+                                <div
+                                    *ngIf="angForm.controls['END_DATE'].errors?.required || angForm.controls['END_DATE'].invalid ">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="submit($event)">View</button>      
+
+                        <div class="col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="Month_wise_Summary"
+                                        formControlName="Month_wise_Summary">
+                                    <label class="border-checkbox-label" for="Month_wise_Summary">Month wise Summary</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
-                        </div>
-                    </div>
-                    <div class="card-block" *ngIf="showRepo">
-                        <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+
                     </div>
 
+                    <div class="row"></div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                         (click)="View($event); clicked = true  ">View</button>
+
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                
+                                <div *ngIf="showRepo">
+                                    
+                                    <app-iframe2 [url]='iframe2url'></app-iframe2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

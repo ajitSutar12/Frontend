@@ -18,6 +18,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./bnk-gl-ac-statement.component.scss']
 })
 export class BnkGlAcStatementComponent implements OnInit {
+
+  iframe2url: any = '';
+  clicked:boolean=false;
   //api
   url = environment.base_url;
   formSubmitted = false;
@@ -26,10 +29,16 @@ export class BnkGlAcStatementComponent implements OnInit {
   makeForm: any;
 
   angForm: FormGroup;
+   //account
+   memFrom
+   memTo
+   branch
+   mem:any
 
   showButton: boolean = true;
   CloseShow: boolean = true;
   showRepo: boolean = false;
+  report_url = environment.report_url
   //dropdown ngmodel variables
 
   ngscheme: any = null
@@ -40,13 +49,15 @@ export class BnkGlAcStatementComponent implements OnInit {
   branch_code
   ToAC
   fromAC
-  getschemename
- // Date variables
- todate: any = null;
- fromdate:any=null
- maxDate: Date;
- minDate: Date;
- bsValue = new Date();
+  obj: any;
+  // Date variables
+  todate: any = null;
+  fromdate: any = null
+  edate: any = null
+  maxDate: Date;
+  minDate: Date;
+  
+  bsValue = new Date();
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -64,25 +75,30 @@ export class BnkGlAcStatementComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm()
+
+    // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'GL');
       });
-      this.scheme = allscheme;
+      this.scheme = filtered;
+
     })
+
+    //branch
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
 
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH'].enable()
-    }
-    else {
-      this.angForm.controls['BRANCH'].disable()
-      this.ngBranchCode = result.branch.id
-    }
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['BRANCH'].enable()
+    // }
+    // else {
+    //   this.angForm.controls['BRANCH'].disable()
+    //   this.ngBranchCode = result.branch.id
+    // }
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -92,65 +108,102 @@ export class BnkGlAcStatementComponent implements OnInit {
       BRANCH: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
+      Month_wise_Summary: ['', [Validators.required]],
     });
   }
+
+
+  //For Starting account and Ending Account dropdown
+  getschemename: any
+
   getBranch() {
-    this.ngscheme = null
-    this.ngfromac = null
-    this.ngtoac = null
+    this.getIntroducer()
   }
-  //get account no according scheme
-  getAccountList(event) {
-    this.ngfromac = null
-    this.ngtoac = null
-    let obj = [this.ngscheme, this.ngBranchCode]
-    switch (event.name) {
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.ToAC = data
-          this.fromAC = data 
-        })
-        break;
-
-      case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.ToAC = data
-          this.fromAC = data
-        })
-
-        break;
-
-      case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.ToAC = data
-          this.fromAC = data
-        })
-        break;
-    }
+  getIntro(event) {
     this.getschemename = event.name
-  }
-  src:any;
-  submit(event) {
-    debugger
-    this.showRepo = true;
-    let obj = this.angForm.value
-    let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let endDate = moment(obj.END_DATE).format('DD/MM/YYYY');
-    let branch = obj.BRANCH;
-     const url="http://localhost/NewReport/report-code/Report/examples/GLaccStatement.php?startDate='"+startDate+"'&endDate='"+endDate+"'&branch='"+branch+"'";
-    // const url="http://localhost/NewReport/report-code/Report/examples/GLaccStatement.php";
-    console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-   
-    this.formSubmitted = false;
-  }
-  close(){
-    this.resetForm()
+    this.getIntroducer()
   }
 
-  // Reset Function
-  resetForm() {
-    this.createForm();
+
+  getIntroducer() {
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.ngscheme, branchCode]
+    switch (this.getschemename) {
+
+
+      case 'GL':
+        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+    }
+  }
+
+
+
+  src: any;
+  View(event) {
+
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    
+    if (this.angForm.valid) {
+
+      this.showRepo = true;
+     
+      let obj = this.angForm.value
+      let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let branch = obj.BRANCH;
+      let scheme = obj.AC_TYPE
+      let startingcode = obj.FROM_AC;
+      let endingcode = obj.TO_AC;
+      let MonthwiseSummary =obj.Month_wise_Summary
+
+      this.iframe2url = this.report_url + "/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&branch='" + branch + "'&startingcode='" + startingcode + "'&endingcode='" + endingcode + "' &scheme='" + scheme + "' &MonthwiseSummary='" + MonthwiseSummary + "'&bankName='" + bankName + "'";
+      this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    }
+
+  }
+
+  //load acno according start and end acno
+ loadAcno() {
+  this.memFrom = this.angForm.controls['FROM_AC'].value
+  this.memTo = this.angForm.controls['TO_AC'].value
+  this.branch = this.angForm.controls['BRANCH'].value
+  if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
+    this.mem = [this.memFrom, this.memTo, this.branch]
+   
+    if (this.getschemename == 'GL') {
+      this.http.get(this.url + '/gl-account-master/scheme/' + this.mem).subscribe((data) => {
+      });
+    }
+   
+  
+  }
+  else {
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  }
+}
+
+close(){
+  this.resetForm()
+  }
+
+ resetForm() {
+    this.createForm()
     this.showRepo = false;
+    this.clicked=false;
   }
 }

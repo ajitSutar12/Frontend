@@ -135,8 +135,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   mainMaster = new Array();
   showAdd: boolean = true;
   showUpdate: boolean = false;
-  customerImg = '../../../../assets/images/nouser.png';
-  signture = '../../../../assets/images/nosignature.png';
+  customerImg = 'assets/images/nouser.png';
+  signture = 'assets/images/nosignature.png';
   Scheme
   multigrid = []
 
@@ -1045,7 +1045,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
             }
           });
         } else {
-          this.customerImg = '../../../../assets/images/nouser.png';
+          this.customerImg = 'assets/images/nouser.png';
           this.signture = '../../../../assets/images/nosignature.png'
         }
       })
@@ -1092,7 +1092,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         // this.getVoucherData();
         Swal.fire('Success!', 'Account Closed Successfully !', 'success');
         this.multigrid = []
-        this.customerImg = '../../../../assets/images/nouser.png';
+        this.customerImg = 'assets/images/nouser.png';
         this.signture = '../../../../assets/images/nosignature.png'
         this.resetForm()
       }, err => {

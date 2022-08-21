@@ -14,6 +14,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkInstructionsStandingDebitComponent } from './bnk-instructions-standing-debit.component';
 import {BnkInstructionsStandingDebitRoutingModule} from './bnk-instructions-standing-debit-routing.module';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import {Iframe1Module} from '../iframe1/iframe1.module'
+import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -28,9 +31,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkInstructionsStandingDebitRoutingModule
+    BnkInstructionsStandingDebitRoutingModule,
+    Iframe1Module,
   ],
-
+  schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
   declarations: [BnkInstructionsStandingDebitComponent],
   exports:[BnkInstructionsStandingDebitComponent],
   providers: [

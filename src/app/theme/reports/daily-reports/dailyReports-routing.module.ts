@@ -26,29 +26,38 @@ const routes: Routes = [
          loadChildren: () => import('./bnk-scroll-detail-both/bnk-scroll-detail-both.module').then(m => m.BnkScrollDetailBothModule)
        },
        {
-         path: 'BnkInstructionsInterestDebit',
+         path: 'IntInstructionExecutionFailure',
          loadChildren: () => import('./bnk-instructions-interest-debit/bnk-instructions-interest-debit.module').then(m => m.BnkInstructionsInterestDebitModule)
        },
        {
-         path: 'BnkInstructionsStandingDebit',
+         path: 'StandingInstExecutionFailure',
          loadChildren: () => import('./bnk-instructions-standing-debit/bnk-instructions-standing-debit.module').then(m => m.BnkInstructionsStandingDebitModule)
        },
        {
-         path: 'BnkExpectStandingInstCredit',
+         path: 'StandingInstExecutionCredit',
          loadChildren: () => import('./bnk-expect-standing-inst-credit/bnk-expect-standing-inst-credit.module').then(m => m.BnkExpectStandingInstCreditModule)
        },
        {
-        path: 'BnkExpectStandInstruction',
+        path: 'StandingInstExecutionDebit',
         loadChildren: () => import('./bnk-expect-stand-instruction/bnk-expect-stand-instruction.module').then(m => m.BnkExpectStandInstructionModule)
       },
       {
-        path: 'BnkExpectIntInstructCredit',
+        path: 'IntInstructExecutionCredit',
         loadChildren: () => import('./bnk-expect-int-instruct-credit/bnk-expect-int-instruct-credit.module').then(m => m.BnkExpectIntInstructCreditModule)
       },
       {
-        path: 'BnkExpectIntInstruct',
+        path: 'IntInstructExecutionDebit',
         loadChildren: () => import('./bnk-expect-int-instruct/bnk-expect-int-instruct.module').then(m => m.BnkExpectIntInstructModule)
-      }
+      },
+      {
+        path: 'iframe1',
+        loadChildren: () => import('./iframe1/iframe1.module').then(m => m.Iframe1Module)
+      },
+      {
+        path: 'TFormDayBookComponent',
+        loadChildren: () => import('./t-form-day-book/t-form-day-book.module').then(m => m.TFormDayBookModule)
+      },
+    
     
     ]
   }

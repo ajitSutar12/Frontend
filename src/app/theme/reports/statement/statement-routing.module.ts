@@ -29,14 +29,18 @@ const routes: Routes = [
          path: 'BnkTDStatement',
          loadChildren: () => import('./bnk-tdstatement/bnk-tdstatement.module').then(m => m.BnkTDStatementModule)
        },
+      //  {
+      //    path: 'BnkGlIntStatement',
+      //    loadChildren: () => import('./bnk-gl-int-statement/bnk-gl-int-statement.module').then(m => m.BnkGlIntStatementModule)
+      //  },
+      //  {
+      //    path: 'BnkMemStatement',
+      //    loadChildren: () => import('./bnk-mem-statement/bnk-mem-statement.module').then(m => m.BnkMemStatementModule)
+      //  },
        {
-         path: 'BnkGlIntStatement',
-         loadChildren: () => import('./bnk-gl-int-statement/bnk-gl-int-statement.module').then(m => m.BnkGlIntStatementModule)
-       },
-       {
-         path: 'BnkMemStatement',
-         loadChildren: () => import('./bnk-mem-statement/bnk-mem-statement.module').then(m => m.BnkMemStatementModule)
-       }
+        path: 'iframe2',
+        loadChildren: () => import('./iframe2/iframe2.module').then(m => m.Iframe2Module)
+      }
     
     
     ]

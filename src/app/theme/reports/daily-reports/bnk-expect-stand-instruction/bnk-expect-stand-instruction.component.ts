@@ -29,12 +29,14 @@ export class BnkExpectStandInstructionComponent implements OnInit {
   minDate: Date;
   bsValue = new Date();
   formSubmitted = false;
-
+  report_url = environment.report_url
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
   //api
   url = environment.base_url;
+  iframeurl: any = ' ';
+  clicked:boolean=false;
   //Dropdown option variable
   ngbranch
   branchOption: any;
@@ -80,16 +82,16 @@ export class BnkExpectStandInstructionComponent implements OnInit {
       this.branchOption = data;
     })
 
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngbranch = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngbranch = result.branch.id
-    }
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['BRANCH_CODE'].enable()
+    //   this.ngbranch = result.branch.id
+    // }
+    // else {
+    //   this.angForm.controls['BRANCH_CODE'].disable()
+    //   this.ngbranch = result.branch.id
+    // }
   }
 
   createForm() {
@@ -97,57 +99,48 @@ export class BnkExpectStandInstructionComponent implements OnInit {
       BRANCH_CODE: ["", [ Validators.required]],
       STATUS: ["", [ Validators.required]],
       START_DATE: ["", [ Validators.required]],
-      END_DATE: ["", [ Validators.required]],
+      FREQUENCY: ["", [ Validators.required]],
       SORT_ON: [""],
-      FREQUENCY: [""],
       NEWPAGE: [""],
     });
   }
   src: any;
-  submit(event) {
-    debugger
-    // this.showRepo = true;
-    event.preventDefault(); 
+  View(event) {
+    event.preventDefault();
     this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    let obj = this.angForm.value
-    let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-    let branch = obj.BRANCH_CODE;
-    let status = obj.STATUS;
-    console.log(status)
-    const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'&branch='"+branch+"'&status="+status+"";
-    // const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
-    console.log(url);
 
-    window.open(url, '_blank');
-    //  this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-  else {
-   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
- }
+      // this.showRepo = true;
+      let obj = this.angForm.value
+      let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let Branch = obj.BRANCH_CODE;
+      let STATUS = obj.STATUS;
+      let SORT_ON = obj.SORT_ON;
+      let FREQUENCY = obj.FREQUENCY;
+      let NEWPAGE = obj.NEWPAGE;
 
+      this.iframeurl = this.report_url + "/StandingInstructionDebit.php?stdate='" + stdate + "'&Branch='" + Branch + "'&STATUS='" + STATUS + "'&SORT_ON='" + SORT_ON + "'&FREQUENCY='" + FREQUENCY + "'&NEWPAGE='" + NEWPAGE + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
-    //To clear form
-    // this.resetForm();
-    this.formSubmitted = false;
-    // }
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
 
-  }
-  obj1: any
-  getBranch() {
-    this.obj1 = [this.ngbranch]
   }
   close() {
     this.resetForm()
   }
-
-  // Reset Function
-  resetForm() {
-    this.createForm();
+ resetForm() {
+    this.createForm()
     this.showRepo = false;
+    this.clicked=false;
   }
+
 
 }
 

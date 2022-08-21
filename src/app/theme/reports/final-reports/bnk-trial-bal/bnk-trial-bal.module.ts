@@ -12,7 +12,9 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkTrialBalComponent } from './bnk-trial-bal.component';
-import {BnkTrialBalRoutingModule} from './bnk-trial-bal-routing.module'
+import {BnkTrialBalRoutingModule} from './bnk-trial-bal-routing.module';
+import {Iframe4Module} from '../iframe4/iframe4.module';
+import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -27,8 +29,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkTrialBalRoutingModule
+    BnkTrialBalRoutingModule,
+    Iframe4Module
   ],
+  schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
 
   declarations: [BnkTrialBalComponent],
   exports:[BnkTrialBalComponent],
