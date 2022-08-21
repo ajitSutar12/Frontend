@@ -20,11 +20,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closing.service';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-
-
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -41,7 +38,7 @@ import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closin
 
     
   ],
-  providers:[OwnbranchMasterService,NarrationService,SystemMasterParametersService,SchemeCodeDropdownService,SchemeAccountNoService,MultiVoucherService,SavingPigmyAccountClosingService,{
+  providers:[OwnbranchMasterService,NarrationService,SystemMasterParametersService,SchemeCodeDropdownService,SchemeAccountNoService,MultiVoucherService,SavingPigmyAccountClosingService,CustomerIdService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

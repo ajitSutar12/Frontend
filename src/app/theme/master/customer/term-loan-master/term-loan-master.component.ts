@@ -1088,7 +1088,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
-      this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
 
       if (data.castMaster == null) {
         data.castMaster = ""
@@ -1127,7 +1127,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_ADDR: permadd?.AC_ADDR,
         AC_GALLI: permadd?.AC_GALLI,
         AC_AREA: permadd?.AC_AREA,
-        AC_CTCODE: permadd.city?.CITY_NAME,
+        AC_CTCODE: permadd?.city?.CITY_NAME,
         AC_PIN: permadd?.AC_PIN,
       })
 
@@ -1972,7 +1972,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.angForm.patchValue({
           AC_EXPIRE_DATE: expiryDate
         })
-      } else {
+      } else if (this.openingDate != undefined) {
         var full = []
         var fullDate = this.openingDate;
         full = fullDate.split(' ');

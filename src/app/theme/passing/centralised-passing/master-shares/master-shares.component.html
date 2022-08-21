@@ -80,10 +80,10 @@
                                                             data.idmaster.custAddress[0]?.AC_ADDR }}
                                                         </td>
                                                         <td
-                                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-"
+                                                            [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-"
                                                             :
-                                                            data.idmaster.custAddress[0].city?.CITY_NAME }}
+                                                            data.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                                         </td>
                                                         <td
                                                             [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">

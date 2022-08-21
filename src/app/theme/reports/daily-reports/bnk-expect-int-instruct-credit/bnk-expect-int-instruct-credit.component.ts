@@ -23,14 +23,16 @@ import { first } from "rxjs/operators";
   styleUrls: ['./bnk-expect-int-instruct-credit.component.scss']
 })
 export class BnkExpectIntInstructCreditComponent implements OnInit {
+  iframe1url: any = '';
+  clicked:boolean=false;
   // Date variables
-  todate: any = null;
-  fromdate: any = null
+
+  date: any = null
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
   formSubmitted = false;
-
+  report_url = environment.report_url
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
@@ -40,18 +42,15 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
   ngbranch
   branchOption: any;
 
+  //for Status
   selectedType
   Types = [
-    { id: 1, name: "S" , value:"Success" },
-    { id: 2, name: "F", value:"Failure"},
+    { id: 1, name: "S", value: "Success" },
+    { id: 2, name: "F", value: "Failure" },
   ];
 
-  selectedSorting
-  SortingOn = [
-    { id: 1, name: "Debit Scheme" },
-    { id: 2, name: "Credit Scheme" },
-  ];
 
+  //for frequency
   selectedFrequency
   SortingFrequency = [
     { id: 1, name: "Monthly" },
@@ -95,58 +94,51 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ["", [ Validators.required]],
-      STATUS: ["", [ Validators.required]],
-      START_DATE: ["", [ Validators.required]],
-      END_DATE: ["", [ Validators.required]],
-      SORT_ON: [""],
-      FREQUENCY: [""],
+      BRANCH_CODE: ["", [Validators.required]],
+      STATUS: ["", [Validators.required]],
+      Date: ["", [Validators.required]],
+      FREQUENCY: ["", [Validators.required]],
       NEWPAGE: [""],
     });
   }
   src: any;
-  submit(event) {
-    debugger
-    // this.showRepo = true;
-    event.preventDefault(); 
+
+  view(event) {
+
+    event.preventDefault();
     this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    let obj = this.angForm.value
-    let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-    let branch = obj.BRANCH_CODE;
-    let status = obj.STATUS;
-    console.log(status)
-    const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'&branch='"+branch+"'&status="+status+"";
-    // const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
-    console.log(url);
-    //  this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-     window.open(url, '_blank');
-  }
-  else {
-   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
- }
+
+      // this.showRepo = true;
+      let obj = this.angForm.value
+      let date = moment(obj.Date).format('DD/MM/YYYY');
+      let status = obj.STATUS;
+      let branch = obj.BRANCH_CODE;
+      let frequency = obj.FREQUENCY;
+      let PrintClosedAccounts = obj.Print_Closed_Accounts;
 
 
-    //To clear form
-    // this.resetForm();
-    this.formSubmitted = false;
-    // }
+      this.iframe1url = this.report_url + "/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    }
 
   }
-  obj1: any
-  getBranch() {
-    this.obj1 = [this.ngbranch]
-  }
+
   close() {
     this.resetForm()
   }
 
-  // Reset Function
   resetForm() {
-    this.createForm();
+    this.createForm()
     this.showRepo = false;
+    this.clicked=false;
   }
 
 }

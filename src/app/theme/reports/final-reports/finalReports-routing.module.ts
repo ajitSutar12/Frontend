@@ -21,15 +21,31 @@ const routes: Routes = [
         path: 'BnkTrialBaldetail',
         loadChildren: () => import('./bnk-trial-baldetail/bnk-trial-baldetail.module').then(m => m.BnkTrialBaldetailModule)
       },
-      // {
-      //   path: 'BnkGuaranterList',
-      //   loadChildren: () => import('./bnk-guaranter-list/bnk-guaranter-list.module').then(m => m.BnkGuaranterListModule)
-      // },
-      // {
-      //   path: 'BnkLienMarkedAcList',
-      //   loadChildren: () => import('./bnk-lien-marked-ac-list/bnk-lien-marked-ac-list.module').then(m => m.BnkLienMarkedAcListModule)
-      // }
-    
+      {
+        path: 'RecePayRep',
+        loadChildren: () => import('./rece-pay-rep/rece-pay-rep.module').then(m => m.RecePayRepModule)
+      },
+      {
+        path: 'BalanceSheet',
+        loadChildren: () => import('./balance-sheet/balance-sheet.module').then(m => m.BalanceSheetModule)
+      },
+      {
+        path: 'ProfitLossAccount',
+        loadChildren: () => import('./profit-loss-account/profit-loss-account.module').then(m => m.ProfitLossAccountModule)
+      },
+      {
+        path: 'NProfitLoss',
+        loadChildren: () => import('./n-profit-loss/n-profit-loss.module').then(m => m.NProfitLossModule)
+      },
+      {
+        path: 'NBalanceSheet',
+        loadChildren: () => import('./n-balance-sheet/n-balance-sheet.module').then(m => m.NBalanceSheetModule)
+      },
+      {
+        path: 'RecePayRepDetails',
+        loadChildren: () => import('./rece-pay-rep-details/rece-pay-rep-details.module').then(m => m.RecePayRepDetailsModule)
+      },
+      
     ]
   }
 ];

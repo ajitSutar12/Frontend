@@ -16,7 +16,7 @@ import {BnkGLConsistRepoRoutingModule} from './bnk-glconsist-repo-routing.module
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
-
+import {IframeModule} from '../iframe/iframe.module'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -31,7 +31,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkGLConsistRepoRoutingModule
+    BnkGLConsistRepoRoutingModule,
+    IframeModule,
   ],
 
   declarations: [BnkGLConsistRepoComponent],

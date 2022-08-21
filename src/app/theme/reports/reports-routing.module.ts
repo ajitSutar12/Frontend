@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { IframecomponentComponent } from './iframecomponent/iframecomponent.component'
 const routes: Routes = [ 
   {
     path: '',
@@ -84,14 +84,19 @@ const routes: Routes = [
         loadChildren: () => import('./final-reports/finalReports.module').then(m => m.FinalReportsModule)
       },
       //
-      {
-        path: 'Report_Frame',
-        loadChildren: () => import('./report-frame/report-frame.Module').then(m => m.ReportFrameModule)
-      },
+      // {
+      //   path: 'Report_Frame',
+      //   loadChildren: () => import('./report-frame/report-frame.Module').then(m => m.ReportFrameModule)
+      // },
       //
       {
         path: 'PigmyReport',
         loadChildren: () => import('./pigmy-report/pigmy-report.module').then(m => m.PigmyReportModule)
+      },
+      //
+      {
+        path: 'iframecomponent',
+        component:IframecomponentComponent
       },
     ]
   }

@@ -22,6 +22,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -42,7 +43,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations: [VoucherEntryComponent],
   exports: [VoucherEntryComponent],
-  providers: [TransactionCashModeService, CustomerIdService, ACMasterDropdownService, TransactionTransferModeService, SchemeTypeService, OwnbranchMasterService, SchemeCodeDropdownService, SavingMasterService,
+  providers: [TransactionCashModeService, BankMasterService, CustomerIdService, ACMasterDropdownService, TransactionTransferModeService, SchemeTypeService, OwnbranchMasterService, SchemeCodeDropdownService, SavingMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

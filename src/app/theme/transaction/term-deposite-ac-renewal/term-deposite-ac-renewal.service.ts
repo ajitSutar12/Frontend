@@ -72,4 +72,15 @@ export class TermDepositeAcRenewalService {
       .get(this.url + "/cash-credit-ac-renewal/" + id)
       .pipe(catchError(this.handleError));
   }
+  // For append data
+  getTermFormData(id: any): Observable<any> {
+    return this.http
+      .get(this.url + "/cash-credit-ac-renewal/editTerm/" + id)
+      .pipe(catchError(this.handleError));
+  }
+
+  // For append data
+  getTermDepositAccountDeatils(id: any): Observable<any> {
+    return this.http.get(this.url + '/term-deposit-scheme/' + id).pipe(catchError(this.handleError));
+  }
 }

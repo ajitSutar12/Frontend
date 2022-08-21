@@ -49,6 +49,14 @@ const routes: Routes = [
         path: 'BnkOtherBalList',
         loadChildren: () => import('./bnk-other-bal-list/bnk-other-bal-list.module').then(m => m.BnkOtherBalListModule)
       },
+      {
+        path: 'iframe',
+        loadChildren: () => import('./iframe/iframe.module').then(m => m.IframeModule)
+      },
+      {
+        path: 'BnkACBalList',
+        loadChildren: () => import('./bnk-acbal-list/bnk-acbal-list.module').then(m => m.BnkAcbalListModule)
+      },
     
     ]
   }

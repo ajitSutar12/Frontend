@@ -15,6 +15,7 @@ import { BnkRegDeadStockComponent } from './bnk-reg-dead-stock.component';
 import {BnkRegDeadStockRoutingModule} from './bnk-reg-dead-stock-routing.module';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { Iframe3Module } from '../iframe3/iframe3.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -29,7 +30,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkRegDeadStockRoutingModule
+    BnkRegDeadStockRoutingModule,
+    Iframe3Module 
   ],
 
   declarations: [BnkRegDeadStockComponent],

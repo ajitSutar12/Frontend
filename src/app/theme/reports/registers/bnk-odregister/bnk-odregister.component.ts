@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,52 +16,72 @@ import Swal from 'sweetalert2';
   styleUrls: ['./bnk-odregister.component.scss']
 })
 export class BnkODRegisterComponent implements OnInit {
- // Created Form Group
- angForm: FormGroup;
- //  variable for validation
- formSubmitted = false;
- // branch name 
- selectedBranch: number;
- branch_codeList: any = null
- branch_code: any[]//from ownbranchmaster
- branchCode: any = null
- ngBranchCode
- ngscheme
- allScheme: any[];
+  iframe3url: any = '';
+  // Created Form Group
+  angForm: FormGroup;
+  //  variable for validation
+  formSubmitted = false;
+
+  // loader:boolean=false;
+  clicked:boolean=false;
+  // branch name 
+  selectedBranch: number;
+  branch_codeList: any = null
+  branch_code: any[]//from ownbranchmaster
+  branchCode: any = null
+  ngBranchCode
+  ngscheme
+  report_url = environment.report_url
+  //dropdwon
+  Startingcode:any=null;
+  Endingcode:any=null;
+  schemeCode: any = null;
+  obj: any;
+  startingCode: any[];
+  endingCode: any[];
+  scheme: any[];
   // Date variables
   todate: any = null;
-  fromdate:any=null
+  fromdate: any = null
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
   selectedCode: any;
-  showRepo: boolean =false;
+  showRepo: boolean = false;
+
+  ngacno: any = null;
+
+
+     //account
+     memFrom
+     memTo
+     branch
+     mem:any
+  //api
+  url = environment.base_url;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private _schemeService: SchemeAccountNoService,
+    private schemeAccountNoService: SchemeAccountNoService,
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
-   }
+  }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      AC_TYPE: ['', [Validators.required]],
-      OD_TEMP:  new FormControl('TemporaryOverDraft'),
-      START_AC_NO: [''],
-      // START_AC_NO: ['', [Validators.required]],
-      END_AC_NO: [''],
-      // END_AC_NO: ['', [Validators.required]],
-      START_DATE: ['', [Validators.required]],
-      END_DATE: ['', [Validators.required]],
-     
+      Scheme_code: ['', [Validators.required]],
+      OD_TEMP: new FormControl('TemporaryOverDraft'),
+      Starting_Account: ['', [Validators.required]],
+      Ending_Account: ['', [Validators.required]],
+
+
     })
   }
   ngOnInit(): void {
@@ -80,149 +101,148 @@ export class BnkODRegisterComponent implements OnInit {
       this.branch_code = data;
       // this.ngBranchCode = data[0].value
     })
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS' || scheme.name == 'SB' || scheme.name == 'TD')
-      });
-      this.allScheme = allscheme;
-    })
- 
-    // this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
-    //   this.allScheme.push(data)
-    // })
-   
- 
+
+
+  // Scheme Code
+  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    var filtered = data.filter(function (scheme) {
+      return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
+    });
+    this.scheme = filtered;
+
+  })
+  // const iframe = document.getElementById("test");
+  // iframe.addEventListener("load", function() {
+  //     console.log("Finish");
+  // });
+
   }
+
+
+
+   //For Starting account and Ending Account dropdown
+   getschemename: any
+
+   getBranch() {
+     this.getIntroducer()
+   }
+   getIntro(event) {
+     this.getschemename = event.name
+     this.getIntroducer()
+   }
+ 
+ 
+   getIntroducer() {
+ 
+     let data: any = localStorage.getItem('user');
+     let result = JSON.parse(data);
+     let branchCode = result.branch.id;
+     this.obj = [this.schemeCode, branchCode]
+     switch (this.getschemename) {
+ 
+ 
+       case 'LN':
+         this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+           this.startingCode = data;
+           this.Startingcode = null
+           this.endingCode = data;
+           this.Endingcode = null
+         })
+         break;
+       case 'CC':
+         this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.startingCode = data;
+          this.Startingcode = null
+          this.endingCode = data;
+          this.Endingcode = null
+         })
+         break;
+       case 'DS':
+         this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.startingCode = data;
+          this.Startingcode = null
+          this.endingCode = data;
+          this.Endingcode = null
+         })
+         break;
+ 
+     }
+   }
+
+ //load acno according start and end acno
+ loadAcno() {
+  this.memFrom = this.angForm.controls['Starting_Account'].value
+  this.memTo = this.angForm.controls['Ending_Account'].value
+  this.branch = this.angForm.controls['BRANCH_CODE'].value
+  if (this.angForm.controls['Starting_Account'].value < this.angForm.controls['Ending_Account'].value) {
+    this.mem = [this.memFrom, this.memTo, this.branch]
+   
+    if (this.getschemename == 'LN') {
+      this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
+      });
+    }
+    else if (this.getschemename == 'CC') {
+      this.http.get(this.url + '/cash-credit-master/scheme/' + this.mem).subscribe((data) => {
+      });
+    }
+    else if (this.getschemename == 'DS') {
+      this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
+      });
+    }
+   
+  
+  }
+  else {
+    Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+  }
+}
+
   src: any;
-  View(event){
+  view(event) {
+
+    // this.loader=true;
     event.preventDefault();
     this.formSubmitted = true;
+  //  loader = true;
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    
     if (this.angForm.valid) {
-     this.showRepo = true;
-    let obj = this.angForm.value
-    let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let BRANCH_CODE = obj.BRANCH_CODE
-    let OD_TEMP = obj.OD_TEMP
-    let ACOPEN = obj.ACOPEN
-    let GROUP_BY = obj.GROUP_BY
-    const url = "http://localhost/NewReport/report-code/Report/examples/BnkODRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "'  &BRANCH_CODE='" + BRANCH_CODE + "' &OD_TEMP='" + OD_TEMP + "'";
-   //  const url = "http://localhost/NewReport/report-code/Report/examples/InsuranceRegister.php?startDate='" + startDate + "'&enddate='" + enddate + "'&BRANCH_CODE='" + BRANCH_CODE + "'&AC_TYPE='" + AC_TYPE + "'&ACOPEN='" + ACOPEN + "'&GROUP_BY='" + GROUP_BY + "'";
-    console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    // let ageCaldate
+
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let branch = obj.BRANCH_CODE;
+      let startingcode = obj.Starting_Account;
+      let endingcode = obj.Ending_Account;
+      let schemecode = obj.Scheme_code;
+      let tem_perOD = obj.OD_TEMP;
+     
+      this.iframe3url = this.report_url + "/BnkODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&tem_perOD='" + tem_perOD + "'&bankName='" + bankName + "'"; 
+      this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
-  }
- 
-  acno: any = null
-  obj: any 
-  account: any[]
-  ngacno: any
 
-  //get account no according scheme for introducer
-  getIntroducer() {
-    // let data1: any = localStorage.getItem('user');
-    // let result = JSON.parse(data1);
-    // let branchCode = result.branch.id;
-    let scheme = this.ngscheme
-    this.obj = [scheme, this.ngBranchCode]
-    this.ngacno = null
-    switch (this.selectedCode) {
-      case 'SB':
-        this._schemeService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-          console.log(this.account)
+    // setTimeout(()=>{
+    //   this.loader=false;
+    // },3000);
 
-        })
-        break;
-
-      case 'SH':
-        this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'CA':
-        this._schemeService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'LN':
-        this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'TD':
-        this._schemeService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'DS':
-        this._schemeService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'CC':
-        this._schemeService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'GS':
-        this._schemeService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'PG':
-        this._schemeService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'AG':
-        this._schemeService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'IV':
-        this._schemeService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-    }
   }
 
-  //get introducer name according account no
-
-  getAC_NO(value: any) {
-    this.angForm.patchValue({
-      'AC_NO': value.AC_NO
-    })
+  close() {
+    this.resetForm()
   }
 
-  getData() {
-    // this.ngscheme = null
-    this.ngacno = null
-    // this.selectedCode = null
-    this.getIntroducer()
+  resetForm() {
+    this.createForm()
+    this.showRepo = false;
+    this.clicked=false;
   }
- }
+
+  loadIframe(){
+    console.log('iframe data load')
+  }
+
+
+}

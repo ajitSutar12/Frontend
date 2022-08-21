@@ -8,6 +8,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BnkTrialBalComponent } from './bnk-trial-bal/bnk-trial-bal.component';
 import { BnkTrialBaldetailComponent } from './bnk-trial-baldetail/bnk-trial-baldetail.component';
+import { BalanceSheetComponent } from './balance-sheet/balance-sheet/balance-sheet.component';
+import { NBalanceSheetComponent } from './n-balance-sheet/n-balance-sheet.component';
+
+
 @NgModule({
   imports: [
     CommonModule,

@@ -28,7 +28,19 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/saving-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, customerId: element.idmasterID, dormant: element.IS_DORMANT };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
+    public getSavingSchemeListforClosing(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/saving-master/closingscheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, customerId: element.idmasterID, dormant: element.IS_DORMANT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -156,7 +168,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-loan-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, customerId: element.idmasterID };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -195,7 +207,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-deposits-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, depositAmount: element.AC_SCHMAMT };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, depositAmount: element.AC_SCHMAMT, id: element.idmasterID, dormant: element.IS_DORMANT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -367,7 +379,19 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-account-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, customerId: element.idmasterID, dormant: element.IS_DORMANT };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
+    public getPigmyAccountSchemeListforClosing(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/pigmy-account-master/closingscheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, customerId: element.idmasterID, dormant: element.IS_DORMANT };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

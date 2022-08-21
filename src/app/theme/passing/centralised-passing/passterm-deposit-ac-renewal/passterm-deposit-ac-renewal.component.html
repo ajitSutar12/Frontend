@@ -25,7 +25,7 @@
                                                             {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
                                                         </td>
                                                         <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.AC_TYPE === "" ? "-" : data.AC_TYPE }}
+                                                            {{ data.AC_TYPE === "" ? "-" : data.renewalHistory?.S_APPL }}
                                                         </td>
                                                         <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
                                                             {{ data.AC_NO === "" ? "-" : data.AC_NO }}

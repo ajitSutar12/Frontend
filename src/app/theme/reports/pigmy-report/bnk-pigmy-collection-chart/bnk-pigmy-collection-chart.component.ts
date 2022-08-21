@@ -26,24 +26,42 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
   styleUrls: ['./bnk-pigmy-collection-chart.component.scss']
 })
 export class BnkPigmyCollectionChartComponent implements OnInit {
-  scheme: any;
+  
   code: any;
-  schemeCode: any;
+  clicked:boolean=false;
   schemeType: any;
 
   maxDate: Date;
   minDate: Date;
   formSubmitted = false;
+  agentSchemeCode: string = 'AG'
+  AgentScheme: any[];
+  ngAgentCode: any = null
+  agentno: any = null
+  agentCode: any[];
   //Dropdown option variable
-  branchOption: any;
-  ngbranch: any = null;
+ 
+  report_url = environment.report_url
   ngscheme: any = null;
   ngacno: any = null;
+  AGENT_ACTYPE: string;
   ACNo: any;
   defaultDate: any
   //title select variables
-  schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
+  //dropdown
+  scheme: any[];
+  startingacc: any[];
+ 
+  branchOption: any[];
+  // for dropdown ng module
 
+  ngbranch: any = null;
+  schemeCode: any = null;
+  obj: any;
+  startingAccount: any = null;
+
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
+  AC_TYPE:string;
   selectedOption = "3";
   isDisabled = true;
   characters: Array<IOption>;
@@ -55,14 +73,16 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
   schemeList
   showRepo: boolean = false;
   // Created Form Group
-  angForm: FormGroup;
+  ngForm: FormGroup;
   //api
   url = environment.base_url;
+  iframe5url: any = ' ';
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
+
     // for dropdown
     private systemParameter: SystemMasterParametersService,
     public SchemeTypes: SchemeTypeDropdownService,
@@ -75,78 +95,107 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
       this.maxDate.setDate(this.maxDate.getDate())
   }
   createForm() {
-    this.angForm = this.fb.group({
+    this.ngForm = this.fb.group({
       FROM_DATE: ["", [Validators.pattern, Validators.required]],
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      S_ACNOTYPE: ["", [Validators.pattern, Validators.required]],
-      AC_TYPE: ["", [Validators.pattern, Validators.required]],
+      Scheme_code: ["", [Validators.pattern, Validators.required]],
+      Scheme_acc: ["", [Validators.pattern, Validators.required]],
+    
+      chart_no: [""],
     });
   }
   ngOnInit(): void {
     this.createForm();
-    this.getSystemParaDate();
+     //branch List
+     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
 
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data
-      this.code = this.scheme[0].value
-      this.schemeCode = this.scheme[0].name
-    })
+    // Scheme Code
+  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    var filtered = data.filter(function (scheme) {
+      return (scheme.name == 'AG');
+    });
+    this.scheme = filtered;
+
+  })
+    
   }
-  getScheme(value) {
-    this.schemeCode = value.name
-  }
-  //set open date, appointed date and expiry date
-  getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.defaultDate = data.CURRENT_DATE
-    })
-  }
+  //For Starting account and Ending Account dropdown
+  getschemename: any
+
   getBranch() {
     this.getIntroducer()
   }
-  obj1: any
-  getschemename: any
   getIntro(event) {
     this.getschemename = event.name
     this.getIntroducer()
   }
-  //get account no according scheme for introducer
+
+
   getIntroducer() {
-    this.obj1 = [this.ngscheme, this.ngbranch]
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.schemeCode, branchCode]
     switch (this.getschemename) {
-      case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => {
-          this.ACNo = data;
-          console.log()
+
+
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.startingacc = data;
+          this.startingAccount = null
+
+         
+         
         })
         break;
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj1).pipe(first()).subscribe(data => {
-          this.ACNo = data;
-        })
-        break;
+
     }
   }
+
+  
+ 
   src: any;
   view(event) {
-    debugger
+  
     
     event.preventDefault();
     this.formSubmitted = true;
-    if(this.angForm.valid){
 
-    this.showRepo = true;
-    let obj = this.angForm.value
-    let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/Nomineelist.php?startDate='" + date + "'&scheme='" + scheme + "'&";
-    console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    
+    if(this.ngForm.valid){
+      this.showRepo = true;
+    let obj = this.ngForm.value
+    let date =  moment(obj.DATE).format('DD/MM/YYYY');
+    let scheme = obj.Scheme_code
+    let schemeAccountNo = obj.Scheme_acc
+    let branch = obj.BRANCH_CODE
+    let ChartNo  =obj.chart_no
+    // his.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+      
+   this.iframe5url=this.report_url + "/PigmyAgentwiseCollection.php?date='" + date + "'&scheme='" + scheme + "'&branch='"+ branch +"'&ChartNo='" + ChartNo +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
+   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   }
   
+}
+
+close(){
+  this.resetForm()
+}
+
+// Reset Function
+resetForm() {
+  this.createForm()
+  this.showRepo = false;
+  this.clicked=false;
 }
 }

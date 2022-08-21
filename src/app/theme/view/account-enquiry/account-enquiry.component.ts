@@ -11,6 +11,8 @@ import { Subject } from 'rxjs-compat';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+
 @Component({
   selector: 'app-account-enquiry',
   templateUrl: './account-enquiry.component.html',
@@ -83,8 +85,8 @@ export class AccountEnquiryComponent implements OnInit {
   previewImg: string;
   PreviewDiv: boolean = false;
   schemeCode
-  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
-  signture: string = '../../../../assets/sign/signture.jpg';
+  customerImg = 'assets/images/nouser.png';
+  signture = 'assets/images/nosignature.png';
 
 
   LAST_OD_DATE
@@ -119,6 +121,7 @@ export class AccountEnquiryComponent implements OnInit {
   introducerName
   totalInterest = 0
   constructor(private fb: FormBuilder,
+    private _CustomerIdService: CustomerIdService,
     private http: HttpClient,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,) {
@@ -188,6 +191,8 @@ export class AccountEnquiryComponent implements OnInit {
     this.getschemename = event.name
     this.ngscheme = event.value
     this.accountData = null
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
     this.dormantac = false
     this.idmaster = null
     this.freezeac = false
@@ -690,6 +695,25 @@ export class AccountEnquiryComponent implements OnInit {
       })
       this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
       this.accountOpenDate = this.accountOpenDate._d
+      this._CustomerIdService.getFormData(this.idmaster.id).subscribe(data => {
+        if (data.custdocument.length != 0) {
+          data.custdocument.forEach(element => {
+            if (element.DocumentMasterID == 1) {
+              this.customerImg = this.url + '/' + element.PATH;
+            }
+            if (element.DocumentMasterID == 2) {
+              this.signture = this.url + '/' + element.PATH;
+            }
+
+          });
+
+
+        } else {
+          this.customerImg = 'assets/images/nouser.png';
+          this.signture = 'assets/images/nosignature.png'
+        }
+      })
+
     }
   }
 

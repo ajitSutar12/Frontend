@@ -49,7 +49,10 @@ const routes: Routes = [
         path: 'BnkRegGoldSilverSubReturn',
         loadChildren: () => import('./bnk-reg-gold-silver-sub-return/bnk-reg-gold-silver-sub-return.module').then(m => m.BnkRegGoldSilverSubReturnModule)
       },
-    
+      {
+        path: 'iframe3',
+        loadChildren: () => import('./iframe3/iframe3.module').then(m => m.Iframe3Module)
+      },
     ]
   }
 ];

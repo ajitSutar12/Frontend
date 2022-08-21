@@ -39,7 +39,7 @@ export class SavingPigmyAccountClosingService {
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/saving-pigmy-account-closing/update", data);
+    return this.http.put(this.url + "/saving-pigmy-account-closing/updateClosing", data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
@@ -72,4 +72,6 @@ export class SavingPigmyAccountClosingService {
   reject(data: any): Observable<any> {
     return this.http.post(this.url + '/saving-pigmy-account-closing/reject', data).pipe(catchError(this.handleError));
   }
+
+
 }

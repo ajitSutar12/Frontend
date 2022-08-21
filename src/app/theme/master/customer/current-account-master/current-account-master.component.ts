@@ -376,7 +376,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
-      this.selectedValue = this.scheme[0].value
+      this.selectedValue = this.scheme[0]?.value
       console.log(data)
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
@@ -466,7 +466,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
-      this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
       if (data.castMaster == null) {
         data.castMaster = ""
       }
@@ -501,7 +501,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         AC_ADDR: permadd?.AC_ADDR,
         AC_GALLI: permadd?.AC_GALLI,
         AC_AREA: permadd?.AC_AREA,
-        AC_CTCODE: permadd.city?.CITY_NAME,
+        AC_CTCODE: permadd?.city?.CITY_NAME,
         AC_PIN: permadd?.AC_PIN,
       })
       data.custAddress.forEach(async (element) => {

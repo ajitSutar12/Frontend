@@ -13,7 +13,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkDedskBalListComponent } from './bnk-dedsk-bal-list.component';
 import {BnkDedskBalListRoutingModule} from './bnk-dedsk-bal-list-routing.module';
-import { ReportFrameModule} from '../../report-frame/report-frame.Module'
+import { ReportFrameModule} from '../../report-frame/report-frame.Module';
+import { IframeModule } from '../iframe/iframe.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -29,7 +30,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     BnkDedskBalListRoutingModule,
-    ReportFrameModule
+    ReportFrameModule,
+    IframeModule
   ],
 
   declarations: [BnkDedskBalListComponent],

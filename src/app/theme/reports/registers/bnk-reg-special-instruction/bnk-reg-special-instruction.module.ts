@@ -14,6 +14,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkRegSpecialInstructionComponent } from './bnk-reg-special-instruction.component';
 import {BnkRegSpecialInstructionRoutingModule} from './bnk-reg-special-instruction-roting.module';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import {Iframe3Module} from '../iframe3/iframe3.module'; 
+import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -26,9 +29,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModule,
     PerfectScrollbarModule,
     NgSelectModule,
+    
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkRegSpecialInstructionRoutingModule
+    BnkRegSpecialInstructionRoutingModule,
+    Iframe3Module,
   ],
 
   declarations: [BnkRegSpecialInstructionComponent],
@@ -47,6 +52,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: UserAuthInterceptor,
       multi: true
     },
-  ]
+  ],
+  schemas:[NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BnkRegSpecialInstructionModule { }

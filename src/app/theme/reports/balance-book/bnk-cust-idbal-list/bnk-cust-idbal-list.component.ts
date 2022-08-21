@@ -24,8 +24,9 @@ import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/
 })
 export class BnkCustIDBalListComponent implements OnInit {
 
-  formSubmitted = false;
-
+  iframeurl : any = ' ';
+  clicked:boolean=false;
+  report_url = environment.report_url
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
@@ -39,7 +40,7 @@ export class BnkCustIDBalListComponent implements OnInit {
   newcustid: any = null;
 
     // Date variables
-    todate: any = null;
+    defaultDate: any;
     fromdate:any=null
     maxDate: Date;
     minDate: Date;
@@ -71,42 +72,45 @@ export class BnkCustIDBalListComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: [""],
-      AC_CUSTID: [""],
+      BRANCH_CODE: ["",[Validators.pattern]],
+      AC_CUSTID: ["",[Validators.pattern]],
       PRINT_CUSTID: [""],
-      START_DATE: [""],
-      END_DATE: [""],
+      OPENINGDATE: ["",[Validators.pattern]],
       
     });
   }
- 
-  src: any;
   view(event) {
-    debugger
-    
+
     event.preventDefault();
-    this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+
      if(this.angForm.valid){
-
-    // this.showRepo = true;
+    this.showRepo = true;
     let obj = this.angForm.value
-    let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-    let branch = obj.BRANCH_CODE;
-    // const url = "http://localhost/NewReport/report-code/Report/examples/CustomerIdWiseList.php";
-    const url = "http://localhost/NewReport/report-code/Report/examples/CustomerIdWiseList.php?startDate='" + startdate +"'&endDate='" + enddate + "'";
-    console.log(url);
+    let stdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
+    let custid = obj.AC_CUSTID;
+    let branches = obj.BRANCH_CODE;
+    let pritns = obj.PRINT_CUSTID;
 
-    window.open(url, '_blank');
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.iframeurl = this.report_url + "/CustomerIdWiseList.php?stdate='" + stdate +"'&branches='"+branches+"'&custid='"+custid+"'&pritns='"+pritns+"'&bankName='" + bankName + "' ";
+    this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
    }
   else {
-     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
    }
-  
 }
-  close(){
+close(){
+  this.resetForm()
+}
 
-  }
+// Reset Function
+resetForm() {
+  this.createForm()
+  this.showRepo = false;
+  this.clicked=false;
+}
+
 }

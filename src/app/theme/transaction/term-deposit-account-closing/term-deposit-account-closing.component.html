@@ -129,7 +129,8 @@
                                                         <input type="text" style="text-align: righ t;" maxlength="12"
                                                             pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
                                                             formControlName="InterestRate"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                            disabled>
                                                     </span>
                                                 </div>
                                             </div>
@@ -488,7 +489,8 @@
                                                                 <ng-select id="TschemeAC" [(ngModel)]="ngacno"
                                                                     formControlName="TschemeAC" bindLabel="label"
                                                                     bindValue="bankacno" title="Compulsory Selection"
-                                                                    placeholder="Account Number" (change)="getTransferAccountDeatil($event)">
+                                                                    placeholder="Account Number"
+                                                                    (change)="getTransferAccountDeatil($event)">
                                                                     <ng-option *ngFor="let values of schemeACNo"
                                                                         [value]="values">
                                                                         {{values.label}} {{values.name}}</ng-option>
@@ -595,7 +597,8 @@
                                                                     </tr>
                                                                     <tr *ngIf="multigrid.length != 0">
 
-                                                                        <td colspan="4" style="text-align: right;">Total</td>
+                                                                        <td colspan="4" style="text-align: right;">Total
+                                                                        </td>
                                                                         <td [ngClass]="'td_right'">
                                                                             {{transferTotalAmount}}
                                                                         </td>
@@ -650,6 +653,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount
@@ -658,11 +666,17 @@
                                         </div>
                                         <div class="fw-bolder transaction-title text-primary"
                                             style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                                aria-hidden="true"></i> {{DayOpBal}}.00</div>
+                                                aria-hidden="true"></i> {{DayOpBal}}.00
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
@@ -676,6 +690,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Int Rate%</h6>
@@ -687,6 +706,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Last Int. Date
@@ -699,6 +723,11 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
@@ -710,6 +739,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">As On Date
@@ -723,6 +757,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
@@ -735,6 +774,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Receipt No.
@@ -747,6 +791,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Operation
@@ -759,6 +808,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Months
@@ -771,6 +825,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Days
@@ -784,38 +843,37 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="user-avatar-section">
-                                                <div class="d-flex align-items-center flex-column">
+                                            <div>
+                                                <span class="user-avatar-section">
                                                     <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
-                                                        height="110" width="110" (mouseover)="showImage(customerImg)"
+                                                        height="50" width="80" (mouseover)="showImage(customerImg)"
                                                         (mouseout)="hideImage()" alt="User avatar" />
-                                                    <div class="user-info text-center">
-                                                        <h4>Ajit Sutar</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="user-avatar-section">
-                                                <div class="d-flex align-items-center flex-column">
+                                                </span> &nbsp; &nbsp;
+                                                <span class="user-avatar-section">
                                                     <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
                                                         (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                                        height="50" width="110" alt="User avatar" />
-
-                                                </div>
+                                                        height="25" width="80" alt="User avatar" />
+                                                </span>
+                                            </div>
+                                            <div class="user-info text-center">
+                                                <h6>{{Customer_info?.AC_NAME}}</h6>
                                             </div>
                                             <div class="info-container">
                                                 <ul class="list-unstyled">
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">Status:</span>
-                                                        <span class="badge bg-light-success">Active</span>
+                                                        <span class="badge bg-light-success">{{Status == true || Status
+                                                            ==
+                                                            1? 'Inactive' :
+                                                            'Active'}}</span>
                                                     </li>
-
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">PAN ID:</span>
-                                                        <span>ADFE2323D</span>
+                                                        <span>{{Customer_info?.AC_PANNO}}</span>
                                                     </li>
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">Contact:</span>
-                                                        <span>+91 7636456273</span>
+                                                        <span>{{Customer_info?.AC_MOBILENO}}</span>
                                                     </li>
                                                 </ul>
                                             </div>

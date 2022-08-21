@@ -16,6 +16,7 @@ import {BnkGlAcStatementRoutingModule} from './bnk-gl-ac-statement-routing.modul
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { Iframe2Module } from '../iframe2/iframe2.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -31,7 +32,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkGlAcStatementRoutingModule
+    BnkGlAcStatementRoutingModule,
+    Iframe2Module
   ],
 
   declarations: [BnkGlAcStatementComponent],

@@ -229,9 +229,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group form-primary form-static-label">
                                                 <span class="border-lable-flt">
-                                                    <ng-select formControlName="bank" [(ngModel)]="bank">
+                                                    <!-- <ng-select formControlName="bank" [(ngModel)]="bank">
                                                         <ng-option *ngFor="let item of bankName" [value]="item.id">
                                                             {{item.name}}</ng-option>
+                                                    </ng-select> -->
+                                                    <ng-select formControlName="bank"  [(ngModel)]="bank">
+                                                        <ng-option *ngFor="let item of bankName" [value]="item.value">
+                                                            {{item.label}}</ng-option>
                                                     </ng-select>
 
                                                 </span>
