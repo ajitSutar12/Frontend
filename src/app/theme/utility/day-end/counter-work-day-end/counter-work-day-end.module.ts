@@ -6,12 +6,14 @@ import { CounterWorkDayEndRoutingModule } from './counter-work-day-end-routing.m
 import {DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     CounterWorkDayEndRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    FormsModule
  
   ],
   declarations: [ CounterWorkDayEndComponent],

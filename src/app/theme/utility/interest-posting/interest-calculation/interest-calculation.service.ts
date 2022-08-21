@@ -14,7 +14,9 @@ export class CurrentSchemeService {
     
     url = environment.base_url;
     constructor(private http: HttpClient) { }
-
+    getSchemeCodeList(): Observable<any> {
+        return this.http.get(this.url + '/scheme-parameters')
+    }
     // //Insertion Operation
     // postData(data: any): Observable<any> {
     //     return this.http.post(this.url + '/interest-calculation/insert', data).pipe(map((res) => res),
@@ -43,6 +45,11 @@ export class CurrentSchemeService {
     //Deletion Operation
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/interest-calculation/delete/' + id).pipe(catchError(this.handleError));
+    }
+
+    //Get Scheme Data
+    SchemeDetails():Observable<any>{
+        return this.http.get(this.url+'/scheme-parameters').pipe(catchError(this.handleError));
     }
 }
 
