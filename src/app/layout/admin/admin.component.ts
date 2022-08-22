@@ -3,6 +3,8 @@ import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../theme/auth/auth.service';
+import { DayEndService } from '../../theme/utility/day-end/day-end.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -158,6 +160,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   public profilePath: any;
 
   public currentDate : any;
+  public branchID : any;
+  disableFlag : string = 'disableflag';
+  disableList : any = [];
 
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
@@ -178,7 +183,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(public menuItems: MenuItems,private _authService : AuthService) {
+  constructor(public menuItems: MenuItems,private _authService : AuthService,private _dayEndService : DayEndService) {
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -233,6 +238,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.windowWidth = window.innerWidth;
 
+
     this.setMenuAttributes(this.windowWidth);
     this.setHeaderAttributes(this.windowWidth);
 
@@ -256,12 +262,30 @@ export class AdminComponent implements OnInit, OnDestroy {
     // sidebar img
     /*this.setLayoutType('img');*/
 
+
+    //console.log(this.menuItem[0].main)
+    // var filtered = this.menuItem[0].main.filter(function (el) {
+    //   return el != null;
+    // });
+
+    // this.menuListData = filtered;
+    // //console.log(this.menuListData);
+  }
+
+  deleteMainMenu(ele) {
+    //console.log(ele)
+  }
+
+  roleWiseMenuAssign(){
+    let flag = this.disableFlag;
+    let diablelist = this.disableList;
     //Menu item filter as per user role
 
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    this.userData = result;
+    let data: any    = localStorage.getItem('user');
+    let result       = JSON.parse(data);
+    this.userData    = result;
     this.currentDate = result.branch.syspara.CURRENT_DATE;
+    this.branchID    = result.branchId;
     
     let menuData:string = '';
     result.RoleDefine.forEach(ele=>{
@@ -290,6 +314,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.meunItemList = menuItemList[0].main;
     var meunItemList = menuItemList[0].main;
     this.meunItemList.forEach(function (element, index) {
+      
+      if(diablelist.includes(element.id)){
+        element['class'] = 'disableflag';
+      }else{
+        element['class'] = 'disableFlagActive';
+      }
+      // this.menuItemList[index]['class'] = "disableflag"
       if (arrayList.includes(element.id)) {
 
         if (element.children != [] && element.children != undefined) {
@@ -314,6 +345,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     });
     this.menuItem = menuItemList;
+    
     //console.log(this.menuItem[0].main)
     // this.menuItem[0].main.forEach(ele=>{
     //   if(ele == null){
@@ -342,22 +374,27 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     });
     this.menuListData = arrSor.reverse();
-
-    //console.log(this.menuItem[0].main)
-    // var filtered = this.menuItem[0].main.filter(function (el) {
-    //   return el != null;
-    // });
-
-    // this.menuListData = filtered;
-    // //console.log(this.menuListData);
-  }
-
-  deleteMainMenu(ele) {
-    //console.log(ele)
   }
 
   ngOnInit() {
+    
+    this.roleWiseMenuAssign()
     this.setBackgroundPattern('theme1');
+ 
+    interval(2000).subscribe(x => {
+
+        this._dayEndService.checkDayHandOverStatus({date : this.currentDate , branch_id : this.branchID}).subscribe(data=>{
+          if(data.flag == 1){
+            this.disableList = [66,109];
+            this.roleWiseMenuAssign()
+          }else{
+            this.disableList = [];
+            this.roleWiseMenuAssign(  )
+          }
+        },err=>{
+          console.log(err);
+        })
+    });
   }
 
   onResize(event) {

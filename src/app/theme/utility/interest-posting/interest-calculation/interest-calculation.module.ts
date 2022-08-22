@@ -14,6 +14,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { InterestPostingFlagUpdationService } from 'src/app/theme/master/maintainance/interest-posting-flag-updation/interest-posting-flag-updation.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { CurrentSchemeService } from './interest-calculation.service';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
     DatepickerModule.forRoot()
   ],
   declarations: [InterestCalculationComponent],
-  providers:[SystemMasterParametersService,OwnbranchMasterService,SchemeCodeDropdownService,InterestPostingFlagUpdationService,SchemeAccountNoService,{
+  providers:[SystemMasterParametersService,OwnbranchMasterService,SchemeCodeDropdownService,CurrentSchemeService,InterestPostingFlagUpdationService,SchemeAccountNoService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

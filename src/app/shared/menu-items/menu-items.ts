@@ -1358,10 +1358,14 @@ const MENUITEMS = [
             children: [
               {
                 state: 'counterWorkDayEnd',
-                name: 'counter Work Day End',
+                name: 'Day End Handover',
                 id: 147
               },
-
+              {
+                state: 'FinalDayEnd',
+                name:'Day End',
+                id: 183
+              },
               {
                 state: 'pigmyDayEnd',
                 name: 'pigmy Day End',

@@ -11,6 +11,7 @@ import { InterestPostingFlagUpdationService } from 'src/app/theme/master/maintai
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { elementAt } from 'rxjs-compat/operator/elementAt';
+import { CurrentSchemeService } from './interest-calculation.service';
 import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
 @Component({
@@ -54,6 +55,9 @@ export class InterestCalculationComponent implements OnInit {
   getschemename: any;
   schemeACNo: any[];
   UpdateData: [];
+  schemeDataList : any;
+  codeList :any;
+  selectedSchemeData : any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -62,6 +66,7 @@ export class InterestCalculationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
+    private _serviceScheme : CurrentSchemeService
   ) {
       this.maxDate = new Date();
       this.minDate = new Date();
@@ -75,8 +80,18 @@ export class InterestCalculationComponent implements OnInit {
     this.createForm();
 
     this.http.get(this.url + '/scheme-parameters/FlagInterest').subscribe((data) => {
+      debugger
       this.scheme = data
     })
+
+    this._serviceScheme.getSchemeCodeList().subscribe(data=>{
+      this.schemeDataList = data;
+      this.codeList = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
+      console.log(this.codeList,'Codelist')
+    },err=>{
+      console.log('Scheme Parameter Not Loading :',err);
+    })
+    
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
         return (scheme.intapp == true );
@@ -110,6 +125,11 @@ export class InterestCalculationComponent implements OnInit {
     });
   }
 
+  getSelectedCodeScheme(ele){
+    debugger
+    let code = ele;
+    this.selectedSchemeData = this.schemeDataList.filter(c =>c.S_ACNOTYPE == code)
+  }
   submit() {
     // if(){
     //   const dataToSend={
@@ -371,4 +391,17 @@ export class InterestCalculationComponent implements OnInit {
     })
   }
 
+  //Add into SchemeList
+  AddSchemeData(ele,data){
+    console.log(ele);
+    console.log(data);
+
+    if(ele.target.checked){
+      this.selectedSchemeData.push(data);
+    }else{
+      for(let item of this.selectedSchemeData){
+
+      }
+    }
+  }
 }
