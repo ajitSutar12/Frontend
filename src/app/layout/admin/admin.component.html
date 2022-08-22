@@ -302,35 +302,16 @@
                     </span>
                   </div>
                 </div>
-                <!-- <div class="main-menu-content">
-                                    <ul>
-                                        <li [@mobileMenuTop]="isCollapsedSideBar" class="more-details" [ngClass]="isCollapsedSideBar">
-                                            <a [routerLink]="['/user/profile']" class="ripple"><i class="icon-user"></i>View Profile</a>
-                                          
-                                            <a [routerLink]="['/auth/login/simple']" class="ripple" target="_blank"><i
-                          class="icon-layout-sidebar-left"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                </div> -->
               </div>
-              <!-- <div class="p-15 p-b-0">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search Friend</label>
-                                    </div>
-                                </form>
-                            </div> -->
 
               <perfect-scrollbar style="max-width: 600px; max-height: 600px;">
                 <div *ngFor="let asideItems of menuItems.getAll();let i = index" class="d-color">
                   <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}
                   </div>
-                  <ul class="pcoded-item pcoded-left-item" [attr.item-border]="itemBorder"
+                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title="tooltip goes here" [attr.item-border]="itemBorder"
                     [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"
                     *ngFor="let asideItem of menuListData" appAccordionLink group="{{asideItem.state}}">
-
+                    
                     <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
                       group="{{asideItem.state}}">
                       <a [routerLinkActive]="['active']" class="ripple" href="{{asideItem.external}}"

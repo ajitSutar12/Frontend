@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule} from '@angular/core';
+import { RouterModule, Routes} from '@angular/router';
 import { DayEndComponent } from './day-end.component';
-
+import { DayEndFinalComponent } from './day-end-final/day-end-final.component'
 
 const routes: Routes = [
   {
@@ -23,6 +23,10 @@ const routes: Routes = [
       path: 'pigmyDayEnd',
       loadChildren: () => import('./pigmy-day-end/pigmy-day-end.module').then(m => m.PigmyDayEndModule)
     },
+    {
+      path:'FinalDayEnd',
+      component: DayEndFinalComponent
+    }
   ]
   },
 ];

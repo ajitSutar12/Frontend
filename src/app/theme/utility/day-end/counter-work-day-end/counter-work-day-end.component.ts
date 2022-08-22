@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+import { DayEndService } from '../day-end.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-counter-work-day-end',
@@ -7,46 +10,63 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CounterWorkDayEndComponent implements OnInit {
   dtExportButtonOptions : any = {};
-
-  constructor() { }
+  ngdate : any;
+  systemInfo : any;
+  constructor(private _services : DayEndService) { }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+      this._services.getSysparaDetails().subscribe(data=>{
+        this.systemInfo = data[0];
+        console.log(this.systemInfo);
+        this.ngdate = moment(this.systemInfo.CURRENT_DATE,'DD/MM/YYYY').format('YYYY-MM-DD');
+      },err=>{
+        console.log(err);
+      })
   }
 
+  DayEnd(){
+     //get login details
+     let user  = localStorage.getItem('user');
+    //  let current_date = this.ngdate;
+     Swal.fire({
+       title: 'Are you sure?',
+       text: "Do you want day handover to Admin.",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#229954',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, Day End Handover!'
+     }).then((result) => {
+       if (result.isConfirmed) {
+        let user = JSON.parse(localStorage.getItem('user'));
+        let obj = {
+          date      : this.ngdate,
+          branch_id : user.branchId,
+          user_id   : user.id
+        }
+        //check Is valid today all transaction 
+         this._services.dayEndHandoverProcess(obj).subscribe(data=>{
+            this._services.dayHandOver(obj).subscribe(data=>{
+                
+            },err=>{
+              if(err.error.statusCode == 400){
+                Swal.fire('Cancelled',err.error.message,'error');
+              }
+            })
+         },err=>{
+            if(err.error.statusCode == 400){
+              Swal.fire('Cancelled',err.error.message,'error');
+            }
+         })
+       } else if (
+         result.dismiss === Swal.DismissReason.cancel
+       ) {
+         Swal.fire(
+           'Cancelled',
+           'Your Action is revert',
+           'error'
+         )
+       }
+     })
+  }
 }

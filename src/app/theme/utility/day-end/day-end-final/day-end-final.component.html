@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Day End Brach Wise</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <th>Sr.No.</th>
+                        <th>Branch Name</th>
+                        <th>HandOver Status</th>
+                        <th>Admin Status</th>
+                        <th>Action <span  style="float:right"><a href="javascript:void(0)" class="label label-info" (click)="refresh()">Refresh</a></span></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of branchHandOverList;let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.NAME}}</td>
+                            <td>
+                                <span class="label label-danger" *ngIf="item.flag == 0">Day End Not HandOvered</span>
+                                <span class="label label-success" *ngIf="item.flag == 1">Day End Successfully HandOverd</span>
+                            </td>
+                            <td>
+                                <span class="label label-danger" *ngIf="item.admin_status == 0">Not Day End</span>
+                                <span class="label label-warning" *ngIf="item.admin_status == 1">Processing...</span>
+                                <span class="label label-success" *ngIf="item.admin_status == 2">Day Ended</span>
+
+                            </td>
+                            <td>
+                                <span *ngIf="item.flag == 0 || item.admin_status != 0">--</span>
+                                <span *ngIf="item.flag == 1 && item.admin_status == 0"><a href="javascript:void(0)" class="label label-primary"(click)="revertHandOver(item.branch_id,item.date,item.NAME)">Day End Revert</a></span>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <label *ngIf="remark" style="color:red">*Please Don't Refresh Page</label>
+                        <button class="btn btn-outline-primary btn-sm" (click)="dayend()" [disabled]="flagCheck">Day End</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

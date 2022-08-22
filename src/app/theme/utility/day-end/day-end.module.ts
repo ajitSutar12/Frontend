@@ -6,6 +6,8 @@ import { DayEndRoutingModule } from './day-end-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DayEndFinalComponent } from './day-end-final/day-end-final.component';
 
 
 
@@ -15,7 +17,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     DayEndRoutingModule,
     SharedModule
   ],
-  declarations: [ DayEndComponent],
+  declarations: [ DayEndComponent, DayEndFinalComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
