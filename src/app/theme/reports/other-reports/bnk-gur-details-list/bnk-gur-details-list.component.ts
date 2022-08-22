@@ -67,8 +67,8 @@ export class BnkGurDetailsListComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      AC_CUSTID: ["", [Validators.required]],
+      BRANCH_CODE: ["", [Validators.pattern]],
+      AC_CUSTID:  ["", [Validators.pattern]],
       PRINT_CUSTID: [""],
       OPENINGDATE: [""],
       

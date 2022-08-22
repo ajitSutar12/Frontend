@@ -1,21 +1,40 @@
-.required {
-    color: red;
- }
- .required {
-    color: red;
-    font-size: 20px;
-  }
-  .btn{
-    margin: 3px;
-  }
-
-  div.solid {border-style: solid;padding:2%}
-
-  div.solid1 {border-style: solid;border-width: thin;padding:1%}
-
-  .card-transaction .transaction-item:not(:last-child) {
-    margin-bottom: 1.5rem;
+.table-responsive {
+  display: inline-block;
+  width: 100%;
+  overflow-x: auto;
+  padding-top: -46px;
+  margin: -8px;
+  margin-right: -28px;
 }
+
+.required {
+  color: red;
+}
+
+.required {
+  color: red;
+  font-size: 20px;
+}
+
+.btn {
+  margin: 3px;
+}
+
+div.solid {
+  border-style: solid;
+  padding: 2%
+}
+
+div.solid1 {
+  border-style: solid;
+  border-width: thin;
+  padding: 1%
+}
+
+.card-transaction .transaction-item:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
 .transaction-item {
   display: flex !important;
 }
@@ -31,30 +50,37 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 .d-flex {
 
-  display: flex!important;
+  display: flex !important;
 }
+
 .bg-light-primary {
-  background: rgba(115,103,240,.12)!important;
-  color: #7367F0!important;
+  background: rgba(115, 103, 240, .12) !important;
+  color: #7367F0 !important;
 }
+
 .rounded {
-  border-radius: 0.357rem!important;
+  border-radius: 0.357rem !important;
 }
+
 .float-start {
-  float: left!important;
+  float: left !important;
 }
+
 .card-transaction .transaction-item .avatar {
   margin-right: 1.2rem;
 }
 
 .avatar.bg-light-primary {
-  color: #7367F0!important;
+  color: #7367F0 !important;
 }
+
 .avatar.bg-light-success {
-  color: #28C76F!important;
+  color: #28C76F !important;
 }
+
 .avatar {
   white-space: nowrap;
   background-color: #C3C3C3;
@@ -71,10 +97,12 @@
   vertical-align: middle;
   font-weight: 600;
 }
+
 .card-transaction .transaction-item .avatar .avatar-content {
   width: 42px;
   height: 42px;
 }
+
 .avatar .avatar-content {
   width: 32px;
   height: 32px;
@@ -95,15 +123,16 @@
 }
 
 .bg-light-success {
-  background: rgba(40,199,111,.12)!important;
-  color: #28C76F!important;
-}
-.bg-light-danger {
-  background: rgba(234,84,85,.12)!important;
-  color: #EA5455!important;
+  background: rgba(40, 199, 111, .12) !important;
+  color: #28C76F !important;
 }
 
-.transaction-title{
+.bg-light-danger {
+  background: rgba(234, 84, 85, .12) !important;
+  color: #EA5455 !important;
+}
+
+.transaction-title {
   margin-top: 5px;
   margin-left: 5px;
 
@@ -116,9 +145,9 @@
   position: relative;
   z-index: 2;
   color: red;
-} 
+}
 
-.form-control:disabled{
+.form-control:disabled {
   background-color: white !important;
   color: black !important;
 }

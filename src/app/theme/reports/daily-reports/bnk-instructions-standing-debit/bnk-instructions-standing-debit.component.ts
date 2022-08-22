@@ -1,4 +1,4 @@
-import {AfterViewInit,Component,OnDestroy,OnInit,ViewChild,Input,Output,EventEmitter,ElementRef,}from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -10,7 +10,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment";
-import { DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 
@@ -20,133 +20,133 @@ import { first } from "rxjs/operators";
   styleUrls: ['./bnk-instructions-standing-debit.component.scss']
 })
 export class BnkInstructionsStandingDebitComponent implements OnInit {
-   // Date variables
-   todate: any = null;
-   fromdate: any = null
-   maxDate: Date;
-   minDate: Date;
-   bsValue = new Date();
-   formSubmitted = false;
- 
-   showRepo: boolean = false;
-   // Created Form Group
-   angForm: FormGroup;
-   //api
-   url = environment.base_url;
-   //Dropdown option variable
-   ngbranch
-   branchOption: any;
- 
-   selectedType
-   Types = [
-     { id: 1, name: "S" , value:"Success" },
-     { id: 2, name: "F", value:"Failure"},
-   ];
- 
-   selectedSorting
-   SortingOn = [
-     { id: 1, name: "Debit Scheme" },
-     { id: 2, name: "Credit Scheme" },
-   ];
- 
-   selectedFrequency
-   SortingFrequency = [
-     { id: 1, name: "Monthly" },
-     { id: 2, name: "Querterly" },
-     { id: 3, name: "Fixed Querterly" },
-     { id: 4, name: "Half Yearly" },
-     { id: 5, name: "None" },
-   ];
- 
-   constructor(
-     private fb: FormBuilder,
-     private http: HttpClient,
-     public router: Router,
-     private sanitizer: DomSanitizer,
-     // dropdown
-     private _ownbranchmasterservice: OwnbranchMasterService,
-   ) {
-     this.maxDate = new Date();
-     this.minDate = new Date();
-     this.minDate.setDate(this.minDate.getDate() - 1);
-     this.maxDate.setDate(this.maxDate.getDate())
-   }
- 
-   ngOnInit(): void {
-     this.createForm();
-     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-       this.branchOption = data;
-     })
- 
-     let data: any = localStorage.getItem('user');
-     let result = JSON.parse(data);
-     if (result.RoleDefine[0].Role.id == 1) {
-       this.angForm.controls['BRANCH_CODE'].enable()
-       this.ngbranch = result.branch.id
-     }
-     else {
-       this.angForm.controls['BRANCH_CODE'].disable()
-       this.ngbranch = result.branch.id
-     }
-   }
- 
-   createForm() {
-     this.angForm = this.fb.group({
-       BRANCH_CODE: ["", [ Validators.required]],
-       STATUS: ["", [ Validators.required]],
-       START_DATE: ["", [ Validators.required]],
-       END_DATE: ["", [ Validators.required]],
-       SORT_ON: ["", [ Validators.required]],
-       FREQUENCY: ["", [ Validators.required]],
-       NEWPAGE: ["", [ Validators.required]],
-     });
-   }
-   src: any;
-   submit(event) {
-     debugger
-    //  this.showRepo = true;
-     event.preventDefault(); 
-     this.formSubmitted = true;
-     if (this.angForm.valid) {
-       console.log(this.angForm.value);
-     let obj = this.angForm.value
-     let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-     let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-     let branch = obj.BRANCH_CODE;
-     let status = obj.STATUS;
-     console.log(status)
-     const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'&branch='"+branch+"'&status="+status+"";
-     // const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
-     console.log(url);
+  // Date variables
+  todate: any = null;
+  fromdate: any = null
+  maxDate: Date;
+  minDate: Date;
+  bsValue = new Date();
+  report_url = environment.report_url
+  clicked:boolean=false;
 
-     window.open(url, '_blank');
-      this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-   }
-   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+  iframeurl: any = ' ';
+  equal: any
+  startfrom
+  startto
+  showRepo: boolean = false;
+  // Created Form Group
+  angForm: FormGroup;
+  //api
+  url = environment.base_url;
+  //Dropdown option variable
+  ngbranch
+  branchOption: any;
+
+  selectedType
+  Types = [
+    { id: 1, name: "S", value: "Success" },
+    { id: 2, name: "F", value: "Failure" },
+  ];
+
+  selectedSorting
+  SortingOn = [
+    { id: 1, name: "Debit Scheme" },
+    { id: 2, name: "Credit Scheme" },
+  ];
+
+  sorton
+  sort = [
+    { id: 1, value: "Debit" },
+    { id: 2, value: "Credit" },
+  ]
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    public router: Router,
+    private sanitizer: DomSanitizer,
+    // dropdown
+    private _ownbranchmasterservice: OwnbranchMasterService,
+  ) {
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
   }
- 
- 
-     //To clear form
-     // this.resetForm();
-     this.formSubmitted = false;
-     // }
- 
-   }
-   obj1: any
-   getBranch() {
-     this.obj1 = [this.ngbranch]
-   }
-   close() {
-     this.resetForm()
-   }
- 
-   // Reset Function
-   resetForm() {
-     this.createForm();
-     this.showRepo = false;
-   }
- 
- }
- 
- 
+
+  ngOnInit(): void {
+    this.createForm();
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+  }
+
+  createForm() {
+    this.angForm = this.fb.group({
+      BRANCH_CODE: ["", [Validators.required]],
+      RADIO: [""],
+      START_DATE: ["", [Validators.required]],
+      END_DATE: ["", [Validators.required]],
+      SORT: ["", [Validators.required]],
+      NEWPAGE: ["", [Validators.required]],
+    });
+  }
+  end() {
+    this.startfrom = this.angForm.controls['START_DATE'].value
+    this.startto = this.angForm.controls['END_DATE'].value
+    if (this.angForm.controls['START_DATE'].value <= this.angForm.controls['END_DATE'].value) {
+      this.equal = [this.startfrom, this.startto]
+    }
+    else {
+      Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+    }
+  }
+
+  view(event) {
+    event.preventDefault();
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    debugger
+   if (this.angForm.controls['RADIO'].value=="success" && this.angForm.valid) {
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let branched = obj.BRANCH_CODE;
+      let success = obj.RADIO;
+      let frequency = obj.FREQUENCY;
+      let startscheme = obj.NEWPAGE;
+      let sort = obj.SORT;
+      this.iframeurl = this.report_url + "/standinstructlogSucess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    }
+    else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let branched = obj.BRANCH_CODE;
+      let failure = obj.RADIO;
+      let frequency = obj.FREQUENCY;
+      let startscheme = obj.NEWPAGE;
+      let sort = obj.SORT;
+
+      this.iframeurl = this.report_url + "/standinstructlogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    }
+
+  }
+  close() {
+    this.resetForm()
+  }
+ resetForm() {
+    this.createForm()
+    this.showRepo = false;
+    this.clicked=false;
+  }
+
+}
+

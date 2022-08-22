@@ -41,8 +41,7 @@ export class BnkNomineeListComponent implements OnInit {
   ngacno: any = null;
   ACNo: any;
   defaultDate: any
-  //title select variables
-  // schemetype: Array<IOption> = this.SchemeTypes.get_IVGLAG_Characters();
+  schemetype: any = null
 
   selectedOption = "3";
   isDisabled = true;
@@ -80,14 +79,14 @@ export class BnkNomineeListComponent implements OnInit {
     this.createForm();
     this.getSystemParaDate();
 
-    // this.dataSub = this.SchemeTypes.load_IVGLAG_Characters().subscribe((options) => {
-    //   this.characters = options;
-    // });
-    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
-      var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'TD' || scheme.name == 'PG');
-      });
-      this.schemeList = filtered;
+   
+
+      this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+        var schemetype = data.filter(function (scheme) {
+          return (scheme.name == 'SB' || scheme.name == 'CA' ||  scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
+        });
+        this.schemetype = schemetype;
+
 
     })
 
@@ -155,32 +154,7 @@ export class BnkNomineeListComponent implements OnInit {
       this.defaultDate = data.CURRENT_DATE
     })
   }
-  getBranch() {
-    this.getIntroducer()
-  }
-  obj1: any
-  getschemename: any
-  getIntro(event) {
-    this.getschemename = event.name
-    this.getIntroducer()
-  }
-  //get account no according scheme for introducer
-  getIntroducer() {
-    this.obj1 = [this.ngscheme, this.ngbranch]
-    switch (this.getschemename) {
-      case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => {
-          this.ACNo = data;
-          console.log()
-        })
-        break;
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj1).pipe(first()).subscribe(data => {
-          this.ACNo = data;
-        })
-        break;
-    }
-  }
+  
 
 
   close() {

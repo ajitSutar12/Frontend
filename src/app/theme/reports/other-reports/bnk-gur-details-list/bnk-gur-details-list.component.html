@@ -7,60 +7,58 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-           <form [formGroup]="angForm" novalidate>
+            <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
+                        <div class="col-md-1"><label for="scheme">Branch<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="ngbranch"
+                                        [ngClass]="{ 'form-submitted': formSubmitted }" formControlName="BRANCH_CODE"
+                                        placeholder="Branch" required>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf=" angForm.controls['BRANCH_CODE'].invalid &&(angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"> <label for="AC_CUSTID">Customer ID<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [(ngModel)]="newcustid" bindLabel="label" bindValue="value"
+                                    formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }"
+                                    placeholder="Customer Id" required>
+                                    <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                        {{ values.label }}</ng-option>
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf=" angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
                                     This is required field
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"> <label for="AC_CUSTID">Customer ID <sub class="required">*</sub></label></div>
-                        <div class="col-md-3">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [(ngModel)]="newcustid" id="AC_CUSTID" bindValue="value" 
-                                formControlName="AC_CUSTID"
-                                  [ngClass]="{ 'form-submitted': formSubmitted }" 
-                                  title="Compulsory Selection" placeholder="Customer Id" required>
-                                  <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                    {{ values.label }}</ng-option>
-                                </ng-select>
-                            </div>
-                             <div class="form-group form-primary form-static-label" *ngIf="
-                                angForm.controls['AC_CUSTID'].invalid &&
-                                (angForm.controls['AC_CUSTID'].dirty ||
-                                  angForm.controls['AC_CUSTID'].touched)
-                              " class="alert alert-danger">
-                              <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                                This field is required
-                              </div>
-                            </div> 
-                        </div>
+                        
                         <div class="col-md-1"> <label for="FROM_DATE">Date<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="OPENINGDATE"
-                                        id="OPENINGDATE" class="form-control" [(ngModel)]="defaultDate"
+                                    <input type="text" placeholder="dd/mm/yyyy" name="OPENINGDATE" id="OPENINGDATE"
+                                        class="form-control" [(ngModel)]="defaultDate"
                                         [bsConfig]="{dateInputFormat: 'DD/MM/YYYY'}" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="OPENINGDATE"
-                                       bsDatepicker />
+                                        bsDatepicker required>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -72,34 +70,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="PRINT_CUSTID"
                                         formControlName="PRINT_CUSTID">
-                                    <label class="border-checkbox-label" for="PRINT_CUSTID">Print Closed Account ?</label>
+                                    <label class="border-checkbox-label" for="PRINT_CUSTID">Print Closed Account?</label>
                                 </div>
+
                             </div>
                         </div>
-                    </div> 
+                    </div>
+                    <div class="row"></div>
                     <div class="row">
-                        <div class="col-md-1" style="text-align: left;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" 
-                            (click)="view($event)">
-                            view
-                        </button>
+                        <div class="col-md-9"></div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="view($event)">
+                                view
+                            </button>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Close</button>
                         </div>
                     </div>
-                     <div class="card-block" *ngIf="showRepo">
-                       
+                    <div class="card-block" *ngIf="showRepo">
+
                         <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
-                    </div> 
+                    </div>
 
                 </div>
-            </form> 
+            </form>
 
         </div>
     </div>

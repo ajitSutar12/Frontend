@@ -6,7 +6,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 // Used to Call API
 import { HttpClient, HttpParams } from "@angular/common/http";
-
+import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { first } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment";
@@ -15,98 +16,92 @@ import { DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-bnk-trial-baldetail',
   templateUrl: './bnk-trial-baldetail.component.html',
-  styleUrls: ['./bnk-trial-baldetail.component.scss']
+  styleUrls: ['./bnk-trial-baldetail.component.scss'],
+  providers:[OwnbranchMasterService]
 })
 export class BnkTrialBaldetailComponent implements OnInit {
  // Date variables
  todate: any = null;
  fromdate: any = null
- fromduedate: any = null
- toduedate: any = null
  maxDate: Date;
  minDate: Date;
  bsValue = new Date();
- formSubmitted = false;
+ report_url = environment.report_url
+  showRepo: boolean = false;
+  clicked:boolean=false;
+  // Created Form Group
+  angForm: FormGroup;
+  //api
+  url = environment.base_url;
+ //Dropdown option variable
+ ngbranch
+ branchOption: any;
+ iframeurl: any = ' ';
 
- showRepo: boolean = false;
- // Created Form Group
- angForm: FormGroup;
- //api
- url = environment.base_url;
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    public router: Router,
+    private sanitizer: DomSanitizer,
+       // dropdown
+       private _ownbranchmasterservice: OwnbranchMasterService,
+  ) {
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
- constructor(
-  private fb: FormBuilder,
-  private http: HttpClient,
-  public router: Router,
-  private sanitizer: DomSanitizer
-) {
-  this.maxDate = new Date();
-  this.minDate = new Date();
-  this.minDate.setDate(this.minDate.getDate() - 1);
-  this.maxDate.setDate(this.maxDate.getDate())
-}
-
-ngOnInit(): void {
-  this.createForm();
+  ngOnInit(): void {
+    this.createForm();
+    
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+  }
   
-
-}
-createForm() {
-  this.angForm = this.fb.group({
-    START_DATE:["",[Validators.pattern, Validators.required]],
-    END_DATE:["",[Validators.pattern, Validators.required]],
-    REPOTYPE:[""]
-});
-}
-
-
-src:any;
-submit(event) {
-  debugger
-  // this.showRepo = true;
-  let obj = this.angForm.value
-  let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-  let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
   
-  const url="http://localhost/NewReport/report-code/Report/examples/TrialBalDetail.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
-  console.log(url);
-  this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  createForm() {
+    this.angForm = this.fb.group({
+      BRANCH_CODE: ["", [Validators.required]],
+      START_DATE: ["", [Validators.required]],
+      END_DATE: ["", [Validators.required]],
+      TRANSCATION:["",],
+  });
+  }
+  
+  
+  view(event) {
+    event.preventDefault();
 
-  window.open(url, '_blank');
-  // let ageCaldate
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    
+    if (this.angForm.valid) {
 
-  // event.preventDefault();
-  // this.formSubmitted = true;
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let branched2 = obj.BRANCH_CODE;
+      let tran = obj.TRANSCATION;
 
-  // // if (this.angForm.valid) {
-  //   const formVal = this.angForm.value;
-  //   const dataToSend = {
-  //     'startDate': (formVal.startDate == '' || formVal.startDate == 'Invalid date') ? ageCaldate = '' : ageCaldate = moment(formVal.startDate).format('DD/MM/YYYY'),
+      this.iframeurl = this.report_url + "/TrialBalDetail.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched2='"+branched2+"'&tran='"+tran+"'&bankName='" + bankName + "'";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
-  //   };
-  //   this._OtherReportService.postData(dataToSend).subscribe(
-  //     (data) => {
-  //       Swal.fire("Success!", "Data Added Successfully !", "success");
-  //       this.formSubmitted = false;
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    }
 
-
-  //To clear form
-  // this.resetForm();
-  this.formSubmitted = false;
-  // }
-
-}
-
-
-
-// Reset Function
-resetForm() {
-  this.createForm();
-}
-
+  }
+  close() {
+    this.resetForm()
+  }
+  // Reset Function
+  resetForm() {
+    this.createForm()
+    this.showRepo = false;
+    this.clicked=false;
+  }
 }

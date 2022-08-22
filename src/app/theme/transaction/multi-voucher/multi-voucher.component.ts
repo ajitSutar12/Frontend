@@ -19,6 +19,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
 import { environment } from 'src/environments/environment';
 import { VoucherEntryService } from '../voucher-entry/voucher-entry.service'
+import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 
 // Handling datatable data
 class DataTableResponse {
@@ -140,8 +141,8 @@ export class MultiVoucherComponent implements OnInit {
   mainMaster = new Array();
   showAdd: boolean = true;
   showUpdate: boolean = false;
-  customerImg = '../../../../assets/images/nouser.png';
-  signture = '../../../../assets/images/nosignature.png';
+  customerImg = 'assets/images/nouser.png';
+  signture = 'assets/images/nosignature.png';
   Customer_Name
   Customer_Pan_No = '---'
   Customer_Contact_No = '---'
@@ -162,6 +163,7 @@ export class MultiVoucherComponent implements OnInit {
     private _vservice: VoucherEntryService,
     private savingMasterService: SavingMasterService,
     private fb: FormBuilder,
+    private _bankmasterService: BankMasterService,
     private router: Router,
     private _CustomerIdService: CustomerIdService,
 
@@ -196,6 +198,10 @@ export class MultiVoucherComponent implements OnInit {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
       this.selectedBranch = user.branchId;
+    })
+
+    this._bankmasterService.getBankList().subscribe(banks => {
+      this.bankName = banks
     })
 
     //Scheme Code
@@ -694,6 +700,7 @@ export class MultiVoucherComponent implements OnInit {
   //Edit Voucher Data
   headflag: boolean = false;
   editVoucher(index) {
+    debugger
     this.headflag = true;
 
     this.EditFlag = true;
@@ -705,7 +712,7 @@ export class MultiVoucherComponent implements OnInit {
     this.getIntroducer(data.scheme)
     this.customer = data.account_no.id;
     this.selectedMode = data.tran_mode.id;
-    this.particulars = data.particulars;
+    this.particulars = data.data[0].NARRATION;
     this.submitAccountNo = data.account_no;
     this.submitScheme = data.scheme;
     this.submitTranMode = data.tran_mode;
@@ -713,7 +720,7 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       'chequeNo': data.chequeNo,
       'chequeDate': data.chequeDate,
-      'amt': data.Amount,
+      'amt': data.data[0].TRAN_AMOUNT,
       'particulars': data.particulars,
       'total_amt': data.total_amt
     })
@@ -994,7 +1001,7 @@ export class MultiVoucherComponent implements OnInit {
 
 
         } else {
-          this.customerImg = '../../../../assets/images/nouser.png';
+          this.customerImg = 'assets/images/nouser.png';
           this.signture = '../../../../assets/images/nosignature.png'
         }
       })
@@ -1529,15 +1536,14 @@ export class MultiVoucherComponent implements OnInit {
     let balancedata
     this._vservice.getInputHeadBal(newobj).subscribe(data1 => {
       balancedata = data1
-      this.headData.forEach(element => {
+      // this.headData.forEach(element =>
+      for (let element of this.headData) {
         let newobj = {
           acno: element?.GL_CODE,
           scheme: '101',
           date: this.date,
           schemeType: this.selectedCode,
         }
-
-
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;
@@ -1694,7 +1700,8 @@ export class MultiVoucherComponent implements OnInit {
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
         }
 
-      });
+      }
+      // );
 
     })
   }

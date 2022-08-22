@@ -6,32 +6,53 @@ import * as moment from 'moment';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
-import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { DeadstockmasterService } from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-bnk-reg-dead-stock',
   templateUrl: './bnk-reg-dead-stock.component.html',
-  styleUrls: ['./bnk-reg-dead-stock.component.scss']
+  styleUrls: ['./bnk-reg-dead-stock.component.scss'],
+  providers: [DeadstockmasterService]
 })
 export class BnkRegDeadStockComponent implements OnInit {
- // Created Form Group
- angForm: FormGroup;
- //  variable for validation
- formSubmitted = false;
- // branch name 
- selectedBranch: number;
- branch_codeList: any = null
- branch_code: any[]//from ownbranchmaster
- branchCode: any = null
- ngBranchCode
- ngscheme
- allScheme: any[];
+
+  iframe3url: any = '';
+  // Created Form Group
+  angForm: FormGroup;
+  clicked: boolean = false;
+  report_url = environment.report_url
+  //  variable for validation
+  formSubmitted = false;
+  showRepo: boolean = false;
+  //account
+  memFrom
+  memTo
+  branch
+  mem: any
+  // branch name 
+  selectedBranch: number;
+  branch_codeList: any = null
+  branch_code: any[]//from ownbranchmaster
+  branchCode: any = null
+  ngBranchCode
+  ngscheme
+  allScheme: any[];
   // Date variables
   todate: any = null;
-  fromdate:any=null
+  fromdate: any = null
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
   selectedCode: any;
+
+  //dropdown
+
+  startingacc: any[];
+  endingacc: any[];
+
+  //
+  startingAccount: any = null;
+  EndingAccount: any = null;
 
   selectedType
   Types = [
@@ -43,30 +64,33 @@ export class BnkRegDeadStockComponent implements OnInit {
     { id: 6, name: "Loss" },
     { id: 7, name: "Transfer" },
   ];
-  showRepo: boolean = false;
+
+  //api
+  url = environment.base_url;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
-    private _schemeService: SchemeAccountNoService,
+    private deadstockmasterService: DeadstockmasterService
+
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-   }
+  }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      START_AC_NO: [''],
-      END_AC_NO: [''],
+      Starting_Account: ['', [Validators.required]],
+      Ending_Account: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       GROUP_BY: ['', [Validators.required]],
       PRINT_NEW_PAGE: [''],
-     
+
     })
   }
   ngOnInit(): void {
@@ -86,135 +110,77 @@ export class BnkRegDeadStockComponent implements OnInit {
       this.branch_code = data;
       // this.ngBranchCode = data[0].value
     })
+    //dead stock 
+    this.deadstockmasterService.getDeadstockList().pipe(first()).subscribe(data => {
+      this.startingacc = data;
+      this.endingacc = data;
+      console.log(data)
+    })
 
   }
   src: any;
-  View(event){
+  view(event) {
+
     event.preventDefault();
     this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+
     if (this.angForm.valid) {
-     this.showRepo = true;
-    let obj = this.angForm.value
-    let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let BRANCH_CODE = obj.BRANCH_CODE
-    // const url = "http://localhost/NewReport/report-code/Report/examples/DeadStoackRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "'  &BRANCH_CODE='" + BRANCH_CODE + "'";
-    const url = "http://localhost/NewReport/report-code/Report/examples/DeadStoackRegister.php?startDate='" + startDate + "' &enddate='" + enddate + "' ";
-    console.log(url);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    // let ageCaldate
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let startingdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let endingdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+      let branch = obj.BRANCH_CODE;
+      let startingcode = obj.Starting_Account;
+      let endingcode = obj.Ending_Account;
+      let groupby = obj.GROUP_BY;
+
+      let checkbox = obj.PRINT_NEW_PAGE;
+
+
+      this.iframe3url = this.report_url + "/DeadStockRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&startingdate='" + startingdate + "'&endingdate='" + endingdate + "'&groupby='" + groupby + "'&checkbox='" + checkbox + "'&bankName='" + bankName + "' ";
+      this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
+
   }
- 
-  acno: any = null
-  obj: any 
-  account: any[]
-  ngacno: any
 
-  //get account no according scheme for introducer
-  getIntroducer() {
-    // let data1: any = localStorage.getItem('user');
-    // let result = JSON.parse(data1);
-    // let branchCode = result.branch.id;
-    // let scheme = this.ngscheme
-    this.obj = [this.ngBranchCode]
-    this.ngacno = null
-    switch (this.selectedCode) {
-      case 'SB':
-        this._schemeService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-          console.log(this.account)
+  getschemename
+  //load acno according start and end acno
+  loadAcno() {
+    this.memFrom = this.angForm.controls['Starting_Account'].value
+    this.memTo = this.angForm.controls['Ending_Account'].value
+    this.branch = this.angForm.controls['BRANCH_CODE'].value
+    if (this.angForm.controls['Starting_Account'].value < this.angForm.controls['Ending_Account'].value) {
+      this.mem = [this.memFrom, this.memTo, this.branch]
+      if (this.getschemename) {
+        this.http.get(this.url + '/dead-stock-master' + this.mem).subscribe((data) => {
+        });
+      }
 
-        })
-        break;
 
-      case 'SH':
-        this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
 
-        })
-        break;
 
-      case 'CA':
-        this._schemeService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
 
-        })
-        break;
-
-      case 'LN':
-        this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'TD':
-        this._schemeService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'DS':
-        this._schemeService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'CC':
-        this._schemeService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'GS':
-        this._schemeService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'PG':
-        this._schemeService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'AG':
-        this._schemeService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
-
-      case 'IV':
-        this._schemeService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.account = data;
-
-        })
-        break;
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
 
-  //get introducer name according account no
-
-  getAC_NO(value: any) {
-    this.angForm.patchValue({
-      'AC_NO': value.AC_NO
-    })
+  close() {
+    this.resetForm()
   }
 
-  getData() {
-    // this.ngscheme = null
-    this.ngacno = null
-    // this.selectedCode = null
-    this.getIntroducer()
+  resetForm() {
+    this.createForm()
+    this.showRepo = false;
+    this.clicked = false;
   }
- }
+
+}

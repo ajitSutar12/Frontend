@@ -401,9 +401,9 @@
                                             data.idmaster.custAddress[0].AC_ADDR }}
                                         </td>
                                         <td
-                                            [ngClass]="data.idmaster.custAddress[0].city.CITY_NAME === '' ? 'td_center' : 'td_left'">
-                                            {{ data.idmaster.custAddress[0].city.CITY_NAME === "" ? "-" :
-                                            data.idmaster.custAddress[0].city.CITY_NAME }}
+                                            [ngClass]="data.idmaster.custAddress[0]?.city.CITY_NAME === '' ? 'td_center' : 'td_left'">
+                                            {{ data.idmaster.custAddress[0]?.city.CITY_NAME === "" ? "-" :
+                                            data.idmaster.custAddress[0]?.city.CITY_NAME }}
                                         </td>
                                         <td class="td_right"
                                             [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">

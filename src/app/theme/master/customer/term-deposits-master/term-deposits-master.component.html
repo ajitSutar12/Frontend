@@ -2249,9 +2249,9 @@
                                         </td>
 
                                         <td
-                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME === '' ? 'td_center' : 'td_left'">
-                                            {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-" :
-                                            data.idmaster.custAddress[0].city?.CITY_NAME }}
+                                            [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME === '' ? 'td_center' : 'td_left'">
+                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-" :
+                                            data.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                         </td>
                                         <td [ngClass]="data.REF_ACNO === '' ? 'td_center' : 'td_left'">
                                             {{ data.REF_ACNO === "" ? "-" : data.REF_ACNO }}

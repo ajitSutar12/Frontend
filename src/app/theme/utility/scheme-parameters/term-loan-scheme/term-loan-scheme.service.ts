@@ -34,8 +34,12 @@ export class TermLoanSchemeService {
 
     return this.http.put(this.url + '/term-loan-scheme/update', data);
   }
-  getData(code:any): Observable<any> {
+  getData(code: any): Observable<any> {
     return this.http.get(this.url + '/term-loan-scheme/' + code).pipe(catchError(this.handleError));
+  }
+
+  duplicatecheck(data): Observable<any> {
+    return this.http.post(this.url + '/scheme-parameters/duplicatecheck', data);
   }
 
 }

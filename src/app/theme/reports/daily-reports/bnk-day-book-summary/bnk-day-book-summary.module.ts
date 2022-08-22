@@ -12,7 +12,10 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkDayBookSummaryComponent } from './bnk-day-book-summary.component';
-import {BnkDayBookSummaryRoutingModule} from './bnk-day-book-summary-routing.module'
+import {BnkDayBookSummaryRoutingModule} from './bnk-day-book-summary-routing.module';
+import {Iframe1Module} from '../../daily-reports/iframe1/iframe1.module';
+import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -27,7 +30,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkDayBookSummaryRoutingModule
+    BnkDayBookSummaryRoutingModule,
+    Iframe1Module
   ],
 
   declarations: [BnkDayBookSummaryComponent],
@@ -45,6 +49,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: UserAuthInterceptor,
       multi: true
     },
-  ]
+  ],
+  schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class BnkDayBookSummaryModule { }

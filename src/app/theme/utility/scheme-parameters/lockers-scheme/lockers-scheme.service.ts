@@ -44,6 +44,10 @@ export class LockersSchemeService {
     return this.http.post(this.url + '/lockers-scheme/getOneColumn', data);
   }
 
+  duplicatecheck(data): Observable<any> {
+    return this.http.post(this.url + '/scheme-parameters/duplicatecheck', data);
+  }
+
 }
 
 

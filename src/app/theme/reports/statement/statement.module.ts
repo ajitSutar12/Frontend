@@ -10,8 +10,8 @@ import { BnkGlAcStatementComponent } from './bnk-gl-ac-statement/bnk-gl-ac-state
 import { BnkAcStatementComponent } from './bnk-ac-statement/bnk-ac-statement.component';
 import { BnkLNamtStatementComponent } from './bnk-lnamt-statement/bnk-lnamt-statement.component';
 import { BnkTDStatementComponent } from './bnk-tdstatement/bnk-tdstatement.component';
-import { BnkGlIntStatementComponent } from './bnk-gl-int-statement/bnk-gl-int-statement.component';
-import { BnkMemStatementComponent } from './bnk-mem-statement/bnk-mem-statement.component';
+// import { BnkGlIntStatementComponent } from './bnk-gl-int-statement/bnk-gl-int-statement.component';
+// import { BnkMemStatementComponent } from './bnk-mem-statement/bnk-mem-statement.component';
 
 
 

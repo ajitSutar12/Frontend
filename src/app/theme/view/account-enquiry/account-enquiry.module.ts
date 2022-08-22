@@ -13,9 +13,12 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { LedgerViewModule } from '../ledger-view/ledger-view.module'
+import { SharesLedgerViewModule } from '../shares-ledger-view/shares-ledger-view.module'
+import { InterestPaidHistoryModule } from '../other-view/interest-paid-history/interest-paid-history.module'
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 @NgModule({
   imports: [
-
     CommonModule,
     SharedModule,
     DataTablesModule,
@@ -24,10 +27,13 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    AccountEnquiryRoutingModule
+    AccountEnquiryRoutingModule,
+    LedgerViewModule,
+    SharesLedgerViewModule,
+    InterestPaidHistoryModule
   ],
   declarations: [AccountEnquiryComponent],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, ACMasterDropdownService, OwnbranchMasterService,{
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, CustomerIdService,ACMasterDropdownService, OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

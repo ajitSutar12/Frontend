@@ -15,8 +15,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE"
-                                        formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                        (change)="getscode($event)" formControlName="AC_TYPE" [disabled]="AC_TYPE"
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -988,9 +989,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_RESO_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_RESO_NO"
-                                                                        style="text-align: right;"
-                                                                        
+                                                                        id="AC_RESO_NO" style="text-align: right;"
                                                                         formControlName="AC_RESO_NO">
                                                                     <label for="AC_RESO_NO">Number</label>
                                                                 </span>
@@ -1555,11 +1554,17 @@
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
+                                                                    <!-- [scheme]="scheme1"  -->
                                                                     <div class="app-modal-body">
                                                                         <perfect-scrollbar
                                                                             style="max-width: 800px; max-height: 450px;">
                                                                             <ng-container *ngIf="BOOK_DEBTS">
-                                                                                <app-book-debts [scheme]="scheme1"
+                                                                                <app-book-debts
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="schemeedit"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newbookEvent)="newItemEvent($event)">
                                                                                 </app-book-debts>
                                                                             </ng-container>
@@ -2188,9 +2193,9 @@
                                             data.idmaster.custAddress[0]?.AC_ADDR }}
                                         </td>
                                         <td
-                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_left'">
-                                            {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-" :
-                                            data.idmaster.custAddress[0].city?.CITY_NAME }}
+                                            [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME  === '' ? 'td_center' : 'td_left'">
+                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-" :
+                                            data.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                         </td>
                                         <td [ngClass]="data.AC_SANCTION_DATE === '' ? 'td_center' : 'td_center'">
                                             {{data.AC_SANCTION_DATE === ''? '-' : data.AC_SANCTION_DATE}}</td>

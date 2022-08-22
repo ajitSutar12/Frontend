@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Standing Instructions Execution List (Expected Debit Scheme)</h5>
+                <h5>Standing Instructions Execution List (Active/Revoke)</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                   
+
                         <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
@@ -49,12 +49,14 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['START_DATE'].invalid && (angForm.controls['START_DATE'].dirty || angForm.controls['START_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                <div
+                                    *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">End Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">End Date<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -70,34 +72,52 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                <div
+                                    *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
+
+                        <div class="col-md-3">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="REVOKE_INST"
                                         formControlName="REVOKE_INST">
-                                    <label class="border-checkbox-label" for="REVOKE_INST">Show Only Revoke Instructions ?</label>
+                                    <label class="border-checkbox-label" for="REVOKE_INST">Show Only Revoke Instructions
+                                        ?</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" 
-                                (click)="View($event)">
-                                View
-                            </button>
-                        </div>
-                        <div class="card-block" *ngIf="showRepo"  routerLink="/reports/Report_Frame">
+                    </div>
 
-                            <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+                    <div class="row"></div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-2">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                (click)="view($event); clicked = true ">View</button>
+
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <app-iframe3 [url]='iframeurl'></app-iframe3>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+               
             </form>
         </div>
     </div>

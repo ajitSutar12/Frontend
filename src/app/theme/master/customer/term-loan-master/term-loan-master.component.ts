@@ -851,6 +851,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   //Method for append data into fields  
+  tempbankacno
   editClickHandler(id) {
     this.angForm.controls['AC_TYPE'].disable()
     let date
@@ -861,7 +862,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let resodate
     // let ngexpiry
     this.columnShowButton = true
+
     this.termLoanService.getFormData(id).subscribe(data => {
+      this.tempbankacno = data.BANKACNO
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -1085,7 +1088,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
-      this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
 
       if (data.castMaster == null) {
         data.castMaster = ""
@@ -1124,7 +1127,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_ADDR: permadd?.AC_ADDR,
         AC_GALLI: permadd?.AC_GALLI,
         AC_AREA: permadd?.AC_AREA,
-        AC_CTCODE: permadd.city?.CITY_NAME,
+        AC_CTCODE: permadd?.city?.CITY_NAME,
         AC_PIN: permadd?.AC_PIN,
       })
 
@@ -1496,11 +1499,26 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.vehicleid.push(this.security_id);
     }
   }
-
+  getschemename
+  ngBranchCode
+  accountedit
+  schemeedit
+  scode
+  getscode(event) {
+    this.scode = event.name
+  }
   // Show security Detals Components
   showSecurity(code) {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
 
     this._SecurityCode.getFormData(code).subscribe(data => {
+
+      this.getschemename = 'LN'
+      this.schemeedit = this.scode
+      this.accountedit = (this.tempbankacno != undefined ? this.tempbankacno : '')
+      this.ngsecurityCode = code
+      this.ngBranchCode = result.branchId
 
       if (data.BOOK_DEBTS == '1') {
         this.BOOK_DEBTS = true
@@ -1954,7 +1972,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.angForm.patchValue({
           AC_EXPIRE_DATE: expiryDate
         })
-      } else {
+      } else if (this.openingDate != undefined) {
         var full = []
         var fullDate = this.openingDate;
         full = fullDate.split(' ');

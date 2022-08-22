@@ -518,7 +518,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       MAX_LOAN_PERIOD: ['', [Validators.pattern]],
       S_INSTTYPE: [''],
       INSTALLMENT_METHOD: [''],
-      IS_OVERDUE_ON_INSTALLMENT: ['', [Validators.pattern, Validators.max(3)]],
+      IS_OVERDUE_ON_INSTALLMENT: ['', [Validators.pattern, Validators.required, Validators.max(3)]],
       IS_SHOW_INT_AS_RECINT_IFDUEBAL: [],
       MIN_DUE_INSTALLMENTS: ['', [Validators.pattern, Validators.maxLength]],
       IS_DEPO_LOAN: [''],
@@ -529,6 +529,20 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   submit() {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
+    let Gold
+    let depo
+    if (formVal.IS_DEPO_LOAN == '1') {
+      Gold = 0
+      depo = 1
+
+    } else if (formVal.IS_DEPO_LOAN == '0') {
+      Gold = 1
+      depo = 0
+
+    } else if (formVal.IS_DEPO_LOAN == '2') {
+      Gold = 0
+      depo = 0
+    }
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
       'S_APPL': formVal.S_APPL,
@@ -541,7 +555,9 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       'S_RECBL_PENAL_ACNO': formVal.S_RECBL_PENAL_ACNO,
       'S_RECBL_ODUE_INT_ACNO': formVal.S_RECBL_ODUE_INT_ACNO,
       'S_OUTSTANDING_INT_ACNO': formVal.S_OUTSTANDING_INT_ACNO,
-      'IS_DEPO_LOAN': formVal.IS_DEPO_LOAN,
+      // 'IS_DEPO_LOAN': formVal.IS_DEPO_LOAN,
+      'IS_DEPO_LOAN': depo,
+      'IS_GOLDLOAN': Gold,
       'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
       'POST_TO_INDIVIDUAL_AC': (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
       'S_RECEIVABLE_INT_ALLOW': (formVal.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0'),
@@ -597,13 +613,17 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     // To clear form
     this.resetForm();
   }
-
+  IS_DEPO_LOAN: boolean = false
+  IS_GOLDLOAN: boolean = false
+  IS_BOTH: boolean = false
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
 
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
+
     this.termLoanSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngglacno = Number(data.S_GLACNO)
@@ -664,6 +684,20 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         'IS_SHOW_INT_AS_RECINT_IFDUEBAL': (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL == '1' ? true : false),
         'MIN_DUE_INSTALLMENTS': data.MIN_DUE_INSTALLMENTS
       })
+
+      if (data.IS_DEPO_LOAN == '1' && data.IS_GOLDLOAN == '0') {
+        this.IS_DEPO_LOAN = true
+        this.IS_GOLDLOAN = false
+        this.IS_BOTH = false
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '1') {
+        this.IS_DEPO_LOAN = false
+        this.IS_GOLDLOAN = true
+        this.IS_BOTH = false
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '0') {
+        this.IS_DEPO_LOAN = false
+        this.IS_GOLDLOAN = false
+        this.IS_BOTH = true
+      }
 
       if (data.S_INT_APPLICABLE == '1') {
         document.getElementById("POST_TO_INDIVIDUAL_AC").removeAttribute("disabled");
@@ -729,7 +763,26 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
-    data['id'] = this.updateID;
+    let Gold
+    let depo
+    if (data.IS_DEPO_LOAN == '1') {
+      Gold = 0
+      depo = 1
+
+    } else if (data.IS_DEPO_LOAN == '0') {
+      Gold = 1
+      depo = 0
+
+    } else if (data.IS_DEPO_LOAN == '2') {
+      Gold = 0
+      depo = 0
+    }
+
+
+    data["id"] = this.updateID;
+
+    data['IS_DEPO_LOAN'] = depo
+    data['IS_GOLDLOAN'] = Gold
     data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
     data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
     data['S_RECEIVABLE_INT_ALLOW'] = (data.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0')
@@ -763,6 +816,8 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         dtInstance.ajax.reload();
       });
       // this.rerender();
+      this.angForm.controls['S_APPL'].enable()
+
       this.resetForm();
     })
   }
@@ -782,6 +837,8 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     this.ngrecbleoverdueint = null
     this.ngoutstandingintac = null
     this.nginstallment = null
+    this.angForm.controls['S_APPL'].enable()
+
   }
 
   ngAfterViewInit(): void {
@@ -944,6 +1001,53 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       this.S_RECBL_ODUE_INT_ACNO = false;
       this.angForm.controls.MIN_DUE_INSTALLMENTS.disable();
       this.angForm.controls.MIN_DUE_INSTALLMENTS.reset();
+    }
+  }
+  isDepoloan(value) {
+    if (value == 1) {
+      this.IS_DEPO_LOAN = true
+      this.IS_GOLDLOAN = false
+      this.IS_BOTH = false
+      this.angForm.patchValue({
+        'IS_DEPO_LOAN': 1,
+        'IS_GOLDLOAN': 0
+      })
+    } else if (value == 2) {
+      this.IS_DEPO_LOAN = false
+      this.IS_GOLDLOAN = true
+      this.IS_BOTH = false
+      this.angForm.patchValue({
+        'IS_DEPO_LOAN': 0,
+        'IS_GOLDLOAN': 1
+      })
+    } else if (value == 3) {
+      this.IS_DEPO_LOAN = false
+      this.IS_GOLDLOAN = false
+      this.IS_BOTH = true
+      this.angForm.patchValue({
+        'IS_DEPO_LOAN': 0,
+        'IS_GOLDLOAN': 0
+      })
+    }
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+    if (obj.scheme != '') {
+      if (Number(obj.scheme) >= 501 && Number(obj.scheme) <= 599) {
+        this.termLoanSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 501 to 599 this range', 'error')
+      }
     }
   }
 }

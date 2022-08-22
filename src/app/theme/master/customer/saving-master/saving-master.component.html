@@ -1962,14 +1962,14 @@
                       }}
                     </td>
                     <td [ngClass]="
-                        data.idmaster.custAddress[0].city?.CITY_NAME === ''
+                        data.idmaster.custAddress[0]?.city?.CITY_NAME === ''
                           ? 'td_center'
                           : 'td_left'
                       ">
                       {{
-                      data.idmaster.custAddress[0].city?.CITY_NAME === ""
+                      data.idmaster.custAddress[0]?.city?.CITY_NAME === ""
                       ? "-"
-                      : data.idmaster.custAddress[0].city?.CITY_NAME
+                      : data.idmaster.custAddress[0]?.city?.CITY_NAME
                       }}
                     </td>
                     <td [ngClass]="

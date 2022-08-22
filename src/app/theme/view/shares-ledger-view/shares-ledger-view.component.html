@@ -9,160 +9,166 @@
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
-                                        <ng-option *ngFor="let values of branch_code" [value]="values">
-                                            {{values.label}}</ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                            formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                            <ng-option *ngFor="let values of branch_code" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-3">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        (change)="schemechange($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme">
-                                        <ng-option *ngFor="let values of allScheme" [value]="values">
-                                            {{values.id}} {{values.label}} </ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                            <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                            formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                            (change)="schemechange($event)"
+                                            [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                            <ng-option *ngFor="let values of allScheme" [value]="values">
+                                                {{values.id}} {{values.label}} </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                        This field is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm" *ngIf="dormantac">
-                            <div><label style="color: #1e5bc5">Dormant Account</label></div>
-                        </div>
-                        <div class="col-sm" *ngIf="acclosedon">
-                            <div><label style="color: #1e5bc5">Account Closed On:
-                                    {{acCloseDate}}</label></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
-                                        formControlName="AC_NO" bindLabel="label" title="Compulsory Selection" required
-                                        placeholder="Account Number" (change)="getAccountDetails($event)">
-                                        <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                            {{values.label}} {{values.name}}</ng-option>
-                                    </ng-select>
-                                </span>
+                            <div class="col-sm" *ngIf="dormantac">
+                                <div><label style="color: #1e5bc5">Dormant Account</label></div>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required.
+                            <div class="col-sm" *ngIf="acclosedon">
+                                <div><label style="color: #1e5bc5">Account Closed On:
+                                        {{acCloseDate}}</label></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
+                                            formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                            required placeholder="Account Number" (change)="getAccountDetails($event)">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_NO'].errors?.required">
+                                        This field is required.
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-sm" *ngIf="freezeac">
+                                <div><label style="color: #1e5bc5">Freez
+                                        Status:{{freezStataus}}</label></div>
+                            </div>
                         </div>
-                        <div class="col-sm" *ngIf="freezeac">
-                            <div><label style="color: #1e5bc5">Freez
-                                    Status:{{freezStataus}}</label></div>
-                        </div>
-                    </div>
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                        [minDate]="accountOpenDate" [maxDate]="maxDate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
-                                </span>
+                            <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                            class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                            [minDate]="accountOpenDate" [maxDate]="maxDate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                    This field is required.
+                            <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
+                                            class="form-control" [(ngModel)]="todate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
+                                            [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="TO_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
+                                        This field is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                        class="form-control" [(ngModel)]="todate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="TO_DATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
-                                    This field is required.
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="AC_OPDATE">Account Opening Date<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
+                                            class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="AC_OPDATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker disabled>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
+                                        This field is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_OPDATE">Account Opening Date<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
-                                        class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="AC_OPDATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
-                                </span>
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary"></button>&nbsp; Unpassed Accounts
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
-                                    This field is required.
-                                </div>
+                            <!-- </div>
+                         <div class="row" > -->
+                            <div class="col-sm" *ngIf="showView">
+                                <button class="btn btn-outline-primary btn-sm"
+                                    (click)="getTransactionsDeatils()">View</button>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm"
-                                (click)="getTransactionsDeatils()">View</button>
-                        </div>
-                    </div>
-
                 </div>
             </form>
         </div>
@@ -194,7 +200,7 @@
                 </thead>
                 <tbody *ngIf="tableData?.length != 0">
                     <tr *ngFor="let data of tableData;
-                    let indexOfelement = index">
+                    let indexOfelement = index" [ngStyle]="{'color': (data.TRAN_STATUS == '0') ? '#226de9':'#212529'}">
                         <td>{{data.TRAN_DATE}}</td>
                         <td>{{data?.NARRATION}}</td>
                         <td>{{data.TRAN_TYPE}}</td>

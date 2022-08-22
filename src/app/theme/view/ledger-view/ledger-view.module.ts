@@ -26,8 +26,9 @@ import { LegderViewService } from './ledger-view.service'
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
   ],
+  exports: [LedgerViewComponent],
   declarations: [LedgerViewComponent],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, ACMasterDropdownService, OwnbranchMasterService, LegderViewService,{
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, ACMasterDropdownService, OwnbranchMasterService, LegderViewService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

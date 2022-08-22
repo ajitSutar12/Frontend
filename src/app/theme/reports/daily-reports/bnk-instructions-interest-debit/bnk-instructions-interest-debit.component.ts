@@ -13,7 +13,7 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 // dropdown
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
-import { first } from "rxjs/operators";
+import { first, reduce } from "rxjs/operators";
 @Component({
   selector: 'app-bnk-instructions-interest-debit',
   templateUrl: './bnk-instructions-interest-debit.component.html',
@@ -26,8 +26,10 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
-  formSubmitted = false;
-
+  equal: any
+  startfrom
+  startto
+  report_url = environment.report_url
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
@@ -36,13 +38,18 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   //Dropdown option variable
   ngbranch
   branchOption: any;
-
-  selectedType
-  Types = [
-    { id: 1, name: "S" , value:"Success" },
-    { id: 2, name: "F", value:"Failure"},
-  ];
-
+  iframeurl: any = ' ';
+  clicked:boolean=false;
+  // selectedType
+  // Types = [
+  //   { id: 1, name: "S", value: "Success" },
+  //   { id: 2, name: "F", value: "Failure" },
+  // ];
+  sorton
+  sort = [
+    { id: 1, value: "Debit" },
+    { id: 2, value: "Credit" },
+  ]
   selectedSorting
   SortingOn = [
     { id: 1, name: "Debit Scheme" },
@@ -57,6 +64,12 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     { id: 4, name: "Half Yearly" },
     { id: 5, name: "None" },
   ];
+  RADIO: any;
+  // SUCCESS: any;
+  // FAILURE: any;
+  // value: string;
+  success:any;
+  failure:any;
 
   constructor(
     private fb: FormBuilder,
@@ -74,83 +87,84 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-
-
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngbranch = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngbranch = result.branch.id
-    }
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ["", [ Validators.required]],
-      STATUS: ["", [ Validators.required]],
-      START_DATE: ["", [ Validators.required]],
-      END_DATE: ["", [ Validators.required]],
-      SORT_ON: [""],
-      FREQUENCY: [""],
+      BRANCH_CODE: ["", [Validators.required]],
+      START_DATE: ["", [Validators.required]],
+      END_DATE: ["", [Validators.required]],
+      SORT: ["", [Validators.required]],
+      FREQUENCY: ["", [Validators.required]],
       NEWPAGE: [""],
+      RADIO: [""],
+      // FAILURE: [""],
     });
   }
-  src: any;
-  submit(event) {
-    debugger
-    // this.showRepo = true;
-    event.preventDefault(); 
-    this.formSubmitted = true;
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    let obj = this.angForm.value
-    let Startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-    let branch = obj.BRANCH_CODE;
-    let status = obj.STATUS;
-    console.log(status)
-    const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'&branch='"+branch+"'&status="+status+" ";
-    // const url="http://localhost/NewReport/report-code/Report/examples/BnkInstructionsInterest_debit.php?startDate='"+Startdate+"'&endDate='"+Enddate+"'";
-    console.log(url);
-    window.open(url, '_blank');
-     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  end() {
+    this.startfrom = this.angForm.controls['START_DATE'].value
+    this.startto = this.angForm.controls['END_DATE'].value
+    if (this.angForm.controls['START_DATE'].value <= this.angForm.controls['END_DATE'].value) {
+      this.equal = [this.startfrom, this.startto]
+    }
+    else {
+      Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+    }
   }
-  else {
-   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
- }
+  view(event) {
 
+    event.preventDefault();
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+  
+   if (this.angForm.controls['RADIO'].value=="success" && this.angForm.valid) {
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let branched = obj.BRANCH_CODE;
+      let success = obj.RADIO;
+      let frequency = obj.FREQUENCY;
+      let startscheme = obj.NEWPAGE;
+      let sort = obj.SORT;
+      this.iframeurl = this.report_url + "/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    }
+    else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let branched = obj.BRANCH_CODE;
+      let failure = obj.RADIO;
+      let frequency = obj.FREQUENCY;
+      let startscheme = obj.NEWPAGE;
+      let sort = obj.SORT;
 
-    //To clear form
-    // this.resetForm();
-    this.formSubmitted = false;
-    // }
+      this.iframeurl = this.report_url + "/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    }
 
   }
-  obj1: any
-  getBranch() {
-    this.obj1 = [this.ngbranch]
-  }
+
   close() {
     this.resetForm()
   }
-
-  // Reset Function
-  resetForm() {
-    this.createForm();
+ resetForm() {
+    this.createForm()
     this.showRepo = false;
+    this.clicked=false;
   }
 
-  
+
+
 
 }
 

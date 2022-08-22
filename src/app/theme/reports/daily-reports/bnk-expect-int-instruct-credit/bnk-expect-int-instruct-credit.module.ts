@@ -14,6 +14,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkExpectIntInstructCreditComponent } from './bnk-expect-int-instruct-credit.component';
 import {BnkExpectIntInstructCreditRoutingModule} from './bnk-expect-int-instruct-credit-routing.module';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { Iframe1Module } from '../iframe1/iframe1.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -28,7 +29,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkExpectIntInstructCreditRoutingModule
+    BnkExpectIntInstructCreditRoutingModule,
+    Iframe1Module
   ],
 
   declarations: [BnkExpectIntInstructCreditComponent],

@@ -1,4 +1,4 @@
-<!-- <div class="row">
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -11,36 +11,48 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
+                        <div class="col-md-1"> <label for="scheme">Branch<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                            *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                This field is required.
+                            </div>
                         </div>
-                        <div class="col-md-1"><label for="S_ACNOTYPE">Scheme Type</label></div>
+                        </div>
+                        <div class="col-md-2"><label for="S_ACNOTYPE">Scheme Code<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="S_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        
                                         placeholder="Scheme Type">
-                                        <ng-option *ngFor="let values of schemetype" [value]="values">{{values.label}}
+                                        <ng-option *ngFor="let values of schemetype" [value]="values">{{ values.id }} {{ values.label }}
                                         </ng-option>
                                     </ng-select>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_ACNOTYPE'].invalid && (angForm.controls['S_ACNOTYPE'].dirty || angForm.controls['S_ACNOTYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['S_ACNOTYPE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
                         </div>
-                       <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
-                        </div>
+                        <div class="col-md-1"> <label for="START_DATE"> Date<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -55,50 +67,36 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['START_DATE'].invalid && (angForm.controls['START_DATE'].dirty || angForm.controls['START_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                <div
+                                    *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">End Date<sub class="required">*</sub></label></div>
-                        <div class="col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
-                                        class="form-control" [(ngModel)]="todate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="END_DATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker required>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
-                                    This field is required.
-                                </div>
-                            </div>
+                       
+
+                        <div class="card-block" *ngIf="showRepo">
+
+                            <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
                         </div>
+
                     </div>
+                    <div class="row"></div>
                     <div class="row">
-                        <div class="col-md-2" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="close()">Close</button>
+                        <div class="col-md-7"></div>
+                        <div class="col-md-2">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
                                 (click)="submit($event)">View</button>
-                                
                         </div>
-                    </div>
-                    <div class="card-block" *ngIf="showRepo">
-
-                        <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Back</button>
+                        </div>
                     </div>
 
                 </div>
-            </form> 
+            </form>
 
         </div>
     </div>
-</div> -->
+</div>

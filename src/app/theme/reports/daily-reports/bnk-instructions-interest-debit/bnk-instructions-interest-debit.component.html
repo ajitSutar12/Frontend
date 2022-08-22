@@ -1,4 +1,4 @@
-<!-- <div class="row">
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -11,13 +11,12 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
+                        <div class="col-md-2"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" required (change)="getBranch()">
+                                        formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -32,26 +31,42 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"><label for="STATUS">Status<sub class="required">* </sub></label></div>
+                        <div class="col-md-2"><label for="status">Status</label></div>
+                        <div class="col-md-2">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="RADIO" value="success" formControlName="RADIO">
+                                        <i class="helper"></i>Success</label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="RADIO" value="failure" formControlName="RADIO">
+                                        <i class="helper"></i>Failure</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-1"><label for="SORT_ON">Sort On<sub class="required">* </sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="selectedType" formControlName="STATUS" placeholder="Status" required>
-                                        <ng-option *ngFor="let type of Types" [value]="type.name">{{ type.value }}
+                                    <ng-select [(ngModel)]="selectedSorting" formControlName="SORT_ON"
+                                        placeholder="Sort On">
+                                        <ng-option *ngFor="let type of SortingOn" [value]="type.name">{{ type.name }}
                                         </ng-option>
                                     </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf=" angForm.controls['STATUS'].invalid &&(angForm.controls['STATUS'].dirty || angForm.controls['STATUS'].touched)"
+                                *ngIf=" angForm.controls['SORT_ON'].invalid &&(angForm.controls['SORT_ON'].dirty || angForm.controls['SORT_ON'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['STATUS'].errors?.required ||angForm.controls['STATUS'].errors?.pattern">
+                                    *ngIf="angForm.controls['SORT_ON'].errors?.required ||angForm.controls['SORT_ON'].errors?.pattern">
                                     This is required field
                                 </div>
                             </div>
-                        </div>
-                       <div class="col-md-1"><label for="FREQUENCY">Frequency<sub class="required">* </sub></label>
+                        </div> -->
+                        <div class="col-md-2"><label for="FREQUENCY">Frequency<sub class="required">* </sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -75,7 +90,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="START_DATE">Starting Date<sub
+                                    class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -83,68 +99,115 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
                                         class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                         [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="START_DATE"
+                                        formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker required>
+                                        bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['START_DATE'].invalid && (angForm.controls['START_DATE'].dirty || angForm.controls['START_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                <div
+                                    *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">End Date<sub class="required">*</sub></label></div>
+                        <div class="col-md-2"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label>
+                        </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
-                                        class="form-control" [(ngModel)]="todate"
+                                        class="form-control" [(ngModel)]="todate" 
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="END_DATE"
+                                        [maxDate]="maxDate" formControlName="END_DATE" (change)="end()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker required>
+                                        bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                <div
+                                    *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-2"><label for="SORT">Sort On<sub class="required">* </sub></label></div>
+                        <div class="col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="sorton" formControlName="SORT" placeholder="Sort on"
+                                        required>
+                                        <ng-option *ngFor="let type of sort" [value]="type.name">{{ type.value }}
+                                        </ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf=" angForm.controls['SORT'].invalid &&(angForm.controls['SORT'].dirty || angForm.controls['SORT'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['SORT'].errors?.required ||angForm.controls['SORT'].errors?.pattern">
+                                    This is required field
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                    <div class="row">
                         <div class="col-md">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="NEWPAGE"
                                         formControlName="NEWPAGE">
-                                    <label class="border-checkbox-label" for="NEWPAGE">Start Scheme on New Page ?</label>
+                                    <label class="border-checkbox-label" for="NEWPAGE">Start Scheme on New Page
+                                        ?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-2">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                (click)="view($event); clicked = true ">View</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <app-iframe1 [url]='iframeurl'></app-iframe1>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (onclick)="submit($event)">View</button>      
-                        </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (onclick)="close()">Close</button>
-                        </div>
-                    </div>
-                     <div class="card-block" *ngIf="showRepo"> 
-                       
-                        <iframe [src]="src" frameborder="0" style="width: 100%; height: 600px;"></iframe>
-                       
-                    </div> 
 
                 </div>
-            </form> 
+            </form>
 
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Report Frame</h5>
+            </div>
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                   
+                </div>
+            </form>
         </div>
     </div>
 </div> -->

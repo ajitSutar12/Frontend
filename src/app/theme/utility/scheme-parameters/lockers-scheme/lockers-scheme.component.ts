@@ -232,6 +232,8 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['S_APPL'].disable()
+
     this.lockersSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngglac = Number(data.S_GLACNO)
@@ -266,6 +268,8 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       this.newbtnShow = false;
       //this.rerender();
       this.resetForm();
+      this.angForm.controls['S_APPL'].enable()
+
     })
   }
   resetForm() {
@@ -273,6 +277,8 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.ngglac = null
     this.nglocker = null
     this.ngreceivablelocker = null
+    this.angForm.controls['S_APPL'].enable()
+
   }
   addNewData() {
     this.showButton = true;
@@ -351,6 +357,27 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  checkDuplicate(event) {
+
+    let obj = {
+      scheme: event.target.value
+    }
+
+    if (obj.scheme != '') {
+      if (obj.scheme >= 351 && obj.scheme <= 400) {
+        this.lockersSchemeService.duplicatecheck(obj).subscribe(data => {
+          if (data.length != 0) {
+            this.angForm.controls['S_APPL'].reset()
+            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+          }
+        })
+      } else {
+        this.angForm.controls['S_APPL'].reset()
+        Swal.fire('Error', 'Please enter the scheme code within 351 to 400 this range', 'error')
+      }
+    }
   }
 
 }

@@ -129,7 +129,8 @@
                                                         <input type="text" style="text-align: righ t;" maxlength="12"
                                                             pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
                                                             formControlName="InterestRate"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                            disabled>
                                                     </span>
                                                 </div>
                                             </div>
@@ -185,10 +186,9 @@
                                                                 formControlName="DInterest" disabled>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td colspan="3">0 Months & 144 Days</td>
-
-                                                    </tr>
+                                                    </tr> -->
                                                 </table>
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><b>Total Interest @ 6.00 %</b></label>
+                                                <label><b>Total Interest @ {{intRateShow}} %</b></label>
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="border-lable-flt">
@@ -296,6 +296,7 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
                                                         pattern="\d{1,20}(\.\d{1,2})?" formControlName="LEDGER_BAL"
+                                                        (change)="getNetPayAmount()"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -307,7 +308,8 @@
                                             <div class="col-md-4">
                                                 <span class="border-lable-flt">
                                                     <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="PAYABLE_INTAMT"
+                                                        (change)="getNetPayAmount()" pattern="\d{1,20}(\.\d{1,2})?"
+                                                        formControlName="PAYABLE_INTAMT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </span>
                                             </div>
@@ -487,7 +489,8 @@
                                                                 <ng-select id="TschemeAC" [(ngModel)]="ngacno"
                                                                     formControlName="TschemeAC" bindLabel="label"
                                                                     bindValue="bankacno" title="Compulsory Selection"
-                                                                    placeholder="Account Number">
+                                                                    placeholder="Account Number"
+                                                                    (change)="getTransferAccountDeatil($event)">
                                                                     <ng-option *ngFor="let values of schemeACNo"
                                                                         [value]="values">
                                                                         {{values.label}} {{values.name}}</ng-option>
@@ -559,26 +562,50 @@
                                                 <!-- Multiple Transaction details data show here -->
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <table class="table table-bordered table-hover compact">
-                                                            <thead>
-                                                                <td>Action</td>
-                                                                <td>Scheme</td>
-                                                                <td>Account Number</td>
-                                                                <td>Particulars</td>
-                                                                <td style="text-align: right;">Amount</td>
-                                                            </thead>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover compact">
+                                                                <thead>
+                                                                    <td>Action</td>
+                                                                    <td>Scheme</td>
+                                                                    <td>Account Number</td>
+                                                                    <td>Particulars</td>
+                                                                    <td style="text-align: right;">Amount</td>
+                                                                </thead>
 
-                                                            <tbody *ngIf="multigrid?.length != 0">
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td>{{ data?.AC_TYPE }}</td>
-                                                                    <td>{{ data?.ACNO }}</td>
-                                                                    <td>{{ data?.particulars }}</td>
-                                                                    <td>{{ data?.amount }}</td>
-                                                                </tr>
-                                                            </tbody>
+                                                                <tbody *ngIf="multigrid.length != 0">
+                                                                    <tr *ngFor="let data of multigrid;
+                                                                let indexOfelement = index">
+                                                                        <td [ngClass]="'td_center'"> <span
+                                                                                class="fa fa-fw fa-edit field-icon"
+                                                                                id="editbutton"
+                                                                                (click)="editTransferAccount(indexOfelement)"
+                                                                                placement="top"
+                                                                                ngbTooltip="Edit"></span>
+                                                                        </td>
+                                                                        <td [ngClass]="'td_right'">{{ data.Scheme==
+                                                                            undefined || data.Scheme==null
+                                                                            ? data.depoCloseTranAc.S_APPL: data.Scheme
+                                                                            }}
+                                                                        </td>
+                                                                        <td [ngClass]="'td_right'">{{ data.TRANSFER_ACNO
+                                                                            }}
+                                                                        </td>
+                                                                        <td>{{ data.NARRATION }}</td>
+                                                                        <td [ngClass]="'td_right'">{{ data.TRAN_AMOUNT
+                                                                            }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr *ngIf="multigrid.length != 0">
 
-                                                        </table>
+                                                                        <td colspan="4" style="text-align: right;">Total
+                                                                        </td>
+                                                                        <td [ngClass]="'td_right'">
+                                                                            {{transferTotalAmount}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -626,6 +653,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount
@@ -634,11 +666,17 @@
                                         </div>
                                         <div class="fw-bolder transaction-title text-primary"
                                             style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                                aria-hidden="true"></i> {{DayOpBal}}.00</div>
+                                                aria-hidden="true"></i> {{DayOpBal}}.00
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
@@ -652,6 +690,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Int Rate%</h6>
@@ -663,6 +706,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Last Int. Date
@@ -675,6 +723,11 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
@@ -686,6 +739,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">As On Date
@@ -693,11 +751,17 @@
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">{{asOnDate}}</div>
+                                            style="margin-left: auto;order: 2;font-size: 12px;">
+                                            {{asOnDate==null?'---':asOnDate}}</div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
@@ -710,6 +774,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Receipt No.
@@ -722,6 +791,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-info rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Operation
@@ -734,6 +808,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Months
@@ -746,6 +825,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="transaction-item">
+                                        <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Days
@@ -759,38 +843,37 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="user-avatar-section">
-                                                <div class="d-flex align-items-center flex-column">
+                                            <div>
+                                                <span class="user-avatar-section">
                                                     <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
-                                                        height="110" width="110" (mouseover)="showImage(customerImg)"
+                                                        height="50" width="80" (mouseover)="showImage(customerImg)"
                                                         (mouseout)="hideImage()" alt="User avatar" />
-                                                    <div class="user-info text-center">
-                                                        <h4>Ajit Sutar</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="user-avatar-section">
-                                                <div class="d-flex align-items-center flex-column">
+                                                </span> &nbsp; &nbsp;
+                                                <span class="user-avatar-section">
                                                     <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
                                                         (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                                        height="50" width="110" alt="User avatar" />
-
-                                                </div>
+                                                        height="25" width="80" alt="User avatar" />
+                                                </span>
+                                            </div>
+                                            <div class="user-info text-center">
+                                                <h6>{{Customer_info?.AC_NAME}}</h6>
                                             </div>
                                             <div class="info-container">
                                                 <ul class="list-unstyled">
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">Status:</span>
-                                                        <span class="badge bg-light-success">Active</span>
+                                                        <span class="badge bg-light-success">{{Status == true || Status
+                                                            ==
+                                                            1? 'Inactive' :
+                                                            'Active'}}</span>
                                                     </li>
-
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">PAN ID:</span>
-                                                        <span>ADFE2323D</span>
+                                                        <span>{{Customer_info?.AC_PANNO}}</span>
                                                     </li>
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">Contact:</span>
-                                                        <span>+91 7636456273</span>
+                                                        <span>{{Customer_info?.AC_MOBILENO}}</span>
                                                     </li>
                                                 </ul>
                                             </div>

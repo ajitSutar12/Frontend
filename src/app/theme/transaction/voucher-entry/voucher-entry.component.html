@@ -197,8 +197,8 @@
                                             <div class="form-group form-primary form-static-label">
                                                 <span class="border-lable-flt">
                                                     <ng-select formControlName="bank">
-                                                        <ng-option *ngFor="let item of bankName" [value]="item.id">
-                                                            {{item.name}}</ng-option>
+                                                        <ng-option *ngFor="let item of bankName" [value]="item.value">
+                                                            {{item.label}}</ng-option>
                                                     </ng-select>
 
                                                 </span>
@@ -276,7 +276,7 @@
                                                                     bsDatepicker [(ngModel)]="IntersetHeadDate"
                                                                     formControlName="Intdate"
                                                                     (bsValueChange)="getColumnValue($event)">
-                                                            </td>
+                                                            </td>                                                         
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
                                                             <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'"><input
                                                                     type="text"
@@ -382,9 +382,9 @@
                                                     *ngIf="newbtnShow">
                                                     Cancel
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                                <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                                     *ngIf="updateShow">
-                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                                 <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                                     (click)="reject()">
                                                     Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;

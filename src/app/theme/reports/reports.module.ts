@@ -22,12 +22,14 @@ import { ReportsRoutingModule } from './reports-routing.module';
 // import { PigmyReportComponent } from './pigmy-report/pigmy-report.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { IframecomponentModule } from './iframecomponent/iframecomponent.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    ReportsRoutingModule
+    ReportsRoutingModule,
+    IframecomponentModule
   ],providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

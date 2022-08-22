@@ -14,7 +14,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="S_APPL" class="form-control"
-                                        placeholder=" " id="S_APPL"
+                                        placeholder=" " id="S_APPL" (focusout)="checkDuplicate($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" required=""
                                         pattern="^[0-9]+$" maxlength="3" minlength="3" min="601" max="699"
                                         title="Input allowed only  0-9. (Space)" formControlName="S_APPL"
@@ -723,23 +723,26 @@
                                                 <div class="form-radio">
                                                     <div class="radio radio-inline">
                                                         <label>
-                                                            <input type="radio" name="IS_DEPO_LOAN" checked="checked"
-                                                                formControlName="IS_DEPO_LOAN" value="dacc">
+                                                            <input type="radio" name="IS_DEPO_LOAN" value='1'
+                                                                [checked]="IS_DEPO_LOAN" formControlName="IS_DEPO_LOAN"
+                                                                (click)="isDepoloan(1)">
                                                             <i class="helper"></i>Is Deposit against CC
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
                                                         <label>
-                                                            <input type="radio" name="IS_DEPO_LOAN"
-                                                                formControlName="IS_DEPO_LOAN" value="igacc">
+                                                            <input type="radio" name="IS_DEPO_LOAN" value='0'
+                                                                [checked]="IS_GOLDLOAN" formControlName="IS_DEPO_LOAN"
+                                                                (click)="isDepoloan(2)">
                                                             <i class="helper"></i>Is Gold against CC
 
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
                                                         <label>
-                                                            <input type="radio" name="IS_DEPO_LOAN"
-                                                                formControlName="IS_DEPO_LOAN" value="idacc">
+                                                            <input type="radio" name="IS_DEPO_LOAN" [checked]="IS_BOTH"
+                                                                value="2" formControlName="IS_DEPO_LOAN"
+                                                                (click)="isDepoloan(3)">
                                                             <i class="helper"></i>Other CC
                                                         </label>
                                                     </div>

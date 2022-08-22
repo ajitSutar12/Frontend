@@ -8,6 +8,9 @@ import { CustomerIDMasterDropdownService } from '../../../shared/dropdownService
 import { LegderViewService } from '../ledger-view/ledger-view.service';
 import { iif } from 'rxjs';
 import Swal from 'sweetalert2';
+import * as moment from 'moment';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -27,17 +30,17 @@ export class CustomerViewComponent implements OnInit {
   // dropdown variables
   ngcustomer: any = null
   Cust_ID: any[] //customer id from idmaster
-
+  customer
   //array of document of customer
   customerDoc = []
-
+  loadingCustomer = false
   //temp address flag variable
   tempAddress: boolean = true;
-
+  sysparaCurrentDate
   // image purpose
   customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
-
+  customerList
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -49,7 +52,7 @@ export class CustomerViewComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-      this.Cust_ID = data;
+      this.customerList = data
     })
   }
 
@@ -65,8 +68,32 @@ export class CustomerViewComponent implements OnInit {
       AC_GALLI: [''],
       AC_AREA: [''],
     });
+    this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data => {
+      this.sysparaCurrentDate = data['CURRENT_DATE'];
+    })
   }
 
+
+  //filter object
+  filterObject(ele) {
+    this.loadingCustomer = true
+    this.Cust_ID = [];
+    if (ele.key == 'Backspace' && ele.target.value == '') {
+      this.Cust_ID = [];
+      this.loadingCustomer = false
+    }
+    else {
+      this.loadingCustomer = true
+      // this.customerList.forEach(element => {
+      for (let element of this.customerList) {
+        if (JSON.stringify(element.label).includes(ele.target.value.toUpperCase())) {
+          this.Cust_ID.push(element);
+        }
+        this.loadingCustomer = false
+      }
+      // });
+    }
+  }
   hideImage() {
     this.previewImg = '';
     this.PreviewDiv = false;
@@ -75,7 +102,6 @@ export class CustomerViewComponent implements OnInit {
   PreviewDiv: boolean = false;
   showImage(img) {
     var src = img;
-    console.log(src)
     var largeSrc = src.replace('small', 'large');
     this.previewImg = src;
     this.PreviewDiv = true;
@@ -97,6 +123,7 @@ export class CustomerViewComponent implements OnInit {
   allAccounts = []
   //function to get existing customer data according selection
   getCustomer(eve) {
+    
     this.accountsList = []
     this.allAccounts = []
     this.withoutClosedAccount = []
@@ -105,14 +132,14 @@ export class CustomerViewComponent implements OnInit {
     this.angForm.patchValue({
       CLOSED_AC: false
     })
+    this.ngcustomer = eve.value
     this.customerIdService.getFormData(eve.value).subscribe(data => {
-      console.log('data', data)
+
       data.custAddress.forEach(element => {
         if (element.AC_ADDTYPE == 'P')
           this.address = element
       });
       for (let share of data.shareMaster) {
-        console.log('share', share)
         share['ACTYPE'] = share.shareMaster?.S_APPL
         this.allAccounts.push(share)
       }
@@ -130,13 +157,13 @@ export class CustomerViewComponent implements OnInit {
       });
       if (this.allAccounts.length == 0) {
         Swal.fire('Info', 'No Any Accounts Found', 'info')
+        this.ngcustomer = null
       }
       for (let account of this.allAccounts) {
         if (account.AC_CLOSEDT == null) {
           this.withoutClosedAccount.push(account)
         }
       }
-      console.log('without', this.withoutClosedAccount)
       this.accountsList = this.withoutClosedAccount
       this.noOfAccounts = this.withoutClosedAccount.length
 
@@ -167,11 +194,55 @@ export class CustomerViewComponent implements OnInit {
   }
   showDetails: boolean = false
   accountDetails
-  noOfAccounts
+  noOfAccounts = 0
   viewDetails(value) {
-    debugger
-    console.log(value)
     this.showDetails = true
     this.accountDetails = value
+    let obj = {
+      ACTYPE: value.ACTYPE,
+      intCategory: value.AC_INTCATA,
+      BANKACNO: value.BANKACNO,
+      Date: this.sysparaCurrentDate,
+      branchCode: value.BranchCodeMaster.CODE,
+      installmentAmount: value?.AC_INSTALLMENT,
+      AC_NO: value.AC_NO
+    }
+    if (value.PIGMY_ACTYPE != null) {
+      obj['pigmyAgent'] = value.PIGMY_ACTYPE
+    }
+    if (this.accountDetails.AC_ACNOTYPE == 'CC' || this.accountDetails.AC_ACNOTYPE == 'LN') {
+      obj['schemeData'] = this.accountDetails.LNCCMaster
+    }
+    else if (this.accountDetails.AC_ACNOTYPE == 'PG') {
+      obj['schemeData'] = this.accountDetails.PGMaster
+      obj['AGENT_ACTYPE'] = this.accountDetails.AGENT_ACTYPE
+    }
+    else if (this.accountDetails.AC_ACNOTYPE == 'SH') {
+      obj['schemeData'] = this.accountDetails.shareMaster
+    }
+    else if (this.accountDetails.AC_ACNOTYPE == 'TD' || this.accountDetails.AC_ACNOTYPE == 'SB' || this.accountDetails.AC_ACNOTYPE == 'CA' || this.accountDetails.AC_ACNOTYPE == 'AG' || this.accountDetails.AC_ACNOTYPE == 'IV' || this.accountDetails.AC_ACNOTYPE == 'GS') {
+      obj['schemeData'] = this.accountDetails.DPMaster
+    }
+    this.http.post(this.url + '/ledger-view/customerAccountWiseData', obj).subscribe(data => {
+      if (this.accountDetails.AC_ACNOTYPE == 'SH') {
+        let facevalue = this.accountDetails.shareMaster.SHARES_FACE_VALUE == undefined || this.accountDetails.shareMaster.SHARES_FACE_VALUE == null ? 0 : Number(this.accountDetails.shareMaster.SHARES_FACE_VALUE)
+        facevalue == 0 ? this.accountDetails['numberofshares'] = 0 : this.accountDetails['numberofshares'] = Math.floor(data['ledgerBalance'] / facevalue);
+      }
+      this.accountDetails['Balance'] = data['ledgerBalance']
+      this.accountDetails['InterestAmount'] = data['InterestAmount']
+      this.accountDetails['pigmyAgentPigmy'] = value.PIGMY_ACTYPE != null ? data['pigmyScheme'] : null
+      this.accountDetails['interestrate'] = data['interestrate']
+      this.accountDetails['AGENT_ACTYPE'] = data['AgentScheme']
+      this.accountDetails['penalInt'] = data['penalInt']
+      this.accountDetails['receiveablePenal'] = data['receiveablePenal']
+      this.accountDetails['overdueInt'] = data['overdueInt']
+      this.accountDetails['receivableInterest'] = data['receivableInterest']
+      this.accountDetails['nextInstallmentDate'] = data['nextInstallmentDate']
+      this.accountDetails['overdueDate'] = data['overdueDate']
+      this.accountDetails['unpaidDividendAmount'] = data['unpaidDividendAmount']
+      this.accountDetails['unpaidBonusAmount'] = data['unpaidBonusAmount']
+      this.accountDetails['sharetranData'] = data['sharetranData']
+      this.accountDetails['lienData'] = data['lienData']
+    })
   }
 }

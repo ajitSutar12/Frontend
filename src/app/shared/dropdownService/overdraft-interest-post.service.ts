@@ -6,10 +6,10 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class OverdraftInterestPostService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'NotApplicable', label: 'Not Applicable' },
-        { value: 'NormalInterest', label: 'Normal Interest' },
-        { value: 'PenalInterest', label: 'Penal Interest' },
-        { value: 'AddInLedgerBal', label: 'Add In Ledger Bal' }
+        { value: 'Null', label: 'Not Applicable' },
+        { value: 'I', label: 'Normal Interest' },
+        { value: 'P', label: 'Penal Interest' },
+        { value: 'L', label: 'Add In Ledger Bal' }
     ];
 
     getCharacters(): Array<IOption> {

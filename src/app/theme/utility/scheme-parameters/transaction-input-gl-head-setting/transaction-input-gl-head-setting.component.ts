@@ -348,6 +348,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['SCHEME_TYPE'].disable()
+    this.angForm.controls['FIELD_AMOUNT'].disable()
     this._transInput.getFormData(id).subscribe(data => {
 
       // data.GL_CODE == null ? (this.schemeWise = true, this.showGLCode(1)) : (this.schemeWise = false, this.showGL = true, this.ngGlCode = data.GL_CODE);

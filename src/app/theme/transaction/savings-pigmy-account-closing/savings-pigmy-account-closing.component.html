@@ -107,7 +107,7 @@
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
                                                     <input type="text" formControlName="INTREST_RATE"
-                                                        class="form-control">
+                                                        class="form-control" disabled>
                                                 </span>
                                             </div>
                                         </div>
@@ -398,13 +398,13 @@
 
                                                             </span>
                                                         </div>
-                                                        <!-- <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['Tscheme'].invalid && (angForm.controls['Tscheme'].dirty || angForm.controls['Tscheme'].touched)"
                                                             class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                                            <div *ngIf="angForm.controls['Tscheme'].errors?.required">
                                                                 This field is required.
                                                             </div>
-                                                        </div> -->
+                                                        </div>
                                                     </div>
                                                     <div class="col-sm-12 col-md-2"> <label for="TschemeAC">Account
                                                             Number<sub class="required">*</sub></label></div>
@@ -413,21 +413,22 @@
                                                             <span class="border-lable-flt">
                                                                 <ng-select id="TschemeAC" [(ngModel)]="ngacno"
                                                                     formControlName="TschemeAC" bindLabel="label"
+                                                                    (change)="getTransferAccountDeatil($event)"
                                                                     bindValue="bankacno" title="Compulsory Selection"
                                                                     placeholder="Account Number">
-                                                                    <ng-option *ngFor="let values of schemeACNo"
+                                                                    <ng-option *ngFor="let values of transferAcno"
                                                                         [value]="values">
                                                                         {{values.label}} {{values.name}}</ng-option>
                                                                 </ng-select>
                                                             </span>
                                                         </div>
-                                                        <!-- <div class="form-group form-primary form-static-label"
+                                                        <div class="form-group form-primary form-static-label"
                                                             *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
                                                             class="alert alert-danger">
                                                             <div *ngIf="angForm.controls['TschemeAC'].errors?.required">
                                                                 This field is required.
                                                             </div>
-                                                        </div> -->
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -547,19 +548,6 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <!-- <div class="col-md-12">
-                                    <div class="transaction-item">
-                                        <div class="d-flex">
-                                            <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
-                                            </div>
-                                        </div>
-                                        <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
-                                                name="OpenDate" placeholder=" " id="OpenDate" value=""
-                                                formControlName="OpenDate" disabled></div>
-                                    </div>
-                                </div> -->
                                 <div class="col-md-12">
                                     <div class="transaction-item">
                                         <div class="d-flex">
@@ -570,7 +558,6 @@
                                             </div>
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
-                                                <!-- <small>Starbucks</small> -->
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
@@ -580,14 +567,13 @@
                                 <div class="col-md-12">
                                     <div class="transaction-item">
                                         <div class="d-flex">
-                                            <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar bg-light-primary rounded float-start">
                                                 <div class="avatar-content">
                                                     <i class="fa fa-google-wallet field-icon"></i>
                                                 </div>
                                             </div>
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Renewal Date</h6>
-                                                <!-- <small>Starbucks</small> -->
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
@@ -597,7 +583,7 @@
                                 <div class="col-md-12">
                                     <div class="transaction-item">
                                         <div class="d-flex">
-                                            <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar bg-light-info rounded float-start">
                                                 <div class="avatar-content">
                                                     <i class="fa fa-google-wallet field-icon"></i>
                                                 </div>
@@ -605,7 +591,6 @@
                                             <div class="transaction-percentage">
                                                 <h6 class="transaction-title" style="font-size: 12px;">Interest Rate%
                                                 </h6>
-                                                <!-- <small>Starbucks</small> -->
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
@@ -624,12 +609,10 @@
                                                 <h6 class="transaction-title" style="font-size: 12px;">Last Interest
                                                     Date
                                                 </h6>
-                                                <!-- <small>Starbucks</small> -->
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
                                             style="margin-left: auto;order: 2;font-size: 12px;">
-                                            <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
                                             {{LastIntDate}}
                                         </div>
                                     </div>
@@ -637,7 +620,7 @@
                                 <div class="col-md-12">
                                     <div class="transaction-item">
                                         <div class="d-flex">
-                                            <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar bg-light-primary rounded float-start">
                                                 <div class="avatar-content">
                                                     <i class="fa fa-google-wallet field-icon"></i>
                                                 </div>
@@ -646,119 +629,48 @@
                                                 <h6 class="transaction-title" style="font-size: 12px;">Maturity
                                                     Date
                                                 </h6>
-                                                <!-- <small>Starbucks</small> -->
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
                                             style="margin-left: auto;order: 2;font-size: 12px;">
-                                            <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
                                             {{ maturityDate}}
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-12">
-                                    <div class="transaction-item">
-                                        <div class="d-flex">
-                                            <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Renewal Date</h6>
-                                            </div>
-                                        </div>
-                                        <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
-                                                name="renewalDate" placeholder=" " id="renewalDate" value=""
-                                                formControlName="renewalDate" disabled></div>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="col-md-12">
-                                    <div class="transaction-item">
-                                        <div class="d-flex">
-                                            <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Int Rate%</h6>
-                                            </div>
-                                        </div>
-                                        <div class="fw-bolder transaction-title text-danger"
-                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
-                                                name="INTRATE" placeholder=" " id="INTRATE" value=""
-                                                formControlName="INTRATE" disabled></div>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="col-md-12">
-                                    <div class="transaction-item">
-                                        <div class="d-flex">
-                                            <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Last Int. Date
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="fw-bolder transaction-title text-danger"
-                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
-                                                name="LastIntDate" placeholder=" " id="LastIntDate" value=""
-                                                formControlName="LastIntDate" disabled></div>
-                                    </div>
-                                </div> -->
-
-                                <!-- <div class="col-md-12">
-                                    <div class="transaction-item">
-                                        <div class="d-flex">
-                                            <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
-                                                name="maturityDate" placeholder=" " id="maturityDate" value=""
-                                                formControlName="maturityDate" disabled></div>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="col-md-12">
-                                    <div class="transaction-item">
-                                        <div class="d-flex">
-                                            <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
-                                    </div>
-                                </div> -->
-
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="user-avatar-section">
-                                                <div class="d-flex align-items-center flex-column">
+                                            <div>
+                                                <span class="user-avatar-section">
                                                     <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
-                                                        height="110" width="110" (mouseover)="showImage(customerImg)"
+                                                        height="50" width="80" (mouseover)="showImage(customerImg)"
                                                         (mouseout)="hideImage()" alt="User avatar" />
-                                                    <div class="user-info text-center">
-                                                        <h4>Ajit Sutar</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="user-avatar-section">
-                                                <div class="d-flex align-items-center flex-column">
+                                                </span> &nbsp; &nbsp;
+                                                <span class="user-avatar-section">
                                                     <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
                                                         (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                                        height="50" width="110" alt="User avatar" />
-
-                                                </div>
+                                                        height="25" width="80" alt="User avatar" />
+                                                </span>
+                                            </div>
+                                            <div class="user-info text-center">
+                                                <h6>{{Customer_info?.AC_NAME}}</h6>
                                             </div>
                                             <div class="info-container">
                                                 <ul class="list-unstyled">
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">Status:</span>
-                                                        <span class="badge bg-light-success">Active</span>
+                                                        <span class="badge bg-light-success">{{Status == true || Status
+                                                            ==
+                                                            1? 'Inactive' :
+                                                            'Active'}}</span>
                                                     </li>
-
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">PAN ID:</span>
-                                                        <span>ADFE2323D</span>
+                                                        <span>{{Customer_info?.AC_PANNO}}</span>
                                                     </li>
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">Contact:</span>
-                                                        <span>+91 7636456273</span>
+                                                        <span>{{Customer_info?.AC_MOBILENO}}</span>
                                                     </li>
                                                 </ul>
                                             </div>
