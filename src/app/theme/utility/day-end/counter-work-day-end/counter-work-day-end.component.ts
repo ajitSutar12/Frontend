@@ -39,6 +39,7 @@ export class CounterWorkDayEndComponent implements OnInit {
      }).then((result) => {
        if (result.isConfirmed) {
         let user = JSON.parse(localStorage.getItem('user'));
+        debugger
         let obj = {
           date      : this.ngdate,
           branch_id : user.branchId,

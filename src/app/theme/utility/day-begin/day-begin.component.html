@@ -20,12 +20,19 @@
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()">Day Begin</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()" [disabled]="daybeginProcess">Day Begin</button>
                             <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
                         </div>
                     </div>
                 </div>
             </form>
+            <div class="row" *ngIf="daybeginProcess">
+                <div class="col-md-12 text-center">
+                    <img src="assets/Loading.gif">
+                    <h3>{{ngdate}} Day Begien work in progress.....</h3>
+                    <h5>Please Don't Refresh the page</h5>
+                </div>
+            </div>
         </div>
     </div>
 </div>
