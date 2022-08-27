@@ -25,6 +25,8 @@ export class DayBeginComponent implements OnInit {
   // date variales
   ngdate:any=null
   dtExportButtonOptions : any = {};
+  daybeginProcess:boolean = false;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -50,11 +52,8 @@ export class DayBeginComponent implements OnInit {
 
   //get sys para current date
   getSystemParaDate() {
-    this._service.getSysparaDetails().subscribe(data => {
-      console.log(data);
-      this.ngdate = data[0].CURRENT_DATE;
-    
-      
+    this._service.getDayBeginDate().subscribe(data => {
+      this.ngdate = data.date;
     })
   }
 
@@ -63,6 +62,7 @@ export class DayBeginComponent implements OnInit {
     //get login details
     let user  = localStorage.getItem('user');
     let current_date = this.ngdate;
+
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you want Day begain.",
@@ -74,11 +74,19 @@ export class DayBeginComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         let obj = {
-          user : user,
+          user : JSON.parse(user),
           date : current_date
         }
+        this.daybeginProcess = true;
         this._service.postData(obj).subscribe(data=>{
-          console.log(data);
+          Swal.fire("Success!",current_date+" Day Begin Successfully","success");
+        },err=>{
+            Swal.fire(
+              "Error",
+              err.error.message,
+              "error"
+            )
+            this.daybeginProcess = false
         })
       } else if (
         result.dismiss === Swal.DismissReason.cancel
@@ -88,6 +96,8 @@ export class DayBeginComponent implements OnInit {
           'Your Action is revert',
           'error'
         )
+        this.daybeginProcess = false
+
       }
     })
   }
