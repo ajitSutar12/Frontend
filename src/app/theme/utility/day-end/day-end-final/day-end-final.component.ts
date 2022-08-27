@@ -19,13 +19,12 @@ export class DayEndFinalComponent implements OnInit {
         
         this._service.CheckBranchHandOverReport({date : this.sysparadetails[0].CURRENT_DATE}).subscribe(data=>{
           this.branchHandOverList = data;
-          for(let item of this.branchHandOverList){
-            debugger
-            if(item.flag == 0){
-              this.flagCheck = true;
-            }else{
-              this.flagCheck = false;
-            }
+          
+          let result = this.branchHandOverList.filter(ele=>ele.flag ==0 && ele.admin_status == 0);
+          if(result.length != 0){
+            this.flagCheck = true;
+          }else{
+            this.flagCheck = false;
           }
         },err=>{
           console.log(err);
@@ -40,13 +39,12 @@ export class DayEndFinalComponent implements OnInit {
   refresh(){
     this._service.CheckBranchHandOverReport({date : this.sysparadetails[0].CURRENT_DATE}).subscribe(data=>{
       this.branchHandOverList = data;
-      for(let item of this.branchHandOverList){
-        if(item.flag == 0){
-          this.flagCheck = true;
-        }else{
-          this.flagCheck = false;
-        }
-      }
+      let result = this.branchHandOverList.filter(ele=>ele.flag ==0 && ele.admin_status == 0);
+          if(result.length != 0){
+            this.flagCheck = true;
+          }else{
+            this.flagCheck = false;
+          }
     },err=>{
       console.log(err);
     })
@@ -72,23 +70,10 @@ export class DayEndFinalComponent implements OnInit {
       })
       console.log('interval')
     }, 500);
-    for await (let item of this.branchHandOverList){
-      debugger
-        await this.sendDayEnd({date:item.date,branch_id:item.branch_id});
-        this._service.dayEndProccessingRemarkChangeBranchWise({date:item.date,branch_id:item.branch_id}).subscribe(async ele=>{
-
-        }) 
-    }
-  }
-
-  async sendDayEnd(item){
-    this._service.sendBranchData({date:item.date,branch_id:item.branch_id}).subscribe(async data=>{
-      this._service.dayEndRemarkChangeBranchWise({date:item.date,branch_id:item.branch_id}).subscribe(async ele=>{
-
-      })
-    },err=>{
+    this._service.sendBranchData({date:this.sysparadetails[0].CURRENT_DATE}).subscribe(async data=>{
 
     })
+
   }
 
   revertHandOver(id,date,name){

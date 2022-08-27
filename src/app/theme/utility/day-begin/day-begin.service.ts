@@ -29,4 +29,9 @@ export class DayBeginService {
       return throwError(error)
     }))
   }
+
+  //get current data for day begin
+  getDayBeginDate():Observable<any>{
+    return this.http.post(this.url + '/voucher/dayBeginDate',{});
+  }
 }
