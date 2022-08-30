@@ -1560,7 +1560,7 @@ export class VoucherEntryComponent implements OnInit {
       // this.resetscheme();
       // this.checkAccountCondition();
       // this.showlgindetails();
-      this.SideDetails();
+      // this.SideDetails();
       // this.checktranCondition();
       // this.updateheadbalance()
     })
