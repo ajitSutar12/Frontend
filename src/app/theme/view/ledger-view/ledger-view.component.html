@@ -88,7 +88,7 @@
                                         Status:{{freezStataus}}</label></div>
                             </div>
                             <div class="col-sm" *ngIf="acclosedon">
-                                <div><label style="color: #1e5bc5">Account Closed On:
+                                <div><label style="color: red; font-size: 15px;">Account Closed On:
                                         {{acCloseDate}}</label></div>
                             </div>
                         </div>
@@ -176,6 +176,11 @@
                                     (click)="getTransactionsDeatils()">View</button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <button class="btn" style="background-color: #bc31e9;"></button>&nbsp;Interest Vouchers
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -206,18 +211,26 @@
                         <td class="td_right">Voucher Number</td>
                     </thead>
                     <tbody *ngIf="tableData?.length != 0">
+                        <!-- <tr *ngFor="let data of tableData; let indexOfelement = index"
+                            [ngStyle]="{'color': (data.TRAN_STATUS == '0') ? '#226de9':'#212529'}"> -->
+                        <!-- #bc31e9 VIOLET COLOR FOR INTEREST ENTRY -->
                         <tr *ngFor="let data of tableData; let indexOfelement = index"
-                            [ngStyle]="{'color': (data.TRAN_STATUS == '0') ? '#226de9':'#212529'}">
+                            [ngStyle]="{'color': (data.TRAN_STATUS == '0') ? '#226de9':'#212529'}"
+                            [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':'#212529'}">
                             <td>{{data.TRAN_DATE}}</td>
                             <td>{{data.CHEQUE_NO}}</td>
                             <td [ngClass]="{'form-submitted': formSubmitted}">{{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>
-                            <td class="td_right">{{data.TRAN_DRCR=='D'?data.TRAN_AMOUNT:''}}</td>
-                            <td class="td_right">{{data.TRAN_DRCR=='C'?data.TRAN_AMOUNT:''}}</td>
+                            <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
+                                {{data.TRAN_DRCR=='D'?data.TRAN_AMOUNT:''}}</td>
+                            <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
+                                {{data.TRAN_DRCR=='C'?data.TRAN_AMOUNT:''}}</td>
                             <td class="td_right">{{data.closeBalance}} {{drcr}}</td>
                             <td>{{data.OFFICER_CODE}}</td>
-                            <td class="td_right">{{data.INTEREST_AMOUNT}}</td>
-                            <td class="td_right">{{data.RECPAY_INT_AMOUNT}}</td>
+                            <td class="td_right">{{data.INTEREST_AMOUNT }} {{data.INTEREST_AMOUNT!=null &&
+                                data.TRAN_DRCR=='D'?'Dr':'Cr'}}</td>
+                            <td class="td_right">{{data.RECPAY_INT_AMOUNT}} {{data.RECPAY_INT_AMOUNT!=null &&
+                                data.TRAN_DRCR=='D'?'Dr':'Cr'}}</td>
                             <td class="td_right">{{data.OTHER10_AMOUNT}}</td>
                             <td class="td_right">{{data.PENAL_INTEREST}}</td>
                             <td class="td_right">{{data.REC_PENAL_INT_AMOUNT}}</td>
