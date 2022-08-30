@@ -349,7 +349,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   //get account details
   getAccountDetails(event) {
-    
+
     this.tableData = []
     this.transactions = null
     this.debitTotal = 0
@@ -391,7 +391,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
-    debugger
+
     let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY')]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
@@ -468,8 +468,22 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   }
 
   sortData(data) {
-    return data.sort((a, b) => {
-      return <any>new Date(a.TRAN_DATE) - <any>new Date(b.TRAN_DATE);
+    return data.sort((b, a) => {
+      return <any>new Date(b.TRAN_DATE) - <any>new Date(a.TRAN_DATE);
     });
+    // data.sort(sortFunction);​
+    // function sortFunction(a,b){  
+    // var dateA = new Date(a.TRAN_DATE).getTime();
+    // var dateB = new Date(b.TRAN_DATE).getTime();
+    // return dateA > dateB ? 1 : -1; 
+    // } 
+
+    // data.sort(function (a, b) {
+    //   var c = new Date(a.TRAN_DATE);
+    //   var d = new Date(b.TRAN_DATE);
+    //   return <any>c - <any>d;
+    // });
   }
+
+
 }
