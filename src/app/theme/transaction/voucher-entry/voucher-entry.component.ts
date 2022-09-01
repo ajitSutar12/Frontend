@@ -212,7 +212,7 @@ export class VoucherEntryComponent implements OnInit {
       branch_code: ['', [Validators.required]],
       temp_over_draft: [''],
       over_draft: [''],
-      token: [''],
+      token: [0],
       particulars: [''],
       total_amt: [''],
       amt: [''],
