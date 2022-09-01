@@ -38,8 +38,7 @@ export class CounterWorkDayEndComponent implements OnInit {
       confirmButtonText: 'Yes, Day End Handover!'
     }).then((result) => {
       if (result.isConfirmed) {
-        let user = JSON.parse(localStorage.getItem('user'));
-        debugger
+        let user = JSON.parse(localStorage.getItem('user'));        
         let obj = {
           date: this.ngdate,
           branch_id: user.branchId,

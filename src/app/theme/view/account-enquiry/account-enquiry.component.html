@@ -241,7 +241,7 @@
                                     </div>
                                     <div class="col-sm-2" *ngIf="isATypeMemNo">
                                         <span
-                                            style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MEMBNO==null?'---':accountData?.AC_MEMBNO}}</label></span>
+                                            style="color: #3e8cd0; text-align: left;"><label>{{accountEvent?.AC_MEMBNO==null?'---':accountEvent?.AC_MEMBNO}}</label></span>
                                     </div>
                                     <div class="col-sm-4" *ngIf="!accountData?.PIGMY_ACTYPE"></div>
                                     <div class="col-sm-2" *ngIf="isAgentScheme">
@@ -302,7 +302,7 @@
                                         <span><label>Interest Rate: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_INTRATE"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{accountData?.AC_INTRATE}}</label></span>
+                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -695,7 +695,7 @@
                                         <span><label>Interest Rate: </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{accountEvent?.AC_INTRATE}}</label></span>
+                                            style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{loantransactionData?.interest_rate}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Overdraft
