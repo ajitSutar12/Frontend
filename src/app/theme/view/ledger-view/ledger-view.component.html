@@ -196,7 +196,7 @@
                         <td class="td_center">Date</td>
                         <td>Cheque Number</td>
                         <td>Particulars</td>
-                        <td class="td_center">Transaction Type</td>
+                        <td class="td_center">Tran Type</td>
                         <td class="td_right">Debit Amount</td>
                         <td class="td_right">Credit Amount</td>
                         <td class="td_right">Closing Balance</td>
@@ -219,7 +219,8 @@
                             [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':'#212529'}">
                             <td>{{data.TRAN_DATE}}</td>
                             <td>{{data.CHEQUE_NO}}</td>
-                            <td [ngClass]="{'form-submitted': formSubmitted}">{{data.NARRATION}}</td>
+                            <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: nowrap;">
+                                {{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>
                             <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
                                 {{data.TRAN_DRCR=='D'?data.TRAN_AMOUNT:''}}</td>
