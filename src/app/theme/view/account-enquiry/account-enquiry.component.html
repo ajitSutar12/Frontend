@@ -218,13 +218,13 @@
                                         <span><label>Last Transaction Date: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isLastTranDate"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{accountData?.AC_ACTDATE}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left; padding-right:10px;"><label>{{transactionData?.lastTransactionDate}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isRenewalDate">
                                         <span><label>Renewal Date: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isRenewalDate"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{accountData?.AC_RENEW_DATE}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left; padding-right:10px;"><label>{{accountData?.AC_RENEW_DATE}}</label></span>
                                     </div>
 
                                 </div>
@@ -302,7 +302,7 @@
                                         <span><label>Interest Rate: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_INTRATE"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate}}</label></span>
+                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate==0?accountData?.AC_INTRATE:transactionData?.interest_rate}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -839,7 +839,7 @@
                                         <span><label>Last Transaction Date: </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{accountEvent?.AC_ACTDATE}}</label></span>
+                                            style="color: #3e8cd0; text-align: left; padding-right:10px;"><label>{{loantransactionData?.lastTransactionDate}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Penal Interest : </label></span>
@@ -1099,16 +1099,14 @@
                         </div>
                         <div>
                             <span class="user-avatar-section">
-                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50"
-                                    width="80" *ngIf="getschemename !='GL'"
-                                    (mouseover)="showImage(customerImg)" (mouseout)="hideImage()"
-                                    alt="User avatar" />
+                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg" height="50" width="80"
+                                    *ngIf="getschemename !='GL'" (mouseover)="showImage(customerImg)"
+                                    (mouseout)="hideImage()" alt="User avatar" />
                             </span> &nbsp; &nbsp;
                             <span class="user-avatar-section">
                                 <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
-                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                    height="25" width="80" alt="User avatar"
-                                    *ngIf="getschemename !='GL'" />
+                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()" height="25" width="80"
+                                    alt="User avatar" *ngIf="getschemename !='GL'" />
                             </span>
                         </div>
                         <!-- <div class="align-items-center">

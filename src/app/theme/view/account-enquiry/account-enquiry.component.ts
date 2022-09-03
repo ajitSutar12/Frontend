@@ -740,13 +740,13 @@ export class AccountEnquiryComponent implements OnInit {
         AC_TYPE: this.ngscheme,
         LAST_OD_DATE: this.LAST_OD_DATE,
         AC_NO: this.AC_NO,
-        pigmyAgent: this.accountData?.PIGMY_ACTYPE,
-        shareActype: this.accountData?.idmaster?.AC_MEMBTYPE,
-        shareAcno: this.accountData?.idmaster?.AC_MEMBNO,
-        divtransferscheme: this.accountData?.DIV_TRANSFER_ACNOTYPE,
-        divtransferactype: this.accountData?.DIV_TRANSFER_ACTYPE,
-        divtransferacno: this.accountData?.DIV_TRANSFER_ACNO,
-        divtransferBranch: this.accountData?.DIV_TRANSFER_BRANCH,
+        pigmyAgent: this.accountEvent?.PIGMY_ACTYPE,
+        shareActype: this.accountEvent?.idmaster?.AC_MEMBTYPE,
+        shareAcno: this.accountEvent?.idmaster?.AC_MEMBNO,
+        divtransferscheme: this.accountEvent?.DIV_TRANSFER_ACNOTYPE,
+        divtransferactype: this.accountEvent?.DIV_TRANSFER_ACTYPE,
+        divtransferacno: this.accountEvent?.DIV_TRANSFER_ACNO,
+        divtransferBranch: this.accountEvent?.DIV_TRANSFER_BRANCH,
         installmentAmount: this.accountEvent?.AC_INSTALLMENT
       }
       this.http.post<any>(this.url + '/ledger-view/accountView', obj).subscribe((data) => {
