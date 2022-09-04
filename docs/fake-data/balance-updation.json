@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "BranchCode": 346,
+            "SchemeType": "Term Deposit",
+            "SchemeCode": 34678,
+            "BalanceDate": "2/2/00",
+            "FromAcNo": 123,
+            "ToAcNo": "ABC PQR",            
+            "AcNo":101,
+            "AcName":"XYZ",
+            "LedgerBalance": 425625,
+            "ProductAmount": 418800,
+            "LastTransDate": "2/2/00",
+            "LastInterestPaidDate":"2/2/00",
+            "ClosingDate": "2/2/00",
+            "DebitCredit": "Debit"
+            
+        }
+    ]
+}

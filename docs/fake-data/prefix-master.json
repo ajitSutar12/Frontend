@@ -1,0 +1,26 @@
+{
+    "data": [
+        {
+            "SerialNo":1456,
+            "Prefix":"categogy A",
+            "Sex":"male"
+        },
+        {
+            "SerialNo":689,
+            "Prefix":"categogy A",
+            "Sex":"female"
+        },
+        {
+            "SerialNo":9876,
+            "Prefix":"categogy A",
+            "Sex":"feale"
+        },
+        {
+            "SerialNo":9876,
+            "Prefix":"categogy A",
+            "Sex":"male"
+        }
+
+    ]
+    
+}

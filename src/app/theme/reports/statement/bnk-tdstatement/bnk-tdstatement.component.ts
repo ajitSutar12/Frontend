@@ -31,7 +31,7 @@ export class BnkTDStatementComponent implements OnInit {
   startingacc: any[];
   endingacc: any[];
   // for dropdown ng module
- 
+  report_url = environment.report_url;
   iframeurl: any = ' ';
   clicked:boolean=false;
 
@@ -92,7 +92,8 @@ export class BnkTDStatementComponent implements OnInit {
 
 
   getIntroducer() {
-
+    
+    debugger
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
@@ -131,16 +132,19 @@ export class BnkTDStatementComponent implements OnInit {
 
   src: any;
   View(event) {
+    
     event.preventDefault();
     this.formSubmitted = true;
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if (this.ngForm.valid) {
 
       this.showRepo = true;
       let obj = this.ngForm.value
+      
       let stdate = moment(obj.Starting_Date).format('DD/MM/YYYY');
       let Scheme_code = obj.Scheme_code;
       let Starting_Account = obj.Starting_Account;
@@ -149,7 +153,7 @@ export class BnkTDStatementComponent implements OnInit {
       let print1 = obj.Print_Every_Account_on_New_Page;
       let print2 = obj.Print_Closed_Account;
 
-      this.iframeurl = "http://localhost/Report/examples/TermDepositeStatement.php?stdate='" + stdate + "'&END_DATE='" + END_DATE + "'&Scheme_code='" + Scheme_code + "'&Starting_Account='" + Starting_Account + 
+      this.iframeurl = this.report_url+"examples/TermDepositeStatement.php?stdate='" + stdate + "'&END_DATE='" + END_DATE + "'&Scheme_code='" + Scheme_code + "'&Starting_Account='" + Starting_Account + 
                        "'&Ending_Account='" + Ending_Account + "'&print1='" + print1 + "'&print2='" + print2 + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

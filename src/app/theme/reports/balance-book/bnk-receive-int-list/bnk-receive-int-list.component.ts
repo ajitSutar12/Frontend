@@ -40,8 +40,8 @@ export class BnkReceiveIntListComponent implements OnInit {
   formSubmitted = false;
   //api
   url = environment.base_url;
-
-  report_url = environment.report_url
+  report_url = environment.report_url;
+ 
    constructor(    private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
@@ -87,6 +87,7 @@ export class BnkReceiveIntListComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
     
     if(this.ngForm.valid){
   
@@ -101,8 +102,8 @@ export class BnkReceiveIntListComponent implements OnInit {
   let PrintClosedAcPrintReceivablePenalInterestDetailscounts =obj.Print_Receivable_Penal_Interest_Details;
   let PrintOverdueInterest =obj.Print_Overdue_Interest;
   
-this.iframeurl=this.report_url + "/ReceivableInterestBal.php?Date='" + Date + "'&scheme='" 
-                + scheme + "'&branch='"+branch+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
+this.iframeurl=this.report_url+ "examples/ReceivableInterestBal.php?Date='" + Date + "'&scheme='" 
+                + scheme + "'&branchName='"+branchName+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
                 +"'&PrintClosedAcPrintReceivablePenalInterestDetailscounts='"+PrintClosedAcPrintReceivablePenalInterestDetailscounts+"'&PrintOverdueInterest='"
                 +PrintOverdueInterest+"'&bankName='" + bankName + "' ";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);

@@ -23,6 +23,7 @@ export class BnkGlAcStatementComponent implements OnInit {
   clicked:boolean=false;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   formSubmitted = false;
 
   httpData: any;
@@ -38,7 +39,7 @@ export class BnkGlAcStatementComponent implements OnInit {
   showButton: boolean = true;
   CloseShow: boolean = true;
   showRepo: boolean = false;
-  report_url = environment.report_url
+
   //dropdown ngmodel variables
 
   ngscheme: any = null
@@ -154,6 +155,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
     
     if (this.angForm.valid) {
 
@@ -168,7 +170,7 @@ export class BnkGlAcStatementComponent implements OnInit {
       let endingcode = obj.TO_AC;
       let MonthwiseSummary =obj.Month_wise_Summary
 
-      this.iframe2url = this.report_url + "/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&branch='" + branch + "'&startingcode='" + startingcode + "'&endingcode='" + endingcode + "' &scheme='" + scheme + "' &MonthwiseSummary='" + MonthwiseSummary + "'&bankName='" + bankName + "'";
+      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&branchName='" + branchName + "'&startingcode='" + startingcode + "'&endingcode='" + endingcode + "' &scheme='" + scheme + "' &MonthwiseSummary='" + MonthwiseSummary + "'&bankName='" + bankName + "'";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {

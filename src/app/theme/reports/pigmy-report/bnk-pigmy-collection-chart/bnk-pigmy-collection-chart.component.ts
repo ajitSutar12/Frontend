@@ -41,7 +41,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
   agentCode: any[];
   //Dropdown option variable
  
-  report_url = environment.report_url
+  
   ngscheme: any = null;
   ngacno: any = null;
   AGENT_ACTYPE: string;
@@ -76,6 +76,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
   ngForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   iframe5url: any = ' ';
   constructor(
     private fb: FormBuilder,
@@ -166,19 +167,20 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
     
     if(this.ngForm.valid){
       this.showRepo = true;
     let obj = this.ngForm.value
     let date =  moment(obj.DATE).format('DD/MM/YYYY');
     let scheme = obj.Scheme_code
-    let schemeAccountNo = obj.Scheme_acc
+    let Scheme_acc = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
     let ChartNo  =obj.chart_no
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
       
-   this.iframe5url=this.report_url + "/PigmyAgentwiseCollection.php?date='" + date + "'&scheme='" + scheme + "'&branch='"+ branch +"'&ChartNo='" + ChartNo +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
+   this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&ChartNo='" + ChartNo +"'&Scheme_acc='" + Scheme_acc +"'&bankName='" + bankName + "'" ;
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
   }

@@ -37,7 +37,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
   //dropdown
   scheme: any[];
   startingacc: any[];
-  report_url = environment.report_url
+  
   branchOption: any[];
   // for dropdown ng module
 
@@ -64,6 +64,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
   ngForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   iframe5url: any = ' ';
   constructor(
     private fb: FormBuilder,
@@ -148,6 +149,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if(this.ngForm.valid){
     let obj = this.ngForm.value
@@ -158,7 +160,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url + "/PigmyCollectionChart.php?date='" + date + "'&scheme='" + scheme + "'&branch='"+ branch +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
+    this.iframe5url=this.report_url+"examples/PigmyCollectionChart.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

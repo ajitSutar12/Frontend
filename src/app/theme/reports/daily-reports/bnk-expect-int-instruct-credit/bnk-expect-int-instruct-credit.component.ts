@@ -32,12 +32,13 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
   minDate: Date;
   bsValue = new Date();
   formSubmitted = false;
-  report_url = environment.report_url
+
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   //Dropdown option variable
   ngbranch
   branchOption: any;
@@ -110,6 +111,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
 
     if (this.angForm.valid) {
 
@@ -122,7 +124,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
       let PrintClosedAccounts = obj.Print_Closed_Accounts;
 
 
-      this.iframe1url = this.report_url + "/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
+      this.iframe1url = this.report_url+ "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branchName='" + branchName + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {

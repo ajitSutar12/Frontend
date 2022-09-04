@@ -21,7 +21,7 @@ export class BnkRegInsurenceComponent implements OnInit {
   angForm: FormGroup;
   //  variable for validation
   formSubmitted = false;
-  clicked: boolean = false;
+  clicked:boolean=false;
   // branch name 
   selectedBranch: number;
   branch_codeList: any = null
@@ -33,7 +33,8 @@ export class BnkRegInsurenceComponent implements OnInit {
   showRepo: boolean = false;
   url = environment.base_url;
   iframe3url: any = ' ';
-  report_url = environment.report_url
+  report_url = environment.report_url;
+
   // Date variables
   todate: any = null;
   fromdate: any = null
@@ -114,6 +115,7 @@ export class BnkRegInsurenceComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if (this.angForm.valid) {
       this.showRepo = true;
@@ -124,13 +126,13 @@ export class BnkRegInsurenceComponent implements OnInit {
       let AC_TYPE = obj.AC_TYPE;
       let ACOPEN = obj.ACOPEN;
 
-      this.iframe3url = this.report_url + "/InsuranceRegister.php?startDate='" + startDate + "'enddate='" + enddate + "'BRANCH_CODE='" + BRANCH_CODE + "'AC_TYPE='" + AC_TYPE + "'ACOPEN='" + ACOPEN + "'&bankName='" + bankName + "' ";
+      this.iframe3url = this.report_url+"examples/InsuranceRegister.php?startDate='" + startDate + "'enddate='" + enddate + "'branchName='" + branchName + "'AC_TYPE='" + AC_TYPE + "'ACOPEN='" + ACOPEN + "'&bankName='" + bankName + "' ";
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
 
       // let ageCaldate
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
   }
 
@@ -141,6 +143,6 @@ export class BnkRegInsurenceComponent implements OnInit {
   resetForm() {
     this.createForm()
     this.showRepo = false;
-    this.clicked = false;
+    this.clicked=false;
   }
 }

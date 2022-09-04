@@ -21,7 +21,8 @@
 
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                             formControlName="Branch" bindLabel="label" title="Compulsory Selection"
-                                            placeholder="" required>
+                                           placeholder="" required
+                                            >
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -70,8 +71,8 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
                                             class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                            formControlName="DATE" [maxDate]="maxDate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
+                                            formControlName="DATE"  [maxDate]="maxDate"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -90,7 +91,7 @@
 
                         </div>
                         <div class="row">
-
+                        
                             <div class="col-sm-12 col-md-2">
                                 <label for="DATE">Line Spacing<sub class="required">*</sub></label>
                             </div>
@@ -99,8 +100,7 @@
 
                                     <div class="radio radio-inline">
                                         <label>
-                                            <input type="radio" name="radio" value="none" formControlName="radio"
-                                                checked="true">
+                                            <input type="radio" name="radio" value="none" formControlName="radio" checked="true" >
                                             <i class="helper"></i>None </label>
                                     </div>
 
@@ -139,28 +139,28 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-10"></div>
                             <div class="col-sm-12  col-md-1">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                    [disabled]="clicked" (click)="view($event);clicked = true">View</button>
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked" 
+                                (click)="view($event);clicked = true">View</button>
                             </div>
                             <div class=" col-sm-12  col-md-1">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                    (click)="close()">Close</button>
+                                <button type="submit" class="btn btn-outline-primary btn-sm"
+                                    value="submit" (click)="close()">Close</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-
-                                    <div class="card-header">
-                                        <h5>Report Frame</h5>
-                                        <div *ngIf="showRepo">
-
-                                            <app-iframe1 [url]='iframe1url'></app-iframe1>
-
+                                    
+                                        <div class="card-header">
+                                            <h5>Report Frame</h5>
+                                            <div *ngIf="showRepo">
+                                                
+                                                    <app-iframe1 [url]='iframe1url'></app-iframe1>
+                                               
+                                            </div>
+                        
                                         </div>
-
-                                    </div>
-
+                                   
                                 </div>
                             </div>
                         </div>

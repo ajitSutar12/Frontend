@@ -29,8 +29,9 @@ export class BnkScrollDetailBothComponent implements OnInit {
   angForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   iframe1url: any = ' ';
-  report_url = environment.report_url
+ 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -52,16 +53,16 @@ export class BnkScrollDetailBothComponent implements OnInit {
 
     //cashier code
     
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngbranch = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngbranch = result.branch.id
-    }
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['BRANCH_CODE'].enable()
+    //   this.ngbranch = result.branch.id
+    // }
+    // else {
+    //   this.angForm.controls['BRANCH_CODE'].disable()
+    //   this.ngbranch = result.branch.id
+    // }
   }
   
 
@@ -80,30 +81,53 @@ export class BnkScrollDetailBothComponent implements OnInit {
   src:any;
   view(event) {
    
-   
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
-    if(this.angForm.valid){
- 
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
+
+    if(this.angForm.controls['Print_Code'].value=="Debit" && this.angForm.valid){
     this.showRepo = true;
     let obj = this.angForm.value
-   
     let Startdate = moment(obj.DATE).format('DD/MM/YYYY');
-    // let Enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
     let stype = obj.Scroll_Type
-    let branch = obj.Branch  
     let ccode = obj.Cashier_Code
     let pcode = obj.Print_Code
     let rdio  = obj.radio
-    //  const url="http://localhost/NewReport/report-code/Report/examples/DeadstockBalanceList.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"'";
-    // console.log(url);
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
-    this.iframe1url=this.report_url + "/ScrollBookReport.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"''"  ;
-  this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-  
-  
+    this.iframe1url=this.report_url+="examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branchName='"+branchName+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"'&bankName='"+bankName+"'"  ;
+    this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
  }
+ else if(this.angForm.controls['Print_Code'].value=="Credit" && this.angForm.valid){
+  this.showRepo = true;
+  let obj = this.angForm.value
+  let Startdate = moment(obj.DATE).format('DD/MM/YYYY');
+  let stype = obj.Scroll_Type
+  let branch = obj.Branch  
+  let ccode = obj.Cashier_Code
+  let pcode = obj.Print_Code
+  let rdio  = obj.radio
+
+  this.iframe1url=this.report_url+="examples/ScrollBookCredit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branchName='"+branchName+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"'&bankName='"+bankName+"'"  ;
+  this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
+}
+else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid){
+  this.showRepo = true;
+  let obj = this.angForm.value
+  let Startdate = moment(obj.DATE).format('DD/MM/YYYY');
+  let stype = obj.Scroll_Type
+  let branch = obj.Branch  
+  let ccode = obj.Cashier_Code
+  let pcode = obj.Print_Code
+  let rdio  = obj.radio
+
+  this.iframe1url=this.report_url+"examples/ScrollBookBoth.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branchName='"+branchName+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"'&bankName='"+bankName+"'"  ;
+  this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
+}
+
  else {
    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
  }

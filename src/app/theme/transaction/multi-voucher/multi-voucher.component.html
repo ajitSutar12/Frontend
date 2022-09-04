@@ -204,7 +204,7 @@
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
                                                     <input type="text" name="ChequeNo" class="form-control"
-                                                        placeholder=" " id="ChequeNo" value=""
+                                                        placeholder=" " id="ChequeNo"
                                                         style="text-transform: capitalize;"
                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                                         formControlName="chequeNo">
@@ -321,7 +321,7 @@
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event)"
-                                                                        value="0.00">
+                                                                        value="{{item.Amount}}">
                                                                 </td>
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'">
                                                                     <input type="text"
@@ -329,7 +329,7 @@
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
-                                                                        value="0.00">
+                                                                        value="{{item.Amount}}">
                                                                 </td>
                                                                 <!-- <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
                                                                         type="text"

@@ -39,11 +39,6 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  ngIntroducer: any = null
  //Dropdown option variable
 
- report_url = environment.report_url
- 
- 
-
-
 
  private dataSub: Subscription = null;
  //Scheme type variable
@@ -55,6 +50,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  clicked=false;
  //api
  url = environment.base_url;
+ report_url = environment.report_url;
  iframe1url: any = ' ';
 
  constructor(
@@ -76,14 +72,18 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  }
 
  ngOnInit(): void {
+ 
    this.createForm();
   //branch List
+  //  debugger
   this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
     this.branchOption = data;
   })
 
- 
+
+
    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
+    // debugger
      var filtered = data.filter(function (scheme) {
        return (scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
      });
@@ -107,25 +107,23 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  
  src: any;
  view(event) {
-   
-   
+  debugger
    event.preventDefault();
    this.formSubmitted = true;
+
+   let userData = JSON.parse(localStorage.getItem('user'));
+   let bankName = userData.branch.syspara.BANK_NAME;
+   let branchName = userData.branch.NAME;
+   
    if(this.angForm.valid){
    let obj = this.angForm.value
    this.showRepo = true;
-   let startDate = moment(obj.DATE).format('DD/MM/YYYY');
-  //  let endDate = moment(obj.END_DATE).format('DD/MM/YYYY');
-   
-   let scheme = obj.Scheme_code
+   let startDate = moment(obj.DATE).format('DD/MM/YYYY');  
+   let scheme_code = this.ngIntroducer
+  //  let scheme_code =  obj.Scheme_Code;
+  let Rdio = obj.radio
   
-   let branchcode = obj.Branch
-   let Rdio = obj.radio
-    
-
-
-        
-  this.iframe1url=this.report_url + "/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branchcode='"+ branchcode +"''"  ;
+  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "'&branchName='"+ branchName +"'&bankName'" +bankName + "'&bankName'" +bankName + '"';
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   
   

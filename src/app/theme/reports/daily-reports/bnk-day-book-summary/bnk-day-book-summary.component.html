@@ -66,8 +66,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Starting_Date"
                                             id="Starting_Date" class="form-control" [maxDate]="maxDate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [(ngModel)]="startingdate"
-                                            formControlName="Starting_Date"
+                                            [(ngModel)]="startingdate" formControlName="Starting_Date"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -112,12 +111,11 @@
                             <div class="col-md-8"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="View($event); clicked = true ">View</button>
+                                (click)="View($event); clicked = true ">View</button>
 
                             </div>
                             <div class="col-md-1">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                    (click)="close()">Close</button>
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
 
                             </div>
                         </div>
@@ -129,7 +127,7 @@
                                         <h5>Report Frame</h5>
                                     </div>
                                     <div *ngIf="showRepo">
-                                        <app-iframe [url]='iframeurl'></app-iframe>
+                                        <app-iframe [url] ='iframeurl'></app-iframe>
                                     </div>
                                 </div>
                             </div>

@@ -29,12 +29,13 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   equal: any
   startfrom
   startto
-  report_url = environment.report_url
+
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   //Dropdown option variable
   ngbranch
   branchOption: any;
@@ -120,6 +121,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
   
    if (this.angForm.controls['RADIO'].value=="success" && this.angForm.valid) {
       this.showRepo = true;
@@ -131,7 +133,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
-      this.iframeurl = this.report_url + "/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
@@ -145,7 +147,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
 
-      this.iframeurl = this.report_url + "/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
