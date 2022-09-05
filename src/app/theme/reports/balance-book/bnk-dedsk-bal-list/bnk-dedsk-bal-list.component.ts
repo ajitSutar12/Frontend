@@ -33,7 +33,7 @@ export class BnkDedskBalListComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   dates: any = null
-  report_url = environment.report_url
+
 
   //form Group
   ngForm: FormGroup;
@@ -60,7 +60,7 @@ showRepo: boolean = false;
 
 //api
 url = environment.base_url;
-
+report_url = environment.report_url;
 
 id: any;
 Cust_ID: any[] //customer id from idmaster
@@ -122,6 +122,7 @@ newcustid: any = null;
 
       let userData = JSON.parse(localStorage.getItem('user'));
       let bankName = userData.branch.syspara.BANK_NAME;
+      let branchName = userData.branch.NAME;
 
       if(this.ngForm.valid){
   
@@ -134,7 +135,7 @@ newcustid: any = null;
       let endingcode =obj.Ending_Account;
       
 
-     this.iframeurl=this.report_url + "/BnkDeadstockBalanceList.php?Date='" + Date + "'&branch='"+branch+"'&startingcode='"+startingcode +"'&endingcode='"+ endingcode +"'&bankName='" + bankName + "' ";
+     this.iframeurl=this.report_url+ "examples/BnkDeadstockBalanceList.php?Date='" + Date + "'&branchName='"+branchName+"'&startingcode='"+startingcode +"'&endingcode='"+ endingcode +"'&bankName='" + bankName + "' ";
      this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

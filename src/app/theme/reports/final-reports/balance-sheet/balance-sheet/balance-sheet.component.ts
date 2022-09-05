@@ -5,7 +5,6 @@ import { first } from "rxjs/operators";
 import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
-import { environment } from '../../../../../../environments/environment'
 
 @Component({
   selector: 'app-balance-sheet',
@@ -25,7 +24,7 @@ bsValue = new Date();
 showRepo: boolean = false;
 iframeurl: any = ' ';
 clicked:boolean=false;
-report_url = environment.report_url
+
   //Dropdown option variable
   ngbranch
   branchOption: any;
@@ -66,7 +65,7 @@ report_url = environment.report_url
       let start1date = moment(obj.START_DATE).format('DD/MM/YYYY');
       let branched2 = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url + "/Receiptconsine.php?start1date='" + start1date +"'&branched2='"+branched2+"'&bankName='" + bankName + "'";
+      this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/Receiptconsine.php?start1date='" + start1date +"'&branched2='"+branched2+"'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

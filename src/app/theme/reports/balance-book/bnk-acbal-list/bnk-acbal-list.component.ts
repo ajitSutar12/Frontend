@@ -26,6 +26,7 @@ export class BnkAcbalListComponent implements OnInit {
   formSubmitted = false;
   defaultDate: any
   showRepo: boolean = false;
+  report_url = environment.report_url;
   // Created Form Group
   ngForm: FormGroup;
   iframeurl: any = ' ';
@@ -52,7 +53,7 @@ export class BnkAcbalListComponent implements OnInit {
   ngacno: any;
   schemeList:any[];
   ngIntroducer: any = null
-  report_url = environment.report_url
+  
   selectedCode: any;
   account: any[];
   master: any;
@@ -257,6 +258,7 @@ export class BnkAcbalListComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
     
     if(this.ngForm.valid){
     let obj = this.ngForm.value
@@ -273,10 +275,10 @@ export class BnkAcbalListComponent implements OnInit {
     let checkbox3 = obj.PRINT_ANA_REASON
 
          
-   this.iframeurl=this.report_url + "/DormantAccountList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"'&bankName='" + bankName + "'";
+   this.iframeurl= this.report_url+"/DormantAccountList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branchName='"+ branchName +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"'&bankName='" + bankName + "'";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
-    // const url = this.report_url + "/BalanceBook.php?startDate='"+startDate+"'&endDate='"+endDate+ "'&scheme='" + scheme + "'&schemeAccountNo" + schemeAccountNo +"'&";
+    // const url = "http://localhost/NewReport/phpjasperxml-master/examples/BalanceBook.php?startDate='"+startDate+"'&endDate='"+endDate+ "'&scheme='" + scheme + "'&schemeAccountNo" + schemeAccountNo +"'&";
     // console.log(url);
     // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
    

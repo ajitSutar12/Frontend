@@ -25,7 +25,7 @@ export class RecePayRepComponent implements OnInit {
  maxDate: Date;
  minDate: Date;
  bsValue = new Date();
- report_url = environment.report_url
+
  showRepo: boolean = false;
  // Created Form Group
  angForm: FormGroup;
@@ -33,6 +33,7 @@ export class RecePayRepComponent implements OnInit {
  ngbranch
  branchOption: any;
  iframeurl: any = ' ';
+ report_url = environment.report_url;
  clicked:boolean=false;
 
   constructor(  private fb: FormBuilder,
@@ -67,6 +68,7 @@ export class RecePayRepComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
     
     if (this.angForm.valid) {
        this.showRepo = true;
@@ -78,7 +80,7 @@ export class RecePayRepComponent implements OnInit {
       let print = obj.PRINT;
       let penal = obj.PENAL;
 
-      this.iframeurl = this.report_url + "/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched2='"+branched2+"'&tran='"+tran+"'&print='"+print+"'&penal='"+penal+"'&bankName='" + bankName + "' ";
+      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branchName='"+branchName+"'&tran='"+tran+"'&print='"+print+"'&penal='"+penal+"'&bankName='" + bankName + "' ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

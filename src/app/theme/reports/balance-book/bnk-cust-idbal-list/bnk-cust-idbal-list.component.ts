@@ -26,12 +26,13 @@ export class BnkCustIDBalListComponent implements OnInit {
 
   iframeurl : any = ' ';
   clicked:boolean=false;
-  report_url = environment.report_url
+
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   //Dropdown option variable
   ngbranch
   branchOption: any;
@@ -85,6 +86,7 @@ export class BnkCustIDBalListComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
      if(this.angForm.valid){
     this.showRepo = true;
@@ -94,7 +96,7 @@ export class BnkCustIDBalListComponent implements OnInit {
     let branches = obj.BRANCH_CODE;
     let pritns = obj.PRINT_CUSTID;
 
-    this.iframeurl = this.report_url + "/CustomerIdWiseList.php?stdate='" + stdate +"'&branches='"+branches+"'&custid='"+custid+"'&pritns='"+pritns+"'&bankName='" + bankName + "' ";
+    this.iframeurl = this.report_url+ "/examples/CustomerIdWiseList.php?stdate='" + stdate +"'&branchName='"+branchName+"'&custid='"+custid+"'&pritns='"+pritns+"'&bankName='" + bankName + "' ";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
    }

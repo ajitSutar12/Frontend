@@ -45,7 +45,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
    startingAccount: any = null;
    EndingAccount: any = null;
   //Dropdown option variable
-  report_url = environment.report_url
+  
   ngscheme: any = null;
   ngacno: any = null;
   ACNo: any;
@@ -67,6 +67,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
   ngForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   iframe5url: any = ' ';
   constructor(
     private fb: FormBuilder,
@@ -160,6 +161,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if(this.ngForm.valid){
     let obj = this.ngForm.value
@@ -170,7 +172,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url + "/AgentwisePigmyBalList.php?date='" + date + "'&scheme='" + scheme + "'&branch='"+ branch +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
+    this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

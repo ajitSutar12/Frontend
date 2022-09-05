@@ -44,8 +44,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="schemeCode" (change)="getIntro($event)"
-                                            placeholder="Scheme Code">
+                                            [(ngModel)]="schemeCode" (change)="getIntro($event)"  placeholder="Scheme Code">
                                             <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -71,8 +70,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Starting_Account" bindValue="value"
-                                            bindLabel="label" [(ngModel)]="startingAccount"
-                                            placeholder="Starting Account">
+                                            bindLabel="label" [(ngModel)]="startingAccount" placeholder="Starting Account">
                                             <ng-option *ngFor="let values of startingacc" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
@@ -96,8 +94,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Ending_Account" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="EndingAccount" (change)="loadAcno()"
-                                            placeholder="Ending Account">
+                                            [(ngModel)]="EndingAccount" (change)="loadAcno()" placeholder="Ending Account">
                                             <ng-option *ngFor="let values of endingacc" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
@@ -122,9 +119,8 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Starting_Date"
-                                            id="Starting_Date" class="form-control" [(ngModel)]="startingdate"
-                                            [maxDate]="maxDate" formControlName="Starting_Date"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            id="Starting_Date" class="form-control" [(ngModel)]="startingdate"  [maxDate]="maxDate" 
+                                            formControlName="Starting_Date"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -146,21 +142,19 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Ending_Date" id="Ending_Date"
-                                            class="form-control" [(ngModel)]="endingdate" formControlName="Ending_Date"
-                                            [maxDate]="maxDate" [minDate]="startingdate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            class="form-control" [(ngModel)]="endingdate" formControlName="Ending_Date"  [maxDate]="maxDate"  [minDate]="startingdate"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
-                                    *ngIf="ngForm.controls['Ending_Date'].invalid && (ngForm.controls['Ending_Date'].dirty || ngForm.controls['Ending_Date'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="ngForm.controls['Ending_Date'].errors?. maxlength || ngForm.controls['Ending_Date'].errors?. minlength || ngForm.controls['Ending_Date'].errors?.required">
-                                        This field is required
-                                    </div>
+                                *ngIf="ngForm.controls['Ending_Date'].invalid && (ngForm.controls['Ending_Date'].dirty || ngForm.controls['Ending_Date'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="ngForm.controls['Ending_Date'].errors?. maxlength || ngForm.controls['Ending_Date'].errors?. minlength || ngForm.controls['Ending_Date'].errors?.required">
+                                    This field is required
                                 </div>
+                            </div>
                             </div>
                         </div>
 
@@ -216,15 +210,15 @@
                         <div class="row">
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                    [disabled]="clicked" (click)="View($event); clicked = true  ">View</button>
-
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                         (click)="View($event); clicked = true  ">View</button>
+    
                             </div>
                             <div class="col-md-1">
                                 <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                             </div>
                         </div>
-
+    
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">

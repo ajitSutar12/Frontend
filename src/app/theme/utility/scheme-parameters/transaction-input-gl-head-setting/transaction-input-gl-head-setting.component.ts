@@ -62,6 +62,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     { label: 'Receivable Penal', FieldAmount: 'REC_PENAL_INT_AMOUNT', FieldGL: 'REC_PENAL_INT_GLACNO', HeadType: 'RPN', FIELD_TRAN_TABLE: 'REC_PENAL_INT_AMOUNT' },
     { label: 'Payable Interest', FieldAmount: 'RECPAY_INT_AMOUNT', FieldGL: 'RECPAY_INT_GLACNO', HeadType: 'PYI', FIELD_TRAN_TABLE: 'RECPAY_INT_AMOUNT' },
     { label: 'Receivable Interest', FieldAmount: 'RECPAY_INT_AMOUNT', FieldGL: 'RECPAY_INT_GLACNO', HeadType: 'REC', FIELD_TRAN_TABLE: 'RECPAY_INT_AMOUNT' },
+    { label: 'Other1_amount', FieldAmount: 'OTHER1_AMOUNT', FieldGL: 'OTHER1_ACNO', HeadType: 'OTH', FIELD_TRAN_TABLE: 'OTHER1_AMOUNT' },
+
     { label: 'Other2_amount', FieldAmount: 'OTHER2_AMOUNT', FieldGL: 'OTHER2_ACNO', HeadType: 'OTH', FIELD_TRAN_TABLE: 'OTHER2_AMOUNT' },
     { label: 'Other3_amount', FieldAmount: 'OTHER3_AMOUNT', FieldGL: 'OTHER3_ACNO', HeadType: 'OTH', FIELD_TRAN_TABLE: 'OTHER3_AMOUNT' },
     { label: 'Other4_amount', FieldAmount: 'OTHER4_AMOUNT', FieldGL: 'OTHER4_ACNO', HeadType: 'OTH', FIELD_TRAN_TABLE: 'OTHER4_AMOUNT' },
@@ -302,8 +304,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
 
   patchGlNo(event) {
     this.angForm.patchValue({
-      GL_CODE_FROM_SCHEME_FIELD: "",
-      GL_CODE: event.name
+      // GL_CODE_FROM_SCHEME_FIELD: "",
+      // GL_CODE: event.name
     })
   }
 

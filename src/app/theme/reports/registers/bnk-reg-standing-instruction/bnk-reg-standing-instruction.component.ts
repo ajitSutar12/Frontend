@@ -29,13 +29,14 @@ export class BnkRegStandingInstructionComponent implements OnInit {
   branch_code: any[]//from ownbranchmaster
   branchCode: any = null
   ngBranchCode
-  report_url = environment.report_url
+
   // Date variables
   todate: any = null;
   fromdate: any = null;
   maxDate: Date;
   minDate: Date;
   iframeurl: any = ' ';
+  report_url = environment.report_url;
   showRepo: boolean = false;
   bsValue = new Date();
   constructor(
@@ -76,6 +77,7 @@ export class BnkRegStandingInstructionComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if (this.angForm.valid) {
 
@@ -86,7 +88,7 @@ export class BnkRegStandingInstructionComponent implements OnInit {
       let REVOKE_INST = obj.REVOKE_INST;
       let BRANCH_CODE = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url + "/StandingInstruction.php?stdate='" + stdate + "'etdate='" + etdate + "'REVOKE_INST='" + REVOKE_INST + "'BRANCH_CODE='" + BRANCH_CODE + "'&bankName='" + bankName + "' ";
+      this.iframeurl = this.report_url+"examples/StandingInstruction.php?stdate='" + stdate + "'etdate='" + etdate + "'REVOKE_INST='" + REVOKE_INST + "'branchName='" + branchName + "'&bankName='" + bankName + "' ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

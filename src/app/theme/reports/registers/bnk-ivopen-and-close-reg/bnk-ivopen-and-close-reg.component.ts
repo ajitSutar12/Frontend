@@ -9,7 +9,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-import { environment } from "src/environments/environment";
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-bnk-ivopen-and-close-reg',
   templateUrl: './bnk-ivopen-and-close-reg.component.html',
@@ -24,7 +24,7 @@ clicked:boolean=false;
 
 iframeurl : any = '';
 
-
+report_url = environment.report_url;
 // branch name 
 selectedBranch: number;
 branch_codeList: any = null
@@ -100,12 +100,12 @@ ngOnInit(): void {
 
 }
 src: any;
-report_url = environment.report_url
 View(event){
   event.preventDefault();
   
   let userData = JSON.parse(localStorage.getItem('user'));
   let bankName = userData.branch.syspara.BANK_NAME;
+  let branchName = userData.branch.NAME
 
   this.formSubmitted = true;
   if (this.angForm.valid) {
@@ -116,7 +116,7 @@ View(event){
   let BRANCH_CODE = obj.BRANCH_CODE
   let GROUP_BY = obj.GROUP_BY
   
-  this.iframeurl = this.report_url + "/OpenDepositReport.php?startDate='"+startDate+"'&endDate='"+enddate+"'&branch='"+BRANCH_CODE+"'&bankName='" + bankName + "' ";
+  this.iframeurl = this.report_url+"examples/OpenDepositReport.php?startDate='"+startDate+"'&endDate='"+enddate+"'&branchName='"+branchName+"'&bankName='" + bankName + "' ";
   this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }
