@@ -14,6 +14,7 @@
 /src 2.zip
 /cbs.zip
 /cbs
+/docs
 
 # profiling files
 chrome-profiler-events*.json
