@@ -6,6 +6,7 @@ import { first } from "rxjs/operators";
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-t-form-day-book',
   templateUrl: './t-form-day-book.component.html',
@@ -29,6 +30,7 @@ export class TFormDayBookComponent implements OnInit {
 
   //ng model
   ngbranch:any = null 
+  report_url = environment.report_url;
 
   //Dropdown option variable
 
@@ -75,6 +77,7 @@ export class TFormDayBookComponent implements OnInit {
     this.formSubmitted = true;
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
     if(this.ngForm.valid){
       
      this.showRepo = true;
@@ -86,7 +89,7 @@ export class TFormDayBookComponent implements OnInit {
   let type =obj.Type;
   
   
-   this.iframe1url="http://localhost/NewReport/phpjasperxml-master/examples/DayBookfinal1.php?Date='" + Date + "'&branch='"+branch+"'&type='"+type +"'&bankName='"+bankName+"' ";
+   this.iframe1url=this.report_url+"examples/DayBookfinal1.php?Date='" + Date + "'&branchName='"+branchName+"'&type='"+type +"'&bankName='"+bankName+"' ";
    this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   }
   else {

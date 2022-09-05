@@ -268,7 +268,7 @@ export class BnkACBalBookComponent implements OnInit {
     let Rdio = obj.radio
     let Rdiosort  = obj.radio_sort
             
-   this.iframeurl= this.report_url+ "/BalanceBook.php?date='"+date+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branchName='"+ branchName +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&bankName='" + bankName + "'";
+   this.iframeurl= this.report_url+ "examples/BalanceBook.php?date='"+date+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branchName='"+ branchName +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&bankName='" + bankName + "'";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
       }
       else {

@@ -180,7 +180,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
       
-   this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&ChartNo='" + ChartNo +"'&Scheme_acc='" + Scheme_acc +"'&bankName='" + bankName + "'" ;
+   this.iframe5url=this.report_url+"examples/PigmyCollectionChart.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&ChartNo='" + ChartNo +"'&Scheme_acc='" + Scheme_acc +"'&bankName='" + bankName + "'" ;
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
   }

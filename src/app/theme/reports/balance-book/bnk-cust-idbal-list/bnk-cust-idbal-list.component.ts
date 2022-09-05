@@ -96,7 +96,7 @@ export class BnkCustIDBalListComponent implements OnInit {
     let branches = obj.BRANCH_CODE;
     let pritns = obj.PRINT_CUSTID;
 
-    this.iframeurl = this.report_url+ "/examples/CustomerIdWiseList.php?stdate='" + stdate +"'&branchName='"+branchName+"'&custid='"+custid+"'&pritns='"+pritns+"'&bankName='" + bankName + "' ";
+    this.iframeurl = this.report_url+ "examples/CustomerIdWiseList.php?stdate='" + stdate +"'&branchName='"+branchName+"'&custid='"+custid+"'&pritns='"+pritns+"'&bankName='" + bankName + "' ";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
    }

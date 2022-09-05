@@ -1443,24 +1443,24 @@ debugger
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
-          } else {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
+    // this.dtTrigger.next();
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     $('input', this.footer()).on('keyup change', function () {
+    //       if (this['value'] != '') {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       } else {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       }
+    //     });
+    //   });
+    // });
   }
 
   updatecheckdata
