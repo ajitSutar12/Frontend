@@ -8,12 +8,13 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
-import { environment } from '../../../../../environments/environment'
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-bnk-reg-account',
   templateUrl: './bnk-reg-account.component.html',
   styleUrls: ['./bnk-reg-account.component.scss'],
-  providers: [OwnbranchMasterService]
+  providers:[OwnbranchMasterService]
 })
 export class BnkRegAccountComponent implements OnInit {
   // Created Form Group
@@ -21,7 +22,8 @@ export class BnkRegAccountComponent implements OnInit {
   //  variable for validation
   formSubmitted = false;
 
-  clicked: boolean = false;
+  report_url = environment.report_url;
+  clicked:boolean=false;
   // branch name 
   selectedBranch: number;
   branch_codeList: any = null
@@ -29,7 +31,6 @@ export class BnkRegAccountComponent implements OnInit {
   branchCode: any = null
   ngBranchCode
   ngscheme
-  report_url = environment.report_url
   allScheme: any[];
   // Date variables
   todate: any = null;
@@ -39,7 +40,7 @@ export class BnkRegAccountComponent implements OnInit {
   bsValue = new Date();
   iframeurl: any = ' ';
   showRepo: boolean = false;
-
+  
 
   selectedType
   Types = [
@@ -116,6 +117,7 @@ export class BnkRegAccountComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if (this.angForm.valid) {
 
@@ -128,13 +130,13 @@ export class BnkRegAccountComponent implements OnInit {
       let ACOPEN = obj.ACOPEN;
       let ACCLOSE = obj.ACCLOSE;
       let GROUP_BY = obj.GROUP_BY;
-
-      this.iframeurl = this.report_url + "/InsuranceRegister.php?stdate='" + stdate + "'etdate='" + etdate + "'AC_TYPE='" + AC_TYPE + "'BRANCH_CODE='" + BRANCH_CODE + "'ACOPEN='" + ACOPEN + "'ACCLOSE='" + ACCLOSE + "'GROUP_BY='" + GROUP_BY + "'&bankName='" + bankName + "' ";
+      
+      this.iframeurl = this.report_url+"examples/InsuranceRegister.php?stdate='" + stdate+ "'etdate='" +etdate+ "'AC_TYPE='" +AC_TYPE+ "'branchName='" +branchName+  "'ACOPEN='" +ACOPEN+ "'ACCLOSE='" +ACCLOSE+ "'GROUP_BY='" +GROUP_BY+ "'&bankName='" + bankName + "' ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
 
   }
@@ -146,6 +148,6 @@ export class BnkRegAccountComponent implements OnInit {
   resetForm() {
     this.createForm()
     this.showRepo = false;
-    this.clicked = false;
+    this.clicked=false;
   }
 }

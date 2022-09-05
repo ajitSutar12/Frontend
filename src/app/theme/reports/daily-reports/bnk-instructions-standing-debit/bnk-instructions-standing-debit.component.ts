@@ -26,7 +26,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
-  report_url = environment.report_url
+
   clicked:boolean=false;
 
   iframeurl: any = ' ';
@@ -38,6 +38,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
   angForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   //Dropdown option variable
   ngbranch
   branchOption: any;
@@ -106,6 +107,8 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
+
     debugger
    if (this.angForm.controls['RADIO'].value=="success" && this.angForm.valid) {
       this.showRepo = true;
@@ -117,7 +120,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
-      this.iframeurl = this.report_url + "/standinstructlogSucess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/standinstructlogSucess.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
@@ -131,7 +134,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
 
-      this.iframeurl = this.report_url + "/standinstructlogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/standinstructlogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

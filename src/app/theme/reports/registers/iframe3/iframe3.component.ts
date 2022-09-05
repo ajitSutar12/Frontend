@@ -24,7 +24,7 @@ export class Iframe3Component implements OnInit {
 //   ngOnChanges() {
 
 //     debugger
-//     if (this.url != this.report_url + "/BnkODRegister.php?startingcode='100001'&endingcode='100005'&branch='1'&schemecode='17'&tem_perOD='PeriodicallyOverDraft'&bankName='Swami Vivekanand Pat Ajara'"
+//     if (this.url != "http://localhost/NewReport/phpjasperxml-master/examples/BnkODRegister.php?startingcode='100001'&endingcode='100005'&branch='1'&schemecode='17'&tem_perOD='PeriodicallyOverDraft'&bankName='Swami Vivekanand Pat Ajara'"
 // ){
       
 //       this.url1 = "assets\Loading.gif";

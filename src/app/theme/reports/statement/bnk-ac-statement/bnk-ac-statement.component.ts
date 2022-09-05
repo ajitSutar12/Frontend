@@ -32,6 +32,7 @@ export class BnkAcStatementComponent implements OnInit {
   // Created Form Group
   angForm: FormGroup;
   //api
+  report_url = environment.report_url;
   url = environment.base_url;
   ngBranchCode: any = null;
   branch_code: any;
@@ -45,7 +46,7 @@ export class BnkAcStatementComponent implements OnInit {
   minDate: Date;
   bsValue = new Date();
   todate: any = null;
-  report_url = environment.report_url
+
     //dropdown ngmodel variables
     ngscheme: any = null
     ngAcnoFrom: any = null
@@ -104,8 +105,8 @@ export class BnkAcStatementComponent implements OnInit {
       BRANCH: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
-      AC_TYPE: ['', [Validators.required]],
-      AC_CUSTID: ['', [Validators.required]],
+      AC_TYPE: ['', ],
+      AC_CUSTID: ['', ],
       Customer_Id_Wise:[''],
       PRINT_ACCOUNT:[''],
       PRINT_CLOSED:[''],
@@ -298,6 +299,7 @@ View(event) {
 
   let userData = JSON.parse(localStorage.getItem('user'));
   let bankName = userData.branch.syspara.BANK_NAME;
+  let branchName = userData.branch.NAME
 
   if (this.angForm.valid) {
     this.showRepo = true;
@@ -314,7 +316,7 @@ View(event) {
     let print = obj.PRINT_ACCOUNT;
     let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url + "/AccountStatement.php?stadate='" + stadate +"'&edate='"+edate+"'&branched='"+branched+"'&schemes='"+schemes+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"'&bankName='" + bankName + "' ";
+    this.iframeurl = this.report_url+"examples/AccountStatement.php?stadate='" + stadate +"'&edate='"+edate+"'&branchName='"+branchName+"'&schemes='"+schemes+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"'&bankName='" + bankName + "' ";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }

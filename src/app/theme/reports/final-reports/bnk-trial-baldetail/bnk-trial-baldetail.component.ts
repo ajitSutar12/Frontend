@@ -26,13 +26,14 @@ export class BnkTrialBaldetailComponent implements OnInit {
  maxDate: Date;
  minDate: Date;
  bsValue = new Date();
- report_url = environment.report_url
+
   showRepo: boolean = false;
   clicked:boolean=false;
   // Created Form Group
   angForm: FormGroup;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
  //Dropdown option variable
  ngbranch
  branchOption: any;
@@ -76,6 +77,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
     
     if (this.angForm.valid) {
 
@@ -86,7 +88,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
       let branched2 = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
 
-      this.iframeurl = this.report_url + "/TrialBalDetail.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched2='"+branched2+"'&tran='"+tran+"'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/TrialBalDetail.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branchName='"+branchName+"'&tran='"+tran+"'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

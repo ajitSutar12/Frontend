@@ -28,17 +28,18 @@ export class BnkLNamtStatementComponent implements OnInit {
   endingdate: any = null
 
   ngForm: FormGroup;
-  iframe2url: any = '';
-  clicked: boolean = false;
+  iframe2url:any='';
+  clicked:boolean=false;
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   formSubmitted = false;
-  //account
-  memFrom
-  memTo
-  branch
-  mem: any
-  report_url = environment.report_url
+     //account
+     memFrom
+     memTo
+     branch
+     mem:any
+
   //dropdown
   scheme: any[];
   startingacc: any[];
@@ -51,7 +52,7 @@ export class BnkLNamtStatementComponent implements OnInit {
   startingAccount: any = null;
   EndingAccount: any = null;
 
-  showRepo: boolean = false;
+  showRepo:boolean=false;
 
   constructor(
     private fb: FormBuilder,
@@ -154,47 +155,48 @@ export class BnkLNamtStatementComponent implements OnInit {
 
   src: any;
   View(event) {
+     
+     event.preventDefault();
+     this.formSubmitted = true;
 
-    event.preventDefault();
-    this.formSubmitted = true;
+     let userData = JSON.parse(localStorage.getItem('user'));
+     let bankName = userData.branch.syspara.BANK_NAME;
+     let branchName = userData.branch.NAME
 
-    let userData = JSON.parse(localStorage.getItem('user'));
-    let bankName = userData.branch.syspara.BANK_NAME;
-
-    if (this.ngForm.valid) {
-
+     if(this.ngForm.valid){
+ 
       this.showRepo = true;
-      let obj = this.ngForm.value
-      let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
-      let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
-      let branch = obj.BRANCH_CODE;
-      let startingcode = obj.Starting_Account;
-      let endingcode = obj.Ending_Account;
-      let PrintEveryAccountonNewPage = obj.Print_Every_Account_on_New_Page;
-      let PrintClosedAccount = obj.Print_Closed_Account;
-      let PrintAddedPenalInterest = obj.Print_Added_Penal_Interest;
-      let PrintConciseReporteme = obj.Print_Concise_Report;
-      let scheme = obj.Scheme_code;
-
-
-      this.iframe2url = this.report_url + "/LoanStatement.php?startDate='" + startDate + "'&endDate='" + endDate + "'&branch='" + branch + "'&startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&scheme= '" + scheme +
-        "' &PrintEveryAccountonNewPage= '" + PrintEveryAccountonNewPage + "' &PrintClosedAccount= '" + PrintClosedAccount + "'&PrintAddedPenalInterest= '" + PrintAddedPenalInterest + "' &PrintConciseReporteme= '" + PrintConciseReporteme + "' &bankName='" + bankName + "'";
-      this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
-
-    }
-    else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-    }
-
-  }
-  //load acno according start and end acno
-  loadAcno() {
+     let obj = this.ngForm.value
+     let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
+     let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
+     let branch = obj.BRANCH_CODE;
+      let startingcode= obj.Starting_Account;
+     let endingcode =obj.Ending_Account;
+     let PrintEveryAccountonNewPage=obj.Print_Every_Account_on_New_Page;
+     let PrintClosedAccount=obj.Print_Closed_Account;
+     let PrintAddedPenalInterest=obj.Print_Added_Penal_Interest;
+     let PrintConciseReporteme=obj.Print_Concise_Report;
+     let scheme=obj.Scheme_code;
+  
+ 
+    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&startingcode='"+startingcode +"'&endingcode='"+ endingcode +"'&scheme= '"+scheme+
+                    "' &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName='" + bankName + "'";
+    this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
+    
+   }
+   else {
+     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+   }
+   
+ }
+   //load acno according start and end acno
+   loadAcno() {
     this.memFrom = this.ngForm.controls['Starting_Account'].value
     this.memTo = this.ngForm.controls['Ending_Account'].value
     this.branch = this.ngForm.controls['BRANCH_CODE'].value
     if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
       this.mem = [this.memFrom, this.memTo, this.branch]
-
+     
       if (this.getschemename == 'LN') {
         this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
         });
@@ -207,21 +209,21 @@ export class BnkLNamtStatementComponent implements OnInit {
         this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
         });
       }
-
-
+     
+    
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
   }
 
-  close() {
+  close(){
     this.resetForm()
-  }
-
-  resetForm() {
-    this.createForm()
-    this.showRepo = false;
-    this.clicked = false;
-  }
+    }
+  
+    resetForm() {
+      this.createForm()
+      this.showRepo = false;
+      this.clicked=false;
+    }
 }

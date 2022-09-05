@@ -29,8 +29,8 @@ export class BnkDayBookSummaryComponent implements OnInit {
   // Created Form Group
   ngForm: FormGroup;
   //api
+  report_url = environment.report_url;
   url = environment.base_url;
-  report_url = environment.report_url
   maxDate: Date;
   minDate: Date;
   startingdate: any = null
@@ -38,7 +38,7 @@ export class BnkDayBookSummaryComponent implements OnInit {
   branchOption: any[];
   ngbranch: any = null
   iframe1url: any = ' ';
-  clicked: boolean = false;
+  clicked:boolean=false;
 
   constructor(
     private fb: FormBuilder,
@@ -99,21 +99,25 @@ export class BnkDayBookSummaryComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
-
+    let branchName = userData.branch.NAME
+    
     if (this.ngForm.valid) {
 
-      // this.showRepo = true;
+      this.showRepo = true;
       let obj = this.ngForm.value
       let stdate = moment(obj.Starting_Date).format('DD/MM/YYYY');
       let Branch = obj.Branch;
       let Type = obj.Type;
       let checkb1 = obj.Group_Profit_And_Loss_Account;
       let checkb2 = obj.Denomination_Detail_Required;
-      this.iframe1url = this.report_url + "/DayBookReport.php?stdate='" + stdate + "'&Branch='" + Branch + "'&Type='" + Type + "'&checkb1='" + checkb1 + "'&checkb2='" + checkb2 + "'&bankName='" + bankName + "'";
+
+
+      this.iframe1url =this.report_url+ "examples/DayBookReport.php?stdate='" + stdate + "'&branchName='" + branchName + "'&Type='" + Type + "'&checkb1='" + checkb1 + "'&checkb2='" + checkb2 + "'&bankName='" + bankName + "'";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
 
   }
@@ -130,7 +134,7 @@ export class BnkDayBookSummaryComponent implements OnInit {
   resetForm() {
     this.createForm()
     this.showRepo = false;
-    this.clicked = false;
+    this.clicked=false;
   }
 
 }

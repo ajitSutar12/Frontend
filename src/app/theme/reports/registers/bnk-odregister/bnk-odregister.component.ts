@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class BnkODRegisterComponent implements OnInit {
   iframe3url: any = '';
+  report_url = environment.report_url;
   // Created Form Group
   angForm: FormGroup;
   //  variable for validation
@@ -31,7 +32,7 @@ export class BnkODRegisterComponent implements OnInit {
   branchCode: any = null
   ngBranchCode
   ngscheme
-  report_url = environment.report_url
+
   //dropdwon
   Startingcode:any=null;
   Endingcode:any=null;
@@ -77,7 +78,7 @@ export class BnkODRegisterComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ['', [Validators.required]],
-      OD_TEMP: new FormControl('TemporaryOverDraft'),
+      OD_TEMP: ['', ],
       Starting_Account: ['', [Validators.required]],
       Ending_Account: ['', [Validators.required]],
 
@@ -206,6 +207,7 @@ export class BnkODRegisterComponent implements OnInit {
   //  loader = true;
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
     
     if (this.angForm.valid) {
 
@@ -217,7 +219,7 @@ export class BnkODRegisterComponent implements OnInit {
       let schemecode = obj.Scheme_code;
       let tem_perOD = obj.OD_TEMP;
      
-      this.iframe3url = this.report_url + "/BnkODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&tem_perOD='" + tem_perOD + "'&bankName='" + bankName + "'"; 
+      this.iframe3url = this.report_url+"examples/BnkODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branchName='" + branchName + "'&schemecode='" + schemecode + "'&tem_perOD='" + tem_perOD + "'&bankName='" + bankName + "'"; 
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {

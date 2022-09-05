@@ -31,13 +31,14 @@ export class BnkExpectIntInstructComponent implements OnInit {
   minDate: Date;
   bsValue = new Date();
   formSubmitted = false;
-  report_url = environment.report_url
+
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
  
   //api
   url = environment.base_url;
+  report_url = environment.report_url;
   //Dropdown option variable
   ngbranch
   branchOption: any;
@@ -116,18 +117,19 @@ export class BnkExpectIntInstructComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if(this.angForm.valid){
   
     let obj = this.angForm.value
     let date = moment(obj.Date).format('DD/MM/YYYY');
     let status = obj.STATUS;
-    let branch = obj.BRANCH_CODE;
+    // let branch = obj.BRANCH_CODE;
    let  frequency =obj.FREQUENCY;
   let PrintClosedAccounts =obj.Print_Closed_Accounts;
   
   
-   this.iframe1url=this.report_url + "/InterestExecutionListDebit.php?date='" + date + "'&status='" + status + "'&branch='"+branch+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&frequency='"+frequency +"'&bankName='" + bankName + "' ";
+   this.iframe1url= this.report_url+"examples/InterestExecutionListDebit.php?date='" + date + "'&status='" + status + "'&branchName='"+branchName+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&frequency='"+frequency +"'&bankName='" + bankName + "' ";
    this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   }
   else {

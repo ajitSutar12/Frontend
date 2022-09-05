@@ -143,6 +143,7 @@ export class VoucherEntryComponent implements OnInit {
   maxDate: Date;
   dtTrigger: any;
   dtElement: any;
+  loginUser : any;
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -158,7 +159,6 @@ export class VoucherEntryComponent implements OnInit {
     private router: Router
   ) {
     if (this.childMessage != undefined) {
-
       this.editClickHandler(this.childMessage);
     }
     this.maxDate = new Date();
@@ -173,6 +173,7 @@ export class VoucherEntryComponent implements OnInit {
     // this.DayOpBal = 1000;
     // get session branch data
     let user = JSON.parse(localStorage.getItem('user'));
+    this.loginUser = user;
     this.type = 'cash';
     this.tranModeList = this.TranModeCash;
 
@@ -271,6 +272,7 @@ export class VoucherEntryComponent implements OnInit {
   //get account no according scheme for introducer
   Submitscheme: any;
   getIntroducer(item) {
+    debugger
     this.tempschmetype = this.selectedCode
     this.introducerACNo = [];
     this.obj = [item.id, this.selectedBranch]
@@ -552,6 +554,7 @@ export class VoucherEntryComponent implements OnInit {
 
     let balancedata
     this._service.getInputHeadBal(newobj).subscribe(data1 => {
+      debugger
       balancedata = data1
       this.headData.forEach(element => {
         let newobj = {
@@ -560,7 +563,7 @@ export class VoucherEntryComponent implements OnInit {
           date: this.date,
           schemeType: this.selectedCode,
         }
-
+debugger
 
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
@@ -727,6 +730,7 @@ export class VoucherEntryComponent implements OnInit {
 
 
   showlgindetails() {
+    debugger
     if (this.angForm.controls['account_no'].value != null && this.selectedCode != 'GL') {
       this.ShowDocuments = true
       console.log(this.submitCustomer.idmasterID)
@@ -868,12 +872,38 @@ export class VoucherEntryComponent implements OnInit {
   getaftervoucher(event) {
     let value = Number(event.target.value);
     let tran = this.submitTranMode.tran_drcr
-    if (tran == 'D') {
-      this.AfterVoucher = Math.abs(this.tempDayOpBal - value)
-      this.extenstionaftervoucher = 'Dr'
-    } else {
-      this.AfterVoucher = Math.abs(this.tempDayOpBal + value)
-      this.extenstionaftervoucher = 'Cr'
+    // if (tran == 'D') {
+    //   this.AfterVoucher = Math.abs(this.tempDayOpBal - value)
+    //   this.extenstionaftervoucher = 'Dr'
+    // } else {
+    //   this.AfterVoucher = Math.abs(this.tempDayOpBal + value)
+    //   this.extenstionaftervoucher = 'Cr'
+    // }
+
+    if(tran == 'D' && this.typeclearbal == 'Dr'){
+      this.AfterVoucher = Math.abs(this.ClearBalance + value);
+      this.extenstionaftervoucher = 'Dr';
+    }else if(tran == 'D' && this.typeclearbal == 'Cr'){
+      this.AfterVoucher = Math.abs(this.ClearBalance - value);
+      if(value > this.ClearBalance){
+        if(tran == 'C'){
+          this.extenstionaftervoucher = 'Cr';
+        }else{
+          this.extenstionaftervoucher = 'Dr';
+        }
+      }    
+    }else if(tran == 'C' && this.typeclearbal == 'Dr'){
+      this.AfterVoucher = Math.abs(this.ClearBalance - value);
+      if(value > this.ClearBalance){
+        if(tran == 'C'){
+          this.extenstionaftervoucher = 'Cr';
+        }else{
+          this.extenstionaftervoucher = 'Dr';
+        }
+      }
+    }else{
+      this.AfterVoucher = Math.abs(this.ClearBalance + value);
+      this.extenstionaftervoucher = 'Cr';
     }
   }
 
@@ -1176,10 +1206,10 @@ export class VoucherEntryComponent implements OnInit {
     let tempacno = this.submitCustomer.BANKACNO
     let obj = {
       clearBalance: this.ClearBalance,
-      accountNo: this.submitCustomer.BANKACNO,
-      accno: this.submitCustomer.AC_NO,
+      accountNo: this.submitCustomer?.BANKACNO,
+      accno: this.submitCustomer?.AC_NO,
       schemeType: this.selectedCode,
-      scheme: this.Submitscheme.S_APPL,
+      scheme: this.Submitscheme?.S_APPL,
       usertype: result.RoleDefine[0].RoleId,
       currentDate: this.date
     }
@@ -1448,8 +1478,10 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   headFlag: boolean = false;
-  editClickHandler(id) {
+  editClickHandler(id) {  
+
     this._service.getFormData(id).subscribe((data) => {
+      debugger
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -1469,7 +1501,7 @@ export class VoucherEntryComponent implements OnInit {
       this.headData = data.InputHead;
       this.headShow = true;
       this.selectedScheme = data.scheme.id
-
+      this.Submitscheme = data.scheme;
       this.selectedMode = data.tran_mode[0].id;
       this.introducerACNo = [];
       this.obj = [this.selectedScheme, this.selectedBranch]
@@ -1542,7 +1574,7 @@ export class VoucherEntryComponent implements OnInit {
       }
 
       this.selectedAccountno = data.account_no[0].id
-
+      this.getVoucherData(data.account_no[0]);
       this.angForm.patchValue({
         type: data.TRAN_TYPE == 'CS' ? 'cash' : data.TRAN_TYPE == 'TR' ? 'transfer' : '',
         date: data.TRAN_DATE,
@@ -1558,10 +1590,10 @@ export class VoucherEntryComponent implements OnInit {
       })
 
       // this.resetscheme();
-      // this.checkAccountCondition();
-      // this.showlgindetails();
-      // this.SideDetails();
-      // this.checktranCondition();
+      this.checkAccountCondition();
+      this.showlgindetails();
+      this.SideDetails();
+      this.checktranCondition();
       // this.updateheadbalance()
     })
 
@@ -1575,6 +1607,7 @@ export class VoucherEntryComponent implements OnInit {
   Approve() {
     let obj = {
       id: this.updateID,
+      userid : this.loginUser.id
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
@@ -1630,10 +1663,11 @@ export class VoucherEntryComponent implements OnInit {
   opendate = ''
   renewaldate = ''
   SideDetails() {
+    debugger
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
-    this.angForm.controls['amt'].reset()
-    this.angForm.controls['total_amt'].reset()
+    // this.angForm.controls['amt'].reset()
+    // this.angForm.controls['total_amt'].reset()
     this.SideView = true
     if (this.submitCustomer.AC_ACNOTYPE == 'LN' || this.submitCustomer.AC_ACNOTYPE == 'CC' || this.submitCustomer.AC_ACNOTYPE == 'DS') {
       this.ShowLNCC = true
@@ -1672,6 +1706,7 @@ export class VoucherEntryComponent implements OnInit {
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
+      debugger
       this.DayOpBal = Math.abs(data);
       if (data < 0) {
         this.extensionopenbal = 'Cr'
@@ -1699,9 +1734,5 @@ export class VoucherEntryComponent implements OnInit {
         }
       })
     })
-
-
-
-
   }
 }

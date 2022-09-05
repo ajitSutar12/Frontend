@@ -65,8 +65,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                            [(ngModel)]="date" formControlName="Date" [maxDate]="maxDate"
+                                            class="form-control" [(ngModel)]="date" formControlName="Date" [maxDate]="maxDate"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -82,19 +81,20 @@
                             </div>
                         </div>
 
-
+                       
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="checkbox checkbox-primary">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input type="checkbox" class="border-checkbox" id="Print Closed Accounts"
+                                        <input type="checkbox" class="border-checkbox"
+                                            id="Print Closed Accounts"
                                             formControlName="Print_Closed_Accounts">
-                                        <label class="border-checkbox-label" for="Print Closed Accounts">Print Closed
-                                            Accounts ?</label>
+                                        <label class="border-checkbox-label"
+                                            for="Print Closed Accounts">Print Closed Accounts ?</label>
                                     </div>
                                 </div>
                             </div>
-
+                          
                         </div>
 
                         <div class="row"></div>
@@ -102,7 +102,7 @@
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">View</button>
                             </div>
                             <div class="col-md-1">
                                 <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
@@ -123,7 +123,7 @@
                         </div>
                     </div>
 
-
+                   
                 </form>
             </div>
         </div>

@@ -17,7 +17,6 @@ export class BnkRegInterestInstructionComponent implements OnInit {
   angForm: FormGroup;
   //  variable for validation
   formSubmitted = false;
-  report_url = environment.report_url
   clicked:boolean=false;
   // showRepo = false;
   // branch name 
@@ -28,6 +27,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
   ngBranchCode
   url = environment.base_url;
   iframe3url: any = ' ';
+  report_url = environment.report_url;
   showRepo: boolean = false;
   // Date variables
   todate: any = null;
@@ -85,6 +85,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if (this.angForm.valid) {
       this.showRepo = true;
@@ -97,7 +98,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
       let revoke = obj.REVOKE_INST;
 
 
-      this.iframe3url = this.report_url + "/InterestInstruction.php?stdate=%27?stdate='" + stdate + "'&etdate='" + etdate + "'&branch='" + branch + "'&revoke='" + revoke + "'&bankName='" + bankName + "'";
+      this.iframe3url = this.report_url+"examples/InterestInstruction.php?stdate=%27?stdate='" + stdate + "'&etdate='" + etdate + "'&branchName='" + branchName + "'&revoke='" + revoke + "'&bankName='" + bankName + "'";
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
 
       // let ageCaldate

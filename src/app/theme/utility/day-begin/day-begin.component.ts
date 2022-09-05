@@ -80,6 +80,28 @@ export class DayBeginComponent implements OnInit {
         this.daybeginProcess = true;
         this._service.postData(obj).subscribe(data=>{
           Swal.fire("Success!",current_date+" Day Begin Successfully","success");
+          this.daybeginProcess = false;
+          Swal.fire({
+            title: 'Need To Re-Login',
+            text: "Please re-login in Application",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#229954',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Re-Login!'
+          }).then((result)=>{
+            if(result.isConfirmed){
+              let user = JSON.parse(localStorage.getItem('user'));
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              this.router.navigate(['/auth/login/simple/'])
+            }else{
+              let user = JSON.parse(localStorage.getItem('user'));
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              this.router.navigate(['/auth/login/simple/'])
+            } 
+          })
         },err=>{
             Swal.fire(
               "Error",

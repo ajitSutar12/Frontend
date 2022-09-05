@@ -1,0 +1,46 @@
+{
+    "data": [
+        {
+            "inheadofficebooks": "No",
+            "inbankbranchbooks": "Yes",
+            "allentries": "No",
+            "pendingentries": "Yes",
+            "date": "2/12/1977",
+            "chequeno": "no",
+            "particulars": "45678",
+            "debitamt": 232,
+            "creditamt": 223,
+            "statementdate": "2/12/1777",
+            "branchcode":"123",
+            "glaccount":"234"
+        },
+        {
+            "inheadofficebooks": "Yes",
+            "inbankbranchbooks": "No",
+            "allentries": "Yes",
+            "pendingentries": "No",
+            "date": "2/12/1877",
+            "chequeno": "234",
+            "particulars": "123456",
+            "debitamt": 2323,
+            "creditamt":232321,
+            "statementdate": "2/12/1977",
+            "branchcode":"1",
+            "glaccount":"234"
+        },
+        {
+            "inheadofficebooks": "No",
+            "inbankbranchbooks": "Yes",
+            "allentries": "No",
+            "pendingentries": "Yes",
+            "date": "2/12/1978",
+            "chequeno": "no",
+            "particulars": "23123456",
+            "debitamt": 1233,
+            "creditamt": 4556,
+            "statementdate": "2/12/1977",
+            "branchcode":"12",
+            "glaccount":"234"
+        }
+    ]
+}

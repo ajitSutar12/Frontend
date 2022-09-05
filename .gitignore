@@ -9,8 +9,12 @@
 
 # dependencies
 /node_modules
+/node_modules (1).zip
+/src.zip
+/src 2.zip
 /cbs.zip
 /cbs
+/docs
 
 # profiling files
 chrome-profiler-events*.json

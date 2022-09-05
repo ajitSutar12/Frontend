@@ -23,11 +23,12 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
    // showRepo=false;
    // branch name 
    selectedBranch: number;
+   report_url = environment.report_url;
    url = environment.base_url;
    branch_code: any[]//from ownbranchmaster
    branchCode: any = null
    ngBranchCode
-   report_url = environment.report_url
+ 
    // Date variables
    todate: any = null;
    fromdate: any = null;
@@ -79,6 +80,7 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if (this.angForm.valid) {
      this.showRepo = true;
@@ -89,7 +91,7 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
     let revoke = obj.REVOKE_INST;
  
  
-    this.iframeurl = this.report_url + "/SpecialInstuction.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branch='"+branch+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
+    this.iframeurl = this.report_url+"examples/SpecialInstuction.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branchName='"+branchName+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
@@ -103,7 +105,7 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
     //  let revoke = obj.REVOKE_INST;
   
   
-    //  this.iframeurl = this.report_url + "/SpecialRevokeInstrut.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branch='"+branch+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
+    //  this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/SpecialRevokeInstrut.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branch='"+branch+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
     //  this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
  
     //  }

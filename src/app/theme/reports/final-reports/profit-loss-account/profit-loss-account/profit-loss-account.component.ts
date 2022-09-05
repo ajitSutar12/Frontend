@@ -5,7 +5,7 @@ import { first } from "rxjs/operators";
 import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
-import { environment } from '../../../../../../environments/environment'
+
 @Component({
   selector: 'app-profit-loss-account',
   templateUrl: './profit-loss-account.component.html',
@@ -20,7 +20,7 @@ fromdate: any = null
 maxDate: Date;
 minDate: Date;
 bsValue = new Date();
-report_url = environment.report_url
+
 showRepo: boolean = false;
 iframeurl: any = ' ';
 clicked:boolean=false;
@@ -64,7 +64,7 @@ clicked:boolean=false;
       let start1date = moment(obj.START_DATE).format('DD/MM/YYYY');
       let branched2 = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url + "/Receiptconsine.php?start1date='" + start1date +"'&branched2='"+branched2+"'&bankName='" + bankName + "'";
+      this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/Receiptconsine.php?start1date='" + start1date +"'&branched2='"+branched2+"'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

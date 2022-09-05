@@ -21,17 +21,17 @@ import { first } from 'rxjs/operators';
 export class BnkDedskBalListDepreComponent implements OnInit {
 
   iframeurl: any = '';
-  clicked: boolean = false;
+  clicked:boolean=false;
   //for date
   maxDate: Date;
   minDate: Date;
   date: any = null
-  report_url = environment.report_url
-  //account
-  memFrom
-  memTo
-  branch
-  mem: any
+
+    //account
+    memFrom
+    memTo
+    branch
+    mem:any
 
   //form Group
   ngForm: FormGroup;
@@ -54,7 +54,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
 
   //api
   url = environment.base_url;
-
+  report_url = environment.report_url;
 
   id: any;
   Cust_ID: any[] //customer id from idmaster
@@ -99,6 +99,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
     if (this.ngForm.valid) {
 
@@ -112,7 +113,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
 
 
 
-      this.iframeurl = this.report_url + "/BnkDeadbalDepr.php?date='" + date + "'&branch='" + branch + "'&startingcode='" + startingcode + "'&endingcode='" + endingcode + "' &bankName='" + bankName + "'";
+      this.iframeurl = this.report_url +"examples/BnkDeadbalDepr.php?date='" + date + "'&branchName='" + branchName + "'&startingcode='" + startingcode + "'&endingcode='" + endingcode + "' &bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
@@ -137,34 +138,34 @@ export class BnkDedskBalListDepreComponent implements OnInit {
 
   getschemename
   //load acno according start and end acno
-  loadAcno() {
-    this.memFrom = this.ngForm.controls['Starting_Account'].value
-    this.memTo = this.ngForm.controls['Ending_Account'].value
-    this.branch = this.ngForm.controls['BRANCH_CODE'].value
-    if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
-      this.mem = [this.memFrom, this.memTo, this.branch]
-      if (this.getschemename) {
-        this.http.get(this.url + '/dead-stock-master' + this.mem).subscribe((data) => {
-        });
-      }
-
-
-
-
-
-    }
-    else {
-      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
-    }
+loadAcno() {
+this.memFrom = this.ngForm.controls['Starting_Account'].value
+this.memTo = this.ngForm.controls['Ending_Account'].value
+this.branch = this.ngForm.controls['BRANCH_CODE'].value
+if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
+  this.mem = [this.memFrom, this.memTo, this.branch]
+  if (this.getschemename ) {
+    this.http.get(this.url + '/dead-stock-master' + this.mem).subscribe((data) => {
+    });
   }
+  
+ 
 
-  close() {
-    this.resetForm()
+
+ 
+}
+else {
+  Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+}
+}
+
+close(){
+  this.resetForm()
   }
 
   resetForm() {
     this.createForm()
     this.showRepo = false;
-    this.clicked = false;
+    this.clicked=false;
   }
 }

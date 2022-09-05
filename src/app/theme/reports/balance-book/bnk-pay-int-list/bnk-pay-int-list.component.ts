@@ -25,7 +25,7 @@ export class BnkPayIntListComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   date: any = null
-  report_url = environment.report_url
+  
 
   ngForm: FormGroup;
   //dropdown
@@ -39,6 +39,7 @@ export class BnkPayIntListComponent implements OnInit {
   formSubmitted = false;
     //api
     url = environment.base_url;
+    report_url = environment.report_url;
     
     showRepo: boolean = false;
 
@@ -84,7 +85,9 @@ view(event) {
   this.formSubmitted = true;
 
   let userData = JSON.parse(localStorage.getItem('user'));
-    let bankName = userData.branch.syspara.BANK_NAME;
+  let bankName = userData.branch.syspara.BANK_NAME;
+  let branchName = userData.branch.NAME
+
 
   if(this.ngForm.valid){
 
@@ -97,7 +100,7 @@ view(event) {
 let PrintClosedAccounts =obj.Print_Closed_Accounts;
 
 
- this.iframeurl=this.report_url + "/PayableIntBal.php?startDate='" + Date + "'&scheme='" + scheme + "'&branch='"+branch+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&bankName='" + bankName + "' ";
+ this.iframeurl=this.report_url+ "examples/PayableIntBal.php?startDate='" + Date + "'&scheme='" + scheme + "'&branchName='"+branchName+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&bankName='" + bankName + "' ";
  this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 }
 else {

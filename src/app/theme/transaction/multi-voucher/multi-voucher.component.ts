@@ -67,6 +67,7 @@ export class MultiVoucherComponent implements OnInit {
   InputHeadAmt: number = 0.00;
   EditFlag: boolean = false;
   index: number;
+  AmountEqual: boolean = false;
   //object created to get data when row is clicked
 
   TranModeTransfer = [
@@ -153,6 +154,7 @@ export class MultiVoucherComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  loginUser : any;
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -183,6 +185,7 @@ export class MultiVoucherComponent implements OnInit {
     // this.DayOpBal = 1000;
     // get session branch data
     let user = JSON.parse(localStorage.getItem('user'));
+    this.loginUser = user;
     this.type = 'tranfer';
     this.tranModeList = this.TranModeCash;
 
@@ -430,12 +433,11 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.controls['scheme_type'].reset()
     this.angForm.controls['type'].reset()
     this.angForm.controls['chequeDate'].reset()
-    this.angForm.controls['chequeDate'].reset()
     this.angForm.controls['chequeNo'].reset()
     this.angForm.controls['bank'].reset()
     // this.getVoucherData();
     this.headData = [];
-    this.headShow = false;
+    this.headShow = false;  
     this.showChequeDetails = false;
     this.submitAccountNo = {};
     this.submitScheme = {};
@@ -451,6 +453,7 @@ export class MultiVoucherComponent implements OnInit {
 
   submit() {
     if (this.totalCredit == this.totalDebit) {
+
       this._service.insertVoucher(this.mainMaster).subscribe(data => {
         // this.getVoucherData();
         Swal.fire('Success!', 'Voucher update Successfully !', 'success');
@@ -484,14 +487,14 @@ export class MultiVoucherComponent implements OnInit {
   submitTranMode: any;
   headFlag: boolean = false;
   changeMode(item) {
-
+    debugger
     this.headData = []
     this.submitTranMode = item;
     if (this.submitTranMode.tran_type == 'TR') {
       this.showChequeDetails = true;
-      this.angForm.controls['chequeNo'].reset()
-      this.angForm.controls['chequeDate'].reset()
-      this.angForm.controls['bank'].reset()
+      // this.angForm.controls['chequeNo'].reset()
+      // this.angForm.controls['chequeDate'].reset()
+      // this.angForm.controls['bank'].reset()
 
     }
     else {
@@ -706,13 +709,14 @@ export class MultiVoucherComponent implements OnInit {
     this.EditFlag = true;
     this.index = index;
     var data = this.mainMaster[index];
+    console.log(data);
     this.selectedCode = data.scheme_type;
     this.selectedSchemeCode()
     this.selectedScheme = data.scheme.id;
     this.getIntroducer(data.scheme)
     this.customer = data.account_no.id;
     this.selectedMode = data.tran_mode.id;
-    this.particulars = data.data[0].NARRATION;
+    this.particulars = data.NARRATION;
     this.submitAccountNo = data.account_no;
     this.submitScheme = data.scheme;
     this.submitTranMode = data.tran_mode;
@@ -720,12 +724,14 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       'chequeNo': data.chequeNo,
       'chequeDate': data.chequeDate,
-      'amt': data.data[0].TRAN_AMOUNT,
-      'particulars': data.particulars,
+      'amt': data.amt,
+      'particulars': data.NARRATION,
       'total_amt': data.total_amt
     })
-    this.changeMode(data.tran_mode);
+    // this.changeMode(data.tran_mode);
+    this.headData = []
     this.headData = data.InputHead;
+    console.log(this.headData);
     if (this.headData.length > 0) {
       this.headShow = true;
     }
@@ -787,29 +793,35 @@ export class MultiVoucherComponent implements OnInit {
   editClickHandler(id) {
 
     this._service.getFormData(id).subscribe((data) => {
-
+      debugger
+      console.log(data);
       this.updateID = data[0].TRAN_NO
-      // this.updatecheckdata = data
-      // if (data.TRAN_STATUS == 0) {
-      //   this.showButton = false;
-      //   this.updateShow = true;
-      //   this.newbtnShow = true;
-      // } else {
-      //   this.showButton = false;
-      //   this.updateShow = false;
-      //   this.newbtnShow = true;
-      // }
+      this.updatecheckdata = data
+      if (data.TRAN_STATUS == 0) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
       this.mainMaster = data
-      // this.selectedCode = data[0].scheme.S_SHNAME;
-      // this.selectedSchemeCode()
-      // this.selectedScheme = data[0].scheme.id;
-      // this.getIntroducer(data[0].scheme);
-      // this.customer = data[0].account_no.id;
-      // this.selectedMode = data[0].tran_mode.id;
-      // this.angForm.patchValue({
-      //     scheme : this.selectedScheme,
-      //     particulars:data[0].NARRATION
-      // })
+      this.selectedCode = data[0].scheme.S_SHNAME;
+      this.selectedSchemeCode()
+      this.selectedScheme = data[0].scheme.id;
+      this.getIntroducer(data[0].scheme);
+      this.customer = data[0].account_no.id;
+      this.submitAccountNo = data[0].account_no;
+      this.selectedMode = data[0].tran_mode.id;
+      this.angForm.patchValue({
+          scheme : this.selectedScheme,
+          particulars:data[0].NARRATION,
+          amt    : data[0].amt
+      })
+      this.calculateVoucher()
+      this.showlgindetails()
+      this.SideDetails()
     })
   }
 
@@ -835,6 +847,7 @@ export class MultiVoucherComponent implements OnInit {
   Approve() {
     let obj = {
       id: Number(this.updateID),
+      userid : this.loginUser.id
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
@@ -952,6 +965,7 @@ export class MultiVoucherComponent implements OnInit {
       }
       this.tempDayOpBal = data;
       this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
+        debugger
         this.Pass = Math.abs(data1.passedamt)
         this.Unpass = Math.abs(data1.unpassamt)
         this.passextension = (data1.passextension != undefined ? data1.passextension : '')
