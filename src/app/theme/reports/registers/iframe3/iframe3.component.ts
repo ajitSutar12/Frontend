@@ -87,7 +87,7 @@ export class Iframe3Component implements OnInit {
     this.showRepo = false;
   }
 }
-function isloader() {
-  throw new Error('Function not implemented.');
-}
+// function isloader() {
+//   throw new Error('Function not implemented.');
+// }
 

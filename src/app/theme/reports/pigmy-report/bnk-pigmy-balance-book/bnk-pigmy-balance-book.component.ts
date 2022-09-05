@@ -155,6 +155,7 @@ export class BnkPigmyBalanceBookComponent implements OnInit {
   src: any;
   view(event) {
   
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -165,11 +166,12 @@ export class BnkPigmyBalanceBookComponent implements OnInit {
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let date =  moment(obj.DATE).format('DD/MM/YYYY');
+    // let date =  moment(obj.DATE).format('DD/MM/YYYY');
+    let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
     let schemeAccountNo  = obj.Scheme_acc
-    this.iframe5url=this.report_url+"examples/AgentwsPigmyBalanceBook.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&schemeAccountNo='" + schemeAccountNo +"&bankName='" + bankName + "'" ;
+    this.iframe5url=this.report_url+"examples/AgentwsPigmyBalanceBook.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"&schemeAccountNo=" + schemeAccountNo +"&bankName='" + bankName + "'" ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

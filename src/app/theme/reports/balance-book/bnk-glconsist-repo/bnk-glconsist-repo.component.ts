@@ -7,6 +7,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import * as moment from 'moment';
 import Swal from "sweetalert2";
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-bnk-glconsist-repo',
@@ -29,6 +30,8 @@ angForm: FormGroup;
  maxDate: Date;
  minDate: Date;
  bsValue = new Date();
+
+ report_url = environment.report_url;
 
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -86,7 +89,7 @@ angForm: FormGroup;
       let print = obj.Print;
       let penal = obj.Penal;
   
-      this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branchName='"+branchName+"'&schemed='"+schemed+"'&schemewise='"+schemewise+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branchName='"+branchName+"'&schemed='"+schemed+"'&schemewise='"+schemewise+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

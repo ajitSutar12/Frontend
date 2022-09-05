@@ -71,7 +71,7 @@ export class BnkRegStandingInstructionComponent implements OnInit {
     })
   }
   view(event) {
-    
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -89,6 +89,18 @@ export class BnkRegStandingInstructionComponent implements OnInit {
       let BRANCH_CODE = obj.BRANCH_CODE;
 
       this.iframeurl = this.report_url+"examples/StandingInstruction.php?stdate='" + stdate + "'etdate='" + etdate + "'REVOKE_INST='" + REVOKE_INST + "'branchName='" + branchName + "'&bankName='" + bankName + "' ";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    }
+    if (this.angForm.controls['REVOKE_INST'].valid==true && this.angForm.valid) {
+
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let REVOKE_INST = obj.REVOKE_INST;
+      let BRANCH_CODE = obj.BRANCH_CODE;
+
+      this.iframeurl = this.report_url+"examples/StandingRevokeInstr.php?stdate='" + stdate + "'etdate='" + etdate + "'REVOKE_INST='" + REVOKE_INST + "'branchName='" + branchName + "'&bankName='" + bankName + "' ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

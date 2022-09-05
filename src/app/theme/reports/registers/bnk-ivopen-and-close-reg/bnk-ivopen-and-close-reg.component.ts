@@ -116,7 +116,7 @@ View(event){
   let BRANCH_CODE = obj.BRANCH_CODE
   let GROUP_BY = obj.GROUP_BY
   
-  this.iframeurl = this.report_url+"examples/OpenDepositReport.php?startDate='"+startDate+"'&endDate='"+enddate+"'&branchName='"+branchName+"'&bankName='" + bankName + "' ";
+  this.iframeurl = this.report_url+"examples/InvestRegister.php?startDate='"+startDate+"'&endDate='"+enddate+"'&branchName='"+branchName+"'&bankName='" + bankName + "' ";
   this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }

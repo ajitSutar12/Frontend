@@ -160,7 +160,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/PigmyCollectionChart.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
+    this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

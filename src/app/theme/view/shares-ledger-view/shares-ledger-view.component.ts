@@ -185,7 +185,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
         }
         this.tableData.push(obj)
         this.transactions.forEach((element) => {
-          debugger
+          
           if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             if (element.TRAN_MODE == '7') {
               element['DIVIDEND_AMOUNT'] = element.OTHER2_AMOUNT
@@ -210,7 +210,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
                 element['TRAN_DRCR'] = 'C'
                 element['TRAN_TYPE'] = 'UP'
                 element['drcr'] = 'Cr'
-                element['isRebit'] = true
+                // element['isRebit'] = true
               }
               else if (element.REBIT_PAID_DATE != null && element.REBIT_PAID_DATE != '') {
                 element['TRAN_DATE'] = element.REBIT_PAID_DATE
@@ -353,7 +353,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
 
   //get account details
   getAccountDetails(event) {
-    debugger
+    
     this.tableData = []
     this.transactions = null
     this.debitTotal = 0
@@ -409,10 +409,10 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
-    debugger
+
     let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
     this.http.post(this.url + '/ledger-view/shareView', obj).subscribe((data) => {
-      debugger
+
       let closeBal = 0
       let grandOpening = 0
       grandOpening = Math.abs(data[0]?.openingBal)
@@ -430,7 +430,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
         }
         this.tableData.push(obj)
         this.transactions.forEach((element) => {
-          debugger
+          
           if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             if (element.TRAN_MODE == '7') {
               element['DIVIDEND_AMOUNT'] = element.OTHER2_AMOUNT
@@ -455,7 +455,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
                 element['TRAN_DRCR'] = 'C'
                 element['TRAN_TYPE'] = 'UP'
                 element['drcr'] = 'Cr'
-                element['isRebit'] = true
+                // element['isRebit'] = true
               }
               else if (element.REBIT_PAID_DATE != null && element.REBIT_PAID_DATE != '') {
                 element['TRAN_DATE'] = element.REBIT_PAID_DATE

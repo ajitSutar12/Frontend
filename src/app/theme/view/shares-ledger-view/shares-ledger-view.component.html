@@ -210,7 +210,7 @@
                         <td class="td_right">{{data.TRAN_DRCR=='D'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
                         <td class="td_right">{{data.TRAN_DRCR=='C'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
                         <td class="td_right">{{data.dividendBalance}} {{drcr}}</td>
-                        <td class="td_right">{{data.BONUS_AMOUNT}} {{data.drcr}}</td>
+                        <td class="td_right">{{data.BONUS_AMOUNT}} {{data.BONUS_AMOUNT!=null ?data.drcr:''}} </td>
                         <td class="td_right">{{data.REBIT_AMOUNT}} {{data.drcr}}</td>
                         <td class="td_right">{{data.CERTIFICATE_NO}}</td>
                         <td class="td_right">{{data.TOTAL_SHARES == null || data.TOTAL_SHARES == undefined ?

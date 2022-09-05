@@ -96,19 +96,19 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
 
     }
    
-    // else if (this.angForm.controls['REVOKE_INST'].valid==true && this.angForm.valid) {
-    //   this.showRepo = true;
-    //  let obj = this.angForm.value
-    //  let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    //  let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
-    //  let branch = obj.BRANCH_CODE;
-    //  let revoke = obj.REVOKE_INST;
+    else if (this.angForm.controls['REVOKE_INST'].valid==true && this.angForm.valid) {
+      this.showRepo = true;
+     let obj = this.angForm.value
+     let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+     let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+     let branch = obj.BRANCH_CODE;
+     let revoke = obj.REVOKE_INST;
   
   
-    //  this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/SpecialRevokeInstrut.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branch='"+branch+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
-    //  this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+     this.iframeurl = this.report_url+ "examples/SpecialRevokeInstrut.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branch='"+branch+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
+     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
  
-    //  }
+     }
 
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});

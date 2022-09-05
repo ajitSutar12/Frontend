@@ -100,7 +100,7 @@ view(event) {
 let PrintClosedAccounts =obj.Print_Closed_Accounts;
 
 
- this.iframeurl=this.report_url+ "examples/PayableIntBal.php?startDate='" + Date + "'&scheme='" + scheme + "'&branchName='"+branchName+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&bankName='" + bankName + "' ";
+ this.iframeurl=this.report_url+ "examples/PayableIntBal.php?Date='" + Date + "'&scheme='" + scheme + "'&branchName='"+branchName+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&bankName='" + bankName + "' ";
  this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 }
 else {
