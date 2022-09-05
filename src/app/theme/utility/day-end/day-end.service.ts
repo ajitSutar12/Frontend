@@ -63,4 +63,8 @@
     dayEndProccessingRemarkChangeBranchWise(data):Observable<any>{
       return this.http.post(this.url+'/voucher/DayEndProccessingRemarkChange',data);
     }
+
+    pigmyDayEnd(data):Observable<any>{
+      return this.http.post(this.url+'/voucher/pigmyDayEnd',data);
+    }
   }
