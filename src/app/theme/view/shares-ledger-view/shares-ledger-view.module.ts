@@ -14,6 +14,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
   ],
   declarations: [SharesLedgerViewComponent],
   exports: [SharesLedgerViewComponent],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService,
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService, SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

@@ -123,7 +123,7 @@ export class CustomerViewComponent implements OnInit {
   allAccounts = []
   //function to get existing customer data according selection
   getCustomer(eve) {
-    
+
     this.accountsList = []
     this.allAccounts = []
     this.withoutClosedAccount = []
@@ -134,11 +134,22 @@ export class CustomerViewComponent implements OnInit {
     })
     this.ngcustomer = eve.value
     this.customerIdService.getFormData(eve.value).subscribe(data => {
+      debugger
+      if (data.custAddress.length != 0) {
+        data.custAddress.forEach(element => {
+          if (element.AC_ADDTYPE == 'P')
+            this.address = element
+        });
+        // if (this.address != undefined) {
+        this.address['AC_HONO'] != null ? this.AC_HONO = this.address['AC_HONO'] + ',' : this.AC_HONO = ''
+        this.address['AC_WARD'] != null ? this.AC_WARD = this.address['AC_WARD'] + ',' : this.AC_WARD = ''
+        this.address['AC_AREA'] != null ? this.AC_AREA = this.address['AC_AREA'] + ',' : this.AC_AREA = ''
+        this.address['AC_GALLI'] != null ? this.AC_GALLI = this.address['AC_GALLI'] + ',' : this.AC_GALLI = ''
+        this.address['AC_ADDR'] != null ? this.AC_ADDR = this.address['AC_ADDR'] + ',' : this.AC_ADDR = ''
+        this.AC_PIN = this.address['AC_PIN']
+        // }
+      }
 
-      data.custAddress.forEach(element => {
-        if (element.AC_ADDTYPE == 'P')
-          this.address = element
-      });
       for (let share of data.shareMaster) {
         share['ACTYPE'] = share.shareMaster?.S_APPL
         this.allAccounts.push(share)
@@ -166,13 +177,14 @@ export class CustomerViewComponent implements OnInit {
       }
       this.accountsList = this.withoutClosedAccount
       this.noOfAccounts = this.withoutClosedAccount.length
+      if (this.withoutClosedAccount.length == 0) {
+        this.angForm.patchValue({
+          CLOSED_AC: true
+        })
+        this.accountsList = this.allAccounts
+        this.noOfAccounts = this.allAccounts.length
+      }
 
-      this.address['AC_HONO'] != null ? this.AC_HONO = this.address['AC_HONO'] + ',' : this.AC_HONO = ''
-      this.address['AC_WARD'] != null ? this.AC_WARD = this.address['AC_WARD'] + ',' : this.AC_WARD = ''
-      this.address['AC_AREA'] != null ? this.AC_AREA = this.address['AC_AREA'] + ',' : this.AC_AREA = ''
-      this.address['AC_GALLI'] != null ? this.AC_GALLI = this.address['AC_GALLI'] + ',' : this.AC_GALLI = ''
-      this.address['AC_ADDR'] != null ? this.AC_ADDR = this.address['AC_ADDR'] + ',' : this.AC_ADDR = ''
-      this.AC_PIN = this.address['AC_PIN']
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
       this.PANNO = data.AC_PANNO
@@ -228,10 +240,10 @@ export class CustomerViewComponent implements OnInit {
         let facevalue = this.accountDetails.shareMaster.SHARES_FACE_VALUE == undefined || this.accountDetails.shareMaster.SHARES_FACE_VALUE == null ? 0 : Number(this.accountDetails.shareMaster.SHARES_FACE_VALUE)
         facevalue == 0 ? this.accountDetails['numberofshares'] = 0 : this.accountDetails['numberofshares'] = Math.floor(data['ledgerBalance'] / facevalue);
       }
-      this.accountDetails['Balance'] = data['ledgerBalance']
+      this.accountDetails['Balance'] = data['ledgerBalance'] >= 0 ? data['ledgerBalance'] + ' Dr' : Math.abs(data['ledgerBalance']) + ' Cr'
       this.accountDetails['InterestAmount'] = data['InterestAmount']
       this.accountDetails['pigmyAgentPigmy'] = value.PIGMY_ACTYPE != null ? data['pigmyScheme'] : null
-      this.accountDetails['interestrate'] = data['interestrate']
+      this.accountDetails['interestrate'] = data['interestrate'] + ' %'
       this.accountDetails['AGENT_ACTYPE'] = data['AgentScheme']
       this.accountDetails['penalInt'] = data['penalInt']
       this.accountDetails['receiveablePenal'] = data['receiveablePenal']

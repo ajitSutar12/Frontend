@@ -68,10 +68,10 @@
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
+                                        <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit" (keyup)="filterObject($event)"
                                             formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
                                             required placeholder="Account Number" (change)="getAccountDetails($event)">
-                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                            <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
@@ -209,9 +209,9 @@
                         <td class="td_right">{{data.closeBalance}} {{drcr}}</td>
                         <td class="td_right">{{data.TRAN_DRCR=='D'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
                         <td class="td_right">{{data.TRAN_DRCR=='C'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
-                        <td class="td_right">{{data.dividendBalance}} {{drcr}}</td>
+                        <td class="td_right">{{data.dividendBalance}} {{data.dividendBalance!=0 ?drcr:''}}</td>
                         <td class="td_right">{{data.BONUS_AMOUNT}} {{data.BONUS_AMOUNT!=null ?data.drcr:''}} </td>
-                        <td class="td_right">{{data.REBIT_AMOUNT}} {{data.drcr}}</td>
+                        <td class="td_right">{{data.REBIT_AMOUNT}} {{data.REBIT_AMOUNT!=null ?data.drcr:''}}</td>
                         <td class="td_right">{{data.CERTIFICATE_NO}}</td>
                         <td class="td_right">{{data.TOTAL_SHARES == null || data.TOTAL_SHARES == undefined ?
                             data.NO_OF_SHARES :
