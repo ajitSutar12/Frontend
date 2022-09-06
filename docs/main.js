@@ -5140,6 +5140,9 @@ class DayEndService {
     dayEndProccessingRemarkChangeBranchWise(data) {
         return this.http.post(this.url + '/voucher/DayEndProccessingRemarkChange', data);
     }
+    pigmyDayEnd(data) {
+        return this.http.post(this.url + '/voucher/pigmyDayEnd', data);
+    }
 }
 DayEndService.ɵfac = function DayEndService_Factory(t) { return new (t || DayEndService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClient"])); };
 DayEndService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: DayEndService, factory: DayEndService.ɵfac, providedIn: 'root' });

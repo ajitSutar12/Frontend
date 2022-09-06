@@ -142,6 +142,29 @@ class DayBeginComponent {
                 this.daybeginProcess = true;
                 this._service.postData(obj).subscribe(data => {
                     sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire("Success!", current_date + " Day Begin Successfully", "success");
+                    this.daybeginProcess = false;
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+                        title: 'Need To Re-Login',
+                        text: "Please re-login in Application",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#229954',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Re-Login!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let user = JSON.parse(localStorage.getItem('user'));
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('user');
+                            this.router.navigate(['/auth/login/simple/']);
+                        }
+                        else {
+                            let user = JSON.parse(localStorage.getItem('user'));
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('user');
+                            this.router.navigate(['/auth/login/simple/']);
+                        }
+                    });
                 }, err => {
                     sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire("Error", err.error.message, "error");
                     this.daybeginProcess = false;

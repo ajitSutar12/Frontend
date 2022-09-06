@@ -20,6 +20,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
 import { environment } from 'src/environments/environment';
 import { VoucherEntryService } from '../voucher-entry/voucher-entry.service'
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -168,6 +169,7 @@ export class MultiVoucherComponent implements OnInit {
     private _bankmasterService: BankMasterService,
     private router: Router,
     private _CustomerIdService: CustomerIdService,
+    private _ACMasterDropdownService: ACMasterDropdownService,
 
   ) {
     if (this.childMessage != undefined) {
@@ -375,6 +377,12 @@ export class MultiVoucherComponent implements OnInit {
           this.introducerACNo = data;
         })
         break;
+        case 'GL':
+      this._ACMasterDropdownService.getACMasterList1().subscribe(data => {
+        console.log('data', data)
+        this.introducerACNo = data;
+      })
+      break;
     }
   }
 
@@ -791,7 +799,7 @@ export class MultiVoucherComponent implements OnInit {
   updateID
   item1: any;
   editClickHandler(id) {
-
+debugger
     this._service.getFormData(id).subscribe((data) => {
       debugger
       console.log(data);
