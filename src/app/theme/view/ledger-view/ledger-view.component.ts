@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { LegderViewService } from './ledger-view.service'
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-ledger-view',
   templateUrl: './ledger-view.component.html',
@@ -86,6 +87,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     private ACMasterDropdownService: ACMasterDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
+    private systemParameter: SystemMasterParametersService,
     private _service: LegderViewService
   ) {
     this.maxDate = new Date();
@@ -94,7 +96,6 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.maxDate.setDate(this.maxDate.getDate())
   }
   ngOnChanges() {
-    debugger
     this.createForm()
     this.showView = false
     this.disableFields = true
@@ -159,7 +160,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
-    debugger
+
     let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.fromdate).format('DD/MM/YYYY'), moment(this.todate).format('DD/MM/YYYY')]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
@@ -169,13 +170,13 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
       // this.transactions = data
       this.transactions = this.sortData(data);
-      if (this.transactions.length != 0) {
-        let obj = {
-          TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
-          NARRATION: 'Opening Balance',
-          closeBalance: closeBal
-        }
-        this.tableData.push(obj)
+      let obj = {
+        TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
+        NARRATION: 'Opening Balance',
+        closeBalance: closeBal
+      }
+      this.tableData.push(obj)
+      if (this.transactions.length >= 2) {
         this.transactions.forEach((element) => {
           if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             //record wise other amount 
@@ -211,25 +212,25 @@ export class LedgerViewComponent implements OnInit, OnChanges {
             this.tableData.push(element)
           }
         });
-        console.log(this.tableData, 'table')
-        //grand total amount
-        this.grandTotal = this.creditTotal + grandOpening
+      }
+      //grand total amount
+      this.grandTotal = this.creditTotal + grandOpening
 
-      }
-      else {
-        this.tableData = []
-        this.debitTotal = 0
-        this.creditTotal = 0
-        this.normalInt = 0
-        this.recpayInt = 0
-        this.overDueAmt = 0
-        this.penalInt = 0
-        this.recpenalInt = 0
-        this.otherAmount = 0
-        this.addedPenal = 0
-        this.grandTotal = 0
-        Swal.fire('Info', 'No Records Found', 'info')
-      }
+      // }
+      // else {
+      //   this.tableData = []
+      //   this.debitTotal = 0
+      //   this.creditTotal = 0
+      //   this.normalInt = 0
+      //   this.recpayInt = 0
+      //   this.overDueAmt = 0
+      //   this.penalInt = 0
+      //   this.recpenalInt = 0
+      //   this.otherAmount = 0
+      //   this.addedPenal = 0
+      //   this.grandTotal = 0
+      //   Swal.fire('Info', 'No Records Found', 'info')
+      // }
     })
 
     console.log(this.tableData, 'sorted data')
@@ -251,6 +252,12 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
+    })
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      this.fromdate = `01/04/${year - 1}`
+      this.todate = data.CURRENT_DATE
     })
   }
 
@@ -275,6 +282,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   // Fetching account from seleted scheme
   getAccountlist() {
     this.accountedit = null
+    this.Cust_ID = null
     this.tableData = []
     this.transactions = null
     this.debitTotal = 0
@@ -376,6 +384,21 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
   }
+  Cust_ID
+  //filter object
+  filterObject(ele) {
+    this.Cust_ID = [];
+    if (ele.key == 'Backspace' && ele.target.value == '') {
+      this.Cust_ID = [];
+    }
+    else {
+      for (let element of this.schemeACNo) {
+        if (JSON.stringify(element.label).includes(ele.target.value.toUpperCase())) {
+          this.Cust_ID.push(element);
+        }
+      }
+    }
+  }
 
   //transactions list in table
   getTransactionsDeatils() {
@@ -401,13 +424,15 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
       // this.transactions = data
       this.transactions = this.sortData(data);
-      if (this.transactions.length != 0) {
-        let obj = {
-          TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
-          NARRATION: 'Opening Balance',
-          closeBalance: closeBal
-        }
-        this.tableData.push(obj)
+      console.log(this.transactions, 'dta')
+      // if (this.transactions.length != 0) {
+      let obj = {
+        TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
+        NARRATION: 'Opening Balance',
+        closeBalance: closeBal
+      }
+      this.tableData.push(obj)
+      if (this.transactions.length >= 2) {
         this.transactions.forEach((element) => {
           if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             //record wise other amount 
@@ -443,25 +468,26 @@ export class LedgerViewComponent implements OnInit, OnChanges {
             this.tableData.push(element)
           }
         });
-        console.log(this.tableData, 'table')
-        //grand total amount
-        this.grandTotal = this.creditTotal + grandOpening
+      }
+      console.log(this.tableData, 'table')
+      //grand total amount
+      this.grandTotal = this.creditTotal + grandOpening
 
-      }
-      else {
-        this.tableData = []
-        this.debitTotal = 0
-        this.creditTotal = 0
-        this.normalInt = 0
-        this.recpayInt = 0
-        this.overDueAmt = 0
-        this.penalInt = 0
-        this.recpenalInt = 0
-        this.otherAmount = 0
-        this.addedPenal = 0
-        this.grandTotal = 0
-        Swal.fire('Info', 'No Records Found', 'info')
-      }
+      // }
+      // else {
+      //   this.tableData = []
+      //   this.debitTotal = 0
+      //   this.creditTotal = 0
+      //   this.normalInt = 0
+      //   this.recpayInt = 0
+      //   this.overDueAmt = 0
+      //   this.penalInt = 0
+      //   this.recpenalInt = 0
+      //   this.otherAmount = 0
+      //   this.addedPenal = 0
+      //   this.grandTotal = 0
+      //   Swal.fire('Info', 'No Records Found', 'info')
+      // }
     })
 
     console.log(this.tableData, 'sorted data')
@@ -484,6 +510,4 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     //   return <any>c - <any>d;
     // });
   }
-
-
 }
