@@ -21,6 +21,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
 import { VoucherEntryService } from '../voucher-entry/voucher-entry.service'
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 
 @NgModule({
   imports: [
@@ -40,6 +41,6 @@ import { BankMasterService } from '../../../shared/dropdownService/bank-Master-d
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  }, SystemMasterParametersService, BankMasterService,VoucherEntryService, CustomerIdService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,]
+  }, SystemMasterParametersService, BankMasterService,VoucherEntryService, CustomerIdService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,ACMasterDropdownService]
 })
 export class MultiVoucherModule { }
