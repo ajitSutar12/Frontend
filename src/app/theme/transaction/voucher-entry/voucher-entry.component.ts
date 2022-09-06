@@ -1571,6 +1571,11 @@ debugger
             this.introducerACNo = data;
           })
           break;
+        case 'GL':
+          this.savingMasterService.getGLAccountSchemeList1(this.obj).subscribe(data=>{
+            this.introducerACNo = data
+          })
+          break;
       }
 
       this.selectedAccountno = data.account_no[0].id
