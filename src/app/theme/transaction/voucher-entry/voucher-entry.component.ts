@@ -143,7 +143,7 @@ export class VoucherEntryComponent implements OnInit {
   maxDate: Date;
   dtTrigger: any;
   dtElement: any;
-  loginUser : any;
+  loginUser: any;
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -272,7 +272,6 @@ export class VoucherEntryComponent implements OnInit {
   //get account no according scheme for introducer
   Submitscheme: any;
   getIntroducer(item) {
-    debugger
     this.tempschmetype = this.selectedCode
     this.introducerACNo = [];
     this.obj = [item.id, this.selectedBranch]
@@ -563,7 +562,7 @@ export class VoucherEntryComponent implements OnInit {
           date: this.date,
           schemeType: this.selectedCode,
         }
-debugger
+        debugger
 
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
@@ -880,28 +879,28 @@ debugger
     //   this.extenstionaftervoucher = 'Cr'
     // }
 
-    if(tran == 'D' && this.typeclearbal == 'Dr'){
+    if (tran == 'D' && this.typeclearbal == 'Dr') {
       this.AfterVoucher = Math.abs(this.ClearBalance + value);
       this.extenstionaftervoucher = 'Dr';
-    }else if(tran == 'D' && this.typeclearbal == 'Cr'){
+    } else if (tran == 'D' && this.typeclearbal == 'Cr') {
       this.AfterVoucher = Math.abs(this.ClearBalance - value);
-      if(value > this.ClearBalance){
-        if(tran == 'C'){
+      if (value > this.ClearBalance) {
+        if (tran == 'C') {
           this.extenstionaftervoucher = 'Cr';
-        }else{
-          this.extenstionaftervoucher = 'Dr';
-        }
-      }    
-    }else if(tran == 'C' && this.typeclearbal == 'Dr'){
-      this.AfterVoucher = Math.abs(this.ClearBalance - value);
-      if(value > this.ClearBalance){
-        if(tran == 'C'){
-          this.extenstionaftervoucher = 'Cr';
-        }else{
+        } else {
           this.extenstionaftervoucher = 'Dr';
         }
       }
-    }else{
+    } else if (tran == 'C' && this.typeclearbal == 'Dr') {
+      this.AfterVoucher = Math.abs(this.ClearBalance - value);
+      if (value > this.ClearBalance) {
+        if (tran == 'C') {
+          this.extenstionaftervoucher = 'Cr';
+        } else {
+          this.extenstionaftervoucher = 'Dr';
+        }
+      }
+    } else {
       this.AfterVoucher = Math.abs(this.ClearBalance + value);
       this.extenstionaftervoucher = 'Cr';
     }
@@ -1478,7 +1477,7 @@ debugger
   }
 
   headFlag: boolean = false;
-  editClickHandler(id) {  
+  editClickHandler(id) {
 
     this._service.getFormData(id).subscribe((data) => {
       debugger
@@ -1612,7 +1611,7 @@ debugger
   Approve() {
     let obj = {
       id: this.updateID,
-      userid : this.loginUser.id
+      userid: this.loginUser.id
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
