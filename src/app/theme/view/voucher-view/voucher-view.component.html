@@ -110,7 +110,7 @@
                         <td>{{data.TRAN_ACNOTYPE=='GL'?data.TRAN_ACTYPE:data.S_APPL}}</td>
                         <td>{{data.TRAN_ACNO}}</td>
                         <td>{{data.AC_NAME}}</td>
-                        <td>{{data.TRAN_SOURCE_TYPE}}</td>
+                        <td>{{data.TRAN_SOURCE_TYPE==null?'---':data.TRAN_SOURCE_TYPE}}</td>
                         <td *ngIf="data.TRAN_TYPE== 'CS'">Cash</td>
                         <td *ngIf="data.TRAN_TYPE== 'TR'">Transfer</td>
                         <td *ngIf="data.TRAN_TYPE== 'JV'">Transfer</td>

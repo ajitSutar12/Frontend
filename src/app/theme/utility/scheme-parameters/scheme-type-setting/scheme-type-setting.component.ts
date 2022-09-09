@@ -261,7 +261,7 @@ export class SchemeTypeSettingComponent
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
-      id: formVal.id,
+      // id: formVal.id,
       S_ACNOTYPE: formVal.S_ACNOTYPE,
       S_NAME: formVal.S_NAME,
       S_SINGLE_VOUCHER: (formVal.S_SINGLE_VOUCHER == true ? '1' : '0'),
