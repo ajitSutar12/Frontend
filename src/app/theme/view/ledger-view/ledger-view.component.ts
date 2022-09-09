@@ -168,8 +168,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       grandOpening = Math.abs(data[0]?.openingBal)
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
-      // this.transactions = data
-      this.transactions = this.sortData(data);
+      this.transactions = data
+      // this.transactions = this.sortData(data);
       let obj = {
         TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
         NARRATION: 'Opening Balance',
@@ -422,8 +422,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       grandOpening = Math.abs(data[0]?.openingBal)
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
-      // this.transactions = data
-      this.transactions = this.sortData(data);
+      this.transactions = data
+      // this.transactions = this.sortData(data);
       console.log(this.transactions, 'dta')
       // if (this.transactions.length != 0) {
       let obj = {

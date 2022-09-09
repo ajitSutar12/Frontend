@@ -67,7 +67,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
-                                            formControlName="AC_NO" bindLabel="label"  (keyup)="filterObject($event)"
+                                            formControlName="AC_NO" bindLabel="label" (keyup)="filterObject($event)"
                                             (change)="getAccountDetails($event)" title="Compulsory Selection" required
                                             placeholder="Account No." [disabled]="disableFields">
                                             <ng-option *ngFor="let values of Cust_ID" [value]="values">
@@ -223,9 +223,9 @@
                                 {{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>
                             <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
-                                {{data.TRAN_DRCR=='D'?data.TRAN_AMOUNT:''}}</td>
+                                {{data.TRAN_DRCR=='D'? (data.TRAN_AMOUNT | number:'2.0':'en') :''}}</td>
                             <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
-                                {{data.TRAN_DRCR=='C'?data.TRAN_AMOUNT:''}}</td>
+                                {{data.TRAN_DRCR=='C'?(data.TRAN_AMOUNT | number:'1.0':'en'):''}}</td>
                             <td class="td_right">{{data.closeBalance}} {{drcr}}</td>
                             <td>{{data.OFFICER_CODE}}</td>
                             <td class="td_right">{{data.INTEREST_AMOUNT }}

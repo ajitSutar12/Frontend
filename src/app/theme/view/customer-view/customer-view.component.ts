@@ -38,8 +38,8 @@ export class CustomerViewComponent implements OnInit {
   tempAddress: boolean = true;
   sysparaCurrentDate
   // image purpose
-  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
-  signture: string = '../../../../assets/sign/signture.jpg';
+  customerImg: string = 'assets/images/user-card/img-round4.jpg';
+  signture: string = 'assets/sign/signture.jpg';
   customerList
   constructor(
     private fb: FormBuilder,
@@ -236,10 +236,11 @@ export class CustomerViewComponent implements OnInit {
       obj['schemeData'] = this.accountDetails.DPMaster
     }
     this.http.post(this.url + '/ledger-view/customerAccountWiseData', obj).subscribe(data => {
-      if (this.accountDetails.AC_ACNOTYPE == 'SH') {
-        let facevalue = this.accountDetails.shareMaster.SHARES_FACE_VALUE == undefined || this.accountDetails.shareMaster.SHARES_FACE_VALUE == null ? 0 : Number(this.accountDetails.shareMaster.SHARES_FACE_VALUE)
-        facevalue == 0 ? this.accountDetails['numberofshares'] = 0 : this.accountDetails['numberofshares'] = Math.floor(data['ledgerBalance'] / facevalue);
-      }
+      // if (this.accountDetails.AC_ACNOTYPE == 'SH') {
+      //   let facevalue = this.accountDetails.shareMaster.SHARES_FACE_VALUE == undefined || this.accountDetails.shareMaster.SHARES_FACE_VALUE == null ? 0 : Number(this.accountDetails.shareMaster.SHARES_FACE_VALUE)
+      //   facevalue == 0 ? this.accountDetails['numberofshares'] = 0 : this.accountDetails['numberofshares'] = Math.floor(data['ledgerBalance'] / facevalue);
+      // }
+      this.accountDetails['numberofshares'] = data['numberOfShares']
       this.accountDetails['Balance'] = data['ledgerBalance'] >= 0 ? data['ledgerBalance'] + ' Dr' : Math.abs(data['ledgerBalance']) + ' Cr'
       this.accountDetails['InterestAmount'] = data['InterestAmount']
       this.accountDetails['pigmyAgentPigmy'] = value.PIGMY_ACTYPE != null ? data['pigmyScheme'] : null
