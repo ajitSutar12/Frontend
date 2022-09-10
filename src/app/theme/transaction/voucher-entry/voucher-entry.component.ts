@@ -1703,9 +1703,10 @@ export class VoucherEntryComponent implements OnInit {
     // startdate = startdate.format("DD-MM-YYYY");
     let formDT = moment(startdate, 'DD/MM/YYYY')
     var addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    debugger
     let obj = {
       scheme: this.Submitscheme.S_APPL,
-      acno: this.submitCustomer.BANKACNO,
+      acno: this.Submitscheme.S_APPL == '980'?this.submitCustomer.AC_NO:this.submitCustomer.BANKACNO,
       date: addInFrom
     }
 

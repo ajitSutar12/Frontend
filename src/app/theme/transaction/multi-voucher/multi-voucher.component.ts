@@ -960,10 +960,10 @@ debugger
     var addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
     let obj = {
       scheme: this.submitScheme.S_APPL,
-      acno: this.submitAccountNo.BANKACNO,
+      acno: this.submitScheme.S_APPL == '980'?this.submitAccountNo.AC_NO:this.submitAccountNo.BANKACNO,
       date: addInFrom
     }
-
+    debugger
     this._vservice.getledgerbalance(obj).subscribe(data => {
       this.DayOpBal = Math.abs(data);
       if (data < 0) {

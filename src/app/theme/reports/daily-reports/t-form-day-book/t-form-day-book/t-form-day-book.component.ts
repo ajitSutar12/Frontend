@@ -89,7 +89,7 @@ export class TFormDayBookComponent implements OnInit {
       let type = obj.Type;
 
 
-      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + this.ngbranch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName ;
+      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + this.ngbranch + "&branch=" + branch + "&type=" + type + "&bankName=" + bankName ;
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
