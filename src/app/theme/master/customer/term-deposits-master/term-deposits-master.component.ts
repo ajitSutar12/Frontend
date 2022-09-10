@@ -284,6 +284,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
@@ -727,10 +731,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     const formVal = this.angForm.value;
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
       if (data.MAX_DEP_LMT != '' || data.MULTIPLE_OF_AMT != '') {
-        if (this.angForm.controls['AC_SCHMAMT'].value > data.MAX_DEP_LMT) {
+        if (Number(this.angForm.controls['AC_SCHMAMT'].value) > Number(data.MAX_DEP_LMT)) {
           Swal.fire("Deposit Amount Should Be Less Than " + data.MAX_DEP_LMT, "error");
           this.angForm.controls['AC_SCHMAMT'].reset()
-        } else if (((this.angForm.controls['AC_SCHMAMT'].value) % (data.MULTIPLE_OF_AMT)) != 0) {
+        } else if (((Number(this.angForm.controls['AC_SCHMAMT'].value)) % Number((data.MULTIPLE_OF_AMT))) != 0) {
           Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_AMT, "error");
 
         }
