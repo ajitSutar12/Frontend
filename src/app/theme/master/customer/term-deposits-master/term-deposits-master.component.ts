@@ -736,9 +736,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           this.angForm.controls['AC_SCHMAMT'].reset()
         } else if (((Number(this.angForm.controls['AC_SCHMAMT'].value)) % Number((data.MULTIPLE_OF_AMT))) != 0) {
           Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_AMT, "error");
-
         }
-
       } else {
         this.angForm.patchValue({
           AC_MATUAMT: formVal.AC_MATUAMT
@@ -751,32 +749,32 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
 
       if (data.UNIT_OF_PERIOD == "B") {
-        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH && this.angForm.controls['AC_DAYS'].value < data.AC_DAYS) {
+        if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset()
           this.angForm.controls['MIN_DAYS'].reset()
         }
 
-        if (this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
+        if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           this.angForm.controls['AC_DAYS'].reset()
           Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
         }
       }
       else if (data.UNIT_OF_PERIOD == "D") {
-        if (this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
+        if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_DAYS'].reset()
         }
       }
       else if (data.UNIT_OF_PERIOD == "M") {
-        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH) {
+        if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
           Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH, "error");
           this.angForm.controls['AC_MONTHS'].reset()
         }
       }
 
       if (data.UNIT_OF_PERIOD == "B" && data.IS_AUTO_PERIOD_CALCULATE == '1') {
-        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH && this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
+        if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset()
           this.angForm.controls['AC_DAYS'].reset()
@@ -785,12 +783,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
       if (data.MULTIPLE_OF_DAYS != null) {
-        if (((this.angForm.controls['AC_DAYS'].value) % (data.MULTIPLE_OF_DAYS)) != 0) {
+        if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
           Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
         }
       }
       if (data.MULTIPLE_OF_MONTH != null) {
-        if (((this.angForm.controls['AC_MONTHS'].value) % (data.MULTIPLE_OF_MONTH)) != 0) {
+        if (((Number(this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
           Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
         }
       }
@@ -1003,7 +1001,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var noOfInstallment = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
     var amount = this.angForm.controls['AC_SCHMAMT'].value
     var rate = this.angForm.controls['AC_INTRATE'].value
-    var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * amount * rate / 1200
+    var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * Number(amount) * Number(rate) / 1200
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
   }
 
@@ -1022,8 +1020,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     var days = a.diff(b, 'days');
 
-    var amount = this.angForm.controls['AC_SCHMAMT'].value
-    var rate = this.angForm.controls['AC_INTRATE'].value
+    var amount = Number(this.angForm.controls['AC_SCHMAMT'].value)
+    var rate = Number(this.angForm.controls['AC_INTRATE'].value)
     var noOfInstallment = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
     var totalInterest = 0
 
@@ -2219,7 +2217,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             for (this.i = 1; this.i <= Quarters; this.i++) {
               let totalInterest: number
               var sample = parseFloat(amount);
-              var totalInt = (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
+              var totalInt = (parseFloat(amount) * Number(this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
               totalInterest = Number(totalInt)
               amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
 
@@ -2227,7 +2225,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
             }
-            maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
+            maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * Number(this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
 
             this.angForm.patchValue({
               AC_MATUAMT: maturityAmount
@@ -2249,8 +2247,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var days = a.diff(b, 'days');
 
 
-            var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
-            var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
+            var tmpAmt1 = Math.round(((Number(this.angForm.controls['AC_SCHMAMT'].value) * Number(this.angForm.controls['AC_INTRATE'].value) * months) / (12 * 100)))
+            var tmpAmt2 = Math.round(((Number(this.angForm.controls['AC_SCHMAMT'].value) * Number(this.angForm.controls['AC_INTRATE'].value) * days) / (365 * 100)))
             var Interest = (tmpAmt1 + tmpAmt2)
             var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
             this.angForm.patchValue({
@@ -2276,8 +2274,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var days = a.diff(b, 'days');
 
 
-            var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
-            var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
+            var tmpAmt1 = Math.round(((Number(this.angForm.controls['AC_SCHMAMT'].value) * Number(this.angForm.controls['AC_INTRATE'].value) * months) / (12 * 100)))
+            var tmpAmt2 = Math.round(((Number(this.angForm.controls['AC_SCHMAMT'].value) * Number(this.angForm.controls['AC_INTRATE'].value) * days) / (365 * 100)))
             var Interest = (tmpAmt1 + tmpAmt2)
             var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
             this.angForm.patchValue({
@@ -2425,8 +2423,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
             var days = a.diff(b, 'days');
 
-            var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
-            var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
+            var tmpAmt1 = Math.round(((Number(this.angForm.controls['AC_SCHMAMT'].value) * Number(this.angForm.controls['AC_INTRATE'].value) * months) / (12 * 100)))
+            var tmpAmt2 = Math.round(((Number(this.angForm.controls['AC_SCHMAMT'].value) * Number(this.angForm.controls['AC_INTRATE'].value) * days) / (365 * 100)))
             var Interest = (tmpAmt1 + tmpAmt2)
             var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
             this.angForm.patchValue({
