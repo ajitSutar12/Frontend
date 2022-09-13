@@ -957,7 +957,12 @@ debugger
     // startdate = startdate.subtract(1, 'd');
     // startdate = startdate.format("DD-MM-YYYY");
     let formDT = moment(startdate, 'DD/MM/YYYY')
-    var addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    var addInFrom:any;
+    if(this.submitScheme.S_ACNOTYPE == 'PG'){
+      addInFrom = startdate;
+    }else{
+      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    }
     let obj = {
       scheme: this.submitScheme.S_APPL,
       acno: this.submitScheme.S_APPL == '980'?this.submitAccountNo.AC_NO:this.submitAccountNo.BANKACNO,
