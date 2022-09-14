@@ -1574,32 +1574,32 @@ debugger
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           element['Balance'] = Math.abs(data1.intpenal.InterestAmount)
           element['tempBalance'] = data1.intpenal.InterestAmount
           element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           element['Balance'] = Math.abs(data1.intpenal.PenalInterest)
           element['tempBalance'] = data1.intpenal.PenalInterest
           element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           element['Balance'] = Math.abs(data1.recpaypen)
           element['tempBalance'] = data1.recpaypen
           element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           element['Balance'] = Math.abs(data1.recpaybal)
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           element['Balance'] = Math.abs(data1.recpaybal)
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1612,7 +1612,7 @@ debugger
             })
           }
         } else if (element.FIELD_AMOUNT == 'OTHER3_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1626,7 +1626,7 @@ debugger
           }
 
         } else if (element.FIELD_AMOUNT == 'OTHER4_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1640,7 +1640,7 @@ debugger
           }
 
         } else if (element.FIELD_AMOUNT == 'OTHER5_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1654,7 +1654,7 @@ debugger
           }
 
         } else if (element.FIELD_AMOUNT == 'OTHER6_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1668,7 +1668,7 @@ debugger
           }
 
         } else if (element.FIELD_AMOUNT == 'OTHER7_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1682,7 +1682,7 @@ debugger
           }
 
         } else if (element.FIELD_AMOUNT == 'OTHER8_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1695,7 +1695,7 @@ debugger
             })
           }
         } else if (element.FIELD_AMOUNT == 'OTHER9_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1708,7 +1708,7 @@ debugger
             })
           }
         } else if (element.FIELD_AMOUNT == 'OTHER11_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
 
@@ -1721,7 +1721,7 @@ debugger
             })
           }
         } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
-          element['Amount'] = 0.00
+          element['Amount'] = 0
           element['Balance'] = Math.abs(data1.overduebal)
           element['tempBalance'] = data1.overduebal
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
