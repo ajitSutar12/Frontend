@@ -147,7 +147,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedMode" bindValue="id"
                                                     formControlName="tran_mode"
-                                                    (change)="changeMode($event);checktranCondition();updateheadbalance()">
+                                                    (change)="changeMode($event);checktranCondition()">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
                                                 </ng-select>
@@ -283,7 +283,7 @@
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
                                                                     (keyup)="getInputHeadAmt($event,i)"
-                                                                    (focusout)="decimalAllContent($event)" value="0.00">
+                                                                    (focusout)="decimalAllContent($event)" value="{{item.Amount}}">
                                                             </td>
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
                                                                     type="text"
@@ -291,7 +291,7 @@
                                                                     style="width: 100%;border:none;text-align: right;"
                                                                     (keyup)="getInputHeadAmt($event,i)"
                                                                     (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
-                                                                    value="0.00">
+                                                                    value="{{item.Amount}}">
                                                             </td>
                                                             <!-- <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
                                                                     type="text"

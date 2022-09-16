@@ -389,6 +389,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //submit Form
   submit() {
+    debugger
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = this.angForm.value;
     obj['user'] = user;
@@ -397,6 +398,7 @@ export class VoucherEntryComponent implements OnInit {
     obj['account_no'] = this.submitCustomer;
     obj['tran_mode'] = this.submitTranMode;
     console.log(obj);
+    if(Number(this.totalAmt) != 0 && this.totalAmt != undefined && this.totalAmt != '' && this.totalAmt != '0.00' && this.totalAmt != 'NaN.00' ){
     this._service.insertVoucher(obj).subscribe(data => {
       // this.getVoucherData();
       // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
@@ -451,6 +453,9 @@ export class VoucherEntryComponent implements OnInit {
     }, err => {
       console.log(err);
     })
+  }else{
+    Swal.fire('Error!', 'Voucher not Valid', 'error');
+  }
   }
   // Reset Function
   resetForm() {
@@ -467,10 +472,10 @@ export class VoucherEntryComponent implements OnInit {
       });
       let num = Number(ele.target.value) + Number(count)
       // this.totalAmt = num 
-      this.totalAmt = num + '.00'
+      this.totalAmt = parseFloat(num.toString()).toFixed(2);
     } else {
       // this.totalAmt = ele.target.value 
-      this.totalAmt = ele.target.value + '.00'
+      this.totalAmt = parseFloat(ele.target.value).toFixed(2);
     }
   }
 
@@ -519,21 +524,23 @@ export class VoucherEntryComponent implements OnInit {
     // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
     this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
     this._service.getHeadDetails(obj).subscribe(data => {
+      debugger
       if (data.length != 0) {
 
         if (!this.headFlag) {
           // this.headData = data;
           this.headShow = true;
-          for (let i = 0; i <= headType.length; i++) {
+          for(let item of data) {
             let value = {}
-            value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
-            if (value != undefined) {
-              if (this.submitTranMode.tran_drcr == value['DRCR_APPLICABLE'] || value['DRCR_APPLICABLE'] == 'B') {
-                this.headData.push(value)
+            // value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
+            // if (value != undefined) {
+              if (this.submitTranMode.tran_drcr ==item.DRCR_APPLICABLE || item.DRCR_APPLICABLE == 'B') {
+                item['Amount'] = 0;
+                this.headData.push(item)
               }
-
-            }
           }
+
+          this.updateheadbalance(this.date)
         }
       } else {
         this.headShow = false;
@@ -543,52 +550,52 @@ export class VoucherEntryComponent implements OnInit {
     })
   }
 
-  updateheadbalance() {
+  updateheadbalance(date) {
     let newobj = {
       accountNo: this.submitCustomer.BANKACNO,
       scheme: this.Submitscheme.S_APPL,
-      currentDate: this.date,
+      currentDate: date,
       schemeType: this.selectedCode,
     }
 
     let balancedata
     this._service.getInputHeadBal(newobj).subscribe(data1 => {
-      debugger
+      
       balancedata = data1
       this.headData.forEach(element => {
+        debugger
+        debugger
         let newobj = {
           acno: element?.GL_CODE,
           scheme: '101',
           date: this.date,
           schemeType: this.selectedCode,
         }
-        debugger
-
-
+        
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.intpenal.InterestAmount)
+          element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
           element['tempBalance'] = data1.intpenal.InterestAmount
           element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.intpenal.PenalInterest)
+          element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
           element['tempBalance'] = data1.intpenal.PenalInterest
           element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaypen)
+          element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
           element['tempBalance'] = data1.recpaypen
           element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaybal)
+          element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaybal)
+          element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
@@ -598,7 +605,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -611,7 +618,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -625,7 +632,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -639,7 +646,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -653,7 +660,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -667,7 +674,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -681,7 +688,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -694,7 +701,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -707,7 +714,7 @@ export class VoucherEntryComponent implements OnInit {
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -715,8 +722,13 @@ export class VoucherEntryComponent implements OnInit {
           }
         } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.overduebal)
+          element['Balance'] = Math.abs(data1.overduebal).toFixed(2)
           element['tempBalance'] = data1.overduebal
+          element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
+        }else{
+          element['Amount'] = 0
+          element['Balance'] = 0
+          element['tempBalance'] = 0
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
         }
 
@@ -1396,7 +1408,8 @@ export class VoucherEntryComponent implements OnInit {
         currentDate: this.date,
         interestDate: moment(event).format('DD/MM/YYYY')
       }
-
+      let date = moment(event).format('DD/MM/YYYY');
+      this.updateheadbalance(date)
       this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
         if (data != 0) {
           Swal.fire('Error!', data.message, 'error');

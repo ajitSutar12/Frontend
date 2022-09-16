@@ -194,7 +194,6 @@ export class MultiVoucherComponent implements OnInit {
 
     //get syspara details
     this._service.getSysParaData().subscribe(data => {
-
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
     })
@@ -468,6 +467,32 @@ export class MultiVoucherComponent implements OnInit {
         this.mainMaster = [];
         this.headData = [];
         this.headShow = false;
+        this.totalCredit = 0;
+        this.totalDebit = 0;
+        this.headData = [];
+        this.selectedMode = null
+        this.Customer_Name = null
+        this.DayOpBal = 0
+        this.Pass = 0
+        this.Unpass = 0
+        this.sanctionamt = 0
+        this.ClearBalance = 0
+        this.overdraftAmt = 0
+        this.AfterVoucher = 0
+        this.customerImg = 'assets/images/nouser.png';
+        this.signture = 'assets/images/nosignature.png'
+        this.Status = '0'
+        this.Customer_Pan_No = '---'
+        this.Customer_Contact_No = '---'
+        this.headShow = false;
+        this.maturityamt = 0
+        this.depositamt = 0
+        this.expirydate = ''
+        this.sanctiondate = ''
+        this.asondate = ''
+        this.opendate = ''
+        this.renewaldate = ''
+        this.showChequeDetails = false;
       }, err => {
         console.log(err);
       })
@@ -485,9 +510,13 @@ export class MultiVoucherComponent implements OnInit {
         count = Number(element.Amount) + Number(count)
       });
       let num = Number(ele.target.value) + Number(count)
-      this.totalAmt = num + '.00'
+      // this.totalAmt = num + '.00'
+      this.totalAmt = parseFloat(num.toString()).toFixed(2);
+
     } else {
-      this.totalAmt = ele.target.value + '.00'
+      // this.totalAmt = ele.target.value + '.00'
+      this.totalAmt = parseFloat(ele.target.value).toFixed(2);
+
     }
   }
 
@@ -542,16 +571,28 @@ export class MultiVoucherComponent implements OnInit {
         if (!this.headFlag) {
           // this.headData = data;
           this.headShow = true;
-          for (let i = 0; i <= headType.length; i++) {
+          // for (let i = 0; i <= headType.length; i++) {
+          //   let value = {}
+          //   value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
+          //   if (value != undefined) {
+          //     if (this.submitTranMode.tran_drcr == value['DRCR_APPLICABLE'] || value['DRCR_APPLICABLE'] == 'B') {
+          //       this.headData.push(value)
+          //     }
+
+          //   }
+          // }
+          for (let item of data) {
             let value = {}
-            value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
-            if (value != undefined) {
-              if (this.submitTranMode.tran_drcr == value['DRCR_APPLICABLE'] || value['DRCR_APPLICABLE'] == 'B') {
-                this.headData.push(value)
+            // value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
+            // if (value != undefined) {
+              if (this.submitTranMode.tran_drcr == item.DRCR_APPLICABLE || item.DRCR_APPLICABLE == 'B') {
+                item['Amount'] = 0;
+                this.headData.push(item)
               }
 
-            }
+            // }
           }
+          this.updateheadbalance(this.date)
         }
       } else {
         this.headShow = false;
@@ -673,9 +714,15 @@ export class MultiVoucherComponent implements OnInit {
 
   //decimal content show purpose wrote below function
   decimalAllContent($event) {
+    debugger
+    if(this.submitTranMode == undefined){
+      Swal.fire('Error','Please First Select Tran Mode then enter Amount','error');
+      $event.target.value = 0
+    }else{
     let value = Number($event.target.value);
     let data = value.toFixed(2);
     $event.target.value = data;
+    }
   }
 
   hideImage() {
@@ -1507,6 +1554,8 @@ debugger
         currentDate: this.date,
         interestDate: moment(event).format('DD/MM/YYYY')
       }
+      let date = moment(event).format('DD/MM/YYYY');
+      this.updateheadbalance(date)
 
       this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
         if (data != 0) {
@@ -1552,17 +1601,19 @@ debugger
 
   }
 
-  updateheadbalance() {
+  updateheadbalance(date) {
+
     let newobj = {
       accountNo: this.submitAccountNo.BANKACNO,
       scheme: this.submitScheme.S_APPL,
-      currentDate: this.date,
+      currentDate: date,
       schemeType: this.selectedCode,
     }
 
     let balancedata
     this._vservice.getInputHeadBal(newobj).subscribe(data1 => {
       balancedata = data1
+      debugger
       // this.headData.forEach(element =>
       for (let element of this.headData) {
         let newobj = {
@@ -1575,27 +1626,27 @@ debugger
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.intpenal.InterestAmount)
+          element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
           element['tempBalance'] = data1.intpenal.InterestAmount
           element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.intpenal.PenalInterest)
+          element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
           element['tempBalance'] = data1.intpenal.PenalInterest
           element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaypen)
+          element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
           element['tempBalance'] = data1.recpaypen
           element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaybal)
+          element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaybal)
+          element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
@@ -1605,7 +1656,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1618,7 +1669,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1632,7 +1683,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1646,7 +1697,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1660,7 +1711,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1674,7 +1725,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1688,7 +1739,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1701,7 +1752,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1714,7 +1765,7 @@ debugger
 
               console.log('data', data2)
 
-              element['Balance'] = Math.abs(data2)
+              element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
 
@@ -1722,9 +1773,14 @@ debugger
           }
         } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.overduebal)
+          element['Balance'] = Math.abs(data1.overduebal).toFixed(2)
           element['tempBalance'] = data1.overduebal
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
+        }else{
+          element['Amount'] = 0
+          element['Balance'] = 0
+          element['tempBalance'] = 0
+          element['type'] = 'Cr'
         }
 
       }
