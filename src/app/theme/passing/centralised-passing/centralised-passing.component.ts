@@ -69,7 +69,10 @@ export class CentralisedPassingComponent implements OnInit {
   }
   ngOnInit(): void {
     this.mySubscription = interval(1000).subscribe((x => {
-      this._service.getCountOfPassing().subscribe(data => {
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      this._service.getCountOfPassing(branchCode).subscribe(data => {
         this.saving_master = data.savingcount;
         this.current_master = data.currentcount;
         this.pigmy_agent_master = data.pigmyAgentCount;

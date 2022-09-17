@@ -1093,7 +1093,7 @@ debugger
 
         } else {
           this.customerImg = 'assets/images/nouser.png';
-          this.signture = '../../../../assets/images/nosignature.png'
+          this.signture = 'assets/images/nosignature.png'
         }
       })
 
