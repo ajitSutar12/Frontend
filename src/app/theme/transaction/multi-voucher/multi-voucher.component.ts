@@ -134,7 +134,7 @@ export class MultiVoucherComponent implements OnInit {
   particulars: any;
   date: any;
   isture: boolean = true;
-  totalAmt: any;
+  totalAmt: any = 0;
   showChequeDetails: boolean = false;
   DayOpBal: number = 0;
   headData: any;
@@ -416,6 +416,7 @@ export class MultiVoucherComponent implements OnInit {
   //submit Form
   Add() {
 
+    if(Number(this.totalAmt) != 0 && this.totalAmt != undefined){
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = this.angForm.value;
     obj['user'] = user;
@@ -455,11 +456,14 @@ export class MultiVoucherComponent implements OnInit {
     this.customer = '';
 
     this.calculateVoucher()
+    }else{
+      Swal.fire('Error!', 'Please once check your voucher, and fill requied data', 'error');
+    }
 
   }
 
   submit() {
-    if (this.totalCredit == this.totalDebit) {
+    if (this.totalCredit == this.totalDebit && Number(this.totalCredit) != 0 && Number(this.totalDebit) != 0) {
 
       this._service.insertVoucher(this.mainMaster).subscribe(data => {
         // this.getVoucherData();
@@ -714,14 +718,16 @@ export class MultiVoucherComponent implements OnInit {
 
   //decimal content show purpose wrote below function
   decimalAllContent($event) {
-    debugger
+    
     if(this.submitTranMode == undefined){
       Swal.fire('Error','Please First Select Tran Mode then enter Amount','error');
+      let value = Number($event.target.value);
+      this.totalAmt = Number(this.totalAmt) - value;
       $event.target.value = 0
     }else{
-    let value = Number($event.target.value);
-    let data = value.toFixed(2);
-    $event.target.value = data;
+      let value = Number($event.target.value);
+      let data = value.toFixed(2);
+      $event.target.value = data;
     }
   }
 
@@ -753,6 +759,7 @@ export class MultiVoucherComponent implements OnInit {
 
   deleteData(index) {
     this.mainMaster.splice(index, 1);
+    this.calculateVoucher()
   }
 
   //Edit Voucher Data
@@ -796,11 +803,15 @@ export class MultiVoucherComponent implements OnInit {
     }
     this.showAdd = false;
     this.showUpdate = true;
+    this.calculateVoucher()
+      this.showlgindetails()
+      this.SideDetails()
   }
 
 
   update() {
 
+    if(Number(this.totalAmt) != 0 && this.totalAmt != undefined){
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = this.angForm.value;
     obj['user'] = user;
@@ -834,6 +845,10 @@ export class MultiVoucherComponent implements OnInit {
     this.headShow = false;
     this.showChequeDetails = false;
     this.calculateVoucher()
+    }else{
+      Swal.fire('Error!', 'Please once check your voucher, and fill requied data', 'error');
+
+    }
   }
 
   updatecheckdata
@@ -874,6 +889,8 @@ debugger
           particulars:data[0].NARRATION,
           amt    : data[0].amt
       })
+      this.totalCredit = 0;
+      this.totalDebit  = 0;
       this.calculateVoucher()
       this.showlgindetails()
       this.SideDetails()
