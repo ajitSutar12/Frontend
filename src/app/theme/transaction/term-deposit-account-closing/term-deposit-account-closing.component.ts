@@ -1046,7 +1046,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
           });
         } else {
           this.customerImg = 'assets/images/nouser.png';
-          this.signture = '../../../../assets/images/nosignature.png'
+          this.signture = 'assets/images/nosignature.png'
         }
       })
     }
@@ -1093,7 +1093,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         Swal.fire('Success!', 'Account Closed Successfully !', 'success');
         this.multigrid = []
         this.customerImg = 'assets/images/nouser.png';
-        this.signture = '../../../../assets/images/nosignature.png'
+        this.signture = 'assets/images/nosignature.png'
         this.resetForm()
       }, err => {
         console.log(err);
