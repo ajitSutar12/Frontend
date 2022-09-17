@@ -16,7 +16,7 @@ export class CentralisedPassingService {
   constructor(private http: HttpClient) { }
 
   // For append data
-  getCountOfPassing(): Observable<any> {
-    return this.http.get(this.url + '/passing').pipe(catchError(this.handleError));
+  getCountOfPassing(branch_code): Observable<any> {
+        return this.http.get(this.url + '/passing/' + branch_code).pipe(catchError(this.handleError));
   }
 }
