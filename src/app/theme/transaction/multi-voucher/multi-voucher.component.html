@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-2">
+                                    <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-2">
                                         <!-- <div class="form-radio">
                                           <div class="radio radio-inline">
                                               <label>
@@ -261,7 +261,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" name="AC_PARTICULAR"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR"
                                                     style="text-transform: capitalize;" maxlength="15"
                                                     (keyup)="getaftervoucher($event)"
@@ -397,7 +397,7 @@
                                                             (click)="deleteData(in)"></span></td>
                                                     <td>{{item.scheme_type}}</td>
                                                     <td>{{item.scheme.S_NAME}}</td>
-                                                    <td>{{item.account_no.BANKACNO}}</td>
+                                                    <td>{{item.scheme_type == 'GL'?item.account_no.AC_NO:item.account_no.BANKACNO}}</td>
                                                     <td>{{item.tran_mode.value}}</td>
                                                     <td style="text-align: right;">{{item.total_amt}}</td>
                                                 </tr>
