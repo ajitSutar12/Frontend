@@ -25,6 +25,8 @@
   export class VoucherEntryComponent implements OnInit {
     @Input() childMessage: string;
     @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+    @ViewChild('swiper') swiper: ElementRef;
+
 
     branchCode: any = null
 
@@ -141,6 +143,7 @@
     Customer_Contact_No = '---'
     Status
     maxDate: Date;
+    minDate: Date;
     dtTrigger: any;
     dtElement: any;
     loginUser: any;
@@ -161,8 +164,7 @@
       if (this.childMessage != undefined) {
         this.editClickHandler(this.childMessage);
       }
-      this.maxDate = new Date();
-      this.maxDate.setDate(this.maxDate.getDate());
+      
     }
 
     ngOnInit(): void {
@@ -182,6 +184,14 @@
       this._service.getSysParaData().subscribe(data => {
         // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
         this.date = data[0].CURRENT_DATE;
+        let nextDate = moment(this.date,'DD/MM/YYYY').add(3,'month').format('YYYY-MM-DD');
+        let lastDate = moment(this.date,'DD/MM/YYYY').subtract(3,'month').format('YYYY-MM-DD');
+
+        this.maxDate = new Date(nextDate);
+      this.maxDate.setDate(this.maxDate.getDate());
+
+      this.minDate = new Date(nextDate);
+      this.minDate.setDate(this.minDate.getDate());
       })
 
       this._bankmasterService.getBankList().subscribe(banks => {
@@ -216,14 +226,14 @@
         token: [0],
         particulars: [''],
         total_amt: [''],
-        amt: [''],
+        amt: [0],
         slip_no: [''],
         tran_mode: ['', [Validators.required]],
         account_no: ['', [Validators.required]],
         scheme: ['', [Validators.required]],
         scheme_type: ['', [Validators.required]],
         date: [''],
-        type: ['cash'],
+        type: ['cash'], 
         chequeDate: [''],
         chequeNo: [''],
         bank: [''],
@@ -389,6 +399,12 @@
 
     //submit Form
     submit() {
+      debugger
+      if(this.angForm.status == "INVALID")
+      {  
+        this.angForm.markAllAsTouched(); 
+  
+      }
       debugger
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = this.angForm.value;
@@ -878,10 +894,21 @@
       }
     }
 
+    //cheque no captial function
+    chequeNoData(event){
+      debugger
+      this.angForm.patchValue({
+        chequeNo : event.target.value.toUpperCase()
+      }) 
+    }
+
     extenstionaftervoucher = ''
 
     getaftervoucher(event) {
+      var t = event.target.value;
+      event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
       let value = Number(event.target.value);
+
       let tran = this.submitTranMode.tran_drcr
       // if (tran == 'D') {
       //   this.AfterVoucher = Math.abs(this.tempDayOpBal - value)
@@ -923,12 +950,14 @@
       if(this.submitTranMode == undefined){
         Swal.fire('Error','Please First Select Tran Mode then enter Amount','error');
         let value = Number($event.target.value);
-        this.totalAmt = Number(this.totalAmt) - value;
+        this.totalAmt = 0;
         $event.target.value = 0
       }else{
         let value = Number($event.target.value);
         let data = value.toFixed(2);
         $event.target.value = data;
+        var t = $event.target.value;
+        $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
       }
     }
 
@@ -965,7 +994,7 @@
         type: this.typeclearbal
       }
 
-      if (Number(obj.value) >= 200000) {
+      if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
 
         Swal.fire({
           title: 'Are you sure?',
@@ -979,12 +1008,16 @@
         }).then((result) => {
           if (result.isConfirmed == false) {
             this.angForm.controls['amt'].reset();
+            this.swiper.nativeElement.focus();
+
             this.angForm.controls['total_amt'].reset();
           } else {
             this.checkamtcondition($event)
           }
         })
 
+      }else{
+        this.checkamtcondition($event)
       }
     }
     checkamtcondition($event) {
@@ -1005,109 +1038,150 @@
         if (data != 0) {
           Swal.fire('Error!', data.message, 'error');
           this.angForm.controls['amt'].reset();
+          this.swiper.nativeElement.focus();
+
           this.angForm.controls['total_amt'].reset();
         } else {
           this._service.clearWithdrawBal(obj).subscribe(data => {
             if (data != 0) {
               Swal.fire('Error!', data.message, 'error');
               this.angForm.controls['amt'].reset();
+              this.swiper.nativeElement.focus();
+
               this.angForm.controls['total_amt'].reset();
             } else {
               this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
                 if (data != 0) {
-                  Swal.fire('Error!', data.message, 'error');
-                  this.angForm.controls['amt'].reset();
-                  this.angForm.controls['total_amt'].reset();
+                  // Swal.fire('Error!', data.message, 'error');
+                  // this.angForm.controls['amt'].reset();
+                  //         this.swiper.nativeElement.focus();
+
+                  // this.angForm.controls['total_amt'].reset();
+                  Swal.fire({
+                    title: data.message,
+                    html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'No',
+                    confirmButtonText: 'Yes'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      
+                    } else {
+                      this.angForm.controls['amt'].reset();
+                      
+          
+                      this.angForm.controls['total_amt'].reset();
+                      this.swiper.nativeElement.focus();
+                    }
+                  })
                 } else {
                   this._service.ClearVoucherSameBal(obj).subscribe(data => {
                     if (data != 0) {
                       Swal.fire('Error!', data.message, 'error');
                       this.angForm.controls['amt'].reset();
                       this.angForm.controls['total_amt'].reset();
+                      this.swiper.nativeElement.focus();
                     } else {
                       this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
                         if (data != 0) {
                           Swal.fire('Error!', data.message, 'error');
                           this.angForm.controls['amt'].reset();
                           this.angForm.controls['total_amt'].reset();
+                          this.swiper.nativeElement.focus();
                         } else {
                           this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
                             if (data != 0) {
                               Swal.fire('Error!', data.message, 'error');
                               this.angForm.controls['amt'].reset();
                               this.angForm.controls['total_amt'].reset();
+                              this.swiper.nativeElement.focus();
                             } else {
                               this._service.InstructionFreezeAc(obj).subscribe(data => {
                                 if (data != 0) {
                                   Swal.fire('Error!', data.message, 'error');
                                   this.angForm.controls['amt'].reset();
                                   this.angForm.controls['total_amt'].reset();
+                                  this.swiper.nativeElement.focus();
                                 } else {
                                   this._service.MinBalanceChecking(obj).subscribe(data => {
                                     if (data != 0) {
                                       Swal.fire('Error!', data.message, 'error');
                                       this.angForm.controls['amt'].reset();
                                       this.angForm.controls['total_amt'].reset();
+                                      this.swiper.nativeElement.focus();
                                     } else {
                                       this._service.CheckClearBalAndAmt(obj).subscribe(data => {
                                         if (data != 0) {
                                           Swal.fire('Error!', data.message, 'error');
                                           this.angForm.controls['amt'].reset();
                                           this.angForm.controls['total_amt'].reset();
+                                          this.swiper.nativeElement.focus();
                                         } else {
                                           this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
                                             if (data != 0) {
                                               Swal.fire('Error!', data.message, 'error');
                                               this.angForm.controls['amt'].reset();
                                               this.angForm.controls['total_amt'].reset();
+                                              this.swiper.nativeElement.focus();
                                             } else {
                                               this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
                                                 if (data != 0) {
                                                   Swal.fire('Error!', data.message, 'error');
                                                   this.angForm.controls['amt'].reset();
                                                   this.angForm.controls['total_amt'].reset();
+                                                  this.swiper.nativeElement.focus();
                                                 } else {
                                                   this._service.DepositAndTotalInstallments(obj).subscribe(data => {
                                                     if (data != 0) {
                                                       Swal.fire('Error!', data.message, 'error');
                                                       this.angForm.controls['amt'].reset();
                                                       this.angForm.controls['total_amt'].reset();
+                                                      this.swiper.nativeElement.focus();
                                                     } else {
                                                       this._service.DepositAndDepositAmount(obj).subscribe(data => {
                                                         if (data != 0) {
                                                           Swal.fire('Error!', data.message, 'error');
                                                           this.angForm.controls['amt'].reset();
                                                           this.angForm.controls['total_amt'].reset();
+                                                          this.swiper.nativeElement.focus();
                                                         } else {
                                                           this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
                                                             if (data != 0) {
                                                               Swal.fire('Error!', data.message, 'error');
                                                               this.angForm.controls['amt'].reset();
                                                               this.angForm.controls['total_amt'].reset();
+                                                              this.swiper.nativeElement.focus();
                                                             } else {
                                                               this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
                                                                 if (data != 0) {
                                                                   Swal.fire('Error!', data.message, 'error');
                                                                   this.angForm.controls['amt'].reset();
                                                                   this.angForm.controls['total_amt'].reset();
+                                                                  this.swiper.nativeElement.focus();
                                                                 } else {
                                                                   this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
                                                                     if (data != 0) {
                                                                       Swal.fire('Error!', data.message, 'error');
                                                                       this.angForm.controls['amt'].reset();
                                                                       this.angForm.controls['total_amt'].reset();
+                                                                      this.swiper.nativeElement.focus();
                                                                     } else {
                                                                       this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
                                                                         if (data != 0) {
                                                                           Swal.fire('Error!', data.message, 'error');
                                                                           this.angForm.controls['amt'].reset();
                                                                           this.angForm.controls['total_amt'].reset();
+                                                                          this.swiper.nativeElement.focus();
                                                                         } else {
                                                                           this._service.ZeroBalance(obj).subscribe(data => {
                                                                             if (data != 0) {
                                                                               Swal.fire('Error!', data.message, 'error');
                                                                               this.angForm.controls['amt'].reset();
                                                                               this.angForm.controls['total_amt'].reset();
+                                                                              this.swiper.nativeElement.focus();
                                                                             } else {
 
                                                                               this._service.CashWithdraw(obj).subscribe(data => {
@@ -1115,6 +1189,7 @@
                                                                                   Swal.fire('Error!', data.message, 'error');
                                                                                   this.angForm.controls['amt'].reset();
                                                                                   this.angForm.controls['total_amt'].reset();
+                                                                                  this.swiper.nativeElement.focus();
                                                                                 } else {
 
                                                                                   this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
@@ -1122,12 +1197,14 @@
                                                                                       Swal.fire('Error!', data.message, 'error');
                                                                                       this.angForm.controls['amt'].reset();
                                                                                       this.angForm.controls['total_amt'].reset();
+                                                                                      this.swiper.nativeElement.focus();
                                                                                     } else {
                                                                                       this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                         if (data != 0) {
                                                                                           Swal.fire('Error!', data.message, 'error');
                                                                                           this.angForm.controls['amt'].reset();
                                                                                           this.angForm.controls['total_amt'].reset();
+                                                                                          this.swiper.nativeElement.focus();
                                                                                         }
                                                                                       }, err => {
                                                                                         console.log(err);

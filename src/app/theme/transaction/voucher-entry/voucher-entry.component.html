@@ -171,8 +171,8 @@
                                                     <input type="text" name="ChequeNo" class="form-control"
                                                         placeholder=" " id="ChequeNo" value=""
                                                         style="text-transform: capitalize;"
-                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                        formControlName="chequeNo">
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)" (keyup)="chequeNoData($event)" required
+                                                        formControlName="chequeNo" maxlength="10">
                                                 </span>
                                             </div>
 
@@ -224,12 +224,12 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" name="AC_PARTICULAR"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
-                                                    class="form-control" placeholder=" " id="AC_PARTICULAR" value=""
+                                                    class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
                                                     style="text-transform: capitalize;" maxlength="15"
                                                     (keyup)="getaftervoucher($event)"
-                                                    (focusout)="decimalAllContent($event); checkCondition($event);checkamtcondition($event)"
+                                                    (focusout)="decimalAllContent($event); checkCondition($event);"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                    formControlName="amt" (keyup)="getAmt($event)">
+                                                    formControlName="amt" #swiper (keyup)="getAmt($event)">
 
                                             </span>
                                         </div>
@@ -282,14 +282,14 @@
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
                                                                     (keyup)="getInputHeadAmt($event,i)"
-                                                                    (focusout)="decimalAllContent($event)" value="{{item.Amount}}">
+                                                                    (focusout)="decimalAllContent($event);checkCondition($event)" value="{{item.Amount}}">
                                                             </td>
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
                                                                     type="text"
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
                                                                     (keyup)="getInputHeadAmt($event,i)"
-                                                                    (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
+                                                                    (focusout)="decimalAllContent($event);checkheadcondition($event,i);checkCondition($event)"
                                                                     value="{{item.Amount}}">
                                                             </td>
                                                             <!-- <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
@@ -349,7 +349,7 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" class="form-control"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            formControlName="token"
+                                                            formControlName="token" maxlength="4"
                                                             (focusout)="checkTokenCondition($event)">
                                                     </span>
                                                 </div>

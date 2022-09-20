@@ -230,7 +230,7 @@ export class MultiVoucherComponent implements OnInit {
       token: [''],
       particulars: [''],
       total_amt: [''],
-      amt: [''],
+      amt: [0],
       slip_no: [''],
       tran_mode: ['', [Validators.required]],
       account_no: ['', [Validators.required]],
