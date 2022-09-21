@@ -168,7 +168,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedMode" bindValue="id"
-                                                    formControlName="tran_mode"
+                                                    formControlName="tran_mode" #agesSelect
                                                     (change)="changeMode($event);checktranCondition();">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
@@ -207,7 +207,7 @@
                                                         placeholder=" " id="ChequeNo"
                                                         style="text-transform: capitalize;"
                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                        formControlName="chequeNo">
+                                                        formControlName="chequeNo" (keyup)="chequeNoData($event)" maxlength="10">
                                                 </span>
                                             </div>
                                         </div>
@@ -233,10 +233,14 @@
                                                         <ng-option *ngFor="let item of bankName" [value]="item.id">
                                                             {{item.name}}</ng-option>
                                                     </ng-select> -->
-                                                    <ng-select formControlName="bank"  [(ngModel)]="bank">
+                                                    <!-- <ng-select formControlName="bank"  [(ngModel)]="bank">
                                                         <ng-option *ngFor="let item of bankName" [value]="item.value">
                                                             {{item.label}}</ng-option>
-                                                    </ng-select>
+                                                    </ng-select> -->
+                                                    <textarea class="form-control" formControlName="bank" rows="1"
+                                                            [(ngModel)]="particulars"></textarea>
+                                                        <i class="fa fa-info-circle errspan"
+                                                            (click)="modalLarge1.show()"></i>
 
                                                 </span>
                                             </div>
@@ -265,9 +269,9 @@
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR"
                                                     style="text-transform: capitalize;" maxlength="15"
                                                     (keyup)="getaftervoucher($event)"
-                                                    (focusout)="decimalAllContent($event); checkCondition($event);checkamtcondition($event)"
+                                                    (focusout)="decimalAllContent($event); checkCondition($event)"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                    formControlName="amt" (keyup)="getAmt($event)">
+                                                    formControlName="amt" (keyup)="getAmt($event)" (focus)="selectAllContent($event)">
 
                                             </span>
                                         </div>
@@ -321,6 +325,7 @@
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event)"
+                                                                        (focus)="selectAllContent($event)"
                                                                         value="{{item.Amount}}">
                                                                 </td>
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'">
@@ -329,6 +334,7 @@
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
+                                                                        (focus)="selectAllContent($event)"
                                                                         value="{{item.Amount}}">
                                                                 </td>
                                                                 <!-- <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
@@ -482,6 +488,8 @@
                                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                                     (click)="Approve()">
                                                     Approve</button>
+                                                    <button (click)="agesSelect.focus()" style="display: none;" #focusbutton>focus</button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -911,3 +919,35 @@
 
 
 <!-- </div> -->
+<!-- bank name dropdown checking -->
+<app-modal-basic #modalLarge1 [dialogClass]="'modal-md'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Narration Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge1.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Bank Name</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of bankName" (click)="getBankName(item.value)">
+                                {{item.value}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggerhide1"
+                        #triggerhide (click)="modalLarge1.hide()">Close</button>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+    <!-- <div class="app-modal-footer">
+          
+        </div> -->
+</app-modal-basic>

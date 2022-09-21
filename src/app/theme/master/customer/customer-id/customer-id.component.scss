@@ -90,6 +90,11 @@
   background-color: grey;
 }
 
+input:not([type="button"]):not([type="submit"]):not([type="reset"]):hover, input:not([type="button"]):not([type="submit"]):not([type="reset"]):focus, textarea:hover, textarea:focus, select:hover, select:focus {
+  border-color: #81256f;
+  box-shadow: none;
+}
+
 // #customermastertable tfoot{
 //   background-color: grey;
 // }
