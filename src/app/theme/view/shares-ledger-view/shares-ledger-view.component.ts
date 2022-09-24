@@ -304,8 +304,10 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-      this.fromdate = `01/04/${year - 1}`
+      // this.fromdate = `01/04/${year - 1}`
       this.todate = data.CURRENT_DATE
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
     })
 
 
@@ -320,6 +322,16 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: ['', [Validators.required]],
       BRANCH_CODE: ['', [Validators.required]],
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
 

@@ -14,6 +14,8 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { SpecialComponent } from './special.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 
 @NgModule({
   imports: [
@@ -35,6 +37,6 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     multi: true
   }, DatePipe,
     specialservice,
-    ExucuteOnService, SchemeAccountNoService, SchemeCodeDropdownService]
+    ExucuteOnService,SystemMasterParametersService, SchemeAccountNoService, SchemeCodeDropdownService]
 })
 export class SpecialModule { }

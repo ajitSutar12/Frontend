@@ -12,6 +12,8 @@ import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import Swal from 'sweetalert2';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+
 
 @Component({
   selector: 'app-customer-view',
@@ -38,8 +40,10 @@ export class CustomerViewComponent implements OnInit {
   tempAddress: boolean = true;
   sysparaCurrentDate
   // image purpose
-  customerImg: string = 'assets/images/user-card/img-round4.jpg';
-  signture: string = 'assets/sign/signture.jpg';
+  // customerImg: string = 'assets/images/user-card/img-round4.jpg';
+  // signture: string = 'assets/sign/signture.jpg';
+  customerImg = 'assets/images/nouser.png';
+  signture = 'assets/images/nosignature.png';
   customerList
   constructor(
     private fb: FormBuilder,
@@ -47,6 +51,7 @@ export class CustomerViewComponent implements OnInit {
     private customerID: CustomerIDMasterDropdownService,
     private customerIdService: LegderViewService,
     private config: NgSelectConfig,
+    private _CustomerIdService: CustomerIdService,
   ) { }
 
   ngOnInit(): void {
@@ -133,8 +138,23 @@ export class CustomerViewComponent implements OnInit {
       CLOSED_AC: false
     })
     this.ngcustomer = eve.value
+
+    this._CustomerIdService.getFormData(eve.value).subscribe(data => {
+      if (data.custdocument.length != 0) {
+        data.custdocument.forEach(element => {
+          if (element.DocumentMasterID == 1) {
+            this.customerImg = this.url + '/' + element.PATH;
+          }
+          if (element.DocumentMasterID == 2) {
+            this.signture = this.url + '/' + element.PATH;
+          }
+        });
+      } else {
+        this.customerImg = 'assets/images/nouser.png';
+        this.signture = 'assets/images/nosignature.png'
+      }
+    })
     this.customerIdService.getFormData(eve.value).subscribe(data => {
-      debugger
       if (data.custAddress.length != 0) {
         data.custAddress.forEach(element => {
           if (element.AC_ADDTYPE == 'P')

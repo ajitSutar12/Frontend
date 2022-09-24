@@ -817,6 +817,10 @@
         // if((this.angForm.controls['account_no'].value.idmaster['AC_MOBILENO'])
       } else {
         this.ShowDocuments = false
+        this.Customer_Name = null
+      this.Customer_Pan_No = null
+      this.Customer_Contact_No = null
+      this.Status = this.submitCustomer.IS_DORMANT
       }
     }
     tempscheme
@@ -980,6 +984,7 @@
 
     //decimal content show purpose wrote below function
     decimalAllContent($event) {
+      debugger
       if(this.submitTranMode == undefined){
         Swal.fire('Error','Please First Select Tran Mode then enter Amount','error');
         let value = Number($event.target.value);
@@ -1484,7 +1489,9 @@
                         } else {
                           this._service.IsDirectEntryAllow(obj).subscribe(data => {
                             if (data != 0) {
-                              Swal.fire('Error!', data.message, 'error');
+                            Swal.fire('Error!', data.message, 'error');
+                            this.selectedAccountno = null
+                            this.selectedMode = null
                             }
                           }, err => {
                             console.log(err);
@@ -1906,13 +1913,13 @@
         this.ShowLNCC = false
         this.ShownotLNCC = false
       }
+
       this.submitCustomer.AC_ODAMT == undefined ? this.submitCustomer.AC_ODAMT = 0 : this.submitCustomer.AC_ODAMT = this.submitCustomer.AC_ODAMT
       this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
       this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
 
       var startdate = this.angForm.controls['date'].value
-      // startdate = startdate.subtract(1, 'd');
-      // startdate = startdate.format("DD-MM-YYYY");
+
       let formDT = moment(startdate, 'DD/MM/YYYY')
       var addInFrom:any;
       if(this.Submitscheme.S_ACNOTYPE == 'PG'){
@@ -1934,7 +1941,18 @@
         } else {
           this.extensionopenbal = 'Dr'
         }
+        debugger
         this.tempDayOpBal = data;
+        if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
+          var index = this.TranData[11].data.cash.indexOf(1);
+          var index1 = this.TranData[11].data.transfer.indexOf(1);
+          if (index !== -1) {
+            this.TranData[11].data.cash.splice(index, 1);
+          }
+          if (index1 !== -1) {
+            this.TranData[11].data.transfer.splice(index1, 1);
+          }
+        }
         this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
           this.Pass = Math.abs(data1.passedamt)
           this.Unpass = Math.abs(data1.unpassamt)

@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 
 @Component({
   selector: 'app-account-enquiry',
@@ -123,6 +124,7 @@ export class AccountEnquiryComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private _CustomerIdService: CustomerIdService,
     private http: HttpClient,
+    private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,) {
     var date = moment();
@@ -149,7 +151,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.branch_code = data;
     })
   }
-
+  current_date
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
@@ -157,6 +159,29 @@ export class AccountEnquiryComponent implements OnInit {
       AC_NO: ['', [Validators.required]],
       DATE: ['', [Validators.required]],
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
+
+    // this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data => {
+    //   this.angForm.patchValue({
+    //     DATE: moment(data['CURRENT_DATE']).format('DD/MM/YYYY')
+    //   })
+    // })
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.current_date = data.CURRENT_DATE
+      this.angForm.patchValue({
+        DATE: data.CURRENT_DATE
+      })
+    })
   }
 
   hideImage() {
@@ -620,6 +645,7 @@ export class AccountEnquiryComponent implements OnInit {
   //get account details
   getAccountDetails(event) {
     this.accountEvent = event
+    console.log('accountEvent?.AC_MEMBNO',this.accountEvent?.AC_MEMBNO)
     this.accountData = event
     this.IsLedgerView = false
     if (this.getschemename == 'GL') {
@@ -735,7 +761,7 @@ export class AccountEnquiryComponent implements OnInit {
       let obj = {
         scheme: this.schemeCode,
         bankacno: this.bankacno,
-        date: moment(this.angForm.controls['DATE'].value).format('DD/MM/YYYY'),
+        date: this.current_date == this.fromdate ? this.current_date : moment(this.angForm.controls['DATE'].value).format('DD/MM/YYYY'),
         AC_ACNOTYPE: this.getschemename,
         AC_TYPE: this.ngscheme,
         LAST_OD_DATE: this.LAST_OD_DATE,
@@ -801,6 +827,9 @@ export class AccountEnquiryComponent implements OnInit {
           this.PIGMY_ACTYPE = data.pigmyScheme
           this.introducerName = data.introducer
         }
+      }, (error) => {
+        console.log(error, 'err')
+        Swal.fire('Error!', error?.error?.message, 'error');
       })
     }
   }
