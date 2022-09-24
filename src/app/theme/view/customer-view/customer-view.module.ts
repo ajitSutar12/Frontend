@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { LegderViewService } from '../ledger-view/ledger-view.service';
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +23,7 @@ import { LegderViewService } from '../ledger-view/ledger-view.service';
     FormsModule, ReactiveFormsModule
   ],
   declarations: [CustomerViewComponent],
-  providers: [CustomerIDMasterDropdownService, LegderViewService, {
+  providers: [CustomerIDMasterDropdownService, LegderViewService, CustomerIdService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

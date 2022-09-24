@@ -17,6 +17,8 @@ import { LedgerViewModule } from '../ledger-view/ledger-view.module'
 import { SharesLedgerViewModule } from '../shares-ledger-view/shares-ledger-view.module'
 import { InterestPaidHistoryModule } from '../other-view/interest-paid-history/interest-paid-history.module'
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +35,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
     InterestPaidHistoryModule
   ],
   declarations: [AccountEnquiryComponent],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, CustomerIdService,ACMasterDropdownService, OwnbranchMasterService, {
+  providers: [SchemeCodeDropdownService, SystemMasterParametersService, SchemeAccountNoService, CustomerIdService, ACMasterDropdownService, OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
