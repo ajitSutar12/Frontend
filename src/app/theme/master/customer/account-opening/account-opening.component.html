@@ -335,7 +335,7 @@
                                             {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.DPMaster.S_APPL }}
                                         </td>
                                         <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
-                                            {{ data.AC_NO === "" ? "-" : data.AC_NO }}
+                                            {{ data.AC_NO === "" ? "-" : data.BANKACNO }}
                                         </td>
                                         <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_left'">
                                             {{data.AC_NAME === ''? '-' : data.AC_NAME}}</td>
@@ -372,7 +372,7 @@
                                     <tr class="testing">
                                         <th></th>
                                         <th><input type="text" class="form-control" name="AC_TYPE"></th>
-                                        <th><input type="text" class="form-control" name="AC_NO"></th>
+                                        <th><input type="text" class="form-control" name="BANKACNO"></th>
                                         <th><input type="text" class="form-control" name="AC_NAME"></th>
                                         <th><input type="text" class="form-control" name="INVEST_BANK"></th>
                                         <th><input type="text" class="form-control" name="INVEST_BRANCH"> </th>

@@ -332,7 +332,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           data: 'AC_TYPE'
         },
         {
-          title: 'Account No',
+          title: 'Account Number',
           data: 'BANKACNO'
         },
         {

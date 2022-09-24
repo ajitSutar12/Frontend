@@ -181,7 +181,7 @@ export class MasterSavingComponent implements OnInit {
           data: 'AC_TYPE'
         },
         {
-          title: 'Account No',
+          title: 'Account Number',
           data: 'BANKACNO'
         },
         {

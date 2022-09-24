@@ -323,7 +323,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           data: 'AC_TYPE'
         },
         {
-          title: 'Account No',
+          title: 'Account Number',
           data: 'BANKACNO'
         },
         {

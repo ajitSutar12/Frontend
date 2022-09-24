@@ -181,8 +181,8 @@ export class MasterPigmyComponent implements OnInit {
           data: 'AC_TYPE'
         },
         {
-          title: 'Agent Number',
-          data: 'AC_NO'
+          title: 'Account Number',
+          data: 'BANKACNO'
         },
         {
           title: 'Customer ID',

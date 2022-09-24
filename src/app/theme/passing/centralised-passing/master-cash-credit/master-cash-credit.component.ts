@@ -145,8 +145,8 @@ export class MasterCashCreditComponent implements OnInit {
           data: 'AC_TYPE'
         },
         {
-          title: 'Account No',
-          data: 'AC_NO'
+          title: 'Account Number',
+          data: 'BANKACNO'
         },
         {
           title: 'Customer ID',
