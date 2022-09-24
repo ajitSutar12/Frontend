@@ -26,6 +26,8 @@ import { DatePipe } from '@angular/common';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { data } from "jquery";
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -97,6 +99,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private fb: FormBuilder, private datePipe: DatePipe, public exucuteOnService: ExucuteOnService,
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
     private _special: specialservice,
     private config: NgSelectConfig,) {
@@ -208,7 +211,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-
+  sysDate
   createForm() {
     this.angForm = this.fb.group({
       INSTRUCTION_NO: ['',],
@@ -222,13 +225,22 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       DETAILS: ['', [Validators.required]],
       REVOKE_DATE: []
     });
-    let sysdate = new Date()
-    // let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
-    let sysDate = moment(sysdate).format('DD/MM/YYYY')
-    this.angForm.patchValue({
-      'INSTRUCTION_DATE': sysDate,
-      'FROM_DATE': sysDate,
-      'TO_DATE': sysDate
+    // let sysdate = new Date()
+    // // let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
+    // let sysDate = moment(sysdate).format('DD/MM/YYYY')
+    // this.angForm.patchValue({
+    //   'INSTRUCTION_DATE': sysDate,
+    //   'FROM_DATE': sysDate,
+    //   'TO_DATE': sysDate
+    // })
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.sysDate = data.CURRENT_DATE
+      this.angForm.patchValue({
+        'INSTRUCTION_DATE': data.CURRENT_DATE,
+        'FROM_DATE': data.CURRENT_DATE,
+        'TO_DATE': data.CURRENT_DATE
+      })
     })
   }
 
@@ -254,14 +266,22 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
         INSTRUCTION_DATE: formVal.INSTRUCTION_DATE,
         TRAN_ACTYPE: formVal.TRAN_ACTYPE,
         TRAN_ACNO: formVal.TRAN_ACNO,
-        FROM_DATE: (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date' || formVal.FROM_DATE == null || formVal.FROM_DATE == undefined) ? fromdate = '' : fromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY'),
-        // FROM_DATE: formVal.FROM_DATE,
-        TO_DATE: (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date' || formVal.TO_DATE == null || formVal.TO_DATE == undefined) ? todate = '' : todate = moment(formVal.TO_DATE).format('DD/MM/YYYY'),
+        // FROM_DATE: formVal.FROM_DATE,        
         // TO_DATE: formVal.TO_DATE,
         DRCR_APPLY: formVal.DRCR_APPLY,
         IS_RESTRICT: formVal.IS_RESTRICT == false ? '0' : '1',
         DETAILS: formVal.DETAILS,
       };
+      if (this.sysDate == formVal.FROM_DATE)
+        dataToSend['FROM_DATE'] = this.sysDate
+      else {
+        dataToSend['FROM_DATE'] = (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date' || formVal.FROM_DATE == null || formVal.FROM_DATE == undefined) ? fromdate = '' : fromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY')
+      }
+      if (this.sysDate == formVal.TO_DATE)
+        dataToSend['FROM_DATE'] = this.sysDate
+      else {
+        dataToSend['TO_DATE'] = (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date' || formVal.TO_DATE == null || formVal.TO_DATE == undefined) ? todate = '' : todate = moment(formVal.TO_DATE).format('DD/MM/YYYY')
+      }
       this._special.postData(dataToSend).subscribe(
         (data1) => {
           Swal.fire('Success!', 'Data Added Successfully !', 'success');

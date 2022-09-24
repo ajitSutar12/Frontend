@@ -310,10 +310,12 @@
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_REF_RECEIPTNO"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         class="form-control" placeholder=" "
-                                                                        style="text-align: right;" id="AC_REF_RECEIPTNO"
+                                                                        maxlength="10" style="text-align: right;"
+                                                                        id="AC_REF_RECEIPTNO"
                                                                         formControlName="AC_REF_RECEIPTNO">
-                                                                    <label for="AC_REF_RECEIPTNO">Receipt No.</label>
+                                                                    <label for="AC_REF_RECEIPTNO">Receipt Number</label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -377,7 +379,8 @@
                                                                         maxlength="3" pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="AC_MONTHS"
-                                                                        (ngModelChange)="setMaturityDate()" disabled>
+                                                                        (change)="CheckmonthDays()"
+                                                                        (ngModelChange)="setMaturityDate()">
                                                                     <label for="AC_MONTHS">Months<sub class="required">*
                                                                         </sub></label>
                                                                 </span>
@@ -400,7 +403,8 @@
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9" maxlength="4"
                                                                         formControlName="AC_DAYS"
-                                                                        (ngModelChange)="setMaturityDate()" disabled>
+                                                                        (change)="CheckmonthDays()"
+                                                                        (ngModelChange)="setMaturityDate()">
                                                                     <label for="AC_DAYS">Days</label>
                                                                 </span>
                                                             </div>
@@ -423,7 +427,6 @@
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="AC_EXPDT"
-                                                                        (focusout)="CheckmonthDays()"
                                                                         (bsValueChange)="monthDays()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
@@ -431,6 +434,7 @@
                                                                         bsDatepicker>
                                                                     <label for="AC_EXPDT">Maturity Date</label>
                                                                 </span>
+                                                                <!-- (focusout)="CheckmonthDays()" -->
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-3">

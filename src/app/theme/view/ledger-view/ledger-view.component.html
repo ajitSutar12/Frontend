@@ -118,17 +118,30 @@
                             <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
+                                <!-- <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
+                                            class="form-control" [(ngModel)]="todate" [minDate]="fromdate"
+                                            [bsValue]="bsValue" [maxDate]="maxDate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker [disabled]="disableFields">
+                                    </span>
+                                </div> -->
+
+                                <!-- [minDate]="fromdate" [maxDate]="maxDate" -->
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                            class="form-control" [(ngModel)]="todate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                            [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="TO_DATE"
+                                            class="form-control" [(ngModel)]="todate" [bsValue]="bsValue"                                           
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" [maxDate]="maxDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker [disabled]="disableFields">
                                     </span>
                                 </div>
+
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
                                     class="alert alert-danger">

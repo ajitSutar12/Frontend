@@ -256,8 +256,11 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-      this.fromdate = `01/04/${year - 1}`
+      // this.fromdate = `01/04/${year - 1}`      
       this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
     })
   }
 
@@ -271,6 +274,16 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: ['', [Validators.required]],
       AMOUNT: [''],
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
   schemechange(event) {
@@ -381,6 +394,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: event.opendate,
       AMOUNT: maturedAmount
     })
+    
     this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
   }
@@ -414,7 +428,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
-
+    
     let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY')]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0

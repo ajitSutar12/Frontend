@@ -275,14 +275,15 @@
                                                                     bsDatepicker [(ngModel)]="IntersetHeadDate"
                                                                     formControlName="Intdate"
                                                                     (bsValueChange)="getColumnValue($event)">
-                                                            </td>                                                         
+                                                            </td>
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
                                                             <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'"><input
                                                                     type="text"
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
                                                                     (keyup)="getInputHeadAmt($event,i)"
-                                                                    (focusout)="decimalAllContent($event)" value="{{item.Amount}}">
+                                                                    (focusout)="decimalAllContent($event)"
+                                                                    value="{{item.Amount}}">
                                                             </td>
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
                                                                     type="text"
@@ -711,7 +712,7 @@
                                                     *ngIf="selectedCode !='GL'" />
                                             </span>
                                         </div>
-                                        <div class="user-info text-center">
+                                        <div class="user-info text-center" *ngIf="Customer_Name">
                                             <h6>{{Customer_Name}}</h6>
                                         </div>
                                         <!-- <div class="user-avatar-section">
@@ -763,11 +764,11 @@
                                                         'Active'}}</span>
                                                 </li>
 
-                                                <li class="mb-75">
+                                                <li class="mb-75" *ngIf="Customer_Pan_No">
                                                     <span class="fw-bolder me-25">PAN ID:</span>
                                                     <span>{{Customer_Pan_No}}</span>
                                                 </li>
-                                                <li class="mb-75">
+                                                <li class="mb-75" *ngIf="Customer_Contact_No">
                                                     <span class="fw-bolder me-25">Contact:</span>
                                                     <span>+91 {{Customer_Contact_No}}</span>
                                                 </li>

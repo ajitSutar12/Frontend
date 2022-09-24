@@ -619,7 +619,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         // var month = check.format('M');
         // var day = check.format('D');
         // var year = check.format('YYYY');
-
+        debugger
         var maturityDt = moment(this.angForm.controls['AC_ASON_DATE'].value, 'DD/MM/YYYY')
         var year = maturityDt.format('YYYY');
         var month = maturityDt.format('M');
@@ -747,39 +747,53 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   CheckmonthDays() {
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-
       if (data.UNIT_OF_PERIOD == "B") {
+        this.angForm.controls['AC_MONTHS'].enable()
+        this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset()
-          this.angForm.controls['MIN_DAYS'].reset()
-        }
-
-        if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           this.angForm.controls['AC_DAYS'].reset()
-          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
         }
+        // if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+        //   this.angForm.controls['AC_DAYS'].reset()
+        //   Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
+        // }
       }
       else if (data.UNIT_OF_PERIOD == "D") {
+        this.angForm.controls['AC_MONTHS'].disable()
+        this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_DAYS'].reset()
         }
       }
       else if (data.UNIT_OF_PERIOD == "M") {
+        this.angForm.controls['AC_MONTHS'].enable()
+        this.angForm.controls['AC_DAYS'].disable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
           Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH, "error");
           this.angForm.controls['AC_MONTHS'].reset()
         }
       }
 
+
       if (data.UNIT_OF_PERIOD == "B" && data.IS_AUTO_PERIOD_CALCULATE == '1') {
+        this.angForm.controls['AC_MONTHS'].enable()
+        this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
           Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset()
           this.angForm.controls['AC_DAYS'].reset()
         }
       }
+
+      var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+      let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
+      let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+      this.angForm.patchValue({
+        AC_EXPDT: expiryDate
+      })
 
 
       if (data.MULTIPLE_OF_DAYS != null) {
@@ -795,37 +809,27 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   monthDays() {
-
-
-    const formVal = this.angForm.value;
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
       var date1 = this.angForm.controls['AC_ASON_DATE'].value;
       var date2 = this.angForm.controls['AC_EXPDT'].value;
-
-      // date1 = moment(date1).format('DD/MM/YYYY');
-      // date2 = moment(date2).format('DD/MM/YYYY');
-
       var b = moment(date1, "DD/MM/YYYY");
       var a = moment(date2, "DD/MM/YYYY");
-
       var months = a.diff(b, 'months');
       b.add(months, 'months');
-
       var days = a.diff(b, 'days');
-
       if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
         this.angForm.patchValue({
           AC_MONTHS: months,
           AC_DAYS: days,
-
-        })
-      } else {
-        this.angForm.patchValue({
-          AC_MONTHS: '',
-          AC_DAYS: ''
         })
       }
-
+      else {
+        // this.angForm.patchValue({
+        //   AC_MONTHS: '',
+        //   AC_DAYS: ''
+        // })
+        this.CheckmonthDays()
+      }
 
     })
   }
