@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +10,9 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 export class AppComponent implements OnInit {
   title = 'Welcome || Your Bank Name';
   //sample comment
-  constructor(private router: Router, private _hotkeysService: HotkeysService) { }
+  constructor(private router: Router, private _hotkeysService: HotkeysService) { 
+    
+  }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {
