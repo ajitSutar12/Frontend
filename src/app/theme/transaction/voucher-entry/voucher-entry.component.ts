@@ -287,6 +287,8 @@
     //get account no according scheme for introducer
     Submitscheme: any;
     getIntroducer(item) {
+      debugger
+      
       this.tempschmetype = this.selectedCode
       this.introducerACNo = [];
       this.obj = [item.id, this.selectedBranch]
@@ -369,6 +371,7 @@
           })
           break;
       }
+
       let object = this.TranData.find(t => t.key === this.selectedCode);
       if (this.type == 'cash') {
         this.tranModeList = [];
@@ -820,6 +823,9 @@
     submitCustomer: any;
     //get customer today voucher data
     getVoucherData(item) {
+      this.angForm.controls['total_amt'].reset()
+      this.angForm.controls['amt'].reset()
+      this.angForm.controls['tran_mode'].reset();
       this.submitCustomer = item;
       this.tempscheme = this.selectedScheme
       //Hide / Show and show account wie Photo and signature
@@ -1073,7 +1079,7 @@
 
 
           this.angForm.controls['amt'].reset();
-          this.swiper.nativeElement.focus();
+          // this.swiper.nativeElement.focus();
           this.angForm.controls['total_amt'].reset();
           Swal.fire('Error!', data.message, 'error');
 
@@ -1083,7 +1089,7 @@
               
 
               this.angForm.controls['amt'].reset();
-              this.swiper.nativeElement.focus();
+              // this.swiper.nativeElement.focus();
 
 
               this.angForm.controls['total_amt'].reset();
@@ -1096,7 +1102,7 @@
                   
 
                   // this.angForm.controls['amt'].reset();
-                  //         this.swiper.nativeElement.focus();
+                          this.swiper.nativeElement.focus();
 
                   // this.angForm.controls['total_amt'].reset();
                   Swal.fire({
@@ -1116,7 +1122,7 @@
                       this.SideDetails()
           
                       this.angForm.controls['total_amt'].reset();
-                      this.swiper.nativeElement.focus();
+                      // this.swiper.nativeElement.focus();
                     }
                   })
                 } else {
@@ -1126,7 +1132,7 @@
 
                       this.angForm.controls['amt'].reset();
                       this.angForm.controls['total_amt'].reset();
-                      this.swiper.nativeElement.focus();
+                      // this.swiper.nativeElement.focus();
                       Swal.fire('Error!', data.message, 'error');
 
 
@@ -1137,7 +1143,7 @@
 
                           this.angForm.controls['amt'].reset();
                           this.angForm.controls['total_amt'].reset();
-                          this.swiper.nativeElement.focus();
+                          // this.swiper.nativeElement.focus();
                           Swal.fire('Error!', data.message, 'error');
 
                         } else {
@@ -1147,7 +1153,7 @@
 
                               this.angForm.controls['amt'].reset();
                               this.angForm.controls['total_amt'].reset();
-                              this.swiper.nativeElement.focus();
+                              // this.swiper.nativeElement.focus();
                               Swal.fire('Error!', data.message, 'error');
 
                             } else {
@@ -1157,7 +1163,7 @@
 
                                   this.angForm.controls['amt'].reset();
                                   this.angForm.controls['total_amt'].reset();
-                                  this.swiper.nativeElement.focus();
+                                  // this.swiper.nativeElement.focus();
 
                                   let el: HTMLElement = this.focusbutton.nativeElement;
                                   Swal.fire('Error!', data.message, 'error');
@@ -1169,7 +1175,7 @@
 
                                       this.angForm.controls['amt'].reset();
                                       this.angForm.controls['total_amt'].reset();
-                                      this.swiper.nativeElement.focus();
+                                      // this.swiper.nativeElement.focus();
                                       Swal.fire('Error!', data.message, 'error');
 
                                     } else {
@@ -1179,7 +1185,7 @@
 
                                           this.angForm.controls['amt'].reset();
                                           this.angForm.controls['total_amt'].reset();
-                                          this.swiper.nativeElement.focus();
+                                          // this.swiper.nativeElement.focus();  
                                           Swal.fire('Error!', data.message, 'error');
 
                                         } else {
@@ -1189,8 +1195,8 @@
 
                                               this.angForm.controls['amt'].reset();
                                               this.angForm.controls['total_amt'].reset();
-                                              this.swiper.nativeElement.focus();
-                                              let el: HTMLElement = this.focusbutton.nativeElement;
+                                              // this.swiper.nativeElement.focus();
+                                              // let el: HTMLElement = this.focusbutton.nativeElement;
                                               Swal.fire('Error!', data.message, 'error');
 
                                             } else {
@@ -1200,7 +1206,7 @@
 
                                                   this.angForm.controls['amt'].reset();
                                                   this.angForm.controls['total_amt'].reset();
-                                                  this.swiper.nativeElement.focus();
+                                                  // this.swiper.nativeElement.focus();
                                                   let el: HTMLElement = this.focusbutton.nativeElement;
                                                   Swal.fire('Error!', data.message, 'error');
 
@@ -1212,7 +1218,7 @@
 
                                                       this.angForm.controls['amt'].reset();
                                                       this.angForm.controls['total_amt'].reset();
-                                                      this.swiper.nativeElement.focus();
+                                                      // this.swiper.nativeElement.focus();
                                                       let el: HTMLElement = this.focusbutton.nativeElement;
                                                       Swal.fire('Error!', data.message, 'error');
 
@@ -1224,7 +1230,7 @@
 
                                                           this.angForm.controls['amt'].reset();
                                                           this.angForm.controls['total_amt'].reset();
-                                                          this.swiper.nativeElement.focus();
+                                                          // this.swiper.nativeElement.focus();
                                                           Swal.fire('Error!', data.message, 'error');
 
                                                         } else {
@@ -1234,7 +1240,7 @@
 
                                                               this.angForm.controls['amt'].reset();
                                                               this.angForm.controls['total_amt'].reset();
-                                                              this.swiper.nativeElement.focus();
+                                                              // this.swiper.nativeElement.focus();
                                                               let el: HTMLElement = this.focusbutton.nativeElement;
                                                               Swal.fire('Error!', data.message, 'error');
 
@@ -1246,7 +1252,7 @@
 
                                                                   this.angForm.controls['amt'].reset();
                                                                   this.angForm.controls['total_amt'].reset();
-                                                                  this.swiper.nativeElement.focus();
+                                                                  // this.swiper.nativeElement.focus();
                                                                   let el: HTMLElement = this.focusbutton.nativeElement;
                                                                   Swal.fire('Error!', data.message, 'error');
 
@@ -1257,7 +1263,7 @@
 
                                                                       this.angForm.controls['amt'].reset();
                                                                       this.angForm.controls['total_amt'].reset();
-                                                                      this.swiper.nativeElement.focus();
+                                                                      // this.swiper.nativeElement.focus();
                                                                       let el: HTMLElement = this.focusbutton.nativeElement;
                                                                       Swal.fire('Error!', data.message, 'error');
 
@@ -1269,7 +1275,7 @@
 
                                                                           this.angForm.controls['amt'].reset();
                                                                           this.angForm.controls['total_amt'].reset();
-                                                                          this.swiper.nativeElement.focus();
+                                                                          // this.swiper.nativeElement.focus();
                                                                           Swal.fire('Error!', data.message, 'error');
 
                                                                         } else {
@@ -1279,7 +1285,7 @@
 
                                                                               this.angForm.controls['amt'].reset();
                                                                               this.angForm.controls['total_amt'].reset();
-                                                                              this.swiper.nativeElement.focus();
+                                                                              // this.swiper.nativeElement.focus();
                                                                               Swal.fire('Error!', data.message, 'error');
 
                                                                             } else {
@@ -1290,7 +1296,7 @@
 
                                                                                   this.angForm.controls['amt'].reset();
                                                                                   this.angForm.controls['total_amt'].reset();
-                                                                                  this.swiper.nativeElement.focus();
+                                                                                  // this.swiper.nativeElement.focus();
                                                                                   Swal.fire('Error!', data.message, 'error');
 
                                                                                 } else {
@@ -1301,17 +1307,17 @@
 
                                                                                       this.angForm.controls['amt'].reset();
                                                                                       this.angForm.controls['total_amt'].reset();
-                                                                                      this.swiper.nativeElement.focus();
+                                                                                      // this.swiper.nativeElement.focus();
                                                                                       Swal.fire('Error!', data.message, 'error');
 
                                                                                     } else {
-                                                                                      this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                      this._service.withdrawClosingCondition(obj).subscribe(data => {
                                                                                         if (data != 0) {
                                                                                           this.SideDetails()
 
                                                                                           this.angForm.controls['amt'].reset();
                                                                                           this.angForm.controls['total_amt'].reset();
-                                                                                          this.swiper.nativeElement.focus();
+                                                                                          // this.swiper.nativeElement.focus();
                                                                                           Swal.fire('Error!', data.message, 'error');
 
                                                                                         }

@@ -630,6 +630,9 @@ export class MultiVoucherComponent implements OnInit {
   //get customer today voucher data
   submitAccountNo: any;
   getVoucherData(item) {
+    this.angForm.controls['total_amt'].reset()
+    this.angForm.controls['amt'].reset()
+    this.angForm.controls['tran_mode'].reset();
     this.tempscheme = this.selectedScheme
     this.submitAccountNo = item;
     let customer = this.angForm.controls['account_no'].value;
@@ -1373,6 +1376,16 @@ debugger
 
                                                                                         this.angForm.controls['amt'].reset();
                                                                                         this.angForm.controls['total_amt'].reset();
+                                                                                      }else{
+                                                                                        this._service.withdrawClosingCondition(obj).subscribe(data=>{
+                                                                                          if(data != 0){
+                                                                                            Swal.fire('Error!', data.message, 'error');
+                                                                                            this.SideDetails()
+                                                                                            this.angForm.controls['amt'].reset();
+                                                                                            this.angForm.controls['total_amt'].reset();
+                                                                                            let el: HTMLElement = this.focusbutton.nativeElement;
+                                                                                          }
+                                                                                        })
                                                                                       }
                                                                                     }, err => {
                                                                                       console.log(err);

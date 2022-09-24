@@ -145,6 +145,9 @@ export class VoucherEntryService {
     return this.http.post(this.url + '/voucher/WithdrawAmtClosingEqualClearBal', data);
   }
 
+  withdrawClosingCondition(data): Observable<any>{
+    return this.http.post(this.url + '/voucher/WithdrawClosingCondition',data);
+  }
   RecurringTypeDeposite(data): Observable<any> {
     return this.http.post(this.url + '/voucher/RecurringTypeDeposite', data);
   }
