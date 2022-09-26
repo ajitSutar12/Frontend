@@ -7,6 +7,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
+import { NgSelectConfig } from "@ng-select/ng-select";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
 @Component({
   selector: 'app-t-form-day-book',
   templateUrl: './t-form-day-book.component.html',
@@ -27,7 +31,7 @@ export class TFormDayBookComponent implements OnInit {
   clicked = false;
   //Form Group 
   ngForm: FormGroup;
-
+  bsValue = new Date();
   //ng model
   ngbranch: any = null
   report_url = environment.report_url;
@@ -42,7 +46,11 @@ export class TFormDayBookComponent implements OnInit {
     { id: 2, value: "Details" },
     { id: 3, value: "Subsidairy Grouping" },
   ];
-  constructor(private fb: FormBuilder, private sanitizer: DomSanitizer, public router: Router, private _ownbranchmasterservice: OwnbranchMasterService,) {
+  constructor(private fb: FormBuilder, private sanitizer: DomSanitizer, 
+    private systemParameter: SystemMasterParametersService,
+    private config: NgSelectConfig,
+    public router: Router, private _ownbranchmasterservice: OwnbranchMasterService,) {
+    this.date = this.date;
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -54,7 +62,12 @@ export class TFormDayBookComponent implements OnInit {
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    })
+    });
+
+    //get date from syspara current_date
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+    this.date = data.CURRENT_DATE;
+  })
   }
 
   // validations for ngForm
@@ -84,12 +97,11 @@ export class TFormDayBookComponent implements OnInit {
       let obj = this.ngForm.value
       let Date = moment(obj.date).format('DD/MM/YYYY');
 
-      let branch = obj.BRANCH_CODE;
+      let Branch = obj.Branch;
 
       let type = obj.Type;
 
-
-      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + this.ngbranch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName ;
+      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date="+ Date + "&Branch=" + this.ngbranch + "&branchName=" + branchName + "'&type='" + type + "&bankName=" + bankName + " ";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {

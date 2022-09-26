@@ -185,7 +185,7 @@ export class VoucherEntryComponent implements OnInit {
     //get syspara details
     this._service.getSysParaData().subscribe(data => {
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
-      debugger
+      
       this.date = data[0].CURRENT_DATE;
       let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
       let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
@@ -209,7 +209,7 @@ export class VoucherEntryComponent implements OnInit {
     //Scheme Code
     this._service.getSchemeCodeList().subscribe(data => {
       this.master = data;
-      debugger
+      
       this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
       this.allSchemeCode = this.allSchemeCode.sort(this.dynamicSort("S_ACNOTYPE"));;
 
@@ -287,7 +287,7 @@ export class VoucherEntryComponent implements OnInit {
   //get account no according scheme for introducer
   Submitscheme: any;
   getIntroducer(item) {
-    debugger
+    
 
     this.tempschmetype = this.selectedCode
     this.introducerACNo = [];
@@ -429,12 +429,12 @@ export class VoucherEntryComponent implements OnInit {
   }
   //submit Form
   submit() {
-    debugger
+    
     if (this.angForm.status == "INVALID") {
       this.angForm.markAllAsTouched();
 
     }
-    debugger
+    
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = this.angForm.value;
     obj['user'] = user;
@@ -569,7 +569,7 @@ export class VoucherEntryComponent implements OnInit {
     // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
     this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
     this._service.getHeadDetails(obj).subscribe(data => {
-      debugger
+      
       if (data.length != 0) {
 
         if (!this.headFlag) {
@@ -608,8 +608,8 @@ export class VoucherEntryComponent implements OnInit {
 
       balancedata = data1
       this.headData.forEach(element => {
-        debugger
-        debugger
+        
+        
         let newobj = {
           acno: element?.GL_CODE,
           scheme: '101',
@@ -786,7 +786,7 @@ export class VoucherEntryComponent implements OnInit {
 
 
   showlgindetails() {
-    debugger
+    
     if (this.angForm.controls['account_no'].value != null && this.selectedCode != 'GL') {
       this.ShowDocuments = true
       console.log(this.submitCustomer.idmasterID)
@@ -932,7 +932,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //cheque no captial function
   chequeNoData(event) {
-    debugger
+    
     this.angForm.patchValue({
       chequeNo: event.target.value.toUpperCase()
     })
@@ -983,7 +983,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //decimal content show purpose wrote below function
   decimalAllContent($event) {
-    debugger
+    
     if (this.submitTranMode == undefined) {
       Swal.fire('Error', 'Please First Select Tran Mode then enter Amount', 'error');
       let value = Number($event.target.value);
@@ -1064,7 +1064,7 @@ export class VoucherEntryComponent implements OnInit {
     }
   }
   checkamtcondition($event) {
-    debugger
+    
     let obj = {
       value: Number($event.target.value),
       clearBalance: this.ClearBalance,
@@ -1698,7 +1698,7 @@ export class VoucherEntryComponent implements OnInit {
   editClickHandler(id) {
 
     this._service.getFormData(id).subscribe((data) => {
-      debugger
+      
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -1885,7 +1885,7 @@ export class VoucherEntryComponent implements OnInit {
   opendate = ''
   renewaldate = ''
   SideDetails() {
-    debugger
+    
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
     // this.angForm.controls['amt'].reset()
@@ -1933,14 +1933,14 @@ export class VoucherEntryComponent implements OnInit {
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
-      debugger
+      
       this.DayOpBal = Math.abs(data);
       if (data < 0) {
         this.extensionopenbal = 'Cr'
       } else {
         this.extensionopenbal = 'Dr'
       }
-      debugger
+      
       this.tempDayOpBal = data;
       if (this.Submitscheme.S_APPL == '201' && this.DayOpBal > 0) {
         var index = this.TranData[11].data.cash.indexOf(1);

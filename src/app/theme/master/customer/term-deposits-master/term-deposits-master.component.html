@@ -445,7 +445,7 @@
                                                                         style="text-align: right;" id="AC_SCHMAMT"
                                                                         title="Input allowed only  0-9"
                                                                         pattern="\d{1,10}(\.\d{2})?" maxlength="13"
-                                                                        (ngModelChange)="setMaturityDate()"
+                                                                        (change)="setMaturityDate()"
                                                                         (focusout)="checkAmount()"
                                                                         formControlName="AC_SCHMAMT"
                                                                         value="{{ AC_SCHMAMT != null ?AC_SCHMAMT.toFixed(2) : 0.00}}"

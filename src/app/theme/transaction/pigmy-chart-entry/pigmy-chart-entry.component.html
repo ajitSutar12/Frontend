@@ -140,6 +140,19 @@
                                                 <td class="td_right" *ngIf="isReceiptShow">Receipt Number</td>
                                                 <td class="td_right">Amount</td>
                                             </thead>
+                                            <!-- <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td><input type="text" class="form-control"
+                                                        (keyup)="filterObjectFun($event,'AC_NO')"></td>
+                                                <td></td>
+                                                <td><input type="text" class="form-control"
+                                                        style="text-transform:uppercase;"
+                                                        (keyup)="filterObjectFun($event,'AC_NAME')"></td>
+
+                                                <td *ngIf="isReceiptShow"></td>
+                                                <td></td>
+                                            </tr> -->
                                             <tbody *ngIf="tableArr?.length != 0">
                                                 <tr *ngFor="let data of tableArr;
                                             let indexOfelement = index">
