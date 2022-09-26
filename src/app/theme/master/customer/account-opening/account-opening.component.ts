@@ -184,7 +184,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
         },
         {
           title: 'Account Number',
-          data: 'AC_NO'
+          data: 'BANKACNO'
         },
         {
           title: 'Member Name',

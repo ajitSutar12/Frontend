@@ -310,7 +310,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           data: 'AC_TYPE'
         },
         {
-          title: 'Agent Number',
+          title: 'Account Number',
           data: 'BANKACNO'
         },
         {

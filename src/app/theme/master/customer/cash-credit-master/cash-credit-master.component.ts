@@ -422,7 +422,7 @@ export class CashCreditMasterComponent implements OnInit {
         },
         {
           title: 'Account No',
-          data: 'AC_NO'
+          data: 'BANKACNO'
         },
         {
           title: 'Customer ID',

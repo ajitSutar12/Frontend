@@ -51,6 +51,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   agentACNO
   obj
   tableArr: any
+  gridData: any
   mem
   dtOptions: DataTables.Settings = {};
   //Datatable variable
@@ -217,6 +218,16 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       TRAN_AMOUNT: [0],
       AGENT_ACNO: ['', [Validators.required]]
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
   //get agent account number after branch selection
@@ -256,6 +267,23 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.agentBankACNO = event.bank
     this.S_GLACNO = event.glacno
     this.getTable()
+  }
+
+  //filter object
+  filterObjectFun(ele, type) {
+    this.tableArr = [];
+    this.gridData.forEach(element => {
+      if (type == 'AC_NO') {
+        if (JSON.stringify(element.TRAN_BANKACNO).includes(ele.target.value)) {
+          this.tableArr.push(element);
+        }
+      }
+      else {
+        if (JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())) {
+          this.tableArr.push(element);
+        }
+      }
+    });
   }
 
   decimalAllContent($event) {
