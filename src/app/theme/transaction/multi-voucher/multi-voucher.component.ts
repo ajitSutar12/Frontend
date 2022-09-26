@@ -187,8 +187,7 @@ export class MultiVoucherComponent implements OnInit {
     this.createForm()
 
     //Day opening Amount
-    // this.DayOpBal = 1000;
-    // get session branch data
+    //get session branch data
     let user = JSON.parse(localStorage.getItem('user'));
     this.loginUser = user;
     this.type = 'tranfer';
@@ -199,9 +198,9 @@ export class MultiVoucherComponent implements OnInit {
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
       let nextDate = moment(this.date,'DD/MM/YYYY').add(3,'month').format('YYYY-MM-DD');
-        let lastDate = moment(this.date,'DD/MM/YYYY').subtract(3,'month').format('YYYY-MM-DD');
+      let lastDate = moment(this.date,'DD/MM/YYYY').subtract(3,'month').format('YYYY-MM-DD');
 
-        this.maxDate = new Date(nextDate);
+      this.maxDate = new Date(nextDate);
       this.maxDate.setDate(this.maxDate.getDate());
 
       this.minDate = new Date(nextDate);
@@ -610,7 +609,18 @@ export class MultiVoucherComponent implements OnInit {
             // if (value != undefined) {
               if (this.submitTranMode.tran_drcr == item.DRCR_APPLICABLE || item.DRCR_APPLICABLE == 'B') {
                 item['Amount'] = 0;
-                this.headData.push(item)
+                item['Amount'] = 0;
+                  if(this.submitScheme.S_ACNOTYPE == 'TD'){
+                    if(this.submitScheme.IS_RECURRING_TYPE == '1' && this.submitScheme.INTEREST_RULE == '0' && item.HEAD_TYPE == 'PNI'){
+                      this.headData.push(item)
+                    }else{
+                      if(item.HEAD_TYPE != 'PNI'){
+                        this.headData.push(item)
+                      }
+                    }
+                  }else{
+                    this.headData.push(item)
+                  }
               }
 
             // }
