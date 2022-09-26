@@ -152,7 +152,7 @@ export class MasterInvestmentsComponent implements OnInit {
         },
         {
           title: 'Account Number',
-          data: 'AC_NO'
+          data: 'BANKACNO'
         },
         {
           title: 'Member Name',

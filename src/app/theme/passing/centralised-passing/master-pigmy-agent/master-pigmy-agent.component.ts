@@ -126,7 +126,7 @@ export class MasterPigmyAgentComponent implements OnInit {
         },
         {
           title: 'Agent Number',
-          data: 'AC_NO'
+          data: 'BANKACNO'
         },
         {
           title: 'Customer ID',
