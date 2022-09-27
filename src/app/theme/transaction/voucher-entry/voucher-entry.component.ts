@@ -1069,6 +1069,7 @@
       }
 
       if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
+        debugger
 
         Swal.fire({
           title: 'Are you sure?',
@@ -1080,14 +1081,12 @@
           cancelButtonText: 'No',
           confirmButtonText: 'Yes'
         }).then((result) => {
-          if (result.isConfirmed == false) {
+          if (result.isConfirmed) {
+            this.checkamtcondition($event)
+          } else {
             this.angForm.controls['amt'].reset();
-            this.swiper.nativeElement.focus();
-
             this.angForm.controls['total_amt'].reset();
             this.SideDetails()
-          } else {
-            this.checkamtcondition($event)
           }
         })
 
@@ -1138,7 +1137,7 @@
                   
 
                   // this.angForm.controls['amt'].reset();
-                          this.swiper.nativeElement.focus();
+                          // this.swiper.nativeElement.focus();
 
                   // this.angForm.controls['total_amt'].reset();
                   Swal.fire({
@@ -1155,10 +1154,11 @@
                       
                     } else {
                       this.angForm.controls['amt'].reset();
+                      this.angForm.controls['total_amt'].reset();
+
                       this.SideDetails()
           
-                      this.angForm.controls['total_amt'].reset();
-                      // this.swiper.nativeElement.focus();
+                      this.swiper.nativeElement.focus();
                     }
                   })
                 } else {
