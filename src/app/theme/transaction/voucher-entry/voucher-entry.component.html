@@ -23,7 +23,7 @@
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                                <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code" autofocus >
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -43,7 +43,7 @@
                                             <div class="radio radio-inline">
                                                 <label>
                                                     <input type="radio" name="DEBIT" value="cash" formControlName="type"
-                                                        [checked]="true" (change)="transactionMode('cash')">
+                                                         (change)="transactionMode('cash')">
                                                     <i class="helper"></i>Cash </label>
                                             </div>
                                             <div class="radio radio-inline">

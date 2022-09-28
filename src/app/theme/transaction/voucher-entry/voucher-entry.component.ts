@@ -1133,13 +1133,6 @@
             } else {
               this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
                 if (data != 0) {
-                  // Swal.fire('Error!', data.message, 'error');
-                  
-
-                  // this.angForm.controls['amt'].reset();
-                          // this.swiper.nativeElement.focus();
-
-                  // this.angForm.controls['total_amt'].reset();
                   Swal.fire({
                     title: data.message,
                     html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
