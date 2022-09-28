@@ -1171,11 +1171,12 @@ debugger
         cancelButtonText: 'No',
         confirmButtonText: 'Yes'
       }).then((result) => {
-        if (result.isConfirmed == false) {
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        } else {
+        if (result.isConfirmed) {
           this.checkamtcondition($event)
+        } else {
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+            this.SideDetails()
         }
       })
 
@@ -1223,11 +1224,30 @@ debugger
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Error!', data.message, 'error');
-                this.SideDetails()
+                // Swal.fire('Error!', data.message, 'error');
+                // this.SideDetails()
 
-                this.angForm.controls['amt'].reset();
-                this.angForm.controls['total_amt'].reset();
+                // this.angForm.controls['amt'].reset();
+                // this.angForm.controls['total_amt'].reset();
+                Swal.fire({
+                  title: data.message,
+                  html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: 'No',
+                  confirmButtonText: 'Yes'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    
+                  } else {
+                    this.angForm.controls['amt'].reset();
+                    this.angForm.controls['total_amt'].reset();
+
+                    this.SideDetails()
+                  }
+                })
               } else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
                   if (data != 0) {
@@ -1657,14 +1677,19 @@ debugger
         this._vservice.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
             Swal.fire('Error!', data.message, 'error');
+            this.selectedMode = null
           } else {
             this._vservice.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
                 Swal.fire('Error!', data.message, 'error');
+                this.selectedMode = null
+
               } else {
                 this._vservice.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
                     Swal.fire('Error!', data.message, 'error');
+                    this.selectedMode = null
+
                   }
                 }, err => {
                   console.log(err);
@@ -1762,7 +1787,7 @@ debugger
           scheme: '101',
           date: this.date,
           schemeType: this.selectedCode,
-        }
+        } 
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;
