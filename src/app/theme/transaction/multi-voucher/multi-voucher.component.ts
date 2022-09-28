@@ -486,6 +486,7 @@ export class MultiVoucherComponent implements OnInit {
       this._service.insertVoucher(this.mainMaster).subscribe(data => {
         // this.getVoucherData();
         Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+        this.type = 'cash';
         this.mainMaster = [];
         this.headData = [];
         this.headShow = false;
@@ -1159,7 +1160,27 @@ debugger
       type: this.typeclearbal
     }
 
-    if (Number(obj.value) >= 200000) {
+    if(Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS'){
+      Swal.fire({
+        title: 'Are you sure?',
+        html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed == false) {
+            this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset();
+          this.SideDetails()
+          // this.swiper.nativeElement.focus();
+        } else {
+          this.checkamtcondition($event)
+        }
+      })
+    }else if (Number(obj.value) >= 200000) {
 
       Swal.fire({
         title: 'Are you sure?',
@@ -1229,25 +1250,25 @@ debugger
 
                 // this.angForm.controls['amt'].reset();
                 // this.angForm.controls['total_amt'].reset();
-                Swal.fire({
-                  title: data.message,
-                  html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  cancelButtonText: 'No',
-                  confirmButtonText: 'Yes'
-                }).then((result) => {
-                  if (result.isConfirmed) {
+                // Swal.fire({
+                //   title: data.message,
+                //   html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+                //   icon: 'warning',
+                //   showCancelButton: true,
+                //   confirmButtonColor: '#3085d6',
+                //   cancelButtonColor: '#d33',
+                //   cancelButtonText: 'No',
+                //   confirmButtonText: 'Yes'
+                // }).then((result) => {
+                //   if (result.isConfirmed) {
                     
-                  } else {
-                    this.angForm.controls['amt'].reset();
-                    this.angForm.controls['total_amt'].reset();
+                //   } else {
+                //     this.angForm.controls['amt'].reset();
+                //     this.angForm.controls['total_amt'].reset();
 
-                    this.SideDetails()
-                  }
-                })
+                //     this.SideDetails()
+                //   }
+                // })
               } else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
                   if (data != 0) {
@@ -1386,11 +1407,9 @@ debugger
                                                                               if (data != 0) {
                                                                                 Swal.fire('Error!', data.message, 'error');
                                                                                 this.SideDetails()
-
                                                                                 this.angForm.controls['amt'].reset();
                                                                                 this.angForm.controls['total_amt'].reset();
                                                                               } else {
-
                                                                                 this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                   if (data != 0) {
                                                                                     Swal.fire('Error!', data.message, 'error');

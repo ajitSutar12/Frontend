@@ -238,7 +238,7 @@
                                                             {{item.label}}</ng-option>
                                                     </ng-select> -->
                                                     <textarea class="form-control" formControlName="bank" rows="1"
-                                                            [(ngModel)]="particulars"></textarea>
+                                                           ></textarea>
                                                         <i class="fa fa-info-circle errspan"
                                                             (click)="modalLarge1.show()"></i>
 
@@ -321,7 +321,7 @@
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
                                                                 <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'">
                                                                     <input type="text"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event)"
@@ -330,29 +330,14 @@
                                                                 </td>
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'">
                                                                     <input type="text"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
                                                                         (focus)="selectAllContent($event)"
                                                                         value="{{item.Amount}}">
                                                                 </td>
-                                                                <!-- <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
-                                                                        type="text"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                        style="width: 100%;border:none;text-align: right;"
-                                                                        (keyup)="getInputHeadAmt($event,i)"
-                                                                        (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
-                                                                        value="0.00">
-                                                                </td>
-                                                                <td *ngIf="item.FIELD_AMOUNT != 'PENAL_INT_AMOUNT'"><input
-                                                                        type="text"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                        style="width: 100%;border:none;text-align: right;"
-                                                                        (keyup)="getInputHeadAmt($event,i)"
-                                                                        (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
-                                                                        value="0.00">
-                                                                </td> -->
+                                                                
                                                                 <td class="bg-light-danger text-right"><span
                                                                         class="text-danger">{{item.Balance}}</span></td>
                                                                 <td>{{item.type}}</td>
