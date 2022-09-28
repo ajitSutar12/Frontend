@@ -200,7 +200,7 @@
                                                             {{item.label}}</ng-option>
                                                     </ng-select> -->
                                                     <textarea class="form-control" formControlName="bank" rows="1"
-                                                            [(ngModel)]="particulars"></textarea>
+                                                            ></textarea>
                                                         <i class="fa fa-info-circle errspan"
                                                             (click)="modalLarge1.show()"></i>
 
@@ -283,7 +283,7 @@
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
                                                             <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'"><input
                                                                     type="text"
-                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
                                                                     (keyup)="getInputHeadAmt($event,i)"
 
@@ -293,31 +293,15 @@
                                                             </td>
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
                                                                     type="text"
-                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
                                                                     (keyup)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
                                                                     (focusout)="decimalAllContent($event);checkheadcondition($event,i);checkCondition($event)"
                                                                     value="{{item.Amount}}">
                                                             </td>
-                                                            <!-- <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
-                                                                    type="text"
-                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                    style="width: 100%;border:none;text-align: right;"
-                                                                    (keyup)="getInputHeadAmt($event,i)"
-                                                                    (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
-                                                                    value="0.00">
-                                                            </td>
-                                                            <td *ngIf="item.FIELD_AMOUNT != 'PENAL_INT_AMOUNT'"><input
-                                                                    type="text"
-                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                    style="width: 100%;border:none;text-align: right;"
-                                                                    (keyup)="getInputHeadAmt($event,i)"
-                                                                    (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
-                                                                    value="0.00">
-                                                            </td> -->
-                                                            <td class="bg-light-danger text-right"><span
-                                                                    class="text-danger">{{item.Balance}}</span></td>
+                                                            <td class="bg-light-danger text-right">
+                                                                <span class="text-danger">{{item.Balance}}</span></td>
                                                             <td>{{item.type}}</td>
                                                         </tr>
                                                     </tbody>
@@ -700,7 +684,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00{{extenstionaftervoucher}}</div>
+                                            aria-hidden="true"></i> {{AfterVoucher}} {{extenstionaftervoucher}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">

@@ -110,10 +110,10 @@
       { key: 'LN', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
       { key: 'GL', data: { cash: [1, 4], transfer: [1, 4] } },
       { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
-      { key: 'SH', data: { cash: [1, 4, 5, 7], transfer: [1, 4, 5, 7] } },
+      { key: 'SH', data: { cash: [1, 4, 5, 7,14], transfer: [1, 4, 5, 7,14] } },
       { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
       { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
-      { key: 'TD', data: { cash: [1, 4, 5, 6, 10, 14], transfer: [1, 4, 5, 6, 9, 10, 14] } },
+      { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
     ]
 
     bankName = [
@@ -475,6 +475,7 @@
         this.angForm.patchValue({
           type: 'cash',
         })
+        this.type = 'cash';
         this.headData = [];
         this.selectedMode = null
         this.Customer_Name = null
@@ -949,11 +950,11 @@
       this.headData[i].Amount = value
       let data = this.headData[i]
       if (data.FIELD_AMOUNT != 'PENAL_INT_AMOUNT') {
-        if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(data.Amount)) {
+        if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(value)) {
           this.headData[i].Amount = 0
           Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
         } else {
-          if (data.CHECK_REQUIRE == '1' && Number(data.Amount) != Number(data.Balance)) {
+          if (data.CHECK_REQUIRE == '1' && Number(value) != Number(data.Balance)) {
             this.headData[i].Amount = 0
             Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
           }
@@ -1067,10 +1068,27 @@
         totalAmt: this.angForm.controls['total_amt'].value,
         type: this.typeclearbal
       }
-
-      if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
-        debugger
-
+      if(Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS'){
+        Swal.fire({
+          title: 'Are you sure?',
+          html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'No',
+          confirmButtonText: 'Yes'
+        }).then((result) => {
+          if (result.isConfirmed == false) {
+              this.angForm.controls['amt'].reset(); 
+            this.angForm.controls['total_amt'].reset();
+            this.SideDetails()
+            this.swiper.nativeElement.focus();
+          } else {
+            this.checkamtcondition($event)
+          }
+        })
+      }else if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
         Swal.fire({
           title: 'Are you sure?',
           html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
@@ -1095,7 +1113,6 @@
       }
     }
     checkamtcondition($event) {
-      debugger
       let obj = {
         value: Number($event.target.value),
         clearBalance: this.ClearBalance,
@@ -1133,27 +1150,7 @@
             } else {
               this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
                 if (data != 0) {
-                  Swal.fire({
-                    title: data.message,
-                    html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'No',
-                    confirmButtonText: 'Yes'
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      
-                    } else {
-                      this.angForm.controls['amt'].reset();
-                      this.angForm.controls['total_amt'].reset();
-
-                      this.SideDetails()
-          
-                      this.swiper.nativeElement.focus();
-                    }
-                  })
+                  
                 } else {
                   this._service.ClearVoucherSameBal(obj).subscribe(data => {
                     debugger
