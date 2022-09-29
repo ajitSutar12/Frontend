@@ -1187,7 +1187,7 @@ debugger
           this.checkamtcondition($event)
         }
       })
-    }else if (Number(obj.value) >= 200000) {
+    } if (Number(obj.value) >= 200000) {
 
       Swal.fire({
         title: 'Are you sure?',

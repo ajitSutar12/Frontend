@@ -1113,7 +1113,7 @@
             this.checkamtcondition($event)
           }
         })
-      }else if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
+      }if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
         Swal.fire({
           title: 'Are you sure?',
           html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',

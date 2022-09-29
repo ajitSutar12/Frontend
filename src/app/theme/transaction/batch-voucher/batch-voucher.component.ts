@@ -94,10 +94,21 @@ export class BatchVoucherComponent implements OnInit {
       SchemeACNO: [''],
     })
   }
+
+  //cheque no captial function
+  chequeNoData(event){
+    debugger
+    this.angForm.patchValue({
+      chequeNo : event.target.value.toUpperCase()
+    }) 
+  }
   //Get Company Code Details
+  companyNameData :any;
   getCompanyData(ele) {
     this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
+      console.log(data);
       this.company_data = data;
+      this.companyNameData = data.AC_NO+'/'+data.NAME;
     }, err => {
       console.log(err);
     })
