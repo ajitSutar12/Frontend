@@ -13,9 +13,11 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer} from '@angular/platform-browser';
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
-
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import{DeadstockmasterService} from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
 import { first } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-bnk-dedsk-bal-list',
   templateUrl: './bnk-dedsk-bal-list.component.html',
@@ -73,8 +75,10 @@ newcustid: any = null;
   
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
-    private deadstockmasterService:DeadstockmasterService
+    private deadstockmasterService:DeadstockmasterService,
+    private systemParameter:SystemMasterParametersService,
   ) {
+    this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -86,9 +90,12 @@ newcustid: any = null;
     //branch List
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.dates = data.CURRENT_DATE;
     })
 
- 
 
     //dead stock 
     this.deadstockmasterService.getDeadstockList().pipe(first()).subscribe(data => {
@@ -109,10 +116,19 @@ newcustid: any = null;
       date: ['', [Validators.required]],
   
     });
+
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
-
-
-  
  
     src: any;
     view(event) {
@@ -135,7 +151,7 @@ newcustid: any = null;
       let endingcode =obj.Ending_Account;
       
 
-     this.iframeurl=this.report_url+ "examples/BnkDeadstockBalanceList.php?Date='" + Date + "'&branchName='"+branchName+"'&startingcode='"+startingcode +"'&endingcode='"+ endingcode +"'&bankName='" + bankName + "' ";
+     this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch+"&startingcode='"+startingcode +"'&endingcode='"+ endingcode +"&bankName=" + bankName + " ";
      this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
@@ -148,7 +164,10 @@ newcustid: any = null;
   }
 
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.ngForm.controls.BRANCH_CODE.reset();
+    this.ngForm.controls.Starting_Account.reset();
+    this.ngForm.controls.Ending_Account.reset();
     this.showRepo = false;
     this.clicked=false;
   }

@@ -1,1 +1,247 @@
-<p>bnk-other-bal-list works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Demo UI</h5>
+                <h6 style="float: right; font-size: 12px; color: black" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+
+            <form [formGroup]="angForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="ORDER_NUMBER"> Work Order Number<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="soecification">
+                                        <ng-option></ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"></div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Balance Date<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
+                                        formControlName="DATETYPE" class="form-control"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" bsDatepicker
+                                        required>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['DATETYPE'].invalid && (angForm.controls['DATETYPE'].dirty || angForm.controls['DATETYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['DATETYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class=" col-sm-12 col-md-2">
+                            <label for="WORK_ORDER"> Work Order Material<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="ORDERTYPE" bindLabel="name" bindValue="id" formControlName="ORDERTYPE"
+                                    [(ngModel)]="MATERIAL">
+                                    <ng-option *ngFor="let values of  ordertype" [value]="values">{{values.name}}
+                                    </ng-option>
+                        
+                                </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['ORDERTYPE'].invalid && (angForm.controls['ORDERTYPE'].dirty || angForm.controls['ORDERTYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['ORDERTYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-sm-12 col-md-2">
+                            <label for="PROJECT_NAME">Project Name<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PROJECT_NAME" class="form-control" placeholder=" "
+                                        id="PROJECT" formControlName="PROJECT">
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['PROJECT'].invalid && (angForm.controls['PROJECT'].dirty || angForm.controls['PROJECT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['PROJECT'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="ORDER_NUMBER"> Customer Name<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PROJECT_NAME" class="form-control" placeholder=" "
+                                        id="CUSTOMER" formControlName="CUSTOMER">
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['CUSTOMER'].invalid && (angForm.controls['CUSTOMER'].dirty || angForm.controls['CUSTOMER'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['CUSTOMER'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="ORDER_NUMBER">Note<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <textarea type="text" name="label-address" class="form-control" placeholder=" " style="height: 30px;width:220px ;"
+                                    id="label-address" maxlength="4000" formControlName="NOTE"></textarea>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['NOTE'].invalid && (angForm.controls['NOTE'].dirty || angForm.controls['NOTE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['NOTE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="DESC" bindLabel="name" bindValue="id" formControlName="DESC"
+                                    [(ngModel)]="MDESC">
+                                    <ng-option *ngFor="let values of mdesc" [value]="values">{{values.name}}
+                                    </ng-option>
+                        
+                                </ng-select>
+                                    <label for="ACNOTYPE">Material Description<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                            *ngIf="angForm.controls['DESC'].invalid && (angForm.controls['DESC'].dirty || angForm.controls['DESC'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="angForm.controls['DESC'].errors?.required">
+                                This field is required
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PROJECT_NAME" class="form-control" placeholder="Quantity"
+                                        id="QUANTITY" formControlName="QUANTITY">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['QUANTITY'].invalid && (angForm.controls['QUANTITY'].dirty || angForm.controls['QUANTITY'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['QUANTITY'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PROJECT_NAME" class="form-control" placeholder="UOM"
+                                        id="UOM" formControlName="UOM">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['UOM'].invalid && (angForm.controls['UOM'].dirty || angForm.controls['UOM'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['UOM'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                               *ngIf="addShowButton" (click)="addField()">Add</button>
+                                <button class="btn btn-outline-primary btn-sm" *ngIf="UpdateShowButton"
+                                (click)="updateField()">Update</button>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover compact">
+
+                                        <thead>
+
+                                            <td>Action</td>
+                                            <td>serial number</td>
+                                            <td>Material Description</td>
+                                            <td>Quantity</td>
+                                            <td>UOM</td>
+                                        </thead>
+                                        <tbody *ngIf="multiField?.length != 0">
+                                            <tr *ngFor="let data of multiField; let indexOfelement=index;">
+                                                <td>
+                                                    <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                        (click)="editField(indexOfelement)" placement="bottom"
+                                                        ngbTooltip="Edit"></span> &nbsp;
+                                                    <span class="fa fa-fw fa-trash-o" id="deletebutton"
+                                                        (click)="delField(indexOfelement)" placement="bottom"
+                                                        ngbTooltip="Delete"></span>
+                                                    <!-- <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editField(indexOfelement)">Edit</button> &nbsp;
+                                                <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delField(indexOfelement)">Delete</button> -->
+                                                </td>
+
+                                                <td class="td_right">{{data.SR_NO}}</td>
+                                                <td class="td_right">{{data.DESC}}</td>
+                                                <td class="td_right">{{data.QUANTITY}}</td>
+                                                <td class="td_right">{{data.UOM}}</td>
+                                            </tr>
+                                            </tbody>
+                                            <tbody *ngIf="multiField?.length == 0">
+                                                <tr>
+                                                    <td colspan="12" class="no-data-available"
+                                                        style="text-align: center;">No data!</td>
+        
+                                                </tr>
+                                            </tbody>
+                                    </table>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </form>
+        </div>
+    </div>
+</div>

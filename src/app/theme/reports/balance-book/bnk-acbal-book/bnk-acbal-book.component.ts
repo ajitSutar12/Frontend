@@ -12,6 +12,8 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { first } from "rxjs/operators";
 import Swal from 'sweetalert2';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @Component({
   selector: 'app-bnk-acbal-book',
@@ -66,9 +68,11 @@ export class BnkACBalBookComponent implements OnInit {
     private _schemeService: SchemeAccountNoService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter:SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private config: NgSelectConfig,
     public router: Router,) { 
+      this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);
@@ -95,13 +99,28 @@ export class BnkACBalBookComponent implements OnInit {
     })
      // Scheme Code
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    
     var filtered = data.filter(function (scheme) {
       return (scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
     });
     this.scheme = filtered;
 
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.defaultDate = data.CURRENT_DATE;
+    })
+
   })
   
+  let data: any = localStorage.getItem('user');
+  let result = JSON.parse(data);
+  if (result.RoleDefine[0].Role.id == 1) {
+    this.ngbranch = result.branch.id
+    this.ngForm.controls['BRANCH_CODE'].enable()
+  }
+  else {
+    this.ngForm.controls['BRANCH_CODE'].disable()
+    this.ngbranch = result.branch.id
+  }
  
   }
 
@@ -249,6 +268,8 @@ export class BnkACBalBookComponent implements OnInit {
   
     view(event) {
   
+      debugger
+      
       this.showLoading = true;
       event.preventDefault();
       this.formSubmitted = true;
@@ -263,12 +284,12 @@ export class BnkACBalBookComponent implements OnInit {
     let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
     let scheme = obj.Scheme_code
     let Rstartingacc = obj.FROM_AC_NO
-    let Rendingacc = obj.TO_AC_NO
+    let EndingAccount = obj.TO_AC_NO
     let branch = obj.BRANCH_CODE
     let Rdio = obj.radio
     let Rdiosort  = obj.radio_sort
             
-   this.iframeurl= this.report_url+ "examples/BalanceBook.php?date='"+date+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branchName='"+ branchName +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&bankName='" + bankName + "'";
+   this.iframeurl= this.report_url+ "examples/BalanceBook.php?&date='"+date+"'&Rdio='"+Rdio+"&scheme=" + scheme + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&EndingAccount='" + EndingAccount +"'&Rdiosort='" + Rdiosort +"&bankName=" + bankName + "";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
       }
       else {
@@ -286,7 +307,12 @@ export class BnkACBalBookComponent implements OnInit {
     
     // Reset Function
     resetForm() {
-      this.createForm()
+      // this.createForm()
+      this.ngForm.controls.Scheme_code.reset();
+      this.ngForm.controls.FROM_AC_NO.reset();
+      this.ngForm.controls.TO_AC_NO.reset();
+      this.ngForm.controls.radio.reset();
+      this.ngForm.controls.radio_sort.reset();
       this.showRepo = false;
       this.clicked=false;
     }

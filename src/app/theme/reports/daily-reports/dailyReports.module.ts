@@ -15,7 +15,7 @@ import { BnkExpectStandingInstCreditComponent } from './bnk-expect-standing-inst
 import { BnkExpectStandInstructionComponent } from './bnk-expect-stand-instruction/bnk-expect-stand-instruction.component';
 import { BnkExpectIntInstructCreditComponent } from './bnk-expect-int-instruct-credit/bnk-expect-int-instruct-credit.component';
 import { BnkExpectIntInstructComponent } from './bnk-expect-int-instruct/bnk-expect-int-instruct.component';
-
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { BnkExpectIntInstructComponent } from './bnk-expect-int-instruct/bnk-exp
     // ChartModule
   ],
   declarations: [DailyReportsComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

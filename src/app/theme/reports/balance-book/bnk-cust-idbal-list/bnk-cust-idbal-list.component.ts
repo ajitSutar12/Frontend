@@ -14,6 +14,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { first } from "rxjs/operators";
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/customer-id-master-dropdown.service";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 //service file for fetching records from customer ID
 // import { CustomerIdService } from "../customer-id/customer-id.service";
@@ -54,7 +55,9 @@ export class BnkCustIDBalListComponent implements OnInit {
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
     private customerID: CustomerIDMasterDropdownService,
+    private systemParameter:SystemMasterParametersService,
   ) {
+    this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -66,9 +69,25 @@ export class BnkCustIDBalListComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
+
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe((data) => {
       this.Cust_ID = data;
     });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.defaultDate = data.CURRENT_DATE;
+    })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   createForm() {
@@ -81,7 +100,7 @@ export class BnkCustIDBalListComponent implements OnInit {
     });
   }
   view(event) {
-
+  debugger
     event.preventDefault();
 
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -93,11 +112,11 @@ export class BnkCustIDBalListComponent implements OnInit {
     let obj = this.angForm.value
     let stdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
     let custid = obj.AC_CUSTID;
-    let branches = obj.BRANCH_CODE;
+    let branch = obj.BRANCH_CODE;
     let pritns = obj.PRINT_CUSTID;
 
-    this.iframeurl = this.report_url+ "examples/CustomerIdWiseList.php?stdate='" + stdate +"'&branchName='"+branchName+"'&custid='"+custid+"'&pritns='"+pritns+"'&bankName='" + bankName + "' ";
-    this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    this.iframeurl = this.report_url+ "examples/CustomerIdWiseList.php?stdate='" + stdate +"'&branch="+branch+"&custid="+custid+"'&pritns='"+pritns+"&bankName=" + bankName + " ";
+    this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl); 
    
    }
   else {
@@ -110,7 +129,9 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.angForm.controls.AC_CUSTID.reset();
+  this.angForm.controls.PRINT_CUSTID.reset();
   this.showRepo = false;
   this.clicked=false;
 }

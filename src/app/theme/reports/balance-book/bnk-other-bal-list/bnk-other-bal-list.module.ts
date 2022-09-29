@@ -23,15 +23,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-    FormsModule,
     ReactiveFormsModule,
-    NgbModule,
-    PerfectScrollbarModule,
+    FormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkOtherBalListRoutingModule
   ],
 
   declarations: [BnkOtherBalListComponent],

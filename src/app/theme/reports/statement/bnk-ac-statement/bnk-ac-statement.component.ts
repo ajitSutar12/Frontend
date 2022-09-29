@@ -19,12 +19,13 @@ import * as moment from 'moment';
 import { environment } from "src/environments/environment";
 import { DomSanitizer} from '@angular/platform-browser';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-bnk-ac-statement',
   templateUrl: './bnk-ac-statement.component.html',
   styleUrls: ['./bnk-ac-statement.component.scss'],
- providers:[CustomerIDMasterDropdownService,SchemeAccountNoService]
+ providers:[CustomerIDMasterDropdownService,SchemeAccountNoService,SystemMasterParametersService]
 })
 export class BnkAcStatementComponent implements OnInit {
 
@@ -36,6 +37,7 @@ export class BnkAcStatementComponent implements OnInit {
   url = environment.base_url;
   ngBranchCode: any = null;
   branch_code: any;
+  formSubmitted = false;
   schemeCode: any = null;
   getschemename: any;
   allScheme: any = null
@@ -64,6 +66,7 @@ export class BnkAcStatementComponent implements OnInit {
     scheme
     iframeurl: any = ' ';
     clicked:boolean=false;
+ 
 
   constructor(
     private fb: FormBuilder,
@@ -74,7 +77,9 @@ export class BnkAcStatementComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private systemParameter: SystemMasterParametersService,
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -92,9 +97,25 @@ export class BnkAcStatementComponent implements OnInit {
       });
       this.scheme = allscheme;
     })
+
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
+    });
+
+    // debugger
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
     })
+    
   }
 
   createForm(){
@@ -103,16 +124,27 @@ export class BnkAcStatementComponent implements OnInit {
       AC_NOFrom: ['', [Validators.required]],
       AC_NOTo: ['', [Validators.required]],
       BRANCH: ['', [Validators.required]],
-      START_DATE: ['', [Validators.required]],
-      END_DATE: ['', [Validators.required]],
+      FROM_DATE: ['', [Validators.required]],
+      TO_DATE: ['', [Validators.required]],
       AC_TYPE: ['', ],
       AC_CUSTID: ['', ],
       Customer_Id_Wise:[''],
       PRINT_ACCOUNT:[''],
       PRINT_CLOSED:[''],
-    })
+    });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
- 
+
   //function to get ac no according branch
   getBranch() {
     this.getInterestTransfer()
@@ -283,9 +315,9 @@ export class BnkAcStatementComponent implements OnInit {
 }
 
 end(){
-  this.startfrom = this.angForm.controls['START_DATE'].value
-  this.startto = this.angForm.controls['END_DATE'].value
-  if (this.angForm.controls['START_DATE'].value <= this.angForm.controls['END_DATE'].value) {
+  this.startfrom = this.angForm.controls['FROM_DATE'].value
+  this.startto = this.angForm.controls['TO_DATE'].value
+  if (this.angForm.controls['FROM_DATE'].value <= this.angForm.controls['TO_DATE'].value) {
     this.equal = [this.startfrom, this.startto]
   }
   else {
@@ -294,7 +326,7 @@ end(){
 }
 
 View(event) {
-
+debugger
   event.preventDefault();
 
   let userData = JSON.parse(localStorage.getItem('user'));
@@ -304,10 +336,10 @@ View(event) {
   if (this.angForm.valid) {
     this.showRepo = true;
     let obj = this.angForm.value
-    let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
-    let branched = obj.BRANCH;
-    let schemes = obj.AC_TYPE;
+    let stadate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    let edate = moment(obj.TO_DATE).format('DD/MM/YYYY');
+    let branch = obj.BRANCH;
+    let scheme = obj.AC_TYPE;
     let fromacc = obj.AC_NOFrom;
     let toacc = obj.AC_NOTo;
     let custid = obj.AC_CUSTID;
@@ -316,7 +348,7 @@ View(event) {
     let print = obj.PRINT_ACCOUNT;
     let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement.php?stadate='" + stadate +"'&edate='"+edate+"'&branchName='"+branchName+"'&schemes='"+schemes+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"'&bankName='" + bankName + "' ";
+    this.iframeurl = this.report_url+"examples/AccountStatement.php?&stadate='" + stadate +"'&edate='"+edate+"'&branch="+branch+"&scheme="+scheme+"&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }
@@ -331,7 +363,11 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.angForm.controls.AC_NOFrom.reset();
+  this.angForm.controls.AC_NOTo.reset();
+  this.angForm.controls.AC_TYPE.reset();
+  this.angForm.controls.AC_CUSTID.reset();
   this.showRepo = false;
   this.clicked=false;
 }

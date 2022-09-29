@@ -187,7 +187,7 @@
       //get syspara details
       this._service.getSysParaData().subscribe(data => {
         // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
-        debugger
+        //debugger
         this.date = data[0].CURRENT_DATE;
         let nextDate = moment(this.date,'DD/MM/YYYY').add(3,'month').format('YYYY-MM-DD');
         let lastDate = moment(this.date,'DD/MM/YYYY').subtract(3,'month').format('YYYY-MM-DD');
@@ -211,7 +211,7 @@
       //Scheme Code
       this._service.getSchemeCodeList().subscribe(data => {
         this.master = data;
-        debugger
+        //debugger
         this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
         this.allSchemeCode = this.allSchemeCode.sort(this.dynamicSort("S_ACNOTYPE"));;
 
@@ -289,7 +289,7 @@
     //get account no according scheme for introducer
     Submitscheme: any;
     getIntroducer(item) {
-      debugger
+      //debugger
       
       this.tempschmetype = this.selectedCode
       this.introducerACNo = [];
@@ -375,7 +375,7 @@
       }
 
       let object = this.TranData.find(t => t.key === this.selectedCode);
-      debugger
+      //debugger
       if (this.type == 'cash') {
         this.tranModeList = [];
         object.data.cash.forEach(ele => {
@@ -399,7 +399,7 @@
 
     //Transaction mode select
     transactionMode(mode) {
-      debugger
+      //debugger
       this.selectedMode = null
       this.type = mode;
       let object = this.TranData.find(t => t.key === this.selectedCode);
@@ -445,13 +445,13 @@
     }
     //submit Form
     submit() {
-      debugger
+      //debugger
       if(this.angForm.status == "INVALID")
       {  
         this.angForm.markAllAsTouched(); 
   
       }
-      debugger
+      //debugger
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = this.angForm.value;
       obj['user'] = user;
@@ -545,7 +545,7 @@
     //Mode data
     submitTranMode: any;
     changeMode(item) {
-      debugger
+      //debugger
       this.headData = []
       this.submitTranMode = item;
       if (this.submitTranMode.tran_type == 'TR') {
@@ -593,7 +593,7 @@
       // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
       this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
       this._service.getHeadDetails(obj).subscribe(data => {
-        debugger
+        //debugger
         console.log(this.Submitscheme);
         if (data.length != 0) {
 
@@ -604,7 +604,7 @@
               let value = {}
               // value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
               // if (value != undefined) {
-                debugger
+                //debugger
                 console.log(item);
                 if (this.submitTranMode.tran_drcr ==item.DRCR_APPLICABLE || item.DRCR_APPLICABLE == 'B') {
                   item['Amount'] = 0;
@@ -645,8 +645,8 @@
         
         balancedata = data1
         this.headData.forEach(element => {
-          debugger
-          debugger
+          //debugger
+          //debugger
           let newobj = {
             acno: element?.GL_CODE,
             scheme: '101',
@@ -823,7 +823,7 @@
 
 
     showlgindetails() {
-      debugger
+      //debugger
       if (this.angForm.controls['account_no'].value != null && this.selectedCode != 'GL') {
         this.ShowDocuments = true
         console.log(this.submitCustomer.idmasterID)
@@ -933,7 +933,7 @@
       //   console.log(err);
       // })
       let object = this.TranData.find(t => t.key === this.selectedCode);
-      debugger
+      //debugger
       if (this.type == 'cash') {
         this.tranModeList = [];
         object.data.cash.forEach(ele => {
@@ -990,7 +990,7 @@
 
     //cheque no captial function
     chequeNoData(event){
-      debugger
+      //debugger
       this.angForm.patchValue({
         chequeNo : event.target.value.toUpperCase()
       }) 
@@ -1041,7 +1041,7 @@
 
     //decimal content show purpose wrote below function
     decimalAllContent($event) {
-      debugger
+      //debugger
       if(this.submitTranMode == undefined){
         Swal.fire('Error','Please First Select Tran Mode then enter Amount','error');
         let value = Number($event.target.value);
@@ -1178,7 +1178,7 @@
                   
                 } else {
                   this._service.ClearVoucherSameBal(obj).subscribe(data => {
-                    debugger
+                    //debugger
                     if (data != 0) {
                       this.SideDetails()
 
@@ -1190,7 +1190,7 @@
 
                     } else {
                       this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
-                        debugger
+                        //debugger
                         if (data != 0) {
                           this.SideDetails()
 
@@ -1201,7 +1201,7 @@
 
                         } else {
                           this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
-                            debugger
+                            //debugger
                             if (data != 0) {
                               this.SideDetails()
 
@@ -1212,7 +1212,7 @@
 
                             } else {
                               this._service.InstructionFreezeAc(obj).subscribe(data => {
-                                debugger
+                                //debugger
                                 if (data != 0) {
                                   this.SideDetails()
 
@@ -1225,7 +1225,7 @@
 
                                 } else {
                                   this._service.MinBalanceChecking(obj).subscribe(data => {
-                                    debugger
+                                    //debugger
                                     if (data != 0) {
                                       this.SideDetails()
 
@@ -1236,7 +1236,7 @@
 
                                     } else {
                                       this._service.CheckClearBalAndAmt(obj).subscribe(data => {
-                                        debugger
+                                        //debugger
                                         if (data != 0) {
                                           this.SideDetails()
 
@@ -1247,7 +1247,7 @@
 
                                         } else {
                                           this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
-                                            debugger
+                                            //debugger
                                             if (data != 0) {
                                               this.SideDetails()
 
@@ -1259,7 +1259,7 @@
 
                                             } else {
                                               this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
-                                                debugger
+                                                //debugger
                                                 if (data != 0) {
                                                   this.SideDetails()
 
@@ -1272,7 +1272,7 @@
 
                                                 } else {
                                                   this._service.DepositAndTotalInstallments(obj).subscribe(data => {
-                                                    debugger
+                                                    //debugger
                                                     if (data != 0) {
                                                       this.SideDetails()
 
@@ -1285,7 +1285,7 @@
 
                                                     } else {
                                                       this._service.DepositAndDepositAmount(obj).subscribe(data => {
-                                                        debugger
+                                                        //debugger
                                                         if (data != 0) {
                                                           this.SideDetails()
 
@@ -1296,7 +1296,7 @@
 
                                                         } else {
                                                           this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
-                                                            debugger
+                                                            //debugger
                                                             if (data != 0) {
                                                               this.SideDetails()
 
@@ -1309,7 +1309,7 @@
 
                                                             } else {
                                                               this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
-                                                                debugger
+                                                                //debugger
                                                                 if (data != 0) {
                                                                   this.SideDetails()
 
@@ -1321,7 +1321,7 @@
 
                                                                 } else {
                                                                   this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
-                                                                    debugger
+                                                                    //debugger
                                                                     if (data != 0) {
                                                                       this.SideDetails()
 
@@ -1334,7 +1334,7 @@
 
                                                                     } else {
                                                                       this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
-                                                                        debugger
+                                                                        //debugger
                                                                         if (data != 0) {
                                                                           this.SideDetails()
 
@@ -1345,7 +1345,7 @@
 
                                                                         } else {
                                                                           this._service.ZeroBalance(obj).subscribe(data => {
-                                                                            debugger
+                                                                            //debugger
                                                                             if (data != 0) {
                                                                               this.SideDetails()
 
@@ -1357,7 +1357,7 @@
                                                                             } else {
 
                                                                               this._service.CashWithdraw(obj).subscribe(data => {
-                                                                                debugger
+                                                                                //debugger
                                                                                 if (data != 0) {
                                                                                   this.SideDetails()
 
@@ -1369,7 +1369,7 @@
                                                                                 } else {
 
                                                                                   this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
-                                                                                    debugger
+                                                                                    //debugger
                                                                                     if (data != 0) {
                                                                                       this.SideDetails()
 
@@ -1380,7 +1380,7 @@
 
                                                                                     } else {
                                                                                       this._service.withdrawClosingCondition(obj).subscribe(data => {
-                                                                                        debugger
+                                                                                        //debugger
                                                                                         if (data != 0) {
                                                                                           this.SideDetails()
 
@@ -1763,7 +1763,7 @@
     editClickHandler(id) {
 
       this._service.getFormData(id).subscribe((data) => {
-        debugger
+        //debugger
         this.updatecheckdata = data
         if (data.SYSCHNG_LOGIN == null) {
           this.showButton = false;
@@ -1950,7 +1950,7 @@
     opendate = ''
     renewaldate = ''
     SideDetails() {
-      debugger
+      //debugger
       this.AfterVoucher = 0
       this.extenstionaftervoucher = ''
       // this.angForm.controls['amt'].reset()
@@ -1998,14 +1998,14 @@
       }
 
       this._service.getledgerbalance(obj).subscribe(data => {
-        debugger
+        //debugger
         this.DayOpBal = Math.abs(data);
         if (data < 0) {
           this.extensionopenbal = 'Cr'
         } else {
           this.extensionopenbal = 'Dr'
         }
-        debugger
+        //debugger
         this.tempDayOpBal = data;
         if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
           this.tranModeList =this.tranModeList.filter(ele=>ele.id !== 1)
@@ -2038,7 +2038,7 @@
     }
 
     onOpen(select: NgSelectComponent) {
-        debugger
+        //debugger
         select.open()
     }
 

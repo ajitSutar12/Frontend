@@ -12,6 +12,10 @@ import * as moment from 'moment';
 import { environment } from "src/environments/environment";
 import { DomSanitizer} from '@angular/platform-browser';
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+
+
+
 @Component({
   selector: 'app-bnk-scroll-detail-both',
   templateUrl: './bnk-scroll-detail-both.component.html',
@@ -21,6 +25,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   formSubmitted = false;
+  fromdate: any = null;
   branchOption: any;
   ngbranch
   showRepo: boolean = false;
@@ -37,8 +42,10 @@ export class BnkScrollDetailBothComponent implements OnInit {
     private http: HttpClient,
     public router: Router,
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer
   ) {
+    this.fromdate = moment().format('DD/MM/YYYY'); 
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -49,7 +56,12 @@ export class BnkScrollDetailBothComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    })
+    });
+
+    //get date from syspara current_date
+  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+    this.fromdate = data.CURRENT_DATE;
+  })
 
     //cashier code
     
@@ -74,9 +86,20 @@ export class BnkScrollDetailBothComponent implements OnInit {
         // Cashier_Code: ['',[Validators.required]],
         Cashier_Code: [''],
         Print_Code: new FormControl('Debit'),
-        DATE:  ['',[Validators.required]],
+        CURRENT_DATE:  ['',[Validators.required]],
         radio: new FormControl('none'),
-      })
+      });
+
+      let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['Branch'].enable()
+    }
+    else {
+      this.angForm.controls['Branch'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
   src:any;
   view(event) {
@@ -92,39 +115,40 @@ export class BnkScrollDetailBothComponent implements OnInit {
     if(this.angForm.controls['Print_Code'].value=="Debit" && this.angForm.valid){
     this.showRepo = true;
     let obj = this.angForm.value
-    let Startdate = moment(obj.DATE).format('DD/MM/YYYY');
-    let stype = obj.Scroll_Type
-    let ccode = obj.Cashier_Code
-    let pcode = obj.Print_Code
-    let rdio  = obj.radio
+  let Startdate = this.fromdate;
+  let stype = obj.Scroll_Type
+  let branch = obj.Branch  
+  let ccode = obj.Cashier_Code
+  let pcode = obj.Print_Code
+  let rdio  = obj.radio
 
-    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branchName='"+branchName+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"'&bankName='"+bankName+"'"  ;
+    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+""  ;
     this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
  }
  else if(this.angForm.controls['Print_Code'].value=="Credit" && this.angForm.valid){
   this.showRepo = true;
   let obj = this.angForm.value
-  let Startdate = moment(obj.DATE).format('DD/MM/YYYY');
+  let Startdate = this.fromdate;
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
   let pcode = obj.Print_Code
   let rdio  = obj.radio
 
-  this.iframe1url=this.report_url+"examples/ScrollBookCredit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branchName='"+branchName+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"'&bankName='"+bankName+"'"  ;
+  this.iframe1url=this.report_url+"examples/ScrollBookCredit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+""  ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
 }
 else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid){
   this.showRepo = true;
   let obj = this.angForm.value
-  let Startdate = moment(obj.DATE).format('DD/MM/YYYY');
+  let Startdate = this.fromdate;
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
   let pcode = obj.Print_Code
   let rdio  = obj.radio
 
-  this.iframe1url=this.report_url+"examples/ScrollBookBoth.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branchName='"+branchName+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"'&bankName='"+bankName+"'"  ;
+  this.iframe1url=this.report_url+"examples/ScrollBookBoth.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+""  ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
 }
 
@@ -148,7 +172,8 @@ else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid)
 
   // Reset Function
   resetForm() {
-    this.createForm();
+    // this.createForm();
+    this.angForm.controls.Cashier_Code.reset();
     this.showRepo = false;
      this.clicked=false;
   }

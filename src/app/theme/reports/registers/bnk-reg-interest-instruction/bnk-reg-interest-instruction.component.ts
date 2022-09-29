@@ -7,6 +7,9 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
 @Component({
   selector: 'app-bnk-reg-interest-instruction',
   templateUrl: './bnk-reg-interest-instruction.component.html',
@@ -40,7 +43,9 @@ export class BnkRegInterestInstructionComponent implements OnInit {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter:SystemMasterParametersService
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
@@ -72,10 +77,20 @@ export class BnkRegInterestInstructionComponent implements OnInit {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
       // this.ngBranchCode = data[0].value
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
     })
-
-
-
   }
   src: any;
   view(event) {
@@ -98,7 +113,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
       let revoke = obj.REVOKE_INST;
 
 
-      this.iframe3url = this.report_url+"examples/InterestInstruction.php?stdate='" + stdate + "'&etdate='" + etdate + "'&branchName='" + branchName + "'&revoke='" + revoke + "'&bankName='" + bankName + "'";
+      this.iframe3url = this.report_url+"examples/InterestInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&branchName='" + branchName + "'&revoke='" + revoke + "'&bankName='" + bankName + "'";
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
 
       // let ageCaldate
@@ -113,7 +128,9 @@ export class BnkRegInterestInstructionComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.BRANCH_CODE.reset();
+    this.angForm.controls.REVOKE_INST.reset();
     this.showRepo = false;
     this.clicked=false;
   }

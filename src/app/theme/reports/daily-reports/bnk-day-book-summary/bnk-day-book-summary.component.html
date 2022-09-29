@@ -65,6 +65,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Starting_Date"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             id="Starting_Date" class="form-control" [maxDate]="maxDate"
                                             [(ngModel)]="startingdate" formControlName="Starting_Date"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
