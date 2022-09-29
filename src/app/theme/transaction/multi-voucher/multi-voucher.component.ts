@@ -115,7 +115,7 @@ export class MultiVoucherComponent implements OnInit {
     { key: 'LN', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
     { key: 'GL', data: { cash: [1, 4], transfer: [1, 4] } },
     { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
-    { key: 'SH', data: { cash: [1, 4, 5, 7], transfer: [1, 4, 5, 7] } },
+    { key: 'SH', data: { cash: [1, 4, 5, 7,14], transfer: [1, 4, 5, 7,14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
     { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
     { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
@@ -559,6 +559,13 @@ export class MultiVoucherComponent implements OnInit {
     }
     else {
       this.showChequeDetails = false;
+    }
+
+    if(item.id == 6){
+      this.angForm.controls.amt.setValue('0.00');
+      this.angForm.controls['amt'].disable();
+    }else{
+      this.angForm.controls['amt'].enable();
     }
     // if (this.selectedCode == 'GL') {
     //   this.showChequeDetails = true
