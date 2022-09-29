@@ -12,6 +12,10 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { deepValueGetter } from '@swimlane/ngx-datatable';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
 @Component({
   selector: 'app-bnk-gl-ac-statement',
   templateUrl: './bnk-gl-ac-statement.component.html',
@@ -67,7 +71,9 @@ export class BnkGlAcStatementComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -89,17 +95,31 @@ export class BnkGlAcStatementComponent implements OnInit {
     //branch
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
     })
 
-    // let data: any = localStorage.getItem('user');
-    // let result = JSON.parse(data);
-    // if (result.RoleDefine[0].Role.id == 1) {
-    //   this.angForm.controls['BRANCH'].enable()
-    // }
-    // else {
-    //   this.angForm.controls['BRANCH'].disable()
-    //   this.ngBranchCode = result.branch.id
-    // }
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -149,7 +169,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
   src: any;
   View(event) {
-
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -170,7 +190,7 @@ export class BnkGlAcStatementComponent implements OnInit {
       let endingcode = obj.TO_AC;
       let MonthwiseSummary =obj.Month_wise_Summary
 
-      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&branchName='" + branchName + "'&startingcode='" + startingcode + "'&endingcode='" + endingcode + "' &scheme='" + scheme + "' &MonthwiseSummary='" + MonthwiseSummary + "'&bankName='" + bankName + "'";
+      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&branch=" + branch + "&startingcode=" + startingcode + "&endingcode=" + endingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {
@@ -204,7 +224,11 @@ close(){
   }
 
  resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.AC_TYPE.reset();
+    this.angForm.controls.FROM_AC.reset();
+    this.angForm.controls.TO_AC.reset();
+    this.angForm.controls.BRANCH.reset();
     this.showRepo = false;
     this.clicked=false;
   }

@@ -8,6 +8,10 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
+
 @Component({
   selector: 'app-bnk-reg-gold-silver-sub-return',
   templateUrl: './bnk-reg-gold-silver-sub-return.component.html',
@@ -50,7 +54,10 @@ constructor(
   private sanitizer: DomSanitizer,
   private ownbranchMasterService: OwnbranchMasterService,
   private schemeCodeDropdownService: SchemeCodeDropdownService,
+  private systemParameter:SystemMasterParametersService,
+
 ) {
+  this.todate=moment().format('DD/MM/YYYY');
   this.maxDate = new Date();
   this.minDate = new Date();
   this.minDate.setDate(this.minDate.getDate());
@@ -83,6 +90,7 @@ ngOnInit(): void {
     this.branch_code = data;
     // this.ngBranchCode = data[0].value
   })
+
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     var allscheme = data.filter(function (scheme) {
       return (scheme.name == 'LN' ||scheme.name == 'CC' ||scheme.name == 'DS' )
@@ -94,6 +102,18 @@ ngOnInit(): void {
   //   this.allScheme.push(data)
   // })
  
+  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+    this.todate = data.CURRENT_DATE;
+  });
+
+  this.systemParameter.getFormData(1).subscribe(data => {
+    let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+    // this.fromdate = `01/04/${year - 1}`      
+    this.todate = data.CURRENT_DATE
+    
+    this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+    this.fromdate = this.fromdate._d
+  })
 
 }
 src: any;
@@ -110,10 +130,10 @@ View(event){
   this.showRepo = true;
   let obj = this.angForm.value
   let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-  let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
   let BRANCH_CODE = obj.BRANCH_CODE
   
-  this.iframeurl = this.report_url+"examples/goldsilversubmreturn.php?startDate='"+startDate+"'&endDate='"+enddate+"'&branchName='"+branchName+"'&bankName='" + bankName + "' ";
+  this.iframeurl = this.report_url+"examples/goldsilversubmreturn.php?startDate='"+startDate+"'&endDate='"+enddate+"'&BRANCH_CODE='"+BRANCH_CODE+"'&bankName='" + bankName + "' ";
   this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }
@@ -129,7 +149,9 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.angForm.controls.AC_TYPE.reset();
+  this.angForm.controls.SUBMISSION.reset();
   this.showRepo = false;
   this.clicked=false;
 }

@@ -101,6 +101,17 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
       END_DATE: ['', [Validators.required]],
       radio:new FormControl('Details'),
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
   ngOnInit(): void {
     this.createForm();

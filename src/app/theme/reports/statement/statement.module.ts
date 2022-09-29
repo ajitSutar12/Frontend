@@ -10,6 +10,7 @@ import { BnkGlAcStatementComponent } from './bnk-gl-ac-statement/bnk-gl-ac-state
 import { BnkAcStatementComponent } from './bnk-ac-statement/bnk-ac-statement.component';
 import { BnkLNamtStatementComponent } from './bnk-lnamt-statement/bnk-lnamt-statement.component';
 import { BnkTDStatementComponent } from './bnk-tdstatement/bnk-tdstatement.component';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // import { BnkGlIntStatementComponent } from './bnk-gl-int-statement/bnk-gl-int-statement.component';
 // import { BnkMemStatementComponent } from './bnk-mem-statement/bnk-mem-statement.component';
 
@@ -23,7 +24,7 @@ import { BnkTDStatementComponent } from './bnk-tdstatement/bnk-tdstatement.compo
 
   ],
   declarations: [StatementComponent],
-  providers:[{
+  providers:[SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

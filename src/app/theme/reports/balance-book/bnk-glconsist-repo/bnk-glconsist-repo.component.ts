@@ -8,6 +8,8 @@ import * as moment from 'moment';
 import Swal from "sweetalert2";
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @Component({
   selector: 'app-bnk-glconsist-repo',
@@ -36,7 +38,9 @@ angForm: FormGroup;
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
+    private systemParameter:SystemMasterParametersService,
     private sanitizer: DomSanitizer, ) { 
+      this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);
@@ -54,6 +58,10 @@ angForm: FormGroup;
         return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'AG' || scheme.name == 'LK'|| scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'IV' || scheme.name == 'GL' )
       });
       this.schemetype = schemetype;
+  });
+
+  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+    this.defaultDate = data.CURRENT_DATE;
   })
   
   }
@@ -65,7 +73,18 @@ angForm: FormGroup;
       Print: [""],
       Penal: [""],
       OPENINGDATE:["",[Validators.pattern, Validators.required]],
-    })
+    });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
   printpay(){
     this.printpenal=true;
@@ -89,7 +108,7 @@ angForm: FormGroup;
       let print = obj.Print;
       let penal = obj.Penal;
   
-      this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branchName='"+branchName+"'&schemed='"+schemed+"'&schemewise='"+schemewise+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branch='"+branch+"'&schemed='"+schemed+"'&schemewise='"+schemewise+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
@@ -104,7 +123,9 @@ angForm: FormGroup;
   }
   // Reset Function
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.S_ACNOTYPE.reset();
+    this.angForm.controls.REPOTYPE.reset();
     this.showRepo = false;
     this.clicked=false;
   }

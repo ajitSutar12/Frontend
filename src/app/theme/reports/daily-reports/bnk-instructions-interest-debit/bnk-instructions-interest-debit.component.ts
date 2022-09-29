@@ -14,6 +14,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 // dropdown
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first, reduce } from "rxjs/operators";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
 @Component({
   selector: 'app-bnk-instructions-interest-debit',
   templateUrl: './bnk-instructions-interest-debit.component.html',
@@ -29,6 +32,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   equal: any
   startfrom
   startto
+  formSubmitted = false;
 
   showRepo: boolean = false;
   // Created Form Group
@@ -77,9 +81,11 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
+    private systemParameter : SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -91,6 +97,19 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+      this.fromdate = this.fromdate._d
     })
   }
 
@@ -105,19 +124,31 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       RADIO: [""],
       // FAILURE: [""],
     });
-  }
-  end() {
-    this.startfrom = this.angForm.controls['START_DATE'].value
-    this.startto = this.angForm.controls['END_DATE'].value
-    if (this.angForm.controls['START_DATE'].value <= this.angForm.controls['END_DATE'].value) {
-      this.equal = [this.startfrom, this.startto]
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
     }
     else {
-      Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
     }
   }
+  end() {
+    // this.startfrom = this.angForm.controls['START_DATE'].value
+    // this.startto = this.angForm.controls['END_DATE'].value
+    // if (this.angForm.controls['START_DATE'].value <= this.angForm.controls['END_DATE'].value) {
+    //   this.equal = [this.startfrom, this.startto]
+    // }
+    // else {
+    //   Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+    // }
+  }
   view(event) {
-
+debugger
+    this.formSubmitted = true;
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
@@ -133,7 +164,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
-      this.iframeurl = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
@@ -147,10 +178,11 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
 
-      this.iframeurl = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
+      this.formSubmitted = false;
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
 
@@ -160,7 +192,9 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     this.resetForm()
   }
  resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.BRANCH_CODE.reset();
+    this.angForm.controls.FREQUENCY.reset();
     this.showRepo = false;
     this.clicked=false;
   }

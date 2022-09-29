@@ -65,7 +65,9 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                            class="form-control" [(ngModel)]="date" formControlName="Date" [maxDate]="maxDate"
+                                            class="form-control" [(ngModel)]="date"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                             formControlName="Date" [maxDate]="maxDate"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>

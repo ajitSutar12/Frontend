@@ -67,7 +67,18 @@ export class TFormDayBookComponent implements OnInit {
     //get date from syspara current_date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.date = data.CURRENT_DATE;
-  })
+  });
+
+  let data: any = localStorage.getItem('user');
+  let result = JSON.parse(data);
+  if (result.RoleDefine[0].Role.id == 1) {
+    this.ngbranch = result.branch.id
+    this.ngForm.controls['BRANCH_CODE'].enable()
+  }
+  else {
+    this.ngForm.controls['BRANCH_CODE'].disable()
+    this.ngbranch = result.branch.id
+  }
   }
 
   // validations for ngForm
@@ -75,13 +86,11 @@ export class TFormDayBookComponent implements OnInit {
     this.ngForm = this.fb.group({
       Branch: ['', [Validators.required]],
       Type: ['', [Validators.required]],
-
       date: ["", [Validators.required]],
-
-
     });
   }
 
+  
   src: any;
   view(event) {
 
@@ -95,13 +104,13 @@ export class TFormDayBookComponent implements OnInit {
 
       this.showRepo = true;
       let obj = this.ngForm.value
-      let Date = moment(obj.date).format('DD/MM/YYYY');
+      let Date = this.date;
 
       let Branch = obj.Branch;
 
       let type = obj.Type;
 
-      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date="+ Date + "&Branch=" + this.ngbranch + "&branchName=" + branchName + "'&type='" + type + "&bankName=" + bankName + " ";
+      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date="+ Date + "&Branch=" +Branch + "&branchName=" + branchName + "&type='" + type + "&bankName=" + bankName + " ";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
@@ -115,7 +124,8 @@ export class TFormDayBookComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.ngForm.controls.Type.reset();
     this.showRepo = false;
     this.clicked = false;
   }

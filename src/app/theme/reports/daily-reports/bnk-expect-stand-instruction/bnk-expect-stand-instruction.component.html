@@ -86,7 +86,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                        class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                         [(ngModel)]="fromdate" [bsValue]="bsValue"
                                         [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -118,25 +119,34 @@
                     </div>
                     <div class="row"></div>
                     <div class="row">
-                        <div class="col-md-8"></div>
+                        <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
                                 (click)="View($event); clicked = true ">View</button>
+
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
+
+
                         </div>
+
                     </div>
 
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h5>Report Frame</h5>
-                                </div>
-                                <div *ngIf="showRepo">
-                                    <app-iframe [url] ='iframeurl'></app-iframe>
-                                </div>
+                                
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                        <div *ngIf="showRepo">
+                                            
+                                                <app-iframe1 [url]='iframe1url'></app-iframe1>
+                                           
+                                        </div>
+                    
+                                    </div>
+                               
                             </div>
                         </div>
                     </div>

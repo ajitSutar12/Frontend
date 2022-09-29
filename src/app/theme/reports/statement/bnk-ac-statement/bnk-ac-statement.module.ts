@@ -43,6 +43,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService, 
     SchemeAccountNoService,
     OwnbranchMasterService,
+    SystemMasterParametersService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

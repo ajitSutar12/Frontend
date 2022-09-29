@@ -9,6 +9,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 
 @Component({
@@ -58,6 +60,7 @@ export class BnkRegInsurenceComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private systemParameter:SystemMasterParametersService,
     //  private schemeAccountNoService: SchemeAccountNoService,
   ) {
     this.maxDate = new Date();
@@ -78,6 +81,7 @@ export class BnkRegInsurenceComponent implements OnInit {
   }
   ngOnInit(): void {
     this.createForm()
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
@@ -88,6 +92,19 @@ export class BnkRegInsurenceComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
     }
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
+    })
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -141,7 +158,9 @@ export class BnkRegInsurenceComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.BRANCH_CODE.reset();
+    this.angForm.controls.AC_TYPE.reset();    
     this.showRepo = false;
     this.clicked=false;
   }
