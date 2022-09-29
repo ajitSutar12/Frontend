@@ -14,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 // dropdown
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -70,7 +71,9 @@ export class BnkExpectStandingInstCreditComponent implements OnInit {
     private sanitizer: DomSanitizer,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter : SystemMasterParametersService,
   ) {
+    this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -81,18 +84,22 @@ export class BnkExpectStandingInstCreditComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.fromdate = data.CURRENT_DATE;
     })
 
-    // let data: any = localStorage.getItem('user');
-    // let result = JSON.parse(data);
-    // if (result.RoleDefine[0].Role.id == 1) {
-    //   this.angForm.controls['BRANCH_CODE'].enable()
-    //   this.ngbranch = result.branch.id
-    // }
-    // else {
-    //   this.angForm.controls['BRANCH_CODE'].disable()
-    //   this.ngbranch = result.branch.id
-    // }
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   createForm() {
@@ -120,7 +127,7 @@ export class BnkExpectStandingInstCreditComponent implements OnInit {
 
       // this.showRepo = true;
       let obj = this.angForm.value
-      let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let stdate = this.fromdate;
       let Branch = obj.BRANCH_CODE;
       let STATUS = obj.STATUS;
       // let END_DATE =  moment(obj.END_DATE).format('DD/MM/YYYY');
@@ -141,7 +148,9 @@ export class BnkExpectStandingInstCreditComponent implements OnInit {
     this.resetForm()
   }
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.STATUS.reset();
+    this.angForm.controls.FREQUENCY.reset();
     this.showRepo = false;
     this.clicked=false;
   }

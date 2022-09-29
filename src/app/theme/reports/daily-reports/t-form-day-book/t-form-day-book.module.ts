@@ -6,26 +6,24 @@ import { TFormDayBookComponent } from './t-form-day-book/t-form-day-book.compone
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../../../shared/shared.module';
+import {SharedModule} from '../../../../shared/shared.module';
 import { Iframe1Module } from '../iframe1/iframe1.module';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @NgModule({
   declarations: [TFormDayBookComponent],
   imports: [
     CommonModule,
     TFormDayBookRoutingModule,
-
+    
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-
-
+  
+    
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe1Module
 
-  ],
-  providers: [SystemMasterParametersService]
+  ]
 })
 export class TFormDayBookModule { }

@@ -13,6 +13,7 @@ import * as moment from "moment";
 import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-bnk-lnamt-statement',
@@ -53,6 +54,8 @@ export class BnkLNamtStatementComponent implements OnInit {
   EndingAccount: any = null;
 
   showRepo:boolean=false;
+  todate: any;
+  fromdate: moment.Moment;
 
   constructor(
     private fb: FormBuilder,
@@ -62,8 +65,9 @@ export class BnkLNamtStatementComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private sanitizer: DomSanitizer,
-
+    private systemParameter: SystemMasterParametersService,
   ) {
+    this.endingdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -84,7 +88,21 @@ export class BnkLNamtStatementComponent implements OnInit {
       });
       this.scheme = filtered;
 
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.endingdate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.endingdate = data.CURRENT_DATE
+      
+      this.startingdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.startingdate = this.startingdate._d
     })
+   
   }
 
   // validations for ngForm
@@ -101,6 +119,17 @@ export class BnkLNamtStatementComponent implements OnInit {
       Print_Added_Penal_Interest: [''],
       Print_Concise_Report: [''],
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
 
@@ -179,8 +208,8 @@ export class BnkLNamtStatementComponent implements OnInit {
      let scheme=obj.Scheme_code;
   
  
-    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&startingcode='"+startingcode +"'&endingcode='"+ endingcode +"'&scheme= '"+scheme+
-                    "' &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName='" + bankName + "'";
+    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch="+branch+"&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
+                    " &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
     this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     
    }
@@ -222,7 +251,11 @@ export class BnkLNamtStatementComponent implements OnInit {
     }
   
     resetForm() {
-      this.createForm()
+      // this.createForm()
+      this.ngForm.controls.BRANCH_CODE.reset();
+      this.ngForm.controls.Scheme_code.reset();
+      this.ngForm.controls.Starting_Account.reset();
+      this.ngForm.controls.Ending_Account.reset();
       this.showRepo = false;
       this.clicked=false;
     }

@@ -12,6 +12,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 // dropdown
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
+
 @Component({
   selector: 'app-rece-pay-rep',
   templateUrl: './rece-pay-rep.component.html',
@@ -38,9 +42,11 @@ export class RecePayRepComponent implements OnInit {
 
   constructor(  private fb: FormBuilder,
     private sanitizer: DomSanitizer,
+    private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -50,6 +56,19 @@ export class RecePayRepComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
     })
   }
   createForm() {
@@ -60,7 +79,18 @@ export class RecePayRepComponent implements OnInit {
       TRANSCATION:["",],
       PRINT:["",],
       PENAL:["",],
-    })
+    });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   view(event) {
@@ -75,12 +105,12 @@ export class RecePayRepComponent implements OnInit {
       let obj = this.angForm.value
       let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
       let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
-      let branched2 = obj.BRANCH_CODE;
+      let branched = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
       let print = obj.PRINT;
       let penal = obj.PENAL;
 
-      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branchName='"+branchName+"'&tran='"+tran+"'&print='"+print+"'&penal='"+penal+"'&bankName='" + bankName + "' ";
+      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+branched+"&tran="+tran+"&print="+print+"&penal="+penal+"&bankName=" + bankName + " ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
@@ -94,7 +124,8 @@ export class RecePayRepComponent implements OnInit {
   }
   // Reset Function
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.BRANCH_CODE.reset();
     this.showRepo = false;
     this.clicked=false;
   }

@@ -80,6 +80,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,) { 
+      this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);
@@ -92,13 +93,29 @@ export class BnkPigmyBalanceListComponent implements OnInit {
       Scheme_code: ["", [Validators.pattern, Validators.required]],
       Scheme_acc: ["", [Validators.pattern, Validators.required]],
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
   ngOnInit(): void {
     this.createForm();
     //branch List
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.defaultDate = data.CURRENT_DATE;
     })
+
 
     // Scheme Code
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -155,7 +172,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
   
   src: any;
   view(event) {
-    
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -172,7 +189,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&schemeAccountNo='" + schemeAccountNo +"'&bankName='" + bankName + "'" ;
+    this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&schemeAccountNo='" + schemeAccountNo +"'&bankName=" + bankName + "" ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    
@@ -189,7 +206,10 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.ngForm.controls.BRANCH_CODE.reset();
+  this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.Scheme_acc.reset();
   this.showRepo = false;
   this.clicked=false;
 }

@@ -8,6 +8,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import{DeadstockmasterService} from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
 @Component({
   selector: 'app-bnk-reg-dead-stock',
   templateUrl: './bnk-reg-dead-stock.component.html',
@@ -73,9 +76,10 @@ export class BnkRegDeadStockComponent implements OnInit {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
-    private deadstockmasterService:DeadstockmasterService
-
+    private deadstockmasterService:DeadstockmasterService,
+    private systemParameter:SystemMasterParametersService,
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() -1);
@@ -106,6 +110,20 @@ export class BnkRegDeadStockComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
     }
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.fromdate = this.fromdate._d
+    })
+
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -180,7 +198,10 @@ export class BnkRegDeadStockComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.Starting_Account.reset();
+    this.angForm.controls.Ending_Account.reset();
+    this.angForm.controls.GROUP_BY.reset();
     this.showRepo = false;
     this.clicked=false;
   }

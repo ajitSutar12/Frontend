@@ -14,7 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 // dropdown
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
-
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -68,7 +68,9 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     private sanitizer: DomSanitizer,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter : SystemMasterParametersService,
   ) {
+    this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -79,13 +81,17 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    })
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.date = data.CURRENT_DATE;
+    });
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
       this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
@@ -117,7 +123,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
 
       // this.showRepo = true;
       let obj = this.angForm.value
-      let date = moment(obj.Date).format('DD/MM/YYYY');
+      let date = this.date;
       let status = obj.STATUS;
       let branch = obj.BRANCH_CODE;
       let frequency = obj.FREQUENCY;
@@ -138,7 +144,9 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.STATUS.reset();
+    this.angForm.controls.FREQUENCY.reset();
     this.showRepo = false;
     this.clicked=false;
   }

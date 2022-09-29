@@ -57,7 +57,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                         class="form-control" [(ngModel)]="defaultDate"
-                                        [bsConfig]="{dateInputFormat: 'DD/MM/YYYY'}" [maxDate]="maxDate"
+                                        [bsValue]="bsValue"                                           
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" [maxDate]="maxDate"
                                          formControlName="FROM_DATE"
                                         required bsDatepicker />
                                 </span>

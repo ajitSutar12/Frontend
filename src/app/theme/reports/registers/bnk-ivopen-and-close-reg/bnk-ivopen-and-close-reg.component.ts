@@ -10,6 +10,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
+
 @Component({
   selector: 'app-bnk-ivopen-and-close-reg',
   templateUrl: './bnk-ivopen-and-close-reg.component.html',
@@ -52,7 +56,9 @@ constructor(
   private ownbranchMasterService: OwnbranchMasterService,
   private schemeCodeDropdownService: SchemeCodeDropdownService,
   private schemeAccountNoService: SchemeAccountNoService,
+  private systemParameter:SystemMasterParametersService,
 ) {
+  this.todate=moment().format('DD/MM/YYYY');
   this.maxDate = new Date();
   this.minDate = new Date();
   this.minDate.setDate(this.minDate.getDate());
@@ -74,13 +80,27 @@ ngOnInit(): void {
   let data: any = localStorage.getItem('user');
   let result = JSON.parse(data);
   if (result.RoleDefine[0].Role.id == 1) {
-    this.angForm.controls['BRANCH_CODE'].enable()
     this.ngBranchCode = result.branch.id
+    this.angForm.controls['BRANCH_CODE'].enable()
   }
   else {
     this.angForm.controls['BRANCH_CODE'].disable()
     this.ngBranchCode = result.branch.id
   }
+
+  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+    this.todate = data.CURRENT_DATE;
+  });
+
+  this.systemParameter.getFormData(1).subscribe(data => {
+    let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+    // this.fromdate = `01/04/${year - 1}`      
+    this.todate = data.CURRENT_DATE
+    
+    this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+    this.fromdate = this.fromdate._d
+  })
+
   //branch List
   this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
     this.branch_code = data;
@@ -113,10 +133,10 @@ View(event){
   let obj = this.angForm.value
   let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
   let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
-  let BRANCH_CODE = obj.BRANCH_CODE
+  let Branch = obj.BRANCH_CODE
   let GROUP_BY = obj.GROUP_BY
   
-  this.iframeurl = this.report_url+"examples/InvestRegister.php?startDate='"+startDate+"'&endDate='"+enddate+"'&branchName='"+branchName+"'&bankName='" + bankName + "' ";
+  this.iframeurl = this.report_url+"examples/InvestRegister.php?startDate='"+startDate+"'&endDate='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + " ";
   this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }
@@ -162,7 +182,9 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.angForm.controls.AC_TYPE.reset();
+  this.angForm.controls.AC_OPEN.reset();
   this.showRepo = false;
   this.clicked=false;
 }
