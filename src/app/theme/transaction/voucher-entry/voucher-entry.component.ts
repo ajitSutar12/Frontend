@@ -382,17 +382,24 @@
           let obj = this.TranModeCash.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
+        if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
+          this.tranModeList =this.tranModeList.filter(ele=>ele.id !== 1)
+        }
       } else {
         this.tranModeList = [];
         object.data.transfer.forEach(ele => {
           let obj = this.TranModeTransfer.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
+        if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
+          this.tranModeList =this.tranModeList.filter(ele=>ele.id !== 1)
+        }
       }
     }
 
     //Transaction mode select
     transactionMode(mode) {
+      debugger
       this.selectedMode = null
       this.type = mode;
       let object = this.TranData.find(t => t.key === this.selectedCode);
@@ -402,6 +409,9 @@
           let obj = this.TranModeCash.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
+        if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
+          this.tranModeList =this.tranModeList.filter(ele=>ele.id !== 1)
+        }
         this.angForm.patchValue({
           chequeDate: null
         })
@@ -411,6 +421,9 @@
           let obj = this.TranModeTransfer.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
+        if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
+          this.tranModeList =this.tranModeList.filter(ele=>ele.id !== 1)
+        }
       }
     }
 
@@ -532,7 +545,7 @@
     //Mode data
     submitTranMode: any;
     changeMode(item) {
-
+      debugger
       this.headData = []
       this.submitTranMode = item;
       if (this.submitTranMode.tran_type == 'TR') {
@@ -544,6 +557,12 @@
       }
       else {
         this.showChequeDetails = false;
+      }
+      if(item.id == 6){
+        this.angForm.controls.amt.setValue('0.00');
+        this.angForm.controls['amt'].disable();
+      }else{
+        this.angForm.controls['amt'].enable();
       }
       // if (this.selectedCode == 'GL') {
       //   this.showChequeDetails = true
@@ -921,12 +940,18 @@
           let obj = this.TranModeCash.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
+        if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
+          this.tranModeList =this.tranModeList.filter(ele=>ele.id !== 1)
+        }
       } else {
         this.tranModeList = [];
         object.data.transfer.forEach(ele => {
           let obj = this.TranModeTransfer.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
+        if(this.Submitscheme.S_APPL =='201' && this.DayOpBal > 0){
+          this.tranModeList =this.tranModeList.filter(ele=>ele.id !== 1)
+        }
       }
     }
 
