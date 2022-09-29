@@ -73,7 +73,7 @@
                             <div class="col-sm-12 col-md-2">
                                 <label for="AC_BRANCH">Scheme</label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-1">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" disabled readonly class="form-control"
@@ -88,7 +88,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" disabled readonly class="form-control"
-                                            formControlName="SchemeACNO" [value]="company_data?.AC_NO">
+                                            formControlName="SchemeACNO" [value]="companyNameData">
                                     </span>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                         <input type="text" name="chequeNo" class="form-control" placeholder=" "
                                             id="chequeNo" value="" style="text-transform: capitalize;"
                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                            formControlName="chequeNo">
+                                            formControlName="chequeNo" (keyup)="chequeNoData($event)" maxlength="10">
                                     </span>
                                 </div>
                             </div>
