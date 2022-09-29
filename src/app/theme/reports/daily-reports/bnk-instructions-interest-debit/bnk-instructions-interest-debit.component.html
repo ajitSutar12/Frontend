@@ -119,7 +119,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
-                                        class="form-control" [(ngModel)]="todate" 
+                                        class="form-control" [(ngModel)]="todate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
                                         [maxDate]="maxDate" formControlName="END_DATE" (change)="end()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

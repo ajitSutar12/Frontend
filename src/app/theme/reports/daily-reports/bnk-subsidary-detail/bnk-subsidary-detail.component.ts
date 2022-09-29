@@ -52,6 +52,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  url = environment.base_url;
  report_url = environment.report_url;
  iframe1url: any = ' ';
+  scheme_code: any;
 
  constructor(
    private fb: FormBuilder,
@@ -65,6 +66,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
    public schemeCodeDropdownService: SchemeCodeDropdownService,
 
  ) {
+   this.fromdate = moment().format('DD/MM/YYYY'); 
    this.maxDate = new Date();
    this.minDate = new Date();
    this.minDate.setDate(this.minDate.getDate() - 1);
@@ -80,19 +82,29 @@ export class BnkSubsidaryDetailComponent implements OnInit {
     this.branchOption = data;
   })
 
+  //get date from syspara current_date
+  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+    this.fromdate = data.CURRENT_DATE;
+  })
+
+    // this.systemParameter.getFormData(1).subscribe(data => {
+    //   let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+    //   // this.fromdate = `01/04/${year - 1}`      
+    //   this.todate = data.CURRENT_DATE
+      
+    //   this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+    //   this.fromdate = this.fromdate._d
+    // })
 
 
    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
-    // debugger
+     debugger
      var filtered = data.filter(function (scheme) {
        return (scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
      });
      this.schemeList = filtered;
      this.ngIntroducer = null;
    })
-
-  
- 
    
  }
  createForm() {
@@ -102,12 +114,31 @@ export class BnkSubsidaryDetailComponent implements OnInit {
      scheme_code: ["", [ Validators.required]],
      DATE: [""],
    });
+
+   let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['Branch'].enable()
+    }
+    else {
+      this.angForm.controls['Branch'].disable()
+      this.ngbranch = result.branch.id
+    }
  }
 
+
+// getSystemParaDate() {
+//   this.systemParameter.getFormData(1).subscribe(data => {
+//     this.angForm.patchValue({
+//       'DATE': data.CURRENT_DATE,
+//     })
+//   })
+// }
  
  src: any;
  view(event) {
-  debugger
+   debugger
    event.preventDefault();
    this.formSubmitted = true;
 
@@ -118,12 +149,13 @@ export class BnkSubsidaryDetailComponent implements OnInit {
    if(this.angForm.valid){
    let obj = this.angForm.value
    this.showRepo = true;
-   let startDate = moment(obj.DATE).format('DD/MM/YYYY');  
-   let scheme_code = this.ngIntroducer
+   let startDate = this.fromdate;  
+   let scheme_code = this.ngIntroducer;
+   let branch = obj.Branch;
   //  let scheme_code =  obj.Scheme_Code;
   let Rdio = obj.radio
   
-  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "'&branchName='"+ branchName +"'&bankName'" +bankName + "'&bankName'" +bankName + '"';
+  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "&branchName="+ branchName +"&bankName" +bankName + " &branch="+ branch +"" ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   
   
@@ -141,7 +173,8 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm();
+  // this.createForm();
+  this.angForm.controls.scheme_code.reset();
   this.showRepo = false;
   this.clicked=false;
 }

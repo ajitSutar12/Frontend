@@ -115,7 +115,7 @@ export class MultiVoucherComponent implements OnInit {
     { key: 'LN', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
     { key: 'GL', data: { cash: [1, 4], transfer: [1, 4] } },
     { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
-    { key: 'SH', data: { cash: [1, 4, 5, 7], transfer: [1, 4, 5, 7] } },
+    { key: 'SH', data: { cash: [1, 4, 5, 7,14], transfer: [1, 4, 5, 7,14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
     { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
     { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
@@ -486,6 +486,7 @@ export class MultiVoucherComponent implements OnInit {
       this._service.insertVoucher(this.mainMaster).subscribe(data => {
         // this.getVoucherData();
         Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+        this.type = 'cash';
         this.mainMaster = [];
         this.headData = [];
         this.headShow = false;
@@ -558,6 +559,13 @@ export class MultiVoucherComponent implements OnInit {
     }
     else {
       this.showChequeDetails = false;
+    }
+
+    if(item.id == 6){
+      this.angForm.controls.amt.setValue('0.00');
+      this.angForm.controls['amt'].disable();
+    }else{
+      this.angForm.controls['amt'].enable();
     }
     // if (this.selectedCode == 'GL') {
     //   this.showChequeDetails = true
@@ -1159,7 +1167,27 @@ debugger
       type: this.typeclearbal
     }
 
-    if (Number(obj.value) >= 200000) {
+    if(Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS'){
+      Swal.fire({
+        title: 'Are you sure?',
+        html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed == false) {
+            this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset();
+          this.SideDetails()
+          // this.swiper.nativeElement.focus();
+        } else {
+          this.checkamtcondition($event)
+        }
+      })
+    } if (Number(obj.value) >= 200000) {
 
       Swal.fire({
         title: 'Are you sure?',
@@ -1171,11 +1199,12 @@ debugger
         cancelButtonText: 'No',
         confirmButtonText: 'Yes'
       }).then((result) => {
-        if (result.isConfirmed == false) {
-          this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
-        } else {
+        if (result.isConfirmed) {
           this.checkamtcondition($event)
+        } else {
+            this.angForm.controls['amt'].reset();
+            this.angForm.controls['total_amt'].reset();
+            this.SideDetails()
         }
       })
 
@@ -1223,11 +1252,30 @@ debugger
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Error!', data.message, 'error');
-                this.SideDetails()
+                // Swal.fire('Error!', data.message, 'error');
+                // this.SideDetails()
 
-                this.angForm.controls['amt'].reset();
-                this.angForm.controls['total_amt'].reset();
+                // this.angForm.controls['amt'].reset();
+                // this.angForm.controls['total_amt'].reset();
+                // Swal.fire({
+                //   title: data.message,
+                //   html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+                //   icon: 'warning',
+                //   showCancelButton: true,
+                //   confirmButtonColor: '#3085d6',
+                //   cancelButtonColor: '#d33',
+                //   cancelButtonText: 'No',
+                //   confirmButtonText: 'Yes'
+                // }).then((result) => {
+                //   if (result.isConfirmed) {
+                    
+                //   } else {
+                //     this.angForm.controls['amt'].reset();
+                //     this.angForm.controls['total_amt'].reset();
+
+                //     this.SideDetails()
+                //   }
+                // })
               } else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
                   if (data != 0) {
@@ -1366,11 +1414,9 @@ debugger
                                                                               if (data != 0) {
                                                                                 Swal.fire('Error!', data.message, 'error');
                                                                                 this.SideDetails()
-
                                                                                 this.angForm.controls['amt'].reset();
                                                                                 this.angForm.controls['total_amt'].reset();
                                                                               } else {
-
                                                                                 this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                   if (data != 0) {
                                                                                     Swal.fire('Error!', data.message, 'error');
@@ -1657,14 +1703,19 @@ debugger
         this._vservice.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
             Swal.fire('Error!', data.message, 'error');
+            this.selectedMode = null
           } else {
             this._vservice.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
                 Swal.fire('Error!', data.message, 'error');
+                this.selectedMode = null
+
               } else {
                 this._vservice.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
                     Swal.fire('Error!', data.message, 'error');
+                    this.selectedMode = null
+
                   }
                 }, err => {
                   console.log(err);
@@ -1762,7 +1813,7 @@ debugger
           scheme: '101',
           date: this.date,
           schemeType: this.selectedCode,
-        }
+        } 
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;

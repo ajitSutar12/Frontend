@@ -1,1 +1,170 @@
-<p>denomination-reports works!</p>
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Demo UI</h5>
+                <h6 style="float: right; font-size: 12px; color: black" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card-block">
+                <form [formGroup]="angForm">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="date">Transaction Date<sub class="required">* </sub></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
+                                            formControlName="DATETYPE" class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" bsDatepicker
+                                            required>
+    
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="Project Name">Project Name<sub class="required"> *</sub></label>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="dropdown" bindValue="id" [(ngModel)]="selectedType"
+                                            bindLabel="name" title="Compulsory Selection" required
+                                            placeholder="" formControlName="PROJECT_NAME">
+                                            <ng-option *ngFor="let values of Types " [value]="values">
+                                                {{values.name}}</ng-option>
+                                        </ng-select>
+    
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf=" angForm.controls['PROJECT_NAME'].invalid &&(angForm.controls['PROJECT_NAME'].dirty || angForm.controls['PROJECT_NAME'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['PROJECT_NAME'].errors?.required ||angForm.controls['PROJECT_NAME'].errors?.pattern">
+                                        This is required field
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="Customer Name">Customer Name<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="label-name" maxlength="200" class="form-control"
+                                            formControlName="CUSTOMER_NAME" placeholder="Customer Name ">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf=" angForm.controls['CUSTOMER_NAME'].invalid &&(angForm.controls['CUSTOMER_NAME'].dirty || angForm.controls['CUSTOMER_NAME'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['CUSTOMER_NAME'].errors?.required ||angForm.controls['CUSTOMER_NAME'].errors?.pattern">
+                                        This is required field
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="Site Name">Site Name<sub class="required">* </sub></label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="label-name" maxlength="200" class="form-control"
+                                            formControlName="SITE_NAME" placeholder="Site Name">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf=" angForm.controls['SITE_NAME'].invalid &&(angForm.controls['SITE_NAME'].dirty || angForm.controls['SITE_NAME'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['SITE_NAME'].errors?.required ||angForm.controls['SITE_NAME'].errors?.pattern">
+                                        This is required field
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div> -->
+
+
+<!-- <div class="row">
+    <div class="col-12">
+        <div clas="card">
+            
+            <form [formGroup]="angForm">
+                <div  class="card-block">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="Site Name">First Name<sub class="required">* </sub></label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="first-name" maxlength="200" class="form-control"
+                                        formControlName="FIRST_NAME" placeholder="First Name">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf=" angForm.controls['FIRST_NAME'].invalid &&(angForm.controls['FIRST_NAME'].dirty || angForm.controls['FIRST_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FIRST_NAME'].errors?.required ||angForm.controls['FIRST_NAME'].errors?.pattern">
+                                    This is required field
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="Site Name">Last Name<sub class="required">* </sub></label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="last-name" maxlength="200" class="form-control"
+                                        formControlName="LAST_NAME" placeholder="Last Name">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf=" angForm.controls['LAST_NAME'].invalid &&(angForm.controls['LAST_NAME'].dirty || angForm.controls['LAST_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['LAST_NAME'].errors?.required ||angForm.controls['LAST_NAME'].errors?.pattern">
+                                    This is required field
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label for="date">Birthdate<sub class="required">* </sub></label>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
+                                        formControlName="DATETYPE" class="form-control"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" bsDatepicker
+                                        required>
+
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div> -->

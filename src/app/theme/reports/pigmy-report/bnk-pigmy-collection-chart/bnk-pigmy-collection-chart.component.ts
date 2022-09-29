@@ -89,7 +89,8 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     public SchemeTypes: SchemeTypeDropdownService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,) { 
+    private schemeCodeDropdownService: SchemeCodeDropdownService,) {
+      this.defaultDate = moment().format('DD/MM/YYYY'); 
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);
@@ -104,12 +105,27 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     
       chart_no: [""],
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
   ngOnInit(): void {
     this.createForm();
      //branch List
      this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.defaultDate = data.CURRENT_DATE;
     })
 
     // Scheme Code
@@ -180,7 +196,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
       
-   this.iframe5url=this.report_url+"examples/PigmyCollectionChart.php?date='" + date + "'&scheme='" + scheme + "'&branchName='"+ branchName +"'&ChartNo='" + ChartNo +"'&Scheme_acc='" + Scheme_acc +"'&bankName='" + bankName + "'" ;
+   this.iframe5url=this.report_url+"examples/PigmyCollectionChart.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&ChartNo=" + ChartNo +"&Scheme_acc='" + Scheme_acc +"'&bankName=" + bankName + "" ;
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
   }
@@ -196,7 +212,11 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.ngForm.controls.BRANCH_CODE.reset();
+  this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.Scheme_acc.reset();
+  this.ngForm.controls.chart_no.reset();
   this.showRepo = false;
   this.clicked=false;
 }

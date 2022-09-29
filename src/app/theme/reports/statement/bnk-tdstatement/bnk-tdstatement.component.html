@@ -88,8 +88,8 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Starting_Date"
-                                            id="Starting_Date" class="form-control" [(ngModel)]="startingdate"
-                                            formControlName="Starting_Date"
+                                            id="Starting_Date" class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [(ngModel)]="startingdate" formControlName="Starting_Date"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -113,6 +113,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Ending_Date" id="Ending_Date"
                                             class="form-control" [(ngModel)]="endingdate" formControlName="Ending_Date"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>

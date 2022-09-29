@@ -5,13 +5,14 @@ import { NgSelectConfig } from '@ng-select/ng-select'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
-
-import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { first } from 'rxjs/operators'
 import * as moment from "moment";
 import { DomSanitizer } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @Component({
   selector: 'app-bnk-receive-int-list',
@@ -46,10 +47,15 @@ export class BnkReceiveIntListComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
     private sanitizer: DomSanitizer,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,) { this.maxDate = new Date();
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private systemParameter:SystemMasterParametersService,
+    ) { 
+      this.date = moment().format('DD/MM/YYYY');
+      this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())}
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm()
@@ -65,6 +71,10 @@ export class BnkReceiveIntListComponent implements OnInit {
       });
       this.scheme = filtered;
 
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.date = data.CURRENT_DATE;
     })
   }
   // validations for ngForm
@@ -78,6 +88,17 @@ export class BnkReceiveIntListComponent implements OnInit {
       Print_Receivable_Penal_Interest_Details: [''],
       Print_Overdue_Interest: [''],
     });
+
+    let data: any = localStorage.getItem('user');
+  let result = JSON.parse(data);
+  if (result.RoleDefine[0].Role.id == 1) {
+    this.ngbranch = result.branch.id
+    this.ngForm.controls['BRANCH_CODE'].enable()
+  }
+  else {
+    this.ngForm.controls['BRANCH_CODE'].disable()
+    this.ngbranch = result.branch.id
+  }
   }
 
   view(event) {
@@ -102,10 +123,10 @@ export class BnkReceiveIntListComponent implements OnInit {
   let PrintClosedAcPrintReceivablePenalInterestDetailscounts =obj.Print_Receivable_Penal_Interest_Details;
   let PrintOverdueInterest =obj.Print_Overdue_Interest;
   
-this.iframeurl=this.report_url+ "examples/ReceivableInterestBal.php?Date='" + Date + "'&scheme='" 
-                + scheme + "'&branchName='"+branchName+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
+this.iframeurl=this.report_url+ "examples/ReceivableInterestBal.php?Date='" + Date + "'&scheme=" 
+                + scheme + "&branch="+branch+"&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
                 +"'&PrintClosedAcPrintReceivablePenalInterestDetailscounts='"+PrintClosedAcPrintReceivablePenalInterestDetailscounts+"'&PrintOverdueInterest='"
-                +PrintOverdueInterest+"'&bankName='" + bankName + "' ";
+                +PrintOverdueInterest+"&bankName=" + bankName + " ";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
   }
   else {
@@ -118,7 +139,12 @@ this.iframeurl=this.report_url+ "examples/ReceivableInterestBal.php?Date='" + Da
     }
   
     resetForm() {
-      this.createForm()
+      // this.createForm()
+      this.ngForm.controls.Scheme_code.reset();
+      this.ngForm.controls.Print_Closed_Accounts.reset();
+      this.ngForm.controls.Print_Penal_Interest_Details.reset();
+      this.ngForm.controls.Print_Receivable_Penal_Interest_Details.reset();
+      this.ngForm.controls.Print_Overdue_Interest.reset();
       this.showRepo = false;
       this.clicked=false;
     }

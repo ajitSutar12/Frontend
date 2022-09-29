@@ -6,13 +6,13 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 // Used to Call API
 import { HttpClient, HttpParams } from "@angular/common/http";
-
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-bnk-instructions-standing-debit',
@@ -26,7 +26,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
-
+  formSubmitted = false;
   clicked:boolean=false;
 
   iframeurl: any = ' ';
@@ -68,7 +68,9 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
     private sanitizer: DomSanitizer,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter:SystemMasterParametersService,
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -79,6 +81,19 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
+      
+      this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+      this.fromdate = this.fromdate._d
     })
   }
 
@@ -91,6 +106,17 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       SORT: ["", [Validators.required]],
       NEWPAGE: ["", [Validators.required]],
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.todate = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.todate = result.branch.id
+    }
   }
   end() {
     this.startfrom = this.angForm.controls['START_DATE'].value
@@ -104,12 +130,13 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
   }
 
   view(event) {
+    debugger
+    this.formSubmitted = true;
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
-    debugger
    if (this.angForm.controls['RADIO'].value=="success" && this.angForm.valid) {
       this.showRepo = true;
       let obj = this.angForm.value
@@ -120,7 +147,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
-      this.iframeurl = this.report_url+"examples/standinstructlogSucess.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/standinstructlogSucess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
@@ -128,16 +155,18 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       let obj = this.angForm.value
       let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
       let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let edate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
       let branched = obj.BRANCH_CODE;
       let failure = obj.RADIO;
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
 
-      this.iframeurl = this.report_url+"examples/standinstructlogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branchName='" + branchName + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/standinstructlogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
+      this.formSubmitted = false;
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
 
@@ -146,7 +175,10 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
     this.resetForm()
   }
  resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.BRANCH_CODE.reset();
+    this.angForm.controls.SORT.reset();
+    this.angForm.controls.RADIO.reset()
     this.showRepo = false;
     this.clicked=false;
   }

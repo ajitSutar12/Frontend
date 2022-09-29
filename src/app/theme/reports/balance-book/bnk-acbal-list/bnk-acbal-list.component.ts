@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { first } from "rxjs/operators";
 import { DomSanitizer} from '@angular/platform-browser';
 import Swal from 'sweetalert2';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @Component({
   selector: 'app-bnk-acbal-list',
@@ -57,6 +59,8 @@ export class BnkAcbalListComponent implements OnInit {
   selectedCode: any;
   account: any[];
   master: any;
+bsValue: any;
+fromdate: any;
  
   constructor( private http: HttpClient,
     private fb: FormBuilder,
@@ -66,7 +70,9 @@ export class BnkAcbalListComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private config: NgSelectConfig,
     private sanitizer: DomSanitizer,
+    private systemParameter:SystemMasterParametersService,
     public router: Router,) { 
+      this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);
@@ -76,7 +82,6 @@ export class BnkAcbalListComponent implements OnInit {
       this.ngForm = this.fb.group({
         BRANCH_CODE:  ['', [ Validators.required]],
         Scheme_code: ["",[ Validators.required]],
-       
         FROM_AC_NO: ['', [Validators.required]],
         TO_AC_NO: ['', [ Validators.required]],
         radio: new FormControl('none'),
@@ -93,6 +98,10 @@ export class BnkAcbalListComponent implements OnInit {
     //branch List
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.defaultDate = data.CURRENT_DATE;
     })
 
     // Scheme Code
@@ -103,6 +112,17 @@ export class BnkAcbalListComponent implements OnInit {
     this.scheme = filtered;
 
   })
+
+  let data: any = localStorage.getItem('user');
+  let result = JSON.parse(data);
+  if (result.RoleDefine[0].Role.id == 1) {
+    this.ngbranch = result.branch.id
+    this.ngForm.controls['BRANCH_CODE'].enable()
+  }
+  else {
+    this.ngForm.controls['BRANCH_CODE'].disable()
+    this.ngbranch = result.branch.id
+  }
 
   }
 
@@ -252,7 +272,7 @@ export class BnkAcbalListComponent implements OnInit {
    
   src: any;
   view(event) {
-
+debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -263,7 +283,7 @@ export class BnkAcbalListComponent implements OnInit {
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    let startDate = this.defaultDate;
     let scheme = obj.Scheme_code
     let Rstartingacc = obj.FROM_AC_NO
     let Rendingacc = obj.TO_AC_NO
@@ -275,7 +295,7 @@ export class BnkAcbalListComponent implements OnInit {
     let checkbox3 = obj.PRINT_ANA_REASON
 
          
-   this.iframeurl= this.report_url+"examples/DormantAccountList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branchName='"+ branchName +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"'&bankName='" + bankName + "'";
+   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"&bankName=" + bankName + "";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
     // const url = "http://localhost/NewReport/phpjasperxml-master/examples/BalanceBook.php?startDate='"+startDate+"'&endDate='"+endDate+ "'&scheme='" + scheme + "'&schemeAccountNo" + schemeAccountNo +"'&";
@@ -295,7 +315,11 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.ngForm.controls.BRANCH_CODE.reset();
+  this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.FROM_AC_NO.reset();
+  this.ngForm.controls.TO_AC_NO.reset();
   this.showRepo = false;
   this.clicked=false;
 }

@@ -10,6 +10,7 @@ import { environment } from "src/environments/environment";
 import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class BnkTDStatementComponent implements OnInit {
   obj: any;
   startingAccount: any = null;
   EndingAccount: any = null;
+  ngbranch: any;
 
   constructor(
     private fb: FormBuilder,
@@ -48,8 +50,10 @@ export class BnkTDStatementComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private systemParameter: SystemMasterParametersService,
 
   ) {
+    this.endingdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -66,7 +70,31 @@ export class BnkTDStatementComponent implements OnInit {
       });
       this.scheme = filtered;
 
+    });
+
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.endingdate = data.CURRENT_DATE;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.endingdate = data.CURRENT_DATE
+      
+      this.startingdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+      this.startingdate = this.startingdate._d
     })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   // validations for ngForm
@@ -146,15 +174,15 @@ export class BnkTDStatementComponent implements OnInit {
       let obj = this.ngForm.value
       
       let stdate = moment(obj.Starting_Date).format('DD/MM/YYYY');
+      let END_DATE =  moment(obj.Ending_Date).format('DD/MM/YYYY');
       let Scheme_code = obj.Scheme_code;
       let Starting_Account = obj.Starting_Account;
-      let END_DATE =  moment(obj.Ending_Date).format('DD/MM/YYYY');
       let Ending_Account = obj.Ending_Account;
       let print1 = obj.Print_Every_Account_on_New_Page;
       let print2 = obj.Print_Closed_Account;
 
-      this.iframeurl = this.report_url+"examples/TermDepositeStatement.php?stdate='" + stdate + "'&END_DATE='" + END_DATE + "'&Scheme_code='" + Scheme_code + "'&Starting_Account='" + Starting_Account + 
-                       "'&Ending_Account='" + Ending_Account + "'&print1='" + print1 + "'&print2='" + print2 + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/TermDepositeStatement.php?stdate='" + stdate + "'&END_DATE='" + END_DATE + "'&Scheme_code=" + Scheme_code + "&Starting_Account=" + Starting_Account + 
+                       "&Ending_Account=" + Ending_Account + "&print1='" + print1 + "'&print2='" + print2 + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
