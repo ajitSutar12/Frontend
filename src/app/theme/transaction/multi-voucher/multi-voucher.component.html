@@ -333,7 +333,7 @@
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
-                                                                        (focusout)="decimalAllContent($event);checkheadcondition($event,i)"
+                                                                        (focusout)="decimalAllContent($event);"
                                                                         (focus)="selectAllContent($event)"
                                                                         value="{{item.Amount}}">
                                                                 </td>
