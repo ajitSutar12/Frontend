@@ -547,7 +547,7 @@ export class MultiVoucherComponent implements OnInit {
   submitTranMode: any;
   headFlag: boolean = false;
   changeMode(item) {
-    debugger
+    //debugger
     this.headData = []
     this.submitTranMode = item;
     if (this.submitTranMode.tran_type == 'TR') {
@@ -810,7 +810,7 @@ export class MultiVoucherComponent implements OnInit {
   //Edit Voucher Data
   headflag: boolean = false;
   editVoucher(index) {
-    debugger
+    //debugger
     this.headflag = true;
 
     this.EditFlag = true;
@@ -906,9 +906,9 @@ export class MultiVoucherComponent implements OnInit {
   updateID
   item1: any;
   editClickHandler(id) {
-    debugger
+    //debugger
     this._service.getFormData(id).subscribe((data) => {
-      debugger
+      //debugger
       console.log(data);
       this.updateID = data[0].TRAN_NO
       this.updatecheckdata = data
@@ -1077,7 +1077,7 @@ export class MultiVoucherComponent implements OnInit {
       acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
       date: addInFrom
     }
-    debugger
+    //debugger
     this._vservice.getledgerbalance(obj).subscribe(data => {
       this.DayOpBal = Math.abs(data);
       if (data < 0) {
@@ -1087,7 +1087,7 @@ export class MultiVoucherComponent implements OnInit {
       }
       this.tempDayOpBal = data;
       this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
-        debugger
+        //debugger
         this.Pass = Math.abs(data1.passedamt)
         this.Unpass = Math.abs(data1.unpassamt)
         this.passextension = (data1.passextension != undefined ? data1.passextension : '')
@@ -1215,7 +1215,7 @@ export class MultiVoucherComponent implements OnInit {
 
   //cheque no captial function
   chequeNoData(event) {
-    debugger
+    //debugger
     this.angForm.patchValue({
       chequeNo: event.target.value.toUpperCase()
     })
@@ -1748,12 +1748,12 @@ export class MultiVoucherComponent implements OnInit {
       let date = moment(event).format('DD/MM/YYYY');
       this.updateheadbalance(date)
 
-      this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
+      this._vservice.ComInterestDateAndCurrentDate(obj).subscribe(data => {
         if (data != 0) {
           Swal.fire('Error!', data.message, 'error');
           this.angForm.controls['Intdate'].reset()
         } else {
-          this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+          this._vservice.ComInterestDateAndLastDMonth(obj).subscribe(data => {
             if (data != 0) {
               Swal.fire('Error!', data.message, 'error');
             }
@@ -1782,7 +1782,7 @@ export class MultiVoucherComponent implements OnInit {
     }
 
 
-    this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+    this._vservice.ComInterestDateAndLastDMonth(obj).subscribe(data => {
       if (data != 0) {
         Swal.fire('Error!', data.message, 'error');
       }
@@ -1804,7 +1804,7 @@ export class MultiVoucherComponent implements OnInit {
     let balancedata
     this._vservice.getInputHeadBal(newobj).subscribe(data1 => {
       balancedata = data1
-      debugger
+      //debugger
       // this.headData.forEach(element =>
       for (let element of this.headData) {
         let newobj = {
