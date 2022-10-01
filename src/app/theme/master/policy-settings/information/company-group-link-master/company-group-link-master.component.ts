@@ -225,44 +225,46 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   }
   // Method to insert data into database through NestJS
   submit() {
-    this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'COMP_CODE': formVal.COMP_CODE,
-      'CODE': formVal.CODE,
-      'FROM_AC': formVal.FROM_AC,
-      'TO_AC': formVal.TO_AC,
-      'BRANCH_CODE': this.ngBranchCode,
-      'Company_Data': this.multiData
-    }
-    this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      this.multiData = [];
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
+    if (this.multiData.length != 0) {
+      this.formSubmitted = true;
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'COMP_CODE': formVal.COMP_CODE,
+        'CODE': formVal.CODE,
+        'FROM_AC': formVal.FROM_AC,
+        'TO_AC': formVal.TO_AC,
+        'BRANCH_CODE': this.ngBranchCode,
+        'Company_Data': this.multiData
+      }
+      this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.multiData = [];
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
 
-    })
-    this.ngBranchCode = null
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngBranchCode = result.branch.id
-      this.branchCode = result.branch.CODE
-    }
+      })
+      this.ngBranchCode = null
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      if (result.RoleDefine[0].Role.id == 1) {
+        this.angForm.controls['BRANCH_CODE'].enable()
+      }
+      else {
+        this.angForm.controls['BRANCH_CODE'].disable()
+        this.ngBranchCode = result.branch.id
+        this.branchCode = result.branch.CODE
+      }
 
-    this.angForm.patchValue({
-      BRANCH_CODE: result.branch.id
-    })
-    //To clear form
-    this.resetForm();
+      this.angForm.patchValue({
+        BRANCH_CODE: result.branch.id
+      })
+      //To clear form
+      this.resetForm();
+    }
   }
 
   //Method for append data into fields
