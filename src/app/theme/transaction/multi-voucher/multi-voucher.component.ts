@@ -1,6 +1,4 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
 import { TransactionTransferModeService } from '../../../shared/elements/transaction-transfer-mode.service';
 import { SchemeTypeService } from '../../../shared/elements/scheme-type.service';
@@ -8,19 +6,17 @@ import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { MultiVoucherService } from './multi-voucher.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
 import { environment } from 'src/environments/environment';
 import { VoucherEntryService } from '../voucher-entry/voucher-entry.service'
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -203,8 +199,9 @@ export class MultiVoucherComponent implements OnInit {
       this.maxDate = new Date(nextDate);
       this.maxDate.setDate(this.maxDate.getDate());
 
-      this.minDate = new Date(nextDate);
+      this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
+      
     })
 
     //branch List
@@ -1981,14 +1978,56 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   getaftervoucher(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(event.target.value);
     let tran = this.submitTranMode.tran_drcr
-    if (tran == 'D') {
-      this.AfterVoucher = Math.abs(this.tempDayOpBal - value)
-      this.extenstionaftervoucher = 'Dr'
+    // if (tran == 'D') {
+    //   this.AfterVoucher = Math.abs(this.tempDayOpBal - value)
+    //   this.extenstionaftervoucher = 'Dr'
+    // } else {
+    //   this.AfterVoucher = Math.abs(this.tempDayOpBal + value)
+    //   this.extenstionaftervoucher = 'Cr'
+    // }
+    debugger
+    if (tran == 'D' && this.typeclearbal == 'Dr') {
+      this.AfterVoucher = Math.abs(this.ClearBalance + value);
+      this.extenstionaftervoucher = 'Dr';
+    } else if (tran == 'D' && this.typeclearbal == 'Cr') {
+      this.AfterVoucher = Math.abs(this.ClearBalance - value);
+      if (value > this.ClearBalance) {
+        if (tran == 'C') {
+          this.extenstionaftervoucher = 'Cr';
+        } else {
+          this.extenstionaftervoucher = 'Dr';
+        }
+      }
+    } else if (tran == 'C' && this.typeclearbal == 'Dr') {
+      this.AfterVoucher = Math.abs(this.ClearBalance - value);
+      if (value > this.ClearBalance) {
+        if (tran == 'C') {
+          this.extenstionaftervoucher = 'Cr';
+        } else {
+          this.extenstionaftervoucher = 'Dr';
+        }
+      }
     } else {
-      this.AfterVoucher = Math.abs(this.tempDayOpBal + value)
-      this.extenstionaftervoucher = 'Cr'
+      this.AfterVoucher = Math.abs(this.ClearBalance + value);
+      this.extenstionaftervoucher = 'Cr';
     }
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+    console.log(ele);
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }
