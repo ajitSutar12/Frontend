@@ -46,4 +46,14 @@ export class BatchVoucherService {
   reject(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/batchReject', data).pipe(catchError(this.handleError));
   }
+
+  //get SchmeMast Data
+  schemastData():Observable<any>{
+    return this.http.get(this.url+'/scheme-parameters')
+  }
+
+  //get Ledger balance
+  getLedgerBalance(body):Observable<any>{
+    return this.http.post(this.url+'/voucher/getledgerbalance',body).pipe(catchError(this.handleError))
+  }
 }
