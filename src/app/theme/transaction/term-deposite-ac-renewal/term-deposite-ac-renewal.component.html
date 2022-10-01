@@ -88,7 +88,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="customerAc" formControlName="account_no"
+                                        <ng-select [(ngModel)]="customer" formControlName="account_no"
                                             (change)="getVoucherData()">
                                             <ng-option *ngFor="let item of introducerACNo" [value]="item">{{item.AC_NO}}
                                                 {{item.AC_NAME}}</ng-option>
