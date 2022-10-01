@@ -8,6 +8,8 @@ import { BatchVoucherService } from './batch-voucher.service';
 import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownService/company-group-master-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import * as moment from 'moment';
+import readXlsxFile from 'read-excel-file'
+
 
 
 @Component({
@@ -18,6 +20,8 @@ import * as moment from 'moment';
 export class BatchVoucherComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+  @ViewChild("fileInput") fileInput;
+
   date: any;
   angForm: FormGroup;
   isture: boolean = true;
@@ -40,6 +44,13 @@ export class BatchVoucherComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  schemeData :any;
+  sysparaData :any;
+  ledgerBal : any = 0;
+  maxDate : Date;
+  minDate : Date;
+  showImportDiv :boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
@@ -60,6 +71,7 @@ export class BatchVoucherComponent implements OnInit {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       //debugger
       this.branch_code = data;
+      console.log('Branch Data',this.branch_code);
       this.selectedBranch = user.branchId;
     })
 
@@ -71,11 +83,28 @@ export class BatchVoucherComponent implements OnInit {
     //sys para details
     this._multiService.getSysParaData().subscribe(data => {
       this.date = data[0].CURRENT_DATE;
+      this.sysparaData = data[0];
+
+      this.date = data[0].CURRENT_DATE;
+      let nextDate = moment(this.date,'DD/MM/YYYY').add(3,'month').format('YYYY-MM-DD');
+      let lastDate = moment(this.date,'DD/MM/YYYY').subtract(3,'month').format('YYYY-MM-DD');
+
+      this.maxDate = new Date(nextDate);
+      this.maxDate.setDate(this.maxDate.getDate());
+
+      this.minDate = new Date(lastDate);
+      this.minDate.setDate(this.minDate.getDate());
     })
 
     //Narration List
     this._service.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
+    })
+    
+    //get Scheme Data
+    this._service.schemastData().subscribe(data=>{
+      this.schemeData = data;
+      console.log(this.schemeData);
     })
   }
 
@@ -92,6 +121,8 @@ export class BatchVoucherComponent implements OnInit {
       date: [''],
       Scheme: [''],
       SchemeACNO: [''],
+      import:[''],
+      file:['']
     })
   }
 
@@ -106,9 +137,25 @@ export class BatchVoucherComponent implements OnInit {
   companyNameData :any;
   getCompanyData(ele) {
     this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
+      debugger
       console.log(data);
       this.company_data = data;
       this.companyNameData = data.AC_NO+'/'+data.NAME;
+      //get Account No
+      let barnchCode = this.branch_code.filter(ele=>ele.value == this.company_data?.BRANCH_CODE)
+      
+      let bankCode   = this.sysparaData.BANK_CODE;
+      let schData    = this.schemeData.filter(ele=>ele.id == this.company_data?.AC_TYPE);
+      let obj = {
+        acno : bankCode+barnchCode[0].name+schData[0].S_APPL+this.company_data.AC_NO,
+        scheme : schData[0].S_APPL,
+        date   : this.date
+      }
+      this._service.getLedgerBalance(obj).subscribe(data=>{
+        this.ledgerBal = Math.abs(data);
+      },err=>{
+        Swal.fire('Oops..!','Something went wrong in Opening Bal not fetched','error');
+      })
     }, err => {
       console.log(err);
     })
@@ -162,26 +209,39 @@ export class BatchVoucherComponent implements OnInit {
   }
 
   Submit() {
-    //debugger
+    debugger
     var obj = this.angForm.value;
     if (Number(obj.voucherAmount) != Number(this.totalAmt)) {
       Swal.fire('Error!', 'Voucher amount not equal to Total Amount', 'error');
-    }
-    let cheqDate
-    const formVal = this.angForm.value
-    //create a object
-    let dataObj = this.angForm.value;
-    dataObj['ChequeDate'] = (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date' || formVal.ChequeDate == null || formVal.ChequeDate == undefined) ? cheqDate = '' : cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY'),
+    }else{
+      let cheqDate
+      const formVal = this.angForm.value
+      //create a object
+      let dataObj = this.angForm.value;
+      dataObj['ChequeDate'] = (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date' || formVal.ChequeDate == null || formVal.ChequeDate == undefined) ? cheqDate = '' : cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY'),
       dataObj['gridData'] = this.filterArray;
-    dataObj['schemeData'] = this.company_data;
-    dataObj['companyData'] = this.company_main_data;
-    dataObj['user'] = JSON.parse(localStorage.getItem('user'));
+      dataObj['schemeData'] = this.company_data;
+      dataObj['companyData'] = this.company_main_data;
+      dataObj['user'] = JSON.parse(localStorage.getItem('user'));
 
-    this._service.submitData(dataObj).subscribe(data => {
-
-    }, err => {
-      console.log(err);
-    })
+      this._service.submitData(dataObj).subscribe(data => {
+        console.log(data);
+        Swal.fire('Success!','Batch Voucher submited successfully','success');
+        this.angForm.controls['company_code'].reset();
+        this.angForm.controls['ledger_balance'].reset();
+        this.angForm.controls['chequeNo'].reset();
+        this.angForm.controls['ChequeDate'].reset();
+        this.angForm.controls['voucherAmount'].reset();
+        this.angForm.controls['particulars'].reset();
+        this.angForm.controls['TotalAmt'].reset();
+        this.angForm.controls['Scheme'].reset();
+        this.angForm.controls['SchemeACNO'].reset();
+        this.filterArray =[];
+        this.selectCompanyCode = null
+      }, err => {
+        console.log(err);
+      })
+    }
   }
   updatecheckdata
   public visibleAnimate = false;
@@ -289,6 +349,62 @@ export class BatchVoucherComponent implements OnInit {
         });
       });
     });
+  }
+
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  importFlag(ele){
+    debugger
+    if(ele.target.checked){
+      this.showImportDiv = true;
+    }else{
+      this.showImportDiv = false;
+    }
+  }
+
+  ImportData(){
+    debugger
+    const input = document.getElementById('input')
+    let fi = this.fileInput.nativeElement;
+    let notAssigned = new Array();
+    let flag:boolean = false;
+    readXlsxFile(fi.files[0]).then((rows) => {
+        if(this.filterArray == undefined){
+          Swal.fire('Oops...!',"Please select company data first","error");
+        }else{
+          for(let item of this.filterArray){
+            flag = false;
+            for(let ele of rows){
+              if(item.AC_TYPE == ele[0] && item.AC_NO == ele[1]){
+                item.DEFAULT_AMOUNT = ele[2];
+                flag = true;
+              }
+            }
+            if(flag == false){
+              notAssigned.push(item);
+              flag = true;
+            }
+          }
+
+          if(notAssigned.length !=0){
+            let string = '';
+            for(let item of notAssigned){
+              string += `Ac No : ${item.AC_NO}<br>`
+            }
+            string +=`above Account not find in system please check once again`;
+
+            Swal.fire('Oops...!',string,'error');
+          }
+
+          this.totalAmt = 0;
+          this.filterArray.forEach(element => {
+            //debugger
+            this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+          });
+        }
+    })
   }
 };
 
