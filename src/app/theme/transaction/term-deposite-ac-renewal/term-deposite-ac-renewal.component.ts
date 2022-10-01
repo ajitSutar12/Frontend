@@ -171,9 +171,10 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   funAmtNormalInterest = 0
   isCalulateMaturityAmountFlag: boolean = false
   ledgerBalance = 0
-  getVoucherData() {
-    this.selectedIntCate = Number(this.customer?.AC_INTCATA);
-    this.renewalAsOnDate = this.customer?.AC_EXPDT;
+
+  getVoucherData() {        
+    this.selectedIntCate = Number(this.customer.AC_INTCATA);
+    this.renewalAsOnDate = this.customer.AC_EXPDT;
     this.angForm.patchValue({
       'new_month': this.customer.AC_MONTHS,
       'new_day': this.customer.AC_DAYS,
@@ -507,7 +508,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   //get account no according scheme for introducer
   async getIntroducer() {
-    this.customer = null
+    this.customerAc = null
     this.introducerACNo = [];
     this.obj = [this.selectedScheme.id, this.selectedBranch]
     switch (this.selectedCode) {

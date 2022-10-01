@@ -184,7 +184,7 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                        [maxDate]="maxDate" [minDate]="minDate"formControlName="chequeDate">
+                                                        [maxDate]="maxDate" [minDate]="minDate" formControlName="chequeDate">
                                                 </span>
                                             </div>
                                         </div>
@@ -230,7 +230,7 @@
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
                                                     style="text-transform: capitalize;" maxlength="15"
-                                                    (keyup)="getaftervoucher($event)"
+                                                    (keyup)="getaftervoucher($event)"  (focus)="selectAllContent($event)"
                                                     (focusout)="decimalAllContent($event); checkCondition($event);"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                                     formControlName="amt" #swiper (keyup)="getAmt($event)">
