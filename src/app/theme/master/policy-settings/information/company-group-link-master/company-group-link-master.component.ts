@@ -205,9 +205,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     //   this.schemeCode = data;
     // })
     this.schemeCodeService.getAllSchemeList().pipe(first()).subscribe(data => {
-      console.log(data)
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'GS' || scheme.name == 'SH');
+        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GL' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'GS');
       });
       this.schemeCode = filtered;
 
@@ -274,7 +273,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.newbtnShow = true;
 
     this.companyGroupLinkMasterService.getFormData(id).subscribe(data => {
-
+      console.log(data, 'edit data')
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE)
       this.ngcompany = Number(data.COMP_CODE)
@@ -303,7 +302,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-
+      this.multiData = []
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       }); this.resetForm();
@@ -424,6 +423,12 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
         })
         break;
+      case 'GL':
+        this._allAcc.getGLListAccount(obj).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
 
       case 'SH':
         this._allAcc.getShareList(obj).subscribe(data => {
@@ -483,56 +488,57 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
-    this.accountno = [fromac, toac, branchCode]
+    this.accountno = [fromac, toac, branchCode, this.ngcode]
     if (this.angForm.controls['TO_AC'].value == '' || this.angForm.controls['TO_AC'].value == null) {
 
-    } else if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
+    } else if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value) {
       switch (this.scheme) {
         case 'SB':
-          this.http.get(this.url + '/saving-master/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/saving-master/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
-
+          break;
+        case 'GL':
+          this.http.get(this.url + '/gl-account-master/listalldata/' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+          });
+          break;
 
         case 'SH':
-          this._allAcc.getShareListAccount(this.accountno).subscribe(data => {
-            this.multiData = data;
-
-          })
-          this.http.get(this.url + '/share-master/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/share-master/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
           break;
 
         case 'CA':
 
-          this.http.get(this.url + '/current-account-master/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/current-account-master/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
           break;
 
         case 'LN':
 
-          this.http.get(this.url + '/term-loan-master/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/term-loan-master/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
           break;
 
         case 'TD':
 
-          this.http.get(this.url + '/term-deposits-master/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/term-deposits-master/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
           break;
         case 'CC':
 
-          this.http.get(this.url + '/cash-credit-master/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/cash-credit-master/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
           break;
 
         case 'GS':
-          this.http.get(this.url + '/anamat-gsm/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/anamat-gsm/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
 
@@ -540,7 +546,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
         case 'PG':
 
-          this.http.get(this.url + '/pigmy-account-master/listalldata' + this.accountno).subscribe((data) => {
+          this.http.get(this.url + '/pigmy-account-master/listalldata/' + this.accountno).subscribe((data) => {
             this.multiData = data;
           });
           break;

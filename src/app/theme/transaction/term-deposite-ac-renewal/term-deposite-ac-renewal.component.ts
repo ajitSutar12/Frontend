@@ -171,8 +171,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   funAmtNormalInterest = 0
   isCalulateMaturityAmountFlag: boolean = false
   ledgerBalance = 0
-
-  getVoucherData() {        
+  getVoucherData() {
     this.selectedIntCate = Number(this.customer.AC_INTCATA);
     this.renewalAsOnDate = this.customer.AC_EXPDT;
     this.angForm.patchValue({
