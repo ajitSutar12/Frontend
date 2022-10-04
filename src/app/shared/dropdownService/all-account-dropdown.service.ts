@@ -113,7 +113,7 @@ export class AllAccountDropdownService {
     }
     public getShareList(BranchCode) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/share-master/alldata' +BranchCode)
+        return this.http.get<any>(this.url + '/share-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -126,7 +126,7 @@ export class AllAccountDropdownService {
 
     public getSavingListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/saving-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/saving-master/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -137,7 +137,7 @@ export class AllAccountDropdownService {
     }
     public getCurrentListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/current-account-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/current-account-master/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -148,7 +148,7 @@ export class AllAccountDropdownService {
     }
     public getTermDepositListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/term-deposits-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/term-deposits-master/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -159,7 +159,7 @@ export class AllAccountDropdownService {
     }
     public getPigmyAgentListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/pigmy-agent-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/pigmy-agent-master/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -170,7 +170,7 @@ export class AllAccountDropdownService {
     }
     public getPigmyAccountListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/pigmy-account-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/pigmy-account-master/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -181,7 +181,7 @@ export class AllAccountDropdownService {
     }
     public getTermLoanListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/term-loan-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/term-loan-master/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -192,7 +192,7 @@ export class AllAccountDropdownService {
     }
     public getCashCreditListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/cash-credit-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/cash-credit-master/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -203,7 +203,7 @@ export class AllAccountDropdownService {
     }
     public getInvestmentListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/investment/listalldata' + account)
+        return this.http.get<any>(this.url + '/investment/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -214,7 +214,7 @@ export class AllAccountDropdownService {
     }
     public getAnamatListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/anamat-gsm/listalldata' + account)
+        return this.http.get<any>(this.url + '/anamat-gsm/listalldata/' + account)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
@@ -225,7 +225,18 @@ export class AllAccountDropdownService {
     }
     public getShareListAccount(account) {
         this.acMasterObject = [];
-        return this.http.get<any>(this.url + '/share-master/listalldata' + account)
+        return this.http.get<any>(this.url + '/share-master/listalldata/' + account)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    this.acMasterObject.push(obj)
+                });
+                return this.acMasterObject;
+            }));
+    }
+    public getGLListAccount(account) {
+        this.acMasterObject = [];
+        return this.http.get<any>(this.url + '/gl-account-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.AC_NO };
