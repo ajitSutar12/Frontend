@@ -201,7 +201,7 @@ export class MultiVoucherComponent implements OnInit {
 
       this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
-      
+
     })
 
     //branch List
@@ -303,6 +303,7 @@ export class MultiVoucherComponent implements OnInit {
     this.tempschmetype = this.selectedCode
     this.introducerACNo = [];
     this.submitScheme = item;
+    
     if (this.tempscheme != this.selectedScheme) {
       this.customer = null
     }
@@ -385,17 +386,23 @@ export class MultiVoucherComponent implements OnInit {
     if (this.type == 'cash') {
       this.tranModeList = [];
       object.data.cash.forEach(ele => {
-
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
+        if (this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(this.DayOpBal) > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
+        }
       })
     } else {
       this.tranModeList = [];
       object.data.transfer.forEach(ele => {
         let obj = this.TranModeTransfer.find(t => t.id === ele);
         this.tranModeList.push(obj);
+        if (this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(this.DayOpBal) > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
+        }
       })
     }
+
   }
 
   //Transaction mode select
@@ -544,7 +551,7 @@ export class MultiVoucherComponent implements OnInit {
   submitTranMode: any;
   headFlag: boolean = false;
   changeMode(item) {
-    //debugger
+    //
     this.headData = []
     this.submitTranMode = item;
     if (this.submitTranMode.tran_type == 'TR') {
@@ -645,6 +652,8 @@ export class MultiVoucherComponent implements OnInit {
   //get customer today voucher data
   submitAccountNo: any;
   getVoucherData(item) {
+    this.DayOpBal = 0
+    this.selectedMode = null
     this.angForm.controls['total_amt'].reset()
     this.angForm.controls['amt'].reset()
     this.angForm.controls['tran_mode'].reset();
@@ -670,67 +679,67 @@ export class MultiVoucherComponent implements OnInit {
       console.log(err);
     })
 
-    this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
+    var startdate = this.angForm.controls['date'].value
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom: any;
+    if (this.submitScheme.S_ACNOTYPE == 'PG') {
+      addInFrom = startdate;
+    } else {
+      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    }
 
-      // let passType = '';
-      // let unpassType = '';
-
-      // //DayOfOpening 
-      // this.ClearBalance = this.ClearBalance + this.DayOpBal;
-
-      // //Pass condition checked
-      // if (data.passObj.pass == undefined) {
-      //   this.Pass = 0;
-      //   passType = 'Cr';
-      // } else {
-      //   this.Pass = data.passObj.pass;
-      //   passType = data.passObj.type;
-      // }
-
-      // //Unpass condition checked
-      // if (data.unpassObj.UnPass == undefined) {
-      //   this.Unpass = 0;
-      //   let unpassType = 'Cr';
-      // } else {
-      //   this.Unpass = data.unpassObj.UnPass;
-      //   let unpassType = data.unpassObj.type;
-      // }
-
-
-      // if (passType == 'Cr') {
-      //   this.ClearBalance = this.Pass + this.ClearBalance;
-      // } else {
-      //   this.ClearBalance = this.Pass - this.ClearBalance;
-      // }
-
-      // if (unpassType == 'Cr') {
-      //   this.ClearBalance = this.Unpass + this.ClearBalance;
-      // } else {
-      //   this.ClearBalance = this.Unpass - this.ClearBalance;
-      // }
-      // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
-      this.AfterVoucher = this.ClearBalance;
-    }, err => {
-      console.log(err);
+    let openingobj = {
+      scheme: this.submitScheme.S_APPL,
+      acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
+      date: addInFrom
+    }
+    //
+    this._vservice.getledgerbalance(openingobj).subscribe(data => {
+      this.DayOpBal = Math.abs(data);
     })
+    let object = this.TranData.find(t => t.key === this.selectedCode);
+    
+    if (this.type == 'cash') {
+      this.tranModeList = [];
+      object.data.cash.forEach(ele => {
+        let obj = this.TranModeCash.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+      if (this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(this.DayOpBal) > 0) {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
+    } else {
+      this.tranModeList = [];
+      object.data.transfer.forEach(ele => {
+        let obj = this.TranModeTransfer.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+      if (this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(this.DayOpBal) > 0) {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
+    }
   }
 
 
   //get Input head Amount
   getInputHeadAmt(ele, i) {
-    let value = ele.target.value;
-    this.headData[i].Amount = value;
-    let tran = this.submitTranMode.tran_drcr
-
-    console.log('this.headData', this.headData)
-    let count = 0
-    this.headData.forEach(element => {
-
-      count = Number(element.Amount) + Number(count)
-
-    });
-    this.totalAmt = count + Number(this.angForm.controls['amt'].value)
-    // 
+    var t = ele.target.value;
+    ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    let value = Number(ele.target.value);
+    console.log(this.headData, 'headData')
+    if (Number(ele.target.value) > Number(this.headData[i].Balance)) {
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
+      this.headData[i].Amount = 0;
+    }
+    else {
+      this.headData[i].Amount = value;
+      let tran = this.submitTranMode.tran_drcr
+      let count = 0
+      this.headData.forEach(element => {
+        count = Number(element.Amount) + Number(count)
+      });
+      this.totalAmt = count + Number(this.angForm.controls['amt'].value)
+    }
   }
 
   checkheadcondition(event, i) {
@@ -807,35 +816,33 @@ export class MultiVoucherComponent implements OnInit {
   //Edit Voucher Data
   headflag: boolean = false;
   editVoucher(index) {
-    //debugger
+    debugger
     this.headflag = true;
 
     this.EditFlag = true;
     this.index = index;
     var data = this.mainMaster[index];
-    console.log(data);
     this.selectedCode = data.scheme_type;
     this.selectedSchemeCode()
     this.selectedScheme = data.scheme.id;
     this.getIntroducer(data.scheme)
     this.customer = data.account_no.id;
     this.selectedMode = data.tran_mode.id;
-    this.particulars = data.NARRATION;
+    this.particulars = data.particulars;
     this.submitAccountNo = data.account_no;
     this.submitScheme = data.scheme;
     this.submitTranMode = data.tran_mode;
     this.bank = data.bank;
     this.angForm.patchValue({
-      'chequeNo': data.chequeNo,
-      'chequeDate': data.chequeDate,
-      'amt': data.amt,
-      'particulars': data.NARRATION,
-      'total_amt': data.total_amt
+      chequeNo: data.chequeNo,
+      chequeDate: data.chequeDate,
+      amt: data.amt,
+      particulars: data.particulars,
+      total_amt: data.total_amt
     })
     // this.changeMode(data.tran_mode);
     this.headData = []
     this.headData = data.InputHead;
-    console.log(this.headData);
     if (this.headData.length > 0) {
       this.headShow = true;
     }
@@ -848,6 +855,14 @@ export class MultiVoucherComponent implements OnInit {
     this.calculateVoucher()
     this.showlgindetails()
     this.SideDetails()
+    this.angForm.patchValue({
+      chequeNo: data.chequeNo,
+      chequeDate: data.chequeDate,
+      amt: data.amt,
+      particulars: data.particulars,
+      total_amt: data.total_amt,
+      bank:data.bank
+    })
   }
 
 
@@ -903,9 +918,9 @@ export class MultiVoucherComponent implements OnInit {
   updateID
   item1: any;
   editClickHandler(id) {
-    //debugger
+    //
     this._service.getFormData(id).subscribe((data) => {
-      //debugger
+      //
       console.log(data);
       this.updateID = data[0].TRAN_NO
       this.updatecheckdata = data
@@ -1074,7 +1089,7 @@ export class MultiVoucherComponent implements OnInit {
       acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
       date: addInFrom
     }
-    //debugger
+    //
     this._vservice.getledgerbalance(obj).subscribe(data => {
       this.DayOpBal = Math.abs(data);
       if (data < 0) {
@@ -1083,8 +1098,11 @@ export class MultiVoucherComponent implements OnInit {
         this.extensionopenbal = 'Dr'
       }
       this.tempDayOpBal = data;
+      if (this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(this.DayOpBal) > 0) {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
       this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
-        //debugger
+        //
         this.Pass = Math.abs(data1.passedamt)
         this.Unpass = Math.abs(data1.unpassamt)
         this.passextension = (data1.passextension != undefined ? data1.passextension : '')
@@ -1104,10 +1122,6 @@ export class MultiVoucherComponent implements OnInit {
         }
       })
     })
-
-
-
-
   }
 
 
@@ -1212,7 +1226,7 @@ export class MultiVoucherComponent implements OnInit {
 
   //cheque no captial function
   chequeNoData(event) {
-    //debugger
+    //
     this.angForm.patchValue({
       chequeNo: event.target.value.toUpperCase()
     })
@@ -1801,7 +1815,7 @@ export class MultiVoucherComponent implements OnInit {
     let balancedata
     this._vservice.getInputHeadBal(newobj).subscribe(data1 => {
       balancedata = data1
-      //debugger
+      //
       // this.headData.forEach(element =>
       for (let element of this.headData) {
         let newobj = {
@@ -1989,7 +2003,6 @@ export class MultiVoucherComponent implements OnInit {
     //   this.AfterVoucher = Math.abs(this.tempDayOpBal + value)
     //   this.extenstionaftervoucher = 'Cr'
     // }
-    debugger
     if (tran == 'D' && this.typeclearbal == 'Dr') {
       this.AfterVoucher = Math.abs(this.ClearBalance + value);
       this.extenstionaftervoucher = 'Dr';
@@ -2023,7 +2036,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   onOpen(select: NgSelectComponent) {
-    //debugger
+    //
     select.open()
   }
 

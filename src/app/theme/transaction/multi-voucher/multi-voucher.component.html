@@ -45,8 +45,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    #selectBranch (focus)="onFocus(selectBranch)" [selectOnTab]='true'
-                                                    autofocus>
+                                                    #selectBranch (focus)="onFocus(selectBranch)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -149,8 +148,9 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="customer" bindValue="id"
-                                                    formControlName="account_no" #selectAcc (focus)="onFocus(selectAcc)" [selectOnTab] = 'true'
-                                                    (change)="getVoucherData($event);checkAccountCondition();showlgindetails();SideDetails()">
+                                                    formControlName="account_no" #selectAcc (focus)="onFocus(selectAcc)"
+                                                    [selectOnTab]='true'
+                                                    (change)="getVoucherData($event);SideDetails();checkAccountCondition();showlgindetails();">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
@@ -172,7 +172,8 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedMode" bindValue="id"
-                                                    formControlName="tran_mode" #selectMode (focus)="onFocus(selectMode)" [selectOnTab] = 'true'
+                                                    formControlName="tran_mode" #selectMode
+                                                    (focus)="onFocus(selectMode)" [selectOnTab]='true'
                                                     (change)="changeMode($event);checktranCondition();">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
@@ -223,7 +224,8 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                        [maxDate]="maxDate" [minDate]="minDate" formControlName="chequeDate">
+                                                        [maxDate]="maxDate" [minDate]="minDate"
+                                                        formControlName="chequeDate">
                                                 </span>
                                             </div>
                                         </div>
@@ -326,7 +328,7 @@
                                                                 </td>
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
                                                                 <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'">
-                                                                    <input type="text"
+                                                                    <input type="text" pattern="\d{1,8}(\.\d{2})?" maxlength="11"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
@@ -335,13 +337,13 @@
                                                                         value="{{item.Amount}}">
                                                                 </td>
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'">
-                                                                    <input type="text"
+                                                                    <input type="text" pattern="\d{1,8}(\.\d{2})?" maxlength="11"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
                                                                         (focusout)="decimalAllContent($event);"
                                                                         (focus)="selectAllContent($event)"
-                                                                        value="{{item.Amount}}">
+                                                                        value="{{item.Amount}}" pattern="\d{1,10}(\.\d{1,2})?">
                                                                 </td>
 
                                                                 <td class="bg-light-danger text-right"><span
