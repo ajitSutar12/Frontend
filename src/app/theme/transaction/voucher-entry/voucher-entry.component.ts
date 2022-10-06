@@ -1033,6 +1033,9 @@ export class VoucherEntryComponent implements OnInit {
           this.extenstionaftervoucher = 'Dr';
         }
       }
+      else if (value < this.ClearBalance) {
+        this.extenstionaftervoucher =this.typeclearbal
+      }
     } else if (tran == 'C' && this.typeclearbal == 'Dr') {
       this.AfterVoucher = Math.abs(this.ClearBalance - value);
       if (value > this.ClearBalance) {
@@ -1041,6 +1044,9 @@ export class VoucherEntryComponent implements OnInit {
         } else {
           this.extenstionaftervoucher = 'Dr';
         }
+      }
+      else if (value < this.ClearBalance) {
+        this.extenstionaftervoucher = this.typeclearbal
       }
     } else {
       this.AfterVoucher = Math.abs(this.ClearBalance + value);

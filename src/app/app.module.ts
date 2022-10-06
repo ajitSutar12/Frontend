@@ -47,8 +47,9 @@ import { DatatablekitComponent } from './datatablekit/datatablekit.component';
     HotkeyModule.forRoot(), // adding HotkeysModule
     ConnectionServiceModule ,
     NgPasswordValidatorModule ,
-    DataTablesModule
+    DataTablesModule,
     // InfiniteScrollModule,
+
   ],
   providers: [MenuItems,
     {

@@ -536,8 +536,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   renewDate: any
   tempexpiryDate: any
   getExpiryDate() {
+    debugger
     let months = this.angForm.controls['AC_MONTHS'].value
-    if (this.renewDate != undefined) {
+    if (this.renewDate != undefined && this.renewDate != "") {
       var expiryDate = moment(this.angForm.controls['AC_RENEW_DATE'].value).add(months, 'M').format('DD/MM/YYYY');
       this.tempexpiryDate = expiryDate
       this.angForm.patchValue({
@@ -1065,42 +1066,41 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.acno = null
         this.obj = null
       }
-      this.ngexpiry = data.AC_EXPDT,
-        this.angForm.patchValue({
-
-          'AC_ACNOTYPE:': data.AC_ACNOTYPE,
-          AC_TYPE: data.AC_TYPE,
-          'AC_NO': data.AC_NO,
-          'AC_SHORT_NAME': data.AC_SHORT_NAME,
-
-          'REF_ACNO': data.REF_ACNO,
-          'AC_OPDATE': data.AC_OPDATE,
-          'AC_RENEW_DATE': (data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? redate = '' : redate = data.AC_RENEW_DATE,
-          AC_MEMBTYPE: data.AC_MEMBTYPE,
-          AC_MEMBNO: data.AC_MEMBNO,
-          // 'AC_EXPDT': data.AC_EXPDT,
-          'AC_OCODE': data.AC_OCODE,
-          'BANKACNO': data.BANKACNO,
-          'AC_MONTHS': data.AC_MONTHS,
-          'AC_SCHMAMT': data.AC_SCHMAMT,
-          //minor and introducer
-          'AC_MINOR': (data.AC_MINOR == '1' ? true : false),
-          'AC_MBDATE': data.AC_MBDATE,
-          'AC_GRDNAME': data.AC_GRDNAME,
-          'AC_GRDRELE': data.AC_GRDRELE,
-          'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
-          'PG_COMM_TYPE': (data.PG_COMM_TYPE == '1' ? true : false),
-          //nominee controls (NOMINEELINK table)
-          'AC_NNAME': data.AC_NNAME,
-          'AC_NRELA': data.AC_NRELA,
-          'AC_NDATE': data.AC_NDATE,
-          'AGE': data.AGE,
-          'ADDR1': data.ADDR1,
-          'ADDR2': data.ADDR2,
-          'ADDR3': data.ADDR3,
-          'CTCODE': data.CTCODE,
-          'PIN': data.PIN,
-        })
+      debugger
+      // this.ngexpiry = data.AC_EXPDT,
+      this.angForm.patchValue({
+        'AC_ACNOTYPE:': data.AC_ACNOTYPE,
+        AC_TYPE: data.AC_TYPE,
+        'AC_NO': data.AC_NO,
+        'AC_SHORT_NAME': data.AC_SHORT_NAME,
+        'REF_ACNO': data.REF_ACNO,
+        'AC_OPDATE': data.AC_OPDATE,
+        'AC_RENEW_DATE': (data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? redate = '' : redate = data.AC_RENEW_DATE,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_EXPDT: data.AC_EXPDT,
+        'AC_OCODE': data.AC_OCODE,
+        'BANKACNO': data.BANKACNO,
+        'AC_MONTHS': data.AC_MONTHS,
+        'AC_SCHMAMT': data.AC_SCHMAMT,
+        //minor and introducer
+        'AC_MINOR': (data.AC_MINOR == '1' ? true : false),
+        'AC_MBDATE': data.AC_MBDATE,
+        'AC_GRDNAME': data.AC_GRDNAME,
+        'AC_GRDRELE': data.AC_GRDRELE,
+        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
+        'PG_COMM_TYPE': (data.PG_COMM_TYPE == '1' ? true : false),
+        //nominee controls (NOMINEELINK table)
+        'AC_NNAME': data.AC_NNAME,
+        'AC_NRELA': data.AC_NRELA,
+        'AC_NDATE': data.AC_NDATE,
+        'AGE': data.AGE,
+        'ADDR1': data.ADDR1,
+        'ADDR2': data.ADDR2,
+        'ADDR3': data.ADDR3,
+        'CTCODE': data.CTCODE,
+        'PIN': data.PIN,
+      })
     })
   }
 
