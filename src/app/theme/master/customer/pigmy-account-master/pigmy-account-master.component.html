@@ -368,7 +368,7 @@
                                                                             title="Input allowed only  0-9"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                             formControlName="AC_MONTHS"
-                                                                            (ngModelChange)="getExpiryDate()">
+                                                                            (change)="getExpiryDate()">
                                                                         <label for="AC_MONTHS">Period(Month)<sub
                                                                                 class="required">*
                                                                             </sub></label>
