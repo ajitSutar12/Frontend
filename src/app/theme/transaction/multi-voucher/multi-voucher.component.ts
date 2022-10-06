@@ -303,7 +303,7 @@ export class MultiVoucherComponent implements OnInit {
     this.tempschmetype = this.selectedCode
     this.introducerACNo = [];
     this.submitScheme = item;
-    
+
     if (this.tempscheme != this.selectedScheme) {
       this.customer = null
     }
@@ -698,7 +698,7 @@ export class MultiVoucherComponent implements OnInit {
       this.DayOpBal = Math.abs(data);
     })
     let object = this.TranData.find(t => t.key === this.selectedCode);
-    
+
     if (this.type == 'cash') {
       this.tranModeList = [];
       object.data.cash.forEach(ele => {
@@ -861,7 +861,7 @@ export class MultiVoucherComponent implements OnInit {
       amt: data.amt,
       particulars: data.particulars,
       total_amt: data.total_amt,
-      bank:data.bank
+      bank: data.bank
     })
   }
 
@@ -2014,6 +2014,9 @@ export class MultiVoucherComponent implements OnInit {
         } else {
           this.extenstionaftervoucher = 'Dr';
         }
+      }
+      else if (value < this.ClearBalance) {
+        this.extenstionaftervoucher = this.typeclearbal
       }
     } else if (tran == 'C' && this.typeclearbal == 'Dr') {
       this.AfterVoucher = Math.abs(this.ClearBalance - value);
