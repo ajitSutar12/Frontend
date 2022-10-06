@@ -132,7 +132,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly style="text-align: right;"
+                                            <input type="text" class="form-control" disabled style="text-align: right;"
                                                 value="{{customer?.AC_SCHMAMT}}" formControlName="old_deposit_Amt">
                                         </span>
                                     </div>
@@ -143,7 +143,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" disabled
                                                 value="{{customer?.AC_OPDATE}}" formControlName="old_Ac_op_date">
                                         </span>
                                     </div>
@@ -154,7 +154,7 @@
                                 <div class="col-md-2 labelWidth">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" disabled
                                                 value="{{customer?.AC_EXPDT}}" formControlName="old_ac_expdt">
                                         </span>
                                     </div>
@@ -167,7 +167,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly style="text-align: right;"
+                                            <input type="text" class="form-control" disabled style="text-align: right;"
                                                 value="{{customer?.AC_MATUAMT}}" formControlName="old_ac_matuamt">
                                         </span>
                                     </div>
@@ -178,7 +178,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" disabled
                                                 value="{{customer?.AC_ASON_DATE}}" formControlName="old_ac_ason_date">
                                         </span>
                                     </div>
@@ -189,7 +189,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly style="text-align: right;"
+                                            <input type="text" class="form-control" disabled style="text-align: right;"
                                                 value="{{customer?.AC_REF_RECEIPTNO}}" formControlName="old_receipt_no">
                                         </span>
                                     </div>
@@ -202,7 +202,7 @@
                                 <div class="col-md-1 col-sm-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" value="{{customer?.AC_MONTHS}}" readonly
+                                            <input style="text-align: right;" value="{{customer?.AC_MONTHS}}" disabled
                                                 type="text" class="form-control" formControlName="old_month">
                                         </span>
                                     </div>
@@ -212,7 +212,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" class="form-control" value="{{customer?.AC_DAYS}}"
-                                                readonly formControlName="old_days">
+                                                disabled formControlName="old_days">
                                         </span>
                                     </div>
                                 </div>
@@ -223,7 +223,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly style="text-align: right;"
+                                            <input type="text" class="form-control" disabled style="text-align: right;"
                                                 value="{{customer?.AC_INTRATE}}" formControlName="old_intrate">
                                         </span>
                                     </div>
@@ -234,7 +234,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" class="form-control" readonly
+                                            <input style="text-align: right;" type="text" class="form-control" disabled
                                                 value="0" formControlName="old_total_int_paid">
                                         </span>
                                     </div>
@@ -247,7 +247,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" disabled
                                                 value="{{customer?.AC_LINTEDT}}" formControlName="old_last_int_date">
                                         </span>
                                     </div>
@@ -412,7 +412,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
+                            <div class="row" *ngIf="payableShow">
                                 <div class="col-sm-2">
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
@@ -436,7 +436,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="payableShow"> 
                                 <div class="col-md-12">
                                     <div class="form-radio">
                                         <div class="radio radio-inline">
@@ -528,7 +528,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr>
+                            <hr *ngIf="payableShow">
                         </div>
 
                         <br>
@@ -595,8 +595,8 @@
                                 <div class="col-md-2">
                                     <label>Total Days =</label>
                                 </div>
-                                <div class="col-md-3">{{TotalDays}}</div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">{{TotalDays}}</div>
+                                <div class="col-md-2" style="text-align: right;">
                                     Receipt Number
                                 </div>
                                 <div class="col-md-1">
@@ -633,7 +633,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md"></div>
-                                <div class="col-sm-6 col-md-1"> <label for="AC_EXPDT">New Last Interest Date</label>
+                                <div class="col-sm-6 col-md-2" style="text-align: right;"> <label for="AC_EXPDT">New Last Interest Date</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">

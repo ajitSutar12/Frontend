@@ -57,6 +57,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   approveShow: boolean = false;
   InterestCategoryData: any;
   maxDate: Date;
+  payableShow : boolean = true;
 
   constructor(private fb: FormBuilder,
     private multiService: MultiVoucherService,
@@ -197,14 +198,14 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.angForm.patchValue({
         old_total_int_paid: data.totalinterest,
         new_rate: data.InterestRate,
-        new_deposit: data.ledgerBal,
+        new_deposit: Math.abs(data.ledgerBal),
         AC_RENEWAL_COUNTER: data.renewalCount
       })
       this.funAmtNormalInterest = data.normalInterest
       this.funAmtPayableInterest = data.paybableInterest
       this.isCalulateMaturityAmountFlag = data.isCalulateMaturityAmountFlag
       this.funInterestRate = data.InterestRate
-      this.ledgerBalance = data.ledgerBal
+      this.ledgerBalance = Math.abs(data.ledgerBal)
       this.getMaturityAmount()
     })
 
@@ -237,7 +238,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   getMaturityAmount() {
     if (this.isCalulateMaturityAmountFlag) {
       this.angForm.patchValue({
-        new_maturity_amt: this.ledgerBalance
+        new_maturity_amt: Math.abs(this.ledgerBalance)
       })
       //   // calculate
       this._service.getTermDepositAccountDeatils(this.selectedScheme.id).subscribe(data => {
@@ -741,7 +742,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         this.angForm.patchValue({
           old_total_int_paid: data.totalinterest,
           new_rate: data.InterestRate,
-          new_deposit: data.ledgerBal,
+          new_deposit: Math.abs(data.ledgerBal),
           AC_RENEWAL_COUNTER: data.renewalCount
         })
         this.funAmtNormalInterest = data.normalInterest
@@ -757,7 +758,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         old_ac_expdt: data.OLD_EXPIRY_DATE,
         date: data.RENEWAL_DATE,
         scheme_type: data.AC_ACNOTYPE,
-        new_deposit: data.RENEWAL_AMOUNT,
+        new_deposit: Math.abs(data.RENEWAL_AMOUNT),
         new_month: data.NEW_MONTH,
         new_day: data.NEW_DAYS,
         new_ason_date: data.NEW_ASON_DATE,
@@ -874,12 +875,14 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   isNormalIntAdded: boolean = false
   changeNormal(ele) {
+    debugger
     if (ele.target.value == 'transfer') {
+      this.payableShow = true;
       this.transferShowNormal = true;
       if (this.isNormalIntAdded) {
         let depositeAmount = this.angForm.controls['new_deposit'].value;
         let intValue = this.angForm.controls['NormalInt'].value;
-        let Int = Number(depositeAmount) - Number(intValue);
+        let Int = Number(Math.abs(depositeAmount)) - Number(intValue);
         this.angForm.patchValue({
           'new_deposit': Int
         })
@@ -887,10 +890,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
     }
     else if (ele.target.value == 'AddInDeposit') {
+      this.payableShow = true;
       let depositeAmount = this.angForm.controls['new_deposit'].value;
       let intValue = this.angForm.controls['NormalInt'].value;
 
-      let Int = Number(depositeAmount) + Number(intValue);
+      let Int = Number(Math.abs(depositeAmount)) + Number(intValue);
 
       this.angForm.patchValue({
         'new_deposit': Int
@@ -898,7 +902,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.isNormalIntAdded = true
       this.transferShowNormal = false;
     }
+    else if(ele.target.value == 'keepaspayable'){
+      this.payableShow = false;
+    }
     else {
+      this.payableShow = true;
       this.transferShowNormal = false;
       if (this.isNormalIntAdded) {
         let depositeAmount = this.angForm.controls['new_deposit'].value;
@@ -916,7 +924,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   getnormalCheck(ele) {
     if (ele.target.checked) {
       this.NormalCheck = false;
-      this.InterestDate = this.current_date;
+      this.InterestDate = moment(this.current_date,'DD/MM/YYYY').subtract(1,'day').format('DD/MM/YYYY');
       this.angForm.patchValue({
         NormalInt: this.funAmtNormalInterest,
         NormalIntRadio: 'cash'
@@ -951,12 +959,16 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
   isPayableIntAdded: boolean = false
   payableStatus(ele) {
+    debugger
+    let dataValue = this.angForm.controls['NormalIntRadio'].value;
+    let selectedValue = ele.target.value;
+    if(dataValue == selectedValue){
     if (ele.target.value == 'transfer') {
       this.payableTranferShow = true;
       if (this.isPayableIntAdded) {
         let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
         let IntAmt = Number(this.angForm.controls['payableInt'].value);
-        let Int = depositeAmount - IntAmt;
+        let Int = Math.abs(depositeAmount) - IntAmt;
         this.angForm.patchValue({
           'new_deposit': Int
         })
@@ -966,7 +978,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
       let IntAmt = Number(this.angForm.controls['payableInt'].value);
 
-      let Int = depositeAmount + IntAmt;
+      let Int = Math.abs(depositeAmount) + IntAmt;
 
       this.angForm.patchValue({
         'new_deposit': Int
@@ -978,7 +990,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       if (this.isPayableIntAdded) {
         let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
         let IntAmt = Number(this.angForm.controls['payableInt'].value);
-        let Int = depositeAmount - IntAmt;
+        let Int = Math.abs(depositeAmount) - IntAmt;
         this.angForm.patchValue({
           'new_deposit': Int
         })
@@ -987,7 +999,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.payableTranferShow = false;
     }
     this.getMaturityAmount()
+  }else{
+    Swal.fire('Oops...!','You select wrong option please select proper option','error');
+    this.angForm.patchValue({
+      payableInt : ''
+    })
   }
+}
 
   submit() {
     let obj = this.angForm.value;
