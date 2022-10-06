@@ -9,6 +9,8 @@ import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownServic
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import * as moment from 'moment';
 import readXlsxFile from 'read-excel-file'
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { userInfo } from 'os';
 
 
 
@@ -135,8 +137,8 @@ export class BatchVoucherComponent implements OnInit {
   }
   //Get Company Code Details
   companyNameData :any;
-  getCompanyData(ele) {
-    this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
+  async getCompanyData(ele) {
+    await   this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
       debugger
       console.log(data);
       this.company_data = data;
@@ -160,16 +162,38 @@ export class BatchVoucherComponent implements OnInit {
       console.log(err);
     })
 
+
     this.CompanyGroupMasterDropdownService.getCompanyGridData(this.selectCompanyCode).subscribe(data => {
-      this.company_main_data = data[0];
-      this.gridData = data[0].comapnylink;
-      this.filterArray = data[0].comapnylink;
-      this.filterArray.forEach(element => {
-        this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
-      });
+      if(!this.editFlag){
+        this.company_main_data = data[0];
+        this.gridData = data[0].comapnylink;
+        this.filterArray = data[0].comapnylink;
+        console.log(this.filterArray);
+        this.filterArray.forEach(element => {
+          this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+        });
+      }
     }, err => {
       console.log(err);
     })
+  
+  }
+
+  editFlag : boolean = false;
+  async setFilterData(data){
+    debugger
+    this.filterArray = [];
+       for(let item of data){
+        let ac_type = this.schemeData.filter(ele=>ele.id == item.TRAN_ACTYPE)
+        let obj = {
+          id : item.id,
+          AC_NO : item.TRAN_ACNO,
+          AC_TYPE : ac_type[0].S_APPL,
+          DEFAULT_AMOUNT : item.TRAN_AMOUNT
+        }
+        this.filterArray.push(obj);
+        this.editFlag = true;
+      }
   }
 
   //filter object
@@ -256,9 +280,14 @@ export class BatchVoucherComponent implements OnInit {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
-  editClickHandler(id) {
-    this._service.getFormData(id).subscribe((data) => {
-      this.updateID = data.id
+  async editClickHandler(id) {
+    debugger
+    this._service.getFormData(id).subscribe(async (data) => {
+      console.log(data);
+      console.log(this.company_code);
+      this.selectCompanyCode = data.batchvoucherData.COMP_CODE;
+      await this.getCompanyData(this.selectCompanyCode);
+      this.updateID = data.result.TRAN_NO;
       this.updatecheckdata = data
       if (data.TRAN_STATUS == 0) {
         this.showButton = false;
@@ -269,14 +298,15 @@ export class BatchVoucherComponent implements OnInit {
         this.updateShow = false;
         this.newbtnShow = true;
       }
-      this.selectedBranch = data.BRANCH_CODE
+      this.selectedBranch = data.result.BRANCH_CODE
+      await this.setFilterData(data.masterData);
       this.angForm.patchValue({
-        date: data.TRAN_DATE,
-        Scheme: data.TRAN_ACNOTYPE,
-        SchemeACNO: data.TRAN_ACNO,
-        chequeNo: data.CHEQUE_NO,
-        ChequeDate: data.CHEQUE_DATE,
-        voucherAmount: data.TRAN_AMOUNT,
+        date: data.result.TRAN_DATE,
+        Scheme: data.result.TRAN_ACNOTYPE,
+        SchemeACNO: data.result.TRAN_ACNO,
+        chequeNo: data.batchvoucherData.CHEQUE_NO,
+        ChequeDate: data.batchvoucherData.CHEQUE_DATE,
+        voucherAmount: data.result.TRAN_AMOUNT,
 
 
       })
@@ -290,8 +320,11 @@ export class BatchVoucherComponent implements OnInit {
 
   //approve account
   Approve() {
+    debugger
+    let user = JSON.parse(localStorage.getItem('user'));
     let obj = {
       id: this.updateID,
+      user: user
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
@@ -309,8 +342,11 @@ export class BatchVoucherComponent implements OnInit {
 
   //reject account
   reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+
     let obj = {
       id: this.updateID,
+      user: user
     }
     this._service.reject(obj).subscribe(data => {
       Swal.fire(
