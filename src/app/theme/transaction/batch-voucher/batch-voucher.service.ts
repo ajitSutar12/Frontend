@@ -31,8 +31,9 @@ export class BatchVoucherService {
 
   // For append data
   getFormData(id: any): Observable<any> {
+    let data = {id :id}
     return this.http
-      .get(this.url + "/voucher/" + id)
+      .post(this.url + "/voucher/batch_voucher_edit",data)
       .pipe(catchError(this.handleError));
   }
 
