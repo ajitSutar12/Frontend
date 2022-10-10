@@ -19,8 +19,8 @@ export class DepositReceiptPrintComponent implements OnInit {
 
   //Select option for title, account type
   simpleOption: Array<IOption> = this.SchemeCodeService.getCharacters();
-  a : Array<IOption> = this.StartingacnoService.getCharacters();
-  b : Array<IOption> = this.EndingacnoService.getCharacters();
+  a: Array<IOption> = this.StartingacnoService.getCharacters();
+  b: Array<IOption> = this.EndingacnoService.getCharacters();
 
   selectedOption = '3';
   isDisabled = true;
@@ -195,4 +195,43 @@ export class DepositReceiptPrintComponent implements OnInit {
   toggleShow() {
     this.isShown = !this.isShown;
   }
+
+  //setup canvas
+  canvas = <HTMLCanvasElement>document.getElementById('puppyCanvas');
+  // ctx = this.canvas.getContext('2d');
+
+  guessX = 0; //stores user's click on canvas
+  guessY = 0; //stores user's click on canvas
+  storeGuess(event) {
+    var x = event.offsetX;
+    var y = event.offsetY;
+    this.guessX = x;
+    this.guessY = y;
+    console.log("x coords: " + this.guessX + ", y coords: " + this.guessY);
+  }
+
+  // myCanvas = document.querySelector('#puppyCanvas');
+
+  // storeGuess(event) {
+  //   var rect = this.myCanvas.getBoundingClientRect();
+  //   var x = event.clientX - rect.left;
+  //   var y = event.clientY - rect.top;
+  //   console.log("x: " + x + " y: " + y);
+  // }
+  
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+  }
+
+
 }

@@ -9,15 +9,17 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            Deposit Account Closing
+                            <h5> Deposit Account Closing</h5>
+                            <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                                Fields marked with (<sub class="required"> * </sub>) are mandatory
+                            </h6>
                         </div>
                         <div class="card-body">
-
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-2">
+                                    <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
@@ -35,12 +37,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <!-- <div class="col-sm-12 col-md-4">
 
-                                    </div>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">Date</label></div>
-                                    <div class="col-md-2">
+                                    </div> -->
+                                    <!-- <div class="col-md-1"></div> -->
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Date</label></div>
+                                    <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" class="form-control"

@@ -1066,7 +1066,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.acno = null
         this.obj = null
       }
-      debugger
       // this.ngexpiry = data.AC_EXPDT,
       this.angForm.patchValue({
         'AC_ACNOTYPE:': data.AC_ACNOTYPE,

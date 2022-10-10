@@ -24,7 +24,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    autofocus>
+                                                    #branchcode autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -376,7 +376,8 @@
                                         <div class="row">
                                             <div class="col-sm" style="float: right;">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                    *ngIf="showButton" (click)="submit()">
+                                                    [disabled]="submitForm" *ngIf="showButton"
+                                                    (click)="submit();branchcode.focus()">
                                                     Submit
                                                 </button>
                                                 <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
