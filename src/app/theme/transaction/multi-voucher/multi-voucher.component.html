@@ -367,10 +367,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-sm" (click)="Add()" style="float: right;"
-                                            *ngIf="showAdd">Add</button>
-                                        <button class="btn btn-sm" (click)="update()" style="float: right"
-                                            *ngIf="showUpdate">Update</button>
+                                        <button class="btn btn-outline-primary btn-sm" (click)="Add()"
+                                            style="float: right;" *ngIf="showAdd" [disabled]="submitForm">Add</button>
+                                        <button class="btn btn-outline-primary btn-sm" (click)="update()"
+                                            style="float: right" *ngIf="showUpdate">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -469,7 +469,7 @@
                                         <div class="row">
                                             <div class="col-sm" style="float: right;">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                    [disabled]="submitForm" *ngIf="showButton"
+                                                    *ngIf="showButton" [disabled]="submitForm"
                                                     (click)="submit();selectBranch.focus()">
                                                     Update
                                                 </button>

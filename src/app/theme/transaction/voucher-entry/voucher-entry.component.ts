@@ -112,7 +112,7 @@ export class VoucherEntryComponent implements OnInit {
     { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
     { key: 'SH', data: { cash: [1, 4, 5, 7, 14], transfer: [1, 4, 5, 7, 14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
-    { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
+    { key: 'PG', data: { cash: [1, 5, 10], transfer: [1, 5, 10] } },
     { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
   ]
 
@@ -382,7 +382,7 @@ export class VoucherEntryComponent implements OnInit {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+      if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
     } else {
@@ -391,7 +391,7 @@ export class VoucherEntryComponent implements OnInit {
         let obj = this.TranModeTransfer.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+      if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
     }
@@ -516,7 +516,7 @@ export class VoucherEntryComponent implements OnInit {
         console.log(err);
       })
     } else {
-      Swal.fire('Error!', 'Voucher not Valid', 'error');
+      Swal.fire('Error!', 'Invalid Amount Details', 'error');
     }
   }
   // Reset Function
@@ -962,8 +962,9 @@ export class VoucherEntryComponent implements OnInit {
     var t = ele.target.value;
     ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(ele.target.value);
-
+    debugger
     if (Number(ele.target.value) > Number(this.headData[i].Balance)) {
+      this.headData[i].Amount = value
       Swal.fire('Info', 'Please fill proper amount!', 'info')
       this.headData[i].Amount = 0;
     }
@@ -1009,6 +1010,7 @@ export class VoucherEntryComponent implements OnInit {
   extenstionaftervoucher = ''
 
   getaftervoucher(event) {
+    this.submitForm = true
     var t = event.target.value;
     event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(event.target.value);
