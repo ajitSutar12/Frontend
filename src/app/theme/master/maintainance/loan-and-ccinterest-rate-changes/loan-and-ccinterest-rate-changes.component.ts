@@ -3,12 +3,14 @@ import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { S3Service } from '../../../../shared/elements/s3.service';
 import { Ac3Service } from '../../../../shared/elements/ac3.service';
+import {OwnbranchMasterService} from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import {SchemeCodeDropdownService} from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { HttpClient } from '@angular/common/http';
 import { LoanAndCCInterestRateChangesService } from './loan-and-ccinterest-rate-changes.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
-
+import { environment } from 'src/environments/environment';
 
 class DataTableResponse {
   data: any[];
@@ -35,10 +37,11 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
   data3: any;
   loading = true;
 
-
+  url = environment.base_url
   simpleOption: Array<IOption> = this.S3Service.getCharacters();
   Ac: Array<IOption> = this.Ac3Service.getCharacters();
-
+  branch_code//from ownbranchmaster
+  ngBranchCode 
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -58,95 +61,84 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
   jsonData: any;
   dtTrigger: any;
   dtElement: any;
-
+  schemeACNo
+  LoanScheme
+  getschemename
+  accountedit
   //dropdown ngModel variables
   ngscheme:any=null
   ngacno:any=null
 
   constructor(private fb: FormBuilder, public S3Service: S3Service, public Ac3Service: Ac3Service, private http: HttpClient, 
     private loanAndCCInterestRateChangesService: LoanAndCCInterestRateChangesService,
-    private config: NgSelectConfig,) { this.createForm(); }
+    private ownbranchMasterService: OwnbranchMasterService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
-    //   this.dtExportButtonOptions = {
-    //     ajax: 'fake-data/loan_cc.json',
-    //     columns: [
-    //       {
-    //         title: 'Action',
-    //         render: function (data: any, type: any, full: any) {
-    //           return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-    //         }
-    //       }, {
-    //         title: 'Scheme',
-    //         data: 'scheme'
-    //       }, {
-    //         title: 'Acccount No',
-    //         data: 'account'
-    //       }, {
-    //         title: 'Effective Date',
-    //         data: 'date'
-    //       }, {
-    //         title: 'Normal Interest',
-    //         data: 'n_int'
-    //       },
-    //       {
-    //         title: 'Penal Interest',
-    //         data: 'p_int'
-    //       },
-    //   ],
-    //     dom: 'Bfrtip',
-    //     buttons: [
-    //       'copy',
-    //       'print',
-    //       'excel',
-    //       'csv'
-    //     ],
-
-    // //row click handler code
-    //   rowCallback: (row: Node, data: any[] | Object, index: number) => {
-    //     const self = this;
-    //     $('td', row).off('click');
-    //     $('td', row).on('click', '#editbtn', () => {
-    //       self.editClickHandler(data);
-    //     });
-    //     $('td', row).on('click', '#delbtn', () => {
-    //       self.delClickHandler(data);
-    //     });
-    //     return row;
-    //   }
-    // };
-
-    // this.runTimer();
-    this.dataSub = this.S3Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.Ac3Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-
-    this.loanAndCCForm = new FormGroup({
-      'AC_TYPE': new FormControl(''),
-      'AC_NO': new FormControl('')
-    })
-
-    this.test();
+    this.createForm(); 
+       //branch List
+       this.ownbranchMasterService.getOwnbranchList().subscribe(data => {
+        this.branch_code = data;
+      })
+      this.schemeCodeDropdownService.getAllSchemeList().subscribe(data => {
+        var allscheme = data.filter(function (scheme) {
+          return (scheme.name == 'LN' || scheme.name == 'CC')
+        });
+        this.LoanScheme = allscheme;
+      })
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      if (result.RoleDefine[0].Role.id == 1) {
+        this.ngBranchCode = result.branch.id
+        this.loanAndCCForm.controls['BRANCH_CODE'].enable()
+      }
+      else {
+        this.loanAndCCForm.controls['BRANCH_CODE'].disable()
+        this.ngBranchCode = result.branch.id
+      }
   }
 
-  // runTimer() {
-  //   const timer = setInterval(() => {
-  //     this.timeLeft -= 1;
-  //     if (this.timeLeft === 0) {
-  //       clearInterval(timer);
-  //     }
-  //   }, 1000);
-  // }
 
   createForm() {
     this.loanAndCCForm = this.fb.group({
+      BRANCH_CODE:['',[Validators.required]],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]]
     });
   }
+
+  schemechange(event) {
+    this.getschemename = event.name
+    this.ngscheme = event.value
+    // this.schemeCode = event.id
+    this.getAccountlist()
+  }
+
+  // Fetching account from seleted scheme
+  getAccountlist() {
+    this.accountedit = null
+    let obj = [this.ngscheme, this.ngBranchCode]
+    switch (this.getschemename) {
+      case 'LN':
+        this.http.get<any>(this.url + '/term-loan-master/balUpdate/' + obj).subscribe(data => {
+          this.schemeACNo = data
+        })
+        break;
+      case 'CC':
+        this.http.get<any>(this.url + '/cash-credit-master/balUpdate/' + obj).subscribe(data => {
+          this.schemeACNo = data
+        })
+        break;
+    }
+  }
+
+    //get account details
+    getAccountDetails(event) {}
+
+    getBranch(){
+      
+    }
 
   submit() {
     this.formSubmitted = true;
@@ -226,7 +218,7 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
   }
   ngAfterViewInit(): void {
     // this.myInputField.nativeElement.focus();
-    this.dtTrigger.next();
+    // this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#loancctable tfoot tr').appendTo('#loancctable thead');
       dtInstance.columns().every(function () {

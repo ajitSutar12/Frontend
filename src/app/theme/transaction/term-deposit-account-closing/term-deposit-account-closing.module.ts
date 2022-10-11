@@ -22,7 +22,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import { TermDepositAccountClosingService } from './term-deposit-account-closing.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
+// import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    // DepositClosingVoucherComponent
   ],
   declarations: [TermDepositAccountClosingComponent],
   exports: [TermDepositAccountClosingComponent],
