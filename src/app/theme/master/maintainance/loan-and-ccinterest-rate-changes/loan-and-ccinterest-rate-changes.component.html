@@ -10,23 +10,40 @@
             <form action="javascript:" [formGroup]="loanAndCCForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
-                                    placeholder="Scheme *" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE">
-                                </ng-select>
-                                <label>{{message.scheme}}</label>
-                            </div> -->
+                        <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
-                                    <ng-option *ngFor="let values of simpleOption" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        (change)="getBranch()" [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="loanAndCCForm.controls['BRANCH_CODE'].invalid && (loanAndCCForm.controls['BRANCH_CODE'].dirty || loanAndCCForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="loanAndCCForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        (change)="schemechange($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of LoanScheme" [value]="values">
+                                            {{values.id}} {{values.label}} </ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -37,30 +54,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false"
-                                    placeholder="Account No. *" required title="Compulsory Selection"
-                                    formControlName="AC_NO">
-                                </ng-select>
-                                <label>{{message.account}}</label>
-                            </div> -->
+                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno"
-                                    formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
-                                    <ng-option *ngFor="let values of Ac" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="AC_NO">Account No<sub class="required"> * </sub></label>
+                                    <ng-select id="AC_NO" bindValue="AC_NO" [(ngModel)]="accountedit"
+                                        formControlName="AC_NO" bindLabel="label"
+                                        (change)="getAccountDetails($event)"
+                                        title="Compulsory Selection" required placeholder="Account No.">
+                                        <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="loanAndCCForm.controls['AC_NO'].invalid && (loanAndCCForm.controls['AC_NO'].dirty || loanAndCCForm.controls['AC_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="loanAndCCForm.controls['AC_NO'].errors?.required">
-                                    This field is required
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
@@ -73,51 +85,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card shadow">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table id="loancctable" datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover">
-                                <tbody *ngIf="jsonData?.length != 0">
-                                    <tr *ngFor="let data of jsonData">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement="bottom"
-                                            ngbTooltip="Edit"></span>
-                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
-                                                (click)="delClickHandler(data.id)">Delete</button> -->
-                                                <!-- <span class="fa fa-fw fa-trash-o" id="delbtn" (click)="delClickHandler(data.id)" placement="bottom"
-                                                        ngbTooltip="Delete"></span> -->
-                                        </td>
-                                        <td>{{ data.AC_TYPE }}</td>
-                                        <td>{{ data.AC_NO }}</td>
-                                    </tr>
-                                </tbody>
-                                <tbody *ngIf="jsonData?.length == 0">
-                                    <tr>
-                                        <td colspan="3" class="no-data-available">No data!</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot #filters class="filters">
-                                    <tr class="testing">
-                                        <th class="testing"></th>
-                                        
-                                        <th><input type="text" class="form-control" name="AC_TYPE"></th>
-                                        <th><input type="text" class="form-control" name="AC_NO">
-                                        </th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

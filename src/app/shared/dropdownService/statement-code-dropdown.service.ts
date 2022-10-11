@@ -12,12 +12,12 @@ export class StatementCodeDropdownService {
     public getStatementCodeList() {
         return this.http.get<any>(this.url + '/gl-statement-code')
         .pipe(map(ele => {
-            ele.forEach(element => {
-                let obj = {label:element.head_name, value:`${element.id}`};
-                this.statementObject.push(obj)
-            });
-            console.log(this.statementObject)
-        return this.statementObject;
+            // ele.forEach(element => {
+            //     let obj = {label:element.head_name, value:`${element.id}`};
+            //     this.statementObject.push(obj)
+            // });
+            // console.log(this.statementObject)
+        return ele;
         }));
     }
 }

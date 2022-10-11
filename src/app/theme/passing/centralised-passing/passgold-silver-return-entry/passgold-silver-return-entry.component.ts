@@ -82,7 +82,7 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
-        this.mySubscription = interval(1000).subscribe((x => {
+        // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
             this.url + '/gold-silver-return-entry/passing',
@@ -95,7 +95,7 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
               data: []
             });
           });
-        }));
+        // }));
       },
       columnDefs: [{
         targets: '_all',
