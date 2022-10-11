@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {animate, style, transition, trigger} from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-sizewise-balance-modification',
   templateUrl: './sizewise-balance-modification.component.html',
@@ -7,19 +7,19 @@ import {animate, style, transition, trigger} from '@angular/animations';
   animations: [
     trigger('fadeInOutTranslate', [
       transition(':enter', [
-        style({opacity: 0}),
-        animate('400ms ease-in-out', style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate('400ms ease-in-out', style({ opacity: 1 }))
       ]),
       transition(':leave', [
-        style({transform: 'translate(0)'}),
-        animate('400ms ease-in-out', style({opacity: 0}))
+        style({ transform: 'translate(0)' }),
+        animate('400ms ease-in-out', style({ opacity: 0 }))
       ])
     ])
   ]
 })
 export class SizewiseBalanceModificationComponent implements OnInit {
 
-  dtExportButtonOptions : any = {};
+  dtExportButtonOptions: any = {};
 
   depositSizewiseBalanceTrue: boolean = true;
   loanSizewiseBalanceTrue: boolean = false;
@@ -27,17 +27,17 @@ export class SizewiseBalanceModificationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   
+
   }
   OpenLink(val) {
-    // 
     if (val == 1) {
       this.depositSizewiseBalanceTrue = true;
-      this.loanSizewiseBalanceTrue = false;}
-    if (val == 2) {
+      this.loanSizewiseBalanceTrue = false;
+    }
+    else if (val == 2) {
       this.depositSizewiseBalanceTrue = false;
       this.loanSizewiseBalanceTrue = true;
     }
   }
-  
+
 }
