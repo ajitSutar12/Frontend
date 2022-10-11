@@ -1995,6 +1995,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   getaftervoucher(event) {
+    this.submitForm = true
     var t = event.target.value;
     event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(event.target.value);

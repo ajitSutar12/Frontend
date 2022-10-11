@@ -10,7 +10,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   animations: [
     trigger('fadeInOutTranslate', [
       transition(':enter', [
-        style({ opacity: 0 }), 
+        style({ opacity: 0 }),
         animate('400ms ease-in-out', style({ opacity: 1 }))
       ]),
       transition(':leave', [
@@ -34,366 +34,53 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { this.createForm(); }
 
-  message = {
-    shortTermFromMon: "",
-    shortTermToMon: "",
-    MidTermFromMon: "",
-    MidTermToMon: "",
-    LongTermFromMon: "",
-    LongTermToMon: ""
-  };
+  //AMOUNT
+  Amount = [{
+    FromAmount: '',
+    ToAmount: ''
+  }]
+
+  //INTEREST RATE
+  intRate = [{
+    FromInterestRate: '',
+    ToInterestRate: ''
+  }]
+
+  //PERIOD
+  peroid = [{
+    FromPeroid: '',
+    ToPeroid: ''
+  }]
+
+  //TERMS   
+  Terms = [{
+    FromMonths: '',
+    ToMonths: ''
+  }]
+
+  //INSURANCE AMOUNT
+  Insurance = [{
+    FromAmount: '',
+    ToAmount: ''
+  }]
 
   createForm() {
     this.angForm = this.fb.group({
 
       shortTermFromMon: ['', [Validators.pattern]],
-      shortTermToMon:   ['', [Validators.pattern]],
-      mediumTermFromMon:['', [Validators.pattern]],
-      mediumTermToMon:  ['', [Validators.pattern]],
-      longTermFromMon:  ['', [Validators.pattern]],
-      longTermToMon:    ['', [Validators.pattern]],
+      shortTermToMon: ['', [Validators.pattern]],
+      mediumTermFromMon: ['', [Validators.pattern]],
+      mediumTermToMon: ['', [Validators.pattern]],
+      longTermFromMon: ['', [Validators.pattern]],
+      longTermToMon: ['', [Validators.pattern]],
     });
   }
 
   ngOnInit(): void {
 
-    //AMOUNT
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
 
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    //INTEREST RATE
-    this.dtExportButtonOptions2 = {
-      ajax: 'fake-data/sizewise-interest-rate.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Interest rate',
-          data: 'from_ir'
-        }, {
-          title: 'To Interest Rate',
-          data: 'to_ir'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
 
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
 
-    //PERIOD
-    this.dtExportButtonOptions3 = {
-      ajax: 'fake-data/size-wise-period.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Period(in Months)',
-          data: 'from_period'
-        }, {
-          title: 'To Period(in Months)',
-          data: 'to_period'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-
-    //TERMS   
-    this.dtExportButtonOptions4 = {
-      ajax: 'fake-data/size-wise-terms.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Short Term From Months',
-          data: 'shortTermFromMon'
-        }, {
-          title: 'Short Term To Months',
-          data: 'shortTermToMon'
-        }, {
-          title: 'Medium Term From Months',
-          data: 'MidTermFromMon'
-        }, {
-          title: 'Medium Term To Months',
-          data: 'MidTermToMon'
-        }, {
-          title: 'Long Term From Months',
-          data: 'LongTermFromMon'
-        }, {
-          title: 'Long Term To Months',
-          data: 'LongTermToMon'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-
-    //INSURANCE AMOUNT
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
 
   }
   submit() {
@@ -404,47 +91,38 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
     }
   }
 
-  //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.shortTermFromMon = info.shortTermFromMon;
-    this.message.shortTermToMon = info.shortTermToMon;
-    this.message.MidTermFromMon = info.MidTermFromMon;
-    this.message.MidTermToMon = info.MidTermToMon;
-    this.message.MidTermFromMon = info.MidTermFromMon;
-    this.message.LongTermFromMon = info.LongTermFromMon;
-    this.message.LongTermToMon = info.LongTermToMon;
-    this.showButton = false;
-    this.updateShow = true;
-  }
 
-  //function for delete button clicked
-  delClickHandler() {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe.',
-          'error'
-        )
+  addRow(i) {
+    if ((this.Amount.length - 1) == i) {
+      let row = {
+        Sr_no: '',
+        FromAmount: '',
+        ToAmount: ''
       }
-    })
+      this.Amount.push(row);
+    } else {
+
+    }
+  }
+  deleteRow(i) {
+    this.Amount.splice(i, 1)
   }
 
+  checkFromAmount(i, amt) {
+    this.Amount[i].FromAmount = amt
+    if (i != 0 && Number(this.Amount[i].FromAmount) < Number(this.Amount[i - 1].ToAmount)) {
+      this.Amount[i].FromAmount = ''
+      Swal.fire('Info', `From Amount Must Be ${this.Amount[i - 1].ToAmount} or Greater Than ${this.Amount[i - 1].ToAmount}`, 'info')
+    }
+  }
+
+  checkToAmount(i, amt) {
+    debugger
+    this.Amount[i].ToAmount = amt
+    if (Number(this.Amount[i].FromAmount) > Number(this.Amount[i].ToAmount)) {
+      this.Amount[i].ToAmount = ''
+      Swal.fire('Info', `To Amount Must Be Greater Than ${this.Amount[i].FromAmount}`, 'info')
+    }
+  }
 
 }
