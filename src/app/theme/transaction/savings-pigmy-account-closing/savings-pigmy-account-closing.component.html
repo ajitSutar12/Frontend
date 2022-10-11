@@ -346,7 +346,7 @@
                                                                     placeholder=" " id="chequeNo" value=""
                                                                     style="text-transform: capitalize;"
                                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                                                    required formControlName="chequeNo">
+                                                                    required formControlName="chequeNo" (keyup)="chequeNoData($event)" maxlength="10">
                                                             </span>
                                                         </div>
                                                     </div>
@@ -359,7 +359,8 @@
                                                                 <input type="text" placeholder="dd/mm/yyyy"
                                                                     class="form-control"
                                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                    bsDatepicker [maxDate]="maxDate"
+                                                                    bsDatepicker
+                                                                    [maxDate]="maxDate" [minDate]="minDate"
                                                                     formControlName="ChequeDate">
                                                             </span>
                                                         </div>

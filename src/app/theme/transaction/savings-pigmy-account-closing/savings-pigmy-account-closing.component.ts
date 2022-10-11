@@ -91,7 +91,9 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-  ngGlAcno: any = null
+  ngGlAcno: any = null;
+  maxDate: Date;
+  minDate: Date;
   constructor(
     // public NarrationService: NarrationService,
     private fb: FormBuilder, private http: HttpClient,
@@ -334,6 +336,14 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.sysparaData = data
       this.date = data.CURRENT_DATE
+      let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
+      let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
+
+      this.maxDate = new Date(nextDate);
+      this.maxDate.setDate(this.maxDate.getDate());
+
+      this.minDate = new Date(lastDate);
+      this.minDate.setDate(this.minDate.getDate());
       this.angForm.patchValue({
         'DATE': data.CURRENT_DATE,
       })
@@ -379,10 +389,10 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         AC_Months: data[0].AC_MONTHS,
         AC_DAYS: data[0].AC_DAYS,
         POSTED_INT: data[0].post_Interest,
-        LEDGER_BAL: data[0].ledgerBal,
-        PAYABLE_INT: data[0].payableInterest,
-        PENAL_INT: data[0].penalInterest,
-        TotalInterest: data[0].currentInterest
+        LEDGER_BAL: Math.abs(Math.round(data[0].ledgerBal)),
+        PAYABLE_INT: Math.abs(Math.round(data[0].payableInterest)),
+        PENAL_INT: Math.abs(Math.round(data[0].penalInterest)),
+        TotalInterest: Math.abs(Math.round(data[0].currentInterest))
       })
       if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
@@ -416,7 +426,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       }
       this.angForm.patchValue({
         Months: months,
-        NET_INT: netInt
+        NET_INT: Math.abs(Math.round(netInt))
       })
       this.getNetInterest()
       this.showCustomerDeatils()
@@ -429,6 +439,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.angForm.patchValue({
       OTHER_CHARGES_GLACNO: this.OTHER_CHARGES_GLACNO,
       OTHER_CHARGES_AMOUNT: this.OTHER_CHARGES_AMOUNT
+    })
+  }
+
+  chequeNoData(event) {
+    //debugger
+    this.angForm.patchValue({
+      chequeNo: event.target.value.toUpperCase()
     })
   }
 

@@ -13,7 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoanAndCCInterestRateChangesService } from './loan-and-ccinterest-rate-changes.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
+import {OwnbranchMasterService} from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import {SchemeCodeDropdownService} from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +30,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  },],
+  },OwnbranchMasterService,SchemeCodeDropdownService],
   declarations: [LoanAndCCInterestRateChangesComponent],
   bootstrap: [LoanAndCCInterestRateChangesComponent]
 })

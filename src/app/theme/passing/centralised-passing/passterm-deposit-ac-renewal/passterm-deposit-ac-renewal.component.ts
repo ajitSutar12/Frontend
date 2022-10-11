@@ -53,7 +53,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
-      pageLength: 10,
+      pageLength: 2,
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
@@ -84,7 +84,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
-        this.mySubscription = interval(1000).subscribe((x => {
+        // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
             this.url + '/cash-credit-ac-renewal/TermDepositpassing',
@@ -97,7 +97,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
               data: []
             });
           });
-        }));
+        // }));
       },
       columnDefs: [{
         targets: '_all',

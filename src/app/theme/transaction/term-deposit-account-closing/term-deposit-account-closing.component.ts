@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAccountNo.service';
 import { HttpClient } from '@angular/common/http';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+// import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component'
 @Component({
   selector: 'app-term-deposit-account-closing',
   templateUrl: './term-deposit-account-closing.component.html',
@@ -25,6 +26,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerNarrationhide') triggerNarrationhide: ElementRef<HTMLElement>;
+  // @ViewChild(DepositClosingVoucherComponent) child: DepositClosingVoucherComponent;
+
 
   formSubmitted = false;
   //api
@@ -1326,6 +1329,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         'Term Deposit Account Closing Approved Successfully',
         'success'
       );
+      // this.child.reload()
       var button = document.getElementById('trigger');
       button.click();
 
@@ -1380,6 +1384,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         'Term Deposit Account Closing Rejected Successfully',
         'success'
       );
+      // this.child.reload()
       var button = document.getElementById('trigger');
       button.click();
     }, err => {
