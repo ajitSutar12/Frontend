@@ -306,7 +306,7 @@ export class MasterPigmyComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
 
   //get saving customer data

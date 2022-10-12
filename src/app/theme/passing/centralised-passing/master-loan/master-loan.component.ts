@@ -226,7 +226,7 @@ export class MasterLoanComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getLoanData(data) {

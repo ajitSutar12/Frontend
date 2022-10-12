@@ -158,7 +158,7 @@ export class SavingPigmyClosingComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getSavingPigmyClosingData(data) {

@@ -193,7 +193,7 @@ export class MasterDeadStockComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getCurrentData(data) {

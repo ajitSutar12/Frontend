@@ -30,6 +30,8 @@ export class VoucherEntryComponent implements OnInit {
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   @ViewChild('focusbutton') focusbutton: ElementRef<HTMLElement>;
   @ViewChild('swiper') swiper: ElementRef;
+  // @ViewChild('tran_mode') tran_mode: ElementRef;
+  @ViewChild('tran_mode') tran_mode:NgSelectComponent;
 
 
   branchCode: any = null
@@ -106,7 +108,7 @@ export class VoucherEntryComponent implements OnInit {
     { key: 'SB', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5] } },
     { key: 'CA', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5] } },
     { key: 'CC', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5, 9] } },
-    { key: 'DS', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },  
+    { key: 'DS', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
     { key: 'LN', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
     { key: 'GL', data: { cash: [1, 4], transfer: [1, 4] } },
     { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
@@ -545,6 +547,9 @@ export class VoucherEntryComponent implements OnInit {
   submitTranMode: any;
   changeMode(item) {
     //debugger
+    this.angForm.patchValue({
+      amt: 0
+    })
     this.submitForm = true
     this.headData = []
     this.submitTranMode = item;
@@ -553,7 +558,6 @@ export class VoucherEntryComponent implements OnInit {
       this.angForm.controls['chequeNo'].reset()
       this.angForm.controls['chequeDate'].reset()
       this.angForm.controls['bank'].reset()
-
     }
     else {
       this.showChequeDetails = false;
@@ -1010,12 +1014,18 @@ export class VoucherEntryComponent implements OnInit {
   extenstionaftervoucher = ''
 
   getaftervoucher(event) {
+    debugger
     this.submitForm = true
     var t = event.target.value;
-    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    if (this.submitCustomer.AC_ACNOTYPE == 'LN' && this.submitTranMode.tran_drcr == 'D') {
+      let value = Number(event.target.value);
+      let data = value.toFixed(0);
+      event.target.value = data
+    }
+    else
+      event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(event.target.value);
-
-    let tran = this.submitTranMode.tran_drcr
+    let tran = this.submitTranMode.tran_drcr;
     // if (tran == 'D') {
     //   this.AfterVoucher = Math.abs(this.tempDayOpBal - value)
     //   this.extenstionaftervoucher = 'Dr'
@@ -1059,7 +1069,6 @@ export class VoucherEntryComponent implements OnInit {
 
   //decimal content show purpose wrote below function
   decimalAllContent($event) {
-    //debugger
     if (this.submitTranMode == undefined) {
       Swal.fire('Error', 'Please First Select Tran Mode then enter Amount', 'error');
       let value = Number($event.target.value);
@@ -1071,7 +1080,8 @@ export class VoucherEntryComponent implements OnInit {
         amt = 0;
       }
       this.AfterVoucher = Math.abs(Number(parseFloat((amt).toString()).toFixed(2)))
-    } else {
+    }
+    else {
       let value = Number($event.target.value);
       let data = value.toFixed(2);
       $event.target.value = data;
@@ -1173,8 +1183,6 @@ export class VoucherEntryComponent implements OnInit {
     }
     this._service.checkZeroBalance(obj).subscribe(data => {
       if (data != 0) {
-
-
         this.angForm.controls['amt'].reset();
         // this.swiper.nativeElement.focus();
         this.angForm.controls['total_amt'].reset();
@@ -1376,7 +1384,8 @@ export class VoucherEntryComponent implements OnInit {
                                                                                         this.SideDetails()
                                                                                         this.angForm.controls['amt'].reset();
                                                                                         this.angForm.controls['total_amt'].reset();
-                                                                                        // this.swiper.nativeElement.focus();
+                                                                                        // this.tran_mode.nativeElement.focus()
+                                                                                        this.tran_mode.focus()
                                                                                         Swal.fire('Error!', data.message, 'error');
                                                                                         this.submitForm = true
                                                                                       }
