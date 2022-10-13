@@ -30,27 +30,27 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
   url = environment.base_url;
   //AMOUNT
   Amount = [{
-    FromAmount: '',
-    ToAmount: ''
+    AMOUNT_FROM: '',
+    AMOUNT_TO: ''
   }]
 
   //INTEREST RATE
   intRate = [{
-    FromInterestRate: '',
-    ToInterestRate: ''
+    AMOUNT_FROM: '',
+    AMOUNT_TO: ''
   }]
 
   //PERIOD
   peroid = [{
-    FromPeroid: '',
-    ToPeroid: ''
+    FROM_MONTHS: '',
+    TO_MONTHS: ''
   }]
   //Terms
   angForm: FormGroup;
   //INSURANCE AMOUNT
   Insurance = [{
-    FromAmount: '',
-    ToAmount: ''
+    AMOUNT_FROM: '',
+    AMOUNT_TO: ''
   }]
 
   createForm() {
@@ -66,22 +66,59 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    let ACNOTYPE = 'LN'
+    this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + ACNOTYPE).subscribe((data) => {
+      if (data['amountExist'] == true) {
+        this.Amount = data['amount']
+      }
+      if (data['insuranceExist'] == true) {
+        this.Insurance = data['insurance']
+      }
+      if (data['IntRateExist'] == true) {
+        this.intRate = data['IntRate']
+      }
+      if (data['periodsExist'] == true) {
+        this.peroid = data['periods']
+      }
+      if (data['DataTermExist'] == true) {
+        for (let term of data['terms']) {
+          if (term.TERM_TYPE == 'S') {
+            this.angForm.patchValue({
+              shortTermFromMon: term.PERIOD_FROM,
+              shortTermToMon: term.PERIOD_TO
+            })
+          }
+          if (term.TERM_TYPE == 'M') {
+            this.angForm.patchValue({
+              mediumTermFromMon: term.PERIOD_FROM,
+              mediumTermToMon: term.PERIOD_TO
+            })
+          }
+          if (term.TERM_TYPE == 'L') {
+            this.angForm.patchValue({
+              longTermFromMon: term.PERIOD_FROM,
+              longTermToMon: term.PERIOD_TO
+            })
+          }
+        }
+      }
+    })
   }
 
   submit() {
     debugger
     console.log(this.angForm.value);
     this.Amount.sort((b, a) => {
-      return Number(b.FromAmount) - Number(a.FromAmount)
+      return Number(b.AMOUNT_FROM) - Number(a.AMOUNT_FROM)
     });
     this.intRate.sort((b, a) => {
-      return Number(b.FromInterestRate) - Number(a.FromInterestRate)
+      return Number(b.AMOUNT_FROM) - Number(a.AMOUNT_FROM)
     });
     this.peroid.sort((b, a) => {
-      return Number(b.FromPeroid) - Number(a.FromPeroid)
+      return Number(b.FROM_MONTHS) - Number(a.FROM_MONTHS)
     });
     this.Insurance.sort((b, a) => {
-      return Number(b.FromAmount) - Number(a.FromAmount)
+      return Number(b.AMOUNT_FROM) - Number(a.AMOUNT_FROM)
     });
     let obj = {
       Amount: this.Amount,
@@ -89,19 +126,54 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
       peroid: this.peroid,
       Terms: this.angForm.value,
       Insurance: this.Insurance,
-      ACNOTYPE:'LN'
+      ACNOTYPE: 'LN'
     }
     this.http.post(this.url + '/sizewise-balance-updation/insert', obj).subscribe((data) => {
+      this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + obj.ACNOTYPE).subscribe((data) => {
+        if (data['amountExist'] == true) {
+          this.Amount = data['amount']
+        }
+        if (data['insuranceExist'] == true) {
+          this.Insurance = data['insurance']
+        }
+        if (data['IntRateExist'] == true) {
+          this.intRate = data['IntRate']
+        }
+        if (data['periodsExist'] == true) {
+          this.peroid = data['periods']
+        }
+        if (data['DataTermExist'] == true) {
+          for (let term of data['terms']) {
+            if (term.TERM_TYPE == 'S') {
+              this.angForm.patchValue({
+                shortTermFromMon: term.PERIOD_FROM,
+                shortTermToMon: term.PERIOD_TO
+              })
+            }
+            if (term.TERM_TYPE == 'M') {
+              this.angForm.patchValue({
+                mediumTermFromMon: term.PERIOD_FROM,
+                mediumTermToMon: term.PERIOD_TO
+              })
+            }
+            if (term.TERM_TYPE == 'L') {
+              this.angForm.patchValue({
+                longTermFromMon: term.PERIOD_FROM,
+                longTermToMon: term.PERIOD_TO
+              })
+            }
+          }
+        }
+      })
     })
-
   }
 
   //Amount methods
   addAmountRow(i) {
     if ((this.Amount.length - 1) == i) {
       let row = {
-        FromAmount: '',
-        ToAmount: ''
+        AMOUNT_FROM: '',
+        AMOUNT_TO: ''
       }
       this.Amount.push(row);
     } else {
@@ -109,30 +181,30 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
   }
 
   deleteAmountRow(i) {
-    this.Amount.splice(i, 1)
+    this.Amount[i]['delete'] = 1
   }
 
   checkFromAmount(i, amt) {
-    this.Amount[i].FromAmount = amt
-    if (i != 0 && Number(this.Amount[i].FromAmount) < Number(this.Amount[i - 1].ToAmount)) {
-      this.Amount[i].FromAmount = ''
-      Swal.fire('Info', `From Amount Must Be ${this.Amount[i - 1].ToAmount} or Greater Than ${this.Amount[i - 1].ToAmount}`, 'info')
+    this.Amount[i].AMOUNT_FROM = amt
+    if (i != 0 && Number(this.Amount[i].AMOUNT_FROM) < Number(this.Amount[i - 1].AMOUNT_TO)) {
+      this.Amount[i].AMOUNT_FROM = ''
+      Swal.fire('Info', `From Amount Must Be ${this.Amount[i - 1].AMOUNT_TO} or Greater Than ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 
   checkToAmount(i, amt) {
-    this.Amount[i].ToAmount = amt
-    if (Number(this.Amount[i].FromAmount) > Number(this.Amount[i].ToAmount)) {
-      this.Amount[i].ToAmount = ''
-      Swal.fire('Info', `To Amount Must Be Greater Than ${this.Amount[i].FromAmount}`, 'info')
+    this.Amount[i].AMOUNT_TO = amt
+    if (Number(this.Amount[i].AMOUNT_FROM) > Number(this.Amount[i].AMOUNT_TO)) {
+      this.Amount[i].AMOUNT_TO = ''
+      Swal.fire('Info', `To Amount Must Be Greater Than ${this.Amount[i].AMOUNT_FROM}`, 'info')
     }
   }
   //Insurance methods
   addInsuranceRow(i) {
     if ((this.Insurance.length - 1) == i) {
       let row = {
-        FromAmount: '',
-        ToAmount: ''
+        AMOUNT_FROM: '',
+        AMOUNT_TO: ''
       }
       this.Insurance.push(row);
     } else {
@@ -140,22 +212,22 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
   }
 
   deleteInsuranceRow(i) {
-    this.Insurance.splice(i, 1)
+    this.Insurance[i]['delete'] = 1
   }
 
   checkInsuranceFromAmount(i, amt) {
-    this.Insurance[i].FromAmount = amt
-    if (i != 0 && Number(this.Insurance[i].FromAmount) < Number(this.Insurance[i - 1].ToAmount)) {
-      this.Insurance[i].FromAmount = ''
-      Swal.fire('Info', `From Amount Must Be Equal To Or Greater Than ${this.Insurance[i - 1].ToAmount}`, 'info')
+    this.Insurance[i].AMOUNT_FROM = amt
+    if (i != 0 && Number(this.Insurance[i].AMOUNT_FROM) < Number(this.Insurance[i - 1].AMOUNT_TO)) {
+      this.Insurance[i].AMOUNT_FROM = ''
+      Swal.fire('Info', `From Amount Must Be Equal To Or Greater Than ${this.Insurance[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 
   checkInsuranceToAmount(i, amt) {
-    this.Insurance[i].ToAmount = amt
-    if (Number(this.Insurance[i].FromAmount) > Number(this.Insurance[i].ToAmount)) {
-      this.Insurance[i].ToAmount = ''
-      Swal.fire('Info', `To Amount Must Be Equal To Or Greater Than ${this.Insurance[i].FromAmount}`, 'info')
+    this.Insurance[i].AMOUNT_TO = amt
+    if (Number(this.Insurance[i].AMOUNT_FROM) > Number(this.Insurance[i].AMOUNT_TO)) {
+      this.Insurance[i].AMOUNT_TO = ''
+      Swal.fire('Info', `To Amount Must Be Equal To Or Greater Than ${this.Insurance[i].AMOUNT_FROM}`, 'info')
     }
   }
 
@@ -163,8 +235,8 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
   addIntRateRow(i) {
     if ((this.intRate.length - 1) == i) {
       let row = {
-        FromInterestRate: '',
-        ToInterestRate: ''
+        AMOUNT_FROM: '',
+        AMOUNT_TO: ''
       }
       this.intRate.push(row);
     } else {
@@ -172,22 +244,22 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
   }
 
   deleteIntRateRow(i) {
-    this.intRate.splice(i, 1)
+    this.intRate[i]['delete'] = 1
   }
 
   checkFromIntRate(i, amt) {
-    this.intRate[i].FromInterestRate = amt
-    if (i != 0 && Number(this.intRate[i].FromInterestRate) < Number(this.intRate[i - 1].ToInterestRate)) {
-      this.intRate[i].FromInterestRate = ''
-      Swal.fire('Info', `From Interest Amount Must Be ${this.intRate[i - 1].ToInterestRate} or Greater Than ${this.intRate[i - 1].ToInterestRate}`, 'info')
+    this.intRate[i].AMOUNT_FROM = amt
+    if (i != 0 && Number(this.intRate[i].AMOUNT_FROM) < Number(this.intRate[i - 1].AMOUNT_TO)) {
+      this.intRate[i].AMOUNT_FROM = ''
+      Swal.fire('Info', `From Interest Amount Must Be ${this.intRate[i - 1].AMOUNT_TO} or Greater Than ${this.intRate[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 
   checkToIntRate(i, amt) {
-    this.intRate[i].ToInterestRate = amt
-    if (Number(this.intRate[i].FromInterestRate) > Number(this.intRate[i].ToInterestRate)) {
-      this.intRate[i].ToInterestRate = ''
-      Swal.fire('Info', `To Interest Amount Must Be Greater Than ${this.intRate[i].FromInterestRate}`, 'info')
+    this.intRate[i].AMOUNT_TO = amt
+    if (Number(this.intRate[i].AMOUNT_FROM) > Number(this.intRate[i].AMOUNT_TO)) {
+      this.intRate[i].AMOUNT_TO = ''
+      Swal.fire('Info', `To Interest Amount Must Be Greater Than ${this.intRate[i].AMOUNT_FROM}`, 'info')
     }
   }
 
@@ -195,8 +267,8 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
   addPeriodRow(i) {
     if ((this.peroid.length - 1) == i) {
       let row = {
-        FromPeroid: '',
-        ToPeroid: ''
+        FROM_MONTHS: '',
+        TO_MONTHS: ''
       }
       this.peroid.push(row);
     } else {
@@ -204,22 +276,22 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
   }
 
   deletePeroidRow(i) {
-    this.peroid.splice(i, 1)
+    this.peroid[i]['delete'] = 1
   }
 
   checkFromPeroid(i, amt) {
-    this.peroid[i].FromPeroid = amt
-    if (i != 0 && Number(this.peroid[i].FromPeroid) < Number(this.peroid[i - 1].ToPeroid)) {
-      this.peroid[i].FromPeroid = ''
-      Swal.fire('Info', `From Peroid Must Be Equal Or Greater Than ${this.peroid[i - 1].ToPeroid}`, 'info')
+    this.peroid[i].FROM_MONTHS = amt
+    if (i != 0 && Number(this.peroid[i].FROM_MONTHS) < Number(this.peroid[i - 1].TO_MONTHS)) {
+      this.peroid[i].FROM_MONTHS = ''
+      Swal.fire('Info', `From Peroid Must Be Equal Or Greater Than ${this.peroid[i - 1].TO_MONTHS}`, 'info')
     }
   }
 
   checkToPeroid(i, amt) {
-    this.peroid[i].ToPeroid = amt
-    if (Number(this.peroid[i].FromPeroid) > Number(this.peroid[i].ToPeroid)) {
-      this.peroid[i].ToPeroid = ''
-      Swal.fire('Info', `To Peroid Must Be Equal Or Greater Than ${this.peroid[i].FromPeroid}`, 'info')
+    this.peroid[i].TO_MONTHS = amt
+    if (Number(this.peroid[i].FROM_MONTHS) > Number(this.peroid[i].TO_MONTHS)) {
+      this.peroid[i].TO_MONTHS = ''
+      Swal.fire('Info', `To Peroid Must Be Equal Or Greater Than ${this.peroid[i].FROM_MONTHS}`, 'info')
     }
   }
 

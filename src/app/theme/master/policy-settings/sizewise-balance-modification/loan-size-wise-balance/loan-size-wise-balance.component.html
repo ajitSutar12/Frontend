@@ -30,27 +30,28 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let row of Amount; let i = index;">
-                                                                <td>
+                                                                <td *ngIf="row.delete!=1">
                                                                     {{i+1}}
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="row.delete!=1">
                                                                     <input class="form-control" #fromAmt
                                                                         name="fromAmount"
                                                                         (focusout)="checkFromAmount(i,fromAmt.value)"
-                                                                        value="{{row.FromAmount}}"
+                                                                        value="{{row.AMOUNT_FROM}}"
                                                                         pattern="\d{1,10}(\.\d{2})?" maxlength="13"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         type="text" />
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="row.delete!=1">
                                                                     <input class="form-control" type="text" #toAmt
                                                                         pattern="\d{1,10}(\.\d{2})?" maxlength="13"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         (focusout)="checkToAmount(i,toAmt.value);"
-                                                                        value="{{row.ToAmount}}"
+                                                                        value="{{row.AMOUNT_TO}}"
                                                                         (keyup)="addAmountRow(i);" />
                                                                 </td>
-                                                                <td><span class=" badge badge-pill  badge-danger"
+                                                                <td *ngIf="row.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
                                                                         (click)="deleteAmountRow(i)"
                                                                         style='cursor: pointer;'>Remove</span></td>
                                                             </tr>
@@ -84,26 +85,27 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let int of intRate; let i = index;">
-                                                                <td>
+                                                                <td *ngIf="int.delete!=1">
                                                                     {{i+1}}
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="int.delete!=1">
                                                                     <input class="form-control" #fromInt name="fromInt"
                                                                         (focusout)="checkFromIntRate(i,fromInt.value)"
-                                                                        value="{{int.FromInterestRate}}"
+                                                                        value="{{int.AMOUNT_FROM}}"
                                                                         pattern="\d{1,2}(\.\d{2})?" maxlength="5"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         type="text" />
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="int.delete!=1">
                                                                     <input class="form-control" type="text" #toInt
                                                                         pattern="\d{1,2}(\.\d{2})?" maxlength="5"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         (focusout)="checkToIntRate(i,toInt.value);"
-                                                                        value="{{int.ToInterestRate}}"
+                                                                        value="{{int.AMOUNT_TO}}"
                                                                         (keyup)="addIntRateRow(i);" />
                                                                 </td>
-                                                                <td><span class=" badge badge-pill  badge-danger"
+                                                                <td *ngIf="int.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
                                                                         (click)="deleteIntRateRow(i)"
                                                                         style='cursor: pointer;'>Remove</span></td>
                                                             </tr>
@@ -137,26 +139,27 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let month of peroid; let i = index;">
-                                                                <td>
+                                                                <td *ngIf="month.delete!=1">
                                                                     {{i+1}}
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="month.delete!=1">
                                                                     <input class="form-control" #fromPeroid
                                                                         name="fromPeroid"
                                                                         (focusout)="checkFromPeroid(i,fromPeroid.value)"
-                                                                        value="{{month.FromPeroid}}" maxlength="4"
+                                                                        value="{{month.FROM_MONTHS}}" maxlength="4"
                                                                         (keypress)="$event.charCode >= 48 && $event.charCode < 58"
                                                                         type="text" />
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="month.delete!=1">
                                                                     <input class="form-control" type="text" #toPeroid
                                                                         maxlength="4"
                                                                         (keypress)="$event.charCode >= 48 && $event.charCode < 58"
                                                                         (focusout)="checkToPeroid(i,toPeroid.value);"
-                                                                        value="{{month.ToPeroid}}"
+                                                                        value="{{month.TO_MONTHS}}"
                                                                         (keyup)="addPeriodRow(i);" />
                                                                 </td>
-                                                                <td><span class=" badge badge-pill  badge-danger"
+                                                                <td *ngIf="month.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
                                                                         (click)="deletePeroidRow(i)"
                                                                         style='cursor: pointer;'>Remove</span></td>
                                                             </tr>
@@ -351,27 +354,28 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let insuranceAmt of Insurance; let i = index;">
-                                                                <td>
+                                                                <td *ngIf="insuranceAmt.delete!=1">
                                                                     {{i+1}}
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="insuranceAmt.delete!=1">
                                                                     <input class="form-control" #FromAmount
                                                                         name="FromAmount"
                                                                         (focusout)="checkInsuranceFromAmount(i,FromAmount.value)"
-                                                                        value="{{insuranceAmt.FromAmount}}"
+                                                                        value="{{insuranceAmt.AMOUNT_FROM}}"
                                                                         pattern="\d{1,10}(\.\d{2})?" maxlength="13"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         type="text" />
                                                                 </td>
-                                                                <td>
+                                                                <td *ngIf="insuranceAmt.delete!=1">
                                                                     <input class="form-control" type="text" #ToAmount
                                                                         pattern="\d{1,10}(\.\d{2})?" maxlength="13"
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         (focusout)="checkInsuranceToAmount(i,ToAmount.value);"
-                                                                        value="{{insuranceAmt.ToAmount}}"
+                                                                        value="{{insuranceAmt.AMOUNT_TO}}"
                                                                         (keyup)="addInsuranceRow(i);" />
                                                                 </td>
-                                                                <td><span class=" badge badge-pill  badge-danger"
+                                                                <td *ngIf="insuranceAmt.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
                                                                         (click)="deleteInsuranceRow(i)"
                                                                         style='cursor: pointer;'>Remove</span></td>
                                                             </tr>

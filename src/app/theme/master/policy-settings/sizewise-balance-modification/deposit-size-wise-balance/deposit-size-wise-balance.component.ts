@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-deposit-size-wise-balance',
@@ -10,7 +12,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   animations: [
     trigger('fadeInOutTranslate', [
       transition(':enter', [
-        style({ opacity: 0 }), 
+        style({ opacity: 0 }),
         animate('400ms ease-in-out', style({ opacity: 1 }))
       ]),
       transition(':leave', [
@@ -22,430 +24,306 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 
 export class DepositSizeWiseBalanceComponent implements OnInit {
-  angForm: FormGroup;
-  dtExportButtonOptions1: any = {};
-  dtExportButtonOptions2: any = {};
-  dtExportButtonOptions3: any = {};
-  dtExportButtonOptions4: any = {};
-  dtExportButtonOptions5: any = {};
-  dtExportButtonOptions6: any = {};
   showButton: boolean = true;
   updateShow: boolean = false;
+  constructor(private fb: FormBuilder, private http: HttpClient,) { }
+  //api 
+  url = environment.base_url;
+  //AMOUNT
+  Amount = [{
+    AMOUNT_FROM: '',
+    AMOUNT_TO: ''
+  }]
 
-  constructor(private fb: FormBuilder) { this.createForm(); }
+  //INTEREST RATE
+  intRate = [{
+    AMOUNT_FROM: '',
+    AMOUNT_TO: ''
+  }]
 
-  message = {
-    shortTermFromMon: "",
-    shortTermToMon: "",
-    MidTermFromMon: "",
-    MidTermToMon: "",
-    LongTermFromMon: "",
-    LongTermToMon: ""
-  };
+  //PERIOD
+  peroid = [{
+    FROM_MONTHS: '',
+    TO_MONTHS: ''
+  }]
+  //Terms
+  angForm: FormGroup;
+  //INSURANCE AMOUNT
+  Insurance = [{
+    AMOUNT_FROM: '',
+    AMOUNT_TO: ''
+  }]
 
   createForm() {
     this.angForm = this.fb.group({
-
       shortTermFromMon: ['', [Validators.pattern]],
-      shortTermToMon:   ['', [Validators.pattern]],
-      mediumTermFromMon:['', [Validators.pattern]],
-      mediumTermToMon:  ['', [Validators.pattern]],
-      longTermFromMon:  ['', [Validators.pattern]],
-      longTermToMon:    ['', [Validators.pattern]],
+      shortTermToMon: ['', [Validators.pattern]],
+      mediumTermFromMon: ['', [Validators.pattern]],
+      mediumTermToMon: ['', [Validators.pattern]],
+      longTermFromMon: ['', [Validators.pattern]],
+      longTermToMon: ['', [Validators.pattern]],
     });
   }
 
   ngOnInit(): void {
-
-    //AMOUNT
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
+    this.createForm();
+    let ACNOTYPE = 'TD'
+    this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + ACNOTYPE).subscribe((data) => {
+      if (data['amountExist'] == true) {
+        this.Amount = data['amount']
       }
-    };
-    //INTEREST RATE
-    this.dtExportButtonOptions2 = {
-      ajax: 'fake-data/sizewise-interest-rate.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Interest rate',
-          data: 'from_ir'
-        }, {
-          title: 'To Interest Rate',
-          data: 'to_ir'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
+      if (data['insuranceExist'] == true) {
+        this.Insurance = data['insurance']
       }
-    };
-
-    //PERIOD
-    this.dtExportButtonOptions3 = {
-      ajax: 'fake-data/size-wise-period.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Period(in Months)',
-          data: 'from_period'
-        }, {
-          title: 'To Period(in Months)',
-          data: 'to_period'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
+      if (data['IntRateExist'] == true) {
+        this.intRate = data['IntRate']
       }
-    };
-
-    //TERMS   
-    this.dtExportButtonOptions4 = {
-      ajax: 'fake-data/size-wise-terms.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Short Term From Months',
-          data: 'shortTermFromMon'
-        }, {
-          title: 'Short Term To Months',
-          data: 'shortTermToMon'
-        }, {
-          title: 'Medium Term From Months',
-          data: 'MidTermFromMon'
-        }, {
-          title: 'Medium Term To Months',
-          data: 'MidTermToMon'
-        }, {
-          title: 'Long Term From Months',
-          data: 'LongTermFromMon'
-        }, {
-          title: 'Long Term To Months',
-          data: 'LongTermToMon'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
+      if (data['periodsExist'] == true) {
+        this.peroid = data['periods']
       }
-    };
-
-    //INSURANCE AMOUNT
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
+      if (data['DataTermExist'] == true) {
+        for (let term of data['terms']) {
+          if (term.TERM_TYPE == 'S') {
+            this.angForm.patchValue({
+              shortTermFromMon: term.PERIOD_FROM,
+              shortTermToMon: term.PERIOD_TO
+            })
           }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
+          if (term.TERM_TYPE == 'M') {
+            this.angForm.patchValue({
+              mediumTermFromMon: term.PERIOD_FROM,
+              mediumTermToMon: term.PERIOD_TO
+            })
           }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
+          if (term.TERM_TYPE == 'L') {
+            this.angForm.patchValue({
+              longTermFromMon: term.PERIOD_FROM,
+              longTermToMon: term.PERIOD_TO
+            })
           }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/size-wise-balance.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr No.',
-          data: 'srno'
-        }, {
-          title: 'From Amount',
-          data: 'from_amount'
-        }, {
-          title: 'To Amount',
-          data: 'to_amount'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(data);
-        // });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-
-  }
-  submit() {
-    console.log(this.angForm.valid);
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
-  }
-
-  //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.shortTermFromMon = info.shortTermFromMon;
-    this.message.shortTermToMon = info.shortTermToMon;
-    this.message.MidTermFromMon = info.MidTermFromMon;
-    this.message.MidTermToMon = info.MidTermToMon;
-    this.message.MidTermFromMon = info.MidTermFromMon;
-    this.message.LongTermFromMon = info.LongTermFromMon;
-    this.message.LongTermToMon = info.LongTermToMon;
-    this.showButton = false;
-    this.updateShow = true;
-  }
-
-  //function for delete button clicked
-  delClickHandler() {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe.',
-          'error'
-        )
+        }
       }
     })
   }
 
+  submit() {
+    debugger
+    console.log(this.angForm.value);
+    this.Amount.sort((b, a) => {
+      return Number(b.AMOUNT_FROM) - Number(a.AMOUNT_FROM)
+    });
+    this.intRate.sort((b, a) => {
+      return Number(b.AMOUNT_FROM) - Number(a.AMOUNT_FROM)
+    });
+    this.peroid.sort((b, a) => {
+      return Number(b.FROM_MONTHS) - Number(a.FROM_MONTHS)
+    });
+    this.Insurance.sort((b, a) => {
+      return Number(b.AMOUNT_FROM) - Number(a.AMOUNT_FROM)
+    });
+    let obj = {
+      Amount: this.Amount,
+      intRate: this.intRate,
+      peroid: this.peroid,
+      Terms: this.angForm.value,
+      Insurance: this.Insurance,
+      ACNOTYPE: 'TD'
+    }
+    this.http.post(this.url + '/sizewise-balance-updation/insert', obj).subscribe((data) => {
+      this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + obj.ACNOTYPE).subscribe((data) => {
+        if (data['amountExist'] == true) {
+          this.Amount = data['amount']
+        }
+        if (data['insuranceExist'] == true) {
+          this.Insurance = data['insurance']
+        }
+        if (data['IntRateExist'] == true) {
+          this.intRate = data['IntRate']
+        }
+        if (data['periodsExist'] == true) {
+          this.peroid = data['periods']
+        }
+        if (data['DataTermExist'] == true) {
+          for (let term of data['terms']) {
+            if (term.TERM_TYPE == 'S') {
+              this.angForm.patchValue({
+                shortTermFromMon: term.PERIOD_FROM,
+                shortTermToMon: term.PERIOD_TO
+              })
+            }
+            if (term.TERM_TYPE == 'M') {
+              this.angForm.patchValue({
+                mediumTermFromMon: term.PERIOD_FROM,
+                mediumTermToMon: term.PERIOD_TO
+              })
+            }
+            if (term.TERM_TYPE == 'L') {
+              this.angForm.patchValue({
+                longTermFromMon: term.PERIOD_FROM,
+                longTermToMon: term.PERIOD_TO
+              })
+            }
+          }
+        }
+      })
+    })
+  }
 
+  //Amount methods
+  addAmountRow(i) {
+    if ((this.Amount.length - 1) == i) {
+      let row = {
+        AMOUNT_FROM: '',
+        AMOUNT_TO: ''
+      }
+      this.Amount.push(row);
+    } else {
+    }
+  }
 
+  deleteAmountRow(i) {
+    this.Amount[i]['delete'] = 1
+  }
+
+  checkFromAmount(i, amt) {
+    this.Amount[i].AMOUNT_FROM = amt
+    if (i != 0 && Number(this.Amount[i].AMOUNT_FROM) < Number(this.Amount[i - 1].AMOUNT_TO)) {
+      this.Amount[i].AMOUNT_FROM = ''
+      Swal.fire('Info', `From Amount Must Be ${this.Amount[i - 1].AMOUNT_TO} or Greater Than ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
+    }
+  }
+
+  checkToAmount(i, amt) {
+    this.Amount[i].AMOUNT_TO = amt
+    if (Number(this.Amount[i].AMOUNT_FROM) > Number(this.Amount[i].AMOUNT_TO)) {
+      this.Amount[i].AMOUNT_TO = ''
+      Swal.fire('Info', `To Amount Must Be Greater Than ${this.Amount[i].AMOUNT_FROM}`, 'info')
+    }
+  }
+  //Insurance methods
+  addInsuranceRow(i) {
+    if ((this.Insurance.length - 1) == i) {
+      let row = {
+        AMOUNT_FROM: '',
+        AMOUNT_TO: ''
+      }
+      this.Insurance.push(row);
+    } else {
+    }
+  }
+
+  deleteInsuranceRow(i) {
+    this.Insurance[i]['delete'] = 1
+  }
+
+  checkInsuranceFromAmount(i, amt) {
+    this.Insurance[i].AMOUNT_FROM = amt
+    if (i != 0 && Number(this.Insurance[i].AMOUNT_FROM) < Number(this.Insurance[i - 1].AMOUNT_TO)) {
+      this.Insurance[i].AMOUNT_FROM = ''
+      Swal.fire('Info', `From Amount Must Be Equal To Or Greater Than ${this.Insurance[i - 1].AMOUNT_TO}`, 'info')
+    }
+  }
+
+  checkInsuranceToAmount(i, amt) {
+    this.Insurance[i].AMOUNT_TO = amt
+    if (Number(this.Insurance[i].AMOUNT_FROM) > Number(this.Insurance[i].AMOUNT_TO)) {
+      this.Insurance[i].AMOUNT_TO = ''
+      Swal.fire('Info', `To Amount Must Be Equal To Or Greater Than ${this.Insurance[i].AMOUNT_FROM}`, 'info')
+    }
+  }
+
+  //Int rate methods
+  addIntRateRow(i) {
+    if ((this.intRate.length - 1) == i) {
+      let row = {
+        AMOUNT_FROM: '',
+        AMOUNT_TO: ''
+      }
+      this.intRate.push(row);
+    } else {
+    }
+  }
+
+  deleteIntRateRow(i) {
+    this.intRate[i]['delete'] = 1
+  }
+
+  checkFromIntRate(i, amt) {
+    this.intRate[i].AMOUNT_FROM = amt
+    if (i != 0 && Number(this.intRate[i].AMOUNT_FROM) < Number(this.intRate[i - 1].AMOUNT_TO)) {
+      this.intRate[i].AMOUNT_FROM = ''
+      Swal.fire('Info', `From Interest Amount Must Be ${this.intRate[i - 1].AMOUNT_TO} or Greater Than ${this.intRate[i - 1].AMOUNT_TO}`, 'info')
+    }
+  }
+
+  checkToIntRate(i, amt) {
+    this.intRate[i].AMOUNT_TO = amt
+    if (Number(this.intRate[i].AMOUNT_FROM) > Number(this.intRate[i].AMOUNT_TO)) {
+      this.intRate[i].AMOUNT_TO = ''
+      Swal.fire('Info', `To Interest Amount Must Be Greater Than ${this.intRate[i].AMOUNT_FROM}`, 'info')
+    }
+  }
+
+  //Peroid methods
+  addPeriodRow(i) {
+    if ((this.peroid.length - 1) == i) {
+      let row = {
+        FROM_MONTHS: '',
+        TO_MONTHS: ''
+      }
+      this.peroid.push(row);
+    } else {
+    }
+  }
+
+  deletePeroidRow(i) {
+    this.peroid[i]['delete'] = 1
+  }
+
+  checkFromPeroid(i, amt) {
+    this.peroid[i].FROM_MONTHS = amt
+    if (i != 0 && Number(this.peroid[i].FROM_MONTHS) < Number(this.peroid[i - 1].TO_MONTHS)) {
+      this.peroid[i].FROM_MONTHS = ''
+      Swal.fire('Info', `From Peroid Must Be Equal Or Greater Than ${this.peroid[i - 1].TO_MONTHS}`, 'info')
+    }
+  }
+
+  checkToPeroid(i, amt) {
+    this.peroid[i].TO_MONTHS = amt
+    if (Number(this.peroid[i].FROM_MONTHS) > Number(this.peroid[i].TO_MONTHS)) {
+      this.peroid[i].TO_MONTHS = ''
+      Swal.fire('Info', `To Peroid Must Be Equal Or Greater Than ${this.peroid[i].FROM_MONTHS}`, 'info')
+    }
+  }
+
+  //TERMS
+  checkFromTerms(name) {
+    if (name == 'mediumTermFromMon') {
+      if (Number(this.angForm.controls['shortTermToMon'].value) > Number(this.angForm.controls['mediumTermFromMon'].value)) {
+        Swal.fire('Info', `Medium Term From Month Must Be Equal Or Greater Than ${this.angForm.controls['shortTermToMon'].value}`, 'info')
+      }
+    }
+    else if (name == 'longTermFromMon') {
+      if (Number(this.angForm.controls['mediumTermToMon'].value) > Number(this.angForm.controls['longTermFromMon'].value)) {
+        Swal.fire('Info', `Long Term From Month Must Be Equal Or Greater Than ${this.angForm.controls['mediumTermToMon'].value}`, 'info')
+      }
+    }
+  }
+  checkToTerms(name) {
+    if (name == 'shortTermToMon') {
+      if (Number(this.angForm.controls['shortTermToMon'].value) <= Number(this.angForm.controls['shortTermFromMon'].value)) {
+        Swal.fire('Info', `Medium Term To Month Must Be Greater Than ${this.angForm.controls['shortTermFromMon'].value}`, 'info')
+      }
+    }
+    else if (name == 'mediumTermToMon') {
+      if (Number(this.angForm.controls['mediumTermToMon'].value) <= Number(this.angForm.controls['mediumTermFromMon'].value)) {
+        Swal.fire('Info', `Medium Term To Month Must Be Greater Than ${this.angForm.controls['mediumTermFromMon'].value}`, 'info')
+      }
+    }
+    else if (name == 'longTermToMon') {
+      if (Number(this.angForm.controls['longTermToMon'].value) <= Number(this.angForm.controls['longTermFromMon'].value)) {
+        Swal.fire('Info', `Long Term To Month Must Be Greater Than ${this.angForm.controls['longTermFromMon'].value}`, 'info')
+      }
+    }
+  }
 }
