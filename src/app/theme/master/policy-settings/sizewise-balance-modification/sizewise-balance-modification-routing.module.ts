@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: SizewiseBalanceModificationComponent,
     data: {
-      title: 'Definations',
+      title: 'Sizewise Balance Updation',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

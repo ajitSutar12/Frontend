@@ -132,7 +132,7 @@ export class PassmultiVoucherComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getMultiVoucherData(data) {

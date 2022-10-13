@@ -161,7 +161,7 @@ export class VoucherComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getVoucherData(data) {

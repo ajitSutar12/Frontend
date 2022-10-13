@@ -38,7 +38,7 @@ export class MultiVoucherComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   @ViewChild('focusbutton') focusbutton: ElementRef<HTMLElement>;
-
+  @ViewChild('selectMode') selectMode: NgSelectComponent;
   branchCode: any = null
 
   selectedBranch: number;
@@ -1448,7 +1448,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                             this.SideDetails()
                                                                                             this.angForm.controls['amt'].reset();
                                                                                             this.angForm.controls['total_amt'].reset();
-                                                                                            let el: HTMLElement = this.focusbutton.nativeElement;
+                                                                                            this.selectMode.focus()
                                                                                             this.submitForm = true
                                                                                           }
                                                                                           else {

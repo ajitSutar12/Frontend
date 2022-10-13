@@ -206,7 +206,7 @@ export class MasterAnamatComponent implements OnInit {
     };
   }
   ngOnDestroy(){
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getAnamatData(data) {
