@@ -136,7 +136,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
     };
   }
   ngOnDestroy(){
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getTermDepositAcRenewalData(data) {

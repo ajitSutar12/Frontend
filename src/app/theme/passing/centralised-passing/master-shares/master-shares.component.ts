@@ -237,7 +237,7 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy(){
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getShareData(data) {

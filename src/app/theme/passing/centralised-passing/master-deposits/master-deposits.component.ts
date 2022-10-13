@@ -257,7 +257,7 @@ export class MasterDepositsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
 
   public getData(value): void {

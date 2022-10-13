@@ -135,7 +135,7 @@ export class PassdeadStockTransactionComponent implements OnInit {
     };
   }
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   deadStockTransaction
   //get saving customer data

@@ -162,7 +162,7 @@ export class PassbatchVoucherComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getBatchVoucherData(data) {
