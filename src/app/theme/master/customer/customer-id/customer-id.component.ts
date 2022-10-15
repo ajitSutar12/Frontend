@@ -33,7 +33,7 @@ import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
 import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component";
 import * as moment from 'moment';
-import { DayTable } from "@fullcalendar/daygrid";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -191,7 +191,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngSubmitDate: any
   bsValue
   maxDate: Date;
-
+  urlMap: SafeResourceUrl
   fileuploaded: boolean = false
   filenotuploaded: boolean = true
   constructor(
@@ -205,7 +205,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private cityMaster: cityMasterService,
     private riskCategoryDropdown: RiskCategoryDropdownService,
     private documentMasterService: DocumentMasterDropdownService,
-    public router: Router
+    public router: Router,
+    public sanitizer: DomSanitizer
   ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -1010,20 +1011,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   viewImagePreview(ele, id) {
-
     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
-
       let jsonObj = value;
       Object.keys(jsonObj).forEach(key => {
         if (id == key) {
           this.isImgPreview = true
           this.selectedImagePreview = jsonObj[key];
+          this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
           throw 'Break';
         }
         else {
           this.isImgPreview = false
           this.selectedImagePreview = ''
-
         }
       });
     }

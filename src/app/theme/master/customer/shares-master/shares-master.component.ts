@@ -34,6 +34,7 @@ import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import * as moment from 'moment';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'// Handling datatable data
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -122,7 +123,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   angForm: FormGroup;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
-
+  urlMap: SafeResourceUrl
   Data: any;
   //variables for pagination
   page: number = 1;
@@ -258,7 +259,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private sharesSchemeService: SharesSchemeService,
     private datePipe: DatePipe,
     private fb: FormBuilder,
-    private schemeAccountNoService: SchemeAccountNoService,) {
+    private schemeAccountNoService: SchemeAccountNoService,
+    public sanitizer: DomSanitizer) {
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -454,6 +456,41 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
+      let obj = {
+        SCHEME_CODE: 'SH'
+      }
+      this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+        let DocArr: any = resp
+        DocArr.forEach(ele => {
+          if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+            let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+            ele['status'] = true;
+            ele['IS_ALLOWED'] = true;
+            ele['PATH'] = path['PATH']
+          } else {
+            ele['status'] = false;
+            ele['IS_ALLOWED'] = false;
+          }
+        })
+        this.customerDoc = DocArr
+        // data.custdocument.forEach(ele => {
+        //   debugger
+        //   if (DocArr.find(data => data['DOCUMENT_CODE'] == ele['DocumentMaster']['id'])) {
+        //     ele['DocumentMaster']['status'] = true;
+        //     ele['DocumentMaster']['IS_ALLOWED'] = true;
+        //   } else {
+        //     let obj = {
+        //       DOCUMENT_CODE: ele.id,
+        //       status: false,
+        //       PATH: ele.PATH,
+        //       schemeDocumentMaster: {
+        //         NAME: ele.DocumentMaster.NAME
+        //       }
+        //     }
+        //     this.customerDoc.push(obj)
+        //   }
+        // })
+      })
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
       if (data.castMaster == null) {
         data.castMaster = ""
@@ -1363,9 +1400,20 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  viewImagePreview(ele, id) {
-    this.selectedImagePreview = id;
+  isImgPreview
+  viewImagePreview(id) {
+    debugger
+    // this.selectedImagePreview = id;
+    if (id != undefined) {
+      this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.documentUrl + id);
+      this.isImgPreview = true
+    }
+    else {
+      this.isImgPreview = false
+      this.urlMap = ''
+    }
   }
+
 
   decimalAllContent($event) {
     let value = Number($event.target.value);

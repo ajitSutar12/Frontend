@@ -633,6 +633,7 @@
                                                                                 style="height: auto;"
                                                                                 class="form-control"
                                                                                 [id]="'file'+indexOfelement"
+                                                                                accept="application/pdf,image/x-png,image/gif,image/jpeg"
                                                                                 (change)="fileChangeEvent($event, indexOfelement,data.value)" />
                                                                         </div>
                                                                     </div>
@@ -662,7 +663,6 @@
                                                                         placement="left"
                                                                         ngbTooltip="file not uploaded"></span>
                                                                 </div>
-
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -682,9 +682,11 @@
                                                     </div>
                                                     <div class="app-modal-body">
                                                         <perfect-scrollbar>
-                                                            <img *ngIf="isImgPreview" [src]="selectedImagePreview"
-                                                                class="form-control" style="width: 100%;height: 100%;">
-                                                            <p *ngIf="!isImgPreview">No Image For Preview</p>
+                                                            <div *ngIf="isImgPreview" class='embed-responsive'
+                                                                style='padding-bottom:60%'>
+                                                                <embed [src]="urlMap" width="10px" height="50px" />
+                                                            </div>
+                                                            <p *ngIf="!isImgPreview">No File For Preview</p>
                                                         </perfect-scrollbar>
                                                     </div>
 

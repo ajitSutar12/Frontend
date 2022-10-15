@@ -1677,21 +1677,41 @@
                                                                             <td>Description</td>
                                                                             <td style="max-width: 25px;">View Document
                                                                             </td>
+                                                                            <td>Is Linked Document Uploaded</td>
                                                                         </thead>
                                                                         <tbody *ngIf="customerDoc?.length != 0">
                                                                             <tr *ngFor="let data of customerDoc;
                                                               let indexOfelement = index">
                                                                                 <td>{{ indexOfelement + 1 }}</td>
-                                                                                <td>{{ data.DocumentMaster.NAME }}</td>
+                                                                                <td>{{ data.schemeDocumentMaster?.NAME
+                                                                                    }}</td>
                                                                                 <td style="align-items: center;">
                                                                                     <div class="col-sm-2">
                                                                                         <span
                                                                                             style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview($event,documentUrl+data.PATH)"
+                                                                                            (click)="modalLarge.show();viewImagePreview(data.PATH)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Show Image"
                                                                                             class="fa fa-fw fa-eye field-icon"></span>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="align-items: center;">
+                                                                                    <div class="col-sm-2">
+                                                                                        <span *ngIf="data.status"
+                                                                                            class="fa fa-check-circle"
+                                                                                            id="editbutton"
+                                                                                            style="color: green;font-size: 20px;"
+                                                                                            placement="left"
+                                                                                            ngbTooltip="file uploaded"></span>
+                                                                                        &nbsp;
+                                                                                        <span *ngIf="!data.status"
+                                                                                            class="fa fa-times-circle-o"
+                                                                                            id="editbutton"
+                                                                                            style="color: red;font-size: 20px;"
+                                                                                            placement="left"
+                                                                                            ngbTooltip="file not uploaded"></span>
+                                                                                    </div>
+
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
@@ -1716,10 +1736,14 @@
                                                                         </div>
                                                                         <div class="app-modal-body">
                                                                             <perfect-scrollbar>
-
-                                                                                <img [src]="selectedImagePreview"
-                                                                                    alt="docu" class="form-control"
-                                                                                    style="width: 100%;height: 100%;">
+                                                                                <div *ngIf="isImgPreview"
+                                                                                    class='embed-responsive'
+                                                                                    style='padding-bottom:60%'>
+                                                                                    <embed [src]="urlMap" width="10px"
+                                                                                        height="50px" />
+                                                                                </div>
+                                                                                <p *ngIf="!isImgPreview">No File For
+                                                                                    Preview</p>
                                                                             </perfect-scrollbar>
                                                                         </div>
 
