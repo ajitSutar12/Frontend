@@ -9,6 +9,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { environment } from 'src/environments/environment';
+import { EditInterestCalculationService } from './edit-interest-calculation.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,7 +28,7 @@ export class EditInterestCalculationComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   ngintDate:any=null
-  warrentDate
+  warrentDate:any
 
   
   // dropdown variables
@@ -56,6 +57,7 @@ export class EditInterestCalculationComponent implements OnInit {
   toAc: any[];
   scheme: any[];
   showButton: boolean=true;
+  submitData: boolean=false;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -63,24 +65,28 @@ export class EditInterestCalculationComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
+    private _service: EditInterestCalculationService
   ) { }
 
   ngOnInit(): void {
+    let user = JSON.parse(localStorage.getItem('user'));
+
     this.createForm()
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
+      this.ngBranchCode = user.branchId
     })
 
-    this.http.get(this.url + '/interest-passing').subscribe((data) => {
+    this._service.interestDate().subscribe((data) => {
+      debugger
       this.warrentDate = data
+      console.log(this.warrentDate)
     })
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.scheme = data;
-    })
-
-    
+    }) 
   }
 
   createForm() {
@@ -206,10 +212,47 @@ export class EditInterestCalculationComponent implements OnInit {
   }
 
    // Method to insert data into database through NestJS
+   InterestTableData = new Array()
    submit(event) {
      //To clear form
-     this.resetForm();
+     if(this.angForm.status == 'INVALID'){
+        Swal.fire('Error',"Please select required data",'error');
+     }else{
+        //fetch data
+        let angValue = this.angForm.value;
+        let object = {
+          branch_code: angValue.BRANCH,
+          intDate    : angValue.INT_DATE,
+          ac_type    : angValue.AC_TYPE,
+          from_acno  : angValue.FROM_AC,
+          to_acno    : angValue.TO_AC
+        }
+        this._service.interestTranData(object).subscribe(data=>{
+          this.InterestTableData = data;
+          this.showButton = false;
+          this.submitData = true;
+        },err=>{
+          console.log(err);
+        })
+     }
    }
+
+  AlterData(){
+    if(this.InterestTableData.length == 0){
+      Swal.fire('Error','Something went wrong','error')
+    }else{
+      this._service.submitAlterData(this.InterestTableData).subscribe(data=>{
+        Swal.fire('Success',"Interest Calculation Edit Successfully",'success');
+        this.angForm.reset();
+        this.InterestTableData = [];
+      },err=>{
+        console.log(err);
+      })
+    }
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
 
    addNewData() {
     this.showButton = true;
@@ -217,7 +260,12 @@ export class EditInterestCalculationComponent implements OnInit {
     this.resetForm();
   }
 
-   resetForm(){
+  changeData(ele,index,column){
+    this.InterestTableData[index][column] = ele.target.value;
+    console.log(this.InterestTableData);
+  }
+
+  resetForm(){
     this.ngscheme=null;
     this.ngfromac=null;
     this.ngtoac=null;
@@ -228,15 +276,11 @@ export class EditInterestCalculationComponent implements OnInit {
     this.InterestArr = []
   
     if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
-     
-     
       var object = {
         // AC_NO: event.AC_NO,
         // AC_NAME: event.AC_NAME,
       }
       this.InterestArr.push(object)
-    
-      
     }
     else {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
@@ -247,5 +291,8 @@ export class EditInterestCalculationComponent implements OnInit {
     }
   }
   
-
+  getIntrestDetails(){
+    console.log(this.angForm);
+    
+  }
 }

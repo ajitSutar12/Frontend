@@ -58,6 +58,8 @@ export class InterestCalculationComponent implements OnInit {
   schemeDataList : any;
   codeList :any;
   selectedSchemeData : any;
+  schemewiseRadio:boolean=true;
+  modalClass : string = 'modalHide';
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -75,6 +77,7 @@ export class InterestCalculationComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    $('#loading').hide();
 
     this.getSystemParaDate()
     this.createForm();
@@ -94,13 +97,10 @@ export class InterestCalculationComponent implements OnInit {
     
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.intapp == true );
+        return (scheme.intapp == '1' );
       });
+      console.log('filter',filtered);
       this.scheme = filtered;
-      console.log(data)
-      console.log(this.scheme)
-      
-     
     })
     
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
@@ -131,32 +131,92 @@ export class InterestCalculationComponent implements OnInit {
     this.selectedSchemeData = this.schemeDataList.filter(c =>c.S_ACNOTYPE == code)
   }
   submit() {
-    // if(){
-    //   const dataToSend={
-        
-    //   }
-    //   this._service.postData(dataToSend).subscribe(
-    //     (data) => {
-    //       Swal.fire("Success!", "Data Updated Successfully !", "success");
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    //   //To clear form
-    //   this.resetForm();
-    //   this.arrTable = []
-    //   this.InterestArr = []
-    // }
+    debugger
+     var FormValue = this.angForm.value;
+     if(FormValue.INT_CAL == ""){
+      Swal.fire("Oops...","Please choose any option for Interest Calculation","error");
+      return;
+     }else if(FormValue.INT_CAL == 'Form1'){
+        if(FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || this.selectedSchemeDataForOption1.length == 0){
+          Swal.fire("Oops...","Please select required field value","error");
+          return;
+        }else{
+          this.modalClass = 'modalShow';
+          this.showButton = false;
+          let apiObj = {
+            option : 0,
+            obj : {
+              SchemeCode : this.selectedSchemeDataForOption1
+            },
+            schemeType : FormValue.AC_TYPE,
+            branch_code : FormValue.BRANCH,
+            date : FormValue.INT_UPTO_DATE
+          }
 
-    // if (this.InterestArr.length != 0) {
-    //   const dataToSend = {
-    //     'AC_TYPE': this.getschemename,
-    //     'InterestArr': this.InterestArr
-    //   };
+          //Send Data for Interest Calculation Scheme Wise;
+          this._service.IntrestCalculation(apiObj).subscribe(data=>{
+            this.modalClass = 'modalHide';
+            Swal.fire("Success","Interest Calculation and Posting Successfully Completed","success");
+          },err=>{
+            console.log(err);
+          })
+        }
+     }else if(FormValue.INT_CAL == 'Form2'){
+        if(FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || FormValue.FROM_AC =='' || FormValue.TO_AC ==''){
+          Swal.fire("Oops...","Please select required field value","error");
+        }else{
+          this.modalClass = 'modalShow';
+          this.showButton = false;
+          let apiObj = {
+            option : 1,
+            obj : {
+              SchemeCode : [FormValue.AC_TYPE],
+              Range : {
+                StartAcNO  : FormValue.FROM_AC,
+                EndAcNo    : FormValue.TO_AC
+              }
+            },
+            schemeType : FormValue.AC_TYPE,
+            branch_code : FormValue.BRANCH,
+            date : FormValue.INT_UPTO_DATE
+          }
 
-      
-    
+          //Send Data for Interest Calculation Scheme Wise;
+          this._service.IntrestCalculation(apiObj).subscribe(data=>{
+            this.modalClass = 'modalHide';
+            Swal.fire("Success","Interest Calculation and Posting Successfully Completed","success");
+          },err=>{
+            console.log(err);
+          })
+        }
+    }else{
+      if(FormValue.BRANCH1 == '' || FormValue.AC_TYPE1 == '' || this.InterestArr.length == 0){
+        Swal.fire("Oops...","Please select required field value","error");
+      }else{
+        this.modalClass = 'modalShow';
+        this.showButton = false;
+        let AccountData =  this.InterestArr.map(x=>`'${x}'`).join(',')
+
+        let apiObj = {
+          option : 2,
+          obj : {
+            SchemeCode : [FormValue.AC_TYPE1],
+            SelectiveData : AccountData
+          },
+          schemeType : FormValue.AC_TYPE1,
+          branch_code : FormValue.BRANCH,
+          date : FormValue.INT_UPTO_DATE
+        }
+
+        //Send Data for Interest Calculation Scheme Wise;
+        this._service.IntrestCalculation(apiObj).subscribe(data=>{
+          this.modalClass = 'modalHide';
+          Swal.fire("Success","Interest Calculation and Posting Successfully Completed","success");
+        },err=>{
+          console.log(err);
+        })
+      }
+    }
   }
   select(){
     this.InterestArr = []
@@ -289,16 +349,22 @@ export class InterestCalculationComponent implements OnInit {
     
   }
   //load table according account range
+  AccountWiseData = new Array()
   getTable(event) {
     debugger
     // this.InterestArr = []
     this.showTable = true
-    var object = {
-      AC_NO: event.value,
-      AC_NAME: event.name,
-      
+    let searchData = this.InterestArr.filter(ele=>ele.AC_NO === event.value);
+    if(searchData.length != 0){
+      Swal.fire('Oops...!','Your selected Account Already Exists in Table','error');
+    }else{
+      let obj ={
+        AC_NO : event.bankacno,
+        AC_NAME : event.name
+      }
+      this.AccountWiseData.push(obj);
+      this.InterestArr.push(event.bankacno)
     }
-    this.InterestArr.push(object)
     
       
     
@@ -391,6 +457,7 @@ export class InterestCalculationComponent implements OnInit {
     })
   }
 
+  selectedSchemeDataForOption1 = new Array();
   //Add into SchemeList
   AddSchemeData(ele,data){
     console.log(ele);
@@ -398,10 +465,18 @@ export class InterestCalculationComponent implements OnInit {
 
     if(ele.target.checked){
       // this.selectedSchemeData.push(data);
-    }else{
-      for(let item of this.selectedSchemeData){
-
+      if(this.selectedSchemeDataForOption1.length == 0){
+        this.selectedSchemeDataForOption1.push(data.id)
+      }else{
+        let result = this.selectedSchemeDataForOption1.filter(ele=>ele == data.id);
+        if(result.length == 0){
+          this.selectedSchemeDataForOption1.push(data.id)
+        }
       }
+    }else{
+      let index = this.selectedSchemeDataForOption1.findIndex(ele=>ele === data.id)
+      delete this.selectedSchemeDataForOption1[index];
+      console.log(this.selectedSchemeDataForOption1);
     }
   }
 }

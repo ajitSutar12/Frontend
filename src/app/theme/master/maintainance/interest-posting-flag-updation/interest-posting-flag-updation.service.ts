@@ -40,6 +40,10 @@ export class InterestPostingFlagUpdationService {
         return this.http.get(this.url + '/term-loan-master/' + id).pipe(catchError(this.handleError));
     }
 
+    IntrestCalculation(data:any):Observable<any>{
+        return this.http.post(this.url + '/voucher/InterestCalculation',data).pipe(catchError(this.handleError))
+    }
+
 }
 
 
