@@ -107,8 +107,6 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
   }
 
   submit() {
-    debugger
-    console.log(this.angForm.value);
     this.Amount.sort((b, a) => {
       return Number(b.AMOUNT_FROM) - Number(a.AMOUNT_FROM)
     });
@@ -130,6 +128,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
       ACNOTYPE: 'TD'
     }
     this.http.post(this.url + '/sizewise-balance-updation/insert', obj).subscribe((data) => {
+      Swal.fire('Success','Data Updated Successfully','success')
       this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + obj.ACNOTYPE).subscribe((data) => {
         if (data['amountExist'] == true) {
           this.Amount = data['amount']

@@ -80,28 +80,28 @@ export class GlAccountsMasterComponent implements OnInit {
 
   // Filter Variable
   filterData = {};
-  statementCodeData :any;
+  statementCodeData: any;
 
   selectedAccount = 'Adam';
-    accounts = [
-        { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States', child: { state: 'Active' } },
-        { name: 'Homer', email: 'homer@email.com', age: 47, country: '', child: { state: 'Active' } },
-        { name: 'Samantha', email: 'samantha@email.com', age: 30, country: 'United States', child: { state: 'Active' } },
-        { name: 'Amalie', email: 'amalie@email.com', age: 12, country: 'Argentina', child: { state: 'Active' } },
-        { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina', child: { state: 'Active' } },
-        { name: 'Adrian', email: 'adrian@email.com', age: 21, country: 'Ecuador', child: { state: 'Active' } },
-        { name: 'Wladimir', email: 'wladimir@email.com', age: 30, country: 'Ecuador', child: { state: 'Inactive' } },
-        { name: 'Natasha', email: 'natasha@email.com', age: 54, country: 'Ecuador', child: { state: 'Inactive' } },
-        { name: 'Nicole', email: 'nicole@email.com', age: 43, country: 'Colombia', child: { state: 'Inactive' } },
-        { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia', child: { state: 'Inactive' } },
-        { name: 'Nicolás', email: 'nicole@email.com', age: 43, country: 'Colombia', child: { state: 'Inactive' } }
-    ];
+  accounts = [
+    { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States', child: { state: 'Active' } },
+    { name: 'Homer', email: 'homer@email.com', age: 47, country: '', child: { state: 'Active' } },
+    { name: 'Samantha', email: 'samantha@email.com', age: 30, country: 'United States', child: { state: 'Active' } },
+    { name: 'Amalie', email: 'amalie@email.com', age: 12, country: 'Argentina', child: { state: 'Active' } },
+    { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina', child: { state: 'Active' } },
+    { name: 'Adrian', email: 'adrian@email.com', age: 21, country: 'Ecuador', child: { state: 'Active' } },
+    { name: 'Wladimir', email: 'wladimir@email.com', age: 30, country: 'Ecuador', child: { state: 'Inactive' } },
+    { name: 'Natasha', email: 'natasha@email.com', age: 54, country: 'Ecuador', child: { state: 'Inactive' } },
+    { name: 'Nicole', email: 'nicole@email.com', age: 43, country: 'Colombia', child: { state: 'Inactive' } },
+    { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia', child: { state: 'Inactive' } },
+    { name: 'Nicolás', email: 'nicole@email.com', age: 43, country: 'Colombia', child: { state: 'Inactive' } }
+  ];
 
   constructor(
     private http: HttpClient,
     private glAccountsMasterService: GlAccountsMasterService,
     private statement: StatementCodeDropdownService,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder) {
 
 
     this.statement.getStatementCodeList().pipe(first()).subscribe(data => {
@@ -109,18 +109,21 @@ export class GlAccountsMasterComponent implements OnInit {
       console.log(this.statementCode);
       let step_2_data = new Array();
       let final_obj = new Array()
-      let parentData = this.statementCode.filter(ele=>ele.parent_node == 0);
-      for(let item of parentData){
-        let data = this.statementCode.filter(ele=>ele.parent_node == item.id);
-        data[0]['parent_name'] = item.head_name;
-        step_2_data.push(data[0]);
+      debugger
+      let parentData = this.statementCode.filter(ele => ele.parent_node == 0);
+      for (let item of parentData) {
+        let data = this.statementCode.filter(ele => ele.parent_node == item.id);
+        if (data.length != 0) {
+          data[0]['parent_name'] = item.head_name;
+          step_2_data.push(data[0]);
+        }
       }
-      
-      for(let ele1 of step_2_data){
-        let data = this.statementCode.filter(ele=>ele.parent_node == ele1.id)
-        for(let item of data){
+
+      for (let ele1 of step_2_data) {
+        let data = this.statementCode.filter(ele => ele.parent_node == ele1.id)
+        for (let item of data) {
           item['gl_code'] = ele1.head_name;
-          item['child'] = {state:'Active'}
+          item['child'] = { state: 'Active' }
 
           final_obj.push(item);
         }
@@ -129,7 +132,7 @@ export class GlAccountsMasterComponent implements OnInit {
 
       console.log(this.statementCodeData);
     })
-    }
+  }
 
 
   ngOnInit(): void {
@@ -277,7 +280,7 @@ export class GlAccountsMasterComponent implements OnInit {
     this.newbtnShow = true;
     this.glAccountsMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      let stateData = this.statementCodeData.filter(ele=>ele.id == data.AC_BCD);
+      let stateData = this.statementCodeData.filter(ele => ele.id == data.AC_BCD);
       this.selectedStatementcode = stateData[0];
       this.angForm.patchValue({
         'AC_NO': data.AC_NO,
