@@ -684,7 +684,8 @@
                                                         <perfect-scrollbar>
                                                             <div *ngIf="isImgPreview" class='embed-responsive'
                                                                 style='padding-bottom:60%'>
-                                                                <embed [src]="urlMap" width="10px" height="50px" />
+                                                                <!-- <embed [src]="urlMap" /> -->
+                                                                <iframe [src]="urlMap"></iframe>
                                                             </div>
                                                             <p *ngIf="!isImgPreview">No File For Preview</p>
                                                         </perfect-scrollbar>
