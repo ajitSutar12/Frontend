@@ -19,7 +19,7 @@
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
                                     formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                    placeholder="Branch">
+                                    placeholder="Branch" autofocus>
                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                         {{values.label}}</ng-option>
                                 </ng-select>
@@ -39,11 +39,11 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="INT_DATE" bindValue="INT_DATE" [(ngModel)]="ngintDate"
-                                        formControlName="INT_DATE" bindLabel="INT_DATE" title="Compulsory Selection"
+                                    <ng-select  bindValue="TRAN_DATE" [(ngModel)]="ngintDate"
+                                        formControlName="INT_DATE" bindLabel="TRAN_DATE" title="Compulsory Selection"
                                         required placeholder="Interest Date" (change)="getIntDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
-                                            {{values.INT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
+                                            {{values.TRAN_DATE}}
                                         </ng-option>
                                     </ng-select>
 
@@ -83,7 +83,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac" (change)="select()"
+                                    <ng-select id="FROM_AC" bindValue="bankacno" [(ngModel)]="ngfromac" (change)="select()"
                                     formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/c">
                                     <ng-option *ngFor="let values of fromAc" [value]="values">
@@ -103,8 +103,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
-                                    bindLabel="label" title="Compulsory Selection" (change)="select()"
+                                    <ng-select id="TO_AC" bindValue="bankacno" [(ngModel)]="ngtoac" formControlName="TO_AC"
+                                    bindLabel="label" title="Compulsory Selection" 
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/c">
                                     <ng-option *ngFor="let values of toAc" [value]="values">
                                         {{values.label}} {{values.name}}</ng-option>
@@ -122,6 +122,8 @@
                         <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                             (click)="submit($event)">Calculate</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitData"
+                            (click)="AlterData()">Submit</button>
                         </div>
                         
                     </div>
@@ -140,12 +142,16 @@
                                             <td class="td_right">OverDue Interest</td>
                                             <td class="td_right">OverDraft Interest</td>   
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="12" class="no-data-available"
-                                                    style="text-align: center;">
-                                                    No data!
-                                                </td>
+                                        <tbody style="max-width: 400px;overflow-y: auto;">
+                                            <tr *ngFor="let item of InterestTableData;let i = index">
+                                                <td>{{i+1}}</td>
+                                                <td>{{item.TRAN_ACNO}}</td>
+                                                <td>{{item.ac_name}}</td>
+                                                <td><input type="text" (focus)="selectAllContent($event)" style="width: 70%;text-align:right" value="{{item.TRAN_AMOUNT}}"  (focusout)="changeData($event,i,'TRAN_AMOUNT')"></td>
+                                                <td><input type="text" (focus)="selectAllContent($event)" style="width: 70%;text-align:right" value="{{item.RECPAY_INT_AMOUNT}}" (focusout)="changeData($event,i,'RECPAY_INT_AMOUNT')"></td>
+                                                <td><input type="text" (focus)="selectAllContent($event)" style="width: 70%;text-align:right" value="{{item.PENAL_INT_AMOUNT}}" (focusout)="changeData($event,i,'PENAL_INT_AMOUNT')"></td>
+                                                <td><input type="text" (focus)="selectAllContent($event)" style="width: 70%;text-align:right" value="{{item.ODUE_INT_AMOUNT}}" (focusout)="changeData($event,i,'ODUE_INT_AMOUNT')"></td>
+                                                <td><input type="text" (focus)="selectAllContent($event)" style="width: 70%;text-align:right" value="{{item.OD_INT_AMOUNT}}" (focusout)="changeData($event,i,'OD_INT_AMOUNT')"></td>
                                             </tr>
                                         </tbody>
                                 </table>

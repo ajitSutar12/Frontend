@@ -57,7 +57,7 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" formControlName="INT_CAL" name="INT_CAL" value="Form1"
-                                            id="form1" (change)="isSelect(1)">
+                                            id="form1" (change)="isSelect(1)" checked="checked">
                                         <i class="helper"></i>Scheme Wise
                                     </label>
                                 </div>
@@ -180,7 +180,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Code"
                                         (change)="getSchemeAcno($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
-                                            {{values.id}} {{values.label}}</ng-option>
+                                            {{values.value}} {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -197,7 +197,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac" (change)="select()"
+                                    <ng-select id="FROM_AC" bindValue="bankacno" [(ngModel)]="ngfromac" (change)="select()"
                                     formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/c">
                                     <ng-option *ngFor="let values of fromAc" [value]="values">
@@ -217,7 +217,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
+                                    <ng-select id="TO_AC" bindValue="bankacno" [(ngModel)]="ngtoac" formControlName="TO_AC"
                                     bindLabel="label" title="Compulsory Selection" (change)="select()"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/c">
                                     <ng-option *ngFor="let values of toAc" [value]="values">
@@ -233,7 +233,6 @@
                                 </div>
                             </div>       
                         </div>
-                        
                     </div>
                     <div class="row" id="FORM3" *ngIf="isSelectiveAccountWise">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH1">Branch<sub class="required">*</sub></label></div>
@@ -243,7 +242,7 @@
                                     <ng-select id="BRANCH1" bindValue="value" [(ngModel)]="ngBranchCode"
                                     formControlName="BRANCH1" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                    placeholder="Branch">
+                                    placeholder="Branch">d
                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                         {{values.label}}</ng-option>
                                 </ng-select>
@@ -285,7 +284,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngtoac" formControlName="AC_NO"
+                                    <ng-select id="AC_NO" bindValue="bankacno" [(ngModel)]="ngtoac" formControlName="AC_NO"
                                     bindLabel="label" title="Compulsory Selection" (change)="getTable($event)"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Select Account">
                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
@@ -314,7 +313,7 @@
                                                 
                                             </thead>
                                             <tbody *ngIf="InterestArr?.length != 0">
-                                                <tr *ngFor="let data of InterestArr;let indexOfelement = index">
+                                                <tr *ngFor="let data of AccountWiseData;let indexOfelement = index">
                                                     <td class="td_right">{{data.AC_NO}}</td>
                                                     <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
                                                         data.AC_NAME}}</td>
@@ -339,4 +338,5 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"><!-- Place at bottom of page --> </div>
 
