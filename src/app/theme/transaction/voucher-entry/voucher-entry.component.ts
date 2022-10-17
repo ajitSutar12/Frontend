@@ -1268,7 +1268,7 @@ export class VoucherEntryComponent implements OnInit {
                                             this.SideDetails()
                                             this.angForm.controls['amt'].reset();
                                             this.angForm.controls['total_amt'].reset();
-                                            // this.swiper.nativeElement.focus();
+                                            this.swiper.nativeElement.focus();
                                             // let el: HTMLElement = this.focusbutton.nativeElement;
                                             Swal.fire('Error!', data.message, 'error');
                                             this.submitForm = true

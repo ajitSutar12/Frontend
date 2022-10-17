@@ -238,7 +238,7 @@
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
                                                     maxlength="15" (keyup)="getaftervoucher($event)"
                                                     (focus)="selectAllContent($event)"
-                                                    (focusout)="decimalAllContent($event); checkCondition($event);"
+                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event);"
                                                     required formControlName="amt" #swiper (keyup)="getAmt($event)">
                                             </span>
                                         </div>
