@@ -83,7 +83,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
-        this.mySubscription = interval(1000).subscribe((x => {
+        // this.mySubscription = interval(1000).subscribe((x => {
           this.http
             .post<DataTableResponse>(
               this.url + '/cash-credit-ac-renewal/passing',
@@ -96,7 +96,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
                 data: []
               });
             });
-        }));
+        // }));
       },
       columnDefs: [{
         targets: '_all',
@@ -136,7 +136,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getCashCreditAcRenewalData(data) {

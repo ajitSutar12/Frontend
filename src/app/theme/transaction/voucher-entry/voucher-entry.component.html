@@ -24,7 +24,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    autofocus>
+                                                    #branchcode autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -148,10 +148,10 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedMode" #agesSelect bindValue="id"
+                                                <ng-select [(ngModel)]="selectedMode" #tran_mode bindValue="id"
                                                     formControlName="tran_mode"
                                                     (change)="changeMode($event);checktranCondition()"
-                                                    (focus)="onFocus(agesSelect)" [selectOnTab]='true'>
+                                                    (focus)="onFocus(tran_mode)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
                                                         {{item.id}} {{item.value}}</ng-option>
                                                 </ng-select>
@@ -236,12 +236,10 @@
                                                 <input type="text" name="AC_PARTICULAR"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                                    style="text-transform: capitalize;" maxlength="15"
-                                                    (keyup)="getaftervoucher($event)" (focus)="selectAllContent($event)"
+                                                    maxlength="15" (keyup)="getaftervoucher($event)"
+                                                    (focus)="selectAllContent($event)"
                                                     (focusout)="decimalAllContent($event); checkCondition($event);"
-                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                    formControlName="amt" #swiper (keyup)="getAmt($event)">
-
+                                                    required formControlName="amt" #swiper (keyup)="getAmt($event)">
                                             </span>
                                         </div>
                                     </div>
@@ -376,7 +374,8 @@
                                         <div class="row">
                                             <div class="col-sm" style="float: right;">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                    *ngIf="showButton" (click)="submit()">
+                                                    [disabled]="submitForm" *ngIf="showButton"
+                                                    (click)="submit();branchcode.focus()">
                                                     Submit
                                                 </button>
                                                 <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
@@ -392,7 +391,7 @@
                                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                                     (click)="Approve()">
                                                     Approve</button>
-                                                <button (click)="agesSelect.focus()" style="display: none;"
+                                                <button (click)="tran_mode.focus()" style="display: none;"
                                                     #focusbutton>focus</button>
                                             </div>
                                         </div>

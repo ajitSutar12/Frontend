@@ -86,7 +86,7 @@ export class SavingPigmyClosingComponent implements OnInit {
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
-        this.mySubscription = interval(1000).subscribe((x => {
+        // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
             this.url + '/saving-pigmy-account-closing/passing',
@@ -99,7 +99,7 @@ export class SavingPigmyClosingComponent implements OnInit {
               data: []
             });
           });
-        }));
+        // }));
       },
       columnDefs: [{
         targets: '_all',
@@ -158,7 +158,7 @@ export class SavingPigmyClosingComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getSavingPigmyClosingData(data) {

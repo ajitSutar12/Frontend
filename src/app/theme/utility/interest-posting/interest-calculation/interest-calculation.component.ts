@@ -41,7 +41,7 @@ export class InterestCalculationComponent implements OnInit {
   ngscheme:any=null
   ngfromac:any=null
   ngtoac:any=null
-  scheme
+  scheme:any;
 
   fromAc:any
   toAc:any
@@ -397,7 +397,7 @@ export class InterestCalculationComponent implements OnInit {
     console.log(data);
 
     if(ele.target.checked){
-      this.selectedSchemeData.push(data);
+      // this.selectedSchemeData.push(data);
     }else{
       for(let item of this.selectedSchemeData){
 

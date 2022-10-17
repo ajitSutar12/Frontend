@@ -152,7 +152,7 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
-        this.mySubscription = interval(1000).subscribe((x => {
+        // this.mySubscription = interval(1000).subscribe((x => {
           this.http.post<DataTableResponse>(
             this.url + '/share-master/passing',
             dataTableParameters
@@ -164,7 +164,7 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
               data: []
             });
           });
-        }));
+        // }));
       },
       columnDefs: [{
         targets: '_all',
@@ -237,7 +237,7 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy(){
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getShareData(data) {

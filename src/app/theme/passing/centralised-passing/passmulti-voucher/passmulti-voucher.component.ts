@@ -85,7 +85,7 @@ export class PassmultiVoucherComponent implements OnInit {
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
-        this.mySubscription = interval(1000).subscribe((x => {
+        // this.mySubscription = interval(1000).subscribe((x => {
           this.http
             .post<DataTableResponse>(
               this.url + '/voucher/multiPassing',
@@ -98,7 +98,7 @@ export class PassmultiVoucherComponent implements OnInit {
                 data: []
               });
             });
-        }));
+        // }));
       },
       columnDefs: [{
         targets: '_all',
@@ -132,7 +132,7 @@ export class PassmultiVoucherComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.mySubscription.unsubscribe();
+    this.mySubscription?.unsubscribe();
   }
   //get saving customer data
   getMultiVoucherData(data) {

@@ -3,7 +3,9 @@
         <div class="card">
             <div class="card-header">
                 <h5>Deposit Size Wise Balance</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <div class="card-block">
                 <h6>Slab Name</h6>
@@ -11,12 +13,51 @@
                     <ngb-tab title="1.Amount">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="col-12">
-                                            <div class="table-responsive">
-                                                <table datatable [dtOptions]="dtExportButtonOptions1" class="table table-striped table-bordered table-hover">
-                                                </table>
+                                <div class="card border-primary">
+                                    <div class="card-block highlight">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-striped table-bordered table-hover compact">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Serial Number</td>
+                                                                <td>From Amount</td>
+                                                                <td>To Amount</td>
+                                                                <td>Action</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let row of Amount; let i = index;">
+                                                                <td *ngIf="row.delete!=1">
+                                                                    {{i+1}}
+                                                                </td>
+                                                                <td *ngIf="row.delete!=1">
+                                                                    <input class="form-control" #fromAmt
+                                                                        name="fromAmount"
+                                                                        (focusout)="checkFromAmount(i,fromAmt.value)"
+                                                                        value="{{row.AMOUNT_FROM}}"
+                                                                        pattern="\d{1,10}(\.\d{2})?" maxlength="13"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        type="text" />
+                                                                </td>
+                                                                <td *ngIf="row.delete!=1">
+                                                                    <input class="form-control" type="text" #toAmt
+                                                                        pattern="\d{1,10}(\.\d{2})?" maxlength="13"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (focusout)="checkToAmount(i,toAmt.value);"
+                                                                        value="{{row.AMOUNT_TO}}"
+                                                                        (keyup)="addAmountRow(i);" />
+                                                                </td>
+                                                                <td *ngIf="row.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
+                                                                        (click)="deleteAmountRow(i)"
+                                                                        style='cursor: pointer;'>Remove</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -27,12 +68,50 @@
                     <ngb-tab title="2.Interest Rate">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="col-12">
-                                            <div class="table-responsive">
-                                                <table datatable [dtOptions]="dtExportButtonOptions2" class="table table-striped table-bordered table-hover">
-                                                </table>
+                                <div class="card border-primary">
+                                    <div class="card-block highlight">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-striped table-bordered table-hover compact">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Serial Number</td>
+                                                                <td>From Interest Rate</td>
+                                                                <td>To Interest Rate</td>
+                                                                <td>Action</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let int of intRate; let i = index;">
+                                                                <td *ngIf="int.delete!=1">
+                                                                    {{i+1}}
+                                                                </td>
+                                                                <td *ngIf="int.delete!=1">
+                                                                    <input class="form-control" #fromInt name="fromInt"
+                                                                        (focusout)="checkFromIntRate(i,fromInt.value)"
+                                                                        value="{{int.AMOUNT_FROM}}"
+                                                                        pattern="\d{1,2}(\.\d{2})?" maxlength="5"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        type="text" />
+                                                                </td>
+                                                                <td *ngIf="int.delete!=1">
+                                                                    <input class="form-control" type="text" #toInt
+                                                                        pattern="\d{1,2}(\.\d{2})?" maxlength="5"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (focusout)="checkToIntRate(i,toInt.value);"
+                                                                        value="{{int.AMOUNT_TO}}"
+                                                                        (keyup)="addIntRateRow(i);" />
+                                                                </td>
+                                                                <td *ngIf="int.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
+                                                                        (click)="deleteIntRateRow(i)"
+                                                                        style='cursor: pointer;'>Remove</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -43,12 +122,50 @@
                     <ngb-tab title="3.Period">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="col-12">
-                                            <div class="table-responsive">
-                                                <table datatable [dtOptions]="dtExportButtonOptions3" class="table table-striped table-bordered table-hover">
-                                                </table>
+                                <div class="card border-primary">
+                                    <div class="card-block highlight">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-striped table-bordered table-hover compact">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Serial Number</td>
+                                                                <td>From Peroid(Months)</td>
+                                                                <td>To Peroid(Months)</td>
+                                                                <td>Action</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let month of peroid; let i = index;">
+                                                                <td *ngIf="month.delete!=1">
+                                                                    {{i+1}}
+                                                                </td>
+                                                                <td *ngIf="month.delete!=1">
+                                                                    <input class="form-control" #fromPeroid
+                                                                        name="fromPeroid"
+                                                                        (focusout)="checkFromPeroid(i,fromPeroid.value)"
+                                                                        value="{{month.FROM_MONTHS}}" maxlength="4"
+                                                                        (keypress)="$event.charCode >= 48 && $event.charCode < 58"
+                                                                        type="text" />
+                                                                </td>
+                                                                <td *ngIf="month.delete!=1">
+                                                                    <input class="form-control" type="text" #toPeroid
+                                                                        maxlength="4"
+                                                                        (keypress)="$event.charCode >= 48 && $event.charCode < 58"
+                                                                        (focusout)="checkToPeroid(i,toPeroid.value);"
+                                                                        value="{{month.TO_MONTHS}}"
+                                                                        (keyup)="addPeriodRow(i);" />
+                                                                </td>
+                                                                <td *ngIf="month.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
+                                                                        (click)="deletePeroidRow(i)"
+                                                                        style='cursor: pointer;'>Remove</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +179,8 @@
                                 <div class="row">
                                     <div class="card-block">
                                         <div class="col-sm">
-                                            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                                            <form action="javascript:" [formGroup]="angForm" novalidate
+                                                #myform="ngForm">
                                                 <div class="row">
                                                     <div class="col-sm">Term Name</div>
                                                     <div class="col-sm">From Month</div>
@@ -76,13 +194,19 @@
                                                     <div class="col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="shortTermFromMon" class="form-control" placeholder=" "
-                                                                    id="shortTermFromMon"   value="{{ message.shortTermFromMon }}" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="shortTermFromMon">
+                                                                <input type="text" name="shortTermFromMon"
+                                                                    class="form-control" placeholder=" "
+                                                                    id="shortTermFromMon" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9" #shortTermFromMon
+                                                                    formControlName="shortTermFromMon">
                                                                 <label for="shortTermFromMon">Form Months</label>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['shortTermFromMon'].invalid && (angForm.controls['shortTermFromMon'].dirty || angForm.controls['shortTermFromMon'].touched)" class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['shortTermFromMon'].errors?.pattern ">
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['shortTermFromMon'].invalid && (angForm.controls['shortTermFromMon'].dirty || angForm.controls['shortTermFromMon'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf="angForm.controls['shortTermFromMon'].errors?.pattern ">
                                                                 Input allowed only 0-9
                                                             </div>
                                                         </div>
@@ -90,13 +214,20 @@
                                                     <div class="col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="shortTermToMon" class="form-control" placeholder=" "
-                                                                    id="shortTermToMon"   value="{{ message.shortTermToMon }}" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="shortTermToMon">
+                                                                <input type="text" name="shortTermToMon"
+                                                                    class="form-control" placeholder=" "
+                                                                    id="shortTermToMon" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9" #shortTermToMon
+                                                                    formControlName="shortTermToMon"
+                                                                    (change)="checkToTerms(shortTermToMon.name)">
                                                                 <label for="shortTermToMon">To Months</label>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['shortTermToMon'].invalid && (angForm.controls['shortTermToMon'].dirty || angForm.controls['shortTermToMon'].touched)" class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['shortTermToMon'].errors?.pattern ">
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['shortTermToMon'].invalid && (angForm.controls['shortTermToMon'].dirty || angForm.controls['shortTermToMon'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf="angForm.controls['shortTermToMon'].errors?.pattern ">
                                                                 Input allowed only 0-9
                                                             </div>
                                                         </div>
@@ -109,13 +240,20 @@
                                                     <div class="col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="mediumTermFromMon" class="form-control" placeholder=" "
-                                                                    id="mediumTermFromMon"   value="{{ message.mediumTermFromMon }}" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="mediumTermFromMon">
+                                                                <input type="text" name="mediumTermFromMon"
+                                                                    class="form-control" placeholder=" "
+                                                                    id="mediumTermFromMon" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9" #mediumTermFromMon
+                                                                    formControlName="mediumTermFromMon"
+                                                                    (change)="checkFromTerms(mediumTermFromMon.name)">
                                                                 <label for="mediumTermFromMon">Form Months</label>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['mediumTermFromMon'].invalid && (angForm.controls['mediumTermFromMon'].dirty || angForm.controls['mediumTermFromMon'].touched)" class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['mediumTermFromMon'].errors?.pattern">
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['mediumTermFromMon'].invalid && (angForm.controls['mediumTermFromMon'].dirty || angForm.controls['mediumTermFromMon'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf="angForm.controls['mediumTermFromMon'].errors?.pattern ">
                                                                 Input allowed only 0-9
                                                             </div>
                                                         </div>
@@ -123,13 +261,20 @@
                                                     <div class="col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="mediumTermToMon" class="form-control" placeholder=" "
-                                                                    id="mediumTermToMon"   value="{{ message.mediumTermToMon }}" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="mediumTermToMon">
+                                                                <input type="text" name="mediumTermToMon"
+                                                                    class="form-control" placeholder=" "
+                                                                    id="mediumTermToMon" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9" #mediumTermToMon
+                                                                    formControlName="mediumTermToMon"
+                                                                    (change)="checkToTerms(mediumTermToMon.name)">
                                                                 <label for="mediumTermToMon">To Months</label>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['mediumTermToMon'].invalid && (angForm.controls['mediumTermToMon'].dirty || angForm.controls['mediumTermToMon'].touched)" class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['mediumTermToMon'].errors?.pattern">
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['mediumTermToMon'].invalid && (angForm.controls['mediumTermToMon'].dirty || angForm.controls['mediumTermToMon'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf="angForm.controls['mediumTermToMon'].errors?.pattern ">
                                                                 Input allowed only 0-9
                                                             </div>
                                                         </div>
@@ -142,13 +287,20 @@
                                                     <div class="col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="longTermFromMon" class="form-control" placeholder=" "
-                                                                    id="longTermFromMon"   value="{{ message.longTermFromMon }}" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="longTermFromMon">
+                                                                <input type="text" name="longTermFromMon"
+                                                                    class="form-control" placeholder=" "
+                                                                    id="longTermFromMon" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9" #longTermFromMon
+                                                                    formControlName="longTermFromMon"
+                                                                    (change)="checkFromTerms(longTermFromMon.name)">
                                                                 <label for="longTermFromMon">Form Months</label>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['longTermFromMon'].invalid && (angForm.controls['longTermFromMon'].dirty || angForm.controls['longTermFromMon'].touched)" class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['longTermFromMon'].errors?.pattern ">
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['longTermFromMon'].invalid && (angForm.controls['longTermFromMon'].dirty || angForm.controls['longTermFromMon'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf="angForm.controls['longTermFromMon'].errors?.pattern ">
                                                                 Input allowed only 0-9
                                                             </div>
                                                         </div>
@@ -156,22 +308,23 @@
                                                     <div class="col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="longTermToMon" class="form-control" placeholder=" "
-                                                                    id="longTermToMon"   value="{{ message.longTermToMon }}" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="longTermToMon">
+                                                                <input type="text" name="longTermToMon"
+                                                                    class="form-control" placeholder=" "
+                                                                    id="longTermToMon" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9" #longTermToMon
+                                                                    formControlName="longTermToMon"
+                                                                    (change)="checkToTerms(longTermToMon.name)">
                                                                 <label for="longTermToMon">To Months</label>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['longTermToMon'].invalid && (angForm.controls['longTermToMon'].dirty || angForm.controls['longTermToMon'].touched)" class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['longTermToMon'].errors?.pattern ">
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['longTermToMon'].invalid && (angForm.controls['longTermToMon'].dirty || angForm.controls['longTermToMon'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf="angForm.controls['longTermToMon'].errors?.pattern ">
                                                                 Input allowed only 0-9
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm">
-                                                        <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
-                                                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -179,34 +332,56 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-
-                                    <div class="card-block">
-                                        <div class="col-12">
-                                            <div class="table-responsive">
-                                                <table datatable [dtOptions]="dtExportButtonOptions4" class="table table-striped table-bordered table-hover" width=100%>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
                         </ng-template>
                     </ngb-tab>
                     <ngb-tab title="5.Insurance Amount">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
-
-                                <div class="row">
-                                    <div class="col-12">
-
-                                        <div class="col-12">
-                                            <div class="table-responsive">
-                                                <table datatable [dtOptions]="dtExportButtonOptions1" class="table table-striped table-bordered table-hover" [disabled]="angForm.invalid" width=100%>
-                                                </table>
+                                <div class="card border-primary">
+                                    <div class="card-block highlight">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-striped table-bordered table-hover compact">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Serial Number</td>
+                                                                <td>From Amount</td>
+                                                                <td>To Amount</td>
+                                                                <td>Action</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let insuranceAmt of Insurance; let i = index;">
+                                                                <td *ngIf="insuranceAmt.delete!=1">
+                                                                    {{i+1}}
+                                                                </td>
+                                                                <td *ngIf="insuranceAmt.delete!=1">
+                                                                    <input class="form-control" #FromAmount
+                                                                        name="FromAmount"
+                                                                        (focusout)="checkInsuranceFromAmount(i,FromAmount.value)"
+                                                                        value="{{insuranceAmt.AMOUNT_FROM}}"
+                                                                        pattern="\d{1,10}(\.\d{2})?" maxlength="13"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        type="text" />
+                                                                </td>
+                                                                <td *ngIf="insuranceAmt.delete!=1">
+                                                                    <input class="form-control" type="text" #ToAmount
+                                                                        pattern="\d{1,10}(\.\d{2})?" maxlength="13"
+                                                                        (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (focusout)="checkInsuranceToAmount(i,ToAmount.value);"
+                                                                        value="{{insuranceAmt.AMOUNT_TO}}"
+                                                                        (keyup)="addInsuranceRow(i);" />
+                                                                </td>
+                                                                <td *ngIf="insuranceAmt.delete!=1"><span
+                                                                        class=" badge badge-pill  badge-danger"
+                                                                        (click)="deleteInsuranceRow(i)"
+                                                                        style='cursor: pointer;'>Remove</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -215,6 +390,14 @@
                         </ng-template>
                     </ngb-tab>
                 </ngb-tabset>
+                <div class="row">
+                    <div class="col-sm">
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                            (click)="submit()">Add</button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()"
+                            *ngIf="updateShow">Update</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

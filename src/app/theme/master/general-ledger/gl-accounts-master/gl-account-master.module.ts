@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../../shared/shared.module';
 import { GlAccountsMasterComponent } from './gl-accounts-master.component';
 import { GeneralLedgerRoutingModule } from './gl-accounts-master-routing.module'
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
@@ -15,10 +17,12 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   imports: [
     CommonModule,
     GeneralLedgerRoutingModule,
-    SelectModule,
+    // SelectModule,
     SharedModule,
     DataTablesModule,
     NgbModule,
+    NgSelectModule,
+
     FormsModule, ReactiveFormsModule
   ],
   declarations: [GlAccountsMasterComponent],
