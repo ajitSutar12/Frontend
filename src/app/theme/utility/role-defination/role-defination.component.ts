@@ -132,7 +132,7 @@ export class RoleDefinationComponent implements OnInit {
       this._service.addNewRoleHasPermission(roleObject).subscribe(data=>{
         Swal.fire('Success!', 'Data Added Successfully !', 'success');
       },err=>{
-        Swal.fire('Error!', 'This Role Already Exists !', 'error');
+        Swal.fire('Oops!', 'This Role Already Exists !', 'error');
       })
     }else{
       alert('please select All requied data')

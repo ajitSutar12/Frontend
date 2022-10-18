@@ -479,7 +479,7 @@ export class MultiVoucherComponent implements OnInit {
 
       this.calculateVoucher()
     } else {
-      Swal.fire('Error!', 'Please once check your voucher, and fill requied data', 'error');
+      Swal.fire('Oops!', 'Please once check your voucher, and fill requied data', 'error');
     }
 
   }
@@ -524,7 +524,7 @@ export class MultiVoucherComponent implements OnInit {
         console.log(err);
       })
     } else {
-      Swal.fire('Error', 'Total credit amount ' + this.totalCredit + ' and ' + 'total debit amount' + this.totalDebit + ' are not match')
+      Swal.fire('Oops', 'Total credit amount ' + this.totalCredit + ' and ' + 'total debit amount' + this.totalDebit + ' are not match')
     }
 
   }
@@ -673,7 +673,7 @@ export class MultiVoucherComponent implements OnInit {
     }
     this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
       if (data == true) {
-        Swal.fire('Error!', 'Access dined Account Close Already!', 'error');
+        Swal.fire('Oops!', 'Access dined Account Close Already!', 'error');
         return 0;
       }
     }, err => {
@@ -751,11 +751,11 @@ export class MultiVoucherComponent implements OnInit {
 
     if (data.FIELD_AMOUNT != 'PENAL_INT_AMOUNT') {
       if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(data.Amount) != Number(data.Balance)) {
-        Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
+        Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
         this.headData[i].Amount = '0.00'
       } else {
         if (data.CHECK_REQUIRE == '1' && Number(data.Amount) != Number(data.Balance)) {
-          Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
+          Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
           this.headData[i].Amount = '0.00'
         }
       }
@@ -767,7 +767,7 @@ export class MultiVoucherComponent implements OnInit {
   decimalAllContent($event) {
 
     if (this.submitTranMode == undefined) {
-      Swal.fire('Error', 'Please First Select Tran Mode then enter Amount', 'error');
+      Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
       let value = Number($event.target.value);
       this.totalAmt = 0;
       $event.target.value = 0
@@ -904,7 +904,7 @@ export class MultiVoucherComponent implements OnInit {
       this.showChequeDetails = false;
       this.calculateVoucher()
     } else {
-      Swal.fire('Error!', 'Please once check your voucher, and fill requied data', 'error');
+      Swal.fire('Oops!', 'Please once check your voucher, and fill requied data', 'error');
 
     }
   }
@@ -1250,7 +1250,7 @@ export class MultiVoucherComponent implements OnInit {
     }
     this._service.checkZeroBalance(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.SideDetails()
         this.angForm.controls['amt'].reset();
         this.angForm.controls['total_amt'].reset();
@@ -1258,7 +1258,7 @@ export class MultiVoucherComponent implements OnInit {
       } else {
         this._service.clearWithdrawBal(obj).subscribe(data => {
           if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
             this.SideDetails()
             this.angForm.controls['amt'].reset();
             this.angForm.controls['total_amt'].reset();
@@ -1267,7 +1267,7 @@ export class MultiVoucherComponent implements OnInit {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
                 this.submitForm = true
-                // Swal.fire('Error!', data.message, 'error');
+                // Swal.fire('Oops!', data.message, 'error');
                 // this.SideDetails()
 
                 // this.angForm.controls['amt'].reset();
@@ -1294,7 +1294,7 @@ export class MultiVoucherComponent implements OnInit {
               } else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Error!', data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.SideDetails()
                     this.angForm.controls['amt'].reset();
                     this.angForm.controls['total_amt'].reset();
@@ -1302,7 +1302,7 @@ export class MultiVoucherComponent implements OnInit {
                   } else {
                     this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
                       if (data != 0) {
-                        Swal.fire('Error!', data.message, 'error');
+                        Swal.fire('Oops!', data.message, 'error');
                         this.SideDetails()
                         this.angForm.controls['amt'].reset();
                         this.angForm.controls['total_amt'].reset();
@@ -1310,7 +1310,7 @@ export class MultiVoucherComponent implements OnInit {
                       } else {
                         this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
                           if (data != 0) {
-                            Swal.fire('Error!', data.message, 'error');
+                            Swal.fire('Oops!', data.message, 'error');
                             this.SideDetails()
                             this.angForm.controls['amt'].reset();
                             this.angForm.controls['total_amt'].reset();
@@ -1318,7 +1318,7 @@ export class MultiVoucherComponent implements OnInit {
                           } else {
                             this._vservice.InstructionFreezeAc(obj).subscribe(data => {
                               if (data != 0) {
-                                Swal.fire('Error!', data.message, 'error');
+                                Swal.fire('Oops!', data.message, 'error');
                                 this.SideDetails()
                                 this.angForm.controls['amt'].reset();
                                 this.angForm.controls['total_amt'].reset();
@@ -1327,7 +1327,7 @@ export class MultiVoucherComponent implements OnInit {
                               } else {
                                 this._vservice.MinBalanceChecking(obj).subscribe(data => {
                                   if (data != 0) {
-                                    Swal.fire('Error!', data.message, 'error');
+                                    Swal.fire('Oops!', data.message, 'error');
                                     this.SideDetails()
                                     this.angForm.controls['amt'].reset();
                                     this.angForm.controls['total_amt'].reset();
@@ -1335,7 +1335,7 @@ export class MultiVoucherComponent implements OnInit {
                                   } else {
                                     this._vservice.CheckClearBalAndAmt(obj).subscribe(data => {
                                       if (data != 0) {
-                                        Swal.fire('Error!', data.message, 'error');
+                                        Swal.fire('Oops!', data.message, 'error');
                                         this.SideDetails()
                                         this.angForm.controls['amt'].reset();
                                         this.angForm.controls['total_amt'].reset();
@@ -1344,7 +1344,7 @@ export class MultiVoucherComponent implements OnInit {
                                       } else {
                                         this._vservice.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
                                           if (data != 0) {
-                                            Swal.fire('Error!', data.message, 'error');
+                                            Swal.fire('Oops!', data.message, 'error');
                                             this.SideDetails()
                                             this.angForm.controls['amt'].reset();
                                             this.angForm.controls['total_amt'].reset();
@@ -1353,7 +1353,7 @@ export class MultiVoucherComponent implements OnInit {
                                           } else {
                                             this._vservice.DepositeAmountAndIntallments(obj).subscribe(data => {
                                               if (data != 0) {
-                                                Swal.fire('Error!', data.message, 'error');
+                                                Swal.fire('Oops!', data.message, 'error');
                                                 this.SideDetails()
                                                 this.angForm.controls['amt'].reset();
                                                 this.angForm.controls['total_amt'].reset();
@@ -1362,7 +1362,7 @@ export class MultiVoucherComponent implements OnInit {
                                               } else {
                                                 this._vservice.DepositAndTotalInstallments(obj).subscribe(data => {
                                                   if (data != 0) {
-                                                    Swal.fire('Error!', data.message, 'error');
+                                                    Swal.fire('Oops!', data.message, 'error');
                                                     this.SideDetails()
                                                     this.angForm.controls['amt'].reset();
                                                     this.angForm.controls['total_amt'].reset();
@@ -1371,7 +1371,7 @@ export class MultiVoucherComponent implements OnInit {
                                                   } else {
                                                     this._vservice.DepositAndDepositAmount(obj).subscribe(data => {
                                                       if (data != 0) {
-                                                        Swal.fire('Error!', data.message, 'error');
+                                                        Swal.fire('Oops!', data.message, 'error');
                                                         this.SideDetails()
                                                         this.angForm.controls['amt'].reset();
                                                         this.angForm.controls['total_amt'].reset();
@@ -1379,7 +1379,7 @@ export class MultiVoucherComponent implements OnInit {
                                                       } else {
                                                         this._vservice.PremcloseTdateTamtCom(obj).subscribe(data => {
                                                           if (data != 0) {
-                                                            Swal.fire('Error!', data.message, 'error');
+                                                            Swal.fire('Oops!', data.message, 'error');
                                                             this.SideDetails()
                                                             this.angForm.controls['amt'].reset();
                                                             this.angForm.controls['total_amt'].reset();
@@ -1388,7 +1388,7 @@ export class MultiVoucherComponent implements OnInit {
                                                           } else {
                                                             this._vservice.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
                                                               if (data != 0) {
-                                                                Swal.fire('Error!', data.message, 'error');
+                                                                Swal.fire('Oops!', data.message, 'error');
                                                                 this.SideDetails()
                                                                 this.angForm.controls['amt'].reset();
                                                                 this.angForm.controls['total_amt'].reset();
@@ -1396,7 +1396,7 @@ export class MultiVoucherComponent implements OnInit {
                                                               } else {
                                                                 this._vservice.ComVouamtClearbalAndStrs(obj).subscribe(data => {
                                                                   if (data != 0) {
-                                                                    Swal.fire('Error!', data.message, 'error');
+                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                     this.SideDetails()
                                                                     this.angForm.controls['amt'].reset();
                                                                     this.angForm.controls['total_amt'].reset();
@@ -1404,7 +1404,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                   } else {
                                                                     this._vservice.DepositGreaterShareLimitAmt(obj).subscribe(data => {
                                                                       if (data != 0) {
-                                                                        Swal.fire('Error!', data.message, 'error');
+                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                         this.SideDetails()
                                                                         this.angForm.controls['amt'].reset();
                                                                         this.angForm.controls['total_amt'].reset();
@@ -1412,7 +1412,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                       } else {
                                                                         this._vservice.ZeroBalance(obj).subscribe(data => {
                                                                           if (data != 0) {
-                                                                            Swal.fire('Error!', data.message, 'error');
+                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                             this.SideDetails()
                                                                             this.angForm.controls['amt'].reset();
                                                                             this.angForm.controls['total_amt'].reset();
@@ -1420,7 +1420,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                           } else {
                                                                             this._vservice.CashWithdraw(obj).subscribe(data => {
                                                                               if (data != 0) {
-                                                                                Swal.fire('Error!', data.message, 'error');
+                                                                                Swal.fire('Oops!', data.message, 'error');
                                                                                 this.SideDetails()
                                                                                 this.angForm.controls['amt'].reset();
                                                                                 this.angForm.controls['total_amt'].reset();
@@ -1428,7 +1428,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                               } else {
                                                                                 this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                   if (data != 0) {
-                                                                                    Swal.fire('Error!', data.message, 'error');
+                                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                                     this.SideDetails()
                                                                                     this.angForm.controls['amt'].reset();
                                                                                     this.angForm.controls['total_amt'].reset();
@@ -1436,7 +1436,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                   } else {
                                                                                     this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                       if (data != 0) {
-                                                                                        Swal.fire('Error!', data.message, 'error');
+                                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                                         this.SideDetails()
                                                                                         this.angForm.controls['amt'].reset();
                                                                                         this.angForm.controls['total_amt'].reset();
@@ -1444,7 +1444,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                       } else {
                                                                                         this._vservice.withdrawClosingCondition(obj).subscribe(data => {
                                                                                           if (data != 0) {
-                                                                                            Swal.fire('Error!', data.message, 'error');
+                                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                                             this.SideDetails()
                                                                                             this.angForm.controls['amt'].reset();
                                                                                             this.angForm.controls['total_amt'].reset();
@@ -1575,7 +1575,7 @@ export class MultiVoucherComponent implements OnInit {
 
     this._vservice.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.customer = null;
         this.showlgindetails()
       } else {
@@ -1600,14 +1600,14 @@ export class MultiVoucherComponent implements OnInit {
           } else {
             this._vservice.CheckLoginFlagInDpmaster(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Error!', data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
                 this.customer = null
                 this.showlgindetails()
 
               } else {
                 this._vservice.checkDormantAccount(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Error!', data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.customer = null
                     this.showlgindetails()
 
@@ -1633,7 +1633,7 @@ export class MultiVoucherComponent implements OnInit {
                       } else {
                         this._vservice.IsDirectEntryAllow(obj).subscribe(data => {
                           if (data != 0) {
-                            Swal.fire('Error!', data.message, 'error');
+                            Swal.fire('Oops!', data.message, 'error');
                           }
                         }, err => {
                           console.log(err);
@@ -1710,23 +1710,23 @@ export class MultiVoucherComponent implements OnInit {
 
     this._vservice.StandingOrInterestInstruction(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.selectedMode = null
       } else {
         this._vservice.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
             this.selectedMode = null
           } else {
             this._vservice.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Error!', data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
                 this.selectedMode = null
 
               } else {
                 this._vservice.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Error!', data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.selectedMode = null
 
                   }
@@ -1764,12 +1764,12 @@ export class MultiVoucherComponent implements OnInit {
 
       this._vservice.ComInterestDateAndCurrentDate(obj).subscribe(data => {
         if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
+          Swal.fire('Oops!', data.message, 'error');
           this.angForm.controls['Intdate'].reset()
         } else {
           this._vservice.ComInterestDateAndLastDMonth(obj).subscribe(data => {
             if (data != 0) {
-              Swal.fire('Error!', data.message, 'error');
+              Swal.fire('Oops!', data.message, 'error');
             }
           }, err => {
             console.log(err);
@@ -1798,7 +1798,7 @@ export class MultiVoucherComponent implements OnInit {
 
     this._vservice.ComInterestDateAndLastDMonth(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
       }
     }, err => {
       console.log(err);

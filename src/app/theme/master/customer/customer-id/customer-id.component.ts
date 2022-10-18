@@ -945,11 +945,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  fileChangeEvent(event: Event, id, valueid) {
+  fileChangeEvent(event, id, valueid) {
     debugger
     if (this.documentMaster[id]['status'] == true) {
       Swal.fire({
-        title: 'Do You Want To Replace previous document?',
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -957,17 +958,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         cancelButtonText: 'No',
         confirmButtonText: 'Yes'
       }).then((result) => {
-        if (result.isConfirmed) {
-          debugger
+        if (result.isConfirmed) {          
           let result
           let arr = [];
           let me = this;
           let obj = {};
           let selectedObj = {};
-
           let file = (event.target as HTMLInputElement).files[0];
           this.documentMaster[id]['status'] = true
-
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = async function (ele: any) {
@@ -975,16 +973,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             let selecetedImg = ele.target.result;
             selectedObj[valueid] = selecetedImg
             obj[valueid] = result;
-
-
           };
-          // this.fileuploaded=true,
-          // this.filenotuploaded=false
-
           reader.onerror = function (error) {
             console.log('Error: ', error);
           };
-
           let isExist: boolean = false
           for (let element of this.imageObject) {
             if (Number(Object.keys(element)[0]) == valueid) {
@@ -1000,7 +992,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               break
             }
           }
-
           if (!isExist) {
             reader.onload = async function (ele: any) {
               result = await reader.result;
@@ -1013,7 +1004,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             this.documentMaster[id]['status'] = true
           }
         } else {
-
+          event.target.value = null
         }
       })
     }

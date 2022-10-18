@@ -607,12 +607,12 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         this.currentSchemeService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Error', 'This scheme Code is already exists', 'error')
+            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Error', 'Please enter the scheme code within 151 to 200 this range', 'error')
+        Swal.fire('Oops', 'Please enter the scheme code within 151 to 200 this range', 'error')
       }
     }
   }

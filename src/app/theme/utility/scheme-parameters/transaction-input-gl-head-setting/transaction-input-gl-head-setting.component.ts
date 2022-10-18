@@ -479,7 +479,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       this._transInput.duplicatecheck(obj).subscribe(data => {
         if (data.length != 0) {
           this.ngHeadType = null
-          Swal.fire('Error', 'This record already exists', 'error')
+          Swal.fire('Oops', 'This record already exists', 'error')
         }
       })
     }

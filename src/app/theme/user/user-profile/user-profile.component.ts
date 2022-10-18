@@ -242,7 +242,7 @@ export class UserProfileComponent implements OnInit {
 
     if (updateObject.newPassword != '' && updateObject.confirmPassword != '') {
       if (updateObject.newPassword != updateObject.confirmPassword) {
-        Swal.fire('Error!', 'New password and Confirm password not matched', 'error');
+        Swal.fire('Oops!', 'New password and Confirm password not matched', 'error');
         throw Error("");
       }
     }
@@ -291,7 +291,7 @@ export class UserProfileComponent implements OnInit {
 
 
     }, err => {
-      Swal.fire('Error!', err.error.message, 'error');
+      Swal.fire('Oops!', err.error.message, 'error');
 
     })
   }

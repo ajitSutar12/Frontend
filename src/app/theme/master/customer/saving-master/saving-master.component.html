@@ -348,6 +348,15 @@
                             <div class="col-sm-2">
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
+                                  <input type="text" name="AC_ADHARNO" class="form-control" placeholder=" "
+                                    id="AC_ADHARNO" formControlName="AC_ADHARNO" disabled />
+                                  <label for="AC_ADHARNO">Aadhar Number</label>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-sm-2">
+                              <div class="form-group input-group">
+                                <span class="border-lable-flt">
                                   <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
                                     id="AC_SCHMAMT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
                                     title="Input allowed only  0-9" formControlName="AC_SCHMAMT"
@@ -375,6 +384,8 @@
                                 </div>
                               </div>
                             </div>
+                          </div>
+                          <div class="row">
                             <div class="col-sm-2">
                               <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -724,8 +735,8 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TPIN" class="form-control" placeholder=" " id="AC_TPIN"
-                                      pattern="^[0-9]+$" minlength="6" maxlength="6" 
-                                      title="Input allowed only  0-9" (keypress)="
+                                      pattern="^[0-9]+$" minlength="6" maxlength="6" title="Input allowed only  0-9"
+                                      (keypress)="
                                         ($event.charCode >= 48 &&
                                           $event.charCode < 58)
                                       " formControlName="AC_TPIN" />
@@ -1056,7 +1067,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" placeholder="Datepicker" placeholder="dd/mm/yyyy"
-                                            name="AC_NDATE" [(ngModel)]="ngnomineedate" [minDate]="minDate"
+                                            name="AC_NDATE" [(ngModel)]="ngnomineedate" [minDate]="current_date"
                                             class="form-control" id="AC_NDATE" [bsConfig]="{
                                               dateInputFormat: 'DD/MM/YYYY'
                                             }" formControlName="AC_NDATE" bsDatepicker />
