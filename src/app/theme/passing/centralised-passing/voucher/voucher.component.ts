@@ -127,7 +127,7 @@ export class VoucherComponent implements OnInit {
         },
         {
           title: 'Scheme Type',
-          data: 'TRAN_ACTYPE'
+          data: 'tran_actype'
         },
         // {
         //   title: 'Scheme',

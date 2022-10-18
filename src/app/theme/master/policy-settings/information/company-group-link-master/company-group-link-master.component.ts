@@ -556,7 +556,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
 
     } else {
-      Swal.fire('Error', 'To Account Number Must Be Greater Than From Account Number', 'error');
+      Swal.fire('Oops', 'To Account Number Must Be Greater Than From Account Number', 'error');
       this.ngToAccount = null
       this.angForm.controls['TO_AC'].reset()
     }

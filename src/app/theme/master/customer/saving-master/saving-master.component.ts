@@ -209,6 +209,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   bsValue = new Date();
   maxDate: Date;
   minDate: Date;
+  current_date
 
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
@@ -396,11 +397,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this._ownbranchMaster.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
-
     this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
     })
-
     this._directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.director = data;
     })
@@ -444,6 +443,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
         AC_PANNO: data.AC_PANNO,
+        AC_ADHARNO: data.AC_ADHARNO,
         AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
       })
       this.ageCalculator(data.AC_BIRTH_DT);
@@ -518,6 +518,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             AC_PHNO: '',
             AC_EMAIL: '',
             AC_PANNO: '',
+            AC_ADHARNO: '',
             AC_MEM_BIRTH_DT: '',
           })
 
@@ -582,6 +583,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_BALCATG: ['', [Validators.required]],
       AC_INTCATA: ['', [Validators.required]],
       AC_PANNO: [''],
+      AC_ADHARNO: [''],
       AC_SCHMAMT: ['', [Validators.pattern]],
       AC_IS_RECOVERY: [''],
       //Address
@@ -635,6 +637,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       ATTERONEY_NAME: ['', []],
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
+    })
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.current_date = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.current_date = this.current_date._d
     })
   }
 

@@ -829,7 +829,7 @@ export class AccountEnquiryComponent implements OnInit {
         }
       }, (error) => {
         console.log(error, 'err')
-        Swal.fire('Error!', error?.error?.message, 'error');
+        Swal.fire('Oops!', error?.error?.message, 'error');
       })
     }
   }

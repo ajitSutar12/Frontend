@@ -47,7 +47,7 @@ export class BasicLoginComponent implements OnInit {
       } else {
         this.resetPassword = true;
         this.forgetPassword = false;
-        Swal.fire('Error!', 'Your password is expired please reset your password', 'error');
+        Swal.fire('Oops!', 'Your password is expired please reset your password', 'error');
       }
     }, err => {
 
