@@ -216,7 +216,7 @@ export class EditInterestCalculationComponent implements OnInit {
    submit(event) {
      //To clear form
      if(this.angForm.status == 'INVALID'){
-        Swal.fire('Error',"Please select required data",'error');
+        Swal.fire('Oops',"Please select required data",'error');
      }else{
         //fetch data
         let angValue = this.angForm.value;
@@ -239,7 +239,7 @@ export class EditInterestCalculationComponent implements OnInit {
 
   AlterData(){
     if(this.InterestTableData.length == 0){
-      Swal.fire('Error','Something went wrong','error')
+      Swal.fire('Oops','Something went wrong','error')
     }else{
       this._service.submitAlterData(this.InterestTableData).subscribe(data=>{
         Swal.fire('Success',"Interest Calculation Edit Successfully",'success');

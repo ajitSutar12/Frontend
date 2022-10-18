@@ -31,7 +31,7 @@ export class VoucherEntryComponent implements OnInit {
   @ViewChild('focusbutton') focusbutton: ElementRef<HTMLElement>;
   @ViewChild('swiper') swiper: ElementRef;
   // @ViewChild('tran_mode') tran_mode: ElementRef;
-  @ViewChild('tran_mode') tran_mode:NgSelectComponent;
+  @ViewChild('tran_mode') tran_mode: NgSelectComponent;
 
 
   branchCode: any = null
@@ -518,7 +518,7 @@ export class VoucherEntryComponent implements OnInit {
         console.log(err);
       })
     } else {
-      Swal.fire('Error!', 'Invalid Amount Details', 'error');
+      Swal.fire('Oops!', 'Invalid Amount Details', 'error');
     }
   }
   // Reset Function
@@ -608,7 +608,6 @@ export class VoucherEntryComponent implements OnInit {
             let value = {}
             // value = data.find(data => data['FIELD_AMOUNT'] == headType[i].FieldAmount)
             // if (value != undefined) {
-            //debugger
             console.log(item);
             if (this.submitTranMode.tran_drcr == item.DRCR_APPLICABLE || item.DRCR_APPLICABLE == 'B') {
               item['Amount'] = 0;
@@ -649,8 +648,6 @@ export class VoucherEntryComponent implements OnInit {
 
       balancedata = data1
       this.headData.forEach(element => {
-        //debugger
-        //debugger
         let newobj = {
           acno: element?.GL_CODE,
           scheme: '101',
@@ -886,7 +883,7 @@ export class VoucherEntryComponent implements OnInit {
     }
     // this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
     //   if (data == true) {
-    //     Swal.fire('Error!', 'Access dined Account Close Already!', 'error');
+    //     Swal.fire('Oops!', 'Access dined Account Close Already!', 'error');
     //     return 0;
     //   }
     // }, err => {
@@ -966,7 +963,6 @@ export class VoucherEntryComponent implements OnInit {
     var t = ele.target.value;
     ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(ele.target.value);
-    debugger
     if (Number(ele.target.value) > Number(this.headData[i].Balance)) {
       this.headData[i].Amount = value
       Swal.fire('Info', 'Please fill proper amount!', 'info')
@@ -992,11 +988,11 @@ export class VoucherEntryComponent implements OnInit {
     if (data.FIELD_AMOUNT != 'PENAL_INT_AMOUNT') {
       if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(value)) {
         this.headData[i].Amount = 0
-        Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
+        Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
       } else {
         if (data.CHECK_REQUIRE == '1' && Number(value) != Number(data.Balance)) {
           this.headData[i].Amount = 0
-          Swal.fire('Error', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
+          Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
         }
       }
 
@@ -1014,7 +1010,6 @@ export class VoucherEntryComponent implements OnInit {
   extenstionaftervoucher = ''
 
   getaftervoucher(event) {
-    debugger
     this.submitForm = true
     var t = event.target.value;
     if (this.submitCustomer.AC_ACNOTYPE == 'LN' && this.submitTranMode.tran_drcr == 'D') {
@@ -1070,7 +1065,7 @@ export class VoucherEntryComponent implements OnInit {
   //decimal content show purpose wrote below function
   decimalAllContent($event) {
     if (this.submitTranMode == undefined) {
-      Swal.fire('Error', 'Please First Select Tran Mode then enter Amount', 'error');
+      Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
       let value = Number($event.target.value);
       this.totalAmt = 0;
       $event.target.value = 0
@@ -1160,6 +1155,7 @@ export class VoucherEntryComponent implements OnInit {
           this.angForm.controls['total_amt'].reset();
           this.SideDetails()
           this.submitForm = true
+          this.swiper.nativeElement.focus();
         }
       })
 
@@ -1184,17 +1180,17 @@ export class VoucherEntryComponent implements OnInit {
     this._service.checkZeroBalance(obj).subscribe(data => {
       if (data != 0) {
         this.angForm.controls['amt'].reset();
-        // this.swiper.nativeElement.focus();
+        this.swiper.nativeElement.focus();
         this.angForm.controls['total_amt'].reset();
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.submitForm = true
       } else {
         this._service.clearWithdrawBal(obj).subscribe(data => {
           if (data != 0) {
             this.angForm.controls['amt'].reset();
-            // this.swiper.nativeElement.focus();
+            this.swiper.nativeElement.focus();
             this.angForm.controls['total_amt'].reset();
-            Swal.fire('Error!', data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
             this.submitForm = true
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
@@ -1207,8 +1203,8 @@ export class VoucherEntryComponent implements OnInit {
                     this.SideDetails()
                     this.angForm.controls['amt'].reset();
                     this.angForm.controls['total_amt'].reset();
-                    // this.swiper.nativeElement.focus();
-                    Swal.fire('Error!', data.message, 'error');
+                    this.swiper.nativeElement.focus();
+                    Swal.fire('Oops!', data.message, 'error');
                     this.submitForm = true
                   } else {
                     this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
@@ -1217,8 +1213,8 @@ export class VoucherEntryComponent implements OnInit {
                         this.SideDetails()
                         this.angForm.controls['amt'].reset();
                         this.angForm.controls['total_amt'].reset();
-                        // this.swiper.nativeElement.focus();
-                        Swal.fire('Error!', data.message, 'error');
+                        this.swiper.nativeElement.focus();
+                        Swal.fire('Oops!', data.message, 'error');
                         this.submitForm = true
                       } else {
                         this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
@@ -1227,8 +1223,8 @@ export class VoucherEntryComponent implements OnInit {
                             this.SideDetails()
                             this.angForm.controls['amt'].reset();
                             this.angForm.controls['total_amt'].reset();
-                            // this.swiper.nativeElement.focus();
-                            Swal.fire('Error!', data.message, 'error');
+                            this.swiper.nativeElement.focus();
+                            Swal.fire('Oops!', data.message, 'error');
                             this.submitForm = true
                           } else {
                             this._service.InstructionFreezeAc(obj).subscribe(data => {
@@ -1237,9 +1233,9 @@ export class VoucherEntryComponent implements OnInit {
                                 this.SideDetails()
                                 this.angForm.controls['amt'].reset();
                                 this.angForm.controls['total_amt'].reset();
-                                // this.swiper.nativeElement.focus();
+                                this.swiper.nativeElement.focus();
                                 let el: HTMLElement = this.focusbutton.nativeElement;
-                                Swal.fire('Error!', data.message, 'error');
+                                Swal.fire('Oops!', data.message, 'error');
                                 this.submitForm = true
                               } else {
                                 this._service.MinBalanceChecking(obj).subscribe(data => {
@@ -1248,8 +1244,8 @@ export class VoucherEntryComponent implements OnInit {
                                     this.SideDetails()
                                     this.angForm.controls['amt'].reset();
                                     this.angForm.controls['total_amt'].reset();
-                                    // this.swiper.nativeElement.focus();
-                                    Swal.fire('Error!', data.message, 'error');
+                                    this.swiper.nativeElement.focus();
+                                    Swal.fire('Oops!', data.message, 'error');
                                     this.submitForm = true
                                   } else {
                                     this._service.CheckClearBalAndAmt(obj).subscribe(data => {
@@ -1258,8 +1254,8 @@ export class VoucherEntryComponent implements OnInit {
                                         this.SideDetails()
                                         this.angForm.controls['amt'].reset();
                                         this.angForm.controls['total_amt'].reset();
-                                        // this.swiper.nativeElement.focus();  
-                                        Swal.fire('Error!', data.message, 'error');
+                                        this.swiper.nativeElement.focus();
+                                        Swal.fire('Oops!', data.message, 'error');
                                         this.submitForm = true
                                       } else {
                                         this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
@@ -1270,7 +1266,7 @@ export class VoucherEntryComponent implements OnInit {
                                             this.angForm.controls['total_amt'].reset();
                                             this.swiper.nativeElement.focus();
                                             // let el: HTMLElement = this.focusbutton.nativeElement;
-                                            Swal.fire('Error!', data.message, 'error');
+                                            Swal.fire('Oops!', data.message, 'error');
                                             this.submitForm = true
                                           } else {
                                             this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
@@ -1279,9 +1275,9 @@ export class VoucherEntryComponent implements OnInit {
                                                 this.SideDetails()
                                                 this.angForm.controls['amt'].reset();
                                                 this.angForm.controls['total_amt'].reset();
-                                                // this.swiper.nativeElement.focus();
+                                                this.swiper.nativeElement.focus();
                                                 let el: HTMLElement = this.focusbutton.nativeElement;
-                                                Swal.fire('Error!', data.message, 'error');
+                                                Swal.fire('Oops!', data.message, 'error');
                                                 this.submitForm = true
                                               } else {
                                                 this._service.DepositAndTotalInstallments(obj).subscribe(data => {
@@ -1290,9 +1286,9 @@ export class VoucherEntryComponent implements OnInit {
                                                     this.SideDetails()
                                                     this.angForm.controls['amt'].reset();
                                                     this.angForm.controls['total_amt'].reset();
-                                                    // this.swiper.nativeElement.focus();
+                                                    this.swiper.nativeElement.focus();
                                                     let el: HTMLElement = this.focusbutton.nativeElement;
-                                                    Swal.fire('Error!', data.message, 'error');
+                                                    Swal.fire('Oops!', data.message, 'error');
                                                     this.submitForm = true
                                                   } else {
                                                     this._service.DepositAndDepositAmount(obj).subscribe(data => {
@@ -1301,8 +1297,8 @@ export class VoucherEntryComponent implements OnInit {
                                                         this.SideDetails()
                                                         this.angForm.controls['amt'].reset();
                                                         this.angForm.controls['total_amt'].reset();
-                                                        // this.swiper.nativeElement.focus();
-                                                        Swal.fire('Error!', data.message, 'error');
+                                                        this.swiper.nativeElement.focus();
+                                                        Swal.fire('Oops!', data.message, 'error');
                                                         this.submitForm = true
                                                       } else {
                                                         this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
@@ -1311,9 +1307,9 @@ export class VoucherEntryComponent implements OnInit {
                                                             this.SideDetails()
                                                             this.angForm.controls['amt'].reset();
                                                             this.angForm.controls['total_amt'].reset();
-                                                            // this.swiper.nativeElement.focus();
+                                                            this.swiper.nativeElement.focus();
                                                             let el: HTMLElement = this.focusbutton.nativeElement;
-                                                            Swal.fire('Error!', data.message, 'error');
+                                                            Swal.fire('Oops!', data.message, 'error');
                                                             this.submitForm = true
                                                           } else {
                                                             this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
@@ -1322,9 +1318,9 @@ export class VoucherEntryComponent implements OnInit {
                                                                 this.SideDetails()
                                                                 this.angForm.controls['amt'].reset();
                                                                 this.angForm.controls['total_amt'].reset();
-                                                                // this.swiper.nativeElement.focus();
+                                                                this.swiper.nativeElement.focus();
                                                                 let el: HTMLElement = this.focusbutton.nativeElement;
-                                                                Swal.fire('Error!', data.message, 'error');
+                                                                Swal.fire('Oops!', data.message, 'error');
                                                                 this.submitForm = true
                                                               } else {
                                                                 this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
@@ -1333,9 +1329,9 @@ export class VoucherEntryComponent implements OnInit {
                                                                     this.SideDetails()
                                                                     this.angForm.controls['amt'].reset();
                                                                     this.angForm.controls['total_amt'].reset();
-                                                                    // this.swiper.nativeElement.focus();
+                                                                    this.swiper.nativeElement.focus();
                                                                     let el: HTMLElement = this.focusbutton.nativeElement;
-                                                                    Swal.fire('Error!', data.message, 'error');
+                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                     this.submitForm = true
                                                                   } else {
                                                                     this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
@@ -1344,8 +1340,8 @@ export class VoucherEntryComponent implements OnInit {
                                                                         this.SideDetails()
                                                                         this.angForm.controls['amt'].reset();
                                                                         this.angForm.controls['total_amt'].reset();
-                                                                        // this.swiper.nativeElement.focus();
-                                                                        Swal.fire('Error!', data.message, 'error');
+                                                                        this.swiper.nativeElement.focus();
+                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                         this.submitForm = true
                                                                       } else {
                                                                         this._service.ZeroBalance(obj).subscribe(data => {
@@ -1354,8 +1350,8 @@ export class VoucherEntryComponent implements OnInit {
                                                                             this.SideDetails()
                                                                             this.angForm.controls['amt'].reset();
                                                                             this.angForm.controls['total_amt'].reset();
-                                                                            // this.swiper.nativeElement.focus();
-                                                                            Swal.fire('Error!', data.message, 'error');
+                                                                            this.swiper.nativeElement.focus();
+                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                             this.submitForm = true
                                                                           } else {
                                                                             this._service.CashWithdraw(obj).subscribe(data => {
@@ -1364,8 +1360,8 @@ export class VoucherEntryComponent implements OnInit {
                                                                                 this.SideDetails()
                                                                                 this.angForm.controls['amt'].reset();
                                                                                 this.angForm.controls['total_amt'].reset();
-                                                                                // this.swiper.nativeElement.focus();
-                                                                                Swal.fire('Error!', data.message, 'error');
+                                                                                this.swiper.nativeElement.focus();
+                                                                                Swal.fire('Oops!', data.message, 'error');
                                                                                 this.submitForm = true
                                                                               } else {
                                                                                 this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
@@ -1374,8 +1370,8 @@ export class VoucherEntryComponent implements OnInit {
                                                                                     this.SideDetails()
                                                                                     this.angForm.controls['amt'].reset();
                                                                                     this.angForm.controls['total_amt'].reset();
-                                                                                    // this.swiper.nativeElement.focus();
-                                                                                    Swal.fire('Error!', data.message, 'error');
+                                                                                    this.swiper.nativeElement.focus();
+                                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                                     this.submitForm = true
                                                                                   } else {
                                                                                     this._service.withdrawClosingCondition(obj).subscribe(data => {
@@ -1386,7 +1382,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                                         this.angForm.controls['total_amt'].reset();
                                                                                         // this.tran_mode.nativeElement.focus()
                                                                                         this.tran_mode.focus()
-                                                                                        Swal.fire('Error!', data.message, 'error');
+                                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                                         this.submitForm = true
                                                                                       }
                                                                                       else {
@@ -1497,7 +1493,7 @@ export class VoucherEntryComponent implements OnInit {
 
     this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.selectedAccountno = null;
         this.showlgindetails()
       } else {
@@ -1522,14 +1518,14 @@ export class VoucherEntryComponent implements OnInit {
           } else {
             this._service.CheckLoginFlagInDpmaster(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Error!', data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
                 this.selectedAccountno = null
                 this.showlgindetails()
 
               } else {
                 this._service.checkDormantAccount(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Error!', data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.selectedAccountno = null
                     this.showlgindetails()
 
@@ -1555,7 +1551,7 @@ export class VoucherEntryComponent implements OnInit {
                       } else {
                         this._service.IsDirectEntryAllow(obj).subscribe(data => {
                           if (data != 0) {
-                            Swal.fire('Error!', data.message, 'error');
+                            Swal.fire('Oops!', data.message, 'error');
                             this.selectedAccountno = null
                             this.selectedMode = null
                           }
@@ -1633,22 +1629,22 @@ export class VoucherEntryComponent implements OnInit {
 
     this._service.StandingOrInterestInstruction(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.selectedMode = null
       } else {
         this._service.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
-            Swal.fire('Error!', data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
             this.selectedMode = null
           } else {
             this._service.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Error!', data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
                 this.selectedMode = null
               } else {
                 this._service.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Error!', data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.selectedMode = null
                   }
                 }, err => {
@@ -1684,12 +1680,12 @@ export class VoucherEntryComponent implements OnInit {
       this.updateheadbalance(date)
       this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
         if (data != 0) {
-          Swal.fire('Error!', data.message, 'error');
+          Swal.fire('Oops!', data.message, 'error');
           this.angForm.controls['Intdate'].reset()
         } else {
           this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
             if (data != 0) {
-              Swal.fire('Error!', data.message, 'error');
+              Swal.fire('Oops!', data.message, 'error');
             }
           }, err => {
             console.log(err);
@@ -1718,7 +1714,7 @@ export class VoucherEntryComponent implements OnInit {
 
     this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Error!', data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
       }
     }, err => {
       console.log(err);

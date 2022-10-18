@@ -454,7 +454,7 @@ export class SchemeTypeSettingComponent
       this.schemetypeservice.duplicatecheck(obj).subscribe(data => {
         if (data.length != 0) {
           this.ngscheme = null
-          Swal.fire('Error', 'This scheme is already exists', 'error')
+          Swal.fire('Oops', 'This scheme is already exists', 'error')
         }
       })
     }
