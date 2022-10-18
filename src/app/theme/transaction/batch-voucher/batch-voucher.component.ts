@@ -236,7 +236,7 @@ export class BatchVoucherComponent implements OnInit {
     debugger
     var obj = this.angForm.value;
     if (Number(obj.voucherAmount) != Number(this.totalAmt)) {
-      Swal.fire('Error!', 'Voucher amount not equal to Total Amount', 'error');
+      Swal.fire('Oops!', 'Voucher amount not equal to Total Amount', 'error');
     }else{
       let cheqDate
       const formVal = this.angForm.value

@@ -79,10 +79,10 @@ checkPassword() {
   //reset password
   resetpassword(){
     if(this.currentPassword == ''){
-      Swal.fire('Error!', 'Please insert you current password', 'error');
+      Swal.fire('Oops!', 'Please insert you current password', 'error');
     }
     else if(this.newPassword != this.confirmPassword){
-      Swal.fire('Error!', 'Your password not matched', 'error');
+      Swal.fire('Oops!', 'Your password not matched', 'error');
     }else{
 
       let resetpassword = {
@@ -97,7 +97,7 @@ checkPassword() {
         this.router.navigate(['/auth/login/simple']);
 
       },error=>{
-        Swal.fire('Error!', error.error.message, 'error');
+        Swal.fire('Oops!', error.error.message, 'error');
 
       })
     }

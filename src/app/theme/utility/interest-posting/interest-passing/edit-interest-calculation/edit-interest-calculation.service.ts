@@ -6,19 +6,13 @@ import { catchError, map } from "rxjs/operators";
 import Swal from "sweetalert2";
 import {environment} from '../../../../../../environments/environment'
 
-
-
-
-
 @Injectable({
   providedIn: "root",
 })
 export class EditInterestCalculationService {
   // Variable for handleError
   [x: string]: any;
-  // API
   url = environment.base_url;
-
 
   constructor(private http: HttpClient) { }
   //Insertion Operation
@@ -27,7 +21,7 @@ export class EditInterestCalculationService {
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
-        return throwError(error);
+        return throwError(error);``
       })
     );
   }
@@ -46,5 +40,20 @@ export class EditInterestCalculationService {
     return this.http
       .delete(this.url + "/edit-interest-calculation/delete/" + id)
       .pipe(catchError(this.handleError));
+  }
+
+  //get interest date data
+  interestDate():Observable<any>{
+    return this.http.post(this.url+'/voucher/IntrestDate','').pipe(catchError(this.handleError));
+  }
+
+  //get Intrest tran data
+  interestTranData(data): Observable<any>{
+    return this.http.post(this.url+"/voucher/InterestTranData",data)
+  }
+
+  //submit tran data
+  submitAlterData(data): Observable<any>{
+    return this.http.post(this.url+"/voucher/EditInterestTran",data);
   }
 }
