@@ -1675,6 +1675,7 @@
                                                                         <thead>
                                                                             <td style="max-width: 10px;">Code</td>
                                                                             <td>Description</td>
+                                                                            <td>Upload Attachment</td>
                                                                             <td style="max-width: 25px;">View Document
                                                                             </td>
                                                                             <td>Is Linked Document Uploaded</td>
@@ -1685,6 +1686,28 @@
                                                                                 <td>{{ indexOfelement + 1 }}</td>
                                                                                 <td>{{ data.schemeDocumentMaster?.NAME
                                                                                     }}</td>
+                                                                                <td style="align-items: center;">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm">
+                                                                                            <div
+                                                                                                class="input-group-prepend selfcss">
+                                                                                                <span
+                                                                                                    class="input-group-text">
+                                                                                                    <i class="fa fa-upload"
+                                                                                                        aria-hidden="true"></i>
+                                                                                                </span>
+                                                                                                <input type="file"
+                                                                                                    name="file"
+                                                                                                    id="file"
+                                                                                                    style="height: auto;"
+                                                                                                    class="form-control"
+                                                                                                    [id]="'file'+indexOfelement"
+                                                                                                    accept="application/pdf,image/x-png,image/jpeg"
+                                                                                                    (change)="fileChangeEvent($event, indexOfelement,data.DOCUMENT_CODE)" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
                                                                                 <td style="align-items: center;">
                                                                                     <div class="col-sm-2">
                                                                                         <span
