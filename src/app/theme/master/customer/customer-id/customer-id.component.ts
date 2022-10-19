@@ -464,7 +464,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.angForm.controls['TDSDOCUMNET'].value == true) {
       this.SUBMIT_DATE = true
     } else {
-      this.SUBMIT_DATE = true
+      this.SUBMIT_DATE = false
     }
     if (this.angForm.valid) {
 
@@ -958,7 +958,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         cancelButtonText: 'No',
         confirmButtonText: 'Yes'
       }).then((result) => {
-        if (result.isConfirmed) {          
+        if (result.isConfirmed) {
           let result
           let arr = [];
           let me = this;

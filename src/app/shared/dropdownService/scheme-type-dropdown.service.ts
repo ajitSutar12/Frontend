@@ -17,6 +17,7 @@ export class SchemeTypeDropdownService {
         { value: 'SB', label: 'SB' },
         { value: 'SH', label: 'SH' },
         { value: 'TD', label: 'TD' },
+        { value: 'KYC', label: 'KYC' },
     ];
 
     getCharacters(): Array<IOption> {
