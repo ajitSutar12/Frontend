@@ -206,8 +206,8 @@
                                                         <ng-option *ngFor="let item of bankName" [value]="item.value">
                                                             {{item.label}}</ng-option>
                                                     </ng-select> -->
-                                                    <textarea class="form-control" formControlName="bank"
-                                                        rows="1"></textarea>
+                                                    <textarea class="form-control" formControlName="bank" rows="1"
+                                                        [(ngModel)]="BankName"></textarea>
                                                     <i class="fa fa-info-circle errspan"
                                                         (click)="modalLarge1.show()"></i>
 
@@ -838,13 +838,13 @@
                             <th>Bank Name</th>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of bankName" (click)="getBankName(item.value)">
-                                {{item.value}}
+                            <tr *ngFor="let item of bankName" (click)="getBankName(item.name)">
+                                {{item.name}}
                             </tr>
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm"
-                        id="triggerhide1" #triggerhide (click)="modalLarge1.hide()">Close</button>
+                        id="triggerhide1" #triggerhide1 (click)="modalLarge1.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>

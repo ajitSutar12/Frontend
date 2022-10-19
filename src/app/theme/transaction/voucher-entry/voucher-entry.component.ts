@@ -401,7 +401,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //Transaction mode select
   transactionMode(mode) {
-    //debugger
+    // debugger
     this.selectedMode = null
     this.type = mode;
     let object = this.TranData.find(t => t.key === this.selectedCode);
@@ -411,7 +411,7 @@ export class VoucherEntryComponent implements OnInit {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
       this.angForm.patchValue({
@@ -423,7 +423,7 @@ export class VoucherEntryComponent implements OnInit {
         let obj = this.TranModeTransfer.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
     }
@@ -437,9 +437,11 @@ export class VoucherEntryComponent implements OnInit {
     el.click();
   }
 
+  BankName
   getBankName(ele) {
-    this.bankName = ele;
+    this.BankName = ele;
     let el: HTMLElement = this.triggerhide1.nativeElement;
+    el.click();
   }
 
   selectAllContent($event) {
@@ -1195,7 +1197,7 @@ export class VoucherEntryComponent implements OnInit {
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
-                this.submitForm = true
+                // this.submitForm = true
               } else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
                   //debugger

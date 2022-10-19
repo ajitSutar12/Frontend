@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
 
 
-@Injectable() 
+@Injectable()
 export class BankMasterService {
     bankMasterObject = new Array();
     // API 
@@ -21,7 +21,7 @@ export class BankMasterService {
         return this.http.get<any>(this.url + '/bank-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.BANK_CODE +' '+ element.BANK_NAME, value: element.id };
+                    let obj = { label: element.BANK_CODE + ' ' + element.BANK_NAME, value: element.id, name: element.BANK_NAME };
                     this.bankMasterObject.push(obj)
                 });
                 return this.bankMasterObject;

@@ -462,6 +462,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
         let DocArr: any = resp
         DocArr.forEach(ele => {
+          debugger
           if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
             let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
             ele['status'] = true;
@@ -472,6 +473,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             ele['IS_ALLOWED'] = false;
           }
         })
+
         this.customerDoc = DocArr
         // data.custdocument.forEach(ele => {
         //   debugger
@@ -544,6 +546,127 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         })
     })
     this.onCloseModal();
+  }
+
+  imageObject = new Array();
+  fileChangeEvent(event, id, valueid) {
+    debugger
+    if (this.customerDoc[id]['status'] == true) {
+      Swal.fire({
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result
+          let arr = [];
+          let me = this;
+          let obj = {};
+          let selectedObj = {};
+          let file = (event.target as HTMLInputElement).files[0];
+          this.customerDoc[id]['status'] = true
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+          };
+          reader.onerror = function (error) {
+            console.log('Error: ', error);
+          };
+          let isExist: boolean = false
+          for (let element of this.imageObject) {
+            if (Number(Object.keys(element)[0]) == valueid) {
+              isExist = true
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+                element[valueid] = result
+              };
+              this.customerDoc[id]['status'] = true
+              break
+            }
+          }
+          if (!isExist) {
+            reader.onload = async function (ele: any) {
+              result = await reader.result;
+              let selecetedImg = ele.target.result;
+              selectedObj[valueid] = selecetedImg
+              obj[valueid] = result;
+            };
+            this.imageObject.push(obj);
+            this.selectedImgArrayDetails.push(selectedObj);
+            this.customerDoc[id]['status'] = true
+          }
+        } else {
+          event.target.value = null
+        }
+      })
+    }
+    else {
+      let result
+      let arr = [];
+      let me = this;
+      let obj = {};
+      let selectedObj = {};
+
+      let file = (event.target as HTMLInputElement).files[0];
+      this.customerDoc[id]['status'] = true
+
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+
+
+      };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      let isExist: boolean = false
+      for (let element of this.imageObject) {
+        if (Number(Object.keys(element)[0]) == valueid) {
+          isExist = true
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+            element[valueid] = result
+          };
+          this.customerDoc[id]['status'] = true
+          break
+        }
+      }
+
+      if (!isExist) {
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+        };
+        this.imageObject.push(obj);
+        this.selectedImgArrayDetails.push(selectedObj);
+        this.customerDoc[id]['status'] = true
+      }
+    }
   }
 
   disableForm(id) {
@@ -1401,6 +1524,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isImgPreview
+  selectedImgArrayDetails = [];
   viewImagePreview(id) {
     debugger
     // this.selectedImagePreview = id;
@@ -1414,6 +1538,25 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // viewImagePreview(ele, id) {
+  //   debugger
+  //   for (const [key, value] of Object.entries(this.customerDoc)) {
+  //     let jsonObj = value;
+  //     Object.keys(jsonObj).forEach(key => {
+  //       if (id == key) {
+  //         this.isImgPreview = true
+  //         this.selectedImagePreview = jsonObj[key];
+  //         debugger
+  //         this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+  //         throw 'Break';
+  //       }
+  //       else {
+  //         this.isImgPreview = false
+  //         this.selectedImagePreview = ''
+  //       }
+  //     });
+  //   }
+  // }
 
   decimalAllContent($event) {
     let value = Number($event.target.value);
@@ -1434,7 +1577,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       );
       this.angForm.controls['AGE'].reset()
     }
-
   }
 
   //approve account
