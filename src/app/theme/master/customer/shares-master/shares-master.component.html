@@ -1712,7 +1712,7 @@
                                                                                     <div class="col-sm-2">
                                                                                         <span
                                                                                             style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview(data.PATH)"
+                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Show Image"
                                                                                             class="fa fa-fw fa-eye field-icon"></span>
@@ -1741,7 +1741,7 @@
                                                                         <tbody *ngIf="customerDoc?.length == 0">
                                                                             <tr>
                                                                                 <td class="no-data-available"
-                                                                                    colspan="3"
+                                                                                    colspan="5"
                                                                                     style="text-align: center;">No data!
                                                                                 </td>
                                                                             </tr>
