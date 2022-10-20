@@ -459,24 +459,30 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       let obj = {
         SCHEME_CODE: 'SH'
       }
+      this.imageObject = []
       this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
         let DocArr: any = resp
-        DocArr.forEach(ele => {
-          debugger
-          if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
-            let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
-            ele['status'] = true;
-            ele['IS_ALLOWED'] = true;
-            ele['PATH'] = path['PATH']
-          } else {
-            ele['status'] = false;
-            ele['IS_ALLOWED'] = false;
-          }
-        })
-
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          DocArr.forEach(ele => {
+            if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+              let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+              ele['status'] = true;
+              ele['IS_ALLOWED'] = true;
+              ele['PATH'] = path['PATH']
+            } else {
+              ele['status'] = false;
+              ele['IS_ALLOWED'] = false;
+            }
+          })
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
+        }
         this.customerDoc = DocArr
         // data.custdocument.forEach(ele => {
-        //   debugger
         //   if (DocArr.find(data => data['DOCUMENT_CODE'] == ele['DocumentMaster']['id'])) {
         //     ele['DocumentMaster']['status'] = true;
         //     ele['DocumentMaster']['IS_ALLOWED'] = true;
@@ -550,7 +556,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   imageObject = new Array();
   fileChangeEvent(event, id, valueid) {
-    debugger
     if (this.customerDoc[id]['status'] == true) {
       Swal.fire({
         // title: 'Do You Want To Replace previous document?',
@@ -943,7 +948,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'DIV_TRANSFER_ACTYPE': formVal.DIV_TRANSFER_ACTYPE,
         'DIV_TRANSFER_ACNO': formVal.DIV_TRANSFER_ACNO,
         //Nominee 
-        'NomineeData': this.multiNominee
+        'NomineeData': this.multiNominee,
+        'Document': this.imageObject
       }
       this.ShareMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
@@ -954,6 +960,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
         })
         this.formSubmitted = false;
+        this.imageObject = []
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -1164,6 +1171,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == '1' ? true : false)
+    data['Document'] = this.imageObject;
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
@@ -1322,6 +1330,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerDoc = []
     this.createForm();
     this.getSystemParaDate()
+    this.selectedImagePreview = null
+    this.selectedImgArrayDetails = []
+    this.imageObject = []
+    this.isImgPreview = false
   }
 
   ngOnDestroy(): void {
@@ -1525,38 +1537,23 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isImgPreview
   selectedImgArrayDetails = [];
-  viewImagePreview(id) {
-    debugger
-    // this.selectedImagePreview = id;
-    if (id != undefined) {
-      this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.documentUrl + id);
-      this.isImgPreview = true
-    }
-    else {
-      this.isImgPreview = false
-      this.urlMap = ''
+  viewImagePreview(ele, id) {
+    for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+      let jsonObj = value;
+      Object.keys(jsonObj).forEach(key => {
+        if (id == key) {
+          this.isImgPreview = true
+          this.selectedImagePreview = jsonObj[key];
+          this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+          throw 'Break';
+        }
+        else {
+          this.isImgPreview = false
+          this.selectedImagePreview = ''
+        }
+      });
     }
   }
-
-  // viewImagePreview(ele, id) {
-  //   debugger
-  //   for (const [key, value] of Object.entries(this.customerDoc)) {
-  //     let jsonObj = value;
-  //     Object.keys(jsonObj).forEach(key => {
-  //       if (id == key) {
-  //         this.isImgPreview = true
-  //         this.selectedImagePreview = jsonObj[key];
-  //         debugger
-  //         this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
-  //         throw 'Break';
-  //       }
-  //       else {
-  //         this.isImgPreview = false
-  //         this.selectedImagePreview = ''
-  //       }
-  //     });
-  //   }
-  // }
 
   decimalAllContent($event) {
     let value = Number($event.target.value);

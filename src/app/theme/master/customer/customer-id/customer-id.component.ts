@@ -367,6 +367,23 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(first())
       .subscribe((data) => {
         this.documentMaster = data;
+        let obj = {
+          SCHEME_CODE: 'KYC'
+        }
+        this.imageObject = []
+        let DocArr: any =
+          this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+            DocArr = resp
+            for (const [key, value] of Object.entries(this.documentMaster)) {
+              this.documentMaster.forEach(ele => {
+                if (DocArr.find(data => data['DOCUMENT_CODE'] == ele['value'])) {
+                  ele['IS_ALLOWED'] = true;
+                } else {
+                  ele['IS_ALLOWED'] = false;
+                }
+              })
+            }
+          })
       });
     this.castService
       .getcastList()
@@ -659,7 +676,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
   }
-
+  customerDoc
   //Method for append data into fields
   editClickHandler(id) {
 
@@ -735,21 +752,52 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selectedImgArrayDetails = []
 
 
-        for (const [key, value] of Object.entries(data.custdocument)) {
-          this.documentMaster.forEach(ele => {
-            if (data.custdocument.find(data => data['DocumentMasterID'] == ele['value'])) {
-              ele['status'] = true;
-            } else {
-              ele['status'] = false;
-            }
-          })
-          let selectedObj = {};
-          let id = data.custdocument[key].DocumentMasterID;
-          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
-          this.selectedImagePreview = selectedObj[id];
-          this.imageObject.push(selectedObj)
-          this.selectedImgArrayDetails.push(selectedObj);
+
+        let obj = {
+          SCHEME_CODE: 'KYC'
         }
+        this.imageObject = []
+        this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+          let DocArr: any = resp
+          for (const [key, value] of Object.entries(data.custdocument)) {
+            DocArr.forEach(ele => {
+              if (data.custdocument.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+                let path = (data.custdocument.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+                ele['status'] = true;
+                ele['IS_ALLOWED'] = true;
+                ele['PATH'] = path['PATH']
+              } else {
+                ele['status'] = false;
+                ele['IS_ALLOWED'] = false;
+              }
+            })
+            let selectedObj = {};
+            let id = data.custdocument[key].DocumentMasterID;
+            selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+            this.selectedImagePreview = selectedObj[id];
+            this.imageObject.push(selectedObj)
+            this.selectedImgArrayDetails.push(selectedObj);
+          }
+          this.customerDoc = DocArr
+          console.log(this.customerDoc,'cust edit doc')
+        })
+
+        // for (const [key, value] of Object.entries(data.custdocument)) {
+        //   debugger
+        //   this.documentMaster.forEach(ele => {
+        //     if (data.custdocument.find(data => data['DocumentMasterID'] == ele['value'])) {
+        //       ele['status'] = true;
+        //     } else {
+        //       ele['status'] = false;
+        //     }
+        //   })
+        //   let selectedObj = {};
+        //   let id = data.custdocument[key].DocumentMasterID;
+        //   selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+        //   this.selectedImagePreview = selectedObj[id];
+        //   this.imageObject.push(selectedObj)
+        //   this.selectedImgArrayDetails.push(selectedObj);
+        // }
       }
       else {
         this.isDocument = false;
@@ -760,7 +808,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for update data
   updateData() {
-
     let date
     let sudate
     let data = this.angForm.value;
@@ -1077,6 +1124,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
       let jsonObj = value;
       Object.keys(jsonObj).forEach(key => {
+        debugger
         if (id == key) {
           this.isImgPreview = true
           this.selectedImagePreview = jsonObj[key];
