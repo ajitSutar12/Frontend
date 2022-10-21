@@ -315,7 +315,8 @@ export class CashCreditMasterComponent implements OnInit {
   selectedImagePreview: any;
   guarantoredit: any
   guarantordate: any
-
+  maxDate: any
+  minDate: any
   constructor(
     private http: HttpClient,
     private cashCreditService: CashCreditService,
@@ -347,11 +348,12 @@ export class CashCreditMasterComponent implements OnInit {
     public router: Router
   ) {
     if (this.childMessage != undefined) {
-
       this.editClickHandler(this.childMessage);
     }
-
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {

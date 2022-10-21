@@ -27,7 +27,7 @@ import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdown
 import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Directive({
   selector: 'autofocus'
 })
@@ -98,6 +98,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   //api 
   url = environment.base_url;
+  urlMap: SafeResourceUrl
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -258,7 +259,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private _intrestCategory: IntrestCategoryMasterDropdownService,
     private _cityMasterService: cityMasterService,
     private _ownbranchMaster: OwnbranchMasterService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,
+    public sanitizer: DomSanitizer) {
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -419,10 +421,38 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  imageObject = new Array();
   //function to get existing customer data according selection
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
+      let obj = {
+        SCHEME_CODE: 'SB'
+      }
+      this.imageObject = []
+      this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+        let DocArr: any = resp
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          DocArr.forEach(ele => {
+            if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+              let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+              ele['status'] = true;
+              ele['IS_ALLOWED'] = true;
+              ele['PATH'] = path['PATH']
+            } else {
+              ele['status'] = false;
+              ele['IS_ALLOWED'] = false;
+            }
+          })
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
+        }
+        this.customerDoc = DocArr
+      })
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
       if (data.castMaster == null) {
         data.castMaster = ""
@@ -551,11 +581,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-
-  viewImagePreview(ele, id) {
-    this.selectedImagePreview = id;
-  }
-
 
   onCloseModal() {
     this.visibleAnimate = false;
@@ -745,7 +770,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit(event) {
-    debugger
     let temdate
     let opdate
     event.preventDefault();
@@ -820,7 +844,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         //Joint Account
         'JointAccountData': this.multiJointAC,
         //Attorney
-        'PowerOfAttorneyData': this.multiAttorney
+        'PowerOfAttorneyData': this.multiAttorney,
+        'Document': this.imageObject
       }
       this.savingMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
@@ -831,6 +856,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
         })
         this.formSubmitted = false;
+        this.imageObject = []
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -1000,6 +1026,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.angForm.controls['AC_TCTCODE'].value == "") {
       data['AC_TCTCODE '] = null
     }
+    data['Document'] = this.imageObject;
     data['AC_TYPE'] = this.selectedValue
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
@@ -1014,7 +1041,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_INTRACNO'] = this.ngIntroducer
     data['id'] = this.updateID;
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
-
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
@@ -1033,6 +1059,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.multiJointAC = []
       this.multiAttorney = []
       this.customerDoc = []
+      this.imageObject = []
       this.resetForm();
     })
   }
@@ -1116,6 +1143,143 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       });
     });
+  }
+
+  fileChangeEvent(event, id, valueid) {
+    if (this.customerDoc[id]['status'] == true) {
+      Swal.fire({
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result
+          let arr = [];
+          let me = this;
+          let obj = {};
+          let selectedObj = {};
+          let file = (event.target as HTMLInputElement).files[0];
+          this.customerDoc[id]['status'] = true
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+          };
+          reader.onerror = function (error) {
+            console.log('Error: ', error);
+          };
+          let isExist: boolean = false
+          for (let element of this.imageObject) {
+            if (Number(Object.keys(element)[0]) == valueid) {
+              isExist = true
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+                element[valueid] = result
+              };
+              this.customerDoc[id]['status'] = true
+              break
+            }
+          }
+          if (!isExist) {
+            reader.onload = async function (ele: any) {
+              result = await reader.result;
+              let selecetedImg = ele.target.result;
+              selectedObj[valueid] = selecetedImg
+              obj[valueid] = result;
+            };
+            this.imageObject.push(obj);
+            this.selectedImgArrayDetails.push(selectedObj);
+            this.customerDoc[id]['status'] = true
+          }
+        } else {
+          event.target.value = null
+        }
+      })
+    }
+    else {
+      let result
+      let arr = [];
+      let me = this;
+      let obj = {};
+      let selectedObj = {};
+
+      let file = (event.target as HTMLInputElement).files[0];
+      this.customerDoc[id]['status'] = true
+
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+
+
+      };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      let isExist: boolean = false
+      for (let element of this.imageObject) {
+        if (Number(Object.keys(element)[0]) == valueid) {
+          isExist = true
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+            element[valueid] = result
+          };
+          this.customerDoc[id]['status'] = true
+          break
+        }
+      }
+
+      if (!isExist) {
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+        };
+        this.imageObject.push(obj);
+        this.selectedImgArrayDetails.push(selectedObj);
+        this.customerDoc[id]['status'] = true
+      }
+    }
+  }
+  isImgPreview
+  viewImagePreview(ele, id) {
+    for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+      let jsonObj = value;
+      Object.keys(jsonObj).forEach(key => {
+        if (id == key) {
+          this.isImgPreview = true
+          this.selectedImagePreview = jsonObj[key];
+          this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+          throw 'Break';
+        }
+        else {
+          this.isImgPreview = false
+          this.selectedImagePreview = ''
+        }
+      });
+    }
   }
 
   // Reset Function
@@ -1505,65 +1669,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetJointAC()
     }
   }
-
-  // updateJointAcccount() {
-  //   let index = this.jointIndex;
-  //   this.jointShowButton = true;
-  //   this.jointUpdateShow = false;
-  //   const formVal = this.angForm.value;
-  //   var object = {
-  //     JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
-  //     JOINT_ACNAME: formVal.JOINT_ACNAME,
-  //     OPERATOR: formVal.OPERATOR,
-  //     id: this.jointACID
-  //   }
-  //   if (object.JOINT_AC_CUSTID != undefined) {
-  //     if (this.newcustid != this.jointID) {
-  //       if (this.multiJointAC.length == 0) {
-  //         this.multiJointAC[index] = object
-  //         this.multiJointAC.push(object);
-  //         this.jointID = null
-  //         this.jointID = ''
-  //         this.angForm.controls['JOINT_AC_CUSTID'].reset()
-  //         this.resetJointAC()
-  //       }
-  //       else {
-  //         if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
-  //           Swal.fire("This Customer is Already Exists", "error");
-  //           this.multiJointAC.push(object);
-  //           this.jointID = null
-  //           this.jointID = ''
-  //           this.angForm.controls['JOINT_AC_CUSTID'].reset()
-  //           this.resetJointAC()
-  //         }
-  //         else {
-  //           this.multiJointAC[index] = object
-  //           this.multiJointAC.push(object);
-  //           this.jointID = null
-  //           this.jointID = ''
-  //           this.angForm.controls['JOINT_AC_CUSTID'].reset()
-  //           this.resetJointAC()
-  //         }
-  //       }
-  //     }
-  //     else {
-  //       Swal.fire("Please Select Different Customer id", "error");
-  //       this.multiJointAC.push(object);
-  //       this.jointID = null
-  //       this.jointID = ''
-  //       this.angForm.controls['JOINT_AC_CUSTID'].reset()
-  //       this.resetJointAC()
-  //     }
-  //   } else {
-  //     Swal.fire("Please Select Customer Id", "error");
-  //     this.multiJointAC.push(object);
-  //     this.jointID = null
-  //     this.jointID = ''
-  //     this.angForm.controls['JOINT_AC_CUSTID'].reset()
-  //     this.resetJointAC()
-  //   }
-  // }
-
 
   delJointAc(id) {
     this.multiJointAC.splice(id, 1)

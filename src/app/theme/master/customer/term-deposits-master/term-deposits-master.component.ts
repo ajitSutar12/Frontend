@@ -221,6 +221,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   rejectShow: boolean = false;
   approveShow: boolean = false;
 
+  asonDateRange
   @ViewChild('ctdTabset') ctdTabset;
   selectedImagePreview: any;
 
@@ -228,7 +229,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   public visibleAnimate = false;
   bsValue
   getschemename: any
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
@@ -254,10 +255,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       this.editClickHandler(this.childMessage);
     }
-    this.maxDate = new Date();
+    // this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate())
+    // this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -525,6 +530,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
+  setAsonDateMinLimit(date) {
+    this.asonDateRange = moment(date, 'DD/MM/YYYY')
+    this.asonDateRange = this.asonDateRange._d
+  }
   //nominee, joint account and attorney selection display
   OpenLink(val) {
     if (val == 1) {

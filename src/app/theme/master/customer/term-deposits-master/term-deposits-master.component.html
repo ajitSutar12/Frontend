@@ -143,12 +143,12 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPDATE" id="AC_OPDATE"
-                                                                        class="form-control" required
+                                                                        class="form-control" required #opendate
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        (focusout)="disabledate(date.value)"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
+                                                                        (bsValueChange)="setAsonDateMinLimit(opendate.value)"
                                                                         [maxDate]="maxDate" formControlName="AC_OPDATE"
                                                                         [bsValue]="bsValue" bsDatepicker>
                                                                     <label for="AC_OPDATE">Open Date<sub
@@ -358,7 +358,7 @@
                                                                         (bsValueChange)="getMaturityDate()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
-                                                                        [maxDate]="maxDate"
+                                                                        [minDate]="asonDateRange"
                                                                         formControlName="AC_ASON_DATE"
                                                                         [bsValue]="bsValue" bsDatepicker>
                                                                     <label for="AC_ASON_DATE">As On Date</label>
@@ -430,7 +430,7 @@
                                                                         (bsValueChange)="monthDays()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
-                                                                        [minDate]="minDate" [bsValue]="bsValue"
+                                                                        [minDate]="maxDate" [bsValue]="bsValue"
                                                                         bsDatepicker>
                                                                     <label for="AC_EXPDT">Maturity Date</label>
                                                                 </span>

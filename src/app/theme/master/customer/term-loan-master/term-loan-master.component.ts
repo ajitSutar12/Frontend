@@ -313,7 +313,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   month: number
   @ViewChild('ctdTabset') ctdTabset;
   selectedImagePreview: any;
-
+  maxDate
   constructor(
     private http: HttpClient,
     private termLoanService: TermLoanService,
@@ -346,9 +346,12 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private config: NgSelectConfig,
   ) {
     if (this.childMessage != undefined) {
-
       this.editClickHandler(this.childMessage);
     }
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {

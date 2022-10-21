@@ -382,7 +382,8 @@
                                                                     <input type="text" name="AC_EXPIRE_DATE"
                                                                         id="AC_EXPIRE_DATE" class="form-control"
                                                                         required [(ngModel)]="ngexpiry"
-                                                                        placeholder="dd/mm/yyyy"
+                                                                        placeholder="dd/mm/yyyy" [minDate]="maxDate"
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="AC_EXPIRE_DATE" disabled>
                                                                     <label for="AC_EXPIRE_DATE">Expiry Date<sub
@@ -842,7 +843,7 @@
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_COREG_DATE" id="AC_COREG_DATE"
                                                                         class="form-control" [(ngModel)]="ngredate"
-                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                                         formControlName="AC_COREG_DATE" bsDatepicker>
                                                                     <label for="AC_COREG_DATE">Date</label>
                                                                 </span>
@@ -902,7 +903,7 @@
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_RESO_DATE" id="AC_RESO_DATE"
                                                                         class="form-control" [(ngModel)]="ngresodate"
-                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                                         formControlName="AC_RESO_DATE" bsDatepicker>
                                                                     <label for="AC_RESO_DATE">Date</label>
                                                                 </span>
@@ -1679,7 +1680,7 @@
                                                                                     <input type="text"
                                                                                         placeholder="dd/mm/yyyy"
                                                                                         name="EXP_DATE" id="EXP_DATE"
-                                                                                        class="form-control"
+                                                                                        class="form-control" [minDate]="maxDate"
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                         formControlName="EXP_DATE"
                                                                                         bsDatepicker>

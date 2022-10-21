@@ -1225,7 +1225,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ShareMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
-      this.updateShow = false;
+      this.updateShow = false; 
       this.newbtnShow = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
