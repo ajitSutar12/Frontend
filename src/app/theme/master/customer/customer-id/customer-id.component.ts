@@ -367,23 +367,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(first())
       .subscribe((data) => {
         this.documentMaster = data;
-        let obj = {
-          SCHEME_CODE: 'KYC'
-        }
-        this.imageObject = []
-        let DocArr: any =
-          this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
-            DocArr = resp
-            for (const [key, value] of Object.entries(this.documentMaster)) {
-              this.documentMaster.forEach(ele => {
-                if (DocArr.find(data => data['DOCUMENT_CODE'] == ele['value'])) {
-                  ele['IS_ALLOWED'] = true;
-                } else {
-                  ele['IS_ALLOWED'] = false;
-                }
-              })
-            }
-          })
       });
     this.castService
       .getcastList()
@@ -469,6 +452,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       TDS_LIMIT: ["", [Validators.pattern]],
 
     });
+    this.documentUpload()
   }
 
   // Method to insert data into database through NestJS
@@ -491,10 +475,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
         'AC_MEMBNO': formVal.AC_MEMBNO,
         'AC_TITLE': formVal.AC_TITLE,
-        'F_NAME': formVal.F_NAME.toUpperCase(),
-        'M_NAME': formVal.M_NAME.toUpperCase(),
-        'L_NAME': formVal.L_NAME.toUpperCase(),
-        'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME).toUpperCase(),
+        'F_NAME': formVal.F_NAME?.toUpperCase(),
+        'M_NAME': formVal.M_NAME?.toUpperCase(),
+        'L_NAME': formVal.L_NAME?.toUpperCase(),
+        'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
         'AC_CAST': parseInt(formVal.AC_CAST),
         'AC_OCODE': parseInt(formVal.AC_OCODE),
         'AC_ADHARNO': formVal.AC_ADHARNO,
@@ -536,6 +520,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>'
           })
           this.formSubmitted = false;
+          this.customerDoc = []
+          this.imageObject = []
+          this.selectedImgArrayDetails = []
+          this.selectedImagePreview = null
           this.addNewCustomer(data.id);
           // to reload after insertion of data
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -673,20 +661,17 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         result += 1;
         this.ngfinyear = data + "-" + result;
       }
-
     }
   }
   customerDoc
   //Method for append data into fields
   editClickHandler(id) {
-
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     let birthdate
     let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
-
       this.updatecheckdata = data
       this.updateID = data.id;
       this.ngRisk = data.AC_RISKCATG
@@ -694,7 +679,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngCast = data.AC_CAST
       this.ngfinyear = data.tdsForm?.FIN_YEAR
       this.ngSubmitDate = (data.tdsForm?.SUBMIT_DATE == 'Invalid date' || data.tdsForm?.SUBMIT_DATE == '' || data.tdsForm?.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm?.SUBMIT_DATE,
-
         this.angForm.patchValue({
           AC_NO: data.AC_NO,
           AC_MEMBTYPE: data.AC_MEMBTYPE,
@@ -729,7 +713,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           TDS_LIMIT: data.tdsForm?.TDS_LIMIT,
 
         });
-
       if (data.TDSDOCUMNET == true) {
         this.isTdsForm = true;
         this.isTdsFormA = false;
@@ -741,22 +724,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.SUBMIT_DATE = false;
       }
       if (data.tdsForm?.FORM_TYPE == "Form15A") {
-
         this.isForm15A(1)
-
       }
       if (data.IS_KYC_RECEIVED == true) {
-
         this.isDocument = true;
         this.imageObject = []
         this.selectedImgArrayDetails = []
-
-
-
         let obj = {
           SCHEME_CODE: 'KYC'
         }
-        this.imageObject = []
         this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
           let DocArr: any = resp
           for (const [key, value] of Object.entries(data.custdocument)) {
@@ -779,30 +755,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             this.selectedImgArrayDetails.push(selectedObj);
           }
           this.customerDoc = DocArr
-          console.log(this.customerDoc,'cust edit doc')
         })
-
-        // for (const [key, value] of Object.entries(data.custdocument)) {
-        //   debugger
-        //   this.documentMaster.forEach(ele => {
-        //     if (data.custdocument.find(data => data['DocumentMasterID'] == ele['value'])) {
-        //       ele['status'] = true;
-        //     } else {
-        //       ele['status'] = false;
-        //     }
-        //   })
-        //   let selectedObj = {};
-        //   let id = data.custdocument[key].DocumentMasterID;
-        //   selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
-        //   this.selectedImagePreview = selectedObj[id];
-        //   this.imageObject.push(selectedObj)
-        //   this.selectedImgArrayDetails.push(selectedObj);
-        // }
       }
       else {
         this.isDocument = false;
+        this.imageObject = []
+        this.selectedImgArrayDetails = []
       }
-
     });
   }
 
@@ -817,9 +776,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['IS_KYC_RECEIVED'] = (data.IS_KYC_RECEIVED == true ? '1' : '0')
     data['TDSDOCUMNET'] = (data.TDSDOCUMNET == true ? '1' : '0')
     data['Document'] = this.imageObject;
-    data['F_NAME'] = this.fname.toUpperCase()
-    data['L_NAME'] = this.lname.toUpperCase()
-    data['M_NAME'] = this.mname.toUpperCase()
+    data['F_NAME'] = this.fname?.toUpperCase()
+    data['L_NAME'] = this.lname?.toUpperCase()
+    data['M_NAME'] = this.mname?.toUpperCase()
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
@@ -843,11 +802,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
         else {
-          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
-            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
-              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
+          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
                 if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())
+                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())
                   if (id.id != this.angForm.controls['AC_NO'].value) {
                     Swal.fire({
                       icon: 'info',
@@ -870,6 +829,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+      this.customerDoc = []
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.selectedImagePreview = null
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -939,12 +902,35 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngfocus() {
     this.ngSelect.focus();
   }
+  documentUpload() {
+    let obj = {
+      SCHEME_CODE: 'KYC'
+    }
+    this.imageObject = []
+    this.selectedImgArrayDetails = []
+    this.selectedImagePreview = null
+    this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+      let DocArr: any = resp
+      DocArr.forEach(ele => {
+        ele['status'] = false;
+        ele['IS_ALLOWED'] = false;
+      })
+      this.customerDoc = DocArr
+    })
+  }
 
   isKYC($event) {
     if ($event.target.checked) {
       this.isDocument = true;
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.selectedImagePreview = null
+      this.documentUpload()
     } else {
       this.isDocument = false;
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.selectedImagePreview = null
     }
   }
 
@@ -993,8 +979,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fileChangeEvent(event, id, valueid) {
-    debugger
-    if (this.documentMaster[id]['status'] == true) {
+    if (this.customerDoc[id]['status'] == true) {
       Swal.fire({
         // title: 'Do You Want To Replace previous document?',
         html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
@@ -1012,7 +997,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           let obj = {};
           let selectedObj = {};
           let file = (event.target as HTMLInputElement).files[0];
-          this.documentMaster[id]['status'] = true
+          this.customerDoc[id]['status'] = true
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = async function (ele: any) {
@@ -1035,7 +1020,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
                 obj[valueid] = result;
                 element[valueid] = result
               };
-              this.documentMaster[id]['status'] = true
+              this.customerDoc[id]['status'] = true
               break
             }
           }
@@ -1048,7 +1033,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             };
             this.imageObject.push(obj);
             this.selectedImgArrayDetails.push(selectedObj);
-            this.documentMaster[id]['status'] = true
+            this.customerDoc[id]['status'] = true
           }
         } else {
           event.target.value = null
@@ -1063,7 +1048,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       let selectedObj = {};
 
       let file = (event.target as HTMLInputElement).files[0];
-      this.documentMaster[id]['status'] = true
+      this.customerDoc[id]['status'] = true
 
       let reader = new FileReader();
       reader.readAsDataURL(file);
@@ -1072,12 +1057,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         let selecetedImg = ele.target.result;
         selectedObj[valueid] = selecetedImg
         obj[valueid] = result;
-
-
       };
-      // this.fileuploaded=true,
-      // this.filenotuploaded=false
-
       reader.onerror = function (error) {
         console.log('Error: ', error);
       };
@@ -1093,7 +1073,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             obj[valueid] = result;
             element[valueid] = result
           };
-          this.documentMaster[id]['status'] = true
+          this.customerDoc[id]['status'] = true
           break
         }
       }
@@ -1107,46 +1087,47 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         };
         this.imageObject.push(obj);
         this.selectedImgArrayDetails.push(selectedObj);
-        this.documentMaster[id]['status'] = true
+        this.customerDoc[id]['status'] = true
       }
     }
   }
 
-  // method for close modal on add and close click
   onCloseModal() {
-
     var closemodal = document.getElementById('triggerhide')
     closemodal.click();
 
   }
-
   viewImagePreview(ele, id) {
-    for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
-      let jsonObj = value;
-      Object.keys(jsonObj).forEach(key => {
-        debugger
-        if (id == key) {
-          this.isImgPreview = true
-          this.selectedImagePreview = jsonObj[key];
-          debugger
-          this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
-          throw 'Break';
-        }
-        else {
-          this.isImgPreview = false
-          this.selectedImagePreview = ''
-        }
-      });
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
     }
-  }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
+    }
 
+  }
   checkCustomer() {
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
-        if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
-          if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
-            if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
-              let id = data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())
+        if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+          if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+            if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
+              let id = data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())
               Swal.fire({
                 title: "Are you sure?",
                 text: "This Customer is Already Exists Having Customer ID " + id.id,
@@ -1206,11 +1187,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
         else {
-          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value.toUpperCase())) {
-            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())) {
-              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value.toUpperCase())) {
+          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
                 if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value.toUpperCase())
+                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())
                   if (id.id != this.angForm.controls['AC_NO'].value) {
                     Swal.fire({
                       icon: 'info',
