@@ -69,7 +69,7 @@
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
-                                        (ngModelChange)="lname = $event.toUpperCase()" style="text-transform:uppercase;"
+                                        (ngModelChange)="lname = $event?.toUpperCase()" style="text-transform:uppercase;"
                                         [ngClass]="{'form-submitted': formSubmitted}" #lastname [(ngModel)]="lname"
                                         title="Input allowed only A-Z" formControlName="L_NAME" required>
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
@@ -93,7 +93,7 @@
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
-                                        (ngModelChange)="fname = $event.toUpperCase()" style="text-transform:uppercase;"
+                                        (ngModelChange)="fname = $event?.toUpperCase()" style="text-transform:uppercase;"
                                         [ngClass]="{'form-submitted': formSubmitted}" [(ngModel)]="fname"
                                         title="Input allowed only A-Z" formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
@@ -115,7 +115,7 @@
                                     <input type="text" name="M_NAME" style="text-transform:uppercase"
                                         class="form-control" placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
-                                        title="Input allowed only A-Z" (ngModelChange)="mname = $event.toUpperCase()"
+                                        title="Input allowed only A-Z" (ngModelChange)="mname = $event?.toUpperCase()"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         style="text-transform:uppercase;" formControlName="M_NAME"
                                         (focusout)="checkCustomer()">
@@ -610,17 +610,18 @@
                                                             <td>Status</td>
                                                         </tr>
                                                     </thead>
-                                                    <tbody *ngIf="documentMaster?.length != 0">
-                                                        <tr
-                                                            *ngFor="let data of documentMaster; let indexOfelement=index;">
-                                                            <td *ngIf="data.IS_ALLOWED" style="align-items: center;">
+                                                    <tbody *ngIf="customerDoc?.length != 0">
+                                                        <tr *ngFor="let data of customerDoc; let indexOfelement=index;">
+                                                            <!-- <td style="align-items: center;">
                                                                 <div class="form-group input-group">
                                                                     <label class="border-checkbox-label"
                                                                         for={{data.value}}> {{data.label}}
                                                                     </label>
                                                                 </div>
-                                                            </td>
-                                                            <td *ngIf="data.IS_ALLOWED" style="align-items: center;">
+                                                            </td> -->
+                                                            <td>{{ data.schemeDocumentMaster?.NAME
+                                                                }}</td>
+                                                            <td style="align-items: center;">
                                                                 <div class="row">
                                                                     <div class="col-sm">
                                                                         <div class="input-group-prepend selfcss">
@@ -633,21 +634,21 @@
                                                                                 class="form-control"
                                                                                 [id]="'file'+indexOfelement"
                                                                                 accept="application/pdf,image/x-png,image/jpeg"
-                                                                                (change)="fileChangeEvent($event, indexOfelement,data.value)" />
+                                                                                (change)="fileChangeEvent($event, indexOfelement,data.DOCUMENT_CODE)" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td *ngIf="data.IS_ALLOWED" style="align-items: center;">
+                                                            <td style="align-items: center;">
                                                                 <div class="col-sm-2">
                                                                     <span
                                                                         style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                        (click)="modalLarge.show();viewImagePreview($event,data.value)"
+                                                                        (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
                                                                         placement="right" ngbTooltip="Show Image"
                                                                         class="fa fa-fw fa-eye field-icon"></span>
                                                                 </div>
                                                             </td>
-                                                            <td *ngIf="data.IS_ALLOWED" style="align-items: center;">
+                                                            <td style="align-items: center;">
                                                                 <div class="col-sm-2">
                                                                     <span *ngIf="data.status" class="fa fa-check-circle"
                                                                         id="editbutton"
@@ -663,7 +664,7 @@
                                                             </td>
                                                         </tr>
                                                     </tbody>
-                                                    <tbody *ngIf="documentMaster?.length == 0">
+                                                    <tbody *ngIf="customerDoc?.length == 0">
                                                         <tr>
                                                             <td colspan="3" class="no-data-available">No data!</td>
                                                         </tr>

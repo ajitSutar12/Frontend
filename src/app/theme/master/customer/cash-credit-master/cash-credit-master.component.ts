@@ -45,7 +45,7 @@ import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.
 import * as moment from 'moment';
 //date pipe
 import { DatePipe } from '@angular/common';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 // Handling datatable data
 class DataTableResponse {
@@ -124,6 +124,9 @@ export class CashCreditMasterComponent implements OnInit {
   @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   selected
+  imageObject = new Array();
+  selectedImgArrayDetails = [];
+  urlMap: SafeResourceUrl
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -315,7 +318,8 @@ export class CashCreditMasterComponent implements OnInit {
   selectedImagePreview: any;
   guarantoredit: any
   guarantordate: any
-
+  maxDate: any
+  minDate: any
   constructor(
     private http: HttpClient,
     private cashCreditService: CashCreditService,
@@ -344,14 +348,16 @@ export class CashCreditMasterComponent implements OnInit {
     private datePipe: DatePipe,
     private _SecurityCode: SecurityCodeService,
     private el: ElementRef,
-    public router: Router
+    public router: Router,
+    public sanitizer: DomSanitizer,
   ) {
     if (this.childMessage != undefined) {
-
       this.editClickHandler(this.childMessage);
     }
-
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -654,6 +660,148 @@ export class CashCreditMasterComponent implements OnInit {
   getSchemeCode(value) {
     this.schemeCode = value.name
   }
+  fileChangeEvent(event, id, valueid) {
+    if (this.customerDoc[id]['status'] == true) {
+      Swal.fire({
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result
+          let arr = [];
+          let me = this;
+          let obj = {};
+          let selectedObj = {};
+          let file = (event.target as HTMLInputElement).files[0];
+          this.customerDoc[id]['status'] = true
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+          };
+          reader.onerror = function (error) {
+            console.log('Error: ', error);
+          };
+          let isExist: boolean = false
+          for (let element of this.imageObject) {
+            if (Number(Object.keys(element)[0]) == valueid) {
+              isExist = true
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+                element[valueid] = result
+              };
+              this.customerDoc[id]['status'] = true
+              break
+            }
+          }
+          if (!isExist) {
+            reader.onload = async function (ele: any) {
+              result = await reader.result;
+              let selecetedImg = ele.target.result;
+              selectedObj[valueid] = selecetedImg
+              obj[valueid] = result;
+            };
+            this.imageObject.push(obj);
+            this.selectedImgArrayDetails.push(selectedObj);
+            this.customerDoc[id]['status'] = true
+          }
+        } else {
+          event.target.value = null
+        }
+      })
+    }
+    else {
+      let result
+      let arr = [];
+      let me = this;
+      let obj = {};
+      let selectedObj = {};
+
+      let file = (event.target as HTMLInputElement).files[0];
+      this.customerDoc[id]['status'] = true
+
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+
+
+      };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      let isExist: boolean = false
+      for (let element of this.imageObject) {
+        if (Number(Object.keys(element)[0]) == valueid) {
+          isExist = true
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+            element[valueid] = result
+          };
+          this.customerDoc[id]['status'] = true
+          break
+        }
+      }
+
+      if (!isExist) {
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+        };
+        this.imageObject.push(obj);
+        this.selectedImgArrayDetails.push(selectedObj);
+        this.customerDoc[id]['status'] = true
+      }
+    }
+  }
+  isImgPreview
+  viewImagePreview(ele, id) {
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
+    }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
+    }
+  }
 
   // Method to insert data into database through NestJS
   submit() {
@@ -773,9 +921,8 @@ export class CashCreditMasterComponent implements OnInit {
         'PleadgeStock': this.pledgeid,
         'StockStatement': this.stockid,
         'Vehicle': this.vehicleid,
-
+        'Document': this.imageObject
       }
-
       this.cashCreditService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
@@ -968,7 +1115,7 @@ export class CashCreditMasterComponent implements OnInit {
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-
+    data['Document'] = this.imageObject;
     data['AC_ADDTYPE'] = this.addType
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
@@ -1079,6 +1226,34 @@ export class CashCreditMasterComponent implements OnInit {
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
+      let obj = {
+        SCHEME_CODE: 'CC'
+      }
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+        let DocArr: any = resp
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          DocArr.forEach(ele => {
+            if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+              let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+              ele['status'] = true;
+              ele['IS_ALLOWED'] = true;
+              ele['PATH'] = path['PATH']
+            } else {
+              ele['status'] = false;
+              ele['IS_ALLOWED'] = false;
+            }
+          })
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
+        }
+        this.customerDoc = DocArr
+      })
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
 
       if (data.castMaster == null) {
@@ -1510,6 +1685,10 @@ export class CashCreditMasterComponent implements OnInit {
     });
   }
 
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
+
   getExpiryDate() {
     let months = this.angForm.controls['AC_MONTHS'].value
     if (this.renewDate != undefined) {
@@ -1545,12 +1724,7 @@ export class CashCreditMasterComponent implements OnInit {
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
   }
-
-  viewImagePreview(ele, id) {
-    this.selectedImagePreview = id;
-  }
   // //Open Guarantor Form
-
   clickguarantor($event) {
     if ($event.target.checked) {
       this.GuarantorTrue = true
