@@ -460,6 +460,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         SCHEME_CODE: 'SH'
       }
       this.imageObject = []
+      this.selectedImgArrayDetails = []
       this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
         let DocArr: any = resp
         for (const [key, value] of Object.entries(data.custdocument)) {
@@ -961,6 +962,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         })
         this.formSubmitted = false;
         this.imageObject = []
+        this.switchNgBTab('Basic')
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -983,6 +985,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
+    this.switchNgBTab('Basic')
     let joindate
     let retairdate
     let opdate
@@ -1225,8 +1228,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ShareMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
-      this.updateShow = false; 
+      this.updateShow = false;
       this.newbtnShow = false;
+      this.switchNgBTab('Basic')
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -1244,6 +1248,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiNominee = []
     this.customerDoc = []
     this.tempAddress = true
+    this.switchNgBTab('Basic')
     this.resetForm();
   }
 
@@ -1334,6 +1339,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedImgArrayDetails = []
     this.imageObject = []
     this.isImgPreview = false
+    this.switchNgBTab('Basic')
   }
 
   ngOnDestroy(): void {
@@ -1538,20 +1544,26 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   isImgPreview
   selectedImgArrayDetails = [];
   viewImagePreview(ele, id) {
-    for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
-      let jsonObj = value;
-      Object.keys(jsonObj).forEach(key => {
-        if (id == key) {
-          this.isImgPreview = true
-          this.selectedImagePreview = jsonObj[key];
-          this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
-          throw 'Break';
-        }
-        else {
-          this.isImgPreview = false
-          this.selectedImagePreview = ''
-        }
-      });
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
+    }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
     }
   }
 

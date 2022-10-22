@@ -208,7 +208,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   resetexpirydate: any;//reset maturedue date
   setdate: string;
   bsValue = new Date();
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   current_date
 
@@ -265,10 +265,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.editClickHandler(this.childMessage);
     }
-    this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -430,6 +432,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         SCHEME_CODE: 'SB'
       }
       this.imageObject = []
+      this.selectedImgArrayDetails = []
       this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
         let DocArr: any = resp
         for (const [key, value] of Object.entries(data.custdocument)) {
@@ -857,6 +860,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         })
         this.formSubmitted = false;
         this.imageObject = []
+        this.switchNgBTab('Basic')
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -879,6 +883,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for append data into fields
   editClickHandler(id) {
+    this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
     this.AC_OPDATE = true
     let opdate
@@ -1052,6 +1057,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+      this.switchNgBTab('Basic')
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -1080,6 +1086,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngBalCategory = null
     this.ngIntCategory = null
     this.ngOccupation = null
+    this.switchNgBTab('Basic')
     this.resetForm();
     this.getSystemParaDate()
   }
@@ -1265,20 +1272,26 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   isImgPreview
   viewImagePreview(ele, id) {
-    for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
-      let jsonObj = value;
-      Object.keys(jsonObj).forEach(key => {
-        if (id == key) {
-          this.isImgPreview = true
-          this.selectedImagePreview = jsonObj[key];
-          this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
-          throw 'Break';
-        }
-        else {
-          this.isImgPreview = false
-          this.selectedImagePreview = ''
-        }
-      });
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
+    }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
     }
   }
 
@@ -1306,6 +1319,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.code = null
     this.tempAddress = true
     this.angForm.controls['AC_TYPE'].enable()
+    this.switchNgBTab('Basic')
     this.getSystemParaDate()
   }
 

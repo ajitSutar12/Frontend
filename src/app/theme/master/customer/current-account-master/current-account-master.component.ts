@@ -222,7 +222,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   ngNcity: any = null
   jointID: any = null
   selectedImagePreview: any;
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   @ViewChild('ctdTabset') ctdTabset;
@@ -272,6 +272,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.editClickHandler(this.childMessage);
     }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -472,6 +476,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         SCHEME_CODE: 'CA'
       }
       this.imageObject = []
+      this.selectedImgArrayDetails = []
       this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
         let DocArr: any = resp
         for (const [key, value] of Object.entries(data.custdocument)) {
@@ -713,6 +718,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
         })
+        this.switchNgBTab('Basic')
         this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -737,6 +743,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   //Method for append data into fields
   editClickHandler(id) {
+    this.switchNgBTab('Basic')
     let opdate
     this.angForm.controls['AC_TYPE'].disable()
     this.currentAccountMasterService.getFormData(id).subscribe(data => {
@@ -869,6 +876,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   //Method for update data 
   updateData() {
+    this.switchNgBTab('Basic')
     let opdate
     this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
@@ -913,6 +921,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.multiJointAC = []
       this.multiAttorney = []
       this.customerDoc = []
+      this.switchNgBTab('Basic')
       this.resetForm();
     })
   }
@@ -948,6 +957,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.ngBalCategory = null
     this.ngIntCategory = null
     this.ngOccupation = null
+    this.switchNgBTab('Basic')
     this.resetForm();
     this.getSystemParaDate()
   }
@@ -1012,9 +1022,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   // Reset Function
   resetForm() {
-
+    this.switchNgBTab('Basic')
     this.customerDoc = []
-
     this.createForm();
     this.resetNominee();
     this.resetJointAC()
@@ -1294,20 +1303,26 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
   isImgPreview
   viewImagePreview(ele, id) {
-    for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
-      let jsonObj = value;
-      Object.keys(jsonObj).forEach(key => {
-        if (id == key) {
-          this.isImgPreview = true
-          this.selectedImagePreview = jsonObj[key];
-          this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
-          throw 'Break';
-        }
-        else {
-          this.isImgPreview = false
-          this.selectedImagePreview = ''
-        }
-      });
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
+    }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
     }
   }
 

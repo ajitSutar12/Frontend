@@ -35,6 +35,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 // Handling datatable data
 import * as moment from 'moment';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -109,6 +110,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   formSubmitted = false;
   //api 
   url = environment.base_url;
+  urlMap: SafeResourceUrl
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -160,6 +162,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   IntrestCategoryMasterDropdown: any[];
   // isDisabled = true;
 
+  imageObject = new Array();
+  selectedImgArrayDetails = [];
   //temp address flag variable
   tempAddress: boolean = true;
   Cust_ID
@@ -250,6 +254,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     private schemeAccountNoService: SchemeAccountNoService,
     private _termDepositScheme: TermDepositSchemeService,
     private _InterestInstruction: InterestInstructionService,
+    public sanitizer: DomSanitizer,
   ) {
     if (this.childMessage != undefined) {
 
@@ -541,12 +546,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.JointAccountsTrue = false;
       this.PowerofAttorneyTrue = false;
     }
-    if (val == 2) {
+    else if (val == 2) {
       this.JointAccountsTrue = !this.JointAccountsTrue;
       this.nomineeTrue = false;
       this.PowerofAttorneyTrue = false;
     }
-    if (val == 3) {
+    else if (val == 3) {
       this.PowerofAttorneyTrue = !this.PowerofAttorneyTrue;
       this.JointAccountsTrue = false;
       this.nomineeTrue = false;
@@ -615,6 +620,148 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.getMaturityDate()
   }
 
+  fileChangeEvent(event, id, valueid) {
+    if (this.customerDoc[id]['status'] == true) {
+      Swal.fire({
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result
+          let arr = [];
+          let me = this;
+          let obj = {};
+          let selectedObj = {};
+          let file = (event.target as HTMLInputElement).files[0];
+          this.customerDoc[id]['status'] = true
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+          };
+          reader.onerror = function (error) {
+            console.log('Error: ', error);
+          };
+          let isExist: boolean = false
+          for (let element of this.imageObject) {
+            if (Number(Object.keys(element)[0]) == valueid) {
+              isExist = true
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+                element[valueid] = result
+              };
+              this.customerDoc[id]['status'] = true
+              break
+            }
+          }
+          if (!isExist) {
+            reader.onload = async function (ele: any) {
+              result = await reader.result;
+              let selecetedImg = ele.target.result;
+              selectedObj[valueid] = selecetedImg
+              obj[valueid] = result;
+            };
+            this.imageObject.push(obj);
+            this.selectedImgArrayDetails.push(selectedObj);
+            this.customerDoc[id]['status'] = true
+          }
+        } else {
+          event.target.value = null
+        }
+      })
+    }
+    else {
+      let result
+      let arr = [];
+      let me = this;
+      let obj = {};
+      let selectedObj = {};
+
+      let file = (event.target as HTMLInputElement).files[0];
+      this.customerDoc[id]['status'] = true
+
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+
+
+      };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      let isExist: boolean = false
+      for (let element of this.imageObject) {
+        if (Number(Object.keys(element)[0]) == valueid) {
+          isExist = true
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+            element[valueid] = result
+          };
+          this.customerDoc[id]['status'] = true
+          break
+        }
+      }
+
+      if (!isExist) {
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+        };
+        this.imageObject.push(obj);
+        this.selectedImgArrayDetails.push(selectedObj);
+        this.customerDoc[id]['status'] = true
+      }
+    }
+  }
+  isImgPreview
+  viewImagePreview(ele, id) {
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
+    }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
+    }
+  }
 
 
   result: number
@@ -1060,11 +1207,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       })
     }
-
-
-
-
-
   }
 
   recurringSimpleInterest() {
@@ -1188,11 +1330,37 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
 
-
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
-
       this.customerDoc = data.custdocument
+      let obj = {
+        SCHEME_CODE: 'TD'
+      }
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+        let DocArr: any = resp
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          DocArr.forEach(ele => {
+            if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+              let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+              ele['status'] = true;
+              ele['IS_ALLOWED'] = true;
+              ele['PATH'] = path['PATH']
+            } else {
+              ele['status'] = false;
+              ele['IS_ALLOWED'] = false;
+            }
+          })
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
+        }
+        this.customerDoc = DocArr
+      })
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
 
       if (data.castMaster == null) {
@@ -1359,8 +1527,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         //Joint Account
         'JointAccountData': this.multiJointAC,
         //Attorney
-        'PowerOfAttorneyData': this.multiAttorney
-
+        'PowerOfAttorneyData': this.multiAttorney,
+        'Document': this.imageObject
       }
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
@@ -1371,6 +1539,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
         })
         this.formSubmitted = false;
+        this.switchNgBTab('Basic')
         // to reload after insertion of data
 
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -1395,15 +1564,20 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
+    this.switchNgBTab('Basic')
     let opdate
     let asondate
     let maturitydate
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
-
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
-
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
       this.updateID = data.id;
       this.updatecheckdata = data
       this.getCustomer(data.AC_CUSTID)
@@ -1451,6 +1625,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
     })
   }
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
+
   //Method for update data 
   updateData() {
     let opdate
@@ -1466,6 +1644,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     if (this.angForm.controls['AC_TCTCODE'].value == "") {
       data['AC_TCTCODE'] = null
     }
+    data['Document'] = this.imageObject;
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
@@ -1505,6 +1684,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+      this.switchNgBTab('Basic')
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -1512,6 +1692,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.multiJointAC = []
       this.multiAttorney = []
       this.customerDoc = []
+      this.ngCategory = null
+      this.ngOperation = null
+      this.ngIntCategory = null
       this.resetForm();
     })
   }
@@ -1556,6 +1739,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   // Reset Function
   resetForm() {
+    this.switchNgBTab('Basic')
     this.createForm();
     this.resetNominee();
     this.resetJointAC()
@@ -1623,6 +1807,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.multiAttorney = []
     this.customerDoc = []
     this.tempAddress = true
+    this.switchNgBTab('Basic')
     this.resetForm();
     this.getSystemParaDate()
   }
@@ -2516,9 +2701,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
-  }
-  viewImagePreview(ele, id) {
-    this.selectedImagePreview = id;
   }
   decimalAllContent($event) {
     let value = Number($event.target.value);

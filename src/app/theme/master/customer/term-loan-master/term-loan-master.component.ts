@@ -45,6 +45,7 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 //date pipe
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -313,6 +314,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   month: number
   @ViewChild('ctdTabset') ctdTabset;
   selectedImagePreview: any;
+  imageObject = new Array();
+  selectedImgArrayDetails = [];
+  urlMap: SafeResourceUrl
   maxDate
   constructor(
     private http: HttpClient,
@@ -344,6 +348,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private el: ElementRef,
     public router: Router,
     private config: NgSelectConfig,
+    public sanitizer: DomSanitizer,
   ) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
@@ -773,7 +778,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'PleadgeStock': this.pledgeid,
         'StockStatement': this.stockid,
         'Vehicle': this.vehicleid,
-
+        'Document': this.imageObject
       }
 
       this.termLoanService.postData(dataToSend).subscribe(data => {
@@ -970,7 +975,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-
+    data['Document'] = this.imageObject;
     data['AC_ADDTYPE'] = this.addType
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
@@ -1091,6 +1096,34 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
+      let obj = {
+        SCHEME_CODE: 'LN'
+      }
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+        let DocArr: any = resp
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          DocArr.forEach(ele => {
+            if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+              let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+              ele['status'] = true;
+              ele['IS_ALLOWED'] = true;
+              ele['PATH'] = path['PATH']
+            } else {
+              ele['status'] = false;
+              ele['IS_ALLOWED'] = false;
+            }
+          })
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
+        }
+        this.customerDoc = DocArr
+      })
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
 
       if (data.castMaster == null) {
@@ -1261,28 +1294,31 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
   // Method for Calculate Instllment
   calculation() {
 
     this.months = this.angForm.controls['AC_MONTHS'].value
-    if (this.repay == 'Monthly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+    if (this.repay == 'Monthly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.result = Math.round((((this.drawingPower) / (this.months)) * 1));
+      this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 1));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
       })
 
     }
-    else if (this.repay == 'Quarterly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+    else if (this.repay == 'Quarterly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.result = Math.round((((this.drawingPower) / (this.months)) * 3));
+      this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 3));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'HalfYearly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+    else if (this.repay == 'HalfYearly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 6));
 
@@ -1290,7 +1326,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Yearly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+    else if (this.repay == 'Yearly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 12));
 
@@ -1298,7 +1334,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'OnMaturity' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+    else if (this.repay == 'OnMaturity' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Math.floor(this.drawingPower))));
 
@@ -1307,7 +1343,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       })
     }
 
-    else if (this.repay == 'Monthly' && (this.installmentType == 'EMI')) {
+    else if (this.repay == 'Monthly' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 1;
       this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1)))));
@@ -1316,7 +1352,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Quarterly' && (this.installmentType == 'EMI')) {
+    else if (this.repay == 'Quarterly' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 3;
 
@@ -1326,7 +1362,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'HalfYearly' && (this.installmentType == 'EMI')) {
+    else if (this.repay == 'HalfYearly' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 6;
       this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1)))));
@@ -1334,7 +1370,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Yearly' && (this.installmentType == 'EMI')) {
+    else if (this.repay == 'Yearly' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 12;
       this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1)))));
@@ -1343,7 +1379,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'OnMaturity' && (this.installmentType == 'EMI')) {
+    else if (this.repay == 'OnMaturity' && (this.installmentType == 'E')) {
 
       this.angForm.patchValue({
         AC_INSTALLMENT: 0
@@ -1995,8 +2031,147 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.ctdTabset.select(id);
   }
 
+  fileChangeEvent(event, id, valueid) {
+    if (this.customerDoc[id]['status'] == true) {
+      Swal.fire({
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result
+          let arr = [];
+          let me = this;
+          let obj = {};
+          let selectedObj = {};
+          let file = (event.target as HTMLInputElement).files[0];
+          this.customerDoc[id]['status'] = true
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+          };
+          reader.onerror = function (error) {
+            console.log('Error: ', error);
+          };
+          let isExist: boolean = false
+          for (let element of this.imageObject) {
+            if (Number(Object.keys(element)[0]) == valueid) {
+              isExist = true
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+                element[valueid] = result
+              };
+              this.customerDoc[id]['status'] = true
+              break
+            }
+          }
+          if (!isExist) {
+            reader.onload = async function (ele: any) {
+              result = await reader.result;
+              let selecetedImg = ele.target.result;
+              selectedObj[valueid] = selecetedImg
+              obj[valueid] = result;
+            };
+            this.imageObject.push(obj);
+            this.selectedImgArrayDetails.push(selectedObj);
+            this.customerDoc[id]['status'] = true
+          }
+        } else {
+          event.target.value = null
+        }
+      })
+    }
+    else {
+      let result
+      let arr = [];
+      let me = this;
+      let obj = {};
+      let selectedObj = {};
+
+      let file = (event.target as HTMLInputElement).files[0];
+      this.customerDoc[id]['status'] = true
+
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+
+
+      };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      let isExist: boolean = false
+      for (let element of this.imageObject) {
+        if (Number(Object.keys(element)[0]) == valueid) {
+          isExist = true
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+            element[valueid] = result
+          };
+          this.customerDoc[id]['status'] = true
+          break
+        }
+      }
+
+      if (!isExist) {
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+        };
+        this.imageObject.push(obj);
+        this.selectedImgArrayDetails.push(selectedObj);
+        this.customerDoc[id]['status'] = true
+      }
+    }
+  }
+  isImgPreview
   viewImagePreview(ele, id) {
-    this.selectedImagePreview = id;
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
+    }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
+    }
   }
 
   //approve account
