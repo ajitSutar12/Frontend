@@ -1598,9 +1598,7 @@ export class VoucherEntryComponent implements OnInit {
 
   // Check Voucher Conditions On Transaction Mode
   checktranCondition() {
-    console.log(this.angForm.controls['type'].value)
-    console.log(this.submitTranMode.tran_drcr)
-    if (this.angForm.controls['type'].value == 'cash' && this.submitTranMode.tran_drcr == 'D') {
+    if (this.angForm.controls['type'].value == 'cash' && this.submitTranMode?.tran_drcr == 'D') {
       this.tokenshowhide = true
     } else {
       this.tokenshowhide = false
@@ -1611,12 +1609,12 @@ export class VoucherEntryComponent implements OnInit {
       accountNo: this.submitCustomer.BANKACNO,
       schemeType: this.selectedCode,
       scheme: this.Submitscheme.S_APPL,
-      tran: this.submitTranMode.tran_drcr,
-      tranMode: this.submitTranMode.id,
+      tran: this.submitTranMode?.tran_drcr,
+      tranMode: this.submitTranMode?.id,
       currentDate: this.date
     }
 
-    if (this.submitTranMode.id == 7 && this.selectedCode == 'SH') {
+    if (this.submitTranMode?.id == 7 && this.selectedCode == 'SH') {
       this.angForm.controls['amt'].disable();
       this.angForm.controls['particulars'].disable();
       let other2amounttotal
