@@ -893,6 +893,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       }
     })
   }
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
   NbirthDate: any
   cityName: boolean = false
   ngnomineedate: any

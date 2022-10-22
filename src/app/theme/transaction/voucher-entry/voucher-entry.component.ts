@@ -387,6 +387,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     } else {
       this.tranModeList = [];
       object.data.transfer.forEach(ele => {
@@ -396,6 +398,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     }
   }
 
@@ -414,6 +418,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       this.angForm.patchValue({
         chequeDate: null
       })
@@ -426,6 +432,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     }
   }
 
@@ -822,9 +830,6 @@ export class VoucherEntryComponent implements OnInit {
     })
   }
 
-
-
-
   showlgindetails() {
     //debugger
     if (this.angForm.controls['account_no'].value != null && this.selectedCode != 'GL') {
@@ -946,6 +951,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     } else {
       this.tranModeList = [];
       object.data.transfer.forEach(ele => {
@@ -955,6 +962,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     }
   }
 
@@ -2010,6 +2019,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
         this.Pass = Math.abs(data1.passedamt)
         this.Unpass = Math.abs(data1.unpassamt)
