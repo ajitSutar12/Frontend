@@ -189,7 +189,6 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
     this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
       let DocArr: any = resp
       this.documentMaster.forEach(ele => {
-        debugger
         if (DocArr.find(data => data['DOCUMENT_CODE'] == ele['id'])) {
           ele['status'] = true;
           ele['IS_ALLOWED'] = true;

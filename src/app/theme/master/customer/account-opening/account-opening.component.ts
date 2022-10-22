@@ -227,7 +227,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
           title: 'Maturity Amount',
           data: 'AC_MATUAMT'
         },
-       
+
       ],
       dom: 'Blrtip',
     };
@@ -344,12 +344,18 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   updatecheckdata
   //Method for append data into fields
   editClickHandler(id) {
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
     this.angForm.controls['AC_CLOSEDT'].enable()
     this.investmentService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
       this.updateID = data.id;
       this.angForm.setValue({
         'AC_ACNOTYPE': data.AC_ACNOTYPE,

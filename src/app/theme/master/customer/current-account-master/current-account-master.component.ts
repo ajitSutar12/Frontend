@@ -30,6 +30,7 @@ import { first } from 'rxjs/operators';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import * as moment from 'moment';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -97,7 +98,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   formSubmitted = false;
   //api 
   url = environment.base_url;
-
+  urlMap: SafeResourceUrl
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -221,7 +222,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   ngNcity: any = null
   jointID: any = null
   selectedImagePreview: any;
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   @ViewChild('ctdTabset') ctdTabset;
@@ -244,7 +245,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   tempupdateattorny: any
   nextButton: boolean = true
   resetexpirydate: any
-
+  imageObject = new Array();
   constructor(
     private http: HttpClient,
     private currentAccountMasterService: CurrentAccountMasterService,
@@ -260,6 +261,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     private minimumBalanceMasterDropdownService: MinimumBalanceMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
+    public sanitizer: DomSanitizer,
     private fb: FormBuilder) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -270,6 +272,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.editClickHandler(this.childMessage);
     }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -466,6 +472,34 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
+      let obj = {
+        SCHEME_CODE: 'CA'
+      }
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+        let DocArr: any = resp
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          DocArr.forEach(ele => {
+            if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+              let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+              ele['status'] = true;
+              ele['IS_ALLOWED'] = true;
+              ele['PATH'] = path['PATH']
+            } else {
+              ele['status'] = false;
+              ele['IS_ALLOWED'] = false;
+            }
+          })
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
+        }
+        this.customerDoc = DocArr
+      })
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
       if (data.castMaster == null) {
         data.castMaster = ""
@@ -673,7 +707,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         //Joint Account
         'JointAccountData': this.multiJointAC,
         //Attorney
-        'PowerOfAttorneyData': this.multiAttorney
+        'PowerOfAttorneyData': this.multiAttorney,
+        'Document': this.imageObject
       }
       this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
@@ -683,6 +718,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
         })
+        this.switchNgBTab('Basic')
         this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -698,6 +734,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.multiJointAC = []
       this.multiAttorney = []
       this.customerDoc = []
+      this.customerDoc = []
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
@@ -706,6 +743,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   //Method for append data into fields
   editClickHandler(id) {
+    this.switchNgBTab('Basic')
     let opdate
     this.angForm.controls['AC_TYPE'].disable()
     this.currentAccountMasterService.getFormData(id).subscribe(data => {
@@ -838,6 +876,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   //Method for update data 
   updateData() {
+    this.switchNgBTab('Basic')
     let opdate
     this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
@@ -850,6 +889,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     if (this.angForm.controls['AC_TCTCODE'].value == "") {
       data['AC_TCTCODE '] = null
     }
+    data['Document'] = this.imageObject
     data['AC_TYPE'] = this.selectedValue
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
@@ -881,6 +921,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.multiJointAC = []
       this.multiAttorney = []
       this.customerDoc = []
+      this.switchNgBTab('Basic')
       this.resetForm();
     })
   }
@@ -916,6 +957,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.ngBalCategory = null
     this.ngIntCategory = null
     this.ngOccupation = null
+    this.switchNgBTab('Basic')
     this.resetForm();
     this.getSystemParaDate()
   }
@@ -980,9 +1022,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   // Reset Function
   resetForm() {
-
+    this.switchNgBTab('Basic')
     this.customerDoc = []
-
     this.createForm();
     this.resetNominee();
     this.resetJointAC()
@@ -1037,9 +1078,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   disableForm(id) {
     this.editClickHandler(id)
-  }
-  viewImagePreview(ele, id) {
-    this.selectedImagePreview = id;
   }
 
   onCloseModal() {
@@ -1143,6 +1181,149 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.patchValue({
       AC_INTRNAME: value.name
     })
+  }
+
+  fileChangeEvent(event, id, valueid) {
+    if (this.customerDoc[id]['status'] == true) {
+      Swal.fire({
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result
+          let arr = [];
+          let me = this;
+          let obj = {};
+          let selectedObj = {};
+          let file = (event.target as HTMLInputElement).files[0];
+          this.customerDoc[id]['status'] = true
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+          };
+          reader.onerror = function (error) {
+            console.log('Error: ', error);
+          };
+          let isExist: boolean = false
+          for (let element of this.imageObject) {
+            if (Number(Object.keys(element)[0]) == valueid) {
+              isExist = true
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+                element[valueid] = result
+              };
+              this.customerDoc[id]['status'] = true
+              break
+            }
+          }
+          if (!isExist) {
+            reader.onload = async function (ele: any) {
+              result = await reader.result;
+              let selecetedImg = ele.target.result;
+              selectedObj[valueid] = selecetedImg
+              obj[valueid] = result;
+            };
+            this.imageObject.push(obj);
+            this.selectedImgArrayDetails.push(selectedObj);
+            this.customerDoc[id]['status'] = true
+          }
+        } else {
+          event.target.value = null
+        }
+      })
+    }
+    else {
+      let result
+      let arr = [];
+      let me = this;
+      let obj = {};
+      let selectedObj = {};
+
+      let file = (event.target as HTMLInputElement).files[0];
+      this.customerDoc[id]['status'] = true
+
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+
+
+      };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      let isExist: boolean = false
+      for (let element of this.imageObject) {
+        if (Number(Object.keys(element)[0]) == valueid) {
+          isExist = true
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+            element[valueid] = result
+          };
+          this.customerDoc[id]['status'] = true
+          break
+        }
+      }
+
+      if (!isExist) {
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+        };
+        this.imageObject.push(obj);
+        this.selectedImgArrayDetails.push(selectedObj);
+        this.customerDoc[id]['status'] = true
+      }
+    }
+  }
+  isImgPreview
+  viewImagePreview(ele, id) {
+    if (this.selectedImgArrayDetails.length != 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            this.isImgPreview = true
+            this.selectedImagePreview = jsonObj[key];
+            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            throw 'Break';
+          }
+          else {
+            this.isImgPreview = false
+            this.selectedImagePreview = ''
+          }
+        });
+      }
+    }
+    else {
+      this.isImgPreview = false
+      this.selectedImagePreview = ''
+    }
   }
 
   //calculate age for minor details

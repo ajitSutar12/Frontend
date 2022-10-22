@@ -105,7 +105,7 @@
                         <div class="col-sm">
                             <div class="card-block">
                                 <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
-                                    <ngb-tab title="Basic" class="tab">
+                                    <ngb-tab title="Basic" class="tab" id="Basic">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -1673,11 +1673,10 @@
                                                                     <table
                                                                         class="table table-striped table-bordered table-hover compact">
                                                                         <thead>
-                                                                            <td style="max-width: 10px;">Code</td>
+                                                                            <td>Code</td>
                                                                             <td>Description</td>
                                                                             <td>Upload Attachment</td>
-                                                                            <td style="max-width: 25px;">View Document
-                                                                            </td>
+                                                                            <td>View Document</td>
                                                                             <td>Is Linked Document Uploaded</td>
                                                                         </thead>
                                                                         <tbody *ngIf="customerDoc?.length != 0">
@@ -1712,7 +1711,7 @@
                                                                                     <div class="col-sm-2">
                                                                                         <span
                                                                                             style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview(data.PATH)"
+                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Show Image"
                                                                                             class="fa fa-fw fa-eye field-icon"></span>
@@ -1741,7 +1740,7 @@
                                                                         <tbody *ngIf="customerDoc?.length == 0">
                                                                             <tr>
                                                                                 <td class="no-data-available"
-                                                                                    colspan="3"
+                                                                                    colspan="5"
                                                                                     style="text-align: center;">No data!
                                                                                 </td>
                                                                             </tr>
