@@ -110,7 +110,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
-                                <ngb-tab title="Basic">
+                                <ngb-tab title="Basic" id="Basic">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="card border-primary">
@@ -143,12 +143,12 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPDATE" id="AC_OPDATE"
-                                                                        class="form-control" required
+                                                                        class="form-control" required #opendate
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        (focusout)="disabledate(date.value)"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
+                                                                        (bsValueChange)="setAsonDateMinLimit(opendate.value)"
                                                                         [maxDate]="maxDate" formControlName="AC_OPDATE"
                                                                         [bsValue]="bsValue" bsDatepicker>
                                                                     <label for="AC_OPDATE">Open Date<sub
@@ -169,7 +169,7 @@
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt"
                                                                     style="background: transparent;">
-                                                                    <input type="text" name="REF_ACNO"
+                                                                    <input type="text" name="REF_ACNO" #manualNo
                                                                         class="form-control" placeholder=" "
                                                                         id="REF_ACNO" pattern="^[A-Za-z0-9\./ -]+$"
                                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
@@ -358,7 +358,7 @@
                                                                         (bsValueChange)="getMaturityDate()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
-                                                                        [maxDate]="maxDate"
+                                                                        [minDate]="asonDateRange"
                                                                         formControlName="AC_ASON_DATE"
                                                                         [bsValue]="bsValue" bsDatepicker>
                                                                     <label for="AC_ASON_DATE">As On Date</label>
@@ -430,7 +430,7 @@
                                                                         (bsValueChange)="monthDays()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
-                                                                        [minDate]="minDate" [bsValue]="bsValue"
+                                                                        [minDate]="maxDate" [bsValue]="bsValue"
                                                                         bsDatepicker>
                                                                     <label for="AC_EXPDT">Maturity Date</label>
                                                                 </span>
@@ -2077,31 +2077,74 @@
                                                                 <table
                                                                     class="table table-striped table-bordered table-hover compact">
                                                                     <thead>
-                                                                        <td style="max-width: 10px;">Code</td>
+                                                                        <td>Code</td>
                                                                         <td>Description</td>
-                                                                        <td style="max-width: 25px;">View Document</td>
+                                                                        <td>Upload Attachment</td>
+                                                                        <td>View Document
+                                                                        </td>
+                                                                        <td>Is Linked Document Uploaded</td>
                                                                     </thead>
                                                                     <tbody *ngIf="customerDoc?.length != 0">
-                                                                        <tr *ngFor="let data of customerDoc;
-                                      let indexOfelement = index">
-                                                                            <!-- <td>{{ data.DocumentMasterID }}</td> -->
+                                                                        <tr
+                                                                            *ngFor="let data of customerDoc;
+                                                                                            let indexOfelement = index">
                                                                             <td>{{ indexOfelement + 1 }}</td>
-                                                                            <td>{{ data.DocumentMaster.NAME }}</td>
+                                                                            <td>{{ data.schemeDocumentMaster?.NAME
+                                                                                }}</td>
+                                                                            <td style="align-items: center;">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm">
+                                                                                        <div
+                                                                                            class="input-group-prepend selfcss">
+                                                                                            <span
+                                                                                                class="input-group-text">
+                                                                                                <i class="fa fa-upload"
+                                                                                                    aria-hidden="true"></i>
+                                                                                            </span>
+                                                                                            <input type="file"
+                                                                                                name="file" id="file"
+                                                                                                style="height: auto;"
+                                                                                                class="form-control"
+                                                                                                [id]="'file'+indexOfelement"
+                                                                                                accept="application/pdf,image/x-png,image/jpeg"
+                                                                                                (change)="fileChangeEvent($event, indexOfelement,data.DOCUMENT_CODE)" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
                                                                             <td style="align-items: center;">
                                                                                 <div class="col-sm-2">
                                                                                     <span
                                                                                         style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                        (click)="modalLarge.show();viewImagePreview($event,documentUrl+data.PATH)"
+                                                                                        (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
                                                                                         placement="right"
                                                                                         ngbTooltip="Show Image"
                                                                                         class="fa fa-fw fa-eye field-icon"></span>
                                                                                 </div>
                                                                             </td>
+                                                                            <td style="align-items: center;">
+                                                                                <div class="col-sm-2">
+                                                                                    <span *ngIf="data.status"
+                                                                                        class="fa fa-check-circle"
+                                                                                        id="editbutton"
+                                                                                        style="color: green;font-size: 20px;"
+                                                                                        placement="left"
+                                                                                        ngbTooltip="file uploaded"></span>
+                                                                                    &nbsp;
+                                                                                    <span *ngIf="!data.status"
+                                                                                        class="fa fa-times-circle-o"
+                                                                                        id="editbutton"
+                                                                                        style="color: red;font-size: 20px;"
+                                                                                        placement="left"
+                                                                                        ngbTooltip="file not uploaded"></span>
+                                                                                </div>
+
+                                                                            </td>
                                                                         </tr>
                                                                     </tbody>
                                                                     <tbody *ngIf="customerDoc?.length == 0">
                                                                         <tr>
-                                                                            <td class="no-data-available" colspan="3"
+                                                                            <td class="no-data-available" colspan="5"
                                                                                 style="text-align: center;">No data!
                                                                             </td>
                                                                         </tr>
@@ -2117,13 +2160,16 @@
                                                                     </div>
                                                                     <div class="app-modal-body">
                                                                         <perfect-scrollbar>
-
-                                                                            <img [src]="selectedImagePreview" alt="docu"
-                                                                                class="form-control"
-                                                                                style="width: 100%;height: 100%;">
+                                                                            <div *ngIf="isImgPreview"
+                                                                                class='embed-responsive'
+                                                                                style='padding-bottom:60%'>
+                                                                                <embed [src]="urlMap" width="10px"
+                                                                                    height="50px" />
+                                                                            </div>
+                                                                            <p *ngIf="!isImgPreview">No File For
+                                                                                Preview</p>
                                                                         </perfect-scrollbar>
                                                                     </div>
-
                                                                     <div class="app-modal-footer">
                                                                         <button type="button"
                                                                             class="btn btn-outline-primary btn-sm"
@@ -2225,9 +2271,14 @@
                                 <tbody *ngIf="termDepositMaster?.length != 0">
                                     <tr *ngFor="let data of termDepositMaster">
                                         <td>
-                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            <span class="fa fa-fw fa-edit field-icon" style="align-items: right;"
+                                                id="editbutton" *ngIf="!data.SYSCHNG_LOGIN"
                                                 (click)="editClickHandler(data.id)" placement="bottom"
                                                 ngbTooltip="Edit"></span>
+                                            <span class="fa fa-fw fa-eye field-icon" id="viewbutton"
+                                                style="align-items: right;" *ngIf="data.SYSCHNG_LOGIN"
+                                                (click)="disableForm(data.id)" placement="bottom"
+                                                ngbTooltip="View"></span>
                                         </td>
                                         <td
                                             [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
