@@ -1794,7 +1794,7 @@
                                                                                         name="EXP_DATE" id="EXP_DATE"
                                                                                         class="form-control"
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                                        formControlName="EXP_DATE"
+                                                                                        formControlName="EXP_DATE" [minDate]="maxDate"
                                                                                         bsDatepicker>
                                                                                     <label for="EXP_DATE">Expiry
                                                                                         Date</label>

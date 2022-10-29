@@ -119,7 +119,7 @@
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPDATE" id="AC_OPDATE"
                                                                         class="form-control" required
-                                                                        [(ngModel)]="openingDate"
+                                                                        [(ngModel)]="openingDate" [minDate]="maxDate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="AC_OPDATE" disabled
