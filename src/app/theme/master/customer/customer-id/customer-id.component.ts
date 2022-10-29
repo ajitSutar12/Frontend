@@ -632,9 +632,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    if (ele <= 100) {
+    if (ele <= 50) {
     } else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire("Invalid Input", "Please insert values below 50", "error");
+      this.angForm.patchValue({
+        TDS_RATE: 0
+      })
     }
   }
 

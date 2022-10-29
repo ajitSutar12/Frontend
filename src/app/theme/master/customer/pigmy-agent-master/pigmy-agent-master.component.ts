@@ -127,7 +127,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   //variable to get ID to update
   updateID: number = 0;
@@ -190,10 +190,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
       this.editClickHandler(this.childMessage);
     }
-    this.maxDate = new Date();
     this.minDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate());
     this.minDate.setDate(this.minDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
