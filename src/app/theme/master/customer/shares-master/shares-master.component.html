@@ -708,7 +708,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_EXPDT" id="AC_EXPDT"
-                                                                            class="form-control" [minDate]="minDate"
+                                                                            class="form-control" [minDate]="maxDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_EXPDT"
@@ -1221,7 +1221,7 @@
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
                                                                                             [(ngModel)]="ngnomineedate"
-                                                                                            [minDate]="minDate"
+                                                                                            [minDate]="maxDate"
                                                                                             class="form-control"
                                                                                             id="AC_NDATE"
                                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
