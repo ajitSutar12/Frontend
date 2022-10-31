@@ -15,6 +15,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -103,7 +105,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-  maxDate: Date
+  maxDate: any
   minDate: Date
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
@@ -112,11 +114,16 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     private bankService: BankService,
     private investmentService: InvestmentService,
     private http: HttpClient,
+    private systemParameter: SystemMasterParametersService,
   ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {

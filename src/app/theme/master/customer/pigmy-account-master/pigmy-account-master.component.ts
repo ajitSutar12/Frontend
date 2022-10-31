@@ -225,7 +225,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-
+  maxDate: any
 
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
@@ -248,6 +248,10 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.editClickHandler(this.childMessage);
     }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
 
