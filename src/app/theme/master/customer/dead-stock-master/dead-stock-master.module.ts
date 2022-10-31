@@ -13,6 +13,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ItemCatMasterDropdownService,
     DepriciationCatDropdownMasterService,
     ACMasterDropdownService,
+    SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

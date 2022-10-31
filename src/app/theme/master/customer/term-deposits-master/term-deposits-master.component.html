@@ -1283,7 +1283,7 @@
                                                                                         class="form-control"
                                                                                         id="AC_NDATE"
                                                                                         max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                        #date
+                                                                                        #date [minDate]="maxDate"
                                                                                         [(ngModel)]="ngnomineedate"
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                         formControlName="AC_NDATE"
@@ -1957,7 +1957,7 @@
                                                                                     class="form-control"
                                                                                     id="DATE_EXPIRY"
                                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                    #date [minDate]="minDate"
+                                                                                    #date [minDate]="maxDate"
                                                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                     (focusout)="disabledate(date.value)"
                                                                                     [bsValue]="bsValue"

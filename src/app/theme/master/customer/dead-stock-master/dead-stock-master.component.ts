@@ -31,6 +31,8 @@ import { Subscription } from "rxjs/Subscription";
 import { first } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import * as moment from 'moment';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -136,7 +138,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   ngItem: any = null
   ngDepre: any = null
   ngGlAC: any = null
-  maxDate: Date;
+  maxDate: any;
   purValue: any
   constructor(
     private fb: FormBuilder,
@@ -144,13 +146,18 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private deadstockmasterService: DeadstockmasterService,
     private ItemCatMasterDropdownService: ItemCatMasterDropdownService,
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
-    private ACMasterDropdownService: ACMasterDropdownService
+    private ACMasterDropdownService: ACMasterDropdownService,
+    private systemParameter: SystemMasterParametersService,
   ) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
