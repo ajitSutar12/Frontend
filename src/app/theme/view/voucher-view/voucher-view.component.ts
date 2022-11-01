@@ -33,8 +33,8 @@ export class VoucherViewComponent implements OnInit {
 
   // Formgroup variable
   angForm: FormGroup;
-  maxDate: Date;
-  minDate: Date;
+  maxDate: any;
+  minDate: any;
   bsValue = new Date();
   // dropdown variables 
   ngBranchCode: any = null
@@ -48,10 +48,11 @@ export class VoucherViewComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
