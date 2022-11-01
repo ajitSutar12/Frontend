@@ -88,13 +88,13 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private systemParameter: SystemMasterParametersService,
-
+    private systemParameter: SystemMasterParametersService
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate._d
+    })
   }
 
   ngOnChanges() {

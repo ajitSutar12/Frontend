@@ -167,6 +167,49 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <textarea class="form-control" formControlName="particulars"
+                                                    [(ngModel)]="particulars"></textarea>
+                                                <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label
+                                            for="AC_PARTICULAR">Token
+                                            Number</label></div>
+                                    <div class="col-md-2" *ngIf="tokenshowhide">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" class="form-control"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    formControlName="token" maxlength="4"
+                                                    (focusout)="checkTokenCondition($event)">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-3">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" class="form-control" formControlName="over_draft">
+                                                    <label for="AC_PARTICULAR">Saction over draft</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" class="form-control" formControlName="temp_over_draft">
+                                                    <label for="AC_PARTICULAR">Temp. over draft</label>
+                                                </span>
+                                            </div>
+                                        </div> -->
+                                </div>
                                 <div *ngIf="showChequeDetails">
                                     <div class="row" *ngIf="showChequeDetails">
                                         <div class="col-sm-12 col-md-2"><label for="ChequeNo">Cheque No.</label></div>
@@ -326,79 +369,36 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="solid">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-2  "><label
-                                                    for="AC_PARTICULAR">Particulars</label></div>
-                                            <div class="col-md-5">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <textarea class="form-control" formControlName="particulars"
-                                                            [(ngModel)]="particulars"></textarea>
-                                                        <i class="fa fa-info-circle errspan"
-                                                            (click)="modalLarge.show()"></i>
-                                                    </span>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label
-                                                    for="AC_PARTICULAR">Token
-                                                    Number</label></div>
-                                            <div class="col-md-2" *ngIf="tokenshowhide">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" class="form-control"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            formControlName="token" maxlength="4"
-                                                            (focusout)="checkTokenCondition($event)">
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col-md-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" class="form-control" formControlName="over_draft">
-                                                            <label for="AC_PARTICULAR">Saction over draft</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" class="form-control" formControlName="temp_over_draft">
-                                                            <label for="AC_PARTICULAR">Temp. over draft</label>
-                                                        </span>
-                                                    </div>
-                                                </div> -->
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm" style="float: right;">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                    [disabled]="submitForm" *ngIf="showButton"
-                                                    (click)="submit();branchcode.focus()">
-                                                    Submit
-                                                </button>
-                                                <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                                    *ngIf="newbtnShow">
-                                                    Cancel
-                                                </button>&nbsp;&nbsp;&nbsp;&nbsp; -->
-                                                <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                                    *ngIf="updateShow">
-                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
-                                                    (click)="reject()">
-                                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
-                                                    (click)="Approve()">
-                                                    Approve</button>
-                                                <button (click)="tran_mode.focus()" style="display: none;"
-                                                    #focusbutton>focus</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-sm" style="float: right;">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm"
+                                        [disabled]="submitForm" *ngIf="showButton"
+                                        (click)="submit();branchcode.focus()">
+                                        Submit
+                                    </button>
+                                    <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                                        *ngIf="newbtnShow">
+                                        Cancel
+                                    </button>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                    <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                        *ngIf="updateShow">
+                                        Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
+                                        (click)="reject()">
+                                        Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                        (click)="Approve()">
+                                        Approve</button>
+                                    <button (click)="tran_mode.focus()" style="display: none;"
+                                        #focusbutton>focus</button>
                                 </div>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <div class="solid">
+                                       
+                                    </div>
+                                </div>
+                            </div> -->
                         </form>
                     </div>
                 </div>
