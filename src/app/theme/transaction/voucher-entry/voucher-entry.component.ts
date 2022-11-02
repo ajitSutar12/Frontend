@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
@@ -470,6 +470,14 @@ export class VoucherEntryComponent implements OnInit {
     obj['scheme'] = this.Submitscheme;
     obj['account_no'] = this.submitCustomer;
     obj['tran_mode'] = this.submitTranMode;
+    if (this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+      let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+      let amount = Number(this.angForm.controls['amt'].value)
+      if (amount > ledgerbal)
+        obj['isOverdraftTaken'] = 1
+      else
+        obj['isOverdraftTaken'] = 0
+    }
     console.log(obj);
     if (Number(this.totalAmt) != 0 && this.totalAmt != undefined && this.totalAmt != '' && this.totalAmt != '0.00' && this.totalAmt != 'NaN.00') {
       this._service.insertVoucher(obj).subscribe(data => {
@@ -871,6 +879,7 @@ export class VoucherEntryComponent implements OnInit {
   submitCustomer: any;
   //get customer today voucher data
   getVoucherData(item) {
+    this.submitCustomer = null
     this.angForm.controls['total_amt'].reset()
     this.angForm.controls['amt'].reset()
     this.angForm.controls['tran_mode'].reset();
@@ -975,9 +984,8 @@ export class VoucherEntryComponent implements OnInit {
     ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(ele.target.value);
     if (Number(ele.target.value) > Number(this.headData[i].Balance)) {
-      this.headData[i].Amount = value
+      this.headData[i].Amount = '0'
       Swal.fire('Info', 'Please fill proper amount!', 'info')
-      this.headData[i].Amount = 0;
     }
     else {
       if (Number(this.headData[i].Amount) != 0)
@@ -1111,6 +1119,20 @@ export class VoucherEntryComponent implements OnInit {
     // document.getElementById('full').src = largeSrc;
   }
 
+  checkSanctionAmountWithAmount() {
+    let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+    let sancAmt = ledgerbal + Number(this.overdraftAmt)
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+      this.SideDetails()
+      this.angForm.controls['amt'].reset();
+      this.angForm.patchValue({
+        total_amt: 0
+      })
+      this.swiper.nativeElement.focus();
+      Swal.fire('Oops!', `Access Denied, Amount Can't Be More Than Sanction Limit Rs. ${sancAmt}`, 'error');
+      this.submitForm = true
+    }
+  }
 
   // Check Voucher Conditions On Amount Field
   checkCondition($event) {
@@ -1142,7 +1164,7 @@ export class VoucherEntryComponent implements OnInit {
           this.angForm.controls['amt'].reset();
           this.angForm.controls['total_amt'].reset();
           this.SideDetails()
-          this.swiper.nativeElement.focus();
+          // this.swiper.nativeElement.focus();
           this.submitForm = true
         } else {
           this.checkamtcondition($event)
@@ -1166,7 +1188,7 @@ export class VoucherEntryComponent implements OnInit {
           this.angForm.controls['total_amt'].reset();
           this.SideDetails()
           this.submitForm = true
-          this.swiper.nativeElement.focus();
+          // this.swiper.nativeElement.focus();
         }
       })
 
@@ -1176,7 +1198,8 @@ export class VoucherEntryComponent implements OnInit {
   }
   checkamtcondition($event) {
     let obj = {
-      value: Number($event.target.value),
+      // value: Number($event.target.value),
+      value: Number(this.angForm.controls['amt'].value),
       clearBalance: this.ClearBalance,
       accountNo: this.submitCustomer.BANKACNO,
       schemeType: this.selectedCode,
@@ -2053,5 +2076,10 @@ export class VoucherEntryComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+
+  @Output() newCustomerEvent = new EventEmitter<string>();
+  addNewCustomer(value) {
+    this.dtTrigger.next()
   }
 }

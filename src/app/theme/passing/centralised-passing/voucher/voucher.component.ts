@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -34,6 +34,7 @@ interface VoucherEntry {
 export class VoucherComponent implements OnInit {
   @ViewChild(VoucherEntryComponent) child: VoucherEntryComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
+
 
   dtExportButtonOptions: any = {};
   dtElement: DataTableDirective;
@@ -87,18 +88,18 @@ export class VoucherComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         // this.mySubscription = interval(1000).subscribe((x => {
-          this.http
-            .post<DataTableResponse>(
-              this.url + '/voucher/passing',
-              dataTableParameters
-            ).subscribe(resp => {
-              this.voucherEntry = resp.data;
-              callback({
-                recordsTotal: resp.recordsTotal,
-                recordsFiltered: resp.recordsTotal,
-                data: []
-              });
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/voucher/passing',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.voucherEntry = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
             });
+          });
         // }));
       },
       columnDefs: [{
@@ -170,6 +171,9 @@ export class VoucherComponent implements OnInit {
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
   }
   public getData(value): void {
     let el: HTMLElement = this.myDiv.nativeElement;
@@ -178,6 +182,15 @@ export class VoucherComponent implements OnInit {
       dtInstance.ajax.reload()
     });
   }
+
+  //function to get new customer data
+  addNewCustomer(newCustomer) {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
+  }
+
+
 
 
 

@@ -43,13 +43,13 @@
                                         <div class="form-radio">
                                             <div class="radio radio-inline">
                                                 <label class="inputRadio">
-                                                    <input type="radio" name="DEBIT" value="cash" formControlName="type"
+                                                    <input type="radio" name="type" value="cash" formControlName="type"
                                                         (change)="transactionMode('cash')">
                                                     <i class="helper"></i>Cash </label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label class="inputRadio">
-                                                    <input type="radio" name="DEBIT" value="transfer"
+                                                    <input type="radio" name="type" value="transfer"
                                                         formControlName="type" (change)="transactionMode('transfer')">
                                                     <i class="helper"></i>Transfer </label>
                                             </div>
@@ -281,8 +281,8 @@
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
                                                     maxlength="15" (keyup)="getaftervoucher($event)"
                                                     (focus)="selectAllContent($event)"
-                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event);"
-                                                    (change)="decimalAllContent($event); checkCondition($event);"
+                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event); checkSanctionAmountWithAmount()"
+                                                    (change)="decimalAllContent($event); checkCondition($event); checkSanctionAmountWithAmount()"
                                                     required formControlName="amt" #swiper (keyup)="getAmt($event)">
                                             </span>
                                         </div>
@@ -370,9 +370,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm" style="float: right;">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm"
-                                        [disabled]="submitForm" *ngIf="showButton"
-                                        (click)="submit();branchcode.focus()">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm" [disabled]="submitForm"
+                                        *ngIf="showButton" (click)="submit();branchcode.focus()">
                                         Submit
                                     </button>
                                     <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
@@ -511,7 +510,7 @@
                             <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>
@@ -530,7 +529,7 @@
                             <div class="col-md-12" *ngIf="ShownotLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>
@@ -549,7 +548,7 @@
                             <div class="col-md-12" *ngIf="ShowLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-danger rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>
@@ -568,7 +567,7 @@
                             <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>

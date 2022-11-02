@@ -16,6 +16,8 @@ import { environment } from "src/environments/environment";
 import { first } from 'rxjs/operators';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -70,7 +72,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //  for Date
   effectdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   private dataSub: Subscription = null;
@@ -94,11 +96,15 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     private _overdraft: overdraftservice,
     private http: HttpClient,
     private config: NgSelectConfig,
+    private systemParameter: SystemMasterParametersService,
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -197,6 +203,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.actype,
+      ACTYPE: this.ac_type,
       AC_NO: formVal.AC_NO,
       BANKACNO: this.bankAcno,
       AC_SODAMT: formVal.AC_SODAMT,
@@ -271,9 +278,11 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  ac_type
   //get account no according scheme 
   getSchemeAcNO(event) {
     this.actype = event.name
+    this.ac_type = event.value
     this.angForm.patchValue({
       AC_ODAMT: '',
       AC_SODAMT: '',
