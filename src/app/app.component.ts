@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     });
     this.addHotKeys();
   }
-  //site environment
+  // site environment
   // addHotKeys() {
   //   this._hotkeysService.add(new Hotkey(['f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12',
   //     'ctrl+fn+f2', 'ctrl+fn+f3', 'ctrl+fn+f4', 'ctrl+fn+f5', 'ctrl+fn+f6', 'ctrl+fn+f7', 'shift+fn+f8', 'ctrl+fn+f8', 'ctrl+f3', 'ctrl+fn+f9', 'ctrl+fn+f10', 'ctrl+fn+f11', 'ctrl+fn+f12', 'ctrl+a', 'ctrl+shift+a', 'ctrl+shift+b', 'ctrl+shift+d', 'ctrl+e'],
@@ -60,6 +60,7 @@ export class AppComponent implements OnInit {
   //       return false;
   //     }, ['INPUT', 'TEXTAREA', 'SELECT']));
   // }
+
   //local environment
   addHotKeys() {
     this._hotkeysService.add(new Hotkey(['f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12',

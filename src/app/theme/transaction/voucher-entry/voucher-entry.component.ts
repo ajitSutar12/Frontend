@@ -408,33 +408,52 @@ export class VoucherEntryComponent implements OnInit {
     // debugger
     this.selectedMode = null
     this.type = mode;
-    let object = this.TranData.find(t => t.key === this.selectedCode);
-    if (this.type == 'cash') {
-      this.tranModeList = [];
-      object.data.cash.forEach(ele => {
-        let obj = this.TranModeCash.find(t => t.id === ele);
-        this.tranModeList.push(obj);
-      })
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
-      }
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      this.angForm.patchValue({
-        chequeDate: null
-      })
+    var startdate = this.angForm.controls['date'].value
+
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom: any;
+    if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+      addInFrom = startdate;
     } else {
-      this.tranModeList = [];
-      object.data.transfer.forEach(ele => {
-        let obj = this.TranModeTransfer.find(t => t.id === ele);
-        this.tranModeList.push(obj);
-      })
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
-      }
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
     }
+    let obj = {
+      scheme: this.Submitscheme.S_APPL,
+      acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
+      date: addInFrom
+    }
+
+    this._service.getledgerbalance(obj).subscribe(data => {
+      //debugger
+      this.DayOpBal = Math.abs(data);
+      let object = this.TranData.find(t => t.key === this.selectedCode);
+      if (this.type == 'cash') {
+        this.tranModeList = [];
+        object.data.cash.forEach(ele => {
+          let obj = this.TranModeCash.find(t => t.id === ele);
+          this.tranModeList.push(obj);
+        })
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+        }
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        this.angForm.patchValue({
+          chequeDate: null
+        })
+      } else {
+        this.tranModeList = [];
+        object.data.transfer.forEach(ele => {
+          let obj = this.TranModeTransfer.find(t => t.id === ele);
+          this.tranModeList.push(obj);
+        })
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+        }
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      }
+    })
   }
 
 
@@ -887,93 +906,51 @@ export class VoucherEntryComponent implements OnInit {
     this.tempscheme = this.selectedScheme
     //Hide / Show and show account wie Photo and signature
     let customer = this.angForm.controls['account_no'].value;
-    let obj = {
-      'customer': customer.BANKACNO,
-      'date': this.date
-    }
+    var startdate = this.angForm.controls['date'].value
 
-    //Check Account Close or not
-    let Obj = {
-      'customer_ACNO': customer.BANKACNO,
-      'type': this.selectedCode
-    }
-    // this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
-    //   if (data == true) {
-    //     Swal.fire('Oops!', 'Access dined Account Close Already!', 'error');
-    //     return 0;
-    //   }
-    // }, err => {
-    //   console.log(err);
-    // })
-
-    // this._service.getVoucherPassAndUnpassData(obj).subscribe(data => {
-    //   let passType = '';
-    //   let unpassType = '';
-
-    //   //DayOfOpening 
-    //   this.ClearBalance = this.ClearBalance + this.DayOpBal;
-
-    //   //Pass condition checked
-    //   if (data.passObj.pass == undefined) {
-    //     this.Pass = 0;
-    //     this.overdraftAmt = 0
-    //     passType = 'Cr';
-    //   } else {
-    //     this.Pass = data.passObj.pass;
-    //     passType = data.passObj.type;
-    //   }
-
-    //   //Unpass condition checked
-    //   if (data.unpassObj.UnPass == undefined) {
-    //     this.Unpass = 0;
-    //     let unpassType = 'Cr';
-    //   } else {
-    //     this.Unpass = data.unpassObj.UnPass;
-    //     let unpassType = data.unpassObj.type;
-    //   }
-
-
-    //   if (passType == 'Cr') {
-    //     this.ClearBalance = this.Pass + this.ClearBalance;
-    //   } else {
-    //     this.ClearBalance = this.Pass - this.ClearBalance;
-    //   }
-
-    //   if (unpassType == 'Cr') {
-    //     this.ClearBalance = this.Unpass + this.ClearBalance;
-    //   } else {
-    //     this.ClearBalance = this.Unpass - this.ClearBalance;
-    //   }
-    //   // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
-    //   this.AfterVoucher = this.ClearBalance;
-    // }, err => {
-    //   console.log(err);
-    // })
-    let object = this.TranData.find(t => t.key === this.selectedCode);
-    //debugger
-    if (this.type == 'cash') {
-      this.tranModeList = [];
-      object.data.cash.forEach(ele => {
-        let obj = this.TranModeCash.find(t => t.id === ele);
-        this.tranModeList.push(obj);
-      })
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
-      }
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom: any;
+    if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+      addInFrom = startdate;
     } else {
-      this.tranModeList = [];
-      object.data.transfer.forEach(ele => {
-        let obj = this.TranModeTransfer.find(t => t.id === ele);
-        this.tranModeList.push(obj);
-      })
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
-      }
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
     }
+    let obj = {
+      scheme: this.Submitscheme.S_APPL,
+      acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
+      date: addInFrom
+    }
+
+    this._service.getledgerbalance(obj).subscribe(data => {
+      //debugger
+      this.DayOpBal = Math.abs(data);
+      let object = this.TranData.find(t => t.key === this.selectedCode);
+      //debugger
+      if (this.type == 'cash') {
+        this.tranModeList = [];
+        object.data.cash.forEach(ele => {
+          let obj = this.TranModeCash.find(t => t.id === ele);
+          this.tranModeList.push(obj);
+        })
+        if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+        }
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      } else {
+        this.tranModeList = [];
+        object.data.transfer.forEach(ele => {
+          let obj = this.TranModeTransfer.find(t => t.id === ele);
+          this.tranModeList.push(obj);
+        })
+        if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+        }
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      }
+    })
+
   }
 
 
@@ -1085,6 +1062,7 @@ export class VoucherEntryComponent implements OnInit {
   decimalAllContent($event) {
     if (this.submitTranMode == undefined) {
       Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
+      this.tran_mode.focus()
       let value = Number($event.target.value);
       this.totalAmt = 0;
       $event.target.value = 0
@@ -1188,10 +1166,9 @@ export class VoucherEntryComponent implements OnInit {
           this.angForm.controls['total_amt'].reset();
           this.SideDetails()
           this.submitForm = true
-          // this.swiper.nativeElement.focus();
+          this.swiper.nativeElement.focus();
         }
       })
-
     } else {
       this.checkamtcondition($event)
     }
@@ -1228,9 +1205,10 @@ export class VoucherEntryComponent implements OnInit {
             this.submitForm = true
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
-              if (data != 0) {
-                // this.submitForm = true
-              } else {
+              // if (data != 0) {
+              //   // this.submitForm = true
+              // }
+              // else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
                   //debugger
                   if (data != 0) {
@@ -1421,6 +1399,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                                       }
                                                                                       else {
                                                                                         this.submitForm = false
+                                                                                        this.swiper.nativeElement.blur();
                                                                                       }
                                                                                     }, err => {
                                                                                       console.log(err);
@@ -1495,10 +1474,11 @@ export class VoucherEntryComponent implements OnInit {
                 }, err => {
                   console.log(err);
                 })
-              }
-            }, err => {
-              console.log(err);
-            })
+              // }
+            }
+              , err => {
+                console.log(err);
+              })
           }
         }, err => {
           console.log(err);

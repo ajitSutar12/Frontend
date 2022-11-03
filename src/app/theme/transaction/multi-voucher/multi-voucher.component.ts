@@ -1492,6 +1492,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                           }
                                                                                           else {
                                                                                             this.submitForm = false
+                                                                                            this.amt.nativeElement.blur()
                                                                                           }
                                                                                         })
                                                                                       }
