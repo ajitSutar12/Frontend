@@ -846,7 +846,7 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
-      amt: data.amt,
+      amt: Number(data.amt).toFixed,
       particulars: data.particulars,
       total_amt: data.total_amt
     })

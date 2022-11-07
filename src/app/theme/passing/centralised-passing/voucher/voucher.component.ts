@@ -171,9 +171,6 @@ export class VoucherComponent implements OnInit {
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
-    });
   }
   public getData(value): void {
     let el: HTMLElement = this.myDiv.nativeElement;

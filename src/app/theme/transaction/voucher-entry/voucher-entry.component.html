@@ -335,7 +335,8 @@
                                                                     maxlength="11"
                                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
-                                                                    (keyup)="getInputHeadAmt($event,i)"
+                                                                    (keydown.Tab)="getInputHeadAmt($event,i)" #INTAMT
+                                                                    (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
                                                                     (focusout)="decimalAllContent($event);checkCondition($event)"
                                                                     value="{{item.Amount}}">
@@ -346,7 +347,8 @@
                                                                     maxlength="11"
                                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
-                                                                    (keyup)="getInputHeadAmt($event,i)"
+                                                                    (keydown.Tab)="getInputHeadAmt($event,i)" #NOTINTAMT
+                                                                    (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
                                                                     (focusout)="decimalAllContent($event);"
                                                                     value="{{item.Amount}}">
