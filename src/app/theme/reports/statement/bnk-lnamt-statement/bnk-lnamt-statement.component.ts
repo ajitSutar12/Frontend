@@ -198,6 +198,7 @@ export class BnkLNamtStatementComponent implements OnInit {
      let obj = this.ngForm.value
      let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
      let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
+     var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY'); 
      let branch = obj.BRANCH_CODE;
       let startingcode= obj.Starting_Account;
      let endingcode =obj.Ending_Account;
@@ -208,7 +209,7 @@ export class BnkLNamtStatementComponent implements OnInit {
      let scheme=obj.Scheme_code;
   
  
-    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch="+branch+"&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
+    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
                     " &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
     this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     

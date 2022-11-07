@@ -79,7 +79,7 @@ clicked:boolean=false;
   }
   // Reset Function
   resetForm() {
-    this.createForm()
+    // this.createForm()
     this.showRepo = false;
     this.clicked=false;
   }

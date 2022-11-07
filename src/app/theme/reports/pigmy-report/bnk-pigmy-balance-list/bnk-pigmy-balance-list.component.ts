@@ -163,11 +163,11 @@ export class BnkPigmyBalanceListComponent implements OnInit {
  
   
   //set open date, appointed date and expiry date
-  getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.defaultDate = data.CURRENT_DATE
-    })
-  }
+  // getSystemParaDate() {
+  //   this.systemParameter.getFormData(1).subscribe(data => {
+  //     this.defaultDate = data.CURRENT_DATE
+  //   })
+  // }
  
   
   src: any;
@@ -183,7 +183,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let date =  moment(obj.DATE).format('DD/MM/YYYY');
+    let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
     
     let scheme = obj.Scheme_code
     let schemeAccountNo = obj.Scheme_acc

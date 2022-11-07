@@ -175,13 +175,14 @@ export class BnkTDStatementComponent implements OnInit {
       
       let stdate = moment(obj.Starting_Date).format('DD/MM/YYYY');
       let END_DATE =  moment(obj.Ending_Date).format('DD/MM/YYYY');
+      var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY');
       let Scheme_code = obj.Scheme_code;
       let Starting_Account = obj.Starting_Account;
       let Ending_Account = obj.Ending_Account;
       let print1 = obj.Print_Every_Account_on_New_Page;
       let print2 = obj.Print_Closed_Account;
 
-      this.iframeurl = this.report_url+"examples/TermDepositeStatement.php?stdate='" + stdate + "'&END_DATE='" + END_DATE + "'&Scheme_code=" + Scheme_code + "&Starting_Account=" + Starting_Account + 
+      this.iframeurl = this.report_url+"examples/TermDepositeStatement.php?stdate='" + stdate + "'&END_DATE='" + END_DATE +"'&sdate='"+sdate+ "'&Scheme_code=" + Scheme_code + "&Starting_Account=" + Starting_Account + 
                        "&Ending_Account=" + Ending_Account + "&print1='" + print1 + "'&print2='" + print2 + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
