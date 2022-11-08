@@ -150,21 +150,28 @@
                             <li>
                                 <h6> <a (click)="OpenLink(29)" routerLinkActive="active" class="text-right f-w-600"
                                         id="pointer" routerLink="/passing/centralisedPassing"
-                                        [ngClass]="{'isActive': goldsilverreturnTrue}">22. Gold Silver Return
-                                        Entry</a><span
-                                        class="badge badge-secondary badgeAlign">{{gold_silver_return}}</span></h6>
+                                        [ngClass]="{'isActive': goldsilverreturnTrue}">22. Deadstock Depreciation
+                                        Process</a><span
+                                        class="badge badge-secondary badgeAlign">{{deprciationProcess}}</span></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(30)" routerLinkActive="active" class="text-right f-w-600"
                                         id="pointer" routerLink="/passing/centralisedPassing"
-                                        [ngClass]="{'isActive': termdepositacrenewalTrue}">23. Term Deposit A/c
-                                        Renewal</a><span
-                                        class="badge badge-secondary badgeAlign">{{term_deposit_ac_renewal}}</span></h6>
+                                        [ngClass]="{'isActive': goldsilverreturnTrue}">23. Gold Silver Return
+                                        Entry</a><span
+                                        class="badge badge-secondary badgeAlign">{{gold_silver_return}}</span></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(31)" routerLinkActive="active" class="text-right f-w-600"
                                         id="pointer" routerLink="/passing/centralisedPassing"
-                                        [ngClass]="{'isActive': lockeraccloserentTrue}">24. Locker A/c Close /
+                                        [ngClass]="{'isActive': termdepositacrenewalTrue}">24. Term Deposit A/c
+                                        Renewal</a><span
+                                        class="badge badge-secondary badgeAlign">{{term_deposit_ac_renewal}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(32)" routerLinkActive="active" class="text-right f-w-600"
+                                        id="pointer" routerLink="/passing/centralisedPassing"
+                                        [ngClass]="{'isActive': lockeraccloserentTrue}">25. Locker A/c Close /
                                         Rent</a><span
                                         class="badge badge-secondary badgeAlign">{{locaker_ac_close}}</span></h6>
                             </li>
@@ -259,6 +266,9 @@
             </div>
             <div *ngIf="lockeraccloserentTrue">
                 <app-locker-ac-close-rent></app-locker-ac-close-rent>
+            </div>
+            <div *ngIf="deprciationProcessTrue">
+                <app-depreciation-passing></app-depreciation-passing>
             </div>
         </div>
     </div>
