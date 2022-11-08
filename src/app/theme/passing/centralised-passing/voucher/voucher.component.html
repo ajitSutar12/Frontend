@@ -81,7 +81,8 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-voucher-entry [childMessage]="voucherData" (getUserData)="getData($event)"></app-voucher-entry>
+            <app-voucher-entry [childMessage]="voucherData" (getUserData)="getData($event)"
+                (newCustomerEvent)="addNewCustomer($event)"></app-voucher-entry>
 
         </perfect-scrollbar>
     </div>

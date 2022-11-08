@@ -144,7 +144,7 @@
                                                         <input type="text" placeholder="dd/mm/yyyy" name="AC_ODDATE"
                                                             id="AC_ODDATE" class="form-control" [(ngModel)]="effectdate"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                            [minDate]="minDate"
+                                                            [minDate]="maxDate"
                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                             formControlName="AC_ODDATE"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
