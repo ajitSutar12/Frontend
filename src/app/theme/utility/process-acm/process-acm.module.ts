@@ -4,14 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProcessACMComponent } from './process-acm.component';
 import { ProcessACMRoutingModule } from './process-acm-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
-import {DataTablesModule} from 'angular-datatables';
+import { SharedModule } from '../../../shared/shared.module';
+import { DataTablesModule } from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NPAProcessComponent } from './npaprocess/npaprocess.component';
 import { NPAMarkingComponent } from './npamarking/npamarking.component';
 import { NPAProcessLockingComponent } from './npaprocess-locking/npaprocess-locking.component';
-import { DeadStockDepreciationComponent } from './dead-stock-depreciation/dead-stock-depreciation.component';
+import { DeadStockDepreciationModule } from './dead-stock-depreciation/dead-stock-depreciation.module';
 import { OverdraftInterestPostingComponent } from './overdraft-interest-posting/overdraft-interest-posting.component';
 import { PenalInterestCalculationComponent } from './penal-interest-calculation/penal-interest-calculation.component';
 import { TransferToGLbyClosingACComponent } from './transfer-to-glby-closing-ac/transfer-to-glby-closing-ac.component';
@@ -24,7 +24,6 @@ import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-maste
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ChargesPostingComponent } from './charges-posting/charges-posting.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -35,20 +34,21 @@ import { ChargesPostingComponent } from './charges-posting/charges-posting.compo
     ReactiveFormsModule,
     DataTablesModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    DeadStockDepreciationModule
   ],
   declarations: [
     ProcessACMComponent,
     NPAProcessComponent,
     NPAMarkingComponent,
-    NPAProcessLockingComponent, 
-    DeadStockDepreciationComponent, 
-    OverdraftInterestPostingComponent, 
-    PenalInterestCalculationComponent, 
+    NPAProcessLockingComponent,
+    // DeadStockDepreciationComponent,
+    OverdraftInterestPostingComponent,
+    PenalInterestCalculationComponent,
     TransferToGLbyClosingACComponent,
-    PayrolldatatransferComponent, 
+    PayrolldatatransferComponent,
     PayrollexportfileprocessComponent, ChargesPostingComponent],
-  providers:[OwnbranchMasterService,SchemeCodeDropdownService,ACMasterDropdownService,SchemeAccountNoService,{
+  providers: [OwnbranchMasterService, SchemeCodeDropdownService, ACMasterDropdownService, SchemeAccountNoService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

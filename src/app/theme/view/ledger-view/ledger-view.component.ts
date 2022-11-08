@@ -447,7 +447,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
         closeBalance: closeBal
       }
       this.tableData.push(obj)
-      if (this.transactions.length >= 2) {
+      if (this.transactions.length >= 1) {
+        // if (this.transactions.length >= 2) {
         this.transactions.forEach((element) => {
           if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             //record wise other amount 
