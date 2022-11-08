@@ -1662,23 +1662,27 @@ export class VoucherEntryComponent implements OnInit {
 
     this._service.StandingOrInterestInstruction(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Oops!', data.message, 'error');
         this.selectedMode = null
+        this.submitForm = true
+        Swal.fire('Oops!', data.message, 'error');
       } else {
         this._service.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
-            Swal.fire('Oops!', data.message, 'error');
             this.selectedMode = null
+            this.submitForm = true
+            Swal.fire('Oops!', data.message, 'error');
           } else {
             this._service.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Oops!', data.message, 'error');
                 this.selectedMode = null
+                this.submitForm = true
+                Swal.fire('Oops!', data.message, 'error');
               } else {
                 this._service.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Oops!', data.message, 'error');
                     this.selectedMode = null
+                    this.submitForm = true
+                    Swal.fire('Oops!', data.message, 'error');
                   }
                 }, err => {
                   console.log(err);
