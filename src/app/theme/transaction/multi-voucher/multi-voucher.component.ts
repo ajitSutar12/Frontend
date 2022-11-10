@@ -540,7 +540,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
   //get Amount Details
-  getAmt(ele) {
+  getAmt(ele) { 
     let count = 0
     if (this.headData.length != 0) {
       this.headData.forEach(element => {
