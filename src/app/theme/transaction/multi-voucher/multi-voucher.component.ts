@@ -39,6 +39,7 @@ export class MultiVoucherComponent implements OnInit {
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   @ViewChild('focusbutton') focusbutton: ElementRef<HTMLElement>;
   @ViewChild('selectMode') selectMode: NgSelectComponent;
+  @ViewChild('amt') amt: ElementRef;
   branchCode: any = null
 
   selectedBranch: number;
@@ -446,7 +447,16 @@ export class MultiVoucherComponent implements OnInit {
       obj['tran_mode'] = this.submitTranMode;
       obj['scheme'] = this.submitScheme;
       obj['account_no'] = this.submitAccountNo;
-
+      if (this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN')) {
+        let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+        let amount = Number(this.angForm.controls['amt'].value)
+        if (amount > ledgerbal)
+          obj['isOverdraftTaken'] = 1
+        else
+          obj['isOverdraftTaken'] = 0
+      }
+      else
+        obj['isOverdraftTaken'] = 0
       this.mainMaster.push(obj);
       this.DayOpBal = 0
 
@@ -727,10 +737,9 @@ export class MultiVoucherComponent implements OnInit {
     var t = ele.target.value;
     ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(ele.target.value);
-    console.log(this.headData, 'headData')
     if (Number(ele.target.value) > Number(this.headData[i].Balance)) {
       Swal.fire('Info', 'Please fill proper amount!', 'info')
-      this.headData[i].Amount = 0;
+      this.headData[i].Amount = '0';
     }
     else {
       this.headData[i].Amount = value;
@@ -817,7 +826,7 @@ export class MultiVoucherComponent implements OnInit {
   //Edit Voucher Data
   headflag: boolean = false;
   editVoucher(index) {
-    debugger
+    // debugger
     this.headflag = true;
 
     this.EditFlag = true;
@@ -837,7 +846,7 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
-      amt: data.amt,
+      amt: Number(data.amt).toFixed,
       particulars: data.particulars,
       total_amt: data.total_amt
     })
@@ -977,7 +986,8 @@ export class MultiVoucherComponent implements OnInit {
   Approve() {
     let obj = {
       id: Number(this.updateID),
-      userid: this.loginUser.id
+      userid: this.loginUser.id,
+      branch: this.selectedBranch
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
@@ -997,6 +1007,7 @@ export class MultiVoucherComponent implements OnInit {
   reject() {
     let obj = {
       id: this.updateID,
+      branch: this.selectedBranch
     }
     this._service.reject(obj).subscribe(data => {
       Swal.fire(
@@ -1159,7 +1170,20 @@ export class MultiVoucherComponent implements OnInit {
       this.ShowDocuments = false
     }
   }
-
+  checkSanctionAmountWithAmount() {
+    let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+    let sancAmt = ledgerbal + Number(this.overdraftAmt)
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN')) {
+      this.SideDetails()
+      this.angForm.controls['amt'].reset();
+      this.angForm.patchValue({
+        total_amt: 0
+      })
+      this.amt.nativeElement.focus();
+      Swal.fire('Oops!', `Access Denied, Amount Can't Be More Than Sanction Limit Rs. ${sancAmt}`, 'error');
+      this.submitForm = true
+    }
+  }
 
 
   // Check Voucher Conditions On Amount Field
@@ -1236,7 +1260,8 @@ export class MultiVoucherComponent implements OnInit {
   }
   checkamtcondition($event) {
     let obj = {
-      value: Number($event.target.value),
+      // value: Number($event.target.value),
+      value: Number(this.angForm.controls['amt'].value),
       clearBalance: this.ClearBalance,
       accountNo: this.submitAccountNo.BANKACNO,
       schemeType: this.selectedCode,
@@ -1250,19 +1275,21 @@ export class MultiVoucherComponent implements OnInit {
     }
     this._service.checkZeroBalance(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Oops!', data.message, 'error');
         this.SideDetails()
         this.angForm.controls['amt'].reset();
         this.angForm.controls['total_amt'].reset();
+        this.amt.nativeElement.focus();
         this.submitForm = true
+        Swal.fire('Oops!', data.message, 'error');
       } else {
         this._service.clearWithdrawBal(obj).subscribe(data => {
           if (data != 0) {
-            Swal.fire('Oops!', data.message, 'error');
             this.SideDetails()
             this.angForm.controls['amt'].reset();
             this.angForm.controls['total_amt'].reset();
+            this.amt.nativeElement.focus();
             this.submitForm = true
+            Swal.fire('Oops!', data.message, 'error');
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
@@ -1294,165 +1321,178 @@ export class MultiVoucherComponent implements OnInit {
               } else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Oops!', data.message, 'error');
                     this.SideDetails()
                     this.angForm.controls['amt'].reset();
                     this.angForm.controls['total_amt'].reset();
+                    this.amt.nativeElement.focus();
                     this.submitForm = true
+                    Swal.fire('Oops!', data.message, 'error');
                   } else {
                     this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
                       if (data != 0) {
-                        Swal.fire('Oops!', data.message, 'error');
                         this.SideDetails()
                         this.angForm.controls['amt'].reset();
                         this.angForm.controls['total_amt'].reset();
+                        this.amt.nativeElement.focus();
                         this.submitForm = true
+                        Swal.fire('Oops!', data.message, 'error');
                       } else {
                         this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
                           if (data != 0) {
-                            Swal.fire('Oops!', data.message, 'error');
                             this.SideDetails()
                             this.angForm.controls['amt'].reset();
                             this.angForm.controls['total_amt'].reset();
+                            this.amt.nativeElement.focus();
                             this.submitForm = true
+                            Swal.fire('Oops!', data.message, 'error');
                           } else {
                             this._vservice.InstructionFreezeAc(obj).subscribe(data => {
                               if (data != 0) {
-                                Swal.fire('Oops!', data.message, 'error');
                                 this.SideDetails()
                                 this.angForm.controls['amt'].reset();
                                 this.angForm.controls['total_amt'].reset();
-                                let el: HTMLElement = this.focusbutton.nativeElement;
+                                this.amt.nativeElement.focus();
                                 this.submitForm = true
+                                Swal.fire('Oops!', data.message, 'error');
                               } else {
                                 this._vservice.MinBalanceChecking(obj).subscribe(data => {
                                   if (data != 0) {
-                                    Swal.fire('Oops!', data.message, 'error');
                                     this.SideDetails()
                                     this.angForm.controls['amt'].reset();
                                     this.angForm.controls['total_amt'].reset();
+                                    this.amt.nativeElement.focus();
                                     this.submitForm = true
+                                    Swal.fire('Oops!', data.message, 'error');
                                   } else {
                                     this._vservice.CheckClearBalAndAmt(obj).subscribe(data => {
                                       if (data != 0) {
-                                        Swal.fire('Oops!', data.message, 'error');
                                         this.SideDetails()
                                         this.angForm.controls['amt'].reset();
                                         this.angForm.controls['total_amt'].reset();
-                                        let el: HTMLElement = this.focusbutton.nativeElement;
+                                        this.amt.nativeElement.focus();
                                         this.submitForm = true
+                                        Swal.fire('Oops!', data.message, 'error');
                                       } else {
                                         this._vservice.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
                                           if (data != 0) {
-                                            Swal.fire('Oops!', data.message, 'error');
                                             this.SideDetails()
                                             this.angForm.controls['amt'].reset();
                                             this.angForm.controls['total_amt'].reset();
-                                            let el: HTMLElement = this.focusbutton.nativeElement;
+                                            this.amt.nativeElement.focus();
                                             this.submitForm = true
+                                            Swal.fire('Oops!', data.message, 'error');
                                           } else {
                                             this._vservice.DepositeAmountAndIntallments(obj).subscribe(data => {
                                               if (data != 0) {
-                                                Swal.fire('Oops!', data.message, 'error');
                                                 this.SideDetails()
                                                 this.angForm.controls['amt'].reset();
                                                 this.angForm.controls['total_amt'].reset();
-                                                let el: HTMLElement = this.focusbutton.nativeElement;
+                                                this.amt.nativeElement.focus();
                                                 this.submitForm = true
+                                                Swal.fire('Oops!', data.message, 'error');
                                               } else {
                                                 this._vservice.DepositAndTotalInstallments(obj).subscribe(data => {
                                                   if (data != 0) {
-                                                    Swal.fire('Oops!', data.message, 'error');
                                                     this.SideDetails()
                                                     this.angForm.controls['amt'].reset();
                                                     this.angForm.controls['total_amt'].reset();
-                                                    let el: HTMLElement = this.focusbutton.nativeElement;
+                                                    this.amt.nativeElement.focus();
                                                     this.submitForm = true
+                                                    Swal.fire('Oops!', data.message, 'error');
                                                   } else {
                                                     this._vservice.DepositAndDepositAmount(obj).subscribe(data => {
                                                       if (data != 0) {
-                                                        Swal.fire('Oops!', data.message, 'error');
                                                         this.SideDetails()
                                                         this.angForm.controls['amt'].reset();
                                                         this.angForm.controls['total_amt'].reset();
+                                                        this.amt.nativeElement.focus();
                                                         this.submitForm = true
+                                                        Swal.fire('Oops!', data.message, 'error');
                                                       } else {
                                                         this._vservice.PremcloseTdateTamtCom(obj).subscribe(data => {
                                                           if (data != 0) {
-                                                            Swal.fire('Oops!', data.message, 'error');
                                                             this.SideDetails()
                                                             this.angForm.controls['amt'].reset();
                                                             this.angForm.controls['total_amt'].reset();
-                                                            let el: HTMLElement = this.focusbutton.nativeElement;
+                                                            this.amt.nativeElement.focus();
                                                             this.submitForm = true
+                                                            Swal.fire('Oops!', data.message, 'error');
                                                           } else {
                                                             this._vservice.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
                                                               if (data != 0) {
-                                                                Swal.fire('Oops!', data.message, 'error');
                                                                 this.SideDetails()
                                                                 this.angForm.controls['amt'].reset();
                                                                 this.angForm.controls['total_amt'].reset();
+                                                                this.amt.nativeElement.focus();
                                                                 this.submitForm = true
+                                                                Swal.fire('Oops!', data.message, 'error');
                                                               } else {
                                                                 this._vservice.ComVouamtClearbalAndStrs(obj).subscribe(data => {
                                                                   if (data != 0) {
-                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                     this.SideDetails()
                                                                     this.angForm.controls['amt'].reset();
                                                                     this.angForm.controls['total_amt'].reset();
+                                                                    this.amt.nativeElement.focus();
                                                                     this.submitForm = true
+                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                   } else {
                                                                     this._vservice.DepositGreaterShareLimitAmt(obj).subscribe(data => {
                                                                       if (data != 0) {
-                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                         this.SideDetails()
                                                                         this.angForm.controls['amt'].reset();
                                                                         this.angForm.controls['total_amt'].reset();
+                                                                        this.amt.nativeElement.focus();
                                                                         this.submitForm = true
+                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                       } else {
                                                                         this._vservice.ZeroBalance(obj).subscribe(data => {
                                                                           if (data != 0) {
-                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                             this.SideDetails()
                                                                             this.angForm.controls['amt'].reset();
                                                                             this.angForm.controls['total_amt'].reset();
+                                                                            this.amt.nativeElement.focus();
                                                                             this.submitForm = true
+                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                           } else {
                                                                             this._vservice.CashWithdraw(obj).subscribe(data => {
                                                                               if (data != 0) {
-                                                                                Swal.fire('Oops!', data.message, 'error');
                                                                                 this.SideDetails()
                                                                                 this.angForm.controls['amt'].reset();
                                                                                 this.angForm.controls['total_amt'].reset();
+                                                                                this.amt.nativeElement.focus();
                                                                                 this.submitForm = true
+                                                                                Swal.fire('Oops!', data.message, 'error');
                                                                               } else {
                                                                                 this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                   if (data != 0) {
-                                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                                     this.SideDetails()
                                                                                     this.angForm.controls['amt'].reset();
                                                                                     this.angForm.controls['total_amt'].reset();
+                                                                                    this.amt.nativeElement.focus();
                                                                                     this.submitForm = true
+                                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                                   } else {
                                                                                     this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                       if (data != 0) {
-                                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                                         this.SideDetails()
                                                                                         this.angForm.controls['amt'].reset();
                                                                                         this.angForm.controls['total_amt'].reset();
+                                                                                        this.amt.nativeElement.focus();
                                                                                         this.submitForm = true
+                                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                                       } else {
                                                                                         this._vservice.withdrawClosingCondition(obj).subscribe(data => {
                                                                                           if (data != 0) {
-                                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                                             this.SideDetails()
                                                                                             this.angForm.controls['amt'].reset();
                                                                                             this.angForm.controls['total_amt'].reset();
                                                                                             this.selectMode.focus()
                                                                                             this.submitForm = true
+                                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                                           }
                                                                                           else {
                                                                                             this.submitForm = false
+                                                                                            this.amt.nativeElement.blur()
                                                                                           }
                                                                                         })
                                                                                       }

@@ -134,9 +134,10 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                            class="form-control" [(ngModel)]="todate" [bsValue]="bsValue"                                           
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" [maxDate]="maxDate"
-                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
+                                            class="form-control" [(ngModel)]="todate" [bsValue]="bsValue"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
+                                            [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="TO_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker [disabled]="disableFields">
                                     </span>
@@ -228,8 +229,7 @@
                             [ngStyle]="{'color': (data.TRAN_STATUS == '0') ? '#226de9':'#212529'}"> -->
                         <!-- #bc31e9 VIOLET COLOR FOR INTEREST ENTRY -->
                         <tr *ngFor="let data of tableData; let indexOfelement = index"
-                            [ngStyle]="{'color': (data.TRAN_STATUS == '0') ? '#226de9':'#212529'}"
-                            [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':'#212529'}">
+                            [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':((data.TRAN_STATUS == '0') ? '#226de9':'#212529')}">
                             <td>{{data.TRAN_DATE}}</td>
                             <td>{{data.CHEQUE_NO}}</td>
                             <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: nowrap;">
