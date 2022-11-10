@@ -336,8 +336,18 @@ debugger
   if (this.angForm.valid) {
     this.showRepo = true;
     let obj = this.angForm.value
+
+    // check the conition of the default(syspara) date and date parameter and set the format
+    let edate:any;
+    if (this.todate == obj.TO_DATE) {
+      edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    }else{ 
+      edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    };
+
     let stadate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    let edate = moment(obj.TO_DATE).format('DD/MM/YYYY');
+    // let edate = moment(obj.TO_DATE).format('DD/MM/YYYY');
+    var sdate = moment(obj.FROM_DATE).subtract(1, "day").format('DD/MM/YYYY');
     let branch = obj.BRANCH;
     let scheme = obj.AC_TYPE;
     let fromacc = obj.AC_NOFrom;
@@ -348,7 +358,7 @@ debugger
     let print = obj.PRINT_ACCOUNT;
     let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement.php?&stadate='" + stadate +"'&edate='"+edate+"'&branch="+branch+"&scheme="+scheme+"&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+"examples/AccountStatement.php?&stadate='" + stadate +"'&edate='"+edate+"'&sdate='"+sdate+"'&branch="+branch+"&scheme="+scheme+"&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }

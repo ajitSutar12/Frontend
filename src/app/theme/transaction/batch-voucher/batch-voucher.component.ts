@@ -443,4 +443,3 @@ export class BatchVoucherComponent implements OnInit {
     })
   }
 };
-

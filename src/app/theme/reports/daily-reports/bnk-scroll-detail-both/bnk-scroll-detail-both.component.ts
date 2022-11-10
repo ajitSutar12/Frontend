@@ -13,7 +13,7 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer} from '@angular/platform-browser';
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
-
+import { NgSelectConfig } from "@ng-select/ng-select";
 
 
 @Component({
@@ -32,6 +32,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
   clicked=false;
   // Created Form Group
   angForm: FormGroup;
+  bsValue = new Date();
   //api
   url = environment.base_url;
   report_url = environment.report_url;
@@ -41,6 +42,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
+    private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer
@@ -115,7 +117,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
     if(this.angForm.controls['Print_Code'].value=="Debit" && this.angForm.valid){
     this.showRepo = true;
     let obj = this.angForm.value
-  let Startdate = this.fromdate;
+  let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
@@ -128,7 +130,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
  else if(this.angForm.controls['Print_Code'].value=="Credit" && this.angForm.valid){
   this.showRepo = true;
   let obj = this.angForm.value
-  let Startdate = this.fromdate;
+  let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
@@ -141,7 +143,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
 else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid){
   this.showRepo = true;
   let obj = this.angForm.value
-  let Startdate = this.fromdate;
+  let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code

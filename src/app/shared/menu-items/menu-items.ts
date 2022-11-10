@@ -994,8 +994,17 @@ const MENUITEMS = [
                 state: 'TFormDayBookComponent',
                 name: 'T Form Day Book Details/Summary',
                  id: 212
-              },
-             
+               },
+               {
+                state: 'SubsidiarySummaryComponent',
+                name: 'Subsidiary Summary',
+                 id: 213
+               },
+               {
+                state: 'VouchersPrintingComponent',
+                name: 'Voucher Printing',
+                 id: 232
+               },
 
             ]
           },

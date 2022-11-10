@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -95,29 +95,30 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
     })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['Branch'].enable()
+    }
+    else {
+      this.angForm.controls['Branch'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.required]],
-      RADIO: [""],
+      RADIO: new FormControl ('success'),
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
       SORT: ["", [Validators.required]],
       NEWPAGE: ["", [Validators.required]],
-    });
-
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.todate = result.branch.id
-      this.angForm.controls['BRANCH_CODE'].enable()
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.todate = result.branch.id
-    }
+    })
   }
+
   end() {
     this.startfrom = this.angForm.controls['START_DATE'].value
     this.startto = this.angForm.controls['END_DATE'].value
@@ -176,7 +177,6 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
   }
  resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.SORT.reset();
     this.angForm.controls.RADIO.reset()
     this.showRepo = false;

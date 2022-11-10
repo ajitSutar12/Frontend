@@ -184,13 +184,14 @@ export class BnkGlAcStatementComponent implements OnInit {
       let obj = this.angForm.value
       let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
       let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      var sdate = moment(obj.START_DATE).subtract(1, "day").format('DD/MM/YYYY');
       let branch = obj.BRANCH;
       let scheme = obj.AC_TYPE
       let startingcode = obj.FROM_AC;
       let endingcode = obj.TO_AC;
       let MonthwiseSummary =obj.Month_wise_Summary
 
-      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&branch=" + branch + "&startingcode=" + startingcode + "&endingcode=" + endingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
+      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='" + sdate+ "'&branch=" + branch + "&startingcode=" + startingcode + "&endingcode=" + endingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {
@@ -228,7 +229,7 @@ close(){
     this.angForm.controls.AC_TYPE.reset();
     this.angForm.controls.FROM_AC.reset();
     this.angForm.controls.TO_AC.reset();
-    this.angForm.controls.BRANCH.reset();
+    // this.angForm.controls.BRANCH.reset();
     this.showRepo = false;
     this.clicked=false;
   }
