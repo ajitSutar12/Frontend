@@ -796,6 +796,11 @@ const MENUITEMS = [
           {
             state: 'goldsilverreturnentry',
             name: 'Gold/Silver Return Entry',
+            id: 191
+          },
+          {
+            state: 'DepreciationPassing',
+            name: 'Depreciation Passing',
             id: 190
           },
         ]
