@@ -1,4 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cash-initialisation-entry',
@@ -6,47 +12,143 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cash-initialisation-entry.component.scss']
 })
 export class CashInitialisationEntryComponent implements OnInit {
-  dtExportButtonOptions: any = {};
-  constructor() { }
+
+  elements: any;
+
+  url = environment.base_url;
+
+  //ngmodel
+  Cashier
+  DenominationChart: boolean;
+
+  // Formgroup variable
+  angForm: FormGroup;
+
+  ngTransactionNo: any = null
+
+  // date variables
+
+  ngtrandate: any = null
+
+  values = [
+    { id: 1, name: 'aaa' },
+    { id: 2, name: 'bbb' },
+    { id: 3, name: 'Supervisor' },
+  ];
+
+  values1 = [
+    { type: 2000, Amt: 0, Qty: 0 },
+    { type: 2000, Amt: 0, Qty: 0 }
+  ]
+  currencyData =
+  [
+    { currency: 2000, qty: 0, total: 0 },
+    { currency: 1000, qty: 0, total: 0 },
+    { currency: 500, qty: 0, total: 0  },
+    { currency: 200, qty: 0, total: 0  },
+    { currency: 100, qty: 0, total: 0  },
+    { currency: 50, qty: 0, total: 0  },
+    { currency: 20, qty: 0, total: 0  },
+    { currency: 10, qty: 0, total: 0  },
+    { currency: 5, qty: 0, total: 0  },
+    { currency: 1, qty: 0, total: 0  },
+  ]
+
+
+  no1: any = 0;
+  nonotes: any = 0;
+  total1: any = 0;
+  ans: string;
+
+  
+  constructor(private fb: FormBuilder, private http: HttpClient,
+    private config: NgSelectConfig,    private systemParameter: SystemMasterParametersService,) {
+  
+  }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+
+    this.angForm = this.fb.group({
+
+      DENOMINATION_AMT: ['',[Validators.required,Validators.pattern]],
+      TRANSACTION_NO: ['', [Validators.required, Validators.pattern]],
+      TRAN_DATE: ['', [Validators.required]],
+      CASHIER: ['', [Validators.required]],
+      no1: ['', [Validators.required]],
+      NONOTES: ['', [Validators.required]],
+      TOTAL1: ['', [Validators.required]],
+    })
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        TRAN_DATE: data.CURRENT_DATE
+      })
+    })
+
+    
+
+
 
   }
 
+ 
+
+  
+ 
+
+  getNotes(name, value, id) {
+ 
+    
+    let ans=Number(name)* Number(value)
+    document.getElementById("anstwoThou").innerHTML=this.ans;
+    console.log(ans)
+
+  }
+
+  decimalAllContent($event) {
+  
+    
+      var t = $event.target.value;
+      $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+      this.angForm.patchValue({
+        DENOMINATION_AMT:$event.target.value
+      })
+  }
+
+  isFormA(value) {
+    
+
+    if (Number(this.angForm.controls['DENOMINATION_AMT'].value) == 0) {
+      this.DenominationChart = false
+    }
+   
+    else { 
+      this.DenominationChart = true
+    }
+  }
+
+ 
+
+  sum: number = 0
+  calculation(data, index, element) {
+   
+    console.log(element.target.value);
+    let currency = this.currencyData[index].currency;
+    let qty = element.target.value;
+    let total = currency * qty;
+    this.currencyData[index].currency = currency;
+    this.currencyData[index].qty = qty;
+    this.currencyData[index].total = total;
+
+
+    this.sum = this.currencyData.reduce((accumulator, object) => {
+      return accumulator + object.total;
+    }, 0);
+
+  }
+  
+
+
+ 
+
+  
 }

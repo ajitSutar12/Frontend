@@ -229,7 +229,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       particulars: [null],
       amount: [, [Validators.pattern]],
       ClosingQuaters: [0],
-      QInterest: [0],
+      QInterest:  [0],
       ClosingMonth: [''],
       MInterest: [0],
       DInterest: [0],

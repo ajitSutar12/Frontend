@@ -19,22 +19,31 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule,                      
     ShareTransactionsRoutingModule,
     SharedModule,
     DataTablesModule,
     // SelectModule,
     NgSelectModule,
     FormsModule, ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [ShareTransactionsComponent, IssueNewSharesComponent, SharesTransferComponent, MembershipCancellationComponent, FoundPaymentTransactionComponent, OpeningSharesTransactionsEntryComponent, RebitInterestTransactionComponent],
-  providers: [SelectOptionService,glMasterService,SchemeCodeDropdownService,
+  providers: [SelectOptionService,glMasterService,SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService,SchemeCodeDropdownService,SystemMasterParametersService, 
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
     },]
+    
 })
 export class ShareTransactionsModule { }
