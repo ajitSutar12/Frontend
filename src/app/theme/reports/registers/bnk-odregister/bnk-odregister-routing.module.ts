@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkODRegisterComponent,
     data: {
-      title: 'O.D.Register (Temporary / Periodical)',
+      title: 'O.D.Register(Temporary / Periodical)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

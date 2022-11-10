@@ -130,7 +130,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
       let PrintClosedAccounts = obj.Print_Closed_Accounts;
 
 
-      this.iframe1url = this.report_url+ "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branchName='" + branchName + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
+      this.iframe1url = this.report_url+ "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {

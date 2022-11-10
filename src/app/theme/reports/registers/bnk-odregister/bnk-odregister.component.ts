@@ -78,7 +78,7 @@ export class BnkODRegisterComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ['', [Validators.required]],
-      OD_TEMP: ['', ],
+      OD_TEMP: new FormControl ('TemporaryOverDraft'),
       Starting_Account: ['', [Validators.required]],
       Ending_Account: ['', [Validators.required]],
 
@@ -219,7 +219,7 @@ export class BnkODRegisterComponent implements OnInit {
       let schemecode = obj.Scheme_code;
       let tem_perOD = obj.OD_TEMP;
      
-      this.iframe3url = this.report_url+"examples/BnkODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branchName='" + branchName + "'&schemecode='" + schemecode + "'&tem_perOD='" + tem_perOD + "'&bankName='" + bankName + "'"; 
+      this.iframe3url = this.report_url+"examples/BnkODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&tem_perOD='" + tem_perOD + "'&bankName='" + bankName + "'"; 
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
@@ -237,7 +237,11 @@ export class BnkODRegisterComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm()
+    // this.createForm()
+    this.angForm.controls.Scheme_code.reset();
+    // this.angForm.controls.OD_TEMP.reset();
+    this.angForm.controls.Starting_Account.reset();
+    this.angForm.controls.Ending_Account.reset();
     this.showRepo = false;
     this.clicked=false;
   }

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -121,7 +121,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       SORT: ["", [Validators.required]],
       FREQUENCY: ["", [Validators.required]],
       NEWPAGE: [""],
-      RADIO: [""],
+      RADIO: new FormControl('success'),
       // FAILURE: [""],
     });
 
@@ -193,7 +193,6 @@ debugger
   }
  resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.FREQUENCY.reset();
     this.showRepo = false;
     this.clicked=false;

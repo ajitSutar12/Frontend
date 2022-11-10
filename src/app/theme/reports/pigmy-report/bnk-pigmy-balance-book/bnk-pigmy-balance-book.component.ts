@@ -60,6 +60,7 @@ export class BnkPigmyBalanceBookComponent implements OnInit {
   characters: Array<IOption>;
   selectedCharacter = "3";
   timeLeft = 5;
+  sdate:any[];
 
   private dataSub: Subscription = null;
   //Scheme type variable
@@ -184,10 +185,12 @@ export class BnkPigmyBalanceBookComponent implements OnInit {
     this.showRepo = true;
     // let date =  moment(obj.DATE).format('DD/MM/YYYY');
     let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    var edate = moment(obj.FROM_DATE).subtract(1, "month").endOf('month').format('DD/MM/YYYY');
+    // var edate = moment(this.sdate).endOf('month').format('DD/MM/YYYY');
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
     let schemeAccountNo  = obj.Scheme_acc
-    this.iframe5url=this.report_url+"examples/AgentwsPigmyBalanceBook.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&schemeAccountNo=" + schemeAccountNo +"&bankName=" + bankName + "" ;
+    this.iframe5url=this.report_url+"examples/AgentwsPigmyBalanceBook.php?date='" + date + "'&edate='"+edate+"'&scheme=" + scheme + "&branch="+ branch +"&schemeAccountNo=" + schemeAccountNo +"&bankName=" + bankName + " ";
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    
@@ -205,7 +208,7 @@ close(){
 // Reset Function
 resetForm() {
   // this.createForm()
-  this.ngForm.controls.BRANCH_CODE.reset();
+  // this.ngForm.controls.BRANCH_CODE.reset();
   this.ngForm.controls.Scheme_code.reset();
   this.ngForm.controls.Scheme_acc.reset();
   this.showRepo = false;

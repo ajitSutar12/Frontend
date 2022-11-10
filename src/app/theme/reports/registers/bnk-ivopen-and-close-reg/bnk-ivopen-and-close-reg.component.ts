@@ -35,8 +35,9 @@ branch_codeList: any = null
 branch_code: any[]//from ownbranchmaster
 branchCode: any = null
 ngBranchCode
-ngscheme
-allScheme: any[];
+ngscheme:any[];
+ngIntroducer: any = null
+schemeList:any[];
  // Date variables
  todate: any = null;
  fromdate:any=null
@@ -49,6 +50,8 @@ allScheme: any[];
   ngfromac: any;
   ngtoac: any;
   showRepo: boolean = false;
+  scheme_code: any;
+
 constructor(
   private fb: FormBuilder,
   private http: HttpClient,
@@ -68,7 +71,7 @@ constructor(
 createForm() {
   this.angForm = this.fb.group({
     BRANCH_CODE: ['', [Validators.required]],
-    AC_TYPE: ['', [Validators.required]],
+    scheme_code: ['', ],
     START_DATE: ['', [Validators.required]],
     END_DATE: ['', [Validators.required]],
     AC_OPEN:  new FormControl('AC_OPEN'),
@@ -106,11 +109,13 @@ ngOnInit(): void {
     this.branch_code = data;
     // this.ngBranchCode = data[0].value
   })
-  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    var allscheme = data.filter(function (scheme) {
-      return (scheme.name == 'IV')
+
+  this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
+    var filtered = data.filter(function (scheme) {
+      return ( scheme.name == 'IV' );
     });
-    this.allScheme = allscheme;
+    this.schemeList = filtered;
+     this.ngIntroducer = null;
   })
 
   // this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
@@ -121,6 +126,7 @@ ngOnInit(): void {
 }
 src: any;
 View(event){
+   debugger
   event.preventDefault();
   
   let userData = JSON.parse(localStorage.getItem('user'));
@@ -132,12 +138,13 @@ View(event){
    this.showRepo = true;
   let obj = this.angForm.value
   let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-  let enddate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+  let scheme = obj. scheme_code;
   let Branch = obj.BRANCH_CODE
   let GROUP_BY = obj.GROUP_BY
   
-  this.iframeurl = this.report_url+"examples/InvestRegister.php?startDate='"+startDate+"'&endDate='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + " ";
-  this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+  this.iframeurl = this.report_url+"examples/InvestmentRegister.php ?startDate='"+startDate+"'&endDate='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
+    this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }
   else {
@@ -183,7 +190,7 @@ close(){
 // Reset Function
 resetForm() {
   // this.createForm()
-  this.angForm.controls.AC_TYPE.reset();
+  this.angForm.controls. scheme_code.reset();
   this.angForm.controls.AC_OPEN.reset();
   this.showRepo = false;
   this.clicked=false;

@@ -283,7 +283,8 @@ debugger
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let startDate = this.defaultDate;
+    let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
     let scheme = obj.Scheme_code
     let Rstartingacc = obj.FROM_AC_NO
     let Rendingacc = obj.TO_AC_NO
@@ -295,7 +296,7 @@ debugger
     let checkbox3 = obj.PRINT_ANA_REASON
 
          
-   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"&bankName=" + bankName + "";
+   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"&bankName=" + bankName + "";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
     // const url = "http://localhost/NewReport/phpjasperxml-master/examples/BalanceBook.php?startDate='"+startDate+"'&endDate='"+endDate+ "'&scheme='" + scheme + "'&schemeAccountNo" + schemeAccountNo +"'&";
@@ -316,7 +317,6 @@ close(){
 // Reset Function
 resetForm() {
   // this.createForm()
-  this.ngForm.controls.BRANCH_CODE.reset();
   this.ngForm.controls.Scheme_code.reset();
   this.ngForm.controls.FROM_AC_NO.reset();
   this.ngForm.controls.TO_AC_NO.reset();

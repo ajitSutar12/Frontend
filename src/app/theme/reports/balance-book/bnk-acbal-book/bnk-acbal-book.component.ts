@@ -282,6 +282,7 @@ export class BnkACBalBookComponent implements OnInit {
         let obj = this.ngForm.value
         this.showRepo = true;
     let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
     let scheme = obj.Scheme_code
     let Rstartingacc = obj.FROM_AC_NO
     let EndingAccount = obj.TO_AC_NO
@@ -289,7 +290,7 @@ export class BnkACBalBookComponent implements OnInit {
     let Rdio = obj.radio
     let Rdiosort  = obj.radio_sort
             
-   this.iframeurl= this.report_url+ "examples/BalanceBook.php?&date='"+date+"'&Rdio='"+Rdio+"&scheme=" + scheme + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&EndingAccount='" + EndingAccount +"'&Rdiosort='" + Rdiosort +"&bankName=" + bankName + "";
+   this.iframeurl= this.report_url+ "examples/BalanceBook.php?&date='"+date+"'&Rdio='"+Rdio+"&scheme='" + scheme +"'&sdate='" + sdate +  "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&EndingAccount='" + EndingAccount +"'&Rdiosort='" + Rdiosort +"&bankName=" + bankName + "";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
       }
       else {

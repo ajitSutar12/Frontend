@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -77,7 +77,7 @@ export class RecePayRepDetailsComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      TRANSCATION:["",],
+      TRANSCATION: new FormControl ('None') ,
       PRINT:["",],
       PENAL:["",],
     });
