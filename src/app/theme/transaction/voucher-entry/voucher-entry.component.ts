@@ -19,7 +19,7 @@ import { environment } from '../../../../environments/environment';
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 
-@Component({
+@Component({ 
   selector: 'app-voucher-entry',
   templateUrl: './voucher-entry.component.html',
   styleUrls: ['./voucher-entry.component.scss']
@@ -196,7 +196,7 @@ export class VoucherEntryComponent implements OnInit {
       let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
       let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
 
-      this.maxDate = new Date(nextDate);
+      this.maxDate = new Date(nextDate); 
       this.maxDate.setDate(this.maxDate.getDate());
 
       this.minDate = new Date(lastDate);
@@ -1827,7 +1827,7 @@ export class VoucherEntryComponent implements OnInit {
           this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
             this.introducerACNo = data;
           })
-          break;
+          break; 
 
         case 'SH':
           this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
@@ -2076,7 +2076,7 @@ export class VoucherEntryComponent implements OnInit {
     })
   }
 
-  onFocus(ele: NgSelectComponent) {
+  onFocus(ele: NgSelectComponent) { 
     ele.open()
     console.log(ele);
   }
