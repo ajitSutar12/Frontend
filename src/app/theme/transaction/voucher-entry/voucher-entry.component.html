@@ -42,14 +42,14 @@
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-radio">
                                             <div class="radio radio-inline">
-                                                <label>
-                                                    <input type="radio" name="DEBIT" value="cash" formControlName="type"
+                                                <label class="inputRadio">
+                                                    <input type="radio" name="type" value="cash" formControlName="type"
                                                         (change)="transactionMode('cash')">
                                                     <i class="helper"></i>Cash </label>
                                             </div>
                                             <div class="radio radio-inline">
-                                                <label>
-                                                    <input type="radio" name="DEBIT" value="transfer"
+                                                <label class="inputRadio">
+                                                    <input type="radio" name="type" value="transfer"
                                                         formControlName="type" (change)="transactionMode('transfer')">
                                                     <i class="helper"></i>Transfer </label>
                                             </div>
@@ -167,6 +167,49 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <textarea class="form-control" formControlName="particulars"
+                                                    [(ngModel)]="particulars"></textarea>
+                                                <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label
+                                            for="AC_PARTICULAR">Token
+                                            Number</label></div>
+                                    <div class="col-md-2" *ngIf="tokenshowhide">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" class="form-control"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    formControlName="token" maxlength="4"
+                                                    (focusout)="checkTokenCondition($event)">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-3">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" class="form-control" formControlName="over_draft">
+                                                    <label for="AC_PARTICULAR">Saction over draft</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" class="form-control" formControlName="temp_over_draft">
+                                                    <label for="AC_PARTICULAR">Temp. over draft</label>
+                                                </span>
+                                            </div>
+                                        </div> -->
+                                </div>
                                 <div *ngIf="showChequeDetails">
                                     <div class="row" *ngIf="showChequeDetails">
                                         <div class="col-sm-12 col-md-2"><label for="ChequeNo">Cheque No.</label></div>
@@ -238,8 +281,8 @@
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
                                                     maxlength="15" (keyup)="getaftervoucher($event)"
                                                     (focus)="selectAllContent($event)"
-                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event);"
-                                                    (change)="decimalAllContent($event); checkCondition($event);"
+                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event); checkSanctionAmountWithAmount()"
+                                                    (change)="decimalAllContent($event); checkCondition($event); checkSanctionAmountWithAmount()"
                                                     required formControlName="amt" #swiper (keyup)="getAmt($event)">
                                             </span>
                                         </div>
@@ -292,7 +335,8 @@
                                                                     maxlength="11"
                                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
-                                                                    (keyup)="getInputHeadAmt($event,i)"
+                                                                    (keydown.Tab)="getInputHeadAmt($event,i)" #INTAMT
+                                                                    (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
                                                                     (focusout)="decimalAllContent($event);checkCondition($event)"
                                                                     value="{{item.Amount}}">
@@ -303,7 +347,8 @@
                                                                     maxlength="11"
                                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                     style="width: 100%;border:none;text-align: right;"
-                                                                    (keyup)="getInputHeadAmt($event,i)"
+                                                                    (keydown.Tab)="getInputHeadAmt($event,i)" #NOTINTAMT
+                                                                    (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
                                                                     (focusout)="decimalAllContent($event);"
                                                                     value="{{item.Amount}}">
@@ -326,79 +371,35 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="solid">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-2  "><label
-                                                    for="AC_PARTICULAR">Particulars</label></div>
-                                            <div class="col-md-5">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <textarea class="form-control" formControlName="particulars"
-                                                            [(ngModel)]="particulars"></textarea>
-                                                        <i class="fa fa-info-circle errspan"
-                                                            (click)="modalLarge.show()"></i>
-                                                    </span>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label
-                                                    for="AC_PARTICULAR">Token
-                                                    Number</label></div>
-                                            <div class="col-md-2" *ngIf="tokenshowhide">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" class="form-control"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            formControlName="token" maxlength="4"
-                                                            (focusout)="checkTokenCondition($event)">
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col-md-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" class="form-control" formControlName="over_draft">
-                                                            <label for="AC_PARTICULAR">Saction over draft</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" class="form-control" formControlName="temp_over_draft">
-                                                            <label for="AC_PARTICULAR">Temp. over draft</label>
-                                                        </span>
-                                                    </div>
-                                                </div> -->
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm" style="float: right;">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                    [disabled]="submitForm" *ngIf="showButton"
-                                                    (click)="submit();branchcode.focus()">
-                                                    Submit
-                                                </button>
-                                                <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                                    *ngIf="newbtnShow">
-                                                    Cancel
-                                                </button>&nbsp;&nbsp;&nbsp;&nbsp; -->
-                                                <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                                    *ngIf="updateShow">
-                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
-                                                    (click)="reject()">
-                                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
-                                                    (click)="Approve()">
-                                                    Approve</button>
-                                                <button (click)="tran_mode.focus()" style="display: none;"
-                                                    #focusbutton>focus</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-sm" style="float: right;">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm" [disabled]="submitForm"
+                                        *ngIf="showButton" (click)="submit();branchcode.focus()">
+                                        Submit
+                                    </button>
+                                    <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                                        *ngIf="newbtnShow">
+                                        Cancel
+                                    </button>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                    <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                        *ngIf="updateShow">
+                                        Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
+                                        (click)="reject()">
+                                        Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                        (click)="Approve()">
+                                        Approve</button>
+                                    <button (click)="tran_mode.focus()" style="display: none;"
+                                        #focusbutton>focus</button>
                                 </div>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <div class="solid">
+                                       
+                                    </div>
+                                </div>
+                            </div> -->
                         </form>
                     </div>
                 </div>
@@ -511,7 +512,7 @@
                             <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>
@@ -530,7 +531,7 @@
                             <div class="col-md-12" *ngIf="ShownotLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>
@@ -549,7 +550,7 @@
                             <div class="col-md-12" *ngIf="ShowLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-danger rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>
@@ -568,7 +569,7 @@
                             <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
+                                        <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
                                                 <i class="fa fa-google-wallet field-icon"></i>
                                             </div>

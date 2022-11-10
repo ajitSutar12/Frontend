@@ -234,7 +234,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   AC_TYPE: boolean = false
   AC_CUSTID: boolean = false
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   @ViewChild('ctdTabset') ctdTabset;
   selectedImagePreview: any;
@@ -265,11 +265,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.editClickHandler(this.childMessage);
     }
-    this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate())
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {

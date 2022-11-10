@@ -560,7 +560,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
-                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_RATE"
+                                        placeholder=" " pattern="\d{1,2}(\.\d{2})?" id="TDS_RATE" maxlength="5"
                                         title="Input allowed only  0-9" #margin (keyup)="checkmargin(margin.value)"
                                         formControlName="TDS_RATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">

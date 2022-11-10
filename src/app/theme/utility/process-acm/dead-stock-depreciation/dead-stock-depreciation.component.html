@@ -11,15 +11,14 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
-                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" 
-                                        placeholder="Branch">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -34,13 +33,13 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-3"> <label for="CAL_DATE">Calculation Date<sub
-                            class="required">*</sub></label></div>
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="CAL_DATE" id="CAL_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [minDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
                                         formControlName="CAL_DATE" bsDatepicker required>
                                 </span>
                             </div>
@@ -56,9 +55,8 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm">Delete</button>
-                            <button class="btn btn-outline-primary btn-sm">Process</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="process()">Process</button>
                             <button class="btn btn-outline-primary btn-sm">Report</button>
-                            
                         </div>
                     </div>
                 </div>

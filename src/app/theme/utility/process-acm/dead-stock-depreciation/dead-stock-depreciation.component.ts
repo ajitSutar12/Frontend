@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
-import { NgSelectConfig } from '@ng-select/ng-select';
-
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-dead-stock-depreciation',
   templateUrl: './dead-stock-depreciation.component.html',
@@ -22,45 +22,46 @@ export class DeadStockDepreciationComponent implements OnInit {
 
   // dropdown variaqbles
   branch_code: any;
-  ngBranchCode:any=null
+  ngBranchCode: any = null
 
   // date variables
-  maxDate: Date;
-  minDate: Date;
-  ngcalculationdate:any=null
+  maxDate: any;
+  minDate: any;
+  ngcalculationdate: any = null
 
 
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private ownbranchMasterService: OwnbranchMasterService,
-    private config: NgSelectConfig,
-  ) { 
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    private systemParameter: SystemMasterParametersService,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
     this.createForm();
-
-
-
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
       this.ngBranchCode = data[0].value
-
     })
   }
 
-  createForm(){
-
+  createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       CAL_DATE: ['', [Validators.required]],
-
     })
+  }
+  process() {
+    let obj = {
+      date: this.angForm.controls['CAL_DATE'].value,
+      branch: this.ngBranchCode
+    }
+
   }
 
 }
