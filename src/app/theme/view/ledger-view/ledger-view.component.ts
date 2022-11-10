@@ -37,8 +37,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   todate: any = null;
   fromdate: any = null
   accountOpenDate: any = null
-  maxDate: Date;
-  minDate: Date;
+  maxDate: any;
+  minDate: any;
   bsValue = new Date();
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -90,10 +90,11 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     private systemParameter: SystemMasterParametersService,
     private _service: LegderViewService
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate._d
+    })
   }
   ngOnChanges() {
     this.createForm()
@@ -258,7 +259,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
       // this.fromdate = `01/04/${year - 1}`      
       this.todate = data.CURRENT_DATE
-      
+
       this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.fromdate = this.fromdate._d
     })
@@ -394,7 +395,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: event.opendate,
       AMOUNT: maturedAmount
     })
-    
+
     this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
   }
@@ -428,7 +429,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
-    
+
     let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY')]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
@@ -446,7 +447,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
         closeBalance: closeBal
       }
       this.tableData.push(obj)
-      if (this.transactions.length >= 2) {
+      if (this.transactions.length >= 1) {
+        // if (this.transactions.length >= 2) {
         this.transactions.forEach((element) => {
           if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
             //record wise other amount 

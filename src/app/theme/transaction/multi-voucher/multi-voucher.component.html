@@ -276,10 +276,11 @@
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR"
                                                     style="text-transform: capitalize;" maxlength="15"
                                                     (keyup)="getaftervoucher($event)"
-                                                    (focusout)="decimalAllContent($event); checkCondition($event)"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                    formControlName="amt" (keyup)="getAmt($event)"
-                                                    (focus)="selectAllContent($event)">
+                                                    formControlName="amt" (keyup)="getAmt($event)" #amt
+                                                    (focus)="selectAllContent($event)" 
+                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event);checkSanctionAmountWithAmount()"
+                                                    (change)="decimalAllContent($event); checkCondition($event);checkSanctionAmountWithAmount()">
 
                                             </span>
                                         </div>

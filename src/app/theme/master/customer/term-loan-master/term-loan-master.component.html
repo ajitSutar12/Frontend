@@ -951,6 +951,7 @@
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_COREG_DATE" id="AC_COREG_DATE"
                                                                         class="form-control" [(ngModel)]="ngredate"
+                                                                        [maxDate]="maxDate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         formControlName="AC_COREG_DATE" bsDatepicker>
                                                                     <label for="AC_COREG_DATE">Date</label>
@@ -1009,7 +1010,8 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_RESO_DATE" id="AC_RESO_DATE"
-                                                                        class="form-control" [(ngModel)]="ngresodate"
+                                                                        [maxDate]="maxDate" class="form-control"
+                                                                        [(ngModel)]="ngresodate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         formControlName="AC_RESO_DATE" bsDatepicker>
                                                                     <label for="AC_RESO_DATE">Date</label>
@@ -1795,6 +1797,7 @@
                                                                                         class="form-control"
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                         formControlName="EXP_DATE"
+                                                                                        [minDate]="maxDate"
                                                                                         bsDatepicker>
                                                                                     <label for="EXP_DATE">Expiry
                                                                                         Date</label>

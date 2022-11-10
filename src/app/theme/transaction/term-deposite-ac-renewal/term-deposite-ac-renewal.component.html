@@ -154,7 +154,7 @@
                                 <div class="col-md-2 labelWidth">
                                     <label>Maturity Date</label>
                                 </div>
-                                <div class="col-md-2 labelWidth">
+                                <div class="col-md-3 labelWidth">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" class="form-control" disabled
@@ -352,7 +352,7 @@
                             <div class="row" *ngIf="transferShowNormal">
                                 <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
                                             class="required">*</sub></label></div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-2 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedCodeNormal"
@@ -393,9 +393,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
+                                <div class="col-sm-12 col-md-1 labelWidth"><label for="AC_BRANCH">Account Number<sub
                                             class="required">*</sub></label></div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-3 col-md">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="customerNormal" formControlName="normal_account_no"
@@ -416,7 +416,7 @@
                             </div>
                             <hr>
                             <div class="row" *ngIf="payableShow">
-                                <div class="col-sm-2">
+                                <div class="col-sm-3 col-md-3">
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
                                             <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY1"
@@ -424,13 +424,11 @@
                                                 (change)="getpayableInterest($event)">
                                             <label class="border-checkbox-label" for="AC_IS_RECOVERY1">Payable
                                                 Interest</label>
-
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">Payable Interest</label></div>
-                                <div class="col-md-2">
+                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Payable Interest</label></div>
+                                <div class="col-sm-3 col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
@@ -469,7 +467,7 @@
                             <div class="row" *ngIf="payableTranferShow">
                                 <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
                                             class="required">*</sub></label></div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-2 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedCodePayable"
@@ -510,9 +508,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account Number<sub
                                             class="required">*</sub></label></div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-3 col-md">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="customerPayable"

@@ -877,3 +877,7 @@ input[type="file" i]::-webkit-file-upload-button {
     color: #333;
     background-color: #e0e6ef;
 }
+
+.inputRadio:focus-within {
+    color: red;
+  }

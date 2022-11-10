@@ -88,13 +88,13 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private systemParameter: SystemMasterParametersService,
-
+    private systemParameter: SystemMasterParametersService
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate._d
+    })
   }
 
   ngOnChanges() {
@@ -453,82 +453,84 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
         dividendBalance: divBal
       }
       this.tableData.push(obj)
-      this.transactions.forEach((element) => {
+      if (this.transactions.length >= 1 && this.transactions[0].TRAN_STATUS != undefined) {
+        this.transactions.forEach((element) => {
 
-        if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
-          if (element.TRAN_MODE == '7') {
-            element['DIVIDEND_AMOUNT'] = element.OTHER2_AMOUNT
-          }
-          //total credit and debit amount
-          if (element.TRAN_STATUS != '0') {
+          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+            if (element.TRAN_MODE == '7') {
+              element['DIVIDEND_AMOUNT'] = element.OTHER2_AMOUNT
+            }
+            //total credit and debit amount
+            if (element.TRAN_STATUS != '0') {
 
-            if (element.WARRENT_DATE != null && element.WARRENT_DATE != '') {
-              element['TRAN_DRCR'] = 'C'
-              element['TRAN_TYPE'] = 'UP'
-              element['TRAN_DATE'] = element.WARRENT_DATE
-              element['drcr'] = 'Cr'
-            }
-            else if (element.DIV_PAID_DATE != null && element.DIV_PAID_DATE != '') {
-              element['TRAN_DRCR'] = 'D'
-              element['TRAN_TYPE'] = 'PD'
-              element['TRAN_DATE'] = element.DIV_PAID_DATE
-              element['drcr'] = 'Dr'
-            }
-            else if (element.TRAN_DATE != null && element.TRAN_DATE != '' && element.REBIT_PAID_DATE == null) {
-              element['TRAN_DATE'] = element.TRAN_DATE
-              element['TRAN_DRCR'] = 'C'
-              element['TRAN_TYPE'] = 'UP'
-              element['drcr'] = 'Cr'
-              // element['isRebit'] = true
-            }
-            else if (element.REBIT_PAID_DATE != null && element.REBIT_PAID_DATE != '') {
-              element['TRAN_DATE'] = element.REBIT_PAID_DATE
-              element['TRAN_DRCR'] = 'D'
-              element['TRAN_TYPE'] = 'PD'
-              element['drcr'] = 'Dr'
-              element['isRebit'] = true
-            }
-            if (element.isRebit == true) {
-              element['REBIT_AMOUNT'] = element.TRAN_AMOUNT
-              element['TRAN_AMOUNT'] = '0.00'
-              element.TRAN_DRCR == 'C' ? this.rebitTotal = this.rebitTotal + Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal + 0
-              element.TRAN_DRCR == 'D' ? this.rebitTotal = this.rebitTotal - Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal - 0
-            }
-            if (element.isRebit == undefined) {
-              if (element.TRAN_DRCR == 'C') {
-                element.TRAN_AMOUNT != undefined ? this.creditTotal = this.creditTotal + Number(element.TRAN_AMOUNT) : this.creditTotal = this.creditTotal + 0
-                element.DIVIDEND_AMOUNT != undefined ? this.creditDivTotal = this.creditDivTotal + Number(element.DIVIDEND_AMOUNT) : this.creditDivTotal = this.creditDivTotal + 0
+              if (element.WARRENT_DATE != null && element.WARRENT_DATE != '') {
+                element['TRAN_DRCR'] = 'C'
+                element['TRAN_TYPE'] = 'UP'
+                element['TRAN_DATE'] = element.WARRENT_DATE
+                element['drcr'] = 'Cr'
               }
-              if (element.TRAN_DRCR == 'D') {
-                element.TRAN_AMOUNT != undefined ? this.debitTotal = this.debitTotal + Number(element.TRAN_AMOUNT) : this.debitTotal = this.debitTotal + 0
-                element.DIVIDEND_AMOUNT != undefined ? this.debitDivTotal = this.debitDivTotal + Number(element.DIVIDEND_AMOUNT) : this.debitDivTotal = this.debitDivTotal + 0
+              else if (element.DIV_PAID_DATE != null && element.DIV_PAID_DATE != '') {
+                element['TRAN_DRCR'] = 'D'
+                element['TRAN_TYPE'] = 'PD'
+                element['TRAN_DATE'] = element.DIV_PAID_DATE
+                element['drcr'] = 'Dr'
               }
-              //closing balance calculation
-              if (this.drcr == 'Cr') {
-                element.TRAN_DRCR == 'C' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
+              else if (element.TRAN_DATE != null && element.TRAN_DATE != '' && element.REBIT_PAID_DATE == null) {
+                element['TRAN_DATE'] = element.TRAN_DATE
+                element['TRAN_DRCR'] = 'C'
+                element['TRAN_TYPE'] = 'UP'
+                element['drcr'] = 'Cr'
+                // element['isRebit'] = true
+              }
+              else if (element.REBIT_PAID_DATE != null && element.REBIT_PAID_DATE != '') {
+                element['TRAN_DATE'] = element.REBIT_PAID_DATE
+                element['TRAN_DRCR'] = 'D'
+                element['TRAN_TYPE'] = 'PD'
+                element['drcr'] = 'Dr'
+                element['isRebit'] = true
+              }
+              if (element.isRebit == true) {
+                element['REBIT_AMOUNT'] = element.TRAN_AMOUNT
+                element['TRAN_AMOUNT'] = '0.00'
+                element.TRAN_DRCR == 'C' ? this.rebitTotal = this.rebitTotal + Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal + 0
+                element.TRAN_DRCR == 'D' ? this.rebitTotal = this.rebitTotal - Number(element.TRAN_AMOUNT) : this.rebitTotal = this.rebitTotal - 0
+              }
+              if (element.isRebit == undefined) {
+                if (element.TRAN_DRCR == 'C') {
+                  element.TRAN_AMOUNT != undefined ? this.creditTotal = this.creditTotal + Number(element.TRAN_AMOUNT) : this.creditTotal = this.creditTotal + 0
+                  element.DIVIDEND_AMOUNT != undefined ? this.creditDivTotal = this.creditDivTotal + Number(element.DIVIDEND_AMOUNT) : this.creditDivTotal = this.creditDivTotal + 0
+                }
+                if (element.TRAN_DRCR == 'D') {
+                  element.TRAN_AMOUNT != undefined ? this.debitTotal = this.debitTotal + Number(element.TRAN_AMOUNT) : this.debitTotal = this.debitTotal + 0
+                  element.DIVIDEND_AMOUNT != undefined ? this.debitDivTotal = this.debitDivTotal + Number(element.DIVIDEND_AMOUNT) : this.debitDivTotal = this.debitDivTotal + 0
+                }
+                //closing balance calculation
+                if (this.drcr == 'Cr') {
+                  element.TRAN_DRCR == 'C' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
+                  element['closeBalance'] = closeBal
+                  element.TRAN_DRCR == 'C' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
+                  element['dividendBalance'] = divBal
+                }
+                else if (this.drcr == 'Dr') {
+                  element.TRAN_DRCR == 'D' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
+                  element['closeBalance'] = closeBal
+                  element.TRAN_DRCR == 'D' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
+                  element['dividendBalance'] = divBal
+                }
+                if (element.TOTAL_SHARES != null || element.TOTAL_SHARES != '' || element.NO_OF_SHARES != null || element.NO_OF_SHARES != '') {
+                  element.TOTAL_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.TOTAL_SHARES) : this.totalShares = this.totalShares + 0
+                  element.NO_OF_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.NO_OF_SHARES) : this.totalShares = this.totalShares + 0
+                }
+              }
+              else {
                 element['closeBalance'] = closeBal
-                element.TRAN_DRCR == 'C' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
                 element['dividendBalance'] = divBal
               }
-              else if (this.drcr == 'Dr') {
-                element.TRAN_DRCR == 'D' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
-                element['closeBalance'] = closeBal
-                element.TRAN_DRCR == 'D' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
-                element['dividendBalance'] = divBal
-              }
-              if (element.TOTAL_SHARES != null || element.TOTAL_SHARES != '' || element.NO_OF_SHARES != null || element.NO_OF_SHARES != '') {
-                element.TOTAL_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.TOTAL_SHARES) : this.totalShares = this.totalShares + 0
-                element.NO_OF_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.NO_OF_SHARES) : this.totalShares = this.totalShares + 0
-              }
+              this.tableData.push(element)
             }
-            else {
-              element['closeBalance'] = closeBal
-              element['dividendBalance'] = divBal
-            }
-            this.tableData.push(element)
           }
-        }
-      });
+        });
+      }
       console.log(this.tableData, 'table')
       //grand total amount
       this.grandTotal = this.creditTotal + grandOpening

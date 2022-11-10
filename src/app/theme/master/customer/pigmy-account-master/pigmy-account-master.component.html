@@ -194,7 +194,7 @@
                                                                             class="form-control" required
                                                                             [(ngModel)]="openingDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                            disabled
+                                                                            disabled [maxDate]="maxDate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" bsDatepicker>
@@ -1265,7 +1265,7 @@
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
                                                                                             [(ngModel)]="ngnomineedate"
-                                                                                            [minDate]="minDate"
+                                                                                            [minDate]="maxDate"
                                                                                             class="form-control"
                                                                                             id="AC_NDATE"
                                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"

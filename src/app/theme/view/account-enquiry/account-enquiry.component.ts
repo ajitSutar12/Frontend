@@ -127,11 +127,11 @@ export class AccountEnquiryComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,) {
-    var date = moment();
-    date = date.subtract(1, "days");
-    this.maxDate = date.format("DD/MM/YYYY");
-    this.maxDate = moment(this.maxDate, 'DD/MM/YYYY')
-    this.maxDate = this.maxDate._d
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate.subtract(1, "days");
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -170,16 +170,10 @@ export class AccountEnquiryComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
     }
-
-    // this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data => {
-    //   this.angForm.patchValue({
-    //     DATE: moment(data['CURRENT_DATE']).format('DD/MM/YYYY')
-    //   })
-    // })
     this.systemParameter.getFormData(1).subscribe(data => {
       this.current_date = data.CURRENT_DATE
       this.angForm.patchValue({
-        DATE: data.CURRENT_DATE
+        DATE: this.maxDate
       })
     })
   }
@@ -645,7 +639,7 @@ export class AccountEnquiryComponent implements OnInit {
   //get account details
   getAccountDetails(event) {
     this.accountEvent = event
-    console.log('accountEvent?.AC_MEMBNO',this.accountEvent?.AC_MEMBNO)
+    console.log('accountEvent?.AC_MEMBNO', this.accountEvent?.AC_MEMBNO)
     this.accountData = event
     this.IsLedgerView = false
     if (this.getschemename == 'GL') {
