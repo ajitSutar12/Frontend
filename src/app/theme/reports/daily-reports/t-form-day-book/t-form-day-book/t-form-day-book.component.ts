@@ -46,11 +46,11 @@ export class TFormDayBookComponent implements OnInit {
     { id: 2, value: "Details" },
     { id: 3, value: "Subsidairy Grouping" },
   ];
-  constructor(private fb: FormBuilder, private sanitizer: DomSanitizer, 
+  constructor(private fb: FormBuilder, private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,
     public router: Router, private _ownbranchmasterservice: OwnbranchMasterService,) {
-    this.date = this.date;
+    this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -66,19 +66,19 @@ export class TFormDayBookComponent implements OnInit {
 
     //get date from syspara current_date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-    this.date = data.CURRENT_DATE;
-  });
+      this.date = data.CURRENT_DATE
+    });
 
-  let data: any = localStorage.getItem('user');
-  let result = JSON.parse(data);
-  if (result.RoleDefine[0].Role.id == 1) {
-    this.ngbranch = result.branch.id
-    this.ngForm.controls['BRANCH_CODE'].enable()
-  }
-  else {
-    this.ngForm.controls['BRANCH_CODE'].disable()
-    this.ngbranch = result.branch.id
-  }
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   // validations for ngForm
@@ -90,27 +90,44 @@ export class TFormDayBookComponent implements OnInit {
     });
   }
 
-  
+  // getdata(event) {
+
+  //   this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+  //     this.ngForm.patchValue({
+  //       Branch: event.NAME
+  //     })
+  //   })
+
+  // }
+
   src: any;
   view(event) {
 
-
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
     if (this.ngForm.valid) {
-
+debugger
       this.showRepo = true;
       let obj = this.ngForm.value
-      let Date = this.date;
 
-      let Branch = obj.Branch;
-
+      // check the conition of the default(syspara) date and date parameter and set the format
+      let Date:any;
+      if (this.date == obj.date) {
+        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+    
+        // let Date = this.date;
+        let Branch = obj.Branch;
       let type = obj.Type;
 
-      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date="+ Date + "&Branch=" +Branch + "&branchName=" + branchName + "&type='" + type + "&bankName=" + bankName + " ";
+      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {

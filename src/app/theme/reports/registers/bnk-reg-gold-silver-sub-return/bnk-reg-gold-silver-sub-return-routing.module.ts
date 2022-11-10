@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkRegGoldSilverSubReturnComponent,
     data: {
-      title: 'Gold Silver Submission/Return Register',
+      title: 'Gold Silver Register',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

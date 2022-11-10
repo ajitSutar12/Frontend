@@ -73,7 +73,7 @@ export class BnkRegAccountComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
-      ACOPEN: [],
+      ACOPEN: new FormControl ('ACOPEN'),
       ACCLOSE: [],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
@@ -164,7 +164,7 @@ export class BnkRegAccountComponent implements OnInit {
     // this.createForm()
     this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.AC_TYPE.reset();
-    this.angForm.controls.ACOPEN.reset();
+    // this.angForm.controls.ACOPEN.reset();
     this.angForm.controls.ACCLOSE.reset();
     this.showRepo = false;
     this.clicked=false;

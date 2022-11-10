@@ -1,7 +1,7 @@
 import {AfterViewInit,Component,OnDestroy,OnInit,ViewChild,Input,Output,EventEmitter,ElementRef,}from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -84,7 +84,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      TRANSCATION:["",],
+      TRANSCATION: new FormControl ('None'),
   });
 
   let data: any = localStorage.getItem('user');
@@ -101,8 +101,9 @@ export class BnkTrialBaldetailComponent implements OnInit {
   
   
   view(event) {
+    debugger
+    
     event.preventDefault();
-
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
@@ -111,12 +112,13 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
       this.showRepo = true;
       let obj = this.angForm.value
-      let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let endDate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      var sdate = moment(obj.START_DATE).startOf('quarter').format('DD/MM/YYYY');
       let branched = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
 
-      this.iframeurl = this.report_url+"examples/TrialBalDetail.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+branched+"&tran="+tran+"'&bankName=" + bankName + "";
+      this.iframeurl = this.report_url+"examples/TrialBalDetail.php?startdate='" + startdate +"'&endDate='"+endDate+"'&sdate='"+sdate+"'&branched="+branched+"&tran="+tran+"'&bankName=" + bankName + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
@@ -130,7 +132,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
   }
   // Reset Function
   resetForm() {
-    this.createForm()
+    // this.createForm()
     this.showRepo = false;
     this.clicked=false;
   }

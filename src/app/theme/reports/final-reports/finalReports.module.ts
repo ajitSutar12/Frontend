@@ -10,6 +10,7 @@ import { BnkTrialBalComponent } from './bnk-trial-bal/bnk-trial-bal.component';
 import { BnkTrialBaldetailComponent } from './bnk-trial-baldetail/bnk-trial-baldetail.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet/balance-sheet.component';
 import { NBalanceSheetComponent } from './n-balance-sheet/n-balance-sheet.component';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { NBalanceSheetComponent } from './n-balance-sheet/n-balance-sheet.compon
 
   ],
   declarations: [FinalReportsComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

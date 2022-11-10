@@ -6,7 +6,7 @@ const routes: Routes = [{
   path: '',
   component:  BalanceSheetComponent,
   data: {
-    title: 'Balance sheet (2 level and 3 level) ',
+    title: 'Balance sheet',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true
