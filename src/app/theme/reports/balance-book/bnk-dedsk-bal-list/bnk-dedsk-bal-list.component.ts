@@ -104,6 +104,16 @@ newcustid: any = null;
       console.log(data)
     })
     
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   
   }
   // validations for ngForm
@@ -151,7 +161,7 @@ newcustid: any = null;
       let endingcode =obj.Ending_Account;
       
 
-     this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch+"&startingcode='"+startingcode +"'&endingcode='"+ endingcode +"&bankName=" + bankName + " ";
+     this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch+"&startingcode="+startingcode +"&endingcode="+ endingcode +"&bankName=" + bankName + " ";
      this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
@@ -165,7 +175,7 @@ newcustid: any = null;
 
   resetForm() {
     // this.createForm()
-    this.ngForm.controls.BRANCH_CODE.reset();
+    // this.ngForm.controls.BRANCH_CODE.reset();
     this.ngForm.controls.Starting_Account.reset();
     this.ngForm.controls.Ending_Account.reset();
     this.showRepo = false;

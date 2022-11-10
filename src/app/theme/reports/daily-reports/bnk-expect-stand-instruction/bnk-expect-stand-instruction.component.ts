@@ -132,7 +132,7 @@ export class BnkExpectStandInstructionComponent implements OnInit {
       let FREQUENCY = obj.FREQUENCY;
       let NEWPAGE = obj.NEWPAGE;
 
-      this.iframeurl = this.report_url+ "examples/StandingInstructionDebit.php?stdate='" + stdate + "'&branchName='" + branchName + "'&STATUS='" + STATUS + "'&SORT_ON='" + SORT_ON + "'&FREQUENCY='" + FREQUENCY + "'&NEWPAGE='" + NEWPAGE + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+ "examples/StandingInstructionDebit.php?stdate='" + stdate + "'&Branch='" + Branch + "'&STATUS='" + STATUS + "'&SORT_ON='" + SORT_ON + "'&FREQUENCY='" + FREQUENCY + "'&NEWPAGE='" + NEWPAGE + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

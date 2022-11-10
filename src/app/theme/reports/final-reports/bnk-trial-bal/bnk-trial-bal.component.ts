@@ -1,7 +1,7 @@
 import {AfterViewInit,Component,OnDestroy,OnInit,ViewChild,Input,Output,EventEmitter,ElementRef,}from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -85,7 +85,7 @@ export class BnkTrialBalComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      TRANSCATION:["",],
+      TRANSCATION: new FormControl ('None'),
   });
 
   let data: any = localStorage.getItem('user');
@@ -102,6 +102,7 @@ export class BnkTrialBalComponent implements OnInit {
   
   
   view(event) {
+    debugger
     event.preventDefault();
 
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -111,12 +112,12 @@ export class BnkTrialBalComponent implements OnInit {
     if (this.angForm.valid) {
       this.showRepo = true;
       let obj = this.angForm.value
-      let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let endDate = moment(obj.END_DATE).format('DD/MM/YYYY');
       let branched = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
 
-      this.iframeurl = this.report_url+"examples/TrialBal.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+branched+"&tran="+tran+"&bankName=" + bankName + "";
+      this.iframeurl = this.report_url+"examples/TrialBal.php?startdate='" + startdate +"'&endDate='"+endDate+"'&branched="+branched+"&tran="+tran+"&bankName=" + bankName + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
@@ -131,7 +132,7 @@ export class BnkTrialBalComponent implements OnInit {
   // Reset Function
   resetForm() {
     // this.createForm();
-    this.angForm.controls.BRANCH_CODE.reset();
+    // this.angForm.controls.BRANCH_CODE.reset();
     this.showRepo = false;
     this.clicked=false;
   }

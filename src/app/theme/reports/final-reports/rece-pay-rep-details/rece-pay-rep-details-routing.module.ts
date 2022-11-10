@@ -6,7 +6,7 @@ const routes: Routes = [{
   path: '',
   component:  RecePayRepDetailsComponent,
   data: {
-    title: 'Receipt & Payment Report Details',
+    title: 'Receipt & Payment Details',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

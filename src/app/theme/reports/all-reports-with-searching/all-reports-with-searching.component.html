@@ -12,9 +12,7 @@
             <form [formGroup]="angForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2">
-                            <label for="ORDER_NUMBER"> Work Order Number<sub
-                                class="required">*</sub></label></div>
+                        
 
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -286,6 +284,60 @@
 
                             </div>
                         </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+
+
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <form [formGroup]="angForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="ORDER_NUMBER"> Company Name<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="COMPANY_NAME" class="form-control" placeholder=" "
+                                    id="COMPANY_NAME" formControlName="COMPANY_NAME">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COMPANY_NAME'].invalid && (angForm.controls['COMPANY_NAME'].dirty || angForm.controls['COMPANY_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['COMPANY_NAME'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="EMAIL_ID">Email Id<sub
+                                class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="EMAIL_ID" class="form-control" placeholder=" "
+                                            id="EMAIL_ID" formControlName="EMAIL_ID">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['EMAIL_ID'].invalid && (angForm.controls['EMAIL_ID'].dirty || angForm.controls['EMAIL_ID'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['EMAIL_ID'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+        
+                        
+                        
+                    
                     </div>
                 </div>
             </form>
