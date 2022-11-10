@@ -233,7 +233,8 @@ export class MultiVoucherComponent implements OnInit {
 
   getBankName(ele) {
     this.bankName = ele;
-    let el: HTMLElement = this.triggerhide1.nativeElement;
+    let el1: HTMLElement = this.triggerhide1.nativeElement;
+    el1.click();
   }
   createForm() {
     this.angForm = this.fb.group({

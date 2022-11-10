@@ -604,7 +604,15 @@ export class VoucherEntryComponent implements OnInit {
     if (item.id == 6) {
       this.angForm.controls.amt.setValue('0.00');
       this.angForm.controls['amt'].disable();
-    } else {
+    }
+    else if (item.id == 2 || item.id == 5 || item.id == 15) {
+      this.angForm.patchValue({
+        amt: this.DayOpBal
+      })
+      this.angForm.controls['amt'].disable();
+    }
+    else {
+      this.angForm.controls.amt.setValue('0.00');
       this.angForm.controls['amt'].enable();
     }
     // if (this.selectedCode == 'GL') {

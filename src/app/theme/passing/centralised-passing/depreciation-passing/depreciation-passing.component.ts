@@ -156,7 +156,7 @@ export class DepreciationPassingComponent implements OnInit {
       let obj = {
         id: this.drepreciationData.id,
         TRAN_AMOUNT: this.totalAmt,
-        RESO_DATE: this.ngresolutiondate,
+        RESO_DATE: moment(this.ngresolutiondate).format('DD/MM/YYYY'),
         RESO_NO: this.angForm.controls['RESOLUTIONNO'].value,
         NARRATION: this.angForm.controls['particulars'].value,
         detail: this.itemArr

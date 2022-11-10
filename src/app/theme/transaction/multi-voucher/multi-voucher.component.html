@@ -278,7 +278,7 @@
                                                     (keyup)="getaftervoucher($event)"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                                     formControlName="amt" (keyup)="getAmt($event)" #amt
-                                                    (focus)="selectAllContent($event)" 
+                                                    (focus)="selectAllContent($event)"
                                                     (keydown.Tab)="decimalAllContent($event); checkCondition($event);checkSanctionAmountWithAmount()"
                                                     (change)="decimalAllContent($event); checkCondition($event);checkSanctionAmountWithAmount()">
 
@@ -939,12 +939,12 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of bankName" (click)="getBankName(item.value)">
-                                {{item.value}}
+                                {{item.label}}
                             </tr>
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm"
-                        id="triggerhide1" #triggerhide (click)="modalLarge1.hide()">Close</button>
+                        id="triggerhide1" #triggerhide1 (click)="modalLarge1.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>
