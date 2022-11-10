@@ -139,12 +139,12 @@ export class BnkExpectIntInstructComponent implements OnInit {
     let obj = this.angForm.value
     let date = this.date;
     let status = obj.STATUS;
-    // let branch = obj.BRANCH_CODE;
+    let branch = obj.BRANCH_CODE;
    let  frequency =obj.FREQUENCY;
   let PrintClosedAccounts =obj.Print_Closed_Accounts;
   
   
-   this.iframe1url= this.report_url+"examples/InterestExecutionListDebit.php?date='" + date + "'&status='" + status + "'&branchName='"+branchName+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&frequency='"+frequency +"'&bankName='" + bankName + "' ";
+   this.iframe1url= this.report_url+"examples/InterestExecutionListDebit.php?date='" + date + "'&status='" + status + "'&branch='"+branch+"'&PrintClosedAccounts='"+PrintClosedAccounts +"'&frequency='"+frequency +"'&bankName='" + bankName + "' ";
    this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   }
   else {

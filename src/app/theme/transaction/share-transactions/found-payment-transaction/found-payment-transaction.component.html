@@ -3,152 +3,585 @@
         <div class="card">
             <div class="card-header">
                 <h5>Fund Payment Transactions</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
-            <form class="form-material">
+            <form [formGroup]="ngForm" appFoundPaymentTransaction >
                 <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Scheme<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Member No.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Transaction No.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Payment To Person<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="Death Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                    <div class="solid">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch"
+                                            formControlName="BRANCH_CODE" #branchcode autofocus
+                                            (change)="getIntroducer()">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-radio">
-                                <form>
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio" checked="checked">
-                                            <i class="helper"></i>Cash<span class="required"> </span>
-                                        </label>
-                                    </div>
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio">
-                                            <i class="helper"></i>Transfer<span class="required"> </span>
-                                        </label>
-                                    </div>
-                                </form>
+
+                            <div class="col-md-2"><label for="AC_TYPE">Scheme Code <sub class="required">
+                                        * </sub></label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="Payment Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+
+                            <div class="col-sm-4">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt" autofocus>
+                                        <ng-select bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE"
+                                            bindLabel="label" formControlName="AC_TYPE" title="Compulsory Selection"
+                                            required placeholder="Scheme">
+                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['AC_TYPE'].invalid && (ngForm.controls['AC_TYPE'].dirty || ngForm.controls['AC_TYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['AC_TYPE'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Payment Amount<span class="required"> *</span></label>
+
+
+                            <div class="col-md-2"> <label for="Member No">Member Number<sub
+                                        class="required">*</sub></label>
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="Resolution Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                            <div class="col-md-4">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="cdropdown" [(ngModel)]="memberno" [selectOnTab]='true'
+                                            formControlName="MEMBER_NO" bindValue="value" bindLabel="NAME"
+                                            title="Compulsory Selection" required placeholder=" Member No">
+                                            <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['MEMBER_NO'].invalid && (ngForm.controls['MEMBER_NO'].dirty || ngForm.controls['MEMBER_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['MEMBER_NO'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-md-2">
+                                <label for="tranno">Transaction Number<sub class="required">* </sub></label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="label-name" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="TRAN_NO" disabled>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['TRAN_NO'].invalid && (ngForm.controls['TRAN_NO'].dirty || ngForm.controls['TRAN_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['TRAN_NO'].errors?. maxlength || ngForm.controls['TRAN_NO'].errors?. minlength || ngForm.controls['TRAN_NO'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Resolution No.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Fund GL A/c No.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Particulars<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <button class="btn btn-primary ripple light">Payment</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-9">
 
                         </div>
-                        <div class="col-sm">
-                            <h6><span class="required">* </span>: Required Fields</h6>
-                        </div>
-                    </div>
 
+                    </div>
+                    <br>
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="payment_to_person">Payment to Person<sub class="required">*
+                                    </sub></label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="label-name" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
+                                            formControlName="PAYMENT_TO_PERSON">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['PAYMENT_TO_PERSON'].invalid && (ngForm.controls['PAYMENT_TO_PERSON'].dirty || ngForm.controls['PAYMENT_TO_PERSON'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['PAYMENT_TO_PERSON'].errors?. maxlength || ngForm.controls['PAYMENT_TO_PERSON'].errors?. minlength || ngForm.controls['PAYMENT_TO_PERSON'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3"> <label for="Death Date">Death Date<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
+                                            [(ngModel)]="deathdate" formControlName="DEATH_DATE" class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" [maxDate]="maxDate"
+                                            bsDatepicker required style="width: 75%;">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['DEATH_DATE'].invalid && (ngForm.controls['DEATH_DATE'].dirty || ngForm.controls['DEATH_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['DEATH_DATE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="T_TYPE" value="cash" formControlName="T_TYPE"
+                                                (change)="isFormA(1)">
+
+                                            <i class="helper"></i>Cash </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="T_TYPE" value="transfer" formControlName="T_TYPE"
+                                                (change)="isFormA(2)">
+                                            <i class="helper"></i>Transfer </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-3"> <label for="Payment Date">Payment Date<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
+                                            [(ngModel)]="paymentdate" formControlName="PAYMENT_DATE"
+                                            class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}"
+                                            [maxDate]="maxDate" bsDatepicker required style="width: 75%;">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['PAYMENT_DATE'].invalid && (ngForm.controls['PAYMENT_DATE'].dirty || ngForm.controls['PAYMENT_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['PAYMENT_DATE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3"> <label for="Resolution Date">Resolution Date<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
+                                            [(ngModel)]="resolutiondate" formControlName="RESOLUTION_DATE"
+                                            class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}"
+                                            [maxDate]="maxDate" bsDatepicker required style="width: 75%;">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['RESOLUTION_DATE'].invalid && (ngForm.controls['RESOLUTION_DATE'].dirty || ngForm.controls['RESOLUTION_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['RESOLUTION_DATE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label for="payment_amount">Payment Amount<sub class="required">* </sub></label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="label-name" class="form-control" placeholder=" "
+                                            formControlName="PAYMENT_AMOUNT" maxlength="15"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                            (keyup)="decimalAllContent($event)" disabled>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['PAYMENT_AMOUNT'].invalid && (ngForm.controls['PAYMENT_AMOUNT'].dirty || ngForm.controls['PAYMENT_AMOUNT'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['PAYMENT_AMOUNT'].errors?.maxlength">
+                                        Input allowed only 0-9
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="Resolution_no">Resolution Number<sub class="required">* </sub></label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="label-name" class="form-control" placeholder=" "
+                                        maxlength="8"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="RES_NO">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['RES_NO'].invalid && (ngForm.controls['RES_NO'].dirty || ngForm.controls['RES_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['RES_NO'].errors?. maxlength || ngForm.controls['RES_NO'].errors?. minlength || ngForm.controls['RES_NO'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="Fund_G_No">Fund General Ledger A/c Number<sub class="required">*
+                                    </sub></label>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+
+                                        <ng-select id="cdropdown" [(ngModel)]="fgledger" [selectOnTab]='true'
+                                            formControlName="FUND_G_NO" title="Compulsory Selection" required
+                                            placeholder=" Fund General Ledger No">
+                                            <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                {{item.value}}{{item.name}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['FUND_G_NO'].invalid && (ngForm.controls['FUND_G_NO'].dirty || ngForm.controls['FUND_G_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['FUND_G_NO'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-2  ">
+                                <label for="reason">Reason</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <textarea class="form-control" formControlName="REASON"
+                                            [(ngModel)]="ngFnarration"></textarea>
+                                        <i class="fa fa-info-circle errspan" (click)="modalLarge.show()" ></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" id="FORMA" *ngIf="isTransfer">
+                            <div class="col-sm-12">
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select [(ngModel)]="selectedTransScheme"
+                                                    (change)="getTransferAccountList($event)" formControlName="Tscheme"
+                                                    bindValue="value" bindLabel="label">
+                                                    <ng-option *ngFor="let item of Scheme" [value]="item">
+                                                        {{item.id}} {{item.label}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['Tscheme'].invalid && (ngForm.controls['Tscheme'].dirty || ngForm.controls['Tscheme'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['Tscheme'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <label for="TschemeAC">Account Number <sub class="required">*</sub></label>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="TschemeAC" [(ngModel)]="ngacno"
+                                                    formControlName="TschemeAC" bindLabel="label" bindValue="bankacno"
+                                                    title="Compulsory Selection" placeholder="Account Number"
+                                                    (change)="getTransferAccountDeatil($event)">
+                                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                        {{values.label}} {{values.name}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['TschemeAC'].invalid && (ngForm.controls['TschemeAC'].dirty || ngForm.controls['TschemeAC'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['TschemeAC'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2"><label for="amount">Amount<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input style="text-align: right;" type="text" class="form-control"
+                                                    name="amount" id="amount" formControlName="amount" maxlength="15"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                    (keyup)="decimalAllContent($event)">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['amount'].invalid && (ngForm.controls['amount'].dirty || ngForm.controls['amount'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['amount'].errors?.maxlength">
+                                                Input allowed only 0-9
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-2">
+                                        <label for="debit/credit"> Debit / Credit <sub class="required">*</sub></label>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="d/c" [(ngModel)]="debitcredit"
+                                                    formControlName="DEBIT_CREDIT" bindLabel="label" bindValue="name"
+                                                    title="Compulsory Selection" placeholder="">
+                                                    <ng-option *ngFor="let values of item" [value]="values">
+                                                        {{values.name}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['DEBIT_CREDIT'].invalid && (ngForm.controls['DEBIT_CREDIT'].dirty || ngForm.controls['DEBIT_CREDIT'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['DEBIT_CREDIT'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-md-2  ">
+                                        <label for="PARTICULARS">Particulars</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <textarea class="form-control" formControlName="PERTICULARS"
+                                                    [(ngModel)]="particulars"></textarea>
+                                                <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md">
+                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                            *ngIf="jointShowButton" (click)="addTransferAccount()">
+                                            Add
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">
+                                            Update
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <!-- Multiple Transaction details data show here -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover compact">
+                                                <thead>
+                                                    <td>Action</td>
+                                                    <td>Scheme</td>
+                                                    <td>Account Number</td>
+                                                    <td>Tran. Type</td>
+                                                    <td>DR/CR</td>
+                                                    <td>Particulars</td>
+                                                    <td style="text-align: right;">Amount</td>
+                                                </thead>
+
+                                                <tbody *ngIf="multigrid.length != 0">
+                                                    <tr *ngFor="let data of multigrid; let indexOfelement = index">
+
+                                                        <td class="td_center"> <span class="fa fa-fw fa-edit field-icon"
+                                                                id="editbutton"
+                                                                (click)="editTransferAccount(indexOfelement)"
+                                                                placement="top" ngbTooltip="Edit"></span>
+                                                        </td>
+
+                                                        <td class="td_center">{{data.Tscheme}}</td>
+                                                        <td class="td_center">{{data.TschemeAC}}</td>
+                                                        <td class="td_center">{{data.T_TYPE}}</td>
+                                                        <td class="td_center">{{data.DEBIT_CREDIT}}</td>
+                                                        <td class="td_center">{{data.PERTICULARS}}</td>
+                                                        <td class="td_center">{{data.amount}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="multigrid.length != 0">
+
+                                                        <td colspan="6" style="text-align: right;">Total
+                                                        </td>
+                                                        <td class="td_center">
+                                                            {{transferTotalAmount}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+
+                                    <div class="col-md-2">
+                                        <label for="t_debit">Total Debit<sub class="required">* </sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="label-name" class="form-control"
+                                                    placeholder=" " [ngModel]="totalDebit"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                    formControlName="T_DEBIT">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['T_DEBIT'].invalid && (ngForm.controls['T_DEBIT'].dirty || ngForm.controls['T_DEBIT'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="ngForm.controls['T_DEBIT'].errors?. maxlength || ngForm.controls['T_DEBIT'].errors?. minlength || ngForm.controls['T_DEBIT'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="t_credit">Total Credit<sub class="required">* </sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="label-name" class="form-control"
+                                                    placeholder=" " [ngModel]="totalCredit"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                    formControlName="T_CREDIT">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['T_CREDIT'].invalid && (ngForm.controls['T_CREDIT'].dirty || ngForm.controls['T_CREDIT'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="ngForm.controls['T_CREDIT'].errors?. maxlength || ngForm.controls['T_CREDIT'].errors?. minlength || ngForm.controls['T_CREDIT'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <button class="btn btn-outline-primary btn-sm " (click)="submit()">
+                                Submit
+                            </button>
+                        </div>
+
+
+                    </div>
 
                 </div>
             </form>
-            
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
 </div>
+
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Narration Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Paticulars</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of narrationList" (click)="getNarration1(item.NARRATION)"
+                                (click)="getNarration(item.NARRATION)">
+                                {{item.NARRATION}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide"
+                        #triggerhide (click)="modalLarge.hide()">Close</button>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+    <!-- <div class="app-modal-footer">
+        
+      </div> -->
+</app-modal-basic>

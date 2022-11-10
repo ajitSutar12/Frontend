@@ -9,7 +9,7 @@ import { environment } from '../../../../../environments/environment'
 export class ShareMasterService {
     // Variable for handleError
     [x: string]: any;
-    // API 
+    // API  
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

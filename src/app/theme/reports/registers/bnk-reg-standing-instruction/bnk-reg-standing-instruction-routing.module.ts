@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  BnkRegStandingInstructionComponent,
     data: {
-      title: 'Standing Instructions Execution List (Active/Revoke)',
+      title: 'Standing Instruction Register (Active/Revoke)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

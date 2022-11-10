@@ -12,7 +12,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { DatePipe } from '@angular/common';
 // Service File For Handling CRUD Operation
 import { ShareMasterService } from './shares-master.service'
-// Used to Call API
+// Used to Call API 
 import { HttpClient } from '@angular/common/http';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
@@ -392,7 +392,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
-      this.schemeCode = data[0].value
+      this.schemeCode = data[0].value 
     })
 
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {

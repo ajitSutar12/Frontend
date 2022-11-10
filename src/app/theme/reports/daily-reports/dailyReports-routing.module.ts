@@ -57,6 +57,14 @@ const routes: Routes = [
         path: 'TFormDayBookComponent',
         loadChildren: () => import('./t-form-day-book/t-form-day-book.module').then(m => m.TFormDayBookModule)
       },
+      {
+        path: 'SubsidiarySummaryComponent',
+        loadChildren: () => import('./subsidiary-summary/subsidiary-summary.module').then(m => m.SubsidiarySummaryModule)
+      },
+      {
+        path: 'VouchersPrintingComponent',
+        loadChildren: () => import('./vouchers-printing/vouchers-printing.module').then(m => m.VouchersPrintingModule)
+      },
     
     
     ]

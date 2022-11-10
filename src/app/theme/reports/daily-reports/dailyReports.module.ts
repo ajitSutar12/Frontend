@@ -16,13 +16,17 @@ import { BnkExpectStandInstructionComponent } from './bnk-expect-stand-instructi
 import { BnkExpectIntInstructCreditComponent } from './bnk-expect-int-instruct-credit/bnk-expect-int-instruct-credit.component';
 import { BnkExpectIntInstructComponent } from './bnk-expect-int-instruct/bnk-expect-int-instruct.component';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { SubsidiarySummaryComponent } from './subsidiary-summary/subsidiary-summary.component';
+import { VouchersPrintingComponent } from './vouchers-printing/vouchers-printing.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   imports: [
     CommonModule,
     DailyReportsRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
     // ChartModule
   ],
   declarations: [DailyReportsComponent],

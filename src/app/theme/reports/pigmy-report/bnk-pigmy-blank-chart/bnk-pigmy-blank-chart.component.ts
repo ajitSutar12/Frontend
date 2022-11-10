@@ -158,7 +158,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
  
   src: any;
   view(event) {
-    
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -193,7 +193,9 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.createForm()
+  // this.createForm()
+  this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.Scheme_acc.reset();
   this.showRepo = false;
   this.clicked=false;
 }

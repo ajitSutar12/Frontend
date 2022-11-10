@@ -29,7 +29,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   // @ViewChild(DepositClosingVoucherComponent) child: DepositClosingVoucherComponent;
 
 
-  formSubmitted = false;
+  formSubmitted = false; 
   //api
   url = environment.base_url;
   updateID: number = 0;
