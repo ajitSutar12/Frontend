@@ -232,18 +232,20 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-2"><label for="">Bank Name</label></div>
-
                                         <div class="col-md-6">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <textarea class="form-control" formControlName="bank"
+                                                        [(ngModel)]="bankName"></textarea>
+                                                    <i class="fa fa-info-circle errspan"
+                                                        (click)="modalLarge1.show()"></i>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group form-primary form-static-label">
                                                 <span class="border-lable-flt">
-                                                    <!-- <ng-select formControlName="bank" [(ngModel)]="bank">
-                                                        <ng-option *ngFor="let item of bankName" [value]="item.id">
-                                                            {{item.name}}</ng-option>
-                                                    </ng-select> -->
-                                                    <!-- <ng-select formControlName="bank"  [(ngModel)]="bank">
-                                                        <ng-option *ngFor="let item of bankName" [value]="item.value">
-                                                            {{item.label}}</ng-option>
-                                                    </ng-select> -->
                                                     <textarea class="form-control" formControlName="bank"
                                                         rows="1"></textarea>
                                                     <i class="fa fa-info-circle errspan"
@@ -251,7 +253,7 @@
 
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="row">
@@ -318,7 +320,7 @@
                                                         <tbody *ngIf="headData?.length != 0">
                                                             <tr *ngFor="let item of headData;let i=index">
                                                                 <!-- <td>{{i+1}}</td> -->
-                                                                 <td>{{item.DESCRIPTION}}</td>
+                                                                <td>{{item.DESCRIPTION}}</td>
                                                                 <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         class="form-control"
@@ -914,14 +916,7 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <!-- <div class="app-modal-footer">
-        
-      </div> -->
 </app-modal-basic>
-
-
-<!-- </div> -->
-<!-- bank name dropdown checking -->
 <app-modal-basic #modalLarge1 [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Bank Master</h4>
@@ -938,18 +933,15 @@
                             <th>Bank Name</th>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of bankName" (click)="getBankName(item.value)">
-                                {{item.label}}
+                            <tr *ngFor="let item1 of bankName" (click)="getBankName(item1.value)">
+                                {{item1.label}}
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm"
-                        id="triggerhide1" #triggerhide1 (click)="modalLarge1.hide()">Close</button>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide1"
+                        #triggrhide1 (click)="modalLarge1.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>
     </div>
-    <!-- <div class="app-modal-footer">
-          
-        </div> -->
 </app-modal-basic>

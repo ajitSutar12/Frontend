@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form [formGroup]="ngForm" appIssueNewShares >
+            <form [formGroup]="ngForm" appIssueNewShares>
                 <div class="card-block">
                     <div class="solid">
 
@@ -20,7 +20,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch"
                                             formControlName="BRANCH_CODE" #branchcode autofocus
-                                            (change)="getIntroducer()">  
+                                            (change)="getIntroducer()">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -67,10 +67,10 @@
                             <div class="col-md-4">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <ng-select id="cdropdown" [(ngModel)]="memberno" [selectOnTab]='true' #selecttype
-                                            formControlName="MEMBER_NO" bindValue="value" bindLabel="NAME" (change)="getMemberDetail($event)"
-                                            title="Compulsory Selection" required placeholder=" Member No"
-                                            (focus)="onFocus(selecttype)" >
+                                        <ng-select id="cdropdown" [(ngModel)]="memberno" [selectOnTab]='true'
+                                            #selecttype formControlName="MEMBER_NO" bindValue="value" bindLabel="NAME"
+                                            (change)="getMemberDetail($event)" title="Compulsory Selection" required
+                                            placeholder=" Member No" (focus)="onFocus(selecttype)">
                                             <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                                 {{values.label}} {{values.name}} </ng-option>
                                         </ng-select>
@@ -116,10 +116,10 @@
                             <div class="col-md-2"> <label for="Membership Date">Membership Date<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date" 
+                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
                                             [(ngModel)]="Membershipdate" formControlName="MEMBERSHIP_DATE"
                                             class="form-control" [bsConfig]="{dateInputFormat: 'DD/MM/YYYY'}"
                                             [minDate]="minDate" bsDatepicker required style="width: 75%;" disabled>
@@ -141,7 +141,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
-                                             maxlength="15"
+                                            maxlength="15"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                             (keyup)="decimalAllContent($event)" formControlName="T_SHARES_AMOUNT"
                                             disabled>
@@ -191,12 +191,12 @@
                             <div class="col-md-3"> <label for="Issue Date">Issue Date<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
                                             [(ngModel)]="Issue_date" formControlName="ISSUE_DATE" class="form-control"
-                                            style="width: 75%;" disabled>
+                                            disabled>
 
 
                                     </span>
@@ -225,7 +225,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="CERTIFICATE_NO"  maxlength="8">
+                                            formControlName="CERTIFICATE_NO" maxlength="8">
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -245,8 +245,8 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="FROM"  maxlength="4">
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="FROM" maxlength="4">
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -266,7 +266,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             formControlName="TO" maxlength="4">
                                     </span>
                                 </div>
@@ -291,7 +291,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="NO_OF_SHARES"  maxlength="4">
+                                            formControlName="NO_OF_SHARES" maxlength="4">
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -331,7 +331,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
-                                            formControlName="FACE_VALUE"  maxlength="15"
+                                            formControlName="FACE_VALUE" maxlength="15"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                             (keyup)="decimalAllContent($event)">
                                     </span>
@@ -377,8 +377,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
-                                            formControlName="SHARES_AMOUNT" 
-                                            maxlength="15"
+                                            formControlName="SHARES_AMOUNT" maxlength="15"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                             (keyup)="decimalAllContent($event)">
                                     </span>
@@ -423,7 +422,7 @@
                                     <span class="border-lable-flt">
                                         <textarea class="form-control" formControlName="particular"
                                             [(ngModel)]="particular"></textarea>
-                                        <i class="fa fa-info-circle errspan"  (click)="modalLarge.show()"></i>
+                                        <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
                                     </span>
                                 </div>
                             </div>
@@ -434,14 +433,14 @@
                             <div class="col-sm-12">
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub 
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedTransScheme" #scheme
                                                     (change)="getTransferAccountList($event)" formControlName="Tscheme"
-                                                    bindValue="value" bindLabel="label"  (focus)="onFocus(scheme)">
+                                                    bindValue="value" bindLabel="label" (focus)="onFocus(scheme)">
                                                     <ng-option *ngFor="let item of Scheme" [value]="item">
                                                         {{item.id}} {{item.label}}</ng-option>
                                                 </ng-select>
@@ -466,7 +465,8 @@
                                                 <ng-select id="TschemeAC" [(ngModel)]="ngacno" #account
                                                     formControlName="TschemeAC" bindLabel="label" bindValue="bankacno"
                                                     title="Compulsory Selection" placeholder="Account Number"
-                                                    (change)="getTransferAccountDeatil($event)" (focus)="onFocus(account)">
+                                                    (change)="getTransferAccountDeatil($event)"
+                                                    (focus)="onFocus(account)">
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.label}} {{values.name}}</ng-option>
                                                 </ng-select>
@@ -491,8 +491,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input style="text-align: right;" type="text" class="form-control"
-                                                    name="amount" id="amount" formControlName="amount"
-                                                    maxlength="15"
+                                                    name="amount" id="amount" formControlName="amount" maxlength="15"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                     (keyup)="decimalAllContent($event)">
                                             </span>
@@ -539,9 +538,9 @@
                                     <div class="col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <textarea class="form-control" formControlName="PERTICULARS"
-                                                    [(ngModel)]="particulars"></textarea>
-                                                <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
+                                                <textarea class="form-control" formControlName="TPERTICULARS"
+                                                    [(ngModel)]="Tparticulars"></textarea>
+                                                <i class="fa fa-info-circle errspan" (click)="modalLarge1.show()"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -602,7 +601,7 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                            </table> 
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -620,7 +619,7 @@
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                     formControlName="T_DEBIT">
                                             </span>
-                                        </div> 
+                                        </div>
                                         <div class="form-group form-primary form-static-label"
                                             *ngIf="ngForm.controls['T_DEBIT'].invalid && (ngForm.controls['T_DEBIT'].dirty || ngForm.controls['T_DEBIT'].touched)"
                                             class="alert alert-danger">
@@ -688,8 +687,7 @@
                             <th>Paticulars</th>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of narrationList" (click)="getNarration1(item.NARRATION)"
-                                (click)="getNarration(item.NARRATION)">
+                            <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
                                 {{item.NARRATION}}
                             </tr>
                         </tbody>
@@ -700,7 +698,33 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <!-- <div class="app-modal-footer">
-        
-      </div> -->
+</app-modal-basic>
+
+<app-modal-basic #modalLarge1 [dialogClass]="'modal-md'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Narration Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge1.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Paticulars</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of narrationList" (click)="getNarration1(item.NARRATION)">
+                                {{item.NARRATION}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide1"
+                        #triggerhide1 (click)="modalLarge1.hide()">Close</button>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
 </app-modal-basic>
