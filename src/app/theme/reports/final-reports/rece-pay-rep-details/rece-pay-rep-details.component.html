@@ -70,7 +70,7 @@
                                 *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                    *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['END_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="TRANSCATION" value="None"
-                                            formControlName="TRANSCATION">
+                                            formControlName="TRANSCATION" [checked]="true">
                                         <i class="helper"></i>None</label>
                                 </div>
                                 <div class="radio radio-inline">

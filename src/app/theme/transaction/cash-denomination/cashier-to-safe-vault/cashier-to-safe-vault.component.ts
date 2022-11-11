@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @Component({
   selector: 'app-cashier-to-safe-vault',
@@ -7,47 +10,93 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CashierToSafeVaultComponent implements OnInit {
 
+  angForm: FormGroup;
+
+  //ngmodel
+  Cashier
+
+  DenominationChart: boolean;
+
+
+  values = [
+    { id: 1, name: 'aaa' },
+    { id: 2, name: 'bbb' },
+    { id: 3, name: 'Supervisor' },
+  ];
+  currencyData =
+  [
+    { currency: 2000, qty: 0, total: 0 },
+    { currency: 1000, qty: 0, total: 0 },
+    { currency: 500, qty: 0, total: 0  },
+    { currency: 200, qty: 0, total: 0  },
+    { currency: 100, qty: 0, total: 0  },
+    { currency: 50, qty: 0, total: 0  },
+    { currency: 20, qty: 0, total: 0  },
+    { currency: 10, qty: 0, total: 0  },
+    { currency: 5, qty: 0, total: 0  },
+    { currency: 1, qty: 0, total: 0  },
+  ]
+
+
   dtExportButtonOptions: any = {};
-  constructor() { }
+  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,) { }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.angForm = this.fb.group({
+      CASHIER:['', [Validators.required]],
+      TRAN_DATE:['', [Validators.required]],
+      DENOMINATION_AMT:['', [Validators.required]],
+
+      
+    })
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        TRAN_DATE: data.CURRENT_DATE
+      })
+    })
+    
 
   }
+
+  decimalAllContent($event) {
+  
+    
+      var t = $event.target.value;
+      $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+      this.angForm.patchValue({
+        DENOMINATION_AMT:$event.target.value
+      })
+  }
+
+  isFormA(value) {
+
+
+    if (Number(this.angForm.controls['DENOMINATION_AMT'].value) == 0) {
+      this.DenominationChart = false
+    }
+   
+    else { 
+      this.DenominationChart = true
+    }
+  }
+
+  sum: number = 0
+  calculation(data, index, element) {
+    
+    console.log(element.target.value);
+    let currency = this.currencyData[index].currency;
+    let qty = element.target.value;
+    let total = currency * qty;
+    this.currencyData[index].currency = currency;
+    this.currencyData[index].qty = qty;
+    this.currencyData[index].total = total;
+
+
+    this.sum = this.currencyData.reduce((accumulator, object) => {
+      return accumulator + object.total;
+    }, 0);
+
+  }
+
 
 }

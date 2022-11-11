@@ -327,6 +327,8 @@
                                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                     bsDatepicker [(ngModel)]="IntersetHeadDate"
                                                                     formControlName="Intdate"
+                                                                    [minDate]="interestMinDate"
+                                                                    [maxDate]="interestMaxDate"
                                                                     (bsValueChange)="getColumnValue($event)">
                                                             </td>
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
@@ -339,7 +341,8 @@
                                                                     (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
                                                                     (focusout)="decimalAllContent($event);checkCondition($event)"
-                                                                    value="{{item.Amount}}">
+                                                                    value="{{item.Amount}}"
+                                                                    [disabled]="item.IS_GLBAL_MAINTAIN == '1'">
 
                                                             </td>
                                                             <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"><input
@@ -351,7 +354,8 @@
                                                                     (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
                                                                     (focusout)="decimalAllContent($event);"
-                                                                    value="{{item.Amount}}">
+                                                                    value="{{item.Amount}}"
+                                                                    [disabled]="item.IS_GLBAL_MAINTAIN == '1'">
                                                             </td>
                                                             <td class="bg-light-danger text-right">
                                                                 <span class="text-danger">{{item.Balance}}</span>

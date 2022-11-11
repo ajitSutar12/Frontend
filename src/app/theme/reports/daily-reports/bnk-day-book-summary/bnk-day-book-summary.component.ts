@@ -13,6 +13,8 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from 'rxjs/operators';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @Component({
   selector: 'app-bnk-day-book-summary',
@@ -46,7 +48,9 @@ export class BnkDayBookSummaryComponent implements OnInit {
     public router: Router,
     private sanitizer: DomSanitizer,
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter :SystemMasterParametersService,
   ) {
+    this.startingdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -70,8 +74,22 @@ export class BnkDayBookSummaryComponent implements OnInit {
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    })
+    });
 
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.startingdate = data.CURRENT_DATE;
+    });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   createForm() {
@@ -112,7 +130,7 @@ export class BnkDayBookSummaryComponent implements OnInit {
       let checkb2 = obj.Denomination_Detail_Required;
 
 
-      this.iframe1url =this.report_url+ "examples/DayBookReport.php?stdate='" + stdate + "'&branchName='" + branchName + "'&Type='" + Type + "'&checkb1='" + checkb1 + "'&checkb2='" + checkb2 + "'&bankName='" + bankName + "'";
+      this.iframe1url =this.report_url+ "examples/DayBookReport.php?stdate='" + stdate + "'&Branch='" + Branch + "'&Type='" + Type + "'&checkb1='" + checkb1 + "'&checkb2='" + checkb2 + "'&bankName='" + bankName + "'";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
 
     }

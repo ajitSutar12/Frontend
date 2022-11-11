@@ -77,11 +77,8 @@
                                             bsDatepicker>
                                     </span>
                                 </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="
-                            angForm.controls['DATE'].invalid &&
-                            (angForm.controls['DATE'].dirty ||
-                              angForm.controls['DATE'].touched)
-                          " class="alert alert-danger">
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DATE'].invalid &&
+                                     (angForm.controls['DATE'].dirty ||angForm.controls['DATE'].touched) " class="alert alert-danger">
                                     <div *ngIf="angForm.controls['DATE'].errors?.required">
                                         This field is required
                                     </div>

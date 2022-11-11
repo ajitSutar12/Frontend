@@ -98,7 +98,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
 
 
    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
-     debugger
+     
      var filtered = data.filter(function (scheme) {
        return (scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
      });

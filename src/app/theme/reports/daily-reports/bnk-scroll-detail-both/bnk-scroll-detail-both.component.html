@@ -65,17 +65,18 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="CURRENT_DATE" id="DATE"  
-                                    [(ngModel)]="fromdate" [maxDate]="maxDate" [bsConfig]="{dateInputFormat: 'DD/MM/YYYY'}" 
-                                    class="form-control"  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                    formControlName="CURRENT_DATE" bsDatepicker>
+                                    <input type="text" placeholder="dd/mm/yyyy" name="CURRENT_DATE" id="CURRENT_DATE"
+                                        class="form-control" [(ngModel)]="fromdate"  [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="CURRENT_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['CURRENT_DATE'].invalid && (angForm.controls['CURRENT_DATE'].dirty || angForm.controls['CURRENT_DATE'].touched)"
-                                class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CURRENT_DATE'].invalid &&
+                                     (angForm.controls['CURRENT_DATE'].dirty ||angForm.controls['CURRENT_DATE'].touched) " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CURRENT_DATE'].errors?.required">
-                                    This field is required
+                                        This field is required
                                 </div>
 
                             </div>
