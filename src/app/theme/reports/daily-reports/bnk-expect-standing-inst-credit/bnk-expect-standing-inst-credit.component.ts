@@ -94,10 +94,10 @@ export class BnkExpectStandingInstCreditComponent implements OnInit {
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
-      this.angForm.controls['BRANCH_CODE'].enable()
+      this.angForm.controls['Branch'].enable()
     }
     else {
-      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.controls['Branch'].disable()
       this.ngbranch = result.branch.id
     }
   }
@@ -135,7 +135,7 @@ export class BnkExpectStandingInstCreditComponent implements OnInit {
       let FREQUENCY = obj.FREQUENCY;
       let NEWPAGE = obj.NEWPAGE;
 
-      this.iframeurl = this.report_url+"examples/StandingInstructionCredit.php?stdate='" + stdate + "'&branchName='" + branchName + "'&STATUS='" + STATUS + "'&SORT_ON='" + SORT_ON + "'&FREQUENCY='" + FREQUENCY + "'&NEWPAGE='" + NEWPAGE + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url+"examples/StandingInstructionCredit.php?stdate='" + stdate + "'&Branch='" + Branch + "'&STATUS='" + STATUS + "'&SORT_ON='" + SORT_ON + "'&FREQUENCY='" + FREQUENCY + "'&NEWPAGE='" + NEWPAGE + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

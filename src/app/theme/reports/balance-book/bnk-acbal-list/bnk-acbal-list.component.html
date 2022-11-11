@@ -54,13 +54,14 @@
                         <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
+                                
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="defaultDate"
-                                        [bsValue]="bsValue"                                           
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" [maxDate]="maxDate"
-                                         formControlName="FROM_DATE"
-                                        required bsDatepicker />
+                                        class="form-control" [(ngModel)]="defaultDate" [bsValue]="bsValue"                                           
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" [maxDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker >
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"

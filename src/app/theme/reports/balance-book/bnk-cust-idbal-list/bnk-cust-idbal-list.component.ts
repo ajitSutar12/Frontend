@@ -111,11 +111,12 @@ export class BnkCustIDBalListComponent implements OnInit {
     this.showRepo = true;
     let obj = this.angForm.value
     let stdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
+    var edate = moment(obj.OPENINGDATE).subtract(1, "day").format('DD/MM/YYYY');
     let custid = obj.AC_CUSTID;
     let branch = obj.BRANCH_CODE;
     let pritns = obj.PRINT_CUSTID;
 
-    this.iframeurl = this.report_url+ "examples/CustomerIdWiseList.php?stdate='" + stdate +"'&branch="+branch+"&custid="+custid+"'&pritns='"+pritns+"&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+ "examples/CustomerIdWiseList.php?stdate='" + stdate +"'&edate='"+edate+"'&branch="+branch+"&custid="+custid+"'&pritns='"+pritns+"&bankName=" + bankName + " ";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl); 
    
    }

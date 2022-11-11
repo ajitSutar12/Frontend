@@ -1,18 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
-import { glMasterService } from '../../../../shared/elements/gl-master.service';
-import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/debounceTime';
-// import 'rxjs/add/operator/distinctUntilChanged';
-// import 'rxjs/add/observable/of';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/do';
-// import 'rxjs/add/operator/switchMap';
-// import 'rxjs/add/operator/first'; 
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -22,7 +10,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { HttpClient } from '@angular/common/http';
-// import { SharesSchemeService } from 'src/app/theme/utility/scheme-parameters/shares-scheme/shares-scheme.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-issue-new-shares',
@@ -31,6 +19,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class IssueNewSharesComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+  @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   // @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
 
   //for Formgroup
@@ -56,7 +45,7 @@ export class IssueNewSharesComponent implements OnInit {
   from
   to
   Resolution_date
-  
+
   //dropdown
   scheme
   schemeType: string = 'SH'
@@ -66,9 +55,9 @@ export class IssueNewSharesComponent implements OnInit {
   isTransfer: boolean;
   transferTotalAmount: any = 0;
   totalCredit = 0;
-  totalDebit = 0; 
+  totalDebit = 0;
   multigrid = [];
-  narrationList: any ;
+  narrationList: any;
   values = [
     { id: 1, name: 'DEBIT' },
     { id: 2, name: 'CREDIT' },];
@@ -81,8 +70,9 @@ export class IssueNewSharesComponent implements OnInit {
   Scheme
   multigrid1: any = [];
   PERTICULARS: any;
-  url: any;
 
+  url = environment.base_url;
+  Tparticulars
 
 
 
@@ -95,7 +85,6 @@ export class IssueNewSharesComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
   ) {
-
     this.systemParameter.getFormData(1).subscribe(data => {
       this.Issue_date = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -104,43 +93,35 @@ export class IssueNewSharesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.createForm()
-
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngForm.controls['BRANCH_CODE'].enable()
       this.selectedBranch = result.branch.id
-
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.selectedBranch = result.branch.id
     }
-
     //branchOption
-
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-
     })
-
-
     //Scheme Code
-
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
       this.schemeCode = data[0].value
       this.getIntroducer()
-
     })
-
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.Scheme = data;
     });
 
-  
+    //Narration List
+    this._service.getNarrationMaster().subscribe(data => {
+      this.narrationList = data;
+    })
   }
 
   getIntroducer() {
@@ -240,28 +221,39 @@ export class IssueNewSharesComponent implements OnInit {
       NO_OF_SHARES: ['', [Validators.required]],
       FACE_VALUE: ['', [Validators.required]],
       RESOLUTION_DATE: ['', [Validators.required]],
-      SHARES_AMOUNT:['', [Validators.pattern]],
+      SHARES_AMOUNT: ['', [Validators.pattern]],
       RES_NO: ['', [Validators.required]],
       PERTICULARS: [''],
+      TPERTICULARS: [''],
       T_TYPE: ['cash'],
-      Tscheme: ['', [Validators.required]],
-      TschemeAC: ['', [Validators.required]],
+      Tscheme: ['',],
+      TschemeAC: ['',],
       amount: ['', [Validators.pattern]],
-      DEBIT_CREDIT: ['', [Validators.required]],
-      T_DEBIT: ['', [Validators.required]],
-      T_CREDIT: ['', [Validators.required]],
+      DEBIT_CREDIT: ['',],
+      T_DEBIT: ['',],
+      T_CREDIT: ['',],
       particular: [''],
 
     });
 
   }
-   
-  getMemberDetail(event){
-    console.log(event.openDate,'eve')
-    this.ngForm.patchValue({
-      MEMBERSHIP_DATE: event.openDate 
+
+  getMemberDetail(event) {
+    let obj = {
+      schemeCode: this.schemeCode,
+      customer: event,
+      issueDate: this.Issue_date
+    }
+    this.http.post(this.url + '/issue-new-share/getAccountSharesDetails', obj).subscribe(data => {
+      this.ngForm.patchValue({
+        MEMBERSHIP_DATE: event.openDate,
+        FROM: data['SHARE_TO_NO'],
+        CERTIFICATE_NO: data['CERTIFICATE_NO'],
+        T_NO_OF_SHARES: obj['numberOfShares'],
+        T_SHARES_AMOUNT: obj['shareBal'],
+        FACE_VALUE: obj['SHARES_FACE_VALUE']
+      })
     })
-    
   }
 
   addTransferAccount() {
@@ -311,11 +303,11 @@ export class IssueNewSharesComponent implements OnInit {
     //   );
     // }
     else {
- 
+
       if (formVal.DEBIT_CREDIT == 'CREDIT') {
         this.totalCredit = this.totalCredit + Number(formVal.amount)
       } else {
-        this.totalDebit = this.totalDebit + Number(formVal.  this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount));
+        this.totalDebit = this.totalDebit + Number(formVal.this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount));
       }
 
       this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
@@ -370,7 +362,7 @@ export class IssueNewSharesComponent implements OnInit {
     }
     this.multigrid[index] = object;
     this.jointShowButton = true;
-    this.jointUpdateShow = false; 
+    this.jointUpdateShow = false;
     this.resetForm();
 
   }
@@ -459,8 +451,8 @@ export class IssueNewSharesComponent implements OnInit {
     // let value = Number($event.target.value);
     //   let data = value.toFixed(2);
     //   $event.target.value = data;
-      var t = $event.target.value;
-      $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    var t = $event.target.value;
+    $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
 
   // getNarration(ele) {
@@ -474,8 +466,13 @@ export class IssueNewSharesComponent implements OnInit {
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
   }
+  getNarration1(ele) {
+    this.Tparticulars = ele;
+    let el: HTMLElement = this.triggerhide1.nativeElement;
+    el.click();
+  }
 
-  onFocus(ele: NgSelectComponent) { 
+  onFocus(ele: NgSelectComponent) {
     ele.open()
     console.log(ele);
   }

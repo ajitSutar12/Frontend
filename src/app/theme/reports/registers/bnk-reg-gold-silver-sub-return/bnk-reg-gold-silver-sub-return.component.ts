@@ -151,7 +151,7 @@ close(){
 resetForm() {
   // this.createForm()
   this.angForm.controls.AC_TYPE.reset();
-  this.angForm.controls.SUBMISSION.reset();
+  // this.angForm.controls.SUBMISSION.reset();
   this.showRepo = false;
   this.clicked=false;
 }
