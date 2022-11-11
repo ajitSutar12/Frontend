@@ -36,7 +36,7 @@ class DataTableResponse {
 export class MultiVoucherComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
-  @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
+  @ViewChild('triggrhide1') triggrhide1: ElementRef<HTMLElement>;
   @ViewChild('focusbutton') focusbutton: ElementRef<HTMLElement>;
   @ViewChild('selectMode') selectMode: NgSelectComponent;
   @ViewChild('amt') amt: ElementRef;
@@ -233,7 +233,8 @@ export class MultiVoucherComponent implements OnInit {
 
   getBankName(ele) {
     this.bankName = ele;
-    let el: HTMLElement = this.triggerhide1.nativeElement;
+    let el1: HTMLElement = this.triggrhide1.nativeElement;
+    el1.click();
   }
   createForm() {
     this.angForm = this.fb.group({
