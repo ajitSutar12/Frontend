@@ -75,7 +75,7 @@ export class IssueNewSharesComponent implements OnInit {
   Tparticulars
 
 
-
+  resolutionDate: any
 
   constructor(private fb: FormBuilder,
     private _service: VoucherEntryService,
@@ -89,6 +89,8 @@ export class IssueNewSharesComponent implements OnInit {
       this.Issue_date = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
+      this.resolutionDate = this.resolutionDate._d
     })
   }
 
@@ -203,17 +205,15 @@ export class IssueNewSharesComponent implements OnInit {
     }
   }
 
-
-
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
       MEMBER_NO: ['', [Validators.required]],
-      TRAN_NO: ['', []],
+      TRAN_NO: [],
       MEMBERSHIP_DATE: ['', [Validators.required]],
-      T_SHARES_AMOUNT: ['', []],
-      T_NO_OF_SHARES: ['', []],
+      T_SHARES_AMOUNT: [],
+      T_NO_OF_SHARES: [],
       ISSUE_DATE: ['', [Validators.required]],
       CERTIFICATE_NO: ['', [Validators.required]],
       FROM: ['', [Validators.required]],
@@ -225,7 +225,7 @@ export class IssueNewSharesComponent implements OnInit {
       RES_NO: ['', [Validators.required]],
       PERTICULARS: [''],
       TPERTICULARS: [''],
-      T_TYPE: ['cash'],
+      T_TYPE: ['CS'],
       Tscheme: ['',],
       TschemeAC: ['',],
       amount: ['', [Validators.pattern]],
@@ -233,9 +233,7 @@ export class IssueNewSharesComponent implements OnInit {
       T_DEBIT: ['',],
       T_CREDIT: ['',],
       particular: [''],
-
     });
-
   }
 
   getMemberDetail(event) {
@@ -249,29 +247,42 @@ export class IssueNewSharesComponent implements OnInit {
         MEMBERSHIP_DATE: event.openDate,
         FROM: data['SHARE_TO_NO'],
         CERTIFICATE_NO: data['CERTIFICATE_NO'],
-        T_NO_OF_SHARES: obj['numberOfShares'],
-        T_SHARES_AMOUNT: obj['shareBal'],
-        FACE_VALUE: obj['SHARES_FACE_VALUE']
+        T_NO_OF_SHARES: data['numberOfShares'],
+        T_SHARES_AMOUNT: data['shareBal'],
+        FACE_VALUE: data['SHARES_FACE_VALUE']
       })
     })
   }
 
-  addTransferAccount() {
+  getNumberOfShares() {
+    let toNoShares = Number(this.ngForm.controls['FROM'].value) + Number(this.ngForm.controls['NO_OF_SHARES'].value) - 1
+    this.ngForm.patchValue({
+      TO: toNoShares
+    })
+    this.getSharesAmount()
+  }
 
+  getSharesAmount() {
+    let sharesAmount = Number(this.ngForm.controls['NO_OF_SHARES'].value) * Number(this.ngForm.controls['FACE_VALUE'].value)
+    this.ngForm.patchValue({
+      SHARES_AMOUNT: sharesAmount.toFixed(2)
+    })
+  }
+
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  addTransferAccount() {
     const formVal = this.ngForm.value;
-    var object =
-    {
+    var object = {
       Tscheme: formVal.Tscheme,
-      TschemeAC: formVal.TschemeAC,
       amount: formVal.amount,
       DEBIT_CREDIT: formVal.DEBIT_CREDIT,
-      TRANSFER_ACNO: formVal.TRANSFER_ACNO,
-      T_TYPE: formVal.T_TYPE,
+      TRANSFER_ACNO: formVal.TschemeAC,
       PERTICULARS: formVal.PERTICULARS,
       T_SHARES_AMOUNT: formVal.T_SHARES_AMOUNT,
-
     }
-
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
     }
@@ -281,6 +292,9 @@ export class IssueNewSharesComponent implements OnInit {
         "Please Select Account!",
         "info"
       );
+    }
+    else if (this.multigrid.find(ob => ob['TRANSFER_ACNO'] === object.TRANSFER_ACNO)) {
+      Swal.fire('Info', 'This Account is Already Exists!', 'error');
     }
     else if (formVal.amount == "" || formVal.amount == null) {
       Swal.fire(
@@ -294,53 +308,30 @@ export class IssueNewSharesComponent implements OnInit {
         "Warning!", "Please Select Debit or Credit!", "error"
       );
     }
-
-    // else if (formVal.PERTICULARS == "" || formVal.PERTICULARS == null) {
-    //   Swal.fire(
-    //     "Warning!",
-    //     "Please Insert PERTICULARS!",
-    //     "info"
-    //   );
-    // }
     else {
-
       if (formVal.DEBIT_CREDIT == 'CREDIT') {
         this.totalCredit = this.totalCredit + Number(formVal.amount)
       } else {
-        this.totalDebit = this.totalDebit + Number(formVal.this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount));
+        this.totalDebit = this.totalDebit + Number(formVal.amount);
       }
-
       this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-
       this.multigrid.push(object);
       this.resetForm();
     }
   }
 
   editTransferAccount(indexOfelement) {
-
     this.intIndex = indexOfelement;
-    // this.intID = this.multiField[id].SR_NO;
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.ngForm.patchValue({
-
-
-
-
       // SR_NO: this.multiField[id].SR_NO,
       Tscheme: this.multigrid[indexOfelement].Tscheme,
-      TschemeAC: this.multigrid[indexOfelement].TschemeAC,
       amount: this.multigrid[indexOfelement].amount,
       DEBIT_CREDIT: this.multigrid[indexOfelement].DEBIT_CREDIT,
-      TRANSFER_ACNO: this.multigrid[indexOfelement].TRANSFER_ACNO,
-      T_TYPE: this.multigrid[indexOfelement].T_TYPE,
+      TschemeAC: this.multigrid[indexOfelement].TRANSFER_ACNO,
       particulars: this.multigrid[indexOfelement].particulars,
       T_SHARES_AMOUNT: this.multigrid[indexOfelement].T_SHARES_AMOUNT,
-
-
-
-
     })
   }
 
@@ -349,16 +340,11 @@ export class IssueNewSharesComponent implements OnInit {
 
     const formVal = this.ngForm.value;
     var object = {
-
       Tscheme: formVal.Tscheme,
-      TschemeAC: formVal.TschemeAC,
       amount: formVal.amount,
       DEBIT_CREDIT: formVal.DEBIT_CREDIT,
-      TRANSFER_ACNO: formVal.TRANSFER_ACNO,
-      T_TYPE: formVal.T_TYPE,
-      PERTICULARS: formVal.PERTICULARS,
-
-
+      TRANSFER_ACNO: formVal.TschemeAC,
+      PERTICULARS: formVal.TPERTICULARS,
     }
     this.multigrid[index] = object;
     this.jointShowButton = true;
@@ -367,78 +353,59 @@ export class IssueNewSharesComponent implements OnInit {
 
   }
   resetForm() {
-
-    // this.ngForm.controls['branchOption'].reset()
-    // this.ngForm.controls['AC_TYPE'].reset()
-    // this.ngForm.controls['MEMBER_NO'].reset()
-    // this.ngForm.controls['TRAN_NO'].reset()
-    // this.ngForm.controls['MEMBERSHIP_DATE'].reset()
-    // this.ngForm.controls['T_SHARES_AMOUNT'].reset()
-    // this.ngForm.controls['T_NO_OF_SHARES'].reset()
-    // this.ngForm.controls['ISSUE_DATE'].reset()
-    // this.ngForm.controls['CERTIFICATE_NO'].reset()
-    // this.ngForm.controls['FROM'].reset()
-    // this.ngForm.controls['TO'].reset()
-    // this.ngForm.controls['NO_OF_SHARES'].reset()
-    // this.ngForm.controls['FACE_VALUE'].reset()
-    // this.ngForm.controls['RESOLUTION_DATE'].reset()
-    // this.ngForm.controls['particular'].reset()
-    // this.ngForm.controls['SHARES_AMOUNT'].reset()
-    // this.ngForm.controls['RES_NO'].reset()
-    // this.ngForm.controls['T_TYPE'].reset()
-    this.ngForm.controls['PERTICULARS'].reset()
+    this.ngForm.controls['TPERTICULARS'].reset()
     this.ngForm.controls['Tscheme'].reset()
     this.ngForm.controls['TschemeAC'].reset()
     this.ngForm.controls['amount'].reset()
     this.ngForm.controls['DEBIT_CREDIT'].reset()
     this.ngForm.controls['FREE_PAID'].reset()
-    this.ngForm.controls['T_DEBIT'].reset()
-    this.ngForm.controls['T_CREDIT'].reset()
-
   }
 
   submit() {
 
     if (this.ngForm.valid) {
-
-      const formVal = this.ngForm.value;
-      var object =
-      {
-        BRANCH_CODE: formVal.BRANCH_CODE,
-        AC_TYPE: formVal.AC_TYPE,
-        MEMBER_NO: formVal.MEMBER_NO,
-        TRAN_NO: formVal.TRAN_NO,
-        MEMBERSHIP_DATE: formVal.MEMBERSHIP_DATE,
-        T_SHARES_AMOUNT: formVal.T_SHARES_AMOUNT,
-        T_NO_OF_SHARES: formVal.T_NO_OF_SHARES,
-        ISSUE_DATE: formVal.ISSUE_DATE,
-        CERTIFICATE_NO: formVal.CERTIFICATE_NO,
-        FROM: formVal.FROM,
-        TO: formVal.TO,
-        NO_OF_SHARES: formVal.NO_OF_SHARES,
-        FACE_VALUE: formVal.FACE_VALUE,
-        RESOLUTION_DATE: formVal.RESOLUTION_DATE,
-        SHARES_AMOUNT: formVal.SHARES_AMOUNT,
-        RES_NO: formVal.RES_NO,
-        particulars: formVal.particulars,
-        // Tscheme: formVal.Tscheme,
-        // TschemeAC: formVal.TschemeAC,
-        // T_TYPE: formVal.T_TYPE,
-        // DEBIT_CREDIT: formVal.DEBIT_CREDIT,
-        // PERTICULARS: formVal.PERTICULARS,
-        // amount: formVal.amount,
-
-
+      if (this.totalCredit != this.totalDebit && this.ngForm.controls['T_TYPE'].value == 'TR') {
+        Swal.fire(
+          'Oops', 'Total debit amount does not match with total credit amount', 'error'
+        );
       }
+      else if (this.transferTotalAmount != Number(this.ngForm.controls['SHARES_AMOUNT'].value) && this.ngForm.controls['T_TYPE'].value == 'TR') {
+        Swal.fire(
+          'Oops', 'Shares amount does not match with total transfer amount', 'error'
+        );
+      }
+      else {
+        const formVal = this.ngForm.value;
+        var object =
+        {
+          BRANCH_CODE: formVal.BRANCH_CODE,
+          AC_TYPE: formVal.AC_TYPE,
+          MEMBER_NO: formVal.MEMBER_NO,
+          TRAN_NO: formVal.TRAN_NO,
+          MEMBERSHIP_DATE: formVal.MEMBERSHIP_DATE,
+          T_SHARES_AMOUNT: formVal.T_SHARES_AMOUNT,
+          T_NO_OF_SHARES: formVal.T_NO_OF_SHARES,
+          ISSUE_DATE: formVal.ISSUE_DATE,
+          CERTIFICATE_NO: formVal.CERTIFICATE_NO,
+          FROM: formVal.FROM,
+          TO: formVal.TO,
+          NO_OF_SHARES: formVal.NO_OF_SHARES,
+          FACE_VALUE: formVal.FACE_VALUE,
+          RESOLUTION_DATE: formVal.RESOLUTION_DATE,
+          SHARES_AMOUNT: formVal.SHARES_AMOUNT,
+          RES_NO: formVal.RES_NO,
+          particulars: formVal.particulars,
+        }
 
-      this.multigrid1.push(object);
-      console.log(object);
+        this.multigrid1.push(object);
+        console.log(object);
 
-      Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'success'
-      );
+        Swal.fire(
+          'Success',
+          'Data Successfully submitted!',
+          'success'
+        );
+      }
     }
 
     else {
@@ -448,18 +415,9 @@ export class IssueNewSharesComponent implements OnInit {
   }
 
   decimalAllContent($event) {
-    // let value = Number($event.target.value);
-    //   let data = value.toFixed(2);
-    //   $event.target.value = data;
     var t = $event.target.value;
     $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
-
-  // getNarration(ele) {
-  //   this.particulars = ele;
-  //   let el: HTMLElement = this.triggerhide.nativeElement;
-  //   el.click();
-  // }
 
   getNarration(ele) {
     this.particular = ele;
