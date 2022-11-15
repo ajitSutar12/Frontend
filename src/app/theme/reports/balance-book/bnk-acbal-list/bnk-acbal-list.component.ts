@@ -283,8 +283,16 @@ debugger
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
     var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+
+    let startDate:any;
+    if (this.defaultDate == obj.FROM_DATE) {
+      startDate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    }else{ 
+      startDate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    };
+
     let scheme = obj.Scheme_code
     let Rstartingacc = obj.FROM_AC_NO
     let Rendingacc = obj.TO_AC_NO

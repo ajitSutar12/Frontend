@@ -120,7 +120,15 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
      this.showRepo = true;
     let obj = this.angForm.value
     let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    // let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+    let etdate:any;
+      if (this.todate == obj.END_DATE) {
+        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
     let branch = obj.BRANCH_CODE;
     let revoke = obj.REVOKE_INST;
  
@@ -134,7 +142,15 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
       this.showRepo = true;
      let obj = this.angForm.value
      let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-     let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    //  let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+    let etdate:any;
+      if (this.todate == obj.END_DATE) {
+        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+      
      let branch = obj.BRANCH_CODE;
      let revoke = obj.REVOKE_INST;
   
@@ -155,7 +171,7 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
 
   resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
+    // this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.REVOKE_INST.reset();
     this.showRepo = false;
     this.clicked=false;

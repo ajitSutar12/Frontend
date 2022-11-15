@@ -113,7 +113,15 @@ export class BnkTrialBaldetailComponent implements OnInit {
       this.showRepo = true;
       let obj = this.angForm.value
       let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let endDate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let endDate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+      let endDate:any;
+      if (this.todate == obj.END_DATE) {
+        endDate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        endDate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       var sdate = moment(obj.START_DATE).startOf('quarter').format('DD/MM/YYYY');
       let branched = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
