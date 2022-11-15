@@ -188,7 +188,15 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     if(this.ngForm.valid){
       this.showRepo = true;
     let obj = this.ngForm.value
-    let date =  moment(obj.DATE).format('DD/MM/YYYY');
+    // let date =  moment(obj.DATE).format('DD/MM/YYYY');
+
+    let date:any;
+    if (this.defaultDate == obj.FROM_DATE) {
+      date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    }else{ 
+      date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    };
+
     let scheme = obj.Scheme_code
     let Scheme_acc = obj.Scheme_acc
     let branch = obj.BRANCH_CODE

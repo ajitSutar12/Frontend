@@ -38,7 +38,7 @@ export class BnkExpectStandInstructionComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
 
-  iframeurl: any = ' ';
+  iframe1url: any = ' ';
   clicked:boolean=false;
   //Dropdown option variable
   ngbranch
@@ -125,15 +125,23 @@ export class BnkExpectStandInstructionComponent implements OnInit {
 
       // this.showRepo = true;
       let obj = this.angForm.value
-      let stdate = this.fromdate;
+      // let stdate = this.fromdate;
+
+      let stdate:any;
+      if (this.fromdate == obj.START_DATE) {
+        stdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        stdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       let Branch = obj.BRANCH_CODE;
       let STATUS = obj.STATUS;
       let SORT_ON = obj.SORT_ON;
       let FREQUENCY = obj.FREQUENCY;
       let NEWPAGE = obj.NEWPAGE;
 
-      this.iframeurl = this.report_url+ "examples/StandingInstructionDebit.php?stdate='" + stdate + "'&Branch='" + Branch + "'&STATUS='" + STATUS + "'&SORT_ON='" + SORT_ON + "'&FREQUENCY='" + FREQUENCY + "'&NEWPAGE='" + NEWPAGE + "'&bankName='" + bankName + "'";
-      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+      this.iframe1url = this.report_url+ "examples/StandingInstructionDebit.php?stdate='" + stdate + "'&Branch='" + Branch + "'&STATUS='" + STATUS + "'&SORT_ON='" + SORT_ON + "'&FREQUENCY='" + FREQUENCY + "'&NEWPAGE='" + NEWPAGE + "'&bankName='" + bankName + "'";
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
 
     }
     else {

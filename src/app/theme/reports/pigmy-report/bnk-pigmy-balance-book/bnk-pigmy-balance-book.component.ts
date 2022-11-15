@@ -184,7 +184,15 @@ export class BnkPigmyBalanceBookComponent implements OnInit {
     let obj = this.ngForm.value
     this.showRepo = true;
     // let date =  moment(obj.DATE).format('DD/MM/YYYY');
-    let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    // let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+
+    let date:any;
+    if (this.defaultDate == obj.FROM_DATE) {
+      date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    }else{ 
+      date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    };
+
     var edate = moment(obj.FROM_DATE).subtract(1, "month").endOf('month').format('DD/MM/YYYY');
     // var edate = moment(this.sdate).endOf('month').format('DD/MM/YYYY');
     let scheme = obj.Scheme_code
