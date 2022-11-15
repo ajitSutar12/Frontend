@@ -65,7 +65,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <ng-select id="cdropdown" [(ngModel)]="memberno" [selectOnTab]='true'
-                                                    #selecttype formControlName="MEMBER_NO" bindValue="value"
+                                                    #selecttype formControlName="MEMBER_NO" bindValue="bankacno"
                                                     bindLabel="NAME" (change)="getMemberDetail($event)"
                                                     title="Compulsory Selection" required placeholder=" Member No"
                                                     (focus)="onFocus(selecttype)">
@@ -427,9 +427,9 @@
                                     <div class="col-sm-12">
 
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                            <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
                                                         class="required">*</sub></label></div>
-                                            <div class="col-sm-12 col-md-2">
+                                            <div class="col-sm-12 col-md-3">
                                                 <div class="form-group form-primary form-static-label">
                                                     <span class="border-lable-flt">
                                                         <ng-select [(ngModel)]="selectedTransScheme" #scheme
@@ -482,7 +482,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-2"><label for="amount">Amount<sub
+                                            <div class="col-md-1"><label for="amount">Amount<sub
                                                         class="required">*</sub></label>
                                             </div>
                                             <div class="col-md-2">
@@ -534,8 +534,7 @@
 
                                         <div class="row">
 
-                                            <div class="col-sm-12 col-md-2  "><label
-                                                    for="PARTICULAR">Particulars</label>
+                                            <div class="col-sm-12 col-md-1"><label for="PARTICULAR">Particulars</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -593,7 +592,7 @@
                                                                 <td class="td_center">{{data.amount}}</td>
                                                             </tr>
                                                             <tr *ngIf="multigrid.length != 0">
-                                                                <td colspan="5" style="text-align: right;">Total
+                                                                <td colspan="4" style="text-align: right;">Total
                                                                 </td>
                                                                 <td class="td_center">
                                                                     {{transferTotalAmount}}

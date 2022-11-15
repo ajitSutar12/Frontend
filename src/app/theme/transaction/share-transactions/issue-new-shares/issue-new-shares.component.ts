@@ -68,7 +68,6 @@ export class IssueNewSharesComponent implements OnInit {
   ngacno: any;
   transferAccountDetails: any;
   Scheme
-  multigrid1: any = [];
   PERTICULARS: any;
 
   url = environment.base_url;
@@ -85,27 +84,10 @@ export class IssueNewSharesComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
   ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.Issue_date = data.CURRENT_DATE;
-      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-      this.maxDate = this.maxDate._d
-      this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
-      this.resolutionDate = this.resolutionDate._d
-    })
   }
 
   ngOnInit(): void {
     this.createForm()
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.ngForm.controls['BRANCH_CODE'].enable()
-      this.selectedBranch = result.branch.id
-    }
-    else {
-      this.ngForm.controls['BRANCH_CODE'].disable()
-      this.selectedBranch = result.branch.id
-    }
     //branchOption
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
@@ -139,6 +121,7 @@ export class IssueNewSharesComponent implements OnInit {
 
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
+    this.tScheme = event.name
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
     switch (event.name) {
@@ -200,7 +183,7 @@ export class IssueNewSharesComponent implements OnInit {
     if (value == 1) {
       this.isTransfer = false
     }
-    if (value == 2) {
+    else if (value == 2) {
       this.isTransfer = true
     }
   }
@@ -234,6 +217,23 @@ export class IssueNewSharesComponent implements OnInit {
       T_CREDIT: ['',],
       particular: [''],
     });
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.Issue_date = data.CURRENT_DATE;
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
+      this.resolutionDate = this.resolutionDate._d
+    })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.selectedBranch = result.branch.id
+    }
   }
 
   getMemberDetail(event) {
@@ -272,16 +272,17 @@ export class IssueNewSharesComponent implements OnInit {
   selectAllContent($event) {
     $event.target.select();
   }
+  tScheme
 
   addTransferAccount() {
     const formVal = this.ngForm.value;
     var object = {
+      TRAN_ACNOTYPE: this.tScheme,
       Tscheme: formVal.Tscheme,
       amount: formVal.amount,
       DEBIT_CREDIT: formVal.DEBIT_CREDIT,
       TRANSFER_ACNO: formVal.TschemeAC,
-      PERTICULARS: formVal.PERTICULARS,
-      T_SHARES_AMOUNT: formVal.T_SHARES_AMOUNT,
+      PERTICULARS: formVal.TPERTICULARS,
     }
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
@@ -330,22 +331,31 @@ export class IssueNewSharesComponent implements OnInit {
       amount: this.multigrid[indexOfelement].amount,
       DEBIT_CREDIT: this.multigrid[indexOfelement].DEBIT_CREDIT,
       TschemeAC: this.multigrid[indexOfelement].TRANSFER_ACNO,
-      particulars: this.multigrid[indexOfelement].particulars,
-      T_SHARES_AMOUNT: this.multigrid[indexOfelement].T_SHARES_AMOUNT,
+      TPERTICULARS: this.multigrid[indexOfelement].PERTICULARS,
     })
   }
 
   updateTransferAcccount() {
     let index = this.intIndex;
-
     const formVal = this.ngForm.value;
+    if (this.multigrid[index].DEBIT_CREDIT == 'CREDIT') {
+      this.totalCredit = this.totalCredit - Number(this.multigrid[index].amount)
+      this.totalCredit = this.totalCredit + Number(formVal.amount)
+    } else {
+      this.totalDebit = this.totalDebit - Number(this.multigrid[index].amount)
+      this.totalDebit = this.totalDebit + Number(formVal.amount);
+    }
+    this.transferTotalAmount = this.transferTotalAmount - Number(this.multigrid[index].amount)
+    this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
     var object = {
+      TRAN_ACNOTYPE: this.tScheme,
       Tscheme: formVal.Tscheme,
       amount: formVal.amount,
       DEBIT_CREDIT: formVal.DEBIT_CREDIT,
       TRANSFER_ACNO: formVal.TschemeAC,
       PERTICULARS: formVal.TPERTICULARS,
     }
+
     this.multigrid[index] = object;
     this.jointShowButton = true;
     this.jointUpdateShow = false;
@@ -364,47 +374,52 @@ export class IssueNewSharesComponent implements OnInit {
   submit() {
 
     if (this.ngForm.valid) {
-      if (this.totalCredit != this.totalDebit && this.ngForm.controls['T_TYPE'].value == 'TR') {
+      if ((this.totalCredit + Number(this.ngForm.controls['SHARES_AMOUNT'].value)) != this.totalDebit && this.ngForm.controls['T_TYPE'].value == 'TR') {
         Swal.fire(
           'Oops', 'Total debit amount does not match with total credit amount', 'error'
         );
       }
-      else if (this.transferTotalAmount != Number(this.ngForm.controls['SHARES_AMOUNT'].value) && this.ngForm.controls['T_TYPE'].value == 'TR') {
-        Swal.fire(
-          'Oops', 'Shares amount does not match with total transfer amount', 'error'
-        );
-      }
-      else {
+      // else if (this.transferTotalAmount != Number(this.ngForm.controls['SHARES_AMOUNT'].value) && this.ngForm.controls['T_TYPE'].value == 'TR') {
+      //   Swal.fire(
+      //     'Oops', 'Shares amount does not match with total transfer amount', 'error'
+      //   );
+      // }
+      else if (((this.totalCredit + Number(this.ngForm.controls['SHARES_AMOUNT'].value)) == this.totalDebit && this.ngForm.controls['T_TYPE'].value == 'TR') || this.ngForm.controls['T_TYPE'].value == 'CS') {
         const formVal = this.ngForm.value;
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
         var object =
         {
           BRANCH_CODE: formVal.BRANCH_CODE,
-          AC_TYPE: formVal.AC_TYPE,
-          MEMBER_NO: formVal.MEMBER_NO,
-          TRAN_NO: formVal.TRAN_NO,
-          MEMBERSHIP_DATE: formVal.MEMBERSHIP_DATE,
-          T_SHARES_AMOUNT: formVal.T_SHARES_AMOUNT,
-          T_NO_OF_SHARES: formVal.T_NO_OF_SHARES,
-          ISSUE_DATE: formVal.ISSUE_DATE,
+          TRANSACTIONMODE: formVal.T_TYPE,
+          TRAN_ACTYPE: formVal.AC_TYPE,
+          TRAN_ACNO: formVal.MEMBER_NO,
+          TRAN_DATE: formVal.ISSUE_DATE,
           CERTIFICATE_NO: formVal.CERTIFICATE_NO,
-          FROM: formVal.FROM,
-          TO: formVal.TO,
-          NO_OF_SHARES: formVal.NO_OF_SHARES,
+          NO_OF_SHARE: formVal.NO_OF_SHARES,
           FACE_VALUE: formVal.FACE_VALUE,
-          RESOLUTION_DATE: formVal.RESOLUTION_DATE,
-          SHARES_AMOUNT: formVal.SHARES_AMOUNT,
-          RES_NO: formVal.RES_NO,
-          particulars: formVal.particulars,
+          TRAN_AMOUNT: this.totalCredit + Number(this.ngForm.controls['SHARES_AMOUNT'].value),
+          NARRATION: formVal.particular,
+          SHARE_FROM_NO: formVal.FROM,
+          SHARE_TO_NO: formVal.TO,
+          RESOLUTION_NO: formVal.RES_NO,
+          RESOLUTION_DATE: moment(formVal.RESOLUTION_DATE).format('DD/MM/YYYY'),
+          USER_CODE: result.id,
+          MembershipData: this.multigrid
         }
-
-        this.multigrid1.push(object);
         console.log(object);
-
-        Swal.fire(
-          'Success',
-          'Data Successfully submitted!',
-          'success'
-        );
+        this.http.post(this.url + "/issue-new-share/insert", object).subscribe(data => {
+          Swal.fire(
+            'Success',
+            'Data Successfully Added!',
+            'success'
+          );
+          this.createForm()
+          this.isTransfer = false
+          this.multigrid = []
+          this.totalCredit = 0
+          this.totalDebit = 0
+        })
       }
     }
 
