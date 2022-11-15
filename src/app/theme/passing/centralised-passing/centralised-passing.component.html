@@ -175,6 +175,12 @@
                                         Rent</a><span
                                         class="badge badge-secondary badgeAlign">{{locaker_ac_close}}</span></h6>
                             </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(33)" routerLinkActive="active" class="text-right f-w-600"
+                                        id="pointer" routerLink="/passing/centralisedPassing"
+                                        [ngClass]="{'isActive': shareTransactionTrue}">26. Share Transaction</a><span
+                                        class="badge badge-secondary badgeAlign">{{shareTransaction}}</span></h6>
+                            </li>
                         </ul>
                     </perfect-scrollbar>
                 </div>
@@ -268,6 +274,9 @@
                 <app-locker-ac-close-rent></app-locker-ac-close-rent>
             </div>
             <div *ngIf="deprciationProcessTrue">
+                <app-depreciation-passing></app-depreciation-passing>
+            </div>
+            <div *ngIf="shareTransactionTrue">
                 <app-depreciation-passing></app-depreciation-passing>
             </div>
         </div>
