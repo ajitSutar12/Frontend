@@ -950,11 +950,11 @@ const MENUITEMS = [
             icon: 'icon-home',
             id: 130,
             children: [
-              {
-                state: 'BnkDayBookSummary',
-                name: 'Day Book Detail/Summary',
-                 id: 203
-              },
+              // {
+              //   state: 'BnkDayBookSummary',
+              //   name: 'Day Book Detail/Summary',
+              //    id: 203
+              // },
               {
                 state: 'BnkSubsidaryDetail',
                 name: 'Subsidiary  Debit/Credit',
@@ -1042,16 +1042,16 @@ const MENUITEMS = [
                 name: 'Term Deposit Statement ',
                 id: 215
               },
-              {
-                state: 'BnkGlIntStatement',
-                name: 'General Ledger interest list',
-                id: 216
-              },
-              {
-                state: 'BnkMemStatement',
-                name: 'Member Statement',
-                id: 217
-              },
+              // {
+              //   state: 'BnkGlIntStatement',
+              //   name: 'General Ledger interest list',
+              //   id: 216
+              // },
+              // {
+              //   state: 'BnkMemStatement',
+              //   name: 'Member Statement',
+              //   id: 217
+              // },
             ]
           },
           //
