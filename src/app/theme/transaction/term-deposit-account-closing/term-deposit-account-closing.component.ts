@@ -29,7 +29,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   // @ViewChild(DepositClosingVoucherComponent) child: DepositClosingVoucherComponent;
 
 
-  formSubmitted = false;
+  formSubmitted = false; 
   //api
   url = environment.base_url;
   updateID: number = 0;
@@ -229,7 +229,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       particulars: [null],
       amount: [, [Validators.pattern]],
       ClosingQuaters: [0],
-      QInterest: [0],
+      QInterest:  [0],
       ClosingMonth: [''],
       MInterest: [0],
       DInterest: [0],

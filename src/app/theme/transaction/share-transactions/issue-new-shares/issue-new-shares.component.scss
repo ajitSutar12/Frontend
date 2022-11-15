@@ -1,3 +1,31 @@
 .required {
-    color: red;
-  }
+  color: red;
+}
+
+div.solid {
+  border-style: solid;
+  padding: 2%
+}
+
+
+.btn {
+  margin: 3px;
+}
+
+.errspan {
+  float: right;
+  margin-right: 21px;
+  margin-top: -20px;
+  position: relative;
+  z-index: 2;
+  color: red;
+}
+
+div.solid {
+  border-style: solid;
+  padding: 2%
+}
+
+.inputRadio:focus-within {
+  color: red;
+}

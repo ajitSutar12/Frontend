@@ -19,22 +19,40 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { ButtonModule } from '../../ui-elements/basic/button/button.module';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { IssueNewSharesDirective } from './issue-new-shares/issue-new-shares.directive';
+import { FoundPaymentTransactionDirective } from './found-payment-transaction/found-payment-transaction.directive';
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule,                      
     ShareTransactionsRoutingModule,
     SharedModule,
     DataTablesModule,
     // SelectModule,
     NgSelectModule,
     FormsModule, ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    NgSelectModule,
+    ButtonModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
   ],
-  declarations: [ShareTransactionsComponent, IssueNewSharesComponent, SharesTransferComponent, MembershipCancellationComponent, FoundPaymentTransactionComponent, OpeningSharesTransactionsEntryComponent, RebitInterestTransactionComponent],
-  providers: [SelectOptionService,glMasterService,SchemeCodeDropdownService,
+  declarations: [ShareTransactionsComponent, IssueNewSharesComponent, SharesTransferComponent, MembershipCancellationComponent,
+     FoundPaymentTransactionComponent, OpeningSharesTransactionsEntryComponent, RebitInterestTransactionComponent, IssueNewSharesDirective, FoundPaymentTransactionDirective],
+     
+  providers: [SelectOptionService,glMasterService,SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService, SystemMasterParametersService,ACMasterDropdownService,
+
     {
-      provide: HTTP_INTERCEPTORS,
+      provide: HTTP_INTERCEPTORS, 
       useClass: UserAuthInterceptor,
       multi: true
     },]
+    
 })
 export class ShareTransactionsModule { }
