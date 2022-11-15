@@ -67,10 +67,10 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
-                                            formControlName="AC_NO" bindLabel="label" (keyup)="filterObject($event)"
+                                            formControlName="AC_NO" bindLabel="label"
                                             (change)="getAccountDetails($event)" title="Compulsory Selection" required
                                             placeholder="Account No." [disabled]="disableFields">
-                                            <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>

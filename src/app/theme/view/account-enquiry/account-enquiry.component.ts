@@ -207,6 +207,8 @@ export class AccountEnquiryComponent implements OnInit {
   }
 
   schemechange(event) {
+    this.schemeACNo = null
+    this.accountedit = null
     this.getschemename = event.name
     this.ngscheme = event.value
     this.accountData = null
