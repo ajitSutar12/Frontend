@@ -21,6 +21,7 @@ export class CentralisedPassingComponent implements OnInit {
   deadstockpurchaseTrue = false;
   deadstocktransactionTrue = false;
   lockeraccloserentTrue = false;
+  shareTransactionTrue = false;
   mastersharesTrue = true;
   masteranamatTrue = false;
   mastersavingTrue = false;
@@ -36,6 +37,7 @@ export class CentralisedPassingComponent implements OnInit {
   masterdeadstockTrue = false;
   goldsilverreturnTrue = false;
   termdepositacrenewalTrue = false;
+  deprciationProcessTrue = false;
 
 
   //count variable
@@ -64,6 +66,8 @@ export class CentralisedPassingComponent implements OnInit {
   locker_master: any = 0;
   dead_stock_master: any = 0;
   term_deposit_ac_renewal: any = 0;
+  deprciationProcess: any = 0;
+  shareTransaction: any = 0
 
   constructor(private _router: Router, private _service: CentralisedPassingService) {
   }
@@ -93,7 +97,8 @@ export class CentralisedPassingComponent implements OnInit {
         this.batch_voucher = data.batchVoucherPassing
         this.multi_voucher = data.multiVoucherPassing
         this.dead_stock_master = data.deadstockmasterCount
-
+        this.deprciationProcess = data.deadstockDeprication
+        this.shareTransaction=data.shareTransaction
       })
     }));
   }
@@ -103,8 +108,6 @@ export class CentralisedPassingComponent implements OnInit {
   }
 
   OpenLink(val) {
-
-
     // 
     // 
     // if (val == 5) {
@@ -117,6 +120,7 @@ export class CentralisedPassingComponent implements OnInit {
     //   this.deadstockpurchaseTrue = false;
     //   this.deadstocktransactionTrue = false;
     //   this.lockeraccloserentTrue = false;
+    //   this.shareTransactionTrue = false;
     //   this.mastersharesTrue = false;
     //   this.masteranamatTrue = false;
     //   this.mastersavingTrue = false;
@@ -147,6 +151,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstockpurchaseTrue = false;
       this.deadstocktransactionTrue = false;
       // this.lockeraccloserentTrue = false;
+      this.shareTransactionTrue = false;
       this.mastersharesTrue = true;
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
@@ -162,6 +167,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 11) {
       this.voucherTrue = false;
@@ -175,6 +181,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       // this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = true;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -189,6 +196,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 12) {
       this.mastersavingTrue = true;
@@ -203,6 +211,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       // this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
 
       this.mastercurrentTrue = false;
@@ -217,6 +226,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 13) {
       this.voucherTrue = false;
@@ -230,6 +240,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       // this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = true;
@@ -244,6 +255,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 14) {
       this.voucherTrue = false;
@@ -257,6 +269,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       // this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -271,6 +284,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 15) {
       this.voucherTrue = false;
@@ -284,6 +298,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       // this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -298,6 +313,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 16) {
       this.voucherTrue = false;
@@ -311,6 +327,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -325,6 +342,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 17) {
       this.voucherTrue = false;
@@ -338,6 +356,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -352,6 +371,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 18) {
       this.voucherTrue = false;
@@ -365,6 +385,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -379,6 +400,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 19) {
       this.voucherTrue = false;
@@ -392,6 +414,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -406,6 +429,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 20) {
       this.voucherTrue = false;
@@ -419,6 +443,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -433,6 +458,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = true;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 21) {
       this.voucherTrue = true;
@@ -446,6 +472,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -460,6 +487,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 22) {
       this.voucherTrue = false;
@@ -473,6 +501,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -487,6 +516,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 23) {
       this.voucherTrue = false;
@@ -500,6 +530,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -514,6 +545,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 24) {
       this.voucherTrue = false;
@@ -527,6 +559,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -541,6 +574,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 25) {
       this.voucherTrue = false;
@@ -554,6 +588,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -568,6 +603,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 26) {
       this.voucherTrue = false;
@@ -581,6 +617,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -595,6 +632,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 27) {
       this.voucherTrue = false;
@@ -608,6 +646,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = true;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -622,6 +661,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
 
     else if (val == 28) {
@@ -636,6 +676,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -650,6 +691,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
     else if (val == 29) {
       this.voucherTrue = false;
@@ -663,6 +705,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -675,8 +718,9 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue = true;
+      this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = true;
     }
     else if (val == 30) {
       this.voucherTrue = false;
@@ -690,6 +734,36 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = true;
+      this.deprciationProcessTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
+    else if (val == 31) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -703,9 +777,39 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
+      this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = true;
     }
-    if (val == 9) {
+    else if (val == 33) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.shareTransactionTrue = true
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.deprciationProcessTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
+    else if (val == 9) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
@@ -717,6 +821,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deadstocktransactionTrue = false;
       this.lockeraccloserentTrue = true;
       this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
       this.masteranamatTrue = false;
       this.mastersavingTrue = false;
       this.mastercurrentTrue = false;
@@ -731,6 +836,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdeadstockTrue = false;
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
+      this.deprciationProcessTrue = false;
     }
 
   }

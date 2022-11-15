@@ -211,6 +211,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
   schemechange(event) {
     this.getschemename = event.name
     this.ngscheme = event.value
+    this.schemeACNo = null
     this.getAccountNumber()
   }
 

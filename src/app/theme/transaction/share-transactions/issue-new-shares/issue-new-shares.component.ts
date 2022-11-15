@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
-import { glMasterService } from '../../../../shared/elements/gl-master.service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/first';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service'
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { VoucherEntryService } from '../../voucher-entry/voucher-entry.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import * as moment from 'moment';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-issue-new-shares',
@@ -19,216 +18,443 @@ import 'rxjs/add/operator/first';
   styleUrls: ['./issue-new-shares.component.scss']
 })
 export class IssueNewSharesComponent implements OnInit {
-   //title select variables
-   simpleOption: Array<IOption> = this.glMasterService.getCharacters();
-   selectedOption = '3';
-   isDisabled = true;
-   characters: Array<IOption>;
-   selectedCharacter = '3';
-   timeLeft = 5;
- 
-   private dataSub: Subscription = null;
- 
-   autocompleteItems = ['a', 'b', 'c', 'd'];
-   autocompleteItemsAsObjects = [
-     { value: 'a', id: 0 },
-     { value: 'b', id: 1 },
-     { value: 'c', id: 2 },
-     { value: 'd', id: 3 },
-   ];
- 
- 
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+  @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
+  // @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
 
-  dtExportButtonOptions: any = {};
-  constructor(public glMasterService: glMasterService) { }
+  //for Formgroup
+  ngForm: FormGroup
 
-   
-  showButton: boolean = true;
-  updateShow: boolean = false;
+  //for date
+  maxDate: any;
+  minDate: Date;
+  bsValue = new Date();
 
-  isCash: boolean = true;
+  jointShowButton: boolean = true
+  jointUpdateShow: boolean = false
 
-  message = {
-    Scheme:"",
-    Member_no: "",
-    Transaction_no: "",
-    membershipDate: "",
-    TotalNoOfShares: "",
-    TotalSharesAmount: "",
-    issueDate:"",
-    CertificateNumber:"",
-    From:"",
-    To:"",
-    NoOfShares:"",
-    Cash:"",
-    Transfer:"",
-    FaceValue:"",
-    resolutionDate:"",
-    sharesAmount:"",
-    ResolutionNo:"",
-    Particulars:"",
+  //ngmodel
+  schemeCode
+  memberno
+  selectedBranch
+  Membershipdate
+  Issue_date
+  particulars
+  particular
+  debitcredit
+  from
+  to
+  Resolution_date
 
-  };
+  //dropdown
+  scheme
+  schemeType: string = 'SH'
+  introducerACNo
+  branchOption
+  obj: any;
+  isTransfer: boolean;
+  transferTotalAmount: any = 0;
+  totalCredit = 0;
+  totalDebit = 0;
+  multigrid = [];
+  narrationList: any;
+  values = [
+    { id: 1, name: 'DEBIT' },
+    { id: 2, name: 'CREDIT' },];
+  intIndex: any;
+  schemeACNo: any;
+  selectedTransScheme: any;
+  transferSchemeDetails: any;
+  ngacno: any;
+  transferAccountDetails: any;
+  Scheme
+  PERTICULARS: any;
 
-//function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
-    this.message.Member_no = info.Member_no;
-    this.message.Transaction_no = info.Transaction_no;
-    this.message.membershipDate = info.membershipDate;
-    this.message.TotalNoOfShares = info.TotalNoOfShares;
-    this.message.TotalSharesAmount = info.TotalSharesAmount;
-    this.message.issueDate = info.issueDate;
-    this.message.CertificateNumber = info.CertificateNumber;
-    this.message.From = info.From;
-    this.message.To = info.To;
-    this.message.NoOfShares = info.NoOfShares;
-    this.message.Cash = info.Cash;
-    this.message.Transfer = info.Transfer;
-    this.message.FaceValue = info.FaceValue;
-    this.message.resolutionDate = info.resolutionDate;
-    this.message.sharesAmount = info.sharesAmount;
-    this.message.ResolutionNo = info.ResolutionNo;
-    this.message.Particulars = info.Particulars;
-    this.showButton = false;
-    this.updateShow = true;
+  url = environment.base_url;
+  Tparticulars
 
-    //code for radio button
-    if (this.message.Cash == "Yes") {
-      this.isCash = true;      //return boolean value and display checked radio button
-    }
-    else {
-      this.isCash = false;   //return boolean value and display unchecked radio button
-    }
-  }
- //function execute when delete button clicked
-  delClickHandler(info:any):void  {
-    this.message.Scheme=info.Scheme;
-        Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Scheme." + this.message.Scheme + "  data", 
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
-      }
-    })
+
+  resolutionDate: any
+
+  constructor(private fb: FormBuilder,
+    private _service: VoucherEntryService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
+    private http: HttpClient,
+  ) {
   }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/issue-new-shares.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Scheme',
-        data: 'Scheme'
-      }, {
-        title: 'Member No',
-        data: 'Member_no'
-      }, {
-        title: ' Transaction No',
-        data: 'Transaction_no'
-      }, {
-        title: 'Membership Date',
-        data: 'membershipDate'
-      }, {
-        title: 'Total No Of Shares',
-        data: 'TotalNoOfShares'
-      }, {
-        title: 'Total Shares Amount',
-        data: 'TotalSharesAmount'
-      },
-      {
-      title: 'Issue Date',
-      data: 'issueDate'
-    }, {
-      title: 'From',
-      data: 'From'
-    }, {
-      title: ' To',
-      data: 'To'
-    }, {
-      title: 'No Of Shares',
-      data: 'NoOfShares'
-    },{
-      title: 'Cash',
-      data: 'Cash'
-    },{
-      title: 'Transfer',
-      data: 'Transfer'
-    }, {
-      title: 'Face Value',
-      data: 'FaceValue'
-    }, {
-      title: 'Resolution Date',
-      data: 'resolutionDate'
-    },{
-      title: 'sharesAmount',
-      data: 'sharesAmount'
-    }, {
-      title: 'Resolution No',
-      data: 'ResolutionNo'
-    }, {
-      title: 'Particulars',
-      data: 'Particulars'
-    }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-       //row click handler code
-       rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.runTimer();
-    this.dataSub = this.glMasterService.loadCharacters().subscribe((options) => {
-      this.characters = options;
+    this.createForm()
+    //branchOption
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+    //Scheme Code
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data
+      this.schemeCode = data[0].value
+      this.getIntroducer()
+    })
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      this.Scheme = data;
     });
-    }
-    runTimer() {
-      const timer = setInterval(() => {
-        this.timeLeft -= 1;
-        if (this.timeLeft === 0) {
-          clearInterval(timer);
-        }
-      }, 1000);
-  
-    };
-    
+
+    //Narration List
+    this._service.getNarrationMaster().subscribe(data => {
+      this.narrationList = data;
+    })
   }
 
+  getIntroducer() {
+    this.obj = [this.selectedBranch, this.schemeCode]
 
+    this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+      this.introducerACNo = data;
+    })
+
+
+  }
+  //get account no according scheme for transfer
+
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.tScheme = event.name
+    this.obj = [this.selectedTransScheme, this.selectedBranch]
+    this.ngacno = null
+    switch (event.name) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'GL':
+        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+    }
+  }
+  getTransferAccountDeatil(event) {
+    this.transferAccountDetails = event
+  }
+
+  //transfer and cash radio button effect
+  isFormA(value) {
+    if (value == 1) {
+      this.isTransfer = false
+    }
+    else if (value == 2) {
+      this.isTransfer = true
+    }
+  }
+
+  createForm() {
+    this.ngForm = this.fb.group({
+      BRANCH_CODE: ['', [Validators.required]],
+      AC_TYPE: ['', [Validators.required]],
+      MEMBER_NO: ['', [Validators.required]],
+      TRAN_NO: [],
+      MEMBERSHIP_DATE: ['', [Validators.required]],
+      T_SHARES_AMOUNT: [],
+      T_NO_OF_SHARES: [],
+      ISSUE_DATE: ['', [Validators.required]],
+      CERTIFICATE_NO: ['', [Validators.required]],
+      FROM: ['', [Validators.required]],
+      TO: ['', [Validators.required]],
+      NO_OF_SHARES: ['', [Validators.required]],
+      FACE_VALUE: ['', [Validators.required]],
+      RESOLUTION_DATE: ['', [Validators.required]],
+      SHARES_AMOUNT: ['', [Validators.pattern]],
+      RES_NO: ['', [Validators.required]],
+      PERTICULARS: [''],
+      TPERTICULARS: [''],
+      T_TYPE: ['CS'],
+      Tscheme: ['',],
+      TschemeAC: ['',],
+      amount: ['', [Validators.pattern]],
+      DEBIT_CREDIT: ['',],
+      T_DEBIT: ['',],
+      T_CREDIT: ['',],
+      particular: [''],
+    });
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.Issue_date = data.CURRENT_DATE;
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
+      this.resolutionDate = this.resolutionDate._d
+    })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.selectedBranch = result.branch.id
+    }
+  }
+
+  getMemberDetail(event) {
+    let obj = {
+      schemeCode: this.schemeCode,
+      customer: event,
+      issueDate: this.Issue_date
+    }
+    this.http.post(this.url + '/issue-new-share/getAccountSharesDetails', obj).subscribe(data => {
+      this.ngForm.patchValue({
+        MEMBERSHIP_DATE: event.openDate,
+        FROM: data['SHARE_TO_NO'],
+        CERTIFICATE_NO: data['CERTIFICATE_NO'],
+        T_NO_OF_SHARES: data['numberOfShares'],
+        T_SHARES_AMOUNT: data['shareBal'],
+        FACE_VALUE: data['SHARES_FACE_VALUE']
+      })
+    })
+  }
+
+  getNumberOfShares() {
+    let toNoShares = Number(this.ngForm.controls['FROM'].value) + Number(this.ngForm.controls['NO_OF_SHARES'].value) - 1
+    this.ngForm.patchValue({
+      TO: toNoShares
+    })
+    this.getSharesAmount()
+  }
+
+  getSharesAmount() {
+    let sharesAmount = Number(this.ngForm.controls['NO_OF_SHARES'].value) * Number(this.ngForm.controls['FACE_VALUE'].value)
+    this.ngForm.patchValue({
+      SHARES_AMOUNT: sharesAmount.toFixed(2)
+    })
+  }
+
+  selectAllContent($event) {
+    $event.target.select();
+  }
+  tScheme
+
+  addTransferAccount() {
+    const formVal = this.ngForm.value;
+    var object = {
+      TRAN_ACNOTYPE: this.tScheme,
+      Tscheme: formVal.Tscheme,
+      amount: formVal.amount,
+      DEBIT_CREDIT: formVal.DEBIT_CREDIT,
+      TRANSFER_ACNO: formVal.TschemeAC,
+      PERTICULARS: formVal.TPERTICULARS,
+    }
+    if (formVal.Tscheme == "" || formVal.Tscheme == null) {
+      Swal.fire("Warning!", "Please Select Scheme!", "error");
+    }
+    else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Select Account!",
+        "info"
+      );
+    }
+    else if (this.multigrid.find(ob => ob['TRANSFER_ACNO'] === object.TRANSFER_ACNO)) {
+      Swal.fire('Info', 'This Account is Already Exists!', 'error');
+    }
+    else if (formVal.amount == "" || formVal.amount == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Amount!",
+        "info"
+      );
+    }
+    else if (formVal.DEBIT_CREDIT == "" || formVal.DEBIT_CREDIT == null) {
+      Swal.fire(
+        "Warning!", "Please Select Debit or Credit!", "error"
+      );
+    }
+    else {
+      if (formVal.DEBIT_CREDIT == 'CREDIT') {
+        this.totalCredit = this.totalCredit + Number(formVal.amount)
+      } else {
+        this.totalDebit = this.totalDebit + Number(formVal.amount);
+      }
+      this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+      this.multigrid.push(object);
+      this.resetForm();
+    }
+  }
+
+  editTransferAccount(indexOfelement) {
+    this.intIndex = indexOfelement;
+    this.jointShowButton = false;
+    this.jointUpdateShow = true;
+    this.ngForm.patchValue({
+      // SR_NO: this.multiField[id].SR_NO,
+      Tscheme: this.multigrid[indexOfelement].Tscheme,
+      amount: this.multigrid[indexOfelement].amount,
+      DEBIT_CREDIT: this.multigrid[indexOfelement].DEBIT_CREDIT,
+      TschemeAC: this.multigrid[indexOfelement].TRANSFER_ACNO,
+      TPERTICULARS: this.multigrid[indexOfelement].PERTICULARS,
+    })
+  }
+
+  updateTransferAcccount() {
+    let index = this.intIndex;
+    const formVal = this.ngForm.value;
+    if (this.multigrid[index].DEBIT_CREDIT == 'CREDIT') {
+      this.totalCredit = this.totalCredit - Number(this.multigrid[index].amount)
+      this.totalCredit = this.totalCredit + Number(formVal.amount)
+    } else {
+      this.totalDebit = this.totalDebit - Number(this.multigrid[index].amount)
+      this.totalDebit = this.totalDebit + Number(formVal.amount);
+    }
+    this.transferTotalAmount = this.transferTotalAmount - Number(this.multigrid[index].amount)
+    this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+    var object = {
+      TRAN_ACNOTYPE: this.tScheme,
+      Tscheme: formVal.Tscheme,
+      amount: formVal.amount,
+      DEBIT_CREDIT: formVal.DEBIT_CREDIT,
+      TRANSFER_ACNO: formVal.TschemeAC,
+      PERTICULARS: formVal.TPERTICULARS,
+    }
+
+    this.multigrid[index] = object;
+    this.jointShowButton = true;
+    this.jointUpdateShow = false;
+    this.resetForm();
+
+  }
+  resetForm() {
+    this.ngForm.controls['TPERTICULARS'].reset()
+    this.ngForm.controls['Tscheme'].reset()
+    this.ngForm.controls['TschemeAC'].reset()
+    this.ngForm.controls['amount'].reset()
+    this.ngForm.controls['DEBIT_CREDIT'].reset()
+    this.ngForm.controls['FREE_PAID'].reset()
+  }
+
+  submit() {
+
+    if (this.ngForm.valid) {
+      if ((this.totalCredit + Number(this.ngForm.controls['SHARES_AMOUNT'].value)) != this.totalDebit && this.ngForm.controls['T_TYPE'].value == 'TR') {
+        Swal.fire(
+          'Oops', 'Total debit amount does not match with total credit amount', 'error'
+        );
+      }
+      // else if (this.transferTotalAmount != Number(this.ngForm.controls['SHARES_AMOUNT'].value) && this.ngForm.controls['T_TYPE'].value == 'TR') {
+      //   Swal.fire(
+      //     'Oops', 'Shares amount does not match with total transfer amount', 'error'
+      //   );
+      // }
+      else if (((this.totalCredit + Number(this.ngForm.controls['SHARES_AMOUNT'].value)) == this.totalDebit && this.ngForm.controls['T_TYPE'].value == 'TR') || this.ngForm.controls['T_TYPE'].value == 'CS') {
+        const formVal = this.ngForm.value;
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        var object =
+        {
+          BRANCH_CODE: formVal.BRANCH_CODE,
+          TRANSACTIONMODE: formVal.T_TYPE,
+          TRAN_ACTYPE: formVal.AC_TYPE,
+          TRAN_ACNO: formVal.MEMBER_NO,
+          TRAN_DATE: formVal.ISSUE_DATE,
+          CERTIFICATE_NO: formVal.CERTIFICATE_NO,
+          NO_OF_SHARE: formVal.NO_OF_SHARES,
+          FACE_VALUE: formVal.FACE_VALUE,
+          TRAN_AMOUNT: this.totalCredit + Number(this.ngForm.controls['SHARES_AMOUNT'].value),
+          NARRATION: formVal.particular,
+          SHARE_FROM_NO: formVal.FROM,
+          SHARE_TO_NO: formVal.TO,
+          RESOLUTION_NO: formVal.RES_NO,
+          RESOLUTION_DATE: moment(formVal.RESOLUTION_DATE).format('DD/MM/YYYY'),
+          USER_CODE: result.id,
+          MembershipData: this.multigrid
+        }
+        console.log(object);
+        this.http.post(this.url + "/issue-new-share/insert", object).subscribe(data => {
+          Swal.fire(
+            'Success',
+            'Data Successfully Added!',
+            'success'
+          );
+          this.createForm()
+          this.isTransfer = false
+          this.multigrid = []
+          this.totalCredit = 0
+          this.totalDebit = 0
+        })
+      }
+    }
+
+    else {
+      Swal.fire('Warning!', 'Please fill All Mandatory Fields!', 'warning')
+    }
+
+  }
+
+  decimalAllContent($event) {
+    var t = $event.target.value;
+    $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+
+  getNarration(ele) {
+    this.particular = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
+  getNarration1(ele) {
+    this.Tparticulars = ele;
+    let el: HTMLElement = this.triggerhide1.nativeElement;
+    el.click();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+    console.log(ele);
+  }
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
+  }
+}

@@ -3,4 +3,25 @@
 }
 .required {
     color: red;
+}
+
+div.solid {border-style: solid;padding:2%}
+
+div.solid h1{
+    text-align: left;
+    margin-top: -3%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 17px;
+}
+div.solid h1 span{
+    background-color: white;
+}
+.errspan {
+    float: right;
+    margin-right: 21px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 2;
+    color: red;
   }

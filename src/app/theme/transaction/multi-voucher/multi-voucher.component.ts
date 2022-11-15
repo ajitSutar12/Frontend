@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
 import { TransactionTransferModeService } from '../../../shared/elements/transaction-transfer-mode.service';
 import { SchemeTypeService } from '../../../shared/elements/scheme-type.service';
@@ -34,9 +34,10 @@ class DataTableResponse {
 })
 
 export class MultiVoucherComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
-  @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
+  @ViewChild('triggrhide1') triggrhide1: ElementRef<HTMLElement>;
   @ViewChild('focusbutton') focusbutton: ElementRef<HTMLElement>;
   @ViewChild('selectMode') selectMode: NgSelectComponent;
   @ViewChild('amt') amt: ElementRef;
@@ -118,16 +119,8 @@ export class MultiVoucherComponent implements OnInit {
     { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
   ]
 
-  bankName = [
-    {
-      name: 'Bank of India',
-      id: 1
-    },
-    {
-      name: 'State bank of India',
-      id: 2
-    }
-  ]
+  bankName
+  selectBankName
 
   tranModeList: any;
   particulars: any;
@@ -231,10 +224,11 @@ export class MultiVoucherComponent implements OnInit {
 
   }
 
-  getBankName(ele) {
-    this.bankName = ele;
-    let el: HTMLElement = this.triggerhide1.nativeElement;
-  }
+  // getBankName(ele) {
+  //   this.bankName = ele;
+  //   let el1: HTMLElement = this.triggrhide1.nativeElement;
+  //   el1.click();
+  // }
   createForm() {
     this.angForm = this.fb.group({
       branch_code: ['', [Validators.required]],
@@ -433,6 +427,13 @@ export class MultiVoucherComponent implements OnInit {
   getNarration(ele) {
     this.particulars = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
+
+  //get Narration Details 
+  getBankName(ele) {
+    this.selectBankName = ele;
+    let el: HTMLElement = this.triggrhide1.nativeElement;
     el.click();
   }
 
@@ -846,7 +847,7 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
-      amt: Number(data.amt).toFixed,
+      amt: Number(data.amt).toFixed(2),
       particulars: data.particulars,
       total_amt: data.total_amt
     })
@@ -868,9 +869,9 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
-      amt: data.amt,
+      amt: Number(data.amt).toFixed(2),
       particulars: data.particulars,
-      total_amt: data.total_amt,
+      total_amt: Number(data.total_amt).toFixed(2),
       bank: data.bank
     })
   }
@@ -976,8 +977,10 @@ export class MultiVoucherComponent implements OnInit {
     for (let item of this.mainMaster) {
       if (item.tran_mode.tran_drcr == 'C') {
         this.totalCredit = this.totalCredit + Number(item.total_amt)
+        this.totalCredit = Number(this.totalCredit.toFixed(2))
       } else {
         this.totalDebit = this.totalDebit + Number(item.total_amt);
+        this.totalDebit = Number(this.totalDebit.toFixed(2))
       }
     }
   }
@@ -1017,6 +1020,7 @@ export class MultiVoucherComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })

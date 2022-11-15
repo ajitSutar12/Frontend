@@ -169,14 +169,21 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.fromdate).format('DD/MM/YYYY'), moment(this.todate).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
+    // let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.fromdate).format('DD/MM/YYYY'), moment(this.todate).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
+
+    let toDate = moment(this.todate, 'DD/MM/YYYY')
+    let toDt = moment(toDate).format('DD/MM/YYYY')
+    let fromDate = moment(this.fromdate, 'DD/MM/YYYY')
+    let fromDatet = moment(fromDate).format('DD/MM/YYYY')
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
+
     this.http.post(this.url + '/ledger-view/shareView', obj).subscribe((data) => {
       let closeBal = 0
       let grandOpening = 0
       grandOpening = Math.abs(data[0]?.openingBal)
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
-      this.transactions = this.sortData(data);
+      this.transactions = this.sort_by_key(data, 'TRAN_DATE')
       console.log(this.transactions, 'Tran data')
       // if (this.transactions.length != 0) {
       let divBal = 0
@@ -434,15 +441,21 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     this.grandTotal = 0
     this.transactions = null
 
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
-    this.http.post(this.url + '/ledger-view/shareView', obj).subscribe((data) => {
+    // let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY'), this.acno, this.ngBranchCode]
 
+    let toDate = moment(this.angForm.controls['TO_DATE'].value, 'DD/MM/YYYY')
+    let toDt = moment(toDate).format('DD/MM/YYYY')
+    let fromDate = moment(this.angForm.controls['FROM_DATE'].value, 'DD/MM/YYYY')
+    let fromDatet = moment(fromDate).format('DD/MM/YYYY')
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
+
+    this.http.post(this.url + '/ledger-view/shareView', obj).subscribe((data) => {
       let closeBal = 0
       let grandOpening = 0
       grandOpening = Math.abs(data[0]?.openingBal)
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
-      this.transactions = this.sortData(data);
+      this.transactions = this.sort_by_key(data, 'TRAN_DATE');
       console.log(this.transactions, 'Tran data')
       // if (this.transactions.length != 0) {
       let divBal = 0
@@ -557,20 +570,11 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     })
   }
 
-  sortData(data) {
-    return data.sort((a, b) => {
-      if (a.TRAN_DATE != undefined || b.TRAN_DATE != undefined) {
-        return <any>new Date(a.TRAN_DATE) - <any>new Date(b.TRAN_DATE);
-      }
-      else if (a.DIV_PAID_DATE != null && a.DIV_PAID_DATE != '' || b.DIV_PAID_DATE != null && b.DIV_PAID_DATE != '') {
-        return <any>new Date(a.DIV_PAID_DATE) - <any>new Date(b.DIV_PAID_DATE);
-      }
-      else if (a.REBIT_PAID_DATE != null && a.REBIT_PAID_DATE != '' || b.REBIT_PAID_DATE != null && b.REBIT_PAID_DATE != '') {
-        return <any>new Date(a.REBIT_PAID_DATE) - <any>new Date(b.REBIT_PAID_DATE);
-      }
-      else if (a.WARRENT_DATE != null && a.WARRENT_DATE != '' || b.WARRENT_DATE != null && b.WARRENT_DATE != '') {
-        return <any>new Date(a.WARRENT_DATE) - <any>new Date(b.WARRENT_DATE);
-      }
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p < q) ? -1 : ((p > q) ? 1 : 0)
     });
   }
 

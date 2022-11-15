@@ -162,14 +162,21 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.grandTotal = 0
     this.transactions = null
 
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.fromdate).format('DD/MM/YYYY'), moment(this.todate).format('DD/MM/YYYY')]
+    // let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.fromdate).format('DD/MM/YYYY'), moment(this.todate).format('DD/MM/YYYY')]
+
+    let toDate = moment(this.todate, 'DD/MM/YYYY')
+    let toDt = moment(toDate).format('DD/MM/YYYY')
+    let fromDate = moment(this.fromdate, 'DD/MM/YYYY')
+    let fromDatet = moment(fromDate).format('DD/MM/YYYY')
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
+
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
       let grandOpening = 0
       grandOpening = Math.abs(data[0]?.openingBal)
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
-      this.transactions = data
+      this.transactions = this.sort_by_key(data, 'TRAN_DATE');
       // this.transactions = this.sortData(data);
       let obj = {
         TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
@@ -429,8 +436,11 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.addedPenal = 0
     this.grandTotal = 0
     this.transactions = null
-
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'), moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY')]
+    let toDate = moment(this.angForm.controls['TO_DATE'].value, 'DD/MM/YYYY')
+    let toDt = moment(toDate).format('DD/MM/YYYY')
+    let fromDate = moment(this.angForm.controls['FROM_DATE'].value, 'DD/MM/YYYY')
+    let fromDatet = moment(fromDate).format('DD/MM/YYYY')
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
       let grandOpening = 0
@@ -439,6 +449,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
       this.transactions = data
       // this.transactions = this.sortData(data);
+      this.transactions = this.sort_by_key(data, 'TRAN_DATE');
       console.log(this.transactions, 'dta')
       // if (this.transactions.length != 0) {
       let obj = {
@@ -450,7 +461,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       if (this.transactions.length >= 1) {
         // if (this.transactions.length >= 2) {
         this.transactions.forEach((element) => {
-          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+          if (element?.TRAN_SOURCE_TYPE != 'Opening Balance' && element?.TRAN_STATUS != '2' && element?.openingBal != 0) {
             //record wise other amount 
             let otherAmt = 0
             otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)
@@ -509,21 +520,11 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     console.log(this.tableData, 'sorted data')
   }
 
-  sortData(data) {
-    return data.sort((b, a) => {
-      return <any>new Date(b.TRAN_DATE) - <any>new Date(a.TRAN_DATE);
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p < q) ? -1 : ((p > q) ? 1 : 0)
     });
-    // data.sort(sortFunction);​
-    // function sortFunction(a,b){  
-    // var dateA = new Date(a.TRAN_DATE).getTime();
-    // var dateB = new Date(b.TRAN_DATE).getTime();
-    // return dateA > dateB ? 1 : -1; 
-    // } 
-
-    // data.sort(function (a, b) {
-    //   var c = new Date(a.TRAN_DATE);
-    //   var d = new Date(b.TRAN_DATE);
-    //   return <any>c - <any>d;
-    // });
   }
 }
