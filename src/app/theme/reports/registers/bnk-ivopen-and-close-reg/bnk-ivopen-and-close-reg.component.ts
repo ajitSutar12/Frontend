@@ -138,7 +138,15 @@ View(event){
    this.showRepo = true;
   let obj = this.angForm.value
   let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-  let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+  // let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+  let enddate:any;
+  if (this.todate == obj.END_DATE) {
+    enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  }else{ 
+    enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  };
+
   let scheme = obj. scheme_code;
   let Branch = obj.BRANCH_CODE
   let GROUP_BY = obj.GROUP_BY

@@ -43,7 +43,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   //Dropdown option variable
   ngbranch
   branchOption: any;
-  iframeurl: any = ' ';
+  iframe1url: any = ' ';
   clicked:boolean=false;
   // selectedType
   // Types = [
@@ -158,28 +158,44 @@ debugger
       this.showRepo = true;
       let obj = this.angForm.value
       let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+      let edate:any;
+      if (this.todate == obj.END_DATE) {
+        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       let branched = obj.BRANCH_CODE;
       let success = obj.RADIO;
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
-      this.iframeurl = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
-      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
       this.showRepo = true;
       let obj = this.angForm.value
       let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+      let edate:any;
+      if (this.todate == obj.END_DATE) {
+        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       let branched = obj.BRANCH_CODE;
       let failure = obj.RADIO;
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
 
-      this.iframeurl = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
-      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+      this.iframe1url = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&failure='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
       this.formSubmitted = false;

@@ -139,7 +139,15 @@ export class BnkRegAccountComponent implements OnInit {
       this.showRepo = true;
       let obj = this.angForm.value
       let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+      let etdate:any;
+      if (this.todate == obj.END_DATE) {
+        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       let scheme = obj.AC_TYPE;
       let Branch = obj.BRANCH_CODE;
       let ACOPEN = obj.ACOPEN;
@@ -162,7 +170,7 @@ export class BnkRegAccountComponent implements OnInit {
 
   resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
+    // this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.AC_TYPE.reset();
     // this.angForm.controls.ACOPEN.reset();
     this.angForm.controls.ACCLOSE.reset();

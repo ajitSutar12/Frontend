@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
 import { environment } from "src/environments/environment";
-// import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -35,7 +35,8 @@ clicked:boolean=false;
 
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private sanitizer: DomSanitizer,) { 
+    private sanitizer: DomSanitizer,
+    private systemParameter:SystemMasterParametersService,) { 
     // this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -50,9 +51,9 @@ clicked:boolean=false;
       this.branchOption = data;
     })
 
-    // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-    //   this.fromdate = data.CURRENT_DATE;
-    // });
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.fromdate = data.CURRENT_DATE;
+    });
 
   }
   createForm() {
@@ -61,16 +62,16 @@ clicked:boolean=false;
       START_DATE: ["", [Validators.required]],
     })
 
-  //   let data: any = localStorage.getItem('user');
-  // let result = JSON.parse(data);
-  // if (result.RoleDefine[0].Role.id == 1) {
-  //   this.ngbranch = result.branch.id
-  //   this.angForm.controls['BRANCH_CODE'].enable()
-  // }
-  // else {
-  //   this.angForm.controls['BRANCH_CODE'].disable()
-  //   this.ngbranch = result.branch.id
-  // }
+    let data: any = localStorage.getItem('user');
+  let result = JSON.parse(data);
+  if (result.RoleDefine[0].Role.id == 1) {
+    this.ngbranch = result.branch.id
+    this.angForm.controls['BRANCH_CODE'].enable()
+  }
+  else {
+    this.angForm.controls['BRANCH_CODE'].disable()
+    this.ngbranch = result.branch.id
+  }
 
   }
   view(event) {

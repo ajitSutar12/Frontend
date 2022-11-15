@@ -154,7 +154,15 @@ newcustid: any = null;
   
      this.showRepo = true;
       let obj = this.ngForm.value
-      let Date = moment(obj.date).format('DD/MM/YYYY');
+      // let Date = moment(obj.date).format('DD/MM/YYYY');
+
+      let Date:any;
+      if (this.dates == obj.date) {
+        Date = moment(this.dates,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        Date = moment(this.dates,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       
       let branch = obj.BRANCH_CODE;
        let startingcode= obj.Starting_Account;
