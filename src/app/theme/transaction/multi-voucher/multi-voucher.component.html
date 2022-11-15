@@ -236,7 +236,7 @@
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
                                                     <textarea class="form-control" formControlName="bank"
-                                                        [(ngModel)]="bankName"></textarea>
+                                                        [(ngModel)]="selectBankName"></textarea>
                                                     <i class="fa fa-info-circle errspan"
                                                         (click)="modalLarge1.show()"></i>
                                                 </span>
@@ -933,8 +933,8 @@
                             <th>Bank Name</th>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item1 of bankName" (click)="getBankName(item1.value)">
-                                {{item1.label}}
+                            <tr *ngFor="let item1 of bankName" (click)="getBankName(item1.name)">
+                                {{item1.name}}
                             </tr>
                         </tbody>
                     </table>

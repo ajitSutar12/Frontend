@@ -95,7 +95,7 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
                                                     class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                                    [minDate]="accountOpenDate" [maxDate]="maxDate"
+                                                    [minDate]="accountOpenDate" 
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="DATE"
                                                     (bsValueChange)="getTransactionDetails()"
