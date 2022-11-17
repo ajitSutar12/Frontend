@@ -5,7 +5,7 @@ import { MaintainanceComponent } from './maintainance.component';
 import { MaintainanceRoutingModule } from './maintainance-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 // import { NotingChargesComponent } from './noting-charges/noting-charges.component';
-// import { AccountwiseDocumentAcceptanceComponent } from './accountwise-document-acceptance/accountwise-document-acceptance.component';
+// import { AccountwiseDocumentAcceptanceCodepositmponent } from './accountwise-document-acceptance/accountwise-document-acceptance.component';
 // import { InterestPostingFlagUpdationComponent } from './interest-posting-flag-updation/interest-posting-flag-updation.component';
 // import { NpaOpeningDetailsEntryComponent } from './npa-opening-details-entry/npa-opening-details-entry.component';
 // import { DepositLoanInterestRateEditChangeComponent } from './deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.component';
@@ -16,6 +16,8 @@ import {SelectModule} from 'ng-select';
 // import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
 // import { MoratoriumperiodmasterComponent } from './moratoriumperiodmaster/moratoriumperiodmaster.component';
 // import { TDSFormSubmissionComponent } from './tds-form-submission/tds-form-submission.component';
 

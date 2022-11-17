@@ -337,6 +337,12 @@ const MENUITEMS = [
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
                 id: 187
+              },
+         
+              {
+                state: 'pigmyagentchange',
+                name: 'Pigmy Agent Change',
+                id: 236
               }
             ]
 
@@ -702,10 +708,15 @@ const MENUITEMS = [
                 state: 'lockerOpenTransaction',
                 name: 'Locker Open Transaction',
                 id: 191
-              },
+              }, 
+              // {
+              //   state: 'locker1OpenTransaction',
+              //   name: 'Locker Open Transaction',
+              //   id: 191
+              // },
               {
-                state: 'lockerDepositAccountMaster',
-                name: 'Locker Deposit Account Master',
+                state: 'lockerCloseTransaction',
+                name: 'Locker Close Transaction',
                 id: 192
               },
               {

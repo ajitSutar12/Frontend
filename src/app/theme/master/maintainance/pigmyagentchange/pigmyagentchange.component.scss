@@ -10,3 +10,7 @@ div.solid h1{
 div.solid h1 span{
     background-color: white;
 }
+.disabled {
+    pointer-events: none;
+    display: none;
+  }

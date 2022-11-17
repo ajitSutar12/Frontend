@@ -27,6 +27,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from '../../../shared/dropdownService/scheme-code-dropdown.service';
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.service';
+import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +42,7 @@ import { OwnbranchMasterService } from '../../../shared/dropdownService/own-bran
     InterestPaidHistoryModule
   ],
   providers: [
-    SchemeAccountNoService, SchemeCodeDropdownService, OwnbranchMasterService,
+    SchemeAccountNoService, SchemeCodeDropdownService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
