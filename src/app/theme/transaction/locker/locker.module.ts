@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { LockerComponent } from './locker.component';
 
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../user-auth.interceptor';
 import { LockerRoutingModule } from './locker-routing.module';
+import { LockerOpenTransactionModule } from './locker-open-transaction/locker-open-transaction.module'
+import { LockerCloseTransactionModule } from './locker-close-transaction/locker-close-transaction.module';
+
 
 
 
@@ -15,10 +18,16 @@ import { LockerRoutingModule } from './locker-routing.module';
   imports: [
     CommonModule,
     LockerRoutingModule,
-    SharedModule
+    SharedModule,
+    LockerOpenTransactionModule,
+    LockerCloseTransactionModule
+    
+
+  
+    
   ],
-  declarations: [LockerComponent,],
-  providers:[{
+  declarations: [LockerComponent],
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

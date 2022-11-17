@@ -1,23 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { glMasterService } from '../../../../shared/elements/gl-master.service';
-import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectConfig } from '@ng-select/ng-select';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
-import * as moment from 'moment';
 
 @Component({
-  selector: 'app-locker-open-transaction',
-  templateUrl: './locker-open-transaction.component.html',
-  styleUrls: ['./locker-open-transaction.component.scss']
+  selector: 'app-locker-close-transaction',
+  templateUrl: './locker-close-transaction.component.html',
+  styleUrls: ['./locker-close-transaction.component.scss']
 })
-export class LockerOpenTransactionComponent implements OnInit {
-
+export class LockerCloseTransactionComponent implements OnInit {
   angForm: FormGroup;
   url = environment.base_url;
 
@@ -40,6 +37,12 @@ export class LockerOpenTransactionComponent implements OnInit {
 
   debitcredit
   selectedScheme: any = null
+
+  transferSchemeDetails
+  ngacno: any = null
+  transferAccountDetails
+
+  selectedTransScheme: any = null
 
   values = [
     { id: 1, name: 'a' },
@@ -75,30 +78,17 @@ export class LockerOpenTransactionComponent implements OnInit {
       this.angForm.patchValue({
         TRAN_DATE: data.CURRENT_DATE
       })
-    });
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.angForm.patchValue({
-        OTIME: moment().format("hh:mm:ss A")
-      })
     })
   }
-
-
   getIntroducer() {
-    
+    debugger
     this.obj = [this.schemeCode, this.selectedBranch]
 
 
     this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
     })
-
   }
-  transferSchemeDetails
-  ngacno: any = null
-  transferAccountDetails
-
-  selectedTransScheme: any = null
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.obj = [this.selectedTransScheme, this.selectedBranch]
@@ -158,6 +148,7 @@ export class LockerOpenTransactionComponent implements OnInit {
   getTransferAccountDeatil(event) {
     this.transferAccountDetails = event
   }
+
   createForm() {
     this.angForm = this.fb.group({
       
@@ -168,12 +159,10 @@ export class LockerOpenTransactionComponent implements OnInit {
       TRAN_DATE: ['', [Validators.required]],
       DEBIT_CREDIT: ['', [Validators.required]],
       Tscheme: ['', [Validators.required]],
-      OTIME: ['', [Validators.required]],
       
 
     })
 
   }
-  
-}
 
+}

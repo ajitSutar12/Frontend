@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5>Locker Open</h5>
+                <h5>Locker Close</h5>
             </div>
             <form [formGroup]="angForm" novalidate>
 
@@ -27,9 +27,6 @@
                                 </div>
 
                             </div>
-
-
-
 
 
                         </div>
@@ -135,27 +132,6 @@
                                     </span>
                                 </div>
                             </div>
-
-
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Locker Size<sub
-                                        class="required">*</sub></label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input style="text-align: right;" type="text" name="AC_PARTICULAR"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                            maxlength="15" disabled>
-                                    </span>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-                        <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Key Number<sub
                                         class="required">*</sub></label>
                             </div>
@@ -172,9 +148,11 @@
 
 
 
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Locker Open By</label>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="DEBIT_CREDIT"
@@ -195,15 +173,18 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Open Time<sub
-                                        class="required">*</sub></label></div>
+                                class="required">*</sub></label></div>
 
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input style="text-align: right;" type="text" formControlName="OTIME">
-                                    </span>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input style="text-align: right;" type="text" name="AC_PARTICULAR"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
+                                                maxlength="15" disabled>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
 
                         </div>
 

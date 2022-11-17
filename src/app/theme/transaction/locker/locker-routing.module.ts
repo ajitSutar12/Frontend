@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LockerComponent} from './locker.component';
+import { LockerComponent } from './locker.component';
 
 const routes: Routes = [
   {
@@ -16,8 +16,8 @@ const routes: Routes = [
     },
 
     {
-      path: 'lockerDepositAccountMaster',
-      loadChildren: () => import('./locker-deposit-account-master/locker-deposit-account-master.module').then(m => m.LockerDepositAccountMasterModule)
+      path: 'lockerCloseTransaction',
+      loadChildren: () => import('./locker-close-transaction/locker-close-transaction.module').then(m => m.LockerCloseTransactionModule)
     },
 
     {
