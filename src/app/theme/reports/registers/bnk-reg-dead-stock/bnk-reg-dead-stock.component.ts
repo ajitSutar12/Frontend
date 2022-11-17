@@ -151,8 +151,15 @@ export class BnkRegDeadStockComponent implements OnInit {
      this.showRepo = true;
      let obj = this.angForm.value
      let startingdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-     let endingdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    //  let endingdate = moment(obj.END_DATE).format('DD/MM/YYYY');
      
+     let endingdate:any;
+      if (this.todate == obj.END_DATE) {
+        endingdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        endingdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
      let branch = obj.BRANCH_CODE;
     let startingcode =obj.Starting_Account;
     let endingcode =obj.Ending_Account;

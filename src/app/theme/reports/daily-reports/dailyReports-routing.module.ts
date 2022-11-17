@@ -13,10 +13,10 @@ const routes: Routes = [
       status: true
     },
     children:[
-      {
-        path: 'BnkDayBookSummary',
-        loadChildren: () => import('./bnk-day-book-summary/bnk-day-book-summary.module').then(m => m.BnkDayBookSummaryModule)
-      },
+      // {
+      //   path: 'BnkDayBookSummary',
+      //   loadChildren: () => import('./bnk-day-book-summary/bnk-day-book-summary.module').then(m => m.BnkDayBookSummaryModule)
+      // },
        {
          path: 'BnkSubsidaryDetail',
          loadChildren: () => import('./bnk-subsidary-detail/bnk-subsidary-detail.module').then(m => m.BnkSubsidaryDetailModule)

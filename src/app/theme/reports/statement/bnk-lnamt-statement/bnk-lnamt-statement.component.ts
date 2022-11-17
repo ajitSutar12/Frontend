@@ -197,7 +197,15 @@ export class BnkLNamtStatementComponent implements OnInit {
       this.showRepo = true;
      let obj = this.ngForm.value
      let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
-     let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
+    //  let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
+
+     let endDate:any;
+      if (this.endingdate == obj.Ending_Date) {
+        endDate = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        endDate = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
      var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY'); 
      let branch = obj.BRANCH_CODE;
       let startingcode= obj.Starting_Account;
