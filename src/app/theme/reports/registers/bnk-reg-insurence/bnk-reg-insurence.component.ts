@@ -138,12 +138,20 @@ export class BnkRegInsurenceComponent implements OnInit {
       this.showRepo = true;
       let obj = this.angForm.value
       let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+  let enddate:any;
+  if (this.todate == obj.END_DATE) {
+    enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  }else{ 
+    enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  };
+
       let BRANCH_CODE = obj.BRANCH_CODE;
       let AC_TYPE = obj.AC_TYPE;
       let ACOPEN = obj.ACOPEN;
 
-      this.iframe3url = this.report_url+"examples/InsuranceRegister.php?startDate='" + startDate + "'enddate='" + enddate + "'branchName='" + branchName + "'AC_TYPE='" + AC_TYPE + "'ACOPEN='" + ACOPEN + "'&bankName='" + bankName + "' ";
+      this.iframe3url = this.report_url+"examples/InsuranceRegister.php?startDate='" + startDate + "'enddate='" + enddate + "'BRANCH_CODE='" + BRANCH_CODE + "'AC_TYPE='" + AC_TYPE + "'ACOPEN='" + ACOPEN + "'&bankName='" + bankName + "' ";
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
 
       // let ageCaldate
@@ -159,7 +167,7 @@ export class BnkRegInsurenceComponent implements OnInit {
 
   resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
+    // this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.AC_TYPE.reset();    
     this.showRepo = false;
     this.clicked=false;

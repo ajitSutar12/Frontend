@@ -12,6 +12,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownService/interest-category-master-dropdown.service';
 import { CashCreditLoanRenewalService } from './cash-credit-loan-renewal.service'
 import *  as moment from 'moment';
+import { NgSelectComponent } from '@ng-select/ng-select'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -69,7 +70,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
   intCat: any[];
 
   // date variables
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   renewaldate: any = null
   acopeningdate: any = null
@@ -104,6 +105,11 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
 
@@ -236,21 +242,21 @@ export class CashCreditAcRenewalComponent implements OnInit {
         AC_OPDATE: data[0].AC_OPDATE,
         OLDAC_MONTHS: data[0].AC_MONTHS,
         OLDAC_EXPIRE_DATE: data[0].AC_EXPIRE_DATE,
-        OLDAC_SANCTION_AMOUNT: data[0].AC_SANCTION_AMOUNT,
+        OLDAC_SANCTION_AMOUNT: Number(data[0].AC_SANCTION_AMOUNT).toFixed(2),
         OLDAC_SANCTION_DATE: data[0].AC_SANCTION_DATE,
-        OLDAC_SECURITY_AMT: data[0].AC_SECURITY_AMT,
-        OLDAC_DRAWPOWER_AMT: data[0].AC_DRAWPOWER_AMT,
-        OLDAC_INSTALLMENT: data[0].AC_INSTALLMENT,
+        OLDAC_SECURITY_AMT: Number(data[0].AC_SECURITY_AMT).toFixed(2),
+        OLDAC_DRAWPOWER_AMT: Number(data[0].AC_DRAWPOWER_AMT).toFixed(2),
+        OLDAC_INSTALLMENT: Number(data[0].AC_INSTALLMENT).toFixed(2),
         AC_MONTHS: data[0].AC_MONTHS,
         // AC_EXPIRE_DATE: data[0].AC_EXPIRE_DATE,
-        AC_SANCTION_AMOUNT: data[0].AC_SANCTION_AMOUNT,
+        AC_SANCTION_AMOUNT: Number(data[0].AC_SANCTION_AMOUNT).toFixed(2),
         AC_SANCTION_DATE: this.sysparaData.CURRENT_DATE,
 
         AC_RESO_DATE: this.sysparaData.CURRENT_DATE,
         EFFECT_DATE: this.sysparaData.CURRENT_DATE,
-        AC_SECURITY_AMT: data[0].AC_SECURITY_AMT,
-        AC_DRAWPOWER_AMT: data[0].AC_DRAWPOWER_AMT,
-        AC_INSTALLMENT: data[0].AC_INSTALLMENT,
+        AC_SECURITY_AMT: Number(data[0].AC_SECURITY_AMT).toFixed(2),
+        AC_DRAWPOWER_AMT: Number(data[0].AC_DRAWPOWER_AMT).toFixed(2),
+        AC_INSTALLMENT: Number(data[0].AC_INSTALLMENT).toFixed(2),
         LAST_INTDATE: data[0].AC_LINTEDT == null || data[0].AC_LINTEDT == '' ? data[0].AC_OPDATE : data[0].AC_LINTEDT
       })
       this.int_category = Number(data[0].AC_INTCATA)
@@ -283,21 +289,21 @@ export class CashCreditAcRenewalComponent implements OnInit {
         AC_OPDATE: data[0].AC_OPDATE,
         OLDAC_MONTHS: data[0].AC_MONTHS,
         OLDAC_EXPIRE_DATE: data[0].AC_EXPIRE_DATE,
-        OLDAC_SANCTION_AMOUNT: data[0].AC_SANCTION_AMOUNT,
+        OLDAC_SANCTION_AMOUNT: Number(data[0].AC_SANCTION_AMOUNT).toFixed(2),
         OLDAC_SANCTION_DATE: data[0].AC_SANCTION_DATE,
-        OLDAC_SECURITY_AMT: data[0].AC_SECURITY_AMT,
-        OLDAC_DRAWPOWER_AMT: data[0].AC_DRAWPOWER_AMT,
-        OLDAC_INSTALLMENT: data[0].AC_INSTALLMENT,
+        OLDAC_SECURITY_AMT: Number(data[0].AC_SECURITY_AMT).toFixed(2),
+        OLDAC_DRAWPOWER_AMT: Number(data[0].AC_DRAWPOWER_AMT).toFixed(2),
+        OLDAC_INSTALLMENT: Number(data[0].AC_INSTALLMENT).toFixed(2),
         AC_MONTHS: data[0].AC_MONTHS,
         // AC_EXPIRE_DATE: data[0].AC_EXPIRE_DATE,
-        AC_SANCTION_AMOUNT: data[0].AC_SANCTION_AMOUNT,
+        AC_SANCTION_AMOUNT: Number(data[0].AC_SANCTION_AMOUNT).toFixed(2),
         AC_SANCTION_DATE: this.sysparaData.CURRENT_DATE,
 
         AC_RESO_DATE: this.sysparaData.CURRENT_DATE,
         EFFECT_DATE: this.sysparaData.CURRENT_DATE,
-        AC_SECURITY_AMT: data[0].AC_SECURITY_AMT,
-        AC_DRAWPOWER_AMT: data[0].AC_DRAWPOWER_AMT,
-        AC_INSTALLMENT: data[0].AC_INSTALLMENT,
+        AC_SECURITY_AMT: Number(data[0].AC_SECURITY_AMT).toFixed(2),
+        AC_DRAWPOWER_AMT: Number(data[0].AC_DRAWPOWER_AMT).toFixed(2),
+        AC_INSTALLMENT: Number(data[0].AC_INSTALLMENT).toFixed(2),
         LAST_INTDATE: data[0].AC_LINTEDT == null || data[0].AC_LINTEDT == '' ? data[0].AC_OPDATE : data[0].AC_LINTEDT
       })
       this.int_category = Number(data[0].AC_INTCATA)
@@ -324,14 +330,15 @@ export class CashCreditAcRenewalComponent implements OnInit {
     })
   }
 
-
   getExpiryDate() {
-    var TranDT = moment(this.angForm.controls['OLDAC_EXPIRE_DATE'].value, "DD/MM/YYYY");
-    var DivTODate = moment(TranDT, 'DD/MM/YYYY').add(this.angForm.controls['AC_MONTHS'].value, 'M').format('DD/MM/YYYY')
-    this.angForm.patchValue({
-      AC_EXPIRE_DATE: DivTODate
-    })
-    this.expiryDate = DivTODate
+    if (this.angForm.controls['AC_MONTHS'].value != '') {
+      var TranDT = moment(this.angForm.controls['OLDAC_EXPIRE_DATE'].value, "DD/MM/YYYY");
+      var DivTODate = moment(TranDT, 'DD/MM/YYYY').add(this.angForm.controls['AC_MONTHS'].value, 'M').format('DD/MM/YYYY')
+      this.angForm.patchValue({
+        AC_EXPIRE_DATE: DivTODate
+      })
+      this.expiryDate = DivTODate
+    }
   }
   sysparaData
   //get sys para current date
@@ -342,6 +349,10 @@ export class CashCreditAcRenewalComponent implements OnInit {
         'RENEWAL_DATE': data.CURRENT_DATE,
       })
     })
+  }
+
+  selectAllContent($event) {
+    $event.target.select();
   }
 
   submit() {
@@ -372,6 +383,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
         //disable fields value
 
         AC_OPDATE: formVal.AC_OPDATE,
+        AC_RESO_NO: formVal.AC_RESO_NO,
         RENEWAL_DATE: formVal.RENEWAL_DATE,
         OLD_MONTH: formVal.OLDAC_MONTHS,
         OLD_EXPIRY_DATE: formVal.OLDAC_EXPIRE_DATE,
@@ -407,7 +419,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
         this.formSubmitted = false;
         Swal.fire("Success!", "Data Updated Successfully !", "success");
       })
-      this.resetForm()
       this.formSubmitted = false
       if (result.RoleDefine[0].Role.id == 1) {
         this.angForm.controls['BRANCH_CODE'].enable()
@@ -417,7 +428,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
         this.angForm.controls['BRANCH_CODE'].disable()
         this.ngBranchCode = result.branch.id
       }
-
+      this.resetForm()
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
@@ -476,12 +487,66 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
   //approve account
   Approve() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    let obj = {
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let resoDate
+    let sancationDate
+    let expiryDate
+    const dataToSend = {
+      AC_NO: this.AC_NO,
+      BANKACNO: this.bankacno,
+      EFFECT_DATE: formVal.EFFECT_DATE,
+      AC_ACNOTYPE: this.getschemename,
+      AC_TYPE: this.ngscheme,
+      BRANCH_CODE: this.ngBranchCode,
+      LNMASTERID: this.LNMASTERID,
+      INT_RATE: formVal.INT_RATE,
+      AC_MONTHS: formVal.AC_MONTHS,
+      PENAL_INT_RATE: formVal.PENAL_INT_RATE,
+      AC_SANCTION_AMOUNT: formVal.AC_SANCTION_AMOUNT,
+      AC_SECURITY_AMT: formVal.AC_SECURITY_AMT,
+      AC_DRAWPOWER_AMT: formVal.AC_DRAWPOWER_AMT,
+      AC_INSTALLMENT: formVal.AC_INSTALLMENT,
+
+      //disable fields value
+
+      AC_OPDATE: formVal.AC_OPDATE,
+      AC_RESO_NO: formVal.AC_RESO_NO,
+      RENEWAL_DATE: formVal.RENEWAL_DATE,
+      OLD_MONTH: formVal.OLDAC_MONTHS,
+      OLD_EXPIRY_DATE: formVal.OLDAC_EXPIRE_DATE,
+      OLD_SANCTION_LIMIT: formVal.OLDAC_SANCTION_AMOUNT,
+      OLD_SANCTION_DATE: formVal.OLDAC_SANCTION_DATE,
+      OLD_SECURITY_AMOUNT: formVal.OLDAC_SECURITY_AMT,
+      OLD_DRAWING_POWER: formVal.OLDAC_DRAWPOWER_AMT,
+      OLD_AC_INSTALLMENT: formVal.OLDAC_INSTALLMENT,
+      USER: result.USER_NAME,
       id: this.updateID,
-      user: user.id
+      user: result.id
     }
-    this._service.approve(obj).subscribe(data => {
+    dataToSend['LAST_INTDATE'] = formVal.LAST_INTDATE
+    if (this.sysparaData.CURRENT_DATE == formVal.AC_SANCTION_DATE) {
+      dataToSend['AC_SANCTION_DATE'] = formVal.AC_SANCTION_DATE
+    }
+    else {
+      dataToSend['AC_SANCTION_DATE'] = (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date' || formVal.AC_SANCTION_DATE == null || formVal.AC_SANCTION_DATE == undefined) ? sancationDate = '' : sancationDate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY')
+    }
+
+    if (this.sysparaData.CURRENT_DATE == formVal.AC_RESO_DATE) {
+      dataToSend['AC_RESO_DATE'] = formVal.AC_RESO_DATE
+    }
+    else {
+      dataToSend['AC_RESO_DATE'] = (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date' || formVal.AC_RESO_DATE == null || formVal.AC_RESO_DATE == undefined) ? resoDate = '' : resoDate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY')
+    }
+
+    if (this.expiryDate == formVal.AC_EXPIRE_DATE) {
+      dataToSend['AC_EXPIRE_DATE'] = formVal.AC_EXPIRE_DATE
+    }
+    else {
+      dataToSend['AC_EXPIRE_DATE'] = (formVal.AC_EXPIRE_DATE == '' || formVal.AC_EXPIRE_DATE == 'Invalid date' || formVal.AC_EXPIRE_DATE == null || formVal.AC_EXPIRE_DATE == undefined) ? expiryDate = '' : expiryDate = moment(formVal.AC_EXPIRE_DATE).format('DD/MM/YYYY')
+    }
+    this._service.approve(dataToSend).subscribe(data => {
       Swal.fire(
         'Approved',
         'Cash Credit Account Renew approved successfully',
@@ -525,4 +590,31 @@ export class CashCreditAcRenewalComponent implements OnInit {
     setTimeout(() => this.visible = false, 300);
   }
 
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+    console.log(ele);
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    if (ele.target.value <= 50) {
+    } else {
+      Swal.fire("Oops", "Please insert values below 50", "error");
+      ele.target.value = 0
+    }
+  }
 }

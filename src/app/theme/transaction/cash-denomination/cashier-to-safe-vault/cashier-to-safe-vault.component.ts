@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -55,6 +56,7 @@ export class CashierToSafeVaultComponent implements OnInit {
       })
     })
     
+    
 
   }
 
@@ -79,6 +81,7 @@ export class CashierToSafeVaultComponent implements OnInit {
       this.DenominationChart = true
     }
   }
+  
 
   sum: number = 0
   calculation(data, index, element) {
@@ -97,6 +100,37 @@ export class CashierToSafeVaultComponent implements OnInit {
     }, 0);
 
   }
+  submit() {
+    const formVal = this.angForm.value;
+    var object =
+    {
+      BRANCH_CODE: formVal.BRANCH_CODE,
+
+      DENOMINATION_AMT: formVal.DENOMINATION_AMT,
+      TRANSACTION_NO: formVal.TRANSACTION_NO,
+
+    }
+
+
+    console.log(object);
+
+    if (formVal.DENOMINATION_AMT != this.sum) {
+
+      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+    }
+    
+    else {
+      Swal.fire(
+        'Good job!',
+        'Your Form is Submitted Successfully..!',
+        'success'
+      );
+    }
+
+ 
+  }
+
+  
 
 
 }

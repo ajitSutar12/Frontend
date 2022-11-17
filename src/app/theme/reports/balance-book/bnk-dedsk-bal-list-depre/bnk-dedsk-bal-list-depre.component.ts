@@ -107,7 +107,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
   src: any;
 
   view(event) {
-
+debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -119,7 +119,14 @@ export class BnkDedskBalListDepreComponent implements OnInit {
 
       this.showRepo = true;
       let obj = this.ngForm.value
-      let date = moment(obj.Date).format('DD/MM/YYYY');
+      // let date = moment(obj.Date).format('DD/MM/YYYY');
+
+      let date:any;
+      if (this.date == obj.Date) {
+        date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
 
       let branch = obj.BRANCH_CODE;
       let startingcode = obj.Starting_Account;
@@ -127,7 +134,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
 
 
 
-      this.iframeurl = this.report_url +"examples/BnkDeadbalDepr.php?date='" + date + "'&branch=" + branch + "&startingcode='" + startingcode + "'&endingcode='" + endingcode + "&bankName=" + bankName + "";
+      this.iframeurl = this.report_url +"examples/BnkDeadbalDepr.php?date='" + date + "'&branch=" + branch + "&startingcode=" + startingcode + "&endingcode=" + endingcode + "&bankName=" + bankName + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

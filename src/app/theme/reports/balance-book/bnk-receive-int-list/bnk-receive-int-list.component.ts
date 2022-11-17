@@ -114,7 +114,15 @@ export class BnkReceiveIntListComponent implements OnInit {
   
    this.showRepo = true;
     let obj = this.ngForm.value
-    let Date = moment(obj.Date).format('DD/MM/YYYY');
+    // let Date = moment(obj.Date).format('DD/MM/YYYY');
+
+    let Date:any;
+    if (this.date == obj.Date) {
+      Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+    }else{ 
+      Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+    };
+
     let scheme = obj.Scheme_code;
     let branch = obj.BRANCH_CODE;
   

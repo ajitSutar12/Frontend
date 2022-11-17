@@ -1,0 +1,313 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-header">
+                <h5>Pigmy Agent Change</h5>
+                <h6 style="float: right; font-size: 12px; color: black" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card-block">
+
+                <form [formGroup]="angForm" novalidate>
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch"
+                                            formControlName="branch_code" #branchcode autofocus (change)=" getBranch()">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['branch_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for="AC_Scheme">Scheme<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" [(ngModel)]="ngPigmy" id="PIGMY_ACTYPE"
+                                            bindLabel="label" formControlName="PIGMY_ACTYPE" (change)="getIntroducer()"
+                                            title="Compulsory Selection" required placeholder="Pimgy Scheme">
+                                            <ng-option *ngFor="let values of PGSchemeCode" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['PIGMY_ACTYPE'].invalid && (angForm.controls['PIGMY_ACTYPE'].dirty || angForm.controls['PIGMY_ACTYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['PIGMY_ACTYPE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Pigmy Account No.<sub
+                                        class="required">*</sub></label></div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AC_INTRACNO" bindValue="value" [(ngModel)]="ngIntroducer1"
+                                            formControlName="AC_INTRACNO" bindLabel="label" title="Compulsory Selection"
+                                            placeholder="Account Number" (change)="getIntroducer()">
+                                            <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_INTRACNO'].invalid && (angForm.controls['AC_INTRACNO'].dirty || angForm.controls['AC_INTRACNO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_INTRACNO'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="solid">
+                                        <h1><span>Current Agent</span></h1>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-2"> <label for="AC_Scheme">Scheme<sub
+                                                        class="required">*</sub></label></div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group form-primary form-static-label">
+                                                    <span class="border-lable-flt" autofocus>
+                                                        <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE1"
+                                                            formControlName="AC_TYPE1" 
+                                                            title="Compulsory Selection" required placeholder="Scheme"
+                                                            (change)="getScheme($event)">
+                                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                                {{values.label}}</ng-option>
+                                                        </ng-select>
+
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                                        This field is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Pigmy Account
+                                                    No.<sub class="required">*</sub></label></div>
+
+                                            <div class="col-sm-2">
+                                                <div class="form-group form-primary form-static-label">
+                                                    <span class="border-lable-flt">
+                                                        <ng-select id="AC_INTRACNO2" bindValue="value"
+                                                            [(ngModel)]="ngIntroducer" formControlName="AC_INTRACNO2"
+                                                            bindLabel="label" title="Compulsory Selection"
+                                                            (focus)="getIntroducer()" placeholder="Account Number">
+                                                            <ng-option *ngFor="let values of introducerACNo"
+                                                                [value]="values">
+                                                                {{values.label}} {{values.name}}</ng-option>
+                                                        </ng-select>
+
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['AC_INTRACNO2'].invalid && (angForm.controls['AC_INTRACNO2'].dirty || angForm.controls['AC_INTRACNO2'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['AC_INTRACNO2'].errors?.required">
+                                                        This field is required
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Agent Form
+                                                    Date</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" placeholder="dd/mm/yyyy" name="date"
+                                                            id="date" formControlName="RDATE" class="form-control"
+                                                            [maxDate]="maxDate" bsDatepicker required>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['RDATE'].invalid && (angForm.controls['RDATE'].dirty || angForm.controls['RDATE'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['RDATE'].errors?.required">
+                                                        This field is required
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                    <div class="solid">
+                        <h1><span>New Agent</span></h1>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt" >
+                                        <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch1"
+                                            formControlName="branch_code1" #branchcode autofocus
+                                            (change)="getIntroducer()" [disabled]>
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['branch_code1'].invalid && (angForm.controls['branch_code1'].dirty || angForm.controls['branch_code1'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['branch_code1'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="col-sm-12 col-md-2"> <label for="AC_Scheme">Scheme<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt" autofocus>
+                                        <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE"
+                                            formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
+                                            required placeholder="Scheme" (change)="getScheme($event)" [disabled]>
+                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-sm-12 col-md-2"> <label for="AC_Scheme">Account Number<sub
+                                        class="required">*</sub></label></div>
+
+                            <div class="col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AC_INTRACNO1" bindValue="value" [(ngModel)]="ngIntroducer2"
+                                            formControlName="AC_INTRACNO1" bindLabel="label"
+                                            title="Compulsory Selection" (focus)="getIntroducer()"
+                                            placeholder="Account Number">
+                                            <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_INTRACNO1'].invalid && (angForm.controls['AC_INTRACNO1'].dirty || angForm.controls['AC_INTRACNO1'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_INTRACNO1'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Change Date</label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date1"
+                                            formControlName="RDATE1" [(ngModel)]="todate" class="form-control" [bsValue]="bsValue"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
+                                            [maxDate]="maxDate" bsDatepicker >
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['RDATE1'].invalid && (angForm.controls['RDATE1'].dirty || angForm.controls['RDATE1'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['RDATE1'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    </div>
+                    </div>
+
+
+
+
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

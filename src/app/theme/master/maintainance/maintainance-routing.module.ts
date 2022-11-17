@@ -47,6 +47,14 @@ const routes: Routes = [
       path:'moratoriumperiodmaster',
       loadChildren: () => import('./moratoriumperiodmaster/moratoriumperiodmaster.module').then(m=>m.MoratoriumPeriodMasterModule)
     },
+   
+    {
+      path:'pigmyagentchange',
+      loadChildren: () => import('./pigmyagentchange/pigmyagentchange.module').then(m=>m.PigmyagentchangeModule)
+    }
+   
+   
+   
   ]
   }
 ];
