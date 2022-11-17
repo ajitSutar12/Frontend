@@ -58,7 +58,7 @@
                                 <div><label style="color: #1e5bc5">Dormant Account</label></div>
                             </div>
                             <div class="col-sm" *ngIf="acclosedon">
-                                <div><label style="color: #1e5bc5">Account Closed On:
+                                <div><label style="color: red; font-size: 15px;">Account Closed On:
                                         {{acCloseDate}}</label></div>
                             </div>
                         </div>
@@ -68,10 +68,10 @@
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit" (keyup)="filterObject($event)"
+                                        <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
                                             formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
                                             required placeholder="Account Number" (change)="getAccountDetails($event)">
-                                            <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
@@ -98,8 +98,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                             class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                            [minDate]="accountOpenDate" [maxDate]="maxDate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>

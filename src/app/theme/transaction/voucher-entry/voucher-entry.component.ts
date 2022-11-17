@@ -394,7 +394,7 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9) 
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
     } else {
       this.tranModeList = [];
       object.data.transfer.forEach(ele => {
@@ -407,7 +407,7 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9) 
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
     }
   }
 
@@ -447,7 +447,7 @@ export class VoucherEntryComponent implements OnInit {
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
-          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9) 
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
         this.angForm.patchValue({
           chequeDate: null
         })
@@ -463,7 +463,7 @@ export class VoucherEntryComponent implements OnInit {
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
-          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9) 
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
       }
     })
   }
@@ -729,7 +729,7 @@ export class VoucherEntryComponent implements OnInit {
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           element['date'] = this.IntersetHeadDate;
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
             element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
           } else {
@@ -739,7 +739,7 @@ export class VoucherEntryComponent implements OnInit {
           element['tempBalance'] = data1.intpenal.InterestAmount
           element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
             element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
           }
@@ -750,7 +750,7 @@ export class VoucherEntryComponent implements OnInit {
           element['tempBalance'] = data1.intpenal.PenalInterest
           element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = Math.abs(data1.recpaypen).toFixed(2)
             element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
           }
@@ -761,7 +761,7 @@ export class VoucherEntryComponent implements OnInit {
           element['tempBalance'] = data1.recpaypen
           element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = Math.abs(data1.recpaybal).toFixed(2)
             element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
           }
@@ -772,7 +772,7 @@ export class VoucherEntryComponent implements OnInit {
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = Math.abs(data1.recpaybal).toFixed(2)
             element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
           }
@@ -783,7 +783,6 @@ export class VoucherEntryComponent implements OnInit {
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
-          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._service.getledgerbalance(newobj).subscribe(data2 => {
               element['Balance'] = Math.abs(data2).toFixed(2)
@@ -791,7 +790,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -806,7 +805,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -821,7 +820,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -836,7 +835,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -851,7 +850,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -866,7 +865,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -881,7 +880,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -896,7 +895,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -911,7 +910,7 @@ export class VoucherEntryComponent implements OnInit {
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -922,7 +921,7 @@ export class VoucherEntryComponent implements OnInit {
           element['Balance'] = Math.abs(data1.overduebal).toFixed(2)
           element['tempBalance'] = data1.overduebal
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) && element.IS_GLBAL_MAINTAIN == '1') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
             element['Amount'] = element['Balance']
           }
           else {
@@ -1021,7 +1020,7 @@ export class VoucherEntryComponent implements OnInit {
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
-          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4) 
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
 
       } else {
         this.tranModeList = [];
@@ -1035,7 +1034,7 @@ export class VoucherEntryComponent implements OnInit {
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
-          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9) 
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
       }
     })
 
@@ -2145,7 +2144,7 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9) 
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
       this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
         this.Pass = Math.abs(data1.passedamt)
         this.Unpass = Math.abs(data1.unpassamt)

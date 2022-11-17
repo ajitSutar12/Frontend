@@ -144,6 +144,8 @@ export class MultiVoucherComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   submitForm = false
+  interestMinDate: any
+  interestMaxDate: any
 
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
@@ -386,6 +388,10 @@ export class MultiVoucherComponent implements OnInit {
         if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(this.DayOpBal) > 0) {
           this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
         }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       })
     } else {
       this.tranModeList = [];
@@ -395,6 +401,10 @@ export class MultiVoucherComponent implements OnInit {
         if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(this.DayOpBal) > 0) {
           this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
         }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       })
     }
 
@@ -448,6 +458,8 @@ export class MultiVoucherComponent implements OnInit {
       obj['tran_mode'] = this.submitTranMode;
       obj['scheme'] = this.submitScheme;
       obj['account_no'] = this.submitAccountNo;
+      obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
+      obj['total_amt'] = Number(this.angForm.controls['total_amt'].value).toFixed(2)
       if (this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN')) {
         let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
         let amount = Number(this.angForm.controls['amt'].value)
@@ -505,8 +517,8 @@ export class MultiVoucherComponent implements OnInit {
         this.mainMaster = [];
         this.headData = [];
         this.headShow = false;
-        this.totalCredit = 0;
-        this.totalDebit = 0;
+        this.totalCredit = '0';
+        this.totalDebit = '0';
         this.headData = [];
         this.selectedMode = null
         this.Customer_Name = null
@@ -547,13 +559,13 @@ export class MultiVoucherComponent implements OnInit {
       this.headData.forEach(element => {
         count = Number(element.Amount) + Number(count)
       });
-      let num = Number(ele.target.value) + Number(count)
+      let num = Number(ele) + Number(count)
       // this.totalAmt = num + '.00'
       this.totalAmt = parseFloat(num.toString()).toFixed(2);
 
     } else {
       // this.totalAmt = ele.target.value + '.00'
-      this.totalAmt = parseFloat(ele.target.value).toFixed(2);
+      this.totalAmt = parseFloat(ele).toFixed(2);
 
     }
   }
@@ -576,16 +588,6 @@ export class MultiVoucherComponent implements OnInit {
     else {
       this.showChequeDetails = false;
     }
-
-    if (item.id == 6) {
-      this.angForm.controls.amt.setValue('0.00');
-      this.angForm.controls['amt'].disable();
-    } else {
-      this.angForm.controls['amt'].enable();
-    }
-    // if (this.selectedCode == 'GL') {
-    //   this.showChequeDetails = true
-    // }
 
     //get Head details
     let obj = { 'code': this.selectedCode };
@@ -657,6 +659,45 @@ export class MultiVoucherComponent implements OnInit {
     }, err => {
       console.log(err);
     })
+    if (this.submitScheme.S_ACNOTYPE == 'TD' || this.submitScheme.S_ACNOTYPE == 'SB' || this.submitScheme.S_ACNOTYPE == 'PG' || this.submitScheme.S_ACNOTYPE == 'AG' || this.submitScheme.S_ACNOTYPE == 'CA') {
+      this.interestMaxDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
+      this.interestMaxDate = this.interestMaxDate._d
+      this.interestMinDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'months')
+      this.interestMinDate = this.interestMinDate._d
+    }
+    else if (this.submitScheme.S_ACNOTYPE == 'LN' || this.submitScheme.S_ACNOTYPE == 'CC' || this.submitScheme.S_ACNOTYPE == 'DS') {
+      this.interestMinDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
+      this.interestMinDate = this.interestMinDate._d
+      this.interestMaxDate = moment(this.date, "DD/MM/YYYY").add(1, 'months')
+      this.interestMaxDate = this.interestMaxDate._d
+    }
+
+    if (item.id == 6) {
+      this.angForm.controls.amt.setValue('0.00');
+      this.angForm.controls.totalAmt.setValue('0.00');
+      this.totalAmt = 0.00
+      this.angForm.controls['amt'].disable();
+    }
+    else if (item.id == 2 || item.id == 5 || item.id == 15) {
+      this.angForm.patchValue({
+        amt: Number(this.ClearBalance).toFixed(2)
+      })
+      // this.getaftervoucher()
+      this.angForm.controls['amt'].disable();
+      this.decimalAllContent(this.ClearBalance);
+      this.checkCondition(this.ClearBalance);
+      this.checkSanctionAmountWithAmount()
+      this.checkamtcondition(this.ClearBalance)
+      this.getAmt(this.ClearBalance)
+    }
+    else {
+      this.angForm.controls.amt.setValue('0.00');
+      this.angForm.controls['amt'].enable();
+    }
+
+    // if (this.selectedCode == 'GL') {
+    //   this.showChequeDetails = true
+    // }
   }
 
 
@@ -720,6 +761,10 @@ export class MultiVoucherComponent implements OnInit {
       if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(this.DayOpBal) > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     } else {
       this.tranModeList = [];
       object.data.transfer.forEach(ele => {
@@ -729,6 +774,10 @@ export class MultiVoucherComponent implements OnInit {
       if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(this.DayOpBal) > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     }
   }
 
@@ -778,18 +827,18 @@ export class MultiVoucherComponent implements OnInit {
 
     if (this.submitTranMode == undefined) {
       Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
-      let value = Number($event.target.value);
+      let value = Number($event);
       this.totalAmt = 0;
-      $event.target.value = 0
+      $event = 0
       let amt = Number(this.AfterVoucher) - value;
       if (amt < 0) {
         amt = 0;
       }
       this.AfterVoucher = Math.abs(Number(parseFloat((amt).toString()).toFixed(2)))
     } else {
-      let value = Number($event.target.value);
+      let value = Number($event);
       let data = value.toFixed(2);
-      $event.target.value = data;
+      $event = data;
     }
   }
 
@@ -887,6 +936,8 @@ export class MultiVoucherComponent implements OnInit {
       obj['tran_mode'] = this.submitTranMode;
       obj['scheme'] = this.submitScheme;
       obj['account_no'] = this.submitAccountNo;
+      obj['amt'] = (this.angForm.controls['amt'].value).toFixed(2)
+      obj['total_amt'] = (this.angForm.controls['total_amt'].value).toFixed(2)
       this.mainMaster[this.index] = obj;
       this.showAdd = true;
       this.showUpdate = false;
@@ -957,8 +1008,8 @@ export class MultiVoucherComponent implements OnInit {
         particulars: data[0].NARRATION,
         amt: data[0].amt
       })
-      this.totalCredit = 0;
-      this.totalDebit = 0;
+      this.totalCredit = '0';
+      this.totalDebit = '0';
       this.calculateVoucher()
       this.showlgindetails()
       this.SideDetails()
@@ -969,18 +1020,18 @@ export class MultiVoucherComponent implements OnInit {
 
   }
 
-  totalCredit = 0;
-  totalDebit = 0;
+  totalCredit = '0';
+  totalDebit = '0';
   calculateVoucher() {
-    this.totalCredit = 0;
-    this.totalDebit = 0;
+    this.totalCredit = '0';
+    this.totalDebit = '0';
     for (let item of this.mainMaster) {
       if (item.tran_mode.tran_drcr == 'C') {
         this.totalCredit = this.totalCredit + Number(item.total_amt)
-        this.totalCredit = Number(this.totalCredit.toFixed(2))
+        this.totalCredit = Number(this.totalCredit).toFixed(2)
       } else {
         this.totalDebit = this.totalDebit + Number(item.total_amt);
-        this.totalDebit = Number(this.totalDebit.toFixed(2))
+        this.totalDebit = Number(this.totalDebit).toFixed(2)
       }
     }
   }
@@ -1117,6 +1168,10 @@ export class MultiVoucherComponent implements OnInit {
       if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(this.DayOpBal) > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
+      if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
         //
         this.Pass = Math.abs(data1.passedamt)
@@ -1194,7 +1249,7 @@ export class MultiVoucherComponent implements OnInit {
   checkCondition($event) {
 
     let obj = {
-      value: Number($event.target.value),
+      value: Number($event),
       clearBalance: this.ClearBalance,
       accountNo: this.submitAccountNo.BANKACNO,
       schemeType: this.selectedCode,
@@ -1873,168 +1928,224 @@ export class MultiVoucherComponent implements OnInit {
         }
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
+            element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
+          } else {
+            element['Amount'] = 0
+            element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
+          }
           element['date'] = this.IntersetHeadDate;
-          element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
           element['tempBalance'] = data1.intpenal.InterestAmount
           element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
-          element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
+            element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
+          }
           element['tempBalance'] = data1.intpenal.PenalInterest
           element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
-          element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.abs(data1.recpaypen).toFixed(2)
+            element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
+          }
           element['tempBalance'] = data1.recpaypen
           element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
-          element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.abs(data1.recpaybal).toFixed(2)
+            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+          }
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
-          element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.abs(data1.recpaybal).toFixed(2)
+            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+          }
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
-          element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
+          }
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER3_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
           }
-
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
+          }
         } else if (element.FIELD_AMOUNT == 'OTHER4_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
           }
-
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
+          }
         } else if (element.FIELD_AMOUNT == 'OTHER5_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
           }
-
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
+          }
         } else if (element.FIELD_AMOUNT == 'OTHER6_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
           }
-
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
+          }
         } else if (element.FIELD_AMOUNT == 'OTHER7_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
           }
-
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
+          }
         } else if (element.FIELD_AMOUNT == 'OTHER8_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
+          }
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER9_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
+          }
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER11_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-
-              console.log('data', data2)
-
               element['Balance'] = Math.abs(data2).toFixed(2)
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
-
             })
+          }
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
           element['Amount'] = 0
           element['Balance'] = Math.abs(data1.overduebal).toFixed(2)
           element['tempBalance'] = data1.overduebal
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = element['Balance']
+          }
+          else {
+            element['Amount'] = 0
+          }
         } else {
           element['Amount'] = 0
           element['Balance'] = 0
           element['tempBalance'] = 0
           element['type'] = 'Cr'
         }
-
+      }
+      if (this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) {
+        let count = 0
+        this.headData.forEach(element => {
+          count = Number(element.Amount) + Number(count)
+        });
+        this.totalAmt = count + Number(this.ClearBalance)
+        this.totalAmt = Number(this.totalAmt).toFixed(2)
+      }
+      else {
+        this.totalAmt = 0
       }
       // );
-
     })
   }
 
