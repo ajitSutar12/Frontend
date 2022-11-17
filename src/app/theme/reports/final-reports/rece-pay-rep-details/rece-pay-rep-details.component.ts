@@ -106,7 +106,15 @@ export class RecePayRepDetailsComponent implements OnInit {
        this.showRepo = true;
       let obj = this.angForm.value
       let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+      let end1date:any;
+      if (this.todate == obj.END_DATE) {
+        end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       let branched = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
       let print = obj.PRINT;

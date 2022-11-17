@@ -174,7 +174,15 @@ export class BnkTDStatementComponent implements OnInit {
       let obj = this.ngForm.value
       
       let stdate = moment(obj.Starting_Date).format('DD/MM/YYYY');
-      let END_DATE =  moment(obj.Ending_Date).format('DD/MM/YYYY');
+      // let END_DATE =  moment(obj.Ending_Date).format('DD/MM/YYYY');
+
+      let END_DATE:any;
+      if (this.endingdate == obj.Ending_Date) {
+        END_DATE = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        END_DATE = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY');
       let Scheme_code = obj.Scheme_code;
       let Starting_Account = obj.Starting_Account;

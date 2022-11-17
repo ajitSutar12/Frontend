@@ -106,14 +106,22 @@ export class BnkRegInterestInstructionComponent implements OnInit {
       this.showRepo = true;
       let obj = this.angForm.value
       let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+  let etdate:any;
+  if (this.todate == obj.END_DATE) {
+    etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  }else{ 
+    etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  };
+
       let branch = obj.BRANCH_CODE;
       // let stdate = obj.START_DATE;
       // let etdate = obj.END_DATE;
       let revoke = obj.REVOKE_INST;
 
 
-      this.iframe3url = this.report_url+"examples/InterestInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&branchName='" + branchName + "'&revoke='" + revoke + "'&bankName='" + bankName + "'";
+      this.iframe3url = this.report_url+"examples/InterestInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&branch='" + branch + "'&revoke='" + revoke + "'&bankName='" + bankName + "'";
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
 
       // let ageCaldate
@@ -129,7 +137,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
 
   resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
+    // this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.REVOKE_INST.reset();
     this.showRepo = false;
     this.clicked=false;

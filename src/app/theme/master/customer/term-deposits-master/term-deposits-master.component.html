@@ -16,7 +16,7 @@
                                     <ng-select bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE"
                                         bindLabel="label" formControlName="AC_TYPE" [disabled]="AC_TYPE"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme">
+                                           required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>

@@ -199,6 +199,11 @@ const MENUITEMS = [
                 name: 'Investment Master',
                 id: 52
               },
+              {
+                state: 'lockerMaster',
+                name: 'Locker Master',
+                id: 235 
+              },
             ]
           },
           {
@@ -516,6 +521,187 @@ const MENUITEMS = [
             id: 69
           },
           {
+            state: 'pigmyChartEntry',
+            name: 'Pigmy Chart Entry',
+            id: 84
+          },
+          {
+            state: 'deadStockPurchase',
+            name: 'Dead Stock Purchase',
+            id: 106
+          },
+          {
+            state: 'deadStockTransaction',
+            name: 'Dead Stock Transaction',
+            id: 107
+          },
+          {
+            state: 'DepreciationPassing',
+            name: 'Depreciation Process',
+            // id: 190
+          },
+          {
+            state: 'reconciliationEntry',
+            name: 'Reconciliation Entry',
+            id: 108
+          },
+          {
+            state: 'savingspigmyaccountclosing',
+            name: 'Savings-Pigmy Account Closing',
+            id: 189
+          },
+          {
+            state: 'termDepositAccountClosing',
+            name: 'Term Deposit Account Closing',
+            id: 90
+          },
+          {
+            state: 'TermDepositeAcRenewal',
+            name: 'Term Deposite A/c Renewal',
+            id: 91
+          },
+          {
+            state: 'cashCreditAcRenewal',
+            name: 'Cash Credit A/c Renewal',
+            id: 88
+          },
+          {
+            state: 'shareTransactions',
+            name: 'Share Transaction',
+            id: 89
+          },
+          {
+            state: 'locker',
+            name: 'Locker Transaction',
+            short_label: 'L',
+            type: 'sub',
+            id: 190,
+            children: [
+              {
+                state: 'lockerOpenTransaction',
+                name: 'Locker Open Transaction',
+                id: 191
+              },
+              {
+                state: 'lockerDepositAccountMaster',
+                name: 'Locker Deposit Account Master',
+                id: 192
+              },
+              {
+                state: 'lockerRentTransaction',
+                name: 'Locker Rent Transaction',
+                id: 193
+              },
+              // {
+              //   state: 'cashOutDenomination',
+              //   name: 'Cash Out Denomination',
+              //   id: 96
+              // },
+              // {
+              //   state: 'cashInitialisationEntry',
+              //   name: 'cash Initialisation Entry',
+              //   id: 97
+              // },
+              // {
+              //   state: 'safeValultToCashier',
+              //   name: 'Safe Valult To Cashier',
+              //   id: 98
+              // },
+              // {
+              //   state: 'cashierToSafeVault',
+              //   name: 'Cashier To Safe Vault',
+              //   id: 100
+              // },
+            ]
+          },
+          {
+            state: 'cashDenomination',
+            name: 'Cash Denomination',
+            short_label: 'D',
+            type: 'sub',
+            id: 92,
+            children: [
+              {
+                state: 'acceptD',
+                name: 'Accept Denomination',
+                id: 93
+              },
+              {
+                state: 'paymentDenomination',
+                name: 'Payment Denomination',
+                id: 94
+              },
+              {
+                state: 'cashInDenomination',
+                name: 'Cash In Denomination',
+                id: 95
+              },
+              {
+                state: 'cashOutDenomination',
+                name: 'Cash Out Denomination',
+                id: 96
+              },
+              {
+                state: 'cashInitialisationEntry',
+                name: 'cash Initialisation Entry',
+                id: 97
+              },
+              {
+                state: 'safeValultToCashier',
+                name: 'Safe Valult To Cashier',
+                id: 98
+              },
+              {
+                state: 'cashierToSafeVault',
+                name: 'Cashier To Safe Vault',
+                id: 100
+              },
+            ]
+          },
+          {
+            state: 'cashier',
+            name: 'Cashier',
+            id: 194
+          },
+          {
+            state: 'passbookPrinting',
+            name: 'Passbook Printing',
+            short_label: 'D',
+            type: 'sub',
+            id: 101,
+            children: [
+              {
+                state: 'passbookIssue',
+                name: 'Passbook Issue',
+                id: 102
+              },
+              {
+                state: 'passbookEntryPrint',
+                name: 'Passbook Entry Print',
+                id: 103
+              }
+            ]
+          },
+          {
+            state: 'termDepositReceiptPrinting',
+            name: 'Term Deposit Receipt Printing',
+            short_label: 'D',
+            type: 'sub',
+            id: 104,
+            // children: [
+            //   {
+            //     state: 'depositReceiptPrint',
+            //     name: 'Deposit Receipt Print',
+            //     id: 105
+            //   },
+            // ]
+          },
+          {
+            state: 'goldsilverreturnentry',
+            name: 'Gold/Silver Return Entry',
+            id: 191
+          },
+          {
             state: 'memberDAPDT',
             name: 'Member Dividend And Payable Dividend Transaction ',
             id: 70
@@ -602,11 +788,6 @@ const MENUITEMS = [
             id: 83
           },
           {
-            state: 'pigmyChartEntry',
-            name: 'Pigmy Chart Entry',
-            id: 84
-          },
-          {
             state: 'dividendPay',
             name: 'Dividend Pay',
             short_label: 'D',
@@ -624,184 +805,6 @@ const MENUITEMS = [
                 id: 87
               },
             ]
-          },
-          {
-            state: 'cashCreditAcRenewal',
-            name: 'Cash Credit A/c Renewal',
-            id: 88
-          },
-          {
-            state: 'shareTransactions',
-            name: 'Share Transaction',
-            id: 89
-          },
-          {
-            state: 'termDepositAccountClosing',
-            name: 'Term Deposit Account Closing',
-            id: 90
-          },
-          {
-            state: 'TermDepositeAcRenewal',
-            name: 'Term Deposite A/c Renewal',
-            id: 91
-          },
-
-          {
-            state: 'cashDenomination',
-            name: 'Cash Denomination',
-            short_label: 'D',
-            type: 'sub',
-            id: 92,
-            children: [
-              {
-                state: 'acceptD',
-                name: 'Accept Denomination',
-                id: 93
-              },
-              {
-                state: 'paymentDenomination',
-                name: 'Payment Denomination',
-                id: 94
-              },
-              {
-                state: 'cashInDenomination',
-                name: 'Cash In Denomination',
-                id: 95
-              },
-              {
-                state: 'cashOutDenomination',
-                name: 'Cash Out Denomination',
-                id: 96
-              },
-              {
-                state: 'cashInitialisationEntry',
-                name: 'cash Initialisation Entry',
-                id: 97
-              },
-              {
-                state: 'safeValultToCashier',
-                name: 'Safe Valult To Cashier',
-                id: 98
-              },
-              {
-                state: 'cashierToSafeVault',
-                name: 'Cashier To Safe Vault',
-                id: 100
-              },
-            ]
-          },
-
-          {
-            state: 'locker',
-            name: 'Locker Transaction',
-            short_label: 'L',
-            type: 'sub',
-            id: 190,
-            children: [
-              {
-                state: 'lockerOpenTransaction',
-                name: 'Locker Open Transaction',
-                id: 191
-              },
-              {
-                state: 'lockerDepositAccountMaster',
-                name: 'Locker Deposit Account Master',
-                id: 192
-              },
-              {
-                state: 'lockerRentTransaction',
-                name: 'Locker Rent Transaction',
-                id: 193
-              },
-              // {
-              //   state: 'cashOutDenomination',
-              //   name: 'Cash Out Denomination',
-              //   id: 96
-              // },
-              // {
-              //   state: 'cashInitialisationEntry',
-              //   name: 'cash Initialisation Entry',
-              //   id: 97
-              // },
-              // {
-              //   state: 'safeValultToCashier',
-              //   name: 'Safe Valult To Cashier',
-              //   id: 98
-              // },
-              // {
-              //   state: 'cashierToSafeVault',
-              //   name: 'Cashier To Safe Vault',
-              //   id: 100
-              // },
-            ]
-          },
-          {
-            state: 'cashier',
-            name: 'Cashier',
-            id: 194
-          },
-          {
-            state: 'passbookPrinting',
-            name: 'Passbook Printing',
-            short_label: 'D',
-            type: 'sub',
-            id: 101,
-            children: [
-              {
-                state: 'passbookIssue',
-                name: 'Passbook Issue',
-                id: 102
-              },
-              {
-                state: 'passbookEntryPrint',
-                name: 'Passbook Entry Print',
-                id: 103
-              }
-            ]
-          },
-          {
-            state: 'termDepositReceiptPrinting',
-            name: 'Term Deposit Receipt Printing',
-            short_label: 'D',
-            type: 'sub',
-            id: 104,
-            children: [
-              {
-                state: 'depositReceiptPrint',
-                name: 'Deposit Receipt Print',
-                id: 105
-              },
-            ]
-          },
-          {
-            state: 'deadStockPurchase',
-            name: 'Dead Stock Purchase',
-            id: 106
-          },
-          {
-            state: 'deadStockTransaction',
-            name: 'Dead Stock Transaction',
-            id: 107
-          },
-          {
-            state: 'reconciliationEntry',
-            name: 'Reconciliation Entry',
-            id: 108
-          },
-          {
-            state: 'savingspigmyaccountclosing',
-            name: 'Savings-Pigmy Account Closing',
-            id: 189
-          },
-          {
-            state: 'goldsilverreturnentry',
-            name: 'Gold/Silver Return Entry',
-            id: 191
-          },
-          {
-            state: 'DepreciationPassing',
-            name: 'Depreciation Passing',
-            id: 190
           },
         ]
       },
@@ -923,7 +926,7 @@ const MENUITEMS = [
             state: 'managerView',
             name: 'Manager View',
             id: 188
-           
+
           },
         ],
 
@@ -950,66 +953,66 @@ const MENUITEMS = [
             icon: 'icon-home',
             id: 130,
             children: [
-              {
-                state: 'BnkDayBookSummary',
-                name: 'Day Book Detail/Summary',
-                 id: 203
-              },
+              // {
+              //   state: 'BnkDayBookSummary',
+              //   name: 'Day Book Detail/Summary',
+              //    id: 203
+              // },
               {
                 state: 'BnkSubsidaryDetail',
                 name: 'Subsidiary  Debit/Credit',
-                 id: 204
+                id: 204
               },
               {
                 state: 'BnkScrollDetailBoth',
                 name: 'Scroll Book Debit/Credit/Both',
-                 id: 205
+                id: 205
               },
-               {
-                 state: 'IntInstructionExecutionFailure',
-                 name: 'Interest Instructions Execution List (Failure/Success)',
-                 id: 206
-               },
-               {
-                 state: 'StandingInstExecutionFailure',
-                 name: 'Standing Instructions Execution List (Failure/Success)',
-                  id: 207
-               },
-               {
-                 state: 'StandingInstExecutionCredit',
-                 name: 'Standing Instructions Execution List (Expected Credit Scheme)',
-                  id: 208
-               },
-               {
-                 state: 'StandingInstExecutionDebit',
-                 name: 'Standing Instructions Execution List (Expected Debit Scheme )',
-                  id: 209
-               },
-               {
-                 state: 'IntInstructExecutionCredit',
-                 name: 'Interest Instructions Execution List (Expected Credit Scheme)',
-                  id: 210
-               },
-               {
-                 state: 'IntInstructExecutionDebit',
-                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
-                  id: 211
-               },
-               {
+              {
+                state: 'IntInstructionExecutionFailure',
+                name: 'Interest Instructions Execution List (Failure/Success)',
+                id: 206
+              },
+              {
+                state: 'StandingInstExecutionFailure',
+                name: 'Standing Instructions Execution List (Failure/Success)',
+                id: 207
+              },
+              {
+                state: 'StandingInstExecutionCredit',
+                name: 'Standing Instructions Execution List (Expected Credit Scheme)',
+                id: 208
+              },
+              {
+                state: 'StandingInstExecutionDebit',
+                name: 'Standing Instructions Execution List (Expected Debit Scheme )',
+                id: 209
+              },
+              {
+                state: 'IntInstructExecutionCredit',
+                name: 'Interest Instructions Execution List (Expected Credit Scheme)',
+                id: 210
+              },
+              {
+                state: 'IntInstructExecutionDebit',
+                name: 'Interest Instructions Execution List (Expected Debit Scheme)',
+                id: 211
+              },
+              {
                 state: 'TFormDayBookComponent',
                 name: 'T Form Day Book Details/Summary',
-                 id: 212
-               },
-               {
+                id: 212
+              },
+              {
                 state: 'SubsidiarySummaryComponent',
                 name: 'Subsidiary Summary',
-                 id: 213
-               },
-               {
+                id: 213
+              },
+              {
                 state: 'VouchersPrintingComponent',
                 name: 'Voucher Printing',
-                 id: 232
-               },
+                id: 232
+              },
 
             ]
           },
@@ -1042,16 +1045,16 @@ const MENUITEMS = [
                 name: 'Term Deposit Statement ',
                 id: 215
               },
-              {
-                state: 'BnkGlIntStatement',
-                name: 'General Ledger interest list',
-                id: 216
-              },
-              {
-                state: 'BnkMemStatement',
-                name: 'Member Statement',
-                id: 217
-              },
+              // {
+              //   state: 'BnkGlIntStatement',
+              //   name: 'General Ledger interest list',
+              //   id: 216
+              // },
+              // {
+              //   state: 'BnkMemStatement',
+              //   name: 'Member Statement',
+              //   id: 217
+              // },
             ]
           },
           //
@@ -1113,7 +1116,7 @@ const MENUITEMS = [
               //   name: 'Other Receivable Balance List ',
               //   id: 225
               // },
-             
+
 
             ]
           },
@@ -1286,37 +1289,37 @@ const MENUITEMS = [
                 name: 'Line mark Account List ',
                 id: 193
               },
-             {
-               state: 'BnkDormantAcList',
-               name: 'Dormant Account List',
-               id: 194
-             },
-             {
-               state: 'BnkAmountMovement',
-               name: 'Transaction Amount Movement',
-               id: 195
-             },
-             {
-               state: 'BnkDepAmountMovementDetail',
-               name: 'Deposit Amount Movement',
-               id: 196
-             },
-             {
-               state: 'BnkLNAmountMovementDetail',
-               name: 'Loan Amount Movement',
-               id: 197
-             },
-             {
-               state: 'BnkGurDetailsList',
-               name: 'Guaranter Details',
-               id: 198
-             },
-             {
-               state: 'BnkNonGuaranteerView',
-               name: 'Non Guarantor (A-Type Members Only) List',
-               id: 199
-             },
-            
+              {
+                state: 'BnkDormantAcList',
+                name: 'Dormant Account List',
+                id: 194
+              },
+              {
+                state: 'BnkAmountMovement',
+                name: 'Transaction Amount Movement',
+                id: 195
+              },
+              {
+                state: 'BnkDepAmountMovementDetail',
+                name: 'Deposit Amount Movement',
+                id: 196
+              },
+              {
+                state: 'BnkLNAmountMovementDetail',
+                name: 'Loan Amount Movement',
+                id: 197
+              },
+              {
+                state: 'BnkGurDetailsList',
+                name: 'Guaranter Details',
+                id: 198
+              },
+              {
+                state: 'BnkNonGuaranteerView',
+                name: 'Non Guarantor (A-Type Members Only) List',
+                id: 199
+              },
+
 
             ]
           },
@@ -1340,41 +1343,41 @@ const MENUITEMS = [
                 name: 'Trial Balance ',
                 id: 191
               },
-               {
-                 state: 'BnkTrialBaldetail',
-                 name: 'Trial Balance Detail',
-                 id: 200
-               },
-               {
+              {
+                state: 'BnkTrialBaldetail',
+                name: 'Trial Balance Detail',
+                id: 200
+              },
+              {
                 state: 'BalanceSheet',
                 name: 'Balance Sheet',
                 id: 201
-               },
-               {
+              },
+              {
                 state: 'NBalanceSheet',
                 name: 'N Form Balance Sheet',
                 id: 202
-               },
-               {
+              },
+              {
                 state: 'ProfitLossAccount',
                 name: 'Profit & Loss Account',
                 id: 203
-               },
-               {
+              },
+              {
                 state: 'NProfitLoss',
                 name: 'N Form Profit & Loss Account',
                 id: 204
-               },
-               {
+              },
+              {
                 state: 'RecePayRep',
                 name: 'Receipt & Payment Report',
                 id: 205
-               },
-               {
+              },
+              {
                 state: 'RecePayRepDetails',
                 name: 'Receipt & Payment Report Detail',
                 id: 206
-               },
+              },
 
             ]
           },
@@ -1407,7 +1410,7 @@ const MENUITEMS = [
               },
               {
                 state: 'FinalDayEnd',
-                name:'Day End',
+                name: 'Day End',
                 id: 231
               },
               {

@@ -281,8 +281,16 @@ export class BnkACBalBookComponent implements OnInit {
       if(this.ngForm.valid){
         let obj = this.ngForm.value
         this.showRepo = true;
-    let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    // let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
     var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+
+    let date:any;
+   if (this.defaultDate == obj.FROM_DATE) {
+    date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   }else{ 
+    date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   };
+
     let scheme = obj.Scheme_code
     let Rstartingacc = obj.FROM_AC_NO
     let EndingAccount = obj.TO_AC_NO

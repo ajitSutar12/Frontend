@@ -1012,7 +1012,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             }
             else {
               this.angForm.patchValue({
-                AC_MONTHS: months,
+                AC_MONTHS: months,  
                 // AC_DAYS: days
               })
             }
