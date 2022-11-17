@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {CustomerComponent} from './customer.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CustomerComponent } from './customer.component';
 
 const routes: Routes = [
   {
@@ -8,11 +8,11 @@ const routes: Routes = [
     //component: CustomerComponent,
     data: {
       title: 'Customer',
-     // icon: 'icon-home',
-     // caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      // icon: 'icon-home',
+      // caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false
     },
-    children:[
+    children: [
       {
         path: 'customerId',
         loadChildren: () => import('./customer-id/customer-id.module').then(m => m.CustomerIdModule)
@@ -69,6 +69,11 @@ const routes: Routes = [
         path: 'accountOpening',
         loadChildren: () => import('./account-opening/account-opening.module').then(m => m.AccountOpeningModule)
       },
+      {
+        path: 'lockerMaster',
+        loadChildren: () => import('./locker-master/locker-master.module').then(m => m.LockerMasterModule)
+      },
+
     ]
   }
 ];

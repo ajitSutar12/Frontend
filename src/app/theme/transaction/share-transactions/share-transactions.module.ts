@@ -51,8 +51,8 @@ import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/sal
      
   providers: [SelectOptionService,glMasterService,SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService, SystemMasterParametersService,ACMasterDropdownService,
 
-    {
-      provide: HTTP_INTERCEPTORS, 
+    { 
+      provide: HTTP_INTERCEPTORS,  
       useClass: UserAuthInterceptor,
       multi: true
     },SalaryDMasterdropdownService]

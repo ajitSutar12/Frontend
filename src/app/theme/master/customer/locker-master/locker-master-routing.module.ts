@@ -1,21 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import { DisputeLoanMasterComponent } from './dispute-loan-master.component';
+import { LockerMasterComponent } from './lockermaster.component';
 const routes: Routes = [
   {
     path: '',
-    component:  DisputeLoanMasterComponent,
+    component:  LockerMasterComponent,
     data: {
-      title: 'Dispute Loan Master',
+      title: 'Current Account Master',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
     }
-  } 
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class  DisputeLoanMasterRoutingModule { }
+export class  LockerMasterRoutingModule { }
