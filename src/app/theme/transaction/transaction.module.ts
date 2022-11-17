@@ -24,9 +24,9 @@ import { TransactionRoutingModule } from './transaction-routing.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+
 // import { CashierComponent } from './cashier/cashier.component';
-// import { LockerComponent } from './locker/locker.component';
+//  import { LockerComponent } from './locker/locker.component';
 // import { PigmyAccountClosingComponent } from './Savings/pigmy-account-closing/pigmy-account-closing.component';
 @NgModule({
   declarations: [],
