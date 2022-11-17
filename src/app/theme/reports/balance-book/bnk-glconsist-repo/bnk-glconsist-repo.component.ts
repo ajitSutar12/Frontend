@@ -101,7 +101,15 @@ angForm: FormGroup;
 
       this.showRepo = true;
       let obj = this.angForm.value
-      let sdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
+      // let sdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
+
+      let sdate:any;
+      if (this.defaultDate == obj.OPENINGDATE) {
+        sdate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        sdate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       let schemed = obj.S_ACNOTYPE;
       let branch = obj.BRANCH_CODE;
       let schemewise = obj.REPOTYPE;

@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import { LockerDepositAccountMasterComponent} from './locker-deposit-account-master.component'
-
+import { LockerMasterComponent } from './lockermaster.component';
 const routes: Routes = [
   {
     path: '',
-    component: LockerDepositAccountMasterComponent,
+    component:  LockerMasterComponent,
     data: {
-      title: 'Locker Deposit Account Master',
+      title: 'Current Account Master',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
@@ -19,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LockerDepositAccountMasterRoutingModule { }
+export class  LockerMasterRoutingModule { }

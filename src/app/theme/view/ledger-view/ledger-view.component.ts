@@ -68,6 +68,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   opendate
   disableFields: boolean = false
+  showLoader: boolean = false
 
   //passing data from parent to child component
   @Input() accBranch: any;
@@ -149,6 +150,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   }
 
   getLedgerTransactionsDeatils() {
+    this.showLoader = true
     this.tableData = []
     this.debitTotal = 0
     this.creditTotal = 0
@@ -297,11 +299,13 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   schemechange(event) {
     this.getschemename = event.name
     this.ngscheme = event.value
+    this.schemeACNo = null
     this.getAccountlist()
   }
 
   // Fetching account from seleted scheme
   getAccountlist() {
+    this.showLoader = false
     this.accountedit = null
     this.Cust_ID = null
     this.tableData = []
@@ -378,7 +382,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   //get account details
   getAccountDetails(event) {
-
+    this.showLoader = false
     this.tableData = []
     this.transactions = null
     this.debitTotal = 0
@@ -424,6 +428,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   //transactions list in table
   getTransactionsDeatils() {
+    this.showLoader = true
     this.tableData = []
     this.debitTotal = 0
     this.creditTotal = 0

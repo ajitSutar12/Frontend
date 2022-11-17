@@ -137,7 +137,15 @@ export class BnkExpectIntInstructComponent implements OnInit {
     if(this.angForm.valid){
   
     let obj = this.angForm.value
-    let date = this.date;
+    // let date = this.date;
+
+    let date:any;
+      if (this.date == obj.Date) {
+        date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }; 
+
     let status = obj.STATUS;
     let branch = obj.BRANCH_CODE;
    let  frequency =obj.FREQUENCY;

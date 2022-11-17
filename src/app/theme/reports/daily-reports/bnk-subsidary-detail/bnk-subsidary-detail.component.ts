@@ -149,7 +149,15 @@ export class BnkSubsidaryDetailComponent implements OnInit {
    if(this.angForm.valid){
    let obj = this.angForm.value
    this.showRepo = true;
-   let startDate = this.fromdate;  
+  //  let startDate = this.fromdate;  
+
+   let startDate:any;
+   if (this.fromdate == obj.DATE) {
+     startDate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   }else{ 
+     startDate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   };
+
    let scheme_code = this.ngIntroducer;
    let branch = obj.Branch;
   //  let scheme_code =  obj.Scheme_Code;

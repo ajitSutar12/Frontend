@@ -21,13 +21,13 @@ export class UserAuthInterceptor implements HttpInterceptor {
 
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.createOnline$().subscribe(async function (isOnline) {
-      let data = await isOnline;
-      if (data == false) {
-        Swal.fire("Warning!", "Please check your internet connection !", "warning");
-        return false;
-      }
-    });
+    // this.createOnline$().subscribe(async function (isOnline) {
+    //   let data = await isOnline;
+    //   if (data == false) {
+    //     Swal.fire("Warning!", "Please check your internet connection !", "warning");
+    //     return false;
+    //   }
+    // });
     let token = localStorage.getItem('token');
     req = req.clone({
       setHeaders: {

@@ -84,7 +84,15 @@ clicked:boolean=false;
     if (this.angForm.valid) {
       this.showRepo = true;
       let obj = this.angForm.value
-      let date = moment(obj.START_DATE).format('DD/MM/YYYY');
+      // let date = moment(obj.START_DATE).format('DD/MM/YYYY');
+
+      let date:any;
+      if (this.fromdate == obj.START_DATE) {
+        date = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        date = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       let branch_code = obj.BRANCH_CODE;
 
       this.iframeurl = this.report_url+"examples/ProfitAndLossAccount.php?date=" + date +"&branch_code="+branch_code+"&bankName=" + bankName + "";
