@@ -12,7 +12,8 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
-                                    class="required">*</sub></label></div>
+                                    class="required">*</sub></label>
+                                </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -86,9 +87,9 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="Till_Date" id="Till_Date"
                                         class="form-control" [(ngModel)]="tilldate" [bsValue]="bsValue"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="Till_Date"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         (bsValueChange)="getTable()" bsDatepicker>
-                                </span>
+                                </span> 
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['Till_Date'].invalid && (angForm.controls['Till_Date'].dirty || angForm.controls['Till_Date'].touched)"

@@ -130,7 +130,15 @@ View(event){
   this.showRepo = true;
   let obj = this.angForm.value
   let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
-  let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+  // let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+  let enddate:any;
+  if (this.todate == obj.END_DATE) {
+    enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  }else{ 
+    enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  };
+
   let BRANCH_CODE = obj.BRANCH_CODE
   
   this.iframeurl = this.report_url+"examples/goldsilversubmreturn.php?startDate='"+startDate+"'&endDate='"+enddate+"'&BRANCH_CODE='"+BRANCH_CODE+"'&bankName='" + bankName + "' ";

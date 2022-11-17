@@ -145,6 +145,35 @@ export class CashInitialisationEntryComponent implements OnInit {
     }, 0);
 
   }
+  submit() {
+    const formVal = this.angForm.value;
+    var object =
+    {
+      CASHIER: formVal.CASHIER,
+
+      DENOMINATION_AMT: formVal.DENOMINATION_AMT,
+      TRAN_DATE: formVal.TRAN_DATE,
+
+    }
+
+
+    console.log(object);
+
+    if (formVal.DENOMINATION_AMT != this.sum) {
+
+      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+    }
+    
+    else {
+      Swal.fire(
+        'Good job!',
+        'Your Form is Submitted Successfully..!',
+        'success'
+      );
+    }
+
+
+  }
   
 
 

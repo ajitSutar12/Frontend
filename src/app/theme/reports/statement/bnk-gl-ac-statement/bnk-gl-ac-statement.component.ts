@@ -183,7 +183,15 @@ export class BnkGlAcStatementComponent implements OnInit {
      
       let obj = this.angForm.value
       let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      // let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+      let enddate:any;
+      if (this.todate == obj.END_DATE) {
+        enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+
       var sdate = moment(obj.START_DATE).subtract(1, "day").format('DD/MM/YYYY');
       let branch = obj.BRANCH;
       let scheme = obj.AC_TYPE

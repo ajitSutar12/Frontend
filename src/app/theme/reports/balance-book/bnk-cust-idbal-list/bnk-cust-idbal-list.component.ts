@@ -110,8 +110,16 @@ export class BnkCustIDBalListComponent implements OnInit {
      if(this.angForm.valid){
     this.showRepo = true;
     let obj = this.angForm.value
-    let stdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
+    // let stdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
     var edate = moment(obj.OPENINGDATE).subtract(1, "day").format('DD/MM/YYYY');
+
+    let stdate:any;
+    if (this.defaultDate == obj.OPENINGDATE) {
+      stdate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    }else{ 
+      stdate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    };
+
     let custid = obj.AC_CUSTID;
     let branch = obj.BRANCH_CODE;
     let pritns = obj.PRINT_CUSTID;

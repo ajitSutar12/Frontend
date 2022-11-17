@@ -279,10 +279,10 @@
                                                     style="text-transform: capitalize;" maxlength="15"
                                                     (keyup)="getaftervoucher($event)"
                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                    formControlName="amt" (keyup)="getAmt($event)" #amt
+                                                    formControlName="amt" (keyup)="getAmt(amt.value)" #amt
                                                     (focus)="selectAllContent($event)"
-                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event);checkSanctionAmountWithAmount()"
-                                                    (change)="decimalAllContent($event); checkCondition($event);checkSanctionAmountWithAmount()">
+                                                    (keydown.Tab)="decimalAllContent(amt.value); checkCondition(amt.value);checkSanctionAmountWithAmount()"
+                                                    (change)="decimalAllContent(amt.value); checkCondition(amt.value);checkSanctionAmountWithAmount()">
 
                                             </span>
                                         </div>
@@ -336,9 +336,10 @@
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
-                                                                        (focusout)="decimalAllContent($event)"
+                                                                        (focusout)="decimalAllContent($event.value)"
                                                                         (focus)="selectAllContent($event)"
-                                                                        value="{{item.Amount}}">
+                                                                        value="{{item.Amount}}"
+                                                                        [disabled]="item.IS_GLBAL_MAINTAIN == '1' && (selectedMode == 2 || selectedMode == 5 || selectedMode == 15 || selectedMode == 6)">
                                                                 </td>
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'">
                                                                     <input type="text" pattern="\d{1,8}(\.\d{2})?"
@@ -346,10 +347,11 @@
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
-                                                                        (focusout)="decimalAllContent($event);"
+                                                                        (focusout)="decimalAllContent($event.value);"
                                                                         (focus)="selectAllContent($event)"
                                                                         value="{{item.Amount}}"
-                                                                        pattern="\d{1,10}(\.\d{1,2})?">
+                                                                        pattern="\d{1,10}(\.\d{1,2})?"
+                                                                        [disabled]="item.IS_GLBAL_MAINTAIN == '1' && (selectedMode == 2 || selectedMode == 5 || selectedMode == 15 || selectedMode == 6)">
                                                                 </td>
 
                                                                 <td class="bg-light-danger text-right"><span
