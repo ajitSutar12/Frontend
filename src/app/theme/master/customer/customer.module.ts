@@ -13,7 +13,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CustomerRoutingModule,
     SharedModule
   ],
-  declarations: [CustomerComponent],
+  declarations: [CustomerComponent ],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

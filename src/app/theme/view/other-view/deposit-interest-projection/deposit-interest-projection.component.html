@@ -1,163 +1,267 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>View Term Deposit Interest Projection</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5> Term Deposit Interest Projection View</h5>
+        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+          Fields marked with (<sub class="required"> * </sub>) are mandatory
+        </h6>
+      </div>
+      <form action="javascript:" [formGroup]="ngForm">
+        <div class="card-block">
+          <div class="row">
+
+            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch
+                <sub class="required">*</sub></label>
             </div>
-            <form action="javascript:">
-                <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm">
-                            
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="Scheme"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="Scheme"
-                                    required=""
-                                  />
-                                  <label for="Scheme"
-                                    >Scheme<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-                            
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="DepositAmount"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="DepositAmount"
-                                    required=""
-                                  />
-                                  <label for="DepositAmount"
-                                    >Deposit Amount<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-                            
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="Month"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="Month"
-                                    required=""
-                                  />
-                                  <label for="Month"
-                                    >Month<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-                           
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="Days"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="Days"
-                                    required=""
-                                  />
-                                  <label for="Days"
-                                    >Days<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-                            
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="InterestRate"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="InterestRate"
-                                    required=""
-                                  />
-                                  <label for="InterestRate"
-                                    >Interest Rate<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="DepositDate" class="form-control" placeholder=" "
-                                        id="DepositDate" 
-                                        onfocus="(this.type='date')" formControlName="DepositDate">
-                                    <label for="DepositDate">Deposit Date *</label>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                           
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="MaturityDate" class="form-control" placeholder=" "
-                                        id="MaturityDate" 
-                                        onfocus="(this.type='date')" formControlName="MaturityDate">
-                                    <label for="Date">Maturity Date *</label>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="MaturityAmount"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="MaturityAmount"
-                                    required=""
-                                  />
-                                  <label for="MaturityAmount"
-                                    >Maturity Amount<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light">Process</button>
-                        </div>
-                    </div>
-                    
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="BranchCode" formControlName="BRANCH_CODE"
+                    bindLabel="label" (change)="getBranch()" title="Compulsory Selection" placeholder="Branch" autofocus>
+                    <ng-option *ngFor="let values of branch_code" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                  This field is required.
                 </div>
-            </form>
-            
-        </div>
-    </div>
-</div>
-<div class="card">
-    <div class="card-block">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                </table>
+              </div>
             </div>
+
+            <div class="col-sm-12 col-md-2"> <label for="Scheme">Scheme
+                <sub class="required">*</sub></label>
+            </div>
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group form-primary form-static-label">
+                  <span class="border-lable-flt">
+                      <ng-select id="Scheme" formControlName="Scheme" placeholder="Scheme"
+                          bindValue="value" bindLabel="label" [(ngModel)]="schemeCode"
+                          >
+                          <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
+                              {{values.label}} </ng-option>
+                      </ng-select>
+                  </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                  *ngIf="ngForm.controls['Scheme'].invalid && (ngForm.controls['Scheme'].dirty || ngForm.controls['Scheme'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="ngForm.controls['Scheme'].errors?.required">
+                      This field is required.
+                  </div>
+              </div>
+          </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-2 col-md-2"> <label for="Deposit Amount">Deposit Amount
+                <sub class="required">*</sub></label>
+            </div>
+            <div class="col-sm-2 col-md-3">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input style="text-align: right ;" type="text" placeholder="Deposit Amount" name="DepositAmount"
+                    id="DepositAmount" class="form-control" [(ngModel)]="depositAmount" formControlName="DEPO_AMT"
+                    maxlength="15" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    (keyup)="decimalAllContent($event)">
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['DEPO_AMT'].invalid && (ngForm.controls['DEPO_AMT'].dirty || ngForm.controls['DEPO_AMT'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['DEPO_AMT'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <label for="Month">Month<sub class="required">* </sub></label>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input style="text-align: right ;" type="text" name="Month" class="form-control" placeholder=" "
+                    id="Month" formControlName="MONTH" maxlength="3"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['MONTH'].invalid && (ngForm.controls['MONTH'].dirty || ngForm.controls['MONTH'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['MONTH'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-2">
+              <label for="Days">Days<sub class="required">* </sub></label>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input style="text-align: right ;" type="text" name="Days" class="form-control" placeholder=" "
+                    id="Days" formControlName="DAYS" maxlength="3"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['DAYS'].invalid && (ngForm.controls['DAYS'].dirty || ngForm.controls['DAYS'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['DAYS'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-sm-2">
+
+              <label for="InterestRate">Interest Rate<sub class="required">* </sub></label>
+            </div>
+
+            <div class="col-sm-3">
+
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input style="text-align: right ;" type="text" name="InterestRate" class="form-control"
+                    placeholder=" " id="InterestRate" maxlength="5" formControlName="INT_RATE" #margin
+                    (keyup)="checkmargin(margin.value)"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    (keyup)="decimalAllContent($event)">
+
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['INT_RATE'].invalid && (ngForm.controls['INT_RATE'].dirty || ngForm.controls['INT_RATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['INT_RATE'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2">
+              <label for="DepositDate">Deposit Date<sub class="required">* </sub></label>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" placeholder="dd/mm/yyyy" name="DepositDate" id="DepositDate" class="form-control"
+                    formControlName="DEPO_DATE" bsDatepicker>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['DEPO_DATE'].invalid && (ngForm.controls['DEPO_DATE'].dirty || ngForm.controls['DEPO_DATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['DEPO_DATE'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="col-sm-2">
+              <label for="Date">Maturity Date <sub class="required">* </sub></label>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" placeholder="dd/mm/yyyy" name="MaturityDate" id="MaturityDate" class="form-control"
+                    formControlName="MATUR_DATE" bsDatepicker>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['MATUR_DATE'].invalid && (ngForm.controls['MATUR_DATE'].dirty || ngForm.controls['MATUR_DATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['MATUR_DATE'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <label for="MaturityAmount">Maturity Amount<sub class="required">* </sub></label>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input style="text-align: right ;" type="text" name="MaturityAmount" class="form-control"
+                    placeholder=" " id="MaturityAmount" formControlName="MATUR_AMT" maxlength="15"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                    (keyup)="decimalAllContent($event)">
+
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['MATUR_AMT'].invalid && (ngForm.controls['MATUR_AMT'].dirty || ngForm.controls['MATUR_AMT'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['MATUR_AMT'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm">
+              <button class="btn  btn-outline-primary btn-sm">Process</button>
+
+              <button class="btn  btn-outline-primary btn-sm">Print</button>
+            </div>
+          </div>
+
         </div>
+      </form>
+
     </div>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <td class="td_center">Sr.NO</td>
+              <td class="td_center">Due Date</td>
+              <td class="td_center">Period</td>
+              <td class="td_center">Credit Interest </td>
+              <td class="td_center">Closing Balance</td>
+              <td class="td_center">Products</td>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td colspan="6" class="no-data-available">No data!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
