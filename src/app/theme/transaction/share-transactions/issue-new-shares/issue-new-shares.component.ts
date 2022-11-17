@@ -53,7 +53,7 @@ export class IssueNewSharesComponent implements OnInit {
   branchOption
   obj: any;
   isTransfer: boolean;
-  transferTotalAmount: any = 0;
+  transferTotalAmount: any = 0; 
   totalCredit = 0;
   totalDebit = 0;
   multigrid = [];
@@ -65,7 +65,7 @@ export class IssueNewSharesComponent implements OnInit {
   schemeACNo: any;
   selectedTransScheme: any;
   transferSchemeDetails: any;
-  ngacno: any;
+  ngacno: any; 
   transferAccountDetails: any;
   Scheme
   PERTICULARS: any;
@@ -125,7 +125,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
     switch (event.name) {
-      case 'SB':
+      case 'SB': 
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.schemeACNo = data;
         })
@@ -174,7 +174,8 @@ export class IssueNewSharesComponent implements OnInit {
         break;
     }
   }
-  getTransferAccountDeatil(event) {
+  getTransferAccountDeatil(event) 
+  {
     this.transferAccountDetails = event
   }
 

@@ -114,7 +114,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   imageObject = new Array();
 
   // status variables
-  yes: boolean = false
+  yes: boolean = false 
   no: boolean = true
 
   fname = "";

@@ -199,6 +199,11 @@ const MENUITEMS = [
                 name: 'Investment Master',
                 id: 52
               },
+              {
+                state: 'lockerMaster',
+                name: 'Locker Master',
+                id: 235 
+              },
             ]
           },
           {
@@ -683,13 +688,13 @@ const MENUITEMS = [
             short_label: 'D',
             type: 'sub',
             id: 104,
-            children: [
-              {
-                state: 'depositReceiptPrint',
-                name: 'Deposit Receipt Print',
-                id: 105
-              },
-            ]
+            // children: [
+            //   {
+            //     state: 'depositReceiptPrint',
+            //     name: 'Deposit Receipt Print',
+            //     id: 105
+            //   },
+            // ]
           },
           {
             state: 'goldsilverreturnentry',

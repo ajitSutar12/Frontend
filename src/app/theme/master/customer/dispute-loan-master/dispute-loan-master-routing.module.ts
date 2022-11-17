@@ -11,7 +11,7 @@ const routes: Routes = [
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
     }
-  }
+  } 
 ];
 
 @NgModule({

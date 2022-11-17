@@ -27,6 +27,9 @@ import { ButtonModule } from '../../ui-elements/basic/button/button.module';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { IssueNewSharesDirective } from './issue-new-shares/issue-new-shares.directive';
 import { FoundPaymentTransactionDirective } from './found-payment-transaction/found-payment-transaction.directive';
+import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
+
+
 @NgModule({
   imports: [
     CommonModule,                      
@@ -48,11 +51,11 @@ import { FoundPaymentTransactionDirective } from './found-payment-transaction/fo
      
   providers: [SelectOptionService,glMasterService,SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService, SystemMasterParametersService,ACMasterDropdownService,
 
-    {
-      provide: HTTP_INTERCEPTORS, 
+    { 
+      provide: HTTP_INTERCEPTORS,  
       useClass: UserAuthInterceptor,
       multi: true
-    },]
+    },SalaryDMasterdropdownService]
     
 })
 export class ShareTransactionsModule { }
