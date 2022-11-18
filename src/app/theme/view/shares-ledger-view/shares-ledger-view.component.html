@@ -173,6 +173,16 @@
         </div>
     </div>
 </div>
+<div class="row" *ngIf="tableData.length == 0 && showLoader">
+    <div class=" col-12">
+        <div class="preloader3 loader-block">
+            <div class="circ1"></div>
+            <div class="circ2"></div>
+            <div class="circ3"></div>
+            <div class="circ4"></div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
@@ -194,8 +204,8 @@
                     <td class="td_right">Number Of Shares</td>
                     <td>Shares From - To</td>
                     <td class="td_right">Face Value</td>
-                    <td class="td_right">Officer ID</td>
                     <td class="td_right">Voucher Number</td>
+                    <td class="td_right">Officer ID</td>
                 </thead>
                 <tbody *ngIf="tableData?.length != 0">
                     <tr *ngFor="let data of tableData;
@@ -217,8 +227,8 @@
                             data.TOTAL_SHARES}}</td>
                         <td class="td_center">{{data.SHARES_FROM_NO}} - {{data.SHARES_TO_NO}}</td>
                         <td class="td_right">{{data.FACE_VALUE}}</td>
-                        <td>{{data.OFFICER_CODE}}</td>
                         <td class="td_right">{{data.TRAN_NO}}</td>
+                        <td>{{data.OFFICER_CODE}}</td>
                     </tr>
                     <tr style="font-weight: 600px;">
                         <td></td>
