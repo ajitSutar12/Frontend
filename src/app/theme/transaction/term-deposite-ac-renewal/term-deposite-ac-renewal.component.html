@@ -136,7 +136,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" class="form-control" disabled style="text-align: right;"
-                                                value="{{customer?.AC_SCHMAMT}}" formControlName="old_deposit_Amt">
+                                                value="{{customer?.AC_SCHMAMT | number: '1.2-2' }}"
+                                                formControlName="old_deposit_Amt">
                                         </span>
                                     </div>
                                 </div>
@@ -171,7 +172,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" class="form-control" disabled style="text-align: right;"
-                                                value="{{customer?.AC_MATUAMT}}" formControlName="old_ac_matuamt">
+                                                value="{{customer?.AC_MATUAMT | number: '1.2-2'}}"
+                                                formControlName="old_ac_matuamt">
                                         </span>
                                     </div>
                                 </div>
@@ -215,13 +217,13 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" class="form-control" value="{{customer?.AC_DAYS}}"
-                                                disabled formControlName="old_days">
+                                                disabled formControlName="old_days" style="text-align: right;">
                                         </span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-2 labelWidth">
-                                    <label>Interest Rate</label>
+                                    <label>Interest Rate(%)</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -232,7 +234,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Total Interest Paid</label>
+                                    <label>Total Interest Paid Amount</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -293,7 +295,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_EXPDT">Interest Upto</label>
+                                <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_EXPDT">Interest Upto
+                                        Date</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -305,7 +308,8 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Interest</label></div>
+                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Interest
+                                        Amount</label></div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
@@ -427,7 +431,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Payable Interest</label></div>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Payable Interest Amount</label>
+                                </div>
                                 <div class="col-sm-3 col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
@@ -580,7 +585,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                (change)="getTotalDays()" formControlName="new_month">
+                                                (focus)="selectAllContent($event)" (change)="getTotalDays()"
+                                                formControlName="new_month">
                                         </span>
                                     </div>
                                 </div>
@@ -588,7 +594,8 @@
                                 <div class="col-md-1 col-sm-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="new_day"
+                                            <input type="text" style="text-align: right;" class="form-control"
+                                                formControlName="new_day" (focus)="selectAllContent($event)"
                                                 (change)="getTotalDays()">
                                         </span>
                                     </div>
@@ -604,7 +611,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                value="{{customer?.AC_REF_RECEIPTNO}}" formControlName="new_receipt">
+                                                value="{{customer?.AC_REF_RECEIPTNO}}"
+                                                (focus)="selectAllContent($event)" formControlName="new_receipt">
                                         </span>
                                     </div>
                                 </div>
@@ -613,23 +621,25 @@
                                 <div class="col-md-2">
                                     Deposit Amount
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_deposit" (change)="getMaturityAmount()"
+                                                formControlName="new_deposit" (keyup)="getDecimal($event)"
+                                                (focus)="selectAllContent($event)" (change)="getMaturityAmount()"
                                                 [disabled]="!isCalulateMaturityAmountFlag">
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    Rate
+                                    Rate(%)
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_rate" (change)="getMaturityAmount()">
+                                                formControlName="new_rate" (focus)="selectAllContent($event)"
+                                                (change)="getMaturityAmount()">
                                         </span>
                                     </div>
                                 </div>
@@ -654,7 +664,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_maturity_amt">
+                                                formControlName="new_maturity_amt" (focus)="selectAllContent($event)"
+                                                (keyup)="getDecimal($event)">
                                         </span>
                                     </div>
                                 </div>
