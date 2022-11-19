@@ -469,6 +469,8 @@ export class CashCreditAcRenewalComponent implements OnInit {
         AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
         AC_INSTALLMENT: data.AC_INSTALLMENT,
         AC_RENEWAL_COUNTER: data.AC_RENEWAL_COUNTER,
+        AC_RESO_NO: data.AC_RESO_NO,
+        AC_RESO_DATE: data.AC_RESO_DATE,
 
         //disable fields value
 
@@ -592,7 +594,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
-    console.log(ele);
   }
 
   onOpen(select: NgSelectComponent) {
@@ -616,5 +617,8 @@ export class CashCreditAcRenewalComponent implements OnInit {
       Swal.fire("Oops", "Please insert values below 50", "error");
       ele.target.value = 0
     }
+  }
+  blurDate(event) {
+    event.target.blur()
   }
 }

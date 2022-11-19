@@ -360,7 +360,7 @@
                                                     [(ngModel)]="ngsansctiondate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="AC_SANCTION_DATE"
+                                                    formControlName="AC_SANCTION_DATE" placement="left"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -492,7 +492,8 @@
                                                     id="AC_RESO_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="AC_RESO_DATE"
+                                                    formControlName="AC_RESO_DATE" #AC_RESO_DATE="bsDatepicker"
+                                                    (keydown.Tab)="AC_RESO_DATE.hide()"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -571,7 +572,8 @@
                                                     id="EFFECT_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="EFFECT_DATE"
+                                                    formControlName="EFFECT_DATE" #EFFECT_DATE="bsDatepicker"
+                                                    (keydown.Tab)="EFFECT_DATE.hide()"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
