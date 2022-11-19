@@ -95,7 +95,7 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
                                                     class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                                    [minDate]="accountOpenDate" 
+                                                    [minDate]="accountOpenDate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="DATE"
                                                     (bsValueChange)="getTransactionDetails()"
@@ -183,7 +183,8 @@
                                                 Amount : </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="overdraftAmt"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{overdraftAmt}}</label></span>
+                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{overdraftAmt
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -270,15 +271,15 @@
                                         <span><label>Deposit Amount :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_SCHMAMT">
-                                        <span
-                                            style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_SCHMAMT}}</label></span>
+                                        <span style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_SCHMAMT
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_MATUAMT">
                                         <span><label>Maturity Amount :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_MATUAMT">
-                                        <span
-                                            style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MATUAMT}}</label></span>
+                                        <span style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MATUAMT
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-4" *ngIf="!accountData?.AC_SCHMAMT"></div>
                                     <div class="col-sm-4" *ngIf="!accountData?.AC_MATUAMT"></div>
@@ -342,7 +343,8 @@
                                         <span><label>Installment Amount: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isrecurringScheme"><span
-                                            style="color: #3e8cd0; padding-right:10px;"><label>{{accountData?.AC_SCHMAMT}}</label></span>
+                                            style="color: #3e8cd0; padding-right:10px;"><label>{{accountData?.AC_SCHMAMT
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -702,7 +704,8 @@
                                                 Amount : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{overdraftAmt}}</label></span>
+                                            style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{overdraftAmt
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -759,7 +762,8 @@
                                         <span><label>Security Amount : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_SECURITY_AMT}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_SECURITY_AMT
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Total Installments : </label></span>
@@ -773,7 +777,8 @@
                                         <span><label>Sanction Limit : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_SANCTION_AMOUNT}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_SANCTION_AMOUNT
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Director Recommdation : </label></span>
@@ -805,7 +810,8 @@
                                         <span><label>Due Amount : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.dueBalance}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.dueBalance
+                                                }}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -813,7 +819,8 @@
                                         <span><label>Installment Amount : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_INSTALLMENT}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_INSTALLMENT
+                                                | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>+ Interest : </label></span>
@@ -1825,6 +1832,16 @@
                             <span></span>
                         </div>
                     </div>
+                    <div class="row" *ngIf="customerIDArr.length == 0">
+                        <div class=" col-12">
+                            <div class="preloader3 loader-block">
+                                <div class="circ1"></div>
+                                <div class="circ2"></div>
+                                <div class="circ3"></div>
+                                <div class="circ4"></div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row" *ngIf="customerIDArr?.length != 0">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -1844,7 +1861,7 @@
                                             <td>{{data.ACTYPE }}</td>
                                             <td>{{data.BANKACNO}}</td>
                                             <td>{{data.AC_NAME}}</td>
-                                            <td>{{data.ledgerBal}}</td>
+                                            <td>{{data.ledgerBal}} {{data.type}} </td>
                                         </tr>
                                     </tbody>
                                 </table>

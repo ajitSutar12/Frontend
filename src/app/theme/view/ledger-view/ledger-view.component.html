@@ -223,7 +223,6 @@
                         <td class="td_right">Debit Amount</td>
                         <td class="td_right">Credit Amount</td>
                         <td class="td_right">Closing Balance</td>
-                        <td class="td_center">Officer ID</td>
                         <td>Normal Interest</td>
                         <td>Recbl/Payable Interest</td>
                         <td>Overdue Interest</td>
@@ -232,6 +231,7 @@
                         <td class="td_right">Other Amount</td>
                         <td>Added Penal</td>
                         <td class="td_right">Voucher Number</td>
+                        <td class="td_center">Officer ID</td>
                     </thead>
                     <tbody *ngIf="tableData?.length != 0">
                         <!-- <tr *ngFor="let data of tableData; let indexOfelement = index"
@@ -249,7 +249,6 @@
                             <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
                                 {{data.TRAN_DRCR=='C'?(data.TRAN_AMOUNT | number:'1.0':'en'):''}}</td>
                             <td class="td_right">{{data.closeBalance}} {{drcr}}</td>
-                            <td>{{data.OFFICER_CODE}}</td>
                             <td class="td_right">{{data.INTEREST_AMOUNT }}
                                 {{data.INTEREST_AMOUNT!=undefined?(data.INTEREST_AMOUNT!=null &&
                                 data.TRAN_DRCR=='D'?'Dr':'Cr'):''}}</td>
@@ -262,6 +261,7 @@
                             <td class="td_right">{{data.otherAmt}}</td>
                             <td class="td_right">{{data.ADDED_PENAL_INTEREST}}</td>
                             <td class="td_right">{{data.TRAN_NO}}</td>
+                            <td>{{data.OFFICER_CODE}}</td>
                         </tr>
                         <tr style="font-weight: 600px;">
                             <td></td>
@@ -280,6 +280,7 @@
                             <td class="td_right">{{otherAmount}}</td>
                             <td class="td_right">{{addedPenal}}</td>
                             <td></td>
+                            <td></td>
                         </tr>
                         <tr style="font-weight: 600px;">
                             <td></td>
@@ -287,7 +288,7 @@
                             <td style="font-weight: 600px;">Total Deposit Amount</td>
                             <td></td>
                             <td></td>
-                            <td style="font-weight: 600px;" class="td_right">{{creditTotal}}</td>
+                            <td style="font-weight: 600px;" class="td_right">{{totalDepositAmount}}</td>
                             <td></td>
                             <td></td>
                             <td></td>
