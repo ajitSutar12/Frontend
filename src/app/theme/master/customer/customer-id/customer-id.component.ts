@@ -628,7 +628,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
   }
-
+ 
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100

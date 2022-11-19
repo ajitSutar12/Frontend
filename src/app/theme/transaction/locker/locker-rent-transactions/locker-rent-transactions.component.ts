@@ -37,7 +37,7 @@ export class LockerRentTransactionsComponent implements OnInit {
   selectedBranch
   schemeCode
   Scheme
-  
+   
   schemeACNo
   obj: any;
   introducerACNo
@@ -118,23 +118,23 @@ export class LockerRentTransactionsComponent implements OnInit {
   // this.acnumber1 = null
 
   switch (event.name) {
-    case 'SB': 
-      this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      }) 
-      break;
+    // case 'SB': 
+    //   this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+    //     this.schemeACNo = data;
+    //   }) 
+    //   break;
 
-    case 'CA':
-      this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      })
-      break;
+    // case 'CA':
+    //   this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+    //     this.schemeACNo = data;
+    //   })
+    //   break;
 
-    case 'LN':
-      this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      })
-      break;
+    // case 'LN':
+    //   this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+    //     this.schemeACNo = data;
+    //   })
+    //   break;
 
     case 'TD':
       this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
@@ -142,35 +142,32 @@ export class LockerRentTransactionsComponent implements OnInit {
       })
       break;
 
-    case 'DS':
-      this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      })
-      break;
+    // case 'DS':
+    //   this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+    //     this.schemeACNo = data;
+    //   })
+    //   break;
 
-    case 'CC':
-      this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      })
-      break;
+    // case 'CC':
+    //   this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+    //     this.schemeACNo = data;
+    //   })
+    //   break;
 
-    case 'PG':
-      this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      })
-      break;
+    // case 'PG':
+    //   this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+    //     this.schemeACNo = data;
+    //   })
+    //   break;
 
-    case 'GL':
-      this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      })
-      break;
+    // case 'GL':
+    //   this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
+    //     this.schemeACNo = data;
+    //   })
+    //   break;
   }
 }
-// getTransferAccountDeatil(event) 
-// {
-//   this.transferAccountDetails = event
-// }
+
 
 
   createForm()
