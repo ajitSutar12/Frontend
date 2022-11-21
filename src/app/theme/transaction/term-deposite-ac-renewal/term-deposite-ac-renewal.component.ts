@@ -7,6 +7,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { TermDepositeAcRenewalService } from './term-deposite-ac-renewal.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { NgSelectComponent } from '@ng-select/ng-select'
 //date pipe
 import { DatePipe } from '@angular/common';
 @Component({
@@ -181,7 +182,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       'new_deposit': this.customer.AC_SCHMAMT,
       'new_rate': this.customer.AC_INTRATE,
       'new_last_date': this.customer.AC_LINTEDT,
-      'new_maturity_amt': (this.customer.AC_MATUAMT).toFixed(2),
+      'new_maturity_amt': Number(this.customer.AC_MATUAMT).toFixed(2),
     })
 
     //Calculate Total Days
@@ -195,11 +196,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       Date: this.date,
     }
     this._service.getAccountDeatils(obj).subscribe(data => {
+      console.log('data', data)
       this.angForm.patchValue({
-        old_total_int_paid: (data.totalinterest).toFixed(2),
+        old_total_int_paid: Number(data.totalinterest).toFixed(2),
         new_rate: data.InterestRate,
         new_deposit: Math.abs(data.ledgerBal).toFixed(2),
-        AC_RENEWAL_COUNTER: data.renewalCount
+        AC_RENEWAL_COUNTER: data.renewalCount,
+        old_last_trn_date: data.lastTransactionDate
       })
       this.funAmtNormalInterest = data.normalInterest
       this.funAmtPayableInterest = data.paybableInterest
@@ -227,7 +230,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     var result = endDate.diff(startDate, 'days');
     this.result = Math.round(Math.floor(this.angForm.controls['new_deposit'].value) * (Math.floor(result)) * Math.floor(this.angForm.controls['new_rate'].value) / 36500 + Math.floor(this.angForm.controls['new_deposit'].value))
     this.angForm.patchValue({
-      new_maturity_amt: (this.result).toFixed(2)
+      new_maturity_amt: Number(this.result).toFixed(2)
     })
   }
 
@@ -449,7 +452,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     }
     else {
       this.angForm.patchValue({
-        new_maturity_amt: (this.ledgerBalance).toFixed(2)
+        new_maturity_amt: Number(this.ledgerBalance).toFixed(2)
       })
     }
   }
@@ -481,7 +484,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     }
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(totalInterest)
     this.angForm.patchValue({
-      new_maturity_amt: (maturity).toFixed(2)
+      new_maturity_amt: Number(maturity).toFixed(2)
     })
   }
 
@@ -494,7 +497,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * amount * rate / 1200
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
     this.angForm.patchValue({
-      new_maturity_amt: (maturity).toFixed(2)
+      new_maturity_amt: Number(maturity).toFixed(2)
     })
   }
 
@@ -788,7 +791,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       })
       this.getTotalDays()
       this.angForm.patchValue({
-        new_maturity_amt: (data.NEW_MATURITY_AMOUNT).toFixed(2),
+        new_maturity_amt: Number(data.NEW_MATURITY_AMOUNT).toFixed(2),
         new_rate: data.NEW_INTEREST_RATE,
         new_matu_date: data.NEW_EXPIRY_DATE,
         scheme: data.selectedScheme.S_APPL + ' ' + data.selectedScheme.S_NAME,
@@ -1023,5 +1026,22 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     }, err => {
       console.log(err?.error?.message)
     })
+  }
+
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }

@@ -18,6 +18,7 @@ import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closin
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import * as moment from 'moment';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { NgSelectComponent } from '@ng-select/ng-select'
 @Component({
   selector: 'app-savings-pigmy-account-closing',
   templateUrl: './savings-pigmy-account-closing.component.html',
@@ -164,15 +165,15 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       Voucher_Number: [''],
       OP_Date: [''],
       RENEWAL_DATE: [''],
-      INT_RATE: [''],
-      LAST_INT: [''],
+      INT_RATE: [0],
+      LAST_INT: [0],
       MATURITY_DATE: [''],
-      INT_RATE2: [''],
+      INT_RATE2: [0],
       MONTHS: [''],
       INT_RATE3: ['', [Validators.pattern]],
       INT_RATE4: [''],
       INT_RATE5: [''],
-      AMOUNT: ['', [Validators.pattern]],
+      AMOUNT: [0, [Validators.pattern]],
       INT_RATE6: [''],
       GL_AC: [''],
       SAVING_PIGMY: ['FormC'],
@@ -188,28 +189,28 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       token: [''],
       slip_no: [''],
       Intdate: [''],
-      amount: [''],
-      DepositAmount: [''],
+      amount: [0],
+      DepositAmount: [0],
       OpenDate: [''],
-      OTHER_CHARGES_GLACNO: [''],
-      OTHER_CHARGES_AMOUNT: [''],
-      COMMISSION_GLACNO: [''],
-      COMMISSION_CHARGES: [''],
+      OTHER_CHARGES_GLACNO: [],
+      OTHER_CHARGES_AMOUNT: [0],
+      COMMISSION_GLACNO: [],
+      COMMISSION_CHARGES: [0],
       Months: [''],
       renewalDate: [''],
       maturityDate: [''],
       AC_Months: [''],
       AC_DAYS: [''],
       INTRATE: [''],
-      INTREST_RATE: [''],
-      CalCulateAmt: [],
-      TotalInterest: [],
-      LEDGER_BAL: [],
-      PAYABLE_INT: [],
-      POSTED_INT: [''],
-      NET_INT: [''],
-      PENAL_INT: [],
-      NETPAYABLE_AMT: [''],
+      INTREST_RATE: [0],
+      CalCulateAmt: [0],
+      TotalInterest: [0],
+      LEDGER_BAL: [0],
+      PAYABLE_INT: [0],
+      POSTED_INT: [0],
+      NET_INT: [0],
+      PENAL_INT: [0],
+      NETPAYABLE_AMT: [0],
       Fnarration: [''],
     });
   }
@@ -1036,5 +1037,27 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     el.click();
   }
 
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
 
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
+  }
 }
