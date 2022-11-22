@@ -212,7 +212,8 @@
                                 </div>
                                 <div *ngIf="showChequeDetails">
                                     <div class="row" *ngIf="showChequeDetails">
-                                        <div class="col-sm-12 col-md-2"><label for="ChequeNo">Cheque No.</label></div>
+                                        <div class="col-sm-12 col-md-2"><label for="ChequeNo">Cheque Number</label>
+                                        </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
@@ -279,11 +280,12 @@
                                                 <input type="text" name="AC_PARTICULAR"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                                    maxlength="15" (keyup)="getaftervoucher($event)"
+                                                    maxlength="15" (keyup)="getaftervoucher($event)" #amt
                                                     (focus)="selectAllContent($event)"
-                                                    (keydown.Tab)="decimalAllContent($event); checkCondition($event); checkSanctionAmountWithAmount()"
-                                                    (change)="decimalAllContent($event); checkCondition($event); checkSanctionAmountWithAmount()"
-                                                    required formControlName="amt" #swiper (keyup)="getAmt($event)">
+                                                    (keydown.Tab)="decimalAllContent(amt.value); checkCondition(amt.value); checkSanctionAmountWithAmount()"
+                                                    (change)="decimalAllContent(amt.value); checkCondition(amt.value); checkSanctionAmountWithAmount();checkIfZero(amt.value)"
+                                                    required formControlName="amt" #swiper (keyup)="getAmt(amt.value)"
+                                                    (focusout)="getDecimalPoint($event)">
                                             </span>
                                         </div>
                                     </div>
@@ -340,7 +342,7 @@
                                                                     (keydown.Tab)="getInputHeadAmt($event,i)" #INTAMT
                                                                     (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
-                                                                    (focusout)="decimalAllContent($event);checkCondition($event)"
+                                                                    (focusout)="decimalAllContent($event.value)"
                                                                     value="{{item.Amount}}"
                                                                     [disabled]="item.IS_GLBAL_MAINTAIN == '1'">
 
@@ -353,7 +355,7 @@
                                                                     (keydown.Tab)="getInputHeadAmt($event,i)" #NOTINTAMT
                                                                     (change)="getInputHeadAmt($event,i)"
                                                                     (focus)="selectAllContent($event)"
-                                                                    (focusout)="decimalAllContent($event);"
+                                                                    (focusout)="decimalAllContent($event.value);"
                                                                     value="{{item.Amount}}"
                                                                     [disabled]="item.IS_GLBAL_MAINTAIN == '1'">
                                                             </td>

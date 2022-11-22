@@ -18,7 +18,7 @@
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode" #branchcode
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        placeholder="" autofocus>
+                                        placeholder="" (focus)="onFocus(branchcode)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -311,7 +311,8 @@
                                                     id="AC_EXPIRE_DATE" class="form-control" [(ngModel)]="ngexpirydate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="AC_EXPIRE_DATE"
+                                                    #AC_EXPIRE_DATE="bsDatepicker" (keydown.Tab)="AC_EXPIRE_DATE.hide()"
+                                                    placement="left" formControlName="AC_EXPIRE_DATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -335,7 +336,7 @@
                                                     class="form-control" placeholder=" " id="AC_SANCTION_AMOUNT"
                                                     title="Input allowed only  0-9" formControlName="AC_SANCTION_AMOUNT"
                                                     maxlength="15" (focus)="selectAllContent($event)"
-                                                    (keyup)="getDecimal($event)"
+                                                    (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                             </span>
@@ -360,7 +361,8 @@
                                                     [(ngModel)]="ngsansctiondate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="AC_SANCTION_DATE"
+                                                    formControlName="AC_SANCTION_DATE" #AC_SANCTION_DATE="bsDatepicker"
+                                                    (keydown.Tab)="AC_SANCTION_DATE.hide()" placement="left"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -385,6 +387,7 @@
                                                     id="AC_SECURITY_AMT" title="Input allowed only  0-9"
                                                     (keyup)="getDecimal($event)" formControlName="AC_SECURITY_AMT"
                                                     (focus)="selectAllContent($event)"
+                                                    (focusout)="getDecimalPoint($event)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                             </span>
@@ -410,6 +413,7 @@
                                                     title="Input allowed only  0-9" formControlName="AC_DRAWPOWER_AMT"
                                                     maxlength="15" (keyup)="getDecimal($event)"
                                                     (focus)="selectAllContent($event)"
+                                                    (focusout)="getDecimalPoint($event)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                             </span>
@@ -437,6 +441,7 @@
                                                     maxlength="15" title="Input allowed only  0-9"
                                                     (keyup)="getDecimal($event)" formControlName="AC_INSTALLMENT"
                                                     (focus)="selectAllContent($event)"
+                                                    (focusout)="getDecimalPoint($event)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                             </span>
@@ -492,7 +497,8 @@
                                                     id="AC_RESO_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="AC_RESO_DATE"
+                                                    formControlName="AC_RESO_DATE" #AC_RESO_DATE="bsDatepicker"
+                                                    (keydown.Tab)="AC_RESO_DATE.hide()" placement="top"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -571,7 +577,8 @@
                                                     id="EFFECT_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="EFFECT_DATE"
+                                                    formControlName="EFFECT_DATE" #EFFECT_DATE="bsDatepicker"
+                                                    (keydown.Tab)="EFFECT_DATE.hide()" placement="top"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>

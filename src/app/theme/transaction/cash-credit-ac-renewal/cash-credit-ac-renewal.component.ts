@@ -172,7 +172,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       AC_RESO_NO: ['', [Validators.required, Validators.pattern]],
       AC_RESO_DATE: ['', [Validators.required]],
       INT_RATE: ['', [Validators.required, Validators.pattern]],
-      PENAL_INT_RATE: ['', [Validators.pattern]],
+      PENAL_INT_RATE: [0, [Validators.pattern]],
       EFFECT_DATE: ['', [Validators.required]],
     });
     this.angForm.controls['AC_INTCATA'].disable()
@@ -379,7 +379,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
         AC_SECURITY_AMT: formVal.AC_SECURITY_AMT,
         AC_DRAWPOWER_AMT: formVal.AC_DRAWPOWER_AMT,
         AC_INSTALLMENT: formVal.AC_INSTALLMENT,
-
         //disable fields value
 
         AC_OPDATE: formVal.AC_OPDATE,
@@ -456,22 +455,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       this.bankacno = data.AC_NO
       this.getEditAccountDetails()
       this.angForm.patchValue({
-        // AC_TYPE: data.AC_TYPE,
-        // AC_NO: data.AC_NO,
-        BANKACNO: data.AC_NO,
-        EFFECT_DATE: data.EFFECT_DATE,
-        BRANCH_CODE: data.BRANCH_CODE,
-        INT_RATE: data.NEW_INTEREST_RATE,
-        AC_MONTHS: data.NEW_MONTH,
-        PENAL_INT_RATE: data.PENAL_INT_RATE,
-        AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
-        AC_SECURITY_AMT: data.AC_SECURITY_AMT,
-        AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
-        AC_INSTALLMENT: data.AC_INSTALLMENT,
-        AC_RENEWAL_COUNTER: data.AC_RENEWAL_COUNTER,
-
         //disable fields value
-
         AC_OPDATE: data.AC_OPDATE,
         RENEWAL_DATE: data.NEW_ASON_DATE,
         OLDAC_MONTHS: data.OLD_MONTH,
@@ -481,6 +465,23 @@ export class CashCreditAcRenewalComponent implements OnInit {
         OLDAC_SECURITY_AMT: data.OLD_SECURITY_AMOUNT,
         OLDAC_DRAWPOWER_AMT: data.OLD_DRAWING_POWER,
         OLDAC_INSTALLMENT: data.OLD_AC_INSTALLMENT,
+        // AC_TYPE: data.AC_TYPE,
+        // AC_NO: data.AC_NO,
+        BANKACNO: data.AC_NO,
+        EFFECT_DATE: data.EFFECT_DATE,
+        BRANCH_CODE: data.BRANCH_CODE,
+        INT_RATE: data.NEW_INTEREST_RATE,
+        AC_MONTHS: data.NEW_MONTH,
+        PENAL_INT_RATE: data.PENAL_INTEREST,
+        AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
+        AC_SECURITY_AMT: data.AC_SECURITY_AMT,
+        AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
+        AC_INSTALLMENT: data.AC_INSTALLMENT,
+        AC_RENEWAL_COUNTER: data.AC_RENEWAL_COUNTER,
+        AC_RESO_NO: data.AC_RESO_NO,
+        AC_RESO_DATE: data.AC_RESO_DATE,
+        AC_EXPIRE_DATE: data.NEW_EXPIRY_DATE,
+        AC_SANCTION_DATE: data.NEW_OPEN_DATE
       })
     })
   }
@@ -592,7 +593,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
-    console.log(ele);
   }
 
   onOpen(select: NgSelectComponent) {
@@ -608,6 +608,10 @@ export class CashCreditAcRenewalComponent implements OnInit {
     event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
 
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
@@ -616,5 +620,8 @@ export class CashCreditAcRenewalComponent implements OnInit {
       Swal.fire("Oops", "Please insert values below 50", "error");
       ele.target.value = 0
     }
+  }
+  blurDate(event) {
+    event.target.blur()
   }
 }

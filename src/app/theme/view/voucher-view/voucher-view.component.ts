@@ -52,6 +52,8 @@ export class VoucherViewComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate._d
+      this.tranDate = data.CURRENT_DATE
+      this.ngdate = data.CURRENT_DATE
     })
   }
 
@@ -78,6 +80,12 @@ export class VoucherViewComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
     }
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        'TRAN_DATE': data.CURRENT_DATE,
+      })
+      this.tranDate = data.CURRENT_DATE
+    })
   }
   tranDate
   //get sys para current date
@@ -87,17 +95,17 @@ export class VoucherViewComponent implements OnInit {
         'TRAN_DATE': data.CURRENT_DATE,
       })
       this.tranDate = data.CURRENT_DATE
+      this.ngdate = data.CURRENT_DATE
     })
   }
   getBranch(eve) {
-    debugger
     this.ngBranchCode = eve.value
     this.tableData = []
     this.isLoading = false
   }
   tableData = []
   viewVoucher() {
-    if (this.ngBranchCode != null && (this.angForm.controls['TRAN_DATE'].value != '' || this.angForm.controls['TRAN_DATE'].value != null)) {
+    if (this.ngBranchCode != null && this.angForm.controls['TRAN_DATE'].value != '' && this.angForm.controls['TRAN_DATE'].value != null) {
       this.isLoading = true
       this.tableData = []
       let tranDT = this.tranDate == this.angForm.controls['TRAN_DATE'].value ? this.tranDate : moment(this.angForm.controls['TRAN_DATE'].value).format('DD/MM/YYYY')
@@ -106,9 +114,9 @@ export class VoucherViewComponent implements OnInit {
         this.tableData = this.sortData(data)
         if (this.tableData.length != 0) {
           console.log(data, 'voucher')
-
         }
         else {
+          this.tableData = []
           Swal.fire('Info', 'No Records Found', 'info')
         }
         this.isLoading = false
@@ -118,7 +126,7 @@ export class VoucherViewComponent implements OnInit {
 
   sortData(data) {
     return data.sort((a, b) => {
-      return <any>new Date(a.TRAN_NO) - <any>new Date(b.TRAN_NO);
+      return <any>(a.TRAN_NO) - <any>(b.TRAN_NO);
     });
   }
   voucherData: any = {};

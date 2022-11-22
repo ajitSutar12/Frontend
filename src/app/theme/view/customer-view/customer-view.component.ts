@@ -214,7 +214,6 @@ export class CustomerViewComponent implements OnInit {
     })
   }
   displayClosedAccounts(flag) {
-    debugger
     if (flag.target.checked) {
       this.accountsList = this.allAccounts
       this.noOfAccounts = this.allAccounts.length
