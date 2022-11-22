@@ -64,6 +64,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   recpenalInt: number = 0
   otherAmount: number = 0
   addedPenal: number = 0
+  totalDepositAmount: number = 0
   grandTotal: number = 0
 
   opendate
@@ -186,9 +187,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
         closeBalance: closeBal
       }
       this.tableData.push(obj)
-      if (this.transactions.length >= 2) {
+      if (this.transactions.length >= 1) {
         this.transactions.forEach((element) => {
-          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2') {
+          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2' && element.take == true) {
             //record wise other amount 
             let otherAmt = 0
             otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)
@@ -225,7 +226,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       }
       //grand total amount
       this.grandTotal = this.creditTotal + grandOpening
-
+      this.totalDepositAmount = this.creditTotal + this.normalInt + this.recpayInt + this.overDueAmt + this.penalInt + this.recpenalInt + this.addedPenal + this.otherAmount
       // }
       // else {
       //   this.tableData = []
@@ -242,8 +243,6 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       //   Swal.fire('Info', 'No Records Found', 'info')
       // }
     })
-
-    console.log(this.tableData, 'sorted data')
   }
 
   ngOnInit(): void {
@@ -466,7 +465,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       if (this.transactions.length >= 1) {
         // if (this.transactions.length >= 2) {
         this.transactions.forEach((element) => {
-          if (element?.TRAN_SOURCE_TYPE != 'Opening Balance' && element?.TRAN_STATUS != '2' && element?.openingBal != 0) {
+          if (element?.TRAN_SOURCE_TYPE != 'Opening Balance' && element?.TRAN_STATUS != '2' && element.take == true) {
             //record wise other amount 
             let otherAmt = 0
             otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)
@@ -504,6 +503,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       console.log(this.tableData, 'table')
       //grand total amount
       this.grandTotal = this.creditTotal + grandOpening
+      this.totalDepositAmount = this.creditTotal + this.normalInt + this.recpayInt + this.overDueAmt + this.penalInt + this.recpenalInt + this.addedPenal + this.otherAmount
 
       // }
       // else {

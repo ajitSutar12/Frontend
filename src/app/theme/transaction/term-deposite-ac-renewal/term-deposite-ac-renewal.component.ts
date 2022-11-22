@@ -7,6 +7,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { TermDepositeAcRenewalService } from './term-deposite-ac-renewal.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { NgSelectComponent } from '@ng-select/ng-select'
 //date pipe
 import { DatePipe } from '@angular/common';
 @Component({
@@ -57,7 +58,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   approveShow: boolean = false;
   InterestCategoryData: any;
   maxDate: Date;
-  payableShow : boolean = true;
+  payableShow: boolean = true;
 
   constructor(private fb: FormBuilder,
     private multiService: MultiVoucherService,
@@ -181,7 +182,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       'new_deposit': this.customer.AC_SCHMAMT,
       'new_rate': this.customer.AC_INTRATE,
       'new_last_date': this.customer.AC_LINTEDT,
-      'new_maturity_amt': this.customer.AC_MATUAMT,
+      'new_maturity_amt': Number(this.customer.AC_MATUAMT).toFixed(2),
     })
 
     //Calculate Total Days
@@ -195,11 +196,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       Date: this.date,
     }
     this._service.getAccountDeatils(obj).subscribe(data => {
+      console.log('data', data)
       this.angForm.patchValue({
-        old_total_int_paid: data.totalinterest,
+        old_total_int_paid: Number(data.totalinterest).toFixed(2),
         new_rate: data.InterestRate,
-        new_deposit: Math.abs(data.ledgerBal),
-        AC_RENEWAL_COUNTER: data.renewalCount
+        new_deposit: Math.abs(data.ledgerBal).toFixed(2),
+        AC_RENEWAL_COUNTER: data.renewalCount,
+        old_last_trn_date: data.lastTransactionDate
       })
       this.funAmtNormalInterest = data.normalInterest
       this.funAmtPayableInterest = data.paybableInterest
@@ -227,7 +230,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     var result = endDate.diff(startDate, 'days');
     this.result = Math.round(Math.floor(this.angForm.controls['new_deposit'].value) * (Math.floor(result)) * Math.floor(this.angForm.controls['new_rate'].value) / 36500 + Math.floor(this.angForm.controls['new_deposit'].value))
     this.angForm.patchValue({
-      new_maturity_amt: (this.result)
+      new_maturity_amt: Number(this.result).toFixed(2)
     })
   }
 
@@ -238,7 +241,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   getMaturityAmount() {
     if (this.isCalulateMaturityAmountFlag) {
       this.angForm.patchValue({
-        new_maturity_amt: Math.abs(this.ledgerBalance)
+        new_maturity_amt: Math.abs(this.ledgerBalance).toFixed(2)
       })
       //   // calculate
       this._service.getTermDepositAccountDeatils(this.selectedScheme.id).subscribe(data => {
@@ -274,7 +277,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
               }
               maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['new_rate'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
               this.angForm.patchValue({
-                new_maturity_amt: maturityAmount
+                new_maturity_amt: (maturityAmount).toFixed(2)
               })
             } else if (data.S_INTCALTP == "M" && data.S_INTCALC_METHOD == "S") {
               var date1 = this.angForm.controls['new_ason_date'].value;
@@ -289,7 +292,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
               var Interest = (tmpAmt1 + tmpAmt2)
               var Maturity = Math.round(Number(this.angForm.controls['new_deposit'].value) + Interest)
               this.angForm.patchValue({
-                new_maturity_amt: Maturity
+                new_maturity_amt: (Maturity).toFixed(2)
               })
             } else if (data.S_INTCALTP == "M" && data.S_INTCALC_METHOD == "C") {
               this.angForm.patchValue({
@@ -308,7 +311,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
               var Interest = (tmpAmt1 + tmpAmt2)
               var Maturity = Math.round(Number(this.angForm.controls['new_deposit'].value) + Interest)
               this.angForm.patchValue({
-                new_maturity_amt: Maturity
+                new_maturity_amt: (Maturity).toFixed(2)
               })
             } else if (data.S_INTCALTP == "B" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "C") {
               var Quarters = Math.floor(this.angForm.controls['new_month'].value) / 3;
@@ -436,7 +439,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
               var Interest = (tmpAmt1 + tmpAmt2)
               var Maturity = Math.round(Number(this.angForm.controls['new_deposit'].value) + Interest)
               this.angForm.patchValue({
-                new_maturity_amt: Maturity
+                new_maturity_amt: (Maturity).toFixed(2)
               })
             } else if (data.S_INTCALTP == "B" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "C") {
               this.recurringCompoundInterest()
@@ -449,11 +452,19 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     }
     else {
       this.angForm.patchValue({
-        new_maturity_amt: this.ledgerBalance
+        new_maturity_amt: Number(this.ledgerBalance).toFixed(2)
       })
     }
   }
 
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+
+  selectAllContent($event) {
+    $event.target.select();
+  }
 
   recurringCompoundInterest() {
     var date1 = this.angForm.controls['new_ason_date'].value;
@@ -473,7 +484,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     }
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(totalInterest)
     this.angForm.patchValue({
-      new_maturity_amt: maturity
+      new_maturity_amt: Number(maturity).toFixed(2)
     })
   }
 
@@ -486,7 +497,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * amount * rate / 1200
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
     this.angForm.patchValue({
-      new_maturity_amt: maturity
+      new_maturity_amt: Number(maturity).toFixed(2)
     })
   }
 
@@ -780,7 +791,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       })
       this.getTotalDays()
       this.angForm.patchValue({
-        new_maturity_amt: data.NEW_MATURITY_AMOUNT,
+        new_maturity_amt: Number(data.NEW_MATURITY_AMOUNT).toFixed(2),
         new_rate: data.NEW_INTEREST_RATE,
         new_matu_date: data.NEW_EXPIRY_DATE,
         scheme: data.selectedScheme.S_APPL + ' ' + data.selectedScheme.S_NAME,
@@ -875,7 +886,6 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   isNormalIntAdded: boolean = false
   changeNormal(ele) {
-    debugger
     if (ele.target.value == 'transfer') {
       this.payableShow = true;
       this.transferShowNormal = true;
@@ -902,7 +912,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.isNormalIntAdded = true
       this.transferShowNormal = false;
     }
-    else if(ele.target.value == 'keepaspayable'){
+    else if (ele.target.value == 'keepaspayable') {
       this.payableShow = false;
     }
     else {
@@ -924,7 +934,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   getnormalCheck(ele) {
     if (ele.target.checked) {
       this.NormalCheck = false;
-      this.InterestDate = moment(this.current_date,'DD/MM/YYYY').subtract(1,'day').format('DD/MM/YYYY');
+      this.InterestDate = moment(this.current_date, 'DD/MM/YYYY').subtract(1, 'day').format('DD/MM/YYYY');
       this.angForm.patchValue({
         NormalInt: this.funAmtNormalInterest,
         NormalIntRadio: 'cash'
@@ -959,53 +969,52 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
   isPayableIntAdded: boolean = false
   payableStatus(ele) {
-    debugger
     let dataValue = this.angForm.controls['NormalIntRadio'].value;
     let selectedValue = ele.target.value;
-    if(dataValue == selectedValue){
-    if (ele.target.value == 'transfer') {
-      this.payableTranferShow = true;
-      if (this.isPayableIntAdded) {
+    if (dataValue == selectedValue) {
+      if (ele.target.value == 'transfer') {
+        this.payableTranferShow = true;
+        if (this.isPayableIntAdded) {
+          let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
+          let IntAmt = Number(this.angForm.controls['payableInt'].value);
+          let Int = Math.abs(depositeAmount) - IntAmt;
+          this.angForm.patchValue({
+            'new_deposit': Int
+          })
+          this.isPayableIntAdded = false
+        }
+      } else if (ele.target.value == 'AddInDeposit') {
         let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
         let IntAmt = Number(this.angForm.controls['payableInt'].value);
-        let Int = Math.abs(depositeAmount) - IntAmt;
+
+        let Int = Math.abs(depositeAmount) + IntAmt;
+
         this.angForm.patchValue({
           'new_deposit': Int
         })
-        this.isPayableIntAdded = false
+        this.isPayableIntAdded = true
+        this.payableTranferShow = false;
       }
-    } else if (ele.target.value == 'AddInDeposit') {
-      let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
-      let IntAmt = Number(this.angForm.controls['payableInt'].value);
-
-      let Int = Math.abs(depositeAmount) + IntAmt;
-
+      else {
+        if (this.isPayableIntAdded) {
+          let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
+          let IntAmt = Number(this.angForm.controls['payableInt'].value);
+          let Int = Math.abs(depositeAmount) - IntAmt;
+          this.angForm.patchValue({
+            'new_deposit': Int
+          })
+          this.isPayableIntAdded = false
+        }
+        this.payableTranferShow = false;
+      }
+      this.getMaturityAmount()
+    } else {
+      Swal.fire('Oops...!', 'You select wrong option please select proper option', 'error');
       this.angForm.patchValue({
-        'new_deposit': Int
+        payableInt: ''
       })
-      this.isPayableIntAdded = true
-      this.payableTranferShow = false;
     }
-    else {
-      if (this.isPayableIntAdded) {
-        let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
-        let IntAmt = Number(this.angForm.controls['payableInt'].value);
-        let Int = Math.abs(depositeAmount) - IntAmt;
-        this.angForm.patchValue({
-          'new_deposit': Int
-        })
-        this.isPayableIntAdded = false
-      }
-      this.payableTranferShow = false;
-    }
-    this.getMaturityAmount()
-  }else{
-    Swal.fire('Oops...!','You select wrong option please select proper option','error');
-    this.angForm.patchValue({
-      payableInt : ''
-    })
   }
-}
 
   submit() {
     let obj = this.angForm.value;
@@ -1017,5 +1026,22 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     }, err => {
       console.log(err?.error?.message)
     })
+  }
+
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }

@@ -1,9 +1,13 @@
 .required {
     color: red;
- }
- div.solid {border-style: solid;padding:2%}
+}
 
- div.solid h1{
+div.solid {
+    border-style: solid;
+    padding: 2%
+}
+
+div.solid h1 {
     text-align: left;
     margin-top: -3%;
     height: 20px;
@@ -11,15 +15,19 @@
     font-size: 17px;
 }
 
-div.solid h1 span{
+div.solid h1 span {
     background-color: white;
 }
 
-.form-control{
+.form-control {
     height: 25px !important;
 }
- 
-.col-md-2{
+
+.col-md-2 {
     padding-bottom: 1px !important;
     padding-top: 1px !important;
+}
+
+.inputRadio:focus-within {
+    color: red;
 }
