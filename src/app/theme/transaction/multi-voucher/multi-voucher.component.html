@@ -276,11 +276,10 @@
                                                 <input type="text" name="AC_PARTICULAR"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR"
-                                                    style="text-transform: capitalize;" maxlength="15"
-                                                    (keyup)="getaftervoucher($event)"
-                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                    formControlName="amt" (keyup)="getAmt(amt.value)" #amt
-                                                    (focus)="selectAllContent($event)"
+                                                    maxlength="15" (keyup)="getaftervoucher($event)"
+                                                    title="Input allowed only 0-9" required formControlName="amt"
+                                                    (keyup)="getAmt(amt.value)" #amt (focus)="selectAllContent($event)"
+                                                    (focusout)="getDecimalPoint($event); checkIfZero(amt.value)"
                                                     (keydown.Tab)="decimalAllContent(amt.value); checkCondition(amt.value);checkSanctionAmountWithAmount()"
                                                     (change)="decimalAllContent(amt.value); checkCondition(amt.value);checkSanctionAmountWithAmount()">
 

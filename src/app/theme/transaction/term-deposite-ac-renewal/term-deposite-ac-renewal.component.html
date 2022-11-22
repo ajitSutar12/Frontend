@@ -16,7 +16,8 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                        <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
+                                            #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true' autofocus>
                                             <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                 {{item.label}}</ng-option>
                                         </ng-select>
@@ -69,7 +70,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
-                                            formControlName="scheme">
+                                            formControlName="scheme" #selectcode (focus)="onFocus(selectcode)"
+                                            [selectOnTab]='true'>
                                             <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
                                                 {{item.S_NAME}}</ng-option>
                                         </ng-select>
@@ -92,7 +94,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="customer" formControlName="account_no"
-                                            (change)="getVoucherData()">
+                                            (change)="getVoucherData()" #accountNumber (focus)="onFocus(accountNumber)"
+                                            [selectOnTab]='true'>
                                             <ng-option *ngFor="let item of introducerACNo" [value]="item">{{item.AC_NO}}
                                                 {{item.AC_NAME}}</ng-option>
                                         </ng-select>
@@ -275,7 +278,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" class="form-control" disabled
-                                                value="{{customer?.AC_ACTDATE}}" formControlName="old_last_trn_date">
+                                                formControlName="old_last_trn_date">
                                         </span>
                                     </div>
                                 </div>
@@ -323,28 +326,28 @@
                                 <div class="col-md-12">
                                     <div class="form-radio">
                                         <div class="radio radio-inline">
-                                            <label>
+                                            <label class="inputRadio">
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="cash">
                                                 <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <label>
+                                            <label class="inputRadio">
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="AddInDeposit">
                                                 <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <label>
+                                            <label class="inputRadio">
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="transfer">
                                                 <i class="helper"></i>Transfer </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <label>
+                                            <label class="inputRadio">
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="keepaspayable">
@@ -361,7 +364,8 @@
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedCodeNormal"
                                                 (change)="selectedSchemeCodeNormal()"
-                                                formControlName="normal_scheme_type">
+                                                formControlName="normal_scheme_type" #intSchemeType
+                                                (focus)="onFocus(intSchemeType)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of allSchemeCodeNormal"
                                                     [value]="item.S_ACNOTYPE">
                                                     {{item.S_ACNOTYPE}}</ng-option>
@@ -382,7 +386,8 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedSchemeNormal"
-                                                (change)="getIntroducerNormal()" formControlName="normal_scheme">
+                                                (change)="getIntroducerNormal()" formControlName="normal_scheme"
+                                                #intScheme (focus)="onFocus(intScheme)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of allSchemeNormal" [value]="item">
                                                     {{item.S_APPL}}
                                                     {{item.S_NAME}}</ng-option>
@@ -403,7 +408,8 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="customerNormal" formControlName="normal_account_no"
-                                                (change)="getVoucherData()">
+                                                (change)="getVoucherData()" #intSchemeAcc
+                                                (focus)="onFocus(intSchemeAcc)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of introducerACNoNormal" [value]="item">
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                             </ng-select>
@@ -446,21 +452,21 @@
                                 <div class="col-md-12">
                                     <div class="form-radio">
                                         <div class="radio radio-inline">
-                                            <label>
+                                            <label class="inputRadio">
                                                 <input type="radio" name="PayableIntRadio"
                                                     formControlName="PayableIntRadio" (change)="payableStatus($event)"
                                                     value="cash" [disabled]="PayableCheck">
                                                 <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <label>
+                                            <label class="inputRadio">
                                                 <input type="radio" name="PayableIntRadio"
                                                     formControlName="PayableIntRadio" (change)="payableStatus($event)"
                                                     value="AddInDeposit" [disabled]="PayableCheck">
                                                 <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <label>
+                                            <label class="inputRadio">
                                                 <input type="radio" name="PayableIntRadio"
                                                     formControlName="PayableIntRadio" (change)="payableStatus($event)"
                                                     value="transfer" [disabled]="PayableCheck">
@@ -476,7 +482,8 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedCodePayable"
-                                                (change)="selectedSchemeCodePayable()"
+                                                (change)="selectedSchemeCodePayable()" #paySchemeType
+                                                (focus)="onFocus(paySchemeType)" [selectOnTab]='true'
                                                 formControlName="payable_scheme_type">
                                                 <ng-option *ngFor="let item of allSchemeCodePayable"
                                                     [value]="item.S_ACNOTYPE">
@@ -497,7 +504,8 @@
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedSchemePayable"
+                                            <ng-select [(ngModel)]="selectedSchemePayable" #payScheme
+                                                (focus)="onFocus(payScheme)" [selectOnTab]='true'
                                                 (change)="getIntroducerPayable()" formControlName="payable_scheme">
                                                 <ng-option *ngFor="let item of allSchemePayable" [value]="item">
                                                     {{item.S_APPL}}
@@ -519,7 +527,8 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="customerPayable"
-                                                formControlName="payable_account_no" (change)="getVoucherData()">
+                                                formControlName="payable_account_no" (change)="getVoucherData()"
+                                                #paySchemeAcc (focus)="onFocus(paySchemeAcc)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of introducerACNoPayable" [value]="item">
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                             </ng-select>
@@ -557,7 +566,8 @@
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedIntCate" formControlName="new_category">
+                                            <ng-select [(ngModel)]="selectedIntCate" formControlName="new_category"
+                                                #new_category (focus)="onFocus(new_category)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of InterestCategoryData" [value]="item.id">
                                                     {{item.NAME}}</ng-option>
                                             </ng-select>
@@ -690,7 +700,7 @@
                         <div class="row">
                             <div class="col-sm" style="float: right;">
                                 <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                    (click)="submit()">
+                                    (click)="submit();branchcode.focus()">
                                     Submit
                                 </button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
