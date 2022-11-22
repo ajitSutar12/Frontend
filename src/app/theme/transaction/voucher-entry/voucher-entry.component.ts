@@ -567,6 +567,7 @@ export class VoucherEntryComponent implements OnInit {
         console.log(err);
       })
     } else {
+      this.swiper.nativeElement.focus()
       Swal.fire('Oops!', 'Invalid Amount Details', 'error');
     }
   }
@@ -583,12 +584,12 @@ export class VoucherEntryComponent implements OnInit {
       this.headData.forEach(element => {
         count = Number(element.Amount) + Number(count)
       });
-      let num = Number(ele.target.value) + Number(count)
+      let num = Number(ele) + Number(count)
       // this.totalAmt = num 
       this.totalAmt = parseFloat(num.toString()).toFixed(2);
     } else {
-      // this.totalAmt = ele.target.value 
-      this.totalAmt = parseFloat(ele.target.value).toFixed(2);
+      // this.totalAmt = ele 
+      this.totalAmt = parseFloat(ele).toFixed(2);
     }
   }
 
@@ -617,7 +618,7 @@ export class VoucherEntryComponent implements OnInit {
     }
     else if (item.id == 2 || item.id == 5 || item.id == 15) {
       this.angForm.patchValue({
-        amt: this.ClearBalance
+        amt: Number(this.ClearBalance).toFixed(2)
       })
       this.angForm.controls['amt'].disable();
     }
@@ -705,6 +706,28 @@ export class VoucherEntryComponent implements OnInit {
       this.interestMaxDate = moment(this.date, "DD/MM/YYYY").add(1, 'months')
       this.interestMaxDate = this.interestMaxDate._d
     }
+    if (item.id == 6) {
+      this.angForm.controls.amt.setValue('0.00');
+      this.angForm.controls.totalAmt.setValue('0.00');
+      this.totalAmt = 0.00
+      this.angForm.controls['amt'].disable();
+    }
+    else if (item.id == 2 || item.id == 5 || item.id == 15) {
+      this.angForm.patchValue({
+        amt: Number(this.ClearBalance).toFixed(2)
+      })
+      // this.getaftervoucher()
+      this.angForm.controls['amt'].disable();
+      this.decimalAllContent(this.ClearBalance);
+      this.checkCondition(this.ClearBalance);
+      this.checkSanctionAmountWithAmount()
+      this.checkamtcondition(this.ClearBalance)
+      this.getAmt(this.ClearBalance)
+    }
+    else {
+      this.angForm.controls.amt.setValue('0.00');
+      this.angForm.controls['amt'].enable();
+    }
   }
 
   updateheadbalance(date) {
@@ -719,7 +742,8 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getInputHeadBal(newobj).subscribe(data1 => {
 
       balancedata = data1
-      this.headData.forEach(element => {
+      // this.headData.forEach(element =>
+      for (let element of this.headData) {
         let newobj = {
           acno: element?.GL_CODE,
           scheme: '101',
@@ -934,8 +958,18 @@ export class VoucherEntryComponent implements OnInit {
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
         }
 
-      });
-
+      }
+      if (this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) {
+        let count = 0
+        this.headData.forEach(element => {
+          count = Number(element.Amount) + Number(count)
+        });
+        this.totalAmt = count + Number(this.ClearBalance)
+        this.totalAmt = Number(this.totalAmt).toFixed(2)
+      }
+      else {
+        this.totalAmt = 0
+      }
     })
   }
 
@@ -1081,6 +1115,7 @@ export class VoucherEntryComponent implements OnInit {
         this.submitForm = false
       }
     }
+    this.totalAmt = Number(this.totalAmt).toFixed(2)
   }
 
   checkheadcondition(event, i) {
@@ -1169,10 +1204,9 @@ export class VoucherEntryComponent implements OnInit {
     if (this.submitTranMode == undefined) {
       Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
       this.tran_mode.focus()
-      let value = Number($event.target.value);
+      let value = Number($event);
       this.totalAmt = 0;
-      $event.target.value = 0
-
+      $event = 0
       let amt = Number(this.AfterVoucher) - value;
       if (amt < 0) {
         amt = 0;
@@ -1180,11 +1214,11 @@ export class VoucherEntryComponent implements OnInit {
       this.AfterVoucher = Math.abs(Number(parseFloat((amt).toString()).toFixed(2)))
     }
     else {
-      let value = Number($event.target.value);
+      let value = Number($event);
       let data = value.toFixed(2);
-      $event.target.value = data;
-      var t = $event.target.value;
-      $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+      $event = data;
+      var t = $event;
+      $event = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     }
   }
 
@@ -1212,8 +1246,8 @@ export class VoucherEntryComponent implements OnInit {
       this.angForm.patchValue({
         total_amt: 0
       })
-      this.swiper.nativeElement.focus();
       Swal.fire('Oops!', `Access Denied, Amount Can't Be More Than Sanction Limit Rs. ${sancAmt}`, 'error');
+      this.swiper.nativeElement.focus();
       this.submitForm = true
     }
   }
@@ -1221,7 +1255,7 @@ export class VoucherEntryComponent implements OnInit {
   // Check Voucher Conditions On Amount Field
   checkCondition($event) {
     let obj = {
-      value: Number($event.target.value),
+      value: Number($event),
       clearBalance: this.ClearBalance,
       accountNo: this.submitCustomer.BANKACNO,
       schemeType: this.selectedCode,
@@ -1248,9 +1282,10 @@ export class VoucherEntryComponent implements OnInit {
           this.angForm.controls['amt'].reset();
           this.angForm.controls['total_amt'].reset();
           this.SideDetails()
-          // this.swiper.nativeElement.focus();
+          this.swiper.nativeElement.focus();
           this.submitForm = true
         } else {
+          this.swiper.nativeElement.blur();
           this.checkamtcondition($event)
         }
       })
@@ -1266,6 +1301,7 @@ export class VoucherEntryComponent implements OnInit {
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.swiper.nativeElement.blur();
           this.checkamtcondition($event)
         } else {
           this.angForm.controls['amt'].reset();
@@ -2184,5 +2220,20 @@ export class VoucherEntryComponent implements OnInit {
   @Output() newCustomerEvent = new EventEmitter<string>();
   addNewCustomer(value) {
     this.dtTrigger.next()
+  }
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+
+  checkIfZero(value) {
+    if (Number(value) == 0 || value == 'NaN') {
+      this.submitForm = true
+      this.angForm.controls.amt.setValue('0.00');
+      this.swiper.nativeElement.focus()
+    }
+    else {
+      this.submitForm = false
+      this.totalAmt = parseFloat(value).toFixed(2);
+    }
   }
 }

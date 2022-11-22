@@ -22,7 +22,9 @@
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                                <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
+                                                    #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
+                                                    autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -82,7 +84,8 @@
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select bindValue="value" [(ngModel)]="selectedScheme"
+                                                <ng-select bindValue="value" [(ngModel)]="selectedScheme" #selectcode
+                                                    (focus)="onFocus(selectcode)" [selectOnTab]='true'
                                                     (change)="schemechange($event)" formControlName="scheme">
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
                                                         {{item.id}} {{item.label}}</ng-option>
@@ -103,7 +106,8 @@
                                     <div class="col-sm-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select bindValue="bankacno" [(ngModel)]="customer"
+                                                <ng-select bindValue="bankacno" [(ngModel)]="customer" #accountNumber
+                                                    (focus)="onFocus(accountNumber)" [selectOnTab]='true'
                                                     formControlName="account_no" (change)="getAccountDetails($event)">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.label}} {{item.name}}</ng-option>
@@ -123,7 +127,7 @@
                                     <div class="col-md-6 solid1">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Interest Rate %</label>
+                                                <label>Interest Rate(%)</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group input-group">
@@ -144,15 +148,16 @@
                                             <div class="col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" style="text-align: right;" maxlength="12"
+                                                        <input type="text" style="text-align: right;" maxlength="6"
                                                             pattern="^[0-9]+$" class="form-control"
                                                             formControlName="MaturedDays"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                            (focus)="selectAllContent($event)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )">
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="preMature">
+                                        <div class=" row" *ngIf="preMature">
                                             <div class="col-md-12">
                                                 <table>
                                                     <tr>
@@ -204,7 +209,9 @@
                                                         <td>Interest Rate</td>
                                                         <td>
                                                             <input style="width:50% ; text-align: right;"
-                                                                (change)="getMaturedIntRate()"
+                                                                (change)="getMaturedIntRate()" maxlength="5"
+                                                                class="form-control"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                 formControlName="maturedInterest" type="text">
                                                         </td>
                                                     </tr>
@@ -212,7 +219,10 @@
                                                         <td>Interest Amount</td>
                                                         <td>
                                                             <input style="width:50% ; text-align: right;"
-                                                                formControlName="maturedIntAmt" type="text">
+                                                                class="form-control"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                                maxlength="12" formControlName="maturedIntAmt"
+                                                                type="text">
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -220,28 +230,36 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><b>Total Interest @ {{intRateShow}} %</b></label>
+                                                <label>Total Interest @ {{intRateShow}} %</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        (change)="getNetInterest()" pattern="\d{1,20}(\.\d{1,2})?"
-                                                        formControlName="TOTAL_INT"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (change)="getNetInterest()" formControlName="TOTAL_INT"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)" class="form-control"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><b>Paid/Posted Interest -</b></label>
+                                                <label>Paid/Posted Interest -</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        (change)="getNetInterest()" pattern="\d{1,20}(\.\d{1,2})?"
-                                                        formControlName="POSTED_INT"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (change)="getNetInterest()" formControlName="POSTED_INT"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)" class="form-control"
+                                                            (focusout)="getDecimalPoint($event)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -251,27 +269,36 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                - Net Interest
+                                                <label> - Net Interest Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="NET_INTAMT"
-                                                        (change)="getNetPayAmount()"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            formControlName="NET_INTAMT" (change)="getNetPayAmount()"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)" class="form-control"
+                                                            (focusout)="getDecimalPoint($event)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><b>Excess Interest</b></label>
+                                                <label>Excess Interest Amount</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="EXCESS_INT"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            formControlName="EXCESS_INT"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)" class="form-control"
+                                                            (focusout)="getDecimalPoint($event)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -292,80 +319,105 @@
                                     <div class="col-md-6 solid1">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                Ledger Balance
+                                                <label> Ledger Balance Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="LEDGER_BAL"
-                                                        (change)="getNetPayAmount()"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            formControlName="LEDGER_BAL" (change)="getNetPayAmount()"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)" class="form-control"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                Payable Interest
+                                                <label>Payable Interest Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        (change)="getNetPayAmount()" pattern="\d{1,20}(\.\d{1,2})?"
-                                                        formControlName="PAYABLE_INTAMT"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (change)="getNetPayAmount()"
+                                                            formControlName="PAYABLE_INTAMT"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)" class="form-control"
+                                                            (focusout)="getDecimalPoint($event)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                - Net Interest/Excess Interest
+                                                <label>- Net Interest/Excess Interest Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="NET_INTAMT"
-                                                        (change)="getNetPayAmount()"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)" class="form-control"
+                                                            formControlName="NET_INTAMT" (change)="getNetPayAmount()"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                - TDS Amount
+                                                <label>- TDS Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="TDS_AMT"
-                                                        (change)="getNetPayAmount()"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)" class="form-control"
+                                                            formControlName="TDS_AMT" (change)="getNetPayAmount()"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                - Surcharge Amount
+                                                <label>- Surcharge Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="SURCHARGE_AMT"
-                                                        (change)="getNetPayAmount()"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)" class="form-control"
+                                                            formControlName="SURCHARGE_AMT" (change)="getNetPayAmount()"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                - Penal Interest
+                                                <label>- Penal Interest Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="PENAL_INT"
-                                                        (change)="getNetPayAmount()"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)" class="form-control"
+                                                            (focusout)="getDecimalPoint($event)"
+                                                            formControlName="PENAL_INT" (change)="getNetPayAmount()"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -375,26 +427,31 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                Net Payable Amount
+                                                <label>Net Payable Amount</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" style="text-align: right;" maxlength="12"
-                                                        pattern="\d{1,20}(\.\d{1,2})?" formControlName="NETPAYABLEAMT"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="15"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)"
+                                                            formControlName="NETPAYABLEAMT" class="form-control"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        <h4>Payment Details:</h4>
+                                        <h5>Payment Details:</h5>
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="form-radio">
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" formControlName="SAVING_PIGMY"
                                                                 name="SAVING_PIGMY" value="FormC" id="formT"
                                                                 (change)="isFormA(1)">
@@ -402,7 +459,7 @@
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" value="FormT"
                                                                 formControlName="SAVING_PIGMY" id="formC"
                                                                 name="SAVING_PIGMY" (change)="isFormA(2)">
@@ -416,7 +473,7 @@
                                             <div class="col-sm-12">
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque
-                                                            No.</label></div>
+                                                            Number</label></div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -424,7 +481,8 @@
                                                                     placeholder=" " id="chequeNo" value=""
                                                                     style="text-transform: capitalize;"
                                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                                                    formControlName="chequeNo">
+                                                                    formControlName="chequeNo" maxlength="10"
+                                                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode >= 48 && $event.charCode < 58)">
                                                             </span>
                                                         </div>
                                                     </div>
@@ -435,7 +493,9 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" placeholder="dd/mm/yyyy"
-                                                                    class="form-control"
+                                                                    class="form-control" placement="top"
+                                                                    #ChequeDate="bsDatepicker"
+                                                                    (keydown.Tab)="ChequeDate.hide()"
                                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                     bsDatepicker [maxDate]="maxDate"
                                                                     formControlName="ChequeDate">
@@ -445,14 +505,15 @@
                                                     <div class="col-sm-12 col-md-2"><label for="Token_Num">Token
                                                             Number</label>
                                                     </div>
-                                                    <div class="col-md-2">
+                                                    <div class="col-sm-12 col-md-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Token_Num" class="form-control"
                                                                     placeholder=" " id="Token_Num" value=""
-                                                                    style="text-transform: capitalize;"
                                                                     title="Input allowed only  0-9"
-                                                                    formControlName="Token_Num">
+                                                                    style="text-align: right;"
+                                                                    formControlName="Token_Num" maxlength="4"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                             </span>
                                                         </div>
                                                     </div>
@@ -460,13 +521,14 @@
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                                 class="required">*</sub></label></div>
-                                                    <div class="col-sm-12 col-md-2">
+                                                    <div class="col-sm-12 col-md-4">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
                                                                 <ng-select [(ngModel)]="selectedTransScheme"
                                                                     (change)="getTransferAccountList($event)"
                                                                     formControlName="Tscheme" bindValue="value"
-                                                                    bindLabel="label">
+                                                                    bindLabel="label" #tscheme
+                                                                    (focus)="onFocus(tscheme)" [selectOnTab]='true'>
                                                                     <ng-option *ngFor="let item of Scheme"
                                                                         [value]="item">
                                                                         {{item.id}} {{item.label}}</ng-option>
@@ -482,20 +544,24 @@
                                                         </div>
 
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-sm-12 col-md-2"><label for="TschemeAC">Account
                                                             Number<sub class="required">*</sub></label></div>
-
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-12 col-md-5">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
                                                                 <ng-select id="TschemeAC" [(ngModel)]="ngacno"
                                                                     formControlName="TschemeAC" bindLabel="label"
                                                                     bindValue="bankacno" title="Compulsory Selection"
                                                                     placeholder="Account Number"
-                                                                    (change)="getTransferAccountDeatil($event)">
+                                                                    (change)="getTransferAccountDeatil($event)"
+                                                                    #taccNumber (focus)="onFocus(taccNumber)"
+                                                                    [selectOnTab]='true'>
                                                                     <ng-option *ngFor="let values of schemeACNo"
                                                                         [value]="values">
-                                                                        {{values.label}} {{values.name}}</ng-option>
+                                                                        {{values.label}} {{values.name}}
+                                                                    </ng-option>
                                                                 </ng-select>
                                                             </span>
                                                         </div>
@@ -507,10 +573,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <div class="row">
-
                                                     <div class="col-sm-12 col-md-2  "><label
                                                             for="AC_PARTICULAR">Particulars</label></div>
                                                     <div class="col-md-4">
@@ -523,8 +587,6 @@
                                                                     (click)="modalLarge.show()"></i>
                                                             </span>
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -536,7 +598,9 @@
                                                                 <input style="text-align: right;" type="text"
                                                                     class="form-control" name="amount" id="amount"
                                                                     formControlName="amount"
-                                                                    pattern="\d{1,20}(\.\d{1,2})?" maxlength="12"
+                                                                    (focus)="selectAllContent($event)"
+                                                                    (keyup)="getDecimal($event)"
+                                                                    (focusout)="getDecimalPoint($event)" maxlength="12"
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                             </span>
                                                         </div>
@@ -570,7 +634,7 @@
                                                                     <td>Action</td>
                                                                     <td>Scheme</td>
                                                                     <td>Account Number</td>
-                                                                    
+
                                                                     <td>Particulars</td>
                                                                     <td style="text-align: right;">Amount</td>
                                                                 </thead>
@@ -585,16 +649,20 @@
                                                                                 placement="top"
                                                                                 ngbTooltip="Edit"></span>
                                                                         </td>
-                                                                        <td [ngClass]="'td_right'">{{ data.Scheme==
+                                                                        <td [ngClass]="'td_right'">{{
+                                                                            data.Scheme==
                                                                             undefined || data.Scheme==null
-                                                                            ? data.depoCloseTranAc.S_APPL: data.Scheme
+                                                                            ? data.depoCloseTranAc.S_APPL:
+                                                                            data.Scheme
                                                                             }}
                                                                         </td>
-                                                                        <td [ngClass]="'td_right'">{{ data.TRANSFER_ACNO
+                                                                        <td [ngClass]="'td_right'">{{
+                                                                            data.TRANSFER_ACNO
                                                                             }}
                                                                         </td>
                                                                         <td>{{ data.NARRATION }}</td>
-                                                                        <td [ngClass]="'td_right'">{{ data.TRAN_AMOUNT
+                                                                        <td [ngClass]="'td_right'">{{
+                                                                            data.TRAN_AMOUNT
                                                                             }}
                                                                         </td>
                                                                     </tr>
@@ -614,11 +682,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="row">
                                     <div class="col-sm" style="float: right;">
                                         <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                            (click)="submit()">
+                                            (click)="submit();branchcode.focus()">
                                             Submit
                                         </button>
                                         <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
@@ -663,7 +731,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount
+                                                <h6 class="transaction-title" style="font-size: 12px;">Deposit
+                                                    Amount
                                                 </h6>
                                             </div>
                                         </div>
@@ -682,7 +751,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
+                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity
+                                                    Amount
                                                 </h6>
                                             </div>
                                         </div>
@@ -700,11 +770,13 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Int Rate%</h6>
+                                                <h6 class="transaction-title" style="font-size: 12px;">Int Rate%
+                                                </h6>
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-danger"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">{{INTRATE}}</div>
+                                            style="margin-left: auto;order: 2;font-size: 12px;">{{INTRATE}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -716,12 +788,14 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Last Int. Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">Last Int.
+                                                    Date
                                                 </h6>
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-danger"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">{{lastIntDate}}</div>
+                                            style="margin-left: auto;order: 2;font-size: 12px;">{{lastIntDate}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -733,7 +807,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
+                                                <h6 class="transaction-title" style="font-size: 12px;">Opening
+                                                    Date</h6>
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
@@ -749,7 +824,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">As On Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">As On
+                                                    Date
                                                 </h6>
                                             </div>
                                         </div>
@@ -767,12 +843,14 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity
+                                                    Date
                                                 </h6>
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">{{maturityDate}}</div>
+                                            style="margin-left: auto;order: 2;font-size: 12px;">{{maturityDate}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -784,7 +862,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Receipt No.
+                                                <h6 class="transaction-title" style="font-size: 12px;">Receipt
+                                                    No.
                                                 </h6>
                                             </div>
                                         </div>
@@ -806,7 +885,8 @@
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">{{operator}}</div>
+                                            style="margin-left: auto;order: 2;font-size: 12px;">{{operator}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -865,7 +945,8 @@
                                                 <ul class="list-unstyled">
                                                     <li class="mb-75">
                                                         <span class="fw-bolder me-25">Status:</span>
-                                                        <span class="badge bg-light-success">{{Status == true || Status
+                                                        <span class="badge bg-light-success">{{Status == true ||
+                                                            Status
                                                             ==
                                                             1? 'Inactive' :
                                                             'Active'}}</span>
@@ -888,7 +969,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </form>

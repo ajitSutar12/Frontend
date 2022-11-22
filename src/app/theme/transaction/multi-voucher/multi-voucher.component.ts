@@ -566,8 +566,8 @@ export class MultiVoucherComponent implements OnInit {
     } else {
       // this.totalAmt = ele.target.value + '.00'
       this.totalAmt = parseFloat(ele).toFixed(2);
-
     }
+    this.totalAmt = parseFloat(this.totalAmt).toFixed(2);
   }
 
   //Mode data
@@ -800,6 +800,7 @@ export class MultiVoucherComponent implements OnInit {
       });
       this.totalAmt = count + Number(this.angForm.controls['amt'].value)
     }
+    this.totalAmt = Number(this.totalAmt).toFixed(2)
   }
 
   checkheadcondition(event, i) {
@@ -936,8 +937,8 @@ export class MultiVoucherComponent implements OnInit {
       obj['tran_mode'] = this.submitTranMode;
       obj['scheme'] = this.submitScheme;
       obj['account_no'] = this.submitAccountNo;
-      obj['amt'] = (this.angForm.controls['amt'].value).toFixed(2)
-      obj['total_amt'] = (this.angForm.controls['total_amt'].value).toFixed(2)
+      obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
+      obj['total_amt'] = Number(this.angForm.controls['total_amt'].value).toFixed(2)
       this.mainMaster[this.index] = obj;
       this.showAdd = true;
       this.showUpdate = false;
@@ -1027,10 +1028,10 @@ export class MultiVoucherComponent implements OnInit {
     this.totalDebit = '0';
     for (let item of this.mainMaster) {
       if (item.tran_mode.tran_drcr == 'C') {
-        this.totalCredit = this.totalCredit + Number(item.total_amt)
+        this.totalCredit = Number(Number(this.totalCredit) + Number(item.total_amt)).toFixed(2)
         this.totalCredit = Number(this.totalCredit).toFixed(2)
       } else {
-        this.totalDebit = this.totalDebit + Number(item.total_amt);
+        this.totalDebit = Number(Number(this.totalDebit) + Number(item.total_amt)).toFixed(2);
         this.totalDebit = Number(this.totalDebit).toFixed(2)
       }
     }
@@ -1278,7 +1279,6 @@ export class MultiVoucherComponent implements OnInit {
           this.angForm.controls['total_amt'].reset();
           this.SideDetails()
           this.submitForm = true
-          // this.swiper.nativeElement.focus();
         } else {
           this.checkamtcondition($event)
         }
@@ -2204,5 +2204,20 @@ export class MultiVoucherComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+
+  checkIfZero(value) {
+    if (Number(value) == 0 || value == 'NaN') {
+      this.submitForm = true
+      this.angForm.controls.amt.setValue('0.00');
+      this.amt.nativeElement.focus()
+    }
+    else {
+      this.submitForm = false
+      this.totalAmt = parseFloat(value).toFixed(2);
+    }
   }
 }
