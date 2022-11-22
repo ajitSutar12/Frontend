@@ -18,6 +18,7 @@ import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closin
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import * as moment from 'moment';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { NgSelectComponent } from '@ng-select/ng-select'
 @Component({
   selector: 'app-savings-pigmy-account-closing',
   templateUrl: './savings-pigmy-account-closing.component.html',
@@ -164,15 +165,15 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       Voucher_Number: [''],
       OP_Date: [''],
       RENEWAL_DATE: [''],
-      INT_RATE: [''],
-      LAST_INT: [''],
+      INT_RATE: [0],
+      LAST_INT: [0],
       MATURITY_DATE: [''],
-      INT_RATE2: [''],
+      INT_RATE2: [0],
       MONTHS: [''],
       INT_RATE3: ['', [Validators.pattern]],
       INT_RATE4: [''],
       INT_RATE5: [''],
-      AMOUNT: ['', [Validators.pattern]],
+      AMOUNT: [0, [Validators.pattern]],
       INT_RATE6: [''],
       GL_AC: [''],
       SAVING_PIGMY: ['FormC'],
@@ -188,28 +189,28 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       token: [''],
       slip_no: [''],
       Intdate: [''],
-      amount: [''],
-      DepositAmount: [''],
+      amount: [0],
+      DepositAmount: [0],
       OpenDate: [''],
-      OTHER_CHARGES_GLACNO: [''],
-      OTHER_CHARGES_AMOUNT: [''],
-      COMMISSION_GLACNO: [''],
-      COMMISSION_CHARGES: [''],
+      OTHER_CHARGES_GLACNO: [],
+      OTHER_CHARGES_AMOUNT: [0],
+      COMMISSION_GLACNO: [],
+      COMMISSION_CHARGES: [0],
       Months: [''],
       renewalDate: [''],
       maturityDate: [''],
       AC_Months: [''],
       AC_DAYS: [''],
       INTRATE: [''],
-      INTREST_RATE: [''],
-      CalCulateAmt: [],
-      TotalInterest: [],
-      LEDGER_BAL: [],
-      PAYABLE_INT: [],
-      POSTED_INT: [''],
-      NET_INT: [''],
-      PENAL_INT: [],
-      NETPAYABLE_AMT: [''],
+      INTREST_RATE: [0],
+      CalCulateAmt: [0],
+      TotalInterest: [0],
+      LEDGER_BAL: [0],
+      PAYABLE_INT: [0],
+      POSTED_INT: [0],
+      NET_INT: [0],
+      PENAL_INT: [0],
+      NETPAYABLE_AMT: [0],
       Fnarration: [''],
     });
   }
@@ -225,6 +226,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.ngscheme = event.value
     this.OTHER_CHARGES_AMOUNT = event.SVR_CHARGE_RATE
     this.isInterestApplicable = event.intapp
+    this.schemeACNo = null
     this.getAccountlist()
   }
 
@@ -373,6 +375,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   maturityDate
   customerId
   dormant
+  intrateShow
   getAccountDetails(event) {
     this.bankacno = event.bankacno
     this.customerId = event.customerId
@@ -389,20 +392,22 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         AC_Months: data[0].AC_MONTHS,
         AC_DAYS: data[0].AC_DAYS,
         POSTED_INT: data[0].post_Interest,
-        LEDGER_BAL: Math.abs(Math.round(data[0].ledgerBal)),
-        PAYABLE_INT: Math.abs(Math.round(data[0].payableInterest)),
-        PENAL_INT: Math.abs(Math.round(data[0].penalInterest)),
-        TotalInterest: Math.abs(Math.round(data[0].currentInterest))
+        LEDGER_BAL: Number(data[0].ledgerBal).toFixed(2),
+        PAYABLE_INT: Number(data[0].payableInterest).toFixed(2),
+        PENAL_INT: Number(data[0].penalInterest).toFixed(2),
+        TotalInterest: Number(data[0].currentInterest).toFixed(2)
       })
       if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
           INTREST_RATE: data[0].INT_RATE
         })
+        this.intrateShow = data[0].INT_RATE
       }
       else {
         this.angForm.patchValue({
           INTREST_RATE: '0'
         })
+        this.intrateShow = 0
       }
       let netInt: number = 0
       var months
@@ -879,7 +884,6 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   //function for edit button clicked
   editClickHandler(id): void {
     this._service.getFormData(id).subscribe((data) => {
-      console.log('edit', data)
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -912,15 +916,15 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         chequeNo: data.CHEQUE_NO,
         ChequeDate: data.CHEQUE_DATE,
         Fnarration: data.NARRATION,
-        LEDGER_BAL: data.LEDGER_BAL,
-        NET_INT: data.NET_INTEREST_AMOUNT,
-        NETPAYABLE_AMT: data.NET_PAYABLE_AMOUNT,
-        OTHER_CHARGES_AMOUNT: data.OTHER_CHARGES_AMOUNT,
+        LEDGER_BAL: Number(data.LEDGER_BAL).toFixed(2),
+        NET_INT: Number(data.NET_INTEREST_AMOUNT).toFixed(2),
+        NETPAYABLE_AMT: Number(data.NET_PAYABLE_AMOUNT).toFixed(2),
+        OTHER_CHARGES_AMOUNT: Number(data.OTHER_CHARGES_AMOUNT).toFixed(2),
         OTHER_CHARGES_GLACNO: data.OTHER_CHARGES_GLACNO,
-        POSTED_INT: data.PAID_INTEREST_AMOUNT,
-        PAYABLE_INT: data.PAYABLE_INTEREST_AMOUNT,
-        PENAL_INT: data.PENAL_INTEREST_AMOUNT,
-        TotalInterest: data.TOTAL_INTEREST_AMOUNT,
+        POSTED_INT: Number(data.PAID_INTEREST_AMOUNT).toFixed(2),
+        PAYABLE_INT: Number(data.PAYABLE_INTEREST_AMOUNT).toFixed(2),
+        PENAL_INT: Number(data.PENAL_INTEREST_AMOUNT).toFixed(2),
+        TotalInterest: Number(data.TOTAL_INTEREST_AMOUNT).toFixed(2),
         AC_NO: data.TRAN_ACNO,
         AC_TYPE: Number(data.TRAN_ACTYPE),
         DATE: data.TRAN_DATE,
@@ -1036,5 +1040,27 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     el.click();
   }
 
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
 
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
+  }
 }
