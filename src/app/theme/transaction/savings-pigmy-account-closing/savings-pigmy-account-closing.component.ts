@@ -226,6 +226,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.ngscheme = event.value
     this.OTHER_CHARGES_AMOUNT = event.SVR_CHARGE_RATE
     this.isInterestApplicable = event.intapp
+    this.schemeACNo = null
     this.getAccountlist()
   }
 
@@ -374,6 +375,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   maturityDate
   customerId
   dormant
+  intrateShow
   getAccountDetails(event) {
     this.bankacno = event.bankacno
     this.customerId = event.customerId
@@ -390,20 +392,22 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         AC_Months: data[0].AC_MONTHS,
         AC_DAYS: data[0].AC_DAYS,
         POSTED_INT: data[0].post_Interest,
-        LEDGER_BAL: Math.abs(Math.round(data[0].ledgerBal)),
-        PAYABLE_INT: Math.abs(Math.round(data[0].payableInterest)),
-        PENAL_INT: Math.abs(Math.round(data[0].penalInterest)),
-        TotalInterest: Math.abs(Math.round(data[0].currentInterest))
+        LEDGER_BAL: Number(data[0].ledgerBal).toFixed(2),
+        PAYABLE_INT: Number(data[0].payableInterest).toFixed(2),
+        PENAL_INT: Number(data[0].penalInterest).toFixed(2),
+        TotalInterest: Number(data[0].currentInterest).toFixed(2)
       })
       if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
           INTREST_RATE: data[0].INT_RATE
         })
+        this.intrateShow = data[0].INT_RATE
       }
       else {
         this.angForm.patchValue({
           INTREST_RATE: '0'
         })
+        this.intrateShow = 0
       }
       let netInt: number = 0
       var months
@@ -880,7 +884,6 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   //function for edit button clicked
   editClickHandler(id): void {
     this._service.getFormData(id).subscribe((data) => {
-      console.log('edit', data)
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -913,15 +916,15 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         chequeNo: data.CHEQUE_NO,
         ChequeDate: data.CHEQUE_DATE,
         Fnarration: data.NARRATION,
-        LEDGER_BAL: data.LEDGER_BAL,
-        NET_INT: data.NET_INTEREST_AMOUNT,
-        NETPAYABLE_AMT: data.NET_PAYABLE_AMOUNT,
-        OTHER_CHARGES_AMOUNT: data.OTHER_CHARGES_AMOUNT,
+        LEDGER_BAL: Number(data.LEDGER_BAL).toFixed(2),
+        NET_INT: Number(data.NET_INTEREST_AMOUNT).toFixed(2),
+        NETPAYABLE_AMT: Number(data.NET_PAYABLE_AMOUNT).toFixed(2),
+        OTHER_CHARGES_AMOUNT: Number(data.OTHER_CHARGES_AMOUNT).toFixed(2),
         OTHER_CHARGES_GLACNO: data.OTHER_CHARGES_GLACNO,
-        POSTED_INT: data.PAID_INTEREST_AMOUNT,
-        PAYABLE_INT: data.PAYABLE_INTEREST_AMOUNT,
-        PENAL_INT: data.PENAL_INTEREST_AMOUNT,
-        TotalInterest: data.TOTAL_INTEREST_AMOUNT,
+        POSTED_INT: Number(data.PAID_INTEREST_AMOUNT).toFixed(2),
+        PAYABLE_INT: Number(data.PAYABLE_INTEREST_AMOUNT).toFixed(2),
+        PENAL_INT: Number(data.PENAL_INTEREST_AMOUNT).toFixed(2),
+        TotalInterest: Number(data.TOTAL_INTEREST_AMOUNT).toFixed(2),
         AC_NO: data.TRAN_ACNO,
         AC_TYPE: Number(data.TRAN_ACTYPE),
         DATE: data.TRAN_DATE,
