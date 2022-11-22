@@ -28,8 +28,8 @@
                           <span class="border-lable-flt">
                             <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
                               (keyup)="filterObject($event)" (change)="getCustomer($event)"
-                              formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
-                              title="Compulsory Selection" required placeholder="" [loading]="loadingCustomer">
+                              formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}" placeholder="Please enter ID or name"
+                              title="Compulsory Selection" required  [loading]="loadingCustomer">
                               <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                 {{values.label}}</ng-option>
                             </ng-select>

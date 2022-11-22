@@ -1,30 +1,40 @@
 .required {
-    color: red;
-    font-size: 20px;
-  }
-  .btn{
-    margin: 3px;
-  }
-
-
-div.solid h3{
-    text-align: left;
-    margin-top: -3%;
-    height: 20px;
-    line-height: 20px;
-    font-size: 17px;
+  color: red;
+  font-size: 20px;
 }
 
-div.solid h3 span{
-    background-color: white;
+.btn {
+  margin: 3px;
 }
-  div.solid {border-style: solid;padding:2%}
 
-  div.solid1 {border-style: solid;border-width: thin;padding:1%}
 
-  .card-transaction .transaction-item:not(:last-child) {
-    margin-bottom: 1.5rem;
+div.solid h3 {
+  text-align: left;
+  margin-top: -3%;
+  height: 20px;
+  line-height: 20px;
+  font-size: 17px;
 }
+
+div.solid h3 span {
+  background-color: white;
+}
+
+div.solid {
+  border-style: solid;
+  padding: 2%
+}
+
+div.solid1 {
+  border-style: solid;
+  border-width: thin;
+  padding: 1%
+}
+
+.card-transaction .transaction-item:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
 .transaction-item {
   display: flex !important;
 }
@@ -40,30 +50,37 @@ div.solid h3 span{
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 .d-flex {
 
-  display: flex!important;
+  display: flex !important;
 }
+
 .bg-light-primary {
-  background: rgba(115,103,240,.12)!important;
-  color: #7367F0!important;
+  background: rgba(115, 103, 240, .12) !important;
+  color: #7367F0 !important;
 }
+
 .rounded {
-  border-radius: 0.357rem!important;
+  border-radius: 0.357rem !important;
 }
+
 .float-start {
-  float: left!important;
+  float: left !important;
 }
+
 .card-transaction .transaction-item .avatar {
   margin-right: 1.2rem;
 }
 
 .avatar.bg-light-primary {
-  color: #7367F0!important;
+  color: #7367F0 !important;
 }
+
 .avatar.bg-light-success {
-  color: #28C76F!important;
+  color: #28C76F !important;
 }
+
 .avatar {
   white-space: nowrap;
   background-color: #C3C3C3;
@@ -80,10 +97,12 @@ div.solid h3 span{
   vertical-align: middle;
   font-weight: 600;
 }
+
 .card-transaction .transaction-item .avatar .avatar-content {
   width: 42px;
   height: 42px;
 }
+
 .avatar .avatar-content {
   width: 32px;
   height: 32px;
@@ -104,15 +123,16 @@ div.solid h3 span{
 }
 
 .bg-light-success {
-  background: rgba(40,199,111,.12)!important;
-  color: #28C76F!important;
-}
-.bg-light-danger {
-  background: rgba(234,84,85,.12)!important;
-  color: #EA5455!important;
+  background: rgba(40, 199, 111, .12) !important;
+  color: #28C76F !important;
 }
 
-.transaction-title{
+.bg-light-danger {
+  background: rgba(234, 84, 85, .12) !important;
+  color: #EA5455 !important;
+}
+
+.transaction-title {
   margin-top: 5px;
   margin-left: 5px;
 
@@ -125,9 +145,85 @@ div.solid h3 span{
   position: relative;
   z-index: 2;
   color: red;
-} 
+}
 
-.form-control:disabled{
+.form-control:disabled {
   background-color: white !important;
   color: black !important;
+}
+
+.main-body .page-wrapper {
+  padding: 0.4rem;
+  padding-bottom: 4% !important;
+  transition: all ease-in 0.3s;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 0.2rem;
+}
+
+.alert-danger {
+  background-color: #fff;
+  border-color: #ff5252;
+  color: #ff5252;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: 11px;
+}
+
+.btn-outline-primary {
+  color: white;
+  border-color: black;
+  background-color: transparent;
+  // float: left;
+  align-items: center;
+  margin-right: 14px;
+  border-radius: 5px;
+  padding-bottom: 22px;
+  padding-top: 4px;
+  height: 25px;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0.1rem;
+  font-size: 14px;
+  // font-weight: 600;
+}
+
+.ng-select .ng-select-container {
+  color: #333;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  min-height: 18px;
+  max-height: 18px;
+  align-items: center;
+  font-size: 11px;
+}
+
+.input-group .border-lable-flt .form-control {
+  border-radius: 0.25rem;
+  height: 25px;
+  padding-bottom: 0px;
+}
+
+.form-control {
+  font-size: 11px;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  height: 18px;
+  padding: 0rem 0.7rem;
+}
+
+.card .card-block {
+  padding: 5px;
+  padding-bottom: 5px;
+}
+
+.align-items-center {
+  align-items: center !important;
+  margin-left: 35px;
 }
