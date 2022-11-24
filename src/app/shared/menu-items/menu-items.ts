@@ -1140,13 +1140,27 @@ const MENUITEMS = [
                 state:'SubSummary',
                 name:'Subsidiary Summary',
                 id:225
-              }
-              // {
-              //   state: 'BnkOtherBalList',
-              //   name: 'Other Receivable Balance List ',
-              //   id: 225
-              // },
-
+              },
+              {
+                state: 'AmountBalList',
+                name: 'AmountWise Balance List',
+                 id: 225
+              },
+              {
+                state: 'DeadStockDepCatList',
+                name: 'Deadstock Depriciation Categorywise List',
+                 id: 225
+              },
+              {
+                state: 'BalConCertificate',
+                name: 'Balance Confirmation Ceritificate',
+                 id: 225
+              },
+              {
+                state: 'shortballist',
+                name: 'Short Balance List',
+                 id: 225
+              },
 
             ]
           },
@@ -1202,6 +1216,11 @@ const MENUITEMS = [
               {
                 state: 'BnkRegGoldSilverSubReturn',
                 name: 'Gold Silver Submission/Return Register',
+                id: 203
+              },
+              {
+                state: 'DepositReceiptRegister',
+                name: 'Deposit Receipt Register',
                 id: 203
               },
             ]
@@ -1336,6 +1355,16 @@ const MENUITEMS = [
                 state: 'BnkPigmyCommissionRepo',
                 name: 'Pigmy Agent Commission Report',
                 id: 230
+              },
+              {
+                state: 'pigmyhandbook',
+                name: 'Pigmy  HandBook',
+                id: 231
+              },
+              {
+                state: 'pigmymaturedAclist',
+                name: 'Pigmy  Matured A/C List',
+                id: 231
               },
             ]
           },
