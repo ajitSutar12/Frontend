@@ -1111,6 +1111,36 @@ const MENUITEMS = [
                 name: 'Deadstock Balance List with depreciation',
                 id: 224
               },
+              {
+                state:'BnkDptAMList',
+                name:'Deposite Amount Wise Balance List',
+                id:225
+              },
+              {
+                 state:'CatbalList',
+                 name:'Categorywise Balance List',
+                 id:225
+              },
+              {
+                state:'DebbalReport',
+                name:'Debit Balance Report',
+                id:225
+              },
+              // {
+              //   state:'Bnkbalcon',
+              //   name:'balance confirmation certificate',
+              //   id:225
+              // },
+              // {
+              //    state:'Srtballist',
+              //    name:'Short Balance List',
+              //    id:225
+              // },
+              {
+                state:'SubSummary',
+                name:'Subsidiary Summary',
+                id:225
+              }
               // {
               //   state: 'BnkOtherBalList',
               //   name: 'Other Receivable Balance List ',
