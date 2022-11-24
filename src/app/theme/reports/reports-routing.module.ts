@@ -40,8 +40,8 @@ const routes: Routes = [
       },
       //
       {
-        path: 'termDepositReports',
-        loadChildren: () => import('./term-deposit-reports/termDepositReports.module').then(m => m.TermDepositReportsModule)
+        path: 'Termdeposit',
+        loadChildren: () => import('./term-deposits/term-deposits.module').then(m => m.TermDepositsModule)
       },
       //
      

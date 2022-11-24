@@ -74,6 +74,22 @@ const routes: Routes = [
         path: 'BnkACBalList',
         loadChildren: () => import('./bnk-acbal-list/bnk-acbal-list.module').then(m => m.BnkAcbalListModule)
       },
+      {
+        path: 'AmountBalList',
+        loadChildren: () => import('./bnk-ambal-list/bnk-ambal-list.module').then(m => m.BnkAmbalListModule)
+      },
+      {
+        path: 'DeadStockDepCatList',
+        loadChildren: () => import('./ded-dep-catwiselist/ded-dep-catwiselist.module').then(m => m.DedDepCatwiselistModule)
+      },
+      {
+        path: 'BalConCertificate',
+        loadChildren: () => import('./bal-con-certificate/bal-con-certificate.module').then(m => m.BalConCertificateModule)
+      },
+      {
+        path: 'shortballist',
+        loadChildren: () => import('./short-bal-list/short-bal-list.module').then(m => m.ShortBalListModule)
+      },
     
     ]
   }
