@@ -32,7 +32,6 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot()
-
   ],
   exports: [CustomerIdComponent],
   declarations: [CustomerIdComponent],

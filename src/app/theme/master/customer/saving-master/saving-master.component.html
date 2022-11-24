@@ -999,9 +999,9 @@
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             formControlName="AC_NNAME" maxlength="100" (keypress)="
                                               (($event.charCode >= 65 &&
-                                                $event.charCode < 90) ||
+                                                $event.charCode <= 90) ||
                                                 ($event.charCode >= 97 &&
-                                                  $event.charCode < 122) ||
+                                                  $event.charCode <= 122) ||
                                                 $event.charCode <= 32)
                                             " />
                                           <label for="AC_NNAME">Name<sub class="required">*
@@ -1033,9 +1033,9 @@
                                             id="AC_NRELA" pattern="^[A-Za-z\./ -]+$" style="text-transform: capitalize"
                                             (keypress)="
                                               (($event.charCode >= 65 &&
-                                                $event.charCode < 90) ||
+                                                $event.charCode <= 90) ||
                                                 ($event.charCode >= 97 &&
-                                                  $event.charCode < 122) ||
+                                                  $event.charCode <= 122) ||
                                                 $event.charCode <= 32)
                                             " [ngClass]="{
                                               'form-submitted': formSubmitted
@@ -1641,9 +1641,9 @@
                                           title="Input allowed only  A-Z a-z  - / . (Space)"
                                           formControlName="ATTERONEY_NAME" maxlength="100" (keypress)="
                                             (($event.charCode >= 65 &&
-                                              $event.charCode < 90) ||
+                                              $event.charCode <= 90) ||
                                               ($event.charCode >= 97 &&
-                                                $event.charCode < 122) ||
+                                                $event.charCode <= 122) ||
                                               $event.charCode <= 32)
                                           " />
                                         <label for="ATTERONEY_NAME">Name<sub class="required">*

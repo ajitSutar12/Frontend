@@ -83,7 +83,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeft = 5;
   todate: any = null
   fromdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   private dataSub: Subscription = null;
@@ -105,8 +105,11 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     private config: NgSelectConfig,) {
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -398,7 +401,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
             this.schemeACNo = data;
           })
           break;
-      }      this.ngacno = Number(data.TRAN_ACNO)
+      }
+      this.ngacno = Number(data.TRAN_ACNO)
     });
     this.angForm.controls['REVOKE_DATE'].enable()
 
