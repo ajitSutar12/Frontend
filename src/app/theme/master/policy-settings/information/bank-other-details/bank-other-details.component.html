@@ -73,7 +73,7 @@
                                 <span class="border-lable-flt">
 
                                     <input type="text" name="TAN_NO" pattern="^[A-Z0-9]+$" maxlength="10"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 48 && $event.charCode < 58)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
                                         class="form-control" placeholder=" " id="TAN_NO" value=""
                                         title="Input allowed only  A-Z 0-9" required formControlName="TAN_NO">
 
@@ -96,7 +96,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="PAN_NO" pattern="^[A-Z0-9]+$" maxlength="10"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 48 && $event.charCode < 58)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
                                         class="form-control" placeholder=" " id="PAN_NO" value=""
                                         title="Input allowed only  A-Z 0-9" required formControlName="PAN_NO">
 

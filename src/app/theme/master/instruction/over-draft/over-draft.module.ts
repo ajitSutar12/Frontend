@@ -15,7 +15,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { OverDraftComponent } from './over-draft.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
-
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,6 +35,6 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
     useClass: UserAuthInterceptor,
     multi: true
   },
-    SchemeCodeDropdownService, SchemeAccountNoService, overdraftservice, SystemMasterParametersService]
+    SchemeCodeDropdownService, SchemeAccountNoService, overdraftservice, SystemMasterParametersService, OwnbranchMasterService]
 })
 export class OverDraftModule { }

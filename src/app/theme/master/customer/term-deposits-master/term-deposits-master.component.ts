@@ -1012,7 +1012,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             }
             else {
               this.angForm.patchValue({
-                AC_MONTHS: months,  
+                AC_MONTHS: months,
                 // AC_DAYS: days
               })
             }
@@ -1046,6 +1046,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       })
     }
+    let obj = {
+      scheme: this.selectedValue,
+      AC_INTCATA: this.ngIntCategory,
+      days: Number(this.angForm.controls['AC_DAYS'].value),
+      month: Number(this.angForm.controls['AC_MONTHS'].value)
+    }
+    this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
+      this.angForm.patchValue({
+        AC_INTRATE: data
+      })
+    })
   }
   //compound interest
   i: number
