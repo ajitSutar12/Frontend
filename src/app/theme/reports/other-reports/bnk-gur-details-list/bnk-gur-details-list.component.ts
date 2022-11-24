@@ -32,6 +32,12 @@ export class BnkGurDetailsListComponent implements OnInit {
   //api
   url = environment.base_url;
   //Dropdown option variable
+dates: any = null
+showLoading:boolean = false;
+iframe5url:any='';
+report_url = environment.report_url;
+clicked:boolean=false;
+
   ngbranch
   branchOption: any;
   id: any;
@@ -48,6 +54,7 @@ export class BnkGurDetailsListComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private customerID: CustomerIDMasterDropdownService,
   ) {
+    this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -56,13 +63,27 @@ export class BnkGurDetailsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.getSystemParaDate();
+    //branchlist
+  
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe((data) => {
       this.Cust_ID = data;
+      this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+        this.dates = data.CURRENT_DATE;
+      });
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   createForm() {
@@ -70,41 +91,53 @@ export class BnkGurDetailsListComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.pattern]],
       AC_CUSTID:  ["", [Validators.pattern]],
       PRINT_CUSTID: [""],
-      OPENINGDATE: [""],
+      date: ['', [Validators.required]],
+      
       
     });
   }
    //set open date, appointed date and expiry date
-   getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.defaultDate = data.CURRENT_DATE
-    })
-  }
+  
   src: any;
-  view(event) {
-    debugger
-    
+ 
+  view(event){
+   
+   
+
     event.preventDefault();
     this.formSubmitted = true;
-    // if(this.angForm.valid){
 
-    // this.showRepo = true;
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
+
+    if(this.angForm.valid){
+
+   this.showRepo = true;
     let obj = this.angForm.value
-    let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    let scheme = obj.S_ACNOTYPE
-    const url = "http://localhost/NewReport/report-code/Report/examples/GuaranterList.php";
-    // const url = "http://localhost/NewReport/report-code/Report/examples/Nomineelist.php?startDate='" + date + "'&scheme='" + scheme + "'&";
-    console.log(url);
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    window.open(url, '_blank');
-   
-  // }
-  // else {
-    // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-  // }
+    let Date = moment(obj.date).format('DD/MM/YYYY');
+  let scheme = obj.AC_CUSTID
+    
+    let branch = obj.BRANCH_CODE;
   
-}
-  close(){
+    
+
+   this.iframe5url=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch+"&scheme='" + scheme+"&bankName=" + bankName + " ";
+   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  }
+  else {
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  }
 
   }
+  close(){
+    this.resetForm()
+
+  }
+  resetForm() {
+    this.angForm.controls.AC_CUSTID.reset();
+  
+      this.showRepo = false;
+      this.clicked=false;
+    }
 }

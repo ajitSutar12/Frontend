@@ -26,6 +26,23 @@ const routes: Routes = [
          loadChildren: () => import('./bnk-acbal-book/bnk-acbal-book.module').then(m => m.BnkACBalBookModule)
        },
        {
+        path: 'BnkDptAMList',
+        loadChildren: () => import('./bnk-dptambal-list/bnk-dptambal-list.module').then(m => m.BnkDptambalListModule)
+      },
+      {
+        path: 'CatbalList',
+        loadChildren: () => import('./bnk-catbal-list/bnk-catbal-list.module').then(m => m.BnkCatbalListModule)
+      },
+      {
+        path: 'SubSummary',
+        loadChildren: () => import('./bnk-sub-summary/bnk-sub-summary.module').then(m => m.BnkSubSummaryModule)
+      },
+      {
+        path: 'DebbalReport',
+        loadChildren: () => import('./bnk-debbal-report/bnk-debbal-report.module').then(m => m.BnkDebbalReportModule)
+      },
+    
+       {
          path: 'BnkCustIDBalList',
          loadChildren: () => import('./bnk-cust-idbal-list/bnk-cust-idbal-list.module').then(m => m.BnkCustIDBalListModule)
        },

@@ -44,10 +44,7 @@ const routes: Routes = [
         loadChildren: () => import('./term-deposits/term-deposits.module').then(m => m.TermDepositsModule)
       },
       //
-      {
-        path: 'loanReports',
-        loadChildren: () => import('./loan-reports/loanReports.module').then(m => m.LoanReportsModule)
-      },
+     
       //
       {
         path: 'npaReports',
@@ -93,6 +90,7 @@ const routes: Routes = [
         path: 'PigmyReport',
         loadChildren: () => import('./pigmy-report/pigmy-report.module').then(m => m.PigmyReportModule)
       },
+      
       //
       {
         path: 'iframecomponent',

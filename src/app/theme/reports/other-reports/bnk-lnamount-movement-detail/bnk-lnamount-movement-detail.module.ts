@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
 
 import {SharedModule} from '../../../../shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -32,7 +33,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkLNAmountMovementDetailRoutingModule
+    BnkLNAmountMovementDetailRoutingModule,
+    Iframe5Module
   ],
 
   declarations: [BnkLNAmountMovementDetailComponent],
