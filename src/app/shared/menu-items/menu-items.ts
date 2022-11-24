@@ -1178,16 +1178,65 @@ const MENUITEMS = [
           },
           //
           {
+            state: 'Termdeposit',
+            name: 'Term Deposit Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 134,
+            children: [
+              {
+                state: 'maturedbutnotpaid',
+                name: 'matured but not paid between two days',
+                id: 134
+              },
+              {
+                state: 'maturedbutnotclosed',
+                name: 'matured but not closed',
+                id: 92
+              } ,
+              {
+                state: 'depositpaidlist',
+                name: 'Deposit Paid List',
+                id: 93
+              },
+              {
+                state: 'intratewisebalancelist',
+                name: 'Interest Rate Wise List',
+                id: 94
+              },
+              {
+                state: 'custidwiseintpaidlist',
+                name: 'Customer Id Wise Interest Paid List',
+                id: 95
+              },
+              {
+                state: 'custidwiseloaninterestCertificate',
+                name: 'Customer Id Wise Deposit/Loan Interest Certificate',
+                id: 96
+              },
+              {
+                state: 'IntRatewiseMaturityList',
+                name: 'Interest Rate wise Maturity List',
+                id: 97
+              },
+              {
+                state: 'custidwisedepositlist',
+                name: 'Customer Id wise Deposit List',
+                id: 98
+              }
+              
+            ]
+  
+          },
+          //
+          {
             state: 'denominationReports',
             name: 'Denomination Reports',
             id: 134
           },
           //
-          {
-            state: 'termDepositReports',
-            name: 'Term Deposit Reports',
-            id: 135
-          },
+          
           //
           {
             state: 'loanReports',
