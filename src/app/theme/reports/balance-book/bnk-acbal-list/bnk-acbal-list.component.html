@@ -10,7 +10,8 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="BRANCH_CODE">Branch<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"><label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -30,7 +31,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_ACNOTYPE">Scheme Code<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_ACNOTYPE">Scheme Code<sub
+                                    class="required">*</sub></label>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -51,17 +53,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
-                                
+
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="defaultDate" [bsValue]="bsValue"                                           
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" [maxDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                        class="form-control" [(ngModel)]="defaultDate" [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="FROM_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker >
+                                        bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -84,7 +88,7 @@
                                     <ng-select formControlName="FROM_AC_NO" bindValue="value" bindLabel="label"
                                         [(ngModel)]="startingAccount">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
-                                            {{values.label}} {{values.name}}</ng-option>
+                                            {{values.label}} </ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -98,7 +102,8 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC_NO">Range Ending Code<sub class="required"> *
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC_NO">Range Ending Code<sub class="required">
+                                    *
                                 </sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -119,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class=" col-sm-12 col-md-2">
@@ -130,7 +135,8 @@
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" value="none" formControlName="radio"  [checked]="true">
+                                        <input type="radio" name="radio" value="none" formControlName="radio"
+                                            [checked]="true">
                                         <i class="helper"></i>None </label>
                                 </div>
 
@@ -168,22 +174,23 @@
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio_sort" value="account number" formControlName="radio_sort"  [checked]="true">
+                                        <input type="radio" name="radio_sort" value="account number"
+                                            formControlName="radio_sort" [checked]="true">
                                         <i class="helper"></i>Account Number </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio_sort" value="name"
-                                            formControlName="radio_sort">
+                                        <input type="radio" name="radio_sort" value="name" formControlName="radio_sort">
                                         <i class="helper"></i>Name </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio_sort" value="open date" formControlName="radio_sort">
+                                        <input type="radio" name="radio_sort" value="open date"
+                                            formControlName="radio_sort">
                                         <i class="helper"></i>Open Date </label>
                                 </div>
 
@@ -201,7 +208,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        
+
                         <div class="col-sm-12  col-md">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -227,7 +234,8 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox3"
                                         formControlName="PRINT_ANA_REASON" disabled>
-                                    <label class="border-checkbox-label" for="checkbox3" aria-disabled="true">Print Anamat
+                                    <label class="border-checkbox-label" for="checkbox3" aria-disabled="true">Print
+                                        Anamat
                                         Reason</label>
                                 </div>
                             </div>
@@ -240,12 +248,13 @@
                                 (click)="view($event); clicked = true ">View</button>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm"  (click)="close()">Close</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                (click)="close()">Close</button>
                         </div>
                     </div>
 
 
-                  <div class="row">
+                    <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
@@ -254,7 +263,7 @@
                                         <div *ngIf="showRepo">
                                             <app-iframe [url]='iframeurl'></app-iframe>
                                         </div>
-                    
+
                                     </div>
                                 </div>
                             </div>

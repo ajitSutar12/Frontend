@@ -39,15 +39,12 @@ const routes: Routes = [
         loadChildren: () => import('./denomination-reports/denominationReports.module').then(m => m.DenominationReportsModule)
       },
       //
-      {
-        path: 'termDepositReports',
-        loadChildren: () => import('./term-deposit-reports/termDepositReports.module').then(m => m.TermDepositReportsModule)
-      },
+      // {
+      //   path: 'termDepositReports',
+      //   loadChildren: () => import('./term-deposit-reports/termDepositReports.module').then(m => m.TermDepositReportsModule)
+      // },
       //
-      {
-        path: 'loanReports',
-        loadChildren: () => import('./loan-reports/loanReports.module').then(m => m.LoanReportsModule)
-      },
+   
       //
       {
         path: 'npaReports',
@@ -93,7 +90,18 @@ const routes: Routes = [
         path: 'PigmyReport',
         loadChildren: () => import('./pigmy-report/pigmy-report.module').then(m => m.PigmyReportModule)
       },
-      //
+      // {
+      //   path: 'TermDepositReports',
+      //   loadChildren: () => import('./term-deposit-reports/termDepositReports.module').then(m => m.TermDepositReportsModule)
+      // },
+      {
+        path: 'Termdeposit',
+        loadChildren: () => import('./term-deposits/term-deposits.module').then(m => m.TermDepositsModule)
+      },
+      {
+        path: 'LoanReport',
+        loadChildren: () => import('./loan-report/loan-report.module').then(m => m.LoanReportModule)
+      },
       {
         path: 'iframecomponent',
         component:IframecomponentComponent

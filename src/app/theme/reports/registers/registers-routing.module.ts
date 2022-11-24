@@ -50,6 +50,11 @@ const routes: Routes = [
         loadChildren: () => import('./bnk-reg-gold-silver-sub-return/bnk-reg-gold-silver-sub-return.module').then(m => m.BnkRegGoldSilverSubReturnModule)
       },
       {
+        path: 'DepositReceiptRegister',
+        loadChildren: () => import('./deposit-receipt-register/deposit-receipt-register.module').then(m => m.DepositReceiptRegisterModule)
+      },
+      
+      {
         path: 'iframe3',
         loadChildren: () => import('./iframe3/iframe3.module').then(m => m.Iframe3Module)
       },
