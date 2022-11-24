@@ -1292,6 +1292,22 @@ const MENUITEMS = [
             name: 'Loan Reports',
             id: 136
           },
+          {
+            state: 'LoanReport',
+            name: 'Loan Deposit Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 98,
+                  children: [
+              {
+                state: 'loancashcreditac',
+                name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
+                id: 99
+              },
+            ]
+          },
+        
           //
           {
             state: 'npaReports',

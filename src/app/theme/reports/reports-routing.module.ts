@@ -90,6 +90,10 @@ const routes: Routes = [
         path: 'PigmyReport',
         loadChildren: () => import('./pigmy-report/pigmy-report.module').then(m => m.PigmyReportModule)
       },
+      {
+        path: 'LoanReport',
+        loadChildren: () => import('./loan-report/loan-report.module').then(m => m.LoanReportModule)
+      },
       
       //
       {
