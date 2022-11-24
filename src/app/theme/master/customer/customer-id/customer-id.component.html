@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <div class="card"> 
+        <div class="card">
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <ng-container *ngIf='router.url==="/master/customer/customerId"'>
                     <div class="card-header">
@@ -11,7 +11,7 @@
                     </div>
                 </ng-container>
                 <div class="card-block">
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -48,7 +48,7 @@
                                     <ng-select bindValue="value" [(ngModel)]="ngTitle" id="AC_TITLE" bindLabel="label"
                                         formControlName="AC_TITLE" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Title"
-                                        onload="ngfocus()">
+                                        #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -69,9 +69,10 @@
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
-                                        (ngModelChange)="lname = $event?.toUpperCase()" style="text-transform:uppercase;"
-                                        [ngClass]="{'form-submitted': formSubmitted}" #lastname [(ngModel)]="lname"
-                                        title="Input allowed only A-Z" formControlName="L_NAME" required>
+                                        (ngModelChange)="lname = $event?.toUpperCase()"
+                                        style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
+                                        formControlName="L_NAME" required>
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
 
                                 </span>
@@ -93,9 +94,9 @@
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
-                                        (ngModelChange)="fname = $event?.toUpperCase()" style="text-transform:uppercase;"
-                                        [ngClass]="{'form-submitted': formSubmitted}" [(ngModel)]="fname"
-                                        title="Input allowed only A-Z" formControlName="F_NAME">
+                                        (ngModelChange)="fname = $event?.toUpperCase()"
+                                        style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [(ngModel)]="fname" title="Input allowed only A-Z" formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -148,7 +149,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" [(ngModel)]="ngCast" id="AC_CAST" bindLabel="label"
-                                        formControlName="AC_CAST" placeholder="Cast">
+                                        formControlName="AC_CAST" placeholder="Cast" #AC_CAST (focus)="onFocus(AC_CAST)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of castMaster" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -160,7 +162,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
-                                        bindLabel="label" formControlName="AC_OCODE" placeholder="Occupation">
+                                        bindLabel="label" formControlName="AC_OCODE" placeholder="Occupation" #AC_OCODE
+                                        (focus)="onFocus(AC_OCODE)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of occupation" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -172,7 +175,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG" bindLabel="label"
-                                        formControlName="AC_RISKCATG" placeholder="Risk Category">
+                                        formControlName="AC_RISKCATG" placeholder="Risk Category" #AC_RISKCATG
+                                        (focus)="onFocus(AC_RISKCATG)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of risk" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -229,6 +233,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="AC_BIRTH_DT" id="AC_BIRTH_DT"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #AC_BIRTH_DT="bsDatepicker" (keydown.Tab)="AC_BIRTH_DT.hide()" placement="left"
                                         formControlName="AC_BIRTH_DT" [bsValue]="bsValue" bsDatepicker required>
                                     <label for="AC_BIRTH_DT">Birth Date<sub class="required">* </sub></label>
                                 </span>
@@ -338,6 +343,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
                                         bindLabel="CITY_NAME" formControlName="AC_CTCODE" title="Compulsory Selection"
+                                        #AC_CTCODE (focus)="onFocus(AC_CTCODE)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="City" required>
 
                                     </ng-select>
@@ -511,9 +517,10 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" minlength="10"
-                                        maxlength="10" [(ngModel)]="ngSubmitDate"
+                                        maxlength="10" [(ngModel)]="ngSubmitDate" placement="top"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        formControlName="SUBMIT_DATE" [bsValue]="bsValue" bsDatepicker>
+                                        formControlName="SUBMIT_DATE" [bsValue]="bsValue" #SUBMIT_DATE="bsDatepicker"
+                                        (keydown.Tab)="SUBMIT_DATE.hide()" bsDatepicker>
                                     <label for="SUBMIT_DATE">Submission Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -708,14 +715,14 @@
                         <div class="row">
                             <div class="col-sm" style="float: right;">
                                 <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                    (click)="submit($event)">
+                                    (click)="submit($event);AC_TITLE.focus()">
                                     Submit
                                 </button>
-                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData();AC_TITLE.focus()"
                                     *ngIf="newbtnShow">
                                     Cancel
                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                <button class="btn btn-outline-primary btn-sm" (click)="updateData();AC_TITLE.focus()"
                                     *ngIf="updateShow">
                                     Update</button>
                             </div>

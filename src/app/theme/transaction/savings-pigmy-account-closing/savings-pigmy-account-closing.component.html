@@ -435,7 +435,8 @@
                                                                         class="form-control"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         bsDatepicker [maxDate]="maxDate"
-                                                                        [minDate]="minDate"
+                                                                        [minDate]="minDate" #ChequeDate="bsDatepicker"
+                                                                        (keydown.Tab)="ChequeDate.hide()"
                                                                         formControlName="ChequeDate">
                                                                 </span>
                                                             </div>

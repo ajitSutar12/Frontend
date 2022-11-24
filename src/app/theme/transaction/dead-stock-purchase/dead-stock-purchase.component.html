@@ -85,7 +85,7 @@
 
                                     <input type="text" name="GST_NO" pattern="^[A-Z0-9]+$" maxlength="15"
                                         class="form-control" placeholder=" " id="GST_NO" value=""
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 48 && $event.charCode < 58)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only A-Z 0-9" required formControlName="GST_NO">
 
                                 </span>
@@ -244,11 +244,11 @@
 
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <!-- <input type="text" class="deadstock" style="text-align: right;" (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 48 && $event.charCode < 58)"> -->
+                                            <!-- <input type="text" class="deadstock" style="text-align: right;" (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"> -->
                                             <input type="text" style="text-align: right;" name="CHEQUE_NUM"
                                                 class="form-control" placeholder=" "
                                                 [ngClass]="{'form-submitted': formSubmitted}" maxlength="10"
-                                                (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 48 && $event.charCode < 58)"
+                                                (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
                                                 id="CHEQUE_NUM" required="" title="Input allowed only A_Z 0-9"
                                                 formControlName="CHEQUE_NUM" />
 

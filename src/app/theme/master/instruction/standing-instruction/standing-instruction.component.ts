@@ -641,7 +641,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
         }
         this.ngAccno = Number(data.DR_AC_NO)
       }
-      else {
+      if (data.standingInsCr != null) {
         this.crno = data.CR_ACTYPE
         let obj = [this.crno, branchCode]
         this.ngCrAccno = null
