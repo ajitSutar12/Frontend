@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoancashcreditacOpensanctiondatewiseRoutingModule } from './loancashcreditac-opensanctiondatewise-routing.module';
-import { LoancashcreditacOpensanctiondatewiseComponent } from './loancashcreditac-opensanctiondatewise.component';
+import { DuebalSummaryRoutingModule } from './duebal-summary-routing.module';
+import { DuebalSummaryComponent } from './duebal-summary.component';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,11 +15,12 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
 
+
 @NgModule({
-  declarations: [LoancashcreditacOpensanctiondatewiseComponent],
+  declarations: [DuebalSummaryComponent],
   imports: [
     CommonModule,
-    LoancashcreditacOpensanctiondatewiseRoutingModule,
+    DuebalSummaryRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
@@ -28,7 +29,7 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
     DatepickerModule.forRoot(),
     Iframe5Module
   ],
-  exports:[LoancashcreditacOpensanctiondatewiseComponent],
+  exports:[DuebalSummaryComponent],
 
   providers:[OwnbranchMasterService,
    
@@ -45,4 +46,4 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
       multi: true
     }]
 })
-export class LoancashcreditacOpensanctiondatewiseModule { }
+export class DuebalSummaryModule { }

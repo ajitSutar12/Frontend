@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoancashcreditacOpensanctiondatewiseRoutingModule } from './loancashcreditac-opensanctiondatewise-routing.module';
-import { LoancashcreditacOpensanctiondatewiseComponent } from './loancashcreditac-opensanctiondatewise.component';
+import { AllsecurityDetailReportRoutingModule } from './allsecurity-detail-report-routing.module';
+import { AllsecurityDetailReportComponent } from './allsecurity-detail-report.component';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -13,13 +13,16 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
 
 @NgModule({
-  declarations: [LoancashcreditacOpensanctiondatewiseComponent],
+  declarations: [AllsecurityDetailReportComponent],
   imports: [
     CommonModule,
-    LoancashcreditacOpensanctiondatewiseRoutingModule,
+    AllsecurityDetailReportRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
@@ -28,10 +31,12 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
     DatepickerModule.forRoot(),
     Iframe5Module
   ],
-  exports:[LoancashcreditacOpensanctiondatewiseComponent],
+  exports:[AllsecurityDetailReportComponent],
 
   providers:[OwnbranchMasterService,
-   
+    SchemeCodeDropdownService,
+    SchemeCodeService,
+    SchemeAccountNoService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
@@ -45,4 +50,4 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
       multi: true
     }]
 })
-export class LoancashcreditacOpensanctiondatewiseModule { }
+export class AllsecurityDetailReportModule { }

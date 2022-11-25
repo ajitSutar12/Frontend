@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>AccountWise Loan Over Due List</h5>
+                <h5>All Securities Detail Reports</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
@@ -38,7 +38,7 @@
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                         [(ngModel)]="schemeCode" (change)="getIntro($event)">
                                         <ng-option *ngFor="let values of SchemeCodeDropdownDropdown" [value]="values">
-                                            {{values.id}}  {{values.label}}</ng-option>
+                                            {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
 
                                 </span>
@@ -47,71 +47,6 @@
                                 *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="defaultDate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                        formControlName="FROM_DATE" required bsDatepicker />
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['FROM_DATE'].invalid && (ngForm.controls['FROM_DATE'].dirty || ngForm.controls['FROM_DATE'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="ngForm.controls['FROM_DATE'].errors?.pattern || ngForm.controls['FROM_DATE'].errors?.required || ngForm.controls['FROM_DATE'].errors?.maxlength">
-                                    This is required Field .Input Date in format DD/MM/YYYY
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="Loan Demand Amount">Minimum Installment <sub
-                                    class="required">*</sub></label>
-                        </div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="" name="FAmount" id="FAmount"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
-                                        class="form-control" formControlName="FAmount" style="text-align: right;">
-                                </span>
-
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['FAmount'].invalid && (ngForm.controls['FAmount'].dirty || ngForm.controls['FAmount'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="ngForm.controls['FAmount'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="col-sm-12 col-md-2"> <label for="Loan Demand Amount"> Maximum Installment<sub
-                                    class="required">*</sub></label>
-                        </div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="" name="ToAmount" id="ToAmount"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
-                                        class="form-control" formControlName="ToAmount" style="text-align: right;">
-                                </span>
-
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['ToAmount'].invalid && (ngForm.controls['ToAmount'].dirty || ngForm.controls['ToAmount'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="ngForm.controls['ToAmount'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
@@ -160,24 +95,23 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-2">
-                            <div class="checkbox checkbox-primary">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input type="checkbox" class="border-checkbox" id="NEWPAGE"
-                                        formControlName="NEWPAGE">
-                                    <label class="border-checkbox-label" for="NEWPAGE">Show Guarantors 
-                                    </label>
-                                </div>
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                        class="form-control" [(ngModel)]="defaultDate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                        formControlName="FROM_DATE" required bsDatepicker />
+                                </span>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="checkbox checkbox-primary">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input type="checkbox" class="border-checkbox" id="NEWPAGE"
-                                        formControlName="NEWPAGEE">
-                                    <label class="border-checkbox-label" for="NEWPAGEE">Calculate Overdue Only After Expiry
-                                    </label>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['FROM_DATE'].invalid && (ngForm.controls['FROM_DATE'].dirty || ngForm.controls['FROM_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="ngForm.controls['FROM_DATE'].errors?.pattern || ngForm.controls['FROM_DATE'].errors?.required || ngForm.controls['FROM_DATE'].errors?.maxlength">
+                                    This is required Field .Input Date in format DD/MM/YYYY
                                 </div>
                             </div>
                         </div>
@@ -202,7 +136,7 @@
                                         <div *ngIf="showRepo">
                                             <app-iframe5 [url]='iframe5url'></app-iframe5>
                                         </div>
-                    
+
                                     </div>
                                 </div>
                             </div>

@@ -1305,6 +1305,22 @@ const MENUITEMS = [
                 name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
                 id: 99
               },
+              {
+                state: 'acwiseloanoverduelist',
+                name: 'AccountWise Loan Over Due List',
+                id: 99
+              },
+              {
+                state: 'duebalsummary',
+                name: 'Due Balance Summary',
+                id: 99
+              },
+              {
+                state: 'allsecuritydetailreport',
+                name: 'All Securities Detail Report',
+                id: 99
+              },
+              
             ]
           },
         

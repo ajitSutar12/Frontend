@@ -14,6 +14,18 @@ children:[
     path: 'loancashcreditac',
     loadChildren: () => import('./loancashcreditac-opensanctiondatewise/loancashcreditac-opensanctiondatewise.module').then(m => m.LoancashcreditacOpensanctiondatewiseModule)
   },
+  {
+    path: 'acwiseloanoverduelist',
+    loadChildren: () => import('./acwise-loanoverdue-list/acwise-loanoverdue-list.module').then(m => m.AcwiseLoanoverdueListModule)
+  },
+  {
+    path: 'duebalsummary',
+    loadChildren: () => import('./duebal-summary/duebal-summary.module').then(m => m.DuebalSummaryModule)
+  },
+  {
+    path: 'allsecuritydetailreport',
+    loadChildren: () => import('./allsecurity-detail-report/allsecurity-detail-report.module').then(m => m.AllsecurityDetailReportModule)
+  },
 ]
 }
 ];
