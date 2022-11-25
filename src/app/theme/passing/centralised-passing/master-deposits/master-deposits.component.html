@@ -68,7 +68,8 @@
 
                                                         <td
                                                             [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME === '' ? 'td_center' : 'td_left'">
-                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                            "-"
                                                             :
                                                             data.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                                         </td>
@@ -144,12 +145,12 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-term-deposits-master [childMessage]="termDepositData" (getUserData)="getData($event)">
+            <app-term-deposits-master [childMessage]="termDepositData" (reloadTablePassing)="reloadTable()">
             </app-term-deposits-master>
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
+            (click)="modalLarge.hide();" hidden>Close</button>
     </div>
 </app-modal-basic>

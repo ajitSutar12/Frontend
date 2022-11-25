@@ -1621,5 +1621,4 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       }
     }
   }
-
 }

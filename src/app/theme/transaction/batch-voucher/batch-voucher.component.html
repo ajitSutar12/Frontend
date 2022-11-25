@@ -143,7 +143,8 @@
                                         <input type="text" name="voucherAmount"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             class="form-control" placeholder=" " id="voucherAmount" maxlength="15"
-                                            title="Input allowed only  0-9" required formControlName="voucherAmount" style="text-align: right;" (focus)="selectAllContent($event)">
+                                            title="Input allowed only  0-9" required formControlName="voucherAmount"
+                                            style="text-align: right;" (focus)="selectAllContent($event)">
                                     </span>
                                 </div>
 
@@ -151,14 +152,17 @@
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="import" (click)="importFlag($event)"><span style="margin-right: 2%;" ></span>
+                                <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="import"
+                                    (click)="importFlag($event)"><span style="margin-right: 2%;"></span>
                                 <label for="vehicle1"> Import Data</label>
                             </div>
                             <div class="col-md-4" *ngIf="showImportDiv">
-                                <input type="file" class="form-control" formControlName="file"  #fileInput style="height:32px !important">
+                                <input type="file" class="form-control" formControlName="file" #fileInput
+                                    style="height:32px !important">
                             </div>
                             <div class="col-md-2" *ngIf="showImportDiv">
-                                <button class="btn btn-sm btn-outline-primary" (click)="ImportData()">Import Data</button>
+                                <button class="btn btn-sm btn-outline-primary" (click)="ImportData()">Import
+                                    Data</button>
                             </div>
                         </div>
                     </div>
@@ -193,7 +197,8 @@
                                             <td>{{item.AC_NO}}</td>
                                             <td><input type="text"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                    value="{{item.DEFAULT_AMOUNT}}" (focusout)="changeAmount($event,i)" style="text-align: right;" (focus)="selectAllContent($event)">
+                                                    value="{{item.DEFAULT_AMOUNT}}" (focusout)="changeAmount($event,i)"
+                                                    style="text-align: right;" (focus)="selectAllContent($event)">
                                             </td>
                                         </tr>
 
@@ -222,7 +227,8 @@
                                     <span class="border-lable-flt">
                                         <input type="text" class="form-control"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            [value]="totalAmt" readonly formControlName="TotalAmt" style="text-align: right;">
+                                            [value]="totalAmt" readonly formControlName="TotalAmt"
+                                            style="text-align: right;">
                                     </span>
 
                                 </div>
@@ -234,6 +240,9 @@
                                     (click)="Submit()">
                                     Submit
                                 </button>
+                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                    (click)="closeModal()">
+                                    Close</button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                     *ngIf="newbtnShow">
                                     Cancel
