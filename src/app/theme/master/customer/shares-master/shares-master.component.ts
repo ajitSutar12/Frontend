@@ -104,7 +104,7 @@ interface ShareMaster {
 
 export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -392,7 +392,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
-      this.schemeCode = data[0].value 
+      this.schemeCode = data[0].value
     })
 
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
@@ -1602,10 +1602,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'Share Account approved successfully',
         'success'
       );
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
-
-      this.getUserData.emit('welcome!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1626,8 +1625,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'success'
       );
 
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1739,5 +1739,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         })
         break;
     }
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

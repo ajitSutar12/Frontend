@@ -21,7 +21,7 @@ interface DeadStockPurchase {
   TRAN_SUPPLIER_NAME: string
   NARRATION: string
   TRAN_ENTRY_TYPE: string
-  
+
 }
 
 @Component({
@@ -35,6 +35,7 @@ export class PassdeadStockPurchaseComponent implements OnInit {
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -93,7 +94,7 @@ export class PassdeadStockPurchaseComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.deadStockPurchase = resp.data;
-            console.log('table data',this.deadStockPurchase)
+            console.log('table data', this.deadStockPurchase)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -118,7 +119,7 @@ export class PassdeadStockPurchaseComponent implements OnInit {
           title: 'Amount',
           data: 'TRAN_AMOUNT'
         },
-        
+
         {
           title: 'Supplier Name ',
           data: 'TRAN_SUPPLIER_NAME'
@@ -127,18 +128,18 @@ export class PassdeadStockPurchaseComponent implements OnInit {
           title: 'Narration',
           data: 'NARRATION'
         },
-        
+
         {
           title: 'Entry Type',
           data: 'TRAN_ENTRY_TYPE'
         },
-        
+
       ],
       dom: 'Blrtip',
 
     };
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
@@ -149,9 +150,7 @@ export class PassdeadStockPurchaseComponent implements OnInit {
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });

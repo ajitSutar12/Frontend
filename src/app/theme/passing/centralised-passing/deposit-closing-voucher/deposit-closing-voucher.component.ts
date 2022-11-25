@@ -15,15 +15,15 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface TermDepositClosingVoucher {
-  TRAN_NO:number;
-  IS_PREMATURE_CLOSE:number;
+  TRAN_NO: number;
+  IS_PREMATURE_CLOSE: number;
   TOKEN_NO: number;
   NET_PAYABLE_AMOUNT: number;
   TRAN_TYPE: string;
   TRAN_ACTYPE: string;
   TRAN_ACNO: number;
   USER_CODE: string;
-    
+
 }
 
 
@@ -37,6 +37,7 @@ export class DepositClosingVoucherComponent implements OnInit {
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -134,7 +135,7 @@ export class DepositClosingVoucherComponent implements OnInit {
         //   title: 'Scheme Code',
         //   data: 'TRAN_TYPE'
         // },
-        
+
         {
           title: 'Account Number',
           data: 'TRAN_ACNO'
@@ -155,10 +156,10 @@ export class DepositClosingVoucherComponent implements OnInit {
       dom: 'Blrtip',
 
     };
-    
+
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
@@ -169,18 +170,10 @@ export class DepositClosingVoucherComponent implements OnInit {
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  public reload():void{
+
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });
   }
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
-    });
-  }
-
-
 }

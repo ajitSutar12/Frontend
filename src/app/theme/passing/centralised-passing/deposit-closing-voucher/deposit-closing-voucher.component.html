@@ -39,7 +39,8 @@
                                                         </td>
                                                         <td
                                                             [ngClass]="data.TRAN_ACTYPE === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_ACTYPE === "" ? "-" : data.depocloseTran?.S_APPL }}
+                                                            {{ data.TRAN_ACTYPE === "" ? "-" :
+                                                            data.depocloseTran?.S_APPL }}
                                                         </td>
                                                         <td
                                                             [ngClass]="data.TRAN_ACNO === '' ? 'td_center' : 'td_right'">
@@ -81,11 +82,11 @@
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
             <app-term-deposit-account-closing [childMessage]="termDepositClosingVoucherData"
-                (getUserData)="getData($event)"></app-term-deposit-account-closing>
+                (reloadTablePassing)="reloadTable()"></app-term-deposit-account-closing>
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" id="trigger"
-            (click)="modalLarge.hide();">Close</button>
+            (click)="modalLarge.hide();" hidden>Close</button>
     </div>
 </app-modal-basic>

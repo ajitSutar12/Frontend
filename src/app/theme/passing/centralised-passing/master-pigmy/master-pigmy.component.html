@@ -80,7 +80,8 @@
                                                         </td>
                                                         <td
                                                             [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                            "-"
                                                             :
                                                             data.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                                         </td>
@@ -206,12 +207,12 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-pigmy-account-master [childMessage]="PigmyData" (getUserData)="getData($event)">
+            <app-pigmy-account-master [childMessage]="PigmyData" (reloadTablePassing)="reloadTable()">
             </app-pigmy-account-master>
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
+            (click)="modalLarge.hide();" hidden>Close</button>
     </div>
 </app-modal-basic>
