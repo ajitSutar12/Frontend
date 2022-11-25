@@ -18,6 +18,7 @@ import { first } from "rxjs/operators";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 
 @Component({
   selector: 'app-bnk-minors-list',
@@ -25,143 +26,135 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
   styleUrls: ['./bnk-minors-list.component.scss']
 })
 export class BnkMinorsListComponent implements OnInit {
+  iframe5url:any='';
+  @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
+formSubmitted = false;
+//fromgroup
+ngForm:FormGroup
+ // for dropdown ng module
+ ngbranch: any = null; 
+ scode: any = null;
+ //ngfor
+ scheme: any[];
+branchOption: any[];
+clicked:boolean=false;
+showRepo: boolean = false;
+showLoading:boolean = false;
 
-  formSubmitted = false;
-  //Dropdown option variable
-  branchOption: any;
-  ngbranch: any = null;
-  ngscheme: any = null;
-  ngacno: any = null;
-  ACNo: any;
-  defaultDate: any
-  schemetype: any = null
 
-  selectedOption = "3";
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = "3";
-  timeLeft = 5;
-
-  private dataSub: Subscription = null;
-  //Scheme type variable
-  schemeList
-  showRepo: boolean = false;
-  // Created Form Group
-  angForm: FormGroup;
-  //api
-  url = environment.base_url;
-
-   // Date variables
-   todate: any = null;
-   fromdate:any=null
-   maxDate: Date;
-   minDate: Date;
-   bsValue = new Date();
+ //date
+dates: any = null
+maxDate: Date;
+  minDate: Date;
+  report_url = environment.report_url;
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
-    public router: Router,
-    private sanitizer: DomSanitizer,
-    // for dropdown
-    private systemParameter: SystemMasterParametersService,
-    public SchemeTypes: SchemeTypeDropdownService,
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter:SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,
+    private sanitizer: DomSanitizer,
   ) {
+    this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
 
   ngOnInit(): void {
-    this.createForm();
-    this.getSystemParaDate();
-
    
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var schemetype = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'CA' ||  scheme.name == 'PG' || scheme.name == 'TD' )
-      });
-      this.schemetype = schemetype;
-
-    })
-
-       let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngbranch = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngbranch = result.branch.id
-    }
-    //branch List
+    this.createForm()
+    //branchlist
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.branchOption = data;
-    })
-
+     this.branchOption = data;
+   })
+ 
+  // Scheme Code
+  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+     
+   var filtered = data.filter(function (scheme) {
+     return (scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+   });
+   this.scheme = filtered;
+  
+   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+     this.dates = data.CURRENT_DATE;
+   });
+ 
+ })
+   
+   let data: any = localStorage.getItem('user');
+     let result = JSON.parse(data);
+     if (result.RoleDefine[0].Role.id == 1) {
+       this.ngbranch = result.branch.id
+       this.ngForm.controls['BRANCH_CODE'].enable()
+     }
+     else {
+       this.ngForm.controls['BRANCH_CODE'].disable()
+       this.ngbranch = result.branch.id
+     }
   }
+
   createForm() {
-    this.angForm = this.fb.group({
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      S_ACNOTYPE: ["", [Validators.pattern, Validators.required]],
-      MINAGECAl_DATE: ["", [Validators.pattern, Validators.required]],
-
+    this.ngForm = this.fb.group({
+      BRANCH_CODE: ['', [Validators.required]],
+      Scheme_code: ["",[ Validators.required]],
+      date: ['', [Validators.required]],
+    
+     
     });
+   
   }
+ 
 
+  view(event) {
+    
+    this.showLoading = true;
 
-  src: any;
-  reportWindow 
-  submit(event) {
-    debugger
     event.preventDefault();
     this.formSubmitted = true;
-    if (this.angForm.valid) {
-    // this.showRepo = true;
-    let obj = this.angForm.value
-    let date =obj.MINAGECAl_DATE==this.defaultDate?obj.MINAGECAl_DATE: moment(obj.MINAGECAl_DATE).format('DD/MM/YYYY');
-    console.log(date);
-    let scheme = obj.S_ACNOTYPE
-    let Branch = obj.BRANCH_CODE
-    const url = "http://localhost/NewReport/report-code/Report/examples/MinorList.php?startDate='"+date+"'&scheme='"+scheme+"'&Branch='"+Branch+"'&";
-    console.log(url);
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
+
+    if(this.ngForm.valid){
+
+   this.showRepo = true;
+    let obj = this.ngForm.value
+    let Date = moment(obj.date).format('DD/MM/YYYY');
+  let scheme = obj.Scheme_code
+    
+    let branch = obj.BRANCH_CODE;
+   
+    
+
+   this.iframe5url=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch +"&scheme='" + scheme+"&bankName=" + bankName + " ";
+   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  }
+  else {
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  }
+  }
+
   
-    this.reportWindow=window.open(url, '_blank');
-    // let ageCaldate
-    }
-    else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-    }
-
-
-
-    //To clear form
-    // this.resetForm();
-    this.formSubmitted = false;
-    // }
-  }
-  //set open date, appointed date and expiry date
-  getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.defaultDate = data.CURRENT_DATE
-    })
-  }
-
-
-
-  close() {
+  close(){
     this.resetForm()
-    this.reportWindow=window.close();
-  }
 
-  // Reset Function
-  resetForm() {
-    this.createForm();
-    this.showRepo = false;
   }
+  onLoad(){
+    this.showLoading = false;
+
+  }
+  resetForm() {
+  this.ngForm.controls.Scheme_code.reset();
+
+    this.showRepo = false;
+    this.clicked=false;
+  }
+  
+
+
+
+  
 }
