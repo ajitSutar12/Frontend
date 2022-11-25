@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { DataTableDirective } from 'angular-datatables';
@@ -29,7 +29,7 @@ class DataTableResponse {
 export class DeadStockPurchaseComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
-
+  @Output() reloadTablePassing = new EventEmitter<string>();
 
 
   formSubmitted = false;
@@ -568,7 +568,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         );
         var button = document.getElementById('triggerhide');
         button.click();
-
+        this.reloadTablePassing.emit();
       }, err => {
         console.log('something is wrong');
       })
@@ -594,6 +594,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       var button = document.getElementById('triggerhide');
       this.resetForm()
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -609,6 +610,10 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
-
+  closeModal() {
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
 
 }

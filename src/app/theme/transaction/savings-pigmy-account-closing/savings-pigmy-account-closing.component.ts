@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
@@ -28,7 +28,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('narrationhide') narrationhide: ElementRef<HTMLElement>;
-
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //api
   url = environment.base_url;
@@ -984,7 +984,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       );
       var button = document.getElementById('triggerhide');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1007,7 +1007,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       );
       var button = document.getElementById('triggerhide');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1062,5 +1062,10 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+  closeModal() {
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

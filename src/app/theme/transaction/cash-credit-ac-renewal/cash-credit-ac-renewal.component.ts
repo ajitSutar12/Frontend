@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
 import Swal from 'sweetalert2';
@@ -40,7 +40,7 @@ interface CashCreditLoanRenewal {
   styleUrls: ['./cash-credit-ac-renewal.component.scss']
 })
 export class CashCreditAcRenewalComponent implements OnInit {
-
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   formSubmitted = false;
@@ -555,7 +555,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       );
       var button = document.getElementById('triggerhide');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -577,6 +577,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       );
       var button = document.getElementById('triggerhide');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -623,5 +624,10 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
   blurDate(event) {
     event.target.blur()
+  }
+  closeModal() {
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

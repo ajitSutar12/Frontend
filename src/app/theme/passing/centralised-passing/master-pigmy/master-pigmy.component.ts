@@ -73,6 +73,7 @@ export class MasterPigmyComponent implements OnInit {
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -322,9 +323,7 @@ export class MasterPigmyComponent implements OnInit {
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });

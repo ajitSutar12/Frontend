@@ -16,7 +16,7 @@
                                     <ng-select bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE"
                                         bindLabel="label" formControlName="AC_TYPE" [disabled]="AC_TYPE"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                           required placeholder="Scheme">
+                                        required placeholder="Scheme" (change)="getReceiptNumber()">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -2231,6 +2231,9 @@
                                                                 *ngIf="showButton" (click)="submit($event)">
                                                                 Submit
                                                             </button>
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="approveShow" (click)="closeModal()">
+                                                                Close</button>
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="addNewData()" *ngIf="newbtnShow">
                                                                 Cancel

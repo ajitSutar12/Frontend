@@ -32,7 +32,6 @@
                                     <div class="col-sm">
                                         <div class="table-responsive">
                                             <table id="sharemastertable" datatable [dtOptions]="dtExportButtonOptions"
-                                               
                                                 class="table table-striped table-bordered table-hover compact">
                                                 <tbody *ngIf="shareMaster?.length != 0">
                                                     <tr *ngFor="let data of shareMaster">
@@ -41,7 +40,7 @@
                                                                 (click)="editClickHandler(data.id)" placement="bottom"
                                                                 ngbTooltip="Edit"
                                                                 (click)="modalLarge.show();getShareData(data)"></span>
-                                                            
+
                                                         </td>
                                                         <td
                                                             [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
@@ -81,7 +80,8 @@
                                                         </td>
                                                         <td
                                                             [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                            "-"
                                                             :
                                                             data.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                                         </td>
@@ -90,7 +90,8 @@
                                                             {{ data.AC_OPDATE === "" ? "-" : data.AC_OPDATE }}
                                                         </td>
                                                         <td [ngClass]="data.AC_BRANCH=== '' ? 'td_center' : 'td_right'">
-                                                            {{ data.AC_BRANCH === "" ? "-" : data.BranchCodeMaster.CODE  }}
+                                                            {{ data.AC_BRANCH === "" ? "-" : data.BranchCodeMaster.CODE
+                                                            }}
                                                         </td>
                                                         <!-- <td [ngClass]="data.AC_SALARYDIVISION_CODE === '' ? 'td_center' : 'td_left'">
                                             {{ data.AC_SALARYDIVISION_CODE === "" ? "-" : data.AC_SALARYDIVISION_CODE }}
@@ -133,11 +134,11 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-shares-master [childMessage]="shareData" (getUserData)="getData($event)"></app-shares-master>
+            <app-shares-master [childMessage]="shareData" (reloadTablePassing)="reloadTable()"></app-shares-master>
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
+            (click)="modalLarge.hide();" hidden>Close</button>
     </div>
 </app-modal-basic>

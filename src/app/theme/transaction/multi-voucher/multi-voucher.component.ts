@@ -1052,6 +1052,7 @@ export class MultiVoucherComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
 
     }, err => {
       console.log('something is wrong');
@@ -2227,5 +2228,10 @@ export class MultiVoucherComponent implements OnInit {
       this.submitForm = false
       this.totalAmt = parseFloat(value).toFixed(2);
     }
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

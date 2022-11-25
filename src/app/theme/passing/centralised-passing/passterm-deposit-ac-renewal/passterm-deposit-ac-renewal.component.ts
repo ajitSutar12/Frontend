@@ -20,7 +20,7 @@ interface TermDepositAcRenewal {
   AC_TYPE: string
   AC_NO: string
   NEW_RECEIPTNO: string
-    
+
 }
 @Component({
   selector: 'app-passterm-deposit-ac-renewal',
@@ -33,6 +33,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -120,7 +121,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
         //   title: 'Account Name',
         //   data: 'AC_NAME'
         // },
-        
+
         {
           title: 'Account Number',
           data: 'AC_NO'
@@ -129,13 +130,13 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
           title: 'Receipt Number',
           data: 'NEW_RECEIPTNO'
         },
-       
+
       ],
       dom: 'Blrtip',
 
     };
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
@@ -146,9 +147,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });

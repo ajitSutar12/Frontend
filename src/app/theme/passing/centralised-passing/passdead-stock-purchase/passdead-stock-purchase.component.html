@@ -74,7 +74,7 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-dead-stock-purchase [childMessage]="deadStockPurchaseData" (getUserData)="getData($event)">
+            <app-dead-stock-purchase [childMessage]="deadStockPurchaseData" (reloadTablePassing)="reloadTable()">
             </app-dead-stock-purchase>
 
 
@@ -82,7 +82,7 @@
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide" (click)="modalLarge.hide();"
+            hidden>Close</button>
     </div>
 </app-modal-basic>

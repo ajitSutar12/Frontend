@@ -38,8 +38,8 @@
                                                     <tr *ngFor="let data of cashCreditMaster">
                                                         <td>
                                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                                (click)="getCashCreditData(data)" placement="bottom"
-                                                                ngbTooltip="Edit"></span>
+                                                                (click)="modalLarge.show();getCashCreditData(data)"
+                                                                placement="bottom" ngbTooltip="Edit"></span>
                                                         </td>
                                                         <td
                                                             [ngClass]="data.LNCCMaster?.S_APPL === '' ? 'td_center' : 'td_right'">
@@ -71,7 +71,8 @@
                                                         </td>
                                                         <td
                                                             [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                            "-"
                                                             :
                                                             data.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                                         </td>
@@ -160,12 +161,12 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-cash-credit-master [childMessage]="cashCreditData" (getUserData)="getData($event)">
+            <app-cash-credit-master [childMessage]="cashCreditData" (reloadTablePassing)="reloadTable()">
             </app-cash-credit-master>
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" triggerhide id="trigger"
+            (click)="modalLarge.hide();" hidden>Close</button>
     </div>
 </app-modal-basic>

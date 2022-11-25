@@ -51,7 +51,7 @@ interface InvestmentMaster {
 
 export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   //api 
   url = environment.base_url;
   formSubmitted = false;
@@ -479,8 +479,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       );
       var button = document.getElementById('triggerhide');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -503,9 +502,15 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
 
       var button = document.getElementById('triggerhide');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
   }
 
+  closeModal() {
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
 }
