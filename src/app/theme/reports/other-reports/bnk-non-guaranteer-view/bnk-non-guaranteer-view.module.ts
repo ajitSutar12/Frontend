@@ -18,6 +18,8 @@ import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
+import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -32,7 +34,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkNonGuaranteerViewRoutingModule
+    BnkNonGuaranteerViewRoutingModule,
+    Iframe5Module
   ],
 
   declarations: [BnkNonGuaranteerViewComponent],

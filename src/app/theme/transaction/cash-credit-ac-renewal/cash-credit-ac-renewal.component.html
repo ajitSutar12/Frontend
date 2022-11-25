@@ -601,6 +601,8 @@
                                 [disabled]="angForm.invalid" (click)="submit();branchcode.focus()">
                                 Renew
                             </button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                                Close</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                 Cancel
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;

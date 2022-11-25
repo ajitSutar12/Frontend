@@ -120,8 +120,8 @@ interface CashCreditMaster {
 })
 
 export class CashCreditMasterComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   selected
   imageObject = new Array();
@@ -1645,7 +1645,7 @@ export class CashCreditMasterComponent implements OnInit {
         }
       })
       this.angForm.patchValue({
-        AC_INTRATE: temp.rate[0].INT_RATE,
+        AC_INTRATE: temp?.rate[0]?.INT_RATE,
       })
     })
   }
@@ -1999,10 +1999,9 @@ export class CashCreditMasterComponent implements OnInit {
         'Cash Credit Account approved successfully',
         'success'
       );
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -2023,10 +2022,16 @@ export class CashCreditMasterComponent implements OnInit {
         'success'
       );
 
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

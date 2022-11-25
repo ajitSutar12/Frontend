@@ -203,7 +203,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="REF_ACNO" pattern="^[A-Za-z0-9\./ -]+$"
                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
-                                                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         formControlName="REF_ACNO">
                                                                     <label for="REF_ACNO">Manual Reference
                                                                         Number</label>
@@ -805,7 +805,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_DIRECTOR_RELATION"
                                                                         pattern="^[A-Za-z\./ -]+$"
-                                                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122)"
+                                                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         formControlName="AC_DIRECTOR_RELATION" disabled>
                                                                     <label for="AC_DIRECTOR_RELATION">Director
@@ -2063,6 +2063,9 @@
                                                                 *ngIf="showButton" (click)="submit($event)">
                                                                 Submit
                                                             </button>
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="approveShow" (click)="closeModal()">
+                                                                Close</button>
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="addNewData()" *ngIf="newbtnShow">
                                                                 Cancel

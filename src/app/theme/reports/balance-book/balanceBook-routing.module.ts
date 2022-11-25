@@ -26,6 +26,23 @@ const routes: Routes = [
          loadChildren: () => import('./bnk-acbal-book/bnk-acbal-book.module').then(m => m.BnkACBalBookModule)
        },
        {
+        path: 'BnkDptAMList',
+        loadChildren: () => import('./bnk-dptambal-list/bnk-dptambal-list.module').then(m => m.BnkDptambalListModule)
+      },
+      {
+        path: 'CatbalList',
+        loadChildren: () => import('./bnk-catbal-list/bnk-catbal-list.module').then(m => m.BnkCatbalListModule)
+      },
+      {
+        path: 'SubSummary',
+        loadChildren: () => import('./bnk-sub-summary/bnk-sub-summary.module').then(m => m.BnkSubSummaryModule)
+      },
+      {
+        path: 'DebbalReport',
+        loadChildren: () => import('./bnk-debbal-report/bnk-debbal-report.module').then(m => m.BnkDebbalReportModule)
+      },
+    
+       {
          path: 'BnkCustIDBalList',
          loadChildren: () => import('./bnk-cust-idbal-list/bnk-cust-idbal-list.module').then(m => m.BnkCustIDBalListModule)
        },
@@ -56,6 +73,22 @@ const routes: Routes = [
       {
         path: 'BnkACBalList',
         loadChildren: () => import('./bnk-acbal-list/bnk-acbal-list.module').then(m => m.BnkAcbalListModule)
+      },
+      {
+        path: 'AmountBalList',
+        loadChildren: () => import('./bnk-ambal-list/bnk-ambal-list.module').then(m => m.BnkAmbalListModule)
+      },
+      {
+        path: 'DeadStockDepCatList',
+        loadChildren: () => import('./ded-dep-catwiselist/ded-dep-catwiselist.module').then(m => m.DedDepCatwiselistModule)
+      },
+      {
+        path: 'BalConCertificate',
+        loadChildren: () => import('./bal-con-certificate/bal-con-certificate.module').then(m => m.BalConCertificateModule)
+      },
+      {
+        path: 'shortballist',
+        loadChildren: () => import('./short-bal-list/short-bal-list.module').then(m => m.ShortBalListModule)
       },
     
     ]

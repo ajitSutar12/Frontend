@@ -1,24 +1,15 @@
-import {AfterViewInit,Component,OnDestroy,OnInit,ViewChild,Input,Output,EventEmitter,ElementRef,}from "@angular/core";
-import { Subject, Subscription } from "rxjs";
-// Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-// Displaying Sweet Alert
-import Swal from "sweetalert2";
-// Used to Call API
-import { HttpClient, HttpParams } from "@angular/common/http";
-
-import { Router } from "@angular/router";
+import {Component,OnInit}from "@angular/core";
+import { FormGroup , FormBuilder, Validators,FormControl} from "@angular/forms";
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
-import { environment } from "src/environments/environment";
-import { DomSanitizer} from '@angular/platform-browser';
 import { first } from "rxjs/operators";
-import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
-import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
-import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
-import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
-import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
-import { IOption } from "ng-select";
-
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
+import Swal from 'sweetalert2';
+import { DomSanitizer} from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-bnk-lien-marked-ac-list',
@@ -26,142 +17,122 @@ import { IOption } from "ng-select";
   styleUrls: ['./bnk-lien-marked-ac-list.component.scss']
 })
 export class BnkLienMarkedAcListComponent implements OnInit {
- 
-  // Date variables
-  todate: any = null;
-  fromdate: any = null
-  maxDate: Date;
-  minDate: Date;
-  bsValue = new Date();
-  formSubmitted = false;
-  //Dropdown option variable
-  branchOption: any;
-  ngbranch: any = null;
-  ngscheme: any = null;
-  ngacno: any = null;
-  ACNo: any;
-  defaultDate: any
-   //title select variables
-   schemetype: any = null
-
-  selectedOption = "3";
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = "3";
-  timeLeft = 5;
-
-  private dataSub: Subscription = null;
-  //Scheme type variable
-  schemeList
-  showRepo: boolean = false;
-  // Created Form Group
-  angForm: FormGroup;
-  //api
-  url = environment.base_url;
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    public router: Router,
-    private sanitizer: DomSanitizer,
-    // for dropdown
-    private systemParameter: SystemMasterParametersService,
-    public SchemeTypes: SchemeTypeDropdownService,
+// Created Form Group
+ngForm: FormGroup;
+maxDate: Date;
+minDate: Date;
+ //for dropdown
+ branchOption:any[];
+ scheme: any[];
+ // for dropdown ng module
+ ngbranch:any = null;
+ scode:any = null;
+ defaultDate:any
+ ///iframe 
+ formSubmitted = false;
+ report_url = environment.report_url;
+ showRepo: boolean = false;
+ clicked:boolean=false;
+ iframeurl: any = ' ';
+  constructor(private fb: FormBuilder,
+    private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,
-  ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    private systemParameter:SystemMasterParametersService,
+    private sanitizer: DomSanitizer,
+    public schemeTypeDropdown: SchemeTypeDropdownService,
+  
+) {
+  this.defaultDate = moment().format('DD/MM/YYYY');
+  this.maxDate = new Date();
+  this.minDate = new Date();
+  this.minDate.setDate(this.minDate.getDate() - 1);
+  this.maxDate.setDate(this.maxDate.getDate())
   }
 
   ngOnInit(): void {
-    this.createForm();
-    this.getSystemParaDate();
-
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var schemetype = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC')
-      });
-      this.schemetype = schemetype;
+    this.createForm()
     
-
-    })
-
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngbranch = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngbranch = result.branch.id
-    }
     //branch List
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-      console.log('ownbranchmaster', data)
-    })
-
-  }
-  createForm() {
-    this.angForm = this.fb.group({
-      START_DATE: ["", [Validators.pattern, Validators.required]],
-      END_DATE: ["", [Validators.pattern, Validators.required]],
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      S_ACNOTYPE: ["", [Validators.pattern, Validators.required]],
     });
-  }
-
-
-  src: any;
-  submit(event) {
-    debugger
-
-    event.preventDefault();
-    this.formSubmitted = true;
-    if (this.angForm.valid) {
-
-      // this.showRepo = true;
-      let obj = this.angForm.value
-      let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-      let scheme = obj.S_ACNOTYPE;
-      let branch = obj.BRANCH_CODE.label;
-
-      const url = "http://localhost/NewReport/report-code/Report/examples/LineMarkedList.php?startDate='"+startdate+"' &enddate='"+enddate+"' &scheme='"+scheme+"' &branch='"+branch+"' &";
-      console.log(url);
-      // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      window.open(url, '_blank');
-
+     // Scheme Code
+     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+      });
+      this.scheme = filtered;
+  
+    })
+      //display defalut date
+  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+    this.defaultDate = data.CURRENT_DATE;
+  })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
     }
-
-
-
-    //To clear form
-    // this.resetForm();
-    this.formSubmitted = false;
-    // }
   }
-  //set open date, appointed date and expiry date
-  getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.defaultDate = data.CURRENT_DATE
-    })
-  }
-  close() {
-    this.resetForm()
-  }
+ //validation
+ createForm() {
+  this.ngForm = this.fb.group({
+   Scheme_code: ["", [Validators.pattern, Validators.required]],
+   FROM_DATE: ['', [Validators.pattern, Validators.required]],
+   BRANCH_CODE: ['', [Validators.pattern, Validators.required]],
 
-  // Reset Function
-  resetForm() {
-    this.createForm();
-    this.showRepo = false;
-  }
+  });
 }
+src: any;
+view(event) {
+
+  event.preventDefault();
+  this.formSubmitted = true;
+
+  let userData = JSON.parse(localStorage.getItem('user'));
+  let bankName = userData.branch.syspara.BANK_NAME;
+  let branchName = userData.branch.NAME;
+  
+  if(this.ngForm.valid){
+  let obj = this.ngForm.value
+  this.showRepo = true;
+  let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+  var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+  let scheme = obj.Scheme_code 
+  let branch = obj.BRANCH_CODE
+       
+ this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch + bankName + "";
+ this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+ 
+ 
+ 
+}
+else {
+  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+}
+
+}
+
+close(){
+this.resetForm()
+}
+
+// Reset Function
+resetForm() {
+this.ngForm.controls.Scheme_code.reset();
+this.showRepo = false;
+this.clicked=false;
+}
+
+}
+
+
+  
+
 

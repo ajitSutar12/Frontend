@@ -32,6 +32,7 @@ import { first } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { NgSelectComponent } from '@ng-select/ng-select'
 
 // Handling datatable data
 class DataTableResponse {
@@ -68,7 +69,7 @@ interface deadstockinterface {
 })
 export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //calculations
 
@@ -276,7 +277,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
 
   createForm() {
     this.angForm = this.fb.group({
-      ITEM_TYPE: ["", [Validators.required, Validators.pattern]],
+      ITEM_TYPE: [[Validators.required, Validators.pattern]],
       ITEM_CODE: [""],
       ITEM_NAME: ["", [Validators.required, Validators.pattern]],
       PURCHASE_DATE: ["", [Validators.required]],
@@ -285,9 +286,9 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       SUPPLIER_NAME: ["", [Validators.required, Validators.pattern]],
       PURCHASE_OP_QUANTITY: [""],
       PURCHASE_RATE: ["", [Validators.pattern]],
-      PURCHASE_QUANTITY: ["", [Validators.pattern]],
+      PURCHASE_QUANTITY: [[Validators.pattern]],
       PURCHASE_VALUE: ["", [Validators.pattern]],
-      OP_BALANCE: ["", [Validators.pattern]],
+      OP_BALANCE: [[Validators.pattern]],
       OP_QUANTITY: ["", [Validators.pattern]],
       LAST_DEPR_DATE: ["", [Validators.pattern]],
       GL_ACNO: ["", [Validators.required]],
@@ -440,7 +441,13 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           // PURCHASE_VALUE: data.PURCHASE_VALUE,
           OP_BALANCE: data.OP_BALANCE,
           OP_QUANTITY: data.OP_QUANTITY,
-          LAST_DEPR_DATE: (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
+          LAST_DEPR_DATE: (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = null : date2 = data.LAST_DEPR_DATE,
+          // ITEM_TYPE: data.ITEM_TYPE,
+          ITEM_CODE: data.ITEM_CODE,
+          ITEM_NAME: data.ITEM_NAME,
+          PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
+          // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
+          GL_ACNO: Number(data.GL_ACNO),
         })
       } else {
         this.angForm.controls['SUPPLIER_NAME'].disable()
@@ -458,16 +465,24 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.angForm.controls['PURCHASE_VALUE'].reset()
         this.angForm.controls['LAST_DEPR_DATE'].reset()
         this.angForm.controls['OP_BAL_DATE'].reset()
+        this.angForm.patchValue({
+          // ITEM_TYPE: data.ITEM_TYPE,
+          ITEM_CODE: data.ITEM_CODE,
+          ITEM_NAME: data.ITEM_NAME,
+          PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
+          // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
+          GL_ACNO: Number(data.GL_ACNO),
+        });
       }
 
-      this.angForm.patchValue({
-        // ITEM_TYPE: data.ITEM_TYPE,
-        ITEM_CODE: data.ITEM_CODE,
-        ITEM_NAME: data.ITEM_NAME,
-        PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
-        // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
-        GL_ACNO: Number(data.GL_ACNO),
-      });
+      // this.angForm.patchValue({
+      //   // ITEM_TYPE: data.ITEM_TYPE,
+      //   ITEM_CODE: data.ITEM_CODE,
+      //   ITEM_NAME: data.ITEM_NAME,
+      //   PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
+      //   // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
+      //   GL_ACNO: Number(data.GL_ACNO),
+      // });
     });
   }
 
@@ -517,6 +532,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+      this.resetForm()
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
       });
@@ -638,8 +654,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       );
       var button = document.getElementById('triggerhide');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -660,8 +675,37 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
 
       var button = document.getElementById('triggerhide');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
+  }
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
+  }
+  closeModal() {
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

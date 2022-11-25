@@ -33,7 +33,14 @@ children:[
      path: 'BnkPigmyCommissionRepo',
      loadChildren: () => import('./bnk-pigmy-commission-repo/bnk-pigmy-commission-repo.module').then(m => m.BnkPigmyCommissionRepoModule)
    },
-  
+   {
+    path: 'pigmyhandbook',
+    loadChildren: () => import('./pigmy-handbook/pigmy-handbook.module').then(m => m.PigmyHandbookModule)
+  },
+  {
+    path: 'pigmymaturedAclist',
+    loadChildren: () => import('./bnk-pigmy-matured-aclist/bnk-pigmy-matured-aclist.module').then(m => m.BnkPigmyMaturedAclistModule)
+  },
 
 
 ]

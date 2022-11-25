@@ -143,7 +143,7 @@ View(event){
   
   this.iframeurl = this.report_url+"examples/goldsilversubmreturn.php?startDate='"+startDate+"'&endDate='"+enddate+"'&BRANCH_CODE='"+BRANCH_CODE+"'&bankName='" + bankName + "' ";
   this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
-
+  // console.log(this.iframeurl);
   }
   else {
     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});

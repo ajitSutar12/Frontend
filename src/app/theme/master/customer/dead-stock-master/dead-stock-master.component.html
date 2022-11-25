@@ -15,7 +15,8 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select id="ITEM_TYPE" bindValue="value" [(ngModel)]="ngItem"
                                         formControlName="ITEM_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Type">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Type" #ITEM_TYPE
+                                        (focus)="onFocus(ITEM_TYPE)" [selectOnTab]='true' required autofocus>
                                         <ng-option *ngFor="let values of itemtypeoption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -57,7 +58,7 @@
                                     <input type="text" name="Name" class="form-control" placeholder=" " required=""
                                         value="" id="ITEM_NAME" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="ITEM_NAME" [ngClass]="{'form-submitted': formSubmitted}" />
                                     <label for="ITEM_NAME">Item Name<sub class="required">* </sub></label>
                                 </span>
@@ -105,6 +106,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre"
                                         formControlName="DEPR_CATEGORY" bindLabel="label" title="Compulsory Selection"
+                                        #DEPR_CATEGORY (focus)="onFocus(DEPR_CATEGORY)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}"
                                         placeholder="Depriciation Category">
                                         <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
@@ -154,7 +156,7 @@
                                     <input type="text" name="Name" class="form-control" placeholder=" "
                                         id="SUPPLIER_NAME" value="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="SUPPLIER_NAME" [ngClass]="{'form-submitted': formSubmitted}"
                                         [required]="openingReq" disabled />
                                     <label for="SUPPLIER_NAME">Supplier Name</label>
@@ -190,7 +192,8 @@
                   (angForm.controls['OP_BALANCE'].dirty ||
                     angForm.controls['OP_BALANCE'].touched)
                 " class="alert alert-danger">
-                                <div *ngIf="angForm.controls['OP_BALANCE'].errors?.pattern">
+                                <div
+                                    *ngIf="angForm.controls['OP_BALANCE'].errors?.pattern || angForm.controls['OP_BALANCE'].errors?.required">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -212,7 +215,8 @@
               (angForm.controls['OP_QUANTITY'].dirty ||
                 angForm.controls['OP_QUANTITY'].touched)
             " class="alert alert-danger">
-                                <div *ngIf="angForm.controls['OP_QUANTITY'].errors?.pattern">
+                                <div
+                                    *ngIf="angForm.controls['OP_QUANTITY'].errors?.pattern || angForm.controls['OP_QUANTITY'].errors?.required">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -235,7 +239,8 @@
               (angForm.controls['PURCHASE_RATE'].dirty ||
                 angForm.controls['PURCHASE_RATE'].touched)
             " class="alert alert-danger">
-                                <div *ngIf="angForm.controls['PURCHASE_RATE'].errors?.pattern">
+                                <div
+                                    *ngIf="angForm.controls['PURCHASE_RATE'].errors?.pattern || angForm.controls['PURCHASE_RATE'].errors?.required">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -260,7 +265,8 @@
               (angForm.controls['PURCHASE_OP_QUANTITY'].dirty ||
                 angForm.controls['PURCHASE_OP_QUANTITY'].touched)
             " class="alert alert-danger">
-                                <div *ngIf="angForm.controls['PURCHASE_OP_QUANTITY'].errors?.pattern">
+                                <div
+                                    *ngIf="angForm.controls['PURCHASE_OP_QUANTITY'].errors?.pattern || angForm.controls['PURCHASE_OP_QUANTITY'].errors?.required">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -294,6 +300,7 @@
                                         id="LAST_DEPR_DATE" class="form-control"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="LAST_DEPR_DATE"
                                         [(ngModel)]="nglastdedate" disabled [maxDate]="maxDate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [required]="openingReq" bsDatepicker
                                         [ngClass]="{'form-submitted': formSubmitted}">
@@ -305,7 +312,8 @@
               (angForm.controls['LAST_DEPR_DATE'].dirty ||
                 angForm.controls['LAST_DEPR_DATE'].touched)
             " class="alert alert-danger">
-                                <div *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.pattern">
+                                <div
+                                    *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.pattern || angForm.controls['LAST_DEPR_DATE'].errors?.required">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -315,7 +323,8 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
                                         formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="GL Account Number">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="GL Account Number"
+                                        #GL_ACNO (focus)="onFocus(GL_ACNO)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of GLACNooption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -336,17 +345,23 @@
                     <div class="row">
                         <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit($event)">
+                                (click)="submit($event);ITEM_TYPE.focus()">
                                 Submit
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                                Close</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();ITEM_TYPE.focus()"
+                                *ngIf="newbtnShow">
                                 Cancel
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();ITEM_TYPE.focus()"
+                                *ngIf="updateShow">
                                 Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
+                                (click)="reject();ITEM_TYPE.focus()">
                                 Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                (click)="Approve();ITEM_TYPE.focus()">
                                 Approve</button>
                         </div>
                     </div>

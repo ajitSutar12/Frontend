@@ -25,6 +25,7 @@ import { NgSelectComponent } from '@ng-select/ng-select'
   styleUrls: ['./voucher-entry.component.scss']
 })
 export class VoucherEntryComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
@@ -1244,11 +1245,16 @@ export class VoucherEntryComponent implements OnInit {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
       this.angForm.patchValue({
-        total_amt: 0
+        total_amt: 0.00,
+        amt: 0.00
       })
       Swal.fire('Oops!', `Access Denied, Amount Can't Be More Than Sanction Limit Rs. ${sancAmt}`, 'error');
       this.swiper.nativeElement.focus();
       this.submitForm = true
+      this.angForm.patchValue({
+        total_amt: 0.00,
+        amt: 0.00
+      })
     }
   }
 
@@ -1287,6 +1293,7 @@ export class VoucherEntryComponent implements OnInit {
         } else {
           this.swiper.nativeElement.blur();
           this.checkamtcondition($event)
+          this.checkSanctionAmountWithAmount()
         }
       })
     } if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
@@ -1303,6 +1310,7 @@ export class VoucherEntryComponent implements OnInit {
         if (result.isConfirmed) {
           this.swiper.nativeElement.blur();
           this.checkamtcondition($event)
+          this.checkSanctionAmountWithAmount()
         } else {
           this.angForm.controls['amt'].reset();
           this.angForm.controls['total_amt'].reset();
@@ -2071,7 +2079,7 @@ export class VoucherEntryComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -2090,11 +2098,16 @@ export class VoucherEntryComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
   }
-
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
 
   addNewData() {
     this.createForm()
@@ -2222,7 +2235,10 @@ export class VoucherEntryComponent implements OnInit {
     this.dtTrigger.next()
   }
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
   }
 
   checkIfZero(value) {

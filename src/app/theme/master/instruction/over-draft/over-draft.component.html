@@ -13,10 +13,32 @@
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true' autofocus
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Branch<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                class='alert alert-danger'>
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="acno"
                                         (change)="getSchemeAcNO($event)" formControlName="AC_TYPE" bindLabel="label"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme">
+                                        required placeholder="Scheme" #AC_TYPE (focus)="onFocus(AC_TYPE)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
@@ -37,7 +59,8 @@
                                     <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngscheme"
                                         (change)="getBankAcno($event)" formControlName="AC_NO" bindLabel="label"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Account No">
+                                        required placeholder="Account Number" #AC_NO (focus)="onFocus(AC_NO)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -101,8 +124,11 @@
                                                         <input type="text" name="To" class="form-control"
                                                             style="text-align: right;"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                            placeholder=" " id="Over" pattern="\d{1,7}(\.\d{2})?"
-                                                            title="Input allowed only  0-9" formControlName="AC_SODAMT">
+                                                            placeholder=" " id="Over" maxlength="8"
+                                                            title="Input allowed only  0-9" formControlName="AC_SODAMT"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)">
                                                         <label for="Over">Over Draft Amount<sub
                                                                 class="required">*</sub></label>
                                                     </span>
@@ -124,7 +150,8 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             placeholder=" " id="Over1" pattern="^[0-9]+$" maxlength="3"
                                                             title="Input allowed only  0-9" formControlName="AC_ODDAYS"
-                                                            [required]="periodoverdraft">
+                                                            [required]="periodoverdraft" (change)="getODDate()"
+                                                            (focus)="selectAllContent($event)">
                                                         <label for="Over1">OD period in days<sub
                                                                 class="required">*</sub></label>
                                                     </span>

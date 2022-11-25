@@ -14,6 +14,10 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkAmountMovementComponent } from './bnk-amount-movement.component';
 import {BnkAmountMovementRoutingModule} from './bnk-amount-movement-routing.module'
+import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
+import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -28,12 +32,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkAmountMovementRoutingModule
+    BnkAmountMovementRoutingModule,
+    Iframe5Module
   ],
 
   declarations: [BnkAmountMovementComponent],
   exports:[BnkAmountMovementComponent],
-  providers: [
+  providers: [OwnbranchMasterService, 
+    SchemeCodeDropdownService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

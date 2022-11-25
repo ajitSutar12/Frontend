@@ -126,7 +126,8 @@ debugger
         let Branch = obj.Branch;
       let type = obj.Type;
 
-      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      // this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }

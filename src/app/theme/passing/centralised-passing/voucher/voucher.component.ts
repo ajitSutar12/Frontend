@@ -37,6 +37,7 @@ export class VoucherComponent implements OnInit {
 
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -172,23 +173,9 @@ export class VoucherComponent implements OnInit {
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });
   }
-
-  //function to get new customer data
-  addNewCustomer(newCustomer) {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
-    });
-  }
-
-
-
-
-
 }

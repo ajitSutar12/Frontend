@@ -306,7 +306,8 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                bsDatepicker formControlName="IntUpto" [(ngModel)]="InterestDate"
+                                                #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()" bsDatepicker
+                                                formControlName="IntUpto" [(ngModel)]="InterestDate"
                                                 [disabled]="NormalCheck" (bsValueChange)="formatInterestDate()">
                                         </span>
                                     </div>
@@ -582,7 +583,8 @@
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
                                                 (change)="getMaturityDate()" formControlName="new_ason_date"
-                                                [(ngModel)]="renewalAsOnDate">
+                                                [(ngModel)]="renewalAsOnDate" #new_ason_date="bsDatepicker"
+                                                (keydown.Tab)="new_ason_date.hide()">
                                         </span>
                                     </div>
                                 </div>
@@ -685,6 +687,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                #new_matu_date="bsDatepicker" (keydown.Tab)="new_matu_date.hide()"
                                                 formControlName="new_matu_date">
                                         </span>
                                     </div>
@@ -703,6 +706,9 @@
                                     (click)="submit();branchcode.focus()">
                                     Submit
                                 </button>
+                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                    (click)="closeModal()">
+                                    Close</button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                     *ngIf="newbtnShow">
                                     Cancel

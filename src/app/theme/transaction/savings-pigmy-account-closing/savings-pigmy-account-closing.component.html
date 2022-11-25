@@ -280,7 +280,7 @@
                                         </div>
                                         <div class="row" *ngIf="isHideForSaving">
                                             <div class="col-md-6">
-                                                <label>Other Charges General ledger Account</label>
+                                                <label>Other Charges To General ledger Account</label>
                                             </div>
                                             <div class="col-md">
                                                 <!-- <span class="border-lable-flt">
@@ -320,7 +320,7 @@
                                         </div>
                                         <div class="row" *ngIf="isHideForSaving">
                                             <div class="col-md-6">
-                                                <label>Commission General ledger Account</label>
+                                                <label>Commission To General ledger Account</label>
                                             </div>
                                             <div class="col-md">
                                                 <!-- <span class="border-lable-flt">
@@ -435,7 +435,8 @@
                                                                         class="form-control"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         bsDatepicker [maxDate]="maxDate"
-                                                                        [minDate]="minDate"
+                                                                        [minDate]="minDate" #ChequeDate="bsDatepicker"
+                                                                        (keydown.Tab)="ChequeDate.hide()"
                                                                         formControlName="ChequeDate">
                                                                 </span>
                                                             </div>
@@ -605,6 +606,9 @@
                                             (click)="submit();branchcode.focus()">
                                             Submit
                                         </button>
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                            (click)="closeModal()">
+                                            Close</button>
                                         <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                             *ngIf="newbtnShow">
                                             Cancel
