@@ -18,8 +18,7 @@
                                                     <tr *ngFor="let data of batchVoucher">
                                                         <td>
                                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                                placement="bottom"
-                                                                ngbTooltip="Edit"
+                                                                placement="bottom" ngbTooltip="Edit"
                                                                 (click)="modalLarge.show();getBatchVoucherData(data)"></span>
                                                         </td>
                                                         <td [ngClass]="data.TRAN_NO === '' ? 'td_center' : 'td_right'">
@@ -79,13 +78,14 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-batch-voucher [childMessage]="batchVoucherData" (getUserData)="getData($event)"></app-batch-voucher>
+            <app-batch-voucher [childMessage]="batchVoucherData" (reloadTablePassing)="reloadTable()">
+            </app-batch-voucher>
 
 
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide (click)="modalLarge.hide();"
+            hidden>Close</button>
     </div>
 </app-modal-basic>

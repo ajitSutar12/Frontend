@@ -94,7 +94,7 @@ interface SavingMaster {
 
 export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -1928,10 +1928,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'Saving Account approved successfully',
         'success'
       );
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1952,10 +1951,16 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'success'
       );
 
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

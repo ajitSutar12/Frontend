@@ -54,10 +54,11 @@ interface SavingMaster {
 
 
 export class MasterSavingComponent implements OnInit {
-  @ViewChild(SavingMasterComponent ) child: SavingMasterComponent ; 
+  @ViewChild(SavingMasterComponent) child: SavingMasterComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -67,12 +68,12 @@ export class MasterSavingComponent implements OnInit {
   url = environment.base_url;
   // Store data from backend
   savingMaster: SavingMaster[];
-  savingData :any;
+  savingData: any;
   constructor(private http: HttpClient,) { }
 
 
   ngOnInit(): void {
-    
+
     // this.dtExportButtonOptions = {
     //   ajax: 'fake-data/datatable-data.json',
     //   columns: [
@@ -220,20 +221,18 @@ export class MasterSavingComponent implements OnInit {
 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
-  getSavingData(data){
+  getSavingData(data) {
     this.savingData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });

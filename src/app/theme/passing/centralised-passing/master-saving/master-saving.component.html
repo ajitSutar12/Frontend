@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Master Saving</h5>
-            </div>
-            <div class="card-block">
-                <!-- <div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5>Master Saving</h5>
+      </div>
+      <div class="card-block">
+        <!-- <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
                             <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
@@ -13,66 +13,68 @@
                         </div>
                     </div>
                 </div> -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card shadow">
+              <div class="card-block">
                 <div class="row">
-                    <div class="col-12">
-                      <div class="card shadow">
-                        <div class="card-block">
-                          <div class="row">
-                            <div class="col-sm">
-                              <div class="table-responsive">
-                                <table id="savingmastertable" datatable [dtOptions]="dtExportButtonOptions"
-                                  class="table table-striped table-bordered table-hover compact" style="max-width: 100%;">
-                                  <tbody *ngIf="savingMaster?.length != 0">
-                                    <tr *ngFor="let data of savingMaster">
-                                      <td>
-                                        <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                          placement="bottom" ngbTooltip="Edit" (click)="modalLarge.show();getSavingData(data)"></span>
-                                      </td>
-                  
-                                      <td [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
-                                        {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.DPMaster.S_APPL }}
-                                      </td>
-                                      <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
-                                        {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}
-                                      </td>
-                                      <td [ngClass]="data.AC_NAME  === '' ? 'td_center' : 'td_left'">
-                                        {{ data.AC_NAME === "" ? "-" :
-                                        data.AC_NAME }}
-                                      </td>
-                                      <td [ngClass]="data.idmaster.custAddress[0]?.AC_ADDR === '' ? 'td_center' : 'td_left'">
-                                        {{ data.idmaster.custAddress[0]?.AC_ADDR === "" ? "-" :
-                                        data.idmaster.custAddress[0]?.AC_ADDR }}
-                                      </td>
-                                      <td [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
-                                        {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-" :
-                                        data.idmaster.custAddress[0]?.city?.CITY_NAME }}
-                                      </td>
-                                      <td [ngClass]="
+                  <div class="col-sm">
+                    <div class="table-responsive">
+                      <table id="savingmastertable" datatable [dtOptions]="dtExportButtonOptions"
+                        class="table table-striped table-bordered table-hover compact" style="max-width: 100%;">
+                        <tbody *ngIf="savingMaster?.length != 0">
+                          <tr *ngFor="let data of savingMaster">
+                            <td>
+                              <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                (click)="editClickHandler(data.id)" placement="bottom" ngbTooltip="Edit"
+                                (click)="modalLarge.show();getSavingData(data)"></span>
+                            </td>
+
+                            <td [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
+                              {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.DPMaster.S_APPL }}
+                            </td>
+                            <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
+                              {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}
+                            </td>
+                            <td [ngClass]="data.AC_NAME  === '' ? 'td_center' : 'td_left'">
+                              {{ data.AC_NAME === "" ? "-" :
+                              data.AC_NAME }}
+                            </td>
+                            <td [ngClass]="data.idmaster.custAddress[0]?.AC_ADDR === '' ? 'td_center' : 'td_left'">
+                              {{ data.idmaster.custAddress[0]?.AC_ADDR === "" ? "-" :
+                              data.idmaster.custAddress[0]?.AC_ADDR }}
+                            </td>
+                            <td
+                              [ngClass]="data.idmaster.custAddress[0]?.city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
+                              {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-" :
+                              data.idmaster.custAddress[0]?.city?.CITY_NAME }}
+                            </td>
+                            <td [ngClass]="
                                           data.AC_OPDATE === '' ? 'td_center' : 'td_center'
                                         ">
-                                        {{ data.AC_OPDATE === "" ? "-" : data.AC_OPDATE }}
-                                      </td>
-                                      <td [ngClass]="
+                              {{ data.AC_OPDATE === "" ? "-" : data.AC_OPDATE }}
+                            </td>
+                            <td [ngClass]="
                                           data.REF_ACNO === '' ? 'td_center' : 'td_right'
                                         ">
-                                        {{ data.REF_ACNO === "" ? "-" : data.REF_ACNO }}
-                                      </td>
-                                      <td [ngClass]="data.AC_MINOR === '' ? 'td_center' : 'td_left'">
-                                        {{ data.AC_MINOR === "" ? "-" : data.AC_MINOR }}
-                                      </td>
-                                      <td [ngClass]="
+                              {{ data.REF_ACNO === "" ? "-" : data.REF_ACNO }}
+                            </td>
+                            <td [ngClass]="data.AC_MINOR === '' ? 'td_center' : 'td_left'">
+                              {{ data.AC_MINOR === "" ? "-" : data.AC_MINOR }}
+                            </td>
+                            <td [ngClass]="
                                           data.AC_MBDATE === '' ? 'td_center' : 'td_center'
                                         ">
-                                        {{ data.AC_MBDATE === "" ? "-" : data.AC_MBDATE }}
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                  <tbody *ngIf="savingMaster?.length == 0">
-                                    <tr>
-                                      <td colspan="10" class="no-data-available">No data!</td>
-                                    </tr>
-                                  </tbody>
-                                  <!-- <tfoot #filters class="filters">
+                              {{ data.AC_MBDATE === "" ? "-" : data.AC_MBDATE }}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody *ngIf="savingMaster?.length == 0">
+                          <tr>
+                            <td colspan="10" class="no-data-available">No data!</td>
+                          </tr>
+                        </tbody>
+                        <!-- <tfoot #filters class="filters">
                                     <tr class="testing">
                                       <th class="testing"></th>
                                       <th><input type="text" class="form-control" name="AC_TYPE" /></th>
@@ -87,17 +89,17 @@
                                       <th><input type="text" class="form-control" name="AC_MBDATE" /></th>
                                     </tr>
                                   </tfoot> -->
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      </table>
                     </div>
                   </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
@@ -109,11 +111,11 @@
   </div>
   <div class="app-modal-body">
     <perfect-scrollbar style="overflow-y: auto;">
-      <app-saving-master [childMessage]="savingData" (getUserData)="getData($event)"></app-saving-master>
+      <app-saving-master [childMessage]="savingData" (reloadTablePassing)="reloadTable()"></app-saving-master>
     </perfect-scrollbar>
   </div>
   <div class="app-modal-footer">
-    <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-      (click)="modalLarge.hide();">Close</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
+      (click)="modalLarge.hide();" hidden>Close</button>
   </div>
 </app-modal-basic>

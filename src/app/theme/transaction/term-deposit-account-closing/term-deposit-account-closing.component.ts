@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, ViewChild, Output } from '@angular/core';
 import Swal from 'sweetalert2';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
 import { TransactionTransferModeService } from '../../../shared/elements/transaction-transfer-mode.service';
@@ -24,6 +24,7 @@ import { NgSelectComponent } from '@ng-select/ng-select'
   styleUrls: ['./term-deposit-account-closing.component.scss']
 })
 export class TermDepositAccountClosingComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerNarrationhide') triggerNarrationhide: ElementRef<HTMLElement>;
@@ -1117,8 +1118,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.INTRATE = null
         this.lastIntDate = null
         this.opDate = null
-        this.asOnDate =null
-        this.maturityDate =null
+        this.asOnDate = null
+        this.maturityDate = null
         this.recNo = null
         this.operator = null
         this.months = null
@@ -1364,7 +1365,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       // this.child.reload()
       var button = document.getElementById('trigger');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1419,6 +1420,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       // this.child.reload()
       var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1457,5 +1459,9 @@ export class TermDepositAccountClosingComponent implements OnInit {
   onClose(select: NgSelectComponent) {
     select.close()
   }
-
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
 }

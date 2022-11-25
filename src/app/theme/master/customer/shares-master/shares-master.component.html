@@ -19,7 +19,7 @@
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
-                                            {{values.label}} </ng-option> 
+                                            {{values.label}} </ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
                                 </span>
@@ -1878,6 +1878,9 @@
                                                                     *ngIf="showButton" (click)="submit($event)">
                                                                     Submit
                                                                 </button>
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    *ngIf="approveShow" (click)="closeModal()">
+                                                                    Close</button>
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     (click)="addNewData()" *ngIf="newbtnShow">
                                                                     Cancel

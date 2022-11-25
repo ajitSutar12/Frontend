@@ -94,7 +94,7 @@ interface CurrentAccountMaster {
 
 export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -1922,10 +1922,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'Current Account approved successfully',
         'success'
       );
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1944,10 +1943,16 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'success'
       );
 
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

@@ -69,7 +69,7 @@ interface deadstockinterface {
 })
 export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //calculations
 
@@ -654,8 +654,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       );
       var button = document.getElementById('triggerhide');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -676,6 +675,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
 
       var button = document.getElementById('triggerhide');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -702,5 +702,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+  closeModal() {
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

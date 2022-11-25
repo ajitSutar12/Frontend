@@ -25,6 +25,7 @@ import { NgSelectComponent } from '@ng-select/ng-select'
   styleUrls: ['./voucher-entry.component.scss']
 })
 export class VoucherEntryComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
@@ -2078,7 +2079,7 @@ export class VoucherEntryComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -2097,11 +2098,16 @@ export class VoucherEntryComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
   }
-
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
 
   addNewData() {
     this.createForm()
