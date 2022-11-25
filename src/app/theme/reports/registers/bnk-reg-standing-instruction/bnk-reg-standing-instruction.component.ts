@@ -124,6 +124,7 @@ export class BnkRegStandingInstructionComponent implements OnInit {
       this.iframeurl = this.report_url+"examples/StandingInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&REVOKE_INST='" + REVOKE_INST + "&Branch=" + Branch + "&bankName=" + bankName + " ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
+    
     if (this.angForm.controls['REVOKE_INST'].valid==true && this.angForm.valid) {
 
       this.showRepo = true;

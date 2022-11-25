@@ -53,6 +53,10 @@ const routes: Routes = [
         path: 'iframe3',
         loadChildren: () => import('./iframe3/iframe3.module').then(m => m.Iframe3Module)
       },
+      {
+        path: 'DepositReceiptRegister',
+        loadChildren: () => import('./deposit-receipt-register/deposit-receipt-register.module').then(m => m.DepositReceiptRegisterModule)
+      },
     ]
   }
 ];
