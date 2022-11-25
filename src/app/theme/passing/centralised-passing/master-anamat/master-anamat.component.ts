@@ -48,6 +48,7 @@ export class MasterAnamatComponent implements OnInit {
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -132,19 +133,19 @@ export class MasterAnamatComponent implements OnInit {
         dataTableParameters["filterData"] = this.filterData;
         // this.mySubscription = interval(1000).subscribe((x => {
 
-          this.http
-            .post<DataTableResponse>(
-              this.url + "/anamat-gsm/passing",
-              dataTableParameters
-            )
-            .subscribe((resp) => {
-              this.anamat = resp.data;
-              callback({
-                recordsTotal: resp.recordsTotal,
-                recordsFiltered: resp.recordsTotal,
-                data: [],
-              });
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/anamat-gsm/passing",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.anamat = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
             });
+          });
 
         // }));
       },
@@ -205,7 +206,7 @@ export class MasterAnamatComponent implements OnInit {
       dom: "Blrtip",
     };
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
@@ -217,9 +218,7 @@ export class MasterAnamatComponent implements OnInit {
     this.child.approveShow = true;
   }
 
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });

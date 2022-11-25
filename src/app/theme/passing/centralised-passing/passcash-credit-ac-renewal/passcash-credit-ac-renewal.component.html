@@ -65,7 +65,7 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-cash-credit-ac-renewal [childMessage]="cashCreditAcRenewalData" (getUserData)="getData($event)">
+            <app-cash-credit-ac-renewal [childMessage]="cashCreditAcRenewalData" (reloadTablePassing)="reloadTable()">
             </app-cash-credit-ac-renewal>
 
 
@@ -73,7 +73,7 @@
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide" (click)="modalLarge.hide();"
+            hidden>Close</button>
     </div>
 </app-modal-basic>

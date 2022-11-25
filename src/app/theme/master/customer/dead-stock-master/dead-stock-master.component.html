@@ -348,6 +348,8 @@
                                 (click)="submit($event);ITEM_TYPE.focus()">
                                 Submit
                             </button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                                Close</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();ITEM_TYPE.focus()"
                                 *ngIf="newbtnShow">
                                 Cancel

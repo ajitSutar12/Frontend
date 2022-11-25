@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { StatementTypeService } from '../../../shared/elements/statement-type.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -20,6 +20,7 @@ import { userInfo } from 'os';
   styleUrls: ['./batch-voucher.component.scss']
 })
 export class BatchVoucherComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild("fileInput") fileInput;
@@ -46,12 +47,12 @@ export class BatchVoucherComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-  schemeData :any;
-  sysparaData :any;
-  ledgerBal : any = 0;
-  maxDate : Date;
-  minDate : Date;
-  showImportDiv :boolean = false;
+  schemeData: any;
+  sysparaData: any;
+  ledgerBal: any = 0;
+  maxDate: Date;
+  minDate: Date;
+  showImportDiv: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -73,7 +74,7 @@ export class BatchVoucherComponent implements OnInit {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       //debugger
       this.branch_code = data;
-      console.log('Branch Data',this.branch_code);
+      console.log('Branch Data', this.branch_code);
       this.selectedBranch = user.branchId;
     })
 
@@ -88,8 +89,8 @@ export class BatchVoucherComponent implements OnInit {
       this.sysparaData = data[0];
 
       this.date = data[0].CURRENT_DATE;
-      let nextDate = moment(this.date,'DD/MM/YYYY').add(3,'month').format('YYYY-MM-DD');
-      let lastDate = moment(this.date,'DD/MM/YYYY').subtract(3,'month').format('YYYY-MM-DD');
+      let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
+      let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
 
       this.maxDate = new Date(nextDate);
       this.maxDate.setDate(this.maxDate.getDate());
@@ -102,9 +103,9 @@ export class BatchVoucherComponent implements OnInit {
     this._service.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
-    
+
     //get Scheme Data
-    this._service.schemastData().subscribe(data=>{
+    this._service.schemastData().subscribe(data => {
       this.schemeData = data;
       console.log(this.schemeData);
     })
@@ -123,40 +124,40 @@ export class BatchVoucherComponent implements OnInit {
       date: [''],
       Scheme: [''],
       SchemeACNO: [''],
-      import:[''],
-      file:['']
+      import: [''],
+      file: ['']
     })
   }
 
   //cheque no captial function
-  chequeNoData(event){
+  chequeNoData(event) {
     debugger
     this.angForm.patchValue({
-      chequeNo : event.target.value.toUpperCase()
-    }) 
+      chequeNo: event.target.value.toUpperCase()
+    })
   }
   //Get Company Code Details
-  companyNameData :any;
+  companyNameData: any;
   async getCompanyData(ele) {
-    await   this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
+    await this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
       debugger
       console.log(data);
       this.company_data = data;
-      this.companyNameData = data.AC_NO+'/'+data.NAME;
+      this.companyNameData = data.AC_NO + '/' + data.NAME;
       //get Account No
-      let barnchCode = this.branch_code.filter(ele=>ele.value == this.company_data?.BRANCH_CODE)
-      
-      let bankCode   = this.sysparaData.BANK_CODE;
-      let schData    = this.schemeData.filter(ele=>ele.id == this.company_data?.AC_TYPE);
+      let barnchCode = this.branch_code.filter(ele => ele.value == this.company_data?.BRANCH_CODE)
+
+      let bankCode = this.sysparaData.BANK_CODE;
+      let schData = this.schemeData.filter(ele => ele.id == this.company_data?.AC_TYPE);
       let obj = {
-        acno : bankCode+barnchCode[0].name+schData[0].S_APPL+this.company_data.AC_NO,
-        scheme : schData[0].S_APPL,
-        date   : this.date
+        acno: bankCode + barnchCode[0].name + schData[0].S_APPL + this.company_data.AC_NO,
+        scheme: schData[0].S_APPL,
+        date: this.date
       }
-      this._service.getLedgerBalance(obj).subscribe(data=>{
+      this._service.getLedgerBalance(obj).subscribe(data => {
         this.ledgerBal = Math.abs(data);
-      },err=>{
-        Swal.fire('Oops..!','Something went wrong in Opening Bal not fetched','error');
+      }, err => {
+        Swal.fire('Oops..!', 'Something went wrong in Opening Bal not fetched', 'error');
       })
     }, err => {
       console.log(err);
@@ -164,7 +165,7 @@ export class BatchVoucherComponent implements OnInit {
 
 
     this.CompanyGroupMasterDropdownService.getCompanyGridData(this.selectCompanyCode).subscribe(data => {
-      if(!this.editFlag){
+      if (!this.editFlag) {
         this.company_main_data = data[0];
         this.gridData = data[0].comapnylink;
         this.filterArray = data[0].comapnylink;
@@ -176,24 +177,24 @@ export class BatchVoucherComponent implements OnInit {
     }, err => {
       console.log(err);
     })
-  
+
   }
 
-  editFlag : boolean = false;
-  async setFilterData(data){
+  editFlag: boolean = false;
+  async setFilterData(data) {
     debugger
     this.filterArray = [];
-       for(let item of data){
-        let ac_type = this.schemeData.filter(ele=>ele.id == item.TRAN_ACTYPE)
-        let obj = {
-          id : item.id,
-          AC_NO : item.TRAN_ACNO,
-          AC_TYPE : ac_type[0].S_APPL,
-          DEFAULT_AMOUNT : item.TRAN_AMOUNT
-        }
-        this.filterArray.push(obj);
-        this.editFlag = true;
+    for (let item of data) {
+      let ac_type = this.schemeData.filter(ele => ele.id == item.TRAN_ACTYPE)
+      let obj = {
+        id: item.id,
+        AC_NO: item.TRAN_ACNO,
+        AC_TYPE: ac_type[0].S_APPL,
+        DEFAULT_AMOUNT: item.TRAN_AMOUNT
       }
+      this.filterArray.push(obj);
+      this.editFlag = true;
+    }
   }
 
   //filter object
@@ -237,20 +238,20 @@ export class BatchVoucherComponent implements OnInit {
     var obj = this.angForm.value;
     if (Number(obj.voucherAmount) != Number(this.totalAmt)) {
       Swal.fire('Oops!', 'Voucher amount not equal to Total Amount', 'error');
-    }else{
+    } else {
       let cheqDate
       const formVal = this.angForm.value
       //create a object
       let dataObj = this.angForm.value;
       dataObj['ChequeDate'] = (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date' || formVal.ChequeDate == null || formVal.ChequeDate == undefined) ? cheqDate = '' : cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY'),
-      dataObj['gridData'] = this.filterArray;
+        dataObj['gridData'] = this.filterArray;
       dataObj['schemeData'] = this.company_data;
       dataObj['companyData'] = this.company_main_data;
       dataObj['user'] = JSON.parse(localStorage.getItem('user'));
 
       this._service.submitData(dataObj).subscribe(data => {
         console.log(data);
-        Swal.fire('Success!','Batch Voucher submited successfully','success');
+        Swal.fire('Success!', 'Batch Voucher submited successfully', 'success');
         this.angForm.controls['company_code'].reset();
         this.angForm.controls['ledger_balance'].reset();
         this.angForm.controls['chequeNo'].reset();
@@ -260,7 +261,7 @@ export class BatchVoucherComponent implements OnInit {
         this.angForm.controls['TotalAmt'].reset();
         this.angForm.controls['Scheme'].reset();
         this.angForm.controls['SchemeACNO'].reset();
-        this.filterArray =[];
+        this.filterArray = [];
         this.selectCompanyCode = null
       }, err => {
         console.log(err);
@@ -281,7 +282,7 @@ export class BatchVoucherComponent implements OnInit {
     setTimeout(() => this.visible = false, 300);
   }
   async editClickHandler(id) {
-    debugger
+    // debugger
     this._service.getFormData(id).subscribe(async (data) => {
       console.log(data);
       console.log(this.company_code);
@@ -334,7 +335,7 @@ export class BatchVoucherComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -356,6 +357,7 @@ export class BatchVoucherComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -391,55 +393,60 @@ export class BatchVoucherComponent implements OnInit {
     $event.target.select();
   }
 
-  importFlag(ele){
+  importFlag(ele) {
     debugger
-    if(ele.target.checked){
+    if (ele.target.checked) {
       this.showImportDiv = true;
-    }else{
+    } else {
       this.showImportDiv = false;
     }
   }
 
-  ImportData(){
+  ImportData() {
     debugger
     const input = document.getElementById('input')
     let fi = this.fileInput.nativeElement;
     let notAssigned = new Array();
-    let flag:boolean = false;
+    let flag: boolean = false;
     readXlsxFile(fi.files[0]).then((rows) => {
-        if(this.filterArray == undefined){
-          Swal.fire('Oops...!',"Please select company data first","error");
-        }else{
-          for(let item of this.filterArray){
-            flag = false;
-            for(let ele of rows){
-              if(item.AC_TYPE == ele[0] && item.AC_NO == ele[1]){
-                item.DEFAULT_AMOUNT = ele[2];
-                flag = true;
-              }
-            }
-            if(flag == false){
-              notAssigned.push(item);
+      if (this.filterArray == undefined) {
+        Swal.fire('Oops...!', "Please select company data first", "error");
+      } else {
+        for (let item of this.filterArray) {
+          flag = false;
+          for (let ele of rows) {
+            if (item.AC_TYPE == ele[0] && item.AC_NO == ele[1]) {
+              item.DEFAULT_AMOUNT = ele[2];
               flag = true;
             }
           }
-
-          if(notAssigned.length !=0){
-            let string = '';
-            for(let item of notAssigned){
-              string += `Ac No : ${item.AC_NO}<br>`
-            }
-            string +=`above Account not find in system please check once again`;
-
-            Swal.fire('Oops...!',string,'error');
+          if (flag == false) {
+            notAssigned.push(item);
+            flag = true;
           }
-
-          this.totalAmt = 0;
-          this.filterArray.forEach(element => {
-            //debugger
-            this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
-          });
         }
+
+        if (notAssigned.length != 0) {
+          let string = '';
+          for (let item of notAssigned) {
+            string += `Ac No : ${item.AC_NO}<br>`
+          }
+          string += `above Account not find in system please check once again`;
+
+          Swal.fire('Oops...!', string, 'error');
+        }
+
+        this.totalAmt = 0;
+        this.filterArray.forEach(element => {
+          //debugger
+          this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+        });
+      }
     })
   }
-};
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
+}

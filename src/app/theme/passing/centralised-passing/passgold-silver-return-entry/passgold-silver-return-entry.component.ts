@@ -17,10 +17,10 @@ class DataTableResponse {
 interface GoldSilverReturnEntry {
   TRAN_NO: number
   TRAN_AMOUNT: number
-  
+
   NARRATION: string
   TRAN_ENTRY_TYPE: string
-  
+
 }
 @Component({
   selector: 'app-passgold-silver-return-entry',
@@ -33,6 +33,7 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   mySubscription: Subscription
@@ -113,7 +114,7 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
           title: 'Amount',
           data: 'TRAN_AMOUNT'
         },
-        
+
         {
           title: 'Supplier Name ',
           data: 'TRAN_SUPPLIER_NAME'
@@ -122,19 +123,19 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
           title: 'Narration',
           data: 'NARRATION'
         },
-        
+
         {
           title: 'Entry Type',
           data: 'TRAN_ENTRY_TYPE'
         },
-        
+
       ],
       dom: 'Blrtip',
 
     };
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
@@ -145,9 +146,7 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  public getData(value): void {
-    let el: HTMLElement = this.myDiv.nativeElement;
-    el.click();
+  reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });
