@@ -1956,7 +1956,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         }
       })
       this.angForm.patchValue({
-        AC_INTRATE: temp.rate[0].INT_RATE,
+        AC_INTRATE: temp?.rate[0]?.INT_RATE,
       })
     })
   }

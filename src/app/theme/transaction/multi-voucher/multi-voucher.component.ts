@@ -1280,7 +1280,9 @@ export class MultiVoucherComponent implements OnInit {
           this.SideDetails()
           this.submitForm = true
         } else {
+          this.amt.nativeElement.blur();
           this.checkamtcondition($event)
+          this.checkSanctionAmountWithAmount()
         }
       })
     } if (Number(obj.value) >= 200000) {
@@ -1296,7 +1298,9 @@ export class MultiVoucherComponent implements OnInit {
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.amt.nativeElement.blur();
           this.checkamtcondition($event)
+          this.checkSanctionAmountWithAmount()
         } else {
           this.angForm.controls['amt'].reset();
           this.angForm.controls['total_amt'].reset();
@@ -2206,8 +2210,12 @@ export class MultiVoucherComponent implements OnInit {
     select.close()
   }
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
   }
+
 
   checkIfZero(value) {
     if (Number(value) == 0 || value == 'NaN') {

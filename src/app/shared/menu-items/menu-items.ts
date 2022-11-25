@@ -202,7 +202,7 @@ const MENUITEMS = [
               {
                 state: 'lockerMaster',
                 name: 'Locker Master',
-                id: 235 
+                id: 235
               },
             ]
           },
@@ -378,25 +378,25 @@ const MENUITEMS = [
                 name: 'Freeze Account',
                 id: 45
               },
-              {
-                state: 'reminderInstruction',
-                name: 'Reminder Instruction',
-                id: 46
-              },
-              {
-                state: 'revokeStandingInstructions',
-                name: 'Revoke Standing Instructions',
-                id: 47
-              }, {
-                state: 'revokeInterestInstruction',
-                name: 'Revoke Interest Instruction',
-                id: 48
-              },
-              {
-                state: 'revokeSpecialInstruction',
-                name: 'Revoke Special Instruction',
-                id: 49
-              },
+              // {
+              //   state: 'reminderInstruction',
+              //   name: 'Reminder Instruction',
+              //   id: 46
+              // },
+              // {
+              //   state: 'revokeStandingInstructions',
+              //   name: 'Revoke Standing Instructions',
+              //   id: 47
+              // }, {
+              //   state: 'revokeInterestInstruction',
+              //   name: 'Revoke Interest Instruction',
+              //   id: 48
+              // },
+              // {
+              //   state: 'revokeSpecialInstruction',
+              //   name: 'Revoke Special Instruction',
+              //   id: 49
+              // },
               {
                 state: 'lienMarkClear',
                 name: 'Lien Mark Clear',
@@ -1292,6 +1292,22 @@ const MENUITEMS = [
             name: 'Loan Reports',
             id: 136
           },
+          {
+            state: 'LoanReport',
+            name: 'Loan Deposit Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 98,
+                  children: [
+              {
+                state: 'loancashcreditac',
+                name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
+                id: 99
+              },
+            ]
+          },
+        
           //
           {
             state: 'npaReports',
