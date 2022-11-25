@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./term-deposite-ac-renewal.component.scss']
 })
 export class TermDepositeAcRenewalComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   updateID: number = 0;
@@ -852,7 +853,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       );
       var button = document.getElementById('triggerhide');
       button.click();
-
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -875,6 +876,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       );
       var button = document.getElementById('triggerhide');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1043,5 +1045,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+
+  closeModal() {
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

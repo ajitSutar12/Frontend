@@ -75,7 +75,7 @@ createForm() {
     START_DATE: ['', [Validators.required]],
     END_DATE: ['', [Validators.required]],
     AC_OPEN:  new FormControl('AC_OPEN'),
-    PRINT_CLOSEAC: ['', [Validators.required]],
+    PRINT_CLOSEAC: ['', ],
   })
 }
 ngOnInit(): void {

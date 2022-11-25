@@ -77,6 +77,7 @@ interface anamatinf {
 })
 
 export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
@@ -636,9 +637,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         'Anamat Account approved successfully',
         'success'
       );
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
-
+      this.reloadTablePassing.emit();
       this.getUserData.emit('welcome to stackoverflow!');
     }, err => {
       console.log('something is wrong');
@@ -660,8 +661,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         'success'
       );
 
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -670,6 +672,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 
 }

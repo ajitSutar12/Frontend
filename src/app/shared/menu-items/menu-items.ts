@@ -202,7 +202,7 @@ const MENUITEMS = [
               {
                 state: 'lockerMaster',
                 name: 'Locker Master',
-                id: 235 
+                id: 235
               },
             ]
           },
@@ -378,25 +378,25 @@ const MENUITEMS = [
                 name: 'Freeze Account',
                 id: 45
               },
-              {
-                state: 'reminderInstruction',
-                name: 'Reminder Instruction',
-                id: 46
-              },
-              {
-                state: 'revokeStandingInstructions',
-                name: 'Revoke Standing Instructions',
-                id: 47
-              }, {
-                state: 'revokeInterestInstruction',
-                name: 'Revoke Interest Instruction',
-                id: 48
-              },
-              {
-                state: 'revokeSpecialInstruction',
-                name: 'Revoke Special Instruction',
-                id: 49
-              },
+              // {
+              //   state: 'reminderInstruction',
+              //   name: 'Reminder Instruction',
+              //   id: 46
+              // },
+              // {
+              //   state: 'revokeStandingInstructions',
+              //   name: 'Revoke Standing Instructions',
+              //   id: 47
+              // }, {
+              //   state: 'revokeInterestInstruction',
+              //   name: 'Revoke Interest Instruction',
+              //   id: 48
+              // },
+              // {
+              //   state: 'revokeSpecialInstruction',
+              //   name: 'Revoke Special Instruction',
+              //   id: 49
+              // },
               {
                 state: 'lienMarkClear',
                 name: 'Lien Mark Clear',
@@ -1111,12 +1111,56 @@ const MENUITEMS = [
                 name: 'Deadstock Balance List with depreciation',
                 id: 224
               },
+              {
+                state:'BnkDptAMList',
+                name:'Deposite Amount Wise Balance List',
+                id:225
+              },
+              {
+                 state:'CatbalList',
+                 name:'Categorywise Balance List',
+                 id:225
+              },
+              {
+                state:'DebbalReport',
+                name:'Debit Balance Report',
+                id:225
+              },
               // {
-              //   state: 'BnkOtherBalList',
-              //   name: 'Other Receivable Balance List ',
-              //   id: 225
+              //   state:'Bnkbalcon',
+              //   name:'balance confirmation certificate',
+              //   id:225
               // },
-
+              // {
+              //    state:'Srtballist',
+              //    name:'Short Balance List',
+              //    id:225
+              // },
+              {
+                state:'SubSummary',
+                name:'Subsidiary Summary',
+                id:225
+              },
+              {
+                state: 'AmountBalList',
+                name: 'AmountWise Balance List',
+                 id: 225
+              },
+              {
+                state: 'DeadStockDepCatList',
+                name: 'Deadstock Depriciation Categorywise List',
+                 id: 225
+              },
+              {
+                state: 'BalConCertificate',
+                name: 'Balance Confirmation Ceritificate',
+                 id: 225
+              },
+              {
+                state: 'shortballist',
+                name: 'Short Balance List',
+                 id: 225
+              },
 
             ]
           },
@@ -1174,7 +1218,65 @@ const MENUITEMS = [
                 name: 'Gold Silver Submission/Return Register',
                 id: 203
               },
+              {
+                state: 'DepositReceiptRegister',
+                name: 'Deposit Receipt Register',
+                id: 203
+              },
             ]
+          },
+          //
+          {
+            state: 'Termdeposit',
+            name: 'Term Deposit Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 134,
+            children: [
+              {
+                state: 'maturedbutnotpaid',
+                name: 'matured but not paid between two days',
+                id: 134
+              },
+              {
+                state: 'maturedbutnotclosed',
+                name: 'matured but not closed',
+                id: 92
+              } ,
+              {
+                state: 'depositpaidlist',
+                name: 'Deposit Paid List',
+                id: 93
+              },
+              {
+                state: 'intratewisebalancelist',
+                name: 'Interest Rate Wise List',
+                id: 94
+              },
+              {
+                state: 'custidwiseintpaidlist',
+                name: 'Customer Id Wise Interest Paid List',
+                id: 95
+              },
+              {
+                state: 'custidwiseloaninterestCertificate',
+                name: 'Customer Id Wise Deposit/Loan Interest Certificate',
+                id: 96
+              },
+              {
+                state: 'IntRatewiseMaturityList',
+                name: 'Interest Rate wise Maturity List',
+                id: 97
+              },
+              {
+                state: 'custidwisedepositlist',
+                name: 'Customer Id wise Deposit List',
+                id: 98
+              }
+              
+            ]
+  
           },
           //
           {
@@ -1183,17 +1285,29 @@ const MENUITEMS = [
             id: 134
           },
           //
-          {
-            state: 'termDepositReports',
-            name: 'Term Deposit Reports',
-            id: 135
-          },
+          
           //
           {
             state: 'loanReports',
             name: 'Loan Reports',
             id: 136
           },
+          {
+            state: 'LoanReport',
+            name: 'Loan Deposit Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 98,
+                  children: [
+              {
+                state: 'loancashcreditac',
+                name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
+                id: 99
+              },
+            ]
+          },
+        
           //
           {
             state: 'npaReports',
@@ -1257,6 +1371,16 @@ const MENUITEMS = [
                 state: 'BnkPigmyCommissionRepo',
                 name: 'Pigmy Agent Commission Report',
                 id: 230
+              },
+              {
+                state: 'pigmyhandbook',
+                name: 'Pigmy  HandBook',
+                id: 231
+              },
+              {
+                state: 'pigmymaturedAclist',
+                name: 'Pigmy  Matured A/C List',
+                id: 231
               },
             ]
           },

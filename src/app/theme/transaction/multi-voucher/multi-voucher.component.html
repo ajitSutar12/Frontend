@@ -479,6 +479,9 @@
                                                     (click)="submit();selectBranch.focus()">
                                                     Update
                                                 </button>
+                                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                                    (click)="closeModal()">
+                                                    Close</button>
                                                 <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                                     *ngIf="newbtnShow">
                                                     Cancel
@@ -598,7 +601,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Temparory overdraft
+                                            <h6 class="transaction-title" style="font-size: 12px;">Overdraft
                                                 Amount
                                             </h6>
                                             <!-- <small>Starbucks</small> -->

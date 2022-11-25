@@ -65,15 +65,12 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-multi-voucher [childMessage]="multiVoucherData" (getUserData)="getData($event)"
-                (reloadTablePassing)="reloadTable()"></app-multi-voucher>
-
-
-
+            <app-multi-voucher [childMessage]="multiVoucherData" (reloadTablePassing)="reloadTable()">
+            </app-multi-voucher>
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
-            (click)="modalLarge.hide();">Close</button>
+            (click)="modalLarge.hide();" hidden>Close</button>
     </div>
 </app-modal-basic>

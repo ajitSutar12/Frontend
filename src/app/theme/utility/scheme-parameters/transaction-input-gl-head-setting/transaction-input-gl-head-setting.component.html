@@ -183,7 +183,7 @@
                                     <input type="text" name="SHORT_NAME" formControlName="SHORT_NAME"
                                         class="form-control" placeholder=" " maxlength="50" id="SHORT_NAME" required=""
                                         pattern="^[A-Za-z\ ]+$" [ngClass]="{'form-submitted': formSubmitted}"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                         title="Input allowed only  A-Z a-z (Space)">
                                     <label for="SHORT_NAME">Short Name<sub class="required">* </sub></label>
                                 </span>

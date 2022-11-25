@@ -161,7 +161,7 @@
                   <input type="text" placeholder="dd/mm/yyyy" name="REVOKE_DATE" id="REVOKE_DATE" class="form-control"
                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                    formControlName="REVOKE_DATE" bsDatepicker disabled>
+                    [minDate]="maxDate" formControlName="REVOKE_DATE" bsDatepicker disabled>
                   <label for="REVOKE_DATE">Revoke Date<sub class="required">*
                     </sub></label>
                 </span>

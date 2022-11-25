@@ -214,7 +214,7 @@ close(){
 // Reset Function
 resetForm() {
   // this.createForm()
-  this.ngForm.controls.BRANCH_CODE.reset();
+  // this.ngForm.controls.BRANCH_CODE.reset();
   this.ngForm.controls.Scheme_code.reset();
   this.ngForm.controls.Scheme_acc.reset();
   this.showRepo = false;

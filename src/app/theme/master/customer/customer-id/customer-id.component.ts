@@ -31,7 +31,7 @@ import { RiskCategoryDropdownService } from "../../../../shared/dropdownService/
 import { DocumentMasterDropdownService } from "../../../../shared/dropdownService/document-master-dropdown.service";
 import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
-import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component";
+import { NgSelectComponent } from '@ng-select/ng-select'
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -114,7 +114,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   imageObject = new Array();
 
   // status variables
-  yes: boolean = false 
+  yes: boolean = false
   no: boolean = true
 
   fname = "";
@@ -1243,5 +1243,29 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event == (event.charCode >= 97 && event.charCode <= 122)) {
       Swal.fire("Warning!", "Please Insert Numbers and Captital Alphabets Only", "warning");
     }
+  }
+
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }

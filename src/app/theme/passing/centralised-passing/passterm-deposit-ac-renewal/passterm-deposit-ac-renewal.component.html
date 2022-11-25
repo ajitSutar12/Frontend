@@ -25,7 +25,8 @@
                                                             {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
                                                         </td>
                                                         <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.AC_TYPE === "" ? "-" : data.renewalHistory?.S_APPL }}
+                                                            {{ data.AC_TYPE === "" ? "-" : data.renewalHistory?.S_APPL
+                                                            }}
                                                         </td>
                                                         <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
                                                             {{ data.AC_NO === "" ? "-" : data.AC_NO }}
@@ -65,7 +66,8 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-term-deposite-ac-renewal [childMessage]="termDepositAcRenewalData" (getUserData)="getData($event)">
+            <app-term-deposite-ac-renewal [childMessage]="termDepositAcRenewalData"
+                (reloadTablePassing)="reloadTable()">
             </app-term-deposite-ac-renewal>
 
 
@@ -74,7 +76,7 @@
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-            (click)="modalLarge.hide();">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide" (click)="modalLarge.hide();"
+            hidden>Close</button>
     </div>
 </app-modal-basic>

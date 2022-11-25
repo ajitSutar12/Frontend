@@ -28,8 +28,9 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
 
  
   // Date variables
-  todate: any = null;
-  fromdate: any = null
+dates: any = null
+
+ 
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
@@ -57,6 +58,11 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
   angForm: FormGroup;
   //api
   url = environment.base_url;
+showLoading:boolean = false;
+clicked:boolean=false;
+iframe5url:any='';
+report_url = environment.report_url;
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -69,6 +75,7 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
   ) {
+    this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -77,14 +84,16 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.getSystemParaDate();
+   
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var schemetype = data.filter(function (scheme) {
         return (scheme.name == 'SB' || scheme.name == 'CA' ||  scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH'|| scheme.name == 'IV' || scheme.name == 'GL' || scheme.name == 'AG')
       });
       this.schemetype = schemetype;
-   
+      this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+        this.dates = data.CURRENT_DATE;
+      });
 
     })
 
@@ -106,52 +115,17 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
   }
   createForm() {
     this.angForm = this.fb.group({
-      START_DATE: ["", [Validators.pattern, Validators.required]],
-      END_DATE: ["", [Validators.pattern, Validators.required]],
+      date: ['', [Validators.required]],
+     
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
       S_ACNOTYPE: ["", [Validators.pattern, Validators.required]],
     });
   }
 
 
-  src: any;
-  submit(event) {
-    debugger
-
-    event.preventDefault();
-    this.formSubmitted = true;
-    if (this.angForm.valid) {
-
-      // this.showRepo = true;
-      let obj = this.angForm.value
-      let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
-      let scheme = obj.S_ACNOTYPE;
-      let branch = obj.BRANCH_CODE;
-
-      const url = "http://localhost/NewReport/report-code/Report/examples/NonGuarantorList.php?startDate='"+startdate+"' &enddate='"+enddate+"' &scheme='"+scheme+"' &branch='"+branch+"' &";
-      console.log(url);
-      // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      window.open(url, '_blank');
-
-    }
-    else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-    }
-
-
-
-    //To clear form
-    // this.resetForm();
-    this.formSubmitted = false;
-    // }
-  }
-  //set open date, appointed date and expiry date
-  getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.defaultDate = data.CURRENT_DATE
-    })
-  }
+ 
+  
+ 
   getBranch() {
     this.getIntroducer()
   }
@@ -179,15 +153,47 @@ export class BnkNonGuaranteerViewComponent implements OnInit {
     }
   }
 
+ 
+    view(event){
+     
+  
+      event.preventDefault();
+      this.formSubmitted = true;
+  
+      let userData = JSON.parse(localStorage.getItem('user'));
+      let bankName = userData.branch.syspara.BANK_NAME;
+      let branchName = userData.branch.NAME;
+  
+      if(this.angForm.valid){
+  
+     this.showRepo = true;
+      let obj = this.angForm.value
+      let Date = moment(obj.date).format('DD/MM/YYYY');
+    let scheme = obj.S_ACNOTYPE
+      
+      let branch = obj.BRANCH_CODE;
+      //  let startingcode= obj.Starting_Account;
+      // let endingcode =obj.Ending_Account;
+      
+  
+     this.iframe5url=this.report_url+ "examples/AgentwisePigmyBalList.php?Date='" + Date + "'&branch="+branch+"&scheme='" + scheme+"&bankName=" + bankName + " ";
+     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    }
 
-  close() {
+    }
+ close(){
+  
     this.resetForm()
-  }
 
-  // Reset Function
-  resetForm() {
-    this.createForm();
+ }
+ resetForm() {
+  this.angForm.controls.S_ACNOTYPE.reset();
+
     this.showRepo = false;
+    this.clicked=false;
   }
 }
 

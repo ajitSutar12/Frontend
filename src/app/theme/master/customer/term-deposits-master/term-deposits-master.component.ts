@@ -106,7 +106,7 @@ interface TermDepositMaster {
 })
 export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
-  @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -426,6 +426,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       this.selectedValue = this.scheme[0].value
+      this.getReceiptNumber()
 
       this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
         if (data.UNIT_OF_PERIOD == "B") {
@@ -1012,7 +1013,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             }
             else {
               this.angForm.patchValue({
-                AC_MONTHS: months,  
+                AC_MONTHS: months,
                 // AC_DAYS: days
               })
             }
@@ -1046,6 +1047,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       })
     }
+    let obj = {
+      scheme: this.selectedValue,
+      AC_INTCATA: this.ngIntCategory,
+      days: Number(this.angForm.controls['AC_DAYS'].value),
+      month: Number(this.angForm.controls['AC_MONTHS'].value)
+    }
+    this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
+      this.angForm.patchValue({
+        AC_INTRATE: data
+      })
+    })
   }
   //compound interest
   i: number
@@ -2725,10 +2737,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'Term Deposit Account approved successfully',
         'success'
       );
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -2749,11 +2760,28 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'success'
       );
 
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
   }
 
+  getReceiptNumber() {
+    let obj = {
+      scheme: this.selectedValue
+    }
+    this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
+      this.angForm.patchValue({
+        AC_REF_RECEIPTNO: data
+      })
+      data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
+    })
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
 }
