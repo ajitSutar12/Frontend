@@ -44,7 +44,6 @@ export class TFormDayBookComponent implements OnInit {
   Types = [
     { id: 1, value: "Summary" },
     { id: 2, value: "Details" },
-    { id: 3, value: "Subsidairy Grouping" },
   ];
   constructor(private fb: FormBuilder, private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
@@ -85,7 +84,7 @@ export class TFormDayBookComponent implements OnInit {
   createForm() {
     this.ngForm = this.fb.group({
       Branch: ['', [Validators.required]],
-      Type: ['', [Validators.required]],
+      Print_Code: new FormControl('Detail'),
       date: ["", [Validators.required]],
     });
   }
@@ -106,13 +105,15 @@ export class TFormDayBookComponent implements OnInit {
     debugger
     event.preventDefault();
     this.formSubmitted = true;
+
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
-    if (this.ngForm.valid) {
-debugger
+
+    if (this.ngForm.controls['Print_Code'].value=="Detail" && this.ngForm.valid) {
       this.showRepo = true;
       let obj = this.ngForm.value
+      let type = obj.Print_Code;
 
       // check the conition of the default(syspara) date and date parameter and set the format
       let Date:any;
@@ -123,12 +124,30 @@ debugger
       };
     
         // let Date = this.date;
-        let Branch = obj.Branch;
-      let type = obj.Type;
+      let Branch = obj.Branch;
 
-      // this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      // console.log(this.iframe1url);
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+    }
+    else if (this.ngForm.controls['Print_Code'].value=="Summary" && this.ngForm.valid) {
+      this.showRepo = true;
+      let obj = this.ngForm.value
+      let type = obj.Print_Code;
+
+      // check the conition of the default(syspara) date and date parameter and set the format
+      let Date:any;
+      if (this.date == obj.date) {
+        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      }else{ 
+        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
+    
+      // let Date = this.date;
+      let Branch = obj.Branch;
+
       this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      console.log(this.iframe1url);
+      // console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
@@ -143,7 +162,7 @@ debugger
 
   resetForm() {
     // this.createForm()
-    this.ngForm.controls.Type.reset();
+    // this.ngForm.controls. Print_Code.reset();
     this.showRepo = false;
     this.clicked = false;
   }
