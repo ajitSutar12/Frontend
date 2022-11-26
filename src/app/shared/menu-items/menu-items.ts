@@ -1011,7 +1011,7 @@ const MENUITEMS = [
               {
                 state: 'VouchersPrintingComponent',
                 name: 'Voucher Printing',
-                id: 232
+                id: 214
               },
 
             ]
@@ -1126,6 +1126,7 @@ const MENUITEMS = [
                 name:'Debit Balance Report',
                 id:225
               },
+              
               // {
               //   state:'Bnkbalcon',
               //   name:'balance confirmation certificate',
@@ -1136,11 +1137,7 @@ const MENUITEMS = [
               //    name:'Short Balance List',
               //    id:225
               // },
-              {
-                state:'SubSummary',
-                name:'Subsidiary Summary',
-                id:225
-              },
+              
               {
                 state: 'AmountBalList',
                 name: 'AmountWise Balance List',
@@ -1305,6 +1302,26 @@ const MENUITEMS = [
                 name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
                 id: 99
               },
+              {
+                state: 'Drecb-monthly-list',
+                name: 'Director Recommanded by wise Monthly Loan List',
+                id: 99
+              },
+              {
+                state:'lcd-expiry-list',
+                name:'Loan/Cash Credit Expiry List',
+                id:99
+              },
+              {
+                state:'DDRelative-Report',
+                name:'Director/Director Relative Loan Report',
+                id:99
+              },
+              {
+                state:'DDRelative-Report-performa1',
+                name:'Director/Director Relative Loan Report-performa1',
+                id:99
+              }
             ]
           },
         

@@ -117,7 +117,15 @@ export class BnkScrollDetailBothComponent implements OnInit {
     if(this.angForm.controls['Print_Code'].value=="Debit" && this.angForm.valid){
     this.showRepo = true;
     let obj = this.angForm.value
-  let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
+  // let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
+
+  let Startdate:any;
+   if (this.fromdate == obj.CURRENT_DATE) {
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   }else{ 
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   };
+
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
@@ -130,7 +138,15 @@ export class BnkScrollDetailBothComponent implements OnInit {
  else if(this.angForm.controls['Print_Code'].value=="Credit" && this.angForm.valid){
   this.showRepo = true;
   let obj = this.angForm.value
-  let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
+  // let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
+
+  let Startdate:any;
+   if (this.fromdate == obj.CURRENT_DATE) {
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   }else{ 
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   };
+
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
@@ -143,7 +159,15 @@ export class BnkScrollDetailBothComponent implements OnInit {
 else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid){
   this.showRepo = true;
   let obj = this.angForm.value
-  let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
+  // let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
+
+  let Startdate:any;
+   if (this.fromdate == obj.CURRENT_DATE) {
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   }else{ 
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+   };
+   
   let stype = obj.Scroll_Type
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
