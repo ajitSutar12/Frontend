@@ -27,9 +27,9 @@
                         <div class="form-group form-primary form-static-label">
                           <span class="border-lable-flt">
                             <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
-                              (keyup)="filterObject($event)" (change)="getCustomer($event)"
-                              formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}" placeholder="Please enter ID or name"
-                              title="Compulsory Selection" required  [loading]="loadingCustomer">
+                              (keyup)="filterObject($event)" (change)="getCustomer($event)" formControlName="AC_CUSTID"
+                              [ngClass]="{'form-submitted': formSubmitted}" placeholder="Please enter ID or name"
+                              title="Compulsory Selection" required [loading]="loadingCustomer">
                               <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                 {{values.label}}</ng-option>
                             </ng-select>
@@ -94,7 +94,7 @@
               </div>
               <div class="row" *ngIf="accountsList.length != 0">
                 <div class="col-sm-6">
-                  <div class="table-responsive solid">
+                  <div class="table-responsive solid" style="height: 350px;">
                     <table class="table table-striped table-bordered table-hover compact"
                       *ngIf="accountsList.length != 0">
                       <thead>

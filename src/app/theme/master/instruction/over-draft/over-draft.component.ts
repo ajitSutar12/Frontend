@@ -231,6 +231,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       let effectdate
       this.formSubmitted = true;
       const formVal = this.angForm.value;
+      let odDate = moment(formVal.AC_ODDATE, 'DD/MM/YYYY')
+      let odDatet = moment(odDate).format('DD/MM/YYYY')
       const dataToSend = {
         AC_TYPE: this.actype,
         ACTYPE: this.ac_type,
@@ -239,7 +241,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_SODAMT: formVal.AC_SODAMT,
         AC_ODAMT: formVal.AC_ODAMT,
         AC_ODDAYS: formVal.AC_ODDAYS,
-        'AC_ODDATE': (formVal.AC_ODDATE == '' || formVal.AC_ODDATE == 'Invalid date' || formVal.AC_ODDATE == null || formVal.AC_ODDATE == undefined) ? effectdate = '' : effectdate = moment(formVal.AC_ODDATE).format('DD/MM/YYYY'),
+        AC_ODDATE: this.PeriodicallyOverDraftTrue == true ? odDatet : null
       };
       this._overdraft.postData(dataToSend).subscribe(
         (data1) => {
@@ -367,8 +369,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.http.get(this.url + '/over-draft/check/' + this.mem).subscribe((data) => {
       if (data != null) {
         this.angForm.patchValue({
-          AC_ODAMT: data[0]?.AC_ODAMT,
-          AC_SODAMT: data[0]?.AC_SODAMT,
+          AC_ODAMT: Number(data[0]?.AC_ODAMT).toFixed(2),
+          AC_SODAMT: Number(data[0]?.AC_SODAMT).toFixed(2),
           AC_ODDAYS: data[0]?.AC_ODDAYS,
           AC_ODDATE: data[0]?.AC_ODDATE,
         })
@@ -513,5 +515,10 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     var date1 = this.maxDate
     let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_ODDAYS'].value), 'days').format('DD/MM/YYYY')
     this.angForm.controls.AC_ODDATE.setValue(expiryT)
+  }
+  getBranch() {
+    this.acno = null
+    this.ngscheme = null
+    this.schemeACNo = null
   }
 }

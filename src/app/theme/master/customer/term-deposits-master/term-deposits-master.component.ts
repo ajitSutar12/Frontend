@@ -2784,4 +2784,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     button.click();
     this.reloadTablePassing.emit();
   }
+  addNewInstruction(instruction) {
+  }
+
 }
