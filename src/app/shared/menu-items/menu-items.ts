@@ -1011,7 +1011,7 @@ const MENUITEMS = [
               {
                 state: 'VouchersPrintingComponent',
                 name: 'Voucher Printing',
-                id: 232
+                id: 214
               },
 
             ]
@@ -1126,6 +1126,7 @@ const MENUITEMS = [
                 name:'Debit Balance Report',
                 id:225
               },
+              
               // {
               //   state:'Bnkbalcon',
               //   name:'balance confirmation certificate',
@@ -1136,11 +1137,7 @@ const MENUITEMS = [
               //    name:'Short Balance List',
               //    id:225
               // },
-              {
-                state:'SubSummary',
-                name:'Subsidiary Summary',
-                id:225
-              },
+              
               {
                 state: 'AmountBalList',
                 name: 'AmountWise Balance List',

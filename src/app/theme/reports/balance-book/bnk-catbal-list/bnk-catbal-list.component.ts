@@ -140,6 +140,7 @@ obj: any;
     if(this.ngForm.valid){
       let obj = this.ngForm.value
       let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      let sdate = moment(obj.START_DATE).subtract(1, "day").format('DD/MM/YYYY');
       let enddate:any;
     if (this.todate == obj.END_DATE) {
       enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
@@ -150,14 +151,13 @@ obj: any;
     
       this.showRepo = true;
  
-  let scheme = obj.Scheme_code
+     let scheme = obj.Scheme_code
  
-  let branch = obj.BRANCH_CODE
-  let Rdio = obj.radio
-  let Rdiosort  = obj.radio_sort
+     let branch = obj.BRANCH_CODE
+     let Rdio = obj.radio
           
- this.iframeurl= this.report_url+ "examples/BalanceBook.php?startdate='" + startdate + "'&enddate='" + enddate+"'&Rdio='"+Rdio+"&scheme='" + scheme + "'&branch='"+ branch +"'&Rdiosort='" + Rdiosort +"&bankName=" + bankName + "";
- this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    this.iframeurl= this.report_url+ "examples/CategoryWiseDetailBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&scheme='" + scheme + "'&branch="+ branch +"&bankName=" + bankName + "";
+    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
@@ -172,13 +172,8 @@ obj: any;
     this.showLoading = false;
   }
   resetForm() {
-  
     this.ngForm.controls.Scheme_code.reset();
-  
-
-    
     this.ngForm.controls.radio.reset();
-    
     this.showRepo = false;
     this.clicked=false;
   }
