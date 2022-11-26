@@ -997,20 +997,21 @@ export class MultiVoucherComponent implements OnInit {
         this.newbtnShow = true;
       }
       this.mainMaster = data
-      this.selectedCode = data[0].scheme.S_SHNAME;
+      for (let ele of this.mainMaster) {
+        ele['total_amt'] = Number(ele['total_amt']).toFixed(2)
+      }
+      this.selectedCode = data[0].scheme.S_ACNOTYPE;
       this.selectedSchemeCode()
       this.selectedScheme = data[0].scheme.id;
-      this.getIntroducer(data[0].scheme);
+      this.getIntroducer(this.mainMaster[0].scheme);
       this.customer = data[0].account_no.id;
       this.submitAccountNo = data[0].account_no;
       this.selectedMode = data[0].tran_mode.id;
       this.angForm.patchValue({
         scheme: this.selectedScheme,
         particulars: data[0].NARRATION,
-        amt: data[0].amt
+        amt: Number(data[0].amt).toFixed(2)
       })
-      this.totalCredit = '0';
-      this.totalDebit = '0';
       this.calculateVoucher()
       this.showlgindetails()
       this.SideDetails()

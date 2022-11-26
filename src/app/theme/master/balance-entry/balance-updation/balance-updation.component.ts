@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { __asyncDelegator } from 'tslib';
 
-
+import { NgSelectComponent } from '@ng-select/ng-select'
 
 class DataTableResponse {
   data: any[];
@@ -73,7 +73,7 @@ export class BalanceUpdationComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
   //for date
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   warrentdate: any = null
 
@@ -155,6 +155,11 @@ export class BalanceUpdationComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate._d
+    })
   }
 
   ///Scrolling function
@@ -211,6 +216,10 @@ export class BalanceUpdationComponent implements OnInit {
   getBranch(event) {
     this.branchCode = event.name
     this.branchid = event.value
+    this.fromAC = null
+    this.ngfromac = null
+    this.ToAC = null
+    this.ngtoac = null
     this.getAccountList()
   }
 
@@ -218,6 +227,10 @@ export class BalanceUpdationComponent implements OnInit {
   schemechange(event) {
     this.getschemename = event.name
     this.S_GLACNO = event.glacno
+    this.fromAC = null
+    this.ngfromac = null
+    this.ToAC = null
+    this.ngtoac = null
     this.getAccountList()
   }
 
@@ -603,7 +616,7 @@ export class BalanceUpdationComponent implements OnInit {
       this.http.get(this.url + '/balance-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
         this.gridData = data;
-        this.arrTable.forEach(element => {
+        for (let element of this.arrTable) {
           var object = {
             AC_NO: element.AC_NO,
             AC_NAME: element.AC_NAME,
@@ -629,7 +642,7 @@ export class BalanceUpdationComponent implements OnInit {
             ExistFlag: 'Y'
           }
           this.balanceUpdateArr.push(object)
-        });
+        }
       });
 
     }
@@ -904,6 +917,29 @@ export class BalanceUpdationComponent implements OnInit {
     this.showButton = true;
     this.updateShow = false;
     this.resetForm();
+  }
+  getDecimalPoint(event) {
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 
 }
