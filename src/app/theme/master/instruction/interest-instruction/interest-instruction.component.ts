@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
@@ -59,6 +59,7 @@ interface InterestInstruction {
 
 export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
+  @Output() newTDCustomerEvent = new EventEmitter<object>();
   url = environment.base_url;
   angForm: FormGroup;
   // For reloading angular datatable after CRUD operation
@@ -881,5 +882,45 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  addNewTDAccount(value) {
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let redate
+    let dataToSend = {
+      'BRANCH_CODE': branchCode,
+      'INSTRUCTION_NO': formVal.INSTRUCTION_NO,
+      'INSTRUCTION_DATE': formVal.INSTRUCTION_DATE,
+      'DAYS': formVal.DAYS,
+      'FROM_DATE': formVal.FROM_DATE,
+      'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
+      'EXECUTION_DAY': formVal.EXECUTION_DAY,
+      'DR_ACTYPE': formVal.DR_ACTYPE,
+      'DR_AC_NO': formVal.DR_AC_NO,
+      'DR_PARTICULARS': formVal.DR_PARTICULARS,
+      'CR_ACTYPE': formVal.CR_ACTYPE,
+      'CR_AC_NO': formVal.CR_AC_NO,
+      'CR_PARTICULARS': formVal.CR_PARTICULARS,
+      'SI_FREQUENCY': formVal.SI_FREQUENCY,
+      'LAST_EXEC_DATE': formVal.LAST_EXEC_DATE,
+      'TRAN_TYPE': formVal.TRAN_TYPE,
+      'REVOKE_DATE': formVal.REVOKE_DATE,
+      'ADV_NARRATION': formVal.ADV_NARRATION,
+      'DEFAULT_INTEREST_APPLICABLE': (formVal.DEFAULT_INTEREST_APPLICABLE == true ? '1' : '0'),
+    };
+    this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
+    this.startDT == this.angForm.controls['FROM_DATE'].value ? dataToSend['FROM_DATE'] = this.startDT : dataToSend['FROM_DATE'] = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
+    this.TODate == this.angForm.controls['NEXT_EXE_DATE'].value ? dataToSend['NEXT_EXE_DATE'] = this.TODate : dataToSend['NEXT_EXE_DATE'] = moment(this.angForm.controls['NEXT_EXE_DATE'].value).format('DD/MM/YYYY')
+
+    this.newTDCustomerEvent.emit(dataToSend);
+  }
+
+  onCloseModal() {
+    var closemodal = document.getElementById('triggerTD')
+    closemodal.click();
+
   }
 }

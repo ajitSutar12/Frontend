@@ -252,7 +252,7 @@ export class BnkAmbalListComponent implements OnInit {
 
   src: any;
   view(event) {
-  
+  debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -263,16 +263,24 @@ export class BnkAmbalListComponent implements OnInit {
     if(this.angForm.valid){
     let obj = this.angForm.value
     this.showRepo = true;
-    let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+    // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+
+    let startDate:any;
+    if (this.defaultDate == obj.FROM_DATE) {
+      startDate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    }else{ 
+      startDate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    };
+
+    var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');        
     let scheme = obj.Scheme_code
-    let Rstartingacc = obj.FROM_AC_NO
-    let Rendingacc = obj.TO_AC_NO
+    let startingacc = obj.FROM_AC_NO
+    let endingacc = obj.TO_AC_NO
     let branch = obj.BRANCH_CODE
   
 
          
-   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='"  +"'&checkbox1='" +"&bankName=" + bankName + "";
+   this.iframeurl= this.report_url+"examples/AmountwiseBalanceReport.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch +"'&startingacc='" + startingacc +"'&endingacc='" + endingacc +"'&Rdiosort='"  +"'&checkbox1='" +"&bankName=" + bankName + "";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
 

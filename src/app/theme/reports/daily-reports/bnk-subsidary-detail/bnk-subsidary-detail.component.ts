@@ -100,7 +100,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
      
      var filtered = data.filter(function (scheme) {
-       return (scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+       return (scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS' || scheme.name == 'SB'  );
      });
      this.schemeList = filtered;
      this.ngIntroducer = null;
@@ -163,7 +163,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
   //  let scheme_code =  obj.Scheme_Code;
   let Rdio = obj.radio
   
-  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "&branchName="+ branchName +"&bankName" +bankName + " &branch="+ branch +"" ;
+  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "&bankName" +bankName + " &branch="+ branch +"" ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   
   

@@ -211,6 +211,11 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-12">
+        <label></label>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-12">
         <div class="col-12">
             <div class="table-responsive">
@@ -241,7 +246,7 @@
                             [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':((data.TRAN_STATUS == '0') ? '#226de9':'#212529')}">
                             <td>{{data.TRAN_DATE}}</td>
                             <td>{{data.CHEQUE_NO}}</td>
-                            <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: nowrap;">
+                            <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: normal;">
                                 {{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>
                             <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubsidiarySummaryComponent } from './subsidiary-summary.component';
+import { LcdExpiryListComponent } from './lcd-expiry-list.component';
 
-describe('SubsidiarySummaryComponent', () => {
-  let component: SubsidiarySummaryComponent;
-  let fixture: ComponentFixture<SubsidiarySummaryComponent>;
+describe('LcdExpiryListComponent', () => {
+  let component: LcdExpiryListComponent;
+  let fixture: ComponentFixture<LcdExpiryListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubsidiarySummaryComponent ]
+      declarations: [ LcdExpiryListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubsidiarySummaryComponent);
+    fixture = TestBed.createComponent(LcdExpiryListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

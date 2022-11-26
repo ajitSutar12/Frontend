@@ -172,3 +172,8 @@ label {
     align-items: center !important;
     margin-left: 35px;
 }
+
+tr:hover {
+    background-color: #fafad7 !important;
+    transform: translate(0%, -5%);
+}
