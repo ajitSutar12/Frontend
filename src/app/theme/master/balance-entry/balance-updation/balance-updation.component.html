@@ -7,7 +7,8 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit();BRANCH_CODE.focus()"
+                #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
@@ -18,7 +19,8 @@
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
-                                        placeholder="Branch">
+                                        placeholder="Branch" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
+                                        [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -33,14 +35,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme Code<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" (change)="schemechange($event)"
-                                        title="Compulsory Selection" required placeholder="Scheme Code">
+                                        title="Compulsory Selection" required placeholder="Scheme Code" #AC_TYPE
+                                        (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
@@ -55,14 +58,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Balance Date</label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Balance Date</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="TRAN_DATE"
+                                        formControlName="TRAN_DATE" #TRAN_DATE="bsDatepicker"
+                                        (keydown.Tab)="TRAN_DATE.hide()" placement="bottom"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -72,12 +76,13 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="FROM_AC">From Account Number<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C"
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -95,12 +100,13 @@
 
                         <div class="col-sm-12 col-md-2"> <label for="TO_AC">To Account Number<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
                                         bindLabel="label" title="Compulsory Selection" (change)="getTable()"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C"
+                                        #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -121,6 +127,11 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-12">
+                            <label for=""></label>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="col-12">
                                 <div class="table-responsive">
@@ -131,7 +142,7 @@
                                                 <tr>
                                                     <td class="td_right">Account Number</td>
                                                     <td>Account Name</td>
-                                                    <td *ngIf="ledgerbalance" class="td_right">Ledger Balance</td>
+                                                    <td *ngIf="ledgerbalance" class="td_right">Ledger Balance </td>
                                                     <td *ngIf="productamount" class="td_right">Product Amount</td>
                                                     <td *ngIf="lastTranDate" class="td_center">Last Transaction Date
                                                     </td>
@@ -232,12 +243,15 @@
                                                     <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
                                                         data.AC_NAME}}
                                                     </td>
-                                                    <td *ngIf="ledgerbalance" class="td_right">
-                                                        <input style="text-align: right;" type="text"
+                                                    <td *ngIf="ledgerbalance" class="td_right"
+                                                        style="white-space: nowrap;">
+                                                       <span><input style="text-align: right;" type="text"
                                                             class="form-control" name="TRAN_AMOUNT" id="ledger_balance"
-                                                            #ledger_balance
+                                                            #ledger_balance value="{{data.LEDGER_BAL}}"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)">
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)"
+                                                            maxlength="8"></span><span>{{data.drcr}} </span>
+
                                                     </td>
                                                     <td *ngIf="productamount" class="td_right">
                                                         <input style="text-align: right;" type="text"
@@ -280,7 +294,7 @@
                                                     <td *ngIf="debitcredit" class="td_left">
                                                         <div class="form-radio">
                                                             <div class="radio radio-inline">
-                                                                <label>
+                                                                <label class="inputRadio">
                                                                     <input type="radio" [value]="data.AC_OP_CD"
                                                                         #AC_OP_CD
                                                                         [attr.checked]="data.AC_OP_CD=='D'?'':null"
@@ -290,7 +304,7 @@
                                                                 </label>
                                                             </div>
                                                             <div class="radio radio-inline">
-                                                                <label>
+                                                                <label class="inputRadio">
                                                                     <input type="radio" [value]="data.AC_OP_CD"
                                                                         #AC_OP_CD
                                                                         [attr.checked]="data.AC_OP_CD=='C'?'':null"

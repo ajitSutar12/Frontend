@@ -880,4 +880,9 @@ input[type="file" i]::-webkit-file-upload-button {
 
 .inputRadio:focus-within {
     color: red;
-  }
+}
+
+tr:hover {
+    background-color: #fafad7 !important;
+    transform: translate(0%, -5%); //-5 up
+}

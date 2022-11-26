@@ -2215,12 +2215,14 @@
                                                         </div>
                                                         <div class="app-modal-body">
                                                             <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
-                                                            <app-interest-instruction> </app-interest-instruction>
+                                                            <app-interest-instruction
+                                                                (newTDCustomerEvent)="addNewInstruction($event)">
+                                                            </app-interest-instruction>
                                                             <!-- </perfect-scrollbar> -->
                                                         </div>
                                                         <div class="app-modal-footer">
                                                             <button type="button" class="btn btn-outline-primary btn-sm"
-                                                                (click)="modalLarge.hide()">
+                                                                (click)="modalLarge.hide()" id="triggerTD">
                                                                 Close
                                                             </button>
                                                         </div>
