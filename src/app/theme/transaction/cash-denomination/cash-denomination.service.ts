@@ -36,11 +36,31 @@ export class CashDenominationService {
       }));
   }
 
-  acceptVoucher():Observable<any>{
-    return this.http.post(this.url + '/accept-denomination/Acceptforvoucher','');
+  acceptVoucher(data):Observable<any>{
+    return this.http.post(this.url + '/accept-denomination/Acceptforvoucher',data);
   }
 
-  paymentVoucher():Observable<any>{
-    return this.http.post(this.url + '/accept-denomination/Paymentforvoucher','');
+  paymentVoucher(data):Observable<any>{
+    return this.http.post(this.url + '/accept-denomination/Paymentforvoucher',data);
+  }
+
+  acceptDinominationInsert(data):Observable<any>{
+    return this.http.post(this.url+'/accept-denomination/insert',data);
+  }
+
+  paymentDinominationInsert(data):Observable<any>{
+    return this.http.post(this.url+'/accept-denomination/paymentinsert',data);
+  }
+
+  cashInDenomination(data):Observable<any>{
+    return this.http.post(this.url + '/accept-denomination/cashInDenomination',data);
+  }
+
+  cashOutDenomination(data):Observable<any>{
+    return this.http.post(this.url+ '/accept-denomination/cashOutDenomination',data);
+  }
+
+  cashiertosafevault(data):Observable<any>{
+    return this.http.post(this.url+'/accept-denomination/cashiertosafevault',data);
   }
 }

@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { userInfo } from 'os';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
 
 @Component({
@@ -31,6 +33,7 @@ export class AcceptDComponent implements OnInit {
   Particulars:any;
   showCash :boolean = false;
   totalCash :any = 0;
+  cashierName : any;
   currencyData =
   [
     { currency: 2000, qty: 0, total: 0 },
@@ -52,12 +55,15 @@ export class AcceptDComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    debugger
+    let user = JSON.parse(localStorage.getItem('user'))
     this.createForm()
-    this._service.acceptVoucher().subscribe(data=>{
+    this._service.acceptVoucher(user).subscribe(data=>{
       console.log(data);
       this.voucherData = data;
     },err=>{
-
+      Swal.fire(err.error.error,err.error.message,'warning');
+      this.angForm.reset();
     })
 
   }
@@ -77,6 +83,8 @@ export class AcceptDComponent implements OnInit {
 
   //get voucher data
   getVoucherData(ele){
+    let user = JSON.parse(localStorage.getItem('user'))
+
     debugger
     console.log(ele)
     this.angForm.patchValue({
@@ -87,6 +95,7 @@ export class AcceptDComponent implements OnInit {
       TRANSACTION_AMT : ele.TRAN_AMOUNT,
       TRANSACTION_TYPE : 'Credit Type'
     })
+    this.cashierName = user.F_NAME +' '+user.L_NAME;
   }
 
   showCashModule(){
@@ -110,8 +119,28 @@ export class AcceptDComponent implements OnInit {
   }
 
   submit(){
-    let object = this.angForm.value;
-    object['currency'] = this.currencyData;
-    console.log(object);
+  
+    // if(this.angForm.valid){
+      let object = this.angForm.value;
+      let user   = JSON.parse(localStorage.getItem('user'));
+      object['currency'] = this.currencyData;
+      object['user']     = user;
+      console.log(object);
+      if(this.sum != this.denomination){
+        Swal.fire('Oops...','Cash Denomination not matched please check once again','warning');
+
+      }else{
+        this._service.acceptDinominationInsert(object).subscribe(data=>{
+          Swal.fire('Success','Cash Accept Denomincation Successfully Done','success');
+          this.angForm.reset();
+          this.showCash = false;
+        },err=>{
+          console.log(err);
+        })
+      }
+      
+    // }else{
+    //   Swal.fire('Oops...','Please fill all required field','warning');
+    // }
   }
 }
