@@ -8,7 +8,7 @@ export const environment = {
   // base_url : 'http://192.168.1.230:4000'
   // base_url: 'http://192.168.1.179:4000'
   // base_url: 'http://139.59.86.29:4000'  //CBS regular build
-  // base_url: 'http://139.59.86.29:7276'   //CBS test server
+  // base_url: 'http://139.59.63.215:7276',   //CBS test server
 
   base_url: 'http://139.59.63.215:7276',  //CBS  BHAIRAVNATH server
   // base_url: 'http://139.59.63.215:4713',  //CBS  BHAIRAVNATH test server
