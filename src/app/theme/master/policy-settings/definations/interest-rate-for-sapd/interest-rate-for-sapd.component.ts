@@ -11,14 +11,14 @@ import { SavingandPigmyInterestRatesService } from './interest-rate-for-sapd.ser
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription'; 
 //Service file of dropdown
 import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
@@ -114,7 +114,6 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     private config: NgSelectConfig,) {
     // this.datemax =new Date() ;
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -157,7 +156,6 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
             this.url + '/saving-and-pigmy-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
-            console.log(resp.data)
             this.savingandPigmyInterestRate = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -211,7 +209,6 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   //disabledate on keyup
   disabledate(data: any) {
 
-    console.log(data);
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
@@ -241,21 +238,21 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       });
       //this.rerender();
     }, (error) => {
-      console.log(error)
     })
     //To clear form
     this.resetForm();
   }
 
-  //check  if percentage  is below 100
+  //check  if percentage  is below 50
   checkmargin(ele: any) {
-    //check  if given value  is below 100
-    console.log(ele);
-    if (ele <= 100) {
-      console.log(ele);
-    }
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
+    } 
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0 
+
+
     }
   }
 
@@ -327,7 +324,6 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
             'success'
           )
         }), (error) => {
-          console.log(error)
         }
         // to reload after delete of data
         this.rerender();
@@ -390,5 +386,9 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
         clearInterval(timer);
       }
     }, 1000);
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
   }
 }

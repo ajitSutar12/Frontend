@@ -18,7 +18,7 @@ import { TermemeDepositeSchMasterDropdownService } from '../../../../../shared/d
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 // Handling datatable data
@@ -45,7 +45,7 @@ interface TermDepositPatScheme {
   styleUrls: ['./term-deposit-pat-scheme.component.scss'],
 })
 export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  // @ViewChild("scheme") myInputField: ElementRef;//input field autofocus
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -117,7 +117,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private config: NgSelectConfig,) {
     // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -234,7 +233,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
           dtInstance.ajax.reload()
         });
       }, (error) => {
-        console.log(error)
       })
       //To clear form
       this.resetForm();
@@ -259,7 +257,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.newbtnShow = true;
     this.addShowButton = true
     this.termDepositPatSchemeService.getFormData(id).subscribe(data => {
-      debugger
       this.updatecheckdata = data
       this.multiField = data.rate
       this.updateID = data.id;
@@ -289,7 +286,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     }
     data['AC_TYPE'] = this.ngscheme
     data['INT_CATEGORY'] = this.ngintcat
-    console.log(data, 'update data')
     this.termDepositPatSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -315,15 +311,15 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.multiField = [];
     this.resetForm();
   }
-  //check  if percentage  is below 100
+  //check  if percentage  is below 50
   checkmargin(ele: any) {
-    //check  if given value  is below 100
-    console.log(ele);
-    if (ele <= 100) {
-      console.log(ele);
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) { 
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0 
+
     }
   }
 
@@ -378,7 +374,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
             'success'
           )
         }), (error) => {
-          console.log(error)
         }
         // to reload after delete of data
         this.rerender();
@@ -507,9 +502,14 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     })
   }
 
-  delField(id) {
+  delField(id) { 
     this.multiField.splice(id, 1)
   }
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  
 
 
 }

@@ -1,536 +1,330 @@
-<!-- <div class="row">
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Term Deposit Account Renewal</h5>
+                <h5>Term Deposite Receipt Printing</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <form class="form-material" action="javascript:">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Scheme</label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm">
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                    <div class="input-group-append bg-default" (click)="d.toggle()">
-                                        <span class="icofont icofont-ui-calendar input-group-text"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm">
-                        <form class="form-material" action="javascript:">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Account No.</label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="card-block">
-                <div class="card">    
-                    <div class="card-header">
-                        <h5>Previous Details</h5>
-                    </div>
-                    <div class="card-block">
-                        <div class="row">
-                            <div class="col-sm">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Deposit Amount</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                A/C Open Date
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                            <div class="input-group-append bg-default" (click)="d.toggle()">
-                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                Maturity Date
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                            <div class="input-group-append bg-default" (click)="d.toggle()">
-                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Maturity Amount</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                As on Date
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                            <div class="input-group-append bg-default" (click)="d.toggle()">
-                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Receipt No.</label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Months & Days</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Int. Rate</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Total Int. Paid</label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                Last Interest Date
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                            <div class="input-group-append bg-default" (click)="d.toggle()">
-                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                <form class="form-material" action="javascript:">
-                                    <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Interest Category</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm">
-                                Last Trn Date 
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                            <div class="input-group-append bg-default" (click)="d.toggle()">
-                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="card-block">
-            <div class="card">    
-                <div class="card-header">
-                    <h5>Interest Status</h5>
-                </div>
+            <form [formGroup]="ngForm">
                 <div class="card-block">
+
                     <div class="row">
                         <div class="col-sm">
-                            <div class="border-checkbox-section">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
-                                    <label class="border-checkbox-label" for="checkbox1">Normal Interest</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            Interest Upto
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append bg-default" (click)="d.toggle()">
-                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                            <div class="solid">
+                                <div class="row">
+
+                                    <div class="col-sm-2 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-2 col-md-3">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select bindValue="value" bindLabel="label" [(ngModel)]="BranchCode"
+                                                    formControlName="BRANCH_CODE" #branchcode autofocus>
+                                                    <ng-option *ngFor="let values of branch_code" [value]="values">
+                                                        {{values.label}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                                This field is required
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest</label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="card-block">
-                            <div class="form-radio">
-                                <form>
-                                    <div class="row">
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio" checked="checked">
-                                            <i class="helper"></i>Cash 
-                                        </label>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme Code<sub
+                                                class="required">*</sub></label>
                                     </div>
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio">
-                                            <i class="helper"></i>Add in Deposit
-                                        </label>
+                                    <div class="col-sm-3">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt" autofocus>
+                                                <ng-select bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE"
+                                                    bindLabel="label" formControlName="AC_TYPE"
+                                                    title="Compulsory Selection" required placeholder="Scheme">
+                                                    <ng-option *ngFor="let values of Scheme" [value]="values">
+                                                        {{values.label}} </ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['AC_TYPE'].invalid && (ngForm.controls['AC_TYPE'].dirty || ngForm.controls['AC_TYPE'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['AC_TYPE'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="radio radio-inline ">
-                                        <label>
-                                            <input type="radio" name="radio">
-                                            <i class="helper"></i>Transfer
-                                        </label>
+                                    <div class="col-md-2"> <label for="from no">From A/c Number<sub
+                                                class="required">*</sub></label>
                                     </div>
-                                    <div class="radio radio-inline ">
-                                        <label>
-                                            <input type="radio" name="radio">
-                                            <i class="helper"></i>Keep as Payable
-                                        </label>
-                                    </div>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Scheme</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">A/C No</label>
-                                </div>
-                            </form>
-                        </div> 
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append bg-default" (click)="d.toggle()">
-                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                    <div class="col-md-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="cdropdown" [(ngModel)]="firstno"
+                                                    formControlName="FIRST_NO" bindValue="bankacno" bindLabel="NAME"
+                                                    placeholder=" From A/c No">
+                                                    <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                        {{values.label}} {{values.name}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['FIRST_NO'].invalid && (ngForm.controls['FIRST_NO'].dirty || ngForm.controls['FIRST_NO'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['FIRST_NO'].errors?.required">
+                                                This field is required
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest Category</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append bg-default" (click)="d.toggle()">
-                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                    <div class="col-md-2">
+                                        <label for="lastno">To A/c Number<sub class="required">* </sub></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="cdropdown" [(ngModel)]="lastno" formControlName="LAST_NO"
+                                                    bindValue="bankacno" bindLabel="NAME" placeholder=" To A/c No">
+                                                    <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                        {{values.label}} {{values.name}}</ng-option>
+                                                </ng-select>
+                                            </span>
                                         </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="border-checkbox-section">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
-                                    <label class="border-checkbox-label" for="checkbox1">Payable Interest</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            Interest Upto
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append bg-default" (click)="d.toggle()">
-                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['LAST_NO'].invalid && (ngForm.controls['LAST_NO'].dirty || ngForm.controls['LAST_NO'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="ngForm.controls['LAST_NO'].errors?. maxlength || ngForm.controls['LAST_NO'].errors?. minlength || ngForm.controls['TRAN_NO'].errors?.required">
+                                                This field is required
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest</label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="card-block">
-                            <div class="form-radio">
-                                <form>
-                                    <div class="row">
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio" checked="checked">
-                                            <i class="helper"></i>Cash 
-                                        </label>
-                                    </div>
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio">
-                                            <i class="helper"></i>Add in Deposit
-                                        </label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="radio radio-inline ">
-                                        <label>
-                                            <input type="radio" name="radio">
-                                            <i class="helper"></i>Transfer
-                                        </label>
-                                    </div>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Scheme</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">A/C No</label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="card-block">
-        <div class="card">    
-            <div class="card-header">
-                <h5>Renewal Details</h5>
-            </div>
-            <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Renewal Tran. No.</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Int Category</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            New As on Date
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append bg-default" (click)="d.toggle()">
-                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                    <div class="col-sm-5">
+                                        <div class="checkbox checkbox-primary">
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input type="checkbox" class="border-checkbox" id="IRTDSDFY"
+                                                    value="IRTDSDFY" formControlName="TDSDOCUMNET"
+                                                    (change)="isReceivedTds($event)">
+
+                                                <label class="border-checkbox-label" for="IRTDSDFY">Bond Receipt</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+
+                                <div class="row" id="TDSFORM" *ngIf="isTdsForm">
+
+                                    <div class="col-md-1">
+                                        <label for="from">From<sub class="required">*
+                                            </sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input style="text-align: right ;" type="text" placeholder="dd/mm/yyyy"
+                                                    name="date" id="date" [(ngModel)]="fromdate"
+                                                    formControlName="FROM_DATE" class="form-control" [maxDate]="maxDate"
+                                                    bsDatepicker >
+
+
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['FROM_DATE'].invalid && (ngForm.controls['FROM_DATE'].dirty || ngForm.controls['FROM_DATE'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['FROM_DATE'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label for="to">To<sub class="required">*
+                                            </sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input style="text-align: right ;" type="text" placeholder="dd/mm/yyyy"
+                                                    name="date" id="date" [(ngModel)]="todate" formControlName="TO_DATE"
+                                                    class="form-control" [maxDate]="maxDate" bsDatepicker>
+
+
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['TO_DATE'].invalid && (ngForm.controls['TO_DATE'].dirty || ngForm.controls['TO_DATE'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['TO_DATE'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm">
+                                        <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                                        <button class="btn  btn-outline-primary btn-sm">Print</button>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Months & Days</label>
+                            <div class="solid">
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme Code<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt" autofocus>
+                                                <ng-select bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE"
+                                                    bindLabel="label" formControlName="AC_TYPE"
+                                                    title="Compulsory Selection" required placeholder="Scheme">
+                                                    <ng-option *ngFor="let values of Scheme" [value]="values">
+                                                        {{values.label}} </ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['AC_TYPE'].invalid && (ngForm.controls['AC_TYPE'].dirty || ngForm.controls['AC_TYPE'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['AC_TYPE'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 col-md-2"> <label for="AC_NO">Account Number
+                                            <sub class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="AC_NO" bindValue="value" [(ngModel)]="acnumber"
+                                                    formControlName="AC_NO" bindLabel="label"
+                                                    title="Compulsory Selection" placeholder="Account Number">
+                                                    <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                        {{values.label}} {{values.name}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['AC_NO'].invalid && (ngForm.controls['AC_NO'].dirty || ngForm.controls['AC_NO'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['AC_NO'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="printno">Print No.<sub class="required">* </sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input style="text-align: right ;" type="text" name="label-name"
+                                                    class="form-control" placeholder=" "
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    formControlName="PRINT_NO" maxlength="4" disabled>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['PRINT_NO'].invalid && (ngForm.controls['PRINT_NO'].dirty || ngForm.controls['PRINT_NO'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="ngForm.controls['PRINT_NO'].errors?. maxlength || ngForm.controls['PRINT_NO'].errors?. minlength || ngForm.controls['PRINT_NO'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <label class="float-label">Total Days = 366</label>
-                            </form>
-                        </div>
-                        <div class="col-sm">
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Receipt No.</label>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Reason</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group input-group">
+                                            <div class="col-md-6">
+                                                <span class="border-lable-flt">
+                                                    <textarea class="form-control" formControlName="Fnarration"
+                                                        [(ngModel)]="ngFnarration"></textarea>
+                                                    <i class="fa fa-info-circle errspan"   (click)="modalLarge.show()"></i>
+                                                   
+                                                   
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <form class="form-material" action="javascript:">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Deposit Amount</label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm">
-                        <form class="form-material" action="javascript:">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Rate</label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm">
-                        New Last Interest Date
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                    <div class="input-group-append bg-default" (click)="d.toggle()">
-                                        <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                <div class="row">
+
+                                    <div class="col-sm">
+                                        <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                                        <button class="btn  btn-outline-primary btn-sm">Print</button>
+
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+
                     </div>
+
+
                 </div>
-                
-                <div class="row">
-                    <div class="col-sm">
-                        <form class="form-material" action="javascript:">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Maturity Amount</label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm">
-                        Maturity Date
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
-                                    <div class="input-group-append bg-default" (click)="d.toggle()">
-                                        <span class="icofont icofont-ui-calendar input-group-text"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            </form>
+
         </div>
+    </div>
 </div>
-        <div class="card-block">
-            <div class="col-sm"><button class="btn btn-primary ripple light">Add</button></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-9">
-            
-              </div>
-               <div class="col-sm">
-                 <h6><span class="required">* </span>: Required Fields</h6>
-              </div>
-           </div>
+
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Narration Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-</div> -->
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Reasons</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
+                                {{item.NARRATION}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide"
+                        #triggerhide (click)="modalLarge.hide()">Close</button>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+</app-modal-basic>

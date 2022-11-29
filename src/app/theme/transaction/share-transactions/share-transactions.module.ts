@@ -43,8 +43,7 @@ import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/sal
     DatepickerModule.forRoot(),
     NgSelectModule,
     ButtonModule,
-    BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
+   
   ],
   declarations: [ShareTransactionsComponent, IssueNewSharesComponent, SharesTransferComponent, MembershipCancellationComponent,
      FoundPaymentTransactionComponent, OpeningSharesTransactionsEntryComponent, RebitInterestTransactionComponent, IssueNewSharesDirective, FoundPaymentTransactionDirective],

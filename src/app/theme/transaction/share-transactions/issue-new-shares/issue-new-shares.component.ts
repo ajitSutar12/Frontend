@@ -27,7 +27,7 @@ export class IssueNewSharesComponent implements OnInit {
 
   //for date
   maxDate: any;
-  minDate: Date;
+  minDate: Date; 
   bsValue = new Date();
 
   jointShowButton: boolean = true

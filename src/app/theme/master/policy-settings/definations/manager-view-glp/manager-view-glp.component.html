@@ -8,14 +8,14 @@
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                <div class="card-block">
+                <div class="card-block"> 
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="SR_NO" class="form-control" placeholder=" "
+                                    <input type="text" name="SR_NO" class="form-control" placeholder=" " #type
                                         pattern="\d{1,20}(\.\d{2})?" id="SR_NO" maxlength="20" disabled
-                                        title="Input allowed only  0-9" formControlName="SR_NO">
+                                        title="Input allowed only  0-9" formControlName="SR_NO" >
                                     <label for="SR_NO">Sr.No.
                                     </label>
                                 </span>
@@ -33,7 +33,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="TYPE" bindValue="value" [(ngModel)]="ngtype"
                                     formControlName="TYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Type">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Type"
+                                    #type (focus)="onFocus(type)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of schemetype" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -60,7 +61,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="STATEMENT_CODE" bindValue="value" [(ngModel)]="ngstatement"
                                     formControlName="STATEMENT_CODE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
+                                    #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -91,7 +93,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="DECRIPTION" bindValue="value" [(ngModel)]="ngdescription"
                                     formControlName="DECRIPTION" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Description">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Description"
+                                    #description (focus)="onFocus(description)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -111,7 +114,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="PERCENTAGE_TO_WORKING_CAPITAL" bindValue="value" [(ngModel)]="ngcapital"
                                     formControlName="PERCENTAGE_TO_WORKING_CAPITAL" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="% to W.Capital">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="% to W.Capital"
+                                    #towcap (focus)="onFocus(towcap)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of PercentageToWCapital" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -132,7 +136,8 @@
                                 <span class="border-lable-flt">
                                 <ng-select id="IS_DISPLAY" bindValue="value" [(ngModel)]="ngdisplay"
                                     formControlName="IS_DISPLAY" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Display to View">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Display to View"
+                                    #disptview (focus)="onFocus(disptview)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of DisplayToView" [value]="values">
                                     {{values.label}}</ng-option>
                                 </ng-select>
@@ -152,9 +157,9 @@
            
             <div class="row">
                 <div class="col-sm">
-                    <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit()" *ngIf="showButton">Submit</button>
-                    <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
-                    <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
+                    <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit();type.focus()" *ngIf="showButton">Submit</button>
+                    <button class="btn btn-outline-primary btn-sm" (click)="updateData();type.focus()" *ngIf="updateShow">Update</button>&nbsp;
+                    <button class="btn btn-outline-primary btn-sm" (click)="addNewData();type.focus()" *ngIf="newbtnShow">Cancel</button>
                 </div>
             </div>
         </div>

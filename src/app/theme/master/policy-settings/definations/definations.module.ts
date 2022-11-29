@@ -80,6 +80,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import {TermemeDepositeSchMasterDropdownService} from 'src/app//shared/dropdownService/term_deposit_scheme-dropdown.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ThemeModule } from 'src/app/theme/theme.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -99,7 +100,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+
+    ThemeModule
   ],
 
   providers: [DepreciationService,

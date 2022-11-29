@@ -43,9 +43,7 @@ schemeCode
 this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
   var filtered = data.filter(function (scheme) {
     return (scheme.name == 'TD');
-    // return (scheme.name == 'SB' || scheme.name == 'CA' 
-    // || scheme.name == 'TD' || scheme.name == 'DS'  || scheme.name == 'GS' 
-    // || scheme.name == 'PG' || scheme.name == 'AG' || scheme.name == 'IV');
+   
   });
   
   this.scheme = filtered;

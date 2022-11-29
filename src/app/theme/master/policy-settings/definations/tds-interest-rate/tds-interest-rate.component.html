@@ -15,8 +15,8 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="FIN_YEAR" class="form-control" placeholder=" " 
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" [(ngModel)]="ngfinyear" #finyear
-                                    #autofocus id="FIN_YEAR" required="" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
-                                        title="Input allowed only  0-9" formControlName="FIN_YEAR">
+                                    id="FIN_YEAR" required="" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
+                                    #autofocus  title="Input allowed only  0-9" formControlName="FIN_YEAR"   >
                                     <label for="FIN_YEAR">Financial Year<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -41,7 +41,7 @@
                                        [ngClass]="{'form-submitted': formSubmitted}"
                                        formControlName="EFFECT_DATE"
                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                       bsDatepicker>
+                                       bsDatepicker #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()">
                                        <label for="date">Effective Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -55,11 +55,12 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="INTEREST_AMOUNT" class="form-control" placeholder=" "
-                                        id="INTEREST_AMOUNT" required=""  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                        pattern="\d{1,12}(\.\d{0,2})?" title="Input allowed only  0-9" maxlength="13"
+                                        id="INTEREST_AMOUNT" required="" (focusout)="getDecimalPoint($event)" 
+                                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        pattern="\d{1,12}(\.\d{0,2})?" title="Input allowed only  0-9" maxlength="15"  (keyup)="getDecimal($event)"
                                         formControlName="INTEREST_AMOUNT">
                                     <label for="INTEREST_AMOUNT">Interest Amount<sub class="required">* </sub></label>
-                                </span>
+                                </span> 
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INTEREST_AMOUNT'].invalid && (angForm.controls['INTEREST_AMOUNT'].dirty || angForm.controls['INTEREST_AMOUNT'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INTEREST_AMOUNT'].errors?.pattern || angForm.controls['INTEREST_AMOUNT'].errors?.required">
@@ -67,13 +68,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                        id="TDS_RATE" required=""  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5"
+                                        id="TDS_RATE" required=""  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5" #margin  (keyup)="checkmargin($event)"
                                         title="Input allowed only  0-9" formControlName="TDS_RATE">
                                     <label for="TDS_RATE">TDS Rate<sub class="required">* </sub></label>
                                 </span>
@@ -89,6 +90,7 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="SURCHARGE_RATE" class="form-control" placeholder=" "
                                         id="SURCHARGE_RATE"  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                       #surcharge (keyup)="checkmargin($event)"
                                         title="Input allowed only  0-9" formControlName="SURCHARGE_RATE">
                                     <label for="SURCHARGE_RATE">Surcharge Rate</label>
                                 </span>
@@ -100,9 +102,9 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();autofocus.focus()" [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();autofocus.focus()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData();autofocus.focus()">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +124,7 @@
                                 <tbody *ngIf="tdsInterests?.length != 0">
                                     <tr *ngFor="let data of tdsInterests">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement="bottom"
+                                            (click)="editClickHandler(data.id);autofocus.focus()" placement="bottom"
                                             ngbTooltip="Edit"></span>  &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>

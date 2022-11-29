@@ -23,7 +23,7 @@ import { NgPasswordValidatorModule } from 'ng-password-validator';
 import { DatatablekitComponent } from './datatablekit/datatablekit.component';
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { GlobalErrorHandler } from './app.service'
+import { GlobalErrorHandler } from './app.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import { GlobalErrorHandler } from './app.service'
     BreadcrumbsComponent,
     HotKeysComponent,
     StrictNumberOnlyDirective,
-    DatatablekitComponent
+    DatatablekitComponent,
+    
 
   ],
   imports: [
