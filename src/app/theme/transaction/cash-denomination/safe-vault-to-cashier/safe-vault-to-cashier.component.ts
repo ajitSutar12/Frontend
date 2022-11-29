@@ -14,15 +14,15 @@ export class SafeVaultToCashierComponent implements OnInit {
   angForm: FormGroup;
 
   //ngmodel
-  cashier:any;
+  cashier: any;
 
 
   total1
 
   DenominationChart: boolean;
-  cashier_list :any;
-  SelectedBranch :any;
-  branch_list:any;
+  cashier_list: any;
+  SelectedBranch: any;
+  branch_list: any;
 
   values = [
     { id: 1, name: 'aaa' },
@@ -31,23 +31,23 @@ export class SafeVaultToCashierComponent implements OnInit {
   ];
 
   currencyData =
-  [
-    { currency: 2000, qty: 0, total: 0 },
-    { currency: 1000, qty: 0, total: 0 },
-    { currency: 500, qty: 0, total: 0  },
-    { currency: 200, qty: 0, total: 0  },
-    { currency: 100, qty: 0, total: 0  },
-    { currency: 50, qty: 0, total: 0  },
-    { currency: 20, qty: 0, total: 0  },
-    { currency: 10, qty: 0, total: 0  },
-    { currency: 5, qty: 0, total: 0  },
-    { currency: 1, qty: 0, total: 0  },
-  ]
+    [
+      { currency: 2000, qty: 0, total: 0 },
+      { currency: 1000, qty: 0, total: 0 },
+      { currency: 500, qty: 0, total: 0 },
+      { currency: 200, qty: 0, total: 0 },
+      { currency: 100, qty: 0, total: 0 },
+      { currency: 50, qty: 0, total: 0 },
+      { currency: 20, qty: 0, total: 0 },
+      { currency: 10, qty: 0, total: 0 },
+      { currency: 5, qty: 0, total: 0 },
+      { currency: 1, qty: 0, total: 0 },
+    ]
 
 
   dtExportButtonOptions: any = {};
   DENOMINATION_AMT: any;
-  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,private _service: CashDenominationService) { }
+  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService, private _service: CashDenominationService) { }
 
   ngOnInit(): void {
 
@@ -64,11 +64,11 @@ export class SafeVaultToCashierComponent implements OnInit {
       })
     })
     let user = JSON.parse(localStorage.getItem('user'));
-    this._service.getOwnbranchList().subscribe(data=>{
+    this._service.getOwnbranchList().subscribe(data => {
       this.branch_list = data;
       this.SelectedBranch = user.branchId;
-       //Get Cashier List
-      this._service.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
+      //Get Cashier List
+      this._service.getList({ branch_id: this.SelectedBranch }).subscribe(data => {
         this.cashier_list = data;
       })
     })
@@ -76,7 +76,7 @@ export class SafeVaultToCashierComponent implements OnInit {
 
 
   decimalAllContent($event) {
-    
+
     var t = $event.target.value;
     $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     this.angForm.patchValue({
@@ -85,13 +85,13 @@ export class SafeVaultToCashierComponent implements OnInit {
   }
 
   isFormA(value) {
-   
+
 
     if (Number(this.angForm.controls['DENOMINATION_AMT'].value) == 0) {
       this.DenominationChart = false
     }
-    
-    else { 
+
+    else {
       this.DenominationChart = true
     }
   }
@@ -99,7 +99,7 @@ export class SafeVaultToCashierComponent implements OnInit {
   sum: number = 0
   calculation(data, index, element) {
 
-    
+
     let currency = this.currencyData[index].currency;
     let qty = element.target.value;
     let total = currency * qty;
@@ -111,9 +111,9 @@ export class SafeVaultToCashierComponent implements OnInit {
     this.sum = this.currencyData.reduce((accumulator, object) => {
       return accumulator + object.total;
     }, 0);
-   
 
-    
+
+
 
   }
   submit() {
@@ -134,7 +134,7 @@ export class SafeVaultToCashierComponent implements OnInit {
 
       Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
     }
-    
+
     else {
       Swal.fire(
         'Good job!',
@@ -145,7 +145,29 @@ export class SafeVaultToCashierComponent implements OnInit {
 
 
   }
+  changeData(ele) {
+    this.DenominationChart = true;
+    console.log(ele);
+    this.currencyData[0].qty = ele.DENO_2000
+    this.currencyData[1].qty = ele.DENO_1000
+    this.currencyData[2].qty = ele.DENO_500
+    this.currencyData[3].qty = ele.DENO_200
+    this.currencyData[4].qty = ele.DENO_100
+    this.currencyData[5].qty = ele.DENO_50
+    this.currencyData[6].qty = ele.DENO_20
+    this.currencyData[7].qty = ele.DENO_10
+    this.currencyData[8].qty = ele.DENO_5
+    this.currencyData[9].qty = ele.DENO_2
+    this.currencyData[10].qty = ele.DENO_1
+    // this.currencyData[0].qty
 
- 
+    for (let item of this.currencyData) {
+      item.total = Number(item.currency) * Number(item.qty);
+    }
+    this.sum = this.currencyData.reduce((accumulator, object) => {
+      return accumulator + object.total;
+    }, 0);
+  }
+
 
 }
