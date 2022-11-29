@@ -192,7 +192,9 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
         TRAN_DATE: moment(this.fromdate).format('DD/MM/YYYY'),
         NARRATION: 'Opening Balance',
         closeBalance: closeBal,
-        dividendBalance: divBal
+        dividendBalance: divBal,
+        DIV_DR_CR: this.drcr,
+        TRAN_DR_CR: this.drcr,
       }
       this.tableData.push(obj)
       this.transactions.forEach((element) => {
@@ -248,15 +250,19 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
               //closing balance calculation
               if (this.drcr == 'Cr') {
                 element.TRAN_DRCR == 'C' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
-                element['closeBalance'] = closeBal
+                closeBal > 0 ? element['TRAN_DR_CR'] = 'Cr' : element['TRAN_DR_CR'] = 'Dr'
+                element['closeBalance'] = Math.abs(closeBal)
                 element.TRAN_DRCR == 'C' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
-                element['dividendBalance'] = divBal
+                divBal > 0 ? element['DIV_DR_CR'] = 'Cr' : element['DIV_DR_CR'] = 'Dr'
+                element['dividendBalance'] = Math.abs(divBal)
               }
               else if (this.drcr == 'Dr') {
                 element.TRAN_DRCR == 'D' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
-                element['closeBalance'] = closeBal
+                closeBal > 0 ? element['TRAN_DR_CR'] = 'Dr' : element['TRAN_DR_CR'] = 'Cr'
+                element['closeBalance'] = Math.abs(closeBal)
                 element.TRAN_DRCR == 'D' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
-                element['dividendBalance'] = divBal
+                divBal > 0 ? element['DIV_DR_CR'] = 'Dr' : element['DIV_DR_CR'] = 'Cr'
+                element['dividendBalance'] = Math.abs(divBal)
               }
               if (element.TOTAL_SHARES != null || element.TOTAL_SHARES != '' || element.NO_OF_SHARES != null || element.NO_OF_SHARES != '') {
                 element.TOTAL_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.TOTAL_SHARES) : this.totalShares = this.totalShares + 0
@@ -466,7 +472,9 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
         TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
         NARRATION: 'Opening Balance',
         closeBalance: closeBal,
-        dividendBalance: divBal
+        dividendBalance: divBal,
+        DIV_DR_CR: this.drcr,
+        TRAN_DR_CR: this.drcr,
       }
       this.tableData.push(obj)
       if (this.transactions.length >= 1 && this.transactions[0].TRAN_STATUS != undefined) {
@@ -523,15 +531,19 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
                 //closing balance calculation
                 if (this.drcr == 'Cr') {
                   element.TRAN_DRCR == 'C' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
-                  element['closeBalance'] = closeBal
+                  closeBal > 0 ? element['TRAN_DR_CR'] = 'Cr' : element['TRAN_DR_CR'] = 'Dr'
+                  element['closeBalance'] = Math.abs(closeBal)
                   element.TRAN_DRCR == 'C' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
-                  element['dividendBalance'] = divBal
+                  divBal > 0 ? element['DIV_DR_CR'] = 'Cr' : element['DIV_DR_CR'] = 'Dr'
+                  element['dividendBalance'] = Math.abs(divBal)
                 }
                 else if (this.drcr == 'Dr') {
                   element.TRAN_DRCR == 'D' ? element.TRAN_AMOUNT != undefined ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal + 0 : element.TRAN_AMOUNT != undefined ? closeBal = closeBal - Number(element.TRAN_AMOUNT) : closeBal = closeBal - 0
-                  element['closeBalance'] = closeBal
+                  closeBal > 0 ? element['TRAN_DR_CR'] = 'Dr' : element['TRAN_DR_CR'] = 'Cr'
+                  element['closeBalance'] = Math.abs(closeBal)
                   element.TRAN_DRCR == 'D' ? element.DIVIDEND_AMOUNT != undefined ? divBal = divBal + Number(element.DIVIDEND_AMOUNT) : divBal = divBal + 0 : element.DIVIDEND_AMOUNT != undefined ? divBal = divBal - Number(element.DIVIDEND_AMOUNT) : divBal = divBal - 0
-                  element['dividendBalance'] = divBal
+                  divBal > 0 ? element['DIV_DR_CR'] = 'Dr' : element['DIV_DR_CR'] = 'Cr'
+                  element['dividendBalance'] = Math.abs(divBal)
                 }
                 if (element.TOTAL_SHARES != null || element.TOTAL_SHARES != '' || element.NO_OF_SHARES != null || element.NO_OF_SHARES != '') {
                   element.TOTAL_SHARES != undefined ? this.totalShares = this.totalShares + Number(element.TOTAL_SHARES) : this.totalShares = this.totalShares + 0

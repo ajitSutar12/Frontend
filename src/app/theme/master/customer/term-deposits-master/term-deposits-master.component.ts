@@ -988,60 +988,74 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   monthDays() {
     if (this.selectedValue != null) {
       this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-        var date1 = this.angForm.controls['AC_ASON_DATE'].value;
-        var date2 = this.angForm.controls['AC_EXPDT'].value;
-        var b = moment(date1, "DD-MM-YYYY");
-        var a = moment(date2, "DD-MM-YYYY");
-        var months = a.diff(b, 'months');
-        var days = a.diff(b, 'days');
-        b.add(months, 'months');
-        if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
-          this.angForm.patchValue({
-            AC_MONTHS: months,
-            // AC_DAYS: days,
-          })
-        }
-        else {
-          if (data.UNIT_OF_PERIOD == "B") {
-            this.angForm.controls['AC_MONTHS'].enable()
-            this.angForm.controls['AC_DAYS'].enable()
-            if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-              Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
-              this.angForm.controls['AC_MONTHS'].reset()
-              this.angForm.controls['AC_DAYS'].reset()
-              this.angForm.controls['AC_EXPDT'].reset()
-            }
-            else {
+        if (this.angForm.controls['AC_EXPDT'].value != null && this.angForm.controls['AC_EXPDT'].value != '') {
+          var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+          var date2 = this.angForm.controls['AC_EXPDT'].value;
+          var b = moment(date1, "DD-MM-YYYY");
+          var a = moment(date2, "DD-MM-YYYY");
+          var bd = moment(date1, "DD-MM-YYYY");
+          var ab = moment(date2, "DD-MM-YYYY");
+          var months = a.diff(b, 'months');
+          var days = a.diff(b, 'days');
+          b.add(months, 'months');
+
+          var Diffmonths = ab.diff(bd, 'months');
+          bd.add(months, 'months');
+
+          var Diffdays = ab.diff(bd, 'days');
+
+          if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
+            this.angForm.patchValue({
+              AC_MONTHS: months,
+              AC_DAYS: Diffdays,
+            })
+          }
+          else {
+            if (data.UNIT_OF_PERIOD == "B") {
+              this.angForm.controls['AC_MONTHS'].enable()
+              this.angForm.controls['AC_DAYS'].enable()
               this.angForm.patchValue({
                 AC_MONTHS: months,
-                // AC_DAYS: days
+                AC_DAYS: Diffdays,
               })
+              if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+                Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+                this.angForm.controls['AC_MONTHS'].reset()
+                this.angForm.controls['AC_DAYS'].reset()
+                this.angForm.controls['AC_EXPDT'].reset()
+              }
+              else {
+                this.angForm.patchValue({
+                  AC_MONTHS: months,
+                  AC_DAYS: Diffdays
+                })
+              }
             }
-          }
-          else if (data.UNIT_OF_PERIOD == "D") {
-            this.angForm.patchValue({
-              AC_MONTHS: '',
-              AC_DAYS: days,
-            })
-            this.angForm.controls['AC_MONTHS'].disable()
-            this.angForm.controls['AC_DAYS'].enable()
-            if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-              Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
-              this.angForm.controls['AC_DAYS'].reset()
-              this.angForm.controls['AC_EXPDT'].reset()
+            else if (data.UNIT_OF_PERIOD == "D") {
+              this.angForm.patchValue({
+                AC_MONTHS: '',
+                AC_DAYS: days,
+              })
+              this.angForm.controls['AC_MONTHS'].disable()
+              this.angForm.controls['AC_DAYS'].enable()
+              if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+                Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+                this.angForm.controls['AC_DAYS'].reset()
+                this.angForm.controls['AC_EXPDT'].reset()
+              }
             }
-          }
-          else if (data.UNIT_OF_PERIOD == "M") {
-            this.angForm.patchValue({
-              AC_DAYS: '',
-              AC_MONTHS: months,
-            })
-            this.angForm.controls['AC_MONTHS'].enable()
-            this.angForm.controls['AC_DAYS'].disable()
-            if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
-              Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
-              this.angForm.controls['AC_MONTHS'].reset()
-              this.angForm.controls['AC_EXPDT'].reset()
+            else if (data.UNIT_OF_PERIOD == "M") {
+              this.angForm.patchValue({
+                AC_DAYS: '',
+                AC_MONTHS: months,
+              })
+              this.angForm.controls['AC_MONTHS'].enable()
+              this.angForm.controls['AC_DAYS'].disable()
+              if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
+                Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+                this.angForm.controls['AC_MONTHS'].reset()
+                this.angForm.controls['AC_EXPDT'].reset()
+              }
             }
           }
         }
@@ -2440,7 +2454,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   setMaturityDate() {
     this.schemedata(this.selectedValue)
     this.angForm.patchValue({
-      AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value
+      AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value == '' || this.angForm.controls['AC_SCHMAMT'].value == null ? 0 : this.angForm.controls['AC_SCHMAMT'].value
     })
   }
   // data scheme master
@@ -2450,7 +2464,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       if (data.IS_CAL_MATURITY_AMT != '1') {
         // this.setMaturityDate()
         this.angForm.patchValue({
-          AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value
+          AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value == '' || this.angForm.controls['AC_SCHMAMT'].value == null ? 0 : this.angForm.controls['AC_SCHMAMT'].value
         })
       }
       else {
@@ -2482,7 +2496,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var endDate = moment(date2, "DD/MM/YYYY");
 
             var result = endDate.diff(startDate, 'days');
-            var amount = this.angForm.controls['AC_SCHMAMT'].value
+            var amount = this.angForm.controls['AC_SCHMAMT'].value == '' || this.angForm.controls['AC_SCHMAMT'].value == null ? 0 : this.angForm.controls['AC_SCHMAMT'].value
             var maturityAmount = this.angForm.controls['AC_MATUAMT'].value
 
             for (this.i = 1; this.i <= Quarters; this.i++) {

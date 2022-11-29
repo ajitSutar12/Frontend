@@ -101,7 +101,8 @@
                                         <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                             class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                             [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                            [minDate]="accountOpenDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker [disabled]="disableFields">
                                     </span>
@@ -150,6 +151,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-3" style="font-size:13px;">
+                                <button class="btn btn-primary"></button>&nbsp; Unpassed Accounts
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_OPDATE">Account Opening Date</label></div>
@@ -181,17 +185,12 @@
                                 </div>
 
                             </div>
+                            <div class="col-sm-3" style="font-size:13px;">
+                                <button class="btn" style="background-color: #bc31e9;"></button>&nbsp;Interest Vouchers
+                            </div>
                             <div class="col-sm" *ngIf="showView">
                                 <button class="btn btn-outline-primary btn-sm"
                                     (click)="getTransactionsDeatils()">View</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <button class="btn btn-primary"></button>&nbsp; Unpassed Accounts
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn" style="background-color: #bc31e9;"></button>&nbsp;Interest Vouchers
                             </div>
                         </div>
                     </div>
@@ -218,7 +217,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="col-12">
-            <div class="table-responsive">
+            <div class="table-responsive fixTableHead">
                 <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
                     <thead>
                         <td class="td_center">Date</td>
@@ -253,7 +252,7 @@
                                 {{data.TRAN_DRCR=='D'? (data.TRAN_AMOUNT | number:'2.0':'en') :''}}</td>
                             <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
                                 {{data.TRAN_DRCR=='C'?(data.TRAN_AMOUNT | number:'1.0':'en'):''}}</td>
-                            <td class="td_right">{{data.closeBalance}} {{drcr}}</td>
+                            <td class="td_right">{{data.closeBalance}} {{data.DR_CR}}</td>
                             <td class="td_right">{{data.INTEREST_AMOUNT }}
                                 {{data.INTEREST_AMOUNT!=undefined?(data.INTEREST_AMOUNT!=null &&
                                 data.TRAN_DRCR=='D'?'Dr':'Cr'):''}}</td>

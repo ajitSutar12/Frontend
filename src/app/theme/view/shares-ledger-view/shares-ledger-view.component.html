@@ -98,7 +98,8 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                             class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [minDate]="accountOpenDate" [maxDate]="maxDate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
@@ -157,7 +158,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" style="font-size:13px;">
                                 <button class="btn btn-primary"></button>&nbsp; Unpassed Accounts
                             </div>
                             <!-- </div>
@@ -189,99 +190,101 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
-        <div class="table-responsive">
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-                class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
-                <thead>
-                    <td class="td_center">Date</td>
-                    <td>Particulars</td>
-                    <td>Transaction Type</td>
-                    <td class="td_right">Debit Amount</td>
-                    <td class="td_right">Credit Amount</td>
-                    <td class="td_right">Closing Balance</td>
-                    <td class="td_right">Debit Dividend</td>
-                    <td class="td_right">Credit Dividend</td>
-                    <td class="td_right">Dividend Balance</td>
-                    <td class="td_right">Bonus Amount</td>
-                    <td class="td_right">Rebit Interest</td>
-                    <td class="td_right">Certificate Number</td>
-                    <td class="td_right">Number Of Shares</td>
-                    <td>Shares From - To</td>
-                    <td class="td_right">Face Value</td>
-                    <td class="td_right">Voucher Number</td>
-                    <td class="td_right">Officer ID</td>
-                </thead>
-                <tbody *ngIf="tableData?.length != 0">
-                    <tr *ngFor="let data of tableData;
+    <div class="col-sm-12">
+        <div class="col-12">
+            <div class="table-responsive fixTableHead">
+                <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
+                    <thead>
+                        <td class="td_center">Date</td>
+                        <td>Particulars</td>
+                        <td>Transaction Type</td>
+                        <td class="td_right">Debit Amount</td>
+                        <td class="td_right">Credit Amount</td>
+                        <td class="td_right">Closing Balance</td>
+                        <td class="td_right">Debit Dividend</td>
+                        <td class="td_right">Credit Dividend</td>
+                        <td class="td_right">Dividend Balance</td>
+                        <td class="td_right">Bonus Amount</td>
+                        <td class="td_right">Rebit Interest</td>
+                        <td class="td_right">Certificate Number</td>
+                        <td class="td_right">Number Of Shares</td>
+                        <td>Shares From - To</td>
+                        <td class="td_right">Face Value</td>
+                        <td class="td_right">Voucher Number</td>
+                        <td class="td_right">Officer ID</td>
+                    </thead>
+                    <tbody *ngIf="tableData?.length != 0">
+                        <tr *ngFor="let data of tableData;
                     let indexOfelement = index" [ngStyle]="{'color': (data.TRAN_STATUS == '0') ? '#226de9':'#212529'}">
-                        <td>{{data.TRAN_DATE}}</td>
-                        <td>{{data?.NARRATION}}</td>
-                        <td>{{data.TRAN_TYPE}}</td>
-                        <td class="td_right">{{data.TRAN_DRCR=='D'?data.TRAN_AMOUNT:'0.00'}}</td>
-                        <td class="td_right">{{data.TRAN_DRCR=='C'?data.TRAN_AMOUNT:'0.00'}}</td>
-                        <td class="td_right">{{data.closeBalance}} {{drcr}}</td>
-                        <td class="td_right">{{data.TRAN_DRCR=='D'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
-                        <td class="td_right">{{data.TRAN_DRCR=='C'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
-                        <td class="td_right">{{data.dividendBalance}} {{data.dividendBalance!=0 ?drcr:''}}</td>
-                        <td class="td_right">{{data.BONUS_AMOUNT}} {{data.BONUS_AMOUNT!=null ?data.drcr:''}} </td>
-                        <td class="td_right">{{data.REBIT_AMOUNT}} {{data.REBIT_AMOUNT!=null ?data.drcr:''}}</td>
-                        <td class="td_right">{{data.CERTIFICATE_NO}}</td>
-                        <td class="td_right">{{data.TOTAL_SHARES == null || data.TOTAL_SHARES == undefined ?
-                            data.NO_OF_SHARES :
-                            data.TOTAL_SHARES}}</td>
-                        <td class="td_center">{{data.SHARES_FROM_NO}} - {{data.SHARES_TO_NO}}</td>
-                        <td class="td_right">{{data.FACE_VALUE}}</td>
-                        <td class="td_right">{{data.TRAN_NO}}</td>
-                        <td>{{data.OFFICER_CODE}}</td>
-                    </tr>
-                    <tr style="font-weight: 600px;">
-                        <td></td>
-                        <td></td>
-                        <td>Total</td>
-                        <td class="td_right">{{debitTotal}}</td>
-                        <td class="td_right">{{creditTotal}}</td>
-                        <td></td>
-                        <td class="td_right">{{debitDivTotal}}</td>
-                        <td class="td_right">{{creditDivTotal}}</td>
-                        <td></td>
-                        <td class="td_right">{{bonusTotal}}</td>
-                        <td class="td_right">{{rebitTotal}}</td>
-                        <td></td>
-                        <td class="td_right">{{totalShares}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr style="color: green;">
-                        <td></td>
-                        <td style=" font-size: 13px;"><strong> Grand Total</strong></td>
-                        <td></td>
-                        <td style=" font-size: 13px;" class="td_right"><strong>{{debitTotal}}</strong></td>
-                        <td style=" font-size: 13px;" class="td_right"><strong>{{creditTotal}}</strong></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-                <tbody *ngIf="tableData?.length == 0">
-                    <tr>
-                        <td colspan="13" class="no-data-available" style="text-align: center;">
-                            No data!
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <td>{{data.TRAN_DATE}}</td>
+                            <td>{{data?.NARRATION}}</td>
+                            <td>{{data.TRAN_TYPE}}</td>
+                            <td class="td_right">{{data.TRAN_DRCR=='D'?data.TRAN_AMOUNT:'0.00'}}</td>
+                            <td class="td_right">{{data.TRAN_DRCR=='C'?data.TRAN_AMOUNT:'0.00'}}</td>
+                            <td class="td_right">{{data.closeBalance}} {{data.TRAN_DR_CR}}</td>
+                            <td class="td_right">{{data.TRAN_DRCR=='D'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
+                            <td class="td_right">{{data.TRAN_DRCR=='C'?data.DIVIDEND_AMOUNT:'0.00'}}</td>
+                            <td class="td_right">{{data.dividendBalance}} {{data.dividendBalance!=0 ?data.DIV_DR_CR:''}}
+                            </td>
+                            <td class="td_right">{{data.BONUS_AMOUNT}} {{data.BONUS_AMOUNT!=null ?data.drcr:''}} </td>
+                            <td class="td_right">{{data.REBIT_AMOUNT}} {{data.REBIT_AMOUNT!=null ?data.drcr:''}}</td>
+                            <td class="td_right">{{data.CERTIFICATE_NO}}</td>
+                            <td class="td_right">{{data.TOTAL_SHARES == null || data.TOTAL_SHARES == undefined ?
+                                data.NO_OF_SHARES :
+                                data.TOTAL_SHARES}}</td>
+                            <td class="td_center">{{data.SHARES_FROM_NO}} - {{data.SHARES_TO_NO}}</td>
+                            <td class="td_right">{{data.FACE_VALUE}}</td>
+                            <td class="td_right">{{data.TRAN_NO}}</td>
+                            <td>{{data.OFFICER_CODE}}</td>
+                        </tr>
+                        <tr style="font-weight: 600px;">
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td class="td_right">{{debitTotal}}</td>
+                            <td class="td_right">{{creditTotal}}</td>
+                            <td></td>
+                            <td class="td_right">{{debitDivTotal}}</td>
+                            <td class="td_right">{{creditDivTotal}}</td>
+                            <td></td>
+                            <td class="td_right">{{bonusTotal}}</td>
+                            <td class="td_right">{{rebitTotal}}</td>
+                            <td></td>
+                            <td class="td_right">{{totalShares}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr style="color: green;">
+                            <td></td>
+                            <td style=" font-size: 13px;"><strong> Grand Total</strong></td>
+                            <td></td>
+                            <td style=" font-size: 13px;" class="td_right"><strong>{{debitTotal}}</strong></td>
+                            <td style=" font-size: 13px;" class="td_right"><strong>{{creditTotal}}</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="tableData?.length == 0">
+                        <tr>
+                            <td colspan="13" class="no-data-available" style="text-align: center;">
+                                No data!
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

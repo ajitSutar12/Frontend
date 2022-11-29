@@ -1159,7 +1159,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.bankacno
       ]
       this.http.get<any>(this.url + '/ledger-view/payableInterestView/' + obj).subscribe((data) => {
-        this.payableInterestArr = data
+        this.payableInterestArr = this.sort_by_key(data, 'TRAN_DATE');
       })
     }
     else if (view == 'interestReceivedHistory') {
@@ -1197,7 +1197,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.bankacno
       ]
       this.http.get<any>(this.url + '/ledger-view/interestReceivedHistoryView/' + obj).subscribe((data) => {
-        this.interestReceivedHistoryArr = data
+        this.interestReceivedHistoryArr = this.sort_by_key(data, 'TRAN_DATE')
       })
     }
     else if (view == 'interestPostedHistory') {
@@ -1235,7 +1235,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.bankacno
       ]
       this.http.get<any>(this.url + '/ledger-view/interestPostedHistoryView/' + obj).subscribe((data) => {
-        this.interestPostedHistoryArr = data
+        this.interestPostedHistoryArr = this.sort_by_key(data, 'TRAN_DATE');
       })
     }
     else if (view == 'interestInstructions') {
@@ -1545,6 +1545,14 @@ export class AccountEnquiryComponent implements OnInit {
 
   viewImagePreview(ele, id) {
     this.selectedImagePreview = id;
+  }
+
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p < q) ? -1 : ((p > q) ? 1 : 0)
+    });
   }
 
 }
