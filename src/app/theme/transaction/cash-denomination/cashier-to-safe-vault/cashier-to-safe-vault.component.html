@@ -78,12 +78,10 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
-                                                class="form-control" [(ngModel)]="trandate"
-                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                class="form-control"
                                                 formControlName="TRAN_DATE"
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                bsDatepicker tabindex="2">
+                                                 tabindex="2" readonly>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
