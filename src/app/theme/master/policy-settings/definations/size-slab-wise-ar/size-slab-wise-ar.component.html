@@ -14,13 +14,14 @@
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemetype" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="ACNOTYPE">
                                 </ng-select>
-
+ 
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
                                     formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
+                                    #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus >
                                     <ng-option *ngFor="let values of scheme" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -43,7 +44,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="INT_CATEGORY" bindValue="value" [(ngModel)]="ngintcat"
                                     formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category"
+                                    #intcat (focus)="onFocus(intcat)" [selectOnTab]='true' >
                                     <ng-option *ngFor="let values of intrestCategoryMaster" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -86,7 +88,7 @@
                                             [ngClass]="{'form-submitted': formSubmitted}"
                                             formControlName="EFFECT_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
+                                            bsDatepicker  #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()" autofocus>
                                             <label for="EFFECT_DATE">Effect Date</label>
                                         </span>
                                     </div>
@@ -102,7 +104,7 @@
                                             <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                             pattern="\d{1,2}(\.\d{0,2})?" id="INT_RATE" maxlength="5"  #margin                                           
-                                            (keyup)="checkmargin(margin.value)"
+                                            (keyup)="checkmargin($event)"
                                                 title="Input allowed only .  0-9" formControlName="INT_RATE">
                                             <label for="INT_RATE">Interest Rate
                                             </label>
@@ -116,8 +118,8 @@
                                 </div>
                                 <div class="col-sm-4"> 
                                     <div class="col-sm">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" (click)="addField()">Add </button>
-                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField()" *ngIf="UpdateShowButton">Update</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" (click)="addField();EFFECT_DATE.focus()">Add </button>
+                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField();EFFECT_DATE.focus()" *ngIf="UpdateShowButton">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -135,9 +137,9 @@
                                                 <tr *ngFor="let data of multiField; let indexOfelement=index;">
                                                     <td>
                                                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                        (click)="editField(indexOfelement)" placement="bottom"
+                                                        (click)="editField(indexOfelement);EFFECT_DATE.focus()" placement="bottom"
                                                         ngbTooltip="Edit"></span> &nbsp;
-                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement)" placement="bottom"
+                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement);EFFECT_DATE.focus()" placement="bottom"
                                                         ngbTooltip="Delete"></span>
                                                     </td>
                                                     <td class="td_right">{{ data.EFFECT_DATE }}</td>
@@ -157,10 +159,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit()">submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()">submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()" *ngIf="updateShow">Update</button>&nbsp;
 
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()" *ngIf="newbtnShow">Cancel
                             </button>
                         </div>
                     </div>

@@ -10,33 +10,6 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm col-lg-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <!-- <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" "
-                                    #autofocus id="EFFECT_DATE" required                                        
-                                     max="{{datemax | date:'yyyy-MM-dd'}}"
-                                         #date
-                                       (focusout)="disabledate(date.value)"  id="date"
-                                         formControlName="EFFECT_DATE"> -->
-                                         <input type="text" placeholder="dd/mm/yyyy"
-                                            name="EFFECT_DATE" id="EFFECT_DATE"
-                                            class="form-control" [(ngModel)]="effectdate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            [maxDate]="maxDate"
-                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="EFFECT_DATE"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
-                                    <label for="date">Effective Date<sub class="required">* </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="AC_TYPE">
@@ -46,7 +19,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                     formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
+                                    #schemea (focus)="onFocus(schemea)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of scheme" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -59,6 +33,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm col-lg-3">
+                            <div class="form-group input-group"> 
+                                <span class="border-lable-flt">
+                                    <!-- <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" "
+                                    #autofocus id="EFFECT_DATE" required                                        
+                                     max="{{datemax | date:'yyyy-MM-dd'}}"
+                                         #date
+                                       (focusout)="disabledate(date.value)"  id="date"
+                                         formControlName="EFFECT_DATE"> -->
+                                         <input type="text" placeholder="dd/mm/yyyy"
+                                            name="EFFECT_DATE" id="EFFECT_DATE"
+                                            class="form-control" [(ngModel)]="effectdate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
+                                            [maxDate]="maxDate" 
+                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="EFFECT_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker 
+                                            #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
+                                    <label for="date">Effective Date<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="interestcategory" [multiple]="false" placeholder="Int.Category *" required title="Compulsory Selection" formControlName="INT_CATEGORY">
@@ -68,7 +71,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="INT_CATEGORY" bindValue="value" [(ngModel)]="ngintcat"
                                     formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category"
+                                    #intcat (focus)="onFocus(intcat)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of interestcategory" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -88,7 +92,8 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="MONTHS" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" type="text" name="MONTHS" class="form-control" placeholder="0 " 
+                                            pattern="^[0-9]+$"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 id="months" #month pattern="^[0-9]+$"   maxlength="3"   title="Input allowed only 0-9"
                                                 formControlName="MONTHS">
@@ -104,7 +109,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="DAYS" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" type="text" name="DAYS" class="form-control" placeholder=" 0"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 id="days" pattern="^[0-9]+$"  maxlength="3" #day  title="Input allowed only 0-9"
                                                 formControlName="DAYS">
@@ -123,7 +128,7 @@
                                             <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
                                             pattern="\d{1,2}(\.\d{0,2})?" id="INT_RATE" maxlength="5"
                                             #margin (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                            (keyup)="checkmargin(margin.value)"
+                                            (keyup)="checkmargin($event)"
                                             (keyup)="checkinput()"
                                                 title="Input allowed only  0-9" formControlName="INT_RATE">
                                             <label for="INT_RATE">Interest Rate<sub class="required">*
@@ -138,8 +143,8 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" (click)="addField()">Add </button>
-                                    <button class="btn btn-outline-primary btn-sm" (click)="updateField()" *ngIf="UpdateShowButton">Update</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" (click)="addField();month.focus()">Add </button>
+                                    <button class="btn btn-outline-primary btn-sm" (click)="updateField();month.focus()" *ngIf="UpdateShowButton">Update</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -157,9 +162,9 @@
                                                     <tr *ngFor="let data of multiField; let indexOfelement=index;">
                                                         <td>
                                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                        (click)="editField(indexOfelement)" placement="bottom"
+                                                        (click)="editField(indexOfelement);month.focus()" placement="bottom"
                                                         ngbTooltip="Edit"></span> &nbsp;
-                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement)" placement="bottom"
+                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement);month.focus()" placement="bottom"
                                                         ngbTooltip="Delete"></span>
 
                                                         </td>
@@ -182,9 +187,9 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit()" *ngIf="showButton">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();schemea.focus()" *ngIf="updateShow">Update</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();schemea.focus()" *ngIf="newbtnShow">Cancel</button>
                         </div>
                     </div>
                 </div>

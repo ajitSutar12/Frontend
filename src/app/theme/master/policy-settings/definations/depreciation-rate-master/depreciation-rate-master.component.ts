@@ -15,7 +15,7 @@ import { IOption } from 'ng-select';
 import { DereciationService } from './depreciation-rate-master.service';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
@@ -97,7 +97,6 @@ export class DepreciationRateMasterComponent implements OnInit {
     private config: NgSelectConfig,) {
           // this.datemax =new Date() ;
           // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-          // console.log(this.datemax);
           this.maxDate = new Date();
           this.minDate = new Date();
           this.minDate.setDate(this.minDate.getDate() - 1);
@@ -193,7 +192,6 @@ export class DepreciationRateMasterComponent implements OnInit {
     //disabledate on keyup
     disabledate(data:any){
     
-      console.log(data);
       if(data != ""){
         if(data > this.datemax){
           Swal.fire("Invalid Input", "Please insert valid date ", "warning");
@@ -220,7 +218,6 @@ export class DepreciationRateMasterComponent implements OnInit {
         dtInstance.ajax.reload()
       });
     }, (error) => {
-      console.log(error)
     })
     //To clear form
     this.resetForm();
@@ -249,12 +246,12 @@ export class DepreciationRateMasterComponent implements OnInit {
   //check  if percentage  is below 100
   checkmargin(ele:any){ 
     //check  if given value  is below 100
-    console.log(ele);
-    if(ele <= 100){
-  console.log(ele);
+    if(    ele.target.value <= 100){
     }
     else{
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      ele.target.value = 0 
+
     }
   }
   
@@ -363,4 +360,10 @@ export class DepreciationRateMasterComponent implements OnInit {
       this.dtTrigger.next();
     });
   }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+
 }

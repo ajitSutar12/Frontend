@@ -6,16 +6,17 @@ const routes: Routes = [
   {
   
     path: '',
+    component: TermDepositReceiptPrintingComponent,
     data: {
       title: 'TermDepositReceiptPrinting',
       status: false
     },
-    children: [
-      {
-        path: 'depositReceiptPrint',
-        loadChildren: () => import('./deposit-receipt-print/deposit-receipt-print.module').then(m => m.DepositReceiptPrintModule)
-      },
-    ]
+    // children: [
+    //   {
+    //     path: 'depositReceiptPrint',
+    //     loadChildren: () => import('./deposit-receipt-print/deposit-receipt-print.module').then(m => m.DepositReceiptPrintModule)
+    //   },
+    // ]
   }
 ];
 

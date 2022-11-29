@@ -177,7 +177,7 @@ export class VoucherEntryComponent implements OnInit {
     }
 
   }
-
+ 
 
 
   ngOnInit(): void {
@@ -1259,7 +1259,7 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   // Check Voucher Conditions On Amount Field
-  checkCondition($event) {
+  checkCondition($event) { 
     let obj = {
       value: Number($event),
       clearBalance: this.ClearBalance,
