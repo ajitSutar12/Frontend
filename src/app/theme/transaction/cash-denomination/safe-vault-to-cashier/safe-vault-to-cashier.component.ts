@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import Swal from 'sweetalert2';
+import { CashDenominationService } from '../cash-denomination.service';
 
 @Component({
   selector: 'app-safe-vault-to-cashier',
@@ -13,13 +14,15 @@ export class SafeVaultToCashierComponent implements OnInit {
   angForm: FormGroup;
 
   //ngmodel
-  Cashier
+  cashier:any;
 
 
   total1
 
   DenominationChart: boolean;
-
+  cashier_list :any;
+  SelectedBranch :any;
+  branch_list:any;
 
   values = [
     { id: 1, name: 'aaa' },
@@ -44,7 +47,7 @@ export class SafeVaultToCashierComponent implements OnInit {
 
   dtExportButtonOptions: any = {};
   DENOMINATION_AMT: any;
-  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,) { }
+  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,private _service: CashDenominationService) { }
 
   ngOnInit(): void {
 
@@ -60,7 +63,15 @@ export class SafeVaultToCashierComponent implements OnInit {
         TRAN_DATE: data.CURRENT_DATE
       })
     })
-
+    let user = JSON.parse(localStorage.getItem('user'));
+    this._service.getOwnbranchList().subscribe(data=>{
+      this.branch_list = data;
+      this.SelectedBranch = user.branchId;
+       //Get Cashier List
+      this._service.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
+        this.cashier_list = data;
+      })
+    })
   }
 
 
