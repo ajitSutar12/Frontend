@@ -15,7 +15,7 @@ export class CashierToSafeVaultComponent implements OnInit {
   angForm: FormGroup;
 
   //ngmodel
-  Cashier
+  cashier
 
   DenominationChart: boolean;
   cashier_list :any;
@@ -162,7 +162,4 @@ export class CashierToSafeVaultComponent implements OnInit {
       return accumulator + object.total;
     }, 0);
   }
-  
-
-
 }
