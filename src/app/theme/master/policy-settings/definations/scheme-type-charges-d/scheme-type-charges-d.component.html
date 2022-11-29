@@ -10,6 +10,29 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-sm">
+                            <!-- <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="schemeType" [multiple]="false" placeholder="Scheme Type*" required title="Compulsory Selection" formControlName="ACNOTYPE">
+                                </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="ACNOTYPE" bindValue="value" [(ngModel)]="ngschemetype"
+                                    formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
+                                    #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus>
+                                    <ng-option *ngFor="let values of schemeType" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm ">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -28,38 +51,18 @@
                                             [ngClass]="{'form-submitted': formSubmitted}"
                                             formControlName="EFFECT_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
+                                            bsDatepicker  #EFFECT_DATE="bsDatepicker"
+                                            (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
                                     <label for="EFFECT_DATE">Effective Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
                                     This field is required
-                                </div>
+                                </div> 
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="schemeType" [multiple]="false" placeholder="Scheme Type*" required title="Compulsory Selection" formControlName="ACNOTYPE">
-                                </ng-select>
-                            </div> -->
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                  <ng-select id="ACNOTYPE" bindValue="value" [(ngModel)]="ngschemetype"
-                                    formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type">
-                                    <ng-option *ngFor="let values of schemeType" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
+                       
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="chargestype" [multiple]="false" placeholder="Charges Type*" required title="Compulsory Selection" formControlName="CHARGES_TYPE">
@@ -69,7 +72,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="CHARGES_TYPE" bindValue="value" [(ngModel)]="ngchargestype"
                                     formControlName="CHARGES_TYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges Type">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges Type"
+                                    #chargtype (focus)="onFocus(chargtype)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of chargestype" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -91,7 +95,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="CHARGES_GL_ACNO" bindValue="value" [(ngModel)]="ngchargesgl"
                                     formControlName="CHARGES_GL_ACNO" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges GL Account">
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges GL Account"
+                                    #charggl (focus)="onFocus(charggl)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of accontType" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
@@ -121,10 +126,10 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="FROM_RANGE" class="form-control"
-                                                placeholder=" " id="FROM_RANGE" pattern="^[0-9]+$"
+                                            <input type="text" style="text-align: right;" name="FROM_RANGE" class="form-control"
+                                                placeholder=" " id="FROM_RANGE" pattern="^[0-9]+$" (focusout)="comparerange()" #frmren
                                                 title="Input allowed only 0-9" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                formControlName="FROM_RANGE">
+                                                formControlName="FROM_RANGE" maxlength="8">
                                             <label for="FROM_RANGE">From Range</label>
                                         </span>
                                     </div>
@@ -137,8 +142,8 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="TO_RANGE" class="form-control"
-                                                placeholder=" " id="TO_RANGE" pattern="^[0-9]+$"
+                                            <input type="text" style="text-align: right;" name="TO_RANGE" class="form-control"
+                                                placeholder=" " id="TO_RANGE" pattern="^[0-9]+$" maxlength="8" (focusout)="comparerange()"
                                                 title="Input allowed only 0-9" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 formControlName="TO_RANGE">
                                             <label for="TO_RANGE">To Range</label>
@@ -149,17 +154,18 @@
                                             Input allowed only 0-9
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="CHARGES_AMT" class="form-control"
+                                            <input type="text" style="text-align: right;" name="CHARGES_AMT" class="form-control"
                                                 placeholder=" " pattern="\d{1,20}(\.\d{2})?" 
-                                                id="CHARGES_AMT" maxlength="20" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                title="Input allowed only  0-9"
-                                                formControlName="CHARGES_AMT">
+                                                id="CHARGES_AMT" (focusout)="getDecimalPoint($event)" 
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                              title="Input allowed only  0-9" maxlength="15"  (keyup)="getDecimal($event)"
+                                                title="Input allowed only  0-9"  formControlName="CHARGES_AMT">
                                             <label for="CHARGES_AMT">Charges Amount<sub
                                                     class="required">* </sub>
                                             </label>
@@ -173,8 +179,8 @@
                                 </div>
                                 <div class="col-sm">
                                     <div class="col-sm">
-                                        <button type="button" class="btn btn-outline-primary btn-sm"  *ngIf="addShowButton" (click)="addField()">Add </button>
-                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField()" *ngIf="UpdateShowButton">Update</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm"  *ngIf="addShowButton" (click)="addField();frmren.focus()">Add </button>
+                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField();frmren.focus()" *ngIf="UpdateShowButton">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -195,9 +201,9 @@
                                                     <td>
                                                         
                                                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                        (click)="editField(indexOfelement)" placement="bottom"
+                                                        (click)="editField(indexOfelement);frmren.focus()" placement="bottom"
                                                         ngbTooltip="Edit"></span> &nbsp;
-                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement)" placement="bottom"
+                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement);frmren.focus()" placement="bottom"
                                                         ngbTooltip="Delete"></span>
                                                     </td>
                                                     <td class="td_right">{{ data.SERIAL_NO }}</td>
@@ -219,10 +225,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit()">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()" *ngIf="updateShow">Update</button>&nbsp;
 
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()" *ngIf="newbtnShow">Cancel
                             </button>
                         </div>
                     </div>

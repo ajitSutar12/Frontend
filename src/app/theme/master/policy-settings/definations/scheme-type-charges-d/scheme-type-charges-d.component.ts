@@ -15,7 +15,7 @@ import { SchemeTypeChargesService } from './scheme-type-cherges-d.service';
 import { IOption } from 'ng-select';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
@@ -106,6 +106,9 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   effectdate:any=null
   maxDate: Date;
   minDate: Date;
+  submitTranMode: any;
+  tran_mode: any;
+  totalAmt: number;
 
   constructor(
     private http: HttpClient,
@@ -117,7 +120,6 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     private aCMasterService: ACMasterDropdownService,
     private config: NgSelectConfig,) {
       // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      // console.log(this.datemax);
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);
@@ -235,7 +237,6 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       //disabledate on keyup
       disabledate(data:any){
     
-        console.log(data);
         if(data != ""){
           if(data > this.datemax){
             Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
@@ -265,7 +266,6 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         dtInstance.ajax.reload()
       });
     }, (error) => {
-      console.log(error)
     })
     //To clear form
     this.resetForm();
@@ -377,7 +377,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
           if (this['value'] != '') {
-            that
+            that 
               .search(this['value'])
               .draw();
           } else {
@@ -436,7 +436,6 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         CHARGES_AMT: formVal.CHARGES_AMT,
     }
     this.multiField.push(object);
-    console.log(this.multiField)
     this.resetField()
     }
     
@@ -477,5 +476,33 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   }
   delField(id) {
     this.multiField.splice(id, 1)
+  }
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+
+  getDecimalPoint(event) { 
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  
+  comparerange() {
+    let from = Number((document.getElementById("FROM_RANGE") as HTMLInputElement).value);
+    let to = Number((document.getElementById("TO_RANGE") as HTMLInputElement).value);
+    if(to != 0){
+      if (from > to) {
+        Swal.fire(
+          'Warning!',
+          'From Range Should Be Less Than To Range',
+          'warning'
+        );
+        (document.getElementById("TO_RANGE") as HTMLInputElement).value = ""
+
+      }
+    }
+   
   }
 }

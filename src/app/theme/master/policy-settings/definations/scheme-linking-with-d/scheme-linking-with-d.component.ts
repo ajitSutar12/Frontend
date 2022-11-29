@@ -15,7 +15,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -223,7 +223,6 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
       //To clear form
       this.angForm.reset();
     }, (error) => {
-      console.log(error)
     })
   }
 
@@ -318,7 +317,6 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
             'success'
           )
         }), (error) => {
-          console.log(error)
         }
         // to reload after delete of data
         this.rerender();
@@ -334,5 +332,8 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
     })
   }
 
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
 
 }

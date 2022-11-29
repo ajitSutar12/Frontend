@@ -31,12 +31,12 @@ import { RiskCategoryDropdownService } from "../../../../shared/dropdownService/
 import { DocumentMasterDropdownService } from "../../../../shared/dropdownService/document-master-dropdown.service";
 import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
-import { NgSelectComponent } from '@ng-select/ng-select'
+import { NgSelectComponent } from "@ng-select/ng-select";
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
-class DataTableResponse {
+class DataTableResponse { 
   data: any[];
   draw: number;
   recordsFiltered: number;
@@ -215,8 +215,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.createForm();
 
+    // let use = JSON.parse(localStorage.getItem('use'));
+
+
     // Fetching Server side data
-    this.dtExportButtonOptions = {
+    this.dtExportButtonOptions = { 
       pagingType: "full_numbers",
       paging: true,
       pageLength: 10,

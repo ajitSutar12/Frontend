@@ -20,7 +20,7 @@ import { HttpClient } from '@angular/common/http';
 import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
 import {environment} from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -221,7 +221,6 @@ rowData= [];
      
    
    }
-   console.log(dataToSend);
    this.ManagerViewGlpService.postData(dataToSend).subscribe(data1 => {
      Swal.fire('Success!', 'Data Added Successfully !', 'success');
      this.formSubmitted = false;
@@ -230,13 +229,11 @@ rowData= [];
       //To clear form
   //  this.angForm.reset();
   //  }, (error) => {
-  //    console.log(error)
   //  })
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
     }, (error) => {
-      console.log(error)
     })
     //To clear form
     this.resetForm();
@@ -353,7 +350,10 @@ addNewData() {
    }, 1000);
 
  }
-
+ 
+ onFocus(ele: NgSelectComponent) {
+  ele.open()
+}
  
 
 }

@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
 import { IOption } from 'ng-select';
 import { environment } from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -45,6 +45,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url;
+  @ViewChild('AC_ACNOTYPE') AC_ACNOTYPE: NgSelectComponent;
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -111,7 +113,6 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     private prematurePigmyService: PrematurePigmyService,
     private config: NgSelectConfig,) {
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -212,7 +213,6 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   //disabledate on keyup
   disabledate(data: any) {
 
-    console.log(data);
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
@@ -241,11 +241,12 @@ export class PrematurePigmyLessIRComponent implements OnInit {
           dtInstance.ajax.reload()
         });
       }, (error) => {
-        console.log(error)
       })
       //To clear form
       this.resetForm();
       this.multiField = []
+      this.AC_ACNOTYPE.focused=true
+      this.AC_ACNOTYPE.isOpen=true
     }
     else {
       Swal.fire(
@@ -267,10 +268,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     this.addShowButton = true
     this.prematurePigmyService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
-      console.log("edit", data)
       this.multiField = data.rate
       this.updateID = data.id;
-      console.log(this.multiField)
       this.angForm.controls['AC_ACNOTYPE'].disable()
       this.angForm.controls['EFFECT_DATE'].disable()
       this.ngschemetype = Number(data.AC_ACNOTYPE)
@@ -305,6 +304,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       });
       this.multiField = []
       this.resetForm();
+      this.AC_ACNOTYPE.focused=true
+      this.AC_ACNOTYPE.isOpen=true
     })
   }
   //comparing from amount and to amount
@@ -323,15 +324,15 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     }
 
   }
-  //check  if margin values are below 100
+  //check  if margin values are below 50
   checkmargin(ele: any) {
-    //check  if given value  is below 100
-    console.log(ele);
-    if (ele <= 100) {
-      console.log(ele);
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0 
+
     }
   }
   // Method for delete data
@@ -436,6 +437,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     this.newbtnShow = false;
     this.multiField = [];
     this.resetForm();
+    this.AC_ACNOTYPE.focused=true
+    this.AC_ACNOTYPE.isOpen=true
   }
   addField() {
 
@@ -456,7 +459,6 @@ export class PrematurePigmyLessIRComponent implements OnInit {
 
       }
       this.multiField.push(object);
-      console.log(this.multiField)
       this.resetField()
     }
 
@@ -497,4 +499,9 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   delField(id) {
     this.multiField.splice(id, 1)
   }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
 }

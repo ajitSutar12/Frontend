@@ -10,6 +10,29 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-sm">
+                            <!-- <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="category" [multiple]="false" placeholder="Category Code*" required title="Compulsory Selection" formControlName="CATEGORY">
+                                </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="CATEGORY" bindValue="value" [(ngModel)]="ngcategory"
+                                    formControlName="CATEGORY" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Category Code"
+                                    #catcode (focus)="onFocus(catcode)" [selectOnTab]='true' autofocus>
+                                    <ng-option *ngFor="let values of category" [value]="values">
+                                        {{values.name}} {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="CATEGORY">Category Code<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CATEGORY'].invalid && (angForm.controls['CATEGORY'].dirty || angForm.controls['CATEGORY'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['CATEGORY'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -25,7 +48,8 @@
                                             [ngClass]="{'form-submitted': formSubmitted}"
                                             formControlName="EFFECT_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
+                                            bsDatepicker  #EFFECT_DATE="bsDatepicker"
+                                            (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
                                     <label for="EFFECT_DATE">Last Depreciation Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -35,35 +59,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="category" [multiple]="false" placeholder="Category Code*" required title="Compulsory Selection" formControlName="CATEGORY">
-                                </ng-select>
-                            </div> -->
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                  <ng-select id="CATEGORY" bindValue="value" [(ngModel)]="ngcategory"
-                                    formControlName="CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Category Code">
-                                    <ng-option *ngFor="let values of category" [value]="values">
-                                        {{values.name}} {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="CATEGORY">Category Code<sub class="required"> * </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CATEGORY'].invalid && (angForm.controls['CATEGORY'].dirty || angForm.controls['CATEGORY'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['CATEGORY'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
+                       
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="DEPR_RATE" class="form-control" placeholder=" "
                                         id="DEPR_RATE" required=""  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5" 
                                         #margin (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                        (keyup)="checkmargin(margin.value)"
+                                        (keyup)="checkmargin($event)"
                                         title="Input allowed only  0-9" formControlName="DEPR_RATE">
                                     <label for="DEPR_RATE">Depreciation Rate<sub class="required">*
                                         </sub></label>
@@ -77,9 +80,9 @@
 
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();catcode.focus()" [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();catcode.focus()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData();catcode.focus()">Cancel</button>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 
@@ -156,7 +156,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
             this.url + '/deposit-intrest-rate',
             dataTableParameters
           ).subscribe(resp => {
-            console.log(resp.data)
+           
             this.sizeSlabWise = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -193,7 +193,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     })
 
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      console.log(data);
+  
       this.intrestCategoryMaster = data;
 
     })
@@ -230,7 +230,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
           dtInstance.ajax.reload()
         });
       }, (error) => {
-        console.log(error)
+      
       })
 
       //To clear form
@@ -327,7 +327,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
             'success'
           )
         }), (error) => {
-          console.log(error)
+          
         }
         // to reload after delete of data
         this.rerender();
@@ -342,15 +342,16 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
       }
     })
   }
-  //check  if percentage  is below 100
+  //check  if percentage  is below 50
   checkmargin(ele: any) {
-    //check  if given value  is below 100
-    console.log(ele);
-    if (ele <= 100) {
-      console.log(ele);
+    //check  if given value  is below 50
+  
+    if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0 
+
     }
   }
 
@@ -419,7 +420,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
 
       }
       this.multiField.push(object);
-      console.log(this.multiField)
+     
       this.resetField()
     }
 
@@ -467,6 +468,8 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
   delField(id) {
     this.multiField.splice(id, 1)
   }
-
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
 
 }
