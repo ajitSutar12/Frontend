@@ -245,12 +245,13 @@
                                                     </td>
                                                     <td *ngIf="ledgerbalance" class="td_right"
                                                         style="white-space: nowrap;">
-                                                       <span><input style="text-align: right;" type="text"
-                                                            class="form-control" name="TRAN_AMOUNT" id="ledger_balance"
-                                                            #ledger_balance value="{{data.LEDGER_BAL}}"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)"
-                                                            maxlength="8"></span><span>{{data.drcr}} </span>
+                                                        <span><input style="text-align: right;" type="text"
+                                                                class="form-control" name="TRAN_AMOUNT"
+                                                                id="ledger_balance" #ledger_balance
+                                                                value="{{data.LEDGER_BAL}}"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)"
+                                                                maxlength="8"></span><span>{{data.drcr}} </span>
 
                                                     </td>
                                                     <td *ngIf="productamount" class="td_right">
@@ -326,6 +327,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="AC_PAID_INT_OP"
                                                             id="total_int_paid" #AC_PAID_INT_OP
+                                                            value="{{data.AC_PAID_INT_OP == null || data.AC_PAID_INT_OP == '' ? '' : data.AC_PAID_INT_OP }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PAID_INT_OP.value,AC_PAID_INT_OP.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -333,6 +335,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="AC_PINT_OP" id="total_penal_int"
                                                             #AC_PINT_OP
+                                                            value="{{data.AC_PINT_OP == null || data.AC_PINT_OP == '' ? '' : data.AC_PINT_OP }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PINT_OP.value,AC_PINT_OP.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -340,6 +343,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" #AC_ODEPINS name="AC_ODEPINS"
                                                             id="total_install_rec"
+                                                            value="{{data.AC_ODEPINS == null || data.AC_ODEPINS == '' ? '' : data.AC_ODEPINS }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_ODEPINS.value,AC_ODEPINS.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                     </td>
@@ -356,12 +360,14 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" #OP_CR_INT_FIN_YEAR
                                                             name="OP_CR_INT_FIN_YEAR" id="int_fin_year"
+                                                            value="{{data.OP_CR_INT_FIN_YEAR == null || data.OP_CR_INT_FIN_YEAR == '' ? '' : data.OP_CR_INT_FIN_YEAR }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_CR_INT_FIN_YEAR.value,OP_CR_INT_FIN_YEAR.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
                                                     <td *ngIf="opintpaidfinyear" class="td_right" class="td_right">
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" #OP_INT_PAID_FIN_YEAR
+                                                            value="{{data.OP_INT_PAID_FIN_YEAR == null || data.OP_INT_PAID_FIN_YEAR == '' ? '' : data.OP_INT_PAID_FIN_YEAR }}"
                                                             name="OP_INT_PAID_FIN_YEAR" id="op_int_fin_year"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_INT_PAID_FIN_YEAR.value,OP_INT_PAID_FIN_YEAR.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
@@ -399,6 +405,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" #AC_PRODUCT name="op_product"
                                                             id="op_product"
+                                                            value="{{data.AC_PRODUCT == null || data.AC_PRODUCT == '' ? '' : data.AC_PRODUCT }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PRODUCT.value,AC_PRODUCT.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                     </td>
@@ -424,6 +431,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="AC_PAID_INT_OP"
                                                             id="AC_PAID_INT_OP" #AC_PAID_INT_OP
+                                                            value="{{data.AC_PAID_INT_OP == null || data.AC_PAID_INT_OP == '' ? '' : data.AC_PAID_INT_OP }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PAID_INT_OP.value,AC_PAID_INT_OP.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
@@ -440,6 +448,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="AC_OP_TOTAL_DEPOSITAMT"
                                                             id="AC_OP_TOTAL_DEPOSITAMT" #AC_OP_TOTAL_DEPOSITAMT
+                                                            value="{{data.AC_OP_TOTAL_DEPOSITAMT == null || data.AC_OP_TOTAL_DEPOSITAMT == '' ? '' : data.AC_OP_TOTAL_DEPOSITAMT }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_OP_TOTAL_DEPOSITAMT.value,AC_OP_TOTAL_DEPOSITAMT.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
@@ -448,6 +457,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="OP_POSTED_INT" id="OP_POSTED_INT"
                                                             #OP_POSTED_INT
+                                                            value="{{data.OP_POSTED_INT == null || data.OP_POSTED_INT == '' ? '' : data.OP_POSTED_INT }}"
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_POSTED_INT.value,OP_POSTED_INT.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>

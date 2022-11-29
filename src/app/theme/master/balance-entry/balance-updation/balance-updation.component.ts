@@ -612,8 +612,18 @@ export class BalanceUpdationComponent implements OnInit {
     var memTo = this.angForm.controls['TO_AC'].value
     if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
       this.showTable = true
-      this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename]
-      this.http.get(this.url + '/balance-updation/accounts/' + this.mem).subscribe((data) => {
+      let fromDate = moment(this.angForm.controls['TRAN_DATE'].value, 'DD/MM/YYYY')
+      let fromDatet = moment(fromDate).format('DD/MM/YYYY')
+      this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename, fromDatet]
+      this.mem = {
+        memFrom: memFrom,
+        memTo: memTo,
+        ngscheme: this.ngscheme,
+        ngbranch: this.ngbranch,
+        getschemename: this.getschemename,
+        fromDatet: fromDatet
+      }
+      this.http.post(this.url + '/balance-updation/accounts/' , this.mem).subscribe((data) => {
         this.arrTable = data;
         this.gridData = data;
         for (let element of this.arrTable) {
