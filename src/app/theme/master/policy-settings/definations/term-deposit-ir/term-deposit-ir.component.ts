@@ -19,7 +19,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
@@ -48,10 +48,13 @@ interface TermDepositInterestRate {
 })
 export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
-  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  // @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  @ViewChild("tofocus") myField: ElementRef;//input field tofocus
+  // @ViewChild("EFFECT_DATE") myEField: ElementRef;//input field tofocus
+
 
   //api 
-
+  @ViewChild('ACNOTYPE') ACNOTYPE: NgSelectComponent;
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -78,7 +81,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
-
+  // isOpen:boolean=true;
   // for dropdown ngmodule
   ngscheme: any = null
   ngintcat: any = null
@@ -222,7 +225,14 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       }
     }, 1000);
   }
-
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
   createForm() {
     this.angForm = this.fb.group({
       ACNOTYPE: ['', [Validators.required]],
@@ -251,16 +261,18 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       }
       this.termDepositInterestRateService.postData(dataToSend).subscribe(data1 => {
         Swal.fire('Success!', 'Data Added Successfully !', 'success');
+
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
       }, (error) => {
-        console.log(error)
       })
       //To clear form
       this.resetForm();
       this.multiField = []
+      this.ACNOTYPE.focused=true
+      this.ACNOTYPE.isOpen=true
     }
     else {
       Swal.fire(
@@ -351,6 +363,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       this.angForm.patchValue({
         TO_DAYS: ''
       })
+
     }
   }
 
@@ -360,6 +373,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     let to = Number((document.getElementById("todays") as HTMLInputElement).value);
     if (to != 0) {
       if (from > to) {
+        this.myField.nativeElement.focus();
         Swal.fire(
           'Warning!',
           'From Days Should Be Less Than To Days',
@@ -367,6 +381,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         );
         (document.getElementById("todays") as HTMLInputElement).value = ""
       }
+
     }
 
   }
@@ -387,14 +402,15 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   }
 
-  //check  if percentage  is below 100
+  //check  if percentage  is below 50
   checkmargin(ele: any) {
-    //check  if given value  is below 100
-    if (ele <= 100) {
-      console.log(ele);
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0
+
     }
   }
   //disabledate on keyup
@@ -461,15 +477,18 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     }
     this.termDepositInterestRateService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      // this.myEField.nativeElement.show();
+
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-      this.multiField = []
+      this.multiField = [];
       this.resetForm();
-
+      this.ACNOTYPE.focused=true
+      this.ACNOTYPE.isOpen=true
     })
   }
 
@@ -483,6 +502,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = false;
     this.multiField = [];
     this.resetForm();
+    
+    this.ACNOTYPE.focused=true
+    this.ACNOTYPE.isOpen=true
   }
 
   //Method for delete data
@@ -505,7 +527,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
             'success'
           )
         }), (error) => {
-          console.log(error)
         }
         // to reload after delete of data
         this.rerender();
@@ -577,7 +598,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     //     'info'
     //   )
     // }
-    if (intrate == "" ) {
+    if (intrate == "") {
 
       Swal.fire(
         'Info',
@@ -695,4 +716,10 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       this.isDisableMonth = false
     }
   }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+
 }

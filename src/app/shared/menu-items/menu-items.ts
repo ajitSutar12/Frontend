@@ -685,8 +685,8 @@ const MENUITEMS = [
           {
             state: 'termDepositReceiptPrinting',
             name: 'Term Deposit Receipt Printing',
-            short_label: 'D',
-            type: 'sub',
+            // short_label: 'D',
+            // type: 'sub',
             id: 104,
             // children: [
             //   {

@@ -253,7 +253,6 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       //To clear form
       this.angForm.reset();
     }, (error) => {
-      console.log(error)
     })
 
   }
@@ -267,12 +266,13 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    console.log(ele);
-    if (ele <= 100) {
-      console.log(ele);
+   
+    if (ele.target.value <= 100) {
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      ele.target.value = 0 
+
     }
   }
 
@@ -402,7 +402,6 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
             'success'
           )
         }), (error) => {
-          console.log(error)
         }
         // to reload after delete of data
         this.rerender();

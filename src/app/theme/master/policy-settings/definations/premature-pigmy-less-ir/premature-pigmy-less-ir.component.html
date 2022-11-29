@@ -11,6 +11,25 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngschemetype"
+                                    formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
+                                    #AC_ACNOTYPE (focus)="onFocus(AC_ACNOTYPE)" [selectOnTab]='true' autofocus>
+                                    <ng-option *ngFor="let values of scheme" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_ACNOTYPE'].invalid && (angForm.controls['AC_ACNOTYPE'].dirty || angForm.controls['AC_ACNOTYPE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_ACNOTYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <!-- <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" "
@@ -26,7 +45,8 @@
                                             [ngClass]="{'form-submitted': formSubmitted}"
                                             formControlName="EFFECT_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
+                                            bsDatepicker  #EFFECT_DATE="bsDatepicker"
+                                            (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
                                     <label for="date">Effective Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -36,24 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                  <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngschemetype"
-                                    formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type">
-                                    <ng-option *ngFor="let values of scheme" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="AC_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_ACNOTYPE'].invalid && (angForm.controls['AC_ACNOTYPE'].dirty || angForm.controls['AC_ACNOTYPE'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_ACNOTYPE'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                     <div class="card">
                         <div class="card-block">
@@ -71,7 +74,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" name="FROM_MONTHS" class="form-control" placeholder=" "
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)" #frommonth
                                                 id="frommonths"  (focusout)="compareamount()" pattern="^[0-9]+$" maxlength="3" title="Input allowed only 0-9"
                                                 formControlName="FROM_MONTHS">
                                             <label for="FROM_MONTHS">From Months</label>
@@ -103,7 +106,7 @@
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" name="LESS_INT_RATE" class="form-control" placeholder=" "
                                             pattern="\d{1,2}(\.\d{0,2})?" id="LESS_INT_RATE" maxlength="5"  #margin
-                                                (keyup)="checkmargin(margin.value)"  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                (keyup)="checkmargin($event)"  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 title="Input allowed only  0-9" formControlName="LESS_INT_RATE">
                                             <label for="LESS_INT_RATE">Interest Rate<sub class="required">*
                                                 </sub>
@@ -118,8 +121,8 @@
                                 </div>
                                 <div class="col-sm">
                                     <div class="col-sm">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" (click)="addField()">Add </button>
-                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField()" *ngIf="UpdateShowButton">Update</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" (click)="addField();frommonth.focus()">Add </button>
+                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField();frommonth.focus()" *ngIf="UpdateShowButton">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -139,9 +142,9 @@
                                                 <tr *ngFor="let data of multiField; let indexOfelement=index;">
                                                     <td>
                                                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                        (click)="editField(indexOfelement)" placement="bottom"
+                                                        (click)="editField(indexOfelement);frommonth.focus()" placement="bottom"
                                                         ngbTooltip="Edit"></span> &nbsp;
-                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement)" placement="bottom"
+                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement);frommonth.focus()" placement="bottom"
                                                         ngbTooltip="Delete"></span>
                                                     </td>
                                                     <td class="td_right">{{ indexOfelement + 1 }}</td>
@@ -163,9 +166,9 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit()" *ngIf="showButton">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit();AC_ACNOTYPE.focus()" *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();AC_ACNOTYPE.focus()" *ngIf="updateShow">Update</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();AC_ACNOTYPE.focus()" *ngIf="newbtnShow">Cancel</button>
                         </div>
                     </div>
                 </div>

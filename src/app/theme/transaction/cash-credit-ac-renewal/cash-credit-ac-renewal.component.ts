@@ -589,7 +589,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
   onCloseModal() {
     this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
+    setTimeout(() => this.visible = false, 300); 
   }
 
   onFocus(ele: NgSelectComponent) {
@@ -619,7 +619,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
     if (ele.target.value <= 50) {
     } else {
       Swal.fire("Oops", "Please insert values below 50", "error");
-      ele.target.value = 0
+      ele.target.value = 0 
     }
   }
   blurDate(event) {

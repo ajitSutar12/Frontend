@@ -84,7 +84,6 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     private fb: FormBuilder,
     private tdsInterestRate: TdsInterestRateService) {
       // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      // console.log(this.datemax);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -178,7 +177,6 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       //disabledate on keyup
       disabledate(data:any){
     
-        console.log(data);
         if(data != ""){
           if(data > this.datemax){
             Swal.fire("Invalid Input", "Please insert valid date ", "warning");
@@ -207,7 +205,6 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
         dtInstance.ajax.reload()
       });
     }, (error) => {
-      console.log(error)
     })
     //To clear form
     this.resetForm();
@@ -316,7 +313,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
 
 
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#definationtable tfoot tr').appendTo('#definationtable thead');
@@ -355,6 +352,24 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  } 
+   //check  if percentage  is below 50
+   checkmargin(ele: any) {
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
+    }
+    else { 
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0 
+
+    }
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
 
-}
+  getDecimalPoint(event) { 
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+} 
