@@ -56,8 +56,8 @@ div.solid {
 label {
     display: inline-block;
     margin-bottom: 0.1rem;
-    font-size: 12px;
-    font-weight: 800;
+    font-size: 13px;
+    // font-weight: 800;
 }
 
 .ng-select .ng-select-container {
@@ -65,10 +65,10 @@ label {
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
-    min-height: 18px;
-    max-height: 18px;
+    min-height: 18px !important;
+    max-height: 18px !important;
     align-items: center;
-    font-size: 11px;
+    font-size: 11px !important;
 }
 
 .input-group .border-lable-flt .form-control {
@@ -171,9 +171,4 @@ label {
 .align-items-center {
     align-items: center !important;
     margin-left: 35px;
-}
-
-tr:hover {
-    background-color: #fafad7 !important;
-    transform: translate(0%, -5%);
 }

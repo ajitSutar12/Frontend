@@ -182,5 +182,15 @@ label {
 
 tr:hover {
     background-color: #fafad7 !important;
-    transform: translate(0%, -5%);
+    // transform: translate(0%, -5%);
+}
+
+.fixTableHead {
+    overflow-y: auto;
+    height: 350px;
+}
+
+.fixTableHead thead td {
+    position: sticky;
+    top: -1px;
 }

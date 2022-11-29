@@ -113,7 +113,7 @@ export class VoucherViewComponent implements OnInit {
       this.http.post(this.url + '/ledger-view/voucherView', obj).subscribe((data) => {
         this.tableData = this.sortData(data)
         if (this.tableData.length != 0) {
-          console.log(data, 'voucher')
+          // console.log(data, 'voucher')
         }
         else {
           this.tableData = []

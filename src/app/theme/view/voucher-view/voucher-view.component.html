@@ -10,51 +10,53 @@
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate>
                 <div class="card-block">
-                    <div class="row solid">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
-                                        (change)="getBranch($event);viewVoucher()">
-                                        <ng-option *ngFor="let values of branch_code" [value]="values">
-                                            {{values.label}}</ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                            formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
+                                            (change)="getBranch($event);viewVoucher()">
+                                            <ng-option *ngFor="let values of branch_code" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Transaction Date</label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <!-- <input type="text" [(ngModel)]="ngdate" name="TRAN_DATE" class="form-control"
+                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Transaction Date</label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <!-- <input type="text" [(ngModel)]="ngdate" name="TRAN_DATE" class="form-control"
                                         formControlName="TRAN_DATE" disabled> -->
-                                    <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
-                                        class="form-control" [bsValue]="bsValue" [maxDate]="maxDate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [(ngModel)]="ngdate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker (bsValueChange)="viewVoucher()">
-                                </span>
+                                        <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
+                                            class="form-control" [bsValue]="bsValue" [maxDate]="maxDate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [(ngModel)]="ngdate"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker (bsValueChange)="viewVoucher()">
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm">
-                            Number of records:{{tableData?.length }}
-                        </div>
-                        <div class="col-sm">
-                            <button type="button" class="btn btn-outline-primary btn-sm"
-                                (click)="viewVoucher()">View</button>
+                            <div class="col-sm">
+                                Number of records:{{tableData?.length }}
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-primary btn-sm"
+                                    (click)="viewVoucher()">View</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +76,7 @@
 </div>
 <div class="row" *ngIf="tableData?.length != 0">
     <div class="col-12">
-        <div class="table-responsive">
+        <div class="table-responsive fixTableHead">
             <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
                 <thead>
                     <!-- <td>Action</td> -->
@@ -107,7 +109,7 @@
                         </td> -->
                         <td>{{data.TRAN_NO}}</td>
                         <td>{{data?.TRAN_TIME}}</td>
-                        <td>{{data.TRAN_ACNOTYPE=='GL'?data.TRAN_ACTYPE:data.S_APPL}}</td>
+                        <td>{{data.S_APPL}}</td>
                         <td>{{data.TRAN_ACNO}}</td>
                         <td>{{data.AC_NAME}}</td>
                         <td>{{data.TRAN_SOURCE_TYPE==null?'---':data.TRAN_SOURCE_TYPE}}</td>

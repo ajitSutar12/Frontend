@@ -184,7 +184,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       let obj = {
         TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
         NARRATION: 'Opening Balance',
-        closeBalance: closeBal
+        closeBalance: closeBal,
+        DR_CR: this.drcr
       }
       this.tableData.push(obj)
       if (this.transactions.length >= 1) {
@@ -202,11 +203,13 @@ export class LedgerViewComponent implements OnInit, OnChanges {
               //closing balance calculation
               if (this.drcr == 'Cr') {
                 element.TRAN_DRCR == 'C' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
-                element['closeBalance'] = closeBal
+                closeBal > 0 ? element['DR_CR'] = 'Cr' : element['DR_CR'] = 'Dr'
+                element['closeBalance'] = Math.abs(closeBal)
               }
               else if (this.drcr == 'Dr') {
                 element.TRAN_DRCR == 'D' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
-                element['closeBalance'] = closeBal
+                closeBal > 0 ? element['DR_CR'] = 'Dr' : element['DR_CR'] = 'Cr'
+                element['closeBalance'] = Math.abs(closeBal)
               }
               //column wise total amount
               element.INTEREST_AMOUNT != undefined ? this.normalInt = this.normalInt + Number(element.INTEREST_AMOUNT) : this.normalInt = this.normalInt + 0
@@ -459,7 +462,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       let obj = {
         TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
         NARRATION: 'Opening Balance',
-        closeBalance: closeBal
+        closeBalance: closeBal,
+        DR_CR: this.drcr
       }
       this.tableData.push(obj)
       if (this.transactions.length >= 1) {
@@ -478,11 +482,13 @@ export class LedgerViewComponent implements OnInit, OnChanges {
               //closing balance calculation
               if (this.drcr == 'Cr') {
                 element.TRAN_DRCR == 'C' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
-                element['closeBalance'] = closeBal
+                closeBal > 0 ? element['DR_CR'] = 'Cr' : element['DR_CR'] = 'Dr'
+                element['closeBalance'] = Math.abs(closeBal)
               }
               else if (this.drcr == 'Dr') {
                 element.TRAN_DRCR == 'D' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
-                element['closeBalance'] = closeBal
+                closeBal > 0 ? element['DR_CR'] = 'Dr' : element['DR_CR'] = 'Cr'
+                element['closeBalance'] = Math.abs(closeBal)
               }
               //column wise total amount
               element.INTEREST_AMOUNT != undefined ? this.normalInt = this.normalInt + Number(element.INTEREST_AMOUNT) : this.normalInt = this.normalInt + 0

@@ -884,5 +884,15 @@ input[type="file" i]::-webkit-file-upload-button {
 
 tr:hover {
     background-color: #fafad7 !important;
-    transform: translate(0%, -5%); //-5 up
+    // transform: translate(0%, -5%); //-5 up
+}
+
+.fixTableHead {
+    overflow-y: auto;
+    height: 350px;
+}
+
+.fixTableHead thead td {
+    position: sticky;
+    top: -1px;
 }
