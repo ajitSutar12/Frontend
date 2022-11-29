@@ -16,7 +16,7 @@ export class CashierToSafeVaultComponent implements OnInit {
 
   //ngmodel
   cashier
-
+  formSubmitted
   DenominationChart: boolean;
   cashier_list :any;
   SelectedBranch :any;
