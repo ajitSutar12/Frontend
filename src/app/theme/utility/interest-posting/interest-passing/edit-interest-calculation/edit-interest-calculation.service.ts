@@ -56,4 +56,13 @@ export class EditInterestCalculationService {
   submitAlterData(data): Observable<any>{
     return this.http.post(this.url+"/voucher/EditInterestTran",data);
   }
+
+  //get Interst tran data scheme wise
+  getDataForPassing(data): Observable<any>{
+    return this.http.post(this.url+"/voucher/getIntTranDataForPassing",data);
+  }
+
+  createVoucher(data):Observable<any>{
+    return this.http.post(this.url+'/voucher/createVoucherPassingInterest',data);
+  }
 }
