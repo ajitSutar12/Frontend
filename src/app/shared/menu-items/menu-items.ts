@@ -1661,6 +1661,11 @@ const MENUITEMS = [
             id: 164
           },
           {
+            state:'cashierMaintance',
+            name : 'Cashier Maintenace',
+            id: 233
+          },
+          {
             state: 'cashierUM',
             name: 'Cashier User Maintainance',
             id: 165

@@ -1,8 +1,5 @@
 <div class="row">
     <div class="col-md-7">
-
-
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -14,17 +11,40 @@
                     </div>
                     <form action="javascript:" [formGroup]="angForm">
                         <div class="card-block">
-                            <div class="row">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Branch<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="d/c" [(ngModel)]="SelectedBranch" formControlName="Branch"
+                                                    bindLabel="label" bindValue="name" title="Compulsory Selection"
+                                                    placeholder="">
+                                                    <ng-option *ngFor="let values of branch_list" [value]="values.value">
+                                                        {{values.label}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['Branch'].invalid && (angForm.controls['Branch'].dirty || angForm.controls['Branch'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['Branch'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                        
                                 <div class="col-sm-12 col-md-2"> <label for="CASHIER">Cashier<sub
                                             class="required">*</sub></label></div>
-                                <div class="col-sm-12 col-md-2">
+                                <div class="col-sm-12 col-md-4">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select id="CASHIER" bindValue="value" [(ngModel)]="cashier"
-                                                formControlName="CASHIER" bindLabel="label" title="Compulsory Selection"
-                                                [ngClass]="{'form-submitted': formSubmitted}" placeholder="">
-                                                <ng-option *ngFor="let item of Scheme" [value]="item">
-                                                    {{item.id}} {{item.label}}</ng-option>
+                                            <ng-select id="CASHIER"  [(ngModel)]="cashier"
+                                                formControlName="CASHIER" title="Compulsory Selection"
+                                                [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus tabindex="0">
+                                                <!-- <ng-option *ngFor="let item of cashier_list" [value]="item">
+                                                    {{item.id}} {{item.label}}</ng-option> -->
+                                                    <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.CASHIER_CODE}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -40,14 +60,14 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">Denomination
                                         Amount</label></div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" style="text-align: right;" maxlength="12"
                                                 pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
                                                 formControlName="DENOMINATION_AMT" [(ngModel)]="denoamt"
                                                 (keyup)="isFormA(2)"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" tabindex="1">
                                         </span>
                                     </div>
                                 </div>
@@ -63,7 +83,7 @@
                                                 [ngClass]="{'form-submitted': formSubmitted}"
                                                 formControlName="TRAN_DATE"
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                bsDatepicker>
+                                                bsDatepicker tabindex="2">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -120,7 +140,7 @@
                             <td class="td_center">{{data.currency}} X</td>
                             <td><input type="text" (keyup)="calculation(data,indexOfelement,$event)"
                                 style="width: 100px;"      value="{{data.qty}}">=</td>
-                            <td><input type="text"  style="width: 100px;" value="{{data.total}}"></td>
+                            <td><input type="text"  style="width: 100px;" value="{{data.total}}" disabled></td>
                         </tr>
 
                         <div></div>

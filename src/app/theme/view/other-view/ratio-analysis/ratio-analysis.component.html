@@ -6,10 +6,33 @@
             </div>
             <div class="card-block">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                            </table>
+                    <div class="col-8">
+                        <table class="table">
+                            <thead>
+                                <th>Rate</th>
+                                <th>No. of Acts</th>
+                                <th>Total Amount</th>
+                                <th>Interest For A Day</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Deposite Details</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4 text-danger">
+                        <div class="row">
+                           <div class="col-6" style="float:left">Average Loans@</div>
+                           <div class="col-6" >0.00%</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6" style="float:left">Average Deposits@</div>
+                            <div class="col-6" >0.00%</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6" style="float:left">Margin@</div>
+                            <div class="col-6" >0.00%</div>
                         </div>
                     </div>
                 </div>

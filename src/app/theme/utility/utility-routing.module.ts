@@ -124,6 +124,10 @@ const routes: Routes = [
       {
         path: 'menulist',
         loadChildren: () => import('./menulist/menulist.module').then(m => m.MenulistModule)
+      },
+      {
+        path: 'cashierMaintance',
+        loadChildren: ()=> import('./cashier-maintanace/cashier-maintanace.module').then(m=>m.CashierMaintanaceModule)
       }
     ]
   }

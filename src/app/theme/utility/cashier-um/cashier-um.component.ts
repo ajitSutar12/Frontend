@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CashierUmService } from './cashier-um.service';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-cashier-um',
@@ -6,47 +9,65 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cashier-um.component.scss']
 })
 export class CashierUMComponent implements OnInit {
-   dtExportButtonOptions : any = {};
+  dtExportButtonOptions: any = {};
+  userid :any;
+  userData : any;
+  angForm: FormGroup;
+  checkFlag : boolean = true;
 
-  constructor() { }
+  constructor(private _service : CashierUmService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.angForm = this.fb.group({
+      flag: [1,[Validators.required]],
+      safevault: ["",[Validators.required]],
+      user: ["",[Validators.required]],
+      teller: ["",[Validators.required]]
+    })
+
+    this.angForm.controls.flag.setValue('1');
+
+    this._service.getUserDetails().subscribe(data=>{
+        this.userData = data;
+        console.log(this.userData);
+    },err=>{
+      console.log(err);
+    })
+
+    //check safe vault data exist or not
+    this._service.getCashierData().subscribe(data=>{
+      console.log('list',data);
+      for(let item of data){
+        if(item.CASHIER_CODE == "SAFE VALUT"){
+          this.checkFlag = true;
+        }
+      }
+    },err=>{
+      console.log(err);
+    })
+  }
+
+
+  submit(){
+    console.log(this.angForm.value,this.angForm.value);
+    if(this.checkFlag){
+      this.angForm.patchValue({
+        safevault : false
+      })
+    }
+    if(this.angForm.valid){
+      let obj = this.angForm.value;
+      this._service.createCashier(obj).subscribe(data=>{
+        console.log(data);
+        Swal.fire('Success','Cashier created successfully','success');
+        this.angForm.reset();
+        this.angForm.controls.flag.setValue('1');
+      },err=>{
+        console.log(err);
+      })
+    }else{
+      Swal.fire('Oops...','Please insert required data field and processed','warning')
+    }
   }
 
 }
