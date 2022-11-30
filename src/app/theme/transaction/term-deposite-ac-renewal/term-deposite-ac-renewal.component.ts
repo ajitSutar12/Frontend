@@ -1031,7 +1031,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
 
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
 
   onFocus(ele: NgSelectComponent) {

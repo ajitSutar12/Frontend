@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  SavingsPigmyAccountClosingComponent } from './savings-pigmy-account-closing.component';
-import {  SavingsPigmyAccountClosingRoutingModule } from './savings-Pigmy-Account-Closing-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
+import { SavingsPigmyAccountClosingComponent } from './savings-pigmy-account-closing.component';
+import { SavingsPigmyAccountClosingRoutingModule } from './savings-Pigmy-Account-Closing-routing.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 // import {SelectModule} from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DataTablesModule} from 'angular-datatables';
-import {FileUploadModule} from 'ng2-file-upload';
+import { DataTablesModule } from 'angular-datatables';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { NarrationService } from '../../../shared/elements/Narration.service';
 
@@ -22,28 +22,28 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closing.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ThemeModule } from '../../theme.module'
 @NgModule({
   imports: [
     CommonModule,
-     SavingsPigmyAccountClosingRoutingModule,
-     DataTablesModule,
-     FileUploadModule,
-     NgSelectModule,
+    SavingsPigmyAccountClosingRoutingModule,
+    DataTablesModule,
+    FileUploadModule,
+    NgSelectModule,
     //  SelectModule,
     // BrowserAnimationsModule,
-     SharedModule,
-     FormsModule, ReactiveFormsModule,
-     BsDatepickerModule.forRoot(),
-     DatepickerModule.forRoot()
-
-    
+    SharedModule,
+    FormsModule, ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
-  providers:[OwnbranchMasterService,NarrationService,SystemMasterParametersService,SchemeCodeDropdownService,SchemeAccountNoService,MultiVoucherService,SavingPigmyAccountClosingService,CustomerIdService,{
+  providers: [OwnbranchMasterService, NarrationService, SystemMasterParametersService, SchemeCodeDropdownService, SchemeAccountNoService, MultiVoucherService, SavingPigmyAccountClosingService, CustomerIdService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },],
-  declarations: [ SavingsPigmyAccountClosingComponent],
-  exports:[SavingsPigmyAccountClosingComponent],
+  declarations: [SavingsPigmyAccountClosingComponent],
+  exports: [SavingsPigmyAccountClosingComponent],
 })
-export class  SavingsPigmyAccountClosingModule { }
+export class SavingsPigmyAccountClosingModule { }

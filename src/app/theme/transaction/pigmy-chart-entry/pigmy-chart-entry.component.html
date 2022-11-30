@@ -19,13 +19,14 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
-                                        placeholder="Branch">
+                                        placeholder="Branch" #selectBranch (focus)="onFocus(selectBranch)" appTheme
+                                        [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -45,7 +46,8 @@
                                 <span class="border-lable-flt">
                                     <ng-select bindValue="value" [(ngModel)]="ngschemeCode" id="AGENT_ACTYPE"
                                         bindLabel="label" formControlName="AGENT_ACTYPE"
-                                        (change)="getPigmyAgentAcnoList()" title="Compulsory Selection"
+                                        (change)="getPigmyAgentAcnoList()" title="Compulsory Selection" #AGENT_ACTYPE
+                                        (focus)="onFocus(AGENT_ACTYPE)" appTheme [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
@@ -61,12 +63,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select bindValue="value" [(ngModel)]="ngAgentCode" id="AGENT_ACNO"
                                         bindLabel="label" formControlName="AGENT_ACNO"
-                                        (change)="checkPigmyAgentNo($event)" title="Compulsory Selection"
+                                        (change)="checkPigmyAgentNo($event)" title="Compulsory Selection" #AGENT_ACNO
+                                        (focus)="onFocus(AGENT_ACNO)" appTheme [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Agent">
                                         <ng-option *ngFor="let values of agentACNO" [value]="values">
                                             {{values.label}} {{values.name}} </ng-option>
@@ -90,7 +93,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" style="text-align: right;" name="CHART_NO" class="form-control"
                                         placeholder=" " id="CHART_NO" title="Input allowed only 0-9"
-                                        (focus)="selectAllContent($event)" maxlength="1" minlength="1"
+                                        (focus)="selectAllContent($event)" maxlength="1" minlength="1" appTheme
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (focusout)="getTable()" formControlName="CHART_NO" required>
                                     <label for="CHART_NO">Chart Number<sub class="required"> *
@@ -116,11 +119,13 @@
                             </div>
                         </div>
                         <div class="col-sm" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit()"> Submit </button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit();selectBranch.focus()" appTheme> Submit </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();selectBranch.focus()"
+                                *ngIf="newbtnShow">
                                 Cancel </button>&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();selectBranch.focus()"
+                                *ngIf="updateShow">
                                 Update</button>
                         </div>
                     </div>
@@ -128,7 +133,7 @@
                         <div class="col-sm-12">
                             <div *ngIf="showTable">
                                 <div class="col-12">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive fixTableHead">
                                         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                             class="table table-striped table-bordered table-hover compact">
                                             <thead>
@@ -140,19 +145,19 @@
                                                 <td class="td_right" *ngIf="isReceiptShow">Receipt Number</td>
                                                 <td class="td_right">Amount</td>
                                             </thead>
-                                            <!-- <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td><input type="text" class="form-control"
-                                                        (keyup)="filterObjectFun($event,'AC_NO')"></td>
-                                                <td></td>
-                                                <td><input type="text" class="form-control"
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th><input type="text" class="form-control"
+                                                        (keyup)="filterObjectFun($event,'AC_NO')"></th>
+                                                <th></th>
+                                                <th><input type="text" class="form-control"
                                                         style="text-transform:uppercase;"
-                                                        (keyup)="filterObjectFun($event,'AC_NAME')"></td>
+                                                        (keyup)="filterObjectFun($event,'AC_NAME')"></th>
 
-                                                <td *ngIf="isReceiptShow"></td>
-                                                <td></td>
-                                            </tr> -->
+                                                <th *ngIf="isReceiptShow"></th>
+                                                <th></th>
+                                            </tr>
                                             <tbody *ngIf="tableArr?.length != 0">
                                                 <tr *ngFor="let data of tableArr;
                                             let indexOfelement = index">
@@ -199,6 +204,11 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label></label>
                         </div>
                     </div>
                 </div>

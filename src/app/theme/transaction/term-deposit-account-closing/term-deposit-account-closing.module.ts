@@ -24,7 +24,7 @@ import { TermDepositAccountClosingService } from './term-deposit-account-closing
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
 // import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component';
-
+import { ThemeModule } from '../../theme.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +35,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    // DepositClosingVoucherComponent
+    ThemeModule
   ],
   declarations: [TermDepositAccountClosingComponent],
   exports: [TermDepositAccountClosingComponent],

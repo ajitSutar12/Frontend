@@ -230,8 +230,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
   getDecimalPoint(event) {
-    
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
   createForm() {
     this.angForm = this.fb.group({

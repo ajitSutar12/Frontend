@@ -14,7 +14,7 @@ import * as moment from 'moment';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
 import { DeadStockPurchaseService } from './dead-stock-purchase.service'
-
+import { NgSelectComponent } from '@ng-select/ng-select'
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -96,10 +96,14 @@ export class DeadStockPurchaseComponent implements OnInit {
 
       this.editClickHandler(this.childMessage);
     }
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let nextDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
+      let lastDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
+      this.maxDate = new Date(nextDate);
+      this.maxDate.setDate(this.maxDate.getDate());
+      this.minDate = new Date(lastDate);
+      this.minDate.setDate(this.minDate.getDate());
+    })
   }
 
   ngOnInit(): void {
@@ -181,9 +185,9 @@ export class DeadStockPurchaseComponent implements OnInit {
   getAmount() {
     let quantity = this.angForm.controls['Quantity'].value
     let rate = this.angForm.controls['Rate'].value
-    let amount = quantity * rate
+    let amount = Number(quantity) * Number(rate)
     this.angForm.patchValue({
-      amount: amount
+      amount: Number(amount).toFixed(2)
     })
   }
 
@@ -199,9 +203,12 @@ export class DeadStockPurchaseComponent implements OnInit {
         break;
 
       case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+        this.http.get<any>(this.url + '/gl-account-master/').subscribe(data => {
           this.schemeACNo = data;
         })
+        // this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+        //   this.schemeACNo = data;
+        // })
         break;
     }
   }
@@ -341,7 +348,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     let billDate
     let chequeDate
     // if (this.itemArr.length != 0) {
-    if (this.angForm.controls['Total_AMT'].value > 0) {
+    if (Number(this.angForm.controls['Total_AMT'].value) > 0) {
       const formVal = this.angForm.value
       const dataToSend = {
         itemArr: this.itemArr,
@@ -392,7 +399,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     let billDate
     let chequeDate
     // if (this.itemArr.length != 0) {
-    if (this.angForm.controls['Total_AMT'].value > 0) {
+    if (Number(this.angForm.controls['Total_AMT'].value) > 0) {
       const formVal = this.angForm.value
       const dataToSend = {
         id: this.updateID,
@@ -491,7 +498,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.getschemename = data.TRANSFER_ACNOTYPE
       this.getIntroducer()
       this.angForm.patchValue({
-        Total_AMT: data.TRAN_AMOUNT,
+        Total_AMT: Number(data.TRAN_AMOUNT).toFixed(2),
         ACNOTYPE: data.TRANSFER_ACNOTYPE,
         AC_TYPE: Number(data.TRANSFER_ACTYPE),
         AC_NO: Number(data.TRANSFER_ACNO),
@@ -614,6 +621,30 @@ export class DeadStockPurchaseComponent implements OnInit {
     var button = document.getElementById('triggerhide');
     button.click();
     this.reloadTablePassing.emit();
+  }
+
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 
 }

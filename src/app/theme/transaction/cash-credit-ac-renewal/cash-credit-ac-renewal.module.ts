@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { CashCreditAcRenewalComponent } from './cash-credit-ac-renewal.component';
 import { CashCreditAcRenewalRoutingModule } from './cash-credit-ac-renewal-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 // import {SelectModule} from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DataTablesModule} from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
@@ -17,7 +17,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownService/interest-category-master-dropdown.service';
-
+import { ThemeModule } from '../../theme.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -30,11 +30,12 @@ import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownSer
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [CashCreditAcRenewalComponent],
-  exports:[CashCreditAcRenewalComponent],
-  providers:[IntrestCategoryMasterDropdownService,SystemMasterParametersService,SchemeCodeDropdownService, SchemeAccountNoService,OwnbranchMasterService,{
+  exports: [CashCreditAcRenewalComponent],
+  providers: [IntrestCategoryMasterDropdownService, SystemMasterParametersService, SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

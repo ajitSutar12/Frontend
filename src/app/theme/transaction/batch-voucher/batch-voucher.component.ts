@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import readXlsxFile from 'read-excel-file'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { userInfo } from 'os';
-
+import { NgSelectComponent } from '@ng-select/ng-select'
 
 
 @Component({
@@ -389,12 +389,8 @@ export class BatchVoucherComponent implements OnInit {
     });
   }
 
-  selectAllContent($event) {
-    $event.target.select();
-  }
-
   importFlag(ele) {
-    debugger
+    // debugger
     if (ele.target.checked) {
       this.showImportDiv = true;
     } else {
@@ -403,7 +399,7 @@ export class BatchVoucherComponent implements OnInit {
   }
 
   ImportData() {
-    debugger
+    // debugger
     const input = document.getElementById('input')
     let fi = this.fileInput.nativeElement;
     let notAssigned = new Array();
@@ -448,5 +444,30 @@ export class BatchVoucherComponent implements OnInit {
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
+  }
+
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }
