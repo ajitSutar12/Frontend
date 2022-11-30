@@ -175,7 +175,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group form-primary form-static-label">
-                                        <span class="border-lable-flt" autofocus>
+                                        <span class="border-lable-flt">
                                             <ng-select bindValue="value" bindLabel="label" [(ngModel)]="acno"
                                                 id="cashScheme" formControlName="DR_ACTYPE" title="Compulsory Selection"
                                                 (change)="getTermAc($event)"
@@ -306,6 +306,74 @@
                                 </div>
                             </div>
                         </div>
+                        <ng-container *ngIf='router.url==="/master/Instruction/interestInstruction"'>
+                            <h6>Debit Account Deatils</h6>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt" autofocus>
+                                            <ng-select bindValue="value" bindLabel="label" [(ngModel)]="acno"
+                                                id="cashScheme" formControlName="DR_ACTYPE" title="Compulsory Selection"
+                                                (change)="getTermAc($event)"
+                                                [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
+                                                placeholder="Scheme">
+                                                <ng-option *ngFor="let values of scheme" [value]="values">
+                                                    {{values.id}} {{values.label}}</ng-option>
+                                            </ng-select>
+                                            <label for="cashScheme">Scheme <sub class="required"> * </sub></label>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['DR_ACTYPE'].invalid && (angForm.controls['DR_ACTYPE'].dirty || angForm.controls['DR_ACTYPE'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['DR_ACTYPE'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt" autofocus>
+                                            <ng-select bindValue="value" bindLabel="label" [(ngModel)]="ngAccno"
+                                                id="DR_AC_NO" formControlName="DR_AC_NO" title="Compulsory Selection"
+                                                [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
+                                                placeholder="Account No">
+                                                <ng-option *ngFor="let values of termSchemeAC" [value]="values">
+                                                    {{values.label}} {{values.name}}</ng-option>
+                                            </ng-select>
+                                            <label for="DR_AC_NO">Account Number <sub class="required"> * </sub></label>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['DR_AC_NO'].invalid && (angForm.controls['DR_AC_NO'].dirty || angForm.controls['DR_AC_NO'].touched)"
+                                        class='alert alert-danger'>
+                                        <div *ngIf="angForm.controls['DR_AC_NO'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="To" class="form-control" placeholder=" "
+                                                id="DR_PARTICULARS" pattern="^[A-Za-z ]+$" maxlength="50"
+                                                title="Input allowed only A-Za-z" formControlName="DR_PARTICULARS"
+                                                (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
+                                                [required]="cashoption">
+                                            <label for="DR_PARTICULARS">Particulars<sub class="required">*</sub></label>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['DR_PARTICULARS'].invalid && (angForm.controls['DR_PARTICULARS'].dirty || angForm.controls['DR_PARTICULARS'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['DR_PARTICULARS'].errors?.pattern || angForm.controls['DR_PARTICULARS'].errors?.required || angForm.controls['DR_PARTICULARS'].errors?.maxlength">
+                                            This field is required and Input allowed only A-Za-z
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group input-group">

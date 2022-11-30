@@ -56,10 +56,10 @@ export class VoucherEntryComponent implements OnInit {
   syspara: any;
   // Created Form Group
   angForm: FormGroup;
-  Pass: number = 0;
-  Unpass: number = 0;
-  ClearBalance: number = 0;
-  AfterVoucher: number = 0;
+  Pass: any = 0;
+  Unpass: any = 0;
+  ClearBalance: any = 0;
+  AfterVoucher: any = 0;
   InputHeadAmt: number = 0.00;
 
   DatatableHideShow: boolean = true;
@@ -140,7 +140,7 @@ export class VoucherEntryComponent implements OnInit {
   isture: boolean = true;
   totalAmt: any = 0;
   showChequeDetails: boolean = false;
-  DayOpBal: number = 0;
+  DayOpBal: any = 0;
   headData = [];
   headShow: boolean = false;
   lastday: any;
@@ -177,7 +177,7 @@ export class VoucherEntryComponent implements OnInit {
     }
 
   }
- 
+
 
 
   ngOnInit(): void {
@@ -389,12 +389,12 @@ export class VoucherEntryComponent implements OnInit {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
-      if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+      if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
     } else {
       this.tranModeList = [];
@@ -402,12 +402,12 @@ export class VoucherEntryComponent implements OnInit {
         let obj = this.TranModeTransfer.find(t => t.id === ele);
         this.tranModeList.push(obj);
       })
-      if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+      if (this.Submitscheme.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
     }
   }
@@ -442,12 +442,12 @@ export class VoucherEntryComponent implements OnInit {
           let obj = this.TranModeCash.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
-        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
         }
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
         this.angForm.patchValue({
           chequeDate: null
@@ -458,12 +458,12 @@ export class VoucherEntryComponent implements OnInit {
           let obj = this.TranModeTransfer.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
-        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
         }
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
       }
     })
@@ -1041,6 +1041,7 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getledgerbalance(obj).subscribe(data => {
       //debugger
       this.DayOpBal = Math.abs(data);
+      this.DayOpBal = Number(this.DayOpBal).toFixed(2)
       let object = this.TranData.find(t => t.key === this.selectedCode);
       //debugger
       if (this.type == 'cash') {
@@ -1049,12 +1050,12 @@ export class VoucherEntryComponent implements OnInit {
           let obj = this.TranModeCash.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
-        if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+        if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
         }
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
 
       } else {
@@ -1063,12 +1064,12 @@ export class VoucherEntryComponent implements OnInit {
           let obj = this.TranModeTransfer.find(t => t.id === ele);
           this.tranModeList.push(obj);
         })
-        if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+        if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
         }
         if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
       }
     })
@@ -1168,34 +1169,38 @@ export class VoucherEntryComponent implements OnInit {
     // }
 
     if (tran == 'D' && this.typeclearbal == 'Dr') {
-      this.AfterVoucher = Math.abs(this.ClearBalance + value);
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) + value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
       this.extenstionaftervoucher = 'Dr';
     } else if (tran == 'D' && this.typeclearbal == 'Cr') {
-      this.AfterVoucher = Math.abs(this.ClearBalance - value);
-      if (value > this.ClearBalance) {
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) - value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
+      if (value > Number(this.ClearBalance)) {
         if (tran == 'C') {
           this.extenstionaftervoucher = 'Cr';
         } else {
           this.extenstionaftervoucher = 'Dr';
         }
       }
-      else if (value < this.ClearBalance) {
+      else if (value < Number(this.ClearBalance)) {
         this.extenstionaftervoucher = this.typeclearbal
       }
     } else if (tran == 'C' && this.typeclearbal == 'Dr') {
-      this.AfterVoucher = Math.abs(this.ClearBalance - value);
-      if (value > this.ClearBalance) {
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) - value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
+      if (value > Number(this.ClearBalance)) {
         if (tran == 'C') {
           this.extenstionaftervoucher = 'Cr';
         } else {
           this.extenstionaftervoucher = 'Dr';
         }
       }
-      else if (value < this.ClearBalance) {
+      else if (value < Number(this.ClearBalance)) {
         this.extenstionaftervoucher = this.typeclearbal
       }
     } else {
-      this.AfterVoucher = Math.abs(this.ClearBalance + value);
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) + value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
       this.extenstionaftervoucher = 'Cr';
     }
   }
@@ -1239,8 +1244,8 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   checkSanctionAmountWithAmount() {
-    let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
-    let sancAmt = ledgerbal + Number(this.overdraftAmt)
+    // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+    let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
     if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
@@ -1248,7 +1253,7 @@ export class VoucherEntryComponent implements OnInit {
         total_amt: 0.00,
         amt: 0.00
       })
-      Swal.fire('Oops!', `Access Denied, Amount Can't Be More Than Sanction Limit Rs. ${sancAmt}`, 'error');
+      Swal.fire('Oops!', `Access Denied, Amount Can't Be Withdraw More Than Rs. ${sancAmt}`, 'error');
       this.swiper.nativeElement.focus();
       this.submitForm = true
       this.angForm.patchValue({
@@ -1259,10 +1264,10 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   // Check Voucher Conditions On Amount Field
-  checkCondition($event) { 
+  checkCondition($event) {
     let obj = {
       value: Number($event),
-      clearBalance: this.ClearBalance,
+      clearBalance: Number(this.ClearBalance),
       accountNo: this.submitCustomer.BANKACNO,
       schemeType: this.selectedCode,
       scheme: this.Submitscheme.S_APPL,
@@ -1291,9 +1296,9 @@ export class VoucherEntryComponent implements OnInit {
           this.swiper.nativeElement.focus();
           this.submitForm = true
         } else {
-          this.swiper.nativeElement.blur();
           this.checkamtcondition($event)
           this.checkSanctionAmountWithAmount()
+          this.swiper.nativeElement.blur();
         }
       })
     } if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
@@ -1308,9 +1313,9 @@ export class VoucherEntryComponent implements OnInit {
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.swiper.nativeElement.blur();
           this.checkamtcondition($event)
           this.checkSanctionAmountWithAmount()
+          this.swiper.nativeElement.blur();
         } else {
           this.angForm.controls['amt'].reset();
           this.angForm.controls['total_amt'].reset();
@@ -1327,7 +1332,7 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       // value: Number($event.target.value),
       value: Number(this.angForm.controls['amt'].value),
-      clearBalance: this.ClearBalance,
+      clearBalance: Number(this.ClearBalance),
       accountNo: this.submitCustomer.BANKACNO,
       schemeType: this.selectedCode,
       scheme: this.Submitscheme.S_APPL,
@@ -1646,7 +1651,7 @@ export class VoucherEntryComponent implements OnInit {
     let result = JSON.parse(data1);
     let tempacno = this.submitCustomer.BANKACNO
     let obj = {
-      clearBalance: this.ClearBalance,
+      clearBalance: Number(this.ClearBalance),
       accountNo: this.submitCustomer?.BANKACNO,
       accno: this.submitCustomer?.AC_NO,
       schemeType: this.selectedCode,
@@ -1866,7 +1871,7 @@ export class VoucherEntryComponent implements OnInit {
   checkTokenCondition(event) {
     let obj = {
       value: Number(event.target.value),
-      clearBalance: this.ClearBalance,
+      clearBalance: Number(this.ClearBalance),
       accountNo: this.submitCustomer.BANKACNO,
       schemeType: this.selectedCode,
       scheme: this.Submitscheme.S_APPL,
@@ -2122,8 +2127,8 @@ export class VoucherEntryComponent implements OnInit {
   typeclearbal
   tempDayOpBal
   extensionopenbal
-  maturityamt = 0
-  depositamt = 0
+  maturityamt: any = 0
+  depositamt: any = 0
   expirydate = ''
   sanctiondate = ''
   asondate = ''
@@ -2140,6 +2145,7 @@ export class VoucherEntryComponent implements OnInit {
       this.ShowLNCC = true
       this.ShownotLNCC = false
       this.sanctionamt = (this.submitCustomer.AC_SANCTION_AMOUNT != null ? this.submitCustomer.AC_SANCTION_AMOUNT : 0)
+      this.sanctionamt = Number(this.sanctionamt).toFixed(2)
       this.sanctiondate = (this.submitCustomer.AC_SANCTION_DATE != null ? this.submitCustomer.AC_SANCTION_DATE : '---')
       this.expirydate = (this.submitCustomer.AC_EXPIRE_DATE != null ? this.submitCustomer.AC_EXPIRE_DATE : '---')
       this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
@@ -2150,7 +2156,9 @@ export class VoucherEntryComponent implements OnInit {
       this.ShownotLNCC = true
       this.expirydate = (this.submitCustomer.AC_EXPDT != null ? this.submitCustomer.AC_EXPDT : '---')
       this.maturityamt = (this.submitCustomer.AC_MATUAMT != null ? this.submitCustomer.AC_MATUAMT : 0)
+      this.maturityamt = Number(this.maturityamt).toFixed(2)
       this.depositamt = (this.submitCustomer.AC_SCHMAMT != null ? this.submitCustomer.AC_SCHMAMT : 0)
+      this.depositamt = Number(this.depositamt).toFixed(2)
       this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
       this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
     } else {
@@ -2161,6 +2169,7 @@ export class VoucherEntryComponent implements OnInit {
     this.submitCustomer.AC_ODAMT == undefined ? this.submitCustomer.AC_ODAMT = 0 : this.submitCustomer.AC_ODAMT = this.submitCustomer.AC_ODAMT
     this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
     this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
+    this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
 
     var startdate = this.angForm.controls['date'].value
 
@@ -2180,6 +2189,7 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getledgerbalance(obj).subscribe(data => {
       //debugger
       this.DayOpBal = Math.abs(data);
+      this.DayOpBal = Number(this.DayOpBal).toFixed(2)
       if (data < 0) {
         this.extensionopenbal = 'Cr'
       } else {
@@ -2187,16 +2197,16 @@ export class VoucherEntryComponent implements OnInit {
       }
       //debugger
       this.tempDayOpBal = data;
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && this.DayOpBal > 0) {
+      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
       if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && this.DayOpBal > 0)
+      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
       this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
-        this.Pass = Math.abs(data1.passedamt)
-        this.Unpass = Math.abs(data1.unpassamt)
+        this.Pass = Math.abs(data1.passedamt).toFixed(2)
+        this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
         this.passextension = (data1.passextension != undefined ? data1.passextension : '')
         this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
         // this.ClearBalance = this.DayOpBal + this.Pass
@@ -2206,10 +2216,10 @@ export class VoucherEntryComponent implements OnInit {
 
         let value = open + pass;
         if (value < 0) {
-          this.ClearBalance = Math.abs(value)
+          this.ClearBalance = Math.abs(value).toFixed(2)
           this.typeclearbal = 'Dr'
         } else {
-          this.ClearBalance = Math.abs(value)
+          this.ClearBalance = Math.abs(value).toFixed(2)
           this.typeclearbal = 'Cr'
         }
       })
@@ -2230,20 +2240,15 @@ export class VoucherEntryComponent implements OnInit {
     select.close()
   }
 
-  @Output() newCustomerEvent = new EventEmitter<string>();
-  addNewCustomer(value) {
-    this.dtTrigger.next()
-  }
   getDecimalPoint(event) {
     if (event.target.value != '')
       event.target.value = parseFloat(event.target.value).toFixed(2);
-    else
-      event.target.value = 0
   }
 
   checkIfZero(value) {
     if (Number(value) == 0 || value == 'NaN') {
       this.submitForm = true
+      this.totalAmt = 0
       this.angForm.controls.amt.setValue('0.00');
       this.swiper.nativeElement.focus()
     }

@@ -495,8 +495,9 @@ compareamount() {
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
-  getDecimalPoint(event) { 
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
 
 }

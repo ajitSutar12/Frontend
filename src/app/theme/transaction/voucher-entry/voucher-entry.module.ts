@@ -23,7 +23,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
-
+import { ThemeModule } from '../../theme.module'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -39,7 +39,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DatepickerModule.forRoot(),
     PerfectScrollbarModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ThemeModule
   ],
   declarations: [VoucherEntryComponent],
   exports: [VoucherEntryComponent],

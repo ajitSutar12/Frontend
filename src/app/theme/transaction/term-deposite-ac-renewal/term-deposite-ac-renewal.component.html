@@ -17,7 +17,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                            #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true' autofocus>
+                                            #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true' appTheme
+                                            autofocus>
                                             <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                 {{item.label}}</ng-option>
                                         </ng-select>
@@ -71,7 +72,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
                                             formControlName="scheme" #selectcode (focus)="onFocus(selectcode)"
-                                            [selectOnTab]='true'>
+                                            [selectOnTab]='true' appTheme>
                                             <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
                                                 {{item.S_NAME}}</ng-option>
                                         </ng-select>
@@ -94,8 +95,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="customer" formControlName="account_no"
-                                            (change)="getVoucherData()" #accountNumber (focus)="onFocus(accountNumber)"
-                                            [selectOnTab]='true'>
+                                            (change)="getVoucherData()" appTheme #accountNumber
+                                            (focus)="onFocus(accountNumber)" [selectOnTab]='true'>
                                             <ng-option *ngFor="let item of introducerACNo" [value]="item">{{item.AC_NO}}
                                                 {{item.AC_NAME}}</ng-option>
                                         </ng-select>
@@ -572,7 +573,8 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedIntCate" formControlName="new_category"
-                                                #new_category (focus)="onFocus(new_category)" [selectOnTab]='true'>
+                                                #new_category (focus)="onFocus(new_category)" appTheme
+                                                [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of InterestCategoryData" [value]="item.id">
                                                     {{item.NAME}}</ng-option>
                                             </ng-select>
@@ -585,10 +587,10 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appTheme bsDatepicker
                                                 (change)="getMaturityDate()" formControlName="new_ason_date"
                                                 [(ngModel)]="renewalAsOnDate" #new_ason_date="bsDatepicker"
-                                                (keydown.Tab)="new_ason_date.hide()">
+                                                (keydown.Tab)="new_ason_date.hide()" placement="left">
                                         </span>
                                     </div>
                                 </div>
@@ -601,7 +603,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                (focus)="selectAllContent($event)" (change)="getTotalDays()"
+                                                (focus)="selectAllContent($event)" appTheme (change)="getTotalDays()"
                                                 formControlName="new_month" maxlength="3">
                                         </span>
                                     </div>
@@ -612,7 +614,7 @@
                                 <div class="col-md-1 col-sm-3">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" style="text-align: right;" class="form-control"
+                                            <input type="text" style="text-align: right;" appTheme class="form-control"
                                                 formControlName="new_day" (focus)="selectAllContent($event)"
                                                 (change)="getTotalDays()" maxlength="3">
                                         </span>
@@ -644,7 +646,8 @@
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
                                                 formControlName="new_deposit" (keyup)="getDecimal($event)"
-                                                (focus)="selectAllContent($event)" (change)="getMaturityAmount()"
+                                                (focus)="selectAllContent($event)" appTheme
+                                                (change)="getMaturityAmount()"
                                                 [disabled]="!isCalulateMaturityAmountFlag">
                                         </span>
                                     </div>
@@ -656,7 +659,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="new_rate" (focus)="selectAllContent($event)"
+                                                formControlName="new_rate" appTheme (focus)="selectAllContent($event)"
                                                 (change)="getMaturityAmount()">
                                         </span>
                                     </div>
@@ -694,7 +697,7 @@
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
                                                 #new_matu_date="bsDatepicker" (keydown.Tab)="new_matu_date.hide()"
-                                                formControlName="new_matu_date">
+                                                formControlName="new_matu_date" placement="top">
                                         </span>
                                     </div>
                                 </div>
@@ -708,8 +711,8 @@
 
                         <div class="row">
                             <div class="col-sm" style="float: right;">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                    (click)="submit();branchcode.focus()">
+                                <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
+                                    *ngIf="showButton" (click)="submit();branchcode.focus()">
                                     Submit
                                 </button>
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"

@@ -18,7 +18,7 @@ import { TermDepositeAcRenewalService } from './term-deposite-ac-renewal.service
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 //date pipe
 import { DatePipe } from '@angular/common';
-
+import { ThemeModule } from '../../theme.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +29,7 @@ import { DatePipe } from '@angular/common';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     SharedModule,
+    ThemeModule
   ],
   declarations: [TermDepositeAcRenewalComponent],
   exports: [TermDepositeAcRenewalComponent],

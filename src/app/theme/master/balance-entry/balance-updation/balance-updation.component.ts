@@ -623,7 +623,7 @@ export class BalanceUpdationComponent implements OnInit {
         getschemename: this.getschemename,
         fromDatet: fromDatet
       }
-      this.http.post(this.url + '/balance-updation/accounts/' , this.mem).subscribe((data) => {
+      this.http.post(this.url + '/balance-updation/accounts/', this.mem).subscribe((data) => {
         this.arrTable = data;
         this.gridData = data;
         for (let element of this.arrTable) {
@@ -929,7 +929,8 @@ export class BalanceUpdationComponent implements OnInit {
     this.resetForm();
   }
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
   getDecimal(event) {
     var t = event.target.value;

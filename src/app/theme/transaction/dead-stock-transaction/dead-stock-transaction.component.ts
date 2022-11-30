@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectConfig, NgSelectComponent } from '@ng-select/ng-select';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
 import { first } from 'rxjs/operators';
@@ -40,7 +40,7 @@ export class DeadStockTransactionComponent implements OnInit {
 
   // Date variables
   ngresolutiondate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   isTransfer: boolean = false
@@ -107,6 +107,11 @@ export class DeadStockTransactionComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   dtExportButtonOptions: any = {};
@@ -193,9 +198,12 @@ export class DeadStockTransactionComponent implements OnInit {
         break;
 
       case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+        this.http.get<any>(this.url + '/gl-account-master/').subscribe(data => {
           this.schemeACNo = data;
         })
+        // this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+        //   this.schemeACNo = data;
+        // })
         break;
     }
   }
@@ -703,5 +711,25 @@ export class DeadStockTransactionComponent implements OnInit {
     var button = document.getElementById('triggerhide');
     button.click();
     this.reloadTablePassing.emit();
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }

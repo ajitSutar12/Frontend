@@ -23,3 +23,68 @@ div.solid h3 {
 div.solid h3 span {
     background-color: white;
 }
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0.2rem;
+}
+
+.alert-danger {
+    background-color: #fff;
+    border-color: #ff5252;
+    color: #ff5252;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: 11px;
+}
+
+.btn-outline-primary {
+    color: white;
+    border-color: black;
+    background-color: transparent;
+    // float: left;
+    align-items: center;
+    margin-right: 14px;
+    border-radius: 5px;
+    padding-bottom: 22px;
+    padding-top: 4px;
+    height: 25px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.1rem;
+    font-size: 14px;
+    // font-weight: 800;
+}
+
+.ng-select .ng-select-container {
+    color: #333;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    min-height: 18px !important;
+    max-height: 18px !important;
+    align-items: center;
+    font-size: 11px;
+}
+
+.input-group .border-lable-flt .form-control {
+    border-radius: 0.25rem;
+    height: 25px;
+    padding-bottom: 0px;
+}
+
+.form-control {
+    font-size: 11px;
+    border-radius: 2px;
+    border: 1px solid #cccccc;
+    height: 18px;
+    padding: 0rem 0.7rem;
+}
+
+.card .card-block {
+    padding: 5px;
+    padding-bottom: 5px;
+}
