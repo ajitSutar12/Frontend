@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { DeadStockPurchaseComponent } from './dead-stock-purchase.component';
 import { DeadStockPurchaseRoutingModule } from './dead-stock-purchase-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DataTablesModule} from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
@@ -16,7 +16,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { DeadStockPurchaseService } from './dead-stock-purchase.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { ThemeModule } from '../../theme.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -26,11 +26,12 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     NgSelectModule,
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [DeadStockPurchaseComponent],
-  exports:[DeadStockPurchaseComponent],
-  providers:[DeadStockPurchaseService,SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService,SystemMasterParametersService,{
+  exports: [DeadStockPurchaseComponent],
+  providers: [DeadStockPurchaseService, SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService, SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

@@ -473,9 +473,8 @@
                                                                     <input type="text" name="AC_INTRATE"
                                                                         class="form-control" placeholder=" "
                                                                         style="text-align: right;" id="AC_INTRATE"
-                                                                        required='' pattern="^[0-9]+$"
-                                                                        title="Input allowed only  0-9"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        required='' title="Input allowed only  0-9"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                         formControlName="AC_INTRATE"
                                                                         (ngModelChange)="setMaturityDate()"
                                                                         [ngClass]="{'form-submitted': formSubmitted}">
@@ -487,8 +486,8 @@
                                                                 *ngIf="angForm.controls['AC_INTRATE'].invalid && (angForm.controls['AC_INTRATE'].dirty || angForm.controls['AC_INTRATE'].touched)"
                                                                 class="alert alert-danger">
                                                                 <div
-                                                                    *ngIf="angForm.controls['AC_INTRATE'].errors?.pattern || angForm.controls['AC_INTRATE'].errors?.required">
-                                                                    This feild is required and Input allowed only 0-9
+                                                                    *ngIf="angForm.controls['AC_INTRATE'].errors?.required">
+                                                                    This field is required and Input allowed only 0-9
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2179,10 +2178,34 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                                                    <div class="row" *ngIf="showInstruction">
                                                         <div class="col-sm" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="switchNgBTab('interestInstruction')">Next</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="!showInstruction">
+                                                        <div class="col-sm" style="float: right;">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="showButton" (click)="submit($event)">
+                                                                Submit
+                                                            </button>
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="approveShow" (click)="closeModal()">
+                                                                Close</button>
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                (click)="addNewData()" *ngIf="newbtnShow">
+                                                                Cancel
+                                                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                (click)="updateData()" *ngIf="updateShow">
+                                                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="rejectShow" (click)="reject()">
+                                                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="approveShow" (click)="Approve()">
+                                                                Approve</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2190,7 +2213,7 @@
                                         </div>
                                     </ng-template>
                                 </ngb-tab>
-                                <ngb-tab title="Interest Instruction" id="interestInstruction">
+                                <ngb-tab title="Interest Instruction" id="interestInstruction" *ngIf="showInstruction">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="card border-primary">

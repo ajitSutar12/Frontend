@@ -18,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 // import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component'
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-term-deposit-account-closing',
   templateUrl: './term-deposit-account-closing.component.html',
@@ -144,7 +145,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   signture = 'assets/images/nosignature.png';
   Scheme
   multigrid = []
-
+  maxDate: Date;
+  minDate: Date;
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
@@ -160,11 +162,20 @@ export class TermDepositAccountClosingComponent implements OnInit {
     private http: HttpClient,
     private _TDService: TermDepositAccountClosingService,
     private _CustomerIdService: CustomerIdService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,) {
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private systemParameter: SystemMasterParametersService,) {
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
     }
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let nextDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
+      let lastDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
+      this.maxDate = new Date(nextDate);
+      this.maxDate.setDate(this.maxDate.getDate());
+      this.minDate = new Date(lastDate);
+      this.minDate.setDate(this.minDate.getDate());
+    })
   }
 
   ngOnInit(): void {
@@ -1437,7 +1448,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
 
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
   getDecimal(event) {
     var t = event.target.value;

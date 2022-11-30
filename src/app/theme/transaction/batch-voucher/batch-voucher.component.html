@@ -8,15 +8,17 @@
                 </h6>
             </div>
             <div class="card-body">
-                <form [formGroup]="angForm" novalidate>
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="solid">
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
                                         class="required">*</sub></label></div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                        <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
+                                            #selectBranch (focus)="onFocus(selectBranch)" appTheme [selectOnTab]='true'
+                                            autofocus>
                                             <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                 {{item.label}}</ng-option>
                                         </ng-select>
@@ -31,7 +33,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5"></div>
+                            <div class="col-md-4"></div>
                             <div class="col-md-1"><label for="date">Date</label></div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -52,7 +54,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select (change)="getCompanyData($event)" [(ngModel)]="selectCompanyCode"
-                                            name="date" formControlName="company_code">
+                                            name="date" formControlName="company_code" #company_code
+                                            (focus)="onFocus(company_code)" appTheme [selectOnTab]='true'>
                                             <ng-option *ngFor="let item of company_code" [value]="item.value">
                                                 {{item.value}} {{item.name}}</ng-option>
                                         </ng-select>
@@ -112,7 +115,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque No.</label></div>
+                            <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque Number</label></div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -124,13 +127,17 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-1">
-                                <label for="AC_BRANCH">Date</label>
+                                <label for="AC_BRANCH">Cheque Date</label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
-                                    <input type="text" placeholder="dd/mm/yyyy"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                        formControlName="ChequeDate" [maxDate]="maxDate" [minDate]="minDate">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker minlength="10"
+                                            maxlength="10" formControlName="ChequeDate" [maxDate]="maxDate"
+                                            [minDate]="minDate" #ChequeDate="bsDatepicker"
+                                            (keydown.Tab)="ChequeDate.hide()" placement="top">
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-1"></div>
@@ -141,10 +148,11 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="voucherAmount"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                             class="form-control" placeholder=" " id="voucherAmount" maxlength="15"
                                             title="Input allowed only  0-9" required formControlName="voucherAmount"
-                                            style="text-align: right;" (focus)="selectAllContent($event)">
+                                            style="text-align: right;" (keyup)="getDecimal($event)"
+                                            (focus)="selectAllContent($event)" (focusout)="getDecimalPoint($event)">
                                     </span>
                                 </div>
 
@@ -196,9 +204,11 @@
                                             <td>{{item.AC_TYPE}}</td>
                                             <td>{{item.AC_NO}}</td>
                                             <td><input type="text"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                     value="{{item.DEFAULT_AMOUNT}}" (focusout)="changeAmount($event,i)"
-                                                    style="text-align: right;" (focus)="selectAllContent($event)">
+                                                    style="text-align: right;" (keyup)="getDecimal($event)"
+                                                    (focus)="selectAllContent($event)"
+                                                    (focusout)="getDecimalPoint($event)">
                                             </td>
                                         </tr>
 
@@ -236,8 +246,8 @@
                         </div>
                         <div class="row">
                             <div class="col-sm" style="float: right;">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                    (click)="Submit()">
+                                <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
+                                    *ngIf="showButton" (click)="Submit();selectBranch.focus()">
                                     Submit
                                 </button>
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"

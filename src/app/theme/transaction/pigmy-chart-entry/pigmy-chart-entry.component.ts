@@ -14,6 +14,7 @@ import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
+import { NgSelectComponent } from '@ng-select/ng-select'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -233,6 +234,8 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   //get agent account number after branch selection
   getBranch(event) {
     this.branchCode = event.name
+    this.agentACNO = null
+    this.ngAgentCode = null
     this.getPigmyAgentAcnoList()
   }
 
@@ -273,18 +276,19 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   filterObjectFun(ele, type) {
     this.tableArr = [];
     this.gridData.forEach(element => {
-      if (type == 'AC_NO') {
-        if (JSON.stringify(element.TRAN_BANKACNO).includes(ele.target.value)) {
+      if (type == 'AC_NAME') {
+        if (JSON.stringify(element.AC_NAME.toUpperCase()).includes(ele.target.value.toUpperCase())) {
           this.tableArr.push(element);
         }
       }
       else {
-        if (JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())) {
+        if (JSON.stringify(element.BANKACNO).includes(ele.target.value)) {
           this.tableArr.push(element);
         }
       }
     });
   }
+
 
   decimalAllContent($event) {
     let value = Number($event.target.value);
@@ -318,6 +322,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       else {
         this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
           this.tableArr = data;
+          this.gridData = data
           this.showTable = true
           this.totalAmt = 0
           this.pigmyChartTable = []
@@ -422,7 +427,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
-    if (this.pigmyChartTable.length != 0) {
+    if (this.pigmyChartTable.length != 0 && this.totalAmt != 0) {
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       let branchCode = result.branch.id;
@@ -457,7 +462,11 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.resetForm();
       this.totalAmt = 0
       this.tableArr = []
+      this.gridData = []
       this.pigmyChartTable = []
+    }
+    else {
+      Swal.fire('Info', 'Please fill pigmy chart', 'info')
     }
   }
 
@@ -496,6 +505,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.dtTrigger.unsubscribe();
       this.http.get(this.url + '/pigmy-chart/pigmychart/' + mem).subscribe((data) => {
         this.tableArr = data;
+        this.gridData = data
         this.pigmyChartTable = []
         this.tableArr.forEach(async (element) => {
           var object = {
@@ -580,6 +590,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.getSystemParaDate()
     this.pigmyChartTable = []
     this.tableArr = []
+    this.gridData = []
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
@@ -618,5 +629,26 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger1.unsubscribe();
+  }
+
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectConfig, NgSelectComponent } from '@ng-select/ng-select';
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
 import { reset } from 'mousetrap';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-master-dropdown.service';
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { ReconciliationEntryService } from './reconciliation-entry.service'
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -59,7 +60,7 @@ export class ReconciliationEntryComponent implements OnInit {
   fromdate: any = null
 
   minDate: Date;
-  maxDate: Date;
+  maxDate: any;
   bsValue = new Date();
   bsRangeValue: Date[];
   showButton: boolean = true;
@@ -87,13 +88,17 @@ export class ReconciliationEntryComponent implements OnInit {
     public ACMasterDropdownService: ACMasterDropdownService,
     private config: NgSelectConfig,
     private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
   ) {
-
-
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
 
   }
   ngOnInit(): void {
@@ -127,7 +132,7 @@ export class ReconciliationEntryComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       GL_AC: ['', [Validators.required]],
-      ENTRIES: [''],
+      ENTRIES: ['FormT'],
       FROM_DATE: ['', [Validators.required]],
       TO_DATE: ['', [Validators.required]],
       WITH_DRAW: ['', [Validators.required, Validators.pattern]],
@@ -156,48 +161,50 @@ export class ReconciliationEntryComponent implements OnInit {
     })
 
     let obj = [this.glaccount, this.ngBranchCode, this.angForm.controls['ENTRIES'].value, this.angForm.controls['FROM_DATE'].value, this.angForm.controls['TO_DATE'].value]
-    this.http.get(this.url + '/reconciliation-entry/allAccount/' + obj).subscribe((data) => {
-      this.arrTable = data;
-      this.arrTable?.forEach(element => {
-        let obj = {
-          id: element.id,
-          TRAN_NO: element.TRAN_NO,
-          TRAN_DATE: element.TRAN_DATE,
-          TRAN_TYPE: element.TRAN_TYPE,
-          TRAN_DRCR: element.TRAN_DRCR,
-          TRAN_AMOUNT: element.TRAN_AMOUNT,
-          TRAN_ACNO: element.TRAN_ACNO,
-          CHEQUE_NO: element.CHEQUE_NO,
-          NARRATION: element.NARRATION,
-          STATEMENT_DATE: element.STATEMENT_DATE
-        }
-        if (element.TRAN_DRCR == 'D' && element.STATEMENT_DATE == null) {
-          this.totalDebitRec = this.totalDebitRec + 1
-          this.totalDebitAmt = this.totalDebitAmt + Number(element.TRAN_AMOUNT)
-        }
-        else if (element.TRAN_DRCR == 'C' && element.STATEMENT_DATE == null) {
-          this.totalCreditRec = this.totalCreditRec + 1
-          this.totalCreditAmt = this.totalCreditAmt + Number(element.TRAN_AMOUNT)
-        }
-        if (this.totalCreditAmt > this.totalDebitAmt) {
-          this.remainAmt = this.totalCreditAmt - this.totalDebitAmt
-        }
-        else {
-          this.remainAmt = this.totalDebitAmt - this.totalCreditAmt
-        }
-        this.angForm.patchValue({
-          Withdrawls: this.totalDebitRec,
-          WithdrawlsAmt: this.totalDebitAmt,
-          Deposits: this.totalCreditRec,
-          DepositsAmt: this.totalCreditAmt,
-          UnclearedAmt: this.remainAmt
-        })
+    if (this.angForm.controls['FROM_DATE'].value != null && this.angForm.controls['TO_DATE'].value != null && this.angForm.controls['FROM_DATE'].value != '' && this.angForm.controls['TO_DATE'].value != '') {
+      this.http.get(this.url + '/reconciliation-entry/allAccount/' + obj).subscribe((data) => {
+        this.arrTable = data;
+        this.arrTable?.forEach(element => {
+          let obj = {
+            id: element.id,
+            TRAN_NO: element.TRAN_NO,
+            TRAN_DATE: element.TRAN_DATE,
+            TRAN_TYPE: element.TRAN_TYPE,
+            TRAN_DRCR: element.TRAN_DRCR,
+            TRAN_AMOUNT: Number(element.TRAN_AMOUNT).toFixed(2),
+            TRAN_ACNO: element.TRAN_ACNO,
+            CHEQUE_NO: element.CHEQUE_NO,
+            NARRATION: element.NARRATION,
+            STATEMENT_DATE: element.STATEMENT_DATE
+          }
+          if (element.TRAN_DRCR == 'D' && element.STATEMENT_DATE == null) {
+            this.totalDebitRec = this.totalDebitRec + 1
+            this.totalDebitAmt = this.totalDebitAmt + Number(element.TRAN_AMOUNT)
+          }
+          else if (element.TRAN_DRCR == 'C' && element.STATEMENT_DATE == null) {
+            this.totalCreditRec = this.totalCreditRec + 1
+            this.totalCreditAmt = this.totalCreditAmt + Number(element.TRAN_AMOUNT)
+          }
+          if (this.totalCreditAmt > this.totalDebitAmt) {
+            this.remainAmt = this.totalCreditAmt - this.totalDebitAmt
+          }
+          else {
+            this.remainAmt = this.totalDebitAmt - this.totalCreditAmt
+          }
+          this.angForm.patchValue({
+            Withdrawls: this.totalDebitRec,
+            WithdrawlsAmt: Number(this.totalDebitAmt).toFixed(2),
+            Deposits: this.totalCreditRec,
+            DepositsAmt: Number(this.totalCreditAmt).toFixed(2),
+            UnclearedAmt: Number(this.remainAmt).toFixed(2)
+          })
 
-        this.entryArr.push(obj)
-        this.showTable = true
+          this.entryArr.push(obj)
+          this.showTable = true
 
-      });
-    })
+        });
+      })
+    }
   }
 
   getStatementDate(id, acno, tranDRCR, tranAmt, date) {
@@ -298,5 +305,25 @@ export class ReconciliationEntryComponent implements OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  onOpen(select: NgSelectComponent) {
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
   }
 }

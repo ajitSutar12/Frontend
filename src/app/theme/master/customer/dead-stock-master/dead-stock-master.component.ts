@@ -681,7 +681,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     })
   }
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
   getDecimal(event) {
     var t = event.target.value;

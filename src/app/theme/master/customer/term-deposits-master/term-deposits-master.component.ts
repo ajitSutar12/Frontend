@@ -136,6 +136,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updateShow: boolean = false;
   newbtnShow: boolean = false;
   introducerReq: boolean = false
+  showInstruction: boolean = true
   //variable to get ID to update
   updateID: number = 0;
   page: number = 1;
@@ -235,6 +236,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   getschemename: any
   maxDate: any;
   minDate: Date;
+  intInstructionObject
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -451,7 +453,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['TD'],
       AC_NO: [''],
-      AC_INTRATE: ['', [Validators.pattern]],
+      AC_INTRATE: [0],
       AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: [''],
       AC_NAME: [''],
@@ -1554,7 +1556,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'JointAccountData': this.multiJointAC,
         //Attorney
         'PowerOfAttorneyData': this.multiAttorney,
-        'Document': this.imageObject
+        'Document': this.imageObject,
+        intInstructionObject: this.intInstructionObject
       }
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
@@ -1595,6 +1598,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     let asondate
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
+      this.showInstruction = false
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
         this.updateShow = true;
@@ -1710,6 +1714,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+      this.showInstruction = true
       this.switchNgBTab('Basic')
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -1785,6 +1790,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.ngIntroducer = null
     this.ngNcity = null
     this.jointID = null
+    this.showInstruction = true
     this.getSystemParaDate()
   }
 
@@ -1828,6 +1834,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.showInstruction = true
     this.multiNominee = []
     this.multiJointAC = []
     this.multiAttorney = []
@@ -2799,6 +2806,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.reloadTablePassing.emit();
   }
   addNewInstruction(instruction) {
+    this.intInstructionObject = instruction
   }
 
 }

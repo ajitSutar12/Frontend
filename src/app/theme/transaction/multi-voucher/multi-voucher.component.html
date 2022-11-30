@@ -36,7 +36,7 @@
 
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="angForm" novalidate>
+                        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
@@ -45,7 +45,8 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    #selectBranch [selectOnTab]='true' autofocus>
+                                                    #selectBranch (focus)="onFocus(selectBranch)" appTheme [selectOnTab]='true'
+                                                    autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -99,7 +100,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedCode"
                                                     (change)="selectedSchemeCode();resetscheme()"
-                                                    formControlName="scheme_type" #selectCode
+                                                    formControlName="scheme_type" #selectCode appTheme
                                                     (focus)="onFocus(selectCode)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of allSchemeCode"
                                                         [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
@@ -120,7 +121,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedScheme" bindValue="id"
+                                                <ng-select [(ngModel)]="selectedScheme" bindValue="id" appTheme
                                                     (change)="getIntroducer($event)" formControlName="scheme"
                                                     #selectScheme (focus)="onFocus(selectScheme)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
@@ -149,7 +150,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="customer" bindValue="id"
                                                     formControlName="account_no" #selectAcc (focus)="onFocus(selectAcc)"
-                                                    [selectOnTab]='true'
+                                                    [selectOnTab]='true' appTheme
                                                     (change)="getVoucherData($event);SideDetails();checkAccountCondition();showlgindetails();">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
@@ -172,7 +173,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedMode" bindValue="id"
-                                                    formControlName="tran_mode" #selectMode
+                                                    formControlName="tran_mode" #selectMode appTheme
                                                     (focus)="onFocus(selectMode)" [selectOnTab]='true'
                                                     (change)="changeMode($event);checktranCondition();">
                                                     <ng-option *ngFor="let item of tranModeList" [value]="item">
@@ -276,7 +277,7 @@
                                                 <input type="text" name="AC_PARTICULAR"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR"
-                                                    maxlength="15" (keyup)="getaftervoucher($event)"
+                                                    maxlength="15" (keyup)="getaftervoucher($event)" appTheme
                                                     title="Input allowed only 0-9" required formControlName="amt"
                                                     (keyup)="getAmt(amt.value)" #amt (focus)="selectAllContent($event)"
                                                     (focusout)="getDecimalPoint($event); checkIfZero(amt.value)"
@@ -534,7 +535,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-primary"
                                         style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{DayOpBal}}.00 {{extensionopenbal}}</div>
+                                            aria-hidden="true"></i> {{DayOpBal}} {{extensionopenbal}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -552,7 +553,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{Pass}}.00 {{passextension}}</div>
+                                            aria-hidden="true"></i> {{Pass}} {{passextension}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -570,7 +571,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-danger"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> <span>{{Unpass}}.00 {{unpassextension}}</span></div>
+                                            aria-hidden="true"></i> <span>{{Unpass}} {{unpassextension}}</span></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -609,7 +610,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-info"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{overdraftAmt}}.00</div>
+                                            aria-hidden="true"></i> {{overdraftAmt}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
@@ -722,7 +723,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-info"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{sanctionamt}}.00</div>
+                                            aria-hidden="true"></i> {{sanctionamt}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12" *ngIf="ShownotLNCC">
@@ -742,7 +743,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-info"
                                         style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{depositamt}}.00</div>
+                                            aria-hidden="true"></i> {{depositamt}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12" *ngIf="ShownotLNCC">
@@ -780,7 +781,7 @@
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{ClearBalance}}.00 {{typeclearbal}}</div>
+                                            aria-hidden="true"></i> {{ClearBalance}} {{typeclearbal}}</div>
                                 </div>
                             </div>
                             <div class="col-md-12">

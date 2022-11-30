@@ -13,7 +13,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownService/company-group-master-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
-
+import { ThemeModule } from '../../theme.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -25,14 +25,15 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     SharedModule,
+    ThemeModule
   ],
-  providers: [StatementTypeService,OwnbranchMasterService,CompanyGroupMasterDropdownService,MultiVoucherService, {
+  providers: [StatementTypeService, OwnbranchMasterService, CompanyGroupMasterDropdownService, MultiVoucherService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },],
   declarations: [BatchVoucherComponent],
-  exports:[BatchVoucherComponent],
+  exports: [BatchVoucherComponent],
 
 })
 export class BatchVoucherModule { }

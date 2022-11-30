@@ -24,7 +24,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
                                                     #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
-                                                    autofocus>
+                                                    autofocus appTheme>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -52,40 +52,16 @@
                                                     [(ngModel)]="date" formControlName="date" disabled>
                                             </span>
                                         </div>
-
                                     </div>
-
                                 </div>
-
                                 <div class="row">
-                                    <!-- <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
-                                                class="required">*</sub></label></div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group form-primary form-static-label">
-                                            <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
-                                                    formControlName="scheme_type">
-                                                    <ng-option *ngFor="let item of allSchemeCode"
-                                                        [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
-                                                </ng-select>
-
-                                            </span>
-                                        </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
-                                            class="alert alert-danger">
-                                            <div *ngIf="angForm.controls['scheme_type'].errors?.required">
-                                                This field is required.
-                                            </div>
-                                        </div>
-                                    </div> -->
                                     <div class="col-sm-12 col-md-2"> <label for="scheme">Scheme<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select bindValue="value" [(ngModel)]="selectedScheme" #selectcode
-                                                    (focus)="onFocus(selectcode)" [selectOnTab]='true'
+                                                    (focus)="onFocus(selectcode)" [selectOnTab]='true' appTheme
                                                     (change)="schemechange($event)" formControlName="scheme">
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
                                                         {{item.id}} {{item.label}}</ng-option>
@@ -107,7 +83,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select bindValue="bankacno" [(ngModel)]="customer" #accountNumber
-                                                    (focus)="onFocus(accountNumber)" [selectOnTab]='true'
+                                                    (focus)="onFocus(accountNumber)" [selectOnTab]='true' appTheme
                                                     formControlName="account_no" (change)="getAccountDetails($event)">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.label}} {{item.name}}</ng-option>
@@ -496,6 +472,7 @@
                                                                     class="form-control" placement="top"
                                                                     #ChequeDate="bsDatepicker"
                                                                     (keydown.Tab)="ChequeDate.hide()"
+                                                                    [maxDate]="maxDate" [minDate]="minDate"
                                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                     bsDatepicker [maxDate]="maxDate"
                                                                     formControlName="ChequeDate">
@@ -527,7 +504,7 @@
                                                                 <ng-select [(ngModel)]="selectedTransScheme"
                                                                     (change)="getTransferAccountList($event)"
                                                                     formControlName="Tscheme" bindValue="value"
-                                                                    bindLabel="label" #tscheme
+                                                                    bindLabel="label" #tscheme appTheme
                                                                     (focus)="onFocus(tscheme)" [selectOnTab]='true'>
                                                                     <ng-option *ngFor="let item of Scheme"
                                                                         [value]="item">
@@ -554,7 +531,7 @@
                                                                 <ng-select id="TschemeAC" [(ngModel)]="ngacno"
                                                                     formControlName="TschemeAC" bindLabel="label"
                                                                     bindValue="bankacno" title="Compulsory Selection"
-                                                                    placeholder="Account Number"
+                                                                    placeholder="Account Number" appTheme
                                                                     (change)="getTransferAccountDeatil($event)"
                                                                     #taccNumber (focus)="onFocus(taccNumber)"
                                                                     [selectOnTab]='true'>
@@ -599,7 +576,7 @@
                                                                     class="form-control" name="amount" id="amount"
                                                                     formControlName="amount"
                                                                     (focus)="selectAllContent($event)"
-                                                                    (keyup)="getDecimal($event)"
+                                                                    (keyup)="getDecimal($event)" appTheme
                                                                     (focusout)="getDecimalPoint($event)" maxlength="12"
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                             </span>
@@ -685,8 +662,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm" style="float: right;">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                            (click)="submit();branchcode.focus()">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
+                                            *ngIf="showButton" (click)="submit();branchcode.focus()">
                                             Submit
                                         </button>
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"

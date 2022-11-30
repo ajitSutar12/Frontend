@@ -36,7 +36,7 @@ import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
-class DataTableResponse { 
+class DataTableResponse {
   data: any[];
   draw: number;
   recordsFiltered: number;
@@ -219,7 +219,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     // Fetching Server side data
-    this.dtExportButtonOptions = { 
+    this.dtExportButtonOptions = {
       pagingType: "full_numbers",
       paging: true,
       pageLength: 10,
@@ -631,7 +631,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
   }
- 
+
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
@@ -1249,7 +1249,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
   getDecimal(event) {
     var t = event.target.value;
