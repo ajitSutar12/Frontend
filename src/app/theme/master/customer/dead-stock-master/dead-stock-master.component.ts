@@ -709,4 +709,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     button.click();
     this.reloadTablePassing.emit();
   }
+  disableForm(id) {
+    this.editClickHandler(id)
+  }
 }
