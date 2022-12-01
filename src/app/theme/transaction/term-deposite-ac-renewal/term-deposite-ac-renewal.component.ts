@@ -160,6 +160,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       AC_RENEWAL_COUNTER: [0],
       TRAN_NO: [0]
     })
+    this.angForm.controls['scheme_type'].disable()
   }
 
   formatInterestDate() {

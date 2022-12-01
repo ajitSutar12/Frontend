@@ -51,7 +51,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
-                                            formControlName="scheme_type" disable>
+                                            formControlName="scheme_type" disable readonly>
                                             <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
                                                 {{item.S_ACNOTYPE}}</ng-option>
                                         </ng-select>
