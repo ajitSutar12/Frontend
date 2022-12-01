@@ -87,9 +87,11 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   getBranch() {
     this.getInterestTransfer()
   }
+  scheme
   //get acnotype from selected scheme
   getIntTrans(event) {
     this.getschemename = event.name
+    this.scheme = event.value
     this.getInterestTransfer()
   }
   //check effect date form existing data in LNACINTRATE table
@@ -178,7 +180,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     this.branch = this.angForm.controls['BRANCH'].value
     if (this.angForm.controls['AC_NOFrom'].value <= this.angForm.controls['AC_NOTo'].value) {
       this.dtTrigger.unsubscribe();
-      this.mem = [this.memFrom, this.memTo, this.branch]
+      this.mem = [this.memFrom, this.memTo, this.branch, this.scheme]
       if (this.getschemename == 'TD') {
         this.http.get(this.url + '/term-deposits-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;

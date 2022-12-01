@@ -382,9 +382,14 @@
                                 <tbody *ngIf="customerMaster?.length != 0">
                                     <tr *ngFor="let data of customerMaster">
                                         <td>
-                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            <span class="fa fa-fw fa-edit field-icon" style="align-items: right;"
+                                                id="editbutton" *ngIf="!data.SYSCHNG_LOGIN"
                                                 (click)="editClickHandler(data.id)" placement="bottom"
                                                 ngbTooltip="Edit"></span>
+                                            <span class="fa fa-fw fa-eye field-icon" id="viewbutton"
+                                                style="align-items: right;" *ngIf="data.SYSCHNG_LOGIN"
+                                                (click)="disableForm(data.id)" placement="bottom"
+                                                ngbTooltip="View"></span>
                                         </td>
                                         <td class="td_right"
                                             [ngClass]="data.ITEM_CODE === '' ? 'td_center' : 'td_right'">
