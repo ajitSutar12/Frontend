@@ -485,8 +485,9 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
 
-  getDecimalPoint(event) { 
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
   
   comparerange() {

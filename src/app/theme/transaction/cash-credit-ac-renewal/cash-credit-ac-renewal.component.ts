@@ -589,7 +589,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
   onCloseModal() {
     this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300); 
+    setTimeout(() => this.visible = false, 300);
   }
 
   onFocus(ele: NgSelectComponent) {
@@ -610,20 +610,17 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
 
   getDecimalPoint(event) {
-    event.target.value = parseFloat(event.target.value).toFixed(2);
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
   }
-
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
     if (ele.target.value <= 50) {
     } else {
       Swal.fire("Oops", "Please insert values below 50", "error");
-      ele.target.value = 0 
+      ele.target.value = 0
     }
-  }
-  blurDate(event) {
-    event.target.blur()
   }
   closeModal() {
     var button = document.getElementById('triggerhide');

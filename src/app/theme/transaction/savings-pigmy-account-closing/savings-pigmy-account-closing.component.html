@@ -25,7 +25,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                                     formControlName="BRANCH_CODE" bindLabel="label"
-                                                    title="Compulsory Selection" #branchcode
+                                                    title="Compulsory Selection" #branchcode appTheme
                                                     (focus)="onFocus(branchcode)" [selectOnTab]='true' autofocus
                                                     [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                                     <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -59,7 +59,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                                    formControlName="AC_TYPE" bindLabel="label"
+                                                    formControlName="AC_TYPE" bindLabel="label" appTheme
                                                     title="Compulsory Selection" (change)="schemechange($event)"
                                                     [ngClass]="{'form-submitted': formSubmitted}" required
                                                     placeholder="Scheme" #selectcode (focus)="onFocus(selectcode)"
@@ -87,7 +87,7 @@
                                                 <ng-select id="AC_NO" bindValue="bankacno" [(ngModel)]="accountedit"
                                                     (change)="getAccountDetails($event)" formControlName="AC_NO"
                                                     bindLabel="label" title="Compulsory Selection" required
-                                                    placeholder="Account No." #accountNumber
+                                                    placeholder="Account No." #accountNumber appTheme
                                                     (focus)="onFocus(accountNumber)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.label}} {{values.name}}</ng-option>
@@ -380,251 +380,242 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <div class="solid">
-                                            <h3><span>Payment Details</span></h3>
-                                            <div class="row">
-                                                <div class="col-sm">
-                                                    <div class="form-radio">
-                                                        <div class="radio radio-inline">
-                                                            <label class="inputRadio">
-                                                                <input type="radio" formControlName="SAVING_PIGMY"
-                                                                    name="SAVING_PIGMY" value="FormC" id="formT"
-                                                                    (change)="isFormA(1)">
-                                                                <i class="helper"></i>Cash
-                                                            </label>
-                                                        </div>
-                                                        <div class="radio radio-inline">
-                                                            <label class="inputRadio">
-                                                                <input type="radio" value="FormT"
-                                                                    formControlName="SAVING_PIGMY" id="formC"
-                                                                    name="SAVING_PIGMY" (change)="isFormA(2)">
-                                                                <i class="helper"></i>Transfer
-                                                            </label>
-                                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="solid">
+                                        <h3><span>Payment Details</span></h3>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label class="inputRadio">
+                                                            <input type="radio" formControlName="SAVING_PIGMY"
+                                                                name="SAVING_PIGMY" value="FormC" id="formT"
+                                                                (change)="isFormA(1)">
+                                                            <i class="helper"></i>Cash
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-inline">
+                                                        <label class="inputRadio">
+                                                            <input type="radio" value="FormT"
+                                                                formControlName="SAVING_PIGMY" id="formC"
+                                                                name="SAVING_PIGMY" (change)="isFormA(2)">
+                                                            <i class="helper"></i>Transfer
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row" id="FORMA" *ngIf="isTransfer">
-                                                <div class="col-sm-12">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque
-                                                                Number</label></div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="text" name="chequeNo"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="chequeNo" value=""
-                                                                        style="text-transform: capitalize;"
-                                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                                                        required formControlName="chequeNo"
-                                                                        (keyup)="chequeNoData($event)" maxlength="10">
-                                                                </span>
-                                                            </div>
+                                        </div>
+                                        <div class="row" id="FORMA" *ngIf="isTransfer">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque
+                                                            Number</label></div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="chequeNo" class="form-control"
+                                                                    placeholder=" " id="chequeNo" value=""
+                                                                    style="text-transform: capitalize;"
+                                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                                    required formControlName="chequeNo"
+                                                                    (keyup)="chequeNoData($event)" maxlength="10">
+                                                            </span>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque
-                                                                Date</label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque
+                                                            Date</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                    class="form-control"
+                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                    bsDatepicker [maxDate]="maxDate" [minDate]="minDate"
+                                                                    #ChequeDate="bsDatepicker"
+                                                                    (keydown.Tab)="ChequeDate.hide()"
+                                                                    formControlName="ChequeDate">
+                                                            </span>
                                                         </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="text" placeholder="dd/mm/yyyy"
-                                                                        class="form-control"
-                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                        bsDatepicker [maxDate]="maxDate"
-                                                                        [minDate]="minDate" #ChequeDate="bsDatepicker"
-                                                                        (keydown.Tab)="ChequeDate.hide()"
-                                                                        formControlName="ChequeDate">
-                                                                </span>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-2"><label for="Token_Num">Token
+                                                            Number</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="Token_Num" class="form-control"
+                                                                    placeholder=" " id="Token_Num" value=""
+                                                                    title="Input allowed only  0-9"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    formControlName="Token_Num" maxlength="4">
+                                                            </span>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-2"><label for="Token_Num">Token
-                                                                Number</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-2"> <label for="Tscheme">Scheme
+                                                            Code<sub class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md-4">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select id="Tscheme" bindValue="value"
+                                                                    [(ngModel)]="ngschemecode" formControlName="Tscheme"
+                                                                    bindLabel="label" title="C
+                                                                    ompulsory Selection" #Tscheme appTheme
+                                                                    (focus)="onFocus(Tscheme)" [selectOnTab]='true'
+                                                                    (change)="getTransferAccountList($event)"
+                                                                    placeholder="Scheme">
+                                                                    <ng-option *ngFor="let values of scheme"
+                                                                        [value]="values">
+                                                                        {{values.id}} {{values.label}}</ng-option>
+                                                                </ng-select>
+
+                                                            </span>
                                                         </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="text" name="Token_Num"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="Token_Num" value=""
-                                                                        title="Input allowed only  0-9"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                        formControlName="Token_Num" maxlength="4">
-                                                                </span>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['Tscheme'].invalid && (angForm.controls['Tscheme'].dirty || angForm.controls['Tscheme'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['Tscheme'].errors?.required">
+                                                                This field is required.
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-md-2"> <label for="Tscheme">Scheme
-                                                                Code<sub class="required">*</sub></label></div>
-                                                        <div class="col-sm-12 col-md-4">
-                                                            <div class="form-group form-primary form-static-label">
-                                                                <span class="border-lable-flt">
-                                                                    <ng-select id="Tscheme" bindValue="value"
-                                                                        [(ngModel)]="ngschemecode"
-                                                                        formControlName="Tscheme" bindLabel="label"
-                                                                        title="C
-                                                                    ompulsory Selection" #Tscheme
-                                                                        (focus)="onFocus(Tscheme)" [selectOnTab]='true'
-                                                                        (change)="getTransferAccountList($event)"
-                                                                        placeholder="Scheme">
-                                                                        <ng-option *ngFor="let values of scheme"
-                                                                            [value]="values">
-                                                                            {{values.id}} {{values.label}}</ng-option>
-                                                                    </ng-select>
-
-                                                                </span>
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['Tscheme'].invalid && (angForm.controls['Tscheme'].dirty || angForm.controls['Tscheme'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf="angForm.controls['Tscheme'].errors?.required">
-                                                                    This field is required.
-                                                                </div>
-                                                            </div>
+                                                    <div class="col-sm-12 col-md-2"> <label for="TschemeAC">Account
+                                                            Number<sub class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select id="TschemeAC" [(ngModel)]="ngacno"
+                                                                    formControlName="TschemeAC" bindLabel="label"
+                                                                    (change)="getTransferAccountDeatil($event)"
+                                                                    bindValue="bankacno" title="Compulsory Selection"
+                                                                    placeholder="Account Number" #TschemeAC appTheme
+                                                                    (focus)="onFocus(TschemeAC)" [selectOnTab]='true'>
+                                                                    <ng-option *ngFor="let values of transferAcno"
+                                                                        [value]="values">
+                                                                        {{values.label}} {{values.name}}</ng-option>
+                                                                </ng-select>
+                                                            </span>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-2"> <label for="TschemeAC">Account
-                                                                Number<sub class="required">*</sub></label></div>
-                                                        <div class="col-sm-12 col-md">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <ng-select id="TschemeAC" [(ngModel)]="ngacno"
-                                                                        formControlName="TschemeAC" bindLabel="label"
-                                                                        (change)="getTransferAccountDeatil($event)"
-                                                                        bindValue="bankacno"
-                                                                        title="Compulsory Selection"
-                                                                        placeholder="Account Number" #TschemeAC
-                                                                        (focus)="onFocus(TschemeAC)"
-                                                                        [selectOnTab]='true'>
-                                                                        <ng-option *ngFor="let values of transferAcno"
-                                                                            [value]="values">
-                                                                            {{values.label}} {{values.name}}</ng-option>
-                                                                    </ng-select>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf="angForm.controls['TschemeAC'].errors?.required">
-                                                                    This field is required.
-                                                                </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['TschemeAC'].errors?.required">
+                                                                This field is required.
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-md-2"><label
-                                                                for="NARRATION">Particulars</label></div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-2"><label
+                                                            for="NARRATION">Particulars</label></div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
 
-                                                                    <textarea class="form-control"
-                                                                        formControlName="NARRATION"
-                                                                        [(ngModel)]="narration"></textarea>
-                                                                    <i class="fa fa-info-circle errspan"
-                                                                        (click)="modalLarge.show()"></i>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2"><label for="amount">Amount<sub
-                                                                    class="required">*</sub></label></div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input style="text-align: right;" type="text"
-                                                                        class="form-control" name="amount" id="amount"
-                                                                        formControlName="amount"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm"
-                                                                *ngIf="jointShowButton" (click)="addTransferAccount()">
-                                                                Add Account
-                                                            </button>
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="updateTransferAcccount()"
-                                                                *ngIf="jointUpdateShow">
-                                                                Update Account
-                                                            </button>
+                                                                <textarea class="form-control"
+                                                                    formControlName="NARRATION"
+                                                                    [(ngModel)]="narration"></textarea>
+                                                                <i class="fa fa-info-circle errspan"
+                                                                    (click)="modalLarge.show()"></i>
+                                                            </span>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-2"><label for="amount">Amount<sub
+                                                                class="required">*</sub></label></div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input style="text-align: right;" type="text"
+                                                                    class="form-control" name="amount" id="amount"
+                                                                    formControlName="amount" appTheme
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                                            *ngIf="jointShowButton" (click)="addTransferAccount()">
+                                                            Add Account
+                                                        </button>
+                                                        <button class="btn btn-outline-primary btn-sm"
+                                                            (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">
+                                                            Update Account
+                                                        </button>
+                                                    </div>
+                                                </div>
 
-                                                    <!-- Multiple Transaction details data show here -->
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <table class="table table-bordered table-hover compact">
-                                                                <thead>
-                                                                    <td>Action</td>
-                                                                    <td>Account Number</td>
-                                                                    <td>Particulars</td>
-                                                                    <td style="text-align: right;">Amount</td>
-                                                                </thead>
+                                                <!-- Multiple Transaction details data show here -->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table class="table table-bordered table-hover compact">
+                                                            <thead>
+                                                                <td>Action</td>
+                                                                <td>Account Number</td>
+                                                                <td>Particulars</td>
+                                                                <td style="text-align: right;">Amount</td>
+                                                            </thead>
 
-                                                                <tbody *ngIf="multigrid?.length != 0">
-                                                                    <tr *ngFor="let data of multigrid;
+                                                            <tbody *ngIf="multigrid?.length != 0">
+                                                                <tr *ngFor="let data of multigrid;
                                                                 let indexOfelement = index">
-                                                                        <td> <span class="fa fa-fw fa-edit field-icon"
-                                                                                id="editbutton"
-                                                                                (click)="editTransferAccount(indexOfelement)"
-                                                                                placement="top"
-                                                                                ngbTooltip="Edit"></span>
-                                                                        </td>
-                                                                        <td>{{ data.TRANSFER_ACNO }}</td>
-                                                                        <td>{{ data?.NARRATION }}</td>
-                                                                        <td>{{ data.TRAN_AMOUNT }}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                <tbody *ngIf="multigrid?.length == 0">
-                                                                    <tr>
-                                                                        <td colspan="5" class="no-data-available"
-                                                                            style="text-align: center;">
-                                                                            No data!
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                                    <td> <span class="fa fa-fw fa-edit field-icon"
+                                                                            id="editbutton"
+                                                                            (click)="editTransferAccount(indexOfelement)"
+                                                                            placement="top" ngbTooltip="Edit"></span>
+                                                                    </td>
+                                                                    <td>{{ data.TRANSFER_ACNO }}</td>
+                                                                    <td>{{ data?.NARRATION }}</td>
+                                                                    <td>{{ data.TRAN_AMOUNT }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tbody *ngIf="multigrid?.length == 0">
+                                                                <tr>
+                                                                    <td colspan="5" class="no-data-available"
+                                                                        style="text-align: center;">
+                                                                        No data!
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
 
+                                    </div>
 
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm" style="float: right;">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                            (click)="submit();branchcode.focus()">
-                                            Submit
-                                        </button>
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
-                                            (click)="closeModal()">
-                                            Close</button>
-                                        <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                            *ngIf="newbtnShow">
-                                            Cancel
-                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                            *ngIf="updateShow">
-                                            Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
-                                            (click)="reject()">
-                                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
-                                            (click)="Approve()">
-                                            Approve</button>
-                                    </div>
+
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm" style="float: right;">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
+                                        *ngIf="showButton" (click)="submit();branchcode.focus()">
+                                        Submit
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                        (click)="closeModal()">
+                                        Close</button>
+                                    <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                                        *ngIf="newbtnShow">
+                                        Cancel
+                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                        *ngIf="updateShow">
+                                        Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
+                                        (click)="reject()">
+                                        Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                        (click)="Approve()">
+                                        Approve</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
