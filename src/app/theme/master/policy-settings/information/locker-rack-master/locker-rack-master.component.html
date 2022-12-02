@@ -8,7 +8,7 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group input-group">
@@ -44,7 +44,7 @@
                         <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="RACK_DESC" class="form-control" placeholder=" " #autofocus
+                                    <input appTheme type="text" name="RACK_DESC" class="form-control" placeholder=" " #autofocus
                                         id="RACK_DESC" required="" maxlength="50"
                                         title="Input allowed only  A-Z a-z 0-9 - * # / . (Space)"
                                         formControlName="RACK_DESC">
@@ -63,7 +63,7 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="LOCKER_FROMNO"
+                                    <input appTheme style="text-align: right;" type="text" name="LOCKER_FROMNO"
                                         class="form-control" placeholder=" " id="LOCKER_FROMNO" required=""
                                         pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -84,7 +84,7 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="LOCKER_TONO"
+                                    <input appTheme style="text-align: right;" type="text" name="LOCKER_TONO"
                                         class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="LOCKER_TONO"
                                         required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
@@ -107,8 +107,8 @@
 
 
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                 *ngIf="newbtnShow">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"

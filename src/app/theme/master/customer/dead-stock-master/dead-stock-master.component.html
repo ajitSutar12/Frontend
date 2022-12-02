@@ -8,14 +8,15 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt" autofocus>
+                                 <span class="border-lable-flt" autofocus>
                                     <ng-select id="ITEM_TYPE" bindValue="value" [(ngModel)]="ngItem"
                                         formControlName="ITEM_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Type" #ITEM_TYPE
+                                     
                                         (focus)="onFocus(ITEM_TYPE)" [selectOnTab]='true' required autofocus>
                                         <ng-option *ngFor="let values of itemtypeoption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -55,7 +56,7 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Name" class="form-control" placeholder=" " required=""
+                                    <input appTheme type="text" name="Name" class="form-control" placeholder=" " required=""
                                         value="" id="ITEM_NAME" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
@@ -79,10 +80,11 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE" id="PURCHASE_DATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE" id="PURCHASE_DATE"
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
                                         formControlName="PURCHASE_DATE" [bsValue]="bsValue"
+                                        #PURCHASE_DATE="bsDatepicker"  (keydown.Tab)="PURCHASE_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                     <label for="PURCHASE_DATE">Purchase Date<sub class="required">*
@@ -104,10 +106,11 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre"
+                                    <ng-select appTheme id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre"
                                         formControlName="DEPR_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         #DEPR_CATEGORY (focus)="onFocus(DEPR_CATEGORY)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}"
+                                        #DEPR_CATEGORY (focus)="onFocus(DEPR_CATEGORY)" [selectOnTab]='true'
                                         placeholder="Depriciation Category">
                                         <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -132,6 +135,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" [maxDate]="maxDate"
+                                        #OP_BAL_DATE="bsDatepicker"  (keydown.Tab)="OP_BAL_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="OP_BAL_DATE" (bsValueChange)="getDate($event)" bsDatepicker>
                                     <label for="OP_BAL_DATE">Opening Balance Date</label>
@@ -321,7 +325,7 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
+                                    <ng-select appTheme id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
                                         formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="GL Account Number"
                                         #GL_ACNO (focus)="onFocus(GL_ACNO)" [selectOnTab]='true'>
@@ -344,8 +348,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit($event);ITEM_TYPE.focus()">
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit($event);ITEM_TYPE.focus()" appTheme>
                                 Submit
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">

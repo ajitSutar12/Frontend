@@ -7,13 +7,13 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="FIN_YEAR" class="form-control" placeholder=" " 
+                                    <input style="text-align: right;" appTheme type="text" name="FIN_YEAR" class="form-control" placeholder=" " 
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" [(ngModel)]="ngfinyear" #finyear
                                     id="FIN_YEAR" required="" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
                                     #autofocus  title="Input allowed only  0-9" formControlName="FIN_YEAR"   >
@@ -33,7 +33,7 @@
                                         id="EFFECT_DATE" required=""  max="{{datemax | date:'yyyy-MM-dd'}}"
                                          #date
                                        (focusout)="disabledate(date.value)"  id="EFFECT_DATE" formControlName="EFFECT_DATE"> -->
-                                       <input type="text" placeholder="dd/mm/yyyy"
+                                       <input type="text" placeholder="dd/mm/yyyy" appTheme
                                        name="EFFECT_DATE" id="EFFECT_DATE"
                                        class="form-control" [(ngModel)]="effectdate"
                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -54,10 +54,10 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="INTEREST_AMOUNT" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" appTheme type="text" name="INTEREST_AMOUNT" class="form-control" placeholder=" "
                                         id="INTEREST_AMOUNT" required="" (focusout)="getDecimalPoint($event)" 
                                           (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                        pattern="\d{1,12}(\.\d{0,2})?" title="Input allowed only  0-9" maxlength="15"  (keyup)="getDecimal($event)"
+                                         title="Input allowed only  0-9" maxlength="15"  (keyup)="getDecimal($event)"
                                         formControlName="INTEREST_AMOUNT">
                                     <label for="INTEREST_AMOUNT">Interest Amount<sub class="required">* </sub></label>
                                 </span> 
@@ -73,7 +73,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                    <input style="text-align: right;" appTheme type="text" name="TDS_RATE" class="form-control" placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         id="TDS_RATE" required=""  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5" #margin  (keyup)="checkmargin($event)"
                                         title="Input allowed only  0-9" formControlName="TDS_RATE">
                                     <label for="TDS_RATE">TDS Rate<sub class="required">* </sub></label>
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();autofocus.focus()" [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit();autofocus.focus()" [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();autofocus.focus()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData();autofocus.focus()">Cancel</button>
                         </div>

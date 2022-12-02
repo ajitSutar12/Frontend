@@ -10,6 +10,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from 'src/app/theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +20,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+
+    ThemeModule
   ],
   declarations: [NPAClassificationSlabMasterComponent],
   providers: [npcslabMasterService, {

@@ -35,6 +35,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from 'src/app/theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +48,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SharedModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+
+    ThemeModule
   ],
   declarations: [PigmyAccountMasterComponent],
   exports:[PigmyAccountMasterComponent],

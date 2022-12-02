@@ -8,6 +8,7 @@ import { NPAClassificationService } from './n-paclassification-slab-master.compo
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment'
 import * as moment from 'moment';
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -632,6 +633,10 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
   }
 
 }

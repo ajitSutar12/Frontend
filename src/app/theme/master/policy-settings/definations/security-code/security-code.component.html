@@ -7,13 +7,13 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="SECU_CODE" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" appTheme type="text" name="SECU_CODE" class="form-control" placeholder=" "
                                         id="SECU_CODE" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="SECU_CODE" disabled>
                                     <label for="SECU_CODE">Security Code<sub class="required">* </sub></label>
@@ -23,7 +23,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="SECU_NAME" class="form-control" placeholder=" " #autofocus
+                                    <input type="text" appTheme name="SECU_NAME" class="form-control" placeholder=" " #autofocus
                                         id="SECU_NAME" required="" pattern="^[A-Za-z\./ -]+$"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="60"
@@ -310,8 +310,8 @@
                     <div clss="row">
                         <div class="col-sm">
                             <div class="col-sm">
-                                <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
-                                    [disabled]="angForm.invalid">Submit</button>
+                                <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
+                                    [disabled]="angForm.invalid" appTheme>Submit</button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
                                     [disabled]="angForm.invalid">Update</button>&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"

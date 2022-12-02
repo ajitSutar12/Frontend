@@ -7,15 +7,15 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngschemetype"
+                                  <ng-select id="AC_ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
                                     formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type" 
                                     #AC_ACNOTYPE (focus)="onFocus(AC_ACNOTYPE)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of scheme" [value]="values">
                                       {{values.label}}</ng-option>
@@ -37,7 +37,7 @@
                                          #date
                                        (focusout)="disabledate(date.value)"  id="date"
                                         formControlName="EFFECT_DATE"> -->
-                                        <input type="text" placeholder="dd/mm/yyyy"
+                                        <input type="text" placeholder="dd/mm/yyyy" appTheme
                                             name="EFFECT_DATE" id="EFFECT_DATE"
                                             class="form-control" [(ngModel)]="effectdate"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -104,7 +104,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="LESS_INT_RATE" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" appTheme type="text" name="LESS_INT_RATE" class="form-control" placeholder=" "
                                             pattern="\d{1,2}(\.\d{0,2})?" id="LESS_INT_RATE" maxlength="5"  #margin
                                                 (keyup)="checkmargin($event)"  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 title="Input allowed only  0-9" formControlName="LESS_INT_RATE">
@@ -166,7 +166,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit();AC_ACNOTYPE.focus()" *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();AC_ACNOTYPE.focus()" *ngIf="showButton" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();AC_ACNOTYPE.focus()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();AC_ACNOTYPE.focus()" *ngIf="newbtnShow">Cancel</button>
                         </div>

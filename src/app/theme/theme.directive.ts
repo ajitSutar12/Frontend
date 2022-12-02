@@ -15,7 +15,7 @@ export class ThemeDirective {
   onFormSubmit() {
 
     const invalidControl = this.el.nativeElement;
-  
+    
     if (invalidControl.tagName == 'INPUT') {
       if (invalidControl.value == '') {
         invalidControl.focus();
@@ -26,16 +26,21 @@ export class ThemeDirective {
         this.select.focus()
         return;
       }
-    } else
-     if(invalidControl.tagName == 'BUTTON'){
+    } else if(invalidControl.tagName == 'BUTTON'){
       for(let item of invalidControl.classList){
         if(item == 'btn-submit'){
           invalidControl.focus();
         }
-      }
+        
+    
     }
   }
-
+  else  if (invalidControl.tagName == 'TEXTAREA') { 
+    if (invalidControl.value == '') {
+      invalidControl.focus();
+    }
+  }
+}
 
 }
 

@@ -14,7 +14,7 @@ import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 // Displaying Sweet Alert
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; 
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 // Service File For Handling CRUD Operation
