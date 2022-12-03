@@ -25,6 +25,7 @@ import { SchemeCodeDropdownService } from "../../../../shared/dropdownService/sc
 import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/prefix-master-dropdown.service";
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
 import * as moment from 'moment';
+import { NgSelectComponent } from "@ng-select/ng-select";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -679,4 +680,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reloadTablePassing.emit();
   }
 
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
 }

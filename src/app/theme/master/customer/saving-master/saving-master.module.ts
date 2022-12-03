@@ -37,6 +37,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 @NgModule({
   imports: [
@@ -51,7 +52,9 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     SharedModule, //modal
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+
+    ThemeModule
   ],
   declarations: [SavingMasterComponent],
   exports:[SavingMasterComponent],

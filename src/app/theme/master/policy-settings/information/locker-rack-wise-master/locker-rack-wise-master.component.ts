@@ -13,7 +13,7 @@ import { LockerRackWiseMasterService } from './locker-rack-wise-master.service';
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
@@ -384,7 +384,9 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     })
   }
 
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 
 
 

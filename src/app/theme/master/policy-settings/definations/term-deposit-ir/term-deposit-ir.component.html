@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:"  [formGroup]="angForm" novalidate #myform="ngForm" #aForm>
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm" #aForm>
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
@@ -18,10 +18,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme" 
-                                        #ACNOTYPE (focus)="onFocus(ACNOTYPE)" [selectOnTab]='true' autofocus>
+                                        #ACNOTYPE (focus)="onFocus(ACNOTYPE)" [selectOnTab]='true' autofocus> 
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -46,7 +46,7 @@
                                          #date
                                        (focusout)="disabledate(date.value)"  
                                         id="date"  formControlName="EFFECT_DATE"> -->
-                                    <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
+                                    <input type="text"  appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
                                         class="form-control" [(ngModel)]="effectdate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="EFFECT_DATE"
@@ -75,7 +75,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="INT_CATEGORY" bindValue="value" [(ngModel)]="ngintcat"
+                                    <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Interest Category"   
@@ -101,7 +101,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="FROM_DAYS"
+                                            <input style="text-align: right;" appTheme type="text" name="FROM_DAYS"
                                                 class="form-control" placeholder=" " id="Formdays" pattern="^[0-9]+$"
                                                 title="Input allowed only 0-9" #fromdays
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -121,7 +121,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="TO_DAYS"
+                                            <input style="text-align: right;"  type="text" name="TO_DAYS"
                                                 class="form-control" placeholder=" " id="todays" pattern="^[0-9]+$"
                                                 title="Input allowed only 0-9" #tofocus
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -182,7 +182,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="INT_RATE"
+                                            <input style="text-align: right;" appTheme type="text" name="INT_RATE"
                                                 class="form-control" placeholder=" " pattern="\d{1,2}(\.\d{0,2})?"
                                                 id="INT_RATE" maxlength="5" (focusout)="checkinput()" #margin    
                                                 (keyup)="getDecimal($event)" 
@@ -298,12 +298,12 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div>   
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled]="myform.invalid"
-                                (click)="submit();ACNOTYPE.focus()" *ngIf="showButton">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();ACNOTYPE.focus()"
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="myform.invalid"
+                                (click)="submit();ACNOTYPE.focus()" *ngIf="showButton" appTheme>Submit</button>  
+p   <button class="btn btn-outline-primary btn-sm" (click)="updateData();ACNOTYPE.focus()"
                                 *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();ACNOTYPE.focus()"
                                 *ngIf="newbtnShow">Cancel</button>

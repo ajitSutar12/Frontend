@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
@@ -17,7 +17,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="ACNOTYPE" bindValue="value" [(ngModel)]="ngschemetype"
+                                  <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
                                     formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
                                     #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus>
@@ -43,7 +43,7 @@
                                    (focusout)="disabledate(date.value)" 
                                       id="EFFECT_DATE"
                                       formControlName="EFFECT_DATE"> -->
-                                      <input type="text" placeholder="dd/mm/yyyy"
+                                      <input type="text" appTheme placeholder="dd/mm/yyyy"
                                             name="EFFECT_DATE" id="EFFECT_DATE"
                                             class="form-control" [(ngModel)]="effectdate"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -70,7 +70,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="CHARGES_TYPE" bindValue="value" [(ngModel)]="ngchargestype"
+                                  <ng-select id="CHARGES_TYPE" appTheme bindValue="value" [(ngModel)]="ngchargestype"
                                     formControlName="CHARGES_TYPE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges Type"
                                     #chargtype (focus)="onFocus(chargtype)" [selectOnTab]='true'>
@@ -93,7 +93,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="CHARGES_GL_ACNO" bindValue="value" [(ngModel)]="ngchargesgl"
+                                  <ng-select id="CHARGES_GL_ACNO" appTheme bindValue="value" [(ngModel)]="ngchargesgl"
                                     formControlName="CHARGES_GL_ACNO" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges GL Account"
                                     #charggl (focus)="onFocus(charggl)" [selectOnTab]='true'>
@@ -161,7 +161,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" style="text-align: right;" name="CHARGES_AMT" class="form-control"
-                                                placeholder=" " pattern="\d{1,20}(\.\d{2})?" 
+                                                placeholder=" " 
                                                 id="CHARGES_AMT" (focusout)="getDecimalPoint($event)" 
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                               title="Input allowed only  0-9" maxlength="15"  (keyup)="getDecimal($event)"
@@ -225,7 +225,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()" *ngIf="updateShow">Update</button>&nbsp;
 
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()" *ngIf="newbtnShow">Cancel

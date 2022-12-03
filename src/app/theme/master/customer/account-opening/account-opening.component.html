@@ -8,15 +8,16 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appTheme [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE"
+                                     <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                        #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -43,9 +44,10 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select bindValue="value" [(ngModel)]="ngBank" id="INVEST_BANK"
+                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngBank" id="INVEST_BANK"
                                         formControlName="INVEST_BANK" title="Compulsory Selection"
                                         (change)="getBankName($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #INVEST_BANK (focus)="onFocus(INVEST_BANK)" [selectOnTab]='true'
                                         required placeholder="Bank Code">
                                         <ng-option *ngFor="let values of BankCode" [value]="values">
                                             {{values.label}}</ng-option>
@@ -64,9 +66,10 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select bindValue="value" [(ngModel)]="ngBranch" id="INVEST_BRANCH"
+                                    <ng-select appTheme  bindValue="value" [(ngModel)]="ngBranch" id="INVEST_BRANCH"
                                         formControlName="INVEST_BRANCH" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #INVEST_BRANCH (focus)="onFocus(INVEST_BRANCH)" [selectOnTab]='true'
                                         (change)="getBranch($event)" placeholder="Branch Code">
                                         <ng-option *ngFor="let values of BranchCode" [value]="values">
                                             {{values.label}}</ng-option>
@@ -97,7 +100,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="AC_REF_RECEIPTNO"
+                                    <input appTheme style="text-align: right;" type="text" name="AC_REF_RECEIPTNO"
                                         class="form-control" placeholder=" " id="AC_REF_RECEIPTNO" required
                                         pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -117,10 +120,11 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
                                         class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_OPDATE"
+                                        #AC_OPDATE="bsDatepicker"  (keydown.Tab)="AC_OPDATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker>
                                     <label for="AC_OPDATE">Account Open Date<sub class="required"> * </sub></label>
@@ -137,10 +141,11 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="AC_ASON_DATE" id="AC_ASON_DATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_ASON_DATE" id="AC_ASON_DATE"
                                         class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_ASON_DATE"
+                                        #AC_ASON_DATE="bsDatepicker"  (keydown.Tab)="AC_ASON_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker>
                                     <label for="AC_ASON_DATE">As On Date<sub class="required"> * </sub></label>
@@ -159,10 +164,11 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="AC_EXPDT" id="AC_EXPDT"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_EXPDT" id="AC_EXPDT"
                                         class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_EXPDT"
+                                        #AC_EXPDT="bsDatepicker"  (keydown.Tab)="AC_EXPDT.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker>
                                     <label for="AC_EXPDT">Maturity Date<sub class="required"> * </sub></label>
@@ -182,7 +188,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="AC_MONTHS" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="AC_MONTHS" class="form-control"
                                         placeholder=" " id="AC_MONTHS" required pattern="^[0-9]+$"
                                         title="Input allowed only 0-9"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -202,7 +208,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="AC_DAYS" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="AC_DAYS" class="form-control"
                                         placeholder=" " id="AC_DAYS" required pattern="^[0-9]+$"
                                         title="Input allowed only 0-9"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -224,10 +230,11 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
-                                        id="AC_SCHMAMT" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        style="text-align: right;"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                    <input appTheme type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
+                                        id="AC_SCHMAMT" required=""  title="Input allowed only  0-9"
+                                        style="text-align: right;"(keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        
                                         formControlName="AC_SCHMAMT" [ngClass]="{'form-submitted': formSubmitted}">
                                     <label for="AC_SCHMAMT">Deposit Amount<sub class="required">*
                                         </sub></label>
@@ -245,10 +252,10 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="AC_INTRATE" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="AC_INTRATE" class="form-control"
                                         placeholder=" " id="AC_INTRATE" required
                                         title="Input allowed only . 0-9(after decimal 1 0r 2 digits) "
-                                        pattern="\d{1,20}(\.\d{1,2})?"
+                                         (keyup)="checkmargin($event);getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         formControlName="AC_INTRATE">
                                     <label for="AC_INTRATE">Interest Rate <sub class="required">*</sub></label>
@@ -263,13 +270,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3"> 
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_MATUAMT" class="form-control" placeholder=" "
-                                        id="AC_MATUAMT" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        style="text-align: right;"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                    <input  type="text" name="AC_MATUAMT" class="form-control" placeholder=" "
+                                        id="AC_MATUAMT"  title="Input allowed only  0-9"
+                                        style="text-align: right;" (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        
                                         formControlName="AC_MATUAMT" [ngClass]="{'form-submitted': formSubmitted}">
                                     <label for="AC_MATUAMT">Maturity Amount</label>
                                 </span>
@@ -298,8 +306,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit($event)">
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit($event)" appTheme>
                                 Submit
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">

@@ -8,7 +8,7 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
@@ -44,7 +44,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="footer-email" class="form-control" placeholder=" "
                                         #autofocus id="SIZE_NAME" required="" maxlength="50"
                                         title="Input allowed only  A-Z a-z- / . (Space)" formControlName="SIZE_NAME">
                                     <label for="SIZE_NAME">Locker Size<sub class="required">* </sub></label>
@@ -62,8 +62,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="footer-email"
-                                        class="form-control" placeholder=" "
+                                    <input appTheme style="text-align: right;" type="text" name="footer-email"
+                                        class="form-control" placeholder=" " (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         id="RENT" required="" pattern="\d{1,20}(\.\d{1,5})?"
                                         title="Input allowed only  0-9 ." formControlName="RENT">
@@ -81,8 +81,8 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                 *ngIf="newbtnShow">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"

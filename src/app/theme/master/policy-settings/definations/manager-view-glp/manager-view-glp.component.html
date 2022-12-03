@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block"> 
                     <div class="row">
                         <div class="col-sm">
@@ -31,7 +31,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="TYPE" bindValue="value" [(ngModel)]="ngtype"
+                                  <ng-select id="TYPE" appTheme bindValue="value" [(ngModel)]="ngtype"
                                     formControlName="TYPE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Type"
                                     #type (focus)="onFocus(type)" [selectOnTab]='true' autofocus>
@@ -59,7 +59,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="STATEMENT_CODE" bindValue="value" [(ngModel)]="ngstatement"
+                                  <ng-select id="STATEMENT_CODE" appTheme bindValue="value" [(ngModel)]="ngstatement"
                                     formControlName="STATEMENT_CODE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
                                     #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
@@ -91,7 +91,7 @@
                              -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="DECRIPTION" bindValue="value" [(ngModel)]="ngdescription"
+                                  <ng-select id="DECRIPTION" appTheme bindValue="value" [(ngModel)]="ngdescription"
                                     formControlName="DECRIPTION" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Description"
                                     #description (focus)="onFocus(description)" [selectOnTab]='true'>
@@ -112,7 +112,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="PERCENTAGE_TO_WORKING_CAPITAL" bindValue="value" [(ngModel)]="ngcapital"
+                                  <ng-select id="PERCENTAGE_TO_WORKING_CAPITAL" appTheme bindValue="value" [(ngModel)]="ngcapital"
                                     formControlName="PERCENTAGE_TO_WORKING_CAPITAL" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="% to W.Capital"
                                     #towcap (focus)="onFocus(towcap)" [selectOnTab]='true'>
@@ -134,7 +134,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                <ng-select id="IS_DISPLAY" bindValue="value" [(ngModel)]="ngdisplay"
+                                <ng-select id="IS_DISPLAY" appTheme bindValue="value" [(ngModel)]="ngdisplay"
                                     formControlName="IS_DISPLAY" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Display to View"
                                     #disptview (focus)="onFocus(disptview)" [selectOnTab]='true'>
@@ -157,7 +157,7 @@
            
             <div class="row">
                 <div class="col-sm">
-                    <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit();type.focus()" *ngIf="showButton">Submit</button>
+                    <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();type.focus()" *ngIf="showButton" appTheme>Submit</button>
                     <button class="btn btn-outline-primary btn-sm" (click)="updateData();type.focus()" *ngIf="updateShow">Update</button>&nbsp;
                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData();type.focus()" *ngIf="newbtnShow">Cancel</button>
                 </div>

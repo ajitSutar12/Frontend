@@ -8,15 +8,16 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
-                                    <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE"
+                                    <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
-                                        (change)="getScheme($event)">
+                                        #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                                        (change)="getScheme($event)" autofocus>
                                         <ng-option *ngFor="let values of schemeCode" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -34,10 +35,11 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
+                                    <ng-select appTheme [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
-                                        (change)="getCustomer($event.value)" style="width: 85%;"
-                                        title="Compulsory Selection" required placeholder="Customer Id">
+                                        (change)="getCustomer($event.value)" style="width: 85%;" #AC_CUSTID
+                                        (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true' title="Compulsory Selection"
+                                        required placeholder="Customer Id">
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -119,7 +121,7 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" name="AC_SHORT_NAME"
+                                                                        <input appTheme type="text" name="AC_SHORT_NAME"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_SHORT_NAME" required=""
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -189,13 +191,16 @@
                                                             <div class="col-sm-2">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" placeholder="dd/mm/yyyy"
-                                                                            name="AC_OPDATE" id="AC_OPDATE"
-                                                                            class="form-control" required
+                                                                        <input appTheme type="text"
+                                                                            placeholder="dd/mm/yyyy" name="AC_OPDATE"
+                                                                            id="AC_OPDATE" class="form-control" required
                                                                             [(ngModel)]="openingDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             disabled [maxDate]="maxDate"
+                                                                            placement="left"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                            #AC_OPDATE="bsDatepicker"
+                                                                            (keydown.Tab)="AC_OPDATE.hide()"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" bsDatepicker>
                                                                         <label for="AC_OPDATE">Opening Date<sub
@@ -222,7 +227,10 @@
                                                                             class="form-control" [(ngModel)]="renewDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             (ngModelChange)="getExpiryDate()"
+                                                                            placement="right"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                            #RENEW_DATE="bsDatepicker"
+                                                                            (keydown.Tab)="RENEW_DATE.hide()"
                                                                             formControlName="AC_RENEW_DATE"
                                                                             bsDatepicker>
                                                                         <label for="AC_RENEW_DATE">Renewal
@@ -255,10 +263,12 @@
                                                             <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
-                                                                        <ng-select id="AC_CATG" bindValue="value"
-                                                                            [(ngModel)]="ngCategory"
+                                                                        <ng-select appTheme id="AC_CATG"
+                                                                            bindValue="value" [(ngModel)]="ngCategory"
                                                                             formControlName="AC_CATG" bindLabel="label"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" #AC_CATG
+                                                                            (focus)="onFocus(AC_CATG)"
+                                                                            [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Category">
                                                                             <ng-option
@@ -282,11 +292,13 @@
                                                             <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
-                                                                        <ng-select id="AC_OPR_CODE" bindValue="value"
-                                                                            [(ngModel)]="ngOperation"
+                                                                        <ng-select appTheme id="AC_OPR_CODE"
+                                                                            bindValue="value" [(ngModel)]="ngOperation"
                                                                             formControlName="AC_OPR_CODE"
                                                                             bindLabel="label"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" #OPR_CODE
+                                                                            (focus)="onFocus(OPR_CODE)"
+                                                                            [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Operation">
                                                                             <ng-option
@@ -312,11 +324,14 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
-                                                                        <ng-select id="AC_INTCATA" bindValue="value"
+                                                                        <ng-select appTheme id="AC_INTCATA"
+                                                                            bindValue="value"
                                                                             [(ngModel)]="ngint_category"
                                                                             formControlName="AC_INTCATA"
                                                                             bindLabel="label"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" #AC_INTCATA
+                                                                            (focus)="onFocus(AC_INTCATA)"
+                                                                            [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Interest Category">
                                                                             <ng-option
@@ -359,7 +374,7 @@
                                                             <div class="col-sm-2">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" name="AC_MONTHS"
+                                                                        <input appTheme type="text" name="AC_MONTHS"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_MONTHS" required
                                                                             [(ngModel)]="ngMonth"
@@ -411,13 +426,15 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" name="AC_SCHMAMT"
+                                                                        <input appTheme type="text" name="AC_SCHMAMT"
                                                                             class="form-control" placeholder=" "
                                                                             style="text-align: right;" id="AC_SCHMAMT"
-                                                                            required="" pattern="^[0-9]+$"
+                                                                            required=""
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             title="Input allowed only  0-9"
-                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                            (focusout)="getDecimalPoint($event);getDecimalPoint($event)"
+                                                                            (keyup)="getDecimal($event)"
+                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                             formControlName="AC_SCHMAMT">
                                                                         <label for="AC_SCHMAMT">Default Deposit
                                                                             Amount<sub class="required">* </sub></label>
@@ -438,12 +455,14 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt" autofocus>
-                                                                        <ng-select id="AGENT_ACTYPE" bindValue="value"
-                                                                            [(ngModel)]="agentno"
+                                                                        <ng-select appTheme id="AGENT_ACTYPE"
+                                                                            bindValue="value" [(ngModel)]="agentno"
                                                                             formControlName="AGENT_ACTYPE"
                                                                             bindLabel="label"
                                                                             (change)="getAgentAC($event)"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" #AGENT_ACTYPE
+                                                                            (focus)="onFocus(AGENT_ACTYPE)"
+                                                                            [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Agent Scheme">
                                                                             <ng-option
@@ -467,13 +486,15 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt" autofocus>
-                                                                        <ng-select id="AGENT_ACNO" bindValue="value"
-                                                                            [(ngModel)]="ngAgentCode"
+                                                                        <ng-select appTheme id="AGENT_ACNO"
+                                                                            bindValue="value" [(ngModel)]="ngAgentCode"
                                                                             formControlName="AGENT_ACNO"
                                                                             bindLabel="label"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            required placeholder="Agent Code">
+                                                                            #AGENT_ACNO (focus)="onFocus(AGENT_ACNO)"
+                                                                            [selectOnTab]='true' required
+                                                                            placeholder="Agent Code">
                                                                             <ng-option *ngFor="let values of agentCode"
                                                                                 [value]="values">
                                                                                 {{values.label}}</ng-option>
@@ -870,7 +891,9 @@
                                                                                 [(ngModel)]="ngCity"
                                                                                 bindLabel="CITY_NAME"
                                                                                 formControlName="AC_TCTCODE"
-                                                                                title="Compulsory Selection"
+                                                                                title="Compulsory Selection" #AC_TCTCODE
+                                                                                (focus)="onFocus(AC_TCTCODE)"
+                                                                                [selectOnTab]='true'
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 placeholder="City">
                                                                                 <ng-option
@@ -1069,7 +1092,9 @@
                                                                             [(ngModel)]="code1"
                                                                             formControlName="AC_INTROBRANCH"
                                                                             bindLabel="label"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" #INTROBRANCH
+                                                                            (focus)="onFocus(INTROBRANCH)"
+                                                                            [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (change)="getBranch()" placeholder="Branch">
                                                                             <ng-option
@@ -1088,7 +1113,9 @@
                                                                             [(ngModel)]="acno"
                                                                             formControlName="AC_INTROID"
                                                                             bindLabel="label"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" #INTROID
+                                                                            (focus)="onFocus(INTROID)"
+                                                                            [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (change)="getIntro($event)"
                                                                             placeholder="Account Type">
@@ -1108,7 +1135,9 @@
                                                                             [(ngModel)]="ngIntroducer"
                                                                             formControlName="AC_INTRACNO"
                                                                             bindLabel="AC_NO"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" #INTRACNO
+                                                                            (focus)="onFocus(INTRACNO)"
+                                                                            [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (focus)="getIntroducer()"
                                                                             placeholder="Account Number">
@@ -1182,7 +1211,7 @@
                                                                             <div class="col-sm-4">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
-                                                                                        <input type="text"
+                                                                                        <input appTheme type="text"
                                                                                             name="AC_NNAME"
                                                                                             class="form-control"
                                                                                             placeholder=" "
@@ -1220,7 +1249,7 @@
                                                                             <div class="col-sm-2">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
-                                                                                        <input type="text"
+                                                                                        <input appTheme type="text"
                                                                                             name="AC_NRELA"
                                                                                             class="form-control"
                                                                                             placeholder=" "
@@ -1260,14 +1289,16 @@
                                                                             <div class="col-sm-2">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
-                                                                                        <input type="text"
+                                                                                        <input appTheme type="text"
                                                                                             placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
                                                                                             [(ngModel)]="ngnomineedate"
                                                                                             [minDate]="maxDate"
                                                                                             class="form-control"
-                                                                                            id="AC_NDATE"
+                                                                                            id="AC_NDATE" placement="up"
+                                                                                            #AC_NDATE="bsDatepicker"
+                                                                                            (keydown.Tab)="AC_NDATE.hide()"
                                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                             formControlName="AC_NDATE"
                                                                                             bsDatepicker>
@@ -1514,11 +1545,15 @@
                                                                         form-static-label
                                                                       ">
                                                                                     <span class="border-lable-flt">
-                                                                                        <ng-select id="AC_NCTCODE"
+                                                                                        <ng-select appTheme
+                                                                                            id="AC_NCTCODE"
                                                                                             [items]="cityMasterServiceDropdown"
                                                                                             [(ngModel)]="ngNcity"
                                                                                             bindLabel="CITY_NAME"
                                                                                             formControlName="AC_NCTCODE"
+                                                                                            #CITY_NAME
+                                                                                            (focus)="onFocus(CITY_NAME)"
+                                                                                            [selectOnTab]='true'
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             placeholder="City">
                                                                                         </ng-select>
@@ -1720,13 +1755,17 @@
                                                                             <div
                                                                                 class="form-group form-primary form-static-label">
                                                                                 <span class="border-lable-flt">
-                                                                                    <ng-select [(ngModel)]="jointID"
+                                                                                    <ng-select appTheme
+                                                                                        [(ngModel)]="jointID"
                                                                                         id="JOINT_AC_CUSTID"
                                                                                         bindValue="value"
                                                                                         formControlName="JOINT_AC_CUSTID"
                                                                                         (change)="getJointCustomer($event)"
                                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                                         title="Compulsory Selection"
+                                                                                        #JOINT_AC_CUSTID
+                                                                                        (focus)="onFocus(JOINT_AC_CUSTID)"
+                                                                                        [selectOnTab]='true'
                                                                                         placeholder="Customer Id">
                                                                                         <ng-option
                                                                                             *ngFor="let values of Cust_ID"
@@ -1987,8 +2026,9 @@
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right;">
                                                                 <button type="submit"
-                                                                    class="btn btn-outline-primary btn-sm"
-                                                                    *ngIf="showButton" (click)="submit($event)">
+                                                                    class="btn btn-outline-primary btn-sm  btn-submit"
+                                                                    *ngIf="showButton" (click)="submit($event)"
+                                                                    appTheme>
                                                                     Submit
                                                                 </button>
                                                                 <button class="btn btn-outline-primary btn-sm"

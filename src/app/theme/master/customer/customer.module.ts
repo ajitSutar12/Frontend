@@ -11,7 +11,9 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   imports: [
     CommonModule,
     CustomerRoutingModule,
-    SharedModule
+    SharedModule,
+
+    
   ],
   declarations: [CustomerComponent ],
   providers:[{

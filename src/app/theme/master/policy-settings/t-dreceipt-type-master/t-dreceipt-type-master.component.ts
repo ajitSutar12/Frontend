@@ -14,6 +14,7 @@ import { TDReceiptService } from './t-dreceipt-type-master.component.service';
 import { TdReceiptService } from '../../../../shared/dropdownService/tdReceipt-type.service';
 import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -321,5 +322,9 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
         })
       }
     })
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
   }
 }

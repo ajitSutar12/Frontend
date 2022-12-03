@@ -7,9 +7,9 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" 
@@ -18,11 +18,11 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
-                                    #sccode (focus)="onFocus(sccode)" [selectOnTab]='true' autofocus>
-                                        <ng-option *ngFor="let values of allScheme" [value]="values" >
+                                        #sccode (focus)="onFocus(sccode)" [selectOnTab]='true' autofocus>
+                                        <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.id}} {{values.label}} </ng-option>
                                     </ng-select>
                                     <label for="ACNOTYPE">Scheme<sub class="required"> * </sub></label>
@@ -45,15 +45,14 @@
                                          #date
                                        (focusout)="disabledate(date.value)"  id="date"
                                        formControlName="EFFECT_DATE"> -->
-                                    <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
-                                        class="form-control" [(ngModel)]="effectdate"
+                                    <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE"
+                                        id="EFFECT_DATE" class="form-control" [(ngModel)]="effectdate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="EFFECT_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker #EFFECT_DATE="bsDatepicker"
-                                        (keydown.Tab)="EFFECT_DATE.hide()" >
-                                     <label for="date">Effective Date<sub class="required">* </sub></label>
-                                </span> 
+                                        bsDatepicker #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()">
+                                    <label for="date">Effective Date<sub class="required">* </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
@@ -64,7 +63,7 @@
                             </div>
 
                         </div>
-                     
+
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="interestcategory" [multiple]="false" 
@@ -73,11 +72,11 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="INT_CATEGORY" bindValue="value" [(ngModel)]="ngintcat"
+                                    <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Interest Category"
-                                        #intcat (focus)="onFocus(intcat)" [selectOnTab]='true' >
+                                        placeholder="Interest Category" #intcat (focus)="onFocus(intcat)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of interestcategory" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -99,11 +98,12 @@
                                 <div class="col-sm-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="FROM_AMOUNT" class="form-control" placeholder=" "
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                id="FROM_AMOUNT" (focusout)="compareamount();getDecimalPoint($event)" 
-                                                pattern="\d{1,12}(\.\d{0,2})?" maxlength="13" #fromamt
-                                                title="Input allowed only 0-9" formControlName="FROM_AMOUNT">
+                                            <input style="text-align: right;" type="text" name="FROM_AMOUNT"
+                                                class="form-control" placeholder=" " (keyup)="getDecimal($event)"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                id="FROM_AMOUNT" (focusout)="compareamount();getDecimalPoint($event)"
+                                                maxlength="13" #fromamt title="Input allowed only 0-9"
+                                                formControlName="FROM_AMOUNT">
                                             <label for="FROM_AMOUNT">From Amount</label>
                                         </span>
                                     </div>
@@ -118,9 +118,11 @@
                                 <div class="col-sm-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="TO_AMOUNT" class="form-control" placeholder=" "
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" id="toamt"
-                                                pattern="\d{1,12}(\.\d{0,2})?" maxlength="13" (focusout)="compareamount();getDecimalPoint($event)" 
+                                            <input style="text-align: right;" type="text" name="TO_AMOUNT"
+                                                class="form-control" placeholder=" "  (keyup)="getDecimal($event)"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                id="toamt"  maxlength="13"
+                                                (focusout)="compareamount();getDecimalPoint($event)"
                                                 title="Input allowed only 0-9" formControlName="TO_AMOUNT">
                                             <label for="TO_AMOUNT">Upto Amount</label>
                                         </span>
@@ -136,7 +138,8 @@
                                 <div class="col-sm-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" appTheme type="text" name="INT_RATE"
+                                                class="form-control" placeholder=" "
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
                                                 id="INT_RATE" maxlength="5" title="Input allowed only  0-9"
@@ -158,8 +161,9 @@
                                 <div class="col-sm-3">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="PENAL_INT_RATE" class="form-control"
-                                                placeholder=" " pattern="\d{1,2}(\.\d{0,2})?" #margin
+                                            <input style="text-align: right;" appTheme type="text" name="PENAL_INT_RATE"
+                                                class="form-control" placeholder=" " pattern="\d{1,2}(\.\d{0,2})?"
+                                                #margin
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 (keyup)="checkmargin($event)" id="PENAL_INT_RATE" maxlength="5"
                                                 title="Input allowed only  0-9" formControlName="PENAL_INT_RATE">
@@ -180,8 +184,8 @@
                                 <div class="col-sm">
                                     <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
                                         (click)="addField();fromamt.focus()">Add </button>
-                                    <button class="btn btn-outline-primary btn-sm" (click)="updateField();fromamt.focus()"
-                                        *ngIf="UpdateShowButton">Update</button>
+                                    <button class="btn btn-outline-primary btn-sm"
+                                        (click)="updateField();fromamt.focus()" *ngIf="UpdateShowButton">Update</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -200,11 +204,11 @@
                                                 <tr *ngFor="let data of multiField; let indexOfelement=index;">
                                                     <td>
                                                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                            (click)="editField(indexOfelement);fromamt.focus()" placement="bottom"
-                                                            ngbTooltip="Edit"></span> &nbsp;
+                                                            (click)="editField(indexOfelement);fromamt.focus()"
+                                                            placement="bottom" ngbTooltip="Edit"></span> &nbsp;
                                                         <span class="fa fa-fw fa-trash-o" id="deletebutton"
-                                                            (click)="delField(indexOfelement);fromamt.focus()" placement="bottom"
-                                                            ngbTooltip="Delete"></span>
+                                                            (click)="delField(indexOfelement);fromamt.focus()"
+                                                            placement="bottom" ngbTooltip="Delete"></span>
                                                     </td>
                                                     <td class="td_right">{{data.FROM_AMOUNT }}</td>
                                                     <td class="td_right">{{data.TO_AMOUNT }}</td>
@@ -226,8 +230,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled]="myform.invalid"
-                                (click)="submit();sccode.focus()" *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="myform.invalid"
+                                (click)="submit();sccode.focus()" *ngIf="showButton" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();sccode.focus()"
                                 *ngIf="updateShow">Update</button>&nbsp;
 

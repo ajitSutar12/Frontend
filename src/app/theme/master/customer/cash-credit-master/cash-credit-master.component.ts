@@ -46,6 +46,7 @@ import * as moment from 'moment';
 //date pipe
 import { DatePipe } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -2033,5 +2034,29 @@ export class CashCreditMasterComponent implements OnInit {
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
+  }
+   //check  if percentage  is below 50
+   checkmargin(ele: any) {
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0
+
+    }
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

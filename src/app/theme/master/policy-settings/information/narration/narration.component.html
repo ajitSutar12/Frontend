@@ -7,13 +7,13 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="NARRATION" maxlength="200" class="form-control"
+                                    <input type="text" appTheme name="NARRATION" maxlength="200" class="form-control"
                                         [ngClass]="{'form-submitted': formSubmitted}" #autofocus placeholder=" "
                                         id="label-name" required="" 
                                         formControlName="NARRATION">
@@ -32,8 +32,8 @@
 
 
                         <div class="col-sm" *ngIf="showButton">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit($event)"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
 
                         </div>
                         <div class="col-sm" style="float: left;" *ngIf="updateShow">
@@ -43,7 +43,7 @@
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()">Cancel</button>
                         </div>
 
-                    </div>
+                    </div> 
 
                 </div>
             </form>
