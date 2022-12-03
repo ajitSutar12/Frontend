@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { first } from 'rxjs/operators';
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -301,5 +302,9 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

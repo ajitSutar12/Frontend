@@ -7,19 +7,20 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
+                                    <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" minlength="10" maxlength="10"
                                         [maxDate]="maxDate" (bsValueChange)="checkEffectDate()"
                                         (focusout)="checkEffectDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        formControlName="EFFECT_DATE" [bsValue]="bsValue" bsDatepicker #autofocus>
+                                        formControlName="EFFECT_DATE" [bsValue]="bsValue" bsDatepicker 
+                                        #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
                                     <label for="EFFECT_DATE">Effective Date<sub class="required">*
                                         </sub></label>
                                 </span>
@@ -36,13 +37,14 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" name="NPA_BASE_DAYS"
+                                    <input type="text" appTheme style="text-align: right;" name="NPA_BASE_DAYS"
                                         class="form-control" placeholder=" " pattern="^[0-9]+$"
                                         title=" Input allowed only  0-9" minlength="1" maxlength="4"
                                         (focus)="selectAllContent($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="NPA_BASE_DAYS"
                                         formControlName="NPA_BASE_DAYS">
-                                    <label for="NPA_BASE_DAYS">Base Days</label>
+                                    <label for="NPA_BASE_DAYS">Base Days<sub class="required">*
+                                    </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -59,9 +61,10 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="NPA_CLASS" [items]="NPAClass" bindLabel="label"
+                                    <ng-select id="NPA_CLASS" appTheme [items]="NPAClass" bindLabel="label"
                                         (change)="selectedNPA()" formControlName="NPA_CLASS" [(ngModel)]="ngNPAClass"
-                                        placeholder="NPA Class">
+                                        placeholder="NPA Class" 
+                                        #NPACLASS (focus)="onFocus(NPACLASS)" [selectOnTab]='true' >
                                     </ng-select>
                                     <label for="NPA_CLASS">NPA Class<sub class="required"> * </sub></label>
                                 </span>
@@ -129,7 +132,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" name="SECURED_PERCENT"
+                                    <input type="text" appTheme style="text-align: right;" name="SECURED_PERCENT"
                                         class="form-control" placeholder=" " id="SECURED_PERCENT"
                                         (focus)="selectAllContent($event)" pattern="\d{1,3}(\.\d{1,2})?" max="100"
                                         #secure maxlength="5" title="Input allowed only 0-9"
@@ -151,7 +154,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" name="UNSECURED_PERCENT"
+                                    <input type="text" appTheme style="text-align: right;" name="UNSECURED_PERCENT"
                                         class="form-control" placeholder=" " id="UNSECURED_PERCENT"
                                         pattern="\d{1,3}(\.\d{1,2})?" title="Input allowed only 0-9" max="100" #unsecure
                                         (focus)="selectAllContent($event)" maxlength="5"
@@ -249,7 +252,7 @@
                     <div class="row">
                         <div class="col-sm" style="float: right;">
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                [disabled]="angForm.invalid" (click)="submit(angForm.value)">Submit</button>
+                                [disabled]="angForm.invalid" (click)="submit(angForm.value)" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                 Cancel
                             </button> &nbsp; &nbsp;

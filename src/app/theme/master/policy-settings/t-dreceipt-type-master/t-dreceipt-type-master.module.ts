@@ -10,6 +10,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TDReceiptService } from './t-dreceipt-type-master.component.service'
 import { TdReceiptService } from '../../../../shared/dropdownService/tdReceipt-type.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from 'src/app/theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DataTablesModule,
     NgbModule,
     FormsModule, ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+
+    ThemeModule
   ],
   declarations: [TDReceiptTypeMasterComponent],
   providers: [TDReceiptService, TdReceiptService, {

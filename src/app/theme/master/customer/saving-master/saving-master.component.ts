@@ -17,7 +17,7 @@ import { DirectorMasterDropdownService } from '../../../../shared/dropdownServic
 import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
@@ -1962,5 +1962,19 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
+  }
+
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
   }
 }

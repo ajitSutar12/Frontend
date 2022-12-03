@@ -8,15 +8,16 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select bindValue="value" [(ngModel)]="selectedValue" id="RECEIPT_TYPE"
+                                    <ng-select bindValue="value" appTheme [(ngModel)]="selectedValue" id="RECEIPT_TYPE"
                                         bindValue="value" bindLabel="label" formControlName="RECEIPT_TYPE"
                                         title="Compulsory Selection" (change)="getValue($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #RECTYPE (focus)="onFocus(RECTYPE)" [selectOnTab]='true' autofocus
                                         placeholder="Receipt Type ">
                                         <ng-option *ngFor="let values of tdMaster" [value]="values">
                                             {{values.label}}</ng-option>
@@ -31,7 +32,7 @@
                                     [(ngModel)]="selectedValue" (selected)="getValue($event)"
                                     formControlName="RECEIPT_TYPE">
                                 </ng-select>
-                            </div> -->
+                            </div> --> 
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['RECEIPT_TYPE'].invalid && (angForm.controls['RECEIPT_TYPE'].dirty || angForm.controls['RECEIPT_TYPE'].touched)"
                                 class="alert alert-danger">
@@ -43,7 +44,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="LAST_RECEIPT_NO" class="form-control" placeholder=" "
+                                    <input type="text" appTheme name="LAST_RECEIPT_NO" class="form-control" placeholder=" "
                                         id="LAST_RECEIPT_NO" pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only  0-9" formControlName="LAST_RECEIPT_NO" required>
@@ -69,7 +70,7 @@
                         </div> -->
                         <div class="col-sm-3" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit()" [disabled]="angForm.invalid">
+                                (click)="submit()" [disabled]="angForm.invalid" appTheme>
                                 Submit
                             </button>
                         </div>

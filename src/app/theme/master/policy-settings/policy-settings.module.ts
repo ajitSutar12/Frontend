@@ -7,13 +7,15 @@ import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { ThemeModule } from '../../theme.module';
 
 @NgModule({
   imports: [
     CommonModule,
     PolicySettingsRoutingModule,
     SharedModule,
-    DataTablesModule
+    DataTablesModule,
+    ThemeModule
   ],
   declarations: [PolicySettingsComponent],
   providers:[{

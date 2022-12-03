@@ -30,6 +30,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PerfectScrollbarModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
 
   ],
   declarations: [PigmyAgentMasterComponent],

@@ -14,6 +14,7 @@ import { cityMasterService } from "../../../../../shared/dropdownService/city-ma
 
 import { first } from 'rxjs/operators';
 import { DataTableDirective } from 'angular-datatables';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 
 // Handling datatable data
@@ -367,5 +368,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       });
     });
   }
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 }

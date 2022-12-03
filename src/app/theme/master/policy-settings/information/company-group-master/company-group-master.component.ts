@@ -18,7 +18,7 @@ import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 // Handling datatable data
@@ -562,5 +562,9 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.ngacno = null
     // this.selectedCode = null
     this.getIntroducer()
+  }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

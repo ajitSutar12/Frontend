@@ -15,7 +15,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import Swal from 'sweetalert2';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-// Used to Call API
+// Used to Call API 
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { CustomerIdService } from '../customer-id/customer-id.service';
@@ -24,6 +24,7 @@ import { environment } from 'src/environments/environment';
 //date pipe
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -1139,4 +1140,19 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     button.click();
     this.reloadTablePassing.emit();
   }
+
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+
 }

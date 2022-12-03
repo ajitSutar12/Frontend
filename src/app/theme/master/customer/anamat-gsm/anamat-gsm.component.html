@@ -8,16 +8,17 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <div class="card-block"> 
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
-                                    <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE"
+                                    <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
                                         (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme">
+                                        required placeholder="Scheme"
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -28,10 +29,11 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
+                                    <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         style="width: 85%;" title="Compulsory Selection"
-                                        (change)="getCustomer($event.value)" required placeholder="Customer Id">
+                                        (change)="getCustomer($event.value)" required placeholder="Customer Id"
+                                        #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -226,7 +228,9 @@
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         disabled [ngClass]="{'form-submitted': formSubmitted}"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        formControlName="AC_OPDATE" [(ngModel)]="openingDate" bsDatepicker>
+                                        formControlName="AC_OPDATE" [(ngModel)]="openingDate" bsDatepicker
+                                        #AC_OPDATE="bsDatepicker" placement="left"
+                                        (keydown.Tab)="AC_OPDATE.hide()">
                                     <label for="AC_OPDATE">Opening Date<sub class="required">*
                                         </sub></label>
                                 </span>
@@ -293,12 +297,12 @@
                         <div class="col-sm-2">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="DEBIT" formControlName="DEBIT" value="DEBIT">
                                         <i class="helper"></i>Debit </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="DEBIT" formControlName="DEBIT" value="Credit">
                                         <i class="helper"></i>Credit </label>
                                 </div>
@@ -307,7 +311,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                    <input type="text" appTheme name="AC_PARTICULAR" class="form-control" placeholder=" "
                                         id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                         formControlName="AC_PARTICULAR" [ngClass]="{'form-submitted': formSubmitted}"
@@ -338,8 +342,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit($event)">
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit($event)" appTheme>
                                 Submit
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">

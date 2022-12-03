@@ -38,6 +38,7 @@ import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-l
 import { SecurityDetailsModule } from '../../maintainance/security-details/securityDetails.module';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from 'src/app/theme/theme.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -56,7 +57,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SecurityDetailsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [TermLoanMasterComponent],
   exports: [TermLoanMasterComponent],

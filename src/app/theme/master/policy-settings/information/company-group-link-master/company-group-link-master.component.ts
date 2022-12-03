@@ -17,7 +17,7 @@ import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService
 import { CompanyGroupMasterDropdownService } from '../../../../../shared/dropdownService/company-group-master-dropdown.service';
 import { first, map } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { AllAccountDropdownService } from '../../../../../shared/dropdownService/all-account-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 
@@ -579,5 +579,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     } else {
       this.multiData[index]['Amount'] = data.target.value;
     }
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }
