@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
@@ -17,7 +17,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="CATEGORY" bindValue="value" [(ngModel)]="ngcategory"
+                                  <ng-select id="CATEGORY" appTheme bindValue="value" [(ngModel)]="ngcategory"
                                     formControlName="CATEGORY" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Category Code"
                                     #catcode (focus)="onFocus(catcode)" [selectOnTab]='true' autofocus>
@@ -40,7 +40,7 @@
                                     #autofocus  id="EFFECT_DATE" required=""                                          
                                     max="{{datemax | date:'yyyy-MM-dd'}}"  #date (keyup)="disabledate(date.value)"  id="EFFECT_DATE"
                                          formControlName="EFFECT_DATE"> -->
-                                         <input type="text" placeholder="dd/mm/yyyy"
+                                         <input type="text" appTheme placeholder="dd/mm/yyyy"
                                             name="EFFECT_DATE" id="EFFECT_DATE"
                                             class="form-control" [(ngModel)]="effectdate"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -63,7 +63,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="DEPR_RATE" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" appTheme type="text" name="DEPR_RATE" class="form-control" placeholder=" "
                                         id="DEPR_RATE" required=""  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5" 
                                         #margin (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         (keyup)="checkmargin($event)"
@@ -80,7 +80,7 @@
 
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();catcode.focus()" [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();catcode.focus()" [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();catcode.focus()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData();catcode.focus()">Cancel</button>
                         </div>

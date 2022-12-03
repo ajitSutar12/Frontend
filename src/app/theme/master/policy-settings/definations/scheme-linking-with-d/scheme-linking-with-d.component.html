@@ -7,14 +7,14 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
 
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="SCHEME_CODE" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select id="SCHEME_CODE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         (change)="fetchLinkedDoc($event)" formControlName="SCHEME_CODE"
                                         bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
@@ -34,8 +34,8 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled]="myform.invalid"
-                                (click)="submit()" *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="myform.invalid"
+                                (click)="submit()" *ngIf="showButton" appTheme>Submit</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>

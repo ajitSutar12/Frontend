@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md-2">
@@ -43,7 +43,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="NAME" class="form-control" placeholder=" " id="NAME"
+                                    <input appTheme type="text" name="NAME" class="form-control" placeholder=" " id="NAME"
                                         #autofocus required pattern="^[A-Za-z\./ -]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
@@ -62,7 +62,7 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="DESIGNATION" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="DESIGNATION" class="form-control" placeholder=" "
                                         id="DESIGNATION" required pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="60"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
@@ -84,7 +84,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <textarea type="text" name="address" class="form-control" placeholder=" "
+                                    <textarea appTheme type="text" name="address" class="form-control" placeholder=" "
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)" id="AC_ADDR1" required
                                         formControlName="AC_ADDR1" maxlength="100"></textarea>
                                     <label for="AC_ADDR1">Address<sub class="required">* </sub></label>
@@ -235,8 +235,8 @@
                         </div>
 
                         <div class="col-md-4">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                 (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"

@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
@@ -18,7 +18,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt"> 
-                                    <ng-select id="ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="id" title="Compulsory Selection"
                                          [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                         #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus >
@@ -44,7 +44,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="INT_CATEGORY" bindValue="value" [(ngModel)]="ngintcat"
+                                    <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Interest Category"  #intcat (focus)="onFocus(intcat)"
@@ -71,7 +71,7 @@
                                          #date
                                        (focusout)="disabledate(date.value)"  id="EFFECT_DATE" 
                                         formControlName="EFFECT_DATE"> -->
-                                    <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
+                                    <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
                                         class="form-control" [(ngModel)]="effectdate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="EFFECT_DATE"
@@ -92,7 +92,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" appTheme type="text" name="INT_RATE" class="form-control" placeholder=" "
                                         id="INT_RATE" required pattern="\d{1,2}(\.\d{1,2})?" #margin maxlength="5"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         (keyup)="checkmargin($event)" title="Input allowed only  0-9"
@@ -110,8 +110,8 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();scheme.focus()"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit();scheme.focus()"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()"
                                 *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()"

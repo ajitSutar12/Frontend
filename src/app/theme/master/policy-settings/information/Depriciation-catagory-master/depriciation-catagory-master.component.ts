@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -365,6 +366,10 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }
 

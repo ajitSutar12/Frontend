@@ -102,6 +102,7 @@ import { AllAccountDropdownService } from '../../../../shared/dropdownService/al
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BankOtherDetailsComponent } from './bank-other-details/bank-other-details.component';
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 // import { NgSelectModule } from '@ng-select/ng-select';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -117,7 +118,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DataTablesModule,
     // SelectModule,
     FormsModule, ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+
+    ThemeModule
 
 
     // NgSelectModule

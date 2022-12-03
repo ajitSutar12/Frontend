@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="BANK_CODE">Bank Code</label></div>
@@ -25,7 +25,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="NAME"
+                                    <input appTheme type="text" name="NAME"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45|| $event.charCode == 44|| $event.charCode == 40 || $event.charCode == 41|| $event.charCode == 47"
                                         class="form-control" placeholder=" " id="NAME" value=""
                                         title="Input allowed only  A-Z a-z  , ()- / . (Space)" required
@@ -50,7 +50,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="SHORT_NAME"
+                                    <input appTheme type="text" name="SHORT_NAME"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         class="form-control" placeholder=" " id="NASHORT_NAMEME" value=""
                                         title="Input allowed only  A-Z a-z  - / . (Space)" required
@@ -95,7 +95,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="PAN_NO" pattern="^[A-Z0-9]+$" maxlength="10"
+                                    <input appTheme type="text" name="PAN_NO" pattern="^[A-Z0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
                                         class="form-control" placeholder=" " id="PAN_NO" value=""
                                         title="Input allowed only  A-Z 0-9" required formControlName="PAN_NO">
@@ -122,7 +122,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
 
-                                    <input type="text" style="text-align: right;" name="SBI_BANKCODE"
+                                    <input appTheme type="text" style="text-align: right;" name="SBI_BANKCODE"
                                         class="form-control" placeholder=" " pattern="^[0-9]+$"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" maxlength="16"
                                         title="Input allowed only 0-9" id="SBI_BANKCODE" formControlName="SBI_BANKCODE">
@@ -254,8 +254,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="CITY_CODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
+                                    <ng-select appTheme id="CITY_CODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
                                         bindLabel="CITY_NAME" formControlName="CITY_CODE" title="Compulsory Selection"
+                                        #CITY_CODE (focus)="onFocus(CITY_CODE)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="" required>
 
                                     </ng-select>
@@ -275,7 +276,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="STATE"
+                                    <input appTheme type="text" name="STATE"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         class="form-control" placeholder=" " id="STATE" value=""
                                         title="Input allowed only  A-Z a-z  - / . (Space)" required
@@ -301,7 +302,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
 
-                                    <input type="text" style="text-align: right;" name="PIN_CODE" class="form-control"
+                                    <input appTheme type="text" style="text-align: right;" name="PIN_CODE" class="form-control"
                                         placeholder=" " pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9"
                                         maxlength="6" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         minlength=" 6" id="PIN_CODE" formControlName="PIN_CODE" NumberOnly>
@@ -343,7 +344,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="MOB_NUM" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="MOB_NUM" class="form-control"
                                         placeholder=" " pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
                                         id="MOB_NUM" maxlength="11" minlength="10" formControlName="MOB_NUM"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
@@ -366,7 +367,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="email" name="EMAIL" class="form-control" placeholder=" "
+                                    <input appTheme type="email" name="EMAIL" class="form-control" placeholder=" "
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
                                         title="Enter valid Email" id="EMAIL" formControlName="EMAIL">
 
@@ -387,8 +388,8 @@
                     <div class="row">
 
                         <div class="col-sm">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit($event)" [disabled]="angForm.invalid">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit($event)" [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                 (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"

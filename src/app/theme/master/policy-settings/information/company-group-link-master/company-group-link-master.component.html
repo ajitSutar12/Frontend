@@ -8,7 +8,7 @@
                 </h6>
             </div>
 
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md-3">
@@ -29,9 +29,10 @@
 
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="COMP_CODE" bindValue="value" [(ngModel)]="ngcompany"
+                                    <ng-select appTheme id="COMP_CODE" bindValue="value" [(ngModel)]="ngcompany"
                                         formControlName="COMP_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #COMP_CODE (focus)="onFocus(COMP_CODE)" [selectOnTab]='true'
                                         placeholder="Company Code">
                                         <ng-option *ngFor="let values of companyCode" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -52,9 +53,10 @@
 
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="CODE" bindValue="value" [(ngModel)]="ngcode" formControlName="CODE"
+                                    <ng-select appTheme id="CODE" bindValue="value" [(ngModel)]="ngcode" formControlName="CODE"
                                         bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Code"
+                                        #CODE (focus)="onFocus(CODE)" [selectOnTab]='true'
                                         (change)="getAccount($event)">
                                         <ng-option *ngFor="let values of schemeCode" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
@@ -75,9 +77,10 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngAccount"
+                                    <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngAccount"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
                                         (change)="checkValidaion()" placeholder=" From Account">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.label}}</ng-option>
@@ -92,9 +95,10 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngToAccount"
+                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngToAccount"
                                         formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To Account"
+                                        #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
                                         (change)="checkValidaion()">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.label}}</ng-option>
@@ -153,8 +157,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                 (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"

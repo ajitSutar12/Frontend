@@ -8,7 +8,7 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group input-group">
@@ -43,7 +43,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="footer-email"
+                                    <input appTheme style="text-align: right;" type="text" name="footer-email"
                                         class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" #autofocus
                                         id="LOCKER_NO" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
@@ -63,7 +63,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="footer-email"
+                                    <input appTheme style="text-align: right;" type="text" name="footer-email"
                                         class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="KEY_NO"
                                         required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
@@ -88,9 +88,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="SIZE_SR_NO" bindValue="value" [(ngModel)]="nglocker"
+                                    <ng-select appTheme id="SIZE_SR_NO" bindValue="value" [(ngModel)]="nglocker"
                                         formControlName="SIZE_SR_NO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #SIZE_SR_NO (focus)="onFocus(SIZE_SR_NO)" [selectOnTab]='true'
                                         placeholder="Locker Size">
                                         <ng-option *ngFor="let values of lockerMaster" [value]="values">
                                             {{values.name}} {{values.label}}</ng-option>
@@ -109,8 +110,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                 *ngIf="newbtnShow">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"

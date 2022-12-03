@@ -31,6 +31,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -1935,4 +1936,13 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('something is wrong');
     })
   }
+
+   // for decimal 
+   getDecimalPoint(event) { 
+    event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+
 }

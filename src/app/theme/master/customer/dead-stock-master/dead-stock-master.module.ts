@@ -14,6 +14,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
     ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [
     DeadStockMasterComponent

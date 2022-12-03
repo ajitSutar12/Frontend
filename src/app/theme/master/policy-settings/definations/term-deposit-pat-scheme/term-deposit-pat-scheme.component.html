@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
@@ -17,7 +17,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                  <ng-select id="AC_TYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                     formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                     #schemea (focus)="onFocus(schemea)" [selectOnTab]='true' autofocus>
@@ -42,7 +42,7 @@
                                          #date
                                        (focusout)="disabledate(date.value)"  id="date"
                                          formControlName="EFFECT_DATE"> -->
-                                         <input type="text" placeholder="dd/mm/yyyy"
+                                         <input type="text" appTheme placeholder="dd/mm/yyyy"
                                             name="EFFECT_DATE" id="EFFECT_DATE"
                                             class="form-control" [(ngModel)]="effectdate"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
@@ -69,7 +69,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="INT_CATEGORY" bindValue="value" [(ngModel)]="ngintcat"
+                                  <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                     formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category"
                                     #intcat (focus)="onFocus(intcat)" [selectOnTab]='true'>
@@ -125,7 +125,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" appTheme type="text" name="INT_RATE" class="form-control" placeholder=" "
                                             pattern="\d{1,2}(\.\d{0,2})?" id="INT_RATE" maxlength="5"
                                             #margin (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                             (keyup)="checkmargin($event)"
@@ -187,7 +187,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();schemea.focus()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();schemea.focus()" *ngIf="newbtnShow">Cancel</button>
                         </div>

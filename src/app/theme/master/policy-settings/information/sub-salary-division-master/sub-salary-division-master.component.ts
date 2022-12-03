@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { SalaryDMasterdropdownService } from '../../../../../shared/dropdownService/salary-division-master-dropdown.service'
 import { first } from 'rxjs/operators';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 class DataTableResponse {
   data: any[];
@@ -415,5 +415,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     this.subSalaryDivision.getSalaryDMasterList(this.ngBranchCode).pipe(first()).subscribe(data => {
       this.division = data;
     })
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

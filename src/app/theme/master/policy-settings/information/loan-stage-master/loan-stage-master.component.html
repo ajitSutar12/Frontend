@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md-2">
@@ -24,7 +24,7 @@
                         <div class="col-md-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="NAME" class="form-control" placeholder=" " id="Description"
+                                    <input appTheme type="text" name="NAME" class="form-control" placeholder=" " id="Description"
                                         #autofocus required=""  maxlength="100"
                                          formControlName="NAME">
                                     <label for="Description">Description<sub class="required">* </sub></label>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"  [disabled]="angForm.invalid">Submit </button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"  [disabled]="angForm.invalid" appTheme>Submit </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()" >Cancel</button> 
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow"  (click)="updateData()" [disabled]="angForm.invalid">Update</button>&nbsp;         
                             

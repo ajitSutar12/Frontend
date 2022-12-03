@@ -7,9 +7,9 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
-                    <div class="row">
+                    <div class="row"> 
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -22,7 +22,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="CITY_NAME" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="CITY_NAME" class="form-control" placeholder=" "
                                     #autofocus  id="CityName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="CITY_NAME"
@@ -56,7 +56,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="TALUKA_CODE" class="form-control" placeholder=" " maxlength="4"
+                                    <input appTheme style="text-align: right;" type="text" name="TALUKA_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="TalukaCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         [ngClass]="{'form-submitted': formSubmitted}"  formControlName="TALUKA_CODE">
@@ -72,7 +72,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="DISTRICT_CODE" class="form-control" placeholder=" " maxlength="4"
+                                    <input appTheme style="text-align: right;" type="text" name="DISTRICT_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="DistrictCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTRICT_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
@@ -88,7 +88,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="STATE_CODE" class="form-control" placeholder=" " maxlength="4"
+                                    <input appTheme style="text-align: right;" type="text" name="STATE_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="StateCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="STATE_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
@@ -106,7 +106,7 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="REGION_CODE" class="form-control" placeholder=" " maxlength="4"
+                                    <input appTheme style="text-align: right;" type="text" name="REGION_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="Region" required=""  pattern="^[0-9]+$"
                                         title="Input allowed only  0-9" formControlName="REGION_CODE"
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()" >Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">Update</button>
                             

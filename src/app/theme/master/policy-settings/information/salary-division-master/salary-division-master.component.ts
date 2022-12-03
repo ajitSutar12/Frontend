@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { OwnbranchMasterService } from '../../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { first } from 'rxjs/operators';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -381,5 +381,7 @@ let data: any = localStorage.getItem('user');
       this.dtTrigger.next();
     });
   }
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 }
