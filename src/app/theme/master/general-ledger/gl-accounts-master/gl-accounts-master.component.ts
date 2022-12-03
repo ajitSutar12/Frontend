@@ -109,13 +109,15 @@ export class GlAccountsMasterComponent implements OnInit {
       console.log(this.statementCode);
       let step_2_data = new Array();
       let final_obj = new Array()
-      debugger
+      // debugger
       let parentData = this.statementCode.filter(ele => ele.parent_node == 0);
       for (let item of parentData) {
         let data = this.statementCode.filter(ele => ele.parent_node == item.id);
         if (data.length != 0) {
-          data[0]['parent_name'] = item.head_name;
-          step_2_data.push(data[0]);
+          for (let elem of data) {
+            elem['parent_name'] = item.head_name;
+            step_2_data.push(elem);
+          }
         }
       }
 
@@ -130,7 +132,7 @@ export class GlAccountsMasterComponent implements OnInit {
       }
       this.statementCodeData = final_obj;
 
-      console.log(this.statementCodeData);
+      // console.log(this.statementCodeData);
     })
   }
 
