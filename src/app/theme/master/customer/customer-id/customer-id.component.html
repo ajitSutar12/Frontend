@@ -46,9 +46,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" >
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngTitle" id="AC_TITLE" bindLabel="label"
-                                        formControlName="AC_TITLE" title="Compulsory Selection" #title
+                                        formControlName="AC_TITLE" title="Compulsory Selection" 
                                         [ngClass]="{'form-submitted': formSubmitted}" class="don" required placeholder=""
-                                         (focus)="onFocus(title)" [selectOnTab]='true' autofocus >
+                                        #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus >
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -149,6 +149,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngCast" id="AC_CAST" bindLabel="label"
+                                    #cast (focus)="onFocus(cast)" [selectOnTab]='true'
                                         formControlName="AC_CAST"  class="don" #cast>
                                         <ng-option *ngFor="let values of castMaster" [value]="values">
                                             {{values.label}} </ng-option>
@@ -161,6 +162,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
+                                     #AC_OCODE (focus)="onFocus(AC_OCODE)" [selectOnTab]='true'
                                         bindLabel="label" formControlName="AC_OCODE" placeholder="Occupation" class="don">
                                         <ng-option *ngFor="let values of occupation" [value]="values">
                                             {{values.label}} </ng-option>
@@ -173,6 +175,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG" bindLabel="label"
+                                      #AC_RISKCATG (focus)="onFocus(AC_RISKCATG)" [selectOnTab]='true'
                                         formControlName="AC_RISKCATG" placeholder="Risk Category" class="don">
                                         <ng-option *ngFor="let values of risk" [value]="values">
                                             {{values.label}} </ng-option>
