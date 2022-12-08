@@ -676,18 +676,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     }
   }
 
-  openTab(id) {
-
-    if (this.StandingTrue = false) {
-      this.select(id);
-    }
-    // else if (this.BalanceTrue = true) {
-    //   // this.StandingTrue = false;
-    //   this.intrestTrue = false;
-    //   // this.select(id);
-    // }
-
-  }
+  
 
 
 

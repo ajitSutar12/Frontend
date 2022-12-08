@@ -357,7 +357,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             name="MIN_INT_LIMIT" class="form-control" placeholder=" "
                                                             id="MIN_INT_LIMIT" (focusout)="getDecimalPoint($event)"
-                                                            (keyup)="getDecimal($event)"  (keydown.Tab)="openTab(standInstru)"
+                                                            (keyup)="getDecimal($event)"  
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                             title="Input allowed only  0-9"
                                                             formControlName="MIN_INT_LIMIT" disabled>
@@ -444,7 +444,7 @@
                                                             name="ROUNDOFF_FACTOR" class="form-control"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$"
-                                                            title="Input allowed only  0-9" maxlength="2" (keydown.Tab)="openTab(balanceEntr)"
+                                                            title="Input allowed only  0-9" maxlength="2" 
                                                             formControlName="ROUNDOFF_FACTOR">
                                                         <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
                                                             Paise</label>

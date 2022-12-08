@@ -1247,7 +1247,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       event.target.value = parseFloat(event.target.value).toFixed(2);
     else
       event.target.value = 0
-  }
+  } 
 }
 
 
