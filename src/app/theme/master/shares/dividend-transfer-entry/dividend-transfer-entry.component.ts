@@ -6,7 +6,7 @@ import { MembernoService } from '../../../../shared/elements/memberno.service';
 import { AcountnoService } from '../../../../shared/elements/acountno.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { first } from 'rxjs/operators';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
@@ -329,6 +329,10 @@ export class DividendTransferEntryComponent implements OnInit {
     this.memValue = null
     this.angForm.controls['AC_TYPE'].reset()
     this.angForm.controls['AC_NO'].reset()
+  }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }
 

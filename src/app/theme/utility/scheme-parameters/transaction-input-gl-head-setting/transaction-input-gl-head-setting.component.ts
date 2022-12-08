@@ -12,6 +12,7 @@ import { environment } from '../../../../../environments/environment'
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { TranscationInputSettingService } from './transaction-input-gl-head-setting.service'
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -484,5 +485,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       })
     }
 
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

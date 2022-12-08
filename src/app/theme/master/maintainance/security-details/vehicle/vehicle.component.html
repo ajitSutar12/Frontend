@@ -5,7 +5,7 @@
         <h5>Vehicle</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm-3">
@@ -14,9 +14,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE"  #autofocus /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
+                    #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -40,9 +41,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="RTORegistrationDate" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="RTO_REG_DATE"  /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="RTO_REG_DATE" id="RTORegistrationDate"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="RTO_REG_DATE" id="RTORegistrationDate"
                     class="form-control" [(ngModel)]="rtoregdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="RTO_REG_DATE"
+                    #RTO_REG_DATE="bsDatepicker"  (keydown.Tab)="RTO_REG_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="RTORegistrationDate">RTO Registration Date<sub class="required">* </sub></label>
                 </span>
@@ -63,7 +65,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="vehicle_make" class="form-control" placeholder=" " id="vehicle_make"
+                  <input appTheme type="text" name="vehicle_make" class="form-control" placeholder=" " id="vehicle_make"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -91,7 +93,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="YearofManufacture" required=""
+                  <input appTheme type="text" class="form-control" placeholder=" " id="YearofManufacture" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9]+$" maxlength="4"
                     formControlName="MANUFACTURE_YEAR" title="Input allowed only  0-9" />
@@ -114,7 +116,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="VehicleNumber" class="form-control" placeholder=" " id="VehicleNumber"
+                  <input appTheme style="text-align: right" type="text" name="VehicleNumber" class="form-control" placeholder=" " id="VehicleNumber"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode <= 57)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z0-9\./ -]+$" maxlength="30"
@@ -139,7 +141,7 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="ChasisNumber" class="form-control" placeholder=" " id="ChasisNumber"
+                  <input type="text" style="text-align: right" name="ChasisNumber" class="form-control" placeholder=" " id="ChasisNumber"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode <= 57)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z0-9\./ -]+$" maxlength="30" title="Input allowed only A-Z a-z 0-9  - / . (Space)"
                     formControlName="CHASSIS_NO" />
@@ -163,6 +165,7 @@
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="AQUISITION_DATE"  id="date" /> -->
                   <input type="text" placeholder="dd/mm/yyyy" name="AQUISITION_DATE" id="DateofAcquisition"
                     class="form-control" [(ngModel)]="acquisitiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    #AQUISITION_DATE="bsDatepicker"  (keydown.Tab)="AQUISITION_DATE.hide()"
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="AQUISITION_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="DateofAcquisition">Date of Acquisition</label>
@@ -219,7 +222,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
+                  <input appTheme style="text-align: right" type="text" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PURCHASE_PRICE" />
@@ -242,9 +245,9 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
+                  <input  style="text-align: right" type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
+                    (keyup)="checkmargin(margin.value);getDecimal($event) "  title="Input allowed only  0-9"
                     formControlName="MARGIN" />
                   <label for="margin">Margin %</label>
                 </span>
@@ -284,7 +287,7 @@
             </div>
             <div class="col-sm">
 
-              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>

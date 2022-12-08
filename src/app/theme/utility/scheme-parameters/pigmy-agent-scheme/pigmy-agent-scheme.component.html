@@ -8,13 +8,13 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm">
 
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
                                         placeholder=" " id="S_APPL" (focusout)="checkDuplicate($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" required=""
                                         pattern="^[0-9]+$" maxlength="3" minlength="3" min="301" max="399"
@@ -36,7 +36,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
+                                    <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
@@ -55,7 +55,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
@@ -81,6 +81,7 @@
                                     <h6> <a (click)="OpenLink(105)" routerLinkActive="active"
                                             routerLink="/utility/schemeParameters"
                                             [ngClass]="{'isActive': CommissionApplicableTrue}"
+                                           
                                             class="text-right f-w-600" id="pointer">
                                             Commission Applicable</a></h6>
                                 </li>
@@ -97,7 +98,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="card">
-                                <div *ngIf="CommissionApplicableTrue">
+                                <div *ngIf="CommissionApplicableTrue" >
                                     <div class="card-header">
                                         <h5> Commission Applicable</h5>
                                     </div>
@@ -121,12 +122,12 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input style="text-align: right;" type="text"
-                                                            name="MIN_INT_LIMIT" class="form-control" placeholder=" "
-                                                            id="MIN_INT_LIMIT" pattern="\d{1,20}(\.\d{1,2})?"
-                                                            maxlength="2"
+                                                        <input appTheme style="text-align: right;" type="text"
+                                                            name="MIN_INT_LIMIT" class="form-control" placeholder=" " 
+                                                            id="MIN_INT_LIMIT" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                            (keydown.Tab)="openTab(otset)"
                                                             formControlName="MIN_INT_LIMIT" disabled>
                                                         <label for="MIN_INT_LIMIT">Minimum Interest Amount<sub
                                                                 class="required">* </sub></label>
@@ -146,7 +147,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card" #tabSel id="otset">
                                 <div *ngIf=" OtherSettings1True">
                                     <div class="card-header">
                                         <h5>Other Settings</h5>
@@ -196,8 +197,8 @@
                         <div class="card-footer">
                             <div class="row" style="float: right;">
                                 <div class="col-sm m-b-20">
-                                    <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid"
-                                        (click)="submit()" *ngIf="showButton">
+                                    <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
+                                        (click)="submit()" *ngIf="showButton" appTheme>
                                         Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
@@ -206,7 +207,7 @@
                                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
                                         Cancel
-                                    </button>
+                                    </button> 
                                 </div>
                             </div>
                         </div>

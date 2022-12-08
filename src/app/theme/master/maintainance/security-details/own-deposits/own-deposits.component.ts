@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import {
-  FormGroup,
+  FormGroup, 
   FormBuilder,
   Validators,
   FormControl,
@@ -35,7 +35,7 @@ import { Router } from "@angular/router";
 
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { number } from "ngx-custom-validators/src/app/number/validator";
 import { data } from "jquery";
@@ -583,5 +583,12 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
 }

@@ -16,6 +16,7 @@ import { OverDraftComponent } from './over-draft.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { ThemeModule } from 'src/app/theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +28,8 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [OverDraftComponent],
   providers: [{

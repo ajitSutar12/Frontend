@@ -8,18 +8,19 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-
+ 
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label"
                                         (change)="getAccountList(); getShareDividend($event)"
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                         title="Compulsory Selection" required placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -40,9 +41,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="FROM_AC" bindValue="AC_NO" [(ngModel)]="ngfromac"
+                                    <ng-select appTheme id="FROM_AC" bindValue="AC_NO" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
                                         placeholder="From Account">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
@@ -64,8 +66,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="TO_AC" bindValue="AC_NO" [(ngModel)]="ngtoac" formControlName="TO_AC"
+                                    <ng-select appTheme id="TO_AC" bindValue="AC_NO" [(ngModel)]="ngtoac" formControlName="TO_AC"
                                         bindLabel="label" title="Compulsory Selection" (change)="getAccNumbers()"
+                                        #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To Account">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
@@ -88,9 +91,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="DIV_FROMDATE" id="DIV_FROMDATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="DIV_FROMDATE" id="DIV_FROMDATE"
                                         [bsValue]="bsValue" [maxDate]="maxDate" class="form-control"
                                         [(ngModel)]="divfromdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        #DIV_FROMDATE="bsDatepicker"  (keydown.Tab)="DIV_FROMDATE.hide()"
                                         [maxDate]="fromdate" [ngClass]="{'form-submitted': formSubmitted}"
                                         formControlName="DIV_FROMDATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -110,9 +114,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="DIV_TODATE" id="DIV_TODATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="DIV_TODATE" id="DIV_TODATE"
                                         class="form-control" [(ngModel)]="divtodate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="todate"
+                                        #DIV_TODATE="bsDatepicker"  (keydown.Tab)="DIV_TODATE.hide()"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="DIV_TODATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         (bsValueChange)="checkDivYear()" bsDatepicker>
@@ -131,9 +136,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
-                                        class="form-control" [(ngModel)]="warrentdate"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
+                                        class="form-control" [(ngModel)]="warrentdate" placement="left"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
+                                        #WARRENT_DATE="bsDatepicker"  (keydown.Tab)="WARRENT_DATE.hide()"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="WARRENT_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
@@ -154,10 +160,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Dividend" style="text-align: right;" class="form-control"
-                                        placeholder=" " id="Dividend" required="" value=" " pattern="\d{1,5}(\.\d{2})?"
+                                    <input appTheme type="text" name="Dividend" style="text-align: right;" class="form-control"
+                                        placeholder=" " id="Dividend" required="" value=" " (keyup)="checkmargin($event)"
                                         #INT (focus)="selectAllContent($event)"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         title="Input allowed only 0-9" formControlName="Dividend"
                                         (keyup)="checkInt(INT.value)">
                                 </span>
@@ -175,10 +181,11 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Bonus" style="text-align: right;" class="form-control"
+                                    <input appTheme type="text" name="Bonus" style="text-align: right;" class="form-control"
                                         placeholder=" " id="Bonus" value=" " pattern="\d{1,5}(\.\d{2})?"
                                         title="Input allowed only 0-9" #Bonus (focus)="selectAllContent($event)"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        (keyup)="checkmarginb($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
                                         formControlName="Bonus" (keyup)="checkBonus(Bonus.value)">
                                 </span>
                             </div>
@@ -193,9 +200,9 @@
                     </div>
 
                     <div class="col-sm">
-                        <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid">Calculate</button>
+                        <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid" appTheme>Calculate</button>
                         <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                            *ngIf="updateShow">Update</button>
+                            *ngIf="updateShow" >Update</button>
                     </div>
 
                 </div>

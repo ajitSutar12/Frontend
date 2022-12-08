@@ -15,6 +15,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { ThemeModule } from '../../theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +25,8 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     DataTablesModule,
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
 
   ],
   declarations: [SharesLedgerViewComponent],

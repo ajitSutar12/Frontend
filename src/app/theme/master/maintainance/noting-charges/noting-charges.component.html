@@ -7,14 +7,15 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                    <ng-select appTheme id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection" #BRANCH
+                                        (focus)="onFocus(BRANCH)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -34,10 +35,11 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="Scheme" bindValue="id" [(ngModel)]="ngscheme"
-                                        formControlName="Scheme" bindLabel="label" title="Compulsory Selection"
-                                        (change)="schemechange($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme Code">
+                                    <ng-select appTheme id="Scheme" bindValue="id" [(ngModel)]="ngscheme"
+                                        formControlName="Scheme" bindLabel="label" title="Compulsory Selection" #Scheme
+                                        (focus)="onFocus(Scheme)" [selectOnTab]='true' (change)="schemechange($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.S_APPL}} {{values.S_NAME}}</ng-option>
                                     </ng-select>
@@ -55,8 +57,9 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
+                                    <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -75,8 +78,9 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
-                                        bindLabel="label" title="Compulsory Selection" (change)="getTable()"
+                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
+                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                        (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
                                         <ng-option *ngFor="let values of toAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -115,10 +119,11 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AMOUNT_TYPE" bindValue="FIELD_AMOUNT" [(ngModel)]="ngchargestype"
-                                        formControlName="AMOUNT_TYPE" bindLabel="DESCRIPTION"
-                                        (change)="getCommanNarration($event)" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                    <ng-select appTheme id="AMOUNT_TYPE" bindValue="FIELD_AMOUNT"
+                                        [(ngModel)]="ngchargestype" formControlName="AMOUNT_TYPE"
+                                        bindLabel="DESCRIPTION" (change)="getCommanNarration($event)"
+                                        title="Compulsory Selection" #AMOUNT_TYPE (focus)="onFocus(AMOUNT_TYPE)"
+                                        [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Charges Type">
                                         <ng-option *ngFor="let values of chargesType" [value]="values">
                                             {{values.DESCRIPTION}}</ng-option>
@@ -137,13 +142,13 @@
                         <div class="col-sm">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" formControlName="TRAN_DRCR" name="TRAN_DRCR" value="D">
                                         <i class="helper"></i>Debit<span> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" formControlName="TRAN_DRCR" name="TRAN_DRCR" value="C">
                                         <i class="helper"></i>Credit<span> </span>
                                     </label>
@@ -156,7 +161,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="To" class="form-control" placeholder=" " id="TRAN_AMOUNT"
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9" style="text-align: right;"
+                                        title="Input allowed only  0-9" style="text-align: right;"
+                                        (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         (change)="getCommanChargeAmount()" formControlName="TRAN_AMOUNT">
                                     <label for="TRAN_AMOUNT">Charges Amount</label>
                                 </span>
@@ -182,8 +189,9 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno"
+                                    <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno"
                                         formControlName="transeferglaccno" bindLabel="label"
+                                        #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Transfer G.L.A/c No">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
@@ -196,8 +204,8 @@
 
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit()">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>

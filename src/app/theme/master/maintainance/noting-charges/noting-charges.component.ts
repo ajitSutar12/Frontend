@@ -13,6 +13,7 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-master-dropdown.service";
 import { NotingChargesService } from './noting-charges.service'
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -537,5 +538,18 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     let notingdate
     this.showButton = true;
     this.updateShow = false;
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
   }
 }

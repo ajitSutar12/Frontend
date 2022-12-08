@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit();BRANCH_CODE.focus()"
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit();BRANCH_CODE.focus()"
                 #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
@@ -16,7 +16,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                    <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
                                         placeholder="Branch" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
@@ -40,7 +40,7 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" (change)="schemechange($event)"
                                         title="Compulsory Selection" required placeholder="Scheme Code" #AC_TYPE
                                         (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'>
@@ -62,8 +62,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        #TRAN_DATE="bsDatepicker"  (keydown.Tab)="TRAN_DATE.hide()"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
                                         formControlName="TRAN_DATE" #TRAN_DATE="bsDatepicker"
                                         (keydown.Tab)="TRAN_DATE.hide()" placement="bottom"
@@ -79,7 +80,7 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
+                                    <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C"
                                         #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
@@ -103,7 +104,7 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
+                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
                                         bindLabel="label" title="Compulsory Selection" (change)="getTable()"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C"
                                         #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'>
@@ -122,8 +123,8 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                         </div>
                     </div>
                     <div class="row">

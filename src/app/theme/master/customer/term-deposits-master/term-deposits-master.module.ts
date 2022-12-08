@@ -30,6 +30,7 @@ import { InterestInstructionModule } from '../../instruction/interest-instructio
 import { InterestInstructionService } from '../../instruction/interest-instruction/interest-instruction.service'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -45,7 +46,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     InterestInstructionModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+
+    ThemeModule
 
   ],
   declarations: [TermDepositsMasterComponent],

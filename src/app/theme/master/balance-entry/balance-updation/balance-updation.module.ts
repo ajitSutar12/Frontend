@@ -17,6 +17,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BalanceUpdationService } from './balance-updation.service';
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ThemeModule } from 'src/app/theme/theme.module';
 // import { LazyLoadEvent } from 'primeng/primeng';
 
 
@@ -33,6 +34,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     // InfiniteScrollModule,
     NgxDatatableModule,
     // LazyLoadEvent,
+    ThemeModule
   ],
   declarations: [BalanceUpdationComponent],
   providers: [

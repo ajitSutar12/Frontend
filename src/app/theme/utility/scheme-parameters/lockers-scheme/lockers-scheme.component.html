@@ -7,13 +7,13 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
                                         placeholder=" " id="S_APPL"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         [(ngModel)]="ngschemecode" (focusout)="checkDuplicate($event)" #autofocus
@@ -27,14 +27,14 @@
                                 class="alert alert-danger">
                                 <div *ngIf=" angForm.controls['S_APPL'].errors?.required || angForm.controls['S_APPL'].errors?.pattern ||  angForm.controls['S_APPL'].errors?.min || 
                                     angForm.controls['S_APPL'].errors?.max">
-                                    This field is required and Input allowed only 0-9
+                                    This field is required and valid range 351 to 400
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_SHNAME"
                                         maxlength="10" title="Input allowed only  A-Z a-z  - / . (Space)">
@@ -54,7 +54,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
+                                    <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_NAME" maxlength="90"
                                         title="Input allowed only  A-Z a-z  - / . (Space)">
@@ -85,9 +85,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac"
+                                    <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac"
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
                                             {{values.label}}</ng-option>
@@ -114,9 +115,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="LOCKER_RENT_ACNO" bindValue="value" [(ngModel)]="nglocker"
+                                    <ng-select appTheme id="LOCKER_RENT_ACNO" bindValue="value" [(ngModel)]="nglocker"
                                         formControlName="LOCKER_RENT_ACNO" bindLabel="label"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #LOCKER_RENT_ACNO (focus)="onFocus(LOCKER_RENT_ACNO)" [selectOnTab]='true'
                                         required placeholder="Locker Rent Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
                                             {{values.label}}</ng-option>
@@ -142,9 +144,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="LOCKER_RECBL_RENT_ACNO" bindValue="value"
+                                    <ng-select appTheme id="LOCKER_RECBL_RENT_ACNO" bindValue="value"
                                         [(ngModel)]="ngreceivablelocker" formControlName="LOCKER_RECBL_RENT_ACNO"
                                         bindLabel="label" title="Compulsory Selection"
+                                        #LOCKER_RECBL_RENT_ACNO (focus)="onFocus(LOCKER_RECBL_RENT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Receivable Locker Rend Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
@@ -183,8 +186,8 @@
                         <div class="card-footer">
                             <div class="row" style="float: right;">
                                 <div class="col-sm m-b-20">
-                                    <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid"
-                                        (click)="submit()" *ngIf="showButton">
+                                    <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
+                                        (click)="submit()" *ngIf="showButton" appTheme>
                                         Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"

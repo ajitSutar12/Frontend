@@ -14,6 +14,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true
 };
@@ -28,7 +29,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         FormsModule, ReactiveFormsModule,
         SharedModule, //modal
         NgSelectModule,
-        PerfectScrollbarModule
+        PerfectScrollbarModule,
+        ThemeModule
     ],
     providers: [
         {

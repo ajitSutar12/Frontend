@@ -13,6 +13,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service';
 import { DepositLoanInterestRateEditChangeService } from './deposit-loan-interest-rate-edit-change.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { ThemeModule } from 'src/app/theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +24,8 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
     ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

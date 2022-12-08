@@ -5,13 +5,13 @@
         <h5>Market Shares</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="company_code" class="form-control" placeholder=" " id="company_code"
+                  <input appTheme style="text-align: right"  type="text" name="company_code" class="form-control" placeholder=" " id="company_code"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" required="" pattern="^[0-9]+$"
                     title="Input allowed only  0-9" maxlength="4" formControlName="CO_CODE" #autofocus />
@@ -33,7 +33,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="company_name" class="form-control" placeholder=" " id="company_name"
+                  <input appTheme type="text" name="company_name" class="form-control" placeholder=" " id="company_name"
                     [ngClass]="{'form-submitted': formSubmitted}" required="" onfocus="isDisplay=true"
                     pattern="^[A-Za-z'\.\-\s]+$"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
@@ -58,7 +58,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="market_value" class="form-control" placeholder=" " id="market_value"
+                  <input appTheme style="text-align: right"  type="text" name="market_value" class="form-control" placeholder=" " id="market_value"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" maxlength="20"
@@ -82,10 +82,10 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
+                  <input appTheme style="text-align: right" type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="checkmargin(margin.value)" required="" pattern="\d{1,5}(\.\d{2})?"
+                    (keyup)="checkmargin(margin.value);getDecimal($event)" required=""
                     title="Input allowed only  0-9" formControlName="MARGIN" />
                   <label for="margin">Margin %<sub class="required">* </sub></label>
                 </span>
@@ -108,7 +108,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="no_of_shares" class="form-control" placeholder=" " id="no_of_shares"
+                  <input  style="text-align: right" type="text" name="no_of_shares" class="form-control" placeholder=" " id="no_of_shares"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9]+$" maxlength="5"
                     title="Input allowed only  0-9" formControlName="SHARES" />
                   <label for="no_of_shares">Number of Shares</label>
@@ -130,9 +130,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE"  /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
+                    #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -156,7 +157,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="updated_by" class="form-control" placeholder=" " id="label-name" required=""
+                  <input appTheme type="text" name="updated_by" class="form-control" placeholder=" " id="label-name" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <=90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="100" title="Input allowed only  A-Z a-z - / . (Space)"
@@ -184,9 +185,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="released_on" required="" max="31-12-9999"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="RELEASE_DATE"  id="date" /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="RELEASE_DATE" id="released_on" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="RELEASE_DATE" id="released_on" class="form-control"
                     [(ngModel)]="releaseddate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="RELEASE_DATE"
+                    #RELEASE_DATE="bsDatepicker"  (keydown.Tab)="RELEASE_DATE.hide()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="released_on">Released On Date<sub class="required">* </sub></label>
                 </span>
@@ -209,7 +211,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="released_by" class="form-control" placeholder=" " id="released_by"
+                  <input appTheme type="text" name="released_by" class="form-control" placeholder=" " id="released_by"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -233,7 +235,7 @@
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>

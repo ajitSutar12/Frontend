@@ -7,16 +7,17 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                    <ng-select appTheme id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        placeholder="Branch">
+                                        #BRANCH (focus)="onFocus(BRANCH)" [selectOnTab]='true'
+                                        placeholder="Branch" autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -34,8 +35,9 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE" bindLabel="label"
+                                    <ng-select appTheme bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE" bindLabel="label"
                                         formControlName="AC_TYPE" (change)="getIntTrans($event)"
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme">
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
@@ -55,10 +57,11 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" minlength="10" maxlength="10"
                                         [minDate]="minDate" (bsValueChange)="checkeffectDate()"
+                                        #EFFECT_DATE="bsDatepicker"  (keydown.Tab)="EFFECT_DATE.hide()"
                                         (focusout)="checkeffectDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="EFFECT_DATE" [bsValue]="bsValue" bsDatepicker>
@@ -80,9 +83,10 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom"
+                                    <ng-select appTheme id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom"
                                         bindLabel="AC_NO" formControlName="AC_NOFrom" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" 
+                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true' 
                                         placeholder="Starting Account Number">
                                         <ng-option *ngFor="let values of startAcNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -102,8 +106,9 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
+                                    <ng-select appTheme id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
                                         formControlName="AC_NOTo" title="Compulsory Selection" (change)="loadAcno()"
+                                        #AC_NOTo (focus)="onFocus(AC_NOTo)" [selectOnTab]='true' 
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="Ending Ac Number">
                                         <ng-option *ngFor="let values of endAcNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -126,19 +131,19 @@
                         <div class="col-sm-4">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="radio" (click)="changeInterestRate(1)">
                                         <i class="helper"></i>Increase<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="radio" (click)="changeInterestRate(2)">
                                         <i class="helper"></i>Decrease<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="radio" (click)="changeInterestRate(3)">
                                         <i class="helper"></i>Same Interest Rate Addition<span class="required"> </span>
                                     </label>
@@ -150,10 +155,10 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" name="INT_RATE" class="form-control"
-                                        placeholder=" " id="INT_RATE" pattern="\d{1,3}(\.\d{1,2})?"
+                                    <input appTheme type="text" style="text-align: right;" name="INT_RATE" class="form-control"
+                                        placeholder=" " id="INT_RATE" 
                                         title="Input allowed only 0-9" max="100" #INT (focus)="selectAllContent($event)"
-                                        maxlength="5" (keyup)="checkInt(INT.value)"
+                                        maxlength="5" (keyup)="checkInt(INT.value);getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         formControlName="INT_RATE" required>
                                     <label for="INT_RATE">Interest Rate<sub class="required"> *

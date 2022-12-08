@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { HttpClient } from '@angular/common/http';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import * as moment from 'moment';
@@ -608,4 +608,9 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+
 }

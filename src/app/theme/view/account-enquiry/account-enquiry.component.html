@@ -7,13 +7,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header"> 
                         <h5>Account Enquiry</h5>
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                             Fields marked with (<sub class="required"> * </sub>) are mandatory
                         </h6>
                     </div>
-                    <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                    <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                         <div class="card-block">
                             <div class="solid">
                                 <div class="row">
@@ -22,10 +22,11 @@
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                                <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                                     formControlName="BRANCH_CODE" bindLabel="label"
                                                     title="Compulsory Selection" (change)="getBranch()"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                                    #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
+                                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" autofocus>
                                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                                         {{values.label}}</ng-option>
                                                 </ng-select>
@@ -45,9 +46,10 @@
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                                <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                                     formControlName="AC_TYPE" bindLabel="label"
                                                     title="Compulsory Selection" (change)="schemechange($event)"
+                                                    #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                                     [ngClass]="{'form-submitted': formSubmitted}" required
                                                     placeholder="Scheme">
                                                     <ng-option *ngFor="let values of allScheme" [value]="values">
@@ -70,9 +72,10 @@
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select id="AC_NO" bindValue="AC_NO" [(ngModel)]="accountedit"
+                                                <ng-select appTheme id="AC_NO" bindValue="AC_NO" [(ngModel)]="accountedit"
                                                     formControlName="AC_NO" bindLabel="label"
                                                     (change)="getAccountDetails($event);getTransactionDetails()"
+                                                    #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                                     title="Compulsory Selection" required placeholder="Account No.">
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
@@ -93,10 +96,11 @@
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
+                                                <input appTheme type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
                                                     class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                                     [minDate]="accountOpenDate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                    #DATE="bsDatepicker"  (keydown.Tab)="DATE.hide()" 
                                                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="DATE"
                                                     (bsValueChange)="getTransactionDetails()"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

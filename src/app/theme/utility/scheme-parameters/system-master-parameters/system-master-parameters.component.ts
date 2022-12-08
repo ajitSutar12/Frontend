@@ -28,7 +28,7 @@ import { SystemMasterParametersService } from './system-master-parameters.servic
 import Swal from 'sweetalert2';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { nullSafeIsEquivalent, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -513,13 +513,13 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       BILL_FOR_COLLECTION_ACNO: [''],
       CLG_SUSPENCE_ACNO: [''],
       IS_ALLOW_RECOVERY: [''],
-      RECOVERY_METHOD: [''],
+      RECOVERY_METHOD: ['MemberNoWiseRecovery '],
       IS_PROCESS_FOR_MONTH: [''],
       RECOVERY_DR_ACNO: ['', [Validators.required, Validators.pattern]],
       IS_PROCESS_UPTO_TRANDATE: [''],
       HO_GLACNO: ['', [Validators.required]],
       BG_DR_ACNO: [''],
-      BG_CR_ACNO: [''],
+      BG_CR_ACNO: [''], 
       PAY_ORDER_ACNO: [''],
       INWARD_BILLS_PURCHASE_ACNO: [''],
       YEAR_CLOSING_TRANSFER_ACNO: ['', [Validators.required]],
@@ -687,7 +687,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.ctdTabset.select(id);
   }
 
-  submit() {
+  submit() { 
     let ngbankstartdate
     let ngpreviousdate
     let ngcurrentdate
@@ -1235,6 +1235,19 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
   }
 
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
 }
 
 

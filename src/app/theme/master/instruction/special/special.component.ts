@@ -23,7 +23,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { first } from 'rxjs/operators';
 //date pipe
 import { DatePipe } from '@angular/common';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { data } from "jquery";
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
@@ -599,5 +599,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

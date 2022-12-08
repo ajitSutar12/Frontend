@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 import {
   FormGroup,
   FormBuilder,
-  Validators,
+  Validators, 
   FormControl,
 } from "@angular/forms";
 import { landandbuildingsService } from "./land-and-buildings.service";
@@ -447,5 +447,15 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
   }
 }

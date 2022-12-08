@@ -5,18 +5,19 @@
         <h5>Customer Insurance</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm-3">
-              <div class="form-group input-group">
+              <div class="form-group input-group"> 
                 <span class="border-lable-flt">
                   <!-- <input type="date" class="form-control" placeholder=" " id="InsuranceDate" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSURANCE_DATE"  #autofocus /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="INSURANCE_DATE" id="InsuranceDate"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="INSURANCE_DATE" id="InsuranceDate"
                     class="form-control" [(ngModel)]="insurancedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="INSURANCE_DATE"
+                    #INSURANCE_DATE="bsDatepicker"  (keydown.Tab)="INSURANCE_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="InsuranceDate">Insurance Date<sub class="required">* </sub></label>
                 </span>
@@ -37,7 +38,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="PolicyNo" class="form-control" placeholder=" " id="label-name" required=""
+                  <input appTheme style="text-align: right" type="text" name="PolicyNo" class="form-control" placeholder=" " id="label-name" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[A-Z a-z 0-9 / - .]+$"
                     maxlength="50" title="Input allowed only 0-9" formControlName="POLICY_NO" />
@@ -66,8 +67,9 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="INSU_COMPANY_CODE" bindValue="value" [(ngModel)]="nginsurancecom"
+                  <ng-select appTheme id="INSU_COMPANY_CODE" bindValue="value" [(ngModel)]="nginsurancecom"
                     formControlName="INSU_COMPANY_CODE" bindLabel="label" title="Compulsory Selection"
+                    #INSU_COMPANY_CODE (focus)="onFocus(INSU_COMPANY_CODE)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Insurance Company">
                     <ng-option *ngFor="let values of insuranceoption" [value]="values">
                       {{values.label}}</ng-option>
@@ -93,10 +95,11 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="InsuranceExpiryDate" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSU_EXP_DATE"  /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="INSU_EXP_DATE" id="InsuranceExpiryDate"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="INSU_EXP_DATE" id="InsuranceExpiryDate"
                     class="form-control" [(ngModel)]="insuranceexpirydate"
                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="INSU_EXP_DATE"
+                    #INSU_EXP_DATE="bsDatepicker"  (keydown.Tab)="INSU_EXP_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="InsuranceExpiryDate">Insurance Expiry Date<sub class="required">* </sub></label>
                 </span>
@@ -117,10 +120,10 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="InsuranceAmount" class="form-control" placeholder=" " id="InsuranceAmount"
-                    [ngClass]="{'form-submitted': formSubmitted}"
+                  <input appTheme style="text-align: right" type="text" name="InsuranceAmount" class="form-control" placeholder=" " id="InsuranceAmount"
+                    [ngClass]="{'form-submitted': formSubmitted}" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9 . " formControlName="INSU_AMOUNT" />
+                     title="Input allowed only 0-9 . " formControlName="INSU_AMOUNT" />
                   <label for="InsuranceAmount">Insurance Amount<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -138,7 +141,7 @@
               </div>
             </div>
             <div class="col-sm">
-              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
 

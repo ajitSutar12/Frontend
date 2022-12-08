@@ -13,8 +13,9 @@ import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { NgSelectComponent } from '@ng-select/ng-select';
 
-@Component({
+@Component({ 
   selector: 'app-account-enquiry',
   templateUrl: './account-enquiry.component.html',
   styleUrls: ['./account-enquiry.component.scss']
@@ -1554,5 +1555,7 @@ export class AccountEnquiryComponent implements OnInit {
       return (p < q) ? -1 : ((p > q) ? 1 : 0)
     });
   }
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 }

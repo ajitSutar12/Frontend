@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
@@ -20,8 +20,9 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme2"
+                                  <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme2"
                                     formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                    #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true' 
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                     <ng-option *ngFor="let values of simpleOption" [value]="values">
                                       {{values.label}}</ng-option>
@@ -47,8 +48,9 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno2"
+                                  <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="ngacno2"
                                     formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                    #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
                                     <ng-option *ngFor="let values of Ac" [value]="values">
                                       {{values.label}}</ng-option>
@@ -65,8 +67,8 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                [disabled]="angForm.invalid" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>
