@@ -729,8 +729,8 @@
                                 <div class="form-group form-primary form-static-label">
                                   <span class="border-lable-flt">
                                     <ng-select id="AC_TCTCODE" bindValue="id" [(ngModel)]="ngCity" bindLabel="CITY_NAME"
-                                      formControlName="AC_TCTCODE" title="Compulsory Selection" [ngClass]="{
-                                        'form-submitted': formSubmitted
+                                         #CITY_NAME (focus)="onFocus(CITY_NAME)" [selectOnTab]='true'
+                                      formControlName="AC_TCTCODE" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted
                                       }" placeholder="City">
                                       <ng-option *ngFor="let values of city" [value]="values">
                                         {{ values.CITY_NAME }}</ng-option>

@@ -811,6 +811,7 @@
                                                                             <ng-select id="AC_TCTCODE" bindValue="id"
                                                                                 [(ngModel)]="ngCity"
                                                                                 bindLabel="CITY_NAME"
+                                                                                #AC_TCTCODE (focus)="onFocus(AC_TCTCODE)" [selectOnTab]='true'
                                                                                 formControlName="AC_TCTCODE"
                                                                                 title="Compulsory Selection"
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
