@@ -944,7 +944,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       DEPOSIT_PENAL_INT_CALC_DAY: ['', [Validators.pattern]],
       POST_PENALINT_IN_INTEREST: ['', [Validators.pattern]],
       S_PENAL_INT_RATE: ['', [Validators.pattern]],
-      S_MATUCALC: ['', [Validators.pattern]],
+      S_MATUCALC: ['', [Validators.pattern ,Validators.max(9)]],
       IS_CAL_MATURITY_AMT: ['', [Validators.pattern]],
       FIXED_MATURITY_AMT: ['', [Validators.pattern]],
       PREMATURE_COMPOUND_INT: ['', [Validators.pattern]],

@@ -29,7 +29,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
                                         (change)="schemechange($event)" formControlName="AC_TYPE" bindLabel="label"
-                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                         title="Compulsory Selection" required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
