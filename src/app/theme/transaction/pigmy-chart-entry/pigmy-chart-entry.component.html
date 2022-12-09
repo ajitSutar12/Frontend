@@ -185,8 +185,7 @@
                                                     <td class="td_right">
                                                         <input style="text-align: right;" type="text"
                                                             (focus)="selectAllContent($event)" name="Amount" id="Amount"
-                                                            value="{{data.pigmychart == null || data.pigmychart == '' ? 0 : data.pigmychart[0].TRAN_AMOUNT }}"
-                                                            #amount
+                                                            value="{{ data.TRAN_AMOUNT  }}" #amount
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             (focusout)="getAmount(data.id,data.AC_TYPE,data.AC_NO,data.PGMaster.S_GLACNO,data.BANKACNO,amount.value)">
                                                     </td>

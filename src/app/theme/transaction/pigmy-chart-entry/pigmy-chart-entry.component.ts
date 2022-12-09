@@ -322,7 +322,17 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       else {
         this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
           this.tableArr = data;
+          this.tableArr.sort(function (a: any, b: any) {
+            let key = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
+            let keyb = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
+            let p = moment(a[key], 'DD/MM/YYYY');
+            let q = moment(b[keyb], 'DD/MM/YYYY');
+            return (p < q) ? -1 : ((p > q) ? 1 : 0)
+          });
           this.gridData = data
+          for (let ele of this.tableArr) {
+            ele['TRAN_AMOUNT'] = 0
+          }
           this.showTable = true
           this.totalAmt = 0
           this.pigmyChartTable = []
@@ -422,6 +432,15 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         })
       }
     }
+    if (this.tableArr.length != 0) {
+      if (this.tableArr.some(item => item.AC_NO === acno)) {
+        this.tableArr.forEach((element) => {
+          if (element.AC_NO == acno) {
+            element['TRAN_AMOUNT'] = amount
+          }
+        })
+      }
+    }
   }
 
   // Method to insert data into database through NestJS
@@ -505,7 +524,17 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.dtTrigger.unsubscribe();
       this.http.get(this.url + '/pigmy-chart/pigmychart/' + mem).subscribe((data) => {
         this.tableArr = data;
-        this.gridData = data
+        this.tableArr.sort(function (a: any, b: any) {
+          let key = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
+          let keyb = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
+          let p = moment(a[key], 'DD/MM/YYYY');
+          let q = moment(b[keyb], 'DD/MM/YYYY');
+          return (p < q) ? -1 : ((p > q) ? 1 : 0)
+        });
+        this.gridData = this.tableArr
+        for (let ele of this.tableArr) {
+          ele['TRAN_AMOUNT'] = ele.pigmychart.length == 0 ? 0 : ele.pigmychart[0].TRAN_AMOUNT
+        }
         this.pigmyChartTable = []
         this.tableArr.forEach(async (element) => {
           var object = {

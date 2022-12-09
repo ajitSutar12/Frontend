@@ -147,7 +147,7 @@ export class TFormDayBookComponent implements OnInit {
       let Branch = obj.Branch;
 
       this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      // console.log(this.iframe1url);
+      console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {

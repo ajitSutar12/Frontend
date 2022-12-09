@@ -1958,78 +1958,78 @@ export class VoucherEntryComponent implements OnInit {
       this.obj = [this.selectedScheme, this.selectedBranch]
       switch (this.selectedCode) {
         case 'SB':
-          this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'SH':
-          this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'CA':
-          this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'LN':
-          this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'TD':
-          this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'DS':
-          this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'CC':
-          this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'GS':
-          this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'PG':
-          this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'AG':
-          this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
 
         case 'IV':
-          this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data;
+          this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
         case 'GL':
-          this.savingMasterService.getGLAccountSchemeList1(this.obj).subscribe(data => {
-            this.introducerACNo = data
+          this._ACMasterDropdownService.getACMasterList1().subscribe(data1 => {
+            this.introducerACNo = data1;
           })
           break;
       }
-
       this.selectedAccountno = data.account_no[0].id
+
       this.getVoucherData(data.account_no[0]);
       this.headData.forEach(ele => {
         this.totalAmt = Number(this.totalAmt) + Number(ele.Amount)
