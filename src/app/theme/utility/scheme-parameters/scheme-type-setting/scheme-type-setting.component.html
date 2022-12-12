@@ -364,7 +364,7 @@
 
             <div class="col-sm">
               <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" [disabled]="angForm.invalid"
-                (click)="submit()" [disabled]="angForm.invalid" appTheme>Submit</button>
+                (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
                 [disabled]="angForm.invalid">Update</button> &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>

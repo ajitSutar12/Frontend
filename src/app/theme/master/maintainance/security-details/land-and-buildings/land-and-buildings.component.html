@@ -254,7 +254,7 @@
 
             <div class="col-sm">
 
-              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" appTheme>Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>

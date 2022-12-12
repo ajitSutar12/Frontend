@@ -187,7 +187,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton" appTheme>Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();schemea.focus()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();schemea.focus()" *ngIf="newbtnShow">Cancel</button>
                         </div>

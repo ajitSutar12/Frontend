@@ -444,7 +444,7 @@
                         <div class="col-sm" style="float: right;">
                             <ng-container *ngIf='router.url==="/master/Instruction/interestInstruction"'>
                                 <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
-                                    *ngIf="showButton" appTheme>
+                                    *ngIf="showButton" appTheme  (keydown.Tab)="focus()">
                                     Submit
                                 </button>
                             </ng-container>

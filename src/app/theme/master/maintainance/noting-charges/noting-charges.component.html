@@ -205,7 +205,7 @@
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit()" appTheme>Submit</button>
+                                (click)="submit()" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>

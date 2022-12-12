@@ -195,7 +195,7 @@
                     *ngIf="showButton">
                     Submit
                   </button>
-                  <button class="btn btn-outline-primary btn-sm btn-submit" (click)="updateData()" *ngIf="updateShow" appTheme>
+                  <button class="btn btn-outline-primary btn-sm btn-submit" (click)="updateData()" *ngIf="updateShow" (keydown.Tab)="focus()" appTheme>
                     Update</button>&nbsp;
                   <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                     Cancel

@@ -174,7 +174,7 @@
             </div>
             <div class="col-sm" style="float: right;">
               <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
-                [disabled]="angForm.invalid"> Submit </button>
+                [disabled]="angForm.invalid"  (keydown.Tab)="focus()" appTheme> Submit </button>
               <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                 Cancel </button>&nbsp;&nbsp;&nbsp;&nbsp;
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"

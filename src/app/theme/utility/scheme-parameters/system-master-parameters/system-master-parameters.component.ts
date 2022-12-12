@@ -686,7 +686,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
   }
-
+ 
   submit() { 
     let ngbankstartdate
     let ngpreviousdate

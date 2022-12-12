@@ -179,7 +179,7 @@
                                 (click)="resetForm()">Cancel</button>
                             &nbsp;
                             <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit()" [disabled]="angForm.invalid">Update</button>
+                                (click)="submit()" [disabled]="angForm.invalid"  (keydown.Tab)="focus()">Update</button>
                             &nbsp;
                             <button type="button" class="btn btn-outline-primary btn-sm" (click)="viewCurrentInt()">
                                 View Current Interest Rate</button>

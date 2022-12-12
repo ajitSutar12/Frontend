@@ -645,7 +645,7 @@
                             <div class="row" style="float: right;">
                                 <div class="col-sm m-b-20">
                                     <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid"
-                                        (click)="submit()" *ngIf="showButton" appTheme>
+                                        (click)="submit()" *ngIf="showButton"  (keydown.Tab)="focus()" appTheme>
                                         Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"

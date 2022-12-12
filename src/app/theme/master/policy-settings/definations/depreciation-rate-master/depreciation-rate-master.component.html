@@ -80,7 +80,7 @@
 
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();catcode.focus()" [disabled]="angForm.invalid" appTheme>Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit();catcode.focus()" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();catcode.focus()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData();catcode.focus()">Cancel</button>
                         </div>

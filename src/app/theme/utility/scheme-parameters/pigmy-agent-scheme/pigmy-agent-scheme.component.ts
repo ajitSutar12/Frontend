@@ -418,6 +418,6 @@ export class PigmyAgentSchemeComponent
   openTab(id: string) {
     this.tabSel.select(id);
   }
-
+ 
 
 }

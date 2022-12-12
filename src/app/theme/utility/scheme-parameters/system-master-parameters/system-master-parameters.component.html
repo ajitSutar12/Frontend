@@ -13,7 +13,7 @@
                     <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
                         <!--Bank Details  -->
                         <ngb-tab title="Bank Details">
-                            <ng-template ngbTabContent> 
+                            <ng-template ngbTabContent>  
                                 <div [@fadeInOutTranslate] class="m-t-15">
                                     <div class="card border-primary">
                                         <div class="card-block highlight ">
@@ -3138,7 +3138,7 @@
                                                                     <div class="col-sm m-b-20">
                                                                         <button class="btn btn-outline-primary btn-sm"
                                                                             [disabled]="angForm.invalid"
-                                                                            (click)="submit()" *ngIf="showButton">
+                                                                            (click)="submit()"  (keydown.Tab)="focus()" appTheme *ngIf="showButton">
                                                                             Submit
                                                                         </button>
                                                                         <button class="btn btn-outline-primary btn-sm"

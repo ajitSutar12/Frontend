@@ -100,7 +100,7 @@
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 [disabled]="npaOpeningForm.invalid">Update</button>
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="updateData()"
-                                *ngIf="updateShow" appTheme>Update</button>
+                                *ngIf="updateShow"  (keydown.Tab)="focus()" appTheme>Update</button>
                         </div>
                     </div>
                     <div class="row">

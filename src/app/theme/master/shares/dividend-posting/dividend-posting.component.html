@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-sm-1">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                [disabled]="angForm.invalid" appTheme>Process</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Process</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>

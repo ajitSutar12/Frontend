@@ -203,7 +203,7 @@
                         </div>
                         <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit()" appTheme> Submit </button>
+                                (click)="submit()" (keydown.Tab)="focus()" appTheme> Submit </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                 Cancel </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
