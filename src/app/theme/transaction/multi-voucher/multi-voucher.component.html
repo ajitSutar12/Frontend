@@ -150,7 +150,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="customer" bindValue="id"
                                                     formControlName="account_no" #selectAcc (focus)="onFocus(selectAcc)"
-                                                    [selectOnTab]='true' appTheme
+                                                    [selectOnTab]='true' appTheme [virtualScroll]="true"
                                                     (change)="getVoucherData($event);SideDetails();checkAccountCondition();showlgindetails();">
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                         {{item.AC_NO}} {{item.AC_NAME}}</ng-option>

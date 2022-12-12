@@ -1569,21 +1569,23 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         })
         this.formSubmitted = false;
         this.switchNgBTab('Basic')
+        //To clear form
+        this.resetForm();
+        this.multiNominee = []
+        this.multiJointAC = []
+        this.multiAttorney = []
+        this.customerDoc = []
+        this.nomineeTrue = false
+        this.JointAccountsTrue = false
+        this.PowerofAttorneyTrue = false
         // to reload after insertion of data
-
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-
       }, (error) => {
         console.log(error)
       })
-      //To clear form
-      this.resetForm();
-      this.multiNominee = []
-      this.multiJointAC = []
-      this.multiAttorney = []
-      this.customerDoc = []
+
 
     }
     else {
@@ -1792,6 +1794,16 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointID = null
     this.showInstruction = true
     this.getSystemParaDate()
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.multiAttorney = []
+    this.customerDoc = []
+    this.ngCategory = null
+    this.ngOperation = null
+    this.ngIntCategory = null
+    this.nomineeTrue = false
+    this.JointAccountsTrue = false
+    this.PowerofAttorneyTrue = false
   }
 
   ngAfterViewInit(): void {

@@ -443,7 +443,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NAME: [''],
       AC_SHORT_NAME: ['', [Validators.pattern, Validators.required]],
       REF_ACNO: ['', [Validators.pattern]],
-      AC_MEMBTYPE: [''],
+      AC_MEMBTYPE: [],
       AC_MEMBNO: [''],
       AC_OPDATE: ['', [Validators.required]],
       AC_RENEW_DATE: [''],

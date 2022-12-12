@@ -15,7 +15,7 @@
 
                     </div>
                     <div class="card-body">
-                        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                        <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
@@ -24,7 +24,8 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    (focus)="onFocus(branchcode)" appTheme #branchcode autofocus>
+                                                    (focus)="onFocus(branchcode)" appTheme [selectOnTab]='true'
+                                                    #branchcode autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -125,7 +126,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select formControlName="account_no" bindValue="id" #select
-                                                    [(ngModel)]="selectedAccountno" appTheme
+                                                    [(ngModel)]="selectedAccountno" appTheme [virtualScroll]="true"
                                                     (change)="getVoucherData($event); checkAccountCondition();showlgindetails();SideDetails()"
                                                     (focus)="onFocus(select)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
@@ -386,7 +387,7 @@
                             <div class="row">
                                 <div class="col-sm" style="float: right;">
                                     <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
-                                        [disabled]="submitForm" *ngIf="showButton" appTheme
+                                        [disabled]="submitForm" *ngIf="showButton" appTheme #submitbtn
                                         (click)="submit();branchcode.focus()">
                                         Submit
                                     </button>
