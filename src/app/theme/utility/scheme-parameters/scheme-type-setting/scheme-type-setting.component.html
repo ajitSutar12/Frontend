@@ -20,7 +20,7 @@
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme" formControlName="S_ACNOTYPE"
                     bindLabel="label" title="Compulsory Selection" (change)="checkduplicate()"
-                    #S_ACNOTYPE (focus)="onFocus(S_ACNOTYPE)" [selectOnTab]='true'
+                    #S_ACNOTYPE (focus)="onFocus(S_ACNOTYPE)" [selectOnTab]='true'  [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type" autofocus>
                     <ng-option *ngFor="let values of schemetype" [value]="values">{{values.label}}</ng-option>
                   </ng-select>
