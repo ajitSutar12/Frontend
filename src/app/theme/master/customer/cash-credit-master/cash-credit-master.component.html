@@ -16,7 +16,7 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
-                                        (change)="getScheme(code);getSchemeCode($event)"
+                                        (change)="getScheme(code);getSchemeCode($event)" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                         #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
@@ -33,12 +33,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
-                                        style="width: 85%;" title="Compulsory Selection" [virtualScroll]="true"
+                                        style="width: 85%;" title="Compulsory Selection" [virtualScroll]="true" 
                                         (change)="getCustomer($event.value)" required placeholder="Customer Id" 
                                         #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
@@ -101,6 +101,9 @@
                                 </span>
                             </div>
                         </div>
+                      
+                    </div>
+                    <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -247,7 +250,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_INTCATA" bindValue="value"
-                                                                        [(ngModel)]="int_category"
+                                                                        [(ngModel)]="int_category" [virtualScroll]="true"
                                                                         formControlName="AC_INTCATA" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -487,13 +490,13 @@
                                             <div class="card border-primary">
                                                 <div class="card-block highlight ">
                                                     <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_AUTHORITY" bindValue="value"
                                                                         [(ngModel)]="sanctionAutho"
                                                                         formControlName="AC_AUTHORITY" bindLabel="label"
-                                                                        title="Compulsory Selection"
+                                                                        title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         required placeholder="Sanction Authority" 
                                                                         #AUTHORITY (focus)="onFocus(AUTHORITY)" [selectOnTab]='true'>
@@ -515,11 +518,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_RECOMMEND_BY" bindValue="value"
-                                                                        [(ngModel)]="recomBy"
+                                                                        [(ngModel)]="recomBy" [virtualScroll]="true"
                                                                         formControlName="AC_RECOMMEND_BY"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -543,11 +546,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme  id="AC_RECOVERY_CLERK" bindValue="value"
-                                                                        [(ngModel)]="recovery"
+                                                                        [(ngModel)]="recovery" [virtualScroll]="true"
                                                                         formControlName="AC_RECOVERY_CLERK"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -571,13 +574,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_PRIORITY" bindValue="value"
                                                                         [(ngModel)]="idp" formControlName="AC_PRIORITY"
                                                                         bindLabel="label" title="Compulsory Selection"
-                                                                        (change)="getPriority(idp)"
+                                                                        (change)="getPriority(idp)" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         required placeholder="Priority" 
                                                                         #PRIORITY (focus)="onFocus(PRIORITY)" [selectOnTab]='true' >
@@ -599,7 +602,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PRIORITY_SUB1"
@@ -610,9 +616,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PRIORITY_SUB2"
@@ -623,7 +627,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PRIORITY_SUB3"
@@ -634,7 +638,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="checkbox checkbox-primary">
                                                                 <div
                                                                     class="border-checkbox-group border-checkbox-group-primary">
@@ -647,11 +651,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_WEAKER" bindValue="value"
-                                                                        [(ngModel)]="weakerSec"
+                                                                        [(ngModel)]="weakerSec" [virtualScroll]="true"
                                                                         formControlName="AC_WEAKER" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -676,11 +683,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_PURPOSE" bindValue="value"
-                                                                        [(ngModel)]="ngpurpose"
+                                                                        [(ngModel)]="ngpurpose" [virtualScroll]="true"
                                                                         formControlName="AC_PURPOSE" bindLabel="label"
                                                                         title="Compulsory Selection" required
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -705,13 +712,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm">
+
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_INDUSTRY" bindValue="value"
-                                                                        [(ngModel)]="ngindustry"
+                                                                        [(ngModel)]="ngindustry" [virtualScroll]="true"
                                                                         formControlName="AC_INDUSTRY" bindLabel="label"
                                                                         title="Compulsory Selection" required
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -736,11 +742,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_HEALTH" bindValue="value"
-                                                                        [(ngModel)]="nghealth"
+                                                                        [(ngModel)]="nghealth" [virtualScroll]="true"
                                                                         formControlName="AC_HEALTH" bindLabel="label"
                                                                         title="Compulsory Selection" required
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -765,11 +771,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_RELATION_TYPE" bindValue="value"
-                                                                        [(ngModel)]="ngAccountType"
+                                                                        [(ngModel)]="ngAccountType" [virtualScroll]="true"
                                                                         formControlName="AC_RELATION_TYPE"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         required
@@ -796,11 +805,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select id="AC_DIRECTOR" bindValue="value"
-                                                                        [(ngModel)]="ngdirectorType"
+                                                                        [(ngModel)]="ngdirectorType" [virtualScroll]="true"
                                                                         formControlName="AC_DIRECTOR" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [disabled]="AC_DIRECTOR" placeholder="Director"
@@ -814,7 +823,7 @@
                                                             </div>
 
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_DIRECTOR_RELATION"
@@ -1301,13 +1310,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-3">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
                                                                         <ng-select id="AC_TCTCODE" bindValue="id"
                                                                             [(ngModel)]="ngCity" bindLabel="CITY_NAME"
                                                                             #AC_TCTCODE (focus)="onFocus(AC_TCTCODE)" [selectOnTab]='true'
-                                                                            formControlName="AC_TCTCODE"
+                                                                            formControlName="AC_TCTCODE" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             placeholder="City">
@@ -1319,7 +1328,7 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_TPIN"
@@ -1380,7 +1389,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <ng-select id="SECURITY_CODE" bindValue="value"
                                                                         [(ngModel)]="ngsecurityCode"
-                                                                        formControlName="SECURITY_CODE"
+                                                                        formControlName="SECURITY_CODE" [virtualScroll]="true"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         (change)="securityDetails($event)"
@@ -1626,13 +1635,13 @@
                                                             <div class="card-block">
                                                                 <div *ngIf="GuarantorTrue">
                                                                     <div class="row">
-                                                                        <div class="col-sm">
+                                                                        <div class="col-sm-3">
                                                                             <div
                                                                                 class="form-group form-primary form-static-label">
                                                                                 <span class="border-lable-flt">
                                                                                     <ng-select id="GAC_CUSTID" appTheme
                                                                                         bindValue="value"
-                                                                                        [(ngModel)]="Gid"
+                                                                                        [(ngModel)]="Gid" 
                                                                                         formControlName="GAC_CUSTID"
                                                                                         bindLabel="label"
                                                                                         [virtualScroll]="true"
@@ -1661,7 +1670,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm">
+                                                                        <div class="col-sm-3">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text" name="GAC_MEMBNO"
@@ -1674,7 +1683,7 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm">
+                                                                        <div class="col-sm-3">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text"
@@ -1701,13 +1710,16 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm">
+                                                                        
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-2">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text"
                                                                                         placeholder="dd/mm/yyyy"
                                                                                         name="EXP_DATE" id="EXP_DATE"
-                                                                                        class="form-control"
+                                                                                        class="form-control" placement="right"
                                                                                         [minDate]="maxDate"
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                         formControlName="EXP_DATE"
@@ -1838,7 +1850,7 @@
                                                                                 <span class="border-lable-flt">
                                                                                     <ng-select id="CAC_CUSTID" appTheme
                                                                                         bindValue="value"
-                                                                                        [(ngModel)]="Cid"
+                                                                                        [(ngModel)]="Cid" [virtualScroll]="true"
                                                                                         formControlName="CAC_CUSTID"
                                                                                         bindLabel="label"
                                                                                         [virtualScroll]="true"

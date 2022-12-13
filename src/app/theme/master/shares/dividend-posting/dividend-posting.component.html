@@ -18,7 +18,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true" 
                                         required placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -41,7 +41,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
                                         formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
-                                        #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true'
+                                        #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true' [virtualScroll]="true"
                                         required placeholder="Warrent Date" (change)="getWarrentDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
                                             {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})

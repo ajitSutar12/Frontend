@@ -15,7 +15,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE"
-                                        formControlName="AC_TYPE" title="Compulsory Selection"
+                                        formControlName="AC_TYPE" title="Compulsory Selection" [virtualScroll]="true"
                                         (change)="getmemNo($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                         required placeholder="Scheme" autofocus>
@@ -40,7 +40,7 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="memValue" id="AC_NO"
                                         formControlName="AC_NO" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                         placeholder="Member Number" (change)="getData($event)">
                                         <ng-option *ngFor="let values of memnoACNo" [value]="values">
@@ -65,7 +65,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="DIV_TRANSFER_BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="DIV_TRANSFER_BRANCH" bindLabel="label"
+                                        formControlName="DIV_TRANSFER_BRANCH" bindLabel="label" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #DIV_TRANSFER_BRANCH (focus)="onFocus(DIV_TRANSFER_BRANCH)" [selectOnTab]='true'
                                         (change)="getBranch($event)" placeholder="Branch">
@@ -80,7 +80,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="DIV_TRANSFER_ACTYPE" bindValue="value" [(ngModel)]="ngDivACType"
-                                        formControlName="DIV_TRANSFER_ACTYPE" bindLabel="label"
+                                        formControlName="DIV_TRANSFER_ACTYPE" bindLabel="label" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #DIV_TRANSFER_ACTYPE (focus)="onFocus(DIV_TRANSFER_ACTYPE)" [selectOnTab]='true'
                                         (change)="getDivTrans($event)" placeholder="Account Type">
@@ -96,7 +96,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="DIV_TRANSFER_ACNO" bindValue="value" [(ngModel)]="ngDivACNO"
-                                        formControlName="DIV_TRANSFER_ACNO" bindLabel="AC_NO"
+                                        formControlName="DIV_TRANSFER_ACNO" bindLabel="AC_NO" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #DIV_TRANSFER_ACNO (focus)="onFocus(DIV_TRANSFER_ACNO)" [selectOnTab]='true'
                                         (focus)="getDiviTransfer()" placeholder="Account Number">

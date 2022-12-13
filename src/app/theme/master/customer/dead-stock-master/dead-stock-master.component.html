@@ -16,7 +16,7 @@
                                     <ng-select id="ITEM_TYPE" bindValue="value" [(ngModel)]="ngItem"
                                         formControlName="ITEM_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Type" #ITEM_TYPE
-                                     
+                                        [virtualScroll]="true"
                                         (focus)="onFocus(ITEM_TYPE)" [selectOnTab]='true' required autofocus>
                                         <ng-option *ngFor="let values of itemtypeoption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -109,7 +109,7 @@
                                     <ng-select appTheme id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre"
                                         formControlName="DEPR_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         #DEPR_CATEGORY (focus)="onFocus(DEPR_CATEGORY)" [selectOnTab]='true'
-                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        [ngClass]="{'form-submitted': formSubmitted}" [virtualScroll]="true"
                                         #DEPR_CATEGORY (focus)="onFocus(DEPR_CATEGORY)" [selectOnTab]='true'
                                         placeholder="Depriciation Category">
                                         <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
@@ -326,7 +326,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
-                                        formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection"
+                                        formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="GL Account Number"
                                         #GL_ACNO (focus)="onFocus(GL_ACNO)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of GLACNooption" [value]="values">

@@ -18,7 +18,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
-                                    formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                    formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
                                     #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of schemeType" [value]="values">
@@ -71,7 +71,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="CHARGES_TYPE" appTheme bindValue="value" [(ngModel)]="ngchargestype"
-                                    formControlName="CHARGES_TYPE" bindLabel="label" title="Compulsory Selection"
+                                    formControlName="CHARGES_TYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges Type"
                                     #chargtype (focus)="onFocus(chargtype)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of chargestype" [value]="values">
@@ -94,7 +94,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="CHARGES_GL_ACNO" appTheme bindValue="value" [(ngModel)]="ngchargesgl"
-                                    formControlName="CHARGES_GL_ACNO" bindLabel="label" title="Compulsory Selection"
+                                    formControlName="CHARGES_GL_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges GL Account"
                                     #charggl (focus)="onFocus(charggl)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of accontType" [value]="values">

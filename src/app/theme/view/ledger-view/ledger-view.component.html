@@ -18,7 +18,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
+                                            #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" autofocus>
                                             <ng-option *ngFor="let values of branch_code" [value]="values"
                                                 [disabled]="disableFields">
@@ -42,7 +42,7 @@
                                         <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                             formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                             #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
-                                            (change)="schemechange($event)"
+                                            (change)="schemechange($event)" [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                             [disabled]="disableFields">
                                             <ng-option *ngFor="let values of allScheme" [value]="values">
@@ -69,7 +69,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
-                                            formControlName="AC_NO" bindLabel="label"
+                                            formControlName="AC_NO" bindLabel="label" [virtualScroll]="true"
                                             (change)="getAccountDetails($event)" title="Compulsory Selection" required
                                             #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                             placeholder="Account No." [disabled]="disableFields">

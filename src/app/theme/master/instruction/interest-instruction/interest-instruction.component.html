@@ -37,7 +37,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngExecutionDay"
-                                        id="EXECUTION_DAY" formControlName="EXECUTION_DAY" title="Compulsory Selection"
+                                        id="EXECUTION_DAY" formControlName="EXECUTION_DAY" title="Compulsory Selection" [virtualScroll]="true"
                                         (change)="setStartDate($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         #EXECUTION_DAY (focus)="onFocus(EXECUTION_DAY)" [selectOnTab]='true'
                                         required placeholder="Execution Day">
@@ -100,7 +100,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngFrequency"
-                                        id="SI_FREQUENCY" formControlName="SI_FREQUENCY" title="Compulsory Selection"
+                                        id="SI_FREQUENCY" formControlName="SI_FREQUENCY" title="Compulsory Selection" [virtualScroll]="true"
                                         (change)="setNextExeDate($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         #SI_FREQUENCY (focus)="onFocus(SI_FREQUENCY)" [selectOnTab]='true' 
                                         required placeholder="Frequency">
@@ -183,7 +183,7 @@
                                         <span class="border-lable-flt">
                                             <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="acno"
                                                 id="cashScheme" formControlName="DR_ACTYPE" title="Compulsory Selection"
-                                                (change)="getTermAc($event)"
+                                                (change)="getTermAc($event)" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DR_ACTYPE (focus)="onFocus(DR_ACTYPE)" [selectOnTab]='true'
                                                 placeholder="Scheme">
@@ -205,7 +205,7 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt" autofocus>
                                             <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngAccno"
-                                                id="DR_AC_NO" formControlName="DR_AC_NO" title="Compulsory Selection"
+                                                id="DR_AC_NO" formControlName="DR_AC_NO" title="Compulsory Selection" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DR_AC_NO (focus)="onFocus(DR_AC_NO)" [selectOnTab]='true'
                                                 placeholder="Account No">
@@ -254,7 +254,7 @@
                                     <span class="border-lable-flt" autofocus>
                                         <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="crno" id="CR_ACTYPE"
                                             formControlName="CR_ACTYPE" title="Compulsory Selection"
-                                            (change)="getTermCreditAc($event)"
+                                            (change)="getTermCreditAc($event)" [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" [required]="transferoption"
                                             #CR_ACTYPE (focus)="onFocus(CR_ACTYPE)" [selectOnTab]='true'
                                             placeholder="Scheme">
@@ -272,11 +272,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt" autofocus>
                                         <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngCrAccno"
-                                            id="CR_AC_NO" formControlName="CR_AC_NO" title="Compulsory Selection"
+                                            id="CR_AC_NO" formControlName="CR_AC_NO" title="Compulsory Selection" [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" [required]="transferoption"
                                             #CR_AC_NO (focus)="onFocus(CR_AC_NO)" [selectOnTab]='true'
                                             placeholder="Account Number">
@@ -294,7 +294,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
+                            <div class="col-sm-5">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input appTheme type="text" name="To" class="form-control" placeholder=" "
@@ -323,7 +323,7 @@
                                         <span class="border-lable-flt" autofocus>
                                             <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="acno"
                                                 id="cashScheme" formControlName="DR_ACTYPE" title="Compulsory Selection"
-                                                (change)="getTermAc($event)"
+                                                (change)="getTermAc($event)" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DR_ACTYPE (focus)="onFocus(DR_ACTYPE)" [selectOnTab]='true'
                                                 placeholder="Scheme">
@@ -341,11 +341,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt" autofocus>
                                             <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngAccno"
-                                                id="DR_AC_NO" formControlName="DR_AC_NO" title="Compulsory Selection"
+                                                id="DR_AC_NO" formControlName="DR_AC_NO" title="Compulsory Selection" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DR_AC_NO (focus)="onFocus(DR_AC_NO)" [selectOnTab]='true'
                                                 placeholder="Account No">
@@ -363,7 +363,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm">
+                                <div class="col-sm-5">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input appTheme type="text" name="To" class="form-control" placeholder=" "

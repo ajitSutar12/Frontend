@@ -15,7 +15,7 @@
                 <span class="border-lable-flt">
                   <ng-select appTheme bindValue="value" [(ngModel)]="acType" id="ACTYPE" bindLabel="label"
                     formControlName="ACTYPE" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                    #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true' [virtualScroll]="true"
                     required placeholder="Scheme" (change)="getShareAccounts($event)" autofocus>
                     <ng-option *ngFor="let values of SchemeCodeObject" [value]="values">
                       {{values.label}} </ng-option>
@@ -43,7 +43,7 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme bindValue="value" [(ngModel)]="ngSalary" id="AC_SALARYDIVISION_CODE" bindLabel="label"
-                    formControlName="AC_SALARYDIVISION_CODE" title="Compulsory Selection"
+                    formControlName="AC_SALARYDIVISION_CODE" title="Compulsory Selection" [virtualScroll]="true"
                     #AC_SALARYDIVISION_CODE (focus)="onFocus(AC_SALARYDIVISION_CODE)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Salary Division">
                     <ng-option *ngFor="let values of SalaryDMasterObject" [value]="values">
@@ -125,11 +125,11 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" bindLabel="AC_NO"
-                    formControlName="AC_NOFrom" title="Compulsory Selection"
+                    formControlName="AC_NOFrom" title="Compulsory Selection" [virtualScroll]="true"
                     #AC_NOFrom (focus)="onFocus(AC_NOFrom)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" placeholder="Member From">
                     <ng-option *ngFor="let values of ShareMasterObject" [value]="values">
@@ -144,12 +144,12 @@
                 </ng-select>
               </div> -->
             </div>
-            <div class="col-sm">
+            <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
                     formControlName="AC_NOTo" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    #AC_NOTo (focus)="onFocus(AC_NOTo)" [selectOnTab]='true'
+                    #AC_NOTo (focus)="onFocus(AC_NOTo)" [selectOnTab]='true'  [virtualScroll]="true"
                     placeholder="Member To" (change)="getDividendTable()">
                     <ng-option *ngFor="let values of ShareMasterObjectB" [value]="values">
                       {{values.label}} {{values.name}}</ng-option>

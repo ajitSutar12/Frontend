@@ -15,6 +15,7 @@
                                  <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="acno"
                                         (change)="getSchemeAcNO($event)" formControlName="AC_TYPE" bindLabel="label"
+                                        [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
                                         required placeholder="Scheme" autofocus>
@@ -37,7 +38,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="ngacno" formControlName="AC_NO"
                                         bindLabel="label" title="Compulsory Selection" (change)="getBankAcno($event)"
-                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
+                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -63,7 +64,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_FREEZE_STATUS" bindValue="value" [(ngModel)]="freezStatus"
                                         (change)="freezDeatils(freezStatus)" formControlName="AC_FREEZE_STATUS"
-                                        bindLabel="label" title="Compulsory Selection"
+                                        bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #AC_FREEZE_STATUS (focus)="onFocus(AC_FREEZE_STATUS)" [selectOnTab]='true' 
                                         placeholder="Freeze Status">

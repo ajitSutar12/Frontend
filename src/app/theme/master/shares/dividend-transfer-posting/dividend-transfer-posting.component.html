@@ -17,7 +17,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
-                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE"
+                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" [virtualScroll]="true"
                                         title="Compulsory Selection" required placeholder="Warrent Date"
                                         #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true' 
                                         (change)="getWarrentDetails($event)" autofocus>
@@ -56,7 +56,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
                                         required placeholder="Scheme Code" (change)="getAccountList()">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -79,7 +79,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NO" bindValue="AC_NO" [(ngModel)]="ngtoac" formControlName="AC_NO"
                                         bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                         placeholder="Select Account">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">

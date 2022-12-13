@@ -20,6 +20,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme" 
                                         #ACNOTYPE (focus)="onFocus(ACNOTYPE)" [selectOnTab]='true' autofocus> 
                                         <ng-option *ngFor="let values of scheme" [value]="values">
@@ -78,7 +79,7 @@
                                     <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Interest Category"   
+                                        placeholder="Interest Category"    [virtualScroll]="true"
                                         #intcat (focus)="onFocus(intcat)" [selectOnTab]='true' >
                                         <ng-option *ngFor="let values of interestcategory" [value]="values">
                                             {{values.label}}</ng-option>

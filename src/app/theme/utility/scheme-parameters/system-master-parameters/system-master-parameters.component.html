@@ -81,7 +81,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value"
-                                                                        [(ngModel)]="ngbranch"
+                                                                        [(ngModel)]="ngbranch" [virtualScroll]="true"
                                                                         formControlName="BRANCH_CODE" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
@@ -394,7 +394,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="DD_COMMISSION_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngddcom"
+                                                                        [(ngModel)]="ngddcom" [virtualScroll]="true"
                                                                         formControlName="DD_COMMISSION_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -430,7 +430,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="DIVIDEND_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngdividend"
+                                                                        [(ngModel)]="ngdividend" [virtualScroll]="true"
                                                                         formControlName="DIVIDEND_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -464,7 +464,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="BONUS_GLACNO" bindValue="value"
-                                                                        [(ngModel)]="ngbonus"
+                                                                        [(ngModel)]="ngbonus" [virtualScroll]="true"
                                                                         formControlName="BONUS_GLACNO" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -503,7 +503,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="BILL_FOR_COLLECTION_ACNO"
-                                                                        bindValue="value" [(ngModel)]="ngbill"
+                                                                        bindValue="value" [(ngModel)]="ngbill" [virtualScroll]="true"
                                                                         formControlName="BILL_FOR_COLLECTION_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -539,7 +539,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="BILL_RECEIVABLE_ACNO"
-                                                                        bindValue="value" [(ngModel)]="ngbills"
+                                                                        bindValue="value" [(ngModel)]="ngbills" [virtualScroll]="true"
                                                                         formControlName="BILL_RECEIVABLE_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -575,7 +575,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="BCBR_DR_GLACNO" bindValue="value"
-                                                                        [(ngModel)]="ngbcbr"
+                                                                        [(ngModel)]="ngbcbr" [virtualScroll]="true"
                                                                         formControlName="BCBR_DR_GLACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -616,7 +616,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme  id="CLG_SUSPENCE_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngclr"
+                                                                        [(ngModel)]="ngclr" [virtualScroll]="true"
                                                                         formControlName="CLG_SUSPENCE_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -653,7 +653,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="INWARD_BILL_COLLECTION_ACNO"
-                                                                        bindValue="value" [(ngModel)]="nginward"
+                                                                        bindValue="value" [(ngModel)]="nginward" [virtualScroll]="true"
                                                                         formControlName="INWARD_BILL_COLLECTION_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -689,7 +689,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="INWARD_BILL_RECEIVABLE_ACNO"
-                                                                        bindValue="value" [(ngModel)]="nginwardbill"
+                                                                        bindValue="value" [(ngModel)]="nginwardbill" [virtualScroll]="true"
                                                                         formControlName="INWARD_BILL_RECEIVABLE_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         #INWARD_BILL_RECEIVABLE_ACNO (focus)="onFocus(INWARD_BILL_RECEIVABLE_ACNO)" [selectOnTab]='true'
@@ -724,7 +724,7 @@
                                                                     <ng-select appTheme id="CGST_GLACNO" bindValue="value"
                                                                         [(ngModel)]="ngcgstGL"
                                                                         formControlName="CGST_GLACNO" bindLabel="label"
-                                                                        title="Compulsory Selection"
+                                                                        title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #CGST_GLACNO (focus)="onFocus(CGST_GLACNO)" [selectOnTab]='true'
                                                                         required placeholder="CGST GL Account">
@@ -753,7 +753,7 @@
                                                                     <ng-select appTheme  id="SGST_GLACNO" bindValue="value"
                                                                         [(ngModel)]="ngsgstGL"
                                                                         formControlName="SGST_GLACNO" bindLabel="label"
-                                                                        title="Compulsory Selection"
+                                                                        title="Compulsory Selection" [virtualScroll]="true"
                                                                         #SGST_GLACNO (focus)="onFocus(SGST_GLACNO)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         required placeholder="SGST GL Account">
@@ -783,7 +783,7 @@
                                                                     <ng-select appTheme id="IGST_GLACNO" bindValue="value"
                                                                         [(ngModel)]="ngigstGL"
                                                                         formControlName="IGST_GLACNO" bindLabel="label"
-                                                                        title="Compulsory Selection"
+                                                                        title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #IGST_GLACNO (focus)="onFocus(IGST_GLACNO)" [selectOnTab]='true'
                                                                         required placeholder="IGST GL Account">
@@ -910,7 +910,7 @@
                                                                         class="form-group form-primary form-static-label">
                                                                         <span class="border-lable-flt">
                                                                             <ng-select appTheme id="RECOVERY_DR_ACNO"
-                                                                                bindValue="value"
+                                                                                bindValue="value" [virtualScroll]="true"
                                                                                 [(ngModel)]="ngrecovery"
                                                                                 formControlName="RECOVERY_DR_ACNO"
                                                                                 bindLabel="label"
@@ -983,7 +983,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="HO_GLACNO" bindValue="value"
-                                                                        [(ngModel)]="ngheadoffice"
+                                                                        [(ngModel)]="ngheadoffice" [virtualScroll]="true"
                                                                         formControlName="HO_GLACNO" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1021,7 +1021,7 @@
                                                                     <ng-select appTheme id="BG_DR_ACNO" bindValue="value"
                                                                         [(ngModel)]="ngbankgaurantee"
                                                                         formControlName="BG_DR_ACNO" bindLabel="label"
-                                                                        title="Compulsory Selection"
+                                                                        title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BG_DR_ACNO (focus)="onFocus(BG_DR_ACNO)" [selectOnTab]='true'
                                                                         required placeholder="Bank Gaurantee Dr.A/c">
@@ -1047,7 +1047,7 @@
                                                                     <ng-select appTheme id="BG_CR_ACNO" bindValue="value"
                                                                         [(ngModel)]="ngbankgauranteecr"
                                                                         formControlName="BG_CR_ACNO" bindLabel="label"
-                                                                        title="Compulsory Selection"
+                                                                        title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BG_CR_ACNO (focus)="onFocus(BG_CR_ACNO)" [selectOnTab]='true'
                                                                         required placeholder="Bank Gaurantee Cr.A/c">
@@ -1075,7 +1075,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="PAY_ORDER_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngpayorder"
+                                                                        [(ngModel)]="ngpayorder" [virtualScroll]="true"
                                                                         formControlName="PAY_ORDER_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         #PAY_ORDER_ACNO (focus)="onFocus(PAY_ORDER_ACNO)" [selectOnTab]='true'
@@ -1100,7 +1100,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="INWARD_BILLS_PURCHASE_ACNO"
-                                                                        bindValue="value" [(ngModel)]="nginwardbilss"
+                                                                        bindValue="value" [(ngModel)]="nginwardbilss" [virtualScroll]="true"
                                                                         formControlName="INWARD_BILLS_PURCHASE_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1128,7 +1128,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="YEAR_CLOSING_TRANSFER_ACNO"
-                                                                        bindValue="value" [(ngModel)]="ngyearend"
+                                                                        bindValue="value" [(ngModel)]="ngyearend" [virtualScroll]="true"
                                                                         formControlName="YEAR_CLOSING_TRANSFER_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1167,7 +1167,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="PL_TRANSFER_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngprofitloss"
+                                                                        [(ngModel)]="ngprofitloss" [virtualScroll]="true"
                                                                         formControlName="PL_TRANSFER_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1194,7 +1194,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AUTHORIZED_SHARE_CAPITAL_CODE"
-                                                                        bindValue="value" [(ngModel)]="ngsharecapital"
+                                                                        bindValue="value" [(ngModel)]="ngsharecapital" [virtualScroll]="true"
                                                                         formControlName="AUTHORIZED_SHARE_CAPITAL_CODE"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1389,7 +1389,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="TDS_PAYABLE_GLACNO" bindValue="value"
-                                                                        [(ngModel)]="ngtds"
+                                                                        [(ngModel)]="ngtds" [virtualScroll]="true"
                                                                         formControlName="TDS_PAYABLE_GLACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1423,7 +1423,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="SURCHARGE_GLACNO" bindValue="value"
-                                                                        [(ngModel)]="ngsurcharge"
+                                                                        [(ngModel)]="ngsurcharge" [virtualScroll]="true"
                                                                         formControlName="SURCHARGE_GLACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1457,7 +1457,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="CHEQUE_CHARGES_ACNO"
                                                                         bindValue="value" [(ngModel)]="ngcheque"
-                                                                        formControlName="CHEQUE_CHARGES_ACNO"
+                                                                        formControlName="CHEQUE_CHARGES_ACNO" [virtualScroll]="true"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #CHEQUE_CHARGES_ACNO (focus)="onFocus(CHEQUE_CHARGES_ACNO)" [selectOnTab]='true'
@@ -1483,7 +1483,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="CHEQUE_BOUNCE_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngchequebounce"
+                                                                        [(ngModel)]="ngchequebounce" [virtualScroll]="true"
                                                                         formControlName="CHEQUE_BOUNCE_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1536,7 +1536,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="MICR_CHARGES_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngmicrcharges"
+                                                                        [(ngModel)]="ngmicrcharges" [virtualScroll]="true"
                                                                         formControlName="MICR_CHARGES_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         #MICR_CHARGES_ACNO (focus)="onFocus(MICR_CHARGES_ACNO)" [selectOnTab]='true'
@@ -1668,7 +1668,7 @@
 
                                                                     <ng-select appTheme id="WEEKLY_HOLIDAY"
                                                                         [items]="WeeklyandHalfHoliday" bindValue="value"
-                                                                        bindLabel="label"
+                                                                        bindLabel="label" [virtualScroll]="true"
                                                                         formControlName="WEEKLY_HOLIDAY"
                                                                         [multiple]="true"
                                                                         (change)="getWeeklyHoliday($event)"
@@ -1713,7 +1713,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="HALF_DAY" bindValue="value"
-                                                                        [(ngModel)]="nghalfday"
+                                                                        [(ngModel)]="nghalfday" [virtualScroll]="true"
                                                                         formControlName="HALF_DAY" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         #HALF_DAY (focus)="onFocus(HALF_DAY)" [selectOnTab]='true'
@@ -1749,7 +1749,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="INT_CALC_METHOD" bindValue="value"
-                                                                        [(ngModel)]="ngintcal"
+                                                                        [(ngModel)]="ngintcal" [virtualScroll]="true"
                                                                         formControlName="INT_CALC_METHOD"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -2963,7 +2963,7 @@
                                                                         class="form-group form-primary form-static-label">
                                                                         <span class="border-lable-flt">
                                                                             <ng-select appTheme id="BACK_DAY_OPTION"
-                                                                                bindValue="value"
+                                                                                bindValue="value" [virtualScroll]="true"
                                                                                 [(ngModel)]="ngbackoffice"
                                                                                 formControlName="BACK_DAY_OPTION"
                                                                                 bindLabel="label"
@@ -3031,7 +3031,7 @@
                                                                         class="form-group form-primary form-static-label">
                                                                         <span class="border-lable-flt">
                                                                             <ng-select appTheme id="CASH_IN_HAND_ACNO"
-                                                                                bindValue="value"
+                                                                                bindValue="value" [virtualScroll]="true"
                                                                                 [(ngModel)]="ngcashinhand"
                                                                                 formControlName="CASH_IN_HAND_ACNO"
                                                                                 bindLabel="label"
@@ -3074,7 +3074,7 @@
                                                                         class="form-group form-primary form-static-label">
                                                                         <span class="border-lable-flt">
                                                                             <ng-select appTheme id="CLG_HOUSE_METHOD"
-                                                                                bindValue="value"
+                                                                                bindValue="value" [virtualScroll]="true"
                                                                                 [(ngModel)]="ngclrhouse"
                                                                                 formControlName="CLG_HOUSE_METHOD"
                                                                                 bindLabel="label"
