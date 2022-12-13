@@ -33,6 +33,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="TYPE" appTheme bindValue="value" [(ngModel)]="ngtype"
                                     formControlName="TYPE" bindLabel="label" title="Compulsory Selection"
+                                    [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Type"
                                     #type (focus)="onFocus(type)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of schemetype" [value]="values">
@@ -61,6 +62,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="STATEMENT_CODE" appTheme bindValue="value" [(ngModel)]="ngstatement"
                                     formControlName="STATEMENT_CODE" bindLabel="label" title="Compulsory Selection"
+                                    [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
                                     #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
@@ -92,7 +94,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="DECRIPTION" appTheme bindValue="value" [(ngModel)]="ngdescription"
-                                    formControlName="DECRIPTION" bindLabel="label" title="Compulsory Selection"
+                                    formControlName="DECRIPTION" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Description"
                                     #description (focus)="onFocus(description)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
@@ -113,7 +115,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="PERCENTAGE_TO_WORKING_CAPITAL" appTheme bindValue="value" [(ngModel)]="ngcapital"
-                                    formControlName="PERCENTAGE_TO_WORKING_CAPITAL" bindLabel="label" title="Compulsory Selection"
+                                    formControlName="PERCENTAGE_TO_WORKING_CAPITAL" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="% to W.Capital"
                                     #towcap (focus)="onFocus(towcap)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of PercentageToWCapital" [value]="values">
@@ -135,7 +137,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                 <ng-select id="IS_DISPLAY" appTheme bindValue="value" [(ngModel)]="ngdisplay"
-                                    formControlName="IS_DISPLAY" bindLabel="label" title="Compulsory Selection"
+                                    formControlName="IS_DISPLAY" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Display to View"
                                     #disptview (focus)="onFocus(disptview)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of DisplayToView" [value]="values">

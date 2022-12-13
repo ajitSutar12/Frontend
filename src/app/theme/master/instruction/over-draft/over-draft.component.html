@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                      <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
+                                        #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true' [virtualScroll]="true"
                                         (change)="getBranch()" autofocus [ngClass]="{'form-submitted': formSubmitted}"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -35,7 +35,7 @@
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="acno"
+                                    <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="acno" [virtualScroll]="true"
                                         (change)="getSchemeAcNO($event)" formControlName="AC_TYPE" bindLabel="label"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme" #AC_TYPE (focus)="onFocus(AC_TYPE)"
@@ -58,7 +58,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="ngscheme"
-                                        (change)="getBankAcno($event)" formControlName="AC_NO" bindLabel="label"
+                                        (change)="getBankAcno($event)" formControlName="AC_NO" bindLabel="label" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Account Number" #AC_NO (focus)="onFocus(AC_NO)"
                                         [selectOnTab]='true'>

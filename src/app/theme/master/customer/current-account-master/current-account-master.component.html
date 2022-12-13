@@ -15,7 +15,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE"
-                                        formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
+                                        formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                         #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
@@ -38,7 +38,7 @@
                                     <ng-select [(ngModel)]="newcustid" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         (change)="customer($event)" style="width: 85%;" title="Compulsory Selection"
-                                        required placeholder="Customer Id" [virtualScroll]="true" #CUSTID
+                                        required placeholder="Customer Id" [virtualScroll]="true" #CUSTID [virtualScroll]="true"
                                         (focus)="onFocus(CUSTID )" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
@@ -265,7 +265,7 @@
                                                                         <ng-select appTheme id="AC_CATG"
                                                                             bindValue="value" [(ngModel)]="ngCategory"
                                                                             formControlName="AC_CATG" bindLabel="label"
-                                                                            title="Compulsory Selection"
+                                                                            title="Compulsory Selection" [virtualScroll]="true"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Category" #AC_CATG
                                                                             (focus)="onFocus(AC_CATG)"
@@ -293,7 +293,7 @@
                                                                         <ng-select id="AC_OPR_CODE" bindValue="value"
                                                                             [(ngModel)]="ngOccupation"
                                                                             formControlName="AC_OPR_CODE"
-                                                                            bindLabel="label"
+                                                                            bindLabel="label" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Operation" #OPR_CODE
@@ -324,7 +324,7 @@
                                                                         <ng-select id="AC_BALCATG" bindValue="value"
                                                                             [(ngModel)]="ngBalCategory"
                                                                             formControlName="AC_BALCATG"
-                                                                            bindLabel="label"
+                                                                            bindLabel="label" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Balance Category "
@@ -354,7 +354,7 @@
                                                                         <ng-select id="AC_INTCATA" bindValue="value"
                                                                             [(ngModel)]="ngIntCategory"
                                                                             formControlName="AC_INTCATA"
-                                                                            bindLabel="label"
+                                                                            bindLabel="label" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             required placeholder="Interest Category"
@@ -815,7 +815,7 @@
                                                                         <span class="border-lable-flt">
                                                                             <ng-select id="AC_TCTCODE" bindValue="id"
                                                                                 [(ngModel)]="ngCity"
-                                                                                bindLabel="CITY_NAME"
+                                                                                bindLabel="CITY_NAME" [virtualScroll]="true"
                                                                                 #AC_TCTCODE (focus)="onFocus(AC_TCTCODE)" [selectOnTab]='true'
                                                                                 formControlName="AC_TCTCODE"
                                                                                 title="Compulsory Selection"
@@ -894,7 +894,7 @@
                                                                         <ng-select appTheme id="AC_INTROBRANCH"
                                                                             bindValue="value" [(ngModel)]="code"
                                                                             formControlName="AC_INTROBRANCH"
-                                                                            bindLabel="label"
+                                                                            bindLabel="label" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (change)="getBranch()" placeholder="Branch"
@@ -915,7 +915,7 @@
                                                                         <ng-select appTheme id="AC_INTROID"
                                                                             bindValue="value" [(ngModel)]="acno"
                                                                             formControlName="AC_INTROID"
-                                                                            bindLabel="label"
+                                                                            bindLabel="label" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (change)="getIntro($event)"
@@ -935,7 +935,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <ng-select appTheme id="AC_INTRACNO"
                                                                             bindValue="value" [(ngModel)]="ngIntroducer"
-                                                                            formControlName="AC_INTRACNO"
+                                                                            formControlName="AC_INTRACNO" [virtualScroll]="true"
                                                                             bindLabel="AC_NO" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -1290,7 +1290,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-sm-5">
+                                                                            <div class="col-sm-4">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
                                                                                         <input type="text"
@@ -1324,7 +1324,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-sm-2">
+                                                                            <div class="col-sm-3">
                                                                                 <div class="
                                                               form-group
                                                               form-primary
@@ -1333,7 +1333,7 @@
                                                                                     <span class="border-lable-flt">
                                                                                         <ng-select id="AC_NCTCODE"
                                                                                             appTheme [items]="Ncity"
-                                                                                            [(ngModel)]="ngNcity"
+                                                                                            [(ngModel)]="ngNcity" [virtualScroll]="true"
                                                                                             bindLabel="CITY_NAME"
                                                                                             formControlName="AC_NCTCODE"
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -1544,7 +1544,7 @@
                                                                                     <ng-select appTheme
                                                                                         [(ngModel)]="jointID"
                                                                                         id="JOINT_AC_CUSTID"
-                                                                                        bindValue="value"
+                                                                                        bindValue="value" [virtualScroll]="true"
                                                                                         [virtualScroll]="true"
                                                                                         formControlName="JOINT_AC_CUSTID"
                                                                                         (change)="getJointCustomer($event)"

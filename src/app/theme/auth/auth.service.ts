@@ -12,6 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class AuthService {
 
   base_url  =  environment.base_url;
+  IsLoggedIn: any;
   
   constructor(private http: HttpClient) { }
 
@@ -35,3 +36,4 @@ export class AuthService {
       return this.http.post<any>(this.base_url+'/user-defination/logout',{id:id});
     }
   }
+ 

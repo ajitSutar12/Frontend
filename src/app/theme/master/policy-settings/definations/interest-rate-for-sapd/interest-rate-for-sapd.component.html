@@ -10,7 +10,7 @@
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="allScheme" [multiple]="false" placeholder="Scheme*" 
                                 required title="Compulsory Selection" formControlName="ACNOTYPE">
@@ -20,6 +20,7 @@
                                 <span class="border-lable-flt"> 
                                     <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="id" title="Compulsory Selection"
+                                        [virtualScroll]="true"
                                          [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                         #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus >
                                         <ng-option *ngFor="let values of allScheme" [value]="values" >
@@ -36,7 +37,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="interestcategory" [multiple]="false" 
                                 placeholder="Int.Category *" required title="Compulsory Selection" formControlName="INT_CATEGORY">
@@ -46,7 +47,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         placeholder="Interest Category"  #intcat (focus)="onFocus(intcat)"
                                          [selectOnTab]='true'  >
                                         <ng-option *ngFor="let values of interestcategory" [value]="values">
