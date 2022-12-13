@@ -86,7 +86,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac"
-                                        formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
+                                        formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"  
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
@@ -116,7 +116,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="LOCKER_RENT_ACNO" bindValue="value" [(ngModel)]="nglocker"
-                                        formControlName="LOCKER_RENT_ACNO" bindLabel="label"
+                                        formControlName="LOCKER_RENT_ACNO" bindLabel="label" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #LOCKER_RENT_ACNO (focus)="onFocus(LOCKER_RENT_ACNO)" [selectOnTab]='true'
                                         required placeholder="Locker Rent Account">
@@ -146,7 +146,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="LOCKER_RECBL_RENT_ACNO" bindValue="value"
                                         [(ngModel)]="ngreceivablelocker" formControlName="LOCKER_RECBL_RENT_ACNO"
-                                        bindLabel="label" title="Compulsory Selection"
+                                        bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         #LOCKER_RECBL_RENT_ACNO (focus)="onFocus(LOCKER_RECBL_RENT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Receivable Locker Rend Account">
