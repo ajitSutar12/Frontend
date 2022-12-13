@@ -224,11 +224,14 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngBranchCode = result.branch.id
       this.angForm.controls['BRANCH'].enable()
+      this.branchCode = result.branch.CODE
     }
     else {
       this.angForm.controls['BRANCH'].disable()
       this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
     }
+    this.getPigmyDate()
   }
 
   //get agent account number after branch selection
@@ -236,6 +239,8 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.branchCode = event.name
     this.agentACNO = null
     this.ngAgentCode = null
+    this.tableArr = []
+    this.getPigmyDate()
     this.getPigmyAgentAcnoList()
   }
 
@@ -244,9 +249,16 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.systemParameter.getFormData(1).subscribe(data => {
       data.IS_RECEIPTNO_IN_PIGMYCHART == true ? this.isReceiptShow = true : this.isReceiptShow = false
       data.PIGMY_IS_AUTO_VOUCHER == false ? this.pigmyAutoVoucher = false : this.pigmyAutoVoucher = true
+    })
+  }
 
+  getPigmyDate() {
+    let obj = {
+      branch: this.ngBranchCode
+    }
+    this.http.post(this.url + '/voucher/EndPigmyDayend/', obj).subscribe(data => {
       this.angForm.patchValue({
-        TRAN_DATE: data.PIGMY_CURRENT_DATE
+        TRAN_DATE: data['PIGMY_CURRENT_DATE']
       })
     })
   }
@@ -322,7 +334,17 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       else {
         this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
           this.tableArr = data;
+          this.tableArr.sort(function (a: any, b: any) {
+            let key = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
+            let keyb = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
+            let p = moment(a[key], 'DD/MM/YYYY');
+            let q = moment(b[keyb], 'DD/MM/YYYY');
+            return (p < q) ? -1 : ((p > q) ? 1 : 0)
+          });
           this.gridData = data
+          for (let ele of this.tableArr) {
+            ele['TRAN_AMOUNT'] = 0
+          }
           this.showTable = true
           this.totalAmt = 0
           this.pigmyChartTable = []
@@ -422,6 +444,15 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         })
       }
     }
+    if (this.tableArr.length != 0) {
+      if (this.tableArr.some(item => item.AC_NO === acno)) {
+        this.tableArr.forEach((element) => {
+          if (element.AC_NO == acno) {
+            element['TRAN_AMOUNT'] = amount
+          }
+        })
+      }
+    }
   }
 
   // Method to insert data into database through NestJS
@@ -505,7 +536,17 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.dtTrigger.unsubscribe();
       this.http.get(this.url + '/pigmy-chart/pigmychart/' + mem).subscribe((data) => {
         this.tableArr = data;
-        this.gridData = data
+        this.tableArr.sort(function (a: any, b: any) {
+          let key = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
+          let keyb = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
+          let p = moment(a[key], 'DD/MM/YYYY');
+          let q = moment(b[keyb], 'DD/MM/YYYY');
+          return (p < q) ? -1 : ((p > q) ? 1 : 0)
+        });
+        this.gridData = this.tableArr
+        for (let ele of this.tableArr) {
+          ele['TRAN_AMOUNT'] = ele.pigmychart.length == 0 ? 0 : ele.pigmychart[0].TRAN_AMOUNT
+        }
         this.pigmyChartTable = []
         this.tableArr.forEach(async (element) => {
           var object = {

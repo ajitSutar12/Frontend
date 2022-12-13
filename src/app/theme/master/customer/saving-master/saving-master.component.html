@@ -38,7 +38,7 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt" autofocus>
                   <ng-select [(ngModel)]="newcustid" appTheme id="AC_CUSTID" bindValue="value"
-                    formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }"
+                    formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }" [virtualScroll]="true"
                     (change)="customer($event)" style="width: 85%" title="Compulsory Selection" required
                     placeholder="Customer Id" #CUSTID (focus)="onFocus(CUSTID)" [selectOnTab]='true'>
                     <ng-option *ngFor="let values of Cust_ID" [value]="values">
@@ -368,7 +368,7 @@
                                   <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
                                     id="AC_SCHMAMT" maxlength="6" title="Input allowed only  0-9"
                                     formControlName="AC_SCHMAMT" style="text-align: right"
-                                    (focusout)="decimalAllContent($event);getDecimalPoint($event)" 
+                                    (focusout)="decimalAllContent($event);getDecimalPoint($event)"
                                     (keyup)="getDecimal($event)"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                     value="{{
@@ -950,8 +950,8 @@
                                     formControlName="AC_INTRACNO" bindLabel="AC_NO" title="Compulsory Selection"
                                     [ngClass]="{
                                       'form-submitted': formSubmitted
-                                    }" (focus)="getIntroducer()" placeholder="Account Number" #INTRACNO
-                                    (focus)="onFocus(INTRACNO)" [selectOnTab]='true'>
+                                    }" (focus)="getIntroducer()" [virtualScroll]="true" placeholder="Account Number"
+                                    #INTRACNO (focus)="onFocus(INTRACNO)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                       {{ values.AC_NO }} {{ values.AC_NAME }}
                                     </ng-option>
@@ -1510,7 +1510,7 @@
                                       <span class="border-lable-flt">
                                         <ng-select appTheme [(ngModel)]="jointID" id="JOINT_AC_CUSTID" bindValue="value"
                                           formControlName="JOINT_AC_CUSTID" (change)="getJointCustomer($event)"
-                                          [ngClass]="{
+                                          [virtualScroll]="true" [ngClass]="{
                                             'form-submitted': formSubmitted
                                           }" title="Compulsory Selection" placeholder="Customer Id" #AC_CUSTID
                                           (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'>

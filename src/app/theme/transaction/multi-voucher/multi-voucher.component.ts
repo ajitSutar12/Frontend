@@ -390,6 +390,8 @@ export class MultiVoucherComponent implements OnInit {
         }
         if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       })
@@ -402,6 +404,8 @@ export class MultiVoucherComponent implements OnInit {
           this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
         }
         if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
@@ -764,6 +768,8 @@ export class MultiVoucherComponent implements OnInit {
       }
       if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     } else {
@@ -776,6 +782,8 @@ export class MultiVoucherComponent implements OnInit {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
       if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
@@ -1178,6 +1186,8 @@ export class MultiVoucherComponent implements OnInit {
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
       }
       if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
       if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
@@ -1941,69 +1951,69 @@ export class MultiVoucherComponent implements OnInit {
 
         if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
-            element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
+            element['Amount'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
           } else {
             element['Amount'] = 0
-            element['Balance'] = Math.abs(data1.intpenal.InterestAmount).toFixed(2)
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
           }
           element['date'] = this.IntersetHeadDate;
           element['tempBalance'] = data1.intpenal.InterestAmount
           element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
-            element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
+            element['Amount'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
           }
           else {
             element['Amount'] = 0
-            element['Balance'] = Math.abs(data1.intpenal.PenalInterest).toFixed(2)
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
           }
           element['tempBalance'] = data1.intpenal.PenalInterest
           element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.abs(data1.recpaypen).toFixed(2)
-            element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
+            element['Amount'] = Math.round(Math.abs(data1.recpaypen))
+            element['Balance'] = Math.round(Math.abs(data1.recpaypen))
           }
           else {
             element['Amount'] = 0
-            element['Balance'] = Math.abs(data1.recpaypen).toFixed(2)
+            element['Balance'] = Math.round(Math.abs(data1.recpaypen))
           }
           element['tempBalance'] = data1.recpaypen
           element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.abs(data1.recpaybal).toFixed(2)
-            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+            element['Amount'] = Math.round(Math.abs(data1.recpaybal))
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
           }
           else {
             element['Amount'] = 0
-            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
           }
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.abs(data1.recpaybal).toFixed(2)
-            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+            element['Amount'] = Math.round(Math.abs(data1.recpaybal))
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
           }
           else {
             element['Amount'] = 0
-            element['Balance'] = Math.abs(data1.recpaybal).toFixed(2)
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
           }
           element['tempBalance'] = data1.recpaybal
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2012,13 +2022,13 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2027,13 +2037,13 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2042,13 +2052,13 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2057,13 +2067,13 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2072,13 +2082,13 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2087,13 +2097,13 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2102,13 +2112,13 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
@@ -2117,24 +2127,24 @@ export class MultiVoucherComponent implements OnInit {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
             this._vservice.getledgerbalance(newobj).subscribe(data2 => {
-              element['Balance'] = Math.abs(data2).toFixed(2)
+              element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
           element['Amount'] = 0
-          element['Balance'] = Math.abs(data1.overduebal).toFixed(2)
+          element['Balance'] = Math.round(Math.abs(data1.overduebal))
           element['tempBalance'] = data1.overduebal
           element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = element['Balance']
+            element['Amount'] = Math.round(Number(element['Balance']))
           }
           else {
             element['Amount'] = 0

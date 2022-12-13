@@ -39,7 +39,7 @@
                                     <ng-select appTheme [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         style="width: 85%;" title="Compulsory Selection" (change)="customer($event)"
-                                        required placeholder="Customer Id" 
+                                        required placeholder="Customer Id"  [virtualScroll]="true"
                                         #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true' >
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
@@ -279,9 +279,8 @@
                                                                         id="AC_SANCTION_AMOUNT" required=""
                                                                         title="Input allowed only  0-9"
                                                                         style="text-align: right;"
-                                                                        (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                                                        value="{{ AC_SANCTION_AMOUNT != null ?AC_SANCTION_AMOUNT.toFixed(2) : 0.00}}"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
+                                                                        value="{{ AC_SANCTION_AMOUNT != null ?AC_SANCTION_AMOUNT : 0}}"
                                                                         [(ngModel)]="sanctionAmt"
                                                                         formControlName="AC_SANCTION_AMOUNT"
                                                                         (ngModelChange)="changeAmt(); calculation()"
@@ -1743,7 +1742,7 @@
                                                                                         bindValue="value"
                                                                                         [(ngModel)]="Gid"
                                                                                         formControlName="GAC_CUSTID"
-                                                                                        bindLabel="label"
+                                                                                        bindLabel="label" [virtualScroll]="true"
                                                                                         (change)="getgCustomer(Gid)"
                                                                                         placeholder="Customer ID" #GAC_CUSTID (focus)="onFocus(GAC_CUSTID)"
                                                                                          [selectOnTab]='true'>
@@ -1946,7 +1945,7 @@
                                                                                         bindValue="value"
                                                                                         [(ngModel)]="Cid"
                                                                                         formControlName="CAC_CUSTID"
-                                                                                        bindLabel="label"
+                                                                                        bindLabel="label" [virtualScroll]="true"
                                                                                         title="Compulsory Selection"
                                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                                         (change)="getCCustomer(Cid)"

@@ -244,7 +244,7 @@
                         <tr *ngFor="let data of tableData; let indexOfelement = index"
                             [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':((data.TRAN_STATUS == '0') ? '#226de9':'#212529')}">
                             <td>{{data.TRAN_DATE}}</td>
-                            <td>{{data.CHEQUE_NO}}</td>
+                            <td>{{data.CHEQUE_NO=='null' || data.CHEQUE_NO=='0' || data.CHEQUE_NO=='' ? '---': data.CHEQUE_NO }}</td>
                             <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: normal;">
                                 {{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>
