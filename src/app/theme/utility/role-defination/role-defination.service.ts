@@ -173,8 +173,8 @@ export class RoleDefinationService {
         },
         {
           text: 'Dividend Pay', value: 87, checked: false, children: [
-            { text: 'Dividend Paid Mark(Salary Division)', value: 88 , checked: false},
-            { text: 'Dividend Pay(Salary Division)', value: 89 , checked: false},
+            { text: 'Dividend Paid Mark(Salary Division)', value: 88, checked: false },
+            { text: 'Dividend Pay(Salary Division)', value: 89, checked: false },
           ]
         },
         {
@@ -230,7 +230,7 @@ export class RoleDefinationService {
           text: 'Centralised Passing', value: 112, checked: false, children: []
         },
         {
-          text: 'Shares Transaction Passing', value: 113,checked: false, children: []
+          text: 'Shares Transaction Passing', value: 113, checked: false, children: []
         },
         {
           text: 'Unapproval', value: 114, checked: false, children: [
@@ -451,5 +451,14 @@ export class RoleDefinationService {
       hotkeysMenu,
       exitMenu
     ];
+  }
+
+
+  // For append data
+  getFormData(id: any): Observable<any> {
+    return this.http.get(this.url + '/user-defination/rolehaspermission/' + id).pipe();
+  }
+  updateNewRoleHasPermission(data): Observable<any> {
+    return this.http.post(this.url + '/user-defination/update_role_permission', data).pipe();
   }
 }

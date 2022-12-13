@@ -171,7 +171,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let toDt = moment(toDate).format('DD/MM/YYYY')
     let fromDate = moment(this.fromdate, 'DD/MM/YYYY')
     let fromDatet = moment(fromDate).format('DD/MM/YYYY')
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngBranchCode]
 
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
@@ -447,7 +447,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let toDt = moment(toDate).format('DD/MM/YYYY')
     let fromDate = moment(this.angForm.controls['FROM_DATE'].value, 'DD/MM/YYYY')
     let fromDatet = moment(fromDate).format('DD/MM/YYYY')
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngBranchCode]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
       let grandOpening = 0

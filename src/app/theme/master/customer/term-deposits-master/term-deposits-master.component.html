@@ -38,7 +38,7 @@
                                     <ng-select appTheme [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         style="width: 85%;" title="Compulsory Selection" #AC_CUSTID
-                                        (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'
+                                        (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true' [virtualScroll]="true"
                                         (change)="getCustomer($event.value)" required placeholder="Customer Id">
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
@@ -1170,6 +1170,7 @@
                                                                     <!-- (change)="getIntroducerName($event)" -->
                                                                     <ng-select id="AC_INTRACNO" bindValue="value"
                                                                         [(ngModel)]="ngIntroducer"
+                                                                        [virtualScroll]="true"
                                                                         formControlName="AC_INTRACNO" bindLabel="label"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -1746,6 +1747,7 @@
                                                                                     id="JOINT_AC_CUSTID"
                                                                                     bindValue="value" bindLabel="label"
                                                                                     formControlName="JOINT_AC_CUSTID"
+                                                                                    [virtualScroll]="true"
                                                                                     (change)="getJointCustomer($event)"
                                                                                     [ngClass]="{'form-submitted': formSubmitted}"
                                                                                     #JOINT_AC_CUSTID (focus)="onFocus(JOINT_AC_CUSTID)" [selectOnTab]='true'

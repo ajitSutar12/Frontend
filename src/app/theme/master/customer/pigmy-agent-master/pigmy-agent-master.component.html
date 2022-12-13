@@ -38,7 +38,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
-                                        (change)="getCustomer($event.value)" style="width: 85%;"
+                                        (change)="getCustomer($event.value)" style="width: 85%;" [virtualScroll]="true"
                                         title="Compulsory Selection" required placeholder="Customer Id" #AC_CUSTID
                                         (focus)="onFocus(AC_CUSTID   )" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">

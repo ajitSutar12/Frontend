@@ -651,6 +651,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.transactionData = null
       this.loanSchemeShow = false
       this.ShareRecordShow = false
+      this.AC_NO = event.AC_NO
     }
     else {
       if (this.getschemename == 'SH') {
