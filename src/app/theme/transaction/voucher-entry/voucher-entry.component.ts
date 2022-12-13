@@ -534,7 +534,7 @@ export class VoucherEntryComponent implements OnInit {
         this.angForm.controls['temp_over_draft'].reset()
         this.angForm.controls['over_draft'].reset()
         this.angForm.controls['token'].reset()
-        this.angForm.controls['particulars'].reset()
+        // this.angForm.controls['particulars'].reset()
         this.angForm.controls['total_amt'].reset()
         this.angForm.controls['amt'].reset()
         this.angForm.controls['slip_no'].reset()

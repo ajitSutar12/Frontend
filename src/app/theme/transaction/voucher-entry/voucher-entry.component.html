@@ -78,7 +78,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select bindValue="value" #selecttype [(ngModel)]="selectedCode"
                                                     id="S_ACNOTYPE" bindLabel="S_ACNOTYPE" formControlName="scheme_type"
-                                                    (change)="selectedSchemeCode();resetscheme()" required appTheme
+                                                    (change)="selectedSchemeCode();resetscheme()" required 
                                                     (focus)="onFocus(selecttype)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of allSchemeCode"
                                                         [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>

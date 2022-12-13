@@ -157,7 +157,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-3" style="font-size:13px;">
-                                <button class="btn btn-primary"></button>&nbsp; Unpassed Accounts
+                                <button class="btn btn-primary" disabled></button>&nbsp; Unpassed Accounts
                             </div>
                         </div>
                         <div class="row">
@@ -191,7 +191,8 @@
 
                             </div>
                             <div class="col-sm-3" style="font-size:13px;">
-                                <button class="btn" style="background-color: #bc31e9;"></button>&nbsp;Interest Vouchers
+                                <button class="btn" style="background-color: #bc31e9;" disabled></button>&nbsp;Interest
+                                Vouchers
                             </div>
                             <div class="col-sm" *ngIf="showView">
                                 <button class="btn btn-outline-primary btn-sm"
@@ -249,7 +250,8 @@
                         <tr *ngFor="let data of tableData; let indexOfelement = index"
                             [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':((data.TRAN_STATUS == '0') ? '#226de9':'#212529')}">
                             <td>{{data.TRAN_DATE}}</td>
-                            <td>{{data.CHEQUE_NO=='null' || data.CHEQUE_NO=='0' || data.CHEQUE_NO=='' ? '---': data.CHEQUE_NO }}</td>
+                            <td>{{data.CHEQUE_NO=='null' || data.CHEQUE_NO=='0' || data.CHEQUE_NO=='' ? '---':
+                                data.CHEQUE_NO }}</td>
                             <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: normal;">
                                 {{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>

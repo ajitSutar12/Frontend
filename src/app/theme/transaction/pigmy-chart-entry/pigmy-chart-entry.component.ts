@@ -335,10 +335,10 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
           this.tableArr = data;
           this.tableArr.sort(function (a: any, b: any) {
-            let key = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
-            let keyb = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
-            let p = moment(a[key], 'DD/MM/YYYY');
-            let q = moment(b[keyb], 'DD/MM/YYYY');
+            a['sortColumn'] = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
+            b['sortColumn'] = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
+            let p = Number(a['sortColumn']);
+            let q = Number(b['sortColumn']);
             return (p < q) ? -1 : ((p > q) ? 1 : 0)
           });
           this.gridData = data
@@ -537,10 +537,10 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.http.get(this.url + '/pigmy-chart/pigmychart/' + mem).subscribe((data) => {
         this.tableArr = data;
         this.tableArr.sort(function (a: any, b: any) {
-          let key = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
-          let keyb = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
-          let p = moment(a[key], 'DD/MM/YYYY');
-          let q = moment(b[keyb], 'DD/MM/YYYY');
+          a['sortColumn'] = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
+          b['sortColumn'] = b.TRAN_BANKACNO == null || b.TRAN_BANKACNO == "" ? b.BANKACNO : b.TRAN_BANKACNO
+          let p = Number(a['sortColumn']);
+          let q = Number(b['sortColumn']);
           return (p < q) ? -1 : ((p > q) ? 1 : 0)
         });
         this.gridData = this.tableArr
