@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
@@ -16,9 +16,10 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                            #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" autofocus>
                                             <ng-option *ngFor="let values of branch_code" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -37,9 +38,10 @@
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                        <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                             formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                             (change)="schemechange($event)"
+                                            #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                             [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                             <ng-option *ngFor="let values of allScheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
@@ -68,8 +70,9 @@
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
+                                        <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
                                             formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                            #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                             required placeholder="Account Number" (change)="getAccountDetails($event)">
                                             <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
@@ -96,10 +99,11 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                             class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                             [minDate]="accountOpenDate" [maxDate]="maxDate"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            #FROM_DATE="bsDatepicker"  (keydown.Tab)="FROM_DATE.hide()"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
@@ -118,10 +122,11 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
+                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
                                             class="form-control" [(ngModel)]="todate"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
                                             [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                            #TO_DATE="bsDatepicker"  (keydown.Tab)="TO_DATE.hide()"
                                             formControlName="TO_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
@@ -165,7 +170,7 @@
                          <div class="row" > -->
                             <div class="col-sm" *ngIf="showView">
                                 <button class="btn btn-outline-primary btn-sm"
-                                    (click)="getTransactionsDeatils()">View</button>
+                                    (click)="getTransactionsDeatils()"  (keydown.Tab)="focus()">View</button>
                             </div>
                         </div>
                     </div>

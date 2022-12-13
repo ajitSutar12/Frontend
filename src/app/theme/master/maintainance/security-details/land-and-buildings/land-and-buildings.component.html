@@ -5,18 +5,19 @@
         <h5>Land And Buildings</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm"> 
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required=""
                     max="{{datemax | date:'yyyy-MM-dd'}}" [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" #autofocus /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
+                    #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -37,8 +38,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="ValuationAmount" class="form-control" placeholder=" " id="ValuationAmount"
-                    [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
+                  <input appTheme style="text-align: right" type="text" name="ValuationAmount" class="form-control" placeholder=" " id="ValuationAmount"
+                    [ngClass]="{'form-submitted': formSubmitted}" (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only  0-9" formControlName="VALUE" />
                   <label for="ValuationAmount">Valuation Amount<sub class="required">* </sub></label>
@@ -60,7 +61,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="Location" class="form-control" placeholder=" " id="Location" required=""
+                  <input appTheme type="text" name="Location" class="form-control" placeholder=" " id="Location" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     [ngClass]="{'form-submitted': formSubmitted}" title="Input allowed only  A-Z a-z  - / . (Space)"
                     maxlength="50" formControlName="LOCATION" />
@@ -84,7 +85,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="area" class="form-control" placeholder=" " id="area" required=""
+                  <input appTheme type="text" name="area" class="form-control" placeholder=" " id="area" required=""
                     [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only 0-9 " formControlName="AREA" />
@@ -109,7 +110,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="unit_area" class="form-control" placeholder=" " id="unit_area" required=""
+                  <input appTheme style="text-align: right" type="text" name="unit_area" class="form-control" placeholder=" " id="unit_area" required=""
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     [ngClass]="{'form-submitted': formSubmitted}" pattern="^[0-9]+$" maxlength="30"
                     title="Input allowed only 0-9" formControlName="UNIT_AREA" />
@@ -132,9 +133,9 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="margin" class="form-control" placeholder=" " id="label-name" #margin
+                  <input style="text-align: right" type="text" name="margin" class="form-control" placeholder=" " id="label-name" #margin
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
+                    (keyup)="checkmargin(margin.value);getDecimal($event)"  title="Input allowed only  0-9"
                     formControlName="MARGIN" />
                   <label for="label-name">Margin </label>
                 </span>
@@ -152,7 +153,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="CitySurveyNumber" class="form-control" placeholder=" " id="CitySurveyNumber"
+                  <input  appTheme style="text-align: right" type="text" name="CitySurveyNumber" class="form-control" placeholder=" " id="CitySurveyNumber"
                     [ngClass]="{'form-submitted': formSubmitted}" required="" pattern="^[0-9]+$"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" title="Input allowed only 0-9"
                     maxlength="20" formControlName="CITY_SURVEY_NO" />
@@ -178,8 +179,9 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="CitySurveyDate" required=""
                     [ngClass]="{'form-submitted': formSubmitted}" max="{{datemax | date:'yyyy-MM-dd'}}"
                     name="CitySurveyDate" formControlName="CITY_SURVEY_DATE" /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="CITY_SURVEY_DATE" id="CitySurveyDate"
+                  <input  appTheme type="text" placeholder="dd/mm/yyyy" name="CITY_SURVEY_DATE" id="CitySurveyDate"
                     class="form-control" [(ngModel)]="citysurveydate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    #CITY_SURVEY_DATE="bsDatepicker"  (keydown.Tab)="CITY_SURVEY_DATE.hide()"
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="CITY_SURVEY_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="CitySurveyDate">City Survey Date<sub class="required">* </sub></label>
@@ -204,7 +206,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="RegistrationNumber" class="form-control" placeholder=" "
+                  <input appTheme style="text-align: right" type="text" name="RegistrationNumber" class="form-control" placeholder=" "
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47||($event.charCode >= 48 && $event.charCode < 58)"
                     [ngClass]="{'form-submitted': formSubmitted}" id="RegistrationNumber" required=""
                     pattern="^[A-Za-z'\.\-\s 0-9]+$" title="Input allowed only 0-9" maxlength="20"
@@ -252,7 +254,7 @@
 
             <div class="col-sm">
 
-              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>

@@ -7,15 +7,16 @@
           Fields marked with (<sub class="required"> * </sub>) are mandatory
         </h6>
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select bindValue="value" [(ngModel)]="acType" id="ACTYPE" bindLabel="label"
+                  <ng-select appTheme bindValue="value" [(ngModel)]="acType" id="ACTYPE" bindLabel="label"
                     formControlName="ACTYPE" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    required placeholder="Scheme" (change)="getShareAccounts($event)">
+                    #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                    required placeholder="Scheme" (change)="getShareAccounts($event)" autofocus>
                     <ng-option *ngFor="let values of SchemeCodeObject" [value]="values">
                       {{values.label}} </ng-option>
                   </ng-select>
@@ -41,8 +42,9 @@
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select bindValue="value" [(ngModel)]="ngSalary" id="AC_SALARYDIVISION_CODE" bindLabel="label"
+                  <ng-select appTheme bindValue="value" [(ngModel)]="ngSalary" id="AC_SALARYDIVISION_CODE" bindLabel="label"
                     formControlName="AC_SALARYDIVISION_CODE" title="Compulsory Selection"
+                    #AC_SALARYDIVISION_CODE (focus)="onFocus(AC_SALARYDIVISION_CODE)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Salary Division">
                     <ng-option *ngFor="let values of SalaryDMasterObject" [value]="values">
                       {{values.label}} </ng-option>
@@ -67,8 +69,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE" class="form-control"
                     required #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    #WARRENT_DATE="bsDatepicker"  (keydown.Tab)="WARRENT_DATE.hide()"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="WARRENT_DATE" minlength="10"
                     maxlength="10" (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                     bsDatepicker>
@@ -96,7 +99,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="DIV_FROM_YEAR" class="form-control" placeholder=" " id="DIV_FROM_YEAR"
+                  <input appTheme type="text" name="DIV_FROM_YEAR" class="form-control" placeholder=" " id="DIV_FROM_YEAR"
                     formControlName="DIV_FROM_YEAR" pattern="^[0-9]+$" minlength="4" maxlength="4"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" (focusout)="getDivYearTo()" required>
                   <label for="DIV_FROM_YEAR">Dividend Year From <sub class="required">*</sub></label>
@@ -114,7 +117,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="DIV_TO_YEAR" class="form-control" placeholder=" " id="DIV_TO_YEAR"
+                  <input appTheme type="text" name="DIV_TO_YEAR" class="form-control" placeholder=" " id="DIV_TO_YEAR"
                     formControlName="DIV_TO_YEAR" disabled>
                   <label for="DIV_TO_YEAR">Dividend Year To <sub class="required">*</sub></label>
                 </span>
@@ -125,8 +128,9 @@
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" bindLabel="AC_NO"
+                  <ng-select appTheme id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" bindLabel="AC_NO"
                     formControlName="AC_NOFrom" title="Compulsory Selection"
+                    #AC_NOFrom (focus)="onFocus(AC_NOFrom)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" placeholder="Member From">
                     <ng-option *ngFor="let values of ShareMasterObject" [value]="values">
                       {{values.label}} {{values.name}}</ng-option>
@@ -143,8 +147,9 @@
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
+                  <ng-select appTheme id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
                     formControlName="AC_NOTo" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    #AC_NOTo (focus)="onFocus(AC_NOTo)" [selectOnTab]='true'
                     placeholder="Member To" (change)="getDividendTable()">
                     <ng-option *ngFor="let values of ShareMasterObjectB" [value]="values">
                       {{values.label}} {{values.name}}</ng-option>
@@ -169,7 +174,7 @@
             </div>
             <div class="col-sm" style="float: right;">
               <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
-                [disabled]="angForm.invalid"> Submit </button>
+                [disabled]="angForm.invalid"  (keydown.Tab)="focus()" appTheme> Submit </button>
               <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                 Cancel </button>&nbsp;&nbsp;&nbsp;&nbsp;
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { first } from 'rxjs/operators';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs-compat';
 import { DataTableDirective } from 'angular-datatables';
@@ -296,4 +296,9 @@ export class DividendPostingComponent implements OnInit {
       }
     })
   }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+
 }

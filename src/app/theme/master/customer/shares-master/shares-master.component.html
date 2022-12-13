@@ -950,6 +950,7 @@
                                                                             type="text" name="AC_RESNO"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_RESNO" required="" maxlength="10"
+                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                             title="Input allowed only 0-9"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_RESNO">
@@ -1013,7 +1014,7 @@
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt"
                                                                         style="background: transparent;">
-                                                                        <input type="text" name="REF_ACNO"
+                                                                        <input style="text-align: right"  type="text" name="REF_ACNO"
                                                                             class="form-control" placeholder=" "
                                                                             id="REF_ACNO" pattern="^[A-Za-z0-9\./ -]+$"
                                                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
@@ -1914,8 +1915,7 @@
                                                             <div class="col-sm" style="float: right;">
                                                                 <button type="submit"
                                                                     class="btn btn-outline-primary btn-sm btn-submit"
-                                                                    *ngIf="showButton" (click)="submit($event)"
-                                                                    appTheme>
+                                                                    *ngIf="showButton" (click)="submit($event)" (keydown.Tab)="focus()" appTheme>
                                                                     Submit
                                                                 </button>
                                                                 <button class="btn btn-outline-primary btn-sm"

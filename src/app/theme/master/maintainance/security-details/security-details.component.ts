@@ -10,7 +10,7 @@ import { schemedropdownService } from 'src/app/shared/dropdownService/scheme-dro
 import { environment } from '../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { SecurityMasterdropdownService } from 'src/app/shared/dropdownService/security-master-dropdown.service';
 import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -845,6 +845,10 @@ export class SecurityDetailsComponent implements OnInit {
       });
     }
 
+  }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 
 }

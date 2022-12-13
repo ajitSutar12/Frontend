@@ -302,8 +302,8 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="myform.invalid"
-                                (click)="submit();ACNOTYPE.focus()" *ngIf="showButton" appTheme>Submit</button>  
-p   <button class="btn btn-outline-primary btn-sm" (click)="updateData();ACNOTYPE.focus()"
+                                (click)="submit();ACNOTYPE.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>  
+                          <button class="btn btn-outline-primary btn-sm" (click)="updateData();ACNOTYPE.focus()"
                                 *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();ACNOTYPE.focus()"
                                 *ngIf="newbtnShow">Cancel</button>

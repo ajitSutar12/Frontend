@@ -28,7 +28,7 @@ import { SchemetypeService } from "./scheme-type-setting.service";
 //import { StatementTypeService } from '../../../../shared/elements/statement-type.service';
 import { SchemeTypeDropdownService } from "../../../../shared/dropdownService/scheme-type-dropdown.service";
 import { environment } from "../../../../../environments/environment";
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -459,5 +459,10 @@ export class SchemeTypeSettingComponent
       })
     }
   }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+
 }
 

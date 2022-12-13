@@ -2027,7 +2027,7 @@
                                                             <div class="col-sm" style="float: right;">
                                                                 <button type="submit"
                                                                     class="btn btn-outline-primary btn-sm  btn-submit"
-                                                                    *ngIf="showButton" (click)="submit($event)"
+                                                                    *ngIf="showButton" (click)="submit($event)" (keydown.Tab)="focus()"
                                                                     appTheme>
                                                                     Submit
                                                                 </button>

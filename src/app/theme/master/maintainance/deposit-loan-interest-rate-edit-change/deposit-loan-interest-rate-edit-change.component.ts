@@ -10,6 +10,7 @@ import { DepositLoanInterestRateEditChangeService } from './deposit-loan-interes
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
+import { NgSelectComponent } from '@ng-select/ng-select';
 @Component({
   selector: 'app-deposit-loan-interest-rate-edit-change',
   templateUrl: './deposit-loan-interest-rate-edit-change.component.html',
@@ -299,5 +300,12 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
 }

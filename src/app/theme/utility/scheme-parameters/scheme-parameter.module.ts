@@ -67,6 +67,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TransactionInputGlHeadSettingModule } from './transaction-input-gl-head-setting/transaction-input-gl-head-setting.module'
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ThemeModule } from '../../theme.module';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     TransactionInputGlHeadSettingModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   providers: [SelectOptionService,
     OwnbranchMasterService,

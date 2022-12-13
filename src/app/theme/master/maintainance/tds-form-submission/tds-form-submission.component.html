@@ -7,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">Financial Year</label></div>
@@ -17,7 +17,7 @@
                                     <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
                                         id="FIN_YEAR" maxlength="9" (keyup)="addhyphen(finyear.value)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        formControlName="FIN_YEAR" [(ngModel)]="ngfinyear">
+                                        formControlName="FIN_YEAR" [(ngModel)]="ngfinyear" autofocus>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -33,8 +33,9 @@
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
+                                    <ng-select appTheme [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'
                                         title="Compulsory Selection" required placeholder="Customer Id"
                                         (change)="getCustomer($event.value)">
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
@@ -57,8 +58,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
                                         class="form-control" [(ngModel)]="ngSubmitDate"
+                                        #SUBMIT_DATE="bsDatepicker"  (keydown.Tab)="SUBMIT_DATE.hide()"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMIT_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -77,21 +79,21 @@
                             <h6>Form Type</h6>
                             <div class="form-radio">
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" formControlName="FORM_TYPE" name="FORM_TYPE" value="Form15A"
                                             id="formA" (change)="isForm15A(1)">
                                         <i class="helper"></i>Form - 15 A
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" value="Form15H" formControlName="FORM_TYPE" id="formH"
                                             name="FORM_TYPE" (change)="isForm15A(2)">
                                         <i class="helper"></i>Form - 15 H
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" value="Latter" formControlName="FORM_TYPE" id="latter"
                                             name="FORM_TYPE" (change)="isForm15A(3)">
                                         <i class="helper"></i>Letter
@@ -109,8 +111,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
-                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_RATE" max="100"
+                                    <input appTheme style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
+                                        placeholder=" " (keyup)= "getDecimal($event)" id="TDS_RATE" max="100"
                                         title="Input allowed only  0-9" #INT formControlName="TDS_RATE"
                                         (keyup)="checkInt(INT.value)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
@@ -131,9 +133,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" name="TDS_LIMIT" class="form-control"
-                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_LIMIT"
+                                    <input appTheme type="text" style="text-align: right;" name="TDS_LIMIT" class="form-control"
+                                        placeholder=" " (keyup)= "getDecimal($event)" id="TDS_LIMIT"
                                         title="Input allowed only  0-9" maxlength="10" formControlName="TDS_LIMIT"
+                                        (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                 </span>
@@ -150,8 +153,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" (click)="submit($event)"
-                                *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)"
+                                *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
                         </div>
                     </div>
 

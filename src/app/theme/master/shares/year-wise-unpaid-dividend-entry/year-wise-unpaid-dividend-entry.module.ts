@@ -20,6 +20,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [YearWiseUnpaidDividendEntryComponent],
   providers: [YearwiseunpaidService,

@@ -5,7 +5,7 @@
         <h5>Book Debts</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
@@ -14,9 +14,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" #autofocus /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
+                    #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -38,9 +39,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="STATEMENT_DATE"  id="date" /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="STATEMENT_DATE" id="stmt_date" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="STATEMENT_DATE" id="stmt_date" class="form-control"
                     [(ngModel)]="statementdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="STATEMENT_DATE"
+                    #STATEMENT_DATE="bsDatepicker"  (keydown.Tab)="STATEMENT_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
@@ -61,10 +63,11 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
+                  <input appTheme style="text-align: right" type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
                     [ngClass]="{'form-submitted': formSubmitted}" min="0"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    id="DebtorsOpeningBalance" required="" pattern="\d{1,20}(\.\d{2})?" (focusout)="calculateopening()"
+                    id="DebtorsOpeningBalance" required=""  (focusout)="calculateopening();getDecimalPoint($event)"
+                    (keyup)= "getDecimal($event)"
                     title="Input allowed only  0-9" formControlName="DEBTORS_OP_BAL">
                   <label for="DebtorsOpeningBalance">Debtors Opening Balance<sub class="required">*
                     </sub></label>
@@ -87,9 +90,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="AddCreditSales" class="form-control" placeholder=" " id="AddCreditSales"
+                  <input style="text-align: right" type="text" name="AddCreditSales" class="form-control" placeholder=" " id="AddCreditSales"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="CREDIT_SALE" min="0"
+                    (keyup)="getDecimal($event)" title="Input allowed only  0-9" formControlName="CREDIT_SALE" min="0"
                     (focusout)="calculateopening()">
                   <label for="AddCreditSales">Add Credit Sales</label>
                 </span>
@@ -110,9 +113,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="LessRecoveries" class="form-control" placeholder=" " id="LessRecoveries"
+                  <input style="text-align: right" type="text" name="LessRecoveries" class="form-control" placeholder=" " id="LessRecoveries"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RECOVERY" min="0"
+                    (keyup)="getDecimal($event)" title="Input allowed only  0-9" formControlName="RECOVERY" min="0"
                     (focusout)="calculateopening()">
                   <label for="LessRecoveries">Less Recoveries</label>
                 </span>
@@ -133,9 +136,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
+                  <input style="text-align: right" type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    id="LessOveragedDebtors" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" min="0"
+                    id="LessOveragedDebtors" (keyup)="getDecimal($event)" title="Input allowed only  0-9" min="0"
                     formControlName="OVERAGED_DEBTORS" (focusout)="calculateopening()">
                   <label for="LessOveragedDebtors">Less Overaged Debtors</label>
                 </span>
@@ -157,7 +160,7 @@
 
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="DebtorsClosingBalance" class="form-control" placeholder=" "
+                  <input style="text-align: right" type="text" name="DebtorsClosingBalance" class="form-control" placeholder=" "
                     id="DebtorsClosingBalance" required="" pattern="\d{1,20}(\.\d{2})?" disabled
                     title="Input allowed only  0-9" formControlName="CLOSE_BAL">
                   <label for="DebtorsClosingBalance">Debtors Closing Balance<sub class="required">*
@@ -171,10 +174,10 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="CreditorsOutstanding" class="form-control" placeholder=" "
-                    [ngClass]="{'form-submitted': formSubmitted}"
+                  <input appTheme style="text-align: right" type="text" name="CreditorsOutstanding" class="form-control" placeholder=" "
+                    [ngClass]="{'form-submitted': formSubmitted}" (focusout)= "getDecimalPoint($event)" (keyup)="getDecimal($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    id="CreditorsOutstanding" required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
+                    id="CreditorsOutstanding" required="" title="Input allowed only  0-9"
                     formControlName="CRD_OUTSTAND_BAL">
                   <label for="CreditorsOutstanding">Creditors Outstanding<sub class="required">*
                     </sub></label>
@@ -194,7 +197,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="Margin" class="form-control" placeholder=" " id="Margin" #margin
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
+                    (keyup)="checkmargin(margin.value);getDecimal($event)"  title="Input allowed only  0-9"
                     formControlName="MARGIN">
                   <label for="Margin">Margin % </label>
                 </span>
@@ -231,7 +234,7 @@
           <div class="row">
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>

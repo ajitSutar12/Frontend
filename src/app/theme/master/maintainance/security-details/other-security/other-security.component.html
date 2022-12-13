@@ -5,7 +5,7 @@
         <h5>Other Security</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm-3">
@@ -13,8 +13,9 @@
                 <span class="border-lable-flt">
                   <!-- <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="SUBMISSION_DATE"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="SUBMISSION_DATE"
                     class="form-control" [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="SUBMISSION_DATE">Date of Submission<sub class="required">* </sub></label>
@@ -36,7 +37,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="SHORT_DETAILS" class="form-control" placeholder=" " id="short_details"
+                  <input appTheme type="text" name="SHORT_DETAILS" class="form-control" placeholder=" " id="short_details"
                     [ngClass]="{'form-submitted': formSubmitted}" required="" maxlength="90"
                     formControlName="SHORT_DETAILS" />
                   <label for="short_details">Short Details<sub class="required">* </sub></label>
@@ -61,7 +62,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="TOTAL_VALUE" class="form-control" placeholder=" " id="total_value"
+                  <input appTheme style="text-align: right" type="text" name="TOTAL_VALUE" class="form-control" placeholder=" " id="total_value"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="TOTAL_VALUE" />
@@ -84,9 +85,9 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="MARGIN" class="form-control" placeholder=" " #margin
+                  <input style="text-align: right" type="text" name="MARGIN" class="form-control" placeholder=" " #margin
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="checkmargin(margin.value)" id="margin" pattern="\d{1,5}(\.\d{2})?"
+                    (keyup)="checkmargin(margin.value);getDecimal($event)" id="margin" 
                     title="Input allowed only  0-9" formControlName="MARGIN" />
                   <label for="margin">Margin %</label>
                 </span>
@@ -104,7 +105,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="DETAILS" class="form-control" placeholder=" " id="security_details"
+                  <input appTheme type="text" name="DETAILS" class="form-control" placeholder=" " id="security_details"
                     [ngClass]="{'form-submitted': formSubmitted}" required="" maxlength="4000"
                     formControlName="DETAILS" />
                   <label for="security_details">Security Details<sub class="required">* </sub></label>
@@ -128,7 +129,7 @@
           <div class="row">
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton"  (keydown.Tab)="focus()" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
               <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>

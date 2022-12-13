@@ -8,7 +8,7 @@
         </h6>
       </div>
       <div class="card-block">
-        <form action="javascript:" [formGroup]="angForm">
+        <form action="javascript:" appSubmit [formGroup]="angForm">
           <div class="row">
             <div class="col-md-3">
               <!-- <div class="form-group form-primary form-static-label">
@@ -18,9 +18,10 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme" formControlName="S_ACNOTYPE"
+                  <ng-select appTheme id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme" formControlName="S_ACNOTYPE"
                     bindLabel="label" title="Compulsory Selection" (change)="checkduplicate()"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type">
+                    #S_ACNOTYPE (focus)="onFocus(S_ACNOTYPE)" [selectOnTab]='true'
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type" autofocus>
                     <ng-option *ngFor="let values of schemetype" [value]="values">{{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
@@ -30,7 +31,7 @@
             <div class="col-md">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
+                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="50"
                     formControlName="S_NAME" />
@@ -362,8 +363,8 @@
           <div class="row">
 
             <div class="col-sm">
-              <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" [disabled]="angForm.invalid"
-                (click)="submit()" [disabled]="angForm.invalid">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" [disabled]="angForm.invalid"
+                (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
                 [disabled]="angForm.invalid">Update</button> &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>

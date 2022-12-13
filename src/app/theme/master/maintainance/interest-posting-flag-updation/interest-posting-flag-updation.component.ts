@@ -8,6 +8,7 @@ import { InterestPostingFlagUpdationService } from './interest-posting-flag-upda
 import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { NgSelectComponent } from '@ng-select/ng-select';
 @Component({
   selector: 'app-interest-posting-flag-updation',
   templateUrl: './interest-posting-flag-updation.component.html',
@@ -348,5 +349,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     this.showButton = true;
     this.updateShow = false;
   }
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 }
