@@ -17,6 +17,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [StandingInstructionComponent],
   providers: [FrequencyService, DatePipe, {

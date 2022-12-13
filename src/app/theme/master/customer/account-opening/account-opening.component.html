@@ -16,7 +16,7 @@
                                 <span class="border-lable-flt">
                                      <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
-                                        #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                                        #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -45,7 +45,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngBank" id="INVEST_BANK"
-                                        formControlName="INVEST_BANK" title="Compulsory Selection"
+                                        formControlName="INVEST_BANK" title="Compulsory Selection" [virtualScroll]="true"
                                         (change)="getBankName($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         #INVEST_BANK (focus)="onFocus(INVEST_BANK)" [selectOnTab]='true'
                                         required placeholder="Bank Code">
@@ -68,7 +68,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme  bindValue="value" [(ngModel)]="ngBranch" id="INVEST_BRANCH"
                                         formControlName="INVEST_BRANCH" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #INVEST_BRANCH (focus)="onFocus(INVEST_BRANCH)" [selectOnTab]='true'
                                         (change)="getBranch($event)" placeholder="Branch Code">
                                         <ng-option *ngFor="let values of BranchCode" [value]="values">
@@ -307,7 +307,7 @@
                     <div class="row">
                         <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit($event)" appTheme>
+                                (click)="submit($event)"  (keydown.Tab)="focus()" appTheme>
                                 Submit
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">

@@ -17,12 +17,13 @@ import { SchemeCodeDropdownService } from "../../../../shared/dropdownService/sc
 import { SalaryDMasterdropdownService } from "../../../../shared/dropdownService/salary-division-master-dropdown.service";
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import * as moment from 'moment';
+import { NgSelectComponent } from "@ng-select/ng-select";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
   draw: number;
   recordsFiltered: number;
-  recordsTotal: number;
+  recordsTotal: number; 
 }
 
 // for fetching values from shmaster
@@ -516,4 +517,9 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       this.dtTrigger.next();
     });
   };
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+
 }

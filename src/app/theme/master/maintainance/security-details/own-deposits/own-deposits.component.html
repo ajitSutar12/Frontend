@@ -6,7 +6,7 @@
                 <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
 
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-2">
@@ -20,10 +20,11 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                    <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        placeholder="Branch">
+                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
+                                        placeholder="Branch" autofocus>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -43,9 +44,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="DEPO_AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select appTheme id="DEPO_AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="DEPO_AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntro($event)"
+                                        #DEPO_AC_TYPE (focus)="onFocus(DEPO_AC_TYPE)" [selectOnTab]='true'
                                         placeholder="Scheme">
                                         <ng-option *ngFor="let values of schemeList" [value]="values">
                                             {{values.label}}</ng-option>
@@ -85,10 +87,11 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="DEPO_AC_NO" bindValue="AC_NO" [(ngModel)]="ngacno"
+                                    <ng-select appTheme id="DEPO_AC_NO" bindValue="AC_NO" [(ngModel)]="ngacno"
                                         (change)="getIntroducer();bindvalue($event)" formControlName="DEPO_AC_NO"
                                         bindLabel="AC_NO" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                         placeholder="Account No.">
                                         <ng-option *ngFor="let values of ACNo" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
@@ -108,17 +111,18 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required=""
                                         max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMISSION_DATE"
                                          [ngClass]="{'form-submitted': formSubmitted}"
                                         onfocus="(this.type='date')" /> -->
-                                    <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date"
                                         class="form-control" [(ngModel)]="submissiondate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
+                                        #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                     <label for="subm_date">Date of Submission<sub class="required">* </sub></label>
@@ -135,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="receipt_no" class="form-control" placeholder=" "
@@ -146,7 +150,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="deposit_amount" class="form-control" placeholder=" "
@@ -164,7 +168,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" class="form-control" placeholder=" " id="maturity_date"
@@ -174,7 +178,12 @@
                             </div>
 
                         </div>
-                        <div class="col-sm">
+                        
+
+                    </div>
+                    <div class="row mt-2">
+
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="LedgerBal" class="form-control" placeholder=" "
@@ -185,15 +194,12 @@
                             </div>
 
                         </div>
-
-                    </div>
-                    <div class="row mt-2">
                         <div class="col-sm-2">
 
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="margin" class="form-control" placeholder=" " id="margin"
-                                        #margin (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?"
+                                    <input  type="text" style="text-align: right" name="margin" class="form-control" placeholder=" " id="margin"
+                                        #margin (keyup)="checkmargin(margin.value);getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         title="Input allowed only  0-9" formControlName="MARGIN">
                                     <label for="margin">Margin %</label>
@@ -228,8 +234,8 @@
                         </div>
                         <div class="col-sm">
                             <!-- [disabled]="angForm.invalid" -->
-                            <button class="btn btn-outline-primary btn-sm" (click)="submit($event)"
-                                *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)"
+                                *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button> &nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"

@@ -13,6 +13,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
 import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 import { PleadgeStockRoutingModule } from './pleadge-stock-routing.module';
 import { DataTablesModule } from "angular-datatables";
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -28,7 +29,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     PerfectScrollbarModule,
     PleadgeStockRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    ThemeModule
   ],
   providers: [pleadgestockService,
     {

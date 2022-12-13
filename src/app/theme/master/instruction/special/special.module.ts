@@ -15,6 +15,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { SpecialComponent } from './special.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+
+    ThemeModule
 
   ],
   declarations: [SpecialComponent],

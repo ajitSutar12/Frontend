@@ -71,6 +71,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                     formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
+                                    [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category"
                                     #intcat (focus)="onFocus(intcat)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of interestcategory" [value]="values">
@@ -187,7 +188,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton" appTheme>Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();schemea.focus()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();schemea.focus()" *ngIf="newbtnShow">Cancel</button>
                         </div>

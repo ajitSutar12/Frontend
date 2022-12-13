@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { DividendTransferPostingService } from './dividend-transfer-posting.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DividendTransferPostingService } from './dividend-transfer-posting.serv
     NgSelectModule,
     // SelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ThemeModule
   ],
   declarations: [DividendTransferPostingComponent],
   providers: [SchemeCodeService, SchemeCodeDropdownService, DividendTransferPostingService, {

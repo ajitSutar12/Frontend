@@ -17,7 +17,7 @@
                                     <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
                                         (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme"
+                                        required placeholder="Scheme" [virtualScroll]="true"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -32,6 +32,7 @@
                                     <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         style="width: 85%;" title="Compulsory Selection" [virtualScroll]="true"
+                                        [virtualScroll]="true"
                                         (change)="getCustomer($event.value)" required placeholder="Customer Id"
                                         #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
@@ -343,7 +344,7 @@
                     <div class="row">
                         <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit($event)" appTheme>
+                                (click)="submit($event)" (keydown.Tab)="focus()" appTheme>
                                 Submit
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">

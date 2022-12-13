@@ -1,4 +1,5 @@
 import { AfterViewInit, ContentChild, ContentChildren, Directive, ElementRef, HostListener, QueryList } from '@angular/core';
+import { ControlContainer } from '@angular/forms';
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { InvoiceListComponent } from './extension/invoice/invoice-list/invoice-list.component';
 
@@ -16,6 +17,7 @@ export class ThemeDirective {
 
     const invalidControl = this.el.nativeElement;
     
+    // debugger
     if (invalidControl.tagName == 'INPUT') {
       if (invalidControl.value == '') {
         invalidControl.focus();
@@ -26,15 +28,18 @@ export class ThemeDirective {
         this.select.focus()
         return;
       }
-    } else if(invalidControl.tagName == 'BUTTON'){
-      for(let item of invalidControl.classList){
-        if(item == 'btn-submit'){
-          invalidControl.focus();
-        }
-        
-    
-    }
-  }
+    } 
+
+  //   else if(invalidControl.tagName == 'BUTTON'){
+  //     for(let item of invalidControl.classList){
+  //       if(item == 'btn-submit'){
+  //         invalidControl.focus();
+  //       }
+  //   }
+  // }
+
+
+
   else  if (invalidControl.tagName == 'TEXTAREA') { 
     if (invalidControl.value == '') {
       invalidControl.focus();

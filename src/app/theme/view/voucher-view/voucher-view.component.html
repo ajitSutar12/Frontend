@@ -8,7 +8,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate>
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
@@ -17,9 +17,10 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" [virtualScroll]="true"
+                                            #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
                                             (change)="getBranch($event);viewVoucher()">
                                             <ng-option *ngFor="let values of branch_code" [value]="values">
                                                 {{values.label}}</ng-option>
@@ -41,9 +42,10 @@
                                     <span class="border-lable-flt">
                                         <!-- <input type="text" [(ngModel)]="ngdate" name="TRAN_DATE" class="form-control"
                                         formControlName="TRAN_DATE" disabled> -->
-                                        <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
+                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                             class="form-control" [bsValue]="bsValue" [maxDate]="maxDate"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [(ngModel)]="ngdate"
+                                            #TRAN_DATE="bsDatepicker"  (keydown.Tab)="TRAN_DATE.hide()"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker (bsValueChange)="viewVoucher()">

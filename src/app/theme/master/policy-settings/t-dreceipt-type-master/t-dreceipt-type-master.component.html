@@ -13,7 +13,7 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select bindValue="value" appTheme [(ngModel)]="selectedValue" id="RECEIPT_TYPE"
+                                    <ng-select appTheme bindValue="value" appTheme [(ngModel)]="selectedValue" id="RECEIPT_TYPE"
                                         bindValue="value" bindLabel="label" formControlName="RECEIPT_TYPE"
                                         title="Compulsory Selection" (change)="getValue($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
@@ -44,8 +44,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" appTheme name="LAST_RECEIPT_NO" class="form-control" placeholder=" "
-                                        id="LAST_RECEIPT_NO" pattern="^[0-9]+$" maxlength="10"
+                                    <input appTheme type="text" appTheme name="LAST_RECEIPT_NO" class="form-control" placeholder=" "
+                                    style="text-align: right;"  id="LAST_RECEIPT_NO" pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only  0-9" formControlName="LAST_RECEIPT_NO" required>
                                     <label for="LAST_RECEIPT_NO">Last Receipt No.<sub class="required">* </sub></label>
@@ -69,7 +69,7 @@
                                 *ngIf="newbtnShow">New</button>
                         </div> -->
                         <div class="col-sm-3" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit()" [disabled]="angForm.invalid" appTheme>
                                 Submit
                             </button>

@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -321,5 +321,8 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
         Swal.fire('Oops', 'Please enter the scheme code within 801 to 899 this range', 'error')
       }
     }
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

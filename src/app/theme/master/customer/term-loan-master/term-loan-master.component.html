@@ -17,7 +17,7 @@
                                     <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
                                         (change)="getscode($event)" formControlName="AC_TYPE" [disabled]="AC_TYPE"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme"
+                                        required placeholder="Scheme" [virtualScroll]="true"
                                         #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -592,7 +592,7 @@
                                             <div class="card border-primary">
                                                 <div class="card-block highlight ">
                                                     <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_AUTHORITY" bindValue="value"
@@ -620,7 +620,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_RECOMMEND_BY" bindValue="value"
@@ -648,7 +648,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_RECOVERY_CLERK" bindValue="value"
@@ -676,7 +676,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_PRIORITY" bindValue="value"
@@ -704,7 +704,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                      
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PRIORITY_SUB1"
@@ -715,9 +718,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PRIORITY_SUB2"
@@ -728,7 +729,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PRIORITY_SUB3"
@@ -739,7 +740,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="checkbox checkbox-primary">
                                                                 <div
                                                                     class="border-checkbox-group border-checkbox-group-primary">
@@ -752,7 +753,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_WEAKER" bindValue="value"
@@ -781,7 +785,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_PURPOSE" bindValue="value"
@@ -810,9 +814,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_INDUSTRY" bindValue="value"
@@ -841,7 +843,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_HEALTH" bindValue="value"
@@ -870,7 +872,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                       
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select appTheme id="AC_RELATION_TYPE" bindValue="value"
@@ -901,7 +906,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select id="AC_DIRECTOR" bindValue="value"
@@ -919,7 +924,7 @@
                                                             </div>
 
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_DIRECTOR_RELATION"
@@ -1406,11 +1411,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-3">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
                                                                         <ng-select id="AC_TCTCODE" bindValue="id"
                                                                             [(ngModel)]="ngCity" bindLabel="CITY_NAME"
+                                                                            #AC_TCTCODE (focus)="onFocus(AC_TCTCODE)" [selectOnTab]='true'
                                                                             formControlName="AC_TCTCODE"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -1423,7 +1429,7 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_TPIN"
@@ -1734,7 +1740,7 @@
                                                             <div class="card-block">
                                                                 <div *ngIf="GuarantorTrue">
                                                                     <div class="row">
-                                                                        <div class="col-sm">
+                                                                        <div class="col-sm-3">
                                                                             <div
                                                                                 class="form-group form-primary form-static-label">
                                                                                 <span class="border-lable-flt">
@@ -1766,7 +1772,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm">
+                                                                        <div class="col-sm-3">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text" name="GAC_MEMBNO"
@@ -1780,7 +1786,7 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm">
+                                                                        <div class="col-sm-3">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text"
@@ -1807,7 +1813,10 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm">
+                                                                        
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-2">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text"
@@ -1834,6 +1843,7 @@
                                                                                 (click)="updateGuarantor()"
                                                                                 *ngIf="GuarantorUpdateShow">Update</button>
                                                                         </div>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -2191,7 +2201,7 @@
                                                     <div class="row">
                                                         <div class="col-sm" style="float: right;">
                                                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
-                                                                *ngIf="showButton" (click)="submit($event)" appTheme>
+                                                                *ngIf="showButton" (click)="submit($event)" (keydown.Tab)="focus()" appTheme>
                                                                 Submit
                                                             </button>
                                                             <button class="btn btn-outline-primary btn-sm"

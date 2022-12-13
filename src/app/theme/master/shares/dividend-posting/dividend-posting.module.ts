@@ -13,6 +13,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { DividendPostingService } from './dividend-posting.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +25,8 @@ import { DividendPostingService } from './dividend-posting.service'
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [DividendPostingComponent],
   providers: [SchemeCodeService, SchemeCodeDropdownService, DividendPostingService, {

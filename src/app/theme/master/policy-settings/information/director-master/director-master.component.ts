@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -403,6 +404,9 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }
 
