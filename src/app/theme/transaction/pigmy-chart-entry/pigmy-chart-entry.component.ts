@@ -224,11 +224,14 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngBranchCode = result.branch.id
       this.angForm.controls['BRANCH'].enable()
+      this.branchCode = result.branch.CODE
     }
     else {
       this.angForm.controls['BRANCH'].disable()
       this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
     }
+    this.getPigmyDate()
   }
 
   //get agent account number after branch selection
@@ -236,6 +239,8 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.branchCode = event.name
     this.agentACNO = null
     this.ngAgentCode = null
+    this.tableArr = []
+    this.getPigmyDate()
     this.getPigmyAgentAcnoList()
   }
 
@@ -244,9 +249,16 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.systemParameter.getFormData(1).subscribe(data => {
       data.IS_RECEIPTNO_IN_PIGMYCHART == true ? this.isReceiptShow = true : this.isReceiptShow = false
       data.PIGMY_IS_AUTO_VOUCHER == false ? this.pigmyAutoVoucher = false : this.pigmyAutoVoucher = true
+    })
+  }
 
+  getPigmyDate() {
+    let obj = {
+      branch: this.ngBranchCode
+    }
+    this.http.post(this.url + '/voucher/EndPigmyDayend/', obj).subscribe(data => {
       this.angForm.patchValue({
-        TRAN_DATE: data.PIGMY_CURRENT_DATE
+        TRAN_DATE: data['PIGMY_CURRENT_DATE']
       })
     })
   }
