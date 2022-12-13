@@ -14,7 +14,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="SCHEME_TYPE" [items]="schemeType" bindLabel="id"
-                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"
+                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"  [virtualScroll]="true"
                                         #SCHEME_TYPE (focus)="onFocus(SCHEME_TYPE)" [selectOnTab]='true'
                                         (change)="checkduplicate()" [ngClass]="{'form-submitted': formSubmitted}"
                                         placeholder="Scheme Type" required autofocus>
@@ -35,7 +35,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="FIELD_AMOUNT" [items]="headType" bindLabel="label"
                                         formControlName="FIELD_AMOUNT" (change)="getHeadType($event);checkduplicate()"
-                                        [(ngModel)]="ngHeadType" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [(ngModel)]="ngHeadType" [ngClass]="{'form-submitted': formSubmitted}"  [virtualScroll]="true"
                                         #FIELD_AMOUNT (focus)="onFocus(FIELD_AMOUNT)" [selectOnTab]='true'
                                         placeholder="Head Type" required>
                                     </ng-select>
@@ -72,7 +72,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="glAcno" bindValue="value" [(ngModel)]="ngGlCode" bindLabel="label"
-                                        placeholder="GL A/c Number" (change)="patchGlNo($event)"
+                                        placeholder="GL A/c Number" (change)="patchGlNo($event)"  [virtualScroll]="true"
                                         #GL_CODE (focus)="onFocus(GL_CODE)" [selectOnTab]='true'
                                         formControlName="GL_CODE">
                                         <ng-option *ngFor="let values of glcode" [value]="values">
@@ -143,7 +143,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="DRCR_APPLICABLE" [items]="debitCredit" bindLabel="label"
                                         formControlName="DRCR_APPLICABLE" [ngClass]="{'form-submitted': formSubmitted}"
-                                        #DRCR_APPLICABLE (focus)="onFocus(DRCR_APPLICABLE)" [selectOnTab]='true'
+                                        #DRCR_APPLICABLE (focus)="onFocus(DRCR_APPLICABLE)" [selectOnTab]='true'  [virtualScroll]="true"
                                         [(ngModel)]="ngDebitCredit" placeholder="Debit/Credit Applicable" required>
                                     </ng-select>
                                     <label for="DRCR_APPLICABLE">Debit/Credit Applicable<sub class="required"> *
