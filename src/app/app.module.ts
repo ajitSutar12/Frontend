@@ -21,6 +21,7 @@ import { ConnectionServiceModule } from 'ng-connection-service';
 import { StrictNumberOnlyDirective } from '././restrictinput';
 import { NgPasswordValidatorModule } from 'ng-password-validator';
 import { DatatablekitComponent } from './datatablekit/datatablekit.component';
+
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { GlobalErrorHandler } from './app.service';

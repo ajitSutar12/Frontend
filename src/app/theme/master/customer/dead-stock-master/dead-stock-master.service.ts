@@ -44,7 +44,7 @@ export class DeadstockmasterService {
         return this.http.get<any>(this.url + '/dead-stock-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.ITEM_NAME, value: element.id };
                     this.castObject.push(obj)
                 });
                 return this.castObject;
