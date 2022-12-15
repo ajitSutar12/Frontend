@@ -41,7 +41,7 @@
                                         <span class="border-lable-flt">
                                             <ng-select id="CASHIER"  [(ngModel)]="cashier"
                                                 formControlName="CASHIER" title="Compulsory Selection"
-                                                [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus tabindex="0" (change)="changeData($event)">
+                                                 placeholder="" autofocus tabindex="0" (change)="changeData($event)">
                                                 <!-- <ng-option *ngFor="let item of cashier_list" [value]="item">
                                                     {{item.id}} {{item.label}}</ng-option> -->
                                                     <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.CASHIER_CODE}}</ng-option>

@@ -47,11 +47,16 @@ export class PigmyDayEndComponent implements OnInit {
 
   //get sys para current date
   getSystemParaDate() {
+<<<<<<< Updated upstream
     let obj = {
       branch: this.loginDetails.branchId
     }
     this.http.post(this.url + '/voucher/EndPigmyDayend/', obj).subscribe(data => {
       this.ngdate = data['PIGMY_CURRENT_DATE'];
+=======
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.ngdate = data.PIGMY_CURRENT_DATE;
+>>>>>>> Stashed changes
     })
   }
 
@@ -81,8 +86,13 @@ export class PigmyDayEndComponent implements OnInit {
           this.ngOnInit()
         }, err => {
           console.log(err);
+<<<<<<< Updated upstream
         })
 
+=======
+          Swal.fire('Oops..',err.error.message,'warning');
+      })
+>>>>>>> Stashed changes
       }
     })
   }

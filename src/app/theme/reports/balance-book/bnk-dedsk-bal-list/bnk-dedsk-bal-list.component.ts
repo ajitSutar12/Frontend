@@ -99,6 +99,7 @@ newcustid: any = null;
 
     //dead stock 
     this.deadstockmasterService.getDeadstockList().pipe(first()).subscribe(data => {
+      
       this.startingacc = data;
       this.endingacc=data;
       console.log(data)
