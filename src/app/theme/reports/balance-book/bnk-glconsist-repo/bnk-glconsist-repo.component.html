@@ -38,8 +38,7 @@
                                     <ng-select id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="S_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
                                         placeholder="Scheme Type">
-                                        <ng-option *ngFor="let values of schemetype" [value]="values">{{ values.id }} {{
-                                            values.label }}
+                                        <ng-option *ngFor="let values of allSchemeCode" [value]="values.S_ACNOTYPE">{{ values.S_ACNOTYPE }}
                                         </ng-option>
                                     </ng-select>
                                 </span>
@@ -52,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="display: none;">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
