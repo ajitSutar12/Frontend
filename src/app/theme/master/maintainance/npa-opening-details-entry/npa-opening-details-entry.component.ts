@@ -11,12 +11,13 @@ import { Subject } from "rxjs";
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
+import { NgSelectComponent } from '@ng-select/ng-select';
 class DataTableResponse {
   data: any[];
   draw: number;
   recordsFiltered: number;
   recordsTotal: number;
-}
+} 
 
 @Component({
   selector: 'app-npa-opening-details-entry',
@@ -440,6 +441,8 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 
 }

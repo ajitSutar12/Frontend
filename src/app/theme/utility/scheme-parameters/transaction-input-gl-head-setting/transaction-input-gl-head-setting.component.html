@@ -8,15 +8,16 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="SCHEME_TYPE" [items]="schemeType" bindLabel="id"
-                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"
+                                    <ng-select appTheme id="SCHEME_TYPE" [items]="schemeType" bindLabel="id"
+                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"  [virtualScroll]="true"
+                                        #SCHEME_TYPE (focus)="onFocus(SCHEME_TYPE)" [selectOnTab]='true'
                                         (change)="checkduplicate()" [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="Scheme Type" required>
+                                        placeholder="Scheme Type" required autofocus>
                                     </ng-select>
                                     <label for="SCHEME_TYPE">Scheme Type<sub class="required"> * </sub></label>
                                 </span>
@@ -32,9 +33,10 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="FIELD_AMOUNT" [items]="headType" bindLabel="label"
+                                    <ng-select appTheme id="FIELD_AMOUNT" [items]="headType" bindLabel="label"
                                         formControlName="FIELD_AMOUNT" (change)="getHeadType($event);checkduplicate()"
-                                        [(ngModel)]="ngHeadType" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [(ngModel)]="ngHeadType" [ngClass]="{'form-submitted': formSubmitted}"  [virtualScroll]="true"
+                                        #FIELD_AMOUNT (focus)="onFocus(FIELD_AMOUNT)" [selectOnTab]='true'
                                         placeholder="Head Type" required>
                                     </ng-select>
                                     <label for="FIELD_AMOUNT">Head Type<sub class="required"> * </sub></label>
@@ -51,14 +53,14 @@
                         <div class="col-sm-4">
                             <div class="form-radio">
                                 <div *ngIf="isSchemeWise" class="radio radio-inline">
-                                    <label>
+                                    <label  class="inputRadio">
                                         <input type="radio" name="scheme" (change)="showGLCode(1)"
                                             [checked]="!schemeWise">
                                         <i class="helper"></i>Scheme Wise<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="scheme" (change)="showGLCode(2)"
                                             [checked]="schemeWise">
                                         <i class="helper"></i>GL Code Wise<span class="required"> </span>
@@ -69,8 +71,9 @@
                         <div class="col-sm" *ngIf="showGL">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="glAcno" bindValue="value" [(ngModel)]="ngGlCode" bindLabel="label"
-                                        placeholder="GL A/c Number" (change)="patchGlNo($event)"
+                                    <ng-select appTheme id="glAcno" bindValue="value" [(ngModel)]="ngGlCode" bindLabel="label"
+                                        placeholder="GL A/c Number" (change)="patchGlNo($event)"  [virtualScroll]="true"
+                                        #GL_CODE (focus)="onFocus(GL_CODE)" [selectOnTab]='true'
                                         formControlName="GL_CODE">
                                         <ng-option *ngFor="let values of glcode" [value]="values">
                                             {{values.label}}</ng-option>
@@ -138,8 +141,9 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="DRCR_APPLICABLE" [items]="debitCredit" bindLabel="label"
+                                    <ng-select appTheme id="DRCR_APPLICABLE" [items]="debitCredit" bindLabel="label"
                                         formControlName="DRCR_APPLICABLE" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #DRCR_APPLICABLE (focus)="onFocus(DRCR_APPLICABLE)" [selectOnTab]='true'  [virtualScroll]="true"
                                         [(ngModel)]="ngDebitCredit" placeholder="Debit/Credit Applicable" required>
                                     </ng-select>
                                     <label for="DRCR_APPLICABLE">Debit/Credit Applicable<sub class="required"> *
@@ -157,7 +161,7 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="DESCRIPTION" formControlName="DESCRIPTION"
+                                    <input appTheme type="text" name="DESCRIPTION" formControlName="DESCRIPTION"
                                         class="form-control" placeholder=" " maxlength="100" id="DESCRIPTION"
                                         required="" pattern="^[A-Za-z\ ]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -180,7 +184,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="SHORT_NAME" formControlName="SHORT_NAME"
+                                    <input appTheme type="text" name="SHORT_NAME" formControlName="SHORT_NAME"
                                         class="form-control" placeholder=" " maxlength="50" id="SHORT_NAME" required=""
                                         pattern="^[A-Za-z\ ]+$" [ngClass]="{'form-submitted': formSubmitted}"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
@@ -198,8 +202,8 @@
                             </div>
                         </div>
                         <div class="col-sm" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit()"> Submit </button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit()" (keydown.Tab)="focus()" appTheme> Submit </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                 Cancel </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">

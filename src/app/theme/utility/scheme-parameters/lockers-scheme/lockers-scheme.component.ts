@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -378,6 +378,9 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         Swal.fire('Oops', 'Please enter the scheme code within 351 to 400 this range', 'error')
       }
     }
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 
 }

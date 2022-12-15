@@ -7,13 +7,13 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
                                         placeholder=" " id="S_APPL" (focusout)="checkDuplicate($event)"
                                         (keypress)=" ($event.charCode>= 48 && $event.charCode < 58)" required=""
                                         pattern="^[0-9]+$" title="Input allowed only  0-9" min="801" max="899"
@@ -38,7 +38,7 @@
                         <div class="col-sm-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
+                                    <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
                                         required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
@@ -58,7 +58,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" "
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
@@ -87,9 +87,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac"
+                                    <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac"
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
@@ -159,8 +160,8 @@
                         <div class="card-footer">
                             <div class="row" style="float: right;">
                                 <div class="col-sm m-b-20">
-                                    <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid"
-                                        (click)="submit()" *ngIf="showButton">
+                                    <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
+                                        (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                                         Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"

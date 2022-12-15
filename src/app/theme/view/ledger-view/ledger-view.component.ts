@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service'
@@ -171,7 +171,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let toDt = moment(toDate).format('DD/MM/YYYY')
     let fromDate = moment(this.fromdate, 'DD/MM/YYYY')
     let fromDatet = moment(fromDate).format('DD/MM/YYYY')
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngBranchCode]
 
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
@@ -447,7 +447,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let toDt = moment(toDate).format('DD/MM/YYYY')
     let fromDate = moment(this.angForm.controls['FROM_DATE'].value, 'DD/MM/YYYY')
     let fromDatet = moment(fromDate).format('DD/MM/YYYY')
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt]
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngBranchCode]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
       let grandOpening = 0
@@ -538,4 +538,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       return (p < q) ? -1 : ((p > q) ? 1 : 0)
     });
   }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+
 }

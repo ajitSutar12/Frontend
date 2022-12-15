@@ -22,6 +22,7 @@ import { first } from 'rxjs/operators';
 import { Router } from "@angular/router";
 //date pipe
 import { DatePipe } from '@angular/common';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -928,5 +929,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     var closemodal = document.getElementById('triggerTD')
     closemodal.click();
 
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

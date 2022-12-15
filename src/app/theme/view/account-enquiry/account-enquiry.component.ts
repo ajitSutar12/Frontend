@@ -13,8 +13,9 @@ import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { NgSelectComponent } from '@ng-select/ng-select';
 
-@Component({
+@Component({ 
   selector: 'app-account-enquiry',
   templateUrl: './account-enquiry.component.html',
   styleUrls: ['./account-enquiry.component.scss']
@@ -650,6 +651,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.transactionData = null
       this.loanSchemeShow = false
       this.ShareRecordShow = false
+      this.AC_NO = event.AC_NO
     }
     else {
       if (this.getschemename == 'SH') {
@@ -809,9 +811,10 @@ export class AccountEnquiryComponent implements OnInit {
           this.loantransactionData = data
           this.GLtransactionData = null
           this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(this.loantransactionData.currentInt)
-          this.loanTotalInterest = this.loantransactionData.penalInt + this.loantransactionData.receiveablePenal + this.loantransactionData.overdueInt + this.loantransactionData.payableInt + this.loantransactionData.currentInt
-          this.loanTotalReceivable = this.loanTotalInterest + this.loantransactionData.otherReceivedAmount + this.loantransactionData.totalClosingBal
-          this.rebateIntrest = Math.round((this.loantransactionData.rebateAmount * this.REBATE_INTRATE) / 100)
+          this.loanTotalInterest = Number(this.loantransactionData.penalInt) + Number(this.loantransactionData.receiveablePenal) + Number(this.loantransactionData.overdueInt) + Number(this.loantransactionData.payableInt) + Number(this.loantransactionData.currentInt)
+          this.loanTotalReceivable = Number(this.loanTotalInterest) + Number(this.loantransactionData.otherReceivedAmount) + Number(this.loantransactionData.totalClosingBalforLoan)
+          this.loanTotalReceivable = Math.abs(this.loanTotalReceivable)
+          this.rebateIntrest = Math.round((Number(this.loantransactionData.rebateAmount) * Number(this.REBATE_INTRATE)) / 100)
         }
         else {
           this.ShareRecordShow = false
@@ -1554,5 +1557,7 @@ export class AccountEnquiryComponent implements OnInit {
       return (p < q) ? -1 : ((p > q) ? 1 : 0)
     });
   }
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 }

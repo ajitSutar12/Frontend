@@ -20,6 +20,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme" 
                                         #ACNOTYPE (focus)="onFocus(ACNOTYPE)" [selectOnTab]='true' autofocus> 
                                         <ng-option *ngFor="let values of scheme" [value]="values">
@@ -78,7 +79,7 @@
                                     <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Interest Category"   
+                                        placeholder="Interest Category"    [virtualScroll]="true"
                                         #intcat (focus)="onFocus(intcat)" [selectOnTab]='true' >
                                         <ng-option *ngFor="let values of interestcategory" [value]="values">
                                             {{values.label}}</ng-option>
@@ -302,8 +303,8 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="myform.invalid"
-                                (click)="submit();ACNOTYPE.focus()" *ngIf="showButton" appTheme>Submit</button>  
-p   <button class="btn btn-outline-primary btn-sm" (click)="updateData();ACNOTYPE.focus()"
+                                (click)="submit();ACNOTYPE.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>  
+                          <button class="btn btn-outline-primary btn-sm" (click)="updateData();ACNOTYPE.focus()"
                                 *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();ACNOTYPE.focus()"
                                 *ngIf="newbtnShow">Cancel</button>

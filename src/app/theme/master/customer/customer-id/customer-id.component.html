@@ -46,9 +46,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" >
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngTitle" id="AC_TITLE" bindLabel="label"
-                                        formControlName="AC_TITLE" title="Compulsory Selection" #title
+                                        formControlName="AC_TITLE" title="Compulsory Selection"  [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" class="don" required placeholder=""
-                                         (focus)="onFocus(title)" [selectOnTab]='true' autofocus >
+                                        #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus >
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -149,6 +149,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngCast" id="AC_CAST" bindLabel="label"
+                                    #cast (focus)="onFocus(cast)" [selectOnTab]='true' [virtualScroll]="true"
                                         formControlName="AC_CAST"  class="don" #cast>
                                         <ng-option *ngFor="let values of castMaster" [value]="values">
                                             {{values.label}} </ng-option>
@@ -161,6 +162,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
+                                     #AC_OCODE (focus)="onFocus(AC_OCODE)" [selectOnTab]='true' [virtualScroll]="true"
                                         bindLabel="label" formControlName="AC_OCODE" placeholder="Occupation" class="don">
                                         <ng-option *ngFor="let values of occupation" [value]="values">
                                             {{values.label}} </ng-option>
@@ -173,6 +175,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG" bindLabel="label"
+                                      #AC_RISKCATG (focus)="onFocus(AC_RISKCATG)" [selectOnTab]='true' [virtualScroll]="true"
                                         formControlName="AC_RISKCATG" placeholder="Risk Category" class="don">
                                         <ng-option *ngFor="let values of risk" [value]="values">
                                             {{values.label}} </ng-option>
@@ -335,12 +338,12 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
                                         bindLabel="CITY_NAME" formControlName="AC_CTCODE" title="Compulsory Selection"
-                                        #City   (focus)="onFocus(City)" [selectOnTab]='true' 
+                                        #City   (focus)="onFocus(City)" [selectOnTab]='true'  [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" class="don" placeholder="City" required>
 
                                     </ng-select>
@@ -712,7 +715,7 @@
                         <div class="row">
                             <div class="col-sm" style="float: right;">
                                 <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                    (click)="submit($event)" appTheme >
+                                    (click)="submit($event);AC_TITLE.focus()"  (keydown.Tab)="focus()" appTheme >
                                     Submit
                                 </button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="addNewData();AC_TITLE.focus()"

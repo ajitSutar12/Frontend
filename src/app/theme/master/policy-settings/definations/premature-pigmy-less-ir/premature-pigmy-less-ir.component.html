@@ -14,7 +14,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="AC_ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
-                                    formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                    formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type" 
                                     #AC_ACNOTYPE (focus)="onFocus(AC_ACNOTYPE)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of scheme" [value]="values">
@@ -166,7 +166,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();AC_ACNOTYPE.focus()" *ngIf="showButton" appTheme>Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();AC_ACNOTYPE.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();AC_ACNOTYPE.focus()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();AC_ACNOTYPE.focus()" *ngIf="newbtnShow">Cancel</button>
                         </div>

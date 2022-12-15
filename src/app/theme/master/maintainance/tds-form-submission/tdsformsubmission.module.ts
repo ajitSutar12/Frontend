@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { TDSFormSubmissionService } from './tds-form-submission.service';
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TDSFormSubmissionService } from './tds-form-submission.service';
       ReactiveFormsModule,
       TDSFormSubmissionRoutingModule,
       BsDatepickerModule.forRoot(),
-      DatepickerModule.forRoot()
+      DatepickerModule.forRoot(),
+      ThemeModule
       
     ],
     declarations: [TDSFormSubmissionComponent],

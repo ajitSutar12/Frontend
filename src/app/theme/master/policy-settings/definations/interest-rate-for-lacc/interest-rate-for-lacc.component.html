@@ -20,6 +20,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                         #sccode (focus)="onFocus(sccode)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
@@ -74,7 +75,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         placeholder="Interest Category" #intcat (focus)="onFocus(intcat)"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of interestcategory" [value]="values">
@@ -231,7 +232,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="myform.invalid"
-                                (click)="submit();sccode.focus()" *ngIf="showButton" appTheme>Submit</button>
+                                (click)="submit();sccode.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();sccode.focus()"
                                 *ngIf="updateShow">Update</button>&nbsp;
 

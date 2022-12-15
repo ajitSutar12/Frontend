@@ -8,12 +8,12 @@
         </h6>
       </div>
       <div class="card-block">
-        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+        <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
           <div class="row">
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
+                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
                     id="S_APPL" #autofocus required="" pattern="^[0-9]+$" maxlength="3" minlength="3"
                     (focusout)="checkDuplicate($event)" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only 0-9" formControlName="S_APPL" #autofocus />
@@ -29,14 +29,14 @@
                     angForm.controls['S_APPL'].errors?.required ||
                     angForm.controls['S_APPL'].errors?.pattern
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Scheme allowed only 980
                 </div>
               </div>
             </div>
             <div class="col-sm-7">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="S_NAME" class="form-control" placeholder=" " id="Description" required=""
+                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="Description" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_NAME" />
@@ -61,7 +61,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
+                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="10" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_SHNAME" />
@@ -159,9 +159,9 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
-                              placeholder=" " id="MIN_INT_LIMIT"
+                              placeholder=" " id="MIN_INT_LIMIT" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              pattern="\d{1,2}(\.\d{1,2})?" title="Input allowed only  0-9"
+                               title="Input allowed only  0-9"
                               formControlName="MIN_INT_LIMIT" disabled />
                             <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                           </span>
@@ -195,7 +195,7 @@
                     *ngIf="showButton">
                     Submit
                   </button>
-                  <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                  <button class="btn btn-outline-primary btn-sm btn-submit" (click)="updateData()" *ngIf="updateShow" (keydown.Tab)="focus()" appTheme>
                     Update</button>&nbsp;
                   <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                     Cancel

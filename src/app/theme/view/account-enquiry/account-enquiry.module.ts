@@ -18,6 +18,7 @@ import { SharesLedgerViewModule } from '../shares-ledger-view/shares-ledger-view
 import { InterestPaidHistoryModule } from '../other-view/interest-paid-history/interest-paid-history.module'
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { ThemeModule } from '../../theme.module';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     AccountEnquiryRoutingModule,
     LedgerViewModule,
     SharesLedgerViewModule,
-    InterestPaidHistoryModule
+    InterestPaidHistoryModule,
+    ThemeModule
   ],
   declarations: [AccountEnquiryComponent],
   providers: [SchemeCodeDropdownService, SystemMasterParametersService, SchemeAccountNoService, CustomerIdService, ACMasterDropdownService, OwnbranchMasterService, {

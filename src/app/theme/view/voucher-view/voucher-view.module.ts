@@ -13,6 +13,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VoucherEntryModule } from '../../transaction/voucher-entry/voucher-entry.module'
 import { MultiVoucherModule } from '../../transaction/multi-voucher/multi-voucher.module'
+import { ThemeModule } from '../../theme.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { MultiVoucherModule } from '../../transaction/multi-voucher/multi-vouche
     DatepickerModule.forRoot(),
     FormsModule, ReactiveFormsModule,
     VoucherEntryModule,
-    MultiVoucherModule
+    MultiVoucherModule,
+    ThemeModule
   ],
   exports: [VoucherViewComponent],
   declarations: [VoucherViewComponent],

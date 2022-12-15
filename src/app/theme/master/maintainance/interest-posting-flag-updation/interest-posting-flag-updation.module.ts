@@ -11,6 +11,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { InterestPostingFlagUpdationService } from './interest-posting-flag-updation.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +20,8 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
     NgSelectModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ThemeModule
   ],
   declarations: [InterestPostingFlagUpdationComponent],
   providers: [InterestPostingFlagUpdationService, SchemeAccountNoService,OwnbranchMasterService, {

@@ -7,76 +7,78 @@ import { DayEndService } from '../day-end.service';
   styleUrls: ['./day-end-final.component.scss']
 })
 export class DayEndFinalComponent implements OnInit {
-  branchHandOverList : any = [];
-  flagCheck : boolean = true;
-  constructor(private _service : DayEndService) { }
-  sysparadetails :any;
-  remark :boolean = false;
+  branchHandOverList: any = [];
+  flagCheck: boolean = true;
+  constructor(private _service: DayEndService) { }
+  sysparadetails: any;
+  remark: boolean = false;
   interval;
   ngOnInit(): void {
-    this._service.getSysparaDetails().subscribe(data=>{
-        this.sysparadetails = data;
-        
-        this._service.CheckBranchHandOverReport({date : this.sysparadetails[0].CURRENT_DATE}).subscribe(data=>{
-          this.branchHandOverList = data;
-          
-          let result = this.branchHandOverList.filter(ele=>ele.flag ==0 && ele.admin_status == 0);
-          if(result.length != 0){
-            this.flagCheck = true;
-          }else{
-            this.flagCheck = false;
-          }
-        },err=>{
-          console.log(err);
-        })
+    this._service.getSysparaDetails().subscribe(data => {
+      this.sysparadetails = data;
+
+      this._service.CheckBranchHandOverReport({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(data => {
+        this.branchHandOverList = data;
+
+        let result = this.branchHandOverList.filter(ele => ele.flag == 0 && ele.admin_status == 0);
+        if (result.length != 0) {
+          this.flagCheck = true;
+        } else {
+          this.flagCheck = false;
+        }
+      }, err => {
+        console.log(err);
+      })
     })
-    
+
   }
 
   ngOnDestroy() {
-      clearInterval(this.interval);
+    clearInterval(this.interval);
   }
-  refresh(){
-    this._service.CheckBranchHandOverReport({date : this.sysparadetails[0].CURRENT_DATE}).subscribe(data=>{
+  refresh() {
+    this._service.CheckBranchHandOverReport({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(data => {
       this.branchHandOverList = data;
-      let result = this.branchHandOverList.filter(ele=>ele.flag ==0 && ele.admin_status == 0);
-          if(result.length != 0){
-            this.flagCheck = true;
-          }else{
-            this.flagCheck = false;
-          }
-    },err=>{
+      let result = this.branchHandOverList.filter(ele => ele.flag == 0 && ele.admin_status == 0);
+      if (result.length != 0) {
+        this.flagCheck = true;
+      } else {
+        this.flagCheck = false;
+      }
+    }, err => {
       console.log(err);
     })
   }
 
   //// Day End 
-  async dayend(){
+  async dayend() {
     this.flagCheck = true;
     this.remark = true;
     this.interval = setInterval(() => {
-      this._service.CheckBranchHandOverReport({date : this.sysparadetails[0].CURRENT_DATE}).subscribe(data=>{
+      this._service.CheckBranchHandOverReport({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(data => {
         this.branchHandOverList = data;
-        for(let item of this.branchHandOverList){
-          if(item.flag == 0 || item.admin_status == 2 || item.admin_status == 1){
+        for (let item of this.branchHandOverList) {
+          if (item.flag == 0 || item.admin_status == 2 || item.admin_status == 1) {
             this.flagCheck = true;
-          }else{
+          } else {
             this.flagCheck = false;
           }
         }
 
-      },err=>{
+      }, err => {
         console.log(err);
       })
       console.log('interval')
     }, 500);
-    this._service.sendBranchData({date:this.sysparadetails[0].CURRENT_DATE}).subscribe(async data=>{
-
+    this._service.sendBranchData({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(async data => {
+Swal.fire('Success', 'Day ended Successfully','success')
+    }, err => {
+      console.log(err?.error?.message)
     })
 
   }
 
-  revertHandOver(id,date,name){
+  revertHandOver(id, date, name) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -87,19 +89,19 @@ export class DayEndFinalComponent implements OnInit {
       confirmButtonText: 'Yes, Revert it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this._service.revertHandOver({id:id,date:date}).subscribe(data=>{
+        this._service.revertHandOver({ id: id, date: date }).subscribe(data => {
           Swal.fire(
             'Day End Reverted!',
-            name+' Branch day end reverted successfully',
+            name + ' Branch day end reverted successfully',
             'success'
           )
           this.ngOnInit()
-      },err=>{
+        }, err => {
           console.log(err);
-      })
-        
+        })
+
       }
     })
-    
+
   }
 }

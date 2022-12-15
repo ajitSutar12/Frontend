@@ -17,6 +17,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import { DividendCalculationService } from './dividend-calculation.service'
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { DividendCalculationService } from './dividend-calculation.service'
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    ThemeModule
   ],
   declarations: [DividendCalculationComponent],
   providers: [SchemeCodeService, SchemeAccountNoService, SchemeCodeDropdownService, MembernoService, BranchService,

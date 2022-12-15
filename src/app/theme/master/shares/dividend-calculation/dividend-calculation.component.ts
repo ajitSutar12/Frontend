@@ -11,10 +11,10 @@ import {
   FormBuilder,
   Validators,
   FormControl,
-} from "@angular/forms";
+} from "@angular/forms"; 
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 import { first } from "rxjs/operators";
-import { NgSelectConfig } from "@ng-select/ng-select";
+import { NgSelectComponent, NgSelectConfig } from "@ng-select/ng-select";
 import * as moment from "moment";
 import { environment } from "src/environments/environment";
 // Angular Datatable Directive
@@ -560,5 +560,30 @@ export class DividendCalculationComponent implements OnInit {
     //     )
     //   }
     // })
+  }
+
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+  checkmargin(ele: any) {
+    //check  if given value  is below 25
+    if (ele.target.value <= 25) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 25", "error");
+      ele.target.value = 0
+  
+    }
+  }
+
+  checkmarginb(ele: any) {
+    //check  if given value  is below 99
+    if (ele.target.value <= 99) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 99", "error");
+      ele.target.value = 0
+  
+    }
   }
 }

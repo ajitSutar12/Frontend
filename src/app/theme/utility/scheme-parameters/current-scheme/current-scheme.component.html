@@ -8,12 +8,12 @@
                 </h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                                    <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
                                         placeholder=" " id="S_APPL" required="" pattern="^[0-9]+$" maxlength="3"
                                         minlength="3" min="151" max="200" (focusout)="checkDuplicate($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -37,7 +37,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_NAME" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" "
                                         id="Description" required pattern="^[A-Za-z\./ -]+$" maxlength="90"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
@@ -56,7 +56,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                    <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" "
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
@@ -83,9 +83,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglac"
+                                    <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglac"
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
                                             {{values.label}}</ng-option>
@@ -110,9 +111,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
+                                    <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
                                         formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true'
                                         placeholder="Interest GL Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
                                             {{values.label}}</ng-option>
@@ -143,7 +145,7 @@
                                         </li>
                                         <li>
                                             <h6> <a (click)="OpenLink(42)" routerLink="/utility/schemeParameters"
-                                                    routerLinkActive="active"
+                                                    routerLinkActive="active" 
                                                     [ngClass]="{'isActive': StandingInstruction}"
                                                     class="text-right f-w-600" id="pointer">
                                                     Standing Instruction</a></h6>
@@ -218,19 +220,19 @@
                                                         <label for="S_PRODUCT_DAY_BASE">Product Base Start Day</label>
                                                     </span>
                                                 </div>
-                                                <div class="form-group form-primary form-static-label"
+                                                <!-- <div class="form-group form-primary form-static-label"
                                                     *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE'].dirty || angForm.controls['S_PRODUCT_DAY_BASE'].touched)"
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].errors?.pattern ||  angForm.controls['S_PRODUCT_DAY_BASE'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.max">
-                                                        Input allowed only 0-9
+                                                        Input allowed only 0-9.
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-radio">
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" id="S_PRODUCT_DAY_BASE_MONTH_BEGIN"
                                                                 value="MB" name="S_PRODUCT_DAY_BASE"
                                                                 formControlName="S_PRODUCT_DAY_BASE"
@@ -239,7 +241,7 @@
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" id="S_PRODUCT_DAY_BASE_MONTH_END"
                                                                 value="ME" name="S_PRODUCT_DAY_BASE"
                                                                 formControlName="S_PRODUCT_DAY_BASE"
@@ -268,19 +270,19 @@
                                                         <label for="S_PRODUCT_DAY_BASE_END">Product Base End Day</label>
                                                     </span>
                                                 </div>
-                                                <div class="form-group form-primary form-static-label"
+                                                <!-- <div class="form-group form-primary form-static-label"
                                                     *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE_END'].dirty || angForm.controls['S_PRODUCT_DAY_BASE_END'].touched)"
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.pattern ||  angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.max">
                                                         Input allowed only 0-9
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-radio">
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" id="S_PRODUCT_DAY_BASE_END_MONTH_BEGIN"
                                                                 value="MB" name="S_PRODUCT_DAY_BASE_END"
                                                                 formControlName="S_PRODUCT_DAY_BASE_END"
@@ -289,7 +291,7 @@
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" id="S_PRODUCT_DAY_BASE_END_MONTH_END"
                                                                 name="S_PRODUCT_DAY_BASE_END" value="ME"
                                                                 formControlName="S_PRODUCT_DAY_BASE_END"
@@ -308,8 +310,7 @@
                                                             name="MIN_INT_LIMIT" class="form-control"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                             placeholder=" " id="MIN_INT_LIMIT" #MIN_INT_LIMIT
-                                                            (keyup)="checkinterest(MIN_INT_LIMIT.value)"
-                                                            pattern="\d{1,2}(\.\d{1,2})?"
+                                                            (keyup)="checkinterest(MIN_INT_LIMIT.value);getDecimal($event)" (focusout)= "getDecimalPoint($event)" 
                                                             title="Input allowed only  0-9"
                                                             formControlName="MIN_INT_LIMIT" disabled>
                                                         <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
@@ -332,7 +333,7 @@
                                     <div class="card-header">
                                         <h5>Standing Instruction</h5>
                                     </div>
-                                    <div class="card-block">
+                                    <div class="card-block" id="standIns">
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="checkbox checkbox-primary">
@@ -391,7 +392,7 @@
                                                             name="CHEQUEBOOK_MIN_BAL"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                             class="form-control" placeholder=" " id="CHEQUEBOOK_MIN_BAL"
-                                                            pattern="\d{1,9}(\.\d{1,2})?"
+                                                            (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
                                                             title="Input allowed only  0-9"
                                                             formControlName="CHEQUEBOOK_MIN_BAL">
                                                         <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum
@@ -464,11 +465,12 @@
                                             </ng-select> -->
                                             <div class="form-group form-primary form-static-label">
                                                 <span class="border-lable-flt">
-                                                    <ng-select id="OVERDRAFT_INTEREST_APPLICABLE" bindValue="value"
+                                                    <ng-select appTheme id="OVERDRAFT_INTEREST_APPLICABLE" bindValue="value"
                                                         [(ngModel)]="ngintapplicapble"
                                                         formControlName="OVERDRAFT_INTEREST_APPLICABLE"
                                                         bindLabel="label" title="Compulsory Selection"
                                                         (click)="isOverdraftInterest()"
+                                                        #OVERDRAFT_INTEREST_APPLICABLE (focus)="onFocus(OVERDRAFT_INTEREST_APPLICABLE)" [selectOnTab]='true'
                                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                                         placeholder="Interest Applicable Type">
                                                         <ng-option *ngFor="let values of interestApplicableTypeOption"
@@ -489,11 +491,11 @@
                                         <div class="col-sm-6">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <input style="text-align: right;" type="text"
+                                                    <input appTheme style="text-align: right;" type="text"
                                                         name="OVERDRAFT_INTEREST_RATE" class="form-control"
                                                         placeholder=" "
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                        id="OVERDRAFT_INTEREST_RATE" pattern="\d{1,2}(\.\d{1,2})?"
+                                                        id="OVERDRAFT_INTEREST_RATE" (keyup)="checkmargin($event)"
                                                         title="Input allowed only  0-9"
                                                         formControlName="OVERDRAFT_INTEREST_RATE" disabled>
                                                     <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate</label>
@@ -520,8 +522,8 @@
                         <div class="card-footer">
                             <div class="row" style="float: right;">
                                 <div class="col-sm m-b-20">
-                                    <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid"
-                                        (click)="submit()" *ngIf="showButton">
+                                    <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
+                                        (click)="submit()" *ngIf="showButton"  (keydown.Tab)="focus()" appTheme>
                                         Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"

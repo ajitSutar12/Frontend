@@ -22,8 +22,9 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label" style=" pointer-events: none;  ">
                                 <span class="border-lable-flt">
-                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode" [virtualScroll]="true"
                                         bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
+                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
                                         formControlName="BRANCH_CODE" >
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
@@ -144,7 +145,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" [(ngModel)]="ngCity" id="AC_CTCODE"
-                                        formControlName="AC_CTCODE" title="Compulsory Selection"
+                                        formControlName="AC_CTCODE"  #AC_CTCODE (focus)="onFocus(AC_CTCODE)" [selectOnTab]='true'
+                                         title="Compulsory Selection" [virtualScroll]="true"
                                         placeholder="City Code">
                                         <ng-option *ngFor="let values of city" [value]="values">
                                             {{values.name}} {{values.label}}</ng-option>
@@ -236,7 +238,7 @@
 
                         <div class="col-md-4">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                 (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"

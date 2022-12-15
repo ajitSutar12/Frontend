@@ -20,6 +20,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                     formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                    [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                     #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus >
                                     <ng-option *ngFor="let values of scheme" [value]="values">
@@ -44,6 +45,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                     formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
+                                    [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category"
                                     #intcat (focus)="onFocus(intcat)" [selectOnTab]='true' >
                                     <ng-option *ngFor="let values of intrestCategoryMaster" [value]="values">
@@ -159,7 +161,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()" appTheme>submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()" (keydown.Tab)="focus()" appTheme>submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()" *ngIf="updateShow">Update</button>&nbsp;
 
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()" *ngIf="newbtnShow">Cancel

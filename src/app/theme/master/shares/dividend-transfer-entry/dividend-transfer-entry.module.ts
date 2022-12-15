@@ -15,6 +15,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { ShareMasterService } from 'src/app/theme/master/customer/shares-master/shares-master.service';
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 
 
@@ -26,7 +27,8 @@ import { ShareMasterService } from 'src/app/theme/master/customer/shares-master/
     NgbModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ThemeModule
   ],
   declarations: [DividendTransferEntryComponent],
   providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService,ShareMasterService, {

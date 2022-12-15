@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -944,7 +944,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       DEPOSIT_PENAL_INT_CALC_DAY: ['', [Validators.pattern]],
       POST_PENALINT_IN_INTEREST: ['', [Validators.pattern]],
       S_PENAL_INT_RATE: ['', [Validators.pattern]],
-      S_MATUCALC: ['', [Validators.pattern]],
+      S_MATUCALC: ['', [Validators.pattern ,Validators.max(9)]],
       IS_CAL_MATURITY_AMT: ['', [Validators.pattern]],
       FIXED_MATURITY_AMT: ['', [Validators.pattern]],
       PREMATURE_COMPOUND_INT: ['', [Validators.pattern]],
@@ -1621,4 +1621,29 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       }
     }
   }
+ 
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
+  checkmargin(ele: any) {
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0
+  
+    }
+  }
+
 }

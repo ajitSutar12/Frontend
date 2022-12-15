@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import{environment} from '../../../../../environments/environment'
 import { HttpClient } from '@angular/common/http'
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 
 
 // Handling datatable data
@@ -223,6 +223,9 @@ export class AccountwiseDocumentAcceptanceComponent implements OnInit {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }
 

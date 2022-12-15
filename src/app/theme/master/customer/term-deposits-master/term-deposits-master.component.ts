@@ -36,6 +36,7 @@ import { HttpClient } from '@angular/common/http';
 // Handling datatable data
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { NgSelectComponent } from '@ng-select/ng-select';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -1569,21 +1570,23 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         })
         this.formSubmitted = false;
         this.switchNgBTab('Basic')
+        //To clear form
+        this.resetForm();
+        this.multiNominee = []
+        this.multiJointAC = []
+        this.multiAttorney = []
+        this.customerDoc = []
+        this.nomineeTrue = false
+        this.JointAccountsTrue = false
+        this.PowerofAttorneyTrue = false
         // to reload after insertion of data
-
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-
       }, (error) => {
         console.log(error)
       })
-      //To clear form
-      this.resetForm();
-      this.multiNominee = []
-      this.multiJointAC = []
-      this.multiAttorney = []
-      this.customerDoc = []
+
 
     }
     else {
@@ -1792,6 +1795,16 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointID = null
     this.showInstruction = true
     this.getSystemParaDate()
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.multiAttorney = []
+    this.customerDoc = []
+    this.ngCategory = null
+    this.ngOperation = null
+    this.ngIntCategory = null
+    this.nomineeTrue = false
+    this.JointAccountsTrue = false
+    this.PowerofAttorneyTrue = false
   }
 
   ngAfterViewInit(): void {
@@ -2478,9 +2491,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         // call calculation function
         // INTEREST_RULE: string;
         // IS_RECURRING_TYPE: string;
-        // IS_CALLDEPOSIT_TYPE: string;
+        // IS_CALLDEPOSIT_TYPE: string; 
         // REINVESTMENT: string;
-        if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') || data.INTEREST_RULE == "1") {
+        if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0')) {
           if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "S") {
             this.simpleInterestCalculation()
           } else if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "C") {
@@ -2728,6 +2741,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             this.recurringSimpleInterest()
           }
         }
+        else if (data.INTEREST_RULE == "1") {
+          this.angForm.patchValue({
+            AC_MATUAMT: Number(this.angForm.controls['AC_SCHMAMT'].value) * Number(data.S_MATUCALC)
+          })
+        }
       }
     })
   }
@@ -2809,4 +2827,28 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.intInstructionObject = instruction
   }
 
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
+
+  checkmargin(ele: any) {
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0
+  
+    }
+  }
 }

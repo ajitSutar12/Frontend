@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { environment } from 'src/environments/environment';
 import { first } from 'rxjs/operators';
-import { NgSelectConfig } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { DividendTransferPostingService } from './dividend-transfer-posting.service'
 @Component({
   selector: 'app-dividend-transfer-posting',
@@ -273,5 +273,7 @@ export class DividendTransferPostingComponent implements OnInit {
       }
     })
   }
-
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
+  }
 }

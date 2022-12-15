@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(private auth: AuthService, private router: Router) {}
   private tokenExpired(token: string) {
     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
     return (Math.floor((new Date).getTime() / 1000)) >= expiry;
@@ -25,6 +25,20 @@ export class AuthGuard implements CanActivate {
         // token valid
         return true;
       }
+
   }
+
+  // canActivate() {
+
+  //   if(this.auth.IsLoggedIn()){
+  //     return true;
+  //   }
+  //   alert("You have not Logged In")
+  //   this.router.navigate(['login']);
+  //   return false;
+    
+  // }
+ 
   
 }
+ 

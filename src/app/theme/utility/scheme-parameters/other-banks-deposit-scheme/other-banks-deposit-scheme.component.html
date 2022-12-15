@@ -8,12 +8,12 @@
         </h6>
       </div>
       <div class="card-block">
-        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+        <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
           <div class="row">
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
+                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
                     id="S_APPL" required="" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="701"
                     max="799" (focusout)="checkDuplicate($event)" pattern="^[0-9]+$" maxlength="3"
                     title="Input allowed only 0-9" formControlName="S_APPL" #autofocus />
@@ -37,7 +37,7 @@
             <div class="col-sm-7">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="S_NAME" class="form-control" placeholder=" " id="Description" required=""
+                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="Description" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_NAME" />
@@ -62,7 +62,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
+                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="10" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_SHNAME" />
@@ -94,8 +94,9 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac" formControlName="S_GLACNO"
+                  <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'  [virtualScroll]="true"
                     required placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -121,8 +122,9 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_INT_ACNO" bindValue="value" [(ngModel)]="nginterestgl" formControlName="S_INT_ACNO"
+                  <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="nginterestgl" formControlName="S_INT_ACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true' [virtualScroll]="true"
                     required placeholder="Interest GL Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -148,8 +150,9 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivable"
-                    formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"
+                  <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivable"
+                    formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"  [virtualScroll]="true"
+                    #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true' 
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Receivable Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -177,8 +180,9 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalac" formControlName="S_PENAL_ACNO"
+                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalac" formControlName="S_PENAL_ACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'   [virtualScroll]="true"
                     placeholder="Penal Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -204,9 +208,10 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngreceivablepenal"
+                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngreceivablepenal"
                     formControlName="S_RECBL_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required
+                    [ngClass]="{'form-submitted': formSubmitted}" required  [virtualScroll]="true"
+                    #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true' 
                     placeholder="Receivable Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -233,8 +238,9 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
+                  <ng-select appTheme id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
                     formControlName="S_CASH_INT_ACNO" bindLabel="label" title="Compulsory Selection"
+                    #S_CASH_INT_ACNO (focus)="onFocus(S_CASH_INT_ACNO)" [selectOnTab]='true'   [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -341,7 +347,7 @@
                     <div class="form-radio">
                     <div class="row">
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="Compounding" name="INTEREST_RULE" (change)="PatDeposits(1)"
                             formControlName="INTEREST_RULE" value='1' [checked]="INTEREST_RULE" />
                           <i class="helper"></i> Pat Deposits<span class="required">
@@ -351,7 +357,7 @@
                     </div>
                     <div class="row">
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="SimpleasperSharesClosingBalance" name="INTEREST_RULE"
                             (change)="PatDeposits(2)" formControlName="INTEREST_RULE" value='2'
                             [checked]="IS_RECURRING_TYPE" />
@@ -362,7 +368,7 @@
                     </div>
                     <div class="row">
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="SimpleDaysBasis+Transactionwise" name="INTEREST_RULE"
                             (change)="PatDeposits(3)" formControlName="INTEREST_RULE" value='3'
                             [checked]="IS_CALLDEPOSIT_TYPE" />
@@ -373,7 +379,7 @@
                     </div>
                     <div class="row">
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="TransactionWise" name="INTEREST_RULE" (change)="PatDeposits(4)"
                             value='4' formControlName="INTEREST_RULE" [checked]="REINVESTMENT" />
                           <i class="helper"></i>Auto Renewal
@@ -383,7 +389,7 @@
                     </div>
                     <div class="row">
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="MonthBasis+Transactionwise" name="INTEREST_RULE" value='5'
                             (change)="PatDeposits(5)" formControlName="INTEREST_RULE" [checked]="ALLROLE" />
                           <i class="helper"></i>Fixed Deposit<span class="required">
@@ -448,10 +454,10 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
-                              placeholder=" "
-                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              id="MIN_INT_LIMIT" pattern="\d{1,2}(\.\d{1,2})?" title="Input allowed only  0-9"
-                              formControlName="MIN_INT_LIMIT" maxlength="2" disabled />
+                              placeholder=" " (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                              id="MIN_INT_LIMIT" title="Input allowed only  0-9"
+                              formControlName="MIN_INT_LIMIT" maxlength="15" disabled />
                             <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                           </span>
                         </div>
@@ -479,7 +485,7 @@
                   <div class="card-block">
                     <div class="form-radio">
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="D" name="S_INTCALTP" formControlName="S_INTCALTP"
                             (click)="isInterestCalculation(1)" />
                           <i class="helper"></i>Calculation on Days<span class="required">
@@ -487,7 +493,7 @@
                         </label>
                       </div>
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="M" name="S_INTCALTP" formControlName="S_INTCALTP"
                             (click)="isInterestCalculation(2)" />
                           <i class="helper"></i>Month Product Base<span class="required">
@@ -495,7 +501,7 @@
                         </label>
                       </div>
                       <div class="radio radio-inline">
-                        <label>
+                        <label class="inputRadio">
                           <input type="radio" value="B" name="S_INTCALTP" formControlName="S_INTCALTP"
                             (click)="isInterestCalculation(3)" />
                           <i class="helper"></i>Month + Days Base<span class="required">
@@ -523,7 +529,7 @@
                       <div class="col-sm">
                         <div class="form-radio">
                           <div class="radio radio-inline">
-                            <label>
+                            <label class="inputRadio">
                               <input type="radio" value="S" name="S_INTCALC_METHOD" formControlName="S_INTCALC_METHOD"
                                 (click)="interestMethod(1)" />
                               <i class="helper"></i>Simple Interest
@@ -560,7 +566,7 @@
                       <div class="col-sm">
                         <div class="form-radio">
                           <div class="radio radio-inline">
-                            <label>
+                            <label class="inputRadio">
                               <input type="radio" value="C" name="S_INTCALC_METHOD" formControlName="S_INTCALC_METHOD"
                                 (click)="interestMethod(2)" />
                               <i class="helper"></i>Compound Interest
@@ -575,9 +581,10 @@
                         </ng-select> -->
                         <div class="form-group form-primary form-static-label">
                           <span class="border-lable-flt">
-                            <ng-select id="COMPOUND_INT_BASIS" bindValue="value" [(ngModel)]="ngnotapplicable"
-                              [disabled]="COMPOUND_INT_BASIS" formControlName="COMPOUND_INT_BASIS" bindLabel="label"
+                            <ng-select appTheme id="COMPOUND_INT_BASIS" bindValue="value" [(ngModel)]="ngnotapplicable"
+                              [disabled]="COMPOUND_INT_BASIS" formControlName="COMPOUND_INT_BASIS" bindLabel="label"  [virtualScroll]="true"
                               title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                              #COMPOUND_INT_BASIS (focus)="onFocus(COMPOUND_INT_BASIS)" [selectOnTab]='true'
                               placeholder="Not Applicable">
                               <ng-option *ngFor="let values of acMaster" [value]="values">
                                 {{values.label}}</ng-option>
@@ -589,7 +596,8 @@
                       <div class="col-sm">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input type="text" name="NAME" class="form-control" placeholder=" " id="COMPOUND_INT_DAYS"
+                            <input appTheme style="text-align: right" type="text" name="NAME" class="form-control" placeholder=" " id="COMPOUND_INT_DAYS"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               maxlength="3" formControlName="COMPOUND_INT_DAYS" [disabled]="COMPOUND_INT_DAYS" />
                             <label for="COMPOUND_INT_DAYS">Compound Interest Days<sub class="required">*
                               </sub></label>
@@ -619,7 +627,7 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input style="text-align: right;" type="text" class="form-control" placeholder=" "
+                          <input appTheme style="text-align: right;" type="text" class="form-control" placeholder=" "
                             id="S_PRODUCT_DAY_BASE" formControlName="S_PRODUCT_DAY_BASE"
                             [(ngModel)]="S_PRODUCT_DAY_BASE"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)" name="S_PRODUCT_DAY_BASE"
@@ -646,7 +654,7 @@
                     <div class="col-sm">
                       <div class="form-radio">
                         <div class="radio radio-inline">
-                          <label>
+                          <label class="inputRadio" >
                             <input type="radio" value="MB" formControlName="S_PRODUCT_DAY_BASE"
                               id="S_PRODUCT_DAY_BASE_MONTH_BEGIN" name="S_PRODUCT_DAY_BASE"
                               [checked]="S_PRODUCT_DAY_BASE == 0" disabled />
@@ -655,7 +663,7 @@
                           </label>
                         </div>
                         <div class="radio radio-inline">
-                          <label>
+                          <label class="inputRadio" >
                             <input type="radio" value="ME" formControlName="S_PRODUCT_DAY_BASE"
                               id="S_PRODUCT_DAY_BASE_MONTH_END" name="S_PRODUCT_DAY_BASE"
                               [checked]="S_PRODUCT_DAY_BASE == 0" disabled />
@@ -670,7 +678,7 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input style="text-align: right;" type="text" class="form-control" placeholder=" "
+                          <input appTheme style="text-align: right;" type="text" class="form-control" placeholder=" "
                             id="S_PRODUCT_DAY_BASE_END" pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                             formControlName="S_PRODUCT_DAY_BASE_END" [(ngModel)]="S_PRODUCT_DAY_BASE_END"
@@ -699,7 +707,7 @@
                     <div class="col-sm">
                       <div class="form-radio">
                         <div class="radio radio-inline">
-                          <label>
+                          <label class="inputRadio" >
                             <input type="radio" value="MB" name="S_PRODUCT_DAY_BASE_END"
                               id="S_PRODUCT_DAY_BASE_END_MONTH_BEGIN" formControlName="S_PRODUCT_DAY_BASE_END"
                               [checked]="S_PRODUCT_DAY_BASE_END == 0" disabled />
@@ -708,7 +716,7 @@
                           </label>
                         </div>
                         <div class="radio radio-inline">
-                          <label>
+                          <label class="inputRadio" >
                             <input type="radio" value="ME" name="S_PRODUCT_DAY_BASE_END"
                               id="S_PRODUCT_DAY_BASE_END_MONTH_END" formControlName="S_PRODUCT_DAY_BASE_END"
                               [checked]="S_PRODUCT_DAY_BASE_END == 0" disabled />
@@ -747,14 +755,14 @@
                           <div class="col-sm">
                             <div class="form-radio">
                               <div class="radio radio-inline">
-                                <label>
+                                <label class="inputRadio" >
                                   <input type="radio" value="0" name="S_INSTTYPE" formControlName="S_INSTTYPE" checked
                                     (click)="isInstallmentAmount(1)" />
                                   <i class="helper"></i>One Time
                                 </label>
                               </div>
                               <div class="radio radio-inline">
-                                <label>
+                                <label class="inputRadio" >
                                   <input type="radio" value="1" name="S_INSTTYPE" formControlName="S_INSTTYPE"
                                     (click)="isInstallmentAmount(2)" />
                                   <i class="helper"></i>Monthly
@@ -771,9 +779,10 @@
                             </ng-select> -->
                             <div class="form-group form-primary form-static-label">
                               <span class="border-lable-flt">
-                                <ng-select id="INSTALLMENT_BASIS" bindValue="value" [(ngModel)]="nginstallment"
-                                  formControlName="INSTALLMENT_BASIS" bindLabel="label" [disabled]="INSTALLMENT_BASIS"
+                                <ng-select appTheme id="INSTALLMENT_BASIS" bindValue="value" [(ngModel)]="nginstallment"
+                                  formControlName="INSTALLMENT_BASIS" bindLabel="label" [disabled]="INSTALLMENT_BASIS"  [virtualScroll]="true"
                                   title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
+                                  #INSTALLMENT_BASIS (focus)="onFocus(INSTALLMENT_BASIS)" [selectOnTab]='true'
                                   placeholder="Installment Base">
                                   <ng-option *ngFor="let values of installmentBaseOption" [value]="values">
                                     {{values.label}}</ng-option>
@@ -842,7 +851,7 @@
                       <div class="col-sm">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input style="text-align: right;" type="text" class="form-control" placeholder=" " value="0"
+                            <input appTheme style="text-align: right;" type="text" class="form-control" placeholder=" " value="0"
                               id="DEPOSIT_PENAL_INT_CALC_DAY" pattern="^[0-9]+$" title="Input allowed only  0-9"
                               max="31" formControlName="DEPOSIT_PENAL_INT_CALC_DAY"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -876,7 +885,7 @@
                       <div class="col-sm">
                         <div class="form-radio">
                           <div class="radio radio-inline">
-                            <label>
+                            <label class="inputRadio">
                               <input type="radio" value="MB" name="DEPOSIT_PENAL_INT_CALC_DAY"
                                 id="DEPOSIT_PENAL_INT_CALC_DAY_MONTH_BEGIN" formControlName="DEPOSIT_PENAL_INT_CALC_DAY"
                                 [checked]="DEPOSIT_PENAL_INT_CALC_DAY == 0" disabled />
@@ -884,7 +893,7 @@
                             </label>
                           </div>
                           <div class="radio radio-inline">
-                            <label>
+                            <label class="inputRadio">
                               <input type="radio" id="DEPOSIT_PENAL_INT_CALC_DAY_MONTH_END"
                                 name="DEPOSIT_PENAL_INT_CALC_DAY" value="ME"
                                 formControlName="DEPOSIT_PENAL_INT_CALC_DAY" [checked]="DEPOSIT_PENAL_INT_CALC_DAY == 0"
@@ -920,8 +929,9 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input style="text-align: right;" type="text" class="form-control" placeholder=" "
-                              id="S_MATUCALC" maxlength="2" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                              pattern="\d{1,2}(\.\d{1,2})?" title="Input allowed only  0-9" formControlName="S_MATUCALC"
+                              id="S_MATUCALC" maxlength="15" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                              title="Input allowed only  0-9" formControlName="S_MATUCALC"
                               name="S_MATUCALC" />
                             <label for="S_MATUCALC">Maturity Calculation 'Multiple' Amount</label>
                           </span>
@@ -1031,8 +1041,9 @@
                         </ng-select> -->
                         <div class="form-group form-primary form-static-label">
                           <span class="border-lable-flt">
-                            <ng-select id="UNIT_OF_PERIOD" bindValue="value" [(ngModel)]="ngunit"
+                            <ng-select appTheme id="UNIT_OF_PERIOD" bindValue="value" [(ngModel)]="ngunit"
                               formControlName="UNIT_OF_PERIOD" bindLabel="label" title="Compulsory Selection"
+                              #UNIT_OF_PERIOD (focus)="onFocus(UNIT_OF_PERIOD)" [selectOnTab]='true'  [virtualScroll]="true"
                               [ngClass]="{'form-submitted': formSubmitted}" placeholder="Unit of TD Period">
                               <ng-option *ngFor="let values of unitOfTDPeriodOption" [value]="values">{{values.label}}
                               </ng-option>
@@ -1109,9 +1120,9 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input style="text-align: right;" type="text" name="NAME" class="form-control"
-                              placeholder=" " id="MULTIPLE_OF_AMT"
-                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              pattern="\d{1,10}(\.\d{1,2})?" title="Input allowed only  0-9"
+                              placeholder=" " id="MULTIPLE_OF_AMT" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                               title="Input allowed only  0-9"
                               formControlName="MULTIPLE_OF_AMT" />
                             <label for="MULTIPLE_OF_AMT">Multiple Of Amount</label>
                           </span>
@@ -1313,9 +1324,10 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input style="text-align: right;" type="text" name="LESS_PREMATURE_INT_RATE"
-                              class="form-control" placeholder=" " maxlength="2" pattern="\d{1,2}(\.\d{1,2})?"
+                              class="form-control" placeholder=" " maxlength="5" 
                               title="Input allowed only  0-9" id="LESS_PREMATURE_INT_RATE"
-                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                              (keyup)="checkmargin($event);getDecimal($event)"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                               formControlName="LESS_PREMATURE_INT_RATE" />
                             <label for="LESS_PREMATURE_INT_RATE">Premature Less Interest Rate</label>
                           </span>
@@ -1349,8 +1361,8 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                 <div class="col-sm m-b-20">
-                  <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid" (click)="submit()"
-                    *ngIf="showButton">
+                  <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid" (click)="submit()"
+                    *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                     Submit
                   </button>
                   <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">

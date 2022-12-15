@@ -251,7 +251,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 [disabled]="angForm.invalid" (click)="submit(angForm.value)" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                 Cancel

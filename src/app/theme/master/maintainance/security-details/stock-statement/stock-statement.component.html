@@ -5,7 +5,7 @@
         <h5>Stock Statement</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
@@ -14,8 +14,9 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" #autofocus/> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()" 
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
@@ -40,9 +41,10 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="STATEMENT_DATE"  /> -->
-                  <input type="text" placeholder="dd/mm/yyyy" name="STATEMENT_DATE" id="stmt_date" class="form-control"
+                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="STATEMENT_DATE" id="stmt_date" class="form-control"
                     [(ngModel)]="statementdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="STATEMENT_DATE"
+                    #STATEMENT_DATE="bsDatepicker"  (keydown.Tab)="STATEMENT_DATE.hide()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
@@ -63,8 +65,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="raw_material" class="form-control" placeholder=" " id="raw_material"
-                    pattern="\d{1,20}(\.\d{2})?"
+                  <input style="text-align: right" type="text" name="raw_material" class="form-control" placeholder=" " id="raw_material"
+                  (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only 0-9" formControlName="RAW_MATERIAL" />
                   <label for="raw_material">Raw Material Cost</label>
@@ -83,9 +85,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="rm_margin" class="form-control" placeholder=" " id="rm_margin"
+                  <input style="text-align: right" type="text" name="rm_margin" class="form-control" placeholder=" " id="rm_margin"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    #marginmaterialcost (keyup)="checkmargin(marginmaterialcost.value)" pattern="\d{1,5}(\.\d{2})?"
+                    #marginmaterialcost (keyup)="checkmargin(marginmaterialcost.value);getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     maxlength="3" title="Input allowed only  0-9" formControlName="RAW_MARGIN" />
                   <label for="rm_margin">(Margin) Raw Material Cost </label>
                 </span>
@@ -105,7 +107,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="wp_goods" class="form-control" placeholder=" " id="wp_goods"
+                  <input style="text-align: right" type="text" name="wp_goods" class="form-control" placeholder=" " id="wp_goods"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="\d{1,20}(\.\d{2})?"
                     title="Input allowed only 0-9" formControlName="WORK_PROGRESS" />
                   <label for="wp_goods">Work In Progress Goods</label>
@@ -124,7 +126,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="wp_margin" class="form-control" placeholder=" " id="wp_margin"
+                  <input style="text-align: right" type="text" name="wp_margin" class="form-control" placeholder=" " id="wp_margin"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     #marginworkprogress (keyup)="checkmargin(marginworkprogress.value)" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="WORK_MARGIN" />
@@ -144,10 +146,10 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="fg_cost" class="form-control" placeholder=" " id="fg_cost" required=""
+                  <input appTheme style="text-align: right" type="text" name="fg_cost" class="form-control" placeholder=" " id="fg_cost" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="FINISHED_GOODS" />
+                    (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" title="Input allowed only  0-9" formControlName="FINISHED_GOODS" />
                   <label for="fg_cost">Finished Goods Cost<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -169,10 +171,10 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="fg_margin" class="form-control" placeholder=" " id="fg_margin" required=""
+                  <input appTheme style="text-align: right" type="text" name="fg_margin" class="form-control" placeholder=" " id="fg_margin" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    #margingoodscost (keyup)="checkmargin(margingoodscost.value)" pattern="\d{1,5}(\.\d{2})?"
+                    #margingoodscost (keyup)="checkmargin(margingoodscost.value);getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     title="Input allowed only  0-9" formControlName="FINISHED_MARGIN" />
                   <label for="fg_margin">(Margin) Finished Goods Cost<sub class="required">* </sub></label>
                 </span>
@@ -212,7 +214,7 @@
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
               <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
