@@ -8,8 +8,7 @@ export class SubmitDirective {
   constructor(private el: ElementRef) { }
 
   @HostListener('click')
-  onFormSubmit() {  debugger
-
+  onFormSubmit() {  
     // const invalidControl11 = this.el.nativeElement;
 
     const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');

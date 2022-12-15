@@ -507,6 +507,11 @@ export class VoucherEntryComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = this.angForm.value;
     obj['user'] = user;
+    for (let ele of this.headData) {
+      if (ele['INTEREST_DATE_INPUT'] == '0' && ele.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+        ele['date'] = null
+      }
+    }
     obj['InputHead'] = this.headData;
     obj['scheme'] = this.Submitscheme;
     obj['account_no'] = this.submitCustomer;
@@ -1099,7 +1104,7 @@ export class VoucherEntryComponent implements OnInit {
     let value = Number(ele.target.value);
     if (this.headData[i].Balance == undefined)
       this.headData[i].Balance = 0
-    if (Number(ele.target.value) > Number(this.headData[i]?.Balance)) {
+    if (Number(ele.target.value) > Number(this.headData[i]?.Balance) && this.headData[i].CHECK_BALANCE == '1') {
       this.headData[i].Amount = '0'
       if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
         this.INTAMT.nativeElement.focus();
@@ -2277,6 +2282,21 @@ export class VoucherEntryComponent implements OnInit {
       if (this.headData.length == 0)
         this.submitbtn.nativeElement.focus();
       this.totalAmt = parseFloat(value).toFixed(2);
+    }
+  }
+
+  focusSubmit() {
+    if (this.headData.length == 0)
+      this.submitbtn.nativeElement.focus();
+  }
+  checkBalanceFlag(event, i) {
+    if (this.headData[i].CHECK_REQUIRE == '1' && Number(event.target.value) == 0) {
+      if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+        this.INTAMT.nativeElement.focus();
+      else
+        this.NOTINTAMT.nativeElement.focus();
+      this.submitForm = true
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
   }
 }

@@ -45,8 +45,8 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    #selectBranch (focus)="onFocus(selectBranch)" appTheme [selectOnTab]='true'
-                                                    autofocus>
+                                                    #selectBranch (focus)="onFocus(selectBranch)" appTheme
+                                                    [selectOnTab]='true' autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -332,22 +332,22 @@
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'"></td>
                                                                 <td *ngIf="item.FIELD_AMOUNT == 'INTEREST_AMOUNT'">
                                                                     <input type="text" pattern="\d{1,8}(\.\d{2})?"
-                                                                        maxlength="11"
+                                                                        maxlength="11" #INTAMT
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
-                                                                        (focusout)="decimalAllContent($event.value)"
+                                                                        (focusout)="checkBalanceFlag($event,i);decimalAllContent($event.value)"
                                                                         (focus)="selectAllContent($event)"
                                                                         value="{{item.Amount}}"
                                                                         [disabled]="item.IS_GLBAL_MAINTAIN == '1' && (selectedMode == 2 || selectedMode == 5 || selectedMode == 15 || selectedMode == 6)">
                                                                 </td>
                                                                 <td *ngIf="item.FIELD_AMOUNT != 'INTEREST_AMOUNT'">
                                                                     <input type="text" pattern="\d{1,8}(\.\d{2})?"
-                                                                        maxlength="11"
+                                                                        maxlength="11" #NOTINTAMT
                                                                         (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                         style="width: 100%;border:none;text-align: right;"
                                                                         (keyup)="getInputHeadAmt($event,i)"
-                                                                        (focusout)="decimalAllContent($event.value);"
+                                                                        (focusout)="checkBalanceFlag($event,i);decimalAllContent($event.value);"
                                                                         (focus)="selectAllContent($event)"
                                                                         value="{{item.Amount}}"
                                                                         pattern="\d{1,10}(\.\d{1,2})?"
@@ -374,7 +374,7 @@
                                     <div class="col-md-12">
                                         <button class="btn btn-outline-primary btn-sm"
                                             (click)="Add();selectBranch.focus()" style="float: right;" *ngIf="showAdd"
-                                            [disabled]="submitForm">Add</button>
+                                            [disabled]="submitForm" (keydown.Tab)="focus()" >Add</button>
                                         <button class="btn btn-outline-primary btn-sm"
                                             (click)="update();selectBranch.focus()" style="float: right"
                                             *ngIf="showUpdate">Update</button>
@@ -476,7 +476,7 @@
                                         <div class="row">
                                             <div class="col-sm" style="float: right;">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                    *ngIf="showButton" [disabled]="submitForm"
+                                                    *ngIf="showButton" [disabled]="submitForm"  #submitbtn
                                                     (click)="submit();selectBranch.focus()">
                                                     Update
                                                 </button>

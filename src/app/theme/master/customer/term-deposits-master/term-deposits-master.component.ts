@@ -971,6 +971,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       var date1 = this.angForm.controls['AC_ASON_DATE'].value;
       let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
       let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+      this.expiryDate = expiryDate
       this.angForm.patchValue({
         AC_EXPDT: expiryDate
       })
@@ -1499,12 +1500,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         asondate = this.tempopendate
       }
       let expiry
-      if (this.expiryDate != formVal.AC_EXPDT) {
-        expiry = (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? expiry = '' : asonDate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY')
+      if (formVal.AC_EXPDT != '' && formVal.AC_EXPDT != null && formVal.AC_EXPDT != 'Invalid date') {
+        let toDate = moment(formVal.AC_EXPDT, 'DD/MM/YYYY')
+        expiry = moment(toDate).format('DD/MM/YYYY')
       } else {
-        expiry = this.expiryDate
+        expiry = null
       }
-
       const dataToSend = {
         'branchCode': branchCode,
         'bankCode': bankCode,
@@ -1579,6 +1580,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.nomineeTrue = false
         this.JointAccountsTrue = false
         this.PowerofAttorneyTrue = false
+        this.ngCategory = null
+        this.ngOperation = null
+        this.ngIntCategory = null
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -2827,7 +2831,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.intInstructionObject = instruction
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -2848,7 +2852,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
       ele.target.value = 0
-  
+
     }
   }
 }
