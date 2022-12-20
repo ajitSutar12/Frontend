@@ -34,6 +34,7 @@ import { Router } from "@angular/router";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -190,7 +191,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   updatecheckdata: any
   ngSubmitDate: any
   bsValue
-  maxDate: Date;
+  maxDate: any;
   urlMap: SafeResourceUrl
   fileuploaded: boolean = false
   filenotuploaded: boolean = true
@@ -206,10 +207,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private riskCategoryDropdown: RiskCategoryDropdownService,
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private systemParameter: SystemMasterParametersService,
   ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {

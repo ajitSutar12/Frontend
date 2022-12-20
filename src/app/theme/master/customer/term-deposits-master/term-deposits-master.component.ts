@@ -1108,7 +1108,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     }
 
-    maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
+    maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * Number(this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
 
     this.angForm.patchValue({
       AC_MATUAMT: maturityAmount
@@ -1466,7 +1466,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       let asondate
       let maturitydate
       const formVal = this.angForm.value;
-      if (formVal.AC_ADDFLAG == true) {
+      if (formVal.AC_ADDFLAG == undefined) {
+        this.addType = 'P'
+        formVal.AC_ADDFLAG = true
+      }
+      else if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
       }
       else if (formVal.AC_ADDFLAG == false) {
@@ -1605,6 +1609,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     let asondate
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
+      this.createForm()
       this.showInstruction = false
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -1625,8 +1630,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       //get attorney to edit
       this.multiAttorney = data.powerOfAttorney
 
-      this.ngCategory = data.AC_CATG,
-        this.ngOperation = data.AC_OPR_CODE
+      this.ngCategory = data.AC_CATG
+      this.ngOperation = data.AC_OPR_CODE
       this.ngIntCategory = data.AC_INTCATA
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
@@ -1658,8 +1663,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_INTRNAME': data.AC_INTRNAME,
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
-        'AC_INTRATE': data.AC_INTRATE
+        AC_INTRATE: data.AC_INTRATE
       })
+      this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
   disableForm(id) {
@@ -1809,6 +1815,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.nomineeTrue = false
     this.JointAccountsTrue = false
     this.PowerofAttorneyTrue = false
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
   }
 
   ngAfterViewInit(): void {
