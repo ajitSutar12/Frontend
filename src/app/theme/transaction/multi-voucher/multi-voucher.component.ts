@@ -41,6 +41,9 @@ export class MultiVoucherComponent implements OnInit {
   @ViewChild('focusbutton') focusbutton: ElementRef<HTMLElement>;
   @ViewChild('selectMode') selectMode: NgSelectComponent;
   @ViewChild('amt') amt: ElementRef;
+  @ViewChild('INTAMT') INTAMT: ElementRef;
+  @ViewChild('NOTINTAMT') NOTINTAMT: ElementRef;
+  @ViewChild('submitbtn') submitbtn: ElementRef;
   branchCode: any = null
 
   selectedBranch: number;
@@ -458,6 +461,11 @@ export class MultiVoucherComponent implements OnInit {
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = this.angForm.value;
       obj['user'] = user;
+      for (let ele of this.headData) {
+        if (ele['INTEREST_DATE_INPUT'] == '0' && ele.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+          ele['date'] = null
+        }
+      }
       obj['InputHead'] = this.headData;
       obj['tran_mode'] = this.submitTranMode;
       obj['scheme'] = this.submitScheme;
@@ -791,27 +799,71 @@ export class MultiVoucherComponent implements OnInit {
   }
 
 
+  // //get Input head Amount
+  // getInputHeadAmt(ele, i) {
+  //   var t = ele.target.value;
+  //   ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  //   let value = Number(ele.target.value);
+  //   if (Number(ele.target.value) > Number(this.headData[i].Balance) && this.headData[i].CHECK_BALANCE == '1') {
+  //     Swal.fire('Info', 'Please fill proper amount!', 'info')
+  //     this.headData[i].Amount = '0';
+  //   }
+  //   else {
+  //     this.headData[i].Amount = value;
+  //     let tran = this.submitTranMode.tran_drcr
+  //     let count = 0
+  //     this.headData.forEach(element => {
+  //       count = Number(element.Amount) + Number(count)
+  //     });
+  //     this.totalAmt = count + Number(this.angForm.controls['amt'].value)
+  //   }
+  //   this.totalAmt = Number(this.totalAmt).toFixed(2)
+  // }
+
   //get Input head Amount
   getInputHeadAmt(ele, i) {
+    // let value = ele.target.value;
     var t = ele.target.value;
     ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let value = Number(ele.target.value);
-    if (Number(ele.target.value) > Number(this.headData[i].Balance)) {
+    if (this.headData[i].Balance == undefined)
+      this.headData[i].Balance = 0
+    if (Number(ele.target.value) > Number(this.headData[i]?.Balance) && this.headData[i].CHECK_BALANCE == '1') {
+      this.headData[i].Amount = '0'
+      if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+        this.INTAMT.nativeElement.focus();
+      else
+        this.NOTINTAMT.nativeElement.focus();
+      this.submitForm = true
       Swal.fire('Info', 'Please fill proper amount!', 'info')
-      this.headData[i].Amount = '0';
     }
     else {
-      this.headData[i].Amount = value;
-      let tran = this.submitTranMode.tran_drcr
-      let count = 0
-      this.headData.forEach(element => {
-        count = Number(element.Amount) + Number(count)
-      });
-      this.totalAmt = count + Number(this.angForm.controls['amt'].value)
+      if (this.headData[i].IS_GLBAL_MAINTAIN == '1' && Number(this.headData[i].Balance) != 0 && Number(this.headData[i].Balance) != Number(ele.target.value)) {
+        this.headData[i].Amount = '0'
+        if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+          this.INTAMT.nativeElement.focus();
+        else
+          this.NOTINTAMT.nativeElement.focus();
+        this.submitForm = true
+        Swal.fire('Oops!', `Amount Must Be Equal to ${this.headData[i].Balance}`, 'error');
+      }
+      else {
+        if (Number(this.headData[i].Amount) != 0)
+          this.totalAmt = Number(this.headData[i].Amount) - this.totalAmt
+        this.headData[i].Amount = Number(value);
+        let tran = this.submitTranMode.tran_drcr
+        let count = 0
+        for (let element of this.headData) {
+          count = Number(element.Amount) + Number(count)
+        }
+        this.totalAmt = count + Number(this.angForm.controls['amt'].value)
+        this.submitForm = false
+        if (this.headData.length == 0)
+          this.submitbtn.nativeElement.focus();
+      }
     }
     this.totalAmt = Number(this.totalAmt).toFixed(2)
   }
-
   checkheadcondition(event, i) {
     console.log('event', event)
     let value = event.target.value;
@@ -2252,5 +2304,16 @@ export class MultiVoucherComponent implements OnInit {
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
+  }
+
+  checkBalanceFlag(event, i) {
+    if (this.headData[i].CHECK_REQUIRE == '1' && Number(event.target.value) == 0) {
+      if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+        this.INTAMT.nativeElement.focus();
+      else
+        this.NOTINTAMT.nativeElement.focus();
+      this.submitForm = true
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
+    }
   }
 }

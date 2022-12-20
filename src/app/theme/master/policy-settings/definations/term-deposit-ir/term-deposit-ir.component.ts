@@ -299,7 +299,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       this.updateID = data.id;
 
       //after clicking edit to get value in dropdown
-      this.angForm.controls['ACNOTYPE'].disable()
+      // this.angForm.controls['ACNOTYPE'].disable()
       this.ngscheme = Number(data.ACNOTYPE)
       this.angForm.controls['INT_CATEGORY'].disable()
       this.ngintcat = Number(data.INT_CATEGORY)

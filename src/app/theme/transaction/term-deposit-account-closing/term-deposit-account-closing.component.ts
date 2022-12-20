@@ -238,7 +238,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       SAVING_PIGMY: ['FormC'],
       chequeNo: ['', [Validators.pattern]],
       ChequeDate: ['', [Validators.pattern]],
-      Token_Num: ['', [Validators.pattern]],
+      // Token_Num: ['', [Validators.pattern]],
       particulars: [null],
       amount: [, [Validators.pattern]],
       ClosingQuaters: [0],
@@ -332,6 +332,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.dormant = event.dormant
     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
+      if (Number(data[0].LedgerBal) > 0) {
+        Swal.fire('Oops', 'Account cannot close','error')
+        return
+      }
       this.DayOpBal = data[0].AC_SCHMAMT
       this.Pass = data[0].AC_MATUAMT
       this.INTRATE = data[0].AC_INTRATE
@@ -345,6 +349,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.days = data[0].AC_DAYS
       this.interestCategory = data[0].AC_INTCATA
       this.preMature = data[0].preMature
+
       this.angForm.patchValue({
         LEDGER_BAL: Number(data[0].LedgerBal).toFixed(2),
         PAYABLE_INTAMT: Number(data[0].payableInterest).toFixed(2),
@@ -1106,7 +1111,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         INTEREST_RATE: formValue.InterestRate,
         IS_PREMATURE_CLOSE: this.preMature == true ? 1 : 0,
         NARRATION: formValue.narration,
-        TOKEN_NO: formValue.Token_Num,
+        // TOKEN_NO: formValue.Token_Num,
         PAYABLE_INTEREST_AMOUNT: formValue.PAYABLE_INTAMT,
         CHEQUE_NO: formValue.chequeNo,
         TDS_AMT: formValue.TDS_AMT,
@@ -1246,7 +1251,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         chequeNo: data.CHEQUE_NO,
         ChequeDate: data.CHEQUE_DATE,
         LEDGER_BAL: Number(data.LEDGER_BAL).toFixed(2),
-        Token_Num: data.TOKEN_NO,
+        // Token_Num: data.TOKEN_NO,
         PENAL_INT: data.PENAL_INTEREST_AMOUNT,
         InterestRate: data.INTEREST_RATE,
         maturedIntAmt: data.AFT_MATURE_INT_AMT,
@@ -1292,7 +1297,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         INTEREST_RATE: formValue.InterestRate,
         IS_PREMATURE_CLOSE: this.preMature == true ? 1 : 0,
         NARRATION: formValue.narration,
-        TOKEN_NO: formValue.Token_Num,
+        // TOKEN_NO: formValue.Token_Num,
         PAYABLE_INTEREST_AMOUNT: formValue.PAYABLE_INTAMT,
         CHEQUE_NO: formValue.chequeNo,
         TDS_AMT: formValue.TDS_AMT,
@@ -1350,7 +1355,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       INTEREST_RATE: formValue.InterestRate,
       IS_PREMATURE_CLOSE: this.preMature == true ? 1 : 0,
       NARRATION: formValue.narration,
-      TOKEN_NO: formValue.Token_Num,
+      // TOKEN_NO: formValue.Token_Num,
       PAYABLE_INTEREST_AMOUNT: formValue.PAYABLE_INTAMT,
       CHEQUE_NO: formValue.chequeNo,
       TDS_AMT: formValue.TDS_AMT,
@@ -1407,7 +1412,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       INTEREST_RATE: formValue.InterestRate,
       IS_PREMATURE_CLOSE: this.preMature == true ? 1 : 0,
       NARRATION: formValue.narration,
-      TOKEN_NO: formValue.Token_Num,
+      // TOKEN_NO: formValue.Token_Num,
       PAYABLE_INTEREST_AMOUNT: formValue.PAYABLE_INTAMT,
       CHEQUE_NO: formValue.chequeNo,
       TDS_AMT: formValue.TDS_AMT,
