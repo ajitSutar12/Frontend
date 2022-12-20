@@ -16,7 +16,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="INT_UPTO_DATE" id="INT_UPTO_DATE"
                                         class="form-control" [(ngModel)]="intuptodate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="INT_UPTO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
