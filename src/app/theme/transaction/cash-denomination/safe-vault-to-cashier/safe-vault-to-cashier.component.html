@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-8">
         <div class="row">
             <div class="col-12">
@@ -42,8 +42,8 @@
                                             <ng-select id="CASHIER"  [(ngModel)]="cashier"
                                                 formControlName="CASHIER" title="Compulsory Selection"
                                                 placeholder="" autofocus tabindex="0" (change)="changeData($event)">
-                                                <!-- <ng-option *ngFor="let item of cashier_list" [value]="item">
-                                                    {{item.id}} {{item.label}}</ng-option> -->
+                                                <ng-option *ngFor="let item of cashier_list" [value]="item">
+                                                    {{item.id}} {{item.label}}</ng-option> 
                                                     <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.CASHIER_CODE}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -58,19 +58,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <!-- <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">Denomination
-                                        Amount</label></div>
-                                <div class="col-md-4">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <input type="text" style="text-align: right;" maxlength="12"
-                                                pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
-                                                formControlName="DENOMINATION_AMT" [(ngModel)]="denoamt"
-                                                (keyup)="isFormA(2)"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" tabindex="1">
-                                        </span>
-                                    </div>
-                                </div> -->
+                               
                                 <div class="col-sm-12 col-md-3"> <label for="TRAN_DATE">Denomination Transaction
                                         Date<sub class="required">*</sub></label>
                                 </div>
@@ -115,7 +103,6 @@
                                 <td class="td_center">{{data.currency}} X</td>
                                 <td><input type="text" style="width: 100px;" (focusout)="calculation(data,indexOfelement,$event)" value="{{data.qty}}">=</td>
                                 <td><input type="text" style="width: 100px;" value="{{data.total}}"></td>
-                                <!-- <td><input type="text" value="{{data.available}}"></td> -->
                             </tr>
                             <div></div>
                             <div class="h"></div>
@@ -155,7 +142,7 @@
     </div>
 </div>
 
-<!-- <div class="row">
+ <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -225,4 +212,4 @@
 
         </div>
     </div>
-</div> -->
+</div> --> 

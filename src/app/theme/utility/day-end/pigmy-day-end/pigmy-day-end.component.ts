@@ -81,8 +81,8 @@ export class PigmyDayEndComponent implements OnInit {
           this.ngOnInit()
         }, err => {
           console.log(err);
-        })
-
+          Swal.fire('Oops..',err.error.message,'warning');
+      })
       }
     })
   }

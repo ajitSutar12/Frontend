@@ -16,10 +16,12 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                            formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' [virtualScroll]="true"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" autofocus>
+                                        <ng-select appTheme id="BRANCH_CODE" bindValue="value"
+                                            [(ngModel)]="ngBranchCode" formControlName="BRANCH_CODE" bindLabel="label"
+                                            title="Compulsory Selection" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
+                                            [selectOnTab]='true' [virtualScroll]="true"
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
+                                            autofocus>
                                             <ng-option *ngFor="let values of branch_code" [value]="values"
                                                 [disabled]="disableFields">
                                                 {{values.label}}</ng-option>
@@ -101,12 +103,12 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                            class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            [minDate]="accountOpenDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                            #FROM_DATE="bsDatepicker"  (keydown.Tab)="FROM_DATE.hide()" 
-                                            formControlName="FROM_DATE"
+                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE"
+                                            id="FROM_DATE" class="form-control" [(ngModel)]="fromdate"
+                                            [bsValue]="bsValue" [maxDate]="maxDate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="accountOpenDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}" #FROM_DATE="bsDatepicker"
+                                            (keydown.Tab)="FROM_DATE.hide()" formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker [disabled]="disableFields">
                                     </span>
@@ -141,8 +143,8 @@
                                             class="form-control" [(ngModel)]="todate" [bsValue]="bsValue"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
                                             [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="TO_DATE"
-                                            #TO_DATE="bsDatepicker"  (keydown.Tab)="TO_DATE.hide()" 
+                                            formControlName="TO_DATE" #TO_DATE="bsDatepicker"
+                                            (keydown.Tab)="TO_DATE.hide()"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker [disabled]="disableFields">
                                     </span>
@@ -157,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-3" style="font-size:13px;">
-                                <button class="btn btn-primary"></button>&nbsp; Unpassed Accounts
+                                <button class="btn btn-primary" disabled></button>&nbsp; Unpassed Accounts
                             </div>
                         </div>
                         <div class="row">
@@ -191,11 +193,12 @@
 
                             </div>
                             <div class="col-sm-3" style="font-size:13px;">
-                                <button class="btn" style="background-color: #bc31e9;"></button>&nbsp;Interest Vouchers
+                                <button class="btn" style="background-color: #bc31e9;" disabled></button>&nbsp;Interest
+                                Vouchers
                             </div>
                             <div class="col-sm" *ngIf="showView">
-                                <button class="btn btn-outline-primary btn-sm"
-                                    (click)="getTransactionsDeatils()"  (keydown.Tab)="focus()">View</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="getTransactionsDeatils()"
+                                    (keydown.Tab)="focus()">View</button>
                             </div>
                         </div>
                     </div>
@@ -249,7 +252,8 @@
                         <tr *ngFor="let data of tableData; let indexOfelement = index"
                             [ngStyle]="{'color': (data.IS_INTEREST_ENTRY == 1) ? '#bc31e9':((data.TRAN_STATUS == '0') ? '#226de9':'#212529')}">
                             <td>{{data.TRAN_DATE}}</td>
-                            <td>{{data.CHEQUE_NO=='null' || data.CHEQUE_NO=='0' || data.CHEQUE_NO=='' ? '---': data.CHEQUE_NO }}</td>
+                            <td>{{data.CHEQUE_NO=='null' || data.CHEQUE_NO=='0' || data.CHEQUE_NO=='' ? '---':
+                                data.CHEQUE_NO }}</td>
                             <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: normal;">
                                 {{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>
@@ -279,7 +283,6 @@
                             <td></td>
                             <td class="td_right">{{debitTotal}}</td>
                             <td class="td_right">{{creditTotal}}</td>
-                            <td></td>
                             <td>Balance</td>
                             <td class="td_right">{{normalInt}}</td>
                             <td class="td_right">{{recpayInt}}</td>
@@ -288,6 +291,7 @@
                             <td class="td_right">{{recpenalInt}}</td>
                             <td class="td_right">{{otherAmount}}</td>
                             <td class="td_right">{{addedPenal}}</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr style="font-weight: 600px;">

@@ -37,7 +37,6 @@ export class CurrentSchemeService {
             catchError((error) => {
                 let errorMessage = 'Please add valid length';
                 console.log(error)
-                // window.alert(errorMessage);
                 return throwError(errorMessage);
             })
         )

@@ -971,6 +971,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       var date1 = this.angForm.controls['AC_ASON_DATE'].value;
       let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
       let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+      this.expiryDate = expiryDate
       this.angForm.patchValue({
         AC_EXPDT: expiryDate
       })
@@ -1107,7 +1108,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     }
 
-    maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
+    maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * Number(this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
 
     this.angForm.patchValue({
       AC_MATUAMT: maturityAmount
@@ -1465,7 +1466,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       let asondate
       let maturitydate
       const formVal = this.angForm.value;
-      if (formVal.AC_ADDFLAG == true) {
+      if (formVal.AC_ADDFLAG == undefined) {
+        this.addType = 'P'
+        formVal.AC_ADDFLAG = true
+      }
+      else if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
       }
       else if (formVal.AC_ADDFLAG == false) {
@@ -1499,12 +1504,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         asondate = this.tempopendate
       }
       let expiry
-      if (this.expiryDate != formVal.AC_EXPDT) {
-        expiry = (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? expiry = '' : asonDate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY')
+      if (formVal.AC_EXPDT != '' && formVal.AC_EXPDT != null && formVal.AC_EXPDT != 'Invalid date') {
+        let toDate = moment(formVal.AC_EXPDT, 'DD/MM/YYYY')
+        expiry = moment(toDate).format('DD/MM/YYYY')
       } else {
-        expiry = this.expiryDate
+        expiry = null
       }
-
       const dataToSend = {
         'branchCode': branchCode,
         'bankCode': bankCode,
@@ -1579,6 +1584,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.nomineeTrue = false
         this.JointAccountsTrue = false
         this.PowerofAttorneyTrue = false
+        this.ngCategory = null
+        this.ngOperation = null
+        this.ngIntCategory = null
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -1601,6 +1609,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     let asondate
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
+      this.createForm()
       this.showInstruction = false
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
@@ -1621,8 +1630,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       //get attorney to edit
       this.multiAttorney = data.powerOfAttorney
 
-      this.ngCategory = data.AC_CATG,
-        this.ngOperation = data.AC_OPR_CODE
+      this.ngCategory = data.AC_CATG
+      this.ngOperation = data.AC_OPR_CODE
       this.ngIntCategory = data.AC_INTCATA
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
@@ -1654,8 +1663,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_INTRNAME': data.AC_INTRNAME,
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
-        'AC_INTRATE': data.AC_INTRATE
+        AC_INTRATE: data.AC_INTRATE
       })
+      this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
   disableForm(id) {
@@ -1805,6 +1815,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.nomineeTrue = false
     this.JointAccountsTrue = false
     this.PowerofAttorneyTrue = false
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
   }
 
   ngAfterViewInit(): void {
@@ -2827,7 +2840,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.intInstructionObject = instruction
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -2848,7 +2861,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
       ele.target.value = 0
-  
+
     }
   }
 }

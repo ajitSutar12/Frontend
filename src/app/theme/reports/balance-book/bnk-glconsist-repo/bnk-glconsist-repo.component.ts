@@ -8,7 +8,9 @@ import * as moment from 'moment';
 import Swal from "sweetalert2";
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -32,13 +34,14 @@ angForm: FormGroup;
  maxDate: Date;
  minDate: Date;
  bsValue = new Date();
-
+ allSchemeCode:any;
  report_url = environment.report_url;
 
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter:SystemMasterParametersService,
+    private voucherservice: VoucherEntryService,
     private sanitizer: DomSanitizer, ) { 
       this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
@@ -54,16 +57,41 @@ angForm: FormGroup;
       this.branchOption = data;
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var schemetype = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'AG' || scheme.name == 'LK'|| scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'IV' || scheme.name == 'GL' )
-      });
-      this.schemetype = schemetype;
-  });
+        var schemetype = data.filter(function (scheme) {
+          return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'AG' || scheme.name == 'LK'|| scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'IV' || scheme.name == 'GL' )
+        });
+        this.schemetype = schemetype;
+    });
 
-  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-    this.defaultDate = data.CURRENT_DATE;
-  })
-  
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.defaultDate = data.CURRENT_DATE;
+    })
+    
+    this.voucherservice.getSchemeCodeList().subscribe(data=>{
+      this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
+      this.allSchemeCode = this.allSchemeCode.sort(this.dynamicSort("S_ACNOTYPE"));
+      let obj = {
+        "S_ACNOTYPE" : 'ALL'
+      }
+      this.allSchemeCode.unshift(obj);
+      console.log(this.allSchemeCode);
+    },err=>{
+      console.log(err);
+    })
+  }
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      /* next line works with strings and numbers, 
+       * and you may want to customize it to your needs
+       */
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -90,7 +118,7 @@ angForm: FormGroup;
     this.printpenal=true;
   }
   view(event) {
-
+    debugger
     event.preventDefault();
 
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -117,6 +145,7 @@ angForm: FormGroup;
       let penal = obj.Penal;
   
       this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branch='"+branch+"'&schemed='"+schemed+"'&schemewise='"+schemewise+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
+      console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

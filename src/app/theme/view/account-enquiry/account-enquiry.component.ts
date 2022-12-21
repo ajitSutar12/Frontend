@@ -811,9 +811,10 @@ export class AccountEnquiryComponent implements OnInit {
           this.loantransactionData = data
           this.GLtransactionData = null
           this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(this.loantransactionData.currentInt)
-          this.loanTotalInterest = this.loantransactionData.penalInt + this.loantransactionData.receiveablePenal + this.loantransactionData.overdueInt + this.loantransactionData.payableInt + this.loantransactionData.currentInt
-          this.loanTotalReceivable = this.loanTotalInterest + this.loantransactionData.otherReceivedAmount + this.loantransactionData.totalClosingBal
-          this.rebateIntrest = Math.round((this.loantransactionData.rebateAmount * this.REBATE_INTRATE) / 100)
+          this.loanTotalInterest = Number(this.loantransactionData.penalInt) + Number(this.loantransactionData.receiveablePenal) + Number(this.loantransactionData.overdueInt) + Number(this.loantransactionData.payableInt) + Number(this.loantransactionData.currentInt)
+          this.loanTotalReceivable = Number(this.loanTotalInterest) + Number(this.loantransactionData.otherReceivedAmount) + Number(this.loantransactionData.totalClosingBalforLoan)
+          this.loanTotalReceivable = Math.abs(this.loanTotalReceivable)
+          this.rebateIntrest = Math.round((Number(this.loantransactionData.rebateAmount) * Number(this.REBATE_INTRATE)) / 100)
         }
         else {
           this.ShareRecordShow = false
