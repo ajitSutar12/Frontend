@@ -20,6 +20,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from "../../../theme.module";
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -51,6 +52,7 @@ import { ThemeModule } from "../../../theme.module";
       useClass: UserAuthInterceptor,
       multi: true
     },
+    SystemMasterParametersService
   ]
 })
 export class CustomerIdModule { }

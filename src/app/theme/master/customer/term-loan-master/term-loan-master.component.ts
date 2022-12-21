@@ -1079,15 +1079,23 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
   //function to get new customer data
+  // addNewCustomer(newCustomer) {
+  //   this._TermLoanScheme.getCustomerIDMasterList().subscribe(data => {
+
+  //     this.Cust_ID = data;
+  //     let last = data.slice(-1)[0]
+
+  //     this.id = newCustomer
+
+  //     this.getCustomer(this.id); 
+  //   })
+  // }
+
   addNewCustomer(newCustomer) {
-    this._TermLoanScheme.getCustomerIDMasterList().subscribe(data => {
-
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
-      let last = data.slice(-1)[0]
-
-      this.id = newCustomer
-
-      this.getCustomer(this.id);
+      this.id = newCustomer;
+      this.getCustomer(newCustomer);
     })
   }
 
@@ -1674,13 +1682,20 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   addGuarantor() {
     const formVal = this.angForm.value;
     let exdate
+    if (formVal.EXP_DATE != '' && formVal.EXP_DATE != null && formVal.EXP_DATE != 'Invalid date') {
+      let toDate = moment(formVal.EXP_DATE, 'DD/MM/YYYY')
+      exdate = moment(toDate).format('DD/MM/YYYY')
+    } else {
+      exdate = null
+    }
     var object = {
       GAC_CUSTID: formVal.GAC_CUSTID,
       AC_MEMBNO: formVal.GAC_MEMBNO,
       AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
       AC_NAME: formVal.GAC_NAME,
-      EXP_DATE: (formVal.EXP_DATE == '' || formVal.EXP_DATE == 'Invalid date') ? exdate = '' : exdate = moment(formVal.EXP_DATE).format('DD/MM/YYYY'),
+      EXP_DATE: exdate
     }
+
     if (formVal.AC_CUSTID != "") {
       if (object.GAC_CUSTID != undefined) {
         if (this.id != this.Gid) {
@@ -1728,23 +1743,24 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   // Update Guarantor
   updateGuarantor() {
-    let exdate
     let date1
     let index = this.intIndex;
     this.GuarantorShowButton = true;
     this.GuarantorUpdateShow = false;
     const formVal = this.angForm.value;
-    if (this.guarantoredit.EXP_DATE != formVal.EXP_DATE) {
-      date1 = moment(formVal.EXP_DATE).format('DD/MM/YYYY');
+    let exdate
+    if (formVal.EXP_DATE != '' && formVal.EXP_DATE != null && formVal.EXP_DATE != 'Invalid date') {
+      let toDate = moment(formVal.EXP_DATE, 'DD/MM/YYYY')
+      exdate = moment(toDate).format('DD/MM/YYYY')
     } else {
-      date1 = formVal.EXP_DATE
+      exdate = null
     }
     var object = {
       GAC_CUSTID: formVal.GAC_CUSTID,
       AC_MEMBNO: formVal.GAC_MEMBNO,
       AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
       AC_NAME: formVal.GAC_NAME,
-      EXP_DATE: date1,
+      EXP_DATE: exdate,
 
       id: this.intID
     }
@@ -2222,29 +2238,29 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.reloadTablePassing.emit();
   }
 
-//check  if percentage  is below 50
-checkmargin(ele: any) {
-  //check  if given value  is below 50
-  if (ele.target.value <= 50) {
-  }
-  else {
-    Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
-    ele.target.value = 0
+  //check  if percentage  is below 50
+  checkmargin(ele: any) {
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0
 
+    }
   }
-}
 
-getDecimal(event) {
-  var t = event.target.value;
-  event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-}
-getDecimalPoint(event) {
-  if (event.target.value != '')
-    event.target.value = parseFloat(event.target.value).toFixed(2);
-  else
-    event.target.value = 0
-}
-  onFocus(ele: NgSelectComponent) {  
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 

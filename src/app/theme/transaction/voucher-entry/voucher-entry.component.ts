@@ -34,6 +34,8 @@ export class VoucherEntryComponent implements OnInit {
   @ViewChild('submitbtn') submitbtn: ElementRef;
   @ViewChild('INTAMT') INTAMT: ElementRef;
   @ViewChild('NOTINTAMT') NOTINTAMT: ElementRef;
+  @ViewChild('bankNameField') bankNameField: ElementRef;
+  @ViewChild('narrationField') narrationField: ElementRef;
   // @ViewChild('tran_mode') tran_mode: ElementRef;
   @ViewChild('tran_mode') tran_mode: NgSelectComponent;
 
@@ -484,6 +486,7 @@ export class VoucherEntryComponent implements OnInit {
     this.particulars = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
+    this.narrationField.nativeElement.focus()
   }
 
   BankName
@@ -491,6 +494,7 @@ export class VoucherEntryComponent implements OnInit {
     this.BankName = ele;
     let el: HTMLElement = this.triggerhide1.nativeElement;
     el.click();
+    this.bankNameField.nativeElement.focus()
   }
 
   selectAllContent($event) {
@@ -507,6 +511,11 @@ export class VoucherEntryComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = this.angForm.value;
     obj['user'] = user;
+    for (let ele of this.headData) {
+      if (ele['INTEREST_DATE_INPUT'] == '0' && ele.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+        ele['date'] = null
+      }
+    }
     obj['InputHead'] = this.headData;
     obj['scheme'] = this.Submitscheme;
     obj['account_no'] = this.submitCustomer;
@@ -1099,7 +1108,7 @@ export class VoucherEntryComponent implements OnInit {
     let value = Number(ele.target.value);
     if (this.headData[i].Balance == undefined)
       this.headData[i].Balance = 0
-    if (Number(ele.target.value) > Number(this.headData[i]?.Balance)) {
+    if (Number(ele.target.value) > Number(this.headData[i]?.Balance) && this.headData[i].CHECK_BALANCE == '1') {
       this.headData[i].Amount = '0'
       if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
         this.INTAMT.nativeElement.focus();
@@ -1945,6 +1954,43 @@ export class VoucherEntryComponent implements OnInit {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
+  getTranMode() {
+    let object = this.TranData.find(t => t.key === this.selectedCode);
+    if (this.type == 'cash') {
+      this.tranModeList = [];
+      object.data.cash.forEach(ele => {
+        let obj = this.TranModeCash.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
+      this.angForm.patchValue({
+        chequeDate: null
+      })
+    } else {
+      this.tranModeList = [];
+      object.data.transfer.forEach(ele => {
+        let obj = this.TranModeTransfer.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
+    }
+  }
 
   headFlag: boolean = false;
   editClickHandler(id) {
@@ -1971,6 +2017,7 @@ export class VoucherEntryComponent implements OnInit {
       this.headShow = true;
       this.selectedScheme = data.scheme.id
       this.Submitscheme = data.scheme;
+
       this.selectedMode = data.tran_mode[0].id;
       this.introducerACNo = [];
       this.obj = [this.selectedScheme, this.selectedBranch]
@@ -2068,7 +2115,8 @@ export class VoucherEntryComponent implements OnInit {
         particulars: data.NARRATION,
         token: data.TOKEN_NO,
       })
-
+      this.type = data.TRAN_TYPE == 'CS' ? 'cash' : data.TRAN_TYPE == 'TR' ? 'transfer' : ''
+      this.getTranMode()
 
       // this.resetscheme();
       this.checkAccountCondition();
@@ -2277,6 +2325,21 @@ export class VoucherEntryComponent implements OnInit {
       if (this.headData.length == 0)
         this.submitbtn.nativeElement.focus();
       this.totalAmt = parseFloat(value).toFixed(2);
+    }
+  }
+
+  focusSubmit() {
+    if (this.headData.length == 0)
+      this.submitbtn.nativeElement.focus();
+  }
+  checkBalanceFlag(event, i) {
+    if (this.headData[i].CHECK_REQUIRE == '1' && Number(event.target.value) == 0) {
+      if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+        this.INTAMT.nativeElement.focus();
+      else
+        this.NOTINTAMT.nativeElement.focus();
+      this.submitForm = true
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
   }
 }
