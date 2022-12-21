@@ -196,7 +196,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <textarea class="form-control" formControlName="particulars"
-                                                    [(ngModel)]="particulars"></textarea>
+                                                    [(ngModel)]="particulars" #narrationField></textarea>
                                                 <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
                                             </span>
                                         </div>
@@ -236,7 +236,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <textarea class="form-control" formControlName="bank"
+                                                    <textarea class="form-control" formControlName="bank" #bankNameField
                                                         [(ngModel)]="selectBankName"></textarea>
                                                     <i class="fa fa-info-circle errspan"
                                                         (click)="modalLarge1.show()"></i>
@@ -374,7 +374,7 @@
                                     <div class="col-md-12">
                                         <button class="btn btn-outline-primary btn-sm"
                                             (click)="Add();selectBranch.focus()" style="float: right;" *ngIf="showAdd"
-                                            [disabled]="submitForm" (keydown.Tab)="focus()" >Add</button>
+                                            [disabled]="submitForm" (keydown.Tab)="focus()">Add</button>
                                         <button class="btn btn-outline-primary btn-sm"
                                             (click)="update();selectBranch.focus()" style="float: right"
                                             *ngIf="showUpdate">Update</button>
@@ -476,7 +476,7 @@
                                         <div class="row">
                                             <div class="col-sm" style="float: right;">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                    *ngIf="showButton" [disabled]="submitForm"  #submitbtn
+                                                    *ngIf="showButton" [disabled]="submitForm" #submitbtn
                                                     (click)="submit();selectBranch.focus()">
                                                     Update
                                                 </button>

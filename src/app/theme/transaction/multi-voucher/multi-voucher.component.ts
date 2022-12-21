@@ -44,6 +44,8 @@ export class MultiVoucherComponent implements OnInit {
   @ViewChild('INTAMT') INTAMT: ElementRef;
   @ViewChild('NOTINTAMT') NOTINTAMT: ElementRef;
   @ViewChild('submitbtn') submitbtn: ElementRef;
+  @ViewChild('bankNameField') bankNameField: ElementRef;
+  @ViewChild('narrationField') narrationField: ElementRef;
   branchCode: any = null
 
   selectedBranch: number;
@@ -445,6 +447,7 @@ export class MultiVoucherComponent implements OnInit {
     this.particulars = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
+    this.narrationField.nativeElement.focus()
   }
 
   //get Narration Details 
@@ -452,6 +455,7 @@ export class MultiVoucherComponent implements OnInit {
     this.selectBankName = ele;
     let el: HTMLElement = this.triggrhide1.nativeElement;
     el.click();
+    this.bankNameField.nativeElement.focus()
   }
 
   //submit Form
@@ -523,8 +527,14 @@ export class MultiVoucherComponent implements OnInit {
     if (this.totalCredit == this.totalDebit && Number(this.totalCredit) != 0 && Number(this.totalDebit) != 0) {
 
       this._service.insertVoucher(this.mainMaster).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Multi Voucher updated Successfully!',
+          html:
+            '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>'
+        })
         // this.getVoucherData();
-        Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+        // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
         this.type = 'cash';
         this.mainMaster = [];
         this.headData = [];

@@ -229,7 +229,7 @@ th {
     color: white;
     height: 34px;
     font-weight: bold;
-    background-image: linear-gradient(to bottom, #93b5d2 5%, #1e3567 100%);
+    // background-image: linear-gradient(to bottom, #93b5d2 5%, #1e3567 100%);
 }
 
 .fa-arrow-right:before {
@@ -258,10 +258,12 @@ th {
 }
 
 .btn-outline-primary {
+    background-color: #448aff;
+    // border-color: #448aff;
     color: white;
     // background-image: linear-gradient(#8d1b54, #ddb4c2);
     border-color: black;
-    background-color: transparent;
+    // background-color: transparent;
     float: right;
     margin-right: 5px;
     border-radius: 5px;
@@ -428,18 +430,18 @@ ng-select>div>div.single>div.toggle {
 }
 
 .card .card-header {
-    background-color: #8d1b54;
+    background-color: #6e91cc;
     border-bottom: none;
     padding: 2px;
     position: relative;
-    background-image: -webkit-linear-gradient(top,
-            #dae7f6,
-            #cddef3 45%,
-            #abc7ec 46%,
-            #abc7ec 50%,
-            #b8cfee 51%,
-            #cbddf3);
-    align-items: center;
+    // background-image: -webkit-linear-gradient(top,
+    //         #dae7f6,
+    //         #cddef3 45%,
+    //         #abc7ec 46%,
+    //         #abc7ec 50%,
+    //         #b8cfee 51%,
+    //         #cbddf3);
+    // align-items: center;
 }
 
 .card .card-header h6 {
@@ -474,12 +476,12 @@ ng-select>div>div.single>div.toggle {
 }
 
 .pcoded .pcoded-navbar[navbar-theme="themelight1"] .main-menu .main-menu-header .user-details span {
-    color: black;
+    color: white;
 }
 
 .card .card-header h5 {
     margin-bottom: 0;
-    color: black;
+    color: white;
     font-size: 12.5px;
     font-weight: 500;
     display: inline-block;
@@ -490,13 +492,13 @@ ng-select>div>div.single>div.toggle {
 }
 
 .pcoded .pcoded-header[header-theme="theme1"] {
-    background: white;
-    // background-image: linear-gradient(to right, #8d1b54, #cb90a5);
+    background: #448aff; // background-image: linear-gradient(to right, #8d1b54, #cb90a5);
 }
 
 .pcoded .pcoded-header[header-theme="theme1"] .input-group-addon,
 .pcoded .pcoded-header[header-theme="theme1"] a {
-    color: black;
+    // color: black;
+    color: white
 }
 
 // .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
@@ -505,12 +507,14 @@ ng-select>div>div.single>div.toggle {
 // }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a {
-    background: #d9e7f8;
-    color: black !important;
+    // background: #448aff;
+    // color: black !important;
+    background: #448aff;
+    color: #fff !important;
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a .pcoded-micon {
-    color: black !important;
+    color: white !important;
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a:after {
@@ -519,8 +523,9 @@ ng-select>div>div.single>div.toggle {
 
 .pcoded[fream-type="theme1"] .page-header:before,
 .pcoded[fream-type="theme1"] .main-menu .main-menu-header:before {
-    // background: RGB(179 1 1 / 50%);
-    background: RGB(217 231 248/80%) !important;
+    // background: #448aff;
+    //  background: RGB(217 231 248/80%) !important;
+    background: rgba(68, 138, 255, 0.5);
 }
 
 // .table.dataTable[class*="table-"] thead th {
@@ -533,7 +538,8 @@ ng-select>div>div.single>div.toggle {
     tbody tr:nth-of-type(even) {
         // background-color: transparentize($primary-color,0.97);
         // background-color: #f8eef3;
-        background-color: #dae7f6;
+        // background-color: #dae7f6;
+        background-color: #82a5e0;
     }
 }
 
@@ -575,15 +581,33 @@ ng-select>div>div.single>div.value {
 }
 
 .table.dataTable[class*="table-"] thead th {
-    // background-color: #8d1b54;
-    background-image: -webkit-linear-gradient(top,
-            #dae7f6,
-            #cddef3 45%,
-            #abc7ec 46%,
-            #abc7ec 50%,
-            #b8cfee 51%,
-            #cbddf3);
-    color: black;
+    // background-color: #448aff;
+    // background-image: -webkit-linear-gradient(top,
+    //         #dae7f6,
+    //         #6e91cc 45%,
+    //         #365994 46%,
+    //         #365994 50%,
+    //         #7897ce 51%,
+    //         #97abce);
+    // background-image: -webkit-linear-gradient(top,
+    //         #dae7f6,
+    //         #cddef3 45%,
+    //         #abc7ec 46%,
+    //         #abc7ec 50%,
+    //         #b8cfee 51%,
+    //         #cbddf3);
+    // // background: rgba(68, 138, 255, 0.5);
+    background: #6e91cc;
+    color: white;
+    // text-transform: capitalize;
+    // background-image: -webkit-linear-gradient(top,
+    //         #ccdef3,
+    //         #cddef3 45%,
+    //         #a1c2ed 46%,
+    //         #a1c2ed 50%,
+    //         #acc5e6 51%,
+    //         #c1d7f2);
+    // color: black;
     text-transform: capitalize;
 }
 
@@ -607,8 +631,15 @@ ng-select>div>div.single>div.value {
 
 .btn-outline-primary.disabled,
 .btn-outline-primary:disabled {
-    color: WHITE;
-    background-color: transparent;
+    // color: WHITE;
+    // background-color: transparent;
+    background-color: #448aff;
+    color: white !important;
+    border-color: black;
+    float: right;
+    margin-right: 5px;
+    border-radius: 5px;
+    height: 32px;
 }
 
 .pcoded-main-container {
@@ -745,15 +776,16 @@ ng-select>div>div.single>div.value {
 // }
 
 thead td {
-    // background-color: #8d1b54;
-    background-image: -webkit-linear-gradient(top,
-            #dae7f6,
-            #cddef3 45%,
-            #abc7ec 46%,
-            #abc7ec 50%,
-            #b8cfee 51%,
-            #cbddf3);
-    color: black;
+    // background-color: #448aff;
+    background: #6e91cc;
+    // background-image: -webkit-linear-gradient(top,
+    //         #dae7f6,
+    //         #cddef3 45%,
+    //         #abc7ec 46%,
+    //         #abc7ec 50%,
+    //         #b8cfee 51%,
+    //         #cbddf3);
+    color: white;
     text-transform: capitalize;
     font-weight: bold;
 }
@@ -904,4 +936,17 @@ tr:hover {
     padding-top: 1px;
     padding-bottom: 1px;
     font-size: 11px;
+}
+
+.breadcrumb-item[_ngcontent-ark-c103]+.breadcrumb-item[_ngcontent-ark-c103]::before {
+    display: inline-block;
+    padding-right: 0.2rem;
+    color: white !important;
+    content: "/";
+    padding-top: 0.2rem;
+}
+
+.requiredlable {
+    font-size: 13px;
+    color: white !important;
 }

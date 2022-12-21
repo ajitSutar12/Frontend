@@ -24,7 +24,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
                                                     #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
-                                                    autofocus appTheme>
+                                                    autofocus appTheme (change)="getBranch()">
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -100,9 +100,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <label *ngIf="!preMature && customer!=null" style="color: rgb(7, 144, 7);">Matured Account</label>
-                                        <label *ngIf="preMature && customer!=null" style="color: rgb(194, 55, 55);">Premature Account</label>
+                                    <div class="col-sm">
+                                        <label *ngIf="!preMature && customer!=null"
+                                            style="color: rgb(7, 144, 7);">Matured Account</label>
+                                        <label *ngIf="preMature && customer!=null"
+                                            style="color: rgb(194, 55, 55);">Premature Account</label>
                                     </div>
                                 </div>
 
@@ -133,7 +135,7 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="6"
                                                             pattern="^[0-9]+$" class="form-control"
-                                                            formControlName="MaturedDays"
+                                                            formControlName="MaturedDays" disabled
                                                             (focus)="selectAllContent($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )">
                                                     </span>
@@ -237,7 +239,7 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="15"
                                                             (change)="getNetInterest()" formControlName="POSTED_INT"
-                                                            (focus)="selectAllContent($event)"
+                                                            (focus)="selectAllContent($event)" disabled
                                                             (keyup)="getDecimal($event)" class="form-control"
                                                             (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
@@ -252,14 +254,14 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label> - Net Interest Amount</label>
+                                                <label>Net/Excess Interest Amount</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="15"
                                                             formControlName="NET_INTAMT" (change)="getNetPayAmount()"
-                                                            (focus)="selectAllContent($event)"
+                                                            (focus)="selectAllContent($event)" disabled
                                                             (keyup)="getDecimal($event)" class="form-control"
                                                             (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
@@ -267,7 +269,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="preMature">
+                                        <!-- <div class="row" *ngIf="preMature">
                                             <div class="col-md-6">
                                                 <label>Excess Interest Amount</label>
                                             </div>
@@ -276,21 +278,21 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="15"
                                                             formControlName="EXCESS_INT"
-                                                            (focus)="selectAllContent($event)"
+                                                            (focus)="selectAllContent($event)" disabled
                                                             (keyup)="getDecimal($event)" class="form-control"
                                                             (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row">
                                             <div class="col-md-4"><label for="narration">Narration</label></div>
                                             <div class="col-md">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <textarea class="form-control" formControlName="narration"
-                                                            [(ngModel)]="narration"></textarea>
+                                                            [(ngModel)]="narration" #narrationField></textarea>
                                                         <i class="fa fa-info-circle errspan"
                                                             (click)="modalNarration.show()"></i>
                                                     </span>
@@ -310,7 +312,7 @@
                                                         <input type="text" style="text-align: right;" maxlength="15"
                                                             formControlName="LEDGER_BAL" (change)="getNetPayAmount()"
                                                             (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
+                                                            (keyup)="getDecimal($event)" disabled
                                                             (focusout)="getDecimalPoint($event)" class="form-control"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </span>
@@ -326,7 +328,7 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="15"
                                                             (change)="getNetPayAmount()"
-                                                            formControlName="PAYABLE_INTAMT"
+                                                            formControlName="PAYABLE_INTAMT" disabled
                                                             (focus)="selectAllContent($event)"
                                                             (keyup)="getDecimal($event)" class="form-control"
                                                             (focusout)="getDecimalPoint($event)"
@@ -337,13 +339,15 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>- Net Interest/Excess Interest Amount</label>
+                                                <label><span *ngIf="NET_EXC_INTAMT >= 0">+</span> <span
+                                                        *ngIf="NET_EXC_INTAMT < 0">-</span> Net Interest/Excess
+                                                    Interest Amount</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="15"
-                                                            (focus)="selectAllContent($event)"
+                                                            (focus)="selectAllContent($event)" disabled
                                                             (keyup)="getDecimal($event)"
                                                             (focusout)="getDecimalPoint($event)" class="form-control"
                                                             formControlName="NET_INTAMT" (change)="getNetPayAmount()"
@@ -417,7 +421,7 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="15"
                                                             (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
+                                                            (keyup)="getDecimal($event)" disabled
                                                             (focusout)="getDecimalPoint($event)"
                                                             formControlName="NETPAYABLEAMT" class="form-control"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
@@ -600,7 +604,7 @@
                                                     <div class="col-md">
                                                         <button type="button" class="btn btn-outline-primary btn-sm"
                                                             *ngIf="jointShowButton" (click)="addTransferAccount()">
-                                                            Add Account
+                                                            Add Account 
                                                         </button>
                                                         <button class="btn btn-outline-primary btn-sm"
                                                             (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">
