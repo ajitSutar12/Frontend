@@ -156,6 +156,7 @@ export class MultiVoucherComponent implements OnInit {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   loginUser: any;
+  modalClass: string = 'modalHide';
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -1356,7 +1357,7 @@ export class MultiVoucherComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed == false) {
           this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
+          this.angForm.controls['total_amt'].reset(0);
           this.SideDetails()
           this.submitForm = true
         } else {
@@ -1383,7 +1384,7 @@ export class MultiVoucherComponent implements OnInit {
           this.amt.nativeElement.blur();
         } else {
           this.angForm.controls['amt'].reset();
-          this.angForm.controls['total_amt'].reset();
+          this.angForm.controls['total_amt'].reset(0);
           this.submitForm = true
           this.SideDetails()
         }
@@ -1417,31 +1418,35 @@ export class MultiVoucherComponent implements OnInit {
       type: this.typeclearbal
     }
     this._service.checkZeroBalance(obj).subscribe(data => {
+      this.modalClass = 'modalShow';
       if (data != 0) {
         this.SideDetails()
         this.angForm.controls['amt'].reset();
-        this.angForm.controls['total_amt'].reset();
+        this.angForm.controls['total_amt'].reset(0);
         this.amt.nativeElement.focus();
         this.submitForm = true
+        this.modalClass = 'modalHide';
         Swal.fire('Oops!', data.message, 'error');
       } else {
         this._service.clearWithdrawBal(obj).subscribe(data => {
           if (data != 0) {
             this.SideDetails()
             this.angForm.controls['amt'].reset();
-            this.angForm.controls['total_amt'].reset();
+            this.angForm.controls['total_amt'].reset(0);
             this.amt.nativeElement.focus();
             this.submitForm = true
+            this.modalClass = 'modalHide';
             Swal.fire('Oops!', data.message, 'error');
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
                 this.submitForm = true
+                this.modalClass = 'modalHide';
                 // Swal.fire('Oops!', data.message, 'error');
                 // this.SideDetails()
 
                 // this.angForm.controls['amt'].reset();
-                // this.angForm.controls['total_amt'].reset();
+                // this.angForm.controls['total_amt'].reset(0);
                 // Swal.fire({
                 //   title: data.message,
                 //   html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
@@ -1456,7 +1461,7 @@ export class MultiVoucherComponent implements OnInit {
 
                 //   } else {
                 //     this.angForm.controls['amt'].reset();
-                //     this.angForm.controls['total_amt'].reset();
+                //     this.angForm.controls['total_amt'].reset(0);
 
                 //     this.SideDetails()
                 //   }
@@ -1466,171 +1471,190 @@ export class MultiVoucherComponent implements OnInit {
                   if (data != 0) {
                     this.SideDetails()
                     this.angForm.controls['amt'].reset();
-                    this.angForm.controls['total_amt'].reset();
+                    this.angForm.controls['total_amt'].reset(0);
                     this.amt.nativeElement.focus();
                     this.submitForm = true
+                    this.modalClass = 'modalHide';
                     Swal.fire('Oops!', data.message, 'error');
                   } else {
                     this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
                       if (data != 0) {
                         this.SideDetails()
                         this.angForm.controls['amt'].reset();
-                        this.angForm.controls['total_amt'].reset();
+                        this.angForm.controls['total_amt'].reset(0);
                         this.amt.nativeElement.focus();
                         this.submitForm = true
+                        this.modalClass = 'modalHide';
                         Swal.fire('Oops!', data.message, 'error');
                       } else {
                         this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
                           if (data != 0) {
                             this.SideDetails()
                             this.angForm.controls['amt'].reset();
-                            this.angForm.controls['total_amt'].reset();
+                            this.angForm.controls['total_amt'].reset(0);
                             this.amt.nativeElement.focus();
                             this.submitForm = true
+                            this.modalClass = 'modalHide';
                             Swal.fire('Oops!', data.message, 'error');
                           } else {
                             this._vservice.InstructionFreezeAc(obj).subscribe(data => {
                               if (data != 0) {
                                 this.SideDetails()
                                 this.angForm.controls['amt'].reset();
-                                this.angForm.controls['total_amt'].reset();
+                                this.angForm.controls['total_amt'].reset(0);
                                 this.amt.nativeElement.focus();
                                 this.submitForm = true
+                                this.modalClass = 'modalHide';
                                 Swal.fire('Oops!', data.message, 'error');
                               } else {
                                 this._vservice.MinBalanceChecking(obj).subscribe(data => {
                                   if (data != 0) {
                                     this.SideDetails()
                                     this.angForm.controls['amt'].reset();
-                                    this.angForm.controls['total_amt'].reset();
+                                    this.angForm.controls['total_amt'].reset(0);
                                     this.amt.nativeElement.focus();
                                     this.submitForm = true
+                                    this.modalClass = 'modalHide';
                                     Swal.fire('Oops!', data.message, 'error');
                                   } else {
                                     this._vservice.CheckClearBalAndAmt(obj).subscribe(data => {
                                       if (data != 0) {
                                         this.SideDetails()
                                         this.angForm.controls['amt'].reset();
-                                        this.angForm.controls['total_amt'].reset();
+                                        this.angForm.controls['total_amt'].reset(0);
                                         this.amt.nativeElement.focus();
                                         this.submitForm = true
+                                        this.modalClass = 'modalHide';
                                         Swal.fire('Oops!', data.message, 'error');
                                       } else {
                                         this._vservice.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
                                           if (data != 0) {
                                             this.SideDetails()
                                             this.angForm.controls['amt'].reset();
-                                            this.angForm.controls['total_amt'].reset();
+                                            this.angForm.controls['total_amt'].reset(0);
                                             this.amt.nativeElement.focus();
                                             this.submitForm = true
+                                            this.modalClass = 'modalHide';
                                             Swal.fire('Oops!', data.message, 'error');
                                           } else {
                                             this._vservice.DepositeAmountAndIntallments(obj).subscribe(data => {
                                               if (data != 0) {
                                                 this.SideDetails()
                                                 this.angForm.controls['amt'].reset();
-                                                this.angForm.controls['total_amt'].reset();
+                                                this.angForm.controls['total_amt'].reset(0);
                                                 this.amt.nativeElement.focus();
                                                 this.submitForm = true
+                                                this.modalClass = 'modalHide';
                                                 Swal.fire('Oops!', data.message, 'error');
                                               } else {
                                                 this._vservice.DepositAndTotalInstallments(obj).subscribe(data => {
                                                   if (data != 0) {
                                                     this.SideDetails()
                                                     this.angForm.controls['amt'].reset();
-                                                    this.angForm.controls['total_amt'].reset();
+                                                    this.angForm.controls['total_amt'].reset(0);
                                                     this.amt.nativeElement.focus();
                                                     this.submitForm = true
+                                                    this.modalClass = 'modalHide';
                                                     Swal.fire('Oops!', data.message, 'error');
                                                   } else {
                                                     this._vservice.DepositAndDepositAmount(obj).subscribe(data => {
                                                       if (data != 0) {
                                                         this.SideDetails()
                                                         this.angForm.controls['amt'].reset();
-                                                        this.angForm.controls['total_amt'].reset();
+                                                        this.angForm.controls['total_amt'].reset(0);
                                                         this.amt.nativeElement.focus();
                                                         this.submitForm = true
+                                                        this.modalClass = 'modalHide';
                                                         Swal.fire('Oops!', data.message, 'error');
                                                       } else {
                                                         this._vservice.PremcloseTdateTamtCom(obj).subscribe(data => {
                                                           if (data != 0) {
                                                             this.SideDetails()
                                                             this.angForm.controls['amt'].reset();
-                                                            this.angForm.controls['total_amt'].reset();
+                                                            this.angForm.controls['total_amt'].reset(0);
                                                             this.amt.nativeElement.focus();
                                                             this.submitForm = true
+                                                            this.modalClass = 'modalHide';
                                                             Swal.fire('Oops!', data.message, 'error');
                                                           } else {
                                                             this._vservice.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
                                                               if (data != 0) {
                                                                 this.SideDetails()
                                                                 this.angForm.controls['amt'].reset();
-                                                                this.angForm.controls['total_amt'].reset();
+                                                                this.angForm.controls['total_amt'].reset(0);
                                                                 this.amt.nativeElement.focus();
                                                                 this.submitForm = true
+                                                                this.modalClass = 'modalHide';
                                                                 Swal.fire('Oops!', data.message, 'error');
                                                               } else {
                                                                 this._vservice.ComVouamtClearbalAndStrs(obj).subscribe(data => {
                                                                   if (data != 0) {
                                                                     this.SideDetails()
                                                                     this.angForm.controls['amt'].reset();
-                                                                    this.angForm.controls['total_amt'].reset();
+                                                                    this.angForm.controls['total_amt'].reset(0);
                                                                     this.amt.nativeElement.focus();
                                                                     this.submitForm = true
+                                                                    this.modalClass = 'modalHide';
                                                                     Swal.fire('Oops!', data.message, 'error');
                                                                   } else {
                                                                     this._vservice.DepositGreaterShareLimitAmt(obj).subscribe(data => {
                                                                       if (data != 0) {
                                                                         this.SideDetails()
                                                                         this.angForm.controls['amt'].reset();
-                                                                        this.angForm.controls['total_amt'].reset();
+                                                                        this.angForm.controls['total_amt'].reset(0);
                                                                         this.amt.nativeElement.focus();
                                                                         this.submitForm = true
+                                                                        this.modalClass = 'modalHide';
                                                                         Swal.fire('Oops!', data.message, 'error');
                                                                       } else {
                                                                         this._vservice.ZeroBalance(obj).subscribe(data => {
                                                                           if (data != 0) {
                                                                             this.SideDetails()
                                                                             this.angForm.controls['amt'].reset();
-                                                                            this.angForm.controls['total_amt'].reset();
+                                                                            this.angForm.controls['total_amt'].reset(0);
                                                                             this.amt.nativeElement.focus();
                                                                             this.submitForm = true
+                                                                            this.modalClass = 'modalHide';
                                                                             Swal.fire('Oops!', data.message, 'error');
                                                                           } else {
                                                                             this._vservice.CashWithdraw(obj).subscribe(data => {
                                                                               if (data != 0) {
                                                                                 this.SideDetails()
                                                                                 this.angForm.controls['amt'].reset();
-                                                                                this.angForm.controls['total_amt'].reset();
+                                                                                this.angForm.controls['total_amt'].reset(0);
                                                                                 this.amt.nativeElement.focus();
                                                                                 this.submitForm = true
+                                                                                this.modalClass = 'modalHide';
                                                                                 Swal.fire('Oops!', data.message, 'error');
                                                                               } else {
                                                                                 this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                   if (data != 0) {
                                                                                     this.SideDetails()
                                                                                     this.angForm.controls['amt'].reset();
-                                                                                    this.angForm.controls['total_amt'].reset();
+                                                                                    this.angForm.controls['total_amt'].reset(0);
                                                                                     this.amt.nativeElement.focus();
                                                                                     this.submitForm = true
+                                                                                    this.modalClass = 'modalHide';
                                                                                     Swal.fire('Oops!', data.message, 'error');
                                                                                   } else {
                                                                                     this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                       if (data != 0) {
                                                                                         this.SideDetails()
                                                                                         this.angForm.controls['amt'].reset();
-                                                                                        this.angForm.controls['total_amt'].reset();
+                                                                                        this.angForm.controls['total_amt'].reset(0);
                                                                                         this.amt.nativeElement.focus();
                                                                                         this.submitForm = true
+                                                                                        this.modalClass = 'modalHide';
                                                                                         Swal.fire('Oops!', data.message, 'error');
                                                                                       } else {
                                                                                         this._vservice.withdrawClosingCondition(obj).subscribe(data => {
                                                                                           if (data != 0) {
                                                                                             this.SideDetails()
                                                                                             this.angForm.controls['amt'].reset();
-                                                                                            this.angForm.controls['total_amt'].reset();
+                                                                                            this.angForm.controls['total_amt'].reset(0);
                                                                                             this.selectMode.focus()
                                                                                             this.submitForm = true
+                                                                                            this.modalClass = 'modalHide';
                                                                                             Swal.fire('Oops!', data.message, 'error');
                                                                                           }
                                                                                           else {
