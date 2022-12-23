@@ -222,10 +222,8 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" style="text-align: right;" maxlength="15"
                                                             (change)="getNetInterest()" formControlName="TOTAL_INT"
-                                                            (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
-                                                            (focusout)="getDecimalPoint($event)" class="form-control"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                            (focus)="selectAllContent($event)" class="form-control"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )">
                                                     </span>
                                                 </div>
                                             </div>
@@ -321,7 +319,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Payable Interest Amount</label>
+                                                <label><span *ngIf="!preMature">+</span>Payable Interest Amount</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -604,7 +602,7 @@
                                                     <div class="col-md">
                                                         <button type="button" class="btn btn-outline-primary btn-sm"
                                                             *ngIf="jointShowButton" (click)="addTransferAccount()">
-                                                            Add Account 
+                                                            Add Account
                                                         </button>
                                                         <button class="btn btn-outline-primary btn-sm"
                                                             (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">

@@ -502,7 +502,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         //   }
         // })
       })
-      this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
+      this.tempAddress = data.custAddress.length == 0 ? true : data.custAddress[0]?.AC_ADDFLAG
+
       if (data.castMaster == null) {
         data.castMaster = ""
       }
@@ -747,34 +748,38 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getRetirementDate(value: Date): void {
     if (value != null) {
-      let birthdate = this.angForm.controls['AC_MEM_BIRTH_DT'].value
-      let new_date = moment(birthdate, "DD-MM-YYYY").add(18, 'y');
-      let agedate = moment(new_date).format('DD/MM/YYYY')
-      let joinDate = moment(value).format('DD/MM/YYYY')
-
-      if (joinDate <= agedate) {
-        this.sharesSchemeService.getFormData(this.schemeCode).subscribe(data => {
-          let date = data.RETIREMENT_YEARS
-          let retireDate = moment(this.angForm.controls['AC_MEM_BIRTH_DT'].value, "DD-MM-YYYY").add(date, 'y');
-          let reDate = moment(retireDate).format('DD/MM/YYYY')
-          this.retiredate = reDate
-        })
-      } else {
+      if (this.id != null) {
+        let birthdate = this.angForm.controls['AC_MEM_BIRTH_DT'].value
+        let new_date = moment(birthdate, "DD-MM-YYYY").add(18, 'y');
+        let agedate = moment(new_date).format('DD/MM/YYYY')
+        let joinDate = moment(value).format('DD/MM/YYYY')
+        if (joinDate <= agedate && agedate != 'Invalid date') {
+          this.sharesSchemeService.getFormData(this.schemeCode).subscribe(data => {
+            let date = Number(data.RETIREMENT_YEARS)
+            let retireDate = moment(this.angForm.controls['AC_MEM_BIRTH_DT'].value, "DD-MM-YYYY").add(date, 'y');
+            let reDate = moment(retireDate).format('DD/MM/YYYY')
+            this.retiredate = reDate
+          })
+        } else {
+          this.joindate = null
+          this.retiredate = null
+          this.angForm.controls['AC_JOIN_DATE'].reset()
+          this.angForm.controls['AC_RETIRE_DATE'].reset()
+          Swal.fire("Cancelled", "Please input birth date in customer id form ", "error");
+        }
+      }
+      else {
         this.joindate = null
         this.retiredate = null
         this.angForm.controls['AC_JOIN_DATE'].reset()
         this.angForm.controls['AC_RETIRE_DATE'].reset()
-        Swal.fire("Cancelled", "Please input date below", "error");
+        Swal.fire('Warning', 'Please Select Customer', 'warning')
       }
-
     }
     else {
-
       this.retiredate = null
-
       this.angForm.controls['AC_RETIRE_DATE'].reset()
     }
-
   }
 
   createForm() {
