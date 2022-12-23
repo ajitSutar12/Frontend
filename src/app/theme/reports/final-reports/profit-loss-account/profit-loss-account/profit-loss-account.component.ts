@@ -75,7 +75,7 @@ clicked:boolean=false;
 
   }
   view(event) {
-    debugger
+    // debugger
     event.preventDefault();
 
     let userData = JSON.parse(localStorage.getItem('user'));
