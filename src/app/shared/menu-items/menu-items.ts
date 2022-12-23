@@ -959,6 +959,11 @@ const MENUITEMS = [
               //    id: 203
               // },
               {
+                state: 'TFormDayBookComponent',
+                name: 'T Form Day Book Details/Summary',
+                id: 212
+              },
+              {
                 state: 'BnkSubsidaryDetail',
                 name: 'Subsidiary  Debit/Credit',
                 id: 204
@@ -997,11 +1002,6 @@ const MENUITEMS = [
                 state: 'IntInstructExecutionDebit',
                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 211
-              },
-              {
-                state: 'TFormDayBookComponent',
-                name: 'T Form Day Book Details/Summary',
-                id: 212
               },
               {
                 state: 'SubsidiarySummaryComponent',
@@ -1112,21 +1112,21 @@ const MENUITEMS = [
                 id: 224
               },
               {
-                state:'BnkDptAMList',
-                name:'Deposite Amount Wise Balance List',
-                id:225
+                state: 'BnkDptAMList',
+                name: 'Deposite Amount Wise Balance List',
+                id: 225
               },
               {
-                 state:'CatbalList',
-                 name:'Categorywise Balance List',
-                 id:225
+                state: 'CatbalList',
+                name: 'Categorywise Balance List',
+                id: 225
               },
               {
-                state:'DebbalReport',
-                name:'Debit Balance Report',
-                id:225
+                state: 'DebbalReport',
+                name: 'Debit Balance Report',
+                id: 225
               },
-              
+
               // {
               //   state:'Bnkbalcon',
               //   name:'balance confirmation certificate',
@@ -1137,26 +1137,26 @@ const MENUITEMS = [
               //    name:'Short Balance List',
               //    id:225
               // },
-              
+
               {
                 state: 'AmountBalList',
                 name: 'AmountWise Balance List',
-                 id: 225
+                id: 225
               },
               {
                 state: 'DeadStockDepCatList',
                 name: 'Deadstock Depriciation Categorywise List',
-                 id: 225
+                id: 225
               },
               {
                 state: 'BalConCertificate',
                 name: 'Balance Confirmation Ceritificate',
-                 id: 225
+                id: 225
               },
               {
                 state: 'shortballist',
                 name: 'Short Balance List',
-                 id: 225
+                id: 225
               },
 
             ]
@@ -1240,7 +1240,7 @@ const MENUITEMS = [
                 state: 'maturedbutnotclosed',
                 name: 'matured but not closed',
                 id: 92
-              } ,
+              },
               {
                 state: 'depositpaidlist',
                 name: 'Deposit Paid List',
@@ -1271,9 +1271,9 @@ const MENUITEMS = [
                 name: 'Customer Id wise Deposit List',
                 id: 98
               }
-              
+
             ]
-  
+
           },
           //
           {
@@ -1282,7 +1282,7 @@ const MENUITEMS = [
             id: 134
           },
           //
-          
+
           //
           {
             state: 'loanReports',
@@ -1296,7 +1296,7 @@ const MENUITEMS = [
             type: 'sub',
             icon: 'icon-home',
             id: 98,
-                  children: [
+            children: [
               {
                 state: 'loancashcreditac',
                 name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
@@ -1308,23 +1308,23 @@ const MENUITEMS = [
                 id: 99
               },
               {
-                state:'lcd-expiry-list',
-                name:'Loan/Cash Credit Expiry List',
-                id:99
+                state: 'lcd-expiry-list',
+                name: 'Loan/Cash Credit Expiry List',
+                id: 99
               },
               {
-                state:'DDRelative-Report',
-                name:'Director/Director Relative Loan Report',
-                id:99
+                state: 'DDRelative-Report',
+                name: 'Director/Director Relative Loan Report',
+                id: 99
               },
               {
-                state:'DDRelative-Report-performa1',
-                name:'Director/Director Relative Loan Report-performa1',
-                id:99
+                state: 'DDRelative-Report-performa1',
+                name: 'Director/Director Relative Loan Report-performa1',
+                id: 99
               }
             ]
           },
-        
+
           //
           {
             state: 'npaReports',
@@ -1661,8 +1661,8 @@ const MENUITEMS = [
             id: 164
           },
           {
-            state:'cashierMaintance',
-            name : 'Cashier Maintenace',
+            state: 'cashierMaintance',
+            name: 'Cashier Maintenace',
             id: 233
           },
           {

@@ -374,7 +374,7 @@
                                     <div class="col-md-12">
                                         <button class="btn btn-outline-primary btn-sm"
                                             (click)="Add();selectBranch.focus()" style="float: right;" *ngIf="showAdd"
-                                            [disabled]="submitForm" (keydown.Tab)="focus()">Add</button>
+                                            (keydown.Tab)="focus()">Add</button>
                                         <button class="btn btn-outline-primary btn-sm"
                                             (click)="update();selectBranch.focus()" style="float: right"
                                             *ngIf="showUpdate">Update</button>
