@@ -702,11 +702,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         }
       })
       var expiry
-      if (this.tempexpiryDate != this.ngexpiry) {
-        expiry = (this.ngexpiry == '' || this.ngexpiry == 'Invalid date') ? expiry = '' : expiry = moment(this.ngexpiry).format('DD/MM/YYYY')
-      } else {
-        expiry = this.ngexpiry
-      }
+
+      // if (this.tempexpiryDate != this.ngexpiry) {
+      //   expiry = (this.ngexpiry == '' || this.ngexpiry == 'Invalid date') ? expiry = '' : expiry = moment(this.ngexpiry).format('DD/MM/YYYY')
+      // } else {
+      //   expiry = this.ngexpiry
+      // }
+      let toDate = moment(this.ngexpiry, 'DD/MM/YYYY')
+      expiry = moment(toDate).format('DD/MM/YYYY')
       const dataToSend = {
         'branchCode': branchCode,
         'bankCode': bankCode,
@@ -861,6 +864,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for append data into fields  
   tempbankacno
   editClickHandler(id) {
+    this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
     let date
     let opdate
@@ -930,7 +934,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           'BANKACNO': data.BANKACNO,
           AC_NO: data.AC_NO,
           AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-          AC_EXPIRE_DATE: (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
+          AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
           AC_IS_RECOVERY: data.AC_IS_RECOVERY,
           REF_ACNO: data.REF_ACNO,
           AC_MONTHS: data.AC_MONTHS,
@@ -1011,22 +1015,20 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       data['AC_SANCTION_DATE'] = this.sanctionDate
     }
     if (this.updatecheckdata.AC_EXPIRE_DATE != this.ngexpiry) {
-      (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? (expirydate = '', data['AC_EXPIRE_DATE'] = expirydate) : (expirydate = data.AC_EXPIRE_DATE, data['AC_EXPIRE_DATE'] = moment(expirydate).format('DD/MM/YYYY'))
-
+      // (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? (expirydate = '', data['AC_EXPIRE_DATE'] = expirydate) : (expirydate = data.AC_EXPIRE_DATE, data['AC_EXPIRE_DATE'] = moment(expirydate).format('DD/MM/YYYY'))
+      let toDate = moment(this.ngexpiry, 'DD/MM/YYYY')
+      data['AC_EXPIRE_DATE'] = moment(toDate).format('DD/MM/YYYY')
     } else {
-      data['AC_EXPIRE_DATE'] = this.ngexpiry
+      // data['AC_EXPIRE_DATE'] = this.ngexpiry
+      let toDate = moment(this.ngexpiry, 'DD/MM/YYYY')
+      data['AC_EXPIRE_DATE'] = moment(toDate).format('DD/MM/YYYY')
     }
-
     if (this.updatecheckdata.AC_RESO_DATE != this.ngresodate) {
       (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? (resodate = '', data['AC_RESO_DATE'] = resodate) : (resodate = data.AC_RESO_DATE, data['AC_RESO_DATE'] = moment(resodate).format('DD/MM/YYYY'))
-
     }
     else {
       data['AC_RESO_DATE'] = this.ngresodate
     }
-
-
-
     this.termLoanService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -2013,7 +2015,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   getExpiryDate() {
     let months = this.angForm.controls['AC_MONTHS'].value
-    if (this.renewDate != undefined) {
+    if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != undefined && this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
       var expiryDate = moment(this.angForm.controls['AC_OPEN_OLD_DATE'].value).add(months, 'M').format('DD/MM/YYYY');
       this.tempexpiryDate = expiryDate
       this.angForm.patchValue({
