@@ -116,7 +116,7 @@
                         <div class="col-12">
                             <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
                                 <!-- Start Basic Detail Tab -->
-                                <ngb-tab title="Basic Detail">
+                                <ngb-tab title="Basic Detail" id="Basic">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="card border-primary">
@@ -156,7 +156,7 @@
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPEN_OLD_DATE" id="AC_OPEN_OLD_DATE"
                                                                         class="form-control" [(ngModel)]="renewDate"
-                                                                        (ngModelChange)="getExpiryDate()"
+                                                                        (bsValueChange)="getExpiryDate()"
                                                                         [minDate]="maxDate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         formControlName="AC_OPEN_OLD_DATE" bsDatepicker

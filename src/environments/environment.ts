@@ -21,9 +21,9 @@ export const environment = {
 
   // report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
   // report_url: 'http://139.59.63.215/bh_phpjasperxml-master/', //server bhairavnath report folder path
-  report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
+  // report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/' //server bhairavnath report test folder path
-  // report_url: 'http://localhost/NewReport/phpjasperxml-master/', //report folder path
+  report_url: 'http://localhost/NewReport/phpjasperxml-master/', //report folder path
   // sitename: 'http://139.59.63.215/bhn_cbs'  //server bhairavnath hotkey
   sitename: 'http://139.59.63.215/bhairavnath' //server bhairavnath site hotkey
 
