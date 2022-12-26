@@ -15,7 +15,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
 
-@Component({ 
+@Component({
   selector: 'app-account-enquiry',
   templateUrl: './account-enquiry.component.html',
   styleUrls: ['./account-enquiry.component.scss']
@@ -754,6 +754,7 @@ export class AccountEnquiryComponent implements OnInit {
   loanTotalInterest = 0
   loanTotalReceivable = 0
   rebateIntrest = 0
+  dueInstallmentLoan = 0
 
   getTransactionDetails() {
     if (this.accountedit != null && this.fromdate != null && this.fromdate != '') {
@@ -815,6 +816,7 @@ export class AccountEnquiryComponent implements OnInit {
           this.loanTotalReceivable = Number(this.loanTotalInterest) + Number(this.loantransactionData.otherReceivedAmount) + Number(this.loantransactionData.totalClosingBalforLoan)
           this.loanTotalReceivable = Math.abs(this.loanTotalReceivable)
           this.rebateIntrest = Math.round((Number(this.loantransactionData.rebateAmount) * Number(this.REBATE_INTRATE)) / 100)
+          this.dueInstallmentLoan = this.loantransactionData == null ? 0 : this.loantransactionData.dueBalance / this.accountEvent?.AC_INSTALLMENT
         }
         else {
           this.ShareRecordShow = false
@@ -1557,7 +1559,7 @@ export class AccountEnquiryComponent implements OnInit {
       return (p < q) ? -1 : ((p > q) ? 1 : 0)
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 }
