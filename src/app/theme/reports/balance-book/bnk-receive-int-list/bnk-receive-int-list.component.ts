@@ -42,6 +42,19 @@ export class BnkReceiveIntListComponent implements OnInit {
   //api
   url = environment.base_url;
   report_url = environment.report_url;
+  dropdowndata = [{
+    label : 'LN',
+    value : 'LN'
+  },{
+    label : 'CC',
+    value : 'CC'
+  },{
+    label : 'DS',
+    value : 'DS'
+  },{
+    label : 'IV',
+    value : 'IV'
+  }]
  
    constructor(    private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
