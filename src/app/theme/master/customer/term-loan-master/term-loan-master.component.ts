@@ -1242,11 +1242,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   getScheme(code) {
     this._TermLoanScheme.getData(code).subscribe(data => {
       if (data.S_INT_APPLICABLE === '1') {
-        this.repay = 'Monthly'
+        this.repay = 'M'
         this.installmentType = data.INSTALLMENT_METHOD
       }
       else {
-        this.repay = 'OnMaturity'
+        this.repay = 'Q'
         this.installmentType = data.INSTALLMENT_METHOD
       }
     })
@@ -1311,7 +1311,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   calculation() {
 
     this.months = this.angForm.controls['AC_MONTHS'].value
-    if (this.repay == 'Monthly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+    if (this.repay == 'M' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 1));
 
@@ -1320,7 +1320,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       })
 
     }
-    else if (this.repay == 'Quarterly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+    else if (this.repay == 'Q' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 3));
 
@@ -1328,7 +1328,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'HalfYearly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+    else if (this.repay == 'H' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 6));
 
@@ -1336,7 +1336,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Yearly' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+    else if (this.repay == 'Y' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 12));
 
@@ -1353,7 +1353,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       })
     }
 
-    else if (this.repay == 'Monthly' && (this.installmentType == 'E')) {
+    else if (this.repay == 'M' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 1;
       this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1)))));
@@ -1362,7 +1362,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Quarterly' && (this.installmentType == 'E')) {
+    else if (this.repay == 'Q' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 3;
 
@@ -1372,7 +1372,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'HalfYearly' && (this.installmentType == 'E')) {
+    else if (this.repay == 'H' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 6;
       this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1)))));
@@ -1380,7 +1380,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Yearly' && (this.installmentType == 'E')) {
+    else if (this.repay == 'Y' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 12;
       this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1)))));
@@ -1395,7 +1395,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: 0
       })
     }
-    else if (this.repay == 'Monthly' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
 
       this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
       this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1));
@@ -1404,7 +1404,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Quarterly' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'Q' && (this.installmentType == 'WithInterest')) {
 
       this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
       this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3));
@@ -1412,7 +1412,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'HalfYearly' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'H' && (this.installmentType == 'WithInterest')) {
 
       this.intResult = (this.drawingPower * this.intRate / 1200);
       this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 6));
@@ -1420,7 +1420,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Yearly' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'Y' && (this.installmentType == 'WithInterest')) {
 
       this.intResult = (this.drawingPower * this.intRate / 1200);
       this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 12));
