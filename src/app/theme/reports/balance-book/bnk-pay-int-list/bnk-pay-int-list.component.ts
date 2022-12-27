@@ -45,6 +45,17 @@ export class BnkPayIntListComponent implements OnInit {
     
     showRepo: boolean = false;
 
+    dropdowndata = [{
+      label : 'TD',
+      value : 'TD'
+    },{
+      label : 'SB',
+      value : 'SB'
+    },{
+      label : 'PG',
+      value : 'PG'
+    }]
+
   constructor(    private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
