@@ -42,7 +42,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="schemeCode">
-                                            <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
+                                            <ng-option *ngFor="let values of dropdowndata" [value]="values"> {{values.id}}
                                                 {{values.label}} </ng-option>
                                         </ng-select>
                                     </span>
