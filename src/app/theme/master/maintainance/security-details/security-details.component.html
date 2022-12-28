@@ -10,12 +10,12 @@
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
-                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
+                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' [virtualScroll]="true"
                                         formControlName="BRANCH_CODE" autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
@@ -24,12 +24,12 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
                                         (change)="schemechange($event)" formControlName="AC_TYPE" bindLabel="label"
-                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
                                         title="Compulsory Selection" required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -38,13 +38,13 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-5">
 
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="accountedit1"
                                         (change)="Accountnochange($event)" formControlName="AC_NO" bindLabel="label"
-                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
+                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true' [virtualScroll]="true"
                                         title="Compulsory Selection" required placeholder="Account No.">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -53,13 +53,16 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="SECURITY_CODE" bindValue="value" [(ngModel)]="ngsecurityCode"
                                         formControlName="SECURITY_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="securityDetails($event)"
-                                        #SECURITY_CODE (focus)="onFocus(SECURITY_CODE)" [selectOnTab]='true'
+                                        #SECURITY_CODE (focus)="onFocus(SECURITY_CODE)" [selectOnTab]='true' [virtualScroll]="true"
                                         placeholder="Security Details">
                                         <ng-option *ngFor="let values of security" [value]="values">
                                             {{values.label}}</ng-option>
@@ -68,7 +71,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="To" class="form-control" placeholder=" " id="LEDGER_BAL"
@@ -78,7 +81,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </form>
         </div>

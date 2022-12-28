@@ -10,12 +10,12 @@
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection" #BRANCH
-                                        (focus)="onFocus(BRANCH)" [selectOnTab]='true'
+                                        (focus)="onFocus(BRANCH)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -32,13 +32,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="Scheme" bindValue="id" [(ngModel)]="ngscheme"
                                         formControlName="Scheme" bindLabel="label" title="Compulsory Selection" #Scheme
                                         (focus)="onFocus(Scheme)" [selectOnTab]='true' (change)="schemechange($event)"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.S_APPL}} {{values.S_NAME}}</ng-option>
@@ -54,12 +54,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -75,11 +78,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
-                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
                                         <ng-option *ngFor="let values of toAC" [value]="values">
@@ -121,7 +124,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AMOUNT_TYPE" bindValue="FIELD_AMOUNT"
                                         [(ngModel)]="ngchargestype" formControlName="AMOUNT_TYPE"
-                                        bindLabel="DESCRIPTION" (change)="getCommanNarration($event)"
+                                        bindLabel="DESCRIPTION" (change)="getCommanNarration($event)" [virtualScroll]="true"
                                         title="Compulsory Selection" #AMOUNT_TYPE (focus)="onFocus(AMOUNT_TYPE)"
                                         [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Charges Type">
@@ -157,7 +160,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="To" class="form-control" placeholder=" " id="TRAN_AMOUNT"
@@ -176,7 +179,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="checkbox2" value="checkbox"
@@ -186,11 +189,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno"
-                                        formControlName="transeferglaccno" bindLabel="label"
+                                        formControlName="transeferglaccno" bindLabel="label" [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Transfer G.L.A/c No">
@@ -203,7 +206,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-1">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit()" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"

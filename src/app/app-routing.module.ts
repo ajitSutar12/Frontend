@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {AdminComponent} from './layout/admin/admin.component';
 import {AuthComponent} from './layout/auth/auth.component';
 import {DatatablekitComponent} from './datatablekit/datatablekit.component';
+import { AuthGuard } from './theme/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: '/auth/login/simple',
-        pathMatch: 'full'
+        pathMatch: 'full',canActivate:[AuthGuard]
       },
       {
         path: 'dashboard',

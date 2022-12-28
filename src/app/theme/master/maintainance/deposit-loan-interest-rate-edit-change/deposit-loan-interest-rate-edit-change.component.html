@@ -10,11 +10,11 @@
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
                                         #BRANCH (focus)="onFocus(BRANCH)" [selectOnTab]='true'
                                         placeholder="Branch" autofocus>
@@ -32,11 +32,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE" bindLabel="label"
-                                        formControlName="AC_TYPE" (change)="getIntTrans($event)"
+                                        formControlName="AC_TYPE" (change)="getIntTrans($event)" [virtualScroll]="true"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme">
@@ -80,13 +80,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom"
                                         bindLabel="AC_NO" formControlName="AC_NOFrom" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" 
-                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true' 
+                                        #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'  [virtualScroll]="true"
                                         placeholder="Starting Account Number">
                                         <ng-option *ngFor="let values of startAcNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -103,12 +103,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
                                         formControlName="AC_NOTo" title="Compulsory Selection" (change)="loadAcno()"
-                                        #AC_NOTo (focus)="onFocus(AC_NOTo)" [selectOnTab]='true' 
+                                        #AC_NOTo (focus)="onFocus(AC_NOTo)" [selectOnTab]='true'  [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="Ending Ac Number">
                                         <ng-option *ngFor="let values of endAcNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -125,10 +125,13 @@
                                 </div>
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-sm-2">
                             <h6>Interest Mode</h6>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
@@ -150,9 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" style="text-align: right;" name="INT_RATE" class="form-control"
@@ -174,6 +175,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-sm" style="float: right;">
                             <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 (click)="resetForm()">Cancel</button>

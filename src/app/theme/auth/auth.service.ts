@@ -12,7 +12,6 @@ import { HttpHeaders } from '@angular/common/http';
 export class AuthService {
 
   base_url  =  environment.base_url;
-  IsLoggedIn: any;
   
   constructor(private http: HttpClient) { }
 
@@ -28,12 +27,16 @@ export class AuthService {
       return this.http.post<any>(this.base_url+'/auth/login', article, options);
     } 
 
-    resetPassword(data :any):Observable<any>{
+    resetPassword(data :any):Observable<any>{ 
       return this.http.post<any>(this.base_url+'/user-defination/resetpassword', data);
     }
 
     logout(id:any):Observable<any>{
       return this.http.post<any>(this.base_url+'/user-defination/logout',{id:id});
     }
+
+    // isLoggedIn(){
+    //   return !!localStorage.getItem('token')
+    // }
   }
  

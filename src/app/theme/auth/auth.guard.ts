@@ -15,29 +15,29 @@ export class AuthGuard implements CanActivate {
   }
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree 
+    {
+      debugger
       const token = localStorage.getItem('token');
       if (this.tokenExpired(token)) {
         this.router.navigate(['/auth/login/simple']);
+        alert("you are not logged in")
         return false;
-      } else {
+      }    
+      // else
+      //  if(this.auth.isLoggedIn()){
+      //   alert("Logged in")
+      //   return true
+      // }
+      else  {
         // token valid
         return true;
       }
 
+
   }
 
-  // canActivate() {
-
-  //   if(this.auth.IsLoggedIn()){
-  //     return true;
-  //   }
-  //   alert("You have not Logged In")
-  //   this.router.navigate(['login']);
-  //   return false;
-    
-  // }
+  
  
   
 }
