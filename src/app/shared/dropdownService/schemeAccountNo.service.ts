@@ -76,7 +76,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/share-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, branch: element.BRANCH_CODE, openDate:element.AC_OPDATE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, branch: element.BRANCH_CODE, openDate: element.AC_OPDATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -505,4 +505,15 @@ export class SchemeAccountNoService {
             }));
     }
 
+    public getACMasterList2() {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/gl-account-master')
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { name: element.AC_NAME, value: element.id, label: element.AC_NO, bankacno: element.AC_NO };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
 }
