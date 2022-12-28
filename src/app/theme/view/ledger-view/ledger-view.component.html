@@ -19,7 +19,7 @@
                                         <ng-select appTheme id="BRANCH_CODE" bindValue="value"
                                             [(ngModel)]="ngBranchCode" formControlName="BRANCH_CODE" bindLabel="label"
                                             title="Compulsory Selection" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
-                                            [selectOnTab]='true' [virtualScroll]="true"
+                                            [selectOnTab]='true' [virtualScroll]="true" (change)="getBranch()"
                                             [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
                                             autofocus>
                                             <ng-option *ngFor="let values of branch_code" [value]="values"

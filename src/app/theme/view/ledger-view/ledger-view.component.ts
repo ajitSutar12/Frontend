@@ -370,7 +370,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
         })
         break;
       case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getACMasterList2().pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
@@ -403,7 +403,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.acCloseDate = event.acClose == null || event.acClose == '' ? '' : event.acClose
     this.freezeac = event.freez == null || event.freez == '' ? false : true
     this.freezStataus = event.freez == null || event.freez == '' ? '' : event.freez
-    let maturedAmount = Number(event.autoMaturedPayableAmt) + Number(event.autoMaturedIntrestAmt)
+    let autoMaturedPayableAmt = event.autoMaturedPayableAmt == undefined ? 0 : event.autoMaturedPayableAmt
+    let autoMaturedIntrestAmt = event.autoMaturedIntrestAmt == undefined ? 0 : event.autoMaturedIntrestAmt
+    let maturedAmount = Number(autoMaturedPayableAmt) + Number(autoMaturedIntrestAmt)
     this.angForm.patchValue({
       AC_OPDATE: event.opendate,
       AMOUNT: maturedAmount
@@ -539,8 +541,15 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     });
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 
+  getBranch() {
+    this.ngscheme = null
+    this.getschemename = null
+    this.accountedit = null
+    this.schemeACNo = null
+    this.tableData = null
+  }
 }
