@@ -69,7 +69,7 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" "
@@ -88,7 +88,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                       
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="G.L.A/c No.*" required title="Compulsory Selection" maxlength="6"
@@ -99,7 +103,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno"
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
@@ -117,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Interest GL A/c*" required title="Compulsory Selection" maxlength="6"
@@ -128,7 +132,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
                                         formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true'
                                         placeholder="Interest GL Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
@@ -146,10 +150,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Receivable Int. A/c*" title="Compulsory Selection" maxlength="6"
@@ -160,7 +163,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value"
                                         [(ngModel)]="ngreceivableintac" formControlName="S_RECBL_PYBL_INT_ACNO"
-                                        bindLabel="label" title="Compulsory Selection"
+                                        bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Receivable Interest Account">
@@ -180,7 +183,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Penal Int. A/c*" title="Compulsory Selection" maxlength="6"
@@ -191,7 +194,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
                                         formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'
                                         placeholder="Penal Interest Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
@@ -210,7 +213,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                    </div>
+                    <div class="row">
+                      
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Recble Penal Int. A/c*" title="Compulsory Selection" maxlength="6"
@@ -221,7 +227,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value"
                                         [(ngModel)]="ngrecblepenalintac" formControlName="S_RECBL_PENAL_ACNO"
-                                        bindLabel="label" title="Compulsory Selection"
+                                        bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true'
                                         placeholder="Recble Penal Interest Account">
@@ -241,7 +247,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Recble Overdue Int.*" title="Compulsory Selection" maxlength="6"
@@ -252,7 +258,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_RECBL_ODUE_INT_ACNO" bindValue="value"
                                         [(ngModel)]="ngrecbleoverdueint" formControlName="S_RECBL_ODUE_INT_ACNO"
-                                        bindLabel="label" title="Compulsory Selection"
+                                        bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #S_RECBL_ODUE_INT_ACNO (focus)="onFocus(S_RECBL_ODUE_INT_ACNO)" [selectOnTab]='true'
                                         placeholder="Recble Overdue Interest">
@@ -567,7 +573,7 @@
                                                 <div class="form-group form-primary form-static-label">
                                                     <span class="border-lable-flt">
                                                         <ng-select appTheme id="OVERDRAFT_INTEREST_APPLICABLE" bindValue="value"
-                                                            [(ngModel)]="ngoverdraftint"
+                                                            [(ngModel)]="ngoverdraftint" [virtualScroll]="true"
                                                             formControlName="OVERDRAFT_INTEREST_APPLICABLE"
                                                             bindLabel="label" title="Compulsory Selection"
                                                             [ngClass]="{'form-submitted': formSubmitted}" required

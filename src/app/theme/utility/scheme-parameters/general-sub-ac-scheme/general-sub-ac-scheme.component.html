@@ -78,7 +78,7 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="G.L. A/c No. *" required title="Compulsory Selection"
@@ -89,7 +89,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac"
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}

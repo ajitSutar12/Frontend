@@ -33,7 +33,7 @@ export class Iframe1Component implements OnInit{
   constructor( private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer) {debugger
       this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
      }
 

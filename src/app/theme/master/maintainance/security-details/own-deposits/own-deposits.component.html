@@ -9,7 +9,7 @@
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="branchOption" [multiple]="false"
                                 formControlName="username" [ngClass]="{'form-submitted': formSubmitted}"
@@ -23,7 +23,7 @@
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
+                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' [virtualScroll]="true"
                                         placeholder="Branch" autofocus>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -47,7 +47,7 @@
                                     <ng-select appTheme id="DEPO_AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="DEPO_AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntro($event)"
-                                        #DEPO_AC_TYPE (focus)="onFocus(DEPO_AC_TYPE)" [selectOnTab]='true'
+                                        #DEPO_AC_TYPE (focus)="onFocus(DEPO_AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
                                         placeholder="Scheme">
                                         <ng-option *ngFor="let values of schemeList" [value]="values">
                                             {{values.label}}</ng-option>
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="ACNo" [multiple]="false"
                                 formControlName="username" [ngClass]="{'form-submitted': formSubmitted}"
@@ -89,7 +89,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="DEPO_AC_NO" bindValue="AC_NO" [(ngModel)]="ngacno"
                                         (change)="getIntroducer();bindvalue($event)" formControlName="DEPO_AC_NO"
-                                        bindLabel="AC_NO" title="Compulsory Selection"
+                                        bindLabel="AC_NO" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                         placeholder="Account No.">

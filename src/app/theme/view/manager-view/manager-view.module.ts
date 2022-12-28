@@ -14,6 +14,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { ManagerViewService } from 'src/app/theme/view/manager-view/manager-view.service';
+import { Iframe1Module } from '../../reports/daily-reports/iframe1/iframe1.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +23,7 @@ import { ManagerViewService } from 'src/app/theme/view/manager-view/manager-view
     DataTablesModule,
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
+    Iframe1Module,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot()
   ],
