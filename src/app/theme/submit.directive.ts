@@ -12,12 +12,14 @@ export class SubmitDirective {
     // const invalidControl11 = this.el.nativeElement;
 
     const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');
+
+ // if (invalidControl11.tagName == 'BUTTON') {
+
     if (invalidControl) {
       invalidControl.focus();
     }
 
-    // if (invalidControl11.tagName == 'BUTTON') {
-  
     // }
+
   }
 }

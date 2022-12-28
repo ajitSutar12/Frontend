@@ -590,7 +590,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.gaurantorView = false
         this.receivableInterestView = false
         this.coborrowerView = false
-        this.http.get<any>(this.url + '/gl-account-master/balUpdate/' + obj).subscribe(data => {
+        this.http.get<any>(this.url + '/gl-account-master').subscribe(data => {
           this.schemeACNo = data
         })
         this.GLRecordShow = true
@@ -773,7 +773,8 @@ export class AccountEnquiryComponent implements OnInit {
         divtransferactype: this.accountEvent?.DIV_TRANSFER_ACTYPE,
         divtransferacno: this.accountEvent?.DIV_TRANSFER_ACNO,
         divtransferBranch: this.accountEvent?.DIV_TRANSFER_BRANCH,
-        installmentAmount: this.accountEvent?.AC_INSTALLMENT
+        installmentAmount: this.accountEvent?.AC_INSTALLMENT,
+        branch: this.ngBranchCode
       }
       this.http.post<any>(this.url + '/ledger-view/accountView', obj).subscribe((data) => {
         if (this.getschemename == 'GL') {

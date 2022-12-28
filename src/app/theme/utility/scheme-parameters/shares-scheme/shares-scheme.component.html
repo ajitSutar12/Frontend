@@ -13,9 +13,10 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
-                    id="S_APPL" required="" #autofocus pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3"
-                    minlength="3" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="901" max="999"
+                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                    placeholder=" " id="S_APPL" required="" #autofocus pattern="^[0-9]+$"
+                    title="Input allowed only  0-9" maxlength="3" minlength="3"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="901" max="999"
                     (focusout)="checkDuplicate($event)" formControlName="S_APPL" #autofocus />
 
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
@@ -39,8 +40,8 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
-                    pattern="^[A-Za-z\./ -]+$" formControlName="S_SHNAME" maxlength="10"
+                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
+                    required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_SHNAME" maxlength="10"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)" />
                   <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
@@ -88,7 +89,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-6">
               <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
@@ -104,9 +105,8 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
-                    required placeholder="GL Account Number">
+                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" [virtualScroll]="true"
+                    #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -116,7 +116,7 @@
 
 
             </div>
-            <div class="col-sm">
+            <div class="col-sm-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme type="text" name="MEMBER_TYPE" class="form-control" placeholder=" " id="MEMBER_TYPE"
@@ -141,6 +141,9 @@
                 </div>
               </div>
             </div>
+
+          </div>
+          <div class="row">
             <div class="col-sm">
               <div class="checkbox checkbox-primary">
                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -152,7 +155,6 @@
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-sm-4">
               <div class="card-block">
@@ -188,9 +190,9 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input style="text-align: right;" type="text" name="SHARES_FACE_VALUE" class="form-control"
-                              placeholder=" " (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                              placeholder=" " (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              id="SHARES_FACE_VALUE" title="Input allowed only . 0-9 " 
+                              id="SHARES_FACE_VALUE" title="Input allowed only . 0-9 "
                               formControlName="SHARES_FACE_VALUE" />
                             <label for="SHARES_FACE_VALUE">Share Face Value</label>
                           </span>
@@ -262,7 +264,7 @@
                       <h6>Dividen Methods</h6>
                       <div class="row">
                         <div class="radio radio-inline">
-                          <label class="inputRadio" >
+                          <label class="inputRadio">
                             <input type="radio" value="0" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>0. Compounding<span class="required">
                             </span>
@@ -271,7 +273,7 @@
                       </div>
                       <div class="row">
                         <div class="radio radio-inline">
-                          <label class="inputRadio" >
+                          <label class="inputRadio">
                             <input type="radio" value="1" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>1. Simple as per Shares Closing
                             Balance<span class="required"> </span>
@@ -280,7 +282,7 @@
                       </div>
                       <div class="row">
                         <div class="radio radio-inline">
-                          <label class="inputRadio" >
+                          <label class="inputRadio">
                             <input type="radio" value="2" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>2. Simple Days Basis +
                             Transaction wise<span class="required"> </span>
@@ -289,7 +291,7 @@
                       </div>
                       <div class="row">
                         <div class="radio radio-inline">
-                          <label class="inputRadio" >
+                          <label class="inputRadio">
                             <input type="radio" value="3" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>3. Transaction Wise<span class="required">
                             </span>
@@ -298,7 +300,7 @@
                       </div>
                       <div class="row">
                         <div class="radio radio-inline">
-                          <label class="inputRadio" >
+                          <label class="inputRadio">
                             <input type="radio" value="4" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
                             <i class="helper"></i>4. Month Basis + Transaction
                             wise<span class="required"> </span>
@@ -395,7 +397,7 @@
                               <input style="text-align: right;" type="text" name="SANCT_LIMIT_PERCENTAGE"
                                 class="form-control" placeholder=" "
                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                id="SANCT_LIMIT_PERCENTAGE" (keyup)="checkmargin($event)" 
+                                id="SANCT_LIMIT_PERCENTAGE" (keyup)="checkmargin($event)"
                                 title="Input allowed only  0-9" formControlName="SANCT_LIMIT_PERCENTAGE" />
                               <label for="SANCT_LIMIT_PERCENTAGE">Percentage for Calculate Sanction Limit</label>
                             </span>
@@ -490,8 +492,8 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                 <div class="col-sm m-b-20">
-                  <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid" (click)="submit()"
-                    *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
+                  <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
+                    (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                     Submit
                   </button>
                   <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">

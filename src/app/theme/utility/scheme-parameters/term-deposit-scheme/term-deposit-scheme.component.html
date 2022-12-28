@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md">
+            <div class="col-md-6">
               <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="G.L. A/c No. *"
                   required title="Compulsory Selection" formControlName="S_GLACNO">
@@ -96,7 +96,7 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglacno" formControlName="S_GLACNO"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" [virtualScroll]="true"
                     #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -114,7 +114,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md">
+            <div class="col-md-6">
               <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                   placeholder="Interest G.L. A/c *" required title="Compulsory Selection" formControlName="S_INT_ACNO">
@@ -123,7 +123,7 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
-                    formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection"
+                    formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)"
                     [selectOnTab]='true' required placeholder="Interest GL Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
@@ -142,7 +142,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-md">
+            
+          </div>
+          <div class="row">
+            <div class="col-md-6">
               <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                   placeholder="Interest Credit GL A/c *" required title="Compulsory Selection"
@@ -151,7 +154,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl"
+                  <ng-select appTheme id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl" [virtualScroll]="true"
                     formControlName="S_INT_CR_ACNO" bindLabel="label" title="Compulsory Selection" #S_INT_CR_ACNO
                     (focus)="onFocus(S_INT_CR_ACNO)" [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
                     required placeholder="Interest Credit GL Account ">
@@ -171,40 +174,41 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md">
-              <!-- <div class="form-group form-primary form-static-label">
-                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
-                  placeholder="Payable Int.A/c *" required title="Compulsory Selection"
-                  formControlName="S_RECBL_PYBL_INT_ACNO">
-                </ng-select>
-              </div> -->
-              <div class="form-group form-primary form-static-label">
-                <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
-                    formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"
-                    #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true'
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Payable Interest Account ">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+              <div class="col-md-6">
+                <!-- <div class="form-group form-primary form-static-label">
+                  <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                    placeholder="Payable Int.A/c *" required title="Compulsory Selection"
+                    formControlName="S_RECBL_PYBL_INT_ACNO">
                   </ng-select>
-                  <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account <sub class="required"> * </sub></label>
-                </span>
-              </div>
-              <div class="form-group form-primary form-static-label" *ngIf="
-                  angForm.controls['S_RECBL_PYBL_INT_ACNO'].invalid &&
-                  (angForm.controls['S_RECBL_PYBL_INT_ACNO'].dirty ||
-                    angForm.controls['S_RECBL_PYBL_INT_ACNO'].touched)
-                " class="alert alert-danger">
-                <div *ngIf="
-                    angForm.controls['S_RECBL_PYBL_INT_ACNO'].errors?.required
-                  ">
-                  This field is required
+                </div> -->
+                <div class="form-group form-primary form-static-label">
+                  <span class="border-lable-flt">
+                    <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
+                      formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
+                      #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true'
+                      [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Payable Interest Account ">
+                      <ng-option *ngFor="let values of acMaster" [value]="values">
+                        {{values.label}}</ng-option>
+                    </ng-select>
+                    <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account <sub class="required"> * </sub></label>
+                  </span>
+                </div>
+                <div class="form-group form-primary form-static-label" *ngIf="
+                    angForm.controls['S_RECBL_PYBL_INT_ACNO'].invalid &&
+                    (angForm.controls['S_RECBL_PYBL_INT_ACNO'].dirty ||
+                      angForm.controls['S_RECBL_PYBL_INT_ACNO'].touched)
+                  " class="alert alert-danger">
+                  <div *ngIf="
+                      angForm.controls['S_RECBL_PYBL_INT_ACNO'].errors?.required
+                    ">
+                    This field is required
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md">
+          </div>
+          
+            <div class="row">
+            <div class="col-md-6">
               <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                   placeholder="Penal Int. A/c *" required title="Compulsory Selection" formControlName="S_PENAL_ACNO">
@@ -212,7 +216,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
+                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac" [virtualScroll]="true"
                     formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection" #S_PENAL_ACNO
                     (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
                     required placeholder="Penal Interest Account ">
@@ -232,7 +236,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md">
+            <div class="col-md-6">
               <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                   placeholder="Recble Penal Int. A/c " required title="Compulsory Selection"
@@ -241,7 +245,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble"
+                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble" [virtualScroll]="true"
                     formControlName="S_RECBL_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
                     #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Recble Penal Interest Account ">
@@ -273,7 +277,7 @@
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
                     formControlName="S_CASH_INT_ACNO" bindLabel="label" title="Compulsory Selection" #S_CASH_INT_ACNO
-                    (focus)="onFocus(S_CASH_INT_ACNO)" [selectOnTab]='true'
+                    (focus)="onFocus(S_CASH_INT_ACNO)" [selectOnTab]='true' [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
@@ -301,7 +305,7 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="MATURED_BUT_NOT_PAID_GLAC" bindValue="value" [(ngModel)]="ngmaturebtntpd"
-                    formControlName="MATURED_BUT_NOT_PAID_GLAC" bindLabel="label" title="Compulsory Selection"
+                    formControlName="MATURED_BUT_NOT_PAID_GLAC" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                     #MATURED_BUT_NOT_PAID_GLAC (focus)="onFocus(MATURED_BUT_NOT_PAID_GLAC)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Mature But Not Paid GL">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
@@ -744,7 +748,7 @@
                       <span class="border-lable-flt">
                         <ng-select id="COMPOUND_INT_BASIS" bindValue="value" [(ngModel)]="ngCompoundIntBasis"
                           formControlName="COMPOUND_INT_BASIS" bindLabel="label" title="Compulsory Selection"
-                          #COMPOUND_INT_BASIS (focus)="onFocus(COMPOUND_INT_BASIS)" [selectOnTab]='true'
+                          #COMPOUND_INT_BASIS (focus)="onFocus(COMPOUND_INT_BASIS)" [selectOnTab]='true' [virtualScroll]="true"
                           [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Compound Interest">
                           <ng-option *ngFor="let values of alternateOption" [value]="values">
                             {{values.label}}</ng-option>
@@ -965,7 +969,7 @@
                       <span class="border-lable-flt">
                         <ng-select id="INSTALLMENT_BASIS" bindValue="value" [(ngModel)]="nginstallmentbase"
                           [disabled]="INSTALLMENT_BASIS" formControlName="INSTALLMENT_BASIS" bindLabel="label"
-                          #INSTALLMENT_BASIS (focus)="onFocus(INSTALLMENT_BASIS)" [selectOnTab]='true'
+                          #INSTALLMENT_BASIS (focus)="onFocus(INSTALLMENT_BASIS)" [selectOnTab]='true' [virtualScroll]="true"
                           title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
                           placeholder="Installment Base">
                           <ng-option *ngFor="let values of simpleOption" [value]="values">
@@ -1360,7 +1364,7 @@
                       <span class="border-lable-flt">
                         <ng-select id="UNIT_OF_PERIOD" bindValue="value" [(ngModel)]="ngunittdperiod"
                           formControlName="UNIT_OF_PERIOD" bindLabel="label" title="Compulsory Selection"
-                          #UNIT_OF_PERIOD (focus)="onFocus(UNIT_OF_PERIOD)" [selectOnTab]='true'
+                          #UNIT_OF_PERIOD (focus)="onFocus(UNIT_OF_PERIOD)" [selectOnTab]='true' [virtualScroll]="true"
                           [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Unit of TD Period">
                           <ng-option *ngFor="let values of unitOfPeroid" [value]="values">
                             {{values.label}}</ng-option>

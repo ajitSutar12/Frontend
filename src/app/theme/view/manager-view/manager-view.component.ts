@@ -5,6 +5,10 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { ManagerViewService } from './manager-view.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-manager-view',
@@ -37,12 +41,16 @@ export class ManagerViewComponent implements OnInit {
   // sysparadate
   date
   isture: boolean = true;
-
+  isHidden:boolean = true;
   // variables for button
   showButton: boolean = true;
   updateShow: boolean;
   newbtnShow: boolean;
   totalAmt: string;
+  iframe1url: any = '';
+  report_url = environment.report_url;
+  clicked = false;
+
 
   allpdetails: boolean = true;
   dayscrollpd: boolean = true;
@@ -64,11 +72,13 @@ export class ManagerViewComponent implements OnInit {
   CASH_OPENING
 
   value = 0.00;
+  showRepo: boolean = false;
   constructor(
     private fb: FormBuilder,
     private config: NgSelectConfig,
     private _service: ManagerViewService,
     private ownbranchMasterService: OwnbranchMasterService,
+    private sanitizer: DomSanitizer
   ) { }
 
   // Method to handle validation of form
@@ -135,9 +145,18 @@ export class ManagerViewComponent implements OnInit {
       // this.ngBranchCode = data[0].value
     })
 
+  }
 
+  id :any = 'f1';
 
-
+  accordian(ids:any){
+   if(this.id == ids){
+    this.id = '';
+   }
+   else
+   {
+    this.id = ids;
+   }
   }
 
 
@@ -246,4 +265,31 @@ export class ManagerViewComponent implements OnInit {
     }
 
   }
+
+  src: any;
+  view(event) {
+
+    debugger
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
+
+
+      let type = 'Detail';
+     this.showRepo=true;
+     
+        // let Date = this.date;
+      this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      console.log(this.iframe1url);
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+   
+   
+
+  }
+    
+
+  
 }
