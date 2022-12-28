@@ -22,7 +22,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme2"
                                     formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                    #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true' 
+                                    #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'  [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                     <ng-option *ngFor="let values of simpleOption" [value]="values">
                                       {{values.label}}</ng-option>
@@ -50,7 +50,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="ngacno2"
                                     formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
-                                    #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
+                                    #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true' [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
                                     <ng-option *ngFor="let values of Ac" [value]="values">
                                       {{values.label}}</ng-option>

@@ -22,6 +22,8 @@ export class BasicLoginComponent implements OnInit {
 
   ngOnInit() {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
+
+ 
   }
   login() {
     let dataObject = {

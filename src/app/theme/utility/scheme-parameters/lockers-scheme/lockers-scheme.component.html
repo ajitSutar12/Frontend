@@ -75,7 +75,7 @@
 
                     <div class="row">
 
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="G.L. A/c No. *" title="Compulsory Selection"
@@ -86,8 +86,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac"
-                                        formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"  
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
@@ -105,7 +105,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Locker Rent A/c " title="Compulsory Selection"
@@ -116,7 +116,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="LOCKER_RENT_ACNO" bindValue="value" [(ngModel)]="nglocker"
-                                        formControlName="LOCKER_RENT_ACNO" bindLabel="label" [virtualScroll]="true"
+                                        formControlName="LOCKER_RENT_ACNO" bindLabel="label" [virtualScroll]="true" 
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #LOCKER_RENT_ACNO (focus)="onFocus(LOCKER_RENT_ACNO)" [selectOnTab]='true'
                                         required placeholder="Locker Rent Account">
@@ -135,7 +135,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Receivable Locker Rend A/C" title="Compulsory Selection"
@@ -165,8 +168,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
