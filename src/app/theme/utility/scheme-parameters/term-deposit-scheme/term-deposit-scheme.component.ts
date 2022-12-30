@@ -1262,7 +1262,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     this.resetForm();
   }
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id) { debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -1646,4 +1646,11 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     }
   }
 
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

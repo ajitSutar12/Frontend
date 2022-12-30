@@ -294,4 +294,11 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
     else
       event.target.value = 0
   }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

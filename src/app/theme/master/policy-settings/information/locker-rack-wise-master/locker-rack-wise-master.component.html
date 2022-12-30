@@ -10,7 +10,7 @@
             <div class="card-block">
                 <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
@@ -19,7 +19,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="footer-email"
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="footer-email"
@@ -136,7 +136,7 @@
                                 <tbody *ngIf="lockerRackWiseMaster?.length != 0">
                                     <tr *ngFor="let data of lockerRackWiseMaster">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                                 ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>

@@ -290,4 +290,12 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       this.dtTrigger.next();
     });
   }
+  
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }
