@@ -270,7 +270,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       this.updatecheckdata = data
       this.multiField = data.rate
       this.updateID = data.id;
-      this.angForm.controls['AC_ACNOTYPE'].disable()
+      // this.angForm.controls['AC_ACNOTYPE'].disable()
       this.angForm.controls['EFFECT_DATE'].disable()
       this.ngschemetype = Number(data.AC_ACNOTYPE)
       this.angForm.patchValue({
@@ -503,5 +503,11 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
-
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

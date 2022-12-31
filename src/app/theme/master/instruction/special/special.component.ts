@@ -603,4 +603,11 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   onFocus(ele: NgSelectComponent) {  
     ele.open()
   }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

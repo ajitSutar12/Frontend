@@ -1,1 +1,143 @@
-<p>loancashcreditac-opensanctiondatewise works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Loan Cash/Credit Account Open/Sanction Date Wise</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="SCHEME_TYPE">Scheme Type<sub class="required">*</sub>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="SCHEME_TYPE" bindValue="value" bindLabel="label" [virtualScroll]="true"
+                                     [(ngModel)]="schemeType" #SCHEME_TYPE (focus)="onFocus(SCHEME_TYPE)" [selectOnTab]='true' 
+                                     (change)="selectedSchemeCode();"
+                                    formControlName="SCHEME_TYPE"  placeholder="">
+                                    <ng-option *ngFor="let values of allSchemeCode" [value]="item.S_ACNOTYPE">
+                                        {{item.S_ACNOTYPE}}</ng-option>
+                                    </ng-select>
+                                </span>
+                           </div>
+
+                           <div class="form-group form-primary form-static-label"
+                                  *ngIf="angForm.controls['SCHEME_TYPE'].invalid && (angForm.controls['SCHEME_TYPE'].dirty || angForm.controls['SCHEME_TYPE'].touched)"
+                                   class="alert alert-danger">
+                               <div *ngIf="angForm.controls['SCHEME_TYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                           </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="SCHEME_CODE">Scheme Code<sub class="required">*</sub>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="SCHEME_CODE" bindValue="value" [(ngModel)]="schemeCode"
+                                    #SCHEME_CODE (focus)="onFocus(SCHEME_CODE)" [selectOnTab]='true' [virtualScroll]="true"
+                                    formControlName="SCHEME_CODE" bindLabel="label" placeholder="">
+                                    <ng-option *ngFor="let values of allScheme" [value]="item">
+                                        {{item.S_APPL}} {{item.S_NAME}}</ng-option>
+                                    </ng-select>
+                                </span>
+                           </div>
+
+                           <div class="form-group form-primary form-static-label"
+                                  *ngIf="angForm.controls['SCHEME_CODE'].invalid && (angForm.controls['SCHEME_CODE'].dirty || angForm.controls['SCHEME_CODE'].touched)"
+                                   class="alert alert-danger">
+                               <div *ngIf="angForm.controls['SCHEME_CODE'].errors?.required">
+                                    This field is required
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">Starting Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
+                                        class="form-control"  #START_DATE="bsDatepicker"  (keydown.Tab)="START_DATE.hide()"
+                                        formControlName="START_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                        
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['START_DATE'].invalid &&
+                                     (angForm.controls['START_DATE'].dirty ||angForm.controls['START_DATE'].touched) " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['START_DATE'].errors?.required">
+                                        This field is required
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">Ending Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                        class="form-control"  [maxDate]="maxDate"  [minDate]="fromdate"
+                                        formControlName="END_DATE" #END_DATE="bsDatepicker"  (keydown.Tab)="END_DATE.hide()"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['END_DATE'].invalid &&
+                                     (angForm.controls['END_DATE'].dirty ||angForm.controls['END_DATE'].touched) " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['END_DATE'].errors?.required">
+                                        This field is required
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                (click)="view($event); clicked = true ">Print</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                        <div *ngIf="showRepo">
+                                            <!-- <div class="mask" *ngIf="showLoading">
+                                                <i class="pei pei-spinner"></i>
+                                              </div> -->
+                                            <app-iframe5 [url]='iframeurl'></app-iframe5>
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>

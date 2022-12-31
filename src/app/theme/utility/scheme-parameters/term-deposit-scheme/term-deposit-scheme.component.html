@@ -1921,7 +1921,7 @@
                 <tbody *ngIf="termDepositScheme?.length != 0">
                   <tr *ngFor="let data of termDepositScheme">
                     <td>
-                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id);gotoTop()"
                         placement="bottom" ngbTooltip="Edit"></span>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"

@@ -1344,7 +1344,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'OnMaturity' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+    else if (this.repay == 'O' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
       this.result = Math.round(((Math.floor(this.drawingPower))));
 
@@ -1389,7 +1389,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'OnMaturity' && (this.installmentType == 'E')) {
+    else if (this.repay == 'O' && (this.installmentType == 'E')) {
 
       this.angForm.patchValue({
         AC_INSTALLMENT: 0
@@ -1428,7 +1428,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'OnMaturity' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'O' && (this.installmentType == 'WithInterest')) {
       this.intResult = (this.drawingPower * this.intRate / 1200);
       this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 0));
       this.angForm.patchValue({
@@ -2265,5 +2265,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
-
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

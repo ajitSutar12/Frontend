@@ -407,7 +407,7 @@
                       </div>
                       <div class="radio radio-inline">
                         <label class="inputRadio">
-                          <input type="radio" name="IS_DEPO_LOAN" value='0' [checked]="IS_GOLDLOAN"
+                          <input type="radio" name="IS_DEPO_LOAN" value='0' [checked]="IS_GOLD_LOAN"
                             formControlName="IS_DEPO_LOAN" (click)="isDepoloan(2)">
                           <i class="helper"></i>Is Gold against CC
 
@@ -1263,7 +1263,7 @@
                 <tbody *ngIf="termLoanMaster?.length != 0">
                   <tr *ngFor="let data of termLoanMaster">
                     <td>
-                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id);gotoTop()"
                         placement="bottom" ngbTooltip="Edit"></span>
                     </td>
                     <td>{{ data.S_ACNOTYPE }}</td>

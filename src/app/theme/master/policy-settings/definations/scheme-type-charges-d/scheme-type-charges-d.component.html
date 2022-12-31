@@ -248,7 +248,7 @@
                                 <tbody *ngIf="schemeTypeChargesRate?.length != 0">
                                     <tr *ngFor="let data of schemeTypeChargesRate">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement="bottom"
+                                            (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                             ngbTooltip="Edit"></span>&nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>

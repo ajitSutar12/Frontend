@@ -10,7 +10,7 @@ export class RepayModeService {
         { value: 'Q', label: 'Quarterly' },
         { value: 'H', label: 'Half Yearly' },
         { value: 'Y', label: 'Yearly' },
-        { value: 'OnMaturity', label: 'On Maturity' },
+        { value: 'O', label: 'On Maturity' },
     ];
 
     getCharacters(): Array<IOption> {

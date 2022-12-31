@@ -557,7 +557,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       'S_OUTSTANDING_INT_ACNO': formVal.S_OUTSTANDING_INT_ACNO,
       // 'IS_DEPO_LOAN': formVal.IS_DEPO_LOAN,
       'IS_DEPO_LOAN': depo,
-      'IS_GOLDLOAN': Gold,
+      'IS_GOLD_LOAN': Gold,
       'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
       'POST_TO_INDIVIDUAL_AC': (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
       'S_RECEIVABLE_INT_ALLOW': (formVal.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0'),
@@ -614,7 +614,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     this.resetForm();
   }
   IS_DEPO_LOAN: boolean = false
-  IS_GOLDLOAN: boolean = false
+  IS_GOLD_LOAN: boolean = false
   IS_BOTH: boolean = false
   //Method for append data into fields
   editClickHandler(id) {
@@ -685,17 +685,17 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         'MIN_DUE_INSTALLMENTS': data.MIN_DUE_INSTALLMENTS
       })
 
-      if (data.IS_DEPO_LOAN == '1' && data.IS_GOLDLOAN == '0') {
+      if (data.IS_DEPO_LOAN == '1' && data.IS_GOLD_LOAN == '0') {
         this.IS_DEPO_LOAN = true
-        this.IS_GOLDLOAN = false
+        this.IS_GOLD_LOAN = false
         this.IS_BOTH = false
-      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '1') {
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '1') {
         this.IS_DEPO_LOAN = false
-        this.IS_GOLDLOAN = true
+        this.IS_GOLD_LOAN = true
         this.IS_BOTH = false
-      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '0') {
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '0') {
         this.IS_DEPO_LOAN = false
-        this.IS_GOLDLOAN = false
+        this.IS_GOLD_LOAN = false
         this.IS_BOTH = true
       }
 
@@ -782,7 +782,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     data["id"] = this.updateID;
 
     data['IS_DEPO_LOAN'] = depo
-    data['IS_GOLDLOAN'] = Gold
+    data['IS_GOLD_LOAN'] = Gold
     data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
     data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
     data['S_RECEIVABLE_INT_ALLOW'] = (data.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0')
@@ -1006,27 +1006,27 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   isDepoloan(value) {
     if (value == 1) {
       this.IS_DEPO_LOAN = true
-      this.IS_GOLDLOAN = false
+      this.IS_GOLD_LOAN = false
       this.IS_BOTH = false
       this.angForm.patchValue({
         'IS_DEPO_LOAN': 1,
-        'IS_GOLDLOAN': 0
+        'IS_GOLD_LOAN': 0
       })
     } else if (value == 2) {
       this.IS_DEPO_LOAN = false
-      this.IS_GOLDLOAN = true
+      this.IS_GOLD_LOAN = true
       this.IS_BOTH = false
       this.angForm.patchValue({
         'IS_DEPO_LOAN': 0,
-        'IS_GOLDLOAN': 1
+        'IS_GOLD_LOAN': 1
       })
     } else if (value == 3) {
       this.IS_DEPO_LOAN = false
-      this.IS_GOLDLOAN = false
+      this.IS_GOLD_LOAN = false
       this.IS_BOTH = true
       this.angForm.patchValue({
         'IS_DEPO_LOAN': 0,
-        'IS_GOLDLOAN': 0
+        'IS_GOLD_LOAN': 0
       })
     }
   }
@@ -1075,5 +1075,11 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   
     }
   }
-
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

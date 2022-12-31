@@ -744,7 +744,7 @@
                                                     <div class="radio radio-inline">
                                                         <label class="inputRadio">
                                                             <input type="radio" name="IS_DEPO_LOAN" value='0'
-                                                                [checked]="IS_GOLDLOAN" formControlName="IS_DEPO_LOAN"
+                                                                [checked]="IS_GOLD_LOAN" formControlName="IS_DEPO_LOAN"
                                                                 (click)="isDepoloan(2)">
                                                             <i class="helper"></i>Is Gold against CC
 
@@ -814,7 +814,7 @@
                                 <tbody *ngIf="cashcredit?.length != 0">
                                     <tr *ngFor="let data of cashcredit">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                                 ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
@@ -894,7 +894,7 @@
                                     
                                         <td [ngClass]="data.IS_DEPO_LOAN === '' ? 'td_center' : 'td_left'">{{data.IS_DEPO_LOAN === ''? '-' : data.IS_DEPO_LOAN}}</td> -->
 
-                                        <!-- <td [ngClass]="data.IS_GOLDLOAN === '' ? 'td_center' : 'td_left'">{{data.IS_GOLDLOAN === ''? '-' : data.IS_GOLDLOAN}}</td> -->
+                                        <!-- <td [ngClass]="data.IS_GOLD_LOAN === '' ? 'td_center' : 'td_left'">{{data.IS_GOLD_LOAN === ''? '-' : data.IS_GOLD_LOAN}}</td> -->
 
                                         <!-- <td>{{ data.BALANCE_ADD_APPLICABLE }}</td> -->
                                     </tr>
@@ -940,7 +940,7 @@
                                         
                                         <th><input type="text" class="form-control" name="CHEQUEBOOK_MIN_BAL" /></th>
                                         <th><input type="text" class="form-control" name="IS_DEPO_LOAN" /></th> -->
-                                        <!-- <th><input type="text" class="form-control" name="IS_GOLDLOAN" /></th> -->
+                                        <!-- <th><input type="text" class="form-control" name="IS_GOLD_LOAN" /></th> -->
 
                                     </tr>
                                 </tfoot>
