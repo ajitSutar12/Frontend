@@ -792,7 +792,8 @@
                                         <span><label>Director Recommdation : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_RECOMMEND_BY}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.AC_RECOMMEND_BY==undefined
+                                                ?'---':loantransactionData?.AC_RECOMMEND_BY }}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Due Installments : </label></span>
@@ -806,13 +807,22 @@
                                         <span><label>Installment Type : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_REPAYMODE}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_REPAYMODE=='M'
+                                                ?'Monthly':(accountEvent?.AC_REPAYMODE=='Q' ?'Quarterly':
+                                                (accountEvent?.AC_REPAYMODE=='H' ?'Half Yearly':
+                                                (accountEvent?.AC_REPAYMODE=='Y' ?'Yearly' :
+                                                (accountEvent?.AC_REPAYMODE=='O' ?'On Maturity' : '---')))
+                                                )}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Installment Method : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
+                                                == 'E'? 'EMI' : (accountEvent?.INSTALLMENT_METHOD == 'R'? 'Reducing' :
+                                                (accountEvent?.INSTALLMENT_METHOD == 'I'? 'Plain' :
+                                                (accountEvent?.INSTALLMENT_METHOD == 'Null'? 'With Interest' :
+                                                '---')))}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Due Amount : </label></span>
