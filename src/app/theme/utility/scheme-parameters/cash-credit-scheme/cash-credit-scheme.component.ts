@@ -71,7 +71,7 @@ interface Cashcredit {
   BALANCE_ADD_APPLICABLE: string;
   CHEQUEBOOK_MIN_BAL: string;
   IS_DEPO_LOAN: string;
-  IS_GOLDLOAN: string;
+  IS_GOLD_LOAN: string;
 }
 
 @Component({
@@ -333,11 +333,11 @@ export class CashCreditSchemeComponent implements OnInit {
         // },
         // {
         //   title: "Is Gold against CC",
-        //   data: "IS_GOLDLOAN",
+        //   data: "IS_GOLD_LOAN",
         // },
         // {
         //   title: 'Other type of CC',
-        //   data: 'IS_DEPO_LOAN=0, IS_GOLDLOAN= 0',
+        //   data: 'IS_DEPO_LOAN=0, IS_GOLD_LOAN= 0',
         // }
       ],
       dom: "Blrtip",
@@ -486,7 +486,7 @@ export class CashCreditSchemeComponent implements OnInit {
       BALANCE_ADD_APPLICABLE: [""],
       CHEQUEBOOK_MIN_BAL: ["", [Validators.pattern]],
       IS_DEPO_LOAN: [""], //radiobutton
-      IS_GOLDLOAN: [""], //radiobutton
+      IS_GOLD_LOAN: [""], //radiobutton
     });
   }
 
@@ -542,7 +542,7 @@ export class CashCreditSchemeComponent implements OnInit {
       OVERDRAFT_INTEREST_RATE: formVal.OVERDRAFT_INTEREST_RATE,
       CHEQUEBOOK_MIN_BAL: formVal.CHEQUEBOOK_MIN_BAL,
       IS_DEPO_LOAN: depo,
-      IS_GOLDLOAN: Gold,
+      IS_GOLD_LOAN: Gold,
     };
     this.cashcreditservice.postData(dataToSend).subscribe(
       (data1) => {
@@ -563,7 +563,7 @@ export class CashCreditSchemeComponent implements OnInit {
   }
 
   IS_DEPO_LOAN: boolean = false
-  IS_GOLDLOAN: boolean = false
+  IS_GOLD_LOAN: boolean = false
   IS_BOTH: boolean = false
   //Method for append data into fields
   editClickHandler(id) {
@@ -612,22 +612,22 @@ export class CashCreditSchemeComponent implements OnInit {
         STAND_INSTRUCTION_ALLOW: (data.STAND_INSTRUCTION_ALLOW == '1' ? true : false),
         CHEQUEBOOK_MIN_BAL: data.CHEQUEBOOK_MIN_BAL,
         IS_DEPO_LOAN: data.IS_DEPO_LOAN,
-        IS_GOLDLOAN: data.IS_GOLDLOAN,
+        IS_GOLD_LOAN: data.IS_GOLD_LOAN,
 
 
       });
 
-      if (data.IS_DEPO_LOAN == '1' && data.IS_GOLDLOAN == '0') {
+      if (data.IS_DEPO_LOAN == '1' && data.IS_GOLD_LOAN == '0') {
         this.IS_DEPO_LOAN = true
-        this.IS_GOLDLOAN = false
+        this.IS_GOLD_LOAN = false
         this.IS_BOTH = false
-      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '1') {
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '1') {
         this.IS_DEPO_LOAN = false
-        this.IS_GOLDLOAN = true
+        this.IS_GOLD_LOAN = true
         this.IS_BOTH = false
-      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLDLOAN == '0') {
+      } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '0') {
         this.IS_DEPO_LOAN = false
-        this.IS_GOLDLOAN = false
+        this.IS_GOLD_LOAN = false
         this.IS_BOTH = true
       }
 
@@ -729,7 +729,7 @@ export class CashCreditSchemeComponent implements OnInit {
     data["id"] = this.updateID;
 
     data['IS_DEPO_LOAN'] = depo
-    data['IS_GOLDLOAN'] = Gold
+    data['IS_GOLD_LOAN'] = Gold
     data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
     data['POST_TO_INDIVIDUAL_AC'] = (data.POST_TO_INDIVIDUAL_AC == true ? '1' : '0')
     data['S_RECEIVABLE_INT_ALLOW'] = (data.S_RECEIVABLE_INT_ALLOW == true ? '1' : '0')
@@ -891,27 +891,27 @@ export class CashCreditSchemeComponent implements OnInit {
   isDepoloan(value) {
     if (value == 1) {
       this.IS_DEPO_LOAN = true
-      this.IS_GOLDLOAN = false
+      this.IS_GOLD_LOAN = false
       this.IS_BOTH = false
       this.angForm.patchValue({
         'IS_DEPO_LOAN': 1,
-        'IS_GOLDLOAN': 0
+        'IS_GOLD_LOAN': 0
       })
     } else if (value == 2) {
       this.IS_DEPO_LOAN = false
-      this.IS_GOLDLOAN = true
+      this.IS_GOLD_LOAN = true
       this.IS_BOTH = false
       this.angForm.patchValue({
         'IS_DEPO_LOAN': 0,
-        'IS_GOLDLOAN': 1
+        'IS_GOLD_LOAN': 1
       })
     } else if (value == 3) {
       this.IS_DEPO_LOAN = false
-      this.IS_GOLDLOAN = false
+      this.IS_GOLD_LOAN = false
       this.IS_BOTH = true
       this.angForm.patchValue({
         'IS_DEPO_LOAN': 0,
-        'IS_GOLDLOAN': 0
+        'IS_GOLD_LOAN': 0
       })
     }
   }
