@@ -102,6 +102,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm">
+                                        <label *ngIf="!preMature && accountedit!=null && getschemename=='PG'"
+                                            style="color: rgb(7, 144, 7);">Matured Account</label>
+                                        <label *ngIf="preMature && accountedit!=null && getschemename=='PG'"
+                                            style="color: rgb(194, 55, 55);">Premature Account</label>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 solid1">
@@ -122,15 +128,14 @@
                                             <div class="col-md-12">
                                                 <table>
                                                     <tr>
-                                                        <td colspan="2">Enter Interest Rate</td>
+                                                        <td>Months</td>
                                                         <td>Interest Amount</td>
                                                         <!-- <td>Interest Amount 0 For Fresh Calculation</td> -->
                                                     </tr>
                                                     <tr>
-                                                        <td>Months</td>
                                                         <td><input style="text-align: right;" type="text"
-                                                                formControlName="Months"></td>
-                                                        <td><input style="text-align: right;"
+                                                                formControlName="Months" disabled></td>
+                                                        <td><input style="text-align: right;" disabled
                                                                 formControlName="CalCulateAmt" type="text"></td>
                                                     </tr>
 
@@ -145,15 +150,16 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;"
+                                                            (change)="getTotalNetInterest()"
                                                             formControlName="TotalInterest" type="text"
                                                             (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
-                                                            (focusout)="getDecimalPoint($event)" class="form-control">
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
+                                                            class="form-control">
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" *ngIf="isHideForSaving">
                                             <div class="col-md-6">
                                                 <label><b>Posted Interest Amount -</b></label>
                                             </div>
@@ -161,9 +167,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" formControlName="POSTED_INT"
-                                                            type="text" (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
-                                                            (focusout)="getDecimalPoint($event)" class="form-control">
+                                                            type="text" disabled class="form-control">
                                                     </span>
                                                 </div>
                                             </div>
@@ -182,7 +186,7 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" formControlName="NET_INT"
                                                             type="text" (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
+                                                            (keyup)="getDecimal($event)" disabled
                                                             (focusout)="getDecimalPoint($event)" class="form-control">
                                                     </span>
                                                 </div>
@@ -224,7 +228,7 @@
                                                         <input style="text-align: right;" formControlName="LEDGER_BAL"
                                                             (change)="getNetInterest()" type="text"
                                                             (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
+                                                            (keyup)="getDecimal($event)" disabled
                                                             (focusout)="getDecimalPoint($event)" class="form-control">
                                                     </span>
                                                 </div>
@@ -232,14 +236,15 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label> Payable Interest Amount</label>
+                                                <label><span *ngIf="preMature==false || preMature==null">+</span>
+                                                    Payable Interest Amount</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" formControlName="PAYABLE_INT"
                                                             type="text" (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
+                                                            (keyup)="getDecimal($event)" disabled
                                                             (focusout)="getDecimalPoint($event)" class="form-control">
                                                     </span>
                                                 </div>
@@ -254,7 +259,7 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" formControlName="NET_INT"
                                                             (change)="getNetInterest()" type="text"
-                                                            (focus)="selectAllContent($event)"
+                                                            (focus)="selectAllContent($event)" disabled
                                                             (keyup)="getDecimal($event)"
                                                             (focusout)="getDecimalPoint($event)" class="form-control">
                                                     </span>
@@ -371,7 +376,7 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;"
                                                             formControlName="NETPAYABLE_AMT" type="text"
-                                                            (focus)="selectAllContent($event)"
+                                                            (focus)="selectAllContent($event)" disabled
                                                             (keyup)="getDecimal($event)"
                                                             (focusout)="getDecimalPoint($event)" class="form-control">
                                                     </span>
@@ -626,7 +631,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            Details
+                            <h5> Details</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -826,3 +831,4 @@
         </perfect-scrollbar>
     </div>
 </app-modal-basic>
+<div [class]="modalClass"> </div>

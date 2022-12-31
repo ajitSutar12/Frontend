@@ -3,29 +3,30 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <form  action="javascript:">
+                <form action="javascript:">
 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card mb-3" style="max-width: 1200px;">
                                 <div class="row no-gutt ers">
-                                  <div class="col-md-12 inline-block" >
+                                    <div class="col-md-12 inline-block">
 
-                                    <span>
-                                    <img src="assets/BPK.jpg" class="card-img" alt="...">
-                                    <h5 class="card-title bank-name" >SHRI BHAIRAVNATH SAHAKARI PAT-SANSTHA LTD.</h5>
-                                    </span>
-                                </div>
+                                        <span>
+                                            <img src="assets/BPK.jpg" class="card-img" alt="...">
+                                            <h5 class="card-title bank-name">SHRI BHAIRAVNATH SAHAKARI PAT-SANSTHA LTD.
+                                            </h5>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row" style="margin-top: -15px;">
-                        <div class="col-sm-8" >
+                        <div class="col-sm-8">
                             <div class="card">
                                 <div class="card-body" style="text-align: center;">
-                                    <img src="assets/banklogo.png" style="width:66%"class="img-fluid">
+                                    <img src="assets/banklogo.png" style="width:66%" class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -41,37 +42,39 @@
                                         <div class="col-sm-11">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <input type="text" name="mobileno" class="form-control" placeholder=" " id="mobileno"
-                                                        required maxlength="10" 
-                                                        [(ngModel)]="mobileno" title="Input allowed only A-Z" >
-                                                    <label for="mobileno">User Name<sub class="required">* </sub></label>
+                                                    <input type="text" name="mobileno" class="form-control"
+                                                        placeholder=" " id="mobileno" required maxlength="10"
+                                                        [(ngModel)]="mobileno" title="Input allowed only A-Z" autofocus>
+                                                    <label for="mobileno">User Name<sub class="required">*
+                                                        </sub></label>
                                                 </span>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-11">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <input [type]="passType" name="password" class="form-control" placeholder=" " id="password"
-                                                        required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" maxlength="10" 
-                                                        [(ngModel)]="password" title="Input allowed only A-Z" >
-                                                        <div style="    display: block;
+                                                    <input [type]="passType" name="password" class="form-control"
+                                                        placeholder=" " id="password" required
+                                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" maxlength="10"
+                                                        [(ngModel)]="password" title="Input allowed only A-Z">
+                                                    <div style="    display: block;
                                                         margin-left: 95%;
                                                         margin-top: -10%;">
-                                                            <span toggle="#password-field"
-                                                      style=" margin: 12px 0px 0px -19px"
-                                                         class="fa fa-fw fa-eye field-icon toggle-password"
-                                                         (click)="showHidePassword()"></span>
-                                                        </div>
-                                                        
+                                                        <span toggle="#password-field"
+                                                            style=" margin: 12px 0px 0px -19px"
+                                                            class="fa fa-fw fa-eye field-icon toggle-password"
+                                                            (click)="showHidePassword()"></span>
+                                                    </div>
+
                                                     <label for="password">Password<sub class="required">* </sub></label>
                                                 </span>
                                             </div>
-                                            
+
                                         </div>
-                                    
+
                                     </div>
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
@@ -82,7 +85,7 @@
                                                 </label>
                                             </div> -->
                                             <div class="forgot-phone text-right f-left">
-                                                <a [routerLink]="['/auth/resetpassword']" class="text-right f-w-600"> 
+                                                <a [routerLink]="['/auth/resetpassword']" class="text-right f-w-600">
                                                     Reset Password?</a>
                                             </div>
                                             <div class="forgot-phone text-right f-right" *ngIf="forgetPassword">
@@ -113,22 +116,24 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
-                            <div class="col-sm-12">
-                                <div class="card mb-3" style="max-width: 1200px;">
-                                    <div class="row no-gutters">
-                                      <div class="col-md-12" style="padding: 2.5%;">
+                        <div class="col-sm-12">
+                            <div class="card mb-3" style="max-width: 1200px;">
+                                <div class="row no-gutters">
+                                    <div class="col-md-12" style="padding: 2.5%;">
                                         <img src="assets/images/comp.png" class="com-logo" alt="small-logo.png">
-                                        <h5 style="text-align:center;margin-top: 5px;position: sticky;">Compserv Systems</h5>
-                                        <h5 style="float:right" class="prod-logo"><b><span style="color:black">Pat</span>
-                                            <span style="color:#f7ba12">seva</span></b></h5>
-                                      </div>
-                                      
+                                        <h5 style="text-align:center;margin-top: 5px;position: sticky;">Compserv Systems
+                                        </h5>
+                                        <h5 style="float:right" class="prod-logo"><b><span
+                                                    style="color:black">Pat</span>
+                                                <span style="color:#f7ba12">seva</span></b></h5>
                                     </div>
+
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </form>
                 <!-- end of form -->

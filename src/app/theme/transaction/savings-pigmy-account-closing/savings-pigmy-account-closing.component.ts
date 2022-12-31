@@ -376,13 +376,44 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   customerId
   dormant
   intrateShow
+  preMature
+  modalClass: string = 'modalHide';
+  NET_EXC_INTAMT = 0
   getAccountDetails(event) {
     this.bankacno = event.bankacno
     this.customerId = event.customerId
     this.dormant = event.dormant
     let mem = [this.bankacno, this.getschemename, this.ngscheme]
+    this.preMature = null
+    this.intrateShow = 0
+    this.transferTotalAmount = 0
+    this.NET_EXC_INTAMT = 0
+    this.multigrid = []
+    this.angForm.patchValue({
+      INTREST_RATE: 0,
+      Months: 0,
+      CalCulateAmt: 0,
+      TotalInterest: 0,
+      POSTED_INT: 0,
+      NET_INT: 0,
+      Fnarration: null,
+      LEDGER_BAL: 0,
+      PAYABLE_INT: 0,
+      OTHER_CHARGES_AMOUNT: 0,
+      OTHER_CHARGES_GLACNO: null,
+      COMMISSION_CHARGES: 0,
+      COMMISSION_GLACNO: null,
+      PENAL_INT: 0,
+      NETPAYABLE_AMT: 0
+    })
+    this.modalClass = 'modalShow';
     this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data) => {
-      console.log('acc data', data)
+      this.modalClass = 'modalHide';
+      if (Number(data[0].LedgerBal) > 0) {
+        Swal.fire('Oops', 'Account cannot close', 'error')
+        return
+      }
+      this.preMature = data[0].preMature
       this.OpenDate = data[0].AC_OPDATE
       this.renewalDate = data[0].AC_ASON_DATE
       this.INTRATE = data[0].INT_RATE
@@ -392,35 +423,61 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         AC_Months: data[0].AC_MONTHS,
         AC_DAYS: data[0].AC_DAYS,
         POSTED_INT: data[0].post_Interest,
-        LEDGER_BAL: Number(data[0].ledgerBal).toFixed(2),
-        PAYABLE_INT: Number(data[0].payableInterest).toFixed(2),
-        PENAL_INT: Number(data[0].penalInterest).toFixed(2),
-        TotalInterest: Number(data[0].currentInterest).toFixed(2)
+        LEDGER_BAL: Number(Math.abs(data[0].ledgerBal)).toFixed(2),
+        PAYABLE_INT: Number(Math.abs(data[0].payableInterest)).toFixed(2),
+        PENAL_INT: Number(data[0].penalInterest).toFixed(2)
       })
       if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
-          INTREST_RATE: data[0].INT_RATE
+          INTREST_RATE: data[0].INT_RATE,
+          TotalInterest: Number(Math.round(data[0].currentInterest)),
+          CalCulateAmt: Number(Math.round(data[0].currentInterest))
         })
         this.intrateShow = data[0].INT_RATE
       }
       else {
         this.angForm.patchValue({
-          INTREST_RATE: '0'
+          INTREST_RATE: '0',
+          TotalInterest: 0,
+          CalCulateAmt: 0
         })
         this.intrateShow = 0
       }
+
+      if (data[0].post_Interest < 0) {
+        this.angForm.patchValue({
+          // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
+          NET_INT: Number(data[0].post_Interest).toFixed(0),
+          POSTED_INT: 0,
+        })
+        this.NET_EXC_INTAMT = Number(data[0].post_Interest)
+      }
+      else if (data[0].post_Interest > 0) {
+        this.angForm.patchValue({
+          POSTED_INT: Number(data[0].post_Interest).toFixed(0),
+          NET_INT: 0
+          // EXCESS_INT: 0
+        })
+        this.NET_EXC_INTAMT = 0
+      }
+      else {
+        this.angForm.patchValue({
+          POSTED_INT: 0,
+          NET_INT: 0
+          // EXCESS_INT: 0
+        })
+        this.NET_EXC_INTAMT = 0
+      }
+
       let netInt: number = 0
       var months
-      netInt = this.angForm.controls['TotalInterest'].value - data[0].post_Interest
+      netInt = Number(this.angForm.controls['TotalInterest'].value) - Number(data[0].post_Interest)
       if (data[0].AC_LINTEDT != "" && data[0].AC_LINTEDT != null) {
         var date1 = data[0].AC_LINTEDT;
         var date2 = this.angForm.controls['DATE'].value;
-
         var b = moment(date1, "DD/MM/YYYY");
         var a = moment(date2, "DD/MM/YYYY");
-
         months = a.diff(b, 'months');
-
       }
       else {
         var date1 = data[0].AC_OPDATE;
@@ -435,6 +492,9 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       })
       this.getNetInterest()
       this.showCustomerDeatils()
+    }, (error) => {
+      console.log(error, 'err')
+      Swal.fire('Oops!', error?.error?.message, 'error');
     })
   }
   OTHER_CHARGES_GLACNO
@@ -455,17 +515,29 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
   getNetInterest() {
-    let ledger_bal = this.angForm.controls['LEDGER_BAL'].value
-    let net_int = this.angForm.controls['NET_INT'].value
-    let other_charge_amt = this.angForm.controls['OTHER_CHARGES_AMOUNT'].value
-    let comm_amt = this.angForm.controls['COMMISSION_CHARGES'].value
-    let penal_amt = this.angForm.controls['PENAL_INT'].value
-    let netInt = (Number(ledger_bal) + Number(net_int) - Number(other_charge_amt) - Number(comm_amt) - Number(penal_amt)).toFixed(2)
+    let ledger_bal = Number(this.angForm.controls['LEDGER_BAL'].value)
+    let net_int = Number(this.angForm.controls['NET_INT'].value)
+    let other_charge_amt = Number(this.angForm.controls['OTHER_CHARGES_AMOUNT'].value)
+    let comm_amt = Number(this.angForm.controls['COMMISSION_CHARGES'].value)
+    let penal_amt = Number(this.angForm.controls['PENAL_INT'].value)
+    let totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (Math.abs(ledger_bal + net_int - other_charge_amt - comm_amt - penal_amt)).toFixed(2) : (Math.abs(ledger_bal - Math.abs(net_int) - other_charge_amt - comm_amt - penal_amt)).toFixed(2)
+    this.preMature == false || this.preMature == null ? totalNetAmt = (Number(totalNetAmt) + Number(this.angForm.controls['PAYABLE_INT'].value)).toFixed(2) : totalNetAmt = totalNetAmt
     this.angForm.patchValue({
-      NETPAYABLE_AMT: netInt
+      NETPAYABLE_AMT: totalNetAmt
     })
   }
 
+
+  getTotalNetInterest() {
+    let total_int = this.angForm.controls['TotalInterest'].value
+    let post_int = this.angForm.controls['POSTED_INT'].value
+    let netInt = (Number(total_int) - Number(post_int)).toFixed(0)
+    this.NET_EXC_INTAMT = Number(total_int) - Number(post_int)
+    this.angForm.patchValue({
+      NET_INT: Math.abs(Number(netInt))
+    })
+    this.getNetInterest()
+  }
   //transfer account grid functions
   addTransferAccount() {
     this.formSubmitted = true;
@@ -513,7 +585,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             termAmount = Number(this.transferAccountDetails.depositAmount) - Number(ledgerBal)
           })
           this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-          if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+          let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+          if (comparison <= this.transferTotalAmount) {
             if (formVal.amount >= termAmount) {
               this.multigrid.push(object);
               this.resetgrid();
@@ -524,8 +597,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             }
           }
           else {
-            Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
           }
         }
         else if (this.transferSchemeDetails.name == 'LN' || this.transferSchemeDetails.name == 'DS') {
@@ -540,23 +613,25 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             if (Number(ledgerBal) == Number(formVal.amount)) {
               object['AC_CLOSED'] = '1'
               this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-              if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+              let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+              if (comparison >= this.transferTotalAmount) {
                 this.multigrid.push(object);
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
               }
             }
             else if (Number(ledgerBal) > Number(formVal.amount)) {
               this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-              if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+              let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+              if (comparison >= this.transferTotalAmount) {
                 this.multigrid.push(object);
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
@@ -567,12 +642,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         }
         else {
           this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-          if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+          let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+          if (comparison >= this.transferTotalAmount) {
             this.multigrid.push(object);
             this.resetgrid();
           }
           else {
-            Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
           }
         }
@@ -646,7 +722,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             termAmount = Number(this.transferAccountDetails.depositAmount) - Number(ledgerBal)
           })
           this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-          if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+          let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+          if (comparison >= this.transferTotalAmount) {
             if (formVal.amount >= termAmount) {
               this.multigrid[index] = object
               this.jointShowButton = true;
@@ -659,7 +736,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             }
           }
           else {
-            Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
           }
         }
@@ -675,27 +752,29 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             if (Number(ledgerBal) == Number(formVal.amount)) {
               object['AC_CLOSED'] = '1'
               this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-              if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+              let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+              if (comparison >= this.transferTotalAmount) {
                 this.multigrid[index] = object
                 this.jointShowButton = true;
                 this.jointUpdateShow = false;
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
             else if (Number(ledgerBal) > Number(formVal.amount)) {
               this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-              if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+              let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+              if (comparison >= this.transferTotalAmount) {
                 this.multigrid[index] = object
                 this.jointShowButton = true;
                 this.jointUpdateShow = false;
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
@@ -706,14 +785,15 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         }
         else {
           this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-          if (Number(this.angForm.controls['NETPAYABLE_AMT'].value) >= this.transferTotalAmount) {
+          let comparison = Number(this.angForm.controls['NETPAYABLE_AMT'].value)
+          if (comparison >= this.transferTotalAmount) {
             this.multigrid[index] = object
             this.jointShowButton = true;
             this.jointUpdateShow = false;
             this.resetgrid();
           }
           else {
-            Swal.fire('info', 'Please check Net Payable Amount With Transfer Amount', 'info')
+            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
           }
         }
@@ -790,9 +870,9 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         TOTAL_INTEREST_AMOUNT: formVal.TotalInterest,
         NET_PAYABLE_AMOUNT: formVal.NETPAYABLE_AMT,
         INTEREST_RATE: formVal.INTREST_RATE,
-        IS_PREMATURE_CLOSE: this.isPrematureClose,
+        IS_PREMATURE_CLOSE: this.preMature == true ? 1 : 0,
         NARRATION: formVal.Fnarration,
-        TOKEN_NO: formVal.Token_Num,
+        // TOKEN_NO: formVal.Token_Num,
         COMMISSION_CHARGES: formVal.COMMISSION_CHARGES,
         COMMISSION_GLACNO: formVal.COMMISSION_GLACNO,
         OTHER_CHARGES_GLACNO: formVal.OTHER_CHARGES_GLACNO,
@@ -849,9 +929,9 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         TOTAL_INTEREST_AMOUNT: formVal.TotalInterest,
         NET_PAYABLE_AMOUNT: formVal.NETPAYABLE_AMT,
         INTEREST_RATE: formVal.INTREST_RATE,
-        IS_PREMATURE_CLOSE: this.isPrematureClose,
+        IS_PREMATURE_CLOSE: this.preMature == true ? 1 : 0,
         NARRATION: formVal.Fnarration,
-        TOKEN_NO: formVal.Token_Num,
+        // TOKEN_NO: formVal.Token_Num,
         COMMISSION_CHARGES: formVal.COMMISSION_CHARGES,
         COMMISSION_GLACNO: formVal.COMMISSION_GLACNO,
         OTHER_CHARGES_GLACNO: formVal.OTHER_CHARGES_GLACNO,
@@ -908,6 +988,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.getschemename = data.TRAN_ACNOTYPE
       this.ngscheme = Number(data.TRAN_ACTYPE)
       this.ngBranchCode = data.BRANCH_CODE
+      data.IS_PREMATURE_CLOSE == '1' ? this.preMature = true : this.preMature = false
       this.getAccountlist()
       this.angForm.patchValue({
         TRAN_NO: data.TRAN_NO,
@@ -928,7 +1009,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         AC_NO: data.TRAN_ACNO,
         AC_TYPE: Number(data.TRAN_ACTYPE),
         DATE: data.TRAN_DATE,
-        Token_Num: data.TOKEN_NO,
+        // Token_Num: data.TOKEN_NO,
       })
       this.accountedit = data.TRAN_ACNO
       this.customerId = data.customerId

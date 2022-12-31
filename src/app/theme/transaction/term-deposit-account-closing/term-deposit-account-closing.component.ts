@@ -326,12 +326,40 @@ export class TermDepositAccountClosingComponent implements OnInit {
   intRateShow = 0
   Customer_info
   customerId
+  modalClass: string = 'modalHide';
   getAccountDetails(event) {
     this.bankacno = event.bankacno
     this.customerId = event.id
     this.dormant = event.dormant
     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
+    this.modalClass = 'modalShow';
+    this.intRateShow = 0
+    this.NET_EXC_INTAMT = 0
+    this.transferTotalAmount = 0
+    this.multigrid = []
+    this.angForm.patchValue({
+      InterestRate: 0,
+      MaturedDays: 0,
+      ClosingQuaters: 0,
+      QInterest: 0,
+      ClosingMonth: 0,
+      MInterest: 0,
+      ClosingDays: 0,
+      DInterest: 0,
+      maturedInterest: 0,
+      maturedIntAmt: 0,
+      TOTAL_INT: 0,
+      POSTED_INT: 0,
+      NET_INTAMT: 0,
+      LEDGER_BAL: 0,
+      PAYABLE_INTAMT: 0,
+      TDS_AMT: 0,
+      SURCHARGE_AMT: 0,
+      PENAL_INT: 0,
+      NETPAYABLEAMT: 0
+    })
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
+      this.modalClass = 'modalHide';
       if (Number(data[0].LedgerBal) > 0) {
         Swal.fire('Oops', 'Account cannot close', 'error')
         return
@@ -490,8 +518,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
   getMaturedIntRate() {
 
-    let maturedIntAmt = Math.abs(this.angForm.controls['MaturedDays'].value * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
-    let total_int = maturedIntAmt + parseFloat(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
+    let maturedIntAmt = Math.abs(Number(this.angForm.controls['MaturedDays'].value) * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
+    let total_int = maturedIntAmt + Number(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
     this.angForm.patchValue({
       maturedIntAmt: Math.round(maturedIntAmt),
       TOTAL_INT: Math.round(total_int)
@@ -578,10 +606,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
       }
     }
-
-    let daysInterest = ((Number(this.angForm.controls['LEDGER_BAL'].value) * this.calDays * Number(this.angForm.controls['InterestRate'].value)) / 36500)
-    let monthInterest = ((Number(this.angForm.controls['LEDGER_BAL'].value) * this.calMonths * Number(this.angForm.controls['InterestRate'].value)) / 1200)
-    let qurterInterest = ((Number(this.angForm.controls['LEDGER_BAL'].value) * this.calQuarter * Number(this.angForm.controls['InterestRate'].value)) / 1200)
+    let balance = Number(this.angForm.controls['LEDGER_BAL'].value) - Number(this.angForm.controls['POSTED_INT'].value)
+    let daysInterest = ((balance * this.calDays * Number(this.angForm.controls['InterestRate'].value)) / 36500)
+    let monthInterest = ((balance * this.calMonths * Number(this.angForm.controls['InterestRate'].value)) / 1200)
+    let qurterInterest = ((balance * this.calQuarter * Number(this.angForm.controls['InterestRate'].value)) / 1200)
     let totalInterest = (Number(daysInterest) + Number(monthInterest) + Number(qurterInterest)).toFixed(2)
     this.angForm.patchValue({
       ClosingQuaters: this.calQuarter,
