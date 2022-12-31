@@ -275,4 +275,11 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.dtTrigger.next();
     });
   }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

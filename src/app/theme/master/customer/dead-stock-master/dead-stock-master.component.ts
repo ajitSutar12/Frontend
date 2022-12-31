@@ -712,4 +712,11 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   disableForm(id) {
     this.editClickHandler(id)
   }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

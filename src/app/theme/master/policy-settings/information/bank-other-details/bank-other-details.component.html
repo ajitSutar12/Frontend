@@ -20,7 +20,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="NAME">Name<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="NAME">Name<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group input-group">
@@ -47,7 +47,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="SHORT_NAME">Short Name<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="SHORT_NAME"
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="TAN_NO">Tan Numbers</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
 
@@ -90,9 +90,14 @@
                                 </div>
                             </div>
                         </div>
+
+
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="PAN_NO">Pan Number<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="PAN_NO" pattern="^[A-Z0-9]+$" maxlength="10"
@@ -112,32 +117,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-2"> <label for="SBI_BANKCODE">Account Number<sub
+                            class="required">*</sub></label></div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group input-group">
+                        <span class="border-lable-flt">
 
+                            <input appTheme type="text" style="text-align: right;" name="SBI_BANKCODE"
+                                class="form-control" placeholder=" " pattern="^[0-9]+$"
+                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)" maxlength="16"
+                                title="Input allowed only 0-9" id="SBI_BANKCODE" formControlName="SBI_BANKCODE">
+                        </span>
+                    </div>
+                    <div class="form-group form-primary form-static-label"
+                        *ngIf="angForm.controls['SBI_BANKCODE'].invalid && (angForm.controls['SBI_BANKCODE'].dirty || angForm.controls['SBI_BANKCODE'].touched)"
+                        class="alert alert-danger">
+                        <div
+                            *ngIf="angForm.controls['SBI_BANKCODE'].errors?.pattern || angForm.controls['SBI_BANKCODE'].errors?.required || angForm.controls['SBI_BANKCODE'].errors?.maxlength">
+                            This field is required and Input allowed only 0-9
+                        </div>
+                    </div>
+
+                </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="SBI_BANKCODE">Account Number<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-
-                                    <input appTheme type="text" style="text-align: right;" name="SBI_BANKCODE"
-                                        class="form-control" placeholder=" " pattern="^[0-9]+$"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" maxlength="16"
-                                        title="Input allowed only 0-9" id="SBI_BANKCODE" formControlName="SBI_BANKCODE">
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['SBI_BANKCODE'].invalid && (angForm.controls['SBI_BANKCODE'].dirty || angForm.controls['SBI_BANKCODE'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['SBI_BANKCODE'].errors?.pattern || angForm.controls['SBI_BANKCODE'].errors?.required || angForm.controls['SBI_BANKCODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
-                                </div>
-                            </div>
-
-                        </div>
+                       
 
                         <div class="col-sm-12 col-md-2"> <label for="GST_NO">GST Number</label></div>
                         <div class="col-sm-12 col-md-4">
@@ -161,17 +166,13 @@
                                 </div>
                             </div>
                         </div>
-
-
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="FLAT_PRM_NO">Flat premise Number</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
 
-                                    <input type="text" style="text-align: right;" name="FLAT_PRM_NO"
-                                        maxlength="10" class="form-control" placeholder=" " id="FLAT_PRM_NO" value=""
+                                    <input type="text" style="text-align: right;" name="FLAT_PRM_NO" maxlength="10"
+                                        class="form-control" placeholder=" " id="FLAT_PRM_NO" value=""
                                         title="Input allowed only 0-9" required formControlName="FLAT_PRM_NO">
 
                                 </span>
@@ -185,7 +186,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-4"> <label for="FLAT_PRM_NAME">Flat Premise/Building Name</label>
+
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-sm-12 col-md-3"> <label for="FLAT_PRM_NAME">Flat Premise/Building Name</label>
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -206,10 +211,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="RD_LANE_NAME">Road/Streets/Lane</label></div>
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
 
@@ -228,6 +231,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-sm-12 col-md-2"> <label for="AREA_LOCATION">Location</label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -247,33 +253,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">Town/City/District<sub
+                            class="required">*</sub></label></div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group form-primary form-static-label">
+                        <span class="border-lable-flt">
+                            <ng-select appTheme id="CITY_CODE" [items]="city" bindValue="id"
+                                [(ngModel)]="ngCity" bindLabel="CITY_NAME" formControlName="CITY_CODE"
+                                title="Compulsory Selection" #CITY_CODE (focus)="onFocus(CITY_CODE)"
+                                [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
+                                placeholder="" required>
+
+                            </ng-select>
+
+                        </span>
+                    </div>
+                    <div class="form-group form-primary form-static-label"
+                        *ngIf="angForm.controls['CITY_CODE'].invalid && (angForm.controls['CITY_CODE'].dirty || angForm.controls['CITY_CODE'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="angForm.controls['CITY_CODE'].errors?.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">Town/City/District<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select appTheme id="CITY_CODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
-                                        bindLabel="CITY_NAME" formControlName="CITY_CODE" title="Compulsory Selection"
-                                        #CITY_CODE (focus)="onFocus(CITY_CODE)" [selectOnTab]='true'
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="" required>
-
-                                    </ng-select>
-
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['CITY_CODE'].invalid && (angForm.controls['CITY_CODE'].dirty || angForm.controls['CITY_CODE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['CITY_CODE'].errors?.required">
-                                    This field is required.
-                                </div>
-                            </div>
+                       
+                        <div class="col-sm-12 col-md-1"> <label for="STATE">State<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="STATE">State<sub class="required">*</sub></label>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="STATE"
@@ -293,33 +301,34 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-2"> <label for="PIN_CODE">Pin Code<sub
+                            class="required">*</sub></label></div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="form-group input-group">
+                        <span class="border-lable-flt">
 
+                            <input appTheme type="text" style="text-align: right;" name="PIN_CODE"
+                                class="form-control" placeholder=" " pattern="^[1-9][0-9]{5}"
+                                title=" Input allowed only  0-9" maxlength="6"
+                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)" minlength=" 6"
+                                id="PIN_CODE" formControlName="PIN_CODE" NumberOnly>
+
+                        </span>
+                    </div>
+                    <div class="form-group form-primary form-static-label"
+                        *ngIf="angForm.controls['PIN_CODE'].invalid && (angForm.controls['PIN_CODE'].dirty || angForm.controls['PIN_CODE'].touched)"
+                        class="alert alert-danger">
+                        <div
+                            *ngIf="angForm.controls['PIN_CODE'].errors?.pattern || angForm.controls['PIN_CODE'].errors?.required || angForm.controls['PIN_CODE'].errors?.maxlength">
+                            This field is required and Input allowed only 0-9
+                        </div>
+                    </div>
+                </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="PIN_CODE">Pin Code<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-
-                                    <input appTheme type="text" style="text-align: right;" name="PIN_CODE" class="form-control"
-                                        placeholder=" " pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9"
-                                        maxlength="6" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        minlength=" 6" id="PIN_CODE" formControlName="PIN_CODE" NumberOnly>
-
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['PIN_CODE'].invalid && (angForm.controls['PIN_CODE'].dirty || angForm.controls['PIN_CODE'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['PIN_CODE'].errors?.pattern || angForm.controls['PIN_CODE'].errors?.required || angForm.controls['PIN_CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-sm-12 col-md-2"> <label for="PHONE_OFFICE">Telephone Number</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="PHONE_OFFICE"
@@ -341,12 +350,13 @@
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="MOB_NUM">Mobile Number<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme style="text-align: right;" type="text" name="MOB_NUM" class="form-control"
-                                        placeholder=" " pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
-                                        id="MOB_NUM" maxlength="11" minlength="10" formControlName="MOB_NUM"
+                                    <input appTheme style="text-align: right;" type="text" name="MOB_NUM"
+                                        class="form-control" placeholder=" " pattern="[7-9 0]{1}[0-9]{9,10}"
+                                        title="Input allowed only  0-9" id="MOB_NUM" maxlength="11" minlength="10"
+                                        formControlName="MOB_NUM"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                 </span>
                             </div>
@@ -389,7 +399,8 @@
 
                         <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
+                                appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                 (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
@@ -415,7 +426,7 @@
                                 <tbody *ngIf="bankotherdetails?.length != 0">
                                     <tr *ngFor="let data of bankotherdetails">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                                 ngbTooltip="Edit"></span> &nbsp;
 
                                         </td>

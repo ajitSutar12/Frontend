@@ -243,7 +243,7 @@
                                 <tbody *ngIf="pigmyagentscheme?.length != 0">
                                     <tr *ngFor="let data of pigmyagentscheme">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                                 ngbTooltip="Edit"></span>
 
                                         </td>

@@ -403,7 +403,7 @@
                                     <tr *ngFor="let data of standingInstruction">
                                         <td>
                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                (click)="editClickHandler(data.id);gotoTop() " placement="bottom"
                                                 ngbTooltip="Edit"></span>
                                         </td>
                                         <td class="td_right">{{data.INSTRUCTION_NO}}</td>

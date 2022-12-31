@@ -1248,6 +1248,14 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     else
       event.target.value = 0
   } 
+  
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }
 
 

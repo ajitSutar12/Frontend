@@ -373,4 +373,11 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     if (event.target.value != '')
       event.target.value = parseFloat(event.target.value).toFixed(2);
   }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 } 

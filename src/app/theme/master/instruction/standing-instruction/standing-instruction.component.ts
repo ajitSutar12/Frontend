@@ -874,5 +874,11 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
     else
       event.target.value = 0
   }
-
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

@@ -22,7 +22,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
@@ -62,6 +62,10 @@
                                 </div>
                             </div>
                         </div>
+                       
+
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
@@ -90,7 +94,6 @@
                                 </div>
                             </div> -->
                         </div>
-
                     </div>
                     <div class="row">
 
@@ -123,7 +126,7 @@
                                 <tbody *ngIf="descriptionCategoryMasters?.length != 0">
                                     <tr *ngFor="let data of descriptionCategoryMasters">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                                 ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>

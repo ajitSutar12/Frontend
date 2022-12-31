@@ -1263,7 +1263,7 @@
                 <tbody *ngIf="termLoanMaster?.length != 0">
                   <tr *ngFor="let data of termLoanMaster">
                     <td>
-                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id);gotoTop()"
                         placement="bottom" ngbTooltip="Edit"></span>
                     </td>
                     <td>{{ data.S_ACNOTYPE }}</td>

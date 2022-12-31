@@ -371,4 +371,11 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
       }
     }
   }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

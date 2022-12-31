@@ -391,4 +391,12 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
+
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }
