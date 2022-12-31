@@ -47,7 +47,7 @@
                                 <span class="border-lable-flt" >
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngTitle" id="AC_TITLE" bindLabel="label"
                                         formControlName="AC_TITLE" title="Compulsory Selection"  [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" class="don" required placeholder=""
+                                        [ngClass]="{'form-submitted': formSubmitted}"  required placeholder=""
                                         #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus >
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
@@ -66,7 +66,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="L_NAME" class="form-control don" placeholder=" " id="L_NAME"
+                                    <input appTheme type="text" name="L_NAME" class="form-control " placeholder=" " id="L_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="lname = $event?.toUpperCase()"
@@ -91,7 +91,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="F_NAME" class="form-control don" placeholder=" " id="F_NAME"
+                                    <input appTheme type="text" name="F_NAME" class="form-control " placeholder=" " id="F_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="fname = $event?.toUpperCase()"
@@ -114,7 +114,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME" style="text-transform:uppercase"
-                                        class="form-control don" placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"
+                                        class="form-control " placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
                                         title="Input allowed only A-Z" (ngModelChange)="mname = $event?.toUpperCase()"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
@@ -147,10 +147,113 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" >
+                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngTitlereg" id="AC_TITLE_REG" bindLabel="label"
+                                        formControlName="AC_TITLE_REG" title="Compulsory Selection"  [virtualScroll]="true"
+                                        [ngClass]="{'form-submitted': formSubmitted}"  required placeholder=""
+                                        #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)" [selectOnTab]='true' >
+                                        <ng-option *ngFor="let values of prifix" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Title <sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TITLE_REG'].invalid && (angForm.controls['AC_TITLE_REG'].dirty || angForm.controls['AC_TITLE_REG'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TITLE_REG'].errors?.required">
+                                    This is required field
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="text" name="L_NAME_REG" class="form-control " placeholder=" " id="L_NAME_REG"
+                                        required pattern="^[A-Za-z]+$" maxlength="15"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
+                                        (ngModelChange)="lnamereg = $event?.toUpperCase()"
+                                        style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #lastnamereg [(ngModel)]="lnamereg" title="Input allowed only A-Z"
+                                        formControlName="L_NAME_REG" required>
+                                    <label for="L_NAME_REG">Last Name<sub class="required">* </sub></label>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['L_NAME_REG'].invalid && (angForm.controls['L_NAME_REG'].dirty || angForm.controls['L_NAME_REG'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['L_NAME_REG'].errors?.pattern || angForm.controls['L_NAME_REG'].errors?.required">
+                                    This field is required and Input allowed only A-Z
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="text" name="F_NAME_REG" class="form-control " placeholder=" " id="F_NAME_REG"
+                                        required pattern="^[A-Za-z]+$" maxlength="15"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
+                                        (ngModelChange)="fnamereg = $event?.toUpperCase()"
+                                        style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [(ngModel)]="fnamereg" title="Input allowed only A-Z" formControlName="F_NAME_REG">
+                                    <label for="F_NAME_REG">First Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['F_NAME_REG'].invalid && (angForm.controls['F_NAME_REG'].dirty || angForm.controls['F_NAME_REG'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['F_NAME_REG'].errors?.pattern || angForm.controls['F_NAME_REG'].errors?.required">
+                                    This field is required and Input allowed only A-Z
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="text" name="M_NAME_REG" style="text-transform:uppercase"
+                                        class="form-control " placeholder=" " id="M_NAME_REG" required pattern="^[A-Za-z]+$"
+                                        [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mnamereg"
+                                        title="Input allowed only A-Z" (ngModelChange)="mnamereg = $event?.toUpperCase()"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
+                                        style="text-transform:uppercase;" formControlName="M_NAME_REG"
+                                        (focusout)="checkCustomer()">
+                                    <label for="M_NAME_REG">Middle Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['M_NAME_REG'].invalid && (angForm.controls['M_NAME_REG'].dirty || angForm.controls['M_NAME_REG'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['M_NAME_REG'].errors?.pattern || angForm.controls['M_NAME_REG'].errors?.required">
+                                    This field is required and Input allowed only A-Z
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_NAME_REG" class="form-control" placeholder=" " id="AC_NAME_REG"
+                                        pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled
+                                        [(ngModel)]="fullnamereg" value="{{lnamereg + ' ' + fnamereg + ' ' + mnamereg}}"
+                                        formControlName="AC_NAME_REG">
+                                    <label for="AC_NAME_REG">Full Name</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngCast" id="AC_CAST" bindLabel="label"
                                     #cast (focus)="onFocus(cast)" [selectOnTab]='true' [virtualScroll]="true"
-                                        formControlName="AC_CAST"  class="don" #cast>
+                                        formControlName="AC_CAST"   #cast>
                                         <ng-option *ngFor="let values of castMaster" [value]="values">
                                             {{values.label}} </ng-option>
                                         </ng-select>
@@ -163,7 +266,7 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
                                      #AC_OCODE (focus)="onFocus(AC_OCODE)" [selectOnTab]='true' [virtualScroll]="true"
-                                        bindLabel="label" formControlName="AC_OCODE" placeholder="Occupation" class="don">
+                                        bindLabel="label" formControlName="AC_OCODE" placeholder="Occupation" >
                                         <ng-option *ngFor="let values of occupation" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -176,7 +279,7 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG" bindLabel="label"
                                       #AC_RISKCATG (focus)="onFocus(AC_RISKCATG)" [selectOnTab]='true' [virtualScroll]="true"
-                                        formControlName="AC_RISKCATG" placeholder="Risk Category" class="don">
+                                        formControlName="AC_RISKCATG" placeholder="Risk Category" >
                                         <ng-option *ngFor="let values of risk" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -187,7 +290,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input  type="text" name="AC_ADHARNO" class="form-control don" placeholder=" "
+                                    <input  type="text" name="AC_ADHARNO" class="form-control " placeholder=" "
                                         pattern="[2-9]{1}[0-9\s]{13}" title="Input allowed only 0-9" id="AC_ADHARNO"
                                         #adhar maxlength="14" minlength="14" (keyup)="addSpace(adhar.value)"
                                         formControlName="AC_ADHARNO" (focusout)="checkAdhar()"
@@ -209,7 +312,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input   type="text" name="AC_PANNO" class="form-control don" placeholder=" "
+                                    <input   type="text" name="AC_PANNO" class="form-control " placeholder=" "
                                         pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
                                         style="text-transform:uppercase;"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
@@ -231,7 +334,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme placeholder="dd/mm/yyyy" name="AC_BIRTH_DT" id="AC_BIRTH_DT"
-                                        class="form-control don" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        class="form-control " [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
                                         #AC_BIRTH_DT="bsDatepicker" (keydown.Tab)="AC_BIRTH_DT.hide()" placement="left"
                                         formControlName="AC_BIRTH_DT" [bsValue]="bsValue" bsDatepicker required>
@@ -251,7 +354,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control don"
+                                    <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control "
                                         placeholder=" " title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                         id="AC_HONO">
                                     <label for="AC_HONO">House</label>
@@ -268,7 +371,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_WARD" class="form-control don" placeholder=" "
+                                    <input type="text" name="AC_WARD" class="form-control " placeholder=" "
                                         pattern="^[A-Za-z0-9\./ -]+$"
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_WARD"
                                         formControlName="AC_WARD">
@@ -286,7 +389,7 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_ADDR" class="form-control don" placeholder=" "
+                                    <input type="text" name="AC_ADDR" class="form-control " placeholder=" "
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_ADDR"
                                         formControlName="AC_ADDR">
                                     <label for="AC_ADDR">Detail</label>
@@ -303,7 +406,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_GALLI" class="form-control don" placeholder=" "
+                                    <input type="text" name="AC_GALLI" class="form-control " placeholder=" "
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_GALLI"
                                         formControlName="AC_GALLI">
                                     <label for="AC_GALLI">Galli</label>
@@ -320,7 +423,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_AREA" class="form-control don" placeholder=" "
+                                    <input type="text" name="AC_AREA" class="form-control " placeholder=" "
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_AREA"
                                         formControlName="AC_AREA">
                                     <label for="AC_AREA">Area</label>
@@ -344,7 +447,7 @@
                                     <ng-select id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
                                         bindLabel="CITY_NAME" formControlName="AC_CTCODE" title="Compulsory Selection"
                                         #City   (focus)="onFocus(City)" [selectOnTab]='true'  [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" class="don" placeholder="City" required>
+                                        [ngClass]="{'form-submitted': formSubmitted}"  placeholder="City" required>
 
                                     </ng-select>
                                     <label for="AC_CTCODE">City<sub class="required">*
@@ -378,6 +481,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_ADD_REG"
+                                        class="form-control" placeholder=" "
+                                        id="AC_ADD_REG"
+                                        style="text-transform: capitalize;"
+                                        formControlName="AC_ADD_REG">
+                                    <label for="AC_ADD_REG">Address</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -418,8 +535,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                    
+                    
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -457,6 +574,9 @@
                                 </div>
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-sm">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -467,8 +587,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-5">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -760,7 +878,8 @@
                                     <tbody *ngIf="customerMaster?.length != 0">
                                         <tr *ngFor="let data of customerMaster">
                                             <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                    (click)="editClickHandler(data.id)" placement="bottom"
+                                                    (click)="editClickHandler(data.id);gotoTop()" 
+                                                    placement="bottom"
                                                     ngbTooltip="Edit"></span>
                                             </td>
                                             <td class="td_right">{{data.AC_NO}}</td>

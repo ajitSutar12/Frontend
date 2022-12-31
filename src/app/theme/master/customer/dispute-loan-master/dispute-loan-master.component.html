@@ -1941,7 +1941,7 @@
                                     <tbody *ngIf="disputelonemaster?.length != 0">
                                         <tr *ngFor="let data of disputelonemaster">
                                             <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                    (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                                    (click)="editClickHandler(data.id);gotoTop()">Edit</button> &nbsp;
                                                 <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                             </td>
                                             <td>{{data.AC_ACNOTYPE}}</td>

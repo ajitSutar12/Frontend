@@ -284,5 +284,12 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }  
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
   }
 }

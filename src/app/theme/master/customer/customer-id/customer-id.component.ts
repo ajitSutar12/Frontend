@@ -122,6 +122,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   mname = "";
   lname = "";
   fullname = "";
+  lnamereg = "";
+  fnamereg = "";
+  mnamereg = "";
+  fullnamereg = "";
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -188,6 +192,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngRisk: any = null
   ngCity: any = null
   ngTitle: any = null
+  ngTitlereg: any = null
   updatecheckdata: any
   ngSubmitDate: any
   bsValue
@@ -430,6 +435,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       F_NAME: ["", [Validators.pattern, Validators.required]],
       M_NAME: ["", [Validators.pattern, Validators.required]],
       L_NAME: ["", [Validators.pattern, Validators.required]],
+      AC_TITLE_REG: [""],
+      F_NAME_REG: [""],
+      M_NAME_REG: [""],
+      L_NAME_REG: [""],
+      AC_ADD_REG: [''],
       AC_NAME: ["", [Validators.pattern]],
       AC_CAST: [""],
       AC_OCODE: [""],
@@ -488,6 +498,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'M_NAME': formVal.M_NAME?.toUpperCase(),
         'L_NAME': formVal.L_NAME?.toUpperCase(),
         'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
+        'AC_TITLE_REG': formVal.AC_TITLE_REG,
+        'F_NAME_REG': formVal.F_NAME_REG?.toUpperCase(),
+        'M_NAME_REG': formVal.M_NAME_REG?.toUpperCase(),
+        'L_NAME_REG': formVal.L_NAME_REG?.toUpperCase(),
+        'AC_NAME_REG': (formVal.L_NAME_REG + ' ' + formVal.F_NAME_REG + ' ' + formVal.M_NAME_REG)?.toUpperCase(),
         'AC_CAST': parseInt(formVal.AC_CAST),
         'AC_OCODE': parseInt(formVal.AC_OCODE),
         'AC_ADHARNO': formVal.AC_ADHARNO,
@@ -1277,5 +1292,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
   }
 }

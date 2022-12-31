@@ -325,4 +325,11 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   onFocus(ele: NgSelectComponent) {  
     ele.open()
   }
+  gotoTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
 }

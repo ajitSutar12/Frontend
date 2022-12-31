@@ -11,7 +11,7 @@
                 <div class="card-block">
 
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input  type="text" name="Account" class="form-control" placeholder=" " id="BC_CODE"
@@ -39,7 +39,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                                             
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="footer-email" class="form-control" placeholder=" "
@@ -58,7 +61,7 @@
                                     This field is required and Input allowed only 0-9
                                 </div>
                             </div>
-                        </div>                        
+                        </div>   
                     </div>
                     <div class="row">
                         
@@ -87,7 +90,7 @@
                                 class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="minimumBalanceMaster?.length != 0">
                                     <tr *ngFor="let data of minimumBalanceMaster">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id);gotoTop()"
                                             placement="bottom" ngbTooltip="Edit"></span>&nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
