@@ -18,7 +18,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [virtualScroll]="true"
+                                        [virtualScroll]="true" 
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
                                         placeholder="Branch" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
                                         [selectOnTab]='true' autofocus>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Balance Date</label></div>
                         <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
+                            <div class="form-group input-group"> 
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"

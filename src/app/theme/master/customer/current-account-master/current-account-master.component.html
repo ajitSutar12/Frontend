@@ -18,7 +18,7 @@
                                         formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
                                         #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'>
-                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                        <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>

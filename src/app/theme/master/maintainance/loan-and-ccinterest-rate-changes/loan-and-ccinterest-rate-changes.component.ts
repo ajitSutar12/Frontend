@@ -95,6 +95,9 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
       }
       else {
         this.loanAndCCForm.controls['BRANCH_CODE'].disable()
+        this.loanAndCCForm.patchValue({
+          'BRANCH_CODE': result.branch.id
+        })
         this.ngBranchCode = result.branch.id
       }
   }
@@ -106,6 +109,7 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]]
     });
+    
   }
 
   schemechange(event) {
@@ -168,6 +172,19 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
     this.formSubmitted = false;
     this.test();
     this.loanAndCCForm.reset();
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.loanAndCCForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.loanAndCCForm.controls['BRANCH_CODE'].disable()
+      this.loanAndCCForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngBranchCode = result.branch.id
+    }
   }
 
   //function for edit button clicked

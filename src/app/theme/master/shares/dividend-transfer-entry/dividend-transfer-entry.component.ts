@@ -82,6 +82,7 @@ export class DividendTransferEntryComponent implements OnInit {
       });
       this.allScheme = filtered;
     })
+   
     // console.log(this.scheme[0].value)
     // this._schemeAccountNoService.getShareSchemeList2(this.scheme[0].value).subscribe(data => {
     //   console.log('data', data)
@@ -98,6 +99,21 @@ export class DividendTransferEntryComponent implements OnInit {
       DIV_TRANSFER_ACTYPE: [''],
       DIV_TRANSFER_ACNO: ['']
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['DIV_TRANSFER_BRANCH'].enable()
+      this.ngBranchCode = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['DIV_TRANSFER_BRANCH'].disable()
+      this.angForm.patchValue({
+        'DIV_TRANSFER_BRANCH': result.branch.id
+      })
+      this.ngBranchCode = result.branch.id
+      
+    }
   }
 
   submit() {
@@ -321,14 +337,15 @@ export class DividendTransferEntryComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm();
-    this.ngBranchCode = null
+    // this.ngBranchCode = null
     this.ngDivACType = null
     this.ngDivACNO = null
     this.selectedValue = null
     this.memValue = null
     this.angForm.controls['AC_TYPE'].reset()
     this.angForm.controls['AC_NO'].reset()
+    this.createForm();
+
   }
 
   onFocus(ele: NgSelectComponent) {  

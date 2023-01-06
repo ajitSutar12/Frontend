@@ -31,8 +31,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   schemeACNo: any;
   scheme: any[];
   GLACNooption: any[];
-  branch_code//from ownbranchmaster
-  ngBranchCode: any = null
+  // branch_code//from ownbranchmaster
+  branchOption
+  ngbranch: any = null
   // Date variables
   todate: any = null;
   fromdate: any = null
@@ -87,7 +88,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ACMasterDropdownService: ACMasterDropdownService,
-    private ownbranchMasterService: OwnbranchMasterService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService,
     private _service: LegderViewService
@@ -102,7 +103,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.createForm()
     this.showView = false
     this.disableFields = true
-    this.ngBranchCode = this.accBranch
+    this.ngbranch = this.accBranch
     this.ngscheme = this.accScheme
     this.getschemename = this.accSchemeName
     this.getAccountlist()
@@ -171,7 +172,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let toDt = moment(toDate).format('DD/MM/YYYY')
     let fromDate = moment(this.fromdate, 'DD/MM/YYYY')
     let fromDatet = moment(fromDate).format('DD/MM/YYYY')
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngBranchCode]
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngbranch]
 
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
@@ -250,20 +251,29 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.createForm()
+    // this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    //   var allscheme = data.filter(function (scheme) {
+    //     return (
+    //       scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'AG' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL')
+    //   });
+    //   this.allScheme = allscheme;
+    // })
+    // //branch List
+    // this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+    //   this.branch_code = data;
+    // })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (
-          scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'AG' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
       });
-      this.allScheme = allscheme;
+      this.scheme = allscheme;
     })
 
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
     this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
       this.allScheme.push(data)
-    })
-    //branch List
-    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.branch_code = data;
     })
 
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -278,8 +288,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ['', [Validators.required]],
-      AC_TYPE: ['', [Validators.required]],
+      BRANCH_CODE: ['', [Validators.required, ]],
+      AC_TYPE: ['', [Validators.required,]],
       AC_NO: ['', [Validators.required]],
       FROM_DATE: ['', [Validators.required]],
       TO_DATE: ['', [Validators.required]],
@@ -289,12 +299,15 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
-      this.ngBranchCode = result.branch.id
+      this.ngbranch = result.branch.id
       this.angForm.controls['BRANCH_CODE'].enable()
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngBranchCode = result.branch.id
+      this.ngbranch = result.branch.id
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
     }
   }
 
@@ -322,7 +335,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.otherAmount = 0
     this.addedPenal = 0
     this.grandTotal = 0
-    let obj = [this.ngscheme, this.ngBranchCode]
+    let obj = [this.ngscheme, this.ngbranch]
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
@@ -449,7 +462,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let toDt = moment(toDate).format('DD/MM/YYYY')
     let fromDate = moment(this.angForm.controls['FROM_DATE'].value, 'DD/MM/YYYY')
     let fromDatet = moment(fromDate).format('DD/MM/YYYY')
-    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngBranchCode]
+    let obj = [this.getschemename, this.ngscheme, this.bankacno, fromDatet, toDt, this.ngbranch]
     this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
       let closeBal = 0
       let grandOpening = 0

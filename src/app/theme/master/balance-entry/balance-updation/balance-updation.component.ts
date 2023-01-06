@@ -193,10 +193,7 @@ export class BalanceUpdationComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-
-    // scrolling function
-    // this.data = this._service.getData(100000);
-    // this.totalRecords = this.data.length;
+    
 
     this.cols = [
 
@@ -782,7 +779,7 @@ export class BalanceUpdationComponent implements OnInit {
   }
 
 
-  createForm() {
+  createForm() { 
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required, Validators.pattern]],
       AC_TYPE: ['', [Validators.required, Validators.pattern]],
@@ -791,6 +788,20 @@ export class BalanceUpdationComponent implements OnInit {
       TO_AC: ['', [Validators.pattern]],
       debitcredit: ['']
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngbranch = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngbranch = result.branch.id
+    }
   }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -811,8 +822,6 @@ export class BalanceUpdationComponent implements OnInit {
     //     });
     //   });
     // });
-
-
   }
 
   //filter object
@@ -832,7 +841,7 @@ export class BalanceUpdationComponent implements OnInit {
 
     });
   }
-  submit() {
+  submit() { 
     let dataObj = this.angForm.value;
     dataObj['gridData'] = this.arrTable;
     let notingdate
@@ -857,9 +866,10 @@ export class BalanceUpdationComponent implements OnInit {
         Swal.fire("Success!", "Data Updated Successfully !", "success");
 
       })
-      this.resetForm()
+     
       this.balanceUpdateArr = []
       this.arrTable = []
+      this.resetForm()
     }
   }
 
@@ -911,15 +921,20 @@ export class BalanceUpdationComponent implements OnInit {
       })
     })
   }
+  
   // Reset Function
-  resetForm() {
-    this.createForm();
+  resetForm() { 
     // this.getSystemParaDate()
     this.ngscheme = null
     this.ngfromac = null
     this.ngtoac = null
     this.balanceUpdateArr = []
-    this.ngbranch = null
+    // this.ngbranch = null
+
+    this.createForm();
+
+   
+
   }
 
   //function toggle update to add button

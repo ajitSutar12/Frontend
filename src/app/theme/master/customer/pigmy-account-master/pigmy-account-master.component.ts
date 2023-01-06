@@ -423,6 +423,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.AgentScheme = filtered;
 
     })
+   
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -516,6 +517,21 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.patchValue({
       'AC_NDATE': sysDate,
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['AC_INTROBRANCH'].enable()
+      this.code1 = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['AC_INTROBRANCH'].disable()
+      this.angForm.patchValue({
+        'AC_INTROBRANCH': result.branch.id
+      })
+      this.code1 = result.branch.id
+      
+    }
   }
 
 
@@ -1379,12 +1395,11 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   ngMonth: any
   // Reset Function
   resetForm() {
-    this.createForm();
     this.getSystemParaDate() //function to set date
     this.JointAccountsTrue = false
     this.nomineeTrue = false
     this.tempAddress = true
-    this.code1 = null
+    // this.code1 = null
     this.code = null
     this.id = null
     this.ngCategory = null
@@ -1399,6 +1414,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.ngexpiry = null
     this.ngMonth = null
     this.angForm.controls['AC_MONTHS'].reset()
+    this.createForm();
 
 
   }
