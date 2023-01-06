@@ -266,7 +266,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="isHideForSaving">
+                                        <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
                                                 <label>- Other Charges Amount</label>
                                             </div>
@@ -283,7 +283,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="isHideForSaving">
+                                        <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
                                                 <label>Other Charges To General ledger Account</label>
                                             </div>
@@ -306,7 +306,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="isHideForSaving">
+                                        <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
                                                 <label>- Commission Amount</label>
                                             </div>
@@ -323,7 +323,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="isHideForSaving">
+                                        <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
                                                 <label>Commission To General ledger Account</label>
                                             </div>
@@ -468,9 +468,9 @@
                                                             <span class="border-lable-flt">
                                                                 <ng-select id="Tscheme" bindValue="value"
                                                                     [(ngModel)]="ngschemecode" formControlName="Tscheme"
-                                                                    bindLabel="label" title="C
-                                                                    ompulsory Selection" #Tscheme appTheme
-                                                                    (focus)="onFocus(Tscheme)" [selectOnTab]='true'
+                                                                    bindLabel="label" title="Compulsory Selection"
+                                                                    #Tscheme appTheme (focus)="onFocus(Tscheme)"
+                                                                    [selectOnTab]='true'
                                                                     (change)="getTransferAccountList($event)"
                                                                     placeholder="Scheme">
                                                                     <ng-option *ngFor="let values of scheme"

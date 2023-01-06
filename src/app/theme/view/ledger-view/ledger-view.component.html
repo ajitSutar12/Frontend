@@ -257,9 +257,12 @@
                             <td [ngClass]="{'form-submitted': formSubmitted}" style="white-space: normal;">
                                 {{data.NARRATION}}</td>
                             <td>{{data.TRAN_TYPE}}</td>
-                            <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
+                            <!-- #10ad34 credit colour-->
+                            <td class="td_right"
+                                [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'rgb(3 131 33)'}">
                                 {{data.TRAN_DRCR=='D'? (data.TRAN_AMOUNT | number:'2.0':'en') :''}}</td>
-                            <td class="td_right" [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'#10ad34'}">
+                            <td class="td_right"
+                                [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'rgb(3 131 33)'}">
                                 {{data.TRAN_DRCR=='C'?(data.TRAN_AMOUNT | number:'1.0':'en'):''}}</td>
                             <td class="td_right">{{data.closeBalance}} {{data.DR_CR}}</td>
                             <td class="td_right">{{data.INTEREST_AMOUNT }}
