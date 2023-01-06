@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, } from "@angular/forms
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
-import { first } from 'rxjs/operators'; 
+import { first } from 'rxjs/operators';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
@@ -72,7 +72,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeft = 5;
 
   //  for Date
-  effectdate: any = null
+  // effectdate: any = null
   maxDate: any;
   minDate: Date;
 
@@ -90,7 +90,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   bankAcno
   actype
   branch_code
-  ngBranchCode
+  ngBranch:any=null;
+
   constructor(
     private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -101,12 +102,13 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
+    // this.maxDate = new Date();
+    // this.minDate = new Date();
+    // this.minDate.setDate(this.minDate.getDate() - 1);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
     })
   }
 
@@ -191,16 +193,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.branch_code = data;
     })
 
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngBranchCode = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngBranchCode = result.branch.id
-    }
+    
   }
 
   createForm() {
@@ -211,23 +204,27 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_SODAMT: ["", [Validators.pattern]],
       radioOverdraft: ["PeriodicallyOverDraft", [Validators.required]],
       AC_ODAMT: ["", [Validators.pattern,]],
-      AC_ODDAYS: ["", [Validators.pattern,]],
-      AC_ODDATE: ["", []],
+      AC_ODDAYS: [0, [Validators.pattern,]],
+      AC_ODDATE: ["", [Validators.required]],
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngBranchCode = result.branch.id
+      this.ngBranch = result.branch.id
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngBranchCode = result.branch.id
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngBranch = result.branch.id
     }
   }
 
-  submit() {
-    if ((Number(this.angForm.controls['AC_ODAMT'].value) != 0 && Number(this.angForm.controls['AC_ODAMT'].value) != NaN && this.angForm.controls['radioOverdraft'].value == 'TemporaryOverDraft') || (Number(this.angForm.controls['AC_SODAMT'].value) != 0 && Number(this.angForm.controls['AC_SODAMT'].value) != NaN && this.angForm.controls['radioOverdraft'].value == 'PeriodicallyOverDraft')) {
+
+  submit() { 
+    if ((Number(this.angForm.controls['AC_ODAMT'].value) != 0 && !Number.isNaN(Number(this.angForm.controls['AC_ODAMT'].value)) && this.angForm.controls['radioOverdraft'].value == 'TemporaryOverDraft') || (Number(this.angForm.controls['AC_SODAMT'].value) != 0 && !Number.isNaN(Number(this.angForm.controls['AC_SODAMT'].value)) && this.angForm.controls['radioOverdraft'].value == 'PeriodicallyOverDraft')) {
       let effectdate
       this.formSubmitted = true;
       const formVal = this.angForm.value;
@@ -241,26 +238,58 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_SODAMT: formVal.AC_SODAMT,
         AC_ODAMT: formVal.AC_ODAMT,
         AC_ODDAYS: formVal.AC_ODDAYS,
-        AC_ODDATE: this.PeriodicallyOverDraftTrue == true ? odDatet : null
-      };
+        AC_ODDATE:  this.PeriodicallyOverDraftTrue == true ? odDatet : null
+      }; 
+      
+     
       this._overdraft.postData(dataToSend).subscribe(
         (data1) => {
-          Swal.fire("Success!", "Data Added Successfully !", "success");
-          this.PeriodicallyOverDraftTrue = true
-          this.TemporaryOverDraftTrue = false
-          this.formSubmitted = false;
+          if (formVal.BRANCH_CODE == "") {
+            Swal.fire("Warning!", "Please Select Branch!", "error");
+          }
+         else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
+            Swal.fire("Warning!", "Please Select Scheme!", "error");
+          }
+          else if (formVal.AC_NO == "" || formVal.AC_NO == null) {
+            Swal.fire(
+              "Warning!",
+              "Please Select Account!",
+              "info"
+            );
+          }
+          else if (formVal.AC_SODAMT == "" || formVal.AC_SODAMT == null) {
+            Swal.fire(
+              "Warning!",
+              "Please Insert Amount!",
+              "info"
+            );
+          }
+          else
+          {
+            Swal.fire("Success!", "Data Added Successfully !", "success");
+            this.PeriodicallyOverDraftTrue = true
+            this.TemporaryOverDraftTrue = false
+            this.formSubmitted = false;
+            //To clear form
+            this.resetForm();
+          }
+         
         },
         (error) => {
           console.log(error);
         }
       );
-      //To clear form
-      this.resetForm();
+
+      
+    
     }
     else {
       Swal.fire('info', 'Please fill mandatory fields', 'info')
     }
+
   }
+
+ 
   updatecheckdata: any
   //  editClickHandler function for edit button clicked
   editClickHandler(id: any): void {
@@ -295,14 +324,14 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // updateData function for update data
   updateData() {
-    let effectdate
+    let effectdate 
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
-      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+    if (this.updatecheckdata.AC_ODDATE != data.AC_ODDATE) {
+      (data.AC_ODDATE == 'Invalid date' || data.AC_ODDATE == '' || data.AC_ODDATE == null) ? (effectdate = '', data['AC_ODDATE'] = effectdate) : (effectdate = data.AC_ODDATE, data['AC_ODDATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this._overdraft.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
@@ -329,7 +358,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.OpenLink(1)
     this.ngscheme = null
     this.schemeACNo = []
-    let obj = [this.acno, this.ngBranchCode]
+    let obj = [this.acno, this.ngBranch]
     switch (event.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
@@ -453,9 +482,10 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   // Reset Function
   resetForm() {
-    this.createForm();
     this.acno = null
     this.ngscheme = null
+    this.createForm();
+
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -515,7 +545,17 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   getODDate() {
     var date1 = this.maxDate
     let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_ODDAYS'].value), 'days').format('DD/MM/YYYY')
-    this.angForm.controls.AC_ODDATE.setValue(expiryT)
+    this.angForm.patchValue({
+      AC_ODDATE: expiryT
+    })
+  }
+
+  getODDays() {
+    let date1 = this.maxDate
+    let expiryD = moment(this.angForm.controls['AC_ODDATE'].value, 'DD/MM/YYYY').diff(moment(date1, 'DD/MM/YYYY'), 'days');
+    this.angForm.patchValue({
+      AC_ODDAYS: expiryD.toString() == 'NaN' ? 0 : expiryD
+    })
   }
   getBranch() {
     this.acno = null

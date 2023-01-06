@@ -412,20 +412,23 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.branch_code = data;
     })
 
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.salaryDMasterdropdownService.getSalaryMasterList().pipe(first()).subscribe(data => {
-        this.salary_div = data;
-      })
-    }
-    else {
-      this.salaryDMasterdropdownService.getSalaryDMasterList(branchCode).pipe(first()).subscribe(data => {
-        this.salary_div = data;
-      })
+   
+    
 
-    }
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // let branchCode = result.branch.id
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.salaryDMasterdropdownService.getSalaryMasterList().pipe(first()).subscribe(data => {
+    //     this.salary_div = data;
+    //   })
+    // }
+    // else {
+    //   this.salaryDMasterdropdownService.getSalaryDMasterList(branchCode).pipe(first()).subscribe(data => {
+    //     this.salary_div = data;
+    //   })
+
+    // }
 
 
     this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
@@ -860,6 +863,27 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       DIV_TRANSFER_ACTYPE: [''],
       DIV_TRANSFER_ACNO: ['']
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['AC_BRANCH'].enable()
+      this.angForm.controls['DIV_TRANSFER_BRANCH'].enable()
+      this.branch_codeList = result.branch.id
+      this.ngBranchCode = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['AC_BRANCH'].disable()
+      this.branch_codeList = result.branch.id
+      this.angForm.patchValue({
+        'AC_BRANCH': result.branch.id,
+        'DIV_TRANSFER_BRANCH': result.branch.id,
+
+      })
+      this.angForm.controls['DIV_TRANSFER_BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+     
+    }
   }
 
   getShareScheme(value) {
@@ -1328,13 +1352,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectmembershipType = null
     this.ngCity = null
     this.directorList = null
-    this.branch_codeList = null
+    // this.branch_codeList = null
     this.salary_divList = null
     this.sub_salary_divList = null
     this.ngNcity = null
     this.ngDivACNO = null
     this.ngDivACType = null
-    this.ngBranchCode = null
+    // this.ngBranchCode = null
     this.ngExpiryDate = null
     this.ngDeathDate = null
     this.joindate = null

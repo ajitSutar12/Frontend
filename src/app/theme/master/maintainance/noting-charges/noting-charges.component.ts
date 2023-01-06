@@ -176,6 +176,18 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       GL_ENTRY: [false]
 
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.angForm.patchValue({
+        'BRANCH': result.branch.id
+      })
+      this.ngBranchCode = result.branch.id
+    }
   }
   branchCode
   branchid
@@ -486,7 +498,6 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   }
 
   resetForm() {
-    this.createForm()
     this.ngscheme = null
     this.ngchargestype = null
     this.ngBranchCode = null
@@ -496,6 +507,8 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     this.notingChargesArr = []
     this.arrTable = []
     this.getSystemParaDate()
+    this.createForm()
+
   }
   //function for edit button clicked
   editClickHandler(info: any): void {

@@ -26,7 +26,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   formSubmitted = false;
 
   showButton: boolean = true;
-  updateShow: boolean = false;
+  updateShow: boolean = false; 
   minDate: Date;
   bsValue
   schemeCode: any = null
@@ -71,6 +71,21 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     this._ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH'].enable()
+      this.ngBranchCode = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.angForm.patchValue({
+        'BRANCH': result.branch.id
+      })
+      this.ngBranchCode = result.branch.id
+      
+    }
   }
 
   createForm() {
@@ -295,6 +310,21 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     this.ngAcnoTo = null
     this.ngBranchCode = null
     this.createForm()
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH'].enable()
+      this.ngBranchCode = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.angForm.patchValue({
+        'BRANCH': result.branch.id
+      })
+      this.ngBranchCode = result.branch.id
+      
+    }
   }
 
   ngOnDestroy(): void {

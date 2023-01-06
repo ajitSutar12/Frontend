@@ -13,11 +13,11 @@
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                    <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true' [virtualScroll]="true"
-                                        (change)="getBranch()" autofocus [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="Branch">
+                                        #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
+                                        [virtualScroll]="true" (change)="getBranch()" autofocus
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -35,11 +35,11 @@
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="acno" [virtualScroll]="true"
-                                        (change)="getSchemeAcNO($event)" formControlName="AC_TYPE" bindLabel="label"
-                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme" #AC_TYPE (focus)="onFocus(AC_TYPE)"
-                                        [selectOnTab]='true'>
+                                    <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="acno"
+                                        [virtualScroll]="true" (change)="getSchemeAcNO($event)"
+                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
@@ -58,9 +58,10 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="ngscheme"
-                                        (change)="getBankAcno($event)" formControlName="AC_NO" bindLabel="label" [virtualScroll]="true"
-                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Account Number" #AC_NO (focus)="onFocus(AC_NO)"
+                                        (change)="getBankAcno($event)" formControlName="AC_NO" bindLabel="label"
+                                        [virtualScroll]="true" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Account Number" #AC_NO (focus)="onFocus(AC_NO)"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -141,7 +142,7 @@
                                                         *ngIf="angForm.controls['AC_SODAMT'].errors?.pattern || angForm.controls['AC_SODAMT'].errors?.required">
                                                         This field is required and Input allowed only . 0-9
                                                     </div>
-                                                </div>
+                                                </div> 
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
@@ -169,13 +170,13 @@
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_ODDATE"
-                                                            id="AC_ODDATE" class="form-control" [(ngModel)]="effectdate"
+                                                        <input appTheme type="text" placeholder="dd/mm/yyyy"
+                                                            name="AC_ODDATE" id="AC_ODDATE" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                            [minDate]="maxDate" maxlength="8"
-                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                            #AC_ODDATE="bsDatepicker"  (keydown.Tab)="AC_ODDATE.hide()"
-                                                            formControlName="AC_ODDATE"
+                                                            [minDate]="maxDate"  maxlength="10"
+                                                            [ngClass]="{'form-submitted': formSubmitted}" required
+                                                            #AC_ODDATE="bsDatepicker" (keydown.Tab)="AC_ODDATE.hide()"
+                                                            formControlName="AC_ODDATE" (bsValueChange)="getODDays()"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
                                                         <label for="Date">OD Till Date <sub
@@ -186,12 +187,12 @@
                                                     *ngIf="angForm.controls['AC_ODDATE'].invalid && (angForm.controls['AC_ODDATE'].dirty || angForm.controls['AC_ODDATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['AC_ODDATE'].errors?.required">
-                                                        This field is required
+                                                        Enter Valid Date
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                                 <div *ngIf="TemporaryOverDraftTrue">
                                     <div class="row">
@@ -224,8 +225,8 @@
                         </div>
                     </div>
                     <div class="col-sm">
-                        <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
-                            *ngIf="showButton" appTheme  (keydown.Tab)="focus()" >Submit</button>
+                        <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
+                            appTheme (keydown.Tab)="focus()">Submit</button>
                         <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                             *ngIf="updateShow">Update</button>&nbsp;
                         <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
