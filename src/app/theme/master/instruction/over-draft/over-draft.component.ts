@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, } from "@angular/forms
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
-import { first } from 'rxjs/operators'; 
+import { first } from 'rxjs/operators';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
@@ -72,7 +72,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeft = 5;
 
   //  for Date
-  effectdate: any = null
+  // effectdate: any = null
   maxDate: any;
   minDate: Date;
 
@@ -102,12 +102,13 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
+    // this.maxDate = new Date();
+    // this.minDate = new Date();
+    // this.minDate.setDate(this.minDate.getDate() - 1);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
     })
   }
 
@@ -203,7 +204,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_SODAMT: ["", [Validators.pattern]],
       radioOverdraft: ["PeriodicallyOverDraft", [Validators.required]],
       AC_ODAMT: ["", [Validators.pattern,]],
-      AC_ODDAYS: ["", [Validators.pattern,]],
+      AC_ODDAYS: [0, [Validators.pattern,]],
       AC_ODDATE: ["", [Validators.required]],
     });
     let data: any = localStorage.getItem('user');
@@ -220,6 +221,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngBranch = result.branch.id
     }
   }
+
 
   submit() { 
     if ((Number(this.angForm.controls['AC_ODAMT'].value) != 0 && !Number.isNaN(Number(this.angForm.controls['AC_ODAMT'].value)) && this.angForm.controls['radioOverdraft'].value == 'TemporaryOverDraft') || (Number(this.angForm.controls['AC_SODAMT'].value) != 0 && !Number.isNaN(Number(this.angForm.controls['AC_SODAMT'].value)) && this.angForm.controls['radioOverdraft'].value == 'PeriodicallyOverDraft')) {
@@ -543,7 +545,17 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   getODDate() {
     var date1 = this.maxDate
     let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_ODDAYS'].value), 'days').format('DD/MM/YYYY')
-    this.angForm.controls.AC_ODDATE.setValue(expiryT)
+    this.angForm.patchValue({
+      AC_ODDATE: expiryT
+    })
+  }
+
+  getODDays() {
+    let date1 = this.maxDate
+    let expiryD = moment(this.angForm.controls['AC_ODDATE'].value, 'DD/MM/YYYY').diff(moment(date1, 'DD/MM/YYYY'), 'days');
+    this.angForm.patchValue({
+      AC_ODDAYS: expiryD.toString() == 'NaN' ? 0 : expiryD
+    })
   }
   getBranch() {
     this.acno = null

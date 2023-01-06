@@ -172,13 +172,12 @@
                                                     <span class="border-lable-flt">
                                                         <input appTheme type="text" placeholder="dd/mm/yyyy"
                                                             name="AC_ODDATE" id="AC_ODDATE" class="form-control"
-                                                            [(ngModel)]="effectdate"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                            [minDate]="maxDate" maxlength="10"
-                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                            [minDate]="maxDate"  maxlength="10"
+                                                            [ngClass]="{'form-submitted': formSubmitted}" required
                                                             #AC_ODDATE="bsDatepicker" (keydown.Tab)="AC_ODDATE.hide()"
-                                                            formControlName="AC_ODDATE"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 ) || $event.charCode == 47 "
+                                                            formControlName="AC_ODDATE" (bsValueChange)="getODDays()"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
                                                         <label for="Date">OD Till Date <sub
                                                                 class="required">*</sub></label>
