@@ -383,21 +383,21 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.ngcode = null
     this.ngAccount = null
     this.ngToAccount = null
-    // let data: any = localStorage.getItem('user');
-    // let result = JSON.parse(data)
-    // if (result.RoleDefine[0].Role.id == 1) {
-    //   this.angForm.controls['BRANCH_CODE'].enable()
-    //   this.ngBranchCode = result.branch.id
-    // }
-    // else {
-    //   this.angForm.controls['BRANCH_CODE'].disable()
-    //   this.ngBranchCode = result.branch.id
-    //   this.branchCode = result.branch.CODE
-    // }
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data)
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
 
-    // this.angForm.patchValue({
-    //   BRANCH_CODE: result.branch.id
-    // })
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
 
   rerender(): void {

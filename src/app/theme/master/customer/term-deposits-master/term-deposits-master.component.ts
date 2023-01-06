@@ -446,6 +446,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       })
     })
+
+   
   }
 
   createForm() {
@@ -537,6 +539,22 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['AC_INTROBRANCH'].enable()
+      this.code = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['AC_INTROBRANCH'].disable()
+      this.angForm.patchValue({
+        'AC_INTROBRANCH': result.branch.id
+      })
+      this.code = result.branch.id
+      
+    }
   }
 
   setAsonDateMinLimit(date) {
@@ -1784,7 +1802,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   // Reset Function
   resetForm() {
     this.switchNgBTab('Basic')
-    this.createForm();
     this.resetNominee();
     this.resetJointAC()
     this.resetAttorney()
@@ -1798,7 +1815,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.ngOperation = null
     this.ngIntCategory = null
     this.ngCity = null
-    this.code = null
+    // this.code = null
     this.acno = null
     this.ngIntroducer = null
     this.ngNcity = null
@@ -1818,6 +1835,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
     });
+    this.createForm();
+
   }
 
   ngAfterViewInit(): void {

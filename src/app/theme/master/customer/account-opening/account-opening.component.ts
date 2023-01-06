@@ -96,7 +96,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   newbtnShow: boolean = false;
   id: string = '';
   BankCode: any[];
-  BranchCode: any[];
+  branch_code: any[];
   scheme: any[];
   bsValue
   AC_TYPE: boolean = false
@@ -110,7 +110,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   minDate: Date
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
-    private ownbranchMaster: OwnbranchMasterService,
+    private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private bankService: BankService,
     private investmentService: InvestmentService,
@@ -242,13 +242,15 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     this.bankMasterService.getBankList().pipe(first()).subscribe(data => {
       this.BankCode = data;
     })
-    this.ownbranchMaster.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.BranchCode = data;
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       this.code = this.scheme[0].value
     })
+    
+
   }
 
   createForm() {
@@ -270,6 +272,21 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       AC_MATUAMT: ['', [Validators.pattern]],
       AC_CLOSEDT: ['']
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['INVEST_BRANCH'].enable()
+      this.ngBranch = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['INVEST_BRANCH'].disable()
+      this.angForm.patchValue({
+        'INVEST_BRANCH': result.branch.id
+      })
+      this.ngBranch = result.branch.id
+      
+    }
   }
 
   getBranch(event) {
@@ -335,11 +352,12 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   }
   // Reset Function
   resetForm() {
-    this.createForm();
     this.angForm.controls['AC_CLOSEDT'].disable()
     this.code = null
     this.ngBank = null
-    this.ngBranch = null
+    // this.ngBranch = null
+    this.createForm();
+
   }
   getBankName(event) {
     this.bankService.getFormData(event.value).subscribe(data => {

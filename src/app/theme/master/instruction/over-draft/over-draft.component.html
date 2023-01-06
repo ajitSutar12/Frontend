@@ -13,7 +13,7 @@
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                    <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
                                         [virtualScroll]="true" (change)="getBranch()" autofocus
@@ -142,7 +142,7 @@
                                                         *ngIf="angForm.controls['AC_SODAMT'].errors?.pattern || angForm.controls['AC_SODAMT'].errors?.required">
                                                         This field is required and Input allowed only . 0-9
                                                     </div>
-                                                </div>
+                                                </div> 
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
@@ -173,7 +173,7 @@
                                                         <input appTheme type="text" placeholder="dd/mm/yyyy"
                                                             name="AC_ODDATE" id="AC_ODDATE" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                            [minDate]="maxDate" 
+                                                            [minDate]="maxDate"  maxlength="10"
                                                             [ngClass]="{'form-submitted': formSubmitted}" required
                                                             #AC_ODDATE="bsDatepicker" (keydown.Tab)="AC_ODDATE.hide()"
                                                             formControlName="AC_ODDATE" (bsValueChange)="getODDays()"
@@ -187,12 +187,12 @@
                                                     *ngIf="angForm.controls['AC_ODDATE'].invalid && (angForm.controls['AC_ODDATE'].dirty || angForm.controls['AC_ODDATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['AC_ODDATE'].errors?.required">
-                                                        This field is required
+                                                        Enter Valid Date
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                                 <div *ngIf="TemporaryOverDraftTrue">
                                     <div class="row">

@@ -76,6 +76,18 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       TO_AC: ['', [Validators.required]],
       BRANCH: ['', [Validators.required]]
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+      this.angForm.patchValue({
+        'BRANCH': result.branch.id
+      })
+    }
   }
   //clear scheme and account no
   getBranch() {

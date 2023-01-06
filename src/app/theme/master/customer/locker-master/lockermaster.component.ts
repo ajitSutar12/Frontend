@@ -409,6 +409,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
     })
+   
   }
 
   //function to toggle temp address field
@@ -614,6 +615,22 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
     })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['AC_INTROBRANCH'].enable()
+      this.code = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['AC_INTROBRANCH'].disable()
+      this.angForm.patchValue({
+        'AC_INTROBRANCH': result.branch.id
+      })
+      this.code = result.branch.id
+      
+    }
   }
 
   // Method to insert data into database through NestJS
@@ -1002,7 +1019,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   resetForm() {
     this.switchNgBTab('Basic')
     this.customerDoc = []
-    this.createForm();
     this.resetNominee();
     this.resetJointAC()
     this.resetAttorney()
@@ -1022,10 +1038,12 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.branchcode = null
     this.jointID = null
     this.selectedValue = null
-    this.code = null
+    // this.code = null
     this.tempAddress = true
     this.angForm.controls['AC_TYPE'].enable()
     this.getSystemParaDate()
+    this.createForm();
+
   }
 
   ngOnDestroy(): void {

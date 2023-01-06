@@ -17,7 +17,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 
-import * as moment from 'moment';
+import * as moment from 'moment'; 
 import { first } from 'rxjs/operators';
 import { Router } from "@angular/router";
 //date pipe
@@ -248,7 +248,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       });
       this.scheme = filtered;
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD');
+        return (scheme.name == 'LN' || scheme.name == 'CC' );
       });
       this.allscheme = allscheme;
     })
