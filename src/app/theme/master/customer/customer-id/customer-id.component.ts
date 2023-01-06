@@ -475,7 +475,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  submit(event) {
+  submit(event) { 
     let birthdate
     let submitdate
     event.preventDefault();
@@ -692,7 +692,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   customerDoc
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id) { debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;

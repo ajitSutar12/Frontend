@@ -138,6 +138,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="AC_RESO_DATE" id="AC_RESO_DATE"
                                         class="form-control" [(ngModel)]="resolutiondate"
+                                        #AC_RESO_DATE="bsDatepicker"  (keydown.Tab)="AC_RESO_DATE.hide()"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_RESO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

@@ -7,7 +7,7 @@ import { ButtonDirective } from './button.directive';
 
 
 @NgModule({
-  declarations: [ThemeDirective, SubmitDirective, ButtonDirective],
+  declarations: [ThemeDirective,SubmitDirective,  ButtonDirective],
   exports: [ThemeDirective,SubmitDirective,ButtonDirective],
 
   imports: [

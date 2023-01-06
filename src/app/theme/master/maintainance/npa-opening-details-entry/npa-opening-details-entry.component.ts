@@ -366,6 +366,9 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       this.arrTable = []
       this.npaEntryArray = []
     }
+    else{
+      Swal.fire("Warning!", "Please Enter Valid Data !", "error");
+    }
   }
 
   resetForm() {

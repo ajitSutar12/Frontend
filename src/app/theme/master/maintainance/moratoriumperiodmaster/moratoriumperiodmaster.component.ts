@@ -401,6 +401,9 @@ export class MoratoriumperiodmasterComponent implements OnInit {
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
       this.ngBranchCode = result.branch.id
     }
   }

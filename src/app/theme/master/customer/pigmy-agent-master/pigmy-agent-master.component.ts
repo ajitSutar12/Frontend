@@ -322,6 +322,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
+   
   }
   openingDate: any
   tempopendate: any
@@ -410,7 +411,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
 
-  createForm() {
+  createForm() {debugger
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['AG'],
@@ -458,6 +459,21 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.angForm.patchValue({
       'AC_NDATE': sysDate,
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['AC_INTROBRANCH'].enable()
+      this.ngBranch = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['AC_INTROBRANCH'].disable()
+      this.angForm.patchValue({
+        'AC_INTROBRANCH': result.branch.id
+      })
+      this.ngBranch = result.branch.id
+      
+    }
   }
   getschemename: any
   //get account no according scheme for introducer
@@ -625,16 +641,17 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   // Reset Function
   resetForm() {
-    this.createForm();
     this.code = null
     this.id = null
-    this.ngBranch = null
+    // this.ngBranch = null
     this.acno = null
     this.ngIntroducer = null
     this.openingDate = null
     this.ngPigmy = null
     this.ngNcity = null
     this.resetNominee();
+    this.createForm();
+
 
   }
   ngAfterViewInit(): void {

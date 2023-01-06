@@ -257,7 +257,7 @@
                                             (change)="getTermCreditAc($event)" [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" [required]="transferoption"
                                             #CR_ACTYPE (focus)="onFocus(CR_ACTYPE)" [selectOnTab]='true'
-                                            placeholder="Scheme">
+                                            placeholder="Scheme"> 
                                             <ng-option *ngFor="let values of allscheme" [value]="values">
                                                 {{values.id}} {{values.label}}</ng-option>
                                         </ng-select>

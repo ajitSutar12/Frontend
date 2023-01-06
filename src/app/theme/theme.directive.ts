@@ -1,6 +1,7 @@
 import { AfterViewInit, ContentChild, ContentChildren, Directive, ElementRef, HostListener, QueryList } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { event } from 'jquery';
 import { InvoiceListComponent } from './extension/invoice/invoice-list/invoice-list.component';
 
 @Directive({
@@ -14,14 +15,18 @@ export class ThemeDirective {
 
   @HostListener("focusout")
   onFormSubmit() {
+    // debugger
 
     const invalidControl = this.el.nativeElement;
-    
     // debugger
     if (invalidControl.tagName == 'INPUT') {
-      if (invalidControl.value == '') {
+      if (invalidControl.value == ''  ) {
         invalidControl.focus();
       }
+    //  else 
+    //  if(invalidControl.value == '') {
+    //     invalidControl.focus();
+    //  }
     } else if (invalidControl.tagName === 'NG-SELECT') {
       if (invalidControl.textContent == '') {
       
@@ -30,14 +35,14 @@ export class ThemeDirective {
       }
     } 
 
-  //   else if(invalidControl.tagName == 'BUTTON'){
-  //     for(let item of invalidControl.classList){
-  //       if(item == 'btn-submit'){
-  //         invalidControl.focus();
-  //       }
-  //   }
-  // }
+  //   
 
+  // else if (invalidControl.tagName == 'SPAN') {
+
+  //   if (invalidControl.id == 'editbutton') { 
+  //     invalidControl.focusout();
+  //   }
+  // } 
 
 
   else  if (invalidControl.tagName == 'TEXTAREA') { 
@@ -48,5 +53,3 @@ export class ThemeDirective {
 }
 
 }
-
-

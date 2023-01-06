@@ -293,7 +293,7 @@
                                                                             <ng-option
                                                                                 *ngFor="let values of branch_code"
                                                                                 [value]="values">
-                                                                                {{values.label}}</ng-option>
+                                                                                {{values.label}}</ng-option> 
                                                                         </ng-select>
                                                                         <label for="AC_INTROBRANCH">Branch</label>
                                                                     </span>
@@ -330,13 +330,13 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
-                                                                        <ng-select appTheme  id="AC_DEPONO" bindValue="value"
+                                                                        <ng-select   id="AC_DEPONO" bindValue="value"
                                                                             [(ngModel)]="ngDepoCategory"
                                                                             formControlName="AC_DEPONO"
                                                                             bindLabel="label"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true' 
+                                                                            #AC_DEPONO (focus)="onFocus(AC_DEPONO)" [selectOnTab]='true' 
                                                                             required placeholder="Deposite Ac No."
                                                                             (change)="getTermDepositSchemeList($event)"
                                                                             >

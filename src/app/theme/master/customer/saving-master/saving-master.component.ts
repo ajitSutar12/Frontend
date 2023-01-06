@@ -407,6 +407,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this._directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.director = data;
     })
+    
+    
   }
 
   //function to toggle temp address field
@@ -670,6 +672,21 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.current_date = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.current_date = this.current_date._d
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['AC_INTROBRANCH'].enable()
+      this.code = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['AC_INTROBRANCH'].disable()
+      this.angForm.patchValue({
+        'AC_INTROBRANCH': result.branch.id
+      })
+      this.code = result.branch.id
+      
+    }
   }
 
   getBranch() {
@@ -1316,11 +1333,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.branchcode = null
     this.jointID = null
     this.selectedValue = null
-    this.code = null
+    // this.code = null
     this.tempAddress = true
     this.angForm.controls['AC_TYPE'].enable()
     this.switchNgBTab('Basic')
     this.getSystemParaDate()
+    this.createForm();
   }
 
   ngOnDestroy(): void {

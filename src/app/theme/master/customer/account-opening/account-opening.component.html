@@ -71,8 +71,8 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #INVEST_BRANCH (focus)="onFocus(INVEST_BRANCH)" [selectOnTab]='true'
                                         (change)="getBranch($event)" placeholder="Branch Code">
-                                        <ng-option *ngFor="let values of BranchCode" [value]="values">
-                                            {{values.label}}</ng-option>
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option> 
                                     </ng-select>
                                     <label for="INVEST_BRANCH">Branch Code <sub class="required"> * </sub></label>
                                 </span>
