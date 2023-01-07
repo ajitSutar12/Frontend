@@ -25,7 +25,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
-                                        formControlName="BRANCH_CODE" (click)="getData()">
+                                        formControlName="BRANCH_CODE" (change)="getData()">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
