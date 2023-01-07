@@ -154,7 +154,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.scheme = allscheme;
     })
     this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
-      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
+      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => { 
         this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
       })
     })
@@ -256,7 +256,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeListforClosing(this.obj).subscribe(data => {
-          this.schemeACNo = data;
+          this.schemeACNo = data; 
         })
         this.isHideForSaving = false
         break;

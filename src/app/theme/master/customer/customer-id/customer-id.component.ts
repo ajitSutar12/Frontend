@@ -126,6 +126,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   fnamereg = "";
   mnamereg = "";
   fullnamereg = "";
+  acTitle = "";
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
