@@ -10,35 +10,6 @@
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="solid">
-                        <!-- <div class="row">
-                           
-                            <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
-                                        class="required">*</sub></label></div>
-                            <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                            formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                            #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
-                                            (change)="schemechange($event)" [virtualScroll]="true"
-                                            [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
-                                            <ng-option *ngFor="let values of allScheme" [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                        This field is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm" *ngIf="dormantac">
-                                <div><label style="color: #1e5bc5">Dormant Account</label></div>
-                            </div>
-                        </div> -->
                         <div class="row">
                             <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch <sub
                                         class="required">*</sub></label></div>
@@ -47,14 +18,13 @@
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            [virtualScroll]="true" 
-                                            [ngClass]="{'form-submitted': formSubmitted}" (change)="schemechange($event)"
-                                            placeholder="Branch" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
-                                            [selectOnTab]='true' autofocus>
+                                            [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
+                                            (change)="getBranch()" placeholder="Branch" #BRANCH_CODE
+                                            (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' autofocus>
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
-    
+
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -72,13 +42,12 @@
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                             formControlName="AC_TYPE" bindLabel="label" (change)="schemechange($event)"
-                                            [virtualScroll]="true"
-                                            title="Compulsory Selection" required placeholder="Scheme Code" #AC_TYPE
-                                            (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'>
+                                            [virtualScroll]="true" title="Compulsory Selection" required
+                                            placeholder="Scheme Code" #AC_TYPE (focus)="onFocus(AC_TYPE)"
+                                            [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}}</ng-option>
                                         </ng-select>
-    
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -91,14 +60,15 @@
                             </div>
                             <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Balance Date</label></div>
                             <div class="col-sm-12 col-md-2">
-                                <div class="form-group input-group"> 
+                                <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
-                                            class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            #TRAN_DATE="bsDatepicker"  (keydown.Tab)="TRAN_DATE.hide()"
-                                            [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="TRAN_DATE" #TRAN_DATE="bsDatepicker"
-                                            (keydown.Tab)="TRAN_DATE.hide()" placement="bottom"
+                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE"
+                                            id="TRAN_DATE" class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #TRAN_DATE="bsDatepicker"
+                                            (keydown.Tab)="TRAN_DATE.hide()" [maxDate]="maxDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
+                                            #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()"
+                                            placement="bottom"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>

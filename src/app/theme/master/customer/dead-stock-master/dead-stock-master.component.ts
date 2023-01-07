@@ -290,7 +290,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       PURCHASE_VALUE: ["", [Validators.pattern]],
       OP_BALANCE: [[Validators.pattern]],
       OP_QUANTITY: ["", [Validators.pattern]],
-      LAST_DEPR_DATE: ["", [Validators.pattern]],
+      LAST_DEPR_DATE: ["",],
       GL_ACNO: ["", [Validators.required]],
     });
   }

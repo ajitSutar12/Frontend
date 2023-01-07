@@ -161,6 +161,19 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       TRAN_NO: [0]
     })
     this.angForm.controls['scheme_type'].disable()
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['branch_code'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.angForm.controls['branch_code'].disable()
+      this.angForm.patchValue({
+        'branch_code': result.branch.id
+      })
+      this.selectedBranch = result.branch.id
+    }
   }
 
   formatInterestDate() {

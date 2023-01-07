@@ -264,7 +264,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     // })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
       });
       this.scheme = allscheme;
     })
@@ -288,7 +288,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ['', [Validators.required, ]],
+      BRANCH_CODE: ['', [Validators.required,]],
       AC_TYPE: ['', [Validators.required,]],
       AC_NO: ['', [Validators.required]],
       FROM_DATE: ['', [Validators.required]],
@@ -311,7 +311,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     }
   }
 
-  schemechange(event) {
+  schemechange(event) { 
     this.getschemename = event.name
     this.ngscheme = event.value
     this.schemeACNo = null
@@ -559,10 +559,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   }
 
   getBranch() {
-    this.ngscheme = null
-    this.getschemename = null
     this.accountedit = null
-    this.schemeACNo = null
     this.tableData = null
+    this.schemeACNo = null
+    this.getAccountlist()
   }
 }

@@ -22,7 +22,7 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch"
-                                                formControlName="branch_code" #branchcode autofocus
+                                                formControlName="branch_code" #branchcode autofocus 
                                                 (change)="getIntroducer()">
                                                 <ng-option *ngFor="let values of branchOption" [value]="values">
                                                     {{values.label}}</ng-option>

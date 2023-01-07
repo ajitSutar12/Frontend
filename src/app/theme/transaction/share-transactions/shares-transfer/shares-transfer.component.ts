@@ -125,7 +125,7 @@ export class SharesTransferComponent implements OnInit {
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
       this.schemeCode1 = data[0].value
-      this.getIntroducers()
+      this.getIntroducers() 
     })
 
     this.http.get(this.url + '/narration').subscribe(data => {
@@ -196,6 +196,19 @@ export class SharesTransferComponent implements OnInit {
       RESOLUTIONNO: ['', [Validators.required]],
       Fnarration: ['', [Validators.required]],
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['branch_code'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.angForm.controls['branch_code'].disable()
+      this.angForm.patchValue({
+        'branch_code': result.branch.id
+      })
+      this.selectedBranch = result.branch.id
+    }
   }
   submit(){
     const formVal = this.angForm.value;

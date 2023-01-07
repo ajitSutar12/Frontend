@@ -271,7 +271,19 @@ export class TermDepositAccountClosingComponent implements OnInit {
         date: this.date
       })
     })
-
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['branch_code'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.angForm.controls['branch_code'].disable()
+      this.angForm.patchValue({
+        'branch_code': result.branch.id
+      })
+      this.selectedBranch = result.branch.id
+    }
   }
 
   getschemename
@@ -1222,12 +1234,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
 
   resetForm() {
-    this.createForm()
     this.isTransfer = false
     this.customer = null
     this._service.getSysParaData().subscribe(data => {
       this.date = data[0].CURRENT_DATE;
     })
+    this.createForm()
 
   }
   resetgrid() {

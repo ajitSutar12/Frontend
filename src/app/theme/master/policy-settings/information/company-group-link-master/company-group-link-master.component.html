@@ -16,7 +16,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
-                                        formControlName="BRANCH_CODE" (click)="getData()">
+                                        formControlName="BRANCH_CODE" (change)="getData()">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -31,9 +31,8 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="COMP_CODE" bindValue="value" [(ngModel)]="ngcompany"
                                         formControlName="COMP_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
-                                        #COMP_CODE (focus)="onFocus(COMP_CODE)" [selectOnTab]='true'
-                                        placeholder="Company Code">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required #COMP_CODE
+                                        (focus)="onFocus(COMP_CODE)" [selectOnTab]='true' placeholder="Company Code">
                                         <ng-option *ngFor="let values of companyCode" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -53,8 +52,8 @@
 
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="CODE" bindValue="value" [(ngModel)]="ngcode" formControlName="CODE"
-                                        bindLabel="label" title="Compulsory Selection"
+                                    <ng-select appTheme id="CODE" bindValue="value" [(ngModel)]="ngcode"
+                                        formControlName="CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Code"
                                         #CODE (focus)="onFocus(CODE)" [selectOnTab]='true'
                                         (change)="getAccount($event)">
@@ -79,9 +78,9 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngAccount"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
-                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
-                                        (change)="checkValidaion()" placeholder=" From Account">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required #FROM_AC
+                                        (focus)="onFocus(FROM_AC)" [selectOnTab]='true' (change)="checkValidaion()"
+                                        placeholder=" From Account">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.label}}</ng-option>
                                     </ng-select>
@@ -138,8 +137,8 @@
                                             <td>{{data.BANKACNO}}</td>
                                             <td>{{data.AC_NAME}}</td>
                                             <td>
-                                                <input type="text" name="DEFAULT_AMOUNT" id="DEFAULT_AMOUNT" (focusout)="setAmountData($event,indexOfelement)"
-                                                    #divAmt>
+                                                <input type="text" name="DEFAULT_AMOUNT" id="DEFAULT_AMOUNT"
+                                                    (focusout)="setAmountData($event,indexOfelement)" #divAmt>
                                             </td>
 
                                         </tr>
@@ -157,8 +156,9 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
+                                appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                 (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
