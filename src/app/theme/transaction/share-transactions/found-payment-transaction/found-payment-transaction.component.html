@@ -21,7 +21,7 @@
                                             formControlName="BRANCH_CODE" #branchcode autofocus
                                             (change)="getIntroducer()">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
-                                                {{values.label}}</ng-option>
+                                                {{values.label}} </ng-option>
                                         </ng-select>
 
                                     </span>
@@ -70,7 +70,7 @@
                                             formControlName="MEMBER_NO" bindValue="value" bindLabel="NAME"
                                             title="Compulsory Selection" required placeholder=" Member No">
                                             <ng-option *ngFor="let values of introducerACNo" [value]="values">
-                                                {{values.label}} </ng-option>
+                                                {{values.label}} {{values.name}} </ng-option>
                                         </ng-select>
                                     </span>
                                 </div>

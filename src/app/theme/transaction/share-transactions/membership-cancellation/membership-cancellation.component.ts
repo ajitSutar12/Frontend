@@ -222,6 +222,19 @@ export class MembershipCancellationComponent implements OnInit {
       T_CREDIT: ['', [Validators.required]],
       Fnarration: ['', [Validators.required]],
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['branchOption'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.angForm.controls['branchOption'].disable()
+      this.angForm.patchValue({
+        'branchOption': result.branch.id
+      })
+      this.selectedBranch = result.branch.id
+    }
   }
   runTimer() {
 

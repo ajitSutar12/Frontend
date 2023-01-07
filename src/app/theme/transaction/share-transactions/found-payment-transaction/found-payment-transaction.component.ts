@@ -133,15 +133,14 @@ export class FoundPaymentTransactionComponent implements OnInit {
 
   }
 
-
   getIntroducer() {
-    this.obj = [this.schemeCode, this.schemeCode]
+    // debugger
+    this.obj = [this.schemeCode, this.selectedBranch]
+
 
     this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
     })
-
-
   }
 
   //get account no according scheme for transfer
@@ -240,6 +239,19 @@ export class FoundPaymentTransactionComponent implements OnInit {
       T_CREDIT: ['', [Validators.required]],
       PERTICULARS: [''],
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.selectedBranch = result.branch.id
+    }
 
   }
 
