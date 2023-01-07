@@ -218,21 +218,21 @@ const MENUITEMS = [
                 name: 'Balance Updation',
                 id: 22
               },
-              {
-                state: 'reconciliationOTE',
-                name: 'Reconciliation Opening Transaction Entry',
-                id: 23
-              },
-              {
-                state: 'reconciliationTE',
-                name: 'Reconciliation Transaction Entry',
-                id: 24
-              },
-              {
-                state: 'loanieacdu',
-                name: 'Loan Installment Edit and Close Date Updation',
-                id: 25
-              },
+              // {
+              //   state: 'reconciliationOTE',
+              //   name: 'Reconciliation Opening Transaction Entry',
+              //   id: 23
+              // },
+              // {
+              //   state: 'reconciliationTE',
+              //   name: 'Reconciliation Transaction Entry',
+              //   id: 24
+              // },
+              // {
+              //   state: 'loanieacdu',
+              //   name: 'Loan Installment Edit and Close Date Updation',
+              //   id: 25
+              // },
               // {
               //   state: 'balanceOSCDA',
               //   name: 'Balance Of Saving, Current, Deposit, Agent'
@@ -303,11 +303,11 @@ const MENUITEMS = [
                 name: 'Security Details',
                 id: 33
               },
-              {
-                state: 'loanAndCCInterestRateChanges',
-                name: 'Loan And CC Interest Rate Changes',
-                id: 34
-              },
+              // {
+              //   state: 'loanAndCCInterestRateChanges',
+              //   name: 'Loan And CC Interest Rate Changes',
+              //   id: 34
+              // },
               {
                 state: 'depositLoanInterestRateEditChange',
                 name: 'Deposit / Loan Interest Rate Edit / Change',
@@ -323,11 +323,11 @@ const MENUITEMS = [
                 name: 'Interest Posting Flag Updation',
                 id: 37
               },
-              {
-                state: 'accountwiseDocumentAcceptance',
-                name: 'Accountwise Document Acceptance',
-                id: 38
-              },
+              // {
+              //   state: 'accountwiseDocumentAcceptance',
+              //   name: 'Accountwise Document Acceptance',
+              //   id: 38
+              // },
               {
                 state: 'notingCharges',
                 name: 'Noting Charges',
@@ -451,11 +451,11 @@ const MENUITEMS = [
             type: 'sub',
             id: 58,
             children: [
-              {
-                state: 'unpaidDividendEntry',
-                name: 'Unpaid Dividend Entry',
-                id: 58
-              },
+              // {
+              //   state: 'unpaidDividendEntry',
+              //   name: 'Unpaid Dividend Entry',
+              //   id: 58
+              // },
               {
                 state: 'yearWiseUnpaidDividendEntry',
                 name: 'Year Wise Unpaid Dividend Entry',
@@ -489,11 +489,11 @@ const MENUITEMS = [
           //   name: 'SignatureScanning',
           //   id:64
           // },
-          {
-            state: 'DDBankCityMaster',
-            name: 'DDBankCityMaster',
-            id: 65
-          },
+          // {
+          //   state: 'DDBankCityMaster',
+          //   name: 'DDBankCityMaster',
+          //   id: 65
+          // },
 
         ]
       },
@@ -557,7 +557,7 @@ const MENUITEMS = [
           },
           {
             state: 'TermDepositeAcRenewal',
-            name: 'Term Deposite A/c Renewal',
+            name: 'Term Deposit A/c Renewal',
             id: 91
           },
           {
@@ -658,11 +658,11 @@ const MENUITEMS = [
               },
             ]
           },
-          {
-            state: 'cashier',
-            name: 'Cashier',
-            id: 194
-          },
+          // {
+          //   state: 'cashier',
+          //   name: 'Cashier',
+          //   id: 194
+          // },
           {
             state: 'passbookPrinting',
             name: 'Passbook Printing',
@@ -701,38 +701,38 @@ const MENUITEMS = [
             name: 'Gold/Silver Return Entry',
             id: 191
           },
-          {
-            state: 'memberDAPDT',
-            name: 'Member Dividend And Payable Dividend Transaction ',
-            id: 70
-          },
-          {
-            state: 'memberTransfer',
-            name: 'Member Transfer',
-            short_label: 'D',
-            type: 'sub',
-            icon: 'icon-home',
-            id: 71,
-            children: [
-              {
-                state: 'MemberTransferTransaction',
-                name: 'Member Transfer Transaction',
-                id: 72
-              },
+          // {
+          //   state: 'memberDAPDT',
+          //   name: 'Member Dividend And Payable Dividend Transaction ',
+          //   id: 70
+          // },
+          // {
+          //   state: 'memberTransfer',
+          //   name: 'Member Transfer',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   icon: 'icon-home',
+          //   id: 71,
+          //   children: [
+          //     {
+          //       state: 'MemberTransferTransaction',
+          //       name: 'Member Transfer Transaction',
+          //       id: 72
+          //     },
 
-              {
-                state: 'BranchAndSalaryDC',
-                name: 'Branch And Salary Division Changes',
-                id: 73
-              },
+          //     {
+          //       state: 'BranchAndSalaryDC',
+          //       name: 'Branch And Salary Division Changes',
+          //       id: 73
+          //     },
 
-              {
-                state: 'TrasferredMemberOB',
-                name: 'Trasferred Member Opening Balances',
-                id: 74
-              },
-            ]
-          },
+          //     {
+          //       state: 'TrasferredMemberOB',
+          //       name: 'Trasferred Member Opening Balances',
+          //       id: 74
+          //     },
+          //   ]
+          // },
           {
             state: 'recovery',
             name: 'Recovery',
@@ -763,49 +763,49 @@ const MENUITEMS = [
               },
             ]
           },
-          {
-            state: 'memberLoan',
-            name: 'Member Loan',
-            short_label: 'D',
-            type: 'sub',
-            id: 80,
-            children: [
-              {
-                state: 'loanApplication',
-                name: 'Loan Application',
-                id: 81
-              },
-              {
-                state: 'loanSanction',
-                name: 'Loan Sanction',
-                id: 82
-              }
-            ]
-          },
-          {
-            state: 'dDTransaction',
-            name: 'DD Transaction',
-            id: 83
-          },
-          {
-            state: 'dividendPay',
-            name: 'Dividend Pay',
-            short_label: 'D',
-            type: 'sub',
-            id: 85,
-            children: [
-              {
-                state: 'dividendPaidMarkSD',
-                name: 'Dividend Paid Mark(Salary Division)',
-                id: 86
-              },
-              {
-                state: 'dividendPaidSD',
-                name: 'Dividend Pay(Salary Division)',
-                id: 87
-              },
-            ]
-          },
+          // {
+          //   state: 'memberLoan',
+          //   name: 'Member Loan',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   id: 80,
+          //   children: [
+          //     {
+          //       state: 'loanApplication',
+          //       name: 'Loan Application',
+          //       id: 81
+          //     },
+          //     {
+          //       state: 'loanSanction',
+          //       name: 'Loan Sanction',
+          //       id: 82
+          //     }
+          //   ]
+          // },
+          // {
+          //   state: 'dDTransaction',
+          //   name: 'DD Transaction',
+          //   id: 83
+          // },
+          // {
+          //   state: 'dividendPay',
+          //   name: 'Dividend Pay',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   id: 85,
+          //   children: [
+          //     {
+          //       state: 'dividendPaidMarkSD',
+          //       name: 'Dividend Paid Mark(Salary Division)',
+          //       id: 86
+          //     },
+          //     {
+          //       state: 'dividendPaidSD',
+          //       name: 'Dividend Pay(Salary Division)',
+          //       id: 87
+          //     },
+          //   ]
+          // },
         ]
       },
       {
@@ -902,21 +902,21 @@ const MENUITEMS = [
             name: 'Guarantor View',
             id: 124
           },
-          {
-            state: 'memberView',
-            name: 'Member View',
-            id: 125
-          },
-          {
-            state: 'masterCard',
-            name: 'Master Card',
-            id: 126
-          },
-          {
-            state: 'memberLiablityView',
-            name: 'Member Liablity View',
-            id: 127
-          },
+          // {
+          //   state: 'memberView',
+          //   name: 'Member View',
+          //   id: 125
+          // },
+          // {
+          //   state: 'masterCard',
+          //   name: 'Master Card',
+          //   id: 126
+          // },
+          // {
+          //   state: 'memberLiablityView',
+          //   name: 'Member Liablity View',
+          //   id: 127
+          // },
           {
             state: 'otherView',
             name: 'Other View',
@@ -1561,16 +1561,16 @@ const MENUITEMS = [
               },
             ]
           },
-          {
-            state: 'backDatedDO',
-            name: 'Back Dated Day Open',
-            id: 149
-          },
-          {
-            state: 'receiptPrintingD',
-            name: 'Receipt Printing Designing',
-            id: 150
-          },
+          // {
+          //   state: 'backDatedDO',
+          //   name: 'Back Dated Day Open',
+          //   id: 149
+          // },
+          // {
+          //   state: 'receiptPrintingD',
+          //   name: 'Receipt Printing Designing',
+          //   id: 150
+          // },
           {
             state: 'holiday',
             name: 'Holiday',
@@ -1640,11 +1640,11 @@ const MENUITEMS = [
             id: 161
           },
 
-          {
-            state: 'changePassword',
-            name: 'Change Password',
-            id: 162
-          },
+          // {
+          //   state: 'changePassword',
+          //   name: 'Change Password',
+          //   id: 162
+          // },
           {
             state: 'roleDefination',
             name: 'Role Defination',
@@ -1670,21 +1670,21 @@ const MENUITEMS = [
             name: 'Cashier User Maintainance',
             id: 165
           },
-          {
-            state: 'sharesCCTS',
-            name: 'Shares Contribution Credit To Shares',
-            id: 166
-          },
-          {
-            state: 'silverJACTS',
-            name: 'Silver Jubilee Amount Credit To Shares',
-            id: 167
-          },
-          {
-            state: 'masikBDW',
-            name: 'Masik Bachat Deposit Withdrawl',
-            id: 168
-          },
+          // {
+          //   state: 'sharesCCTS',
+          //   name: 'Shares Contribution Credit To Shares',
+          //   id: 166
+          // },
+          // {
+          //   state: 'silverJACTS',
+          //   name: 'Silver Jubilee Amount Credit To Shares',
+          //   id: 167
+          // },
+          // {
+          //   state: 'masikBDW',
+          //   name: 'Masik Bachat Deposit Withdrawl',
+          //   id: 168
+          // },
           {
             state: 'schemeATE',
             name: 'Scheme Amount Transfer Entry',
@@ -1720,11 +1720,11 @@ const MENUITEMS = [
             name: 'Sheres Data Export / Import',
             id: 175
           },
-          {
-            state: 'dayBookIE',
-            name: 'Daybook Import / Export',
-            id: 176
-          },
+          // {
+          //   state: 'dayBookIE',
+          //   name: 'Daybook Import / Export',
+          //   id: 176
+          // },
           {
             state: 'demandDraftDEI',
             name: 'Demand Draft Data Export/ Import',
@@ -1769,7 +1769,7 @@ const MENUITEMS = [
       {
         state: 'exit',
         short_label: 'D',
-        name: 'Exit',
+        name: 'Sign Out',
         type: 'link',
         icon: 'icon-home',
         id: 182

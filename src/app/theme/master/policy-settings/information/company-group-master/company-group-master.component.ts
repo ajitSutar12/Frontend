@@ -546,6 +546,13 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
 
         })
         break;
+      case 'GL':
+        this._schemeService.getACMasterList2().pipe(first()).subscribe(data => {
+          this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
+            this.account = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
+          })
+        })
+        break;
     }
   }
 
@@ -564,15 +571,15 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.getIntroducer()
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

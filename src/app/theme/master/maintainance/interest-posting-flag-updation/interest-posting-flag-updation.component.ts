@@ -187,7 +187,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
             AC_NO: element.AC_NO,
             AC_NAME: element.AC_NAME,
             id: element.id,
-            IS_POST_INT_AC: element.IS_POST_INT_AC
+            IS_POST_INT_AC: element.IS_POST_INT_AC == 1 ? true : false
           }
           this.InterestArr.push(object)
         });
@@ -361,7 +361,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     this.showButton = true;
     this.updateShow = false;
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 }
