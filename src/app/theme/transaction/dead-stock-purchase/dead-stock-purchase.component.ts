@@ -187,7 +187,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     let rate = this.angForm.controls['Rate'].value
     let amount = Number(quantity) * Number(rate)
     this.angForm.patchValue({
-      amount: Number(amount).toFixed(2)
+      amount: Number(amount)
     })
   }
 
@@ -214,7 +214,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
 
   //add items details in array
-  addItem() {
+  addItem() {debugger
     const formVal = this.angForm.value;
 
     let object = {
@@ -265,7 +265,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       Rate: '',
       Quantity: '',
     })
-    this.ngItem = null
+    // this.ngItem = null
   }
 
   //get table Column wise value in array
@@ -453,6 +453,8 @@ export class DeadStockPurchaseComponent implements OnInit {
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
+    this.reloadTablePassing.emit();
+
   }
 
   // Reset Function
@@ -468,6 +470,9 @@ export class DeadStockPurchaseComponent implements OnInit {
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
       this.ngBranchCode = result.branch.id
     }
     this.schemeedit = null
@@ -498,7 +503,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.getschemename = data.TRANSFER_ACNOTYPE
       this.getIntroducer()
       this.angForm.patchValue({
-        Total_AMT: Number(data.TRAN_AMOUNT).toFixed(2),
+        Total_AMT: Number(data.TRAN_AMOUNT),
         ACNOTYPE: data.TRANSFER_ACNOTYPE,
         AC_TYPE: Number(data.TRANSFER_ACTYPE),
         AC_NO: Number(data.TRANSFER_ACNO),

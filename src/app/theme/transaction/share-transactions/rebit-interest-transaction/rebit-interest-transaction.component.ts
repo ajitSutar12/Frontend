@@ -28,7 +28,7 @@ export class RebitInterestTransactionComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
 
-    // for dropdown ng module
+    // for dropdown ng module 
 
 // schemeCode: any = null;
 salary_divList: any = null;
@@ -117,6 +117,21 @@ obj: any;
        AC_TYPE: ['', [Validators.required]],
        TDS_RATE: ['', [Validators.required]],
     })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngForm.controls['branch_code'].enable()
+      this.selectedBranch = result.branch.id
+    }
+    else {
+      this.ngForm.controls['branch_code'].disable()
+      this.ngForm.patchValue({
+        'branch_code': result.branch.id
+      })
+      this.selectedBranch = result.branch.id
+    }
+
   }
   decimalAllContent($event) {
     let value = Number($event.target.value);

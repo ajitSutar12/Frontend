@@ -258,6 +258,21 @@ export class MultiVoucherComponent implements OnInit {
       bank: [''],
       Intdate: ['']
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.selectedBranch = result.branch.id
+      this.angForm.controls['branch_code'].enable()
+      this.branchCode = result.branch.CODE
+    }
+    else {
+      this.angForm.controls['branch_code'].disable()
+      this.selectedBranch = result.branch.id
+      this.branchCode = result.branch.CODE
+      this.angForm.patchValue({
+        'branch_code': result.branch.id
+      })
+    }
 
   }
 

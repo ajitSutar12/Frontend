@@ -30,7 +30,7 @@ export class BatchVoucherComponent implements OnInit {
   isture: boolean = true;
 
   branch_code: any//from ownbranchmaster
-  company_code: any//From companygroupmaster
+  companycode: any=null;//From companygroupmaster
   company_data: any;
   gridData: any;
   company_main_data: any;
@@ -80,8 +80,9 @@ export class BatchVoucherComponent implements OnInit {
 
     //Company code
     this.CompanyGroupMasterDropdownService.getCompanyGroupMasterList().pipe(first()).subscribe(data => {
-      this.company_code = data;
+      this.companycode = data;
     })
+   
 
     //sys para details
     this._multiService.getSysParaData().subscribe(data => {
@@ -127,6 +128,21 @@ export class BatchVoucherComponent implements OnInit {
       import: [''],
       file: ['']
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['branch_code'].enable()
+      this.selectedBranch = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['branch_code'].disable()
+      this.angForm.patchValue({
+        'branch_code': result.branch.id
+      })
+      this.selectedBranch = result.branch.id
+      
+    }
   }
 
   //cheque no captial function
@@ -234,7 +250,7 @@ export class BatchVoucherComponent implements OnInit {
   }
 
   Submit() {
-    debugger
+    // debugger
     var obj = this.angForm.value;
     if (Number(obj.voucherAmount) != Number(this.totalAmt)) {
       Swal.fire('Oops!', 'Voucher amount not equal to Total Amount', 'error');
@@ -285,7 +301,7 @@ export class BatchVoucherComponent implements OnInit {
     // debugger
     this._service.getFormData(id).subscribe(async (data) => {
       console.log(data);
-      console.log(this.company_code);
+      console.log(this.companycode);
       this.selectCompanyCode = data.batchvoucherData.COMP_CODE;
       await this.getCompanyData(this.selectCompanyCode);
       this.updateID = data.result.TRAN_NO;
