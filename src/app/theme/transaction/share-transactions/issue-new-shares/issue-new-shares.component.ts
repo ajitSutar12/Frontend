@@ -109,14 +109,15 @@ export class IssueNewSharesComponent implements OnInit {
   }
 
   getIntroducer() {
-    this.obj = [this.selectedBranch, this.schemeCode]
+    // debugger
+    this.obj = [this.schemeCode, this.selectedBranch]
+
 
     this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
     })
-
-
   }
+ 
   //get account no according scheme for transfer
 
   getTransferAccountList(event) {
@@ -233,6 +234,9 @@ export class IssueNewSharesComponent implements OnInit {
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
       this.selectedBranch = result.branch.id
     }
   }
@@ -415,11 +419,12 @@ export class IssueNewSharesComponent implements OnInit {
             'Data Successfully Added!',
             'success'
           );
-          this.createForm()
           this.isTransfer = false
           this.multigrid = []
           this.totalCredit = 0
           this.totalDebit = 0
+          this.createForm()
+
         })
       }
     }

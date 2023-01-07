@@ -134,6 +134,9 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
       this.ngBranchCode = result.branch.id
     }
 
@@ -151,7 +154,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.scheme = allscheme;
     })
     this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
-      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
+      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => { 
         this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
       })
     })
@@ -216,6 +219,19 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       Fnarration: [''],
       EXCESS_INT: [0],
     });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngBranchCode = result.branch.id
+    }
   }
 
 
@@ -240,7 +256,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeListforClosing(this.obj).subscribe(data => {
-          this.schemeACNo = data;
+          this.schemeACNo = data; 
         })
         this.isHideForSaving = false
         break;

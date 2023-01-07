@@ -170,6 +170,9 @@ export class DeadStockTransactionComponent implements OnInit {
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
       this.ngBranchCode = result.branch.id
     }
   }
@@ -367,14 +370,14 @@ export class DeadStockTransactionComponent implements OnInit {
     }
   }
 
-  //reset table controls
+  // reset table controls
   resetItem() {
     this.angForm.patchValue({
       amount: '',
       Rate: '',
       Quantity: '',
     })
-    this.ngItem = null
+    // this.ngItem = null
   }
 
   //get table Column wise value in array
@@ -532,12 +535,12 @@ export class DeadStockTransactionComponent implements OnInit {
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
-  }
+    this.reloadTablePassing.emit();
+  } 
 
 
   // Reset Function
   resetForm() {
-    this.createForm();
     this.ngBranchCode = null
     this.schemeedit = null
     this.accountedit = null
@@ -546,6 +549,8 @@ export class DeadStockTransactionComponent implements OnInit {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.createForm();
+
   }
 
 
@@ -562,7 +567,7 @@ export class DeadStockTransactionComponent implements OnInit {
 
   }
   updatecheckdata
-  editClickHandler(id) {
+  editClickHandler(id) {debugger
     this._service.getFormData(id).subscribe((data) => {
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {

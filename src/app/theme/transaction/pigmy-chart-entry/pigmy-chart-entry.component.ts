@@ -230,6 +230,9 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.angForm.controls['BRANCH'].disable()
       this.ngBranchCode = result.branch.id
       this.branchCode = result.branch.CODE
+      this.angForm.patchValue({
+        'BRANCH': result.branch.id
+      })
     }
     this.getPigmyDate()
   }

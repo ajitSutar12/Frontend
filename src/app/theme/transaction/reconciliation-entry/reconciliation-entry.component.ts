@@ -142,6 +142,19 @@ export class ReconciliationEntryComponent implements OnInit {
       DepositsAmt: [''],
       UnclearedAmt: ['']
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngBranchCode = result.branch.id
+    }
   }
 
   getTable() {
@@ -288,11 +301,12 @@ export class ReconciliationEntryComponent implements OnInit {
 
   }
   resetForm() {
-    this.createForm()
     this.ngBranchCode = null
     this.glaccount = null
     this.angForm.controls['FROM_DATE'].reset()
     this.angForm.controls['TO_DATE'].reset()
+    this.createForm()
+
   }
   addNewData() {
     this.showButton = true;

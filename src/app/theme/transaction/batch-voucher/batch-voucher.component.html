@@ -14,7 +14,7 @@
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label">
+                                <div class="form-group form-primary form-static-label"> 
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
                                             #selectBranch (focus)="onFocus(selectBranch)" appTheme [selectOnTab]='true'
@@ -56,7 +56,7 @@
                                         <ng-select (change)="getCompanyData($event)" [(ngModel)]="selectCompanyCode"
                                             name="date" formControlName="company_code" #company_code
                                             (focus)="onFocus(company_code)" appTheme [selectOnTab]='true'>
-                                            <ng-option *ngFor="let item of company_code" [value]="item.value">
+                                            <ng-option *ngFor="let item of companycode" [value]="item.value">
                                                 {{item.value}} {{item.name}}</ng-option>
                                         </ng-select>
 
