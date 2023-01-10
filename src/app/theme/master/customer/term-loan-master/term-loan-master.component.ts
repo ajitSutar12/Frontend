@@ -103,6 +103,7 @@ interface TermLoanMaster {
   AC_TCTCODE: string
   AC_TPIN: number
   AC_IS_RECOVERY: boolean
+  IS_AGGRI_LOAN: boolean
   BANKACNO: number
 }
 @Component({
@@ -590,6 +591,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_OPEN_OLD_DATE: [''],
       AC_BIRTH_DT: [''],
       AC_IS_RECOVERY: [false],
+      IS_AGGRI_LOAN:[false],
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
       REF_ACNO: [''],
@@ -647,7 +649,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_TPIN: [''],
       EXP_DATE: [''],
       GAC_MEMBNO: [''],
-      GAC_MEMBTYPE: [''],
+      GAC_MEMBTYPE: [''], 
     });
   }
 
@@ -723,6 +725,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_OPEN_OLD_DATE': (formVal.AC_OPEN_OLD_DATE == '' || formVal.AC_OPEN_OLD_DATE == 'Invalid date' || formVal.AC_OPEN_OLD_DATE == null || formVal.AC_OPEN_OLD_DATE == undefined) ? redate = '' : redate = moment(formVal.AC_OPEN_OLD_DATE).format('DD/MM/YYYY'),
         'REF_ACNO': formVal.REF_ACNO,
         'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'IS_AGGRI_LOAN':(formVal.IS_AGGRI_LOAN == true ? '1' : '0'),
         'AC_INTCATA': formVal.AC_INTCATA,
         'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
         'AC_SANCTION_DATE': (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date') ? sanctiondate = '' : sanctiondate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'),
@@ -936,6 +939,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
           AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
           AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+          IS_AGGRI_LOAN:(data.IS_AGGRI_LOAN == '1' ? true : false),
           REF_ACNO: data.REF_ACNO,
           AC_MONTHS: data.AC_MONTHS,
           AC_INSTALLMENT: data.AC_INSTALLMENT,
@@ -985,6 +989,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
+    data['IS_AGGRI_LOAN'] = (data.IS_WEAKER == true ? '1' : '0')
 
     let date
     let opdate
@@ -1236,7 +1241,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
       }
     }
-  }
+  } 
   //Method for set value for repay mode and installment type
 
   getScheme(code) {

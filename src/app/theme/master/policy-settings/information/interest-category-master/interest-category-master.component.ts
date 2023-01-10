@@ -11,6 +11,9 @@ import { InterestCategoryMasterService } from './interest-category-master.servic
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { IOption } from 'ng-select';
+import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -24,7 +27,8 @@ class DataTableResponse {
 interface IntrestCatagoryMaster {
   CODE: number,
   NAME: string,
-}
+  ACNOTYPE : string;
+} 
 
 @Component({
   selector: 'app-interest-category-master',
@@ -49,6 +53,12 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
   Data: any;
+
+
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); 
+
+  ngschemetype
+
   //variables for pagination
   page: number = 1;
   passenger: any;
@@ -76,6 +86,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
   constructor(
     private http: HttpClient,
     private interestCategoryMasterService: InterestCategoryMasterService,
+    public SchemeTypes: SchemeTypeDropdownService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -129,6 +140,10 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
         {
           title: 'Interest Category Code',
           data: 'CODE'
+        },
+        {
+          title: 'ACNOTYPE',
+          data: 'ACNOTYPE'
         }, {
           title: 'Description',
           data: 'NAME'
@@ -141,7 +156,9 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]]
+      NAME: ['', [Validators.pattern, Validators.required]],
+      ACNOTYPE: ['', [Validators.required]]
+
     });
   }
 
@@ -150,7 +167,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
-      'NAME': formVal.NAME
+      'NAME': formVal.NAME,
+      'ACNOTYPE': formVal.ACNOTYPE
     }
     this.interestCategoryMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -176,6 +194,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       this.angForm.setValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
+        'ACNOTYPE':data.ACNOTYPE
       })
     })
   }
@@ -283,5 +302,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       left: 0, 
       behavior: 'smooth' 
     });
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

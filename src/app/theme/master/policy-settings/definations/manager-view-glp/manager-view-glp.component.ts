@@ -22,7 +22,7 @@ import { first } from 'rxjs/operators';
 import {environment} from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 
-// Handling datatable data
+// Handling datatable data 
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -63,7 +63,9 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
  
  PercentageToWCapital: Array<IOption> = this.percentageToWCapitalService.getCharacters();
 //title select variables
-schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); selectedOption = '3';
+// schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
+schemetype  = [{ value: 'GL', label: 'GL' }]
+ selectedOption = '3';
  isDisabled = true;
  characters: Array<IOption>;
  selectedCharacter = '3';
