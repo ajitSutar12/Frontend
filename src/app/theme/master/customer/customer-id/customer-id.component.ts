@@ -137,7 +137,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   // Created Form Group
   angForm: FormGroup;
   //Datatable variable
-  dtExportButtonOptions: DataTables.Settings = {};
+  dtExportButtonOptions: DataTables.Settings = {}; 
   dtExportOptions: DataTables.Settings = {};
   Data: any;
   //variables for pagination

@@ -45,7 +45,7 @@ interface BankOtherDetails {
   MOB_NUM: string;
   EMAIL: string;
   SBI_BANKCODE: string;
-  GST_NO: string;
+  GST_NO: string; 
 
 }
 

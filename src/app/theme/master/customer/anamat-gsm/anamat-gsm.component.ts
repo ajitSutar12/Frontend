@@ -6,7 +6,7 @@ import { Subject } from "rxjs";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
-// Angular Datatable Directive
+// Angular Datatable Directive 
 import { DataTableDirective } from "angular-datatables";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
