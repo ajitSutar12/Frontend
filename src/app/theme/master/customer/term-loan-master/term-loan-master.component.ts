@@ -989,7 +989,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
-    data['IS_AGGRI_LOAN'] = (data.IS_WEAKER == true ? '1' : '0')
+    data['IS_AGGRI_LOAN'] = (data.IS_AGGRI_LOAN == true ? '1' : '0')
 
     let date
     let opdate
