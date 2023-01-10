@@ -7,8 +7,8 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit();BRANCH_CODE.focus()"
-                #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate
+                (ngSubmit)="submit();BRANCH_CODE.focus()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch Code<sub
@@ -18,10 +18,9 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [virtualScroll]="true" 
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
-                                        placeholder="Branch" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
-                                        [selectOnTab]='true' autofocus>
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
+                                        (change)="getBranch($event)" placeholder="Branch" #BRANCH_CODE
+                                        (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -43,9 +42,9 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" (change)="schemechange($event)"
-                                        [virtualScroll]="true"
-                                        title="Compulsory Selection" required placeholder="Scheme Code" #AC_TYPE
-                                        (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'>
+                                        [virtualScroll]="true" title="Compulsory Selection" required
+                                        placeholder="Scheme Code" #AC_TYPE (focus)="onFocus(AC_TYPE)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
@@ -62,14 +61,13 @@
                         </div>
                         <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Balance Date</label></div>
                         <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group"> 
+                            <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        #TRAN_DATE="bsDatepicker"  (keydown.Tab)="TRAN_DATE.hide()"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="TRAN_DATE" #TRAN_DATE="bsDatepicker"
-                                        (keydown.Tab)="TRAN_DATE.hide()" placement="bottom"
+                                        #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()" [maxDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
+                                        #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()" placement="bottom"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -84,9 +82,8 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C"
-                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="From A/C" #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -107,9 +104,9 @@
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
-                                        bindLabel="label" title="Compulsory Selection" (change)="getTable()"
-                                        [virtualScroll]="true"
+                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
+                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                        (change)="getTable()" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C"
                                         #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
@@ -126,7 +123,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-sm">
@@ -183,6 +180,7 @@
                                                     <td *ngIf="totalpostedint" class="td_right">Total Posted Interest
                                                     </td>
                                                     <td *ngIf="npaDate" class="td_center">NPA Date</td>
+                                                    <td *ngIf="loaninstallment" class="td_right">Installment</td>
                                                     <td *ngIf="isdisputeloan" class="td_right">Is Dispute Loan</td>
                                                     <td *ngIf="noofshares" class="td_right">Number of Shares</td>
                                                     <td *ngIf="shareamt" class="td_right">Share Amount</td>
@@ -228,6 +226,7 @@
                                                     <td *ngIf="totaldepositamt"></td>
                                                     <td *ngIf="totalpostedint"></td>
                                                     <td *ngIf="npaDate"></td>
+                                                    <td *ngIf="loaninstallment"></td>
                                                     <td *ngIf="isdisputeloan"></td>
                                                     <td *ngIf="noofshares"></td>
                                                     <td *ngIf="shareamt"></td>
@@ -256,7 +255,7 @@
                                                         <span><input style="text-align: right;" type="text"
                                                                 class="form-control" name="TRAN_AMOUNT"
                                                                 id="ledger_balance" #ledger_balance
-                                                                value="{{data.LEDGER_BAL}}"
+                                                                value="{{data.LEDGER_BAL}}" style="width: fit-content;"
                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                 (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)"
                                                                 maxlength="8"></span><span>{{data.drcr}} </span>
@@ -422,7 +421,7 @@
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             value="{{data.AC_BALDATE == null || data.AC_BALDATE == '' ? '' : data.AC_BALDATE }}"
-                                                            #AC_BALDATE
+                                                            #AC_BALDATE style="width: fit-content;"
                                                             (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_BALDATE.value,AC_BALDATE.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
@@ -474,10 +473,17 @@
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             value="{{data.OP_NPA_DATE == null || data.OP_NPA_DATE == '' ? '' : data.OP_NPA_DATE }}"
-                                                            #OP_NPA_DATE
+                                                            #OP_NPA_DATE style="width: fit-content;"
                                                             (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_NPA_DATE.value,OP_NPA_DATE.name)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
+                                                    </td>
+                                                    <td *ngIf="loaninstallment" class="td_center">
+                                                        <input style="text-align: right;" type="text"
+                                                            class="form-control" name="AC_INSTALLMENT" id="shareamt"
+                                                            #AC_INSTALLMENT
+                                                            (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_INSTALLMENT.value,AC_INSTALLMENT.name)"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
                                                     <td *ngIf="isdisputeloan" class="td_right">
                                                         <input type="checkbox" class="border-checkbox"

@@ -112,7 +112,7 @@
                         <div class="col-sm">
                             <div class="card-block">
                                 <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
-                                    <ngb-tab title="Basic">
+                                    <ngb-tab title="Basic" id="Basic">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -454,12 +454,35 @@
                                                         <div class="row">
                                                             <div class="col-sm-3">
                                                                 <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="AGENT_BRANCH" bindValue="value"
+                                                                            [(ngModel)]="AGENTBRANCH"
+                                                                            [virtualScroll]="true"
+                                                                            formControlName="AGENT_BRANCH"
+                                                                            bindLabel="label"
+                                                                            title="Compulsory Selection" #AGENTBRANCHCODE
+                                                                            (focus)="onFocus(AGENTBRANCHCODE)"
+                                                                            [selectOnTab]='true'
+                                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                                            (change)="getAgentBranch()"
+                                                                            placeholder="Branch">
+                                                                            <ng-option
+                                                                                *ngFor="let values of OwnbranchMasterDropdown"
+                                                                                [value]="values">
+                                                                                {{values.label}}</ng-option>
+                                                                        </ng-select>
+                                                                        <label for="AGENT_BRANCH">Branch</label>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt" autofocus>
                                                                         <ng-select appTheme id="AGENT_ACTYPE"
                                                                             bindValue="value" [(ngModel)]="agentno"
                                                                             formControlName="AGENT_ACTYPE"
                                                                             bindLabel="label" [virtualScroll]="true"
-                                                                            (change)="getAgentAC($event)"
+                                                                            (change)="getAgentAC()"
                                                                             title="Compulsory Selection" #AGENT_ACTYPE
                                                                             (focus)="onFocus(AGENT_ACTYPE)"
                                                                             [selectOnTab]='true'
@@ -485,7 +508,7 @@
                                                             </div>
                                                             <div class="col-sm-4">
                                                                 <div class="form-group form-primary form-static-label">
-                                                                    <span class="border-lable-flt" autofocus>
+                                                                    <span class="border-lable-flt">
                                                                         <ng-select appTheme id="AGENT_ACNO"
                                                                             bindValue="value" [(ngModel)]="ngAgentCode"
                                                                             formControlName="AGENT_ACNO"
@@ -497,7 +520,7 @@
                                                                             placeholder="Agent Code">
                                                                             <ng-option *ngFor="let values of agentCode"
                                                                                 [value]="values">
-                                                                                {{values.label}}</ng-option>
+                                                                                {{values.label}} {{values.name}}</ng-option>
                                                                         </ng-select>
                                                                         <label for="AGENT_ACNO">Agent Code <sub
                                                                                 class="required"> * </sub></label>
@@ -1091,7 +1114,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <ng-select id="AC_INTROBRANCH" bindValue="value"
                                                                             [(ngModel)]="code1" [virtualScroll]="true"
-                                                                            formControlName="AC_INTROBRANCH" 
+                                                                            formControlName="AC_INTROBRANCH"
                                                                             bindLabel="label"
                                                                             title="Compulsory Selection" #INTROBRANCH
                                                                             (focus)="onFocus(INTROBRANCH)"
