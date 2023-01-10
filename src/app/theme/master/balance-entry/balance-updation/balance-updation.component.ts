@@ -103,6 +103,7 @@ export class BalanceUpdationComponent implements OnInit {
   totalpostedint: boolean = false
   npaDate: boolean = false
   isdisputeloan: boolean = false
+  loaninstallment: boolean = false
   noofshares: boolean = false
   shareamt: boolean = false
   accloseDate: boolean = false
@@ -185,7 +186,7 @@ export class BalanceUpdationComponent implements OnInit {
     }
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
       });
       this.scheme = allscheme;
     })
@@ -193,7 +194,7 @@ export class BalanceUpdationComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-    
+
 
     this.cols = [
 
@@ -270,6 +271,7 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
+          this.loaninstallment = false
         })
         break;
 
@@ -305,6 +307,7 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
+          this.loaninstallment = false
         })
         break;
 
@@ -339,8 +342,7 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
-
-
+          this.loaninstallment = false
         })
         break;
 
@@ -375,8 +377,7 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
-
-
+          this.loaninstallment = false
         })
         break;
 
@@ -412,12 +413,9 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
-
-
-
+          this.loaninstallment = false
         })
         break;
-
       case 'PG':
         this.schemeAccountNoService.getPigmyAccountMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
@@ -450,7 +448,7 @@ export class BalanceUpdationComponent implements OnInit {
           this.shareamt = false
           this.accloseDate = false
           this.totalpostedint = false
-
+          this.loaninstallment = false
         })
         break;
 
@@ -485,7 +483,8 @@ export class BalanceUpdationComponent implements OnInit {
           this.isdisputeloan = true
           this.noofshares = false
           this.shareamt = false
-          this.accloseDate = false
+          this.accloseDate = true
+          this.loaninstallment = true
         })
         break;
       case 'CC':
@@ -519,7 +518,8 @@ export class BalanceUpdationComponent implements OnInit {
           this.isdisputeloan = true
           this.noofshares = false
           this.shareamt = false
-          this.accloseDate = false
+          this.accloseDate = true
+          this.loaninstallment = true
         })
         break;
       case 'DS':
@@ -554,6 +554,7 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
+          this.loaninstallment = false
         })
         break;
 
@@ -589,12 +590,44 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = true
           this.shareamt = true
           this.accloseDate = true
-
-
-
+          this.loaninstallment = false
         })
         break;
-
+      case 'GL':
+        this.schemeAccountNoService.getACMasterList2().pipe(first()).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+          this.ledgerbalance = true
+          this.lastTranDate = false
+          this.productamount = false
+          this.lastintpaidDate = false
+          this.closingdate = false
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = false
+          this.opproduct = false
+          this.balanceDate = false
+          this.receivableint = false
+          this.totalintrec = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.totalpostedint = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+          this.loaninstallment = false
+        })
+        break;
     }
   }
   balanceUpdateArr
@@ -779,7 +812,7 @@ export class BalanceUpdationComponent implements OnInit {
   }
 
 
-  createForm() { 
+  createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required, Validators.pattern]],
       AC_TYPE: ['', [Validators.required, Validators.pattern]],
@@ -793,7 +826,6 @@ export class BalanceUpdationComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
       this.ngbranch = result.branch.id
-      
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
@@ -841,7 +873,7 @@ export class BalanceUpdationComponent implements OnInit {
 
     });
   }
-  submit() { 
+  submit() {
     let dataObj = this.angForm.value;
     dataObj['gridData'] = this.arrTable;
     let notingdate
@@ -857,7 +889,7 @@ export class BalanceUpdationComponent implements OnInit {
         TRAN_ACTYPE: this.ngscheme,
         balanceUpdateArr: this.balanceUpdateArr,
         AC_TYPE: this.getschemename,
-        BRANCH_CODE: this.branchCode,
+        BRANCH_CODE: this.ngbranch,
         S_GLACNO: this.S_GLACNO,
         USER: result.USER_NAME,
       };
@@ -866,7 +898,7 @@ export class BalanceUpdationComponent implements OnInit {
         Swal.fire("Success!", "Data Updated Successfully !", "success");
 
       })
-     
+
       this.balanceUpdateArr = []
       this.arrTable = []
       this.resetForm()
@@ -921,9 +953,9 @@ export class BalanceUpdationComponent implements OnInit {
       })
     })
   }
-  
+
   // Reset Function
-  resetForm() { 
+  resetForm() {
     // this.getSystemParaDate()
     this.ngscheme = null
     this.ngfromac = null
@@ -933,7 +965,7 @@ export class BalanceUpdationComponent implements OnInit {
 
     this.createForm();
 
-   
+
 
   }
 
