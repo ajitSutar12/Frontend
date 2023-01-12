@@ -212,7 +212,7 @@ export class DeadStockTransactionComponent implements OnInit {
   }
 
   //get sys para current date
-  getSystemParaDate() {
+  getSystemParaDate() { 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
