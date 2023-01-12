@@ -13,30 +13,30 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
   selector: 'app-profit-loss-account',
   templateUrl: './profit-loss-account.component.html',
   styleUrls: ['./profit-loss-account.component.scss'],
-  providers:[OwnbranchMasterService]
+  providers: [OwnbranchMasterService]
 })
 export class ProfitLossAccountComponent implements OnInit {
-// Created Form Group
-angForm: FormGroup;
-todate: any = null;
-fromdate: any = null
-maxDate: Date;
-minDate: Date;
-bsValue = new Date();
+  // Created Form Group
+  angForm: FormGroup;
+  todate: any = null;
+  fromdate: any = null
+  maxDate: Date;
+  minDate: Date;
+  bsValue = new Date();
 
-showRepo: boolean = false;
-iframeurl: any = ' ';
-report_url = environment.report_url;
-clicked:boolean=false;
+  showRepo: boolean = false;
+  iframeurl: any = ' ';
+  report_url = environment.report_url;
+  clicked: boolean = false;
 
   //Dropdown option variable
   ngbranch
   branchOption: any;
-
+  branchName
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
-    private systemParameter:SystemMasterParametersService,) { 
+    private systemParameter: SystemMasterParametersService,) {
     // this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -63,15 +63,17 @@ clicked:boolean=false;
     })
 
     let data: any = localStorage.getItem('user');
-  let result = JSON.parse(data);
-  if (result.RoleDefine[0].Role.id == 1) {
-    this.ngbranch = result.branch.id
-    this.angForm.controls['BRANCH_CODE'].enable()
-  }
-  else {
-    this.angForm.controls['BRANCH_CODE'].disable()
-    this.ngbranch = result.branch.id
-  }
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+    }
 
   }
   view(event) {
@@ -86,21 +88,21 @@ clicked:boolean=false;
       let obj = this.angForm.value
       // let date = moment(obj.START_DATE).format('DD/MM/YYYY');
 
-      let date:any;
+      let date: any;
       if (this.fromdate == obj.START_DATE) {
-        date = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        date = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        date = moment(this.fromdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        date = moment(this.fromdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
       let branch_code = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url+"examples/ProfitAndLossAccount.php?date=" + date +"&branch_code="+branch_code+"&bankName=" + bankName + "";
+      this.iframeurl = this.report_url + "examples/ProfitAndLossAccount.php?date=" + date + "&branch_code=" + branch_code + "&bankName=" + bankName + "" + "&branchName=" + this.branchName;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -113,6 +115,10 @@ clicked:boolean=false;
     // this.angForm.controls.BRANCH_CODE.reset();
     // this.angForm.controls.START_DATE.reset();
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }

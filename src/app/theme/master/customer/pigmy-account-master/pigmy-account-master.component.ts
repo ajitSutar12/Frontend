@@ -71,6 +71,7 @@ interface PigmyAccountMaster {
 
   AC_MONTHS: string;
   AC_SCHMAMT: string;
+  AGENT_BRANCH: number
   AGENT_ACTYPE: string;
   AGENT_ACNO: string;
   //minor and introducer
@@ -227,6 +228,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   rejectShow: boolean = false;
   approveShow: boolean = false;
   maxDate: any
+  AGENTBRANCH: any = null
 
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
@@ -401,10 +403,16 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.joint_Cust_ID = data;
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      this.categoryMasterdropdown = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'PG')
+      });
+      this.categoryMasterdropdown = allscheme;
     })
     this.IntrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      this.IntrestCategoryMasterDropdown = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'PG')
+      });
+      this.IntrestCategoryMasterDropdown = allscheme;
     })
     this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
@@ -423,7 +431,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.AgentScheme = filtered;
 
     })
-   
+
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -457,6 +465,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_PANNO: ['', [Validators.pattern]],
       AC_MONTHS: ['', [Validators.pattern, Validators.required]],
       AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
+      AGENT_BRANCH: ['', [Validators.required]],
       AGENT_ACTYPE: ['', [Validators.required]],
       AGENT_ACNO: ['', [Validators.required]],
       AC_HONO: ['', [Validators.pattern]],
@@ -522,7 +531,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['AC_INTROBRANCH'].enable()
       this.code1 = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['AC_INTROBRANCH'].disable()
@@ -530,7 +539,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_INTROBRANCH': result.branch.id
       })
       this.code1 = result.branch.id
-      
+
     }
   }
 
@@ -979,13 +988,18 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_INTRNAME: value.name
     })
   }
+  getAgentBranch() {
+    this.getAgentAC()
+  }
 
   //get account no according scheme for  pigmy agent
-  getAgentAC(event) {
+  getAgentAC() {
+    this.obj = [this.agentno, this.AGENTBRANCH]
     switch ('AG') {
       case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList2(event.value).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
           this.agentCode = data;
+          this.ngAgentCode = null
         })
         break;
     }
@@ -1060,6 +1074,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_INTCATA': parseInt(formVal.AC_INTCATA),
         'AC_MONTHS': formVal.AC_MONTHS,
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'AGENT_BRANCH': formVal.AGENT_BRANCH,
         'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
         'AGENT_ACNO': formVal.AGENT_ACNO,
         //temp address 
@@ -1123,6 +1138,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
+    this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
     this.AC_OPDATE = true
     let opdate
@@ -1150,15 +1166,15 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngCategory = Number(data.AC_CATG)
       this.ngOperation = Number(data.AC_OPR_CODE)
       this.ngint_category = Number(data.AC_INTCATA)
-
+      this.AGENTBRANCH = data.AGENT_BRANCH
       if ((data.AGENT_ACTYPE != null && data.AGENT_ACNO != null) || (data.AGENT_ACTYPE != "" && data.AGENT_ACNO != "")) {
         this.agentno = Number(data.AGENT_ACTYPE)
-
+        this.obj = [this.agentno, this.AGENTBRANCH]
         switch ('AG') {
           case 'AG':
-            this.schemeAccountNoService.getPigmyAgentSchemeList2(this.agentno).pipe(first()).subscribe(data1 => {
+            this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data1 => {
               this.agentCode = data1;
-
+              // this.ngAgentCode = null
             })
             break;
         }
@@ -1293,6 +1309,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'ADDR3': data.ADDR3,
         'CTCODE': data.CTCODE,
         'PIN': data.PIN,
+        AGENT_ACNO: (data.AGENT_ACNO)
       })
     })
   }
@@ -1842,14 +1859,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     else
       event.target.value = 0
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

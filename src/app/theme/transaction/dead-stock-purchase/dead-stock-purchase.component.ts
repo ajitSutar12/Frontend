@@ -15,6 +15,7 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { DeadStockPurchaseService } from './dead-stock-purchase.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { Data } from '@angular/router';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -49,7 +50,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   // Date variables
   maxDate: Date;
   minDate: Date;
-  ngbilldate: any = null
+  ngbilldate: any ;
   ngchequedate: any = null
   updateID: number = 0;
   isTransfer: boolean = false
@@ -72,6 +73,11 @@ export class DeadStockPurchaseComponent implements OnInit {
   getschemename: any
   ngItem: any = null
   totalAmt: number = 0
+  igst: number = 0
+  cgst: number = 0
+  sgst: number = 0
+
+
   // systemParameter: any;
   itemCode
 
@@ -82,6 +88,9 @@ export class DeadStockPurchaseComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  Tamount: any = 0;
+
+
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -99,7 +108,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       let nextDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
       let lastDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
-      this.maxDate = new Date(nextDate);
+       this.maxDate = new Date(nextDate);
       this.maxDate.setDate(this.maxDate.getDate());
       this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
@@ -157,9 +166,9 @@ export class DeadStockPurchaseComponent implements OnInit {
       CHEQUE_DATE: ['', [Validators.required]],
       CHEQUE_NUM: ['', [Validators.required, Validators.pattern]],
       NARRATION: ['', [Validators.required, Validators.pattern]],
-      CGST_AMT: ['', [Validators.required]],
-      SGST_AMT: ['', [Validators.required]],
-      IGST_AMT: ['', [Validators.pattern]],
+      CGST_AMT: [''],
+      SGST_AMT: [''],
+      IGST_AMT: [''],
       GST_NO: ['', [Validators.required]],
       amount: [''],
       Rate: [''],
@@ -191,6 +200,18 @@ export class DeadStockPurchaseComponent implements OnInit {
     })
   }
 
+  getGstAmount() {
+    
+    let igst = this.angForm.controls['IGST_AMT'].value
+    let cgst = this.angForm.controls['CGST_AMT'].value
+    let sgst = this.angForm.controls['SGST_AMT'].value
+    let Tamount = Number(igst) + Number(cgst) + Number(sgst) + Number(this.totalAmt)
+    this.angForm.patchValue({
+      Total_AMT: Number(Tamount)
+    })
+    this.resetItem()
+  }
+
   //get account no according scheme for introducer
   getIntroducer() {
     this.accountedit = null
@@ -214,9 +235,8 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
 
   //add items details in array
-  addItem() {debugger
+  addItem() {
     const formVal = this.angForm.value;
-
     let object = {
       itemId: formVal.ITEM_CODE?.id,
       ITEM_GLACNO: formVal.ITEM_CODE.GL_ACNO,
@@ -245,14 +265,29 @@ export class DeadStockPurchaseComponent implements OnInit {
           }
         })
       }
+
       else {
+
         this.itemArr.push(object)
+        this.totalAmt = this.totalAmt + parseInt(object.TRAN_AMOUNT)
+        // this.angForm.patchValue({
+        //   Total_AMT: this.totalAmt
+        // })
+        this.getGstAmount()
         this.resetItem()
+
       }
     }
     else {
+      
       this.itemArr.push(object)
+      this.totalAmt = this.totalAmt + parseInt(object.TRAN_AMOUNT)
+      this.getGstAmount()
+      // this.angForm.patchValue({
+      //   Total_AMT: this.totalAmt 
+      // })
       this.resetItem()
+
     }
 
   }
@@ -261,6 +296,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   resetItem() {
 
     this.angForm.patchValue({
+      ITEM_CODE: '',
       amount: '',
       Rate: '',
       Quantity: '',
@@ -298,6 +334,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
+        'BILL_DATE': data.CURRENT_DATE,
       })
       var formatfullDate = data.CURRENT_DATE;
       var nyear = formatfullDate.split(/\//);
@@ -341,9 +378,12 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
 
   //insert method
-  submit() {
+  submit() { 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
+var expiry
+    let toDate = moment(this.ngbilldate, 'DD/MM/YYYY')
+    expiry = moment(toDate).format('DD/MM/YYYY')
 
     let billDate
     let chequeDate
@@ -358,8 +398,8 @@ export class DeadStockPurchaseComponent implements OnInit {
         SUPPLIER_NAME: formVal.SUPPLIER_NAME,
         BILL_NUM: formVal.BILL_NUM,
 
-        BILL_DATE: (formVal.BILL_DATE == '' || formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == null || formVal.BILL_DATE == undefined) ? billDate = '' : billDate = moment(formVal.BILL_DATE).format('DD/MM/YYYY'),
-
+        // BILL_DATE: (formVal.BILL_DATE == '' || formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == null || formVal.BILL_DATE == undefined) ? billDate = '' : billDate = moment(formVal.BILL_DATE).format('DD/MM/YYYY'),
+        BILL_DATE:expiry,
         DEAD_STOCK: formVal.DEAD_STOCK,
         AC_TYPE: formVal.AC_TYPE,
         AC_NO: formVal.AC_NO,
@@ -370,7 +410,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         CGST_AMT: formVal.CGST_AMT,
         SGST_AMT: formVal.SGST_AMT,
         IGST_AMT: formVal.IGST_AMT,
-        GST_NO: formVal.GST_NO,
+        GST_NO: formVal.GST_NO?.toUpperCase(),
         Total_AMT: formVal.Total_AMT,
         USER: result.USER_NAME,
         ACNOTYPE: this.getschemename,
@@ -380,6 +420,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         (data) => {
           Swal.fire("Success!", "Data Updated Successfully !", "success");
           this.formSubmitted = false
+          this.totalAmt = 0
         },
         (error) => {
           console.log(error);
@@ -394,9 +435,10 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
 
   updateData() {
+    
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let billDate
+    let billDate 
     let chequeDate
     // if (this.itemArr.length != 0) {
     if (Number(this.angForm.controls['Total_AMT'].value) > 0) {
@@ -409,6 +451,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         TRAN_YEAR: formVal.TRAN_YEAR,
         SUPPLIER_NAME: formVal.SUPPLIER_NAME,
         BILL_NUM: formVal.BILL_NUM,
+        BILL_DATE: formVal.BILL_DATE,
         DEAD_STOCK: formVal.DEAD_STOCK,
         AC_TYPE: formVal.AC_TYPE,
         AC_NO: formVal.AC_NO,
@@ -417,18 +460,29 @@ export class DeadStockPurchaseComponent implements OnInit {
         CGST_AMT: formVal.CGST_AMT,
         SGST_AMT: formVal.SGST_AMT,
         IGST_AMT: formVal.IGST_AMT,
-        GST_NO: formVal.GST_NO,
+        GST_NO: formVal.GST_NO?.toUpperCase(),
         Total_AMT: formVal.Total_AMT,
         USER: result.USER_NAME,
         ACNOTYPE: this.getschemename,
         GL_ACNO: this.GL_ACNO
       }
 
-      if (this.updatecheckdata.SUPPLIER_BILL_DATE != formVal.BILL_DATE) {
-        (formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == '' || formVal.BILL_DATE == null) ? (billDate = '', formVal['BILL_DATE'] = billDate) : (billDate = formVal.BILL_DATE, dataToSend['BILL_DATE'] = moment(billDate).format('DD/MM/YYYY'))
+      // if (this.updatecheckdata.SUPPLIER_BILL_DATE != formVal.BILL_DATE) {
+      //   (formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == '' || formVal.BILL_DATE == null) ? (billDate = '', formVal['BILL_DATE'] = billDate) : (billDate = formVal.BILL_DATE, dataToSend['BILL_DATE'] = moment(billDate).format('DD/MM/YYYY'))
+      // } else {
+      //   dataToSend['BILL_DATE'] = formVal.BILL_DATE
+      // }
+      
+      if (this.updatecheckdata.BILL_DATE != this.ngbilldate) {
+        // (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? (expirydate = '', data['AC_EXPIRE_DATE'] = expirydate) : (expirydate = data.AC_EXPIRE_DATE, data['AC_EXPIRE_DATE'] = moment(expirydate).format('DD/MM/YYYY'))
+        let toDate = moment(this.ngbilldate, 'DD/MM/YYYY')
+        data['BILL_DATE'] = moment(toDate).format('DD/MM/YYYY')
       } else {
-        dataToSend['BILL_DATE'] = formVal.BILL_DATE
+        // data['BILL_DATE'] = this.ngbilldate
+        let toDate = moment(this.ngbilldate, 'DD/MM/YYYY')
+        data['BILL_DATE'] = moment(toDate).format('DD/MM/YYYY')
       }
+
       if (this.updatecheckdata.CHEQUE_DATE != formVal.CHEQUE_DATE) {
         (formVal.CHEQUE_DATE == 'Invalid date' || formVal.CHEQUE_DATE == '' || formVal.CHEQUE_DATE == null) ? (chequeDate = '', formVal['CHEQUE_DATE'] = chequeDate) : (chequeDate = formVal.CHEQUE_DATE, dataToSend['CHEQUE_DATE'] = moment(chequeDate).format('DD/MM/YYYY'))
       } else {
@@ -440,6 +494,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
           Swal.fire("Success!", "Data Updated Successfully !", "success");
           this.formSubmitted = false
+          this.totalAmt = 0
         },
         (error) => {
           console.log(error);
@@ -480,6 +535,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
   updatecheckdata
   editClickHandler(id) {
+    
     this._service.getFormData(id).subscribe((data) => {
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
@@ -498,6 +554,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       else if (data.TRAN_TYPE == 'TR') {
         this.isFormA(1)
       }
+      this.totalAmt = Number(data.TRAN_AMOUNT)-Number(data.CGST_AMT)-Number(data.SGST_AMT)-Number(data.IGST_AMT)
       this.schemeedit = Number(data.TRANSFER_ACTYPE)
       this.ngBranchCode = data.BRANCH_CODE
       this.getschemename = data.TRANSFER_ACNOTYPE
@@ -515,7 +572,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         CGST_AMT: data.CGST_AMT,
         SGST_AMT: data.SGST_AMT,
         IGST_AMT: data.IGST_AMT,
-        BILL_DATE: data.SUPPLIER_BILL_DATE,
+        SUPPLIER_BILL_DATE: data.BILL_DATE,
         BILL_NUM: data.SUPPLIER_BILL_NO,
         NARRATION: data.NARRATION,
         DEAD_STOCK: data.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',

@@ -20,9 +20,36 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true" placeholder="Branch" #BRANCH_CODE
+                                        (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'>
+                                        <ng-option *ngFor="let values of branchOption" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-1"> <label for="NAME">Name<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="NAME"
@@ -39,6 +66,31 @@
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z , ()- / . (Space)"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="HOGL">Head Office GL<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select appTheme id="HO_GL" bindValue="value" [(ngModel)]="headGl"
+                                        formControlName="HO_GL" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true" placeholder="" #HO_GL
+                                        (focus)="onFocus(HO_GL)" [selectOnTab]='true'>
+                                        <ng-option *ngFor="let values of GlACNo" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['HO_GL'].invalid && (angForm.controls['HO_GL'].dirty || angForm.controls['HO_GL'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['HO_GL'].errors?.required">
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
@@ -118,31 +170,31 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="SBI_BANKCODE">Account Number<sub
-                            class="required">*</sub></label></div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group input-group">
-                        <span class="border-lable-flt">
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
 
-                            <input appTheme type="text" style="text-align: right;" name="SBI_BANKCODE"
-                                class="form-control" placeholder=" " pattern="^[0-9]+$"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)" maxlength="16"
-                                title="Input allowed only 0-9" id="SBI_BANKCODE" formControlName="SBI_BANKCODE">
-                        </span>
-                    </div>
-                    <div class="form-group form-primary form-static-label"
-                        *ngIf="angForm.controls['SBI_BANKCODE'].invalid && (angForm.controls['SBI_BANKCODE'].dirty || angForm.controls['SBI_BANKCODE'].touched)"
-                        class="alert alert-danger">
-                        <div
-                            *ngIf="angForm.controls['SBI_BANKCODE'].errors?.pattern || angForm.controls['SBI_BANKCODE'].errors?.required || angForm.controls['SBI_BANKCODE'].errors?.maxlength">
-                            This field is required and Input allowed only 0-9
+                                    <input appTheme type="text" style="text-align: right;" name="SBI_BANKCODE"
+                                        class="form-control" placeholder=" " pattern="^[0-9]+$"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" maxlength="16"
+                                        title="Input allowed only 0-9" id="SBI_BANKCODE" formControlName="SBI_BANKCODE">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SBI_BANKCODE'].invalid && (angForm.controls['SBI_BANKCODE'].dirty || angForm.controls['SBI_BANKCODE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['SBI_BANKCODE'].errors?.pattern || angForm.controls['SBI_BANKCODE'].errors?.required || angForm.controls['SBI_BANKCODE'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                </div>
-                    </div>
-
                     <div class="row">
-                       
+
 
                         <div class="col-sm-12 col-md-2"> <label for="GST_NO">GST Number</label></div>
                         <div class="col-sm-12 col-md-4">
@@ -166,6 +218,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="IFSC">IFSC Code</label></div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+
+                                    <input type="text" name="IFSC_CODE" pattern="^[A-Za-z0-9]+$" maxlength="12"
+                                        class="form-control" placeholder=" " id="IFSC_CODE" value=""
+                                        style="text-transform:uppercase;"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
+                                        title="Input allowed only A-Z 0-9" required formControlName="IFSC_CODE">
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['IFSC_CODE'].invalid && (angForm.controls['IFSC_CODE'].dirty || angForm.controls['IFSC_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['IFSC_CODE'].errors?.pattern || angForm.controls['IFSC_CODE'].errors?.required || angForm.controls['IFSC_CODE'].errors?.maxlength">
+                                    Input allowed only A-Z 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="FLAT_PRM_NO">Flat premise Number</label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -186,11 +263,7 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row">
-                        
-                        <div class="col-sm-12 col-md-3"> <label for="FLAT_PRM_NAME">Flat Premise/Building Name</label>
+                        <div class="col-sm-12 col-md-2"> <label for="FLAT_PRM_NAME">Flat Premise/Building Name</label>
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -211,8 +284,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+
                         <div class="col-sm-12 col-md-2"> <label for="RD_LANE_NAME">Road/Streets/Lane</label></div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
 
@@ -231,9 +307,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        
                         <div class="col-sm-12 col-md-2"> <label for="AREA_LOCATION">Location</label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -253,35 +326,35 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">Town/City/District<sub
-                            class="required">*</sub></label></div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group form-primary form-static-label">
-                        <span class="border-lable-flt">
-                            <ng-select appTheme id="CITY_CODE" [items]="city" bindValue="id"
-                                [(ngModel)]="ngCity" bindLabel="CITY_NAME" formControlName="CITY_CODE"
-                                title="Compulsory Selection" #CITY_CODE (focus)="onFocus(CITY_CODE)"
-                                [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
-                                placeholder="" required>
-
-                            </ng-select>
-
-                        </span>
-                    </div>
-                    <div class="form-group form-primary form-static-label"
-                        *ngIf="angForm.controls['CITY_CODE'].invalid && (angForm.controls['CITY_CODE'].dirty || angForm.controls['CITY_CODE'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="angForm.controls['CITY_CODE'].errors?.required">
-                            This field is required.
-                        </div>
-                    </div>
-                </div>
                     </div>
                     <div class="row">
-                       
-                        <div class="col-sm-12 col-md-1"> <label for="STATE">State<sub class="required">*</sub></label>
+
+                        <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">Town/City/District<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select appTheme id="CITY_CODE" [items]="city" bindValue="id"
+                                        [(ngModel)]="ngCity" bindLabel="CITY_NAME" formControlName="CITY_CODE"
+                                        title="Compulsory Selection" #CITY_CODE (focus)="onFocus(CITY_CODE)"
+                                        [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="" required>
+
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['CITY_CODE'].invalid && (angForm.controls['CITY_CODE'].dirty || angForm.controls['CITY_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['CITY_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-5">
+                        <div class="col-sm-12 col-md-2"> <label for="STATE">State<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="STATE"
@@ -301,32 +374,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="PIN_CODE">Pin Code<sub
-                            class="required">*</sub></label></div>
-                <div class="col-sm-12 col-md-3">
-                    <div class="form-group input-group">
-                        <span class="border-lable-flt">
-
-                            <input appTheme type="text" style="text-align: right;" name="PIN_CODE"
-                                class="form-control" placeholder=" " pattern="^[1-9][0-9]{5}"
-                                title=" Input allowed only  0-9" maxlength="6"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)" minlength=" 6"
-                                id="PIN_CODE" formControlName="PIN_CODE" NumberOnly>
-
-                        </span>
-                    </div>
-                    <div class="form-group form-primary form-static-label"
-                        *ngIf="angForm.controls['PIN_CODE'].invalid && (angForm.controls['PIN_CODE'].dirty || angForm.controls['PIN_CODE'].touched)"
-                        class="alert alert-danger">
-                        <div
-                            *ngIf="angForm.controls['PIN_CODE'].errors?.pattern || angForm.controls['PIN_CODE'].errors?.required || angForm.controls['PIN_CODE'].errors?.maxlength">
-                            This field is required and Input allowed only 0-9
-                        </div>
-                    </div>
-                </div>
                     </div>
                     <div class="row">
-                        
+
+                        <div class="col-sm-12 col-md-2"> <label for="PIN_CODE">Pin Code<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+
+                                    <input appTheme type="text" style="text-align: right;" name="PIN_CODE"
+                                        class="form-control" placeholder=" " pattern="^[1-9][0-9]{5}"
+                                        title=" Input allowed only  0-9" maxlength="6"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" minlength=" 6"
+                                        id="PIN_CODE" formControlName="PIN_CODE" NumberOnly>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['PIN_CODE'].invalid && (angForm.controls['PIN_CODE'].dirty || angForm.controls['PIN_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['PIN_CODE'].errors?.pattern || angForm.controls['PIN_CODE'].errors?.required || angForm.controls['PIN_CODE'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12 col-md-2"> <label for="PHONE_OFFICE">Telephone Number</label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -348,6 +421,10 @@
                             </div>
 
                         </div>
+                    </div>
+                    <div class="row">
+
+                        
                         <div class="col-sm-12 col-md-2"> <label for="MOB_NUM">Mobile Number<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
@@ -370,11 +447,10 @@
                             </div>
 
                         </div>
-                    </div>
-                    <div class="row">
+
                         <div class="col-sm-12 col-md-2"> <label for="EMAIL">Email<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="email" name="EMAIL" class="form-control" placeholder=" "
@@ -392,6 +468,24 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox checkbox-primary">
+                                <div
+                                    class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox"
+                                        id="IBT_TRAN"
+                                        formControlName="IBT_TRAN"> 
+                                    <label class="border-checkbox-label"
+                                        for="IBT_TRAN">IBT Transaction<span
+                                            class="required">
+                                        </span></label>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -434,6 +528,8 @@
                                         <td class="td_right">{{data.SBI_BANKCODE}}</td>
                                         <td>{{data.PAN_NO}}</td>
                                         <td>{{data.GST_NO}}</td>
+                                        <td>{{data.IFSC_CODE}}</td>
+
                                         <td>{{data.FLAT_PRM_NAME}}</td>
                                         <td class="td_right"
                                             [ngClass]="data.CITY_CODE === '' ? 'td_center' : 'td_right'">
@@ -458,6 +554,7 @@
                                         <th><input type="text" class="form-control" name="SBI_BANKCODE"></th>
                                         <th><input type="text" class="form-control" name="PAN_NO"></th>
                                         <th><input type="text" class="form-control" name="GST_NO"></th>
+                                        <th><input type="text" class="form-control" name="IFSC_CODE"></th>                                        
                                         <th><input type="text" class="form-control" name="FLAT_PRM_NAME"></th>
                                         <th><input type="text" class="form-control" name="CITY_CODE"></th>
                                         <th><input type="text" class="form-control" name="STATE"></th>

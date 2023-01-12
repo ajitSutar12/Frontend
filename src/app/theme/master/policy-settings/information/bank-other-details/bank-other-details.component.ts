@@ -15,6 +15,8 @@ import { cityMasterService } from "../../../../../shared/dropdownService/city-ma
 import { first } from 'rxjs/operators';
 import { DataTableDirective } from 'angular-datatables';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 
 // Handling datatable data
@@ -30,6 +32,7 @@ class DataTableResponse {
 // For fetching values from backend
 interface BankOtherDetails {
   BANK_CODE: number;
+  BRANCH_CODE
   NAME: string;
   SHORT_NAME: string;
   TAN_NO: string
@@ -46,6 +49,8 @@ interface BankOtherDetails {
   EMAIL: string;
   SBI_BANKCODE: string;
   GST_NO: string;
+  IFSC_CODE: string;
+  IBT_TRAN: boolean
 
 }
 
@@ -67,6 +72,9 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
   // dropdown variables
   ngCity: any = null
   city: any[];
+  ngbranch
+  branchOption: any;
+
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -100,11 +108,14 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
 
   // Filter Variable
   filterData = {};
-
+  GlACNo: any;
+  headGl
   constructor(
     private http: HttpClient,
     private bankDetails: BankDetails,
     private cityMaster: cityMasterService,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private schemeAccountNoService: SchemeAccountNoService,
     private fb: FormBuilder
   ) { }
 
@@ -113,6 +124,19 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
       this.city = data;
     });
+
+    //branch List
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+
+    //HO GL
+    this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
+      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
+        this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
+      })
+    })
+
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
@@ -182,7 +206,10 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           title: 'GST Number',
           data: 'GST_NO'
         },
-
+        {
+          title: 'IFSC Code',
+          data: 'IFSC_CODE'
+        },
         {
           title: 'Flat Premise Name',
           data: 'FLAT_PRM_NAME'
@@ -219,6 +246,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
   createForm() {
     this.angForm = this.fb.group({
       BANK_CODE: ['', [Validators.pattern]],
+      BRANCH_CODE: ['', [Validators.required]],
+      HO_GL: ['', [Validators.required]],
       NAME: ['', [Validators.pattern, Validators.required]],
       SHORT_NAME: ['', [Validators.pattern, Validators.required]],
       TAN_NO: ['', [Validators.pattern]],
@@ -235,6 +264,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       EMAIL: ['', [Validators.pattern, Validators.required]],
       SBI_BANKCODE: ['', [Validators.pattern, Validators.required]],
       GST_NO: ['', [Validators.pattern]],
+      IFSC_CODE: ['', [Validators.pattern]],
+      IBT_TRAN: [false],
 
 
     });
@@ -243,12 +274,14 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
 
   // Method to insert data into database through NestJS
   submit() {
-    this.http.get(this.url + '/bank-other-details').subscribe(existData => {
+    this.http.get(this.url + '/bank-other-details/branch' + this.ngbranch).subscribe(existData => {
       if (existData == '' || existData == null) {
         this.formSubmitted = true;
         const formVal = this.angForm.value;
         const dataToSend = {
           'BANK_CODE': formVal.BANK_CODE,
+          'BRANCH_CODE': formVal.BRANCH_CODE,
+          'HO_GL': formVal.HO_GL,
           'NAME': formVal.NAME,
           'SHORT_NAME': formVal.SHORT_NAME,
           'TAN_NO': formVal.TAN_NO,
@@ -265,6 +298,9 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           'EMAIL': formVal.EMAIL,
           'SBI_BANKCODE': formVal.SBI_BANKCODE,
           'GST_NO': formVal.GST_NO,
+          'IFSC_CODE': formVal.IFSC_CODE,
+          'IBT_TRAN': (formVal.IBT_TRAN == true ? '1' : '0'),
+
         }
         this.bankDetails.postData(dataToSend).subscribe(data1 => {
           Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -301,6 +337,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       this.updateID = data.id;
       this.angForm.patchValue({
         'BANK_CODE': data.BANK_CODE,
+        'BRANCH_CODE': data.BRANCH_CODE,
+        'HO_GL': data.HO_GL,
         'NAME': data.NAME,
         'SHORT_NAME': data.SHORT_NAME,
         'TAN_NO': data.TAN_NO,
@@ -317,6 +355,9 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         'EMAIL': data.EMAIL,
         'SBI_BANKCODE': data.SBI_BANKCODE,
         'GST_NO': data.GST_NO,
+        'IFSC_CODE': data.IFSC_CODE,
+        'IBT_TRAN': (data.IBT_TRAN == '1' ? true : false),
+
       })
     })
   }
@@ -324,6 +365,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['IBT_TRAN'] = (data.IBT_TRAN == true ? '1' : '0')
+
     this.bankDetails.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -368,14 +411,14 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       });
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

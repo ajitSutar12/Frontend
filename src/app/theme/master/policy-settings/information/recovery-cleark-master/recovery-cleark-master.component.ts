@@ -11,6 +11,9 @@ import { RecoveryClearkMasterService } from './recovery-cleark-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { first } from 'rxjs/operators';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -23,6 +26,7 @@ class DataTableResponse {
 interface RecoveryClearkMaster {
   CODE: number,
   NAME: string,
+  BRANCH_CODE
 }
 
 @Component({
@@ -69,15 +73,39 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
 
   //filter variable
   filterData = {};
+  branchOption: any;
+  ngbranch:any;
+
 
   constructor(
     private http: HttpClient,
+    private ownbranchMasterService:OwnbranchMasterService,
     private recoveryClearkMasterService: RecoveryClearkMasterService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
+
+     //branch List
+     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngbranch = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngbranch = result.branch.id
+    }
+
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -129,9 +157,14 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
         {
           title: 'Recovery Cleark Code',
           data: 'CODE'
-        }, {
+        }, 
+        {
           title: 'Description',
           data: 'NAME'
+        },
+        {
+          title: 'Branch Code',
+          data: 'BRANCH_CODE'
         },
       ],
       dom: 'Blrtip',
@@ -140,15 +173,32 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
 
   createForm() {
     this.angForm = this.fb.group({
+      BRANCH_CODE:[''],
       CODE: [''],
       NAME: ['', [Validators.pattern, Validators.required]]
     });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngbranch = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngbranch = result.branch.id
+    }
   }
 
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
+      'BRANCH_CODE': formVal.BRANCH_CODE,
       'CODE': formVal.CODE,
       'NAME': formVal.NAME
     }
@@ -173,6 +223,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     this.recoveryClearkMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
+        'BRANCH_CODE':data.BRANCH_CODE,
         'CODE': data.CODE,
         'NAME': data.NAME,
       })
@@ -268,6 +319,21 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngbranch = result.branch.id
+      
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.patchValue({
+        'BRANCH_CODE': result.branch.id
+      })
+      this.ngbranch = result.branch.id
+    }
+
   }
 
   rerender(): void {
@@ -284,5 +350,8 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
       left: 0, 
       behavior: 'smooth' 
     });
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

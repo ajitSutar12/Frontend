@@ -137,7 +137,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   // Created Form Group
   angForm: FormGroup;
   //Datatable variable
-  dtExportButtonOptions: DataTables.Settings = {};
+  dtExportButtonOptions: DataTables.Settings = {}; 
   dtExportOptions: DataTables.Settings = {};
   Data: any;
   //variables for pagination
@@ -441,6 +441,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       M_NAME_REG: [""],
       L_NAME_REG: [""],
       AC_ADD_REG: [''],
+      AC_NAME_REG: [''],
       AC_NAME: ["", [Validators.pattern]],
       AC_CAST: [""],
       AC_OCODE: [""],
@@ -476,7 +477,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  submit(event) { 
+  submit(event) {
     let birthdate
     let submitdate
     event.preventDefault();
@@ -504,6 +505,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'M_NAME_REG': formVal.M_NAME_REG?.toUpperCase(),
         'L_NAME_REG': formVal.L_NAME_REG?.toUpperCase(),
         'AC_NAME_REG': (formVal.L_NAME_REG + ' ' + formVal.F_NAME_REG + ' ' + formVal.M_NAME_REG)?.toUpperCase(),
+        'AC_ADD_REG': formVal.AC_ADD_REG,
         'AC_CAST': parseInt(formVal.AC_CAST),
         'AC_OCODE': parseInt(formVal.AC_OCODE),
         'AC_ADHARNO': formVal.AC_ADHARNO,
@@ -693,7 +695,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   customerDoc
   //Method for append data into fields
-  editClickHandler(id) { debugger
+  editClickHandler(id) {
+    // debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -712,10 +715,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_MEMBTYPE: data.AC_MEMBTYPE,
           AC_MEMBNO: data.AC_MEMBNO,
           AC_TITLE: data.AC_TITLE,
+          AC_TITLE_REG: data.AC_TITLE_REG,
           F_NAME: data.F_NAME,
           M_NAME: data.M_NAME,
           L_NAME: data.L_NAME,
           AC_NAME: data.AC_NAME,
+          F_NAME_REG: data.F_NAME_REG,
+          M_NAME_REG: data.M_NAME_REG,
+          L_NAME_REG: data.L_NAME_REG,
+          AC_NAME_REG: data.AC_NAME_REG,
+          AC_ADD_REG: data.AC_ADD_REG,
           AC_ADHARNO: data.AC_ADHARNO,
           AC_BIRTH_DT: (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? birthdate = '' : birthdate = data.AC_BIRTH_DT,
           AC_HONO: data.custAddress[0]?.AC_HONO,
@@ -807,6 +816,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['F_NAME'] = this.fname?.toUpperCase()
     data['L_NAME'] = this.lname?.toUpperCase()
     data['M_NAME'] = this.mname?.toUpperCase()
+    data['AC_TITLE_REG'] = data.AC_TITLE_REG
+    data['F_NAME_REG'] = data.F_NAME_REG?.toUpperCase()
+    data['M_NAME_REG'] = data.M_NAME_REG?.toUpperCase()
+    data['L_NAME_REG'] = data.L_NAME_REG?.toUpperCase()
+    data['AC_NAME_REG'] = (data.L_NAME_REG + ' ' + data.F_NAME_REG + ' ' + data.M_NAME_REG)?.toUpperCase()
+    data['AC_ADD_REG'] = data.AC_ADD_REG
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
@@ -1295,10 +1310,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     select.close()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

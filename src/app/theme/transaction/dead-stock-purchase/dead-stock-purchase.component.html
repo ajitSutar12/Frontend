@@ -15,7 +15,7 @@
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
+                                    <span class="border-lable-flt"> 
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                             [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
@@ -85,11 +85,12 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
 
-                                        <input type="text" name="GST_NO" pattern="^[A-Z0-9]+$" maxlength="15"
-                                            class="form-control" placeholder=" " id="GST_NO" value=""
-                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
-                                            style="text-align: right;" title="Input allowed only A-Z 0-9" required
-                                            formControlName="GST_NO">
+                                        <input type="text" name="GST_NO" maxlength="15" class="form-control"
+                                            placeholder=" " id="GST_NO" value="" style="text-align: right;"
+                                            pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
+                                            style="text-transform:uppercase;"
+                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
+                                            title="Input allowed only A-Z 0-9" required formControlName="GST_NO">
 
                                     </span>
                                 </div>
@@ -341,8 +342,7 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" class="form-control" name="Rate"
                                             id="Rate" formControlName="Rate" (keyup)="getAmount()" appTheme
-                                            (focus)="selectAllContent($event)" 
-                                            maxlength="15"
+                                            (focus)="selectAllContent($event)" maxlength="15"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     </span>
                                 </div>
@@ -382,14 +382,14 @@
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="ITEM_QTY" id="ITEM_QTY"
-                                                            value="{{data.ITEM_QTY}}" #Quantity
+                                                            value="{{data.ITEM_QTY}}" #Quantity disabled
                                                             (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                     </td>
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="ITEM_RATE" id="ITEM_RATE"
-                                                            value="{{data.ITEM_RATE}}" #Rate
+                                                            value="{{data.ITEM_RATE}}" #Rate  disabled
                                                             (change)="getColumnValue(data.ITEM_CODE,Rate.name,Rate.value)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -397,7 +397,7 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="TRAN_AMOUNT" id="TRAN_AMOUNT"
                                                             value="{{data.TRAN_AMOUNT}}" #Amount
-                                                            (change)="getColumnValue(data.ITEM_CODE,Amount.name,Amount.value)"
+                                                            (change)="getColumnValue(data.ITEM_CODE,Amount.name,Amount.value)" disabled
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
                                                 </tr>
@@ -406,7 +406,7 @@
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="IGST" id="IGST"
-                                                            formControlName="IGST_AMT"
+                                                            formControlName="IGST_AMT" (focusout)=" getGstAmount()"
                                                             (focus)="selectAllContent($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -416,7 +416,7 @@
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="cgst" id="cgst"
-                                                            formControlName="CGST_AMT"
+                                                            formControlName="CGST_AMT" (focusout)=" getGstAmount()"
                                                             (focus)="selectAllContent($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -426,7 +426,7 @@
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="scgst" id="scgst"
-                                                            formControlName="SGST_AMT"
+                                                            formControlName="SGST_AMT"    (focusout)=" getGstAmount()"
                                                             (focus)="selectAllContent($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -435,10 +435,11 @@
                                                     <td colspan="3" style="text-align: right;">Total Amount</td>
                                                     <td>
                                                         <input style="text-align: right;" type="text"
-                                                            class="form-control" name="cgst" id="cgst"
-                                                            (focus)="selectAllContent($event)"
-                                                            formControlName="Total_AMT" appTheme maxlength="15"
+                                                            class="form-control" name="TotalAmt" id="TotalAmt"
+                                                            (focus)="selectAllContent($event)"  
+                                                            formControlName="Total_AMT"  maxlength="15" disabled
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                           
                                                     </td>
                                                 </tr>
                                             </tbody>

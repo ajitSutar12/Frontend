@@ -421,10 +421,16 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.OperationMasterDropdown = data;
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      this.categoryMasterdropdown = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'TD')
+      });
+      this.categoryMasterdropdown = allscheme;
     })
     this.IntrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      this.IntrestCategoryMasterDropdown = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'TD')
+      });
+      this.IntrestCategoryMasterDropdown = allscheme;
     })
     this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
@@ -447,7 +453,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
     })
 
-   
+
   }
 
   createForm() {
@@ -545,7 +551,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['AC_INTROBRANCH'].enable()
       this.code = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['AC_INTROBRANCH'].disable()
@@ -553,7 +559,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_INTROBRANCH': result.branch.id
       })
       this.code = result.branch.id
-      
+
     }
   }
 
@@ -2884,10 +2890,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 

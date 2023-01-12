@@ -387,7 +387,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       // console.log(data)
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      this.category = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'CA')
+      });
+      this.category = allscheme;
     })
     this.directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.director = data;
@@ -406,12 +409,15 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.bal_category = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      this.int_category = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'CA')
+      });
+      this.int_category = allscheme;
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
     })
-    
+
   }
 
   //function to toggle temp address field
@@ -640,7 +646,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['AC_INTROBRANCH'].enable()
       this.code = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['AC_INTROBRANCH'].disable()
@@ -648,7 +654,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'AC_INTROBRANCH': result.branch.id
       })
       this.code = result.branch.id
-      
+
     }
   }
 
@@ -1967,14 +1973,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }, err => {
       console.log('something is wrong');
     })
-  } 
+  }
   closeModal() {
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -1988,10 +1994,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

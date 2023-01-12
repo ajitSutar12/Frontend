@@ -35,6 +35,7 @@ export class TFormDayBookComponent implements OnInit {
   //ng model
   ngbranch: any = null
   report_url = environment.report_url;
+  branchName
 
   //Dropdown option variable
 
@@ -72,11 +73,13 @@ export class TFormDayBookComponent implements OnInit {
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
       this.ngForm.controls['BRANCH_CODE'].enable()
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
     }
   }
 
@@ -110,43 +113,43 @@ export class TFormDayBookComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
-    if (this.ngForm.controls['Print_Code'].value=="Detail" && this.ngForm.valid) {
+    if (this.ngForm.controls['Print_Code'].value == "Detail" && this.ngForm.valid) {
       this.showRepo = true;
       let obj = this.ngForm.value
       let type = obj.Print_Code;
 
       // check the conition of the default(syspara) date and date parameter and set the format
-      let Date:any;
+      let Date: any;
       if (this.date == obj.date) {
-        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+        Date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        Date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
-    
-        // let Date = this.date;
+
+      // let Date = this.date;
       let Branch = obj.Branch;
 
       this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
       // console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
-    else if (this.ngForm.controls['Print_Code'].value=="Summary" && this.ngForm.valid) {
+    else if (this.ngForm.controls['Print_Code'].value == "Summary" && this.ngForm.valid) {
       this.showRepo = true;
       let obj = this.ngForm.value
       let type = obj.Print_Code;
 
       // check the conition of the default(syspara) date and date parameter and set the format
-      let Date:any;
+      let Date: any;
       if (this.date == obj.date) {
-        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+        Date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        Date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
-    
+
       // let Date = this.date;
       let Branch = obj.Branch;
 
-      this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + this.branchName + "&type=" + type + "&bankName=" + bankName + " ";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -166,5 +169,8 @@ export class TFormDayBookComponent implements OnInit {
     this.showRepo = false;
     this.clicked = false;
   }
-
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
 }

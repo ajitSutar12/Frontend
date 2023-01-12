@@ -19,7 +19,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Branch" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="ngbranch" placeholder="Branch">
+                                            [(ngModel)]="ngbranch" placeholder="Branch" (change)="getBranch($event)">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>

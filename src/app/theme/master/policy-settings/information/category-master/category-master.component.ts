@@ -11,6 +11,9 @@ import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../../environments/environment'
+import { IOption } from 'ng-select';
+import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -24,6 +27,7 @@ class DataTableResponse {
 interface CategoryMaster {
   CODE: number;
   NAME: string;
+  ACNOTYPE : string;
 
 }
 
@@ -58,6 +62,11 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
+
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); 
+
+  ngschemetype
+
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -73,6 +82,8 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   constructor(private fb: FormBuilder,
     private categoryMasterService: CategoryMasterService,
+    public SchemeTypes: SchemeTypeDropdownService,
+
     private http: HttpClient) { this.createForm(); }
 
   ngOnInit(): void {
@@ -133,6 +144,10 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
           data:'CODE'
         },
         {
+          title: 'ACNOTYPE',
+          data:'ACNOTYPE'
+        },
+        {
           title: 'Description',
           data:'NAME'
         }
@@ -145,7 +160,8 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]]
+      NAME: ['', [Validators.pattern, Validators.required]] ,
+      ACNOTYPE: ['', [Validators.required]] 
     });
   }
 
@@ -156,6 +172,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
     const dataToSend = {
       "CODE": formVal.CODE,
       "NAME": formVal.NAME,
+      "ACNOTYPE":formVal.ACNOTYPE,
     }
     this.categoryMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -181,6 +198,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.angForm.setValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
+        'ACNOTYPE':data.ACNOTYPE,
       })
     })
   }
@@ -291,5 +309,8 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       left: 0, 
       behavior: 'smooth' 
     });
+  }
+  onFocus(ele: NgSelectComponent) {  
+    ele.open()
   }
 }

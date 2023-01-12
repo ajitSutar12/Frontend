@@ -397,7 +397,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
 
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      this.category = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'SH')
+      });
+      this.category = allscheme;
     })
 
     this.directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
@@ -412,8 +415,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.branch_code = data;
     })
 
-   
-    
+
+
 
     // let data: any = localStorage.getItem('user');
     // let result = JSON.parse(data);
@@ -870,7 +873,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.controls['DIV_TRANSFER_BRANCH'].enable()
       this.branch_codeList = result.branch.id
       this.ngBranchCode = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['AC_BRANCH'].disable()
@@ -882,7 +885,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
       this.angForm.controls['DIV_TRANSFER_BRANCH'].disable()
       this.ngBranchCode = result.branch.id
-     
+
     }
   }
 
@@ -1790,10 +1793,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

@@ -20,29 +20,52 @@
                             </div>
 
                         </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
+                                    formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
+                                    #scheme (focus)="onFocus(scheme)" [selectOnTab]='true'  >
+                                    <ng-option *ngFor="let values of schemetype" [value]="values">
+                                      {{values.label}}</ng-option> 
+                                  </ng-select>
+                                  <label for="ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="NAME" class="form-control" placeholder=" " maxlength="100"
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                    #autofocus id="Description" required="" pattern="^[A-Za-z\./ -]+$"
+                                    id="Description" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME"
-                                        [ngClass]="{'form-submitted': formSubmitted}" >
+                                        [ngClass]="{'form-submitted': formSubmitted}" #autofocus>
                                     <label for="Description">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required|| angForm.controls['NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
-                                </div>
+                                </div> 
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                       
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">Update</button>&nbsp;
                         </div>
-
                     </div>
 
                 </div> 
@@ -67,6 +90,7 @@
                                         </td>
 
                                         <td  class="td_right">{{ data.CODE }}</td>
+                                        <td  class="td_right">{{ data.ACNOTYPE }}</td>
                                         <td>{{ data.NAME }}</td>
 
                                     </tr>
@@ -80,6 +104,7 @@
                                     <tr class="testing">
                                         <th class="testing"></th>
                                         <th><input type="text" class="form-control"  name="CODE"></th>
+                                        <th><input type="text" class="form-control"  name="ACNOTYPE"></th>
                                         <th><input type="text" class="form-control"  name="NAME"></th>
 
                                             

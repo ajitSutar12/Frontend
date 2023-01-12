@@ -383,7 +383,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.joint_Cust_ID = data;
     })
     this._categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      this.category = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'SB')
+      });
+      this.category = allscheme;
     })
     this._operationMaster.getOperationMasterList().pipe(first()).subscribe(data => {
       this.operation = data;
@@ -392,7 +395,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.bal_category = data;
     })
     this._intrestCategory.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      this.int_category = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'SB')
+      });
+      this.int_category = allscheme;
     })
     this.savingMasterService.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
@@ -407,8 +413,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this._directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.director = data;
     })
-    
-    
+
+
   }
 
   //function to toggle temp address field
@@ -677,7 +683,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['AC_INTROBRANCH'].enable()
       this.code = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['AC_INTROBRANCH'].disable()
@@ -685,7 +691,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_INTROBRANCH': result.branch.id
       })
       this.code = result.branch.id
-      
+
     }
   }
 
@@ -1996,10 +2002,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }
