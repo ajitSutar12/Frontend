@@ -58,22 +58,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Balance Date</label></div>
-                            <div class="col-sm-12 col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE"
-                                            id="TRAN_DATE" class="form-control"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #TRAN_DATE="bsDatepicker"
-                                            (keydown.Tab)="TRAN_DATE.hide()" [maxDate]="maxDate"
-                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
-                                            #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()"
-                                            placement="bottom"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
-                                    </span>
-                                </div>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
