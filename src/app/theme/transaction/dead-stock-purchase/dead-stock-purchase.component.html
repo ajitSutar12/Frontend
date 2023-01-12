@@ -85,11 +85,12 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
 
-                                        <input type="text" name="GST_NO" pattern="^[A-Z0-9]+$" maxlength="15"
-                                            class="form-control" placeholder=" " id="GST_NO" value=""
-                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
-                                            style="text-align: right;" title="Input allowed only A-Z 0-9" required
-                                            formControlName="GST_NO">
+                                        <input type="text" name="GST_NO" maxlength="15" class="form-control"
+                                            placeholder=" " id="GST_NO" value="" style="text-align: right;"
+                                            pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
+                                            style="text-transform:uppercase;"
+                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
+                                            title="Input allowed only A-Z 0-9" required formControlName="GST_NO">
 
                                     </span>
                                 </div>
@@ -341,8 +342,7 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" class="form-control" name="Rate"
                                             id="Rate" formControlName="Rate" (keyup)="getAmount()" appTheme
-                                            (focus)="selectAllContent($event)" 
-                                            maxlength="15"
+                                            (focus)="selectAllContent($event)" maxlength="15"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     </span>
                                 </div>

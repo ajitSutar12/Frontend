@@ -18,7 +18,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                         placeholder="Branch" required>
+                                        placeholder="Branch" required (change)="getBranch($event);">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -34,8 +34,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-1"> <label for="START_DATE">Date<sub
-                                    class="required">*</sub></label>
+                        <div class="col-md-1"> <label for="START_DATE">Date<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -43,7 +42,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
                                         class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                         [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                         formControlName="START_DATE"
+                                        formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker required>
                                 </span>
@@ -60,10 +59,11 @@
                         <div class="col-md-3"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>      
+                                (click)="view($event); clicked = true ">View</button>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Close</button>
                         </div>
                     </div>
                     <div class="row">

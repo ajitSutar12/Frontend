@@ -236,9 +236,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //add items details in array
   addItem() {
-    
     const formVal = this.angForm.value;
-
     let object = {
       itemId: formVal.ITEM_CODE?.id,
       ITEM_GLACNO: formVal.ITEM_CODE.GL_ACNO,
@@ -412,7 +410,7 @@ var expiry
         CGST_AMT: formVal.CGST_AMT,
         SGST_AMT: formVal.SGST_AMT,
         IGST_AMT: formVal.IGST_AMT,
-        GST_NO: formVal.GST_NO,
+        GST_NO: formVal.GST_NO?.toUpperCase(),
         Total_AMT: formVal.Total_AMT,
         USER: result.USER_NAME,
         ACNOTYPE: this.getschemename,
@@ -462,7 +460,7 @@ var expiry
         CGST_AMT: formVal.CGST_AMT,
         SGST_AMT: formVal.SGST_AMT,
         IGST_AMT: formVal.IGST_AMT,
-        GST_NO: formVal.GST_NO,
+        GST_NO: formVal.GST_NO?.toUpperCase(),
         Total_AMT: formVal.Total_AMT,
         USER: result.USER_NAME,
         ACNOTYPE: this.getschemename,

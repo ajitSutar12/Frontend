@@ -513,7 +513,10 @@ export class CashCreditMasterComponent implements OnInit {
     })
 
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      this.intCat = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.scheme == 'CC')
+      });
+      this.intCat = allscheme;
     })
 
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
@@ -2035,8 +2038,8 @@ export class CashCreditMasterComponent implements OnInit {
     button.click();
     this.reloadTablePassing.emit();
   }
-   //check  if percentage  is below 50
-   checkmargin(ele: any) {
+  //check  if percentage  is below 50
+  checkmargin(ele: any) {
     //check  if given value  is below 50
     if (ele.target.value <= 50) {
     }
@@ -2056,14 +2059,14 @@ export class CashCreditMasterComponent implements OnInit {
     else
       event.target.value = 0
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

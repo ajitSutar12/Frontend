@@ -48,7 +48,7 @@ interface BankOtherDetails {
   MOB_NUM: string;
   EMAIL: string;
   SBI_BANKCODE: string;
-  GST_NO: string; 
+  GST_NO: string;
   IFSC_CODE: string;
   IBT_TRAN: boolean
 
@@ -60,7 +60,7 @@ interface BankOtherDetails {
   styleUrls: ['./bank-other-details.component.scss']
 })
 export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
- 
+
   formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
@@ -114,7 +114,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     private http: HttpClient,
     private bankDetails: BankDetails,
     private cityMaster: cityMasterService,
-    private ownbranchMasterService :OwnbranchMasterService,
+    private ownbranchMasterService: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private fb: FormBuilder
   ) { }
@@ -125,17 +125,17 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       this.city = data;
     });
 
-      //branch List
-      this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-        this.branchOption = data;
-      })
+    //branch List
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
 
-      //HO GL
-      this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
-        this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => { 
-          this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']) )
-        })
+    //HO GL
+    this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
+      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
+        this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
       })
+    })
 
     // Fetching Server side data
     this.dtExportButtonOptions = {
@@ -246,8 +246,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
   createForm() {
     this.angForm = this.fb.group({
       BANK_CODE: ['', [Validators.pattern]],
-      BRANCH_CODE:['', [Validators.required]],
-      HO_GL:['', [Validators.required]],
+      BRANCH_CODE: ['', [Validators.required]],
+      HO_GL: ['', [Validators.required]],
       NAME: ['', [Validators.pattern, Validators.required]],
       SHORT_NAME: ['', [Validators.pattern, Validators.required]],
       TAN_NO: ['', [Validators.pattern]],
@@ -265,7 +265,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       SBI_BANKCODE: ['', [Validators.pattern, Validators.required]],
       GST_NO: ['', [Validators.pattern]],
       IFSC_CODE: ['', [Validators.pattern]],
-      IBT_TRAN:[false],
+      IBT_TRAN: [false],
 
 
     });
@@ -274,14 +274,14 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
 
   // Method to insert data into database through NestJS
   submit() {
-    this.http.get(this.url + '/bank-other-details').subscribe(existData => {
+    this.http.get(this.url + '/bank-other-details/branch' + this.ngbranch).subscribe(existData => {
       if (existData == '' || existData == null) {
         this.formSubmitted = true;
         const formVal = this.angForm.value;
         const dataToSend = {
           'BANK_CODE': formVal.BANK_CODE,
-          'BRANCH_CODE':formVal.BRANCH_CODE,
-          'HO_GL' : formVal.HO_GL,
+          'BRANCH_CODE': formVal.BRANCH_CODE,
+          'HO_GL': formVal.HO_GL,
           'NAME': formVal.NAME,
           'SHORT_NAME': formVal.SHORT_NAME,
           'TAN_NO': formVal.TAN_NO,
@@ -299,7 +299,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           'SBI_BANKCODE': formVal.SBI_BANKCODE,
           'GST_NO': formVal.GST_NO,
           'IFSC_CODE': formVal.IFSC_CODE,
-          'IBT_TRAN':(formVal.IBT_TRAN == true ? '1' : '0'),
+          'IBT_TRAN': (formVal.IBT_TRAN == true ? '1' : '0'),
 
         }
         this.bankDetails.postData(dataToSend).subscribe(data1 => {
@@ -337,8 +337,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       this.updateID = data.id;
       this.angForm.patchValue({
         'BANK_CODE': data.BANK_CODE,
-        'BRANCH_CODE':data.BRANCH_CODE,
-        'HO_GL':data.HO_GL,
+        'BRANCH_CODE': data.BRANCH_CODE,
+        'HO_GL': data.HO_GL,
         'NAME': data.NAME,
         'SHORT_NAME': data.SHORT_NAME,
         'TAN_NO': data.TAN_NO,
@@ -356,7 +356,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         'SBI_BANKCODE': data.SBI_BANKCODE,
         'GST_NO': data.GST_NO,
         'IFSC_CODE': data.IFSC_CODE,
-        'IBT_TRAN':(data.IBT_TRAN == '1' ? true : false),
+        'IBT_TRAN': (data.IBT_TRAN == '1' ? true : false),
 
       })
     })
@@ -411,14 +411,14 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       });
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }
