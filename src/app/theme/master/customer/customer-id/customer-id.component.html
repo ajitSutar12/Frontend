@@ -175,7 +175,7 @@
                                         (ngModelChange)="lnamereg = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
                                         #lastnamereg [(ngModel)]="lnamereg" formControlName="L_NAME_REG" required>
-                                    <label for="L_NAME_REG">Regional LAST NAME<sub class="required">* </sub></label>
+                                    <label for="L_NAME_REG">Regional Last Name<sub class="required">* </sub></label>
 
                                 </span>
                             </div>
@@ -195,7 +195,7 @@
                                         (ngModelChange)="fnamereg = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
                                         [(ngModel)]="fnamereg" formControlName="F_NAME_REG">
-                                    <label for="F_NAME_REG">Regional FIRST NAME<sub class="required">* </sub></label>
+                                    <label for="F_NAME_REG">Regional First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -214,7 +214,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15"
                                         [(ngModel)]="mnamereg" (ngModelChange)="mnamereg = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" formControlName="M_NAME_REG">
-                                    <label for="M_NAME_REG">Regional MIDDLE NAME<sub class="required">* </sub></label>
+                                    <label for="M_NAME_REG">Regional Middle Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -232,7 +232,7 @@
                                         id="AC_NAME_REG" style="text-transform:uppercase" disabled
                                         [(ngModel)]="fullnamereg" value="{{lnamereg + ' ' + fnamereg + ' ' + mnamereg}}"
                                         formControlName="AC_NAME_REG">
-                                    <label for="AC_NAME_REG">Regional FULL NAME</label>
+                                    <label for="AC_NAME_REG">Regional Full Name</label>
                                 </span>
                             </div>
                         </div>
