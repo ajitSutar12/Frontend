@@ -184,7 +184,7 @@ export class BnkLNamtStatementComponent implements OnInit {
 
   src: any;
   View(event) {
-     
+     debugger
      event.preventDefault();
      this.formSubmitted = true;
 
