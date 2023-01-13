@@ -81,6 +81,9 @@ export class BnkODRegisterComponent implements OnInit {
       OD_TEMP: new FormControl ('TemporaryOverDraft'),
       Starting_Account: ['', [Validators.required]],
       Ending_Account: ['', [Validators.required]],
+      sdate: ['',[Validators.required]],
+      edate: ['',[Validators.required]]
+
 
 
     })
@@ -200,7 +203,7 @@ export class BnkODRegisterComponent implements OnInit {
 
   src: any;
   view(event) {
-
+    debugger
     // this.loader=true;
     event.preventDefault();
     this.formSubmitted = true;
@@ -218,8 +221,10 @@ export class BnkODRegisterComponent implements OnInit {
       let endingcode = obj.Ending_Account;
       let schemecode = obj.Scheme_code;
       let tem_perOD = obj.OD_TEMP;
+      let sdate     = obj.sdate;
+      let edate     = obj.edate;
      
-      this.iframe3url = this.report_url+"examples/BnkODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&tem_perOD='" + tem_perOD + "'&bankName='" + bankName + "'"; 
+      this.iframe3url = this.report_url+`examples/ODRegister.php?startingcode='${startingcode}'&endingcode='${endingcode}'&branch='${branch}'&schemecode='${schemecode}'&flag='${tem_perOD}'&bankName='${bankName}'&sdate='${sdate}'&edate='${edate}'`; 
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {

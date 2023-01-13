@@ -153,8 +153,15 @@ export class BnkRegAccountComponent implements OnInit {
       let ACOPEN = obj.ACOPEN;
       let ACCLOSE = obj.ACCLOSE;
       let GROUP_BY = obj.GROUP_BY;
-      
-      this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE='" +ACCLOSE+ "'&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
+      if(ACCLOSE == null){
+        ACCLOSE = 'NA';
+      }
+      if(ACCLOSE == 'NA'){
+        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE='" +ACCLOSE+ "'&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
+      }else{
+        this.iframeurl = this.report_url+"examples/CloseDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE='" +ACCLOSE+ "'&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
+
+      }
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

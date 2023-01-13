@@ -101,7 +101,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
       FROM_DATE: ["", [Validators.pattern, Validators.required]],
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
       Scheme_code: ["", [Validators.pattern, Validators.required]],
-      Scheme_acc: ["", [Validators.pattern, Validators.required]],
+      Scheme_acc: [""],
     
       chart_no: [""],
     });
@@ -157,15 +157,10 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     let branchCode = result.branch.id;
     this.obj = [this.schemeCode, branchCode]
     switch (this.getschemename) {
-
-
       case 'AG':
         this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
           this.startingacc = data;
           this.startingAccount = null
-
-         
-         
         })
         break;
 
@@ -176,8 +171,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
  
   src: any;
   view(event) {
-  debugger
-    
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
 

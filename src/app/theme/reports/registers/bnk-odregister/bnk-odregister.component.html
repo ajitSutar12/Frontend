@@ -115,20 +115,30 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
-                                            value="TemporaryOverDraft" [checked]="true">
+                                            value="TEMP" [checked]="true">
                                         <i class="helper"></i>Temporary OD</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
-                                            value="PeriodicallyOverDraft">
+                                            value="PERIODICAL">
                                         <i class="helper"></i>Periodically OD</label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row"></div>
+                    <div class="row">
+                        <div class="col-md-2">Start Date</div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" formControlName="sdate">
+                        </div>
+                        <div class="col-md-2">End Date</div>
+
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" formControlName="edate">
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
