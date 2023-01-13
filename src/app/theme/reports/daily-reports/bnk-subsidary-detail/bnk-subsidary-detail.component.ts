@@ -163,7 +163,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
   //  let scheme_code =  obj.Scheme_Code;
   let Rdio = obj.radio
   
-  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "&bankName" +bankName + " &branch="+ branch +"" ;
+  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "&bankName=" +bankName + " &branch="+ branch +"" ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   
   

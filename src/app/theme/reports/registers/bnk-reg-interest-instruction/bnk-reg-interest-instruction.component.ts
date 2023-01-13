@@ -94,7 +94,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
   }
   src: any;
   view(event) {
-
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
