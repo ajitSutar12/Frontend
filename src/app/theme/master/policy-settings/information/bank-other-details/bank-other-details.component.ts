@@ -274,7 +274,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
 
   // Method to insert data into database through NestJS
   submit() {
-    this.http.get(this.url + '/bank-other-details/branch' + this.ngbranch).subscribe(existData => {
+    this.http.get(this.url + '/bank-other-details/branch/' + this.ngbranch).subscribe(existData => {
       if (existData == '' || existData == null) {
         this.formSubmitted = true;
         const formVal = this.angForm.value;

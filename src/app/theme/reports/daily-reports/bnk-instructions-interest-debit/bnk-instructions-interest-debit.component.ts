@@ -173,6 +173,7 @@ debugger
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
       this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'";
+      console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
