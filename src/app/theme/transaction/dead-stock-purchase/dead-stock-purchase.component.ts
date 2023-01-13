@@ -50,7 +50,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   // Date variables
   maxDate: Date;
   minDate: Date;
-  ngbilldate: any ;
+  ngbilldate: any;
   ngchequedate: any = null
   updateID: number = 0;
   isTransfer: boolean = false
@@ -89,7 +89,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   Tamount: any = 0;
-
+  billDateMax
 
 
   constructor(
@@ -108,10 +108,12 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       let nextDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
       let lastDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
-       this.maxDate = new Date(nextDate);
+      this.maxDate = new Date(nextDate);
       this.maxDate.setDate(this.maxDate.getDate());
       this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
+      this.billDateMax = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.billDateMax = this.billDateMax._d
     })
   }
 
@@ -201,7 +203,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
 
   getGstAmount() {
-    
+
     let igst = this.angForm.controls['IGST_AMT'].value
     let cgst = this.angForm.controls['CGST_AMT'].value
     let sgst = this.angForm.controls['SGST_AMT'].value
@@ -279,7 +281,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       }
     }
     else {
-      
+
       this.itemArr.push(object)
       this.totalAmt = this.totalAmt + parseInt(object.TRAN_AMOUNT)
       this.getGstAmount()
@@ -378,10 +380,10 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
 
   //insert method
-  submit() { 
+  submit() {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-var expiry
+    var expiry
     let toDate = moment(this.ngbilldate, 'DD/MM/YYYY')
     expiry = moment(toDate).format('DD/MM/YYYY')
 
@@ -399,7 +401,7 @@ var expiry
         BILL_NUM: formVal.BILL_NUM,
 
         // BILL_DATE: (formVal.BILL_DATE == '' || formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == null || formVal.BILL_DATE == undefined) ? billDate = '' : billDate = moment(formVal.BILL_DATE).format('DD/MM/YYYY'),
-        BILL_DATE:expiry,
+        BILL_DATE: expiry,
         DEAD_STOCK: formVal.DEAD_STOCK,
         AC_TYPE: formVal.AC_TYPE,
         AC_NO: formVal.AC_NO,
@@ -435,10 +437,10 @@ var expiry
   }
 
   updateData() {
-    
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let billDate 
+    let billDate
     let chequeDate
     // if (this.itemArr.length != 0) {
     if (Number(this.angForm.controls['Total_AMT'].value) > 0) {
@@ -472,7 +474,7 @@ var expiry
       // } else {
       //   dataToSend['BILL_DATE'] = formVal.BILL_DATE
       // }
-      
+
       if (this.updatecheckdata.BILL_DATE != this.ngbilldate) {
         // (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? (expirydate = '', data['AC_EXPIRE_DATE'] = expirydate) : (expirydate = data.AC_EXPIRE_DATE, data['AC_EXPIRE_DATE'] = moment(expirydate).format('DD/MM/YYYY'))
         let toDate = moment(this.ngbilldate, 'DD/MM/YYYY')
@@ -535,7 +537,7 @@ var expiry
   }
   updatecheckdata
   editClickHandler(id) {
-    
+
     this._service.getFormData(id).subscribe((data) => {
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
@@ -554,7 +556,7 @@ var expiry
       else if (data.TRAN_TYPE == 'TR') {
         this.isFormA(1)
       }
-      this.totalAmt = Number(data.TRAN_AMOUNT)-Number(data.CGST_AMT)-Number(data.SGST_AMT)-Number(data.IGST_AMT)
+      this.totalAmt = Number(data.TRAN_AMOUNT) - Number(data.CGST_AMT) - Number(data.SGST_AMT) - Number(data.IGST_AMT)
       this.schemeedit = Number(data.TRANSFER_ACTYPE)
       this.ngBranchCode = data.BRANCH_CODE
       this.getschemename = data.TRANSFER_ACNOTYPE
