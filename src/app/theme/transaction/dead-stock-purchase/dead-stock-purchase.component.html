@@ -134,7 +134,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="BILL_DATE" id="BILL_DATE"
-                                            class="form-control" [(ngModel)]="ngbilldate" [maxDate]="maxDate"
+                                            class="form-control" [(ngModel)]="ngbilldate" [maxDate]="billDateMax"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #BILL_DATE="bsDatepicker"
                                             (keydown.Tab)="BILL_DATE.hide()"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="BILL_DATE"
