@@ -107,7 +107,10 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
     //Data
     this._service.interestCategory().subscribe(data => {
-      this.InterestCategoryData = data;
+      var allscheme = data.filter(function (schem) {
+        return (schem.ACNOTYPE == 'TD')
+      });
+      this.InterestCategoryData = allscheme;
     })
   }
 
