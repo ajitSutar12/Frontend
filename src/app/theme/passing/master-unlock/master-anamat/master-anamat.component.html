@@ -1,0 +1,120 @@
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Master Anamat</h5>
+            </div>
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Master Anamat</h5>
+            </div>
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card shadow">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="table-responsive">
+                                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions"
+                                                class="table table-striped table-bordered table-hover compact">
+                                                <tbody *ngIf="anamat?.length != 0">
+                                                    <tr *ngFor="let data of anamat">
+                                                        <td>
+                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                                ngbTooltip="Edit"
+                                                                (click)="modalLarge.show();getAnamatData(data)"></span>
+                                                        </td>
+                                                        <td
+                                                            [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
+                                                            {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" :
+                                                            data.DPMaster.S_APPL }}
+                                                        </td>
+                                                        <td class="td_right"
+                                                            [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
+                                                            {{data.BANKACNO === ''? '-' : data.BANKACNO}}</td>
+                                                        <td class="td_right"
+                                                            [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
+                                                            {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
+                                                        <td [ngClass]="data.AC_NAME  === '' ? 'td_center' : 'td_left'">
+                                                            {{ data.AC_NAME === "" ? "-" : data.AC_NAME }} </td>
+                                                        <!-- <td>{{ data.AC_MEMBTYPE }}</td> -->
+                                                        <!-- <td class="td_right"
+                                                            [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">
+                                                            {{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td> -->
+                                                        <td
+                                                            [ngClass]="data.idmaster.custAddress[0]?.AC_ADDR === '' ? 'td_center' : 'td_left'">
+                                                            {{ data.idmaster.custAddress[0]?.AC_ADDR === "" ? "-" :
+                                                            data.idmaster.custAddress[0]?.AC_ADDR }}
+                                                        </td>
+                                                        <td
+                                                            [ngClass]="data.idmaster.custAddress[0]?.city.CITY_NAME === '' ? 'td_center' : 'td_left'">
+                                                            {{ data.idmaster.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                            "-"
+                                                            :
+                                                            data.idmaster.custAddress[0]?.city?.CITY_NAME }}
+                                                        </td>
+                                                        <td class="td_right"
+                                                            [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
+                                                            {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
+
+                                                        <td
+                                                            [ngClass]="data.AC_PARTICULAR === '' ? 'td_center' : 'td_left'">
+                                                            {{data.AC_PARTICULAR ===
+                                                            ''? '-' : data.AC_PARTICULAR}}</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="anamat?.length == 0">
+                                                    <tr>
+                                                        <td colspan="9" style="text-align: center;"
+                                                            class="no-data-available">No data!
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Anamat Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <app-anamat-gsm [childMessage]="anamatData" (reloadTablePassing)="reloadTable()"></app-anamat-gsm>
+        </perfect-scrollbar>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
+            (click)="modalLarge.hide();" hidden>Close</button>
+    </div>
+</app-modal-basic>

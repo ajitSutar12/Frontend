@@ -17,7 +17,7 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
- 
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -106,6 +106,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
+  logDate
   maxDate: any
   minDate: Date
   constructor(private fb: FormBuilder,
@@ -124,6 +126,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.logDate=data.CURRENT_DATE
     })
   }
 
@@ -249,7 +252,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       this.scheme = data;
       this.code = this.scheme[0].value
     })
-    
+
 
   }
 
@@ -277,7 +280,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['INVEST_BRANCH'].enable()
       this.ngBranch = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['INVEST_BRANCH'].disable()
@@ -285,7 +288,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
         'INVEST_BRANCH': result.branch.id
       })
       this.ngBranch = result.branch.id
-      
+
     }
   }
 
@@ -373,11 +376,26 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     this.angForm.controls['AC_CLOSEDT'].enable()
     this.investmentService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null) {
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = true;
+        this.rejectShow = true;
+      }
+      else {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -543,24 +561,44 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     else
       event.target.value = 0
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   checkmargin(ele: any) {
     //check  if given value  is below 50
     if (ele.target.value <= 50) {
-    } 
+    }
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
       ele.target.value = 0
-  
+
     }
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
-  } 
+  }
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this.investmentService.unapporve(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 }

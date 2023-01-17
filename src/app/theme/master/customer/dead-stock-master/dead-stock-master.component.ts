@@ -14,7 +14,7 @@ import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 // Displaying Sweet Alert
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 // Service File For Handling CRUD Operation
@@ -83,6 +83,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -134,7 +135,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   setdate: string;
   today: () => number;
   datemax: string;
-
+  logDate
   bsValue
   ngItem: any = null
   ngDepre: any = null
@@ -158,6 +159,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -408,11 +410,26 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let date1
     let date2
     this.deadstockmasterService.getFormData(id).subscribe((data) => {
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null) {
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = true;
+        this.rejectShow = true;
+      }
+      else {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -680,6 +697,26 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       console.log('something is wrong');
     })
   }
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this.deadstockmasterService.unapporve(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
   getDecimalPoint(event) {
     if (event.target.value != '')
       event.target.value = parseFloat(event.target.value).toFixed(2);
@@ -713,10 +750,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.editClickHandler(id)
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

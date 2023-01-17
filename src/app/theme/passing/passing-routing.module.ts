@@ -25,7 +25,7 @@ const routes: Routes = [
       },
       //
       {
-        path: 'masterUnlock',
+        path: 'unapprove',
         loadChildren: () => import('./master-unlock/masterUnlock.module').then(m => m.MasterUnlockModule)
       },
     ]

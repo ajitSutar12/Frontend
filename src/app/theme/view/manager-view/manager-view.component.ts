@@ -9,7 +9,8 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-manager-view',
   templateUrl: './manager-view.component.html',
@@ -41,7 +42,7 @@ export class ManagerViewComponent implements OnInit {
   // sysparadate
   date
   isture: boolean = true;
-  isHidden:boolean = true;
+  isHidden: boolean = true;
   // variables for button
   showButton: boolean = true;
   updateShow: boolean;
@@ -51,7 +52,7 @@ export class ManagerViewComponent implements OnInit {
   report_url = environment.report_url;
   clicked = false;
 
-
+  bsValue
   allpdetails: boolean = true;
   dayscrollpd: boolean = true;
   rejectpd: boolean = true;
@@ -70,16 +71,25 @@ export class ManagerViewComponent implements OnInit {
   CASH_DEBIT
   CASH_CREDIT
   CASH_OPENING
-
+  maxDate
   value = 0.00;
   showRepo: boolean = false;
+  url = environment.base_url;
   constructor(
     private fb: FormBuilder,
     private config: NgSelectConfig,
     private _service: ManagerViewService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private sanitizer: DomSanitizer
-  ) { }
+    private sanitizer: DomSanitizer,
+    private systemParameter: SystemMasterParametersService,
+    private http: HttpClient,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate.subtract(1, "days");
+      this.maxDate = this.maxDate._d
+    })
+  }
 
   // Method to handle validation of form
   createForm() {
@@ -144,19 +154,18 @@ export class ManagerViewComponent implements OnInit {
       this.branch_code = data;
       // this.ngBranchCode = data[0].value
     })
-
+    this.getManagerView()
   }
 
-  id :any = 'f1';
+  id: any = 'f1';
 
-  accordian(ids:any){
-   if(this.id == ids){
-    this.id = '';
-   }
-   else
-   {
-    this.id = ids;
-   }
+  accordian(ids: any) {
+    if (this.id == ids) {
+      this.id = '';
+    }
+    else {
+      this.id = ids;
+    }
   }
 
 
@@ -278,18 +287,28 @@ export class ManagerViewComponent implements OnInit {
     let branchName = userData.branch.NAME;
 
 
-      let type = 'Detail';
-     this.showRepo=true;
-     
-        // let Date = this.date;
-      this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-   
-   
+    let type = 'Detail';
+    this.showRepo = true;
+
+    // let Date = this.date;
+    this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+    console.log(this.iframe1url);
+    this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+
+
 
   }
-    
 
-  
+  mangerViewDetails
+  getManagerView() {
+    let obj = {
+      BRANCH_CODE: this.ngBranchCode,
+      TRAN_DATE: this.date
+    }
+    this.http.post<any>(this.url + '/ledger-view/managerView', obj).subscribe((data) => {
+      this.mangerViewDetails = data
+    })
+  }
+
+
 }

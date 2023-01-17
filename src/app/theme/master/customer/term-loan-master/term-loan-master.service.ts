@@ -44,6 +44,10 @@ export class TermLoanService {
     approve(data: any): Observable<any> {
         return this.http.post(this.url + '/term-loan-master/approve', data).pipe(catchError(this.handleError));
     }
+    //unapporve master
+    unapporve(data: any): Observable<any> {
+        return this.http.post(this.url + '/term-loan-master/unapporve', data).pipe(catchError(this.handleError));
+    }
 
 
     //reject master
