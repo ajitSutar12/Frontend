@@ -94,7 +94,7 @@ export class PassbatchVoucherComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/voucher/batchPassing',
+            this.url + '/voucher/loadUnapproveBatchPassing',
             dataTableParameters
           ).subscribe(resp => {
             this.batchVoucher = resp.data;

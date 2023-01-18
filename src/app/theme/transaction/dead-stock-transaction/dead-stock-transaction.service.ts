@@ -47,6 +47,11 @@ export class DeadStockTransactionService {
     return this.http.post(this.url + '/deadstock-purchase/DeadstockTranapprove', data).pipe(catchError(this.handleError));
   }
 
+  //unapprove master
+  unapprove(data: any): Observable<any> {
+    return this.http.post(this.url + '/deadstock-purchase/unapprove', data).pipe(catchError(this.handleError));
+  }
+
 
   //reject master
   reject(data: any): Observable<any> {

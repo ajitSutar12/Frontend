@@ -73,6 +73,7 @@ export class ManagerViewComponent implements OnInit {
   CASH_OPENING
   maxDate
   value = 0.00;
+  checkDate
   showRepo: boolean = false;
   url = environment.base_url;
   constructor(
@@ -88,6 +89,8 @@ export class ManagerViewComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate.subtract(1, "days");
       this.maxDate = this.maxDate._d
+      this.date = data.CURRENT_DATE
+      this.checkDate = data.CURRENT_DATE
     })
   }
 
@@ -136,7 +139,8 @@ export class ManagerViewComponent implements OnInit {
 
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
-      console.log(this.date);
+      this.checkDate = data[0].CURRENT_DATE;
+      console.log(this.date);      
     })
 
     let data: any = localStorage.getItem('user');
@@ -301,13 +305,18 @@ export class ManagerViewComponent implements OnInit {
 
   mangerViewDetails
   getManagerView() {
-    let obj = {
-      BRANCH_CODE: this.ngBranchCode,
-      TRAN_DATE: this.date
+    if (this.date != undefined) {
+      let toDate = moment(this.date, 'DD/MM/YYYY')
+      let expiry = moment(toDate).format('DD/MM/YYYY')
+      let obj = {
+        BRANCH_CODE: this.ngBranchCode,
+        TRAN_DATE: expiry,
+        daily: expiry == this.checkDate ? true : false
+      }
+      this.http.post<any>(this.url + '/ledger-view/managerView', obj).subscribe((data) => {
+        this.mangerViewDetails = data
+      })
     }
-    this.http.post<any>(this.url + '/ledger-view/managerView', obj).subscribe((data) => {
-      this.mangerViewDetails = data
-    })
   }
 
 

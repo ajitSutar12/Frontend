@@ -87,7 +87,7 @@ export class PassdeadStockTransactionComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/deadstock-purchase/Tranpassing',
+            this.url + '/deadstock-purchase/transactionUnapprovePassing',
             dataTableParameters
           ).subscribe(resp => {
             this.deadStockTransactionData = resp.data;

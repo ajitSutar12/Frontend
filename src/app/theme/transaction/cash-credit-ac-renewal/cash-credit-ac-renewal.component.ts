@@ -80,7 +80,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
   ngeffectivedate: any = null
 
 
-
+  logDate
 
 
   DatatableHideShow: boolean = true;
@@ -109,6 +109,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -441,11 +442,26 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+        this.unapproveShow = true
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = true;
+        this.rejectShow = true;
+      }
+      else {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -592,6 +608,28 @@ export class CashCreditAcRenewalComponent implements OnInit {
   public visible = false;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
+
+  unapproveShow: boolean = false
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this._service.unapprove(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 
   onCloseModal() {
     this.visibleAnimate = false;

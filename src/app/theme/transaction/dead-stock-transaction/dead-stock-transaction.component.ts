@@ -74,11 +74,12 @@ export class DeadStockTransactionComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
 
   GL_ACNO
   obj: any
   getschemename: any
-
+  logDate
   Narration: boolean = false
   Resolution: boolean = false
   GLAccount: boolean = false
@@ -111,6 +112,7 @@ export class DeadStockTransactionComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -212,7 +214,7 @@ export class DeadStockTransactionComponent implements OnInit {
   }
 
   //get sys para current date
-  getSystemParaDate() { 
+  getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
@@ -536,7 +538,7 @@ export class DeadStockTransactionComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
     this.reloadTablePassing.emit();
-  } 
+  }
 
 
   // Reset Function
@@ -567,17 +569,31 @@ export class DeadStockTransactionComponent implements OnInit {
 
   }
   updatecheckdata
-  editClickHandler(id) {debugger
+  editClickHandler(id) {
+    debugger
     this._service.getFormData(id).subscribe((data) => {
       this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.TRAN_STATUS == '0') {
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+      } else if (data.TRAN_STATUS == '2') {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
       } else {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = false
       }
       this.updateID = data.id;
       if (data.TRAN_ENTRY_TYPE == 'SEL') {
@@ -736,5 +752,25 @@ export class DeadStockTransactionComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this._service.unapprove(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 }

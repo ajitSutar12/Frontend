@@ -91,7 +91,7 @@ export class VoucherComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/voucher/passing',
+            this.url + '/voucher/voucherUnapprovePassing',
             dataTableParameters
           ).subscribe(resp => {
             this.voucherEntry = resp.data;

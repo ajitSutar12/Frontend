@@ -87,7 +87,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/cash-credit-ac-renewal/passing',
+            this.url + '/cash-credit-ac-renewal/loanRenwalUnapprovePassing',
             dataTableParameters
           ).subscribe(resp => {
             this.cashCreditAcRenewal = resp.data;

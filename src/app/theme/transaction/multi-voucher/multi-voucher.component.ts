@@ -155,6 +155,7 @@ export class MultiVoucherComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
   loginUser: any;
   modalClass: string = 'modalHide';
   constructor(
@@ -1074,14 +1075,27 @@ export class MultiVoucherComponent implements OnInit {
       console.log(data);
       this.updateID = data[0].TRAN_NO
       this.updatecheckdata = data
-      if (data.TRAN_STATUS == 0) {
+      if (data[0].TRAN_STATUS == '0') {
         this.showButton = false;
-        this.updateShow = true;
+        this.updateShow = false;
         this.newbtnShow = true;
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+      } else if (data[0].TRAN_STATUS == '2') {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
       } else {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = false
       }
       this.mainMaster = data
       for (let ele of this.mainMaster) {
@@ -1167,6 +1181,27 @@ export class MultiVoucherComponent implements OnInit {
     })
   }
 
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.date,
+      BRANCH_CODE: this.updatecheckdata[0]['BRANCH_CODE']
+    }
+    this._service.unapporveMultiVoucher(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Multivoucher unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 
   addNewData() {
     this.createForm()

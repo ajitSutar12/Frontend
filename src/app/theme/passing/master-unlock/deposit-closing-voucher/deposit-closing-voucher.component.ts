@@ -91,7 +91,7 @@ export class DepositClosingVoucherComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/term-deposit-account-closing/passing',
+            this.url + '/term-deposit-account-closing/loadUnapprovePassing',
             dataTableParameters
           ).subscribe(resp => {
             this.termDepositClosingVoucher = resp.data;

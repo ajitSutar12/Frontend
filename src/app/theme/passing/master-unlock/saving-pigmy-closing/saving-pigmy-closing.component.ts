@@ -90,7 +90,7 @@ export class SavingPigmyClosingComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/saving-pigmy-account-closing/passing',
+            this.url + '/saving-pigmy-account-closing/loadUnapprovePassing',
             dataTableParameters
           ).subscribe(resp => {
             this.savingPigmyClosing = resp.data;
