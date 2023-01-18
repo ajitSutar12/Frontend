@@ -35,9 +35,14 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="date"
-                                        formControlName="SYSPARADATE" disabled>
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
+                                        class="form-control" [(ngModel)]="date" [bsValue]="bsValue"
+                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        #DATE="bsDatepicker" (keydown.Tab)="DATE.hide()"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="SYSPARADATE"
+                                        (bsValueChange)="getManagerView()"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
                                 </span>
                             </div>
                         </div>
@@ -253,7 +258,7 @@
                         <div class="col-sm-12 col-md-8">
                             <div class="row">
                                 <div class="col-sm-12">
-                                   
+
                                     <div class="row m-b-30">
                                         <div class="col-md-12 col-xl-12">
                                             <div class="md-tabs">
@@ -262,11 +267,12 @@
                                                         <ng-template ngbTabContent>
                                                             <div [@fadeInOutTranslate] class="m-t-15">
 
-                                                                <div class="tabcontent card border-primary " >
+                                                                <div class="tabcontent card border-primary ">
                                                                     <div class="card-block highlight">
                                                                         <div class="row">
                                                                             <div class="col-md-4">
-                                                                                <label for="NDTL_AMT">NDTL Amount</label>
+                                                                                <label for="NDTL_AMT">NDTL
+                                                                                    Amount</label>
                                                                             </div>
                                                                             <div class="col-md-4">
                                                                                 <div class="form-group input-group">
@@ -1060,7 +1066,8 @@
                                     Transfer</button>
 
                                 <button type="button" class="btn btn-warning btn-sm" *ngIf="transferpd"
-                                    (click)="RejectedPendingDetails()"><i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                    (click)="RejectedPendingDetails()"><i class="fa fa-times-circle-o"
+                                        aria-hidden="true"></i>
                                     Rejected</button>
 
                                 <button type="button" class="btn btn-danger btn-sm" *ngIf="cashpd"
@@ -1355,36 +1362,47 @@
                                             <ngb-tab title="Positions">
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
-                                                        <div class="card border-primary" >
+                                                        <div class="card border-primary">
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm"
-                                                                        value="submit" (click)="view($event)"><i class="fa fa-building-o" aria-hidden="true"></i>
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        value="submit" (click)="view($event)"><i
+                                                                            class="fa fa-building-o"
+                                                                            aria-hidden="true"></i>
                                                                         User's
                                                                         Work</button>
                                                                     <button type="button"
-                                                                        class="btn btn-success btn-sm"><i class="fa fa-sign-in" aria-hidden="true"></i>Users
+                                                                        class="btn btn-success btn-sm"><i
+                                                                            class="fa fa-sign-in"
+                                                                            aria-hidden="true"></i>Users
                                                                         Login</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-info btn-sm"><i class="fa fa-money" aria-hidden="true"></i>
+                                                                    <button type="button" class="btn btn-info btn-sm"><i
+                                                                            class="fa fa-money" aria-hidden="true"></i>
                                                                         User's
                                                                         Cash</button>
                                                                     <button type="button"
-                                                                        class="btn btn-warning btn-sm"> <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                                        class="btn btn-warning btn-sm"> <i
+                                                                            class="fa fa-clock-o"
+                                                                            aria-hidden="true"></i>
                                                                         Delay
                                                                         Works</button>
                                                                     <button type="button"
-                                                                        class="btn btn-danger btn-sm"><i class="fa fa-building-o" aria-hidden="true"></i>Scheme
+                                                                        class="btn btn-danger btn-sm"><i
+                                                                            class="fa fa-building-o"
+                                                                            aria-hidden="true"></i>Scheme
                                                                         Log</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-info btn-sm"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                                    <button type="button" class="btn btn-info btn-sm"><i
+                                                                            class="fa fa-sign-in"
+                                                                            aria-hidden="true"></i>
                                                                         GL Pos. Detail</button>
                                                                     <button type="button"
-                                                                        class="btn btn-primary btn-sm"><i class="fa fa-lock" aria-hidden="true"></i>
+                                                                        class="btn btn-primary btn-sm"><i
+                                                                            class="fa fa-lock" aria-hidden="true"></i>
                                                                         Nearest Secu</button>
                                                                     <button type="button"
-                                                                        class="btn btn-success btn-sm"> <i class="fa fa-clock-o" aria-hidden="true"></i>Incompletion</button>
+                                                                        class="btn btn-success btn-sm"> <i
+                                                                            class="fa fa-clock-o"
+                                                                            aria-hidden="true"></i>Incompletion</button>
                                                                 </div>
 
                                                             </div>
@@ -1399,22 +1417,32 @@
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
                                                                     <button type="button"
-                                                                        class="btn btn-primary btn-sm"><i class="fa fa-building-o" aria-hidden="true"></i>Rate of
+                                                                        class="btn btn-primary btn-sm"><i
+                                                                            class="fa fa-building-o"
+                                                                            aria-hidden="true"></i>Rate of
                                                                         Margin</button>
                                                                     <button type="button"
-                                                                        class="btn btn-success btn-sm"><i class="fa fa-sign-in" aria-hidden="true"></i>Loan
+                                                                        class="btn btn-success btn-sm"><i
+                                                                            class="fa fa-sign-in"
+                                                                            aria-hidden="true"></i>Loan
+                                                                        Analysis</button>
+                                                                    <button type="button" class="btn btn-info btn-sm"><i
+                                                                            class="fa fa-money"
+                                                                            aria-hidden="true"></i>Ratio
                                                                         Analysis</button>
                                                                     <button type="button"
-                                                                        class="btn btn-info btn-sm"><i class="fa fa-money" aria-hidden="true"></i>Ratio
-                                                                        Analysis</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-warning btn-sm"><i class="fa fa-sun-o" aria-hidden="true"></i>
+                                                                        class="btn btn-warning btn-sm"><i
+                                                                            class="fa fa-sun-o" aria-hidden="true"></i>
                                                                         Daily Liquidity</button>
                                                                     <button type="button"
-                                                                        class="btn btn-danger btn-sm"><i class="fa fa-clock-o" aria-hidden="true"></i>Remind Me
+                                                                        class="btn btn-danger btn-sm"><i
+                                                                            class="fa fa-clock-o"
+                                                                            aria-hidden="true"></i>Remind Me
                                                                         !</button>
                                                                     <button type="button"
-                                                                        class="btn btn-inverse btn-sm"><i class="fa fa-line-chart" aria-hidden="true"></i>
+                                                                        class="btn btn-inverse btn-sm"><i
+                                                                            class="fa fa-line-chart"
+                                                                            aria-hidden="true"></i>
                                                                         NPA Analysis</button>
                                                                 </div>
 
@@ -1430,22 +1458,29 @@
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
                                                                     <button type="button"
-                                                                        class="btn btn-primary btn-sm"><i class="fa fa-opera" aria-hidden="true"></i>
+                                                                        class="btn btn-primary btn-sm"><i
+                                                                            class="fa fa-opera" aria-hidden="true"></i>
                                                                         Overdue</button>
                                                                     <button type="button"
-                                                                        class="btn btn-success btn-sm"><i class="fa fa-building-o" aria-hidden="true"></i>
+                                                                        class="btn btn-success btn-sm"><i
+                                                                            class="fa fa-building-o"
+                                                                            aria-hidden="true"></i>
                                                                         Matured TD/LN</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-info btn-sm"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                                    <button type="button" class="btn btn-info btn-sm"><i
+                                                                            class="fa fa-sign-in"
+                                                                            aria-hidden="true"></i>
                                                                         Insurance Due</button>
                                                                     <button type="button"
-                                                                        class="btn btn-danger btn-sm"><i class="fa fa-money" aria-hidden="true"></i>
+                                                                        class="btn btn-danger btn-sm"><i
+                                                                            class="fa fa-money" aria-hidden="true"></i>
                                                                         Expenses</button>
                                                                     <button type="button"
-                                                                        class="btn btn-warning btn-sm"><i class="fa fa-sun-o" aria-hidden="true"></i>
+                                                                        class="btn btn-warning btn-sm"><i
+                                                                            class="fa fa-sun-o" aria-hidden="true"></i>
                                                                         Excess Cash</button>
                                                                     <button type="button"
-                                                                        class="btn btn-inverse btn-sm"><i class="fa fa-money" aria-hidden="true"></i>
+                                                                        class="btn btn-inverse btn-sm"><i
+                                                                            class="fa fa-money" aria-hidden="true"></i>
                                                                         FD Payment</button>
                                                                 </div>
 
@@ -1461,27 +1496,37 @@
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
                                                                     <button type="button"
-                                                                        class="btn btn-primary btn-sm"><i class="fa fa-money" aria-hidden="true"></i>
+                                                                        class="btn btn-primary btn-sm"><i
+                                                                            class="fa fa-money" aria-hidden="true"></i>
                                                                         Dr.Balances</button>
                                                                     <button type="button"
-                                                                        class="btn btn-success btn-sm"><i class="fa fa-building-o" aria-hidden="true"></i>
+                                                                        class="btn btn-success btn-sm"><i
+                                                                            class="fa fa-building-o"
+                                                                            aria-hidden="true"></i>
                                                                         Cr.Balances</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-info btn-sm"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                                    <button type="button" class="btn btn-info btn-sm"><i
+                                                                            class="fa fa-sign-in"
+                                                                            aria-hidden="true"></i>
                                                                         Zero
                                                                         Balance</button>
                                                                     <button type="button"
-                                                                        class="btn btn-warning btn-sm"><i class="fa fa-opera" aria-hidden="true"></i>
+                                                                        class="btn btn-warning btn-sm"><i
+                                                                            class="fa fa-opera" aria-hidden="true"></i>
                                                                         CC
                                                                         Overdraft</button>
                                                                     <button type="button"
-                                                                        class="btn btn-danger btn-sm"><i class="fa fa-money" aria-hidden="true"></i>
+                                                                        class="btn btn-danger btn-sm"><i
+                                                                            class="fa fa-money" aria-hidden="true"></i>
                                                                         Overdraft(OD)</button>
                                                                     <button type="button"
-                                                                        class="btn btn-inverse btn-sm"><i class="fa fa-building-o" aria-hidden="true"></i>
+                                                                        class="btn btn-inverse btn-sm"><i
+                                                                            class="fa fa-building-o"
+                                                                            aria-hidden="true"></i>
                                                                         Consistency</button>
                                                                     <button type="button"
-                                                                        class="btn btn-primary btn-sm"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                                        class="btn btn-primary btn-sm"><i
+                                                                            class="fa fa-sign-in"
+                                                                            aria-hidden="true"></i>
                                                                         Hight
                                                                         Rec Pay</button>
                                                                 </div>

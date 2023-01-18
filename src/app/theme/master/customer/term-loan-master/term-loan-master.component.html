@@ -31,7 +31,7 @@
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
                                     This field is required
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
@@ -101,7 +101,7 @@
                                 </span>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
@@ -578,7 +578,7 @@
                                                                     class="border-checkbox-group border-checkbox-group-primary">
                                                                     <input class="border-checkbox" type="checkbox"
                                                                         id="IS_AGGRI_LOAN"
-                                                                        formControlName="IS_AGGRI_LOAN"> 
+                                                                        formControlName="IS_AGGRI_LOAN">
                                                                     <label class="border-checkbox-label"
                                                                         for="IS_AGGRI_LOAN">Is Agriculture Loan<span
                                                                             class="required">
@@ -2278,6 +2278,9 @@
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 *ngIf="approveShow" (click)="Approve()">
                                                                 Approve</button>
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="unapproveShow" (click)="unApprove()">
+                                                                Unapprove</button>
                                                         </div>
                                                     </div>
                                                 </div>

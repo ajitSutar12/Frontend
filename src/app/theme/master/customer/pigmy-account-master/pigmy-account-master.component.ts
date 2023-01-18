@@ -111,7 +111,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   //api 
 
   url = environment.base_url;
-
+  logDate
   // For reloading angular datatable after CRUD operation
   @ViewChild('modalLarge') modalLarge: ElementRef;
   @ViewChild(DataTableDirective, { static: false })
@@ -227,6 +227,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
   maxDate: any
   AGENTBRANCH: any = null
 
@@ -254,6 +255,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -1146,11 +1148,26 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     let exdate
     this.PigmyAccountMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null) {
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = true;
+        this.rejectShow = true;
+      }
+      else {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -1868,6 +1885,27 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this.PigmyAccountMasterService.unapporve(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 }
 

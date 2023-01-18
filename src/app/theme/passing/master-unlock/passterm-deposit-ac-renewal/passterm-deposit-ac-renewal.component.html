@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Term Deposit Account Renewal</h5>
+            </div>
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card shadow">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="table-responsive">
+                                            <table id="transactiontable" datatable [dtOptions]="dtExportButtonOptions"
+                                                class="table table-striped table-bordered table-hover compact">
+                                                <tbody *ngIf="termDepositAcRenewal?.length != 0">
+                                                    <tr *ngFor="let data of termDepositAcRenewal">
+                                                        <td>
+                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                placement="bottom" ngbTooltip="Edit"
+                                                                (click)="modalLarge.show();getTermDepositAcRenewalData(data)"></span>
+                                                        </td>
+                                                        <td [ngClass]="data.TRAN_NO === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
+                                                        </td>
+                                                        <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.AC_TYPE === "" ? "-" : data.renewalHistory?.S_APPL
+                                                            }}
+                                                        </td>
+                                                        <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.AC_NO === "" ? "-" : data.AC_NO }}
+                                                        </td>
+                                                        <td
+                                                            [ngClass]="data.NEW_RECEIPTNO === '' ||  data.NEW_RECEIPTNO === null? 'td_center' : 'td_right'">
+                                                            {{ data.NEW_RECEIPTNO === "" || data.NEW_RECEIPTNO === null?
+                                                            "-" : data.NEW_RECEIPTNO }}
+                                                        </td>
+
+                                                    </tr>
+
+                                                </tbody>
+                                                <tbody *ngIf="termDepositAcRenewal?.length == 0">
+                                                    <tr>
+                                                        <td colspan="7" class="no-data-available">No data!</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Term Deposit Account Renewal</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <app-term-deposite-ac-renewal [childMessage]="termDepositAcRenewalData"
+                (reloadTablePassing)="reloadTable()">
+            </app-term-deposite-ac-renewal>
+
+
+
+
+        </perfect-scrollbar>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide" (click)="modalLarge.hide();"
+            hidden>Close</button>
+    </div>
+</app-modal-basic>

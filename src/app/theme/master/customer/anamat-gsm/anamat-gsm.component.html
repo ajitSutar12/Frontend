@@ -1,14 +1,14 @@
 <!-- Anamat / General Sub Master -->
 <div class="row">
     <div class="col-12">
-        <div class="card"> 
+        <div class="card">
             <div class="card-header">
                 <h5>Anamat/General Sub Master</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <div class="card-block"> 
+            <div class="card-block">
                 <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
@@ -17,8 +17,8 @@
                                     <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
                                         (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme" [virtualScroll]="true"
-                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' autofocus>
+                                        required placeholder="Scheme" [virtualScroll]="true" #AC_TYPE
+                                        (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -32,9 +32,9 @@
                                     <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         style="width: 85%;" title="Compulsory Selection" [virtualScroll]="true"
-                                        [virtualScroll]="true"
-                                        (change)="getCustomer($event.value)" required placeholder="Customer Id"
-                                        #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'>
+                                        [virtualScroll]="true" (change)="getCustomer($event.value)" required
+                                        placeholder="Customer Id" #AC_CUSTID (focus)="onFocus(AC_CUSTID)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -230,8 +230,7 @@
                                         disabled [ngClass]="{'form-submitted': formSubmitted}"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="AC_OPDATE" [(ngModel)]="openingDate" bsDatepicker
-                                        #AC_OPDATE="bsDatepicker" placement="left"
-                                        (keydown.Tab)="AC_OPDATE.hide()">
+                                        #AC_OPDATE="bsDatepicker" placement="left" (keydown.Tab)="AC_OPDATE.hide()">
                                     <label for="AC_OPDATE">Opening Date<sub class="required">*
                                         </sub></label>
                                 </span>
@@ -312,8 +311,8 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" appTheme name="AC_PARTICULAR" class="form-control" placeholder=" "
-                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                    <input type="text" appTheme name="AC_PARTICULAR" class="form-control"
+                                        placeholder=" " id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                         formControlName="AC_PARTICULAR" [ngClass]="{'form-submitted': formSubmitted}"
                                         required>
@@ -358,6 +357,8 @@
                                 Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
                                 Approve</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unApprove()">
+                                Unapprove</button>
                         </div>
                     </div>
                 </form>

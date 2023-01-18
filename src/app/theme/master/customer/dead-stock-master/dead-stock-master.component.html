@@ -12,12 +12,12 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
-                                 <span class="border-lable-flt" autofocus>
+                                <span class="border-lable-flt" autofocus>
                                     <ng-select id="ITEM_TYPE" bindValue="value" [(ngModel)]="ngItem"
                                         formControlName="ITEM_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Type" #ITEM_TYPE
-                                        [virtualScroll]="true"
-                                        (focus)="onFocus(ITEM_TYPE)" [selectOnTab]='true' required autofocus>
+                                        [virtualScroll]="true" (focus)="onFocus(ITEM_TYPE)" [selectOnTab]='true'
+                                        required autofocus>
                                         <ng-option *ngFor="let values of itemtypeoption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -56,8 +56,8 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="Name" class="form-control" placeholder=" " required=""
-                                        value="" id="ITEM_NAME" pattern="^[A-Za-z\./ -]+$"
+                                    <input appTheme type="text" name="Name" class="form-control" placeholder=" "
+                                        required="" value="" id="ITEM_NAME" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="ITEM_NAME" [ngClass]="{'form-submitted': formSubmitted}" />
@@ -80,11 +80,12 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE" id="PURCHASE_DATE"
-                                        class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="PURCHASE_DATE" [bsValue]="bsValue"
-                                        #PURCHASE_DATE="bsDatepicker"  (keydown.Tab)="PURCHASE_DATE.hide()"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE"
+                                        id="PURCHASE_DATE" class="form-control" required
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="PURCHASE_DATE"
+                                        [bsValue]="bsValue" #PURCHASE_DATE="bsDatepicker"
+                                        (keydown.Tab)="PURCHASE_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                     <label for="PURCHASE_DATE">Purchase Date<sub class="required">*
@@ -135,7 +136,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" [maxDate]="maxDate"
-                                        #OP_BAL_DATE="bsDatepicker"  (keydown.Tab)="OP_BAL_DATE.hide()"
+                                        #OP_BAL_DATE="bsDatepicker" (keydown.Tab)="OP_BAL_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="OP_BAL_DATE" (bsValueChange)="getDate($event)" bsDatepicker>
                                     <label for="OP_BAL_DATE">Opening Balance Date</label>
@@ -306,15 +307,15 @@
                                         [(ngModel)]="nglastdedate" disabled [maxDate]="maxDate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        [required]="openingReq" bsDatepicker #LAST_DEPR_DATE="bsDatepicker"  (keydown.Tab)="LAST_DEPR_DATE.hide()"
+                                        [required]="openingReq" bsDatepicker #LAST_DEPR_DATE="bsDatepicker"
+                                        (keydown.Tab)="LAST_DEPR_DATE.hide()"
                                         [ngClass]="{'form-submitted': formSubmitted}">
                                     <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                             *ngIf="angForm.controls['LAST_DEPR_DATE'].invalid " class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.required">
+                                *ngIf="angForm.controls['LAST_DEPR_DATE'].invalid " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.required">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -323,9 +324,10 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
-                                        formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="GL Account Number"
-                                        #GL_ACNO (focus)="onFocus(GL_ACNO)" [selectOnTab]='true'>
+                                        formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="GL Account Number" #GL_ACNO (focus)="onFocus(GL_ACNO)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of GLACNooption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -364,6 +366,8 @@
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                 (click)="Approve();ITEM_TYPE.focus()">
                                 Approve</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unApprove()">
+                                Unapprove</button>
                         </div>
                     </div>
                 </form>

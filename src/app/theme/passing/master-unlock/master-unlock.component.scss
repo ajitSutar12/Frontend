@@ -1,3 +1,25 @@
-.required {
-    color: red;
- }
+#pointer {
+    cursor: pointer;
+}
+
+.badgeAlign {
+    float: right;
+}
+
+.blink_me {
+    animation: blinker 2s linear infinite;
+    background-color: rgb(236, 133, 7);
+    color: white;
+    font-size:13px;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+// .badgeAlign[_ngcontent-wan-c229] {
+//     float: right;
+//     animation: not-blink 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+// }

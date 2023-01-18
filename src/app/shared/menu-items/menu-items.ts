@@ -827,39 +827,38 @@ const MENUITEMS = [
             name: 'Shares Transaction Passing',
             id: 111
           },
+          // {
+          //   state: 'unapproval',
+          //   name: 'Unapproval',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   id: 112,
+          //   children: [
+          //     {
+          //       state: 'unapprovalMultivoucher',
+          //       name: 'Unapproval Multivoucher',
+          //       id: 113
+          //     },
+          //     {
+          //       state: 'unapprovalVoucher',
+          //       name: 'Unapproval Voucher',
+          //       id: 114
+          //     },
+          //     {
+          //       state: 'unapprovalDepositClosing',
+          //       name: 'Unapproval Deposit Closing',
+          //       id: 115
+          //     },
+          //     {
+          //       state: 'unapprovalDepositPosting',
+          //       name: 'Unapproval Deposit Posting',
+          //       id: 116
+          //     },
+          //   ]
+          // },      
           {
-            state: 'unapproval',
-            name: 'Unapproval',
-            short_label: 'D',
-            type: 'sub',
-            id: 112,
-            children: [
-              {
-                state: 'unapprovalMultivoucher',
-                name: 'Unapproval Multivoucher',
-                id: 113
-              },
-              {
-                state: 'unapprovalVoucher',
-                name: 'Unapproval Voucher',
-                id: 114
-              },
-              {
-                state: 'unapprovalDepositClosing',
-                name: 'Unapproval Deposit Closing',
-                id: 115
-              },
-              {
-                state: 'unapprovalDepositPosting',
-                name: 'Unapproval Deposit Posting',
-                id: 116
-              },
-            ]
-          },
-          //
-          {
-            state: 'masterUnlock',
-            name: 'Master Unlock',
+            state: 'unapprove',
+            name: 'Unapprove',
             id: 117
           },
         ]

@@ -226,6 +226,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
 
   asonDateRange
   @ViewChild('ctdTabset') ctdTabset;
@@ -238,6 +239,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   maxDate: any;
   minDate: Date;
   intInstructionObject
+  logDate
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -270,6 +272,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -1635,11 +1638,26 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
       this.createForm()
       this.showInstruction = false
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null) {
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = true;
+        this.rejectShow = true;
+      }
+      else {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -2896,5 +2914,24 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       behavior: 'smooth'
     });
   }
-
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this.TermDepositMasterService.unapporve(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Term Deposit Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 }

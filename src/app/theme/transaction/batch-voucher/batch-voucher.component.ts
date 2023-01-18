@@ -30,7 +30,7 @@ export class BatchVoucherComponent implements OnInit {
   isture: boolean = true;
 
   branch_code: any//from ownbranchmaster
-  companycode: any=null;//From companygroupmaster
+  companycode: any = null;//From companygroupmaster
   company_data: any;
   gridData: any;
   company_main_data: any;
@@ -47,6 +47,7 @@ export class BatchVoucherComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
   schemeData: any;
   sysparaData: any;
   ledgerBal: any = 0;
@@ -82,7 +83,7 @@ export class BatchVoucherComponent implements OnInit {
     this.CompanyGroupMasterDropdownService.getCompanyGroupMasterList().pipe(first()).subscribe(data => {
       this.companycode = data;
     })
-   
+
 
     //sys para details
     this._multiService.getSysParaData().subscribe(data => {
@@ -133,7 +134,7 @@ export class BatchVoucherComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['branch_code'].enable()
       this.selectedBranch = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['branch_code'].disable()
@@ -141,7 +142,7 @@ export class BatchVoucherComponent implements OnInit {
         'branch_code': result.branch.id
       })
       this.selectedBranch = result.branch.id
-      
+
     }
   }
 
@@ -306,14 +307,27 @@ export class BatchVoucherComponent implements OnInit {
       await this.getCompanyData(this.selectCompanyCode);
       this.updateID = data.result.TRAN_NO;
       this.updatecheckdata = data
-      if (data.TRAN_STATUS == 0) {
+      if (data.TRAN_STATUS == '0') {
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+      } else if (data.TRAN_STATUS == '2') {
+        this.approveShow = false;
+        this.rejectShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+        this.unapproveShow = true
+      } else {
+        this.approveShow = false;
+        this.rejectShow = false
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.unapproveShow = false
       }
       this.selectedBranch = data.result.BRANCH_CODE
       await this.setFilterData(data.masterData);
@@ -378,7 +392,27 @@ export class BatchVoucherComponent implements OnInit {
       console.log('something is wrong');
     })
   }
-
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.date,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this._service.unapporveBatchVoucher(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Voucher unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 
   addNewData() {
     this.createForm()

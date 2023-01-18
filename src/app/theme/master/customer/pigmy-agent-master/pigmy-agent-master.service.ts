@@ -43,6 +43,11 @@ export class PigmyAgentMasterService {
     return this.http.post(this.url + '/pigmy-agent-master/approve', data).pipe(catchError(this.handleError));
   }
 
+  //unapporve master
+  unapporve(data: any): Observable<any> {
+    return this.http.post(this.url + '/pigmy-agent-master/unapporve', data).pipe(catchError(this.handleError));
+  }
+
 
   //reject master
   reject(data: any): Observable<any> {

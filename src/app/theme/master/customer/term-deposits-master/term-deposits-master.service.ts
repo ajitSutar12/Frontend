@@ -37,9 +37,13 @@ export class TermDepositMasterService {
     return this.http.delete(this.url + '/term-deposits-master/delete/' + id).pipe(catchError(this.handleError));
   }
 
-   //approve master
-   approve(data: any): Observable<any> {
+  //approve master
+  approve(data: any): Observable<any> {
     return this.http.post(this.url + '/term-deposits-master/approve', data).pipe(catchError(this.handleError));
+  }
+  //unapporve master
+  unapporve(data: any): Observable<any> {
+    return this.http.post(this.url + '/term-deposits-master/unapporve', data).pipe(catchError(this.handleError));
   }
 
 

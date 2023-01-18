@@ -60,6 +60,10 @@ export class MultiVoucherService {
   approve(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/multiApprove', data).pipe(catchError(this.handleError));
   }
+  //unapporveMultiVoucher master
+  unapporveMultiVoucher(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/unapporveMultiVoucher', data).pipe(catchError(this.handleError));
+  }
 
 
   //reject master

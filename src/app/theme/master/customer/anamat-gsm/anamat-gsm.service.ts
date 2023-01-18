@@ -4,23 +4,23 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment'
 @Injectable()
 export class anamatGSMService {
   // Variable for handleError
   [x: string]: any;
   // API 
-// url = "http://localhost:4000/anamat-gsm";
-   url = environment.base_url;
+  // url = "http://localhost:4000/anamat-gsm";
+  url = environment.base_url;
   constructor(private http: HttpClient) { }
 
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + '/anamat-gsm/insert', data).pipe(map((res) => res),
-    catchError((error) => {
-      Swal.fire('Please Input Proper Data !');
-      return throwError(error);
-    })
+      catchError((error) => {
+        Swal.fire('Please Input Proper Data !');
+        return throwError(error);
+      })
     )
   }
   // For append data
@@ -36,16 +36,22 @@ export class anamatGSMService {
     return this.http.delete(this.url + '/anamat-gsm/delete/' + id).pipe(catchError(this.handleError));
   }
 
-      //approve master
-      approve(data:any): Observable<any>{
-        return this.http.post(this.url+ '/anamat-gsm/approve',data).pipe(catchError(this.handleError));
-    }
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/anamat-gsm/approve', data).pipe(catchError(this.handleError));
+  }
 
 
-    //reject master
-    reject(data:any): Observable<any>{
-        return this.http.post(this.url+ '/anamat-gsm/reject',data).pipe(catchError(this.handleError));
-    }
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/anamat-gsm/reject', data).pipe(catchError(this.handleError));
+  }
+
+  //unapporve master
+  unapporve(data: any): Observable<any> {
+    return this.http.post(this.url + '/anamat-gsm/unapporve', data).pipe(catchError(this.handleError));
+  }
+
 }
 
 

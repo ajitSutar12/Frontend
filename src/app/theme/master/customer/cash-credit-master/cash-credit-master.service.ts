@@ -40,6 +40,10 @@ export class CashCreditService {
     approve(data: any): Observable<any> {
         return this.http.post(this.url + '/cash-credit-master/approve', data).pipe(catchError(this.handleError));
     }
+    //unapporve master
+    unapporve(data: any): Observable<any> {
+        return this.http.post(this.url + '/cash-credit-master/unapporve', data).pipe(catchError(this.handleError));
+    }
 
 
     //reject master
