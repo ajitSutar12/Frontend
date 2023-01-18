@@ -91,10 +91,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   GlACNo
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
+  unapproveShow: boolean = false;
   approveShow: boolean = false;
   ngGlAcno: any = null;
   maxDate: Date;
   minDate: Date;
+  logDate
   constructor(
     // public NarrationService: NarrationService,
     private fb: FormBuilder, private http: HttpClient,
@@ -154,7 +156,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.scheme = allscheme;
     })
     this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
-      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => { 
+      this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
         this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
       })
     })
@@ -256,7 +258,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeListforClosing(this.obj).subscribe(data => {
-          this.schemeACNo = data; 
+          this.schemeACNo = data;
         })
         this.isHideForSaving = false
         break;
@@ -357,6 +359,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.sysparaData = data
       this.date = data.CURRENT_DATE
+      this.logDate = data.CURRENT_DATE
       let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
       let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
 
@@ -365,6 +368,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
 
       this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
+
       this.angForm.patchValue({
         'DATE': data.CURRENT_DATE,
       })
@@ -991,6 +995,28 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this._service.getFormData(id).subscribe((data) => {
       let mem = [data.TRAN_ACNO, data.TRAN_ACNOTYPE, data.TRAN_ACTYPE]
       this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data1) => {
+        if (data.TRAN_STATUS == '0') {
+          this.showButton = false;
+          this.updateShow = true;
+          this.newbtnShow = true;
+          this.approveShow = true;
+          this.rejectShow = true
+          this.unapproveShow = false
+        } else if (data.TRAN_STATUS == '2') {
+          this.showButton = false;
+          this.updateShow = false;
+          this.newbtnShow = true;
+          this.approveShow = false;
+          this.rejectShow = false
+          this.unapproveShow = true
+        } else {
+          this.showButton = false;
+          this.updateShow = false;
+          this.newbtnShow = true;
+          this.approveShow = false;
+          this.rejectShow = false
+          this.unapproveShow = false
+        }
         this.updatecheckdata = data
         if (Number(data1[0].LedgerBal) >= 0) {
           Swal.fire('Oops', 'Account cannot close', 'error')
@@ -1268,5 +1294,25 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     var button = document.getElementById('triggerhide');
     button.click();
     this.reloadTablePassing.emit();
+  }
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this._service.unapprove(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 }

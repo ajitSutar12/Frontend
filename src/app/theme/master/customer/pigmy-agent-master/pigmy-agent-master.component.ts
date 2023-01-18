@@ -140,7 +140,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   rowData = [];
   //dropdown
   Cust_ID: any[]
-
+  logDate
   schemeCode
   CastMasterDropdown: any[];
   OwnbranchMasterDropdown: any[];
@@ -173,7 +173,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-
+  unapproveShow: boolean = false
   constructor(
     private customerID: CustomerIDMasterDropdownService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -196,6 +196,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -322,7 +323,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
-   
+
   }
   openingDate: any
   tempopendate: any
@@ -411,7 +412,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
 
-  createForm() {debugger
+  createForm() {
+    debugger
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['AG'],
@@ -464,7 +466,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['AC_INTROBRANCH'].enable()
       this.ngBranch = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['AC_INTROBRANCH'].disable()
@@ -472,7 +474,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         'AC_INTROBRANCH': result.branch.id
       })
       this.ngBranch = result.branch.id
-      
+
     }
   }
   getschemename: any
@@ -695,11 +697,26 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
       let opdate
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null) {
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = true;
+        this.rejectShow = true;
+      }
+      else {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -1168,14 +1185,34 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     else
       event.target.value = 0
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
+  }
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this.PigmyAgentMasterService.unapporve(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 }

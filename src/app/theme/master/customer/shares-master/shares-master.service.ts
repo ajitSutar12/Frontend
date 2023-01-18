@@ -45,6 +45,10 @@ export class ShareMasterService {
     approve(data: any): Observable<any> {
         return this.http.post(this.url + '/share-master/approve', data).pipe(catchError(this.handleError));
     }
+    //unapporve master
+    unapporve(data: any): Observable<any> {
+        return this.http.post(this.url + '/share-master/unapporve', data).pipe(catchError(this.handleError));
+    }
 
 
     //reject master

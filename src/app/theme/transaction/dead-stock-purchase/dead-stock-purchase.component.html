@@ -15,7 +15,7 @@
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt"> 
+                                    <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                             [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
@@ -389,7 +389,7 @@
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="ITEM_RATE" id="ITEM_RATE"
-                                                            value="{{data.ITEM_RATE}}" #Rate  disabled
+                                                            value="{{data.ITEM_RATE}}" #Rate disabled
                                                             (change)="getColumnValue(data.ITEM_CODE,Rate.name,Rate.value)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -397,7 +397,8 @@
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="TRAN_AMOUNT" id="TRAN_AMOUNT"
                                                             value="{{data.TRAN_AMOUNT}}" #Amount
-                                                            (change)="getColumnValue(data.ITEM_CODE,Amount.name,Amount.value)" disabled
+                                                            (change)="getColumnValue(data.ITEM_CODE,Amount.name,Amount.value)"
+                                                            disabled
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
                                                 </tr>
@@ -426,7 +427,7 @@
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="scgst" id="scgst"
-                                                            formControlName="SGST_AMT"    (focusout)=" getGstAmount()"
+                                                            formControlName="SGST_AMT" (focusout)=" getGstAmount()"
                                                             (focus)="selectAllContent($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
@@ -436,10 +437,10 @@
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="TotalAmt" id="TotalAmt"
-                                                            (focus)="selectAllContent($event)"  
-                                                            formControlName="Total_AMT"  maxlength="15" disabled
+                                                            (focus)="selectAllContent($event)"
+                                                            formControlName="Total_AMT" maxlength="15" disabled
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                                           
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -476,6 +477,9 @@
                                     Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
                                     Approve</button>
+                                <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
+                                    (click)="unApprove()">
+                                    Unapprove</button>
                             </div>
                         </div>
                     </div>

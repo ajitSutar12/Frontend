@@ -53,6 +53,11 @@ export class TermDepositAccountClosingService {
     return this.http.post(this.url + '/term-deposit-account-closing/approve', data).pipe(catchError(this.handleError));
   }
 
+  //unapprove master
+  unapprove(data: any): Observable<any> {
+    return this.http.post(this.url + '/term-deposit-account-closing/unapprove', data).pipe(catchError(this.handleError));
+  }
+
 
   //reject master
   reject(data: any): Observable<any> {
