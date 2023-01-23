@@ -240,6 +240,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //add items details in array
   addItem() {
+    
     const formVal = this.angForm.value;
     let object = {
       itemId: formVal.ITEM_CODE?.id,
