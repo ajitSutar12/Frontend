@@ -19,7 +19,10 @@ import { SharedModule} from '../../../../shared/shared.module';
 import { DepositSizeWiseBalanceComponent } from './deposit-size-wise-balance/deposit-size-wise-balance.component';
 import { LoanSizeWiseBalanceComponent } from './loan-size-wise-balance/loan-size-wise-balance.component'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { CommissionSlabMasterComponent } from './commission-slab-master/commission-slab-master.component';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import {CommissionSlabMasterModule} from './commission-slab-master/commission-slab-master.module'
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -38,7 +41,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModule,
     SelectModule,
     PerfectScrollbarModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule,ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    CommissionSlabMasterModule
+    
 
   ],
   providers: [
@@ -54,7 +61,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       multi: true
     },
   ],
-  declarations: [ SizewiseBalanceModificationComponent, DepositSizeWiseBalanceComponent, LoanSizeWiseBalanceComponent],
+  declarations: [ SizewiseBalanceModificationComponent, DepositSizeWiseBalanceComponent, LoanSizeWiseBalanceComponent, CommissionSlabMasterComponent, ],
   bootstrap: [SizewiseBalanceModificationComponent]
 })
 export class SizewiseBalanceModificationModule { }
