@@ -47,6 +47,11 @@ export class GlStatementCodeService {
   insertNewCode(data : any):Observable<any>{
     return this.http.post(this.url+'/gl-statement-code/newCode',data);
   }
+
+  //Update new Code
+  updateNewCode(data : any):Observable<any>{
+    return this.http.post(this.url+'/gl-statement-code/newCode1',data);
+  }
 }
 
 
