@@ -1,209 +1,209 @@
 <div class="row">
 
-<div class="col-12">
-    <div class="card">
-        <div class="card-header">
-            <h5>Pigmi Agent Commission Slab Master</h5>
-            <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                Fields marked with (<sub class="required"> * </sub>) are mandatory
-            </h6>
-        </div>
-        <form action="javascript:" appSubmit [formGroup]="angForm" novalidate>
-            <div class="card-block">
-                <div class="row">
-  
-                    <div class="col-md-2"> <label for="Effective Date">Effective Date<sub
-                                class="required">*</sub></label>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input type="text" appTheme placeholder="dd/mm/yyyy" name="date" id="date"
-                                    [(ngModel)]="effectdate" formControlName="EFFECT_DATE" class="form-control"
-                                    #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
-                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" bsDatepicker required autofocus>
-                            </span>
-                        </div>
-                        <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
-                            class="alert alert-danger">
-                            <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                This field is required
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input style="text-align: right;" appTheme type="text" name="FROM_AMOUNT"
-                                    class="form-control" placeholder=" " (keyup)="getDecimal($event)"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                    id="FROM_AMOUNT" (focusout)="compareamount();getDecimalPoint($event)"
-                                    maxlength="13" #fromamt title="Input allowed only 0-9"
-                                    formControlName="FROM_AMOUNT">
-                                <label for="FROM_AMOUNT">From Amount</label>
-                            </span>
-                        </div>
-                        <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['FROM_AMOUNT'].invalid && (angForm.controls['FROM_AMOUNT'].dirty || angForm.controls['FROM_AMOUNT'].touched)"
-                            class="alert alert-danger">
-                            <div *ngIf="angForm.controls['FROM_AMOUNT'].errors?.pattern">
-                                Input allowed only 0-9
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input style="text-align: right;" appTheme type="text" name="TO_AMOUNT"
-                                    class="form-control" placeholder=" " (keyup)="getDecimal($event)"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                    id="toamt" maxlength="13" (focusout)="compareamount();getDecimalPoint($event)"
-                                    title="Input allowed only 0-9" formControlName="TO_AMOUNT">
-                                <label for="TO_AMOUNT">Upto Amount</label>
-                            </span>
-                        </div>
-                        <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['TO_AMOUNT'].invalid && (angForm.controls['TO_AMOUNT'].dirty || angForm.controls['TO_AMOUNT'].touched)"
-                            class="alert alert-danger">
-                            <div *ngIf="angForm.controls['TO_AMOUNT'].errors?.pattern">
-                                Input allowed only 0-9
-                            </div>
-                        </div>
-                    </div>
-  
-                </div>
-  
-                <div class="row">
-  
-                    <div class="col-sm-3">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input style="text-align: right;" appTheme type="text" name="COMMISSION"
-                                    class="form-control" placeholder=" "
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                    pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
-                                    id="COMMISSION" maxlength="5" title="Input allowed only  0-9"
-                                    formControlName="COMMISSION">
-                                <label for="COMMISSION">Commission %<sub class="required">*
-                                    </sub>
-                                </label>
-                            </span>
-                        </div>
-                        <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['COMMISSION'].invalid && (angForm.controls['COMMISSION'].dirty || angForm.controls['COMMISSION'].touched)"
-                            class="alert alert-danger">
-                            <div
-                                *ngIf="angForm.controls['COMMISSION'].errors?.pattern || angForm.controls['COMMISSION'].errors?.required || angForm.controls['COMMISSION'].errors?.maxlength">
-                                This field is required and Input allowed only . 0-9
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input style="text-align: right;" appTheme type="text" name="LOAN_COMMISSION"
-                                    class="form-control" placeholder=" " pattern="\d{1,2}(\.\d{0,2})?" #margin
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                    (keyup)="checkmargin($event)" id="LOAN_COMMISSION" maxlength="5"
-                                    title="Input allowed only  0-9" formControlName="LOAN_COMMISSION">
-                                <label for="LOAN_COMMISSION">Collection on Loan Commission %<sub class="required">*
-                                    </sub>
-                                </label>
-                            </span>
-                        </div>
-                        <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['LOAN_COMMISSION'].invalid && (angForm.controls['LOAN_COMMISSION'].dirty || angForm.controls['LOAN_COMMISSION'].touched)"
-                            class="alert alert-danger">
-                            <div
-                                *ngIf="angForm.controls['LOAN_COMMISSION'].errors?.pattern || angForm.controls['LOAN_COMMISSION'].errors?.required || angForm.controls['LOAN_COMMISSION'].errors?.maxlength">
-                                This field is required and Input allowed only . 0-9
-                            </div>
-                        </div>
-                    </div>
-  
-                    <div class="col-sm-3">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input style="text-align: right;" appTheme type="text" name="SERVICE_CHARGE"
-                                    class="form-control" placeholder=" "
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                    pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
-                                    id="SERVICE_CHARGE" maxlength="5" title="Input allowed only  0-9"
-                                    formControlName="SERVICE_CHARGE">
-                                <label for="SERVICE_CHARGE">Service Charge %<sub class="required">*
-                                    </sub>
-                                </label>
-                            </span>
-                        </div>
-                        <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['SERVICE_CHARGE'].invalid && (angForm.controls['SERVICE_CHARGE'].dirty || angForm.controls['SERVICE_CHARGE'].touched)"
-                            class="alert alert-danger">
-                            <div
-                                *ngIf="angForm.controls['SERVICE_CHARGE'].errors?.pattern || angForm.controls['SERVICE_CHARGE'].errors?.required || angForm.controls['SERVICE_CHARGE'].errors?.maxlength">
-                                This field is required and Input allowed only . 0-9
-                            </div>
-                        </div>
-                    </div>
-  
-  
-                    <div class="col-sm">
-                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
-                            (click)="addField();fromamt.focus()" appTheme>Add </button>
-                        <button class="btn btn-outline-primary btn-sm" (click)="updateField();fromamt.focus()"
-                            *ngIf="UpdateShowButton">Update</button>
-                    </div>
-  
-  
-                </div>
-                
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover compact">
-  
-                                <thead>
-                                    <td>Action</td>
-                                    <td>From Amount</td>
-                                    <td>Upto Amount</td>
-                                    <td>Commission %</td>
-                                    <td>Collection on Loan Commission %</td>
-                                    <td>Service Charge %</td>
-                                </thead>
-                                <tbody *ngIf="multiField?.length != 0">
-                                    <tr *ngFor="let data of multiField; let indexOfelement=index;">
-                                        <td>
-                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editField(indexOfelement);fromamt.focus()"
-                                                placement="bottom" ngbTooltip="Edit"></span> &nbsp;
-                                            <span class="fa fa-fw fa-trash-o" id="deletebutton"
-                                                (click)="delField(indexOfelement);fromamt.focus()"
-                                                placement="bottom" ngbTooltip="Delete"></span>
-                                        </td>
-                                        <td class="td_right">{{data.FROM_AMOUNT }}</td>
-                                        <td class="td_right">{{data.TO_AMOUNT }}</td>
-                                        <td class="td_right">{{data.COMMISSION }}</td>
-                                        <td class="td_right">{{data.LOAN_COMMISSION}}</td>
-                                        <td class="td_right">{{data.SERVICE_CHARGE}}</td>
-  
-                                    </tr>
-                                </tbody>
-                                <tbody *ngIf="multiField?.length == 0">
-                                    <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No
-                                            data!</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-                
-  
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Pigmi Agent Commission Slab Master</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
-        </form>
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+
+                        <div class="col-md-2"> <label for="Effective Date">Effective Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" appTheme placeholder="dd/mm/yyyy" name="date" id="date"
+                                        [(ngModel)]="effectdate" formControlName="EFFECT_DATE" class="form-control"
+                                        #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" bsDatepicker required autofocus>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input style="text-align: right;" appTheme type="text" name="FROM_AMOUNT"
+                                        class="form-control" placeholder=" " (keyup)="getDecimal($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        id="FROM_AMOUNT" (focusout)="compareamount();getDecimalPoint($event)"
+                                        maxlength="13" #fromamt title="Input allowed only 0-9"
+                                        formControlName="FROM_AMOUNT">
+                                    <label for="FROM_AMOUNT">From Amount</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FROM_AMOUNT'].invalid && (angForm.controls['FROM_AMOUNT'].dirty || angForm.controls['FROM_AMOUNT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FROM_AMOUNT'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input style="text-align: right;" appTheme type="text" name="TO_AMOUNT"
+                                        class="form-control" placeholder=" " (keyup)="getDecimal($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        id="toamt" maxlength="13" (focusout)="compareamount();getDecimalPoint($event)"
+                                        title="Input allowed only 0-9" formControlName="TO_AMOUNT">
+                                    <label for="TO_AMOUNT">Upto Amount</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TO_AMOUNT'].invalid && (angForm.controls['TO_AMOUNT'].dirty || angForm.controls['TO_AMOUNT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TO_AMOUNT'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input style="text-align: right;" appTheme type="text" name="COMMISSION"
+                                        class="form-control" placeholder=" "
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
+                                        id="COMMISSION" maxlength="5" title="Input allowed only  0-9"
+                                        formControlName="COMMISSION">
+                                    <label for="COMMISSION">Commission %<sub class="required">*
+                                        </sub>
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COMMISSION'].invalid && (angForm.controls['COMMISSION'].dirty || angForm.controls['COMMISSION'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['COMMISSION'].errors?.pattern || angForm.controls['COMMISSION'].errors?.required || angForm.controls['COMMISSION'].errors?.maxlength">
+                                    This field is required and Input allowed only . 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input style="text-align: right;" appTheme type="text" name="LOAN_COMMISSION"
+                                        class="form-control" placeholder=" " pattern="\d{1,2}(\.\d{0,2})?" #margin
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        (keyup)="checkmargin($event)" id="LOAN_COMMISSION" maxlength="5"
+                                        title="Input allowed only  0-9" formControlName="LOAN_COMMISSION">
+                                    <label for="LOAN_COMMISSION">Collection on Loan Commission %<sub class="required">*
+                                        </sub>
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['LOAN_COMMISSION'].invalid && (angForm.controls['LOAN_COMMISSION'].dirty || angForm.controls['LOAN_COMMISSION'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['LOAN_COMMISSION'].errors?.pattern || angForm.controls['LOAN_COMMISSION'].errors?.required || angForm.controls['LOAN_COMMISSION'].errors?.maxlength">
+                                    This field is required and Input allowed only . 0-9
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input style="text-align: right;" appTheme type="text" name="SERVICE_CHARGE"
+                                        class="form-control" placeholder=" "
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
+                                        id="SERVICE_CHARGE" maxlength="5" title="Input allowed only  0-9"
+                                        formControlName="SERVICE_CHARGE">
+                                    <label for="SERVICE_CHARGE">Service Charge %<sub class="required">*
+                                        </sub>
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SERVICE_CHARGE'].invalid && (angForm.controls['SERVICE_CHARGE'].dirty || angForm.controls['SERVICE_CHARGE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['SERVICE_CHARGE'].errors?.pattern || angForm.controls['SERVICE_CHARGE'].errors?.required || angForm.controls['SERVICE_CHARGE'].errors?.maxlength">
+                                    This field is required and Input allowed only . 0-9
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
+                                (click)="addField();fromamt.focus()" appTheme>Add </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateField();fromamt.focus()"
+                                *ngIf="UpdateShowButton">Update</button>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+
+                                    <thead>
+                                        <td>Action</td>
+                                        <td>From Amount</td>
+                                        <td>Upto Amount</td>
+                                        <td>Commission %</td>
+                                        <td>Collection on Loan Commission %</td>
+                                        <td>Service Charge %</td>
+                                    </thead>
+                                    <tbody *ngIf="multiField?.length != 0">
+                                        <tr *ngFor="let data of multiField; let indexOfelement=index;">
+                                            <td>
+                                                <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                    (click)="editField(indexOfelement);fromamt.focus()"
+                                                    placement="bottom" ngbTooltip="Edit"></span> &nbsp;
+                                                <span class="fa fa-fw fa-trash-o" id="deletebutton"
+                                                    (click)="delField(indexOfelement);fromamt.focus()"
+                                                    placement="bottom" ngbTooltip="Delete"></span>
+                                            </td>
+                                            <td class="td_right">{{data.FROM_AMOUNT }}</td>
+                                            <td class="td_right">{{data.TO_AMOUNT }}</td>
+                                            <td class="td_right">{{data.COMMISSION }}</td>
+                                            <td class="td_right">{{data.LOAN_COMMISSION}}</td>
+                                            <td class="td_right">{{data.SERVICE_CHARGE}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="multiField?.length == 0">
+                                        <tr>
+                                            <td colspan="12" class="no-data-available" style="text-align: center;">No
+                                                data!</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
-      
+
 </div>

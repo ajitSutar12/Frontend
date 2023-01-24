@@ -14,6 +14,7 @@ export class CentralisedPassingComponent implements OnInit {
   voucherTrue = false;
   batchvoucherTrue = false;
   multivoucherTrue = false;
+  lockermasterTrue = false;
   depositclosingvouchersTrue = false;
   savingpigmyclosingTrue = false;
   remittanceadviceTrue = false;
@@ -50,6 +51,7 @@ export class CentralisedPassingComponent implements OnInit {
   cash_remitance: any = 0;
   dead_stock_purchase: any = 0;
   dead_stock_transaction: any = 0;
+  lockerMasterCount: any = 0;
   gold_silver_return: any = 0;
   locaker_ac_close: any = 0;
   share_master: any = 0;
@@ -98,7 +100,8 @@ export class CentralisedPassingComponent implements OnInit {
         this.multi_voucher = data.multiVoucherPassing
         this.dead_stock_master = data.deadstockmasterCount
         this.deprciationProcess = data.deadstockDeprication
-        this.shareTransaction=data.shareTransaction
+        this.shareTransaction = data.shareTransaction
+        this.lockerMasterCount = data.lockerMasterCount
       })
     }));
   }
@@ -144,6 +147,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -173,6 +178,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -203,6 +209,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -232,6 +239,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -261,6 +269,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -290,6 +299,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -319,6 +329,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -348,6 +359,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -377,6 +389,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -406,6 +419,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -435,6 +449,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -464,6 +479,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = true;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -493,6 +509,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = true;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -551,6 +568,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = true;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -580,6 +598,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = true;
       this.remittanceadviceTrue = false;
@@ -609,6 +628,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -638,6 +658,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -668,6 +689,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -697,6 +719,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -726,6 +749,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -755,6 +779,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -784,6 +809,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -813,6 +839,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.multivoucherTrue = false;
+      this.lockermasterTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -837,6 +864,36 @@ export class CentralisedPassingComponent implements OnInit {
       this.goldsilverreturnTrue = false;
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
+    }
+    else if (val == 34) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.lockermasterTrue = true;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.deprciationProcessTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
 
   }

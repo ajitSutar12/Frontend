@@ -26,6 +26,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { LockerRMasterDropDownService } from '../../../../shared/dropdownService/lockerrack-master-dropdown.service'
+import { LockerRWMasterDropDownService } from '../../../../shared/dropdownService/lockerrackwise-master-dropdown.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -44,11 +46,13 @@ import { ThemeModule } from 'src/app/theme/theme.module';
   providers: [LockerMasterService, CustomerIDMasterDropdownService, CustomerIdService,
     categoryMasterService, DirectorMasterDropdownService, OwnbranchMasterService, cityMasterService,
     SchemeCodeDropdownService, OperationMasterDropdownService, IntrestCategoryMasterDropdownService,
-    MinimumBalanceMasterDropdownService, SystemMasterParametersService, SchemeAccountNoService,
+    MinimumBalanceMasterDropdownService, SystemMasterParametersService, SchemeAccountNoService, LockerRMasterDropDownService,
+    LockerRWMasterDropDownService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
-    },]
+    },],
+  exports: [LockerMasterComponent],
 })
 export class LockerMasterModule { }
