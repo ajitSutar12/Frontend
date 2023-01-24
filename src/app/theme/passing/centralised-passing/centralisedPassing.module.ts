@@ -49,6 +49,7 @@ import { PassCashCreditAcRenewalModule } from './passcash-credit-ac-renewal/pass
 import { PassGoldSilverReturnEntryModule } from './passgold-silver-return-entry/passgold-silver-return-entry.module';
 import { PassTermDepoistAcRenewalModule } from './passterm-deposit-ac-renewal/passterm-deposit-ac-renewal.module';
 import { DepreciationPassingModule } from './depreciation-passing/depreciation-passing.module'
+import { MasterLockerModule } from './master-locker/master-locker.module'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -83,7 +84,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PassCashCreditAcRenewalModule,
     PassGoldSilverReturnEntryModule,
     PassTermDepoistAcRenewalModule,
-    DepreciationPassingModule
+    DepreciationPassingModule,
+    MasterLockerModule
   ],
   declarations: [CentralisedPassingComponent],
   providers: [{

@@ -36,7 +36,7 @@ export class MasterUnlockComponent implements OnInit {
   goldsilverreturnTrue = false;
   termdepositacrenewalTrue = false;
   deprciationProcessTrue = false;
-
+  lockermasterTrue = false;
 
   //count variable
   voucher: any = 0;
@@ -64,6 +64,7 @@ export class MasterUnlockComponent implements OnInit {
   locker_master: any = 0;
   dead_stock_master: any = 0;
   term_deposit_ac_renewal: any = 0;
+  lockerMasterCount: any = 0;
   // deprciationProcess: any = 0;
   shareTransaction: any = 0
   dtExportButtonOptions: any = {};
@@ -96,6 +97,7 @@ export class MasterUnlockComponent implements OnInit {
         this.multi_voucher = data.multiVoucherPassing
         this.dead_stock_master = data.deadstockmasterCount
         this.shareTransaction = data.shareTransaction
+        this.lockerMasterCount = data.lockerMasterCount
       })
     }));
   }
@@ -803,7 +805,36 @@ export class MasterUnlockComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
     }
-
+    else if (val == 34) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.lockermasterTrue = true;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.shareTransactionTrue = false
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.deprciationProcessTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
   }
 
 

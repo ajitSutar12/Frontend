@@ -36,11 +36,10 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
-                                        class="form-control" [(ngModel)]="date" [bsValue]="bsValue"
-                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        #DATE="bsDatepicker" (keydown.Tab)="DATE.hide()"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="SYSPARADATE"
-                                        (bsValueChange)="getManagerView()"
+                                        class="form-control" [(ngModel)]="date" [bsValue]="bsValue" [maxDate]="maxDate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #DATE="bsDatepicker"
+                                        (keydown.Tab)="DATE.hide()" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="SYSPARADATE" (bsValueChange)="getManagerView()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -67,13 +66,15 @@
 
                                             <div class="row col-12 align-items-left">
                                                 <div class="col-md-6">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.totalCashCredit}}</p>
                                                     <h5 class="text-c-purple">Credit <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377; {{mangerViewDetails.totalCashDebit}}
+                                                    </p>
                                                     <h5 class="text-c-purple">Debit <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
@@ -99,13 +100,15 @@
 
                                             <div class="row col-12 align-items-left">
                                                 <div class="col-md-6">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.totalTransferCredit}}</p>
                                                     <h5 class="text-c-purple">Credit <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.totalTransferDebit}}</p>
                                                     <h5 class="text-c-purple">Debit <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
@@ -131,13 +134,14 @@
 
                                             <div class="row col-12 align-items-left">
                                                 <div class="col-md-6">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377; {{mangerViewDetails.totalCredit}}
+                                                    </p>
                                                     <h5 class="text-c-purple">Credit <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377; {{mangerViewDetails.totalDebit}}</p>
                                                     <h5 class="text-c-purple">Debit <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
@@ -168,13 +172,15 @@
 
                                             <div class="row col-12 align-items-left">
                                                 <div class="col-md-6">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.OPENING_BALANCECR}}</p>
                                                     <h5 class="text-c-purple">Credit <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.OPENING_BALANCEDR}}</p>
                                                     <h5 class="text-c-purple">Debit <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
@@ -191,22 +197,20 @@
                                             <div class="row align-items-left">
                                                 <div class="col-12">
                                                     <i class="fa fa-folder-o text-white f-16"> Cash CLosing Balance</i>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="c1 card-block" style="background-color: #eef4f6;">
-
                                             <div class="row col-12 align-items-left">
                                                 <div class="col-md-6">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.CLOSING_BALANCECR}}</p>
                                                     <h5 class="text-c-purple">Credit <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
-
                                                 </div>
                                                 <div class="col-md-6 ">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.CLOSING_BALANCECR}}</p>
                                                     <h5 class="text-c-purple">Debit <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
@@ -232,13 +236,15 @@
 
                                             <div class="row col-12 align-items-left">
                                                 <div class="col-md-6">
-                                                    <p class="text-c-black">&#8377; 30,2002020</p>
+                                                    <p class="text-c-black">&#8377; {{mangerViewDetails.TOTALLEDGERCR }}
+                                                    </p>
                                                     <h5 class="text-c-purple">Credit <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
-                                                    <p class="text-c-black">&#8377; 30,200</p>
+                                                    <p class="text-c-black">&#8377;
+                                                        {{mangerViewDetails.OPENING_BALANCEDR}}</p>
                                                     <h5 class="text-c-purple">Debit <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 

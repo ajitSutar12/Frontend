@@ -21,9 +21,9 @@ export class SizewiseBalanceModificationComponent implements OnInit {
 
   dtExportButtonOptions: any = {};
 
-  depositSizewiseBalanceTrue: boolean = false;
+  depositSizewiseBalanceTrue: boolean = true;
   loanSizewiseBalanceTrue: boolean = false;
-  commissionSlabMasterTrue: boolean =true;
+  commissionSlabMasterTrue: boolean =false;
   constructor() { }
 
   ngOnInit(): void {
