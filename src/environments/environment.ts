@@ -19,13 +19,9 @@ export const environment = {
 
   // base_url: 'http://192.168.1.154:4000'  //sudam sir PC
 
-<<<<<<< Updated upstream
   report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
   // report_url: 'http://139.59.63.215/bh_phpjasperxml-master/', //server bhairavnath report folder path
-=======
-  // report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
-  report_url: 'http://139.59.63.215/bh_phpjasperxml-master/', //server bhairavnath report folder path
->>>>>>> Stashed changes
+
   // report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/' //server bhairavnath report test folder path
   // report_url: 'http://localhost/NewReport/phpjasperxml-master/', //report folder path

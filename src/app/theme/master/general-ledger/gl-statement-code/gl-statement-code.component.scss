@@ -32,3 +32,67 @@ ul.tree, ul.tree ul {
    ul.tree li:last-child:before {
       border-left:3px solid rgb(100,100,100);   
    }
+
+   .btn-success
+   {
+    margin-top: 2px;
+    width: 0px;
+    height: 15px;
+    align-items: center;
+    margin-bottom: 0px;
+    border-radius: 2px;
+    text-transform: capitalize;
+    font-size: 10px;
+    padding: 0px 10px;
+    padding-right: 13px;
+    padding-left: 3px;
+   }
+   .fa-pencil
+   {
+    size: 5px 10px ;
+    color: rgb(255, 255, 255);
+   
+   }
+
+   .btn-primary
+   {
+    margin-top: 2px;
+    width: 0px;
+    height: 15px;
+    align-items: center;
+    margin-bottom: 0px;
+    border-radius: 2px;
+    text-transform: capitalize;
+    font-size: 10px;
+    padding: 0px 10px;
+    padding-right: 13px;
+    padding-left: 3px;
+   } 
+   
+  .fa-plus-circle
+  {
+   size: 5px 10px ;
+   color: rgb(255, 255, 255);
+  
+  }
+   
+   .btn-secondary
+   {
+    margin-top: 2px;
+    width: 0px;
+    height: 15px;
+    align-items: center;
+    margin-bottom: 0px;
+    border-radius: 2px;
+    text-transform: capitalize;
+    font-size: 10px;
+    padding: 0px 10px;
+    padding-right: 13px;
+    padding-left: 3px;
+   }
+ 
+   .fa-refresh
+   {
+    size: 5px 10px ;
+    color: rgb(255, 255, 255);
+   }

@@ -531,9 +531,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.getNetPayAmount()
   }
   getMaturedIntRate() {
-
+    let total_int1 = Number(this.angForm.controls['TOTAL_INT'].value) - Number(this.angForm.controls['maturedIntAmt'].value)
     let maturedIntAmt = Math.abs(Number(this.angForm.controls['MaturedDays'].value) * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
-    let total_int = maturedIntAmt + Number(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
+    // let total_int = maturedIntAmt - Number(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
+    let total_int = maturedIntAmt + Number(total_int1)
     this.angForm.patchValue({
       maturedIntAmt: Math.round(maturedIntAmt),
       TOTAL_INT: Math.round(total_int)

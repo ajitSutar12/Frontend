@@ -15,7 +15,7 @@ export class LockerMasterService {
 
     //Insertion Operation
     postData(data: any): Observable<any> {
-        return this.http.post(this.url + '/current-account-master/insert', data).pipe(map((res) => res),
+        return this.http.post(this.url + '/locker-master/insert', data).pipe(map((res) => res),
             catchError((error) => {
                 Swal.fire('Please Input Proper Data!');
                 return throwError(error);
@@ -23,31 +23,36 @@ export class LockerMasterService {
         )
     }
     getData(obj): Observable<any> {
-        return this.http.get(this.url + '/current-account-master/alldata' + obj).pipe(catchError(this.handleError));
+        return this.http.get(this.url + '/locker-master/alldata' + obj).pipe(catchError(this.handleError));
     }
     // For append data
     getFormData(id: any): Observable<any> {
-        return this.http.get(this.url + '/current-account-master/' + id).pipe(catchError(this.handleError));
+        return this.http.get(this.url + '/locker-master/' + id).pipe(catchError(this.handleError));
     }
     //Updation Operation
     updateData(data): Observable<any> {
-        return this.http.put(this.url + '/current-account-master/update', data);
+        return this.http.put(this.url + '/locker-master/update', data);
     }
     //Deletion Operation
     deleteData(id: any): Observable<any> {
-        return this.http.delete(this.url + '/current-account-master/delete/' + id).pipe(catchError(this.handleError));
+        return this.http.delete(this.url + '/locker-master/delete/' + id).pipe(catchError(this.handleError));
     }
 
 
     //approve master
     approve(data: any): Observable<any> {
-        return this.http.post(this.url + '/current-account-master/approve', data).pipe(catchError(this.handleError));
+        return this.http.post(this.url + '/locker-master/approve', data).pipe(catchError(this.handleError));
+    }
+
+    //unapporve master
+    unapporve(data: any): Observable<any> {
+        return this.http.post(this.url + '/locker-master/unapporve', data).pipe(catchError(this.handleError));
     }
 
 
     //reject master
     reject(data: any): Observable<any> {
-        return this.http.post(this.url + '/current-account-master/reject', data).pipe(catchError(this.handleError));
+        return this.http.post(this.url + '/locker-master/reject', data).pipe(catchError(this.handleError));
     }
 }
 

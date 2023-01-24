@@ -23,7 +23,7 @@ export class SizewiseBalanceModificationComponent implements OnInit {
 
   depositSizewiseBalanceTrue: boolean = true;
   loanSizewiseBalanceTrue: boolean = false;
-
+  commissionSlabMasterTrue: boolean =false;
   constructor() { }
 
   ngOnInit(): void {
@@ -33,10 +33,20 @@ export class SizewiseBalanceModificationComponent implements OnInit {
     if (val == 1) {
       this.depositSizewiseBalanceTrue = true;
       this.loanSizewiseBalanceTrue = false;
+      this.commissionSlabMasterTrue =false;
+
     }
     else if (val == 2) {
       this.depositSizewiseBalanceTrue = false;
       this.loanSizewiseBalanceTrue = true;
+      this.commissionSlabMasterTrue =false;
+
+    }
+    else if (val == 3) {
+      this.depositSizewiseBalanceTrue = false;
+      this.loanSizewiseBalanceTrue = false;
+      this.commissionSlabMasterTrue = true;
+
     }
   }
 

@@ -12,6 +12,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { environment } from '../../../../../environments/environment'
 import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { newArray } from '@angular/compiler/src/util';
+import { toChildArray } from 'preact';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -38,7 +40,6 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   @ViewChild('triggerhide') triggerhide: ElementRef;
   //api 
   url = environment.base_url;
-
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
   glStatementCodeMaster: GlStatementCodeMaster[];
@@ -84,8 +85,12 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   glCodeList: any;
   parentCode: any;
   newCode: any;
+  newCode1: any;
   parentId: any;
   parentCodeArray = new Array();
+  childArray: any;
+  posArray
+
   //constructor
   constructor(
     public StatementTypeService: StatementTypeService,
@@ -247,109 +252,109 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-  // Method to insert data into database through NestJS
-  submit() {
+  // // Method to insert data into database through NestJS
+  // submit() {
 
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      "A_BALCODE": formVal.A_BALCODE,
-      "A_ACHEAD": formVal.A_ACHEAD,
-      "A_ACTYPE": formVal.A_ACTYPE,
-      "ALTERNATE_CODE": formVal.ALTERNATE_CODE,
-      "IS_PRINT_HEAD_IN_ONESIDE": formVal.IS_PRINT_HEAD_IN_ONESIDE,
-    }
+  //   const formVal = this.angForm.value;
+  //   const dataToSend = {
+  //     "A_BALCODE": formVal.A_BALCODE,
+  //     "A_ACHEAD": formVal.A_ACHEAD,
+  //     "A_ACTYPE": formVal.A_ACTYPE,
+  //     "ALTERNATE_CODE": formVal.ALTERNATE_CODE,
+  //     "IS_PRINT_HEAD_IN_ONESIDE": formVal.IS_PRINT_HEAD_IN_ONESIDE,
+  //   }
 
-    this.glStatementCodeService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+  //   this.glStatementCodeService.postData(dataToSend).subscribe(data => {
+  //     Swal.fire('Success!', 'Data Added Successfully !', 'success');
 
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-    })
+  //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //       dtInstance.ajax.reload()
+  //     });
+  //   }, (error) => {
+  //   })
 
-    //To clear form
-    this.resetForm();
+  //   //To clear form
+  //   this.resetForm();
 
 
-  }
-  addNewData() {
-    this.showButton = true;
-    this.updateShow = false;
-    this.newbtnShow = false;
-    this.resetForm();
-  }
-  //Method for append data into fields
-  editClickHandler(id) {
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
-    this.glStatementCodeService.getFormData(id).subscribe(data => {
-      this.updateID = data.id;
-      this.angForm.setValue({
-        "A_BALCODE": data.A_BALCODE,
-        "A_ACHEAD": data.A_ACHEAD,
-        "A_ACTYPE": data.A_ACTYPE,
-        "ALTERNATE_CODE": data.ALTERNATE_CODE,
-        "IS_PRINT_HEAD_IN_ONESIDE": data.IS_PRINT_HEAD_IN_ONESIDE
+  // }
+  // addNewData() {
+  //   this.showButton = true;
+  //   this.updateShow = false;
+  //   this.newbtnShow = false;
+  //   this.resetForm();
+  // }
+  // //Method for append data into fields
+  // editClickHandler(id) {
+  //   this.showButton = false;
+  //   this.updateShow = true;
+  //   this.newbtnShow = true;
+  //   this.glStatementCodeService.getFormData(id).subscribe(data => {
+  //     this.updateID = data.id;
+  //     this.angForm.setValue({
+  //       "A_BALCODE": data.A_BALCODE,
+  //       "A_ACHEAD": data.A_ACHEAD,
+  //       "A_ACTYPE": data.A_ACTYPE,
+  //       "ALTERNATE_CODE": data.ALTERNATE_CODE,
+  //       "IS_PRINT_HEAD_IN_ONESIDE": data.IS_PRINT_HEAD_IN_ONESIDE
 
-      })
-    })
-  }
-  //Method for delete data
-  delClickHandler(id: number) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete city master data.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.glStatementCodeService.deleteData(id).subscribe(data1 => {
-          this.glStatementCodeMaster = data1;
-          Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
-            'success'
-          )
-        }), (error) => {
+  //     }) 
+  //   })
+  // }
+  // //Method for delete data
+  // delClickHandler(id: number) {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "Do you want to delete city master data.",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#229954',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       this.glStatementCodeService.deleteData(id).subscribe(data1 => {
+  //         this.glStatementCodeMaster = data1;
+  //         Swal.fire(
+  //           'Deleted!',
+  //           'Your data has been deleted.',
+  //           'success'
+  //         )
+  //       }), (error) => {
 
-        }
-        // to reload after delete of data
-        this.rerender();
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
-      }
-    })
-  }
-  //Method for update data 
-  updateData(id) {
+  //       }
+  //       // to reload after delete of data
+  //       this.rerender();
+  //     } else if (
+  //       result.dismiss === Swal.DismissReason.cancel
+  //     ) {
+  //       Swal.fire(
+  //         'Cancelled',
+  //         'Your data is safe.',
+  //         'error'
+  //       )
+  //     }
+  //   })
+  // }
+  // //Method for update data 
+  // updateData(id) {
 
-    let data = this.angForm.value;
-    data['id'] = this.updateID;
+  //   let data = this.angForm.value;
+  //   data['id'] = this.updateID;
 
-    this.glStatementCodeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
+  //   this.glStatementCodeService.updateData(data).subscribe(() => {
+  //     Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+  //     this.showButton = true;
+  //     this.updateShow = false;
+  //     this.newbtnShow = false;
 
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-      //To clear form
-      this.resetForm();
-    })
-  }
+  //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //       dtInstance.ajax.reload()
+  //     });
+  //     //To clear form
+  //     this.resetForm();
+  //   })
+  // }
 
   ngAfterViewInit(): void {
     this.myInputField.nativeElement.focus();
@@ -420,4 +425,74 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       })
     }
   }
+
+  //for edit head name
+  EditnewHead(id, name) {
+    this.parentCode = name;
+    this.parentId = id;
+  }
+
+  //for update head name
+  updateNewCode() {
+
+    if (this.newCode1 == undefined) {
+      Swal.fire('Warning!', 'Please add new Code!', 'warning');
+    }
+    else {
+      let obj = {
+        'parentid': this.parentId,
+        'parentCode': this.newCode1
+      }
+      this.treeview();
+      this.triggerhide.nativeElement.click();
+
+      this.glStatementCodeService.updateNewCode(obj).subscribe(data => {
+        Swal.fire('Success!', 'new Code Updated Successfully!', 'success');
+        this.treeview();
+        this.triggerhide.nativeElement.click();
+      },
+       err => {
+        console.log(err);
+      })
+    }
+
+  }
+
+
+  shuffleHead(id, name) {
+    debugger
+    this.parentCode = name;
+    this.parentId = id;
+
+    let list = this.glCodeList.filter(function (parentCode) {
+      
+      if (parentCode.id == id) {
+        return (parentCode)
+      }
+
+    });
+    this.childArray = list[0]['child']
+
+    
+
+    let position = this.childArray.filter(function(id){
+      if(id = 0){
+       return (id + 1)
+      }
+      else{
+        return(id)
+      }
+
+    });
+      this.posArray = position[0]['child']
+
+  }
+
+  shuffleCode() 
+  {
+    Swal.fire('Success!', 'Position Shuffled', 'success');
+
+  }
+
+
 }

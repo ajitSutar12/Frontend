@@ -13,7 +13,7 @@ export class LockerRMasterDropDownService {
         return this.http.get<any>(this.url + '/locker-rack-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.RACK_NO, value: element.id };
+                    let obj = { label: element.RACK_NO + ' ' + element.RACK_DESC, value: element.id, branch: element.BRANCH_CODE };
                     this.lockerRObject.push(obj)
                 });
                 return this.lockerRObject;
