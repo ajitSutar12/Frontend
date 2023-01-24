@@ -224,7 +224,7 @@ export class BnkODRegisterComponent implements OnInit {
       let sdate     = obj.sdate;
       let edate     = obj.edate;
      
-      this.iframe3url = this.report_url+`examples/ODRegister.php?startingcode='${startingcode}'&endingcode='${endingcode}'&branch='${branch}'&schemecode='${schemecode}'&flag='${tem_perOD}'&bankName='${bankName}'&sdate='${sdate}'&edate='${edate}'`; 
+      this.iframe3url = this.report_url+`examples/ODRegister.php?startingcode='${startingcode}'&endingcode='${endingcode}'&branch='${branch}'&schemecode='${schemecode}'&flag='${tem_perOD}'&bankName='${bankName}'&startDate='${sdate}'&endDate='${edate}'&NAME=''`; 
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
