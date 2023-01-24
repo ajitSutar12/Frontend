@@ -460,7 +460,8 @@
                                                                             [virtualScroll]="true"
                                                                             formControlName="AGENT_BRANCH"
                                                                             bindLabel="label"
-                                                                            title="Compulsory Selection" #AGENTBRANCHCODE
+                                                                            title="Compulsory Selection"
+                                                                            #AGENTBRANCHCODE
                                                                             (focus)="onFocus(AGENTBRANCHCODE)"
                                                                             [selectOnTab]='true'
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -520,7 +521,8 @@
                                                                             placeholder="Agent Code">
                                                                             <ng-option *ngFor="let values of agentCode"
                                                                                 [value]="values">
-                                                                                {{values.label}} {{values.name}}</ng-option>
+                                                                                {{values.label}}
+                                                                                {{values.name}}</ng-option>
                                                                         </ng-select>
                                                                         <label for="AGENT_ACNO">Agent Code <sub
                                                                                 class="required"> * </sub></label>
@@ -2074,6 +2076,9 @@
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     *ngIf="approveShow" (click)="Approve()">
                                                                     Approve</button>
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    *ngIf="unapproveShow" (click)="unApprove()">
+                                                                    Unapprove</button>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  LockerMasterComponent,
     data: {
-      title: 'Current Account Master',
+      title: 'Locker Account Master',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

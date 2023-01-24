@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs'; 
+import { Observable, throwError } from 'rxjs';
 import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -59,6 +59,10 @@ export class VoucherEntryService {
   //approve master
   approve(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/approve', data).pipe(catchError(this.handleError));
+  }
+  //unapporveVoucher master
+  unapporveVoucher(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/unapporveVoucher', data).pipe(catchError(this.handleError));
   }
 
   //reject master
@@ -145,8 +149,8 @@ export class VoucherEntryService {
     return this.http.post(this.url + '/voucher/WithdrawAmtClosingEqualClearBal', data);
   }
 
-  withdrawClosingCondition(data): Observable<any>{
-    return this.http.post(this.url + '/voucher/WithdrawClosingCondition',data);
+  withdrawClosingCondition(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/WithdrawClosingCondition', data);
   }
   RecurringTypeDeposite(data): Observable<any> {
     return this.http.post(this.url + '/voucher/RecurringTypeDeposite', data);

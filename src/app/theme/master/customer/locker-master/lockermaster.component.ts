@@ -32,6 +32,8 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { LockerRMasterDropDownService } from '../../../../shared/dropdownService/lockerrack-master-dropdown.service'
+import { LockerRWMasterDropDownService } from '../../../../shared/dropdownService/lockerrackwise-master-dropdown.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -51,7 +53,6 @@ interface LockerMaster {
   AC_CUSTID: number
   AC_INTCATA: string
   AC_DEPONO: string
-
   AC_OPDATE: Date
   //address
   AC_ADDFLAG: boolean
@@ -62,17 +63,8 @@ interface LockerMaster {
   AC_TAREA: string;
   AC_TCTCODE: number;
   AC_TPIN: number
-  //minor and introducer
-  // AC_MINOR: boolean
-  // AC_MBDATE: Date
-  // AC_GRDNAME: string
-  // AC_GRDRELE: string
-  AC_INTROBRANCH: string
-  AC_INTROID: string
-  AC_INTRACNO: string
-  AC_INTRNAME: string
-  SIGNATURE_AUTHORITY: string
   BANKACNO: number
+  AC_KEYWORD: string
 }
 
 @Component({
@@ -96,6 +88,7 @@ interface LockerMaster {
 export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
   @Output() public getUserData = new EventEmitter<string>();
+  @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -139,11 +132,12 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
   //display code according choice
   nomineeTrue: boolean = false;
   JointAccountsTrue: boolean = false;
   PowerofAttorneyTrue: boolean = false;
-
+  logDate
   // Store data from backend
   LockerMaster: LockerMaster[];
 
@@ -161,30 +155,17 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //nominee, joint ac and attorney variables 
   nomineeID: number
   nomineeIndex: number
-  jointACID: number
-  jointIndex: number
-  attorneyID: number
-  attorneyIndex: number
   multiNominee = [];
-  multiJointAC = [];
-  multiAttorney = [];
   nomineeShowButton: boolean = true
   nomineeUpdateShow: boolean = false
-  jointShowButton: boolean = true
-  jointUpdateShow: boolean = false
-  attorneyShowButton: boolean = true
-  attorneyUpdateShow: boolean = false
   //add required validation to attorney fields
   DATE_EXPIRY = false
   DATE_APPOINTED = false
-  ATTERONEY_NAME = false
-
   //Scheme type variable
-  schemeType: string = 'CA'
+  schemeType: string = 'LK'
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
-  joint_Cust_ID: any[] //customer id from idmaster
   category: any[] //from category master
   city //city from customer id from idmaster
   cast: string // customer id from idmaster
@@ -222,7 +203,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   branchcode: any = null
   Ncity: any //city from customer id from idmaster
   ngNcity: any = null
-  jointID: any = null
   selectedImagePreview: any;
   maxDate: any;
   minDate: Date;
@@ -241,9 +221,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   cityName: boolean = false
   ngnomineedate: any
   nomineedataedit: any
-  joint
-  tempjoint
-  ngexpiryddate: any
   tempupdateattorny: any
   nextButton: boolean = true
   resetexpirydate: any
@@ -264,6 +241,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     public sanitizer: DomSanitizer,
+    private lockerrackmasterService: LockerRMasterDropDownService,
+    private lockerrackwisemasterService: LockerRWMasterDropDownService,
     private fb: FormBuilder) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -277,12 +256,15 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.logDate = data.CURRENT_DATE
     })
   }
 
   ngOnInit(): void {
     this.getSystemParaDate() //function to set date
     this.createForm();
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -319,17 +301,16 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + '/current-account-master',
+            this.url + '/locker-master',
             dataTableParameters
           ).subscribe(resp => {
-            this.LockerMaster = resp.data;
+            this.LockerMaster = resp.data
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
               data: []
             });
           });
-
       },
       columnDefs: [{
         targets: '_all',
@@ -363,29 +344,33 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'City',
           data: 'AC_CTCODE'
         },
-      
+
         {
           title: 'Opening Date',
           data: 'AC_OPDATE'
         },
-        {
-          title: 'Manual Reference Number',
-          data: 'KEYWORD'
-        },
+        // {
+        //   title: 'Manual Reference Number',
+        //   data: 'KEYWORD'
+        // },
       ],
+      // dom:'<"bottom"flp><"clear">'
+      // dom: 'ip',
       dom: 'Blrtip',
     };
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
-      this.joint_Cust_ID = data;
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       this.selectedValue = this.scheme[0]?.value
-      console.log(data)
     })
-    this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      this.category = data;
+    this.lockerrackmasterService.getLockerRMasterList().pipe(first()).subscribe(data => {
+
+      var branchwise = data.filter(function (scheme) {
+        return (scheme.branch == result.branch.id)
+      });
+      this.category = branchwise;
     })
     this.directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.director = data;
@@ -400,16 +385,22 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.operationMasterDropdownService.getOperationMasterList().pipe(first()).subscribe(data => {
       this.operation = data;
     })
-    this.minimumBalanceMasterDropdownService.getMinimumBalanceMasterList().pipe(first()).subscribe(data => {
-      this.bal_category = data;
+    this.lockerrackwisemasterService.getLockerRWMasterList().pipe(first()).subscribe(data => {
+      var branchwise = data.filter(function (scheme) {
+        return (scheme.branch == result.branch.id)
+      });
+      this.bal_category = branchwise;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.int_category = data;
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      this.allScheme = data;
+      var allscheme = data.filter(function (scheme) {
+        return (scheme.name == 'TD')
+      });
+      this.allScheme = allscheme;
     })
-   
+
   }
 
   //function to toggle temp address field
@@ -440,7 +431,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
           Swal.fire({
             icon: 'info',
-            title: 'Current Account Already Exists For This Scheme',
+            title: 'Locker Account Already Exists For This Scheme',
           })
           //  this.resetForm()
           event.id = null
@@ -468,7 +459,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       let obj = {
-        SCHEME_CODE: 'CA'
+        SCHEME_CODE: 'LK'
       }
       this.imageObject = []
       this.selectedImgArrayDetails = []
@@ -550,7 +541,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       //basic controls
       AC_TYPE: ['', [Validators.required]],
-      AC_ACNOTYPE: ['CA'],
+      AC_ACNOTYPE: ['LK'],
       AC_NO: [''],
       BANKACNO: [''],
       AC_CUSTID: ['', [Validators.required]],
@@ -585,7 +576,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MOBNO: [''],
       AC_EMAIL: [''],
 
-
       AC_INTROBRANCH: ['', []],
       AC_INTROID: [''],
       AC_INTRACNO: [''],
@@ -604,24 +594,12 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NAREA: ['', [Validators.pattern]],
       AC_NCTCODE: ['', [Validators.pattern]],
       AC_NPIN: ['', [Validators.pattern]],
-
-      //joint ac
-      JOINT_AC_CUSTID: [''],
-      JOINT_ACNAME: ['', [Validators.pattern]],
-      OPERATOR: [true],
-
-      //attorney
-      ATTERONEY_NAME: ['', []],
-      DATE_APPOINTED: ['', []],
-      DATE_EXPIRY: ['', []],
     })
-
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['AC_INTROBRANCH'].enable()
+      this.angForm.controls['AC_INTROBRANCH'].disable()
       this.code = result.branch.id
-      
     }
     else {
       this.angForm.controls['AC_INTROBRANCH'].disable()
@@ -629,7 +607,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_INTROBRANCH': result.branch.id
       })
       this.code = result.branch.id
-      
     }
   }
 
@@ -640,7 +617,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let temdate
     let opdate
     if (this.angForm.valid) {
-
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
@@ -656,17 +632,15 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       let result = JSON.parse(data);
       let branchCode = result.branch.id;
       let schecode
-      if (this.tempopendate != this.openingDate) {
-        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
-      } else {
-        temdate = this.openingDate
-      }
+
+      let toDate = moment(this.openingDate, 'DD/MM/YYYY')
+      temdate = moment(toDate).format('DD/MM/YYYY')
+
       this.scheme.forEach(async (element) => {
         if (element.value == this.selectedValue) {
           schecode = element.name
         }
       })
-
       let bankCode = Number(result.branch.syspara.BANK_CODE)
       const dataToSend = {
         'branchCode': branchCode,
@@ -700,10 +674,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
         //nominee
         'NomineeData': this.multiNominee,
-        //Joint Account
-        'JointAccountData': this.multiJointAC,
-        //Attorney
-        'PowerOfAttorneyData': this.multiAttorney,
         'Document': this.imageObject
       }
       this.LockerMasterService.postData(dataToSend).subscribe(data => {
@@ -727,9 +697,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //To clear form
       this.resetForm();
       this.multiNominee = []
-      this.multiJointAC = []
-      this.multiAttorney = []
-      this.customerDoc = []
       this.customerDoc = []
     }
     else {
@@ -744,11 +711,26 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_TYPE'].disable()
     this.LockerMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null) {
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-      } else {
+        this.approveShow = true;
+        this.rejectShow = true;
+      }
+      else {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -757,18 +739,14 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
       this.multiNominee = data.nomineeDetails
-      //get joint accounts to edit
-      this.multiJointAC = data.jointAccounts
-      //get attorney to edit
-      this.multiAttorney = data.powerOfAttorney
       this.selectedValue = data.AC_TYPE
-      this.ngRackno = data.RACKNO
+      this.ngRackno = Number(data.RACK_NO)
       this.ngOccupation = data.AC_OPR_CODE
-      this.ngLocno = data.LOC_NO
-      this.ngIntCategory = data.AC_INTCATA
-      this.ngDepoCategory = data.AC_DEPONO
-      if ((data.AC_INTROBRANCH != null && data.AC_INTROID != null && data.AC_INTRACNO != null) || (data.AC_INTROBRANCH != "" && data.AC_INTROID != "" && data.AC_INTRACNO != "")) {
-        this.code = data.AC_INTROBRANCH,
+      this.ngLocno = Number(data.LOCKER_NO)
+      this.ngIntCategory = data.TD_ACTYPE
+      this.ngDepoCategory = data.TD_ACNO
+      if ((data.BRANCH_CODE != null && data.AC_INTROID != null && data.AC_INTRACNO != null) || (data.BRANCH_CODE != "" && data.AC_INTROID != "" && data.AC_INTRACNO != "")) {
+        this.code = data.BRANCH_CODE,
           this.acno = Number(data.AC_INTROID),
           this.obj = [this.acno, this.code]
         this.allScheme.forEach(async (element) => {
@@ -776,74 +754,12 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             this.getschemename = element.name
           }
         })
-        switch (this.getschemename) {
-          case 'SB':
-            this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'SH':
-            this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'CA':
-            this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'LN':
-            this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'TD':
-            this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'DS':
-            this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'CC':
-            this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'GS':
-            this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'PG':
-            this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'AG':
-            this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-
-          case 'IV':
-            this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
-        }
-        this.ngIntroducer = Number(data.AC_INTRACNO)
+        this.obj = [this.ngIntCategory, this.code]
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          // this.ngDepoCategory = null
+        })
+        this.ngDepoCategory = data.TD_ACNO
       } else {
         this.code = null
         this.acno = null
@@ -853,15 +769,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_NO': data.AC_NO,
         'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-        'KEYWORD': data.KEYWORD,
+        'KEYWORD': data.AC_KEYWORD,
         'BANKACNO': data.BANKACNO,
-        //minor and introducer
-        'AC_MINOR': data.AC_MINOR,
-        'AC_MBDATE': data.AC_MBDATE,
-        'AC_GRDNAME': data.AC_GRDNAME,
-        'AC_GRDRELE': data.AC_GRDRELE,
-        'AC_INTRNAME': data.AC_INTRNAME,
-        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         AC_TYPE: data.AC_TYPE
       })
       this.selectedValue = data.AC_TYPE
@@ -887,23 +796,24 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_TYPE'] = this.selectedValue
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
-    data['JointAccountData'] = this.multiJointAC
-    data['PowerOfAttorneyData'] = this.multiAttorney
     data['RACKNO'] = this.ngRackno
     data['AC_OPR_CODE'] = this.ngOccupation
     data['LOC_NO'] = this.ngLocno
     data['AC_INTCATA'] = this.ngIntCategory
-    data['AC_DEPONO'] = this.ngDepoCategory    
-    data['AC_INTROBRANCH'] = this.code
+    data['AC_DEPONO'] = this.ngDepoCategory
+    // data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
-    data['AC_INTRACNO'] = this.ngIntroducer
     data['id'] = this.updateID;
-    if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
-      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
-    } else {
-      data['AC_OPDATE'] = this.openingDate
-    }
-    this.LockerMasterService.updateData(data).subscribe(() => {
+    // if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
+    //   (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
+    // } else {
+    //   data['AC_OPDATE'] = this.openingDate
+    // }
+    let toDate = moment(this.openingDate, 'DD/MM/YYYY')
+    data['AC_OPDATE'] = moment(toDate).format('DD/MM/YYYY')
+
+
+    this.LockerMasterService.updateData(data).subscribe((data1) => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
@@ -912,37 +822,23 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         dtInstance.ajax.reload()
       });
       this.multiNominee = []
-      this.multiJointAC = []
-      this.multiAttorney = []
       this.customerDoc = []
       this.switchNgBTab('Basic')
       this.resetForm();
+      this.formSubmitted = false;
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     })
   }
   //reset function while update
-  // addNewData() {
-  //   this.angForm.controls['AC_TYPE'].enable()
-  //   this.showButton = true;
-  //   this.updateShow = false;
-  //   this.newbtnShow = false;
-  //   this.multiNominee = []
-  //   this.multiJointAC = []
-  //   this.multiAttorney = []
-  //   this.customerDoc = []
-  //   this.tempAddress = true
-  //   this.resetForm();
-  //   this.getSystemParaDate()
-  // }
-
-
   addNewData() {
     this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     this.multiNominee = []
-    this.multiJointAC = []
-    this.multiAttorney = []
     this.customerDoc = []
     this.tempAddress = true
     this.acno = null
@@ -950,7 +846,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngRackno = null
     this.ngLocno = null
     this.ngIntCategory = null
-    this.ngDepoCategory= null
+    this.ngDepoCategory = null
     this.ngOccupation = null
     this.switchNgBTab('Basic')
     this.resetForm();
@@ -960,7 +856,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete Current Account master data.",
+      text: "Do you want to delete Account master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1020,8 +916,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.switchNgBTab('Basic')
     this.customerDoc = []
     this.resetNominee();
-    this.resetJointAC()
-    this.resetAttorney()
     this.PowerofAttorneyTrue = false
     this.JointAccountsTrue = false
     this.nomineeTrue = false
@@ -1036,7 +930,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngIntroducer = null
     this.ngNcity = null
     this.branchcode = null
-    this.jointID = null
     this.selectedValue = null
     // this.code = null
     this.tempAddress = true
@@ -1090,13 +983,14 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getschemename = event.name
     this.getIntroducer()
   }
-  getTermDepositSchemeList(event){
+  getTermDepositSchemeList() {
+    this.obj = [this.ngIntCategory, this.code]
     this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
-      this.ngIntroducer = null
+      this.ngDepoCategory = null
     })
   }
-  
+
   //get account no according scheme for introducer
   getIntroducer() {
     this.obj = [this.acno, this.code]
@@ -1330,36 +1224,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  //calculate age for minor details
-  ageCalculator(birthDate) {
-    let showAge: number
-    if (birthDate) {
-
-      showAge = moment().diff(moment(birthDate, "DD-MM-YYYY"), 'years');
-      if (showAge <= 18) {
-        this.angForm.controls['AC_MINOR'].setValue(true);
-        this.angForm.controls['AC_GRDNAME'].enable();
-        this.angForm.controls['AC_GRDRELE'].enable();
-        this.angForm.controls['SIGNATURE_AUTHORITY'].enable();
-        this.angForm.patchValue({
-          AC_MBDATE: this.angForm.controls['AC_BIRTH_DT'].value
-        })
-        this.introducerReq = true
-      }
-      else if (showAge > 18) {
-        this.angForm.controls['AC_MINOR'].setValue(false);
-        this.angForm.controls['AC_GRDNAME'].disable();
-        this.angForm.controls['AC_GRDRELE'].disable();
-        this.angForm.controls['SIGNATURE_AUTHORITY'].disable();
-        this.angForm.controls['AC_GRDNAME'].reset();
-        this.angForm.controls['AC_GRDRELE'].reset();
-        this.angForm.controls['SIGNATURE_AUTHORITY'].reset();
-        this.angForm.controls['AC_MBDATE'].reset();
-        this.introducerReq = false
-      }
-    }
-  }
-
   //Nominee
   addNominee() {
     const formVal = this.angForm.value;
@@ -1534,244 +1398,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_NPIN'].reset();
   }
 
-  getJointCustomer(event) {
-    this.joint = event.name
-    this.tempjoint = event.value
-    this.customerIdService.getFormData(event.value).subscribe(data => {
-      this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
-      })
-    })
-  }
 
-  addJointAcccount() {
-    const formVal = this.angForm.value;
-    let value
-    if (formVal.OPERATOR == true) {
-      value = 'Yes'
-    } else {
-      value = 'No'
-    }
-    var object = {
-      JOINT_AC_CUSTID: this.joint,
-      JOINT_ACNAME: formVal.JOINT_ACNAME,
-      OPERATOR: value,
-    }
-    if (formVal.AC_CUSTID != "") {
 
-      if (object.JOINT_AC_CUSTID != undefined) {
-
-        if (this.newcustid != this.joint) {
-
-          if (this.multiJointAC.length == 0) {
-            this.multiJointAC.push(object);
-            this.angForm.controls['JOINT_AC_CUSTID'].reset()
-            this.jointID = null
-            this.jointID = ''
-            this.resetJointAC()
-
-          }
-          else {
-            if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
-
-              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
-              this.multiJointAC.push(object);
-              this.jointID = null
-              this.jointID = ''
-              this.angForm.controls['JOINT_AC_CUSTID'].reset()
-              this.resetJointAC()
-            } else {
-              this.multiJointAC.push(object);
-              this.jointID = null
-              this.jointID = ''
-              this.angForm.controls['JOINT_AC_CUSTID'].reset()
-              this.resetJointAC()
-            }
-          }
-        }
-        else {
-          Swal.fire('', "Please Select Different Customer id", 'warning');
-          this.multiJointAC.push(object);
-          this.jointID = null
-          this.jointID = ''
-          this.angForm.controls['JOINT_AC_CUSTID'].reset()
-          this.resetJointAC()
-        }
-      }
-      else {
-        Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
-        this.multiJointAC.push(object);
-        this.jointID = null
-        this.jointID = ''
-        this.angForm.controls['JOINT_AC_CUSTID'].reset()
-        this.resetJointAC()
-      }
-    } else {
-      Swal.fire('', "Please Select Customer Id", 'warning');
-      Swal.fire('', "Please Select Customer Id", 'warning');
-      this.multiJointAC.push(object);
-      this.jointID = null
-      this.jointID = ''
-      this.angForm.controls['JOINT_AC_CUSTID'].reset()
-      this.resetJointAC()
-    }
-
-  }
-
-  editJointAc(id) {
-    this.jointIndex = id
-    this.jointACID = this.multiJointAC[id].id;
-    this.JointAccountsTrue = true
-    this.jointShowButton = false;
-    this.jointUpdateShow = true;
-    this.angForm.patchValue({
-      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
-      JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
-      OPERATOR: this.multiJointAC[id].OPERATOR
-    })
-  }
-
-  updateJointAcccount() {
-    let index = this.jointIndex;
-    this.jointShowButton = true;
-    this.jointUpdateShow = false;
-    const formVal = this.angForm.value;
-    var object = {
-      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
-      JOINT_ACNAME: formVal.JOINT_ACNAME,
-      OPERATOR: formVal.OPERATOR,
-      id: this.jointACID
-    }
-    if (object.JOINT_AC_CUSTID != undefined) {
-      if (this.newcustid != this.jointID) {
-        if (this.multiJointAC.length == 0) {
-          this.multiJointAC[index] = object
-          this.jointID = null
-          this.jointID = ''
-          this.angForm.controls['JOINT_AC_CUSTID'].reset()
-          this.resetJointAC()
-        }
-        else {
-          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
-            Swal.fire("This Customer is Already Exists", "error");
-            this.jointID = null
-            this.jointID = ''
-            this.angForm.controls['JOINT_AC_CUSTID'].reset()
-            this.resetJointAC()
-          }
-          else {
-            this.multiJointAC[index] = object
-            this.jointID = null
-            this.jointID = ''
-            this.angForm.controls['JOINT_AC_CUSTID'].reset()
-            this.resetJointAC()
-          }
-        }
-      }
-      else {
-        Swal.fire("Please Select Different Customer id", "error");
-        this.jointID = null
-        this.jointID = ''
-        this.angForm.controls['JOINT_AC_CUSTID'].reset()
-        this.resetJointAC()
-      }
-    } else {
-      Swal.fire("Please Select Customer Id", "error");
-      this.jointID = null
-      this.jointID = ''
-      this.angForm.controls['JOINT_AC_CUSTID'].reset()
-      this.resetJointAC()
-    }
-
-  }
-
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
-
-  resetJointAC() {
-    // this.jointID = null
-    // this.jointID.handleClearClick();
-
-    // this.angForm.controls['JOINT_AC_CUSTID'].reset();
-    this.angForm.controls['JOINT_ACNAME'].reset();
-    this.angForm.patchValue({
-      JOINT_ACNAME: ''
-    })
-    this.jointID.clearFilter();
-    // .handleClearClick();
-  }
-
-  clearFilter() {
-    this.jointID = ''
-  }
-  //power of attorney
-  addAttorney() {
-    const formVal = this.angForm.value;
-    let temdate
-    let apdate
-    if (this.tempopendate != this.ngappointeddate) {
-      temdate = (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date') ? apdate = '' : apdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY')
-    } else {
-      temdate = this.ngappointeddate
-    }
-    var object = {
-      ATTERONEY_NAME: formVal.ATTERONEY_NAME,
-      DATE_APPOINTED: temdate,
-      DATE_EXPIRY: moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
-    }
-    if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
-    } else if (formVal.ATTERONEY_NAME != "") {
-      if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
-      } else if (formVal.DATE_APPOINTED != "") {
-        if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
-        }
-        else {
-          if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
-            Swal.fire('', 'This Attorney is Already Exists!', 'error');
-          } else {
-            this.multiAttorney.push(object);
-            this.resetAttorney()
-          }
-        }
-      }
-      else {
-        this.multiAttorney.push(object);
-        this.resetAttorney()
-      }
-    }
-    else {
-      this.multiAttorney.push(object);
-      this.resetAttorney()
-    }
-
-  }
-
-  ispowerof($event) {
-    if ($event.target.checked) {
-      this.PowerofAttorneyTrue = true
-      this.DATE_EXPIRY = true
-      this.DATE_APPOINTED = true
-      this.ATTERONEY_NAME = true
-    }
-    else {
-      this.PowerofAttorneyTrue = false
-      this.DATE_EXPIRY = false
-      this.DATE_APPOINTED = false
-      this.ATTERONEY_NAME = false
-    }
-  }
-
-  jointAccount($event) {
-    if ($event.target.checked) {
-      this.JointAccountsTrue = true
-    } else {
-      this.JointAccountsTrue = false
-    }
-  }
   nominee($event) {
     if ($event.target.checked) {
       this.nomineeTrue = true
@@ -1796,83 +1424,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.JointAccountsTrue = false;
       this.nomineeTrue = false;
     }
-  }
-
-  editAttorney(id) {
-    this.attorneyIndex = id
-    this.attorneyID = this.multiAttorney[id].id;
-    this.tempupdateattorny = this.multiAttorney[id]
-    this.PowerofAttorneyTrue = true
-    this.attorneyShowButton = false;
-    this.attorneyUpdateShow = true;
-    this.angForm.patchValue({
-      ATTERONEY_NAME: this.multiAttorney[id].ATTERONEY_NAME,
-      DATE_APPOINTED: this.multiAttorney[id].DATE_APPOINTED,
-      DATE_EXPIRY: this.multiAttorney[id].DATE_EXPIRY
-    })
-  }
-
-  updateAttorney() {
-    let index = this.attorneyIndex;
-    this.attorneyShowButton = true;
-    this.attorneyUpdateShow = false;
-    const formVal = this.angForm.value;
-    let appdate
-    let EXdate
-    let date1
-    let date2
-    if (this.tempupdateattorny.DATE_APPOINTED != formVal.DATE_APPOINTED) {
-      date1 = (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date' || formVal.DATE_APPOINTED == null) ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY')
-    } else {
-      date1 = formVal.DATE_APPOINTED
-    }
-    if (this.tempupdateattorny.DATE_EXPIRY != formVal.DATE_EXPIRY) {
-      date2 = (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date' || formVal.DATE_EXPIRY == null) ? EXdate = '' : EXdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
-    } else {
-      date2 = formVal.DATE_EXPIRY
-    }
-    var object = {
-      ATTERONEY_NAME: formVal.ATTERONEY_NAME,
-      DATE_APPOINTED: date1,
-      DATE_EXPIRY: date2,
-      id: this.attorneyID
-    }
-
-    if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
-    } else if (formVal.ATTERONEY_NAME != "") {
-      if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
-      } else if (formVal.DATE_APPOINTED != "") {
-        if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
-        }
-        else {
-          this.multiAttorney[index] = object;
-          this.resetAttorney()
-
-        }
-      }
-      else {
-        this.multiAttorney[index] = object;
-        this.resetAttorney()
-      }
-    }
-    else {
-      this.multiAttorney[index] = object;
-      this.resetAttorney()
-    }
-
-  }
-
-  delAttorney(id) {
-    this.multiAttorney.splice(id, 1)
-  }
-
-  resetAttorney() {
-    this.angForm.controls['ATTERONEY_NAME'].reset();
-    this.angForm.controls['DATE_APPOINTED'].reset();
-    this.angForm.controls['DATE_EXPIRY'].reset();
   }
 
   next() {
@@ -1923,13 +1474,12 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.LockerMasterService.approve(obj).subscribe(data => {
       Swal.fire(
         'Approved',
-        'Current Account approved successfully',
+        'Account approved successfully',
         'success'
       );
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
-
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
@@ -1944,29 +1494,79 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.LockerMasterService.reject(obj).subscribe(data => {
       Swal.fire(
         'Rejected',
-        'Current Account rejected successfully',
+        'Account rejected successfully',
         'success'
       );
-
-      var button = document.getElementById('triggerhide');
+      var button = document.getElementById('trigger');
       button.click();
+      this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
   }
 
-   // for decimal 
-   getDecimalPoint(event) { 
+  // for decimal 
+  getDecimalPoint(event) {
     event.target.value = parseFloat(event.target.value).toFixed(2);
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
+
+  checkLockerNumber() {
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
+    let obj = {
+      BRANCH_CODE: result.branch.id,
+      AC_TYPE: this.selectedValue
+    };
+    this.http.post(this.url + '/locker-master/checkLocker', obj).subscribe(data => {
+      let arr: any
+      arr = data
+      if (data) {
+        if (this.angForm.controls['LOC_NO'].value != '' && this.angForm.controls['LOC_NO'].value != null) {
+
+          if (arr.find(arr => arr['LOCKER_NO'] != (this.angForm.controls['LOC_NO'].value == ''))) {
+
+            if (arr.find(arr => Number(arr['LOCKER_NO']) == Number(this.angForm.controls['LOC_NO'].value))) {
+              let id = arr.find(arr => Number(arr['LOCKER_NO']) == Number(this.angForm.controls['LOC_NO'].value))
+              Swal.fire({
+                icon: 'info',
+                title: 'This Locker Number is Already Exists For Account ' + id.BANKACNO,
+              })
+              this.angForm.controls['LOC_NO'].reset();
+            }
+          }
+        }
+      }
+    })
+  }
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this.LockerMasterService.unapporve(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 }
+

@@ -389,8 +389,8 @@
                             <div class="row">
                                 <div class="col-sm" style="float: right;">
                                     <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
-                                         *ngIf="showButton" (keydown.Tab)="focus()" appTheme
-                                        #submitbtn (click)="submit();branchcode.focus()">
+                                        *ngIf="showButton" (keydown.Tab)="focus()" appTheme #submitbtn
+                                        (click)="submit();branchcode.focus()">
                                         Submit
                                     </button>
                                     <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
@@ -400,7 +400,7 @@
                                     <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                         *ngIf="updateShow">
                                         Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
-                                    <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                         (click)="closeModal()">
                                         Close</button>
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
@@ -409,6 +409,9 @@
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                         (click)="Approve()">
                                         Approve</button>
+                                    <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
+                                        (click)="unApprove()">
+                                        Unapprove</button>
                                     <button (click)="tran_mode.focus()" style="display: none;"
                                         #focusbutton>focus</button>
                                 </div>

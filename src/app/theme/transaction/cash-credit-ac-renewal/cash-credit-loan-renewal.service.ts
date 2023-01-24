@@ -53,6 +53,11 @@ export class CashCreditLoanRenewalService {
     return this.http.post(this.url + '/cash-credit-ac-renewal/approve', data).pipe(catchError(this.handleError));
   }
 
+  //unapprove master
+  unapprove(data: any): Observable<any> {
+    return this.http.post(this.url + '/cash-credit-ac-renewal/unapprove', data).pipe(catchError(this.handleError));
+  }
+
 
   //reject master
   reject(data: any): Observable<any> {

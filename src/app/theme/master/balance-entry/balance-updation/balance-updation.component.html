@@ -256,7 +256,7 @@
                                                                 class="form-control" name="TRAN_AMOUNT"
                                                                 id="ledger_balance" #ledger_balance
                                                                 value="{{data.LEDGER_BAL}}" style="width: fit-content;"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                 (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)"
                                                                 maxlength="8"></span><span>{{data.drcr}} </span>
 

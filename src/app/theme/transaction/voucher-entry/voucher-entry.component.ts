@@ -68,6 +68,7 @@ export class VoucherEntryComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
   url = environment.base_url;
 
   submitForm = true
@@ -2042,14 +2043,27 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getFormData(id).subscribe((data) => {
       //debugger
       this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN == null) {
+      if (data.TRAN_STATUS == '0') {
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+      } else if (data.TRAN_STATUS == '2') {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
       } else {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = false
       }
       this.updateID = data.id;
       this.selectedBranch = data.BRANCH_CODE
@@ -2209,6 +2223,28 @@ export class VoucherEntryComponent implements OnInit {
       Swal.fire(
         'Rejected',
         'Voucher rejected successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.date,
+      BRANCH_CODE: this.branch_code
+    }
+    this._service.unapporveVoucher(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Voucher unapproved successfully',
         'success'
       );
       var button = document.getElementById('trigger');

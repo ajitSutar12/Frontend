@@ -150,6 +150,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  logDate
   constructor(public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
     public SchemeTypeService: SchemeTypeService,
@@ -175,6 +176,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.maxDate.setDate(this.maxDate.getDate());
       this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -529,9 +531,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.getNetPayAmount()
   }
   getMaturedIntRate() {
-
+    let total_int1 = Number(this.angForm.controls['TOTAL_INT'].value) - Number(this.angForm.controls['maturedIntAmt'].value)
     let maturedIntAmt = Math.abs(Number(this.angForm.controls['MaturedDays'].value) * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
-    let total_int = maturedIntAmt + Number(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
+    // let total_int = maturedIntAmt - Number(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
+    let total_int = maturedIntAmt + Number(total_int1)
     this.angForm.patchValue({
       maturedIntAmt: Math.round(maturedIntAmt),
       TOTAL_INT: Math.round(total_int)
@@ -1297,14 +1300,27 @@ export class TermDepositAccountClosingComponent implements OnInit {
   editClickHandler(id) {
     this._TDService.getFormData(id).subscribe((data1) => {
       this.updatecheckdata = data1
-      if (data1.SYSCHNG_LOGIN == null) {
+      if (data1.TRAN_STATUS == '0') {
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+      } else if (data1.TRAN_STATUS == '2') {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
       } else {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = false
       }
       this.date = data1.TRAN_DATE
       this.updateID = data1.id;
@@ -1667,6 +1683,27 @@ export class TermDepositAccountClosingComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
+  unapproveShow: boolean = false;
+  unApprove() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id,
+      LOG_DATE: this.logDate
+    }
+    this._TDService.unapprove(obj).subscribe(data => {
+      Swal.fire(
+        'Unapproved',
+        'Account unapproved successfully',
+        'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 
   onCloseModal() {
     this.visibleAnimate = false;

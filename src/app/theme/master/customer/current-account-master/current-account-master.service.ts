@@ -44,6 +44,11 @@ export class CurrentAccountMasterService {
         return this.http.post(this.url + '/current-account-master/approve', data).pipe(catchError(this.handleError));
     }
 
+    //approve master
+    unapporve(data: any): Observable<any> {
+        return this.http.post(this.url + '/current-account-master/unapporve', data).pipe(catchError(this.handleError));
+    }
+
 
     //reject master
     reject(data: any): Observable<any> {

@@ -1,100 +1,296 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Account Enquiry</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
-            </div>
-            <div class="card-block">
-                <form  action="javascript:">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="Scheme"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="Scheme"
-                                    required=""
-                                  />
-                                  <label for="Scheme"
-                                    >Scheme<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm-3">
-                            
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="FromAC"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="FromAC"
-                                    required=""
-                                  />
-                                  <label for="FromAC"
-                                    >From A/C<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm-3">
-
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                  <input
-                                    type="text"
-                                    name="ToAC"
-                                    class="form-control"
-                                    placeholder=" "
-                                    id="ToAC"
-                                    required=""
-                                  />
-                                  <label for="ToAC"
-                                    >To A/C<sub class="required">* </sub></label
-                                  >
-                                </span>
-                              </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="border-checkbox-section">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox20">
-                                    <label class="border-checkbox-label" for="checkbox20">Consider DeadStock Account<span class="required"> </span></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <button class="btn btn-primary ripple light">Add</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-9">
-
-                        </div>
-                        
-                    </div>
-                </form>
-
-            </div>
-            
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-header">
+        <h5>Unapprove</h5>
+      </div>
+      <div class="card-block">
+        <div class="col-md-12">
+          <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+            <ul class="basic-list">
+              <li>
+                <h6> <a (click)="OpenLink(10)" routerLinkActive="active" class="text-right f-w-600"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': mastersharesTrue}" id="pointer">1.
+                    Master
+                    Shares</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': share_master>0}">{{share_master}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(11)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masteranamatTrue}">2. Master
+                    Anamat</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': anamat_master>0}">{{anamat_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(12)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': mastersavingTrue}">3. Master
+                    Saving</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': saving_master>0}">{{saving_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(13)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': mastercurrentTrue}">4. Master
+                    Current</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': current_master>0}">{{current_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(14)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masterdepositsTrue}">5. Master
+                    Deposit</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': deposit_master>0}">{{deposit_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(15)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masterinvestmentsTrue}">6. Master
+                    Investments</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': investment_master>0}">{{investment_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(16)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masterpigmyagentTrue}">7. Master
+                    Pigmy Agent</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': pigmy_agent_master>0}">{{pigmy_agent_master}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(17)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masterpigmyTrue}">8. Master
+                    Pigmy</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': pigmy_master>0}">{{pigmy_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(18)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': mastercashcreditTrue}">9. Master
+                    Cash Credit</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': cash_credit_master>0}">{{cash_credit_master}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(19)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masterloanTrue}">10. Master
+                    Loan</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': loan_master>0}">{{loan_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(20)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masterdisputeloanTrue}">11. Master
+                    Dispute Loan</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': dispute_loan_master>0}">{{dispute_loan_master}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(21)" routerLinkActive="active" class="text-right f-w-600" id="pointer">12.
+                    Master Locker Deposit</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': locker_master>0}">{{locker_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(20)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': masterdeadstockTrue}">13. Master
+                    Dead Stock</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': dead_stock_master>0}">{{dead_stock_master}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(34)" routerLinkActive="active" class="text-right f-w-600"
+                        id="pointer" routerLink="/passing/masterUnlock"
+                        [ngClass]="{'isActive': lockermasterTrue}">14.
+                        Locker Master</a> <span class="badge badge-secondary badgeAlign"
+                        [ngClass]="{'blink_me': lockerMasterCount>0}">{{lockerMasterCount}}</span>
+                </h6>
+            </li>
+              <li>
+                <h6> <a (click)="OpenLink(21)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': voucherTrue}">15.
+                    Voucher</a> <span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': voucher>0}">{{voucher}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(22)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': batchvoucherTrue}">16. Batch
+                    Voucher</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': batch_voucher>0}">{{batch_voucher}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(23)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': multivoucherTrue}">17.Multi
+                    Voucher</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': multi_voucher>0}">{{multi_voucher}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(24)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': depositclosingvouchersTrue}">18.
+                    Deposit Closing
+                    Vouchers</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': deposit_closing>0}">{{deposit_closing}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(25)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': savingpigmyclosingTrue}">19. Saving
+                    Pigmy
+                    Closing</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': saving_pigmy_closing>0}">{{saving_pigmy_closing}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(26)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': deadstockpurchaseTrue}">20. Dead
+                    Stock Purchase</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': dead_stock_purchase>0}">{{dead_stock_purchase}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(27)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': deadstocktransactionTrue}">21. Dead
+                    Stock
+                    Transaction</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': dead_stock_transaction>0}">{{dead_stock_transaction}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(28)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': cashremitanceTrue}">22. Cash Credit
+                    A/c Renewal</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': cash_remitance>0}">{{cash_remitance}}</span></h6>
+              </li>
+              <!-- <li>
+                <h6> <a (click)="OpenLink(29)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': goldsilverreturnTrue}">22.
+                    Deadstock Depreciation
+                    Process</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': deprciationProcess>0}">{{deprciationProcess}}</span>
+                </h6>
+              </li> -->
+              <li>
+                <h6> <a (click)="OpenLink(30)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': goldsilverreturnTrue}">23. Gold
+                    Silver Return
+                    Entry</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': gold_silver_return>0}">{{gold_silver_return}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(31)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': termdepositacrenewalTrue}">24. Term
+                    Deposit A/c
+                    Renewal</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': term_deposit_ac_renewal>0}">{{term_deposit_ac_renewal}}</span>
+                </h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(32)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': lockeraccloserentTrue}">25. Locker
+                    A/c Close /
+                    Rent</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': locaker_ac_close>0}">{{locaker_ac_close}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(33)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': shareTransactionTrue}">26. Share
+                    Transaction</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': shareTransaction>0}">{{shareTransaction}}</span></h6>
+              </li>
+            </ul>
+          </perfect-scrollbar>
         </div>
-    </div>
-</div>
-<div class="card">
-    <div class="card-block">
-        <div class="col-sm-12">
-            <div class="table-responsive">
-                <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                </table>
-            </div>
-        </div>
+      </div>
     </div>
   </div>
+  <div class="col-sm-9">
+    <div class="card-block">
+
+      <!-- 
+         
+          
+          
+          <div *ngIf="remittanceadviceTrue">
+              <app-remittance-advice></app-remittance-advice>
+          </div>
+          
+          
+          
+         -->
+      <div *ngIf="mastersharesTrue">
+        <app-master-shares></app-master-shares>
+      </div>
+      <div *ngIf="masteranamatTrue">
+        <app-master-anamat></app-master-anamat>
+      </div>
+      <div *ngIf="mastersavingTrue">
+        <app-master-saving></app-master-saving>
+      </div>
+      <div *ngIf="mastercurrentTrue">
+        <app-master-current></app-master-current>
+      </div>
+      <div *ngIf="masterdepositsTrue">
+        <app-master-deposits></app-master-deposits>
+      </div>
+      <div *ngIf="masterinvestmentsTrue">
+        <app-master-investments></app-master-investments>
+      </div>
+      <div *ngIf="masterpigmyagentTrue">
+        <app-master-pigmy-agent></app-master-pigmy-agent>
+      </div>
+      <div *ngIf="masterpigmyTrue">
+        <app-master-pigmy></app-master-pigmy>
+      </div>
+      <div *ngIf="mastercashcreditTrue">
+        <app-master-cash-credit></app-master-cash-credit>
+      </div>
+      <div *ngIf="masterloanTrue">
+        <app-master-loan></app-master-loan>
+      </div>
+      <!--<div *ngIf="masterdisputeloanTrue">
+              <app-master-dispute-loan></app-master-dispute-loan>
+          </div>
+           <div *ngIf="masterlockerdepositTrue">
+              <app-master-locker-deposit></app-master-locker-deposit>
+          </div> -->
+      <div *ngIf="masterdeadstockTrue">
+        <app-master-dead-stock></app-master-dead-stock>
+      </div>
+      <div *ngIf="voucherTrue">
+        <app-voucher></app-voucher>
+      </div>
+      <div *ngIf="batchvoucherTrue">
+        <app-passbatch-voucher></app-passbatch-voucher>
+      </div>
+      <div *ngIf="multivoucherTrue">
+        <app-passmulti-voucher></app-passmulti-voucher>
+      </div>
+      <div *ngIf="depositclosingvouchersTrue">
+        <app-deposit-closing-voucher></app-deposit-closing-voucher>
+      </div>
+      <div *ngIf="savingpigmyclosingTrue">
+        <app-saving-pigmy-closing></app-saving-pigmy-closing>
+      </div>
+      <div *ngIf="deadstockpurchaseTrue">
+        <app-passdead-stock-purchase></app-passdead-stock-purchase>
+      </div>
+      <div *ngIf="deadstocktransactionTrue">
+        <app-passdead-stock-transaction></app-passdead-stock-transaction>
+      </div>
+      <div *ngIf="cashremitanceTrue">
+        <app-passcash-credit-ac-renewal></app-passcash-credit-ac-renewal>
+      </div>
+      <div *ngIf="goldsilverreturnTrue">
+        <app-passgold-silver-return-entry></app-passgold-silver-return-entry>
+      </div>
+      <div *ngIf="termdepositacrenewalTrue">
+        <app-passterm-deposit-ac-renewal></app-passterm-deposit-ac-renewal>
+      </div>
+      <div *ngIf="lockeraccloserentTrue">
+        <app-locker-ac-close-rent></app-locker-ac-close-rent>
+      </div>
+      <div *ngIf="deprciationProcessTrue">
+        <app-depreciation-passing></app-depreciation-passing>
+      </div>
+      <div *ngIf="shareTransactionTrue">
+        <app-depreciation-passing></app-depreciation-passing>
+      </div>
+      <div *ngIf="lockermasterTrue">
+        <app-master-locker></app-master-locker>
+      </div>
+    </div>
+  </div>
+</div>
