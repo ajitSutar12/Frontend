@@ -23,6 +23,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { CommissionSlabMasterComponent } from './commission-slab-master/commission-slab-master.component';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import {CommissionSlabMasterModule} from './commission-slab-master/commission-slab-master.module'
+// import { ThemeModule } from 'src/app/theme/theme.module';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -44,7 +45,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    CommissionSlabMasterModule
+    CommissionSlabMasterModule,
+    // ThemeModule
     
 
   ],
