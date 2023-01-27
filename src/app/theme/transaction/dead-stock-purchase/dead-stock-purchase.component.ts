@@ -66,6 +66,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   isCash: boolean;
   scheme: any[];
   narration: any;
+  narrationcash: any;
   narrationList: any;
   itemArr = []
   GL_ACNO
@@ -170,6 +171,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       CHEQUE_DATE: ['', [Validators.required]],
       CHEQUE_NUM: ['', [Validators.required, Validators.pattern]],
       NARRATION: ['', [Validators.required, Validators.pattern]],
+      // NARRATION: ['', [Validators.required, Validators.pattern]],
       CGST_AMT: [''],
       SGST_AMT: [''],
       IGST_AMT: [''],
@@ -365,6 +367,13 @@ export class DeadStockPurchaseComponent implements OnInit {
     el.click();
   }
 
+   //get Narration Details 
+   getNarrationc(ele) { debugger
+    this.narrationcash = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
+
   //transfer and cash radio button effect
   isFormA(value) {
     if (value == 1) {
@@ -379,6 +388,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.angForm.controls['AC_NO'].reset()
       this.angForm.controls['CHEQUE_DATE'].reset()
       this.angForm.controls['CHEQUE_NUM'].reset()
+      this.angForm.controls['NARRATION'].reset()
+
     }
   }
 
@@ -412,6 +423,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
         CHEQUE_NUM: formVal.CHEQUE_NUM,
         NARRATION: formVal.NARRATION,
+        // NARRATION: formVal.NARRATION,
         CGST_AMT: formVal.CGST_AMT,
         SGST_AMT: formVal.SGST_AMT,
         IGST_AMT: formVal.IGST_AMT,
