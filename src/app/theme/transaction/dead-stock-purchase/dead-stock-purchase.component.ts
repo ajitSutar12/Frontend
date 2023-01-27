@@ -242,7 +242,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //add items details in array
   addItem() {
-    
+
     const formVal = this.angForm.value;
     let object = {
       itemId: formVal.ITEM_CODE?.id,
@@ -562,7 +562,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         this.approveShow = true;
         this.rejectShow = true
         this.unapproveShow = false
-      } else if (data.TRAN_STATUS == '2') {
+      } else if (data.TRAN_STATUS != '0') {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -627,6 +627,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       const formVal = this.angForm.value
       const dataToSend = {
         id: this.updateID,
+        TRAN_NO: this.updatecheckdata.TRAN_NO,
+        TRAN_ENTRY_TYPE: this.updatecheckdata.TRAN_ENTRY_TYPE,
         itemArr: this.itemArr,
         BRANCH_CODE: this.ngBranchCode,
         TRAN_DATE: formVal.TRAN_DATE,

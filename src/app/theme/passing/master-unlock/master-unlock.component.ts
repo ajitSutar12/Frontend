@@ -20,9 +20,9 @@ export class MasterUnlockComponent implements OnInit {
   deadstocktransactionTrue = false;
   lockeraccloserentTrue = false;
   shareTransactionTrue = false;
-  mastersharesTrue = true;
+  mastersharesTrue = false;
   masteranamatTrue = false;
-  mastersavingTrue = false;
+  mastersavingTrue = true;
   mastercurrentTrue = false;
   masterdepositsTrue = false;
   masterinvestmentsTrue = false;
