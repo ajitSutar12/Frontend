@@ -25,6 +25,8 @@ import { DatatablekitComponent } from './datatablekit/datatablekit.component';
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { GlobalErrorHandler } from './app.service';
+import { ShortcutKeyModule } from './theme/shortcut-key/shortcut-key.module';
+// import { ShortcutKeyComponent } from './theme/shortcut-key/shortcut-key.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { GlobalErrorHandler } from './app.service';
     HotKeysComponent,
     StrictNumberOnlyDirective,
     DatatablekitComponent,
-    
+    // ShortcutKeyComponent
 
   ],
   imports: [
@@ -51,6 +53,7 @@ import { GlobalErrorHandler } from './app.service';
     NgPasswordValidatorModule,
     DataTablesModule,
     // InfiniteScrollModule,
+    ShortcutKeyModule
 
   ],
   providers: [MenuItems,

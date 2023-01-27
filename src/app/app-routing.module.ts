@@ -130,6 +130,10 @@ const routes: Routes = [
       {
         path: 'simple-page',
         loadChildren: () => import('./theme/simple-page/simple-page.module').then(m => m.SimplePageModule)
+      },
+      {
+        path: 'shortcut-key',
+        loadChildren: () => import('./theme/shortcut-key/shortcut-key.module').then(m => m.ShortcutKeyModule)
       }
     ]
   },
