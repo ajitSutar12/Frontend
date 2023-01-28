@@ -564,6 +564,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngRisk = null
       this.ngCity = null
       this.ngTitle = null
+      this.ngTitlereg = null
+
       //To clear form
       this.resetForm();
       this.imageObject = []
@@ -621,6 +623,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngRisk = null
     this.ngCity = null
     this.ngTitle = null
+    this.ngTitlereg= null
     this.ngfinyear = null
     this.ngSubmitDate = null
     this.createForm();
@@ -1015,6 +1018,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.controls['TDS_LIMIT'].reset()
     }
     if (value == 3) {
+      this.isTdsFormA = false;
+      this.angForm.controls['TDS_RATE'].reset()
+      this.angForm.controls['TDS_LIMIT'].reset()
+    }
+    if (value == 4) {
       this.isTdsFormA = false;
       this.angForm.controls['TDS_RATE'].reset()
       this.angForm.controls['TDS_LIMIT'].reset()
