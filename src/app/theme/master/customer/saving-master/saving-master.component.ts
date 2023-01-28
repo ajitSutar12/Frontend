@@ -50,7 +50,7 @@ interface SavingMaster {
   AC_CUSTID: number
   AC_INTCATA: string
   AC_OPDATE: Date
-  AC_SCHMAMT: string
+  // AC_SCHMAMT: string
   REF_ACNO: string
   //address
   AC_ADDFLAG: boolean
@@ -622,8 +622,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_INTCATA: ['', [Validators.required]],
       AC_PANNO: [''],
       AC_ADHARNO: [''],
-      AC_SCHMAMT: ['', [Validators.pattern]],
-      AC_IS_RECOVERY: [''],
+      // AC_SCHMAMT: ['', [Validators.pattern]],
+      // AC_IS_RECOVERY: [''],
       //Address
       AC_ADDFLAG: [true],
       AC_ADDTYPE: ['P'],
@@ -844,9 +844,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_INTCATA': formVal.AC_INTCATA,
         'AC_OPDATE': temdate,
         'AC_NAME': formVal.AC_NAME,
-        'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        // 'AC_SCHMAMT': formVal.AC_SCHMAMT,
         'REF_ACNO': formVal.REF_ACNO,
-        'AC_IS_RECOVERY': (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
+        // 'AC_IS_RECOVERY': (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
         //temp address 
         AC_ADDFLAG: formVal.AC_ADDFLAG,
         AC_ADDTYPE: this.addType,
@@ -1040,9 +1040,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_NO': data.AC_NO,
         'AC_OPDATE': data.AC_OPDATE,
-        'AC_SCHMAMT': data.AC_SCHMAMT,
+        // 'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
-        'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
+        // 'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
         'BANKACNO': data.BANKACNO,
         //minor and introducer
         'AC_MINOR': (data.AC_MINOR == '1' ? true : false),
@@ -1086,7 +1086,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_INTRACNO'] = this.ngIntroducer
     data['id'] = this.updateID;
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
-    data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
+    // data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
