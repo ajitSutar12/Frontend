@@ -248,7 +248,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       });
       this.scheme = filtered;
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' );
+        return (scheme.name == 'SB' || scheme.name == 'TD'  || scheme.name == 'GS'  || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
+
       });
       this.allscheme = allscheme;
     })

@@ -184,7 +184,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'CA' || scheme.name == 'SB' || scheme.name == 'CC');
+        return (scheme.name == 'SB' || scheme.name == 'CA' ||  scheme.name == 'CC');
       });
       this.allScheme = filtered;
     })
