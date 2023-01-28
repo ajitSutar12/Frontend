@@ -131,8 +131,12 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Serial No',
           data: 'SR_NO'
         }, {
-          title: 'Prefix',
+          title: 'Prefix',  
           data: 'PREFIX'
+        },
+        {
+          title: 'Prefix Regional',  
+          data: 'PREFIX_REG'
         },
         {
           title: 'Sex',
@@ -147,6 +151,7 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       SR_NO: [''],
       PREFIX: ['', [Validators.required, Validators.pattern]],
+      PREFIX_REG: ['', [Validators.required, Validators.pattern]],
       SEX: ['M', [Validators.required]]
     });
   }
@@ -161,7 +166,8 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     const formVal = this.angForm.value;
     const dataToSend = {
       'SR_NO': formVal.SR_NO,
-      'PREFIX': formVal.PREFIX,
+      'PREFIX': formVal.PREFIX, 
+      'PREFIX_REG':formVal.PREFIX_REG,
       'SEX': formVal.SEX
     }
     this.prefixMasterService.postData(dataToSend).subscribe(data1 => {
@@ -187,6 +193,7 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.setValue({
         'SR_NO': data.SR_NO,
         'PREFIX': data.PREFIX,
+        'PREFIX_REG':data.PREFIX_REG,
         'SEX': data.SEX,
       })
     })
