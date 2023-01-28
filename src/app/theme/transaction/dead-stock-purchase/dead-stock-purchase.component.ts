@@ -66,6 +66,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   isCash: boolean;
   scheme: any[];
   narration: any;
+  narrationcash: any;
   narrationList: any;
   itemArr = []
   GL_ACNO
@@ -170,6 +171,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       CHEQUE_DATE: ['', [Validators.required]],
       CHEQUE_NUM: ['', [Validators.required, Validators.pattern]],
       NARRATION: ['', [Validators.required, Validators.pattern]],
+      // NARRATION: ['', [Validators.required, Validators.pattern]],
       CGST_AMT: [''],
       SGST_AMT: [''],
       IGST_AMT: [''],
@@ -240,7 +242,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //add items details in array
   addItem() {
-    
+
     const formVal = this.angForm.value;
     let object = {
       itemId: formVal.ITEM_CODE?.id,
@@ -365,6 +367,13 @@ export class DeadStockPurchaseComponent implements OnInit {
     el.click();
   }
 
+   //get Narration Details 
+   getNarrationc(ele) { debugger
+    this.narrationcash = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
+
   //transfer and cash radio button effect
   isFormA(value) {
     if (value == 1) {
@@ -379,6 +388,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.angForm.controls['AC_NO'].reset()
       this.angForm.controls['CHEQUE_DATE'].reset()
       this.angForm.controls['CHEQUE_NUM'].reset()
+      this.angForm.controls['NARRATION'].reset()
+
     }
   }
 
@@ -412,6 +423,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
         CHEQUE_NUM: formVal.CHEQUE_NUM,
         NARRATION: formVal.NARRATION,
+        // NARRATION: formVal.NARRATION,
         CGST_AMT: formVal.CGST_AMT,
         SGST_AMT: formVal.SGST_AMT,
         IGST_AMT: formVal.IGST_AMT,
@@ -550,7 +562,7 @@ export class DeadStockPurchaseComponent implements OnInit {
         this.approveShow = true;
         this.rejectShow = true
         this.unapproveShow = false
-      } else if (data.TRAN_STATUS == '2') {
+      } else if (data.TRAN_STATUS != '0') {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
@@ -615,6 +627,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       const formVal = this.angForm.value
       const dataToSend = {
         id: this.updateID,
+        TRAN_NO: this.updatecheckdata.TRAN_NO,
+        TRAN_ENTRY_TYPE: this.updatecheckdata.TRAN_ENTRY_TYPE,
         itemArr: this.itemArr,
         BRANCH_CODE: this.ngBranchCode,
         TRAN_DATE: formVal.TRAN_DATE,
