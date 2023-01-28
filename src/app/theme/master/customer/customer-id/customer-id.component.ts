@@ -127,7 +127,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   mnamereg = "";
   fullnamereg = "";
   acTitle = "";
-  ngTitleReg
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -565,6 +564,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngRisk = null
       this.ngCity = null
       this.ngTitle = null
+      this.ngTitlereg = null
+
       //To clear form
       this.resetForm();
       this.imageObject = []
@@ -622,6 +623,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngRisk = null
     this.ngCity = null
     this.ngTitle = null
+    this.ngTitlereg= null
     this.ngfinyear = null
     this.ngSubmitDate = null
     this.createForm();
