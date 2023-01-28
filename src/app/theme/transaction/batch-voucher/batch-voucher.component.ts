@@ -314,7 +314,7 @@ export class BatchVoucherComponent implements OnInit {
         this.approveShow = true;
         this.rejectShow = true
         this.unapproveShow = false
-      } else if (data.TRAN_STATUS == '2') {
+      } else if (data.TRAN_STATUS != '0') {
         this.approveShow = false;
         this.rejectShow = false
         this.showButton = false;

@@ -442,7 +442,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
-      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+      if (data.SYSCHNG_LOGIN != null ) {
         this.unapproveShow = true
         this.showButton = false;
         this.updateShow = false;
