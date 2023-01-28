@@ -1002,7 +1002,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
           this.approveShow = true;
           this.rejectShow = true
           this.unapproveShow = false
-        } else if (data.TRAN_STATUS == '2') {
+        } else if (data.TRAN_STATUS != '0') {
           this.showButton = false;
           this.updateShow = false;
           this.newbtnShow = true;

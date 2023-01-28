@@ -730,7 +730,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
     this._service.getTermFormData(id).subscribe((data) => {
       this.updatecheckdata = data
-      if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+      if (data.SYSCHNG_LOGIN != null) {
         this.unapproveShow = true
         this.showButton = false;
         this.updateShow = false;
