@@ -21,7 +21,8 @@
                                     <input type="text" appTheme placeholder="dd/mm/yyyy" name="date" id="date"
                                         [(ngModel)]="effectdate" formControlName="EFFECT_DATE" class="form-control"
                                         #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" bsDatepicker required autofocus>
+                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" bsDatepicker
+                                        required autofocus>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -80,22 +81,22 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" appTheme type="text" name="COMMISSION"
-                                        class="form-control" placeholder=" "
+                                    <input style="text-align: right;" appTheme type="text"
+                                        name="PIGMY_COMMISSION_PERCENTAGE" class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
-                                        id="COMMISSION" maxlength="5" title="Input allowed only  0-9"
-                                        formControlName="COMMISSION">
-                                    <label for="COMMISSION">Commission %<sub class="required">*
+                                        id="PIGMY_COMMISSION_PERCENTAGE" maxlength="5" title="Input allowed only  0-9"
+                                        formControlName="PIGMY_COMMISSION_PERCENTAGE">
+                                    <label for="PIGMY_COMMISSION_PERCENTAGE">Commission %<sub class="required">*
                                         </sub>
                                     </label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['COMMISSION'].invalid && (angForm.controls['COMMISSION'].dirty || angForm.controls['COMMISSION'].touched)"
+                                *ngIf="angForm.controls['PIGMY_COMMISSION_PERCENTAGE'].invalid && (angForm.controls['PIGMY_COMMISSION_PERCENTAGE'].dirty || angForm.controls['PIGMY_COMMISSION_PERCENTAGE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['COMMISSION'].errors?.pattern || angForm.controls['COMMISSION'].errors?.required || angForm.controls['COMMISSION'].errors?.maxlength">
+                                    *ngIf="angForm.controls['PIGMY_COMMISSION_PERCENTAGE'].errors?.pattern || angForm.controls['PIGMY_COMMISSION_PERCENTAGE'].errors?.required || angForm.controls['PIGMY_COMMISSION_PERCENTAGE'].errors?.maxlength">
                                     This field is required and Input allowed only . 0-9
                                 </div>
                             </div>
@@ -107,21 +108,23 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" appTheme type="text" name="LOAN_COMMISSION"
-                                        class="form-control" placeholder=" " pattern="\d{1,2}(\.\d{0,2})?" #margin
+                                    <input style="text-align: right;" appTheme type="text"
+                                        name="COMM_AGAINST_LN_PERCENT" class="form-control" placeholder=" "
+                                        pattern="\d{1,2}(\.\d{0,2})?" #margin
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                        (keyup)="checkmargin($event)" id="LOAN_COMMISSION" maxlength="5"
-                                        title="Input allowed only  0-9" formControlName="LOAN_COMMISSION">
-                                    <label for="LOAN_COMMISSION">Collection on Loan Commission %<sub class="required">*
+                                        (keyup)="checkmargin($event)" id="COMM_AGAINST_LN_PERCENT" maxlength="5"
+                                        title="Input allowed only  0-9" formControlName="COMM_AGAINST_LN_PERCENT">
+                                    <label for="COMM_AGAINST_LN_PERCENT">Collection on Loan Commission %<sub
+                                            class="required">*
                                         </sub>
                                     </label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['LOAN_COMMISSION'].invalid && (angForm.controls['LOAN_COMMISSION'].dirty || angForm.controls['LOAN_COMMISSION'].touched)"
+                                *ngIf="angForm.controls['COMM_AGAINST_LN_PERCENT'].invalid && (angForm.controls['COMM_AGAINST_LN_PERCENT'].dirty || angForm.controls['COMM_AGAINST_LN_PERCENT'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['LOAN_COMMISSION'].errors?.pattern || angForm.controls['LOAN_COMMISSION'].errors?.required || angForm.controls['LOAN_COMMISSION'].errors?.maxlength">
+                                    *ngIf="angForm.controls['COMM_AGAINST_LN_PERCENT'].errors?.pattern || angForm.controls['COMM_AGAINST_LN_PERCENT'].errors?.required || angForm.controls['COMM_AGAINST_LN_PERCENT'].errors?.maxlength">
                                     This field is required and Input allowed only . 0-9
                                 </div>
                             </div>
@@ -130,22 +133,22 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input style="text-align: right;" appTheme type="text" name="SERVICE_CHARGE"
+                                    <input style="text-align: right;" appTheme type="text" name="PIGMY_SVR_CHARGE_RATE"
                                         class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
-                                        id="SERVICE_CHARGE" maxlength="5" title="Input allowed only  0-9"
-                                        formControlName="SERVICE_CHARGE">
-                                    <label for="SERVICE_CHARGE">Service Charge %<sub class="required">*
+                                        id="PIGMY_SVR_CHARGE_RATE" maxlength="5" title="Input allowed only  0-9"
+                                        formControlName="PIGMY_SVR_CHARGE_RATE">
+                                    <label for="PIGMY_SVR_CHARGE_RATE">Service Charge %<sub class="required">*
                                         </sub>
                                     </label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['SERVICE_CHARGE'].invalid && (angForm.controls['SERVICE_CHARGE'].dirty || angForm.controls['SERVICE_CHARGE'].touched)"
+                                *ngIf="angForm.controls['PIGMY_SVR_CHARGE_RATE'].invalid && (angForm.controls['PIGMY_SVR_CHARGE_RATE'].dirty || angForm.controls['PIGMY_SVR_CHARGE_RATE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['SERVICE_CHARGE'].errors?.pattern || angForm.controls['SERVICE_CHARGE'].errors?.required || angForm.controls['SERVICE_CHARGE'].errors?.maxlength">
+                                    *ngIf="angForm.controls['PIGMY_SVR_CHARGE_RATE'].errors?.pattern || angForm.controls['PIGMY_SVR_CHARGE_RATE'].errors?.required || angForm.controls['PIGMY_SVR_CHARGE_RATE'].errors?.maxlength">
                                     This field is required and Input allowed only . 0-9
                                 </div>
                             </div>
@@ -185,9 +188,9 @@
                                             </td>
                                             <td class="td_right">{{data.AMOUNT_FROM }}</td>
                                             <td class="td_right">{{data.AMOUNT_TO }}</td>
-                                            <td class="td_right">{{data.COMMISSION }}</td>
-                                            <td class="td_right">{{data.LOAN_COMMISSION}}</td>
-                                            <td class="td_right">{{data.SERVICE_CHARGE}}</td>
+                                            <td class="td_right">{{data.PIGMY_COMMISSION_PERCENTAGE }}</td>
+                                            <td class="td_right">{{data.COMM_AGAINST_LN_PERCENT}}</td>
+                                            <td class="td_right">{{data.PIGMY_SVR_CHARGE_RATE}}</td>
 
                                         </tr>
                                     </tbody>
@@ -204,8 +207,8 @@
                     <div class="col-sm">
                         <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitButton"
                             (click)="submit()" appTheme>Submit </button>
-                        <button class="btn btn-outline-primary btn-sm" (click)="updateField()"
-                            *ngIf="UpdateSubmitButton">Update</button>
+                        <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                            *ngIf="UpdateButton">Update</button>
                     </div>
 
                 </div>
@@ -220,14 +223,14 @@
             <table class="table table-striped table-bordered table-hover compact">
 
                 <thead>
-                    <td colspan="2">Action</td>
-                    <td colspan="1">Sr. No.</td>
+                    <td>Action</td>
+                    <td>Sr. No.</td>
                     <td>Effected Date</td>
 
                 </thead>
                 <tbody *ngIf="multiField1?.length != 0">
                     <tr *ngFor="let data of multiField1; let indexOfelement=index;">
-                        <td colspan="2">
+                        <td>
                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
                                 (click)="editData(indexOfelement);fromamt.focus()" placement="bottom"
                                 ngbTooltip="Edit"></span> &nbsp;
@@ -235,7 +238,7 @@
                                 (click)="delField(indexOfelement);fromamt.focus()" placement="bottom"
                                 ngbTooltip="Delete"></span>
                         </td>
-                        <td class="td_right" colspan="1">{{indexOfelement + 1}}</td>
+                        <td class="td_right">{{indexOfelement + 1}}</td>
                         <td class="td_right">{{data.EFFECT_DATE }}</td>
 
 
