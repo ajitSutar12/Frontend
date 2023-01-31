@@ -151,7 +151,7 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       SR_NO: [''],
       PREFIX: ['', [Validators.required, Validators.pattern]],
-      PREFIX_REG: ['', [Validators.required, Validators.pattern]],
+      PREFIX_REG: ['', [Validators.required]],
       SEX: ['M', [Validators.required]]
     });
   }
