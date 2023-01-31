@@ -2108,4 +2108,20 @@ export class CashCreditMasterComponent implements OnInit {
       console.log('something is wrong');
     })
   }
+
+  compareamount() {
+    let from = Number((document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value);
+    let to = Number((document.getElementById("AC_SANCTION_AMOUNT") as HTMLInputElement).value);
+    if(to != 0){
+      if (from > to ) {
+        Swal.fire(
+          'Warning!',
+          'Drawing Power Should Be Less Than or Equal to Sanction Limit',
+          'warning'
+        );
+        (document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value = "0"
+      }
+    }
+   
+  }
 }

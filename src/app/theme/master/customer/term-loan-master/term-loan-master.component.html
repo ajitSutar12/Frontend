@@ -8,7 +8,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <div class="card-block">
+            <div class="card-block"> 
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
@@ -318,7 +318,7 @@
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="AC_SANCTION_DATE"
-                                                                        [minDate]="maxDate" [bsValue]="bsValue"
+                                                                        [maxDate]="maxDate" [bsValue]="bsValue"
                                                                         bsDatepicker #SANCTION_DATE="bsDatepicker"
                                                                         (keydown.Tab)="SANCTION_DATE.hide()">
                                                                     <label for="AC_SANCTION_DATE">Sanction Date<sub
@@ -344,11 +344,11 @@
                                                                         title="Input allowed only  0-9"
                                                                         style="text-align: right;"
                                                                         [(ngModel)]="drawingPower"
-                                                                        (focusout)="calculation();getDecimalPoint($event)"
+                                                                        (focusout)="calculation();getDecimalPoint($event);compareamount()"
                                                                         (keyup)="getDecimal($event)"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                         value="{{ AC_DRAWPOWER_AMT != null ?AC_DRAWPOWER_AMT.toFixed(2) : 0.00}}"
-                                                                        formControlName="AC_DRAWPOWER_AMT"
+                                                                        formControlName="AC_DRAWPOWER_AMT" 
                                                                         [ngClass]="{'form-submitted': formSubmitted}">
                                                                     <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
                                                                             class="required">*
