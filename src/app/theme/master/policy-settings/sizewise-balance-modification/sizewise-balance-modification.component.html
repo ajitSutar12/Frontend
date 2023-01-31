@@ -24,7 +24,8 @@
                                 <h6> <a (click)="OpenLink(3)"
                                         routerLink="/master/PolicySettings/sizewiseBalanceModification"
                                         [ngClass]="{'isActive': commissionSlabMasterTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">3. Pigmy Agent Commission Slab Master</a></h6>
+                                        class="text-right f-w-600" id="pointer">3. Pigmy Agent Commission Slab
+                                        Master</a></h6>
                             </li>
                         </ul>
                     </perfect-scrollbar>
@@ -39,10 +40,10 @@
             </div>
             <div *ngIf="loanSizewiseBalanceTrue">
                 <app-loan-size-wise-balance></app-loan-size-wise-balance>
-                <app-commission-slab-master></app-commission-slab-master>
             </div>
             <div *ngIf="commissionSlabMasterTrue">
-                <app-commission-slab-master></app-commission-slab-master>
+                <!-- <app-commission-slab-master></app-commission-slab-master> -->
+                <app-commissionslabmaster></app-commissionslabmaster>
             </div>
         </div>
     </div>

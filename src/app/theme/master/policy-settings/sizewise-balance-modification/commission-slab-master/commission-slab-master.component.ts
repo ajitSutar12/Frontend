@@ -18,7 +18,7 @@ class DataTableResponse {
 }
 
 @Component({
-  selector: 'app-commission-slab-master',
+  selector: 'app-commissionslabmaster',
   templateUrl: './commission-slab-master.component.html',
   styleUrls: ['./commission-slab-master.component.scss']
 })
@@ -36,14 +36,14 @@ export class CommissionSlabMasterComponent implements OnInit {
   UpdateButton: boolean = false;
   UpdateSubmitButton: boolean = false;
   // For reloading angular datatable after CRUD operation
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-  //Datatable variable
-  dtExportButtonOptions: DataTables.Settings = {};
-  //variables for pagination
-  page: number = 1;
+  // @ViewChild(DataTableDirective, { static: false })
+  // dtElement: DataTableDirective;
+  // dtOptions: DataTables.Settings = {};
+  // dtTrigger: Subject<any> = new Subject();
+  // //Datatable variable
+  // dtExportButtonOptions: DataTables.Settings = {};
+  // //variables for pagination
+  // page: number = 1;
   //filter variable
   filterData = {};
   constructor(private fb: FormBuilder, private http: HttpClient, private systemParameter: SystemMasterParametersService,) {
@@ -181,7 +181,7 @@ export class CommissionSlabMasterComponent implements OnInit {
     this.multiField.splice(id, 1)
   }
 
-  multiField1
+  multiField1: any = []
   submit() {
     let toDate = moment(this.effectdate, 'DD/MM/YYYY')
     let effectdate = moment(toDate).format('DD/MM/YYYY')

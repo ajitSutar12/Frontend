@@ -23,12 +23,12 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="PREFIX" class="form-control" placeholder=" " id="PREFIX"
-                                        #autofocus pattern="^[A-Za-z\./ -]+$"
+                                    <input appTheme type="text" name="PREFIX" class="form-control" placeholder=" "
+                                        id="PREFIX" #autofocus pattern="^[A-Za-z\./ -]+$"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="PREFIX">
                                     <label for="PREFIX">Prefix<sub class="required">* </sub></label>
-                                </span> 
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['PREFIX'].invalid && (angForm.controls['PREFIX'].dirty || angForm.controls['PREFIX'].touched)"
@@ -43,24 +43,21 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="PREFIX_REG" class="form-control" placeholder=" " id="PREFIX_REG"
-                                        #autofocus pattern="^[A-Za-z\./ -]+$"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="PREFIX_REG">
+                                    <input appTheme type="text" name="PREFIX_REG" class="form-control" placeholder=" "
+                                        id="PREFIX_REG" #autofocus formControlName="PREFIX_REG">
                                     <label for="PREFIX_REG">Prefix Regional<sub class="required">* </sub></label>
-                                </span> 
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['PREFIX_REG'].invalid && (angForm.controls['PREFIX_REG'].dirty || angForm.controls['PREFIX_REG'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['PREFIX_REG'].errors?.required ||angForm.controls['PREFIX_REG'].errors?.pattern">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                <div *ngIf="angForm.controls['PREFIX_REG'].errors?.required ">
+                                    This field is required
                                 </div>
                             </div>
                         </div>
 
-                      
+
 
                     </div>
                     <div class="row">
@@ -96,8 +93,9 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
+                                appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                 (click)="addNewData()">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"

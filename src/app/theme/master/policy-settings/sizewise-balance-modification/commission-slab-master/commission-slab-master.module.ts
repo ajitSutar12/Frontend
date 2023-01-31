@@ -6,8 +6,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { CommissionSlabMasterComponent } from './commission-slab-master.component'
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ThemeModule } from '../../../../theme.module';
 @NgModule({
-  declarations: [CommissionSlabMasterComponent],
+  // declarations: [CommissionSlabMasterComponent],
   imports: [
     CommonModule,
     CommissionSlabMasterRoutingModule,
@@ -15,8 +16,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ThemeModule
   ],
+  // exports: [CommissionSlabMasterComponent],
   providers: [SystemMasterParametersService]
 })
 export class CommissionSlabMasterModule { }
