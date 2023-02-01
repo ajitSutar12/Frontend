@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 export class ShareTransactionsComponent implements OnInit {
 
 
-  issuenewsharesTrue = false;
+  issuenewsharesTrue = true;
   sharestransferTrue = false;
-  membershipcancellationTrue = true;
+  membershipcancellationTrue = false;
   foundpaymenttransactionTrue = false;
   openingsharesteTrue = false;
   rebitintresttransactionTrue = false;

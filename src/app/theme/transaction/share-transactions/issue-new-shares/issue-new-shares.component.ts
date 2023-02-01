@@ -27,7 +27,7 @@ export class IssueNewSharesComponent implements OnInit {
 
   //for date
   maxDate: any;
-  minDate: Date; 
+  minDate: Date;
   bsValue = new Date();
 
   jointShowButton: boolean = true
@@ -53,7 +53,7 @@ export class IssueNewSharesComponent implements OnInit {
   branchOption
   obj: any;
   isTransfer: boolean;
-  transferTotalAmount: any = 0; 
+  transferTotalAmount: any = 0;
   totalCredit = 0;
   totalDebit = 0;
   multigrid = [];
@@ -65,7 +65,7 @@ export class IssueNewSharesComponent implements OnInit {
   schemeACNo: any;
   selectedTransScheme: any;
   transferSchemeDetails: any;
-  ngacno: any; 
+  ngacno: any;
   transferAccountDetails: any;
   Scheme
   PERTICULARS: any;
@@ -117,7 +117,7 @@ export class IssueNewSharesComponent implements OnInit {
       this.introducerACNo = data;
     })
   }
- 
+
   //get account no according scheme for transfer
 
   getTransferAccountList(event) {
@@ -126,7 +126,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
     switch (event.name) {
-      case 'SB': 
+      case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.schemeACNo = data;
         })
@@ -175,8 +175,7 @@ export class IssueNewSharesComponent implements OnInit {
         break;
     }
   }
-  getTransferAccountDeatil(event) 
-  {
+  getTransferAccountDeatil(event) {
     this.transferAccountDetails = event
   }
 
@@ -462,5 +461,59 @@ export class IssueNewSharesComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+  updateID
+  // function for edit button clicked
+  editClickHandler(id): void {
+    this.http.get(this.url + '/issue-new-share/' + id).subscribe((data: any) => {
+      let dailyshrtran = data.dailyshrtran
+      let dailytran = data.dailytran
+      this.updateID = dailyshrtran.id
+      if (dailyshrtran.TRAN_STATUS == 0) {
+
+      }
+      else if (dailyshrtran.TRAN_STATUS != 0) {
+
+      }
+      this.selectedBranch = dailyshrtran.BRANCH_CODE
+      this.schemeCode = dailyshrtran.TRAN_ACTYPE
+      this.Issue_date = dailyshrtran.TRAN_DATE
+      this.getIntroducer()
+      this.ngForm.patchValue({
+        T_TYPE: dailyshrtran.TRAN_TYPE == 'CS' ? 'cash' : 'transfer',
+      })
+      this.multigrid = dailytran
+    })
+  }
+
+  approve() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    var object =
+    {
+      id: this.updateID,
+      userid: result.id,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this.http.post(this.url + '/issue-new-share/approve', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Approved Successfully!!", 'success'
+      );
+    })
+  }
+  reject() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    var object =
+    {
+      id: this.updateID,
+      userid: result.id,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this.http.post(this.url + '/issue-new-share/reject', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Rejected Successfully!!", 'success'
+      );
+    })
   }
 }
