@@ -263,13 +263,21 @@ export class SharesTransferComponent implements OnInit {
       issueDate: this.Issue_date
     }
     this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', obj).subscribe(data => {
-      this.shareBal = data['shareBal']
-      this.angForm.patchValue({
-        MDATE: event.openDate,
-        T_NO_OF_SHARES: data['numberOfShares'],
-        T_SHARES_AMOUNT: data['shareBal'],
-        TRANS_AMOUNT: data['shareBal'],
-      })
+      if (data['isclosed'] == 1) {
+        Swal.fire("Oops!", "Selected account is closed!", "error");
+        this.ngIntroducer = null
+      } else if (Number(data['shareBal']) == 0) {
+        Swal.fire("Oops!", "Selected account has 0 balance!", "error");
+        this.ngIntroducer = null
+      } else {
+        this.shareBal = data['shareBal']
+        this.angForm.patchValue({
+          MDATE: event.openDate,
+          T_NO_OF_SHARES: data['numberOfShares'],
+          T_SHARES_AMOUNT: data['shareBal'],
+          TRANS_AMOUNT: data['shareBal'],
+        })
+      }
     })
   }
   checkActualAmt() {
