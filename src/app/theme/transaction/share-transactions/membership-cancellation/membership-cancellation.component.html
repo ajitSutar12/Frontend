@@ -8,7 +8,7 @@
                 </h6>
             </div>
             <div class="card-body">
-                <form [formGroup]="angForm" novalidate> 
+                <form [formGroup]="angForm" novalidate>
                     <div class="solid">
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
@@ -44,8 +44,6 @@
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
-
-
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -55,13 +53,8 @@
                                         This field is required
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
-
-
-
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
                                         class="required">*</sub></label>
@@ -70,14 +63,12 @@
                                 <div class="form-group form-primary form-static-label">
 
                                     <span class="border-lable-flt">
-                                        <ng-select formControlName="MEMBER_CODE1" [(ngModel)]="ngIntroducer"
-                                            (change)="getMemberDetail($event)">
+                                        <ng-select formControlName="MEMBER_CODE1" bindValue="bankacno" bindLabel="label"
+                                            [(ngModel)]="ngIntroducer" (change)="getMemberDetail($event)">
                                             <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                                 {{values.label}} {{values.name}}
                                             </ng-option>
                                         </ng-select>
-
-
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -86,11 +77,6 @@
                                     <div *ngIf="angForm.controls['MEMBER_CODE1'].errors?.required">
                                         This field is required
                                     </div>
-
-
-
-
-
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Transaction Number<sub
@@ -106,12 +92,8 @@
                                     </span>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="solid">
@@ -136,7 +118,7 @@
                                                 <input style="text-align: right;" type="text" name="AC_PARTICULAR"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                                    maxlength="15" required formControlName="amt" disabled>
+                                                    maxlength="15" formControlName="T_NO_OF_SHARES" disabled>
                                             </span>
                                         </div>
                                     </div>
@@ -150,7 +132,7 @@
                                                 <input style="text-align: right;" type="text" name="AC_PARTICULAR"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                                    maxlength="15" required formControlName="amt" disabled>
+                                                    maxlength="15" formControlName="T_SHARES_AMOUNT" disabled>
                                             </span>
                                         </div>
                                     </div>
@@ -158,14 +140,13 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
-
                             <div class="solid">
-
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Resolution Date</label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Resolution Date<sub
+                                                class="required">*
+                                            </sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -197,7 +178,8 @@
                                 <div class="col-sm-12 col-md-4"> </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Resolution
-                                            Number</label>
+                                            Number<sub class="required">*
+                                            </sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -211,9 +193,6 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4"> </div>
-
-
-
                                     <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Member Cancel
                                             Date</label>
                                     </div>
@@ -229,38 +208,28 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-4"> </div>
-
-
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Reason</label>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group input-group">
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <span class="border-lable-flt">
                                                     <textarea class="form-control" formControlName="Fnarration"
-                                                        [(ngModel)]="ngFnarration"></textarea>
-                                                    <i class="fa fa-info-circle errspan"
-                                                        (click)="formnarration.show()"></i>
+                                                        [(ngModel)]="ngFnarration" disabled></textarea>
+                                                    <!-- <i class="fa fa-info-circle errspan"
+                                                        (click)="formnarration.show()"></i> -->
                                                 </span>
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
-
-
-
-
-
                                 <div class="row" id="FORMA" *ngIf="isTransfer">
                                     <div class="col-sm-12">
-
                                         <div class="row">
                                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                         class="required">*</sub></label></div>
-                                            <div class="col-sm-12 col-md-2">
+                                            <div class="col-sm-12 col-md-5">
                                                 <div class="form-group form-primary form-static-label">
                                                     <span class="border-lable-flt">
                                                         <ng-select [(ngModel)]="selectedTransScheme"
@@ -279,12 +248,13 @@
                                                         This field is required.
                                                     </div>
                                                 </div>
-
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm-12 col-md-2"><label for="TschemeAC">Account
                                                     Number<sub class="required">*</sub></label></div>
 
-                                            <div class="col-sm-4">
+                                            <div class="col-sm">
                                                 <div class="form-group form-primary form-static-label">
                                                     <span class="border-lable-flt">
                                                         <ng-select id="TschemeAC" [(ngModel)]="ngacno"
@@ -306,10 +276,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="row">
-
                                             <div class="col-sm-12 col-md-2  "><label
                                                     for="AC_PARTICULAR">Particular</label>
                                             </div>
@@ -321,32 +289,6 @@
                                                         <i class="fa fa-info-circle errspan"
                                                             (click)="modalLarge.show()"></i>
                                                     </span>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-2  "><label
-                                                    for="AC_PARTICULAR">Debit/Credit</label>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group form-primary form-static-label">
-                                                    <span class="border-lable-flt">
-                                                        <ng-select id="d/c" [(ngModel)]="debitcredit"
-                                                            formControlName="DEBIT_CREDIT" bindLabel="label"
-                                                            bindValue="name" title="Compulsory Selection"
-                                                            placeholder="">
-                                                            <ng-option *ngFor="let values of values" [value]="values"
-                                                                (focus)="onFocus(dc)">
-                                                                {{values.name}}</ng-option>
-                                                        </ng-select>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['DEBIT_CREDIT'].invalid && (angForm.controls['DEBIT_CREDIT'].dirty || angForm.controls['DEBIT_CREDIT'].touched)"
-                                                    class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['DEBIT_CREDIT'].errors?.required">
-                                                        This field is required.
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -370,14 +312,6 @@
                                                         Input allowed only 0-9
                                                     </div>
                                                 </div>
-                                                <!-- <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['amount'].invalid && (angForm.controls['amount'].dirty || angForm.controls['amount'].touched)"
-                                            class="alert alert-danger">
-                                            <div
-                                            *ngIf="angForm.controls['amount'].errors?.maxlength">
-                                            Input allowed only 0-9
-                                            </div>
-                                        </div> -->
                                             </div>
                                             <div class="col-md">
                                                 <button type="button" class="btn btn-outline-primary btn-sm"
@@ -390,7 +324,6 @@
                                                 </button>
                                             </div>
                                         </div>
-
                                         <!-- Multiple Transaction details data show here -->
                                         <div class="row">
                                             <div class="col-md-12">
@@ -400,12 +333,9 @@
                                                             <td>Action</td>
                                                             <td>Scheme</td>
                                                             <td>Account Number</td>
-                                                            <td>Tran. Type</td>
-                                                            <td>Dr/Cr</td>
                                                             <td>Particulars</td>
                                                             <td style="text-align: right;">Amount</td>
                                                         </thead>
-
                                                         <tbody *ngIf="multigrid.length != 0">
                                                             <tr *ngFor="let data of multigrid;
                                                                 let indexOfelement = index">
@@ -415,31 +345,14 @@
                                                                         (click)="editTransferAccount(indexOfelement)"
                                                                         placement="top" ngbTooltip="Edit"></span>
                                                                 </td>
-                                                                <!--  <td [ngClass]="'td_right'">{{ data.Scheme==
-                                                            undefined || data.Scheme==null
-                                                            ? data.depoCloseTranAc.S_APPL: data.Scheme
-                                                            }}
-                                                        </td>
-                                                        <td [ngClass]="'td_right'">{{ data.TRANSFER_ACNO
-                                                            }}
-                                                        </td>
-                                                        <td [ngClass]="'td_right'">{{values.name}}
-                                                        
-                                                        </td>
-                                                        <td>{{ data.NARRATION }}</td>
-                                                        <td [ngClass]="'td_right'">{{ data.TRAN_AMOUNT
-                                                            }}
-                                                        </td> -->
-                                                                <td class="td_center">{{data.Tscheme}}</td>
-                                                                <td class="td_center">{{data.TschemeAC}}</td>
-                                                                <td class="td_center">{{data.type}}</td>
-                                                                <td class="td_center">{{data.DEBIT_CREDIT}}</td>
-                                                                <td class="td_center">{{data.particularss}}</td>
-                                                                <td class="td_center">{{data.amount}}</td>
+                                                                <td class="td_center">{{data.TRAN_ACTYPE}}</td>
+                                                                <td class="td_center">{{data.TRAN_ACNO}}</td>
+                                                                <td class="td_center">{{data.NARRATION}}</td>
+                                                                <td class="td_center">{{data.TRAN_AMOUNT}}</td>
                                                             </tr>
                                                             <tr *ngIf="multigrid.length != 0">
 
-                                                                <td colspan="6" style="text-align: right;">Total
+                                                                <td colspan="4" style="text-align: right;">Total
                                                                 </td>
                                                                 <td [ngClass]="'td_right'">
                                                                     {{transferTotalAmount}}
@@ -451,88 +364,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-
-
-                                        <div class="col-md-2">
-                                            <label for="t_debit">Total Debit<sub class="required">* </sub></label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group input-group">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" name="label-name" class="form-control"
-                                                        placeholder=" " [ngModel]="totalDebit"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                                        formControlName="T_DEBIT">
-                                                </span>
-                                            </div>
-                                            <div class="form-group form-primary form-static-label"
-                                                *ngIf="angForm.controls['T_DEBIT'].invalid && (angForm.controls['T_DEBIT'].dirty || angForm.controls['T_DEBIT'].touched)"
-                                                class="alert alert-danger">
-                                                <div
-                                                    *ngIf="angForm.controls['T_DEBIT'].errors?. maxlength || angForm.controls['T_DEBIT'].errors?. minlength || angForm.controls['T_DEBIT'].errors?.required">
-                                                    This field is required
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <label for="t_credit">Total Credit<sub class="required">* </sub></label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group input-group">
-                                                <span class="border-lable-flt">
-                                                    <input type="text" name="label-name" class="form-control"
-                                                        placeholder=" " [ngModel]="totalCredit"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                                        formControlName="T_CREDIT">
-                                                </span>
-                                            </div>
-                                            <div class="form-group form-primary form-static-label"
-                                                *ngIf="angForm.controls['T_CREDIT'].invalid && (angForm.controls['T_CREDIT'].dirty || angForm.controls['T_CREDIT'].touched)"
-                                                class="alert alert-danger">
-                                                <div
-                                                    *ngIf="angForm.controls['T_CREDIT'].errors?. maxlength || angForm.controls['T_CREDIT'].errors?. minlength || angForm.controls['T_CREDIT'].errors?.required">
-                                                    This field is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
-
-
                                 </div>
                                 <div class="row">
                                     <button class="btn btn-outline-primary btn-sm" (click)="submit()">
                                         Submit
                                     </button>
-
                                 </div>
-
                             </div>
                         </div>
-
-
                     </div>
-
-
-
-
                 </form>
-
             </div>
-
-
-
-
-
         </div>
     </div>
 </div>
-
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>
@@ -593,34 +438,3 @@
         </perfect-scrollbar>
     </div>
 </app-modal-basic>
-<!-- <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
-    <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
-        <button type="button" class="close basic-close" (click)="modalLarge1.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="app-modal-body">
-        <perfect-scrollbar style="overflow-y: auto;">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th>Paticulars</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of narrationList" (click)="getNarration1(item.NARRATION)">
-                                {{item.NARRATION}}
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide"
-                        #triggerhide (click)="modalLarge.hide()">Close</button>
-                </div>
-            </div>
-        </perfect-scrollbar>
-    </div>
-     <div class="app-modal-footer">
-        
-      </div> 
-</app-modal-basic> -->
