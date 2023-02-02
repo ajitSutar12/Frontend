@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -21,6 +21,9 @@ export class IssueNewSharesComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   // @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
+  @Input() childMessage: string;
+  @Output() reloadTablePassing = new EventEmitter<string>();
+
 
   //for Formgroup
   ngForm: FormGroup
@@ -32,6 +35,10 @@ export class IssueNewSharesComponent implements OnInit {
 
   jointShowButton: boolean = true
   jointUpdateShow: boolean = false
+
+
+  public visibleAnimate = false;
+  public visible = false;
 
   //ngmodel
   schemeCode
@@ -73,7 +80,9 @@ export class IssueNewSharesComponent implements OnInit {
   url = environment.base_url;
   Tparticulars
 
-
+  submitShow: boolean = true;
+  rejectShow: boolean =false;
+  approveShow: boolean = false;
   resolutionDate: any
 
   constructor(private fb: FormBuilder,
@@ -84,6 +93,9 @@ export class IssueNewSharesComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
   ) {
+    if (this.childMessage != undefined) {
+      this.editClickHandler(this.childMessage);
+    }
   }
 
   ngOnInit(): void {
@@ -463,18 +475,15 @@ export class IssueNewSharesComponent implements OnInit {
     select.close()
   }
   updateID
+
   // function for edit button clicked
-  editClickHandler(id): void {
+  editClickHandler(id): void { debugger
+
     this.http.get(this.url + '/issue-new-share/' + id).subscribe((data: any) => {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
-      if (dailyshrtran.TRAN_STATUS == 0) {
-
-      }
-      else if (dailyshrtran.TRAN_STATUS != 0) {
-
-      }
+      this.submitShow = false;
       this.selectedBranch = dailyshrtran.BRANCH_CODE
       this.schemeCode = dailyshrtran.TRAN_ACTYPE
       this.Issue_date = dailyshrtran.TRAN_DATE
@@ -486,9 +495,43 @@ export class IssueNewSharesComponent implements OnInit {
     })
   }
 
+  // approve() {
+  //   let data: any = localStorage.getItem('user');
+  //   let result = JSON.parse(data);
+  //   var object =
+  //   {
+  //     id: this.updateID,
+  //     userid: result.id,
+  //     BRANCH_CODE: this.selectedBranch
+  //   }
+  //   this.http.post(this.url + '/issue-new-share/approve', object).subscribe(data => {
+  //     Swal.fire(
+  //       'success', "Data Approved Successfully!!", 'success'
+  //     );
+  //   })
+  // }
+  // reject() {
+  //   let data: any = localStorage.getItem('user');
+  //   let result = JSON.parse(data);
+  //   var object =
+  //   {
+  //     id: this.updateID,
+  //     userid: result.id,
+  //     BRANCH_CODE: this.selectedBranch
+  //   }
+  //   this.http.post(this.url + '/issue-new-share/reject', object).subscribe(data => {
+  //     Swal.fire(
+  //       'success', "Data Rejected Successfully!!", 'success'
+  //     );
+  //   })
+  // }
+
   approve() {
+    const formVal = this.ngForm.value;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
     var object =
     {
       id: this.updateID,
@@ -499,6 +542,11 @@ export class IssueNewSharesComponent implements OnInit {
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
   }
   reject() {
@@ -514,6 +562,20 @@ export class IssueNewSharesComponent implements OnInit {
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
+  }
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

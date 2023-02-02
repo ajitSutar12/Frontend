@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
@@ -22,6 +22,11 @@ export class MembershipCancellationComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   @ViewChild('narrationhide') narrationhide: ElementRef<HTMLElement>;
+  @Input() childMessage: string;
+  @Output() reloadTablePassing = new EventEmitter<string>();
+
+
+
   angForm: FormGroup
   url = environment.base_url;
   newbtnShow: boolean = true;
@@ -70,15 +75,26 @@ export class MembershipCancellationComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,) {
+
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.Issue_date = data.CURRENT_DATE
     })
+    if (this.childMessage != undefined) {
+      this.editClickHandler(this.childMessage);
+    }
+   
   }
   showButton: boolean = true;
   updateShow: boolean = false;
   isCash: boolean = true;
+
+  // submitShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+  public visibleAnimate = false;
+  public visible = false;
 
   ngOnInit(): void {
     this.shareBal = 0
@@ -401,7 +417,7 @@ export class MembershipCancellationComponent implements OnInit {
     this.angForm.controls['TschemeAC'].reset()
     this.angForm.controls['amount'].reset()
     this.angForm.controls['DEBIT_CREDIT'].reset()
-  }
+  } 
 
 
   resetForm1() {
@@ -498,6 +514,9 @@ export class MembershipCancellationComponent implements OnInit {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
+      // this.approveShow = true;
+      // this.rejectShow = true;
+      // this.submitShow = false;
       if (dailyshrtran.TRAN_STATUS == 0) {
 
       }
@@ -548,5 +567,57 @@ export class MembershipCancellationComponent implements OnInit {
         'success', "Data Rejected Successfully!!", 'success'
       );
     })
+  }
+  // approve() {
+  //   const formVal = this.ngForm.value;
+  //   let data: any = localStorage.getItem('user');
+  //   let result = JSON.parse(data);
+  //   let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+  //   let resodate = moment(toDate).format('DD/MM/YYYY')
+  //   var object =
+  //   {
+  //     id: this.updateID,
+  //     userid: result.id,
+  //     BRANCH_CODE: this.selectedBranch
+  //   }
+  //   this.http.post(this.url + '/issue-new-share/approve', object).subscribe(data => {
+  //     Swal.fire(
+  //       'success', "Data Approved Successfully!!", 'success'
+  //     );
+  //     var button = document.getElementById('trigger');
+  //     button.click();
+  //     this.reloadTablePassing.emit();
+  //   }, err => {
+  //     console.log('something is wrong');
+  //   })
+  // }
+  // reject() {
+  //   let data: any = localStorage.getItem('user');
+  //   let result = JSON.parse(data);
+  //   var object =
+  //   {
+  //     id: this.updateID,
+  //     userid: result.id,
+  //     BRANCH_CODE: this.selectedBranch
+  //   }
+  //   this.http.post(this.url + '/issue-new-share/reject', object).subscribe(data => {
+  //     Swal.fire(
+  //       'success', "Data Rejected Successfully!!", 'success'
+  //     );
+  //     var button = document.getElementById('trigger');
+  //     button.click();
+  //     this.reloadTablePassing.emit();
+  //   }, err => {
+  //     console.log('something is wrong');
+  //   })
+  // }
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

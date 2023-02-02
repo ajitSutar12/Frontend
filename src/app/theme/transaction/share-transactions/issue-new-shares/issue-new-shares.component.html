@@ -654,9 +654,18 @@
 
                                 <div class="row">
                                     <div class="col-sm" style="float: right;">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit()">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitShow" (click)="submit()">
                                             Submit
                                         </button>
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                                            Close</button>
+                                        
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
+                                            Approve</button>
+                                        <!-- <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" > 
+                                            Unapprove</button> -->
                                     </div>
                                 </div>
                             </div>
