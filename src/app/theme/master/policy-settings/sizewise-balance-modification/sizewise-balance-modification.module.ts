@@ -1,18 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
-
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorPickerModule } from 'ngx-color-picker';
-
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SelectModule } from 'ng-select';
-
 import { SizewiseBalanceModificationComponent } from './sizewise-balance-modification.component';
 import { SizewiseBalanceModificationRoutingModule } from './sizewise-balance-modification-routing.module';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -20,9 +15,11 @@ import { DepositSizeWiseBalanceComponent } from './deposit-size-wise-balance/dep
 import { LoanSizeWiseBalanceComponent } from './loan-size-wise-balance/loan-size-wise-balance.component'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { CommissionSlabMasterModule } from './commission-slab-master/commission-slab-master.module';
+import { CommissionSlabMasterComponent } from './commission-slab-master/commission-slab-master.component';
+// import { CommissionSlabMasterModule } from './commission-slab-master/commission-slab-master.module';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
-// import { ThemeModule } from 'src/app/theme/theme.module';
+import { ThemeModule } from '../../../theme.module';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -44,12 +41,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    CommissionSlabMasterModule,
-    // ThemeModule
+    // CommissionSlabMasterModule,
+    ThemeModule
 
 
   ],
   providers: [
+    SystemMasterParametersService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
@@ -62,7 +60,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       multi: true
     },
   ],
-  declarations: [SizewiseBalanceModificationComponent, DepositSizeWiseBalanceComponent, LoanSizeWiseBalanceComponent,],
+  declarations: [SizewiseBalanceModificationComponent, DepositSizeWiseBalanceComponent, LoanSizeWiseBalanceComponent, CommissionSlabMasterComponent],
   bootstrap: [SizewiseBalanceModificationComponent]
 })
 export class SizewiseBalanceModificationModule { }

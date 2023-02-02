@@ -148,16 +148,16 @@
                     <div class="row">
 
                         <div class="col-sm-2">
-                           
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngTitlereg" id="AC_TITLE_REG"
-                                        bindLabel="label" formControlName="AC_TITLE_REG" title="Compulsory Selection"
+                                    <ng-select appTheme bindValue="regValue" [(ngModel)]="ngTitlereg" id="AC_TITLE_REG"
+                                        bindLabel="regValue" formControlName="AC_TITLE_REG" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="" #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)" [selectOnTab]='true'
-                                        autofocus>
+                                        placeholder="" #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)"
+                                        [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of prifix" [value]="values">
-                                            {{values.label}} </ng-option>
+                                            {{values.regValue}} </ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Regional Title <sub class="required"> * </sub></label>
                                 </span>
@@ -432,7 +432,7 @@
                                     Input allowed only A-Z a-z 0-9 - / . (Space)
                                 </div>
                             </div>
-                        </div> 
+                        </div>
 
 
                     </div>

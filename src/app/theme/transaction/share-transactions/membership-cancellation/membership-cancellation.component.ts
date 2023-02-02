@@ -19,21 +19,14 @@ import * as moment from 'moment';
   styleUrls: ['./membership-cancellation.component.scss']
 })
 export class MembershipCancellationComponent implements OnInit {
-
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   @ViewChild('narrationhide') narrationhide: ElementRef<HTMLElement>;
-
   angForm: FormGroup
-
   url = environment.base_url;
-
-
   newbtnShow: boolean = true;
   jointShowButton: boolean = true;
   jointUpdateShow: boolean = false;
-
-
   selectedBranch
   branchOption: any;
   scheme
@@ -41,8 +34,6 @@ export class MembershipCancellationComponent implements OnInit {
   schemeType: string = 'SH'
   obj: any;
   Scheme: any;
-
-
   maxDate: any;
   minDate: Date;
   type: any;
@@ -50,101 +41,56 @@ export class MembershipCancellationComponent implements OnInit {
   introducerACNo
   schemeACNo
   bankacno
-
   debitcredit
   selectedScheme: any = null
-
   particulars: any;
-
-
   multigrid = []
   values = [
     { id: 1, name: 'CREDIT' },
     { id: 2, name: 'DEBIT' },
   ];
-
-
-  amount:any;
-  ngFnarration: any = null
-
-
-
-
-  // formSubmitted = false;
-  // //api 
-  // url = environment.base_url;
-
-  // // Created Form Group
-  // angForm: FormGroup;
-
-  // schemeCode:any=null
-  // //Scheme type variable
-  // schemeType: string = 'SH'
-  // shareSchemeType
-
-  // //Dropdown options
-  // scheme //scheme code from schemast(S_ACNOTYPE)
-  // memberNo
-  // TRANSACTIONNo
-
-
-
+  amount: any;
+  ngFnarration: any = 'Member Cancelled'
   dtExportButtonOptions: any = {};
   isTransfer: boolean;
   intIndex: any;
   date: any;
   multigrid1 = new Array();
-  totalCredit: any=0;
-  totalDebit: any=0;
-  transferTotalAmount: any=0;
-  
+  totalCredit: any = 0;
+  totalDebit: any = 0;
+  transferTotalAmount: any = 0;
   narrationList: any;
   particularss: any;
-  
-
-
   constructor(
     private http: HttpClient,
-     
     private fb: FormBuilder,
     public glMasterService: glMasterService,
     private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter: SystemMasterParametersService,) 
-    
-    
-    {this.systemParameter.getFormData(1).subscribe(data => {
+    private systemParameter: SystemMasterParametersService,) {
+    this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
-    }) }
+      this.Issue_date = data.CURRENT_DATE
+    })
+  }
   showButton: boolean = true;
   updateShow: boolean = false;
-
   isCash: boolean = true;
 
-  
-
-
-
-
-
   ngOnInit(): void {
+    this.shareBal = 0
+    this.multigrid = []
     this.createForm()
-
-
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'tranfer';
-    // this.tranModeList = this.TranModeCash;
-
     //BranchCode Dropdown
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
       this.selectedBranch = user.branchId;
     })
-
-
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
@@ -154,14 +100,9 @@ export class MembershipCancellationComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.Scheme = data
     });
-
     this.http.get(this.url + '/narration').subscribe(data => {
-   
       this.narrationList = data
     });
-   
-
-
   }
 
 
@@ -170,30 +111,26 @@ export class MembershipCancellationComponent implements OnInit {
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
   }
- 
-  
+
   getFormNarration(ele) {
     this.ngFnarration = ele;
     let el: HTMLElement = this.narrationhide.nativeElement;
     el.click();
   }
 
-  onfocus(ele: NgSelectComponent){
+  onfocus(ele: NgSelectComponent) {
     ele.open()
     console.log(ele);
   }
-  onopen(select: NgSelectComponent){
+  onopen(select: NgSelectComponent) {
     select.open()
   }
-  onClose(select: NgSelectComponent){
+  onClose(select: NgSelectComponent) {
     select.close()
   }
 
   getIntroducer() {
-    debugger
     this.obj = [this.schemeCode, this.selectedBranch]
-
-
     this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
     })
@@ -220,7 +157,9 @@ export class MembershipCancellationComponent implements OnInit {
       DEBIT_CREDIT: ['', [Validators.required]],
       T_DEBIT: ['', [Validators.required]],
       T_CREDIT: ['', [Validators.required]],
-      Fnarration: ['', [Validators.required]],
+      Fnarration: ['Member Cancelled', [Validators.required]],
+      T_NO_OF_SHARES: [0],
+      T_SHARES_AMOUNT: [0]
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -236,10 +175,6 @@ export class MembershipCancellationComponent implements OnInit {
       this.selectedBranch = result.branch.id
     }
   }
-  runTimer() {
-
-  }
-
   isFormA(value) {
     if (value == 1) {
       this.isTransfer = false
@@ -251,10 +186,7 @@ export class MembershipCancellationComponent implements OnInit {
   transferSchemeDetails
   ngacno: any = null
   transferAccountDetails
-
   selectedTransScheme: any = null
-
-
 
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
@@ -313,167 +245,167 @@ export class MembershipCancellationComponent implements OnInit {
   getTransferAccountDeatil(event) {
     this.transferAccountDetails = event
   }
-  getMemberDetail(event){
-    console.log(event.openDate,'eve')
+  shareBal = 0
+  Issue_date
+  updateID
+  getMemberDetail(event) {
+    this.ngIntroducer = event.bankacno
     this.angForm.patchValue({
-      MDATE: event.openDate 
+      MDATE: event.openDate,
+      MCDATE: this.Issue_date
     })
-    console.log(this.angForm.value,'form value')
+    let obj = {
+      schemeCode: this.schemeCode,
+      bankacno: event.bankacno,
+      issueDate: this.Issue_date
+    }
+    this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', obj).subscribe(data => {
+      if (data['isclosed'] == 1) {
+        Swal.fire("Oops!", "Selected account is closed!", "error");
+        this.ngIntroducer = null
+      } else if (Number(data['shareBal']) == 0) {
+        Swal.fire("Oops!", "Selected account has 0 balance!", "error");
+        this.ngIntroducer = null
+      }
+      else {
+        this.shareBal = data['shareBal']
+        this.angForm.patchValue({
+          MDATE: event.openDate,
+          T_NO_OF_SHARES: data['numberOfShares'],
+          T_SHARES_AMOUNT: data['shareBal'],
+          TRANS_AMOUNT: data['shareBal'],
+        })
+      }
+    })
   }
-
 
 
   decimalAllContent($event) {
-    // let value = Number($event.target.value);
-    //   let data = value.toFixed(2);
-    //   $event.target.value = data;
-    
-      var t = $event.target.value;
-      $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-      this.angForm.patchValue({
-        amount:$event.target.value
-      })
+    var t = $event.target.value;
+    $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    this.angForm.patchValue({
+      amount: $event.target.value
+    })
   }
-
-  
-
 
   addTransferAccount() {
     const formVal = this.angForm.value;
-    debugger
-    var object =
-    {
-      Tscheme: formVal.Tscheme,
-      TschemeAC: formVal.TschemeAC,
-      amount: formVal.amount,
-      DEBIT_CREDIT: formVal.DEBIT_CREDIT,
-      
-      // DEBIT: formVal.type,
-      particularss: formVal.particularss,
+    var object = {
+      TRAN_ACTYPE: formVal.Tscheme,
+      TRAN_ACNOTYPE: this.transferSchemeDetails.name,
+      TRAN_ACNO: formVal.TschemeAC,
+      TRAN_AMOUNT: formVal.amount,
+      NARRATION: formVal.particularss,
       type: formVal.type
     }
-
-   
-   
+    this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
     }
-     else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
+    else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
       Swal.fire(
         "Warning!",
         "Please Select Account!",
         "info"
       );
     }
-   
-   
-    else if (formVal.particularss == "" || formVal.particularss == null) {
+    else if ((formVal.amount == "" || formVal.amount == null)) {
       Swal.fire(
         "Warning!",
-        "Please Insert Particulars!",
+        "Please Insert Proper Transfer Amount!",
         "info"
       );
     }
-    else if (formVal.DEBIT_CREDIT == "" || formVal.DEBIT_CREDIT == null) {
-      Swal.fire(
-        "Warning!", "Please Select Debit or Credit Option!", "error"
-      );
-    }
-    else if (formVal.amount == "" || formVal.amount == null) {
+    else if (this.transferTotalAmount > this.shareBal) {
+      this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
       Swal.fire(
         "Warning!",
-        "Please Insert Transfer Amount!",
+        `Transfer amount should be equal or less than ${this.shareBal}`,
         "info"
       );
-    }else
-    {
-      if (formVal.DEBIT_CREDIT == 'CREDIT') {
-        this.totalCredit = this.totalCredit + Number(formVal.amount)
-      } else {
-        this.totalDebit = this.totalDebit + Number(formVal.amount);
-      }
-    
-      this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-    
+    }
+    else if (Number(formVal.amount) > this.shareBal) {
+      Swal.fire(
+        "Warning!",
+        `Transfer amount should be equal or less than ${this.shareBal}`,
+        "info"
+      );
+    }
+    else {
+      this.totalCredit = this.totalCredit + Number(formVal.amount)
       this.multigrid.push(object);
       this.resetForm();
     }
-  
-
-
-    
-    
   }
-  
+
 
   editTransferAccount(indexOfelement) {
-
     this.intIndex = indexOfelement;
-    // this.intID = this.multiField[id].SR_NO;
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
-
-
-
-
-      // SR_NO: this.multiField[id].SR_NO,
-      Tscheme: this.multigrid[indexOfelement].Tscheme,
-      TschemeAC: this.multigrid[indexOfelement].TschemeAC,
-      amount: this.multigrid[indexOfelement].amount,
-      DEBIT_CREDIT: this.multigrid[indexOfelement].DEBIT_CREDIT,
+      Tscheme: this.multigrid[indexOfelement].TRAN_ACTYPE,
+      TschemeAC: this.multigrid[indexOfelement].TRAN_ACNO,
+      amount: this.multigrid[indexOfelement].TRAN_AMOUNT,
       TRANSFER_ACNO: this.multigrid[indexOfelement].TRANSFER_ACNO,
-      DEBIT: this.multigrid[indexOfelement].DEBIT,
-      particularss: this.multigrid[indexOfelement].particularss,
-      T_SHARES_AMOUNT: this.multigrid[indexOfelement].T_SHARES_AMOUNT,
-
-
-
-
+      particularss: this.multigrid[indexOfelement].NARRATION,
     })
   }
 
   updateTransferAcccount() {
     let index = this.intIndex;
-
     const formVal = this.angForm.value;
     var object = {
-
-      Tscheme: formVal.Tscheme,
-      TschemeAC: formVal.TschemeAC,
-      amount: formVal.amount,
-      DEBIT_CREDIT: formVal.DEBIT_CREDIT,
+      TRAN_ACTYPE: formVal.Tscheme,
+      TRAN_ACNO: formVal.TschemeAC,
+      TRAN_ACNOTYPE: this.transferSchemeDetails.name,
+      TRAN_AMOUNT: formVal.amount,
       TRANSFER_ACNO: formVal.TRANSFER_ACNO,
-      DEBIT: formVal.DEBIT,
-      particularss: formVal.particularss,
-      type: formVal.type
-
-
+      NARRATION: formVal.particularss,
     }
-    this.multigrid[index] = object;
-    this.jointShowButton = true;
-    this.jointUpdateShow = false;
-    this.resetForm();
-
+    if ((formVal.amount == "" || formVal.amount == null)) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Proper Transfer Amount!",
+        "info"
+      );
+    }
+    else if (this.transferTotalAmount > this.shareBal) {
+      this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+      Swal.fire(
+        "Warning!",
+        `Transfer amount should be equal or less than ${this.shareBal}`,
+        "info"
+      );
+    }
+    else if (Number(formVal.amount) > this.shareBal) {
+      Swal.fire(
+        "Warning!",
+        `Transfer amount should be equal or less than ${this.shareBal}`,
+        "info"
+      );
+    }
+    else {
+      this.transferTotalAmount = this.transferTotalAmount - Number(this.multigrid[index].amount)
+      this.multigrid[index] = object;
+      this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+      this.jointShowButton = true;
+      this.jointUpdateShow = false;
+      this.resetForm();
+    }
   }
 
   resetForm() {
-
-   
     this.angForm.controls['particularss'].reset()
-    this.angForm.controls['type'].reset()
     this.angForm.controls['Tscheme'].reset()
     this.angForm.controls['TschemeAC'].reset()
     this.angForm.controls['amount'].reset()
     this.angForm.controls['DEBIT_CREDIT'].reset()
-
-
-
   }
 
 
   resetForm1() {
-     this.angForm.controls['branchOption'].reset()
+    this.angForm.controls['branchOption'].reset()
     this.angForm.controls['AC_TYPE'].reset()
     this.angForm.controls['AC_TYPE1'].reset()
     this.angForm.controls['ChequeDate'].reset()
@@ -485,61 +417,36 @@ export class MembershipCancellationComponent implements OnInit {
     this.angForm.controls['ATA'].reset()
     this.angForm.controls['particulars'].reset()
     this.angForm.controls['RESOLUTIONNO'].reset()
-
   }
-
-
-
-
 
 
 
   submit() {
     const formVal = this.angForm.value;
-    var object =
-    {
-      branchOption: formVal.branchOption,
-      AC_TYPE: formVal.AC_TYPE,
-      AC_TYPE1: formVal.AC_TYPE1,
-      ChequeDate: formVal.ChequeDate,
-      MEMBER_CODE1: formVal.MEMBER_CODE1,
-      MCDATE: formVal.MCDATE,
-      RDATE: formVal.RDATE,
-      MDATE: formVal.MDATE,
-      amt: formVal.amt,
-      ATA: formVal.ATA,
-      particulars: formVal.particulars,
-      RESOLUTIONNO: formVal.RESOLUTIONNO,
-      Tscheme: formVal.Tscheme,
-      TschemeAC: formVal.TschemeAC,
-      amount: formVal.amount,
-      DEBIT_CREDIT: formVal.DEBIT_CREDIT,
-      DEBIT: formVal.type,
-      particularss: formVal.particularss,
-      type: formVal.type
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
+    let obj = {
+      BRANCH_CODE: this.selectedBranch,
+      TRAN_DATE: this.Issue_date,
+      TRAN_ACTYPE: this.schemeCode,
+      transactionmode: formVal.type,
+      TRAN_ACNO: this.ngIntroducer,
+      TRAN_AMOUNT: this.shareBal,
+      USER_CODE: result.id,
+      RESULATION_DATE: resodate,
+      RESULATION_NO: formVal.RESOLUTIONNO,
+      MembershipData: this.multigrid
     }
     if (formVal.branchOption == "" || formVal.branchOption == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
     }
-     else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
+    else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
       Swal.fire(
         "Warning!",
         "Please Select Account!",
         "info"
-      );
-    }
-   
-   
-    else if (formVal.AC_TYPE1 == "" || formVal.AC_TYPE1 == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Particulars!",
-        "info"
-      );
-    }
-    else if (formVal.ChequeDate == "" || formVal.ChequeDate == null) {
-      Swal.fire(
-        "Warning!", "Please Select Debit and Credit!", "error"
       );
     }
     else if (formVal.MEMBER_CODE1 == "" || formVal.MEMBER_CODE1 == null) {
@@ -549,113 +456,97 @@ export class MembershipCancellationComponent implements OnInit {
         "info"
       );
     }
-    else if (formVal.MCDATE== "" || formVal.MCDATE == null) {
+    else if (formVal.MCDATE == "" || formVal.MCDATE == null) {
       Swal.fire(
         "Warning!",
         "Please Select Account!",
         "info"
       );
     }
-   
-   
     else if (formVal.RDATE == "" || formVal.RDATE == null) {
       Swal.fire(
         "Warning!",
-        "Please Insert Particulars!",
+        "Please Insert Resolution Date!",
         "info"
       );
     }
-    else if (formVal.MDATE == "" || formVal.MDATE == null) {
-      Swal.fire(
-        "Warning!", "Please Select Debit and Credit!", "error"
-      );
-    }
-    else if (formVal.amt == "" || formVal.amt == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
-        "info"
-      );
-    }
-    
-    else if (formVal.ATA == "" || formVal.ATA == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
-    }
-     else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Select Account!",
-        "info"
-      );
-    }
-   
-   
-    // else if (formVal.particulars == "" || formVal.particulars == null) {
-    //   Swal.fire(
-    //     "Warning!",
-    //     "Please Insert Particulars!",
-    //     "info"
-    //   );
-    // }
     else if (formVal.RESOLUTIONNO == "" || formVal.RESOLUTIONNO == null) {
       Swal.fire(
-        "Warning!", "Please Select Debit and Credit!", "error"
+        "Warning!", "Please enter resolution number!", "error"
       );
-
     }
-  
-    else if (formVal.Tscheme == "" || formVal.Tscheme == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
-    }
-     else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
+    else if (this.transferTotalAmount != this.shareBal && formVal.type == 'transfer') {
       Swal.fire(
-        "Warning!",
-        "Please Select Account!",
-        "info"
+        "Warning!", "Please check transfer amount!", "error"
       );
     }
-   
-   
-    else if (formVal.particularss == "" || formVal.particularss == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Particulars!",
-        "info"
-      );
+    else {
+      this.http.post(this.url + '/dailyshrtran/insert', obj).subscribe(data => {
+        Swal.fire(
+          'success', "Data Submitted Successfully!!", 'success'
+        );
+        this.shareBal = 0
+        this.transferTotalAmount = 0
+        this.ngOnInit()
+      })
     }
-    else if (formVal.DEBIT_CREDIT == "" || formVal.DEBIT_CREDIT == null) {
-      Swal.fire(
-        "Warning!", "Please Select Debit and Credit!", "error"
-      );
-    }
-    else if (formVal.amount == "" || formVal.amount == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
-        "info"
-      );
-    }else
-    {
-      this.multigrid1.push(object);
-    Swal.fire(
-      "Data Submitted Successfully!!"
-    );
-    console.log(object);
-      
-    }
-  
-
-    
   }
 
+  // function for edit button clicked
+  editClickHandler(id): void {
+    this.http.get(this.url + '/dailyshrtran/' + id).subscribe((data: any) => {
+      let dailyshrtran = data.dailyshrtran
+      let dailytran = data.dailytran
+      this.updateID = dailyshrtran.id
+      if (dailyshrtran.TRAN_STATUS == 0) {
 
+      }
+      else if (dailyshrtran.TRAN_STATUS != 0) {
 
+      }
+      this.selectedBranch = dailyshrtran.BRANCH_CODE
+      this.schemeCode = dailyshrtran.TRAN_ACTYPE
+      this.Issue_date = dailyshrtran.TRAN_DATE
+      this.shareBal = dailyshrtran.TRAN_AMOUNT
+      this.getIntroducer()
+      this.angForm.patchValue({
+        type: dailytran[0].TRAN_TYPE == 'CS' ? 'cash' : 'transfer',
+        RDATE: dailyshrtran.RESULATION_DATE,
+        RESOLUTIONNO: dailyshrtran.RESULATION_NO
+      })
+      this.ngIntroducer = dailyshrtran.TRAN_ACNO
+      this.multigrid = dailytran
+    })
+  }
 
-
-
-
-
-
-
-
+  approve() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    var object =
+    {
+      id: this.updateID,
+      USER_CODE: result.id,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this.http.post(this.url + '/dailyshrtran/approve', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Approved Successfully!!", 'success'
+      );
+    })
+  }
+  reject() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    var object =
+    {
+      id: this.updateID,
+      USER_CODE: result.id,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this.http.post(this.url + '/dailyshrtran/reject', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Rejected Successfully!!", 'success'
+      );
+    })
+  }
 }
