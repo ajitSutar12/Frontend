@@ -1997,7 +1997,7 @@ export class VoucherEntryComponent implements OnInit {
 
   onCloseModal() {
     this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
+    setTimeout(() => this.visible = false, 300); 
   }
   getTranMode() {
     let object = this.TranData.find(t => t.key === this.selectedCode);

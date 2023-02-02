@@ -296,9 +296,26 @@
                 </form>
                 <div class="row">
                     <div class="col-sm" style="float: right;">
-                        <button class="btn btn-outline-primary btn-sm" (click)="submit()">
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="submitShow" (click)="submit()">
                             Submit
                         </button>
+
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                            Close</button>
+                        
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
+                            Approve</button>
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" > 
+                            Unapprove</button>
+                            <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                        *ngIf="newbtnShow">
+                        Cancel
+                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                        *ngIf="updateShow">
+                        Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                     </div>
                 </div>
             </div>
@@ -338,7 +355,7 @@
 </app-modal-basic> -->
 
 
-<app-modal-basic #formnarration [dialogClass]="'modal-md'">
+<!-- <app-modal-basic #formnarration [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>
         <button type="button" class="close basic-close" (click)="formnarration.hide()">
@@ -365,4 +382,4 @@
             </div>
         </perfect-scrollbar>
     </div>
-</app-modal-basic>
+</app-modal-basic> -->

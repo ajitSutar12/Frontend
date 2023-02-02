@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,12 +21,16 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import { event } from 'jquery';
 @Component({
   selector: 'app-shares-transfer',
   templateUrl: './shares-transfer.component.html',
   styleUrls: ['./shares-transfer.component.scss']
 })
 export class SharesTransferComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
+  @Input() childMessage: string;
+
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('narrationhide') narrationhide: ElementRef<HTMLElement>;
   //for fromgroup
@@ -72,9 +76,21 @@ export class SharesTransferComponent implements OnInit {
   ];
 
   dtExportButtonOptions: any = {};
-  constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService,) { }
+  submitShow: boolean = true;
+  constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService,) {
+    if (this.childMessage != undefined) {
+      this.editClickHandler(this.childMessage);
+    }
+  }
   showButton: boolean = true;
   updateShow: boolean = false;
+  public visibleAnimate = false;
+  public visible = false;
+
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+  unapproveShow: boolean = false;
+
 
   ngOnInit(): void {
     this.createForm();
@@ -309,7 +325,8 @@ export class SharesTransferComponent implements OnInit {
       this.selectedBranch = data.BRANCH_CODE
       this.getIntroducer()
       this.getIntroducers()
-      this.angForm.patchValue({
+      this.submitShow= false;
+      this.angForm.patchValue({ 
         branch_code: data.BRANCH_CODE,
         AC_TYPE: data.TRAN_ACTYPE,
         TRANS_AMOUNT: data.TRAN_AMOUNT,
@@ -317,6 +334,7 @@ export class SharesTransferComponent implements OnInit {
         RESOLUTIONNO: data.RESULATION_NO,
         RDATE: data.RESULATION_DATE
       })
+      // this.getMemeberDetails(event)
       this.ngIntroducer = data.TRAN_ACNO
       this.schemeCode1 = data.TRANSFER_ACTYPE_TO
       this.ngIntroducers = data.TRANSFER_MEMBER_NO_TO
@@ -431,6 +449,11 @@ export class SharesTransferComponent implements OnInit {
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
   }
   reject() {
@@ -445,7 +468,21 @@ export class SharesTransferComponent implements OnInit {
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
+  }
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }
 
