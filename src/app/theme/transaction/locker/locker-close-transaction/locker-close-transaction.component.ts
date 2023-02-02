@@ -28,7 +28,7 @@ export class LockerCloseTransactionComponent implements OnInit {
   Scheme: any;
 
 
- 
+
   type: any;
   ngIntroducer: any = null
   introducerACNo
@@ -48,17 +48,17 @@ export class LockerCloseTransactionComponent implements OnInit {
     { id: 1, name: 'a' },
     { id: 2, name: 'b' },
   ];
-  
 
-  constructor(private http: HttpClient,private config: NgSelectConfig,private systemParameter: SystemMasterParametersService, private fb: FormBuilder,private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService,  private schemeAccountNoService: SchemeAccountNoService,) { }
+
+  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,) { }
 
   ngOnInit(): void {
     this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'tranfer';
-  //   // this.tranModeList = this.TranModeCash;
+    //   // this.tranModeList = this.TranModeCash;
 
-  //   // BranchCode Dropdown
+    //   // BranchCode Dropdown
     this._ownbranchmasterservice.getOwnbranchList().subscribe(data => {
       this.branchOption = data;
       this.selectedBranch = user.branchId;
@@ -144,14 +144,14 @@ export class LockerCloseTransactionComponent implements OnInit {
     }
   }
 
-  
+
   getTransferAccountDeatil(event) {
     this.transferAccountDetails = event
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      
+
       branch_code: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
       branchOption: ['', [Validators.required]],
@@ -159,10 +159,23 @@ export class LockerCloseTransactionComponent implements OnInit {
       TRAN_DATE: ['', [Validators.required]],
       DEBIT_CREDIT: ['', [Validators.required]],
       Tscheme: ['', [Validators.required]],
-      
+
 
     })
 
   }
+
+  //   accountlist: 
+  // let obj = {
+  //   BRANCH_CODE:
+  // }
+  // endpoint: '/locker-tran/getList',obj
+  // ac close submit
+  // let obj={
+  //   AC_KEYWORD
+  //   TRAN_ACNO
+  //   id
+  // }
+  // 'locker-tran/closeLocker'
 
 }
