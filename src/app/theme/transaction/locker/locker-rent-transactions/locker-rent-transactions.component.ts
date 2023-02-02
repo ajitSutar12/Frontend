@@ -14,15 +14,15 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 })
 export class LockerRentTransactionsComponent implements OnInit {
 
- 
+
   ngForm: FormGroup;
-//for date
+  //for date
   maxDate: any;
   minDate: Date;
   bsValue = new Date();
 
   //ngmodel
-  transaction:any;
+  transaction: any;
   scheme
   scheme1
   acnumber
@@ -37,24 +37,24 @@ export class LockerRentTransactionsComponent implements OnInit {
   selectedBranch
   schemeCode
   Scheme
-   
+
   schemeACNo
   obj: any;
   introducerACNo
   transferSchemeDetails: any;
 
-  constructor(private fb: FormBuilder,    private systemParameter: SystemMasterParametersService,
+  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    ) {
+  ) {
 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.TransactionDate = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
     })
-   } 
+  }
 
   ngOnInit(): void {
 
@@ -106,87 +106,86 @@ export class LockerRentTransactionsComponent implements OnInit {
     this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
     })
-    
+
   }
 
- //get account no according scheme for transfer
+  //get account no according scheme for transfer
 
- getTransferAccountList(event) {
-  this.transferSchemeDetails = event
-  this.obj = [this.scheme, this.selectedBranch]
-  this.acnumber = null
-  // this.acnumber1 = null
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.obj = [this.scheme, this.selectedBranch]
+    this.acnumber = null
+    // this.acnumber1 = null
 
-  switch (event.name) {
-    // case 'SB': 
-    //   this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-    //     this.schemeACNo = data;
-    //   }) 
-    //   break;
+    switch (event.name) {
+      // case 'SB': 
+      //   this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+      //     this.schemeACNo = data;
+      //   }) 
+      //   break;
 
-    // case 'CA':
-    //   this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-    //     this.schemeACNo = data;
-    //   })
-    //   break;
+      // case 'CA':
+      //   this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+      //     this.schemeACNo = data;
+      //   })
+      //   break;
 
-    // case 'LN':
-    //   this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-    //     this.schemeACNo = data;
-    //   })
-    //   break;
+      // case 'LN':
+      //   this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+      //     this.schemeACNo = data;
+      //   })
+      //   break;
 
-    case 'TD':
-      this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-        this.schemeACNo = data;
-      })
-      break;
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
 
-    // case 'DS':
-    //   this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-    //     this.schemeACNo = data;
-    //   })
-    //   break;
+      // case 'DS':
+      //   this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+      //     this.schemeACNo = data;
+      //   })
+      //   break;
 
-    // case 'CC':
-    //   this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-    //     this.schemeACNo = data;
-    //   })
-    //   break;
+      // case 'CC':
+      //   this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+      //     this.schemeACNo = data;
+      //   })
+      //   break;
 
-    // case 'PG':
-    //   this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-    //     this.schemeACNo = data;
-    //   })
-    //   break;
+      // case 'PG':
+      //   this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+      //     this.schemeACNo = data;
+      //   })
+      //   break;
 
-    // case 'GL':
-    //   this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
-    //     this.schemeACNo = data;
-    //   })
-    //   break;
+      // case 'GL':
+      //   this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
+      //     this.schemeACNo = data;
+      //   })
+      //   break;
+    }
   }
-}
 
 
 
-  createForm()
-  {
+  createForm() {
     this.ngForm = this.fb.group({
-    
+
       TRAN_DATE: ['', [Validators.required]],
-      TRANSACTION : ['', [Validators.required]],
+      TRANSACTION: ['', [Validators.required]],
       T_TYPE: ['Rent Receipt'],
       TRN_TYPE: ['cash'],
       BRANCH_CODE: ['', [Validators.required]],
-      SCHEME : ['', [Validators.required]],
+      SCHEME: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
       RACK_NO: ['', [Validators.required]],
-      LOC_NO : ['', [Validators.required]],
-      LOC_SIZE : ['', [Validators.required]],
+      LOC_NO: ['', [Validators.required]],
+      LOC_SIZE: ['', [Validators.required]],
       LAST_RENT_DATE: ['', [Validators.required]],
       RENT_AMOUNT: ['', [Validators.required]],
-      RECEIPT_NO : ['', [Validators.required]],
+      RECEIPT_NO: ['', [Validators.required]],
       DEF_RENT: ['', [Validators.required]],
       RENT_F_DATE: ['', [Validators.required]],
       UP_TO_DATE: ['', [Validators.required]],
@@ -199,9 +198,56 @@ export class LockerRentTransactionsComponent implements OnInit {
     // let value = Number($event.target.value);
     //   let data = value.toFixed(2);
     //   $event.target.value = data;
-      var t = $event.target.value;
-      $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    var t = $event.target.value;
+    $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
 
+  submit() {
+    // let obj = {
+    //   TRAN_DATE
+    //   BRANCH_CODE
+    //   MODE: T_TYPE
+    //   TRAN_ACTYPE
+    //   TRAN_ACNO
+    //   USER_CODE
+    //   TRANSACTIONMODE: TRN_TYPE
+    //   TRAN_AMOUNT 
+    //   RENT_FROM_DATE
+    //   RENT_UPTO_DATE
+    //   RECEIPT_NO
+    //   USER_CODE
+    //   TRF_ACNOTYPE: transfer ac
+    //   TRF_ACTYPE: transfer ac
+    //   TRF_ACNO: transfer ac
+    // }
+    '/locker-rent-transaction/insert'
+
+  }
+  updateID
+  editClickHandler(id) {
+
+    // this.http.get(this.url + '/locker-rent-transaction/' + id).subscribe((data: any) => { 
+    this.updateID = id
+    // })
+
+  }
+
+  // approve() {
+  //   let obj = {
+  //     id: this.updateID,
+  //     USER_CODE
+  //     MODE
+  //     BRANCH_CODE
+  //     TRANSACTIONMODE
+  //   }
+  //   '/locker-rent-transaction/approve'
+  // }
+  // reject() {
+  //   let obj = {
+  //     id: this.updateID,
+  //     USER_CODE
+  //   }
+  //   '/locker-rent-transaction/reject'
+  // }
 
 } 

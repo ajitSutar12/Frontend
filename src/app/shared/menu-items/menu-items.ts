@@ -583,8 +583,8 @@ const MENUITEMS = [
                 id: 191
               },
               {
-                state: 'lockerDepositAccountMaster',
-                name: 'Locker Deposit Account Master',
+                state: 'lockerCloseTransaction',
+                name: 'Locker Close Transaction',
                 id: 192
               },
               {
