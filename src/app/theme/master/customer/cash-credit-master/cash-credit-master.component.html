@@ -291,7 +291,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         value="{{ AC_SANCTION_AMOUNT != null ?AC_SANCTION_AMOUNT : 0}}"
                                                                         [(ngModel)]="sanctionAmt"
-                                                                        formControlName="AC_SANCTION_AMOUNT"
+                                                                        formControlName="AC_SANCTION_AMOUNT" 
                                                                         (ngModelChange)="changeAmt();"
                                                                         [ngClass]="{'form-submitted': formSubmitted}">
                                                                     <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
@@ -346,7 +346,7 @@
                                                                         style="text-align: right;"
                                                                         [(ngModel)]="drawingPower"
                                                                         (keyup)="getDecimal($event)"
-                                                                        (focusout)="getDecimalPoint($event)"
+                                                                        (focusout)="getDecimalPoint($event);compareamount()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                         value="{{ AC_DRAWPOWER_AMT != null ?AC_DRAWPOWER_AMT.toFixed(2) : 0.00}}"
                                                                         formControlName="AC_DRAWPOWER_AMT"
