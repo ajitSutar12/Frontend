@@ -31,7 +31,7 @@ export class LockerOpenTransactionComponent implements OnInit {
   Scheme: any;
 
 
- 
+
   type: any;
   ngIntroducer: any = null
   introducerACNo
@@ -45,17 +45,17 @@ export class LockerOpenTransactionComponent implements OnInit {
     { id: 1, name: 'a' },
     { id: 2, name: 'b' },
   ];
-  
 
-  constructor(private http: HttpClient,private config: NgSelectConfig,private systemParameter: SystemMasterParametersService, private fb: FormBuilder,private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService,  private schemeAccountNoService: SchemeAccountNoService,) { }
+
+  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,) { }
 
   ngOnInit(): void {
     this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'tranfer';
-  //   // this.tranModeList = this.TranModeCash;
+    //   // this.tranModeList = this.TranModeCash;
 
-  //   // BranchCode Dropdown
+    //   // BranchCode Dropdown
     this._ownbranchmasterservice.getOwnbranchList().subscribe(data => {
       this.branchOption = data;
       this.selectedBranch = user.branchId;
@@ -85,7 +85,7 @@ export class LockerOpenTransactionComponent implements OnInit {
 
 
   getIntroducer() {
-    
+
     this.obj = [this.schemeCode, this.selectedBranch]
 
 
@@ -154,13 +154,12 @@ export class LockerOpenTransactionComponent implements OnInit {
     }
   }
 
-  
+
   getTransferAccountDeatil(event) {
     this.transferAccountDetails = event
   }
   createForm() {
     this.angForm = this.fb.group({
-      
       branch_code: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
       branchOption: ['', [Validators.required]],
@@ -169,11 +168,23 @@ export class LockerOpenTransactionComponent implements OnInit {
       DEBIT_CREDIT: ['', [Validators.required]],
       Tscheme: ['', [Validators.required]],
       OTIME: ['', [Validators.required]],
-      
-
     })
-
   }
-  
+
+  submit() {
+    // let obj={
+    //   TRAN_DATE
+    //   BRANCH_CODE
+    //   TRAN_ACTYPE
+    //   TRAN_ACNO
+    //   OPENING_USER_CODE
+    //   LOCKER_OPENING_TIME
+    //   USER_CODE
+    // }
+    // 'locker-tran/openLocker'
+  }
+
+
+
 }
 
