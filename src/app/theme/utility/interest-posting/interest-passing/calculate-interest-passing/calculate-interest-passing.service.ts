@@ -47,4 +47,9 @@ export class CalculateInterestPassingService {
       .delete(this.url + "/calculate-interest-passing/delete/" + id)
       .pipe(catchError(this.handleError));
   }
+
+  //Interest Calculation Passing
+  interestCalculationPassing(data){
+    return this.http.post(this.url + "/voucher/createVoucherPassingInterest",data);
+  }
 }
