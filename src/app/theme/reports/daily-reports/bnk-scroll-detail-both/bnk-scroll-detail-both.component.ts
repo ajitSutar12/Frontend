@@ -120,10 +120,15 @@ export class BnkScrollDetailBothComponent implements OnInit {
   // let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
 
   let Startdate:any;
+  let OpeningData:any;
    if (this.fromdate == obj.CURRENT_DATE) {
-    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY');
+    OpeningData = moment(Startdate,'DD/MM/YYYY').subtract(1,'days').format('DD/MM/YYYY');
+
    }else{ 
     Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    OpeningData = moment(Startdate,'DD/MM/YYYY').subtract(1,'days').format('DD/MM/YYYY');
+
    };
 
   let stype = obj.Scroll_Type
@@ -132,7 +137,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
   let pcode = obj.Print_Code
   let rdio  = obj.radio
 
-    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+""  ;
+    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData  ;
     this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
  }
  else if(this.angForm.controls['Print_Code'].value=="Credit" && this.angForm.valid){
@@ -141,10 +146,16 @@ export class BnkScrollDetailBothComponent implements OnInit {
   // let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
 
   let Startdate:any;
+  let OpeningData:any;
+
    if (this.fromdate == obj.CURRENT_DATE) {
-    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY');
+    OpeningData = moment(Startdate,'DD/MM/YYYY').subtract(1,'days').format('DD/MM/YYYY');
+
    }else{ 
-    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY');
+    OpeningData = moment(Startdate,'DD/MM/YYYY').subtract(1,'days').format('DD/MM/YYYY');
+
    };
 
   let stype = obj.Scroll_Type
@@ -153,7 +164,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
   let pcode = obj.Print_Code
   let rdio  = obj.radio
 
-  this.iframe1url=this.report_url+"examples/ScrollBookCredit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+""  ;
+  this.iframe1url=this.report_url+"examples/ScrollBookCredit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData  ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
 }
 else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid){
@@ -162,10 +173,16 @@ else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid)
   // let Startdate = moment(obj.CURRENT_DATE).format('DD/MM/YYYY');
 
   let Startdate:any;
+  let OpeningData:any;
+
    if (this.fromdate == obj.CURRENT_DATE) {
-    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY');
+    OpeningData = moment(Startdate,'DD/MM/YYYY').subtract(1,'days').format('DD/MM/YYYY');
+
    }else{ 
-    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    Startdate = moment(this.fromdate,'DD/MM/YYYY').format('DD/MM/YYYY');
+    OpeningData = moment(Startdate,'DD/MM/YYYY').subtract(1,'days').format('DD/MM/YYYY');
+
    };
    
   let stype = obj.Scroll_Type
@@ -174,7 +191,7 @@ else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid)
   let pcode = obj.Print_Code
   let rdio  = obj.radio
 
-  this.iframe1url=this.report_url+"examples/ScrollBookBoth.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+""  ;
+  this.iframe1url=this.report_url+"examples/ScrollBookBoth.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
 }
 
