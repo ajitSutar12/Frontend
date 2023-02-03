@@ -84,7 +84,7 @@ export class MembershipCancellationComponent implements OnInit {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
-   
+
   }
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -93,6 +93,7 @@ export class MembershipCancellationComponent implements OnInit {
   // submitShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  submitShow: boolean = true;
   public visibleAnimate = false;
   public visible = false;
 
@@ -417,7 +418,7 @@ export class MembershipCancellationComponent implements OnInit {
     this.angForm.controls['TschemeAC'].reset()
     this.angForm.controls['amount'].reset()
     this.angForm.controls['DEBIT_CREDIT'].reset()
-  } 
+  }
 
 
   resetForm1() {
@@ -514,17 +515,18 @@ export class MembershipCancellationComponent implements OnInit {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
-      // this.approveShow = true;
-      // this.rejectShow = true;
-      // this.submitShow = false;
       if (dailyshrtran.TRAN_STATUS == 0) {
-
+        this.approveShow = true;
+        this.rejectShow = true;
+        this.submitShow = false;
       }
       else if (dailyshrtran.TRAN_STATUS != 0) {
-
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.submitShow = false;
       }
       this.selectedBranch = dailyshrtran.BRANCH_CODE
-      this.schemeCode = dailyshrtran.TRAN_ACTYPE
+      this.schemeCode = Number(dailyshrtran.TRAN_ACTYPE)
       this.Issue_date = dailyshrtran.TRAN_DATE
       this.shareBal = dailyshrtran.TRAN_AMOUNT
       this.getIntroducer()
@@ -533,6 +535,7 @@ export class MembershipCancellationComponent implements OnInit {
         RDATE: dailyshrtran.RESULATION_DATE,
         RESOLUTIONNO: dailyshrtran.RESULATION_NO
       })
+      dailytran[0].TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
       this.ngIntroducer = dailyshrtran.TRAN_ACNO
       this.multigrid = dailytran
     })
