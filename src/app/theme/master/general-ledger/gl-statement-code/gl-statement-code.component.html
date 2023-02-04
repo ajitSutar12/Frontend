@@ -10,25 +10,31 @@
                         <ul class="tree">
                             <li *ngFor="let item of parentCodeArray">{{item.head_name}}
                                 <button class="btn btn-primary"
-                                    (click)="modalLarge.show();AddnewHead(item.id,item.head_name)"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    (click)="modalLarge.show();AddnewHead(item.id,item.head_name)"><i
+                                        class="fa fa-plus-circle" aria-hidden="true"></i>
                                 </button>&nbsp;
                                 <button class="btn btn-secondary"
-                                    (click)="modalChange.show();shuffleHead(item.id,item.head_name)"><i class="fa fa-refresh" aria-hidden="true"></i>
+                                    (click)="modalChange.show();shuffleHead(item.id,item.head_name)"><i
+                                        class="fa fa-refresh" aria-hidden="true"></i>
                                 </button>
 
                                 <ul>
                                     <li *ngFor="let i of item.child">{{i.head_name}}
                                         <button class="btn btn-primary"
-                                            (click)="modalLarge.show();AddnewHead(i.id,i.head_name)"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>&nbsp;
+                                            (click)="modalLarge.show();AddnewHead(i.id,i.head_name)"><i
+                                                class="fa fa-plus-circle" aria-hidden="true"></i></button>&nbsp;
                                         <button class="btn btn-success"
-                                            (click)="modalEdit.show();EditnewHead(i.id,i.head_name)"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;
+                                            (click)="modalEdit.show();EditnewHead(i.id,i.head_name)"><i
+                                                class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;
                                         <button class="btn btn-secondary"
-                                            (click)="modalChange.show();shuffleHead(i.id,i.head_name)"><i class="fa fa-refresh" aria-hidden="true"></i></button>&nbsp;
+                                            (click)="modalChange.show();shuffleHead(i.id,i.head_name)"><i
+                                                class="fa fa-refresh" aria-hidden="true"></i></button>&nbsp;
 
                                         <ul>
                                             <li *ngFor="let data of i.child" class="last">{{data.head_name}}
                                                 <button class="btn btn-success"
-                                                    (click)="modalEdit.show();AddnewHead(i.id,i.head_name)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                                    (click)="modalEdit.show();AddnewHead(i.id,i.head_name)"><i
+                                                        class="fa fa-pencil" aria-hidden="true"></i></button>
 
                                             </li>
 
@@ -39,7 +45,7 @@
                         </ul>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -147,9 +153,7 @@
                         </span>
                     </div>
                 </div>
-
             </div>
-                      
             <div class="row">
                 <div class="col-12">
                     <div class="row mx-5">
@@ -157,35 +161,34 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover compact">
                                     <thead>
-
                                         <td> Sub Head</td>
                                         <td> Current Position</td>
                                         <td> New Positiom</td>
-                                        
                                     </thead>
                                     <tbody *ngFor="let data of childArray">
                                         <tr>
                                             <td class="td_center">{{data.head_name}}</td>
-                                            <td class="td_center">{{data.id}}</td>
-                                            <td class="td_center"><input type="text" style="text-align:center" maxlength="8"></td>
+                                            <td class="td_center">{{data.position}}</td>
+                                            <td class="td_center">
+                                                <input type="text" style="text-align:center" value="{{data.position}}"
+                                                    maxlength="8" #position
+                                                    (change)="getColumnValue(data.id,position.value)"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                            </td>
                                         </tr>
                                     </tbody>
-
-                                       
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-           
-            
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
             (click)="modalChange.hide()">Close</button>
-            <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode()">Shuffle and Update</button>&nbsp;
+        <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode()">Shuffle and Update</button>&nbsp;
 
     </div>
 </app-modal-basic>

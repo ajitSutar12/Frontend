@@ -822,11 +822,11 @@ const MENUITEMS = [
             id: 110
           },
 
-          {
-            state: 'sharesTransactionPassing',
-            name: 'Shares Transaction Passing',
-            id: 111
-          },
+          // {
+          //   state: 'sharesTransactionPassing',
+          //   name: 'Shares Transaction Passing',
+          //   id: 111
+          // },
           // {
           //   state: 'unapproval',
           //   name: 'Unapproval',
