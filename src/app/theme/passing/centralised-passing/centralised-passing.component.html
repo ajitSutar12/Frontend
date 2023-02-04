@@ -204,33 +204,40 @@
                                         [ngClass]="{'blink_me': term_deposit_ac_renewal>0}">{{term_deposit_ac_renewal}}</span>
                                 </h6>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <h6> <a (click)="OpenLink(32)" routerLinkActive="active" class="text-right f-w-600"
                                         id="pointer" routerLink="/passing/centralisedPassing"
                                         [ngClass]="{'isActive': lockeraccloserentTrue}">26. Locker A/c Close /
                                         Rent</a><span class="badge badge-secondary badgeAlign"
                                         [ngClass]="{'blink_me': locaker_ac_close>0}">{{locaker_ac_close}}</span></h6>
-                            </li>
+                            </li> -->
                             <li>
                                 <h6> <a (click)="OpenLink(33)" routerLinkActive="active" class="text-right f-w-600"
                                         id="pointer" routerLink="/passing/centralisedPassing"
-                                        [ngClass]="{'isActive': shareTransferTrue}">27. Share Transfer</a><span
+                                        [ngClass]="{'isActive': shareTransferTrue}">26. Share Transfer</a><span
                                         class="badge badge-secondary badgeAlign"
                                         [ngClass]="{'blink_me': shareTransfer>0}">{{shareTransfer}}</span></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(34)" routerLinkActive="active" class="text-right f-w-600"
                                         id="pointer" routerLink="/passing/centralisedPassing"
-                                        [ngClass]="{'isActive': issueNewSharesTrue}">28. Issue New Shares</a><span
+                                        [ngClass]="{'isActive': issueNewSharesTrue}">27. Issue New Shares</a><span
                                         class="badge badge-secondary badgeAlign"
                                         [ngClass]="{'blink_me': issueNewShares>0}">{{issueNewShares}}</span></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(35)" routerLinkActive="active" class="text-right f-w-600"
                                         id="pointer" routerLink="/passing/centralisedPassing"
-                                        [ngClass]="{'isActive': membershipCancelTrue}">29. Membership
+                                        [ngClass]="{'isActive': membershipCancelTrue}">28. Membership
                                         Cancellation</a><span class="badge badge-secondary badgeAlign"
                                         [ngClass]="{'blink_me': membershipCancel>0}">{{membershipCancel}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(36)" routerLinkActive="active" class="text-right f-w-600"
+                                        id="pointer" routerLink="/passing/centralisedPassing"
+                                        [ngClass]="{'isActive': lockerRentTranTrue}">29. Locker Rent
+                                        Transaction</a><span class="badge badge-secondary badgeAlign"
+                                        [ngClass]="{'blink_me': lockerRentTran>0}">{{lockerRentTran}}</span></h6>
                             </li>
                         </ul>
                     </perfect-scrollbar>
@@ -321,9 +328,9 @@
             <div *ngIf="termdepositacrenewalTrue">
                 <app-passterm-deposit-ac-renewal></app-passterm-deposit-ac-renewal>
             </div>
-            <div *ngIf="lockeraccloserentTrue">
+            <!-- <div *ngIf="lockeraccloserentTrue">
                 <app-locker-ac-close-rent></app-locker-ac-close-rent>
-            </div>
+            </div> -->
             <div *ngIf="deprciationProcessTrue">
                 <app-depreciation-passing></app-depreciation-passing>
             </div>
@@ -331,16 +338,16 @@
                 <app-master-locker></app-master-locker>
             </div>
             <div *ngIf="shareTransferTrue">
-                <!-- <h1>shareTransfer</h1> -->
-
                 <app-share-transfer></app-share-transfer>
             </div>
             <div *ngIf="issueNewSharesTrue">
                 <app-issue-new-share></app-issue-new-share>
             </div>
             <div *ngIf="membershipCancelTrue">
-
                 <app-member-cancel></app-member-cancel>
+            </div>
+            <div *ngIf="lockerRentTranTrue">
+                <app-rent-locker></app-rent-locker>
             </div>
         </div>
     </div>

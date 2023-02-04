@@ -76,7 +76,6 @@ export class SharesTransferComponent implements OnInit {
   ];
 
   dtExportButtonOptions: any = {};
-  submitShow: boolean = true;
   constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService,) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
@@ -87,6 +86,8 @@ export class SharesTransferComponent implements OnInit {
   public visibleAnimate = false;
   public visible = false;
 
+  submitShow: boolean = true;
+  closeShow: boolean= true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
   unapproveShow: boolean = false;
@@ -321,6 +322,19 @@ export class SharesTransferComponent implements OnInit {
   editClickHandler(id): void {
     this.http.get(this.url + '/shares-transfer/' + id).subscribe((data: any) => {
       this.updateID = data.id
+      if (data.TRAN_STATUS == 0) {
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+
+      }
+      else if (data.TRAN_STATUS != 0) {
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
+        this.closeShow = true
+
+      }
       this.Issue_date = data.TRAN_DATE
       this.schemeCode = Number(data.TRAN_ACTYPE)
       this.selectedBranch = data.BRANCH_CODE
@@ -482,6 +496,39 @@ export class SharesTransferComponent implements OnInit {
     this.http.post(this.url + '/shares-transfer/reject', object).subscribe(data => {
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  unapprove() {
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
+    var object =
+    {
+      id: this.updateID,
+      BRANCH_CODE: formVal.branch_code,
+      TRAN_ACTYPE: formVal.AC_TYPE,
+      TRAN_DATE: this.Issue_date,
+      TRAN_ACNO: this.ngIntroducer,
+      TRANSFER_ACTYPE_TO: this.schemeCode1,
+      TRANSFER_MEMBER_NO_TO: this.ngIntroducers,
+      TRAN_AMOUNT: formVal.TRANS_AMOUNT,
+      NARRATION: formVal.Fnarration,
+      USER_CODE: result.id,
+      RESULATION_DATE: resodate,
+      RESULATION_NO: formVal.RESOLUTIONNO,
+    }
+    this.http.post(this.url + '/shares-transfer/unapprove/ ', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Unapproved Successfully!!", 'success'
       );
       var button = document.getElementById('trigger');
       button.click();

@@ -4,8 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
-import { SharesTransferComponent } from '../../../transaction/share-transactions/shares-transfer/shares-transfer.component';
-
+import {MembershipCancellationComponent} from '../../../transaction/share-transactions/membership-cancellation/membership-cancellation.component'
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -14,7 +13,7 @@ class DataTableResponse {
 }
 
 // For fetching values from backend 
-interface SharesTransfer {
+interface MembershipCancellation {
   TRAN_NO: number;
   TRAN_AMOUNT: number;
   TRAN_TIME: number;
@@ -27,12 +26,13 @@ interface SharesTransfer {
 
 
 @Component({
-  selector: 'app-share-transfer',
-  templateUrl: './share-transfer.component.html',
-  styleUrls: ['./share-transfer.component.scss']
+  selector: 'app-cancel-member',
+  templateUrl: './cancel-member.component.html',
+  styleUrls: ['./cancel-member.component.scss']
 })
-export class ShareTransferComponent implements OnInit {
-  @ViewChild(SharesTransferComponent) child: SharesTransferComponent;
+export class CancelMemberComponent implements OnInit {
+
+  @ViewChild(MembershipCancellationComponent) child: MembershipCancellationComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
@@ -46,11 +46,11 @@ export class ShareTransferComponent implements OnInit {
   filterData = {};
   url = environment.base_url;
   // Store data from backend
-  shareTransfer: SharesTransfer[];
+  memberCancel: MembershipCancellation[];
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  shareTransferData: any 
+  memberCancelData: any 
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -90,10 +90,10 @@ export class ShareTransferComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/shares-transfer/passing',
+            this.url + '/dailyshrtran/Tranpassing',
             dataTableParameters
           ).subscribe(resp => {
-            this.shareTransfer = resp.data;
+            this.memberCancel = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -159,8 +159,8 @@ export class ShareTransferComponent implements OnInit {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
-  getShareTransferData(data) {
-    this.shareTransferData = data.id;
+  getMemberCancelData(data) {
+    this.memberCancelData = data.id;
     this.child.editClickHandler(data.id);
     this.child.rejectShow = true;
     this.child.approveShow = true;
@@ -172,4 +172,5 @@ export class ShareTransferComponent implements OnInit {
     });
   }
 }
+
 

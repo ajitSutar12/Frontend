@@ -7,7 +7,7 @@
             <form [formGroup]="angForm" novalidate>
 
                 <div class="card-block">
-                    <div class="solid">
+                    <!-- <div class="solid">
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">
                                     Date<sub class="required">*</sub></label></div>
@@ -172,29 +172,246 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Open Time<sub
-                                class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Close Time<sub
+                                        class="required">*</sub></label></div>
 
-                                <div class="col-md-2">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="AC_PARTICULAR"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                                maxlength="15" disabled>
-                                        </span>
-                                    </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input style="text-align: right;" type="text" name="CTIME" class="form-control"
+                                            formControlName="CTIME" placeholder=" " id="CTIME" disabled>
+                                    </span>
                                 </div>
+                            </div>
 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm" style="float: right;">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit" >
+                                    Submit
+                                </button>
+                            </div>
                         </div>
 
 
 
 
 
+                    </div> -->
+                    
+                    <div class="solid">
+                        <div class="row"> 
+                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">
+                                    Date<sub class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
+                                            class="form-control" formControlName="TRAN_DATE" disabled>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['TRAN_DATE'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
 
+                            </div>
+
+
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch"
+                                            formControlName="BRANCH_CODE" (change)="getIntroducer()" #branchcode
+                                            autofocus>
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                        class="required">*</sub></label></div>
+
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select [(ngModel)]="selectedTransScheme"
+                                            (change)="getTransferAccountList($event)" formControlName="SCHEME_CODE"
+                                            bindValue="value" bindLabel="label">
+                                            <ng-option *ngFor="let item of Scheme" [value]="item">
+                                                {{item.id}} {{item.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['SCHEME_CODE'].invalid && (angForm.controls['SCHEME_CODE'].dirty || angForm.controls['SCHEME_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['SCHEME_CODE'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"><label for="AC_NO">Account
+                                    Number<sub class="required">*</sub></label></div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="ACCOUNT_NO" [(ngModel)]="ngacno" formControlName="ACCOUNT_NO"
+                                            bindLabel="label" bindValue="bankacno" title="Compulsory Selection"
+                                            placeholder="Account Number" (change)="getTransferAccountDeatil($event)">
+                                            <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['ACCOUNT_NO'].invalid && (angForm.controls['ACCOUNT_NO'].dirty || angForm.controls['ACCOUNT_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['ACCOUNT_NO'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="RACK_NO">Rack Number<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input style="text-align: right;" type="text" name="RACK_NO"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            class="form-control" formControlName="RACK_NO" placeholder=" " id="RACK_NO" value="0"
+                                            maxlength="15" disabled>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for="LOC_NO">Locker Number<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input style="text-align: right;" type="text" name="LOC_NO"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            class="form-control" formCOntrolName="LOC_NO" placeholder=" " id="LOC_NO" value="0"
+                                            maxlength="15" disabled>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="col-sm-12 col-md-2"> <label for="Loc_Size">Locker Size<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input style="text-align: right;" type="text" name="LOC_SIZE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            class="form-control" formCOntrolName="LOC_SIZE" placeholder=" " id="LOC_SIZE" value="0"
+                                            maxlength="15" disabled>
+                                    </span>
+                                </div>
+                            </div> -->
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="KEY_NO">Key Number<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input style="text-align: right;" type="text" name="KEY_NO"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            class="form-control" formControlName="KEY_NO" placeholder=" " id="KEY_NO" value="0"
+                                            maxlength="15" disabled>
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12 col-md-2  "><label for="Locker Open">Locker Close By</label>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="LOC_OPBY"
+                                            bindLabel="label" bindValue="name" title="Compulsory Selection"
+                                            placeholder="">
+                                            <ng-option *ngFor="let values of values" [value]="values"
+                                                (focus)="onFocus(dc)">
+                                                {{values.name}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['LOC_OPBY'].invalid && (angForm.controls['LOC_OPBY'].dirty || angForm.controls['LOC_OPBY'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['LOC_OPBY'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Close Time<sub
+                                class="required">*</sub></label></div>
+
+                    <div class="col-md-2">
+                        <div class="form-group input-group">
+                            <span class="border-lable-flt">
+                                <input style="text-align: right;" type="text" name="CTIME" 
+                                class="form-control" formControlName="CTIME" placeholder=" " id="CTIME" value="0"
+                                 disabled>
+                            </span>
+                        </div>
+                    </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm" style="float: right;">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit()">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
 
                     </div>
+                
                 </div>
             </form>
         </div>

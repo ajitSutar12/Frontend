@@ -32,7 +32,11 @@ import { PassGoldSilverReturnEntryModule } from './passgold-silver-return-entry/
 import { PassTermDepoistAcRenewalModule } from './passterm-deposit-ac-renewal/passterm-deposit-ac-renewal.module';
 import { DepreciationPassingModule } from './depreciation-passing/depreciation-passing.module'
 import { MasterUnlockService } from './master-unlock.service'
-import { MasterLockerModule } from './master-locker/master-locker.module'
+import { MasterLockerModule } from './master-locker/master-locker.module';
+import { TransferSharesModule } from './transfer-shares/transfer-shares.module';
+import { CancelMemberModule } from './cancel-member/cancel-member.module';
+import { SharesIssueNewModule } from './shares-issue-new/shares-issue-new.module';
+import { RentLockerModule } from './rent-locker/rent-locker.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -65,9 +69,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PassGoldSilverReturnEntryModule,
     PassTermDepoistAcRenewalModule,
     DepreciationPassingModule,
-    MasterLockerModule
+    MasterLockerModule,
+    TransferSharesModule,
+    CancelMemberModule,
+    SharesIssueNewModule,
+    RentLockerModule
+
   ],
-  declarations: [MasterUnlockComponent],
+  declarations: [MasterUnlockComponent ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

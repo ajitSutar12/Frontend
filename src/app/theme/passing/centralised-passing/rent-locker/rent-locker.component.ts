@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
-import { SharesTransferComponent } from '../../../transaction/share-transactions/shares-transfer/shares-transfer.component';
+import { LockerRentTransactionsComponent } from '../../../transaction/locker/locker-rent-transactions/locker-rent-transactions.component';
 
 class DataTableResponse {
   data: any[];
@@ -13,8 +13,8 @@ class DataTableResponse {
   recordsTotal: number;
 }
 
-// For fetching values from backend 
-interface SharesTransfer {
+// For fetching values from backend
+interface rentLocker {
   TRAN_NO: number;
   TRAN_AMOUNT: number;
   TRAN_TIME: number;
@@ -27,12 +27,14 @@ interface SharesTransfer {
 
 
 @Component({
-  selector: 'app-share-transfer',
-  templateUrl: './share-transfer.component.html',
-  styleUrls: ['./share-transfer.component.scss']
-})
-export class ShareTransferComponent implements OnInit {
-  @ViewChild(SharesTransferComponent) child: SharesTransferComponent;
+    selector: 'app-rent-locker',
+    templateUrl: './rent-locker.component.html',
+    styleUrls: ['./rent-locker.component.scss']
+  })
+  export class RentLockerComponent implements OnInit {
+  
+  
+  @ViewChild(LockerRentTransactionsComponent) child: LockerRentTransactionsComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
@@ -46,13 +48,13 @@ export class ShareTransferComponent implements OnInit {
   filterData = {};
   url = environment.base_url;
   // Store data from backend
-  shareTransfer: SharesTransfer[];
+  rentLocker: RentLockerComponent[];
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  shareTransferData: any 
+  rentLockerData: any 
 
-  ngOnInit(): void {
+  ngOnInit(): void { debugger
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -90,10 +92,10 @@ export class ShareTransferComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/shares-transfer/passing',
+            this.url + '/locker-rent-transaction/passing',
             dataTableParameters
           ).subscribe(resp => {
-            this.shareTransfer = resp.data;
+            this.rentLocker = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -159,17 +161,18 @@ export class ShareTransferComponent implements OnInit {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
-  getShareTransferData(data) {
-    this.shareTransferData = data.id;
+  getRentLockerData(data) {
+    this.rentLockerData = data.id;
     this.child.editClickHandler(data.id);
-    this.child.rejectShow = true;
-    this.child.approveShow = true;
+    // this.child.rejectShow = true;
+    // this.child.approveShow = true;
   }
 
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
+      dtInstance.ajax.reload() 
     });
   }
 }
+
 

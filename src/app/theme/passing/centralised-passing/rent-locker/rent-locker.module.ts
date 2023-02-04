@@ -1,33 +1,36 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
-import {IssueNewShareComponent } from './issue-new-share.component'
+import {RentLockerComponent } from './rent-locker.component'
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { IssueNewSharesModule } from '../../../transaction/share-transactions/issue-new-shares/issue-new-shares.module';
+import { LockerRentTransactionModule } from '../../../transaction/locker/locker-rent-transactions/locker-rent-transactions.module';
+import { CUSTOM_ELEMENTS_SCHEMA,  NO_ERRORS_SCHEMA } from '@angular/core';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
+
 @NgModule({
-  declarations: [IssueNewShareComponent],
-  exports:[IssueNewShareComponent],
+  declarations: [RentLockerComponent],
+  exports:[RentLockerComponent],
+
   imports: [
     CommonModule,
     DataTablesModule,
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    IssueNewSharesModule
+     LockerRentTransactionModule
   ],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
   },],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+
 })
-export class IssueNewShareModule { }
-  
+export class RentLockerModule { }
