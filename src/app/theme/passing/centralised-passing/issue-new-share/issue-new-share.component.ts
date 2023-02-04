@@ -28,12 +28,12 @@ interface issueNewShare {
 
 
 @Component({
-    selector: 'app-issue-new-share',
-    templateUrl: './issue-new-share.component.html',
-    styleUrls: ['./issue-new-share.component.scss']
-  })
-  export class IssueNewShareComponent implements OnInit {
-  
+  selector: 'app-issue-new-share',
+  templateUrl: './issue-new-share.component.html',
+  styleUrls: ['./issue-new-share.component.scss']
+})
+export class IssueNewShareComponent implements OnInit {
+
   @ViewChild(IssueNewSharesComponent) child: IssueNewSharesComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
@@ -52,9 +52,10 @@ interface issueNewShare {
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  issueNewShareData: any 
+  issueNewShareData: any
 
-  ngOnInit(): void { debugger
+  ngOnInit(): void {
+    // debugger
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -124,7 +125,7 @@ interface issueNewShare {
           title: 'Time',
           data: 'TRAN_TIME'
         },
-       
+
         {
           title: 'Scheme Type',
           data: 'TRAN_ACTYPE'
