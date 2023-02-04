@@ -90,10 +90,13 @@ export class MembershipCancellationComponent implements OnInit {
   updateShow: boolean = false;
   isCash: boolean = true;
 
-  // submitShow: boolean = true;
+  submitShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-  submitShow: boolean = true;
+  unapproveShow: boolean = false;
+  closeShow: boolean = true;
+
+
   public visibleAnimate = false;
   public visible = false;
 
@@ -515,14 +518,18 @@ export class MembershipCancellationComponent implements OnInit {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
-      if (dailyshrtran.TRAN_STATUS == 0) {
+
+      if (dailyshrtran.TRAN_STATUS != 0) {
         this.approveShow = true;
         this.rejectShow = true;
-        this.submitShow = false;
+        this.unapproveShow = false;
+
       }
-      else if (dailyshrtran.TRAN_STATUS != 0) {
+      else if (dailyshrtran.TRAN_STATUS == 0) {
         this.approveShow = false;
         this.rejectShow = false;
+        this.unapproveShow = true;
+        this.closeShow = true;
         this.submitShow = false;
       }
       this.selectedBranch = dailyshrtran.BRANCH_CODE
@@ -571,49 +578,30 @@ export class MembershipCancellationComponent implements OnInit {
       );
     })
   }
-  // approve() {
-  //   const formVal = this.ngForm.value;
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
-  //   let resodate = moment(toDate).format('DD/MM/YYYY')
-  //   var object =
-  //   {
-  //     id: this.updateID,
-  //     userid: result.id,
-  //     BRANCH_CODE: this.selectedBranch
-  //   }
-  //   this.http.post(this.url + '/issue-new-share/approve', object).subscribe(data => {
-  //     Swal.fire(
-  //       'success', "Data Approved Successfully!!", 'success'
-  //     );
-  //     var button = document.getElementById('trigger');
-  //     button.click();
-  //     this.reloadTablePassing.emit();
-  //   }, err => {
-  //     console.log('something is wrong');
-  //   })
-  // }
-  // reject() {
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   var object =
-  //   {
-  //     id: this.updateID,
-  //     userid: result.id,
-  //     BRANCH_CODE: this.selectedBranch
-  //   }
-  //   this.http.post(this.url + '/issue-new-share/reject', object).subscribe(data => {
-  //     Swal.fire(
-  //       'success', "Data Rejected Successfully!!", 'success'
-  //     );
-  //     var button = document.getElementById('trigger');
-  //     button.click();
-  //     this.reloadTablePassing.emit();
-  //   }, err => {
-  //     console.log('something is wrong');
-  //   })
-  // }
+  unapprove() {
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
+    var object =
+    {
+      id: this.updateID,
+      userid: result.id,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this.http.post(this.url + '/dailyshrtran/unapprove', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Unapproved Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+  
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);

@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-locker-close-transaction',
@@ -69,19 +71,32 @@ export class LockerCloseTransactionComponent implements OnInit {
       this.schemeCode = data[0].value
       this.getIntroducer()
     })
+
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      this.Scheme = data
-    });
+      var allscheme = data.filter(function (scheme) {
+        return (scheme.name == 'LK')
+      });
+      this.Scheme = allscheme;
+      this.schemeCode = data[0].value
+      this.getIntroducer()
+    })
+
 
 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         TRAN_DATE: data.CURRENT_DATE
       })
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        CTIME: moment().format("hh:mm:ss A")
+      })
     })
   }
   getIntroducer() {
-    debugger
+    
     this.obj = [this.schemeCode, this.selectedBranch]
 
 
@@ -94,53 +109,12 @@ export class LockerCloseTransactionComponent implements OnInit {
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
     switch (event.name) {
-      case 'SB':
+      case 'LK':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
-      case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-      case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-      case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-      case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-      case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
     }
   }
 
@@ -152,19 +126,44 @@ export class LockerCloseTransactionComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
 
-      branch_code: ['', [Validators.required]],
-      AC_TYPE: ['', [Validators.required]],
-      branchOption: ['', [Validators.required]],
-      TschemeAC: ['', [Validators.required]],
       TRAN_DATE: ['', [Validators.required]],
-      DEBIT_CREDIT: ['', [Validators.required]],
-      Tscheme: ['', [Validators.required]],
-
+      BRANCH_CODE: ['', [Validators.required]],
+      SCHEME_CODE: ['', [Validators.required]],
+      ACCOUNT_NO: ['', [Validators.required]],
+      RACK_NO: ['', [Validators.required]],
+      LOC_NO: ['', [Validators.required]],
+      LOC_SIZE: ['', [Validators.required]],
+      KEY_NO: ['', [Validators.required]],
+      LOC_OPBY: ['', [Validators.required]],
+      OTIME: ['', [Validators.required]],
 
     })
 
   }
 
+  submit() {debugger
+    const formVal = this.angForm.value;
+    var object={
+      TRAN_DATE: formVal.TRAN_DATE,
+      BRANCH_CODE: formVal.BRANCH_CODE,
+      SCHEME_CODE: formVal.SCHEME_CODE,
+      ACCOUNT_NO: formVal.ACCOUNT_NO,
+      RACK_NO: formVal.RACK_NO,
+      LOC_NO: formVal.LOC_NO,
+      LOC_SIZE: formVal.LOC_SIZE,
+      KEY_NO: formVal.KEY_NO,
+      LOC_OPBY: formVal.LOC_OPBY,
+      CTIME: formVal.OTIME,
+    }
+     console.log(object);
+        this.http.post(this.url + "locker-tran/closeLocker", object).subscribe(data => {
+          Swal.fire(
+            'Success',
+            'Data Successfully Added!',
+            'success'
+          );
+          })
+  }
   //   accountlist: 
   // let obj = {
   //   BRANCH_CODE:

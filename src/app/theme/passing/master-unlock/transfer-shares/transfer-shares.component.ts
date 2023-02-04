@@ -14,7 +14,7 @@ class DataTableResponse {
 }
 
 // For fetching values from backend 
-interface SharesTransfer {
+interface ShareTransfer {
   TRAN_NO: number;
   TRAN_AMOUNT: number;
   TRAN_TIME: number;
@@ -27,11 +27,11 @@ interface SharesTransfer {
 
 
 @Component({
-  selector: 'app-share-transfer',
-  templateUrl: './share-transfer.component.html',
-  styleUrls: ['./share-transfer.component.scss']
+  selector: 'app-transfer-shares',
+  templateUrl: './transfer-shares.component.html',
+  styleUrls: ['./transfer-shares.component.scss']
 })
-export class ShareTransferComponent implements OnInit {
+export class TransferSharesComponent implements OnInit {
   @ViewChild(SharesTransferComponent) child: SharesTransferComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
@@ -46,7 +46,7 @@ export class ShareTransferComponent implements OnInit {
   filterData = {};
   url = environment.base_url;
   // Store data from backend
-  shareTransfer: SharesTransfer[];
+  shareTransfer: ShareTransfer[];
   savingData: any;
   constructor(private http: HttpClient,) { }
 
@@ -90,7 +90,7 @@ export class ShareTransferComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/shares-transfer/passing',
+            this.url + '/shares-transfer/Tranpassing',
             dataTableParameters
           ).subscribe(resp => {
             this.shareTransfer = resp.data;
@@ -172,4 +172,8 @@ export class ShareTransferComponent implements OnInit {
     });
   }
 }
+
+
+
+
 

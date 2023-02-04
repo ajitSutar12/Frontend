@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
-import { SharesTransferComponent } from '../../../transaction/share-transactions/shares-transfer/shares-transfer.component';
+import { IssueNewSharesComponent } from '../../../transaction/share-transactions/issue-new-shares/issue-new-shares.component';
 
 class DataTableResponse {
   data: any[];
@@ -13,8 +13,8 @@ class DataTableResponse {
   recordsTotal: number;
 }
 
-// For fetching values from backend 
-interface SharesTransfer {
+// For fetching values from backend
+interface issueNewShare {
   TRAN_NO: number;
   TRAN_AMOUNT: number;
   TRAN_TIME: number;
@@ -27,12 +27,13 @@ interface SharesTransfer {
 
 
 @Component({
-  selector: 'app-share-transfer',
-  templateUrl: './share-transfer.component.html',
-  styleUrls: ['./share-transfer.component.scss']
+  selector: 'app-shares-issue-new',
+  templateUrl: './shares-issue-new.component.html',
+  styleUrls: ['./shares-issue-new.component.scss']
 })
-export class ShareTransferComponent implements OnInit {
-  @ViewChild(SharesTransferComponent) child: SharesTransferComponent;
+export class SharesIssueNewComponent implements OnInit {
+
+  @ViewChild(IssueNewSharesComponent) child: IssueNewSharesComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
   dtExportButtonOptions: any = {};
@@ -46,13 +47,13 @@ export class ShareTransferComponent implements OnInit {
   filterData = {};
   url = environment.base_url;
   // Store data from backend
-  shareTransfer: SharesTransfer[];
+  issueNewShare: issueNewShare[];
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  shareTransferData: any 
+  issueNewShareData: any 
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -90,10 +91,10 @@ export class ShareTransferComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/shares-transfer/passing',
+            this.url + '/issue-new-share/Tranpassing',
             dataTableParameters
           ).subscribe(resp => {
-            this.shareTransfer = resp.data;
+            this.issueNewShare = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -159,8 +160,8 @@ export class ShareTransferComponent implements OnInit {
     this.mySubscription?.unsubscribe();
   }
   //get saving customer data
-  getShareTransferData(data) {
-    this.shareTransferData = data.id;
+  getIssueNewShareData(data) {
+    this.issueNewShareData = data.id;
     this.child.editClickHandler(data.id);
     this.child.rejectShow = true;
     this.child.approveShow = true;

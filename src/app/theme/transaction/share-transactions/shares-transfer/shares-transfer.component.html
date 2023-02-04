@@ -300,14 +300,14 @@
                             Submit
                         </button>
 
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow" (click)="closeModal()">
                             Close</button>
 
                         <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
                             Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
                             Approve</button>
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow">
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()" > 
                             Unapprove</button>
                         <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                         *ngIf="newbtnShow">
