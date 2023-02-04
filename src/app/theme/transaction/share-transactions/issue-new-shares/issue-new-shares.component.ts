@@ -81,7 +81,7 @@ export class IssueNewSharesComponent implements OnInit {
   Tparticulars
 
   submitShow: boolean = true;
-  rejectShow: boolean =false;
+  rejectShow: boolean = false;
   approveShow: boolean = false;
   resolutionDate: any
 
@@ -477,8 +477,8 @@ export class IssueNewSharesComponent implements OnInit {
   updateID
 
   // function for edit button clicked
-  editClickHandler(id): void { debugger
-
+  editClickHandler(id): void {
+    //  debugger
     this.http.get(this.url + '/issue-new-share/' + id).subscribe((data: any) => {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
@@ -491,6 +491,7 @@ export class IssueNewSharesComponent implements OnInit {
       this.ngForm.patchValue({
         T_TYPE: dailyshrtran.TRAN_TYPE == 'CS' ? 'cash' : 'transfer',
       })
+      dailyshrtran.TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
       this.multigrid = dailytran
     })
   }

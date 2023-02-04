@@ -166,6 +166,7 @@ export class SharesTransferComponent implements OnInit {
       T_NO_OF_SHARES: [],
       T_SHARES_AMOUNT: [],
       TRANS_AMOUNT: [0, [Validators.required]],
+      tranno: []
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -321,14 +322,14 @@ export class SharesTransferComponent implements OnInit {
     this.http.get(this.url + '/shares-transfer/' + id).subscribe((data: any) => {
       this.updateID = data.id
       this.Issue_date = data.TRAN_DATE
-      this.schemeCode = data.TRAN_ACTYPE
+      this.schemeCode = Number(data.TRAN_ACTYPE)
       this.selectedBranch = data.BRANCH_CODE
       this.getIntroducer()
       this.getIntroducers()
-      this.submitShow= false;
-      this.angForm.patchValue({ 
+      this.submitShow = false;
+      this.angForm.patchValue({
         branch_code: data.BRANCH_CODE,
-        AC_TYPE: data.TRAN_ACTYPE,
+        // AC_TYPE: data.TRAN_ACTYPE,
         TRANS_AMOUNT: data.TRAN_AMOUNT,
         Fnarration: data.NARRATION,
         RESOLUTIONNO: data.RESULATION_NO,
@@ -336,8 +337,22 @@ export class SharesTransferComponent implements OnInit {
       })
       // this.getMemeberDetails(event)
       this.ngIntroducer = data.TRAN_ACNO
-      this.schemeCode1 = data.TRANSFER_ACTYPE_TO
+      this.schemeCode1 = Number(data.TRANSFER_ACTYPE_TO)
       this.ngIntroducers = data.TRANSFER_MEMBER_NO_TO
+      let obj = {
+        schemeCode: this.schemeCode,
+        bankacno: data.TRAN_ACNO,
+        issueDate: this.Issue_date,
+        tranno: data.TRAN_NO
+      }
+      this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', obj).subscribe(data => {
+        this.shareBal = data['shareBal']
+        this.angForm.patchValue({
+          T_NO_OF_SHARES: data['numberOfShares'],
+          T_SHARES_AMOUNT: data['shareBal'],
+          TRANS_AMOUNT: data['shareBal'],
+        })
+      })
     })
   }
 

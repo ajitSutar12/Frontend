@@ -451,9 +451,9 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
         this.treeview();
         this.triggerhide.nativeElement.click();
       },
-       err => {
-        console.log(err);
-      })
+        err => {
+          console.log(err);
+        })
     }
 
   }
@@ -465,7 +465,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     this.parentId = id;
 
     let list = this.glCodeList.filter(function (parentCode) {
-      
+
       if (parentCode.id == id) {
         return (parentCode)
       }
@@ -473,26 +473,37 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     });
     this.childArray = list[0]['child']
 
-    
 
-    let position = this.childArray.filter(function(id){
-      if(id = 0){
-       return (id + 1)
+
+    let position = this.childArray.filter(function (id) {
+      if (id = 0) {
+        return (id + 1)
       }
-      else{
-        return(id)
+      else {
+        return (id)
       }
 
     });
-      this.posArray = position[0]['child']
+    this.posArray = position[0]['child']
 
   }
 
-  shuffleCode() 
-  {
+  getColumnValue(id, columnValue: number) {
+    if (this.childArray.length != 0) {
+      if (this.childArray.some(item => item.id === id)) {
+        this.childArray.forEach((element) => {
+          if (element.id == id) {
+            element['newPosition'] = columnValue
+            return
+          }
+        })
+      }
+    }
+  }
+
+  shuffleCode() {
+
+    this.glStatementCodeService.updatePosition(this.childArray).subscribe(data => { })
     Swal.fire('Success!', 'Position Shuffled', 'success');
-
   }
-
-
 }

@@ -39,18 +39,23 @@ export class GlStatementCodeService {
   }
 
   //get code list
-  getCodeList(){
-    return this.http.get(this.url+'/gl-statement-code').pipe(catchError(this.handleError));
+  getCodeList() {
+    return this.http.get(this.url + '/gl-statement-code').pipe(catchError(this.handleError));
   }
 
   //Insert new Code
-  insertNewCode(data : any):Observable<any>{
-    return this.http.post(this.url+'/gl-statement-code/newCode',data);
+  insertNewCode(data: any): Observable<any> {
+    return this.http.post(this.url + '/gl-statement-code/newCode', data);
   }
 
   //Update new Code
-  updateNewCode(data : any):Observable<any>{
-    return this.http.post(this.url+'/gl-statement-code/newCode1',data);
+  updateNewCode(data: any): Observable<any> {
+    return this.http.post(this.url + '/gl-statement-code/newCode1', data);
+  }
+
+  //update node position
+  updatePosition(data: any): Observable<any> {
+    return this.http.post(this.url + '/gl-statement-code/PositionUpdate', data);
   }
 }
 

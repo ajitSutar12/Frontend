@@ -83,7 +83,7 @@
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" name="AC_PARTICULAR"
+                                        <input type="text" name="AC_PARTICULAR" formControlName="tranno"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
                                             maxlength="15" disabled>
@@ -302,14 +302,14 @@
 
                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
                             Close</button>
-                        
+
                         <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
                             Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
                             Approve</button>
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" > 
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow">
                             Unapprove</button>
-                            <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                        <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                         *ngIf="newbtnShow">
                         Cancel
                     </button>&nbsp;&nbsp;&nbsp;&nbsp;
