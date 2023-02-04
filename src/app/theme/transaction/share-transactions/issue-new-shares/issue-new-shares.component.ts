@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-issue-new-shares',
@@ -83,7 +84,9 @@ export class IssueNewSharesComponent implements OnInit {
   submitShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  unapproveShow: boolean = false;
   resolutionDate: any
+  closeShow: boolean = true;
 
   constructor(private fb: FormBuilder,
     private _service: VoucherEntryService,
@@ -341,6 +344,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.intIndex = indexOfelement;
     this.jointShowButton = false;
     this.jointUpdateShow = true;
+    
     this.ngForm.patchValue({
       // SR_NO: this.multiField[id].SR_NO,
       Tscheme: this.multigrid[indexOfelement].Tscheme,
@@ -483,6 +487,19 @@ export class IssueNewSharesComponent implements OnInit {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
+      if (dailyshrtran.TRAN_STATUS != 0) {
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+
+      }
+      else if (dailyshrtran.TRAN_STATUS == 0) {
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
+        this.closeShow = true
+
+      }
       this.submitShow = false;
       this.selectedBranch = dailyshrtran.BRANCH_CODE
       this.schemeCode = dailyshrtran.TRAN_ACTYPE
@@ -570,6 +587,31 @@ export class IssueNewSharesComponent implements OnInit {
       console.log('something is wrong');
     })
   }
+
+  unapprove() {
+    const formVal = this.ngForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
+    var object =
+    {
+      id: this.updateID,
+      userid: result.id,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this.http.post(this.url + '/issue-new-share/unapprove', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Unapproved Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);

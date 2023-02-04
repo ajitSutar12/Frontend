@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-locker-rent-transactions',
@@ -13,7 +16,10 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
   styleUrls: ['./locker-rent-transactions.component.scss']
 })
 export class LockerRentTransactionsComponent implements OnInit {
+  @Input() childMessage: string;
+  @Output() reloadTablePassing = new EventEmitter<string>();
 
+  url = environment.base_url;
 
   ngForm: FormGroup;
   //for date
@@ -30,6 +36,12 @@ export class LockerRentTransactionsComponent implements OnInit {
   BranchCode
   TransactionDate
 
+  submitShow: boolean = true;
+  rejectShow: boolean =false;
+  approveShow: boolean = false;
+  unapproveShow: boolean = false;
+
+
   //dropdown
   schemeType: string = 'SH'
   transferAccountDetails
@@ -37,13 +49,17 @@ export class LockerRentTransactionsComponent implements OnInit {
   selectedBranch
   schemeCode
   Scheme
+  Schemea
+
 
   schemeACNo
   obj: any;
   introducerACNo
   transferSchemeDetails: any;
+  isRent: boolean;
+  isTransfer: boolean;
 
-  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
+  constructor(private http: HttpClient, private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -54,6 +70,9 @@ export class LockerRentTransactionsComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
     })
+    if (this.childMessage != undefined) {
+      this.editClickHandler(this.childMessage);
+    }
   }
 
   ngOnInit(): void {
@@ -73,12 +92,13 @@ export class LockerRentTransactionsComponent implements OnInit {
       this.selectedBranch = result.branch.id
     }
 
-    // let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem('user'));
 
     //branchOption
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+      this.selectedBranch = user.branchId;
 
     })
 
@@ -95,8 +115,22 @@ export class LockerRentTransactionsComponent implements OnInit {
     })
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      this.Scheme = data;
+      var allscheme = data.filter(function (scheme) {
+        return (scheme.name == 'LK')
+      });
+      this.Scheme = allscheme;
+      this.schemeCode = data[0].value
+      this.getIntroducer()
+    })
+
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var allscheme = data.filter(function (scheme) {
+        return (scheme.name == 'GL' || scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS' )
+      });
+      this.Schemea = allscheme;
     });
+
+
 
   }
 
@@ -168,18 +202,36 @@ export class LockerRentTransactionsComponent implements OnInit {
     }
   }
 
+  //transfer and cash radio button effect
+  isFormA(value) {
+    if (value == 1) {
+      this.isRent = true
+    }
+    else if (value == 2) {
+      this.isRent = false
+    }
+  }
 
+  isFormB(value) {
+    if (value == 1) {
+      this.isTransfer = false
+    }
+    else if (value == 2) {
+      this.isTransfer = true
+    }
+  }
 
   createForm() {
     this.ngForm = this.fb.group({
 
       TRAN_DATE: ['', [Validators.required]],
       TRANSACTION: ['', [Validators.required]],
-      T_TYPE: ['Rent Receipt'],
-      TRN_TYPE: ['cash'],
+      T_TYPE: ['ACCLOSE'],
+      TRN_TYPE: ['CS'], 
       BRANCH_CODE: ['', [Validators.required]],
       SCHEME: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
+      ACNT_NO: ['', [Validators.required]],
       RACK_NO: ['', [Validators.required]],
       LOC_NO: ['', [Validators.required]],
       LOC_SIZE: ['', [Validators.required]],
@@ -203,51 +255,113 @@ export class LockerRentTransactionsComponent implements OnInit {
   }
 
   submit() {
-    // let obj = {
-    //   TRAN_DATE
-    //   BRANCH_CODE
-    //   MODE: T_TYPE
-    //   TRAN_ACTYPE
-    //   TRAN_ACNO
-    //   USER_CODE
-    //   TRANSACTIONMODE: TRN_TYPE
-    //   TRAN_AMOUNT 
-    //   RENT_FROM_DATE
-    //   RENT_UPTO_DATE
-    //   RECEIPT_NO
-    //   USER_CODE
-    //   TRF_ACNOTYPE: transfer ac
-    //   TRF_ACTYPE: transfer ac
-    //   TRF_ACNO: transfer ac
-    // }
-    '/locker-rent-transaction/insert'
-
+    const formVal = this.ngForm.value;
+    let object = {
+      TRAN_DATE: formVal.TRAN_DATE,
+      TRANSACTION: formVal.TRANSACTION, 
+      T_TYPE: formVal.T_TYPE,
+      TRN_TYPE: formVal.TRN_TYPE,
+      BRANCH_CODE: formVal.BRANCH_CODE,
+      SCHEME: formVal.SCHEME,
+      AC_NO: formVal.AC_NO,
+      RACK_NO: formVal.RACK_NO,
+      LOC_NO: formVal.LOC_NO,
+      LOC_SIZE: formVal.LOC_SIZE,
+      LAST_RENT_DATE: formVal.LAST_RENT_DATE,
+      RENT_AMOUNT: formVal.RENT_AMOUNT,
+      RECEIPT_NO: formVal.RECEIPT_NO,
+      DEF_RENT: formVal.DEF_RENT,
+      RENT_F_DATE: formVal.RENT_F_DATE,
+      UP_TO_DATE: formVal.UP_TO_DATE,
+      LEDGER_BALANCE: formVal.LEDGER_BALANCE,
+    }
+    console.log(object);
+    // '/locker-rent-transaction/insert'
+    this.http.post(this.url + "/locker-rent-transaction/insert", object).subscribe(data => {
+      Swal.fire(
+        'Success',
+        'Data Successfully Added!',
+        'success'
+      );
+      })
   }
   updateID
   editClickHandler(id) {
 
-    // this.http.get(this.url + '/locker-rent-transaction/' + id).subscribe((data: any) => { 
+    this.http.get(this.url + '/locker-rent-transaction/' + id).subscribe((data: any) => { 
     this.updateID = id
-    // })
+    if (id.TRAN_STATUS == 0) {
+      this.approveShow = true;
+      this.rejectShow = true
+      this.unapproveShow = false
+
+    }
+    else if (id.TRAN_STATUS != 0) {
+      this.approveShow = false;
+      this.rejectShow = false
+      this.unapproveShow = true
+
+    }
+
+    })
 
   }
 
-  // approve() {
-  //   let obj = {
-  //     id: this.updateID,
-  //     USER_CODE
-  //     MODE
-  //     BRANCH_CODE
-  //     TRANSACTIONMODE
-  //   }
-  //   '/locker-rent-transaction/approve'
-  // }
-  // reject() {
-  //   let obj = {
-  //     id: this.updateID,
-  //     USER_CODE
-  //   }
-  //   '/locker-rent-transaction/reject'
-  // }
+  approve() {
+    let obj = {
+      id: this.updateID,
+      // USER_CODE: ,
+      // MODE: ,
+      // BRANCH_CODE : this.BranchCode
+      // TRANSACTIONMODE : ,
+    }
+    this.http.post(this.url + '/locker-rent-transaction/approve', obj).subscribe(data => {
+      Swal.fire(
+        'success', "Data Approved Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+ 
+  }
+  reject() {
+    let obj = {
+      id: this.updateID,
+      // USER_CODE:
+    }
+    '/locker-rent-transaction/reject'
+    this.http.post(this.url + '/locker-rent-transaction/reject', obj).subscribe(data => {
+      Swal.fire(
+        'success', "Data Rejected Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  unapprove() {
+    let obj = {
+      id: this.updateID,
+      // LOG_DATE: ,
+      // user: 
+    }
+    this.http.post(this.url + '/locker-rent-transaction/unapprove ', obj).subscribe(data => {
+      Swal.fire(
+        'success', "Data Unapproved Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+ 
+  }
 
 } 
