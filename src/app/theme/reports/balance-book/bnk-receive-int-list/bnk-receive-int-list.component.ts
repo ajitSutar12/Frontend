@@ -147,7 +147,7 @@ export class BnkReceiveIntListComponent implements OnInit {
 this.iframeurl=this.report_url+ "examples/ReceivableInterestBal.php?Date='" + Date + "'&scheme=" 
                 + scheme + "&branch="+branch+"&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
                 +"'&PrintClosedAcPrintReceivablePenalInterestDetailscounts='"+PrintClosedAcPrintReceivablePenalInterestDetailscounts+"'&PrintOverdueInterest='"
-                +PrintOverdueInterest+"&bankName=" + bankName + " ";
+                +PrintOverdueInterest+"&bankName=" + bankName + "&branchName="+branchName;
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
   }
   else {

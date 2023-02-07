@@ -79,8 +79,8 @@ export class BnkODRegisterComponent implements OnInit {
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ['', [Validators.required]],
       OD_TEMP: new FormControl ('TemporaryOverDraft'),
-      Starting_Account: ['', [Validators.required]],
-      Ending_Account: ['', [Validators.required]],
+      // Starting_Account: ['', [Validators.required]],
+      // Ending_Account: ['', [Validators.required]],
       sdate: ['',[Validators.required]],
       edate: ['',[Validators.required]]
 
@@ -110,7 +110,7 @@ export class BnkODRegisterComponent implements OnInit {
   // Scheme Code
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     var filtered = data.filter(function (scheme) {
-      return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
+      return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS' || scheme.name =='SB');
     });
     this.scheme = filtered;
 
@@ -243,10 +243,11 @@ export class BnkODRegisterComponent implements OnInit {
 
   resetForm() {
     // this.createForm()
-    this.angForm.controls.Scheme_code.reset();
-    // this.angForm.controls.OD_TEMP.reset();
-    this.angForm.controls.Starting_Account.reset();
-    this.angForm.controls.Ending_Account.reset();
+    // this.angForm.controls.Scheme_code.reset();
+    // // this.angForm.controls.OD_TEMP.reset();
+    // this.angForm.controls.Starting_Account.reset();
+    // this.angForm.controls.Ending_Account.reset();
+    this.angForm.reset()
     this.showRepo = false;
     this.clicked=false;
   }

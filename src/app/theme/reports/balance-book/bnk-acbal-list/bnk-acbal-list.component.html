@@ -81,10 +81,10 @@
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select formControlName="FROM_AC_NO" bindValue="value" bindLabel="label"
+                                    <ng-select formControlName="FROM_AC_NO" bindValue="AC_NO" bindLabel="AC_NAME"
                                         [(ngModel)]="startingAccount">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
-                                            {{values.label}} {{values.name}}</ng-option>
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -103,10 +103,10 @@
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select formControlName="TO_AC_NO" bindValue="value" bindLabel="label"
+                                    <ng-select formControlName="TO_AC_NO" bindValue="AC_NO" bindLabel="AC_NAME"
                                         [(ngModel)]="EndingAccount">
                                         <ng-option *ngFor="let valuess of endingacc" [value]="valuess">
-                                            {{valuess.label}} {{valuess.name}}</ng-option>
+                                            {{valuess.AC_NO}} {{valuess.AC_NAME}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -121,7 +121,7 @@
                         </div>
                         
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class=" col-sm-12 col-md-2">
                             <label for="DATE">Line Spacing<sub class="required">*</sub></label>
                         </div>
@@ -232,7 +232,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">

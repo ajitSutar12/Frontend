@@ -18,6 +18,9 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import{IframeModule} from '../iframe/iframe.module'
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { SavingMasterService } from '../../../master/customer/saving-master/saving-master.service';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -42,6 +45,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService, 
     SchemeAccountNoService,
     OwnbranchMasterService,
+    ACMasterDropdownService,
+    SavingMasterService,
     SchemeTypeDropdownService,
     {
 
