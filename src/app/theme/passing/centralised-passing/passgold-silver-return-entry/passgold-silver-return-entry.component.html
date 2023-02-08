@@ -14,42 +14,30 @@
                                         <div class="table-responsive">
                                             <table id="transactiontable" datatable [dtOptions]="dtExportButtonOptions"
                                                 class="table table-striped table-bordered table-hover compact">
-                                                <tbody *ngIf="goldSilverReturnEntry?.length != 0">
-                                                    <tr *ngFor="let data of goldSilverReturnEntry">
+                                                <tbody *ngIf="goldSilverReturnEntryData?.length != 0">
+                                                    <tr *ngFor="let data of goldSilverReturnEntryData">
                                                         <td>
                                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                                (click)="editClickHandler(data.id)" placement="bottom"
-                                                                ngbTooltip="Edit"
+                                                                placement="bottom" ngbTooltip="Edit"
                                                                 (click)="modalLarge.show();getGoldSilverReturnEntryData(data)"></span>
                                                         </td>
-                                                        <td [ngClass]="data.TRAN_NO === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_NO === "" ? "-" : data.TRAN_NO }}
+                                                        <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.AC_NO === "" ? "-" : data.AC_NO }}
                                                         </td>
 
                                                         <td
-                                                            [ngClass]="data.TRAN_AMOUNT === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_AMOUNT === "" ? "-" : data.TRAN_AMOUNT }}
+                                                            [ngClass]="data.RETURN_DATE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.RETURN_DATE === "" ? "-" : data.RETURN_DATE }}
                                                         </td>
 
                                                         <td
-                                                            [ngClass]="data.TRAN_SUPPLIER_NAME === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_SUPPLIER_NAME === "" ? "-" :
-                                                            data.TRAN_SUPPLIER_NAME }}
+                                                            [ngClass]="data.USER_CODE === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.USER_CODE === "" ? "-" :
+                                                            data.USER_CODE }}
                                                         </td>
-                                                        <td
-                                                            [ngClass]="data.NARRATION === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.NARRATION === "" ? "-" : data.NARRATION }}
-                                                        </td>
-                                                        <td
-                                                            [ngClass]="data.TRAN_ENTRY_TYPE === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_ENTRY_TYPE === "" ? "-" : data.TRAN_ENTRY_TYPE
-                                                            }}
-                                                        </td>
-
                                                     </tr>
-
                                                 </tbody>
-                                                <tbody *ngIf="goldSilverReturnEntry?.length == 0">
+                                                <tbody *ngIf="goldSilverReturnEntryData?.length == 0">
                                                     <tr>
                                                         <td colspan="7" class="no-data-available">No data!</td>
                                                     </tr>
@@ -75,13 +63,8 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <app-gold-silver-return-entry [childMessage]="goldSilverReturnEntryData"
+            <app-gold-silver-return-entry [childMessage]="goldsilverentry"
                 (reloadTablePassing)="reloadTable()"></app-gold-silver-return-entry>
-
-
-
-
-
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">

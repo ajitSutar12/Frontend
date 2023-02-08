@@ -1060,23 +1060,23 @@
                             </div>
                             <div class="row mx-4" style="margin-top: 40px;">
                                 <button type="button" class="btn btn-primary btn-sm" *ngIf="allpdetails"
-                                    (click)="AllPendingDetails();modalLarge.show()"><i class="fa fa-globe"
-                                        aria-hidden="true"></i>
+                                    (click)="AllPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
+                                        class="fa fa-globe" aria-hidden="true"></i>
                                     All</button>
 
                                 <button type="button" class="btn btn-success btn-sm" *ngIf="dayscrollpd"
-                                    (click)="CashPendingDetails();modalLarge.show()"><i class="fa fa-money"
-                                        aria-hidden="true"></i>
+                                    (click)="CashPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
+                                        class="fa fa-money" aria-hidden="true"></i>
                                     Cash</button>
 
                                 <button type="button" class="btn btn-info btn-sm" *ngIf="rejectpd"
-                                    (click)="TransferPendingDetails();modalLarge.show()"><i class="fa fa-exchange"
-                                        aria-hidden="true"></i>
+                                    (click)="TransferPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
+                                        class="fa fa-exchange" aria-hidden="true"></i>
                                     Transfer</button>
 
                                 <button type="button" class="btn btn-warning btn-sm" *ngIf="transferpd"
-                                    (click)="RejectedPendingDetails();modalLarge.show()"><i class="fa fa-times-circle-o"
-                                        aria-hidden="true"></i>
+                                    (click)="RejectedPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
+                                        class="fa fa-times-circle-o" aria-hidden="true"></i>
                                     Rejected</button>
 
                                 <button type="button" class="btn btn-danger btn-sm" *ngIf="cashpd"
@@ -1303,8 +1303,7 @@
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
             <div *ngIf="showAllPendingDetails">
-                <div class="row"
-                    *ngIf="mangerViewDetails.allTable?.length != 0 && mangerViewDetails.allTable !=undefined">
+                <div class="row">
                     <div class="col-sm-12">
                         <h5>All Entries</h5>
                     </div>
@@ -1315,8 +1314,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive fixTableHead">
-                            <table class="table table-striped table-bordered table-hover compact"
-                                *ngIf="mangerViewDetails.allTable?.length != 0">
+                            <table class="table table-striped table-bordered table-hover compact">
                                 <thead>
                                     <td>Record Number</td>
                                     <td class="td_center">Time</td>
@@ -1564,8 +1562,8 @@
                 </div>
             </div>
             <div *ngIf="showTransferPendingDetails">
-                <div class="row"
-                    *ngIf="mangerViewDetails.transferTable?.length != 0 && mangerViewDetails.transferTable !=undefined">
+                <div class="row">
+                    <!-- *ngIf="mangerViewDetails.transferTable?.length != 0 && mangerViewDetails.transferTable !=undefined" -->
                     <div class="col-sm-12">
                         <h5>Transfer Entries</h5>
                     </div>
@@ -1576,8 +1574,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive fixTableHead">
-                            <table class="table table-striped table-bordered table-hover compact"
-                                *ngIf="mangerViewDetails.transferTable?.length != 0">
+                            <table class="table table-striped table-bordered table-hover compact">
                                 <thead>
                                     <td>Record Number</td>
                                     <td class="td_center">Time</td>
@@ -1663,8 +1660,7 @@
                 </div>
             </div>
             <div *ngIf="showCashPendingDetails">
-                <div class="row"
-                    *ngIf="mangerViewDetails.cashTable?.length != 0 && mangerViewDetails.cashTable !=undefined">
+                <div class="row">
                     <div class="col-sm-12">
                         <h5>Cash Entries</h5>
                     </div>
@@ -1675,8 +1671,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive fixTableHead">
-                            <table class="table table-striped table-bordered table-hover compact"
-                                *ngIf="mangerViewDetails.cashTable?.length != 0">
+                            <table class="table table-striped table-bordered table-hover compact">
                                 <thead>
                                     <td>Record Number</td>
                                     <td class="td_center">Time</td>

@@ -40,8 +40,8 @@ export class CentralisedPassingComponent implements OnInit {
   termdepositacrenewalTrue = false;
   deprciationProcessTrue = false;
   issueNewSharesTrue = false;
-  membershipCancelTrue=false;
-  lockerRentTranTrue=false;
+  membershipCancelTrue = false;
+  lockerRentTranTrue = false;
   //count variable
   voucher: any = 0;
   batch_voucher: any = 0;
@@ -72,8 +72,10 @@ export class CentralisedPassingComponent implements OnInit {
   deprciationProcess: any = 0;
   shareTransfer: any = 0;
   issueNewShares: any = 0;
-  membershipCancel: any=0;
-  lockerRentTran: any=0;
+  membershipCancel: any = 0;
+  lockerRentTran: any = 0;
+
+
 
   constructor(private _router: Router, private _service: CentralisedPassingService) {
   }
@@ -104,11 +106,12 @@ export class CentralisedPassingComponent implements OnInit {
         this.multi_voucher = data.multiVoucherPassing
         this.dead_stock_master = data.deadstockmasterCount
         this.deprciationProcess = data.deadstockDeprication
-        this.lockerMasterCount = 0
-        this.shareTransfer = 0
-        this.issueNewShares = 0
-        this.membershipCancel = 0
-        this.lockerRentTran = 0
+        this.lockerMasterCount = data.lockerMasterCount
+        this.shareTransfer = data.shareTransfer
+        this.issueNewShares = data.issueshare
+        this.membershipCancel = data.memberCancel
+        this.lockerRentTran = data.lockerrentPass
+        this.gold_silver_return = data.goldsilver
       })
     }));
   }
@@ -181,7 +184,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.lockerRentTranTrue=false;
+      this.lockerRentTranTrue = false;
 
 
     }
@@ -216,8 +219,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 11) {
@@ -250,8 +253,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 12) {
@@ -285,7 +288,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.lockerRentTranTrue=false;
+      this.lockerRentTranTrue = false;
 
 
     }
@@ -319,8 +322,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 14) {
@@ -353,8 +356,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 15) {
@@ -387,8 +390,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 16) {
@@ -421,8 +424,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 17) {
@@ -455,8 +458,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 18) {
@@ -489,8 +492,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 19) {
@@ -523,8 +526,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 20) {
@@ -557,8 +560,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 21) {
@@ -591,8 +594,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 22) {
@@ -625,8 +628,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 23) {
@@ -658,8 +661,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 24) {
@@ -692,8 +695,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 25) {
@@ -726,8 +729,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 26) {
@@ -760,8 +763,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 27) {
@@ -794,8 +797,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 28) {
@@ -828,8 +831,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 29) {
@@ -862,8 +865,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.termdepositacrenewalTrue = false;
       this.deprciationProcessTrue = true;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 30) {
@@ -896,8 +899,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 31) {
@@ -931,7 +934,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = true;
       this.issueNewSharesTrue = false;
-      this.lockerRentTranTrue=false;
+      this.lockerRentTranTrue = false;
 
 
     }
@@ -966,7 +969,7 @@ export class CentralisedPassingComponent implements OnInit {
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = false;
       this.issueNewSharesTrue = false;
-      this.lockerRentTranTrue=false;
+      this.lockerRentTranTrue = false;
 
 
     }
@@ -1000,8 +1003,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
     }
     else if (val == 34) {
@@ -1034,8 +1037,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = false;
       this.issueNewSharesTrue = true;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = false;
 
 
     }
@@ -1069,8 +1072,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= true;
-      this.lockerRentTranTrue=false;
+      this.membershipCancelTrue = true;
+      this.lockerRentTranTrue = false;
 
     }
 
@@ -1104,8 +1107,8 @@ export class CentralisedPassingComponent implements OnInit {
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = false;
       this.issueNewSharesTrue = false;
-      this.membershipCancelTrue= false;
-      this.lockerRentTranTrue=true;
+      this.membershipCancelTrue = false;
+      this.lockerRentTranTrue = true;
 
     }
 

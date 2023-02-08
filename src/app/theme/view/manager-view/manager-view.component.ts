@@ -140,7 +140,7 @@ export class ManagerViewComponent implements OnInit {
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       this.date = data[0].CURRENT_DATE;
       this.checkDate = data[0].CURRENT_DATE;
-      console.log(this.date);      
+      console.log(this.date);
     })
 
     let data: any = localStorage.getItem('user');
@@ -304,7 +304,9 @@ export class ManagerViewComponent implements OnInit {
   }
 
   mangerViewDetails
+  disableBtn: boolean = false
   getManagerView() {
+
     if (this.date != undefined) {
       let toDate = moment(this.date, 'DD/MM/YYYY')
       let expiry = moment(toDate).format('DD/MM/YYYY')
@@ -313,6 +315,7 @@ export class ManagerViewComponent implements OnInit {
         TRAN_DATE: expiry,
         daily: expiry == this.checkDate ? true : false
       }
+      expiry == this.checkDate ? this.disableBtn = false : this.disableBtn = true
       this.http.post<any>(this.url + '/ledger-view/managerView', obj).subscribe((data) => {
         this.mangerViewDetails = data
       })

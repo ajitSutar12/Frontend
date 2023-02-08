@@ -66,7 +66,7 @@ export class SharesTransferComponent implements OnInit {
   timeLeft = 5;
   transferACNo
   private dataSub: Subscription = null;
-
+logDate
   autocompleteItems = ['a', 'b', 'c', 'd'];
   autocompleteItemsAsObjects = [
     { value: 'a', id: 0 },
@@ -87,7 +87,7 @@ export class SharesTransferComponent implements OnInit {
   public visible = false;
 
   submitShow: boolean = true;
-  closeShow: boolean= true;
+  closeShow: boolean = false;
   rejectShow: boolean = false;
   approveShow: boolean = false;
   unapproveShow: boolean = false;
@@ -184,6 +184,7 @@ export class SharesTransferComponent implements OnInit {
     }
     this.systemParameter.getFormData(1).subscribe(data => {
       this.Issue_date = data.CURRENT_DATE;
+      this.logDate = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
@@ -269,6 +270,7 @@ export class SharesTransferComponent implements OnInit {
         Swal.fire(
           'success', "Data Submitted Successfully!!", 'success'
         );
+        this.createForm()
       })
     }
   }
@@ -326,14 +328,13 @@ export class SharesTransferComponent implements OnInit {
         this.approveShow = true;
         this.rejectShow = true
         this.unapproveShow = false
-
+        this.closeShow = true
       }
       else if (data.TRAN_STATUS != 0) {
         this.approveShow = false;
         this.rejectShow = false
         this.unapproveShow = true
         this.closeShow = true
-
       }
       this.Issue_date = data.TRAN_DATE
       this.schemeCode = Number(data.TRAN_ACTYPE)
@@ -347,7 +348,8 @@ export class SharesTransferComponent implements OnInit {
         TRANS_AMOUNT: data.TRAN_AMOUNT,
         Fnarration: data.NARRATION,
         RESOLUTIONNO: data.RESULATION_NO,
-        RDATE: data.RESULATION_DATE
+        RDATE: data.RESULATION_DATE,
+        tranno: data.TRAN_NO
       })
       // this.getMemeberDetails(event)
       this.ngIntroducer = data.TRAN_ACNO
@@ -513,6 +515,7 @@ export class SharesTransferComponent implements OnInit {
     let resodate = moment(toDate).format('DD/MM/YYYY')
     var object =
     {
+      LOG_DATE:this.logDate,
       id: this.updateID,
       BRANCH_CODE: formVal.branch_code,
       TRAN_ACTYPE: formVal.AC_TYPE,
