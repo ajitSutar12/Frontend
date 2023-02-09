@@ -48,7 +48,7 @@
                                                         </td>
 
 
-                                                    </tr> 
+                                                    </tr>
 
                                                 </tbody>
                                                 <tbody *ngIf="rentLocker?.length == 0">
@@ -78,9 +78,8 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-            <!-- <app-locker-rent-transactions   [childMessage]="rentLockerData"
-            (reloadTablePassing)="reloadTable()"></app-locker-rent-transactions> -->
-                   
+            <app-locker-rent-transactions [childMessage]="rentLockerData"
+                (reloadTablePassing)="reloadTable()"></app-locker-rent-transactions>
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">

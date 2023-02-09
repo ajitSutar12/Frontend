@@ -18,11 +18,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./locker-open-transaction.component.scss']
 })
 export class LockerOpenTransactionComponent implements OnInit {
-
   angForm: FormGroup;
   url = environment.base_url;
-
-
   selectedBranch
   branchOption: any;
   scheme
@@ -30,32 +27,26 @@ export class LockerOpenTransactionComponent implements OnInit {
   schemeType: string = 'SH'
   obj: any;
   Scheme: any;
-
-
-
   type: any;
   ngIntroducer: any = null
   introducerACNo
   schemeACNo
   bankacno
-
   debitcredit
   selectedScheme: any = null
-
   values = [
     { id: 1, name: 'a' },
     { id: 2, name: 'b' },
   ];
-
-
+  transferSchemeDetails
+  ngacno: any = null
+  transferAccountDetails
+  selectedTransScheme: any = null
   constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,) { }
-
   ngOnInit(): void {
     this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'tranfer';
-    //   // this.tranModeList = this.TranModeCash;
-
     //   // BranchCode Dropdown
     this._ownbranchmasterservice.getOwnbranchList().subscribe(data => {
       this.branchOption = data;
@@ -95,32 +86,30 @@ export class LockerOpenTransactionComponent implements OnInit {
       this.introducerACNo = data;
     })
   }
-  transferSchemeDetails
-  ngacno: any = null
-  transferAccountDetails
-  selectedTransScheme: any = null
   getTransferAccountList() {
-    // this.transferSchemeDetails = event
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
-    // switch (event.name) {
-    //   case 'LK':
     if (this.selectedTransScheme != null)
       this.schemeAccountNoService.getLokcerSchemeList1(this.obj).subscribe(data => {
         this.schemeACNo = data;
       })
-    //     break;
-    // }
   }
-
   getTransferAccountDeatil() {
-    let obj = {
-      BRANCH_CODE: this.selectedBranch,
-      TRAN_ACNO: this.ngacno
+    if (this.ngacno != null) {
+      let obj = {
+        BRANCH_CODE: this.selectedBranch,
+        TRAN_ACNO: this.ngacno
+      }
+      this.http.post(this.url + '/locker-rent-transaction/lockeraccountDetails', obj).subscribe(data => {
+        this.angForm.patchValue({
+          KEY_NO: data['dpmasterData'].AC_KEYWORD,
+          LOC_SIZE: data['locerrent'].SIZE_NAME,
+          LOC_NO: data['lockerrackwise'].LOCKER_NO,
+          RACK_NO: data['lockerrackwise'].RACK_NO,
+          LOC_OPBY: this.ngacno
+        })
+      })
     }
-    this.http.post(this.url + '/locker-rent-transaction/lockeraccountDetails', obj).subscribe(data => {
-      this.transferAccountDetails = data
-    })
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -135,11 +124,13 @@ export class LockerOpenTransactionComponent implements OnInit {
       LOC_OPBY: ['', [Validators.required]],
       OTIME: ['', [Validators.required]],
     })
+    this.angForm.controls['LOC_OPBY'].disable()
   }
 
   submit() {
-    // debugger
     const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
     var obj = {
       TRAN_DATE: formVal.TRAN_DATE,
       BRANCH_CODE: formVal.BRANCH_CODE,
@@ -147,20 +138,17 @@ export class LockerOpenTransactionComponent implements OnInit {
       TRAN_ACNO: formVal.ACCOUNT_NO,
       OPENING_USER_CODE: formVal.ACCOUNT_NO,
       LOCKER_OPENING_TIME: formVal.OTIME,
-      //   USER_CODE
+      USER_CODE: result.id,
+      AC_KEYWORD: formVal.KEY_NO
     }
-    console.log(obj);
-    this.http.post(this.url + "locker-tran/openLocker", obj).subscribe(data => {
+    this.http.post(this.url + "/locker-tran/openLocker", obj).subscribe(data => {
       Swal.fire(
         'Success',
-        'Data Successfully Added!',
+        `Locker Opened Successfully`,
         'success'
       );
+      this.createForm()
     })
-    // 'locker-tran/openLocker'
   }
-
-
-
 }
 

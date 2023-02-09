@@ -154,12 +154,18 @@
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="LOC_OPBY"
+                                        <!-- <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="LOC_OPBY"
                                             bindLabel="label" bindValue="name" title="Compulsory Selection"
                                             placeholder="">
-                                            <ng-option *ngFor="let values of values" [value]="values"
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values"
                                                 (focus)="onFocus(dc)">
                                                 {{values.name}}</ng-option>
+                                        </ng-select> -->
+                                        <ng-select id="LOC_OPBY" [(ngModel)]="ngacno" formControlName="LOC_OPBY"
+                                            bindLabel="label" bindValue="bankacno" placeholder="Account Number"
+                                            disabled>
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
