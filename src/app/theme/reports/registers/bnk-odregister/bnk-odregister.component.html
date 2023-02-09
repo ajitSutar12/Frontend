@@ -19,7 +19,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                         placeholder="Branch">
+                                        placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -33,8 +33,8 @@
                                 </div>
                             </div>
                         </div>
-                       
-                       
+
+
                         <div class="col-sm-12 col-md-2"> <label for="Scheme Code">Scheme Code<sub
                                     class="required">*</sub></label>
                         </div>
@@ -42,7 +42,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="schemeCode" (change)="getIntro($event)"  placeholder="Scheme Code">
+                                        [(ngModel)]="schemeCode" (change)="getIntro($event)" placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -61,67 +61,66 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="Starting Code">Starting Code<sub
-                            class="required">*</sub></label>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                    <div class="form-group form-primary form-static-label">
-                        <span class="border-lable-flt">
-                            <ng-select formControlName="Starting_Account" bindValue="value"
-                                bindLabel="label" [(ngModel)]="Startingcode" placeholder="Starting Account">
-                                <ng-option *ngFor="let values of startingCode" [value]="values">
-                                    {{values.label}} {{values.name}}</ng-option>
-                            </ng-select>
-                        </span>
-                    </div>
-
-                    <div class="form-group form-primary form-static-label"
-                        *ngIf="angForm.controls['Starting_Account'].invalid && (angForm.controls['Starting_Account'].dirty || angForm.controls['Starting_Account'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="angForm.controls['Starting_Account'].errors?.required">
-                            This field is required
+                        <!-- <div class="col-sm-12 col-md-2"> <label for="Starting Code">Starting Code<sub
+                                    class="required">*</sub></label>
                         </div>
-                    </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select formControlName="Starting_Account" bindValue="value" bindLabel="label"
+                                        [(ngModel)]="Startingcode" placeholder="Starting Account">
+                                        <ng-option *ngFor="let values of startingCode" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
 
-                </div>
-                
-                <div class="col-sm-12 col-md-2"> <label for="Ending Code">Ending Code<sub
-                            class="required">*</sub></label>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                    <div class="form-group form-primary form-static-label">
-                        <span class="border-lable-flt">
-                            <ng-select formControlName="Ending_Account" bindValue="value" bindLabel="label"
-                                [(ngModel)]="Endingcode" (change)="loadAcno()" placeholder="Ending Account">
-                                <ng-option *ngFor="let values of endingCode" [value]="values">
-                                    {{values.label}} {{values.name}}</ng-option>
-                            </ng-select>
-                        </span>
-                    </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Starting_Account'].invalid && (angForm.controls['Starting_Account'].dirty || angForm.controls['Starting_Account'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Starting_Account'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
 
-                    <div class="form-group form-primary form-static-label"
-                        *ngIf="angForm.controls['Ending_Account'].invalid && (angForm.controls['Ending_Account'].dirty || angForm.controls['Ending_Account'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="angForm.controls['Ending_Account'].errors?.required">
-                            This field is required
                         </div>
-                    </div>
 
-                </div>
+                        <div class="col-sm-12 col-md-2"> <label for="Ending Code">Ending Code<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select formControlName="Ending_Account" bindValue="value" bindLabel="label"
+                                        [(ngModel)]="Endingcode" (change)="loadAcno()" placeholder="Ending Account">
+                                        <ng-option *ngFor="let values of endingCode" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Ending_Account'].invalid && (angForm.controls['Ending_Account'].dirty || angForm.controls['Ending_Account'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Ending_Account'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+
+                        </div> -->
 
 
                         <div class="col-md-4">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
-                                            value="TEMP" [checked]="true">
+                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="TEMP"
+                                            [checked]="true">
                                         <i class="helper"></i>Temporary OD</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
-                                            value="PERIODICAL">
+                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="PERIODICAL">
                                         <i class="helper"></i>Periodically OD</label>
                                 </div>
                             </div>
@@ -157,7 +156,7 @@
                                 <div class="card-header">
                                     <h5>Report Frame</h5>
                                 </div>
-                                
+
                                 <div *ngIf="showRepo">
                                     <app-iframe3 [url]='iframe3url'> </app-iframe3>
                                 </div>
@@ -166,7 +165,7 @@
                     </div>
 
 
-                  
+
                 </div>
 
             </form>

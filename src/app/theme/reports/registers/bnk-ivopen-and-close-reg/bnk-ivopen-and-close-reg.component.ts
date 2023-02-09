@@ -74,7 +74,8 @@ createForm() {
     scheme_code: ['', ],
     START_DATE: ['', [Validators.required]],
     END_DATE: ['', [Validators.required]],
-    AC_OPEN:  new FormControl('AC_OPEN'),
+    // AC_OPEN:  new FormControl('AC_OPEN'),
+    AC_OPEN : ['AC_OPEN'],
     PRINT_CLOSEAC: ['', ],
   })
 }
@@ -112,7 +113,7 @@ ngOnInit(): void {
 
   this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
     var filtered = data.filter(function (scheme) {
-      return ( scheme.name == 'IV' );
+      return ( scheme.name == 'IV' || scheme.name =='SB' );
     });
     this.schemeList = filtered;
      this.ngIntroducer = null;
@@ -150,8 +151,12 @@ View(event){
   let scheme = obj. scheme_code;
   let Branch = obj.BRANCH_CODE
   let GROUP_BY = obj.GROUP_BY
+  let type = this.schemeList.filter(ele=> ele.value == scheme);
+
+
   
-  this.iframeurl = this.report_url+"examples/InvestmentRegister.php ?startDate='"+startDate+"'&endDate='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
+  // this.iframeurl = this.report_url+"examples/InvestmentRegister.php?startDate_='"+startDate+"'&endDate_='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
+  this.iframeurl = this.report_url+"examples/InvestmentRegister.php?bankName='" + bankName + "'&NAME='"+branchName+"'&startDate_='"+startDate+"'&enddate_='"+enddate+"'&AC_ACNOTYPE='"+type[0].name+"'&AC_TYPE="+scheme+"&trandrcr='C'&ac_op_cd='D'&tran_status='1'"
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }
