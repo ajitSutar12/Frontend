@@ -79,7 +79,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select id="SCHEME" bindValue="value" [(ngModel)]="scheme"
                                             formControlName="SCHEME" bindLabel="label" title="Compulsory Selection"
-                                            placeholder="Scheme">
+                                            placeholder="Scheme" (change)="getIntroducer()">
                                             <ng-option *ngFor="let item of Scheme" [value]="item">
                                                 {{item.id}} {{item.label}}</ng-option>
                                         </ng-select>
@@ -100,9 +100,9 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="AC_NO" bindValue="value" [(ngModel)]="acnumber"
+                                        <ng-select id="AC_NO" bindValue="bankacno" [(ngModel)]="acnumber"
                                             formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
-                                            placeholder="Account Number">
+                                            placeholder="Account Number" (change)="getAccountDetails()">
                                             <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
@@ -134,7 +134,7 @@
                                                 (change)="isFormA(1)">
                                             <i class="helper"></i>Rent Receipt </label>
                                     </div>
-                                   
+
                                 </div>
                             </div>
 
@@ -143,7 +143,7 @@
                         <div class="row">
 
                             <div class="col-md-1">
-                                <label for="rackno">Rack No.<sub class="required">* </sub></label>
+                                <label for="rackno">Rack Number<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-group input-group">
@@ -151,7 +151,7 @@
                                         <input style="text-align: right ;" type="text" name="label-name"
                                             class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="RACK_NO" maxlength="4">
+                                            formControlName="RACK_NO" disabled>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -165,7 +165,7 @@
                             </div>
 
                             <div class="col-md-1">
-                                <label for="locno">Locker No.<sub class="required">* </sub></label>
+                                <label for="locno">Locker Number<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-group input-group">
@@ -173,7 +173,7 @@
                                         <input style="text-align: right ;" type="text" name="label-name"
                                             class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="LOC_NO" maxlength="4">
+                                            formControlName="LOC_NO" disabled>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -195,7 +195,7 @@
                                         <input style="text-align: right ;" type="text" name="label-name"
                                             class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="LOC_SIZE" maxlength="4">
+                                            formControlName="LOC_SIZE" disabled>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -217,7 +217,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="TransactionDate"
                                             id="TransactionDate" class="form-control" formControlName="LAST_RENT_DATE"
-                                            bsDatepicker>
+                                            disabled>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -340,8 +340,10 @@
 
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="rentfdate"
-                                                    id="rentfdate" class="form-control" formControlName="RENT_F_DATE"
+                                                <input type="text" placeholder="dd/mm/yyyy" name="RENT_F_DATE"
+                                                    [(ngModel)]="rentfromDate" id="RENT_F_DATE"
+                                                    formControlName="RENT_F_DATE" class="form-control"
+                                                    [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                     bsDatepicker>
                                             </span>
                                         </div>
@@ -363,8 +365,9 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="uptodate"
-                                                    id="uptodate" class="form-control" formControlName="UP_TO_DATE"
-                                                    bsDatepicker>
+                                                    [minDate]="rentfromDate" [maxDate]="maxDate" id="uptodate"
+                                                    class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                    formControlName="UP_TO_DATE" bsDatepicker>
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -376,13 +379,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
-
-                            <br>
-
                             <div class="row" id="FORMB" *ngIf="isTransfer">
                                 <div class="col-sm-12">
                                     <div class="solid">
@@ -393,8 +391,9 @@
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group form-primary form-static-label">
                                                     <span class="border-lable-flt">
-                                                        <ng-select id="SCHEME" bindValue="value" [(ngModel)]="scheme1"
-                                                            formControlName="SCHEME" bindLabel="label"
+                                                        <ng-select id="TRF_ACTYPE" bindValue="value"
+                                                            [(ngModel)]="scheme1" formControlName="TRF_ACTYPE"
+                                                            bindLabel="label" (change)="getTransferAccountList($event)"
                                                             title="Compulsory Selection" placeholder="Scheme">
                                                             <ng-option *ngFor="let item of Schemea" [value]="item">
                                                                 {{item.id}} {{item.label}}</ng-option>
@@ -402,24 +401,25 @@
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
-                                                    *ngIf="ngForm.controls['SCHEME'].invalid && (ngForm.controls['SCHEME'].dirty || ngForm.controls['SCHEME'].touched)"
+                                                    *ngIf="ngForm.controls['TRF_ACTYPE'].invalid && (ngForm.controls['TRF_ACTYPE'].dirty || ngForm.controls['TRF_ACTYPE'].touched)"
                                                     class="alert alert-danger">
-                                                    <div *ngIf="ngForm.controls['SCHEME'].errors?.required">
+                                                    <div *ngIf="ngForm.controls['TRF_ACTYPE'].errors?.required">
                                                         This field is required.
                                                     </div>
                                                 </div>
                                             </div>
- 
+
                                             <div class="col-sm-2 col-md-2"> <label for="ACNT_NO">Account Number
                                                     <sub class="required">*</sub></label>
                                             </div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group form-primary form-static-label">
                                                     <span class="border-lable-flt">
-                                                        <ng-select id="ACNT_NO" bindValue="value" [(ngModel)]="acnumber1"
-                                                            formControlName="ACNT_NO" bindLabel="label"
-                                                            title="Compulsory Selection" placeholder="Account Number">
-                                                            <ng-option *ngFor="let values of introducerACNo"
+                                                        <ng-select id="ACNT_NO" bindValue="bankacno"
+                                                            [(ngModel)]="acnumber1" formControlName="ACNT_NO"
+                                                            bindLabel="label" title="Compulsory Selection"
+                                                            placeholder="Account Number" (change)="getLedgerBalance()">
+                                                            <ng-option *ngFor="let values of schemeACNo"
                                                                 [value]="values">
                                                                 {{values.label}} {{values.name}}</ng-option>
                                                         </ng-select>
@@ -432,7 +432,7 @@
                                                         This field is required.
                                                     </div>
                                                 </div>
-                                            </div> 
+                                            </div>
 
                                             <div class="col-md-1">
                                                 <label for="ledgerbalance">Ledger Balance<sub class="required">*
@@ -464,24 +464,22 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit()"> 
+                            <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitShow"
+                                (click)="submit()">
                                 Submit
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow" (click)="closeModal()">
                                 Close</button>
-                            
                             <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
                                 Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
                                 Approve</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()" > 
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()">
                                 Unapprove</button>
                         </div>
                     </div>
-
                 </div>
             </form>
         </div>

@@ -86,8 +86,8 @@ export class IssueNewSharesComponent implements OnInit {
   approveShow: boolean = false;
   unapproveShow: boolean = false;
   resolutionDate: any
-  closeShow: boolean = true;
-
+  closeShow: boolean = false;
+  logDate
   constructor(private fb: FormBuilder,
     private _service: VoucherEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -239,6 +239,7 @@ export class IssueNewSharesComponent implements OnInit {
       this.maxDate = this.maxDate._d
       this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
       this.resolutionDate = this.resolutionDate._d
+      this.logDate = data.CURRENT_DATE
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -344,7 +345,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.intIndex = indexOfelement;
     this.jointShowButton = false;
     this.jointUpdateShow = true;
-    
+
     this.ngForm.patchValue({
       // SR_NO: this.multiField[id].SR_NO,
       Tscheme: this.multigrid[indexOfelement].Tscheme,
@@ -443,11 +444,9 @@ export class IssueNewSharesComponent implements OnInit {
         })
       }
     }
-
     else {
       Swal.fire('Warning!', 'Please fill All Mandatory Fields!', 'warning')
     }
-
   }
 
   decimalAllContent($event) {
@@ -487,62 +486,41 @@ export class IssueNewSharesComponent implements OnInit {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
-      if (dailyshrtran.TRAN_STATUS != 0) {
-        this.approveShow = true;
-        this.rejectShow = true
-        this.unapproveShow = false
-
-      }
-      else if (dailyshrtran.TRAN_STATUS == 0) {
+      if (dailyshrtran.TRAN_STATUS != '0') {
         this.approveShow = false;
         this.rejectShow = false
         this.unapproveShow = true
         this.closeShow = true
-
+      }
+      else if (dailyshrtran.TRAN_STATUS == '0') {
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+        this.closeShow = true
       }
       this.submitShow = false;
       this.selectedBranch = dailyshrtran.BRANCH_CODE
-      this.schemeCode = dailyshrtran.TRAN_ACTYPE
+      this.schemeCode = Number(dailyshrtran.TRAN_ACTYPE)
       this.Issue_date = dailyshrtran.TRAN_DATE
       this.getIntroducer()
+      this.memberno = dailyshrtran.TRAN_ACNO
       this.ngForm.patchValue({
-        T_TYPE: dailyshrtran.TRAN_TYPE == 'CS' ? 'cash' : 'transfer',
+        T_TYPE: dailyshrtran.TRAN_TYPE == 'CS' ? 'CS' : 'TR',
+        TRAN_NO: dailyshrtran.TRAN_NO,
+        FROM: dailyshrtran.SHARES_FROM_NO,
+        TO: dailyshrtran.SHARES_TO_NO,
+        RES_NO: dailyshrtran.RESULATION_NO,
+        RESOLUTION_DATE: dailyshrtran.RESULATION_DATE,
+        FACE_VALUE: dailyshrtran.FACE_VALUE,
+        NO_OF_SHARES: dailyshrtran.NO_OF_SHARES,
+        SHARES_AMOUNT: dailyshrtran.TRAN_AMOUNT,
+        particular: dailyshrtran.NARRATION,
+        CERTIFICATE_NO: dailyshrtran.CERTIFICATE_NO
       })
       dailyshrtran.TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
       this.multigrid = dailytran
     })
   }
-
-  // approve() {
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   var object =
-  //   {
-  //     id: this.updateID,
-  //     userid: result.id,
-  //     BRANCH_CODE: this.selectedBranch
-  //   }
-  //   this.http.post(this.url + '/issue-new-share/approve', object).subscribe(data => {
-  //     Swal.fire(
-  //       'success', "Data Approved Successfully!!", 'success'
-  //     );
-  //   })
-  // }
-  // reject() {
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   var object =
-  //   {
-  //     id: this.updateID,
-  //     userid: result.id,
-  //     BRANCH_CODE: this.selectedBranch
-  //   }
-  //   this.http.post(this.url + '/issue-new-share/reject', object).subscribe(data => {
-  //     Swal.fire(
-  //       'success', "Data Rejected Successfully!!", 'success'
-  //     );
-  //   })
-  // }
 
   approve() {
     const formVal = this.ngForm.value;
@@ -597,8 +575,9 @@ export class IssueNewSharesComponent implements OnInit {
     var object =
     {
       id: this.updateID,
-      userid: result.id,
-      BRANCH_CODE: this.selectedBranch
+      user: result.id,
+      BRANCH_CODE: this.selectedBranch,
+      LOG_DATE: this.logDate
     }
     this.http.post(this.url + '/issue-new-share/unapprove', object).subscribe(data => {
       Swal.fire(

@@ -107,10 +107,11 @@ export class MasterUnlockComponent implements OnInit {
         this.dead_stock_master = data.deadstockmasterCount
         this.shareTransaction = data.shareTransaction
         this.lockerMasterCount = data.lockerMasterCount
-        this.shareTransfer = 0
-        this.memberCancel = 0
-        this.issueNewShare = 0
-        this.lockerRent = 0
+        this.memberCancel = data.memberCancel
+        this.issueNewShare = data.issueshare
+        this.lockerRent = data.lockerrentPass
+        this.shareTransfer = data.shareTransfer
+        this.gold_silver_return = data.goldsilver
       })
     }));
   }

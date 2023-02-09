@@ -7,201 +7,8 @@
             <form [formGroup]="angForm" novalidate>
 
                 <div class="card-block">
-                    <!-- <div class="solid">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">
-                                    Date<sub class="required">*</sub></label></div>
-                            <div class="col-sm-12 col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
-                                            class="form-control" formControlName="TRAN_DATE" disabled>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['TRAN_DATE'].errors?.required">
-                                        This field is required.
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
-                                        class="required">*</sub></label></div>
-                            <div class="col-sm-12 col-md-4">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch"
-                                            formControlName="branchOption" (change)="getIntroducer()" #branchcode
-                                            autofocus>
-                                            <ng-option *ngFor="let values of branchOption" [value]="values">
-                                                {{values.label}}</ng-option>
-                                        </ng-select>
-
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['branchOption'].invalid && (angForm.controls['branchOption'].dirty || angForm.controls['branchOption'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['branchOption'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
-                                        class="required">*</sub></label></div>
-
-                            <div class="col-sm-12 col-md-2">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="selectedTransScheme"
-                                            (change)="getTransferAccountList($event)" formControlName="Tscheme"
-                                            bindValue="value" bindLabel="label">
-                                            <ng-option *ngFor="let item of Scheme" [value]="item">
-                                                {{item.id}} {{item.label}}</ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['Tscheme'].invalid && (angForm.controls['Tscheme'].dirty || angForm.controls['Tscheme'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['Tscheme'].errors?.required">
-                                        This field is required.
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2"><label for="TschemeAC">Account
-                                    Number<sub class="required">*</sub></label></div>
-                            <div class="col-sm-4">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select id="TschemeAC" [(ngModel)]="ngacno" formControlName="TschemeAC"
-                                            bindLabel="label" bindValue="bankacno" title="Compulsory Selection"
-                                            placeholder="Account Number" (change)="getTransferAccountDeatil($event)">
-                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                                {{values.label}} {{values.name}}</ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['TschemeAC'].errors?.required">
-                                        This field is required.
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Rack Number<sub
-                                        class="required">*</sub></label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input style="text-align: right;" type="text" name="AC_PARTICULAR"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                            maxlength="15" disabled>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Locker Number<sub
-                                        class="required">*</sub></label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input style="text-align: right;" type="text" name="AC_PARTICULAR"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                            maxlength="15" disabled>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Key Number<sub
-                                        class="required">*</sub></label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input style="text-align: right;" type="text" name="AC_PARTICULAR"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                            maxlength="15" disabled>
-                                    </span>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Locker Open By</label>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="DEBIT_CREDIT"
-                                            bindLabel="label" bindValue="name" title="Compulsory Selection"
-                                            placeholder="">
-                                            <ng-option *ngFor="let values of values" [value]="values"
-                                                (focus)="onFocus(dc)">
-                                                {{values.name}}</ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['DEBIT_CREDIT'].invalid && (angForm.controls['DEBIT_CREDIT'].dirty || angForm.controls['DEBIT_CREDIT'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['DEBIT_CREDIT'].errors?.required">
-                                        This field is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Close Time<sub
-                                        class="required">*</sub></label></div>
-
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input style="text-align: right;" type="text" name="CTIME" class="form-control"
-                                            formControlName="CTIME" placeholder=" " id="CTIME" disabled>
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm" style="float: right;">
-                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit" >
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-
-
-
-
-
-                    </div> -->
-                    
                     <div class="solid">
-                        <div class="row"> 
+                        <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">
                                     Date<sub class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
@@ -218,13 +25,7 @@
                                         This field is required.
                                     </div>
                                 </div>
-
                             </div>
-
-
-
-
-
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
@@ -238,7 +39,6 @@
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
-
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -251,13 +51,11 @@
                             </div>
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                         class="required">*</sub></label></div>
-
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="selectedTransScheme"
-                                            (change)="getTransferAccountList($event)" formControlName="SCHEME_CODE"
-                                            bindValue="value" bindLabel="label">
+                                        <ng-select [(ngModel)]="selectedTransScheme" (change)="getTransferAccountList()"
+                                            formControlName="SCHEME_CODE" bindValue="value" bindLabel="label">
                                             <ng-option *ngFor="let item of Scheme" [value]="item">
                                                 {{item.id}} {{item.label}}</ng-option>
                                         </ng-select>
@@ -270,22 +68,24 @@
                                         This field is required.
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
-
                         <div class="row">
                             <div class="col-sm-12 col-md-2"><label for="AC_NO">Account
                                     Number<sub class="required">*</sub></label></div>
                             <div class="col-sm-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
+                                        <!-- <ng-select id="ACCOUNT_NO" [(ngModel)]="ngacno" formControlName="ACCOUNT_NO"
+                                            bindLabel="label" bindValue="bankacno" title="Compulsory Selection"
+                                            placeholder="Account Number" (change)="getTransferAccountDeatil()">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
+                                        </ng-select> -->
                                         <ng-select id="ACCOUNT_NO" [(ngModel)]="ngacno" formControlName="ACCOUNT_NO"
                                             bindLabel="label" bindValue="bankacno" title="Compulsory Selection"
                                             placeholder="Account Number" (change)="getTransferAccountDeatil($event)">
-                                            <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
@@ -298,8 +98,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="RACK_NO">Rack Number<sub
@@ -310,8 +108,8 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="RACK_NO"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formControlName="RACK_NO" placeholder=" " id="RACK_NO" value="0"
-                                            maxlength="15" disabled>
+                                            class="form-control" formControlName="RACK_NO" placeholder=" " id="RACK_NO"
+                                            value="0" maxlength="15" disabled>
                                     </span>
                                 </div>
                             </div>
@@ -323,27 +121,11 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="LOC_NO"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formCOntrolName="LOC_NO" placeholder=" " id="LOC_NO" value="0"
-                                            maxlength="15" disabled>
+                                            class="form-control" formCOntrolName="LOC_NO" placeholder=" " id="LOC_NO"
+                                            value="0" maxlength="15" disabled>
                                     </span>
                                 </div>
                             </div>
-
-
-                            <!-- <div class="col-sm-12 col-md-2"> <label for="Loc_Size">Locker Size<sub
-                                        class="required">*</sub></label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input style="text-align: right;" type="text" name="LOC_SIZE"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formCOntrolName="LOC_SIZE" placeholder=" " id="LOC_SIZE" value="0"
-                                            maxlength="15" disabled>
-                                    </span>
-                                </div>
-                            </div> -->
-
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="KEY_NO">Key Number<sub
@@ -354,25 +136,22 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="KEY_NO"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formControlName="KEY_NO" placeholder=" " id="KEY_NO" value="0"
-                                            maxlength="15" disabled>
+                                            class="form-control" formControlName="KEY_NO" placeholder=" " id="KEY_NO"
+                                            value="0" maxlength="15" disabled>
                                     </span>
                                 </div>
                             </div>
-
-
-
                             <div class="col-sm-12 col-md-2  "><label for="Locker Open">Locker Close By</label>
                             </div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="LOC_OPBY"
-                                            bindLabel="label" bindValue="name" title="Compulsory Selection"
+                                            bindLabel="label" bindValue="id" title="Compulsory Selection"
                                             placeholder="">
                                             <ng-option *ngFor="let values of values" [value]="values"
                                                 (focus)="onFocus(dc)">
-                                                {{values.name}}</ng-option>
+                                                {{values.F_NAME}} {{values.L_NAME}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -384,24 +163,19 @@
                                     </div>
                                 </div>
                             </div>
-                           
                         </div>
                         <div class="row">
-
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Close Time<sub
-                                class="required">*</sub></label></div>
-
-                    <div class="col-md-2">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input style="text-align: right;" type="text" name="CTIME" 
-                                class="form-control" formControlName="CTIME" placeholder=" " id="CTIME" value="0"
-                                 disabled>
-                            </span>
+                                        class="required">*</sub></label></div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input style="text-align: right;" type="text" name="CTIME" class="form-control"
+                                            formControlName="CTIME" placeholder=" " id="CTIME" disabled>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                        </div>
-
                         <div class="row">
                             <div class="col-sm" style="float: right;">
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit()">
@@ -409,9 +183,7 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
-                
                 </div>
             </form>
         </div>

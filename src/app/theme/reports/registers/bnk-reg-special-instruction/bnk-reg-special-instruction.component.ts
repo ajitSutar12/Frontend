@@ -131,7 +131,11 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
 
     let branch = obj.BRANCH_CODE;
     let revoke = obj.REVOKE_INST;
- 
+    if(revoke == null){
+      revoke = 'Active';
+    }else{
+      revoke = 'Revoke';
+    }
  
     this.iframeurl = this.report_url+"examples/SpecialInstuction.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branch='"+branch+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);

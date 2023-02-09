@@ -18,11 +18,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./locker-open-transaction.component.scss']
 })
 export class LockerOpenTransactionComponent implements OnInit {
-
   angForm: FormGroup;
   url = environment.base_url;
-
-
   selectedBranch
   branchOption: any;
   scheme
@@ -30,32 +27,26 @@ export class LockerOpenTransactionComponent implements OnInit {
   schemeType: string = 'SH'
   obj: any;
   Scheme: any;
-
-
-
   type: any;
   ngIntroducer: any = null
   introducerACNo
   schemeACNo
   bankacno
-
   debitcredit
   selectedScheme: any = null
-
   values = [
     { id: 1, name: 'a' },
     { id: 2, name: 'b' },
   ];
-
-
+  transferSchemeDetails
+  ngacno: any = null
+  transferAccountDetails
+  selectedTransScheme: any = null
   constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,) { }
-
   ngOnInit(): void {
     this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'tranfer';
-    //   // this.tranModeList = this.TranModeCash;
-
     //   // BranchCode Dropdown
     this._ownbranchmasterservice.getOwnbranchList().subscribe(data => {
       this.branchOption = data;
@@ -67,7 +58,7 @@ export class LockerOpenTransactionComponent implements OnInit {
       this.schemeCode = data[0].value
       this.getIntroducer()
     })
-    
+
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
         return (scheme.name == 'LK')
@@ -89,43 +80,39 @@ export class LockerOpenTransactionComponent implements OnInit {
     })
   }
 
-
   getIntroducer() {
-
     this.obj = [this.schemeCode, this.selectedBranch]
-
-    this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+    this.schemeAccountNoService.getLokcerSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
     })
-
   }
-  transferSchemeDetails
-  ngacno: any = null
-  transferAccountDetails
-
-  selectedTransScheme: any = null
-  
-  getTransferAccountList(event) {
-    this.transferSchemeDetails = event
+  getTransferAccountList() {
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
-    switch (event.name) { 
-      case 'LK':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-    }
+    if (this.selectedTransScheme != null)
+      this.schemeAccountNoService.getLokcerSchemeList1(this.obj).subscribe(data => {
+        this.schemeACNo = data;
+      })
   }
-
-
-  getTransferAccountDeatil(event) {
-    this.transferAccountDetails = event
+  getTransferAccountDeatil() {
+    if (this.ngacno != null) {
+      let obj = {
+        BRANCH_CODE: this.selectedBranch,
+        TRAN_ACNO: this.ngacno
+      }
+      this.http.post(this.url + '/locker-rent-transaction/lockeraccountDetails', obj).subscribe(data => {
+        this.angForm.patchValue({
+          KEY_NO: data['dpmasterData'].AC_KEYWORD,
+          LOC_SIZE: data['locerrent'].SIZE_NAME,
+          LOC_NO: data['lockerrackwise'].LOCKER_NO,
+          RACK_NO: data['lockerrackwise'].RACK_NO,
+          LOC_OPBY: this.ngacno
+        })
+      })
+    }
   }
   createForm() {
     this.angForm = this.fb.group({
-
       TRAN_DATE: ['', [Validators.required]],
       BRANCH_CODE: ['', [Validators.required]],
       SCHEME_CODE: ['', [Validators.required]],
@@ -137,33 +124,31 @@ export class LockerOpenTransactionComponent implements OnInit {
       LOC_OPBY: ['', [Validators.required]],
       OTIME: ['', [Validators.required]],
     })
+    this.angForm.controls['LOC_OPBY'].disable()
   }
 
-  submit() {debugger
+  submit() {
     const formVal = this.angForm.value;
-    var obj={
-      
-    
-     TRAN_DATE: formVal.TRAN_DATE,
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    var obj = {
+      TRAN_DATE: formVal.TRAN_DATE,
       BRANCH_CODE: formVal.BRANCH_CODE,
       TRAN_ACTYPE: formVal.SCHEME_CODE,
       TRAN_ACNO: formVal.ACCOUNT_NO,
-      OPENING_USER_CODE:formVal.ACCOUNT_NO,
+      OPENING_USER_CODE: formVal.ACCOUNT_NO,
       LOCKER_OPENING_TIME: formVal.OTIME,
-    //   USER_CODE
+      USER_CODE: result.id,
+      AC_KEYWORD: formVal.KEY_NO
     }
-     console.log(obj);
-        this.http.post(this.url + "locker-tran/openLocker", obj).subscribe(data => {
-          Swal.fire( 
-            'Success',
-            'Data Successfully Added!',
-            'success'
-          );
-          })
-    // 'locker-tran/openLocker'
+    this.http.post(this.url + "/locker-tran/openLocker", obj).subscribe(data => {
+      Swal.fire(
+        'Success',
+        `Locker Opened Successfully`,
+        'success'
+      );
+      this.createForm()
+    })
   }
-
-
-
 }
 

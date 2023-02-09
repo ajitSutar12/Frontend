@@ -107,28 +107,18 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
           title: 'Action',
         },
         {
-          title: 'Record Number ',
-          data: 'TRAN_NO'
+          title: 'Account Number',
+          data: 'AC_NO'
         },
         {
-          title: 'Amount',
-          data: 'TRAN_AMOUNT'
+          title: 'Return date',
+          data: 'RETURN_DATE'
         },
 
         {
-          title: 'Supplier Name ',
-          data: 'TRAN_SUPPLIER_NAME'
+          title: 'User code',
+          data: 'USER_CODE'
         },
-        {
-          title: 'Narration',
-          data: 'NARRATION'
-        },
-
-        {
-          title: 'Entry Type',
-          data: 'TRAN_ENTRY_TYPE'
-        },
-
       ],
       dom: 'Blrtip',
 
@@ -138,10 +128,11 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
   ngOnDestroy() {
     this.mySubscription?.unsubscribe();
   }
+  goldsilverentry
   //get saving customer data
   getGoldSilverReturnEntryData(data) {
-    this.goldSilverReturnEntryData = data.id;
-    this.child.editClickHandler(data.id);
+    this.goldsilverentry = data;
+    this.child.editClickHandler(data);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

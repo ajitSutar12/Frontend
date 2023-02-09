@@ -65,7 +65,8 @@ export class MembershipCancellationComponent implements OnInit {
   totalDebit: any = 0;
   transferTotalAmount: any = 0;
   narrationList: any;
-  particularss: any;
+  particularss
+  logDate: any;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -80,6 +81,7 @@ export class MembershipCancellationComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.Issue_date = data.CURRENT_DATE
+      this.logDate = data.CURRENT_DATE
     })
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
@@ -179,7 +181,8 @@ export class MembershipCancellationComponent implements OnInit {
       T_CREDIT: ['', [Validators.required]],
       Fnarration: ['Member Cancelled', [Validators.required]],
       T_NO_OF_SHARES: [0],
-      T_SHARES_AMOUNT: [0]
+      T_SHARES_AMOUNT: [0],
+      TRAN_NO: [0]
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -518,17 +521,17 @@ export class MembershipCancellationComponent implements OnInit {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
-
-      if (dailyshrtran.TRAN_STATUS != 0) {
-        this.approveShow = true;
-        this.rejectShow = true;
-        this.unapproveShow = false;
-
-      }
-      else if (dailyshrtran.TRAN_STATUS == 0) {
+      if (dailyshrtran.TRAN_STATUS != '0') {
         this.approveShow = false;
         this.rejectShow = false;
         this.unapproveShow = true;
+        this.closeShow = true;
+        this.submitShow = false;
+      }
+      else if (dailyshrtran.TRAN_STATUS == '0') {
+        this.approveShow = true;
+        this.rejectShow = true;
+        this.unapproveShow = false;
         this.closeShow = true;
         this.submitShow = false;
       }
@@ -540,7 +543,9 @@ export class MembershipCancellationComponent implements OnInit {
       this.angForm.patchValue({
         type: dailytran[0].TRAN_TYPE == 'CS' ? 'cash' : 'transfer',
         RDATE: dailyshrtran.RESULATION_DATE,
-        RESOLUTIONNO: dailyshrtran.RESULATION_NO
+        RESOLUTIONNO: dailyshrtran.RESULATION_NO,
+        TRAN_NO: dailyshrtran.TRAN_NO,
+        MCDATE: dailyshrtran.TRAN_DATE
       })
       dailytran[0].TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
       this.ngIntroducer = dailyshrtran.TRAN_ACNO
@@ -586,8 +591,9 @@ export class MembershipCancellationComponent implements OnInit {
     let resodate = moment(toDate).format('DD/MM/YYYY')
     var object =
     {
+      LOG_DATE: this.logDate,
       id: this.updateID,
-      userid: result.id,
+      user: result.id,
       BRANCH_CODE: this.selectedBranch
     }
     this.http.post(this.url + '/dailyshrtran/unapprove', object).subscribe(data => {
@@ -601,7 +607,7 @@ export class MembershipCancellationComponent implements OnInit {
       console.log('something is wrong');
     })
   }
-  
+
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);

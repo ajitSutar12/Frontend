@@ -5,10 +5,10 @@
                 <h5>Locker Open</h5>
             </div>
             <form [formGroup]="angForm" novalidate>
- 
+
                 <div class="card-block">
                     <div class="solid">
-                        <div class="row"> 
+                        <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">
                                     Date<sub class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
@@ -25,13 +25,7 @@
                                         This field is required.
                                     </div>
                                 </div>
-
                             </div>
-
-
-
-
-
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
@@ -40,12 +34,11 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedBranch"
-                                            formControlName="BRANCH_CODE" (change)="getIntroducer()" #branchcode
-                                            autofocus>
+                                            formControlName="BRANCH_CODE" (change)="getTransferAccountList()"
+                                            #branchcode autofocus>
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
-
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -62,9 +55,8 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="selectedTransScheme"
-                                            (change)="getTransferAccountList($event)" formControlName="SCHEME_CODE"
-                                            bindValue="value" bindLabel="label">
+                                        <ng-select [(ngModel)]="selectedTransScheme" (change)="getTransferAccountList()"
+                                            formControlName="SCHEME_CODE" bindValue="value" bindLabel="label">
                                             <ng-option *ngFor="let item of Scheme" [value]="item">
                                                 {{item.id}} {{item.label}}</ng-option>
                                         </ng-select>
@@ -77,12 +69,8 @@
                                         This field is required.
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
-
                         <div class="row">
                             <div class="col-sm-12 col-md-2"><label for="AC_NO">Account
                                     Number<sub class="required">*</sub></label></div>
@@ -91,8 +79,8 @@
                                     <span class="border-lable-flt">
                                         <ng-select id="ACCOUNT_NO" [(ngModel)]="ngacno" formControlName="ACCOUNT_NO"
                                             bindLabel="label" bindValue="bankacno" title="Compulsory Selection"
-                                            placeholder="Account Number" (change)="getTransferAccountDeatil($event)">
-                                            <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                            placeholder="Account Number" (change)="getTransferAccountDeatil()">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
@@ -105,8 +93,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="RACK_NO">Rack Number<sub
@@ -117,8 +103,8 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="RACK_NO"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formControlName="RACK_NO" placeholder=" " id="RACK_NO" value="0"
-                                            maxlength="15" disabled>
+                                            class="form-control" formControlName="RACK_NO" placeholder=" " id="RACK_NO"
+                                            value="0" maxlength="15" disabled>
                                     </span>
                                 </div>
                             </div>
@@ -130,13 +116,11 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="LOC_NO"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formCOntrolName="LOC_NO" placeholder=" " id="LOC_NO" value="0"
-                                            maxlength="15" disabled>
+                                            class="form-control" formCOntrolName="LOC_NO" placeholder=" " id="LOC_NO"
+                                            value="0" maxlength="15" disabled>
                                     </span>
                                 </div>
                             </div>
-
-
                             <div class="col-sm-12 col-md-2"> <label for="Loc_Size">Locker Size<sub
                                         class="required">*</sub></label>
                             </div>
@@ -145,15 +129,11 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="LOC_SIZE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formCOntrolName="LOC_SIZE" placeholder=" " id="LOC_SIZE" value="0"
-                                            maxlength="15" disabled>
+                                            class="form-control" formCOntrolName="LOC_SIZE" placeholder=" "
+                                            id="LOC_SIZE" value="0" maxlength="15" disabled>
                                     </span>
                                 </div>
                             </div>
-
-
-
-
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="KEY_NO">Key Number<sub
@@ -164,25 +144,28 @@
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="KEY_NO"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            class="form-control" formControlName="KEY_NO" placeholder=" " id="KEY_NO" value="0"
-                                            maxlength="15" disabled>
+                                            class="form-control" formControlName="KEY_NO" placeholder=" " id="KEY_NO"
+                                            value="0" maxlength="15" disabled>
                                     </span>
                                 </div>
                             </div>
-
-
-
                             <div class="col-sm-12 col-md-2  "><label for="Locker Open">Locker Open By</label>
                             </div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="LOC_OPBY"
+                                        <!-- <ng-select id="d/c" [(ngModel)]="debitcredit" formControlName="LOC_OPBY"
                                             bindLabel="label" bindValue="name" title="Compulsory Selection"
                                             placeholder="">
-                                            <ng-option *ngFor="let values of values" [value]="values"
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values"
                                                 (focus)="onFocus(dc)">
                                                 {{values.name}}</ng-option>
+                                        </ng-select> -->
+                                        <ng-select id="LOC_OPBY" [(ngModel)]="ngacno" formControlName="LOC_OPBY"
+                                            bindLabel="label" bindValue="bankacno" placeholder="Account Number"
+                                            disabled>
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -194,24 +177,21 @@
                                     </div>
                                 </div>
                             </div>
-                           
                         </div>
                         <div class="row">
 
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Open Time<sub
-                                class="required">*</sub></label></div>
+                                        class="required">*</sub></label></div>
 
-                    <div class="col-md-2">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input style="text-align: right;" type="text" name="OTIME" 
-                                class="form-control" formControlName="OTIME" placeholder=" " id="OTIME" value="0"
-                                 disabled>
-                            </span>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input style="text-align: right;" type="text" name="OTIME" class="form-control"
+                                            formControlName="OTIME" placeholder=" " id="OTIME" value="0" disabled>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                        </div>
-
                         <div class="row">
                             <div class="col-sm" style="float: right;">
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit()">
@@ -219,7 +199,6 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </form>
