@@ -86,10 +86,10 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
         // this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
-            this.url + '/gold-silver-return-entry/passing',
+            this.url + '/gold-silver-return-entry/Tranpassing',
             dataTableParameters
           ).subscribe(resp => {
-            this.goldSilverReturnEntryData = resp.data;
+            this.goldSilverReturnEntry = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -107,28 +107,18 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
           title: 'Action',
         },
         {
-          title: 'Record Number ',
-          data: 'TRAN_NO'
+          title: 'Account Number',
+          data: 'AC_NO'
         },
         {
-          title: 'Amount',
-          data: 'TRAN_AMOUNT'
+          title: 'Return date',
+          data: 'RETURN_DATE'
         },
 
         {
-          title: 'Supplier Name ',
-          data: 'TRAN_SUPPLIER_NAME'
+          title: 'User code',
+          data: 'USER_CODE'
         },
-        {
-          title: 'Narration',
-          data: 'NARRATION'
-        },
-
-        {
-          title: 'Entry Type',
-          data: 'TRAN_ENTRY_TYPE'
-        },
-
       ],
       dom: 'Blrtip',
 
@@ -140,11 +130,11 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
   }
   //get saving customer data
   getGoldSilverReturnEntryData(data) {
-    this.goldSilverReturnEntryData = data.id;
-    this.child.editClickHandler(data.id);
+    this.goldSilverReturnEntryData = data;
+    this.child.editClickHandler(data);
     this.child.DatatableHideShow = false;
-    this.child.rejectShow = true;
-    this.child.approveShow = true;
+    // this.child.rejectShow = true;
+    // this.child.approveShow = true;
   }
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

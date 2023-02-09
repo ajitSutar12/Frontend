@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
@@ -22,6 +22,11 @@ export class MembershipCancellationComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   @ViewChild('narrationhide') narrationhide: ElementRef<HTMLElement>;
+  @Input() childMessage: string;
+  @Output() reloadTablePassing = new EventEmitter<string>();
+
+
+
   angForm: FormGroup
   url = environment.base_url;
   newbtnShow: boolean = true;
@@ -60,7 +65,8 @@ export class MembershipCancellationComponent implements OnInit {
   totalDebit: any = 0;
   transferTotalAmount: any = 0;
   narrationList: any;
-  particularss: any;
+  particularss
+  logDate: any;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -70,15 +76,31 @@ export class MembershipCancellationComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,) {
+
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.Issue_date = data.CURRENT_DATE
+      this.logDate = data.CURRENT_DATE
     })
+    if (this.childMessage != undefined) {
+      this.editClickHandler(this.childMessage);
+    }
+
   }
   showButton: boolean = true;
   updateShow: boolean = false;
   isCash: boolean = true;
+
+  submitShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+  unapproveShow: boolean = false;
+  closeShow: boolean = true;
+
+
+  public visibleAnimate = false;
+  public visible = false;
 
   ngOnInit(): void {
     this.shareBal = 0
@@ -159,7 +181,8 @@ export class MembershipCancellationComponent implements OnInit {
       T_CREDIT: ['', [Validators.required]],
       Fnarration: ['Member Cancelled', [Validators.required]],
       T_NO_OF_SHARES: [0],
-      T_SHARES_AMOUNT: [0]
+      T_SHARES_AMOUNT: [0],
+      TRAN_NO: [0]
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -498,22 +521,33 @@ export class MembershipCancellationComponent implements OnInit {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
-      if (dailyshrtran.TRAN_STATUS == 0) {
-
+      if (dailyshrtran.TRAN_STATUS != '0') {
+        this.approveShow = false;
+        this.rejectShow = false;
+        this.unapproveShow = true;
+        this.closeShow = true;
+        this.submitShow = false;
       }
-      else if (dailyshrtran.TRAN_STATUS != 0) {
-
+      else if (dailyshrtran.TRAN_STATUS == '0') {
+        this.approveShow = true;
+        this.rejectShow = true;
+        this.unapproveShow = false;
+        this.closeShow = true;
+        this.submitShow = false;
       }
       this.selectedBranch = dailyshrtran.BRANCH_CODE
-      this.schemeCode = dailyshrtran.TRAN_ACTYPE
+      this.schemeCode = Number(dailyshrtran.TRAN_ACTYPE)
       this.Issue_date = dailyshrtran.TRAN_DATE
       this.shareBal = dailyshrtran.TRAN_AMOUNT
       this.getIntroducer()
       this.angForm.patchValue({
         type: dailytran[0].TRAN_TYPE == 'CS' ? 'cash' : 'transfer',
         RDATE: dailyshrtran.RESULATION_DATE,
-        RESOLUTIONNO: dailyshrtran.RESULATION_NO
+        RESOLUTIONNO: dailyshrtran.RESULATION_NO,
+        TRAN_NO: dailyshrtran.TRAN_NO,
+        MCDATE: dailyshrtran.TRAN_DATE
       })
+      dailytran[0].TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
       this.ngIntroducer = dailyshrtran.TRAN_ACNO
       this.multigrid = dailytran
     })
@@ -548,5 +582,39 @@ export class MembershipCancellationComponent implements OnInit {
         'success', "Data Rejected Successfully!!", 'success'
       );
     })
+  }
+  unapprove() {
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
+    var object =
+    {
+      LOG_DATE: this.logDate,
+      id: this.updateID,
+      user: result.id,
+      BRANCH_CODE: this.selectedBranch
+    }
+    this.http.post(this.url + '/dailyshrtran/unapprove', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Unapproved Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

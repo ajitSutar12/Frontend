@@ -86,6 +86,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" name="AC_PARTICULAR"
+                                            formControlName="TRAN_NO"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
                                             maxlength="15" disabled>
@@ -366,9 +367,25 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-outline-primary btn-sm" (click)="submit()">
-                                        Submit
-                                    </button>
+                                    <div class="col-sm" style="float: right;">
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="submitShow"
+                                            (click)="submit()">
+                                            Submit
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow"
+                                            (click)="closeModal()">
+                                            Close</button>
+
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
+                                            (click)="reject()">
+                                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                            (click)="approve()">
+                                            Approve</button>
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
+                                            (click)="unapprove()">
+                                            Unapprove</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -378,6 +395,7 @@
         </div>
     </div>
 </div>
+
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>
@@ -406,9 +424,10 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <!-- <div class="app-modal-footer">
-        
-      </div> -->
+
+
+
+
 </app-modal-basic>
 <app-modal-basic #formnarration [dialogClass]="'modal-md'">
     <div class="app-modal-header">

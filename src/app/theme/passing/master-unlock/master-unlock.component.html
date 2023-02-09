@@ -186,14 +186,38 @@
                     Rent</a><span class="badge badge-secondary badgeAlign"
                     [ngClass]="{'blink_me': locaker_ac_close>0}">{{locaker_ac_close}}</span></h6>
               </li>
-              <li>
+              <!-- <li>
                 <h6> <a (click)="OpenLink(33)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
                     routerLink="/passing/masterUnlock" [ngClass]="{'isActive': shareTransactionTrue}">13. Share
                     Transaction</a><span class="badge badge-secondary badgeAlign"
                     [ngClass]="{'blink_me': shareTransaction>0}">{{shareTransaction}}</span></h6>
+              </li> -->
+              <li>
+                <h6> <a (click)="OpenLink(34)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': shareTransferTrue}">13. Share
+                    Transfer</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': shareTransfer>0}">{{shareTransfer}}</span></h6>
               </li>
-            </ul>
-          </perfect-scrollbar>
+              <li>
+                <h6> <a (click)="OpenLink(35)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': memberCancelTrue}">14. Membership
+                  Cancellation</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': memberCancel>0}">{{memberCancel}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(36)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': issueNewShareTrue}">15. Issue
+                  New Shares</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': issueNewShare>0}">{{issueNewShare}}</span></h6>
+              </li>
+              <li>
+                <h6> <a (click)="OpenLink(37)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
+                    routerLink="/passing/masterUnlock" [ngClass]="{'isActive': lockerRentTrue}">16. Locker
+                  Rent Transaction</a><span class="badge badge-secondary badgeAlign"
+                    [ngClass]="{'blink_me': lockerRent>0}">{{lockerRent}}</span></h6>
+              </li>
+            </ul> 
+          </perfect-scrollbar> 
         </div>
       </div>
     </div>
@@ -287,11 +311,23 @@
       <div *ngIf="deprciationProcessTrue">
         <app-depreciation-passing></app-depreciation-passing>
       </div>
-      <div *ngIf="shareTransactionTrue">
+      <!-- <div *ngIf="shareTransactionTrue">
         <app-depreciation-passing></app-depreciation-passing>
-      </div>
-      <div *ngIf="lockermasterTrue">
+      </div> -->
+      <!-- <div *ngIf="lockermasterTrue">
         <app-master-locker></app-master-locker>
+      </div> -->
+      <div *ngIf="shareTransferTrue">
+        <app-transfer-shares></app-transfer-shares>
+      </div>
+      <div *ngIf="memberCancelTrue">
+        <app-cancel-member></app-cancel-member>
+      </div>
+      <div *ngIf="issueNewShareTrue">
+        <app-shares-issue-new></app-shares-issue-new>
+      </div>
+      <div *ngIf="lockerRentTrue">
+        <app-rent-locker></app-rent-locker>
       </div>
     </div>
   </div>

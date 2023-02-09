@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-issue-new-shares',
@@ -21,6 +22,9 @@ export class IssueNewSharesComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
   // @ViewChild('triggerhide1') triggerhide1: ElementRef<HTMLElement>;
+  @Input() childMessage: string;
+  @Output() reloadTablePassing = new EventEmitter<string>();
+
 
   //for Formgroup
   ngForm: FormGroup
@@ -32,6 +36,10 @@ export class IssueNewSharesComponent implements OnInit {
 
   jointShowButton: boolean = true
   jointUpdateShow: boolean = false
+
+
+  public visibleAnimate = false;
+  public visible = false;
 
   //ngmodel
   schemeCode
@@ -73,9 +81,13 @@ export class IssueNewSharesComponent implements OnInit {
   url = environment.base_url;
   Tparticulars
 
-
+  submitShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+  unapproveShow: boolean = false;
   resolutionDate: any
-
+  closeShow: boolean = false;
+  logDate
   constructor(private fb: FormBuilder,
     private _service: VoucherEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -84,6 +96,9 @@ export class IssueNewSharesComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
   ) {
+    if (this.childMessage != undefined) {
+      this.editClickHandler(this.childMessage);
+    }
   }
 
   ngOnInit(): void {
@@ -224,6 +239,7 @@ export class IssueNewSharesComponent implements OnInit {
       this.maxDate = this.maxDate._d
       this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
       this.resolutionDate = this.resolutionDate._d
+      this.logDate = data.CURRENT_DATE
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -329,6 +345,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.intIndex = indexOfelement;
     this.jointShowButton = false;
     this.jointUpdateShow = true;
+
     this.ngForm.patchValue({
       // SR_NO: this.multiField[id].SR_NO,
       Tscheme: this.multigrid[indexOfelement].Tscheme,
@@ -427,11 +444,9 @@ export class IssueNewSharesComponent implements OnInit {
         })
       }
     }
-
     else {
       Swal.fire('Warning!', 'Please fill All Mandatory Fields!', 'warning')
     }
-
   }
 
   decimalAllContent($event) {
@@ -463,32 +478,56 @@ export class IssueNewSharesComponent implements OnInit {
     select.close()
   }
   updateID
+
   // function for edit button clicked
   editClickHandler(id): void {
+    //  debugger
     this.http.get(this.url + '/issue-new-share/' + id).subscribe((data: any) => {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
-      if (dailyshrtran.TRAN_STATUS == 0) {
-
+      if (dailyshrtran.TRAN_STATUS != '0') {
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
+        this.closeShow = true
       }
-      else if (dailyshrtran.TRAN_STATUS != 0) {
-
+      else if (dailyshrtran.TRAN_STATUS == '0') {
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+        this.closeShow = true
       }
+      this.submitShow = false;
       this.selectedBranch = dailyshrtran.BRANCH_CODE
-      this.schemeCode = dailyshrtran.TRAN_ACTYPE
+      this.schemeCode = Number(dailyshrtran.TRAN_ACTYPE)
       this.Issue_date = dailyshrtran.TRAN_DATE
       this.getIntroducer()
+      this.memberno = dailyshrtran.TRAN_ACNO
       this.ngForm.patchValue({
-        T_TYPE: dailyshrtran.TRAN_TYPE == 'CS' ? 'cash' : 'transfer',
+        T_TYPE: dailyshrtran.TRAN_TYPE == 'CS' ? 'CS' : 'TR',
+        TRAN_NO: dailyshrtran.TRAN_NO,
+        FROM: dailyshrtran.SHARES_FROM_NO,
+        TO: dailyshrtran.SHARES_TO_NO,
+        RES_NO: dailyshrtran.RESULATION_NO,
+        RESOLUTION_DATE: dailyshrtran.RESULATION_DATE,
+        FACE_VALUE: dailyshrtran.FACE_VALUE,
+        NO_OF_SHARES: dailyshrtran.NO_OF_SHARES,
+        SHARES_AMOUNT: dailyshrtran.TRAN_AMOUNT,
+        particular: dailyshrtran.NARRATION,
+        CERTIFICATE_NO: dailyshrtran.CERTIFICATE_NO
       })
+      dailyshrtran.TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
       this.multigrid = dailytran
     })
   }
 
   approve() {
+    const formVal = this.ngForm.value;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
     var object =
     {
       id: this.updateID,
@@ -499,6 +538,11 @@ export class IssueNewSharesComponent implements OnInit {
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
   }
   reject() {
@@ -514,6 +558,46 @@ export class IssueNewSharesComponent implements OnInit {
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
+  }
+
+  unapprove() {
+    const formVal = this.ngForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
+    var object =
+    {
+      id: this.updateID,
+      user: result.id,
+      BRANCH_CODE: this.selectedBranch,
+      LOG_DATE: this.logDate
+    }
+    this.http.post(this.url + '/issue-new-share/unapprove', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Unapproved Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }

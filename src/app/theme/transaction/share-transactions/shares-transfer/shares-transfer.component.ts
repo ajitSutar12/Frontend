@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,12 +21,16 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import { event } from 'jquery';
 @Component({
   selector: 'app-shares-transfer',
   templateUrl: './shares-transfer.component.html',
   styleUrls: ['./shares-transfer.component.scss']
 })
 export class SharesTransferComponent implements OnInit {
+  @Output() reloadTablePassing = new EventEmitter<string>();
+  @Input() childMessage: string;
+
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @ViewChild('narrationhide') narrationhide: ElementRef<HTMLElement>;
   //for fromgroup
@@ -62,7 +66,7 @@ export class SharesTransferComponent implements OnInit {
   timeLeft = 5;
   transferACNo
   private dataSub: Subscription = null;
-
+logDate
   autocompleteItems = ['a', 'b', 'c', 'd'];
   autocompleteItemsAsObjects = [
     { value: 'a', id: 0 },
@@ -72,9 +76,22 @@ export class SharesTransferComponent implements OnInit {
   ];
 
   dtExportButtonOptions: any = {};
-  constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService,) { }
+  constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService,) {
+    if (this.childMessage != undefined) {
+      this.editClickHandler(this.childMessage);
+    }
+  }
   showButton: boolean = true;
   updateShow: boolean = false;
+  public visibleAnimate = false;
+  public visible = false;
+
+  submitShow: boolean = true;
+  closeShow: boolean = false;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+  unapproveShow: boolean = false;
+
 
   ngOnInit(): void {
     this.createForm();
@@ -150,6 +167,7 @@ export class SharesTransferComponent implements OnInit {
       T_NO_OF_SHARES: [],
       T_SHARES_AMOUNT: [],
       TRANS_AMOUNT: [0, [Validators.required]],
+      tranno: []
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -166,6 +184,7 @@ export class SharesTransferComponent implements OnInit {
     }
     this.systemParameter.getFormData(1).subscribe(data => {
       this.Issue_date = data.CURRENT_DATE;
+      this.logDate = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY').subtract(3, 'month');
@@ -251,6 +270,7 @@ export class SharesTransferComponent implements OnInit {
         Swal.fire(
           'success', "Data Submitted Successfully!!", 'success'
         );
+        this.createForm()
       })
     }
   }
@@ -304,22 +324,51 @@ export class SharesTransferComponent implements OnInit {
   editClickHandler(id): void {
     this.http.get(this.url + '/shares-transfer/' + id).subscribe((data: any) => {
       this.updateID = data.id
+      if (data.TRAN_STATUS == 0) {
+        this.approveShow = true;
+        this.rejectShow = true
+        this.unapproveShow = false
+        this.closeShow = true
+      }
+      else if (data.TRAN_STATUS != 0) {
+        this.approveShow = false;
+        this.rejectShow = false
+        this.unapproveShow = true
+        this.closeShow = true
+      }
       this.Issue_date = data.TRAN_DATE
-      this.schemeCode = data.TRAN_ACTYPE
+      this.schemeCode = Number(data.TRAN_ACTYPE)
       this.selectedBranch = data.BRANCH_CODE
       this.getIntroducer()
       this.getIntroducers()
+      this.submitShow = false;
       this.angForm.patchValue({
         branch_code: data.BRANCH_CODE,
-        AC_TYPE: data.TRAN_ACTYPE,
+        // AC_TYPE: data.TRAN_ACTYPE,
         TRANS_AMOUNT: data.TRAN_AMOUNT,
         Fnarration: data.NARRATION,
         RESOLUTIONNO: data.RESULATION_NO,
-        RDATE: data.RESULATION_DATE
+        RDATE: data.RESULATION_DATE,
+        tranno: data.TRAN_NO
       })
+      // this.getMemeberDetails(event)
       this.ngIntroducer = data.TRAN_ACNO
-      this.schemeCode1 = data.TRANSFER_ACTYPE_TO
+      this.schemeCode1 = Number(data.TRANSFER_ACTYPE_TO)
       this.ngIntroducers = data.TRANSFER_MEMBER_NO_TO
+      let obj = {
+        schemeCode: this.schemeCode,
+        bankacno: data.TRAN_ACNO,
+        issueDate: this.Issue_date,
+        tranno: data.TRAN_NO
+      }
+      this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', obj).subscribe(data => {
+        this.shareBal = data['shareBal']
+        this.angForm.patchValue({
+          T_NO_OF_SHARES: data['numberOfShares'],
+          T_SHARES_AMOUNT: data['shareBal'],
+          TRANS_AMOUNT: data['shareBal'],
+        })
+      })
     })
   }
 
@@ -431,6 +480,11 @@ export class SharesTransferComponent implements OnInit {
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
   }
   reject() {
@@ -445,7 +499,55 @@ export class SharesTransferComponent implements OnInit {
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
     })
+  }
+
+  unapprove() {
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let toDate = moment(formVal.RDATE, 'DD/MM/YYYY')
+    let resodate = moment(toDate).format('DD/MM/YYYY')
+    var object =
+    {
+      LOG_DATE:this.logDate,
+      id: this.updateID,
+      BRANCH_CODE: formVal.branch_code,
+      TRAN_ACTYPE: formVal.AC_TYPE,
+      TRAN_DATE: this.Issue_date,
+      TRAN_ACNO: this.ngIntroducer,
+      TRANSFER_ACTYPE_TO: this.schemeCode1,
+      TRANSFER_MEMBER_NO_TO: this.ngIntroducers,
+      TRAN_AMOUNT: formVal.TRANS_AMOUNT,
+      NARRATION: formVal.Fnarration,
+      USER_CODE: result.id,
+      RESULATION_DATE: resodate,
+      RESULATION_NO: formVal.RESOLUTIONNO,
+    }
+    this.http.post(this.url + '/shares-transfer/unapprove/ ', object).subscribe(data => {
+      Swal.fire(
+        'success', "Data Unapproved Successfully!!", 'success'
+      );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
   }
 }
 

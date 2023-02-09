@@ -44,6 +44,8 @@ import { ThemeModule } from '../../theme.module'
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
-    }, TermDepositAccountClosingService, SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, CustomerIdService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,]
+    }, TermDepositAccountClosingService, SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, 
+    CustomerIdService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, 
+    SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,]
 })
 export class TermDepositAccountClosingModule { }
