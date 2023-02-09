@@ -46,11 +46,7 @@ export class LockerCloseTransactionComponent implements OnInit {
 
   selectedTransScheme: any = null
 
-  values = [
-    { id: 1, name: 'a' },
-    { id: 2, name: 'b' },
-  ];
-
+  values
 
   constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,) { }
 
@@ -82,21 +78,19 @@ export class LockerCloseTransactionComponent implements OnInit {
     })
 
 
-
+    this.http.get(this.url + '/user-defination').subscribe(data => {
+      this.values = data
+    })
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         TRAN_DATE: data.CURRENT_DATE
       })
     });
 
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.angForm.patchValue({
-        CTIME: moment().format("hh:mm:ss A")
-      })
-    })
+
   }
   getIntroducer() {
-    
+
     this.obj = [this.schemeCode, this.selectedBranch]
 
 
@@ -104,28 +98,46 @@ export class LockerCloseTransactionComponent implements OnInit {
       this.introducerACNo = data;
     })
   }
-  getTransferAccountList(event) {
-    this.transferSchemeDetails = event
+  list
+  getTransferAccountList() {
     this.obj = [this.selectedTransScheme, this.selectedBranch]
     this.ngacno = null
-    switch (event.name) {
-      case 'LK':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+    if (this.selectedTransScheme != null) {
+      this.schemeAccountNoService.getLokcerSchemeList1(this.obj).subscribe((data1: any) => {
+        this.list = data1;
+        let obj = {
+          BRANCH_CODE: this.selectedBranch,
+          data: data1
+        }
+        this.http.post(this.url + '/locker-tran/getList', obj).subscribe((data: any) => {
           this.schemeACNo = data;
         })
-        break;
-
+      })
     }
   }
-
-
+  updateId
   getTransferAccountDeatil(event) {
-    this.transferAccountDetails = event
+    // this.transferAccountDetails = event
+    if (this.ngacno != null) {
+      this.updateId = event.locid
+      let obj = {
+        BRANCH_CODE: this.selectedBranch,
+        TRAN_ACNO: this.ngacno
+      }
+      this.http.post(this.url + '/locker-rent-transaction/lockeraccountDetails', obj).subscribe(data => {
+        this.angForm.patchValue({
+          KEY_NO: data['dpmasterData'].AC_KEYWORD,
+          LOC_SIZE: data['locerrent'].SIZE_NAME,
+          LOC_NO: data['lockerrackwise'].LOCKER_NO,
+          RACK_NO: data['lockerrackwise'].RACK_NO,
+          LOC_OPBY: this.ngacno
+        })
+      })
+    }
   }
 
   createForm() {
     this.angForm = this.fb.group({
-
       TRAN_DATE: ['', [Validators.required]],
       BRANCH_CODE: ['', [Validators.required]],
       SCHEME_CODE: ['', [Validators.required]],
@@ -135,46 +147,30 @@ export class LockerCloseTransactionComponent implements OnInit {
       LOC_SIZE: ['', [Validators.required]],
       KEY_NO: ['', [Validators.required]],
       LOC_OPBY: ['', [Validators.required]],
-      OTIME: ['', [Validators.required]],
+      CTIME: ['', [Validators.required]],
 
     })
-
+    this.angForm.patchValue({
+      CTIME: moment().format("hh:mm:ss A")
+    })
   }
 
-  submit() {debugger
+  submit() {
     const formVal = this.angForm.value;
-    var object={
-      TRAN_DATE: formVal.TRAN_DATE,
-      BRANCH_CODE: formVal.BRANCH_CODE,
-      SCHEME_CODE: formVal.SCHEME_CODE,
-      ACCOUNT_NO: formVal.ACCOUNT_NO,
-      RACK_NO: formVal.RACK_NO,
-      LOC_NO: formVal.LOC_NO,
-      LOC_SIZE: formVal.LOC_SIZE,
-      KEY_NO: formVal.KEY_NO,
-      LOC_OPBY: formVal.LOC_OPBY,
-      CTIME: formVal.OTIME,
+    let obj = {
+      AC_KEYWORD: formVal.KEY_NO,
+      TRAN_ACNO: this.ngacno,
+      id: this.updateId,
+      LOCKER_CLOSING_TIME: formVal.CTIME,
+      CLOSING_USER_CODE: formVal.LOC_OPBY
     }
-     console.log(object);
-        this.http.post(this.url + "locker-tran/closeLocker", object).subscribe(data => {
-          Swal.fire(
-            'Success',
-            'Data Successfully Added!',
-            'success'
-          );
-          })
+    this.http.post(this.url + "/locker-tran/closeLocker", obj).subscribe(data => {
+      Swal.fire(
+        'Success',
+        'Locker Closed Successfully!',
+        'success'
+      );
+      this.createForm()
+    })
   }
-  //   accountlist: 
-  // let obj = {
-  //   BRANCH_CODE:
-  // }
-  // endpoint: '/locker-tran/getList',obj
-  // ac close submit
-  // let obj={
-  //   AC_KEYWORD
-  //   TRAN_ACNO
-  //   id
-  // }
-  // 'locker-tran/closeLocker'
-
 }

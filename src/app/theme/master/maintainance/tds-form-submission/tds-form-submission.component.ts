@@ -161,18 +161,23 @@ export class TDSFormSubmissionComponent implements OnInit {
     if (value == 1) {
       this.isTdsFormA = true;
     }
-    if (value == 2) {
+    else if (value == 2) {
       this.isTdsFormA = false;
       this.angForm.controls['TDS_RATE'].reset()
       this.angForm.controls['TDS_LIMIT'].reset()
     }
-    if (value == 3) {
+    else if (value == 3) {
+      this.isTdsFormA = false;
+      this.angForm.controls['TDS_RATE'].reset()
+      this.angForm.controls['TDS_LIMIT'].reset()
+    }
+    else if (value == 4) {
       this.isTdsFormA = false;
       this.angForm.controls['TDS_RATE'].reset()
       this.angForm.controls['TDS_LIMIT'].reset()
     }
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {

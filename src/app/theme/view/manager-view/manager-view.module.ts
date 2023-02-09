@@ -16,6 +16,12 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { ManagerViewService } from 'src/app/theme/view/manager-view/manager-view.service';
 import { Iframe1Module } from '../../reports/daily-reports/iframe1/iframe1.module';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -26,13 +32,20 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     NgSelectModule,
     Iframe1Module,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    PerfectScrollbarModule
   ],
   declarations: [ManagerViewComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
+  },
+  {
+
+    provide: PERFECT_SCROLLBAR_CONFIG,
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+
   },
     ManagerViewService,
     OwnbranchMasterService,

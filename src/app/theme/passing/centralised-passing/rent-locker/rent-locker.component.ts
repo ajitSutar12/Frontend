@@ -27,13 +27,13 @@ interface rentLocker {
 
 
 @Component({
-    selector: 'app-rent-locker',
-    templateUrl: './rent-locker.component.html',
-    styleUrls: ['./rent-locker.component.scss']
-  })
-  export class RentLockerComponent implements OnInit {
-  
-  
+  selector: 'app-rent-locker',
+  templateUrl: './rent-locker.component.html',
+  styleUrls: ['./rent-locker.component.scss']
+})
+export class RentLockerComponent implements OnInit {
+
+
   @ViewChild(LockerRentTransactionsComponent) child: LockerRentTransactionsComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
@@ -52,9 +52,9 @@ interface rentLocker {
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  rentLockerData: any 
+  rentLockerData: any
 
-  ngOnInit(): void { debugger
+  ngOnInit(): void {
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -124,7 +124,7 @@ interface rentLocker {
           title: 'Time',
           data: 'TRAN_TIME'
         },
-       
+
         {
           title: 'Scheme Type',
           data: 'TRAN_ACTYPE'
@@ -170,7 +170,7 @@ interface rentLocker {
 
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload() 
+      dtInstance.ajax.reload()
     });
   }
 }

@@ -35,9 +35,9 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
-                                        #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true' [virtualScroll]="true"
-                                        title="Compulsory Selection" required placeholder="Customer Id"
-                                        (change)="getCustomer($event.value)">
+                                        #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'
+                                        [virtualScroll]="true" title="Compulsory Selection" required
+                                        placeholder="Customer Id" (change)="getCustomer($event.value)">
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -58,9 +58,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
-                                        class="form-control" [(ngModel)]="ngSubmitDate"
-                                        #SUBMIT_DATE="bsDatepicker"  (keydown.Tab)="SUBMIT_DATE.hide()"
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE"
+                                        id="SUBMIT_DATE" class="form-control" [(ngModel)]="ngSubmitDate"
+                                        #SUBMIT_DATE="bsDatepicker" (keydown.Tab)="SUBMIT_DATE.hide()"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMIT_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -94,9 +94,16 @@
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
-                                        <input type="radio" value="Latter" formControlName="FORM_TYPE" id="latter"
+                                        <input type="radio" value="Form60" formControlName="FORM_TYPE" id="Form60"
                                             name="FORM_TYPE" (change)="isForm15A(3)">
-                                        <i class="helper"></i>Letter
+                                        <i class="helper"></i>Form - 60
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" value="Form15G" formControlName="FORM_TYPE" id="formG"
+                                            name="FORM_TYPE" (change)="isForm15A(4)">
+                                        <i class="helper"></i>Form - 15 G
                                     </label>
                                 </div>
                             </div>
@@ -111,9 +118,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
-                                        placeholder=" " (keyup)= "getDecimal($event)" id="TDS_RATE" max="100"
-                                        title="Input allowed only  0-9" #INT formControlName="TDS_RATE"
+                                    <input appTheme style="text-align: right;" type="text" name="TDS_RATE"
+                                        class="form-control" placeholder=" " (keyup)="getDecimal($event)" id="TDS_RATE"
+                                        max="100" title="Input allowed only  0-9" #INT formControlName="TDS_RATE"
                                         (keyup)="checkInt(INT.value)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
@@ -133,10 +140,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" style="text-align: right;" name="TDS_LIMIT" class="form-control"
-                                        placeholder=" " (keyup)= "getDecimal($event)" id="TDS_LIMIT"
+                                    <input appTheme type="text" style="text-align: right;" name="TDS_LIMIT"
+                                        class="form-control" placeholder=" " (keyup)="getDecimal($event)" id="TDS_LIMIT"
                                         title="Input allowed only  0-9" maxlength="10" formControlName="TDS_LIMIT"
-                                        (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                                        (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                 </span>
