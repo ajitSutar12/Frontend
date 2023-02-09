@@ -106,10 +106,13 @@ export class BnkRegStandingInstructionComponent implements OnInit {
 
     if (this.angForm.valid) {
 
+      console.log(this.angForm.value)
       this.showRepo = true;
       let obj = this.angForm.value
       let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let branchName1 = this.branch_code.filter(ele=> ele.value == obj.BRANCH_CODE);
+      branchName = branchName1[0].label
 
       let etdate:any;
       if (this.todate == obj.END_DATE) {
@@ -120,31 +123,37 @@ export class BnkRegStandingInstructionComponent implements OnInit {
 
       let REVOKE_INST = obj.REVOKE_INST;
       let Branch = obj.BRANCH_CODE;
-
-      this.iframeurl = this.report_url+"examples/StandingInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&REVOKE_INST='" + REVOKE_INST + "&Branch=" + Branch + "&bankName=" + bankName + " ";
+      if(REVOKE_INST == null){
+        this.iframeurl = this.report_url+"examples/StandingInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&REVOKE_INST='" + REVOKE_INST + "&Branch=" + Branch + "&bankName=" + bankName + " &branchName="+branchName;
+      console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+      }else{
+        this.iframeurl = this.report_url+"examples/StandingRevokeInstr.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&REVOKE_INST='" + REVOKE_INST + "&Branch=" + Branch + "&bankName=" + bankName + " &branchName="+branchName;
+        this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+      }
+
+      
     }
     
-    if (this.angForm.controls['REVOKE_INST'].valid==true && this.angForm.valid) {
+    // if (this.angForm.controls['REVOKE_INST'].valid==true && this.angForm.valid) {
 
-      this.showRepo = true;
-      let obj = this.angForm.value
-      let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      // let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
+    //   this.showRepo = true;
+    //   let obj = this.angForm.value
+    //   let stdate = moment(obj.START_DATE).format('DD/MM/YYYY');
+    //   // let etdate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
-      let etdate:any;
-      if (this.todate == obj.END_DATE) {
-        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      };
+    //   let etdate:any;
+    //   if (this.todate == obj.END_DATE) {
+    //     etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    //   }else{ 
+    //     etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    //   };
       
-      let REVOKE_INST = obj.REVOKE_INST;
-      let Branch = obj.BRANCH_CODE;
+    //   let REVOKE_INST = obj.REVOKE_INST;
+    //   let Branch = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url+"examples/StandingRevokeInstr.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&REVOKE_INST='" + REVOKE_INST + "&Branch=" + Branch + "&bankName=" + bankName + " ";
-      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
-    }
+      
+    // }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }

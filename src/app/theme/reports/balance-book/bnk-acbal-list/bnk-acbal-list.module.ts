@@ -20,6 +20,9 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import{IframeModule} from '../iframe/iframe.module'
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { SavingMasterService } from '../../../master/customer/saving-master/saving-master.service';
+
 // import { Iframe1Component } from '../iframe1/iframe1/iframe1.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -46,6 +49,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService,
     SchemeAccountNoService,
     SchemeTypeDropdownService,
+    SavingMasterService,
+    SchemeTypeDropdownService,
+    ACMasterDropdownService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
