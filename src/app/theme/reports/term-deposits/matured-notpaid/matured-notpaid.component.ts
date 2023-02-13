@@ -115,7 +115,7 @@ ngForm: FormGroup;
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let startdate =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    let startdate =  moment(obj.START_DATE).format('DD/MM/YYYY');
 
     let enddate:any;
     if (this.todate == obj.END_DATE) {
@@ -127,7 +127,7 @@ ngForm: FormGroup;
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/MaturedButNotPaid.php?startdate='" + startdate + "'&enddate='" + enddate + "'&scheme=" + scheme + "&branch="+ branch +"&bankName=" + bankName + "" ;
+    this.iframe5url=this.report_url+"examples/MaturedButNotPaid.php?startdate='" + startdate + "'&enddate='" + enddate + "'&S_APPL=" + scheme + "&branch="+ branch +"&bankName=" + bankName + "&NAME="+branchName ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

@@ -439,7 +439,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.BANKACNO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
