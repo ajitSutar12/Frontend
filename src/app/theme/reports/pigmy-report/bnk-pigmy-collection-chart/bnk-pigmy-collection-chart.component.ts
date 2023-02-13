@@ -159,6 +159,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     switch (this.getschemename) {
       case 'AG':
         this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          console.log(data);
           this.startingacc = data;
           this.startingAccount = null
         })
@@ -198,7 +199,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
       
-   this.iframe5url=this.report_url+"examples/PigmyCollectionChart.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&ChartNo=" + ChartNo +"&Scheme_acc='" + Scheme_acc +"'&bankName=" + bankName + "" ;
+   this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&ChartNo=" + ChartNo +"&schemeAccountNo='" + Scheme_acc +"'&bankName=" + bankName + " &branchName="+branchName ;
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
   }
