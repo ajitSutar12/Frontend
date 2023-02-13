@@ -17,7 +17,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 
-import * as moment from 'moment'; 
+import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { Router } from "@angular/router";
 //date pipe
@@ -112,7 +112,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   crACno
 
   allscheme
-
+  maxDate
   cashTrue: boolean = true;
   transferTrue: boolean = false;
   formSubmitted = false;
@@ -248,7 +248,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       });
       this.scheme = filtered;
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD'  || scheme.name == 'GS'  || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
 
       });
       this.allscheme = allscheme;
@@ -311,6 +311,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.angForm.patchValue({
         INSTRUCTION_DATE: data.CURRENT_DATE
       })
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
     })
   }
 
@@ -336,7 +338,14 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       FROM_DATE: '',
       NEXT_EXE_DATE: ''
     })
-    var date = new Date();
+    let currentDate = this.angForm.controls['INSTRUCTION_DATE'].value
+    // var date = new Date();
+    var check = moment(currentDate, 'DD/MM/YYYY');
+
+    var month = check.format('MM');
+    var day = check.format('DD');
+    var year = check.format('YYYY');
+    let date = new Date(Number(year), Number(month), Number(day))
     if (exe_day.value == 'Month Begin') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
@@ -354,7 +363,6 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     else if (exe_day.value == 'Month End') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
-      let date = new Date()
       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       var lastDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
       var full = []
@@ -931,15 +939,15 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     closemodal.click();
 
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

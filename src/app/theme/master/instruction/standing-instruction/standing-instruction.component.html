@@ -25,10 +25,10 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="INSTRUCTION_DATE"
                                         id="INSTRUCTION_DATE" class="form-control"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                        #INSTRUCTION_DATE="bsDatepicker"  (keydown.Tab)="INSTRUCTION_DATE.hide()" 
+                                        [ngClass]="{'form-submitted': formSubmitted}" #INSTRUCTION_DATE="bsDatepicker"
+                                        (keydown.Tab)="INSTRUCTION_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        formControlName="INSTRUCTION_DATE" bsDatepicker>
+                                        formControlName="INSTRUCTION_DATE" bsDatepicker disabled>
                                     <label for="INSTRUCTION_DATE">Date</label>
                                 </span>
                             </div>
@@ -37,10 +37,11 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngExecutionDay"
-                                        id="EXECUTION_DAY" formControlName="EXECUTION_DAY" title="Compulsory Selection" [virtualScroll]="true"
-                                        (change)="setStartDate($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        #EXECUTION_DAY (focus)="onFocus(EXECUTION_DAY)" [selectOnTab]='true'
-                                        required placeholder="Execution Day">
+                                        id="EXECUTION_DAY" formControlName="EXECUTION_DAY" title="Compulsory Selection"
+                                        [virtualScroll]="true" (change)="setStartDate($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}" #EXECUTION_DAY
+                                        (focus)="onFocus(EXECUTION_DAY)" [selectOnTab]='true' required
+                                        placeholder="Execution Day">
                                         <ng-option *ngFor="let values of executionDay" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -79,7 +80,7 @@
                                     <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" [(ngModel)]="startDateT"
-                                        #FROM_DATE="bsDatepicker"  (keydown.Tab)="FROM_DATE.hide()"
+                                        #FROM_DATE="bsDatepicker" (keydown.Tab)="FROM_DATE.hide()" [minDate]="maxDate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="FROM_DATE" bsDatepicker>
                                     <label for="FROM_DATE">Start From<sub class="required">*
@@ -100,10 +101,11 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngFrequency"
-                                        id="SI_FREQUENCY" formControlName="SI_FREQUENCY" title="Compulsory Selection" [virtualScroll]="true"
-                                        (change)="setNextExeDate($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        #SI_FREQUENCY (focus)="onFocus(SI_FREQUENCY)" [selectOnTab]='true'   
-                                        required placeholder="Frequency">
+                                        id="SI_FREQUENCY" formControlName="SI_FREQUENCY" title="Compulsory Selection"
+                                        [virtualScroll]="true" (change)="setNextExeDate($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}" #SI_FREQUENCY
+                                        (focus)="onFocus(SI_FREQUENCY)" [selectOnTab]='true' required
+                                        placeholder="Frequency">
                                         <ng-option *ngFor="let values of frequencyOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -123,8 +125,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                        #TO_DATE="bsDatepicker"  (keydown.Tab)="TO_DATE.hide()"
+                                        [ngClass]="{'form-submitted': formSubmitted}" #TO_DATE="bsDatepicker"
+                                        (keydown.Tab)="TO_DATE.hide()" [minDate]="maxDate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="TO_DATE" bsDatepicker>
                                     <label for="TO_DATE">Next Execution On</label>
@@ -152,11 +154,11 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="acno" id="cashScheme"
-                                        formControlName="DR_ACTYPE" title="Compulsory Selection" [virtualScroll]="true"
-                                        (change)="getDebitDeatils($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        #DR_ACTYPE (focus)="onFocus(DR_ACTYPE)" [selectOnTab]='true'
-                                        required placeholder="Scheme">
+                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="acno"
+                                        id="cashScheme" formControlName="DR_ACTYPE" title="Compulsory Selection"
+                                        [virtualScroll]="true" (change)="getDebitDeatils($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}" #DR_ACTYPE
+                                        (focus)="onFocus(DR_ACTYPE)" [selectOnTab]='true' required placeholder="Scheme">
                                         <ng-option *ngFor="let values of debitScheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
@@ -174,10 +176,11 @@
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngAccno" id="DR_AC_NO"
-                                        formControlName="DR_AC_NO" title="Compulsory Selection" [virtualScroll]="true"
-                                        #DR_AC_NO (focus)="onFocus(DR_AC_NO)" [selectOnTab]='true'
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
+                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngAccno"
+                                        id="DR_AC_NO" formControlName="DR_AC_NO" title="Compulsory Selection"
+                                        [virtualScroll]="true" #DR_AC_NO (focus)="onFocus(DR_AC_NO)"
+                                        [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Account No">
                                         <ng-option *ngFor="let values of drACno" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -220,10 +223,10 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="crno" id="CR_ACTYPE"
-                                        formControlName="CR_ACTYPE" title="Compulsory Selection"
-                                        (change)="getCreditDetails($event)" [virtualScroll]="true"
-                                        #CR_ACTYPE (focus)="onFocus(CR_ACTYPE)" [selectOnTab]='true'
+                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="crno"
+                                        id="CR_ACTYPE" formControlName="CR_ACTYPE" title="Compulsory Selection"
+                                        (change)="getCreditDetails($event)" [virtualScroll]="true" #CR_ACTYPE
+                                        (focus)="onFocus(CR_ACTYPE)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                         <ng-option *ngFor="let values of allscheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
@@ -242,10 +245,11 @@
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngCrAccno" id="CR_AC_NO"
-                                        formControlName="CR_AC_NO" title="Compulsory Selection" [virtualScroll]="true"
-                                        #CR_AC_NO (focus)="onFocus(CR_AC_NO)" [selectOnTab]='true'
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
+                                    <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngCrAccno"
+                                        id="CR_AC_NO" formControlName="CR_AC_NO" title="Compulsory Selection"
+                                        [virtualScroll]="true" #CR_AC_NO (focus)="onFocus(CR_AC_NO)"
+                                        [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Account No">
                                         <ng-option *ngFor="let values of crACno" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -315,10 +319,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" style="text-align: right;" name="PAYINT_AMOUNT"
-                                        class="form-control" placeholder=" " id="PAYINT_AMOUNT" 
-                                        (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
+                                        class="form-control" placeholder=" " id="PAYINT_AMOUNT"
+                                        (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                        
                                         title="Input allowed only  0-9" formControlName="PAYINT_AMOUNT">
                                     <label for="PAYINT_AMOUNT">Transaction Amount<sub class="required">*
                                         </sub></label>
@@ -356,7 +359,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="REVOKE_DATE" id="REVOKE_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        [ngClass]="{'form-submitted': formSubmitted}" [minDate]="maxDate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="REVOKE_DATE" bsDatepicker disabled>
                                     <label for="REVOKE_DATE">Revoke Date<sub class="required">*
@@ -374,8 +377,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (keydown.Tab)="focus"
-                                (click)="submit()" appTheme>
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (keydown.Tab)="focus" (click)="submit()" appTheme>
                                 Submit
                             </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">

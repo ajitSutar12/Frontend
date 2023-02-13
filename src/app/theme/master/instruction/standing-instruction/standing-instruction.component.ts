@@ -75,6 +75,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
   updateShow: boolean = false;
   newbtnShow: boolean = false;
 
+  maxDate
   //variable to get ID to update
   updateID: number = 0;
   startDT
@@ -273,6 +274,8 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.angForm.patchValue({
         INSTRUCTION_DATE: data.CURRENT_DATE
       })
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
     })
   }
 
@@ -282,7 +285,14 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       FROM_DATE: '',
       TO_DATE: ''
     })
-    var date = new Date();
+    let currentDate = this.angForm.controls['INSTRUCTION_DATE'].value
+    // var date = new Date();
+    var check = moment(currentDate, 'DD/MM/YYYY');
+
+    var month = check.format('MM');
+    var day = check.format('DD');
+    var year = check.format('YYYY');
+    let date = new Date(Number(year), Number(month), Number(day))
     if (exe_day.value == 'Month Begin') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
@@ -293,6 +303,8 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       full = fullDate.split(' ');
       var ndate = full[0].split(/\-/);
       var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
+      let startDate = moment(this.angForm.controls['INSTRUCTION_DATE'].value, 'DD/MM/YYYY')
+      let expiryDate = moment(startDate, 'DD/MM/YYYY').add(1, 'months').format('DD/MM/YYYY')
       this.angForm.patchValue({
         FROM_DATE: newDate
       })
@@ -300,7 +312,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
     else if (exe_day.value == 'Month End') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
-      let date = new Date()
+      // let date = new Date()
       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       var lastDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
       var full = []
@@ -861,7 +873,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.dtTrigger.unsubscribe();
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -875,10 +887,10 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }
