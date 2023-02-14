@@ -367,8 +367,9 @@ export class DeadStockPurchaseComponent implements OnInit {
     el.click();
   }
 
-   //get Narration Details 
-   getNarrationc(ele) { debugger
+  //get Narration Details 
+  getNarrationc(ele) {
+    debugger
     this.narrationcash = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
@@ -610,6 +611,8 @@ export class DeadStockPurchaseComponent implements OnInit {
         TRAN_DATE: data.TRAN_DATE,
         BRANCH_CODE: data.BRANCH_CODE
       })
+      this.narration = data.NARRATION
+      this.narrationcash = data.NARRATION
       this.itemArr = data.deadstockHead
     })
 

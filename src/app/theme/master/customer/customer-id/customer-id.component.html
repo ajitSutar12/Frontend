@@ -156,7 +156,7 @@
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="" #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)"
                                         [selectOnTab]='true' autofocus>
-                                        <ng-option *ngFor="let values of prifix" [value]="values">
+                                        <ng-option *ngFor="let values of regPrifix" [value]="values">
                                             {{values.regValue}} </ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Regional Title <sub class="required"> * </sub></label>

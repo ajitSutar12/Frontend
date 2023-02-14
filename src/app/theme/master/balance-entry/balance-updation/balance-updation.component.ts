@@ -640,60 +640,72 @@ export class BalanceUpdationComponent implements OnInit {
     this.balanceUpdateArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
-    if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
-      this.showTable = true
-      let fromDate = moment(this.angForm.controls['TRAN_DATE'].value, 'DD/MM/YYYY')
-      let fromDatet = moment(fromDate).format('DD/MM/YYYY')
-      this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename, fromDatet]
-      this.mem = {
-        memFrom: memFrom,
-        memTo: memTo,
-        ngscheme: this.ngscheme,
-        ngbranch: this.ngbranch,
-        getschemename: this.getschemename,
-        fromDatet: fromDatet
-      }
-      this.http.post(this.url + '/balance-updation/accounts/', this.mem).subscribe((data) => {
-        this.arrTable = data;
-        this.gridData = data;
-        for (let element of this.arrTable) {
-          var object = {
-            AC_NO: element.AC_NO,
-            AC_NAME: element.AC_NAME,
-            id: element.id,
-            BANKACNO: element.BANKACNO,
-            AC_OP_TOTAL_DEPOSITAMT: element.AC_OP_TOTAL_DEPOSITAMT,
-            AC_OP_CD: element.AC_OP_CD,
-            AC_BALDATE: element.AC_BALDATE,
-            AC_ACTDATE: element.AC_ACTDATE,
-            AC_PAID_INT_OP: element.AC_PAID_INT_OP,
-            AC_LINTEDT: element.AC_LINTEDT,
-            OP_POSTED_INT: element.OP_POSTED_INT,
-            AC_RECBLEODUEINT_OP: element.AC_RECBLEODUEINT_OP,
-            OP_NPA_DATE: element.OP_NPA_DATE,
-            IS_DISPUTE_LOAN: element.IS_DISPUTE_LOAN,
-            AC_CLOSEDT: element.AC_CLOSEDT,
-            AC_PRODUCT: element.AC_PRODUCT,
-            AC_PINT_OP: element.AC_PINT_OP,
-            AC_ODEPINS: element.AC_ODEPINS,
-            OP_CR_INT_FIN_YEAR: element.OP_CR_INT_FIN_YEAR,
-            OP_INT_PAID_FIN_YEAR: element.OP_INT_PAID_FIN_YEAR,
-            LAST_TDS_DATE: element.LAST_TDS_DATE,
-            ExistFlag: 'Y'
-          }
-          this.balanceUpdateArr.push(object)
-        }
-      });
-
+    if (this.angForm.controls['TRAN_DATE'].value == '' || this.angForm.controls['TRAN_DATE'].value == null) {
+      Swal.fire('Warning', 'Please select balance date', 'warning')
+    }
+    else if (this.angForm.controls['FROM_AC'].value == '' || this.angForm.controls['FROM_AC'].value == null) {
+      Swal.fire('Warning', 'Please select from account number', 'warning')
+    }
+    else if (this.angForm.controls['TO_AC'].value == '' || this.angForm.controls['TO_AC'].value == null) {
+      Swal.fire('Warning', 'Please select to account number', 'warning')
     }
     else {
-      Swal.fire("Must Select To Account Number");
-      this.angForm.patchValue({
-        TO_AC: ''
-      })
-      this.arrTable = []
-      this.balanceUpdateArr = []
+      if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
+        this.showTable = true
+        let fromDate = moment(this.angForm.controls['TRAN_DATE'].value, 'DD/MM/YYYY')
+        let fromDatet = moment(fromDate).format('DD/MM/YYYY')
+        this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename, fromDatet]
+        this.mem = {
+          memFrom: memFrom,
+          memTo: memTo,
+          ngscheme: this.ngscheme,
+          ngbranch: this.ngbranch,
+          getschemename: this.getschemename,
+          fromDatet: fromDatet
+        }
+        this.http.post(this.url + '/balance-updation/accounts/', this.mem).subscribe((data) => {
+          this.arrTable = data;
+          this.gridData = data;
+          for (let element of this.arrTable) {
+            var object = {
+              AC_NO: element.AC_NO,
+              AC_NAME: element.AC_NAME,
+              id: element.id,
+              BANKACNO: element.BANKACNO,
+              AC_OP_TOTAL_DEPOSITAMT: element.AC_OP_TOTAL_DEPOSITAMT,
+              AC_OP_CD: element.AC_OP_CD,
+              AC_BALDATE: element.AC_BALDATE,
+              AC_ACTDATE: element.AC_ACTDATE,
+              AC_PAID_INT_OP: element.AC_PAID_INT_OP,
+              AC_LINTEDT: element.AC_LINTEDT,
+              OP_POSTED_INT: element.OP_POSTED_INT,
+              AC_RECBLEODUEINT_OP: element.AC_RECBLEODUEINT_OP,
+              OP_NPA_DATE: element.OP_NPA_DATE,
+              IS_DISPUTE_LOAN: element.IS_DISPUTE_LOAN,
+              AC_CLOSEDT: element.AC_CLOSEDT,
+              AC_PRODUCT: element.AC_PRODUCT,
+              AC_PINT_OP: element.AC_PINT_OP,
+              AC_ODEPINS: element.AC_ODEPINS,
+              OP_CR_INT_FIN_YEAR: element.OP_CR_INT_FIN_YEAR,
+              OP_INT_PAID_FIN_YEAR: element.OP_INT_PAID_FIN_YEAR,
+              LAST_TDS_DATE: element.LAST_TDS_DATE,
+              ExistFlag: 'Y'
+            }
+            this.balanceUpdateArr.push(object)
+          }
+        });
+
+      }
+      else {
+        Swal.fire("Must Select To Account Number");
+        this.angForm.patchValue({
+          TO_AC: ''
+        })
+        this.arrTable = []
+        this.balanceUpdateArr = []
+      }
     }
+
   }
 
 

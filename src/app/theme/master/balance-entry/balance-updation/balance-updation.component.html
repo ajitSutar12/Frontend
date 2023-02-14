@@ -65,9 +65,10 @@
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()" [maxDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
-                                        #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()" placement="bottom"
+                                        (change)="getTable()" #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="TRAN_DATE" #TRAN_DATE="bsDatepicker"
+                                        (keydown.Tab)="TRAN_DATE.hide()" placement="bottom"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -82,8 +83,9 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="From A/C" #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
+                                        (change)="getTable()" [virtualScroll]="true"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C"
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -252,14 +254,20 @@
                                                     </td>
                                                     <td *ngIf="ledgerbalance" class="td_right"
                                                         style="white-space: nowrap;">
-                                                        <span><input style="text-align: right;" type="text"
-                                                                class="form-control" name="TRAN_AMOUNT"
-                                                                id="ledger_balance" #ledger_balance
-                                                                value="{{data.LEDGER_BAL}}" style="width: fit-content;"
-                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                                                (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)"
-                                                                maxlength="8"></span><span>{{data.drcr}} </span>
-
+                                                        <div class="form-group input-group">
+                                                            <span><input style="text-align: right;" type="text"
+                                                                    class="form-control" name="TRAN_AMOUNT"
+                                                                    id="ledger_balance" #ledger_balance
+                                                                    value="{{data.LEDGER_BAL}}"
+                                                                    style="width: fit-content;"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                                    (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ledger_balance.value,ledger_balance.name)"
+                                                                    maxlength="8">
+                                                                <span>{{data.drcr}} </span>
+                                                                <div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
                                                     </td>
                                                     <td *ngIf="productamount" class="td_right">
                                                         <input style="text-align: right;" type="text"

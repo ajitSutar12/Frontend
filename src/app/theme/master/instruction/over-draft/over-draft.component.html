@@ -124,7 +124,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input appTheme type="text" name="To" class="form-control"
-                                                            style="text-align: right;"
+                                                            style="text-align: right;" #PeriodicAmount
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                             placeholder=" " id="Over" maxlength="8"
                                                             title="Input allowed only  0-9" formControlName="AC_SODAMT"
@@ -142,7 +142,7 @@
                                                         *ngIf="angForm.controls['AC_SODAMT'].errors?.pattern || angForm.controls['AC_SODAMT'].errors?.required">
                                                         This field is required and Input allowed only . 0-9
                                                     </div>
-                                                </div> 
+                                                </div>
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
@@ -173,8 +173,8 @@
                                                         <input appTheme type="text" placeholder="dd/mm/yyyy"
                                                             name="AC_ODDATE" id="AC_ODDATE" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                            [minDate]="maxDate"  maxlength="10"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" required
+                                                            [minDate]="maxDate" maxlength="10"
+                                                            [ngClass]="{'form-submitted': formSubmitted}" [required]="periodoverdraft"
                                                             #AC_ODDATE="bsDatepicker" (keydown.Tab)="AC_ODDATE.hide()"
                                                             formControlName="AC_ODDATE" (bsValueChange)="getODDays()"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -192,7 +192,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                                 <div *ngIf="TemporaryOverDraftTrue">
                                     <div class="row">
@@ -200,8 +200,8 @@
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
                                                     <input type="text" name="To" class="form-control" placeholder=" "
-                                                        id="To" maxlength="8"
-                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                        id="To" maxlength="8" #tempAmount
+                                                        (keypress)="($event.charCode >=  48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                         [required]="TemporaryOverDraftTrue"
                                                         (focus)="selectAllContent($event)" (keyup)="getDecimal($event)"
                                                         (focusout)="getDecimalPoint($event)"

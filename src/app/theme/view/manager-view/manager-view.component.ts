@@ -276,31 +276,31 @@ export class ManagerViewComponent implements OnInit {
       this.showTransferPendingDetails = false;
       this.showRejectedPendingDetails = false;
     }
-
+    this.view()
   }
 
   src: any;
-  view(event) {
-
-    debugger
-    event.preventDefault();
+  view() {
     this.formSubmitted = true;
-
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
-
-
     let type = 'Detail';
     this.showRepo = true;
 
-    // let Date = this.date;
-    this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+    let Startdate = moment(userData.branch.syspara.CURRENT_DATE, 'DD/MM/YYYY').format('DD/MM/YYYY');
+    let OpeningData = moment(Startdate, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
+    let stype = 'transfer'
+    let rdio = 'none'
+    let pcode = 'Both'
+    let ccode = 1
+    this.iframe1url = this.report_url + "examples/ScrollBookBoth.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + this.ngBranchCode + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate=" + OpeningData;
     console.log(this.iframe1url);
     this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-
-
-
+    // let Date = this.date;
+    // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+    console.log(this.iframe1url);
+    this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   }
 
   mangerViewDetails
