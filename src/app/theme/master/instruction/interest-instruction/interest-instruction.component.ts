@@ -17,7 +17,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 
-import * as moment from 'moment'; 
+import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { Router } from "@angular/router";
 //date pipe
@@ -112,7 +112,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   crACno
 
   allscheme
-
+  maxDate
   cashTrue: boolean = true;
   transferTrue: boolean = false;
   formSubmitted = false;
@@ -248,7 +248,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       });
       this.scheme = filtered;
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD'  || scheme.name == 'GS'  || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
 
       });
       this.allscheme = allscheme;
@@ -311,6 +311,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.angForm.patchValue({
         INSTRUCTION_DATE: data.CURRENT_DATE
       })
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
     })
   }
 
@@ -336,7 +338,14 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       FROM_DATE: '',
       NEXT_EXE_DATE: ''
     })
-    var date = new Date();
+    let currentDate = this.angForm.controls['INSTRUCTION_DATE'].value
+    // var date = new Date();
+    var check = moment(currentDate, 'DD/MM/YYYY');
+
+    var month = check.format('MM');
+    var day = check.format('DD');
+    var year = check.format('YYYY');
+    let date = new Date(Number(year), Number(month), Number(day))
     if (exe_day.value == 'Month Begin') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
@@ -354,7 +363,6 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     else if (exe_day.value == 'Month End') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
-      let date = new Date()
       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       var lastDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
       var full = []
@@ -597,10 +605,10 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     const dataToSend = {
       'BRANCH_CODE': branchCode,
       'INSTRUCTION_NO': formVal.INSTRUCTION_NO,
-      'INSTRUCTION_DATE': formVal.INSTRUCTION_DATE,
+      // 'INSTRUCTION_DATE': formVal.INSTRUCTION_DATE,
       'DAYS': formVal.DAYS,
-      'FROM_DATE': formVal.FROM_DATE,
-      'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
+      // 'FROM_DATE': formVal.FROM_DATE,
+      // 'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
       'EXECUTION_DAY': formVal.EXECUTION_DAY,
       'DR_ACTYPE': formVal.DR_ACTYPE,
       'DR_AC_NO': formVal.DR_AC_NO,
@@ -615,10 +623,16 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       'ADV_NARRATION': formVal.ADV_NARRATION,
       'DEFAULT_INTEREST_APPLICABLE': (formVal.DEFAULT_INTEREST_APPLICABLE == true ? '1' : '0'),
     };
-    this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
-    this.startDT == this.angForm.controls['FROM_DATE'].value ? dataToSend['FROM_DATE'] = this.startDT : dataToSend['FROM_DATE'] = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
-    this.TODate == this.angForm.controls['NEXT_EXE_DATE'].value ? dataToSend['NEXT_EXE_DATE'] = this.TODate : dataToSend['NEXT_EXE_DATE'] = moment(this.angForm.controls['NEXT_EXE_DATE'].value).format('DD/MM/YYYY')
+    // this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
+    // this.startDT == this.angForm.controls['FROM_DATE'].value ? dataToSend['FROM_DATE'] = this.startDT : dataToSend['FROM_DATE'] = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
+    // this.TODate == this.angForm.controls['NEXT_EXE_DATE'].value ? dataToSend['NEXT_EXE_DATE'] = this.TODate : dataToSend['NEXT_EXE_DATE'] = moment(this.angForm.controls['NEXT_EXE_DATE'].value).format('DD/MM/YYYY')
 
+    let INSTRUCTION_DATE = moment(this.angForm.controls['INSTRUCTION_DATE'].value, 'DD/MM/YYYY')
+    dataToSend['INSTRUCTION_DATE'] = moment(INSTRUCTION_DATE).format('DD/MM/YYYY')
+    let FROM_DATE = moment(this.angForm.controls['FROM_DATE'].value, 'DD/MM/YYYY')
+    dataToSend['FROM_DATE'] = moment(FROM_DATE).format('DD/MM/YYYY')
+    let NEXT_EXE_DATE = moment(this.angForm.controls['NEXT_EXE_DATE'].value, 'DD/MM/YYYY')
+    dataToSend['NEXT_EXE_DATE'] = moment(NEXT_EXE_DATE).format('DD/MM/YYYY')
     this._interestInstruction.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -931,15 +945,15 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     closemodal.click();
 
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

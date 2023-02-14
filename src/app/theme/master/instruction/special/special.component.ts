@@ -402,7 +402,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
           })
           break;
       }
-      this.ngacno = Number(data.TRAN_ACNO)
+      this.ngacno = (data.TRAN_ACNO)
     });
     this.angForm.controls['REVOKE_DATE'].enable()
 
