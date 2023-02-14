@@ -24,7 +24,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    (focus)="onFocus(branchcode)" appTheme [virtualScroll]="true"
+                                                    (focus)="onFocus(branchcode)" appTheme [virtualScroll]="true" (change)="getBranch()"
                                                     [selectOnTab]='true' #branchcode autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>

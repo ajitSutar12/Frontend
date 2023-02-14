@@ -163,27 +163,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_EXPDT" id="AC_EXPDT"
-                                        class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_EXPDT"
-                                        #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        [bsValue]="bsValue" bsDatepicker>
-                                    <label for="AC_EXPDT">Maturity Date<sub class="required"> * </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_EXPDT'].invalid && (angForm.controls['AC_EXPDT'].dirty || angForm.controls['AC_EXPDT'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_EXPDT'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-sm-2">
                             <h6>Deposit Period:</h6>
                         </div>
@@ -192,7 +171,7 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_MONTHS"
                                         class="form-control" placeholder=" " id="AC_MONTHS" required pattern="^[0-9]+$"
-                                        title="Input allowed only 0-9"
+                                        title="Input allowed only 0-9" (change)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_MONTHS">
                                     <label for="AC_MONTHS">Months<sub class="required">*</sub></label>
@@ -212,7 +191,7 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_DAYS"
                                         class="form-control" placeholder=" " id="AC_DAYS" required pattern="^[0-9]+$"
-                                        title="Input allowed only 0-9"
+                                        title="Input allowed only 0-9" (change)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_DAYS">
                                     <label for="AC_DAYS">Days <sub class="required">*</sub></label>
@@ -224,6 +203,27 @@
                                 <div
                                     *ngIf="angForm.controls['AC_DAYS'].errors?.pattern || angForm.controls['AC_DAYS'].errors?.required">
                                     This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_EXPDT" id="AC_EXPDT"
+                                        class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_EXPDT"
+                                        #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        [bsValue]="bsValue" bsDatepicker>
+                                    <label for="AC_EXPDT">Maturity Date<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_EXPDT'].invalid && (angForm.controls['AC_EXPDT'].dirty || angForm.controls['AC_EXPDT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_EXPDT'].errors?.required">
+                                    This field is required
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { IOption } from "ng-select";
@@ -42,6 +42,9 @@ interface OverMaster {
 })
 export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
+
+  @ViewChild('PeriodicAmount') PeriodicAmount: ElementRef;
+  @ViewChild('tempAmount') tempAmount: ElementRef;
   //api
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -90,7 +93,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   bankAcno
   actype
   branch_code
-  ngBranch:any=null;
+  ngBranch: any = null;
 
   constructor(
     private fb: FormBuilder,
@@ -184,7 +187,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'CA' ||  scheme.name == 'CC');
+        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'CC');
       });
       this.allScheme = filtered;
     })
@@ -193,7 +196,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.branch_code = data;
     })
 
-    
+
   }
 
   createForm() {
@@ -205,7 +208,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       radioOverdraft: ["PeriodicallyOverDraft", [Validators.required]],
       AC_ODAMT: ["", [Validators.pattern,]],
       AC_ODDAYS: [0, [Validators.pattern,]],
-      AC_ODDATE: ["", [Validators.required]],
+      AC_ODDATE: [""],
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -223,11 +226,25 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  submit() { 
-    if ((Number(this.angForm.controls['AC_ODAMT'].value) != 0 && !Number.isNaN(Number(this.angForm.controls['AC_ODAMT'].value)) && this.angForm.controls['radioOverdraft'].value == 'TemporaryOverDraft') || (Number(this.angForm.controls['AC_SODAMT'].value) != 0 && !Number.isNaN(Number(this.angForm.controls['AC_SODAMT'].value)) && this.angForm.controls['radioOverdraft'].value == 'PeriodicallyOverDraft')) {
+  submit() {
+    const formVal = this.angForm.value;
+    if (formVal.BRANCH_CODE == "" || formVal.BRANCH_CODE == null) {
+      Swal.fire("Warning!", "Please Select Branch!", "warning");
+    }
+    else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
+      Swal.fire("Warning!", "Please Select Scheme!", "warning");
+    }
+    else if (formVal.AC_NO == "" || formVal.AC_NO == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Select Account!",
+        "warning"
+      );
+    }
+    else if ((Number(this.angForm.controls['AC_ODAMT'].value) != 0 && this.angForm.controls['radioOverdraft'].value == 'TemporaryOverDraft')
+      || (Number(this.angForm.controls['AC_SODAMT'].value) != 0 && this.angForm.controls['radioOverdraft'].value == 'PeriodicallyOverDraft')) {
       let effectdate
       this.formSubmitted = true;
-      const formVal = this.angForm.value;
       let odDate = moment(formVal.AC_ODDATE, 'DD/MM/YYYY')
       let odDatet = moment(odDate).format('DD/MM/YYYY')
       const dataToSend = {
@@ -238,58 +255,28 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_SODAMT: formVal.AC_SODAMT,
         AC_ODAMT: formVal.AC_ODAMT,
         AC_ODDAYS: formVal.AC_ODDAYS,
-        AC_ODDATE:  this.PeriodicallyOverDraftTrue == true ? odDatet : null
-      }; 
-      
-     
+        AC_ODDATE: this.PeriodicallyOverDraftTrue == true ? odDatet : null
+      };
       this._overdraft.postData(dataToSend).subscribe(
         (data1) => {
-          if (formVal.BRANCH_CODE == "") {
-            Swal.fire("Warning!", "Please Select Branch!", "error");
-          }
-         else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
-            Swal.fire("Warning!", "Please Select Scheme!", "error");
-          }
-          else if (formVal.AC_NO == "" || formVal.AC_NO == null) {
-            Swal.fire(
-              "Warning!",
-              "Please Select Account!",
-              "info"
-            );
-          }
-          else if (formVal.AC_SODAMT == "" || formVal.AC_SODAMT == null) {
-            Swal.fire(
-              "Warning!",
-              "Please Insert Amount!",
-              "info"
-            );
-          }
-          else
-          {
-            Swal.fire("Success!", "Data Added Successfully !", "success");
-            this.PeriodicallyOverDraftTrue = true
-            this.TemporaryOverDraftTrue = false
-            this.formSubmitted = false;
-            //To clear form
-            this.resetForm();
-          }
-         
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.PeriodicallyOverDraftTrue = true
+          this.TemporaryOverDraftTrue = false
+          this.formSubmitted = false;
+          //To clear form
+          this.resetForm();
         },
         (error) => {
           console.log(error);
         }
       );
-
-      
-    
     }
     else {
       Swal.fire('info', 'Please fill mandatory fields', 'info')
     }
-
   }
 
- 
+
   updatecheckdata: any
   //  editClickHandler function for edit button clicked
   editClickHandler(id: any): void {
@@ -324,7 +311,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // updateData function for update data
   updateData() {
-    let effectdate 
+    let effectdate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -507,14 +494,16 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.periodoverdraft = true
       this.TemporaryOverDraftTrue = false;
       this.angForm.controls['AC_ODAMT'].reset()
+      this.PeriodicAmount.nativeElement.focus();
     }
-    if (val == 2) {
+    else if (val == 2) {
       this.angForm.controls['AC_SODAMT'].reset()
       this.PeriodicallyOverDraftTrue = false;
       this.periodoverdraft = false
       this.TemporaryOverDraftTrue = true;
       this.angForm.controls['AC_ODDAYS'].reset()
       this.angForm.controls['AC_ODDATE'].reset()
+      this.tempAmount.nativeElement.focus();
     }
   }
 

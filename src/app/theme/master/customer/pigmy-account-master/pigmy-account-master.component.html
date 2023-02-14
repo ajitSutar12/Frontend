@@ -227,7 +227,7 @@
                                                                             class="form-control" [(ngModel)]="renewDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             (ngModelChange)="getExpiryDate()"
-                                                                            placement="right"
+                                                                            placement="right" [maxDate]="maxDate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             #RENEW_DATE="bsDatepicker"
                                                                             (keydown.Tab)="RENEW_DATE.hide()"

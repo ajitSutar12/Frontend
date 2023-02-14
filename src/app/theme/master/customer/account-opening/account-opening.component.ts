@@ -126,7 +126,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
-      this.logDate=data.CURRENT_DATE
+      this.logDate = data.CURRENT_DATE
     })
   }
 
@@ -599,6 +599,15 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
+    })
+  }
+
+  setMaturityDate() {
+    var maturityDt = moment(this.angForm.controls['AC_ASON_DATE'].value, 'DD/MM/YYYY')
+    let expiryT = moment(maturityDt, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
+    let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+    this.angForm.patchValue({
+      AC_EXPDT: expiryDate
     })
   }
 }
