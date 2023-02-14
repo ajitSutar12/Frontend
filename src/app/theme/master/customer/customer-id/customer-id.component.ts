@@ -137,7 +137,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   // Created Form Group
   angForm: FormGroup;
   //Datatable variable
-  dtExportButtonOptions: DataTables.Settings = {}; 
+  dtExportButtonOptions: DataTables.Settings = {};
   dtExportOptions: DataTables.Settings = {};
   Data: any;
   //variables for pagination
@@ -161,6 +161,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   // Filter Variable
   filterData = {};
   prifix: any[];
+  regPrifix: any
   castMaster: any[];
   occupation: any[];
   riskCategory: any[];
@@ -376,6 +377,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(first())
       .subscribe((data) => {
         this.prifix = data;
+      });
+    this.prefixMaster
+      .getRegionalPrefixMasterList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.regPrifix = data;
       });
     this.documentMasterService
       .getDocumentMasterList()
@@ -623,7 +630,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngRisk = null
     this.ngCity = null
     this.ngTitle = null
-    this.ngTitlereg= null
+    this.ngTitlereg = null
     this.ngfinyear = null
     this.ngSubmitDate = null
     this.createForm();

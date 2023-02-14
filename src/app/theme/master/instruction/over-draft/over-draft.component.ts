@@ -208,7 +208,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       radioOverdraft: ["PeriodicallyOverDraft", [Validators.required]],
       AC_ODAMT: ["", [Validators.pattern,]],
       AC_ODDAYS: [0, [Validators.pattern,]],
-      AC_ODDATE: ["", [Validators.required]],
+      AC_ODDATE: [""],
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);

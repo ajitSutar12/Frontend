@@ -605,10 +605,10 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     const dataToSend = {
       'BRANCH_CODE': branchCode,
       'INSTRUCTION_NO': formVal.INSTRUCTION_NO,
-      'INSTRUCTION_DATE': formVal.INSTRUCTION_DATE,
+      // 'INSTRUCTION_DATE': formVal.INSTRUCTION_DATE,
       'DAYS': formVal.DAYS,
-      'FROM_DATE': formVal.FROM_DATE,
-      'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
+      // 'FROM_DATE': formVal.FROM_DATE,
+      // 'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
       'EXECUTION_DAY': formVal.EXECUTION_DAY,
       'DR_ACTYPE': formVal.DR_ACTYPE,
       'DR_AC_NO': formVal.DR_AC_NO,
@@ -623,10 +623,16 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       'ADV_NARRATION': formVal.ADV_NARRATION,
       'DEFAULT_INTEREST_APPLICABLE': (formVal.DEFAULT_INTEREST_APPLICABLE == true ? '1' : '0'),
     };
-    this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
-    this.startDT == this.angForm.controls['FROM_DATE'].value ? dataToSend['FROM_DATE'] = this.startDT : dataToSend['FROM_DATE'] = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
-    this.TODate == this.angForm.controls['NEXT_EXE_DATE'].value ? dataToSend['NEXT_EXE_DATE'] = this.TODate : dataToSend['NEXT_EXE_DATE'] = moment(this.angForm.controls['NEXT_EXE_DATE'].value).format('DD/MM/YYYY')
+    // this.instructionDate == this.angForm.controls['INSTRUCTION_DATE'].value ? dataToSend['INSTRUCTION_DATE'] = this.instructionDate : dataToSend['INSTRUCTION_DATE'] = moment(this.angForm.controls['INSTRUCTION_DATE'].value).format('DD/MM/YYYY')
+    // this.startDT == this.angForm.controls['FROM_DATE'].value ? dataToSend['FROM_DATE'] = this.startDT : dataToSend['FROM_DATE'] = moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY')
+    // this.TODate == this.angForm.controls['NEXT_EXE_DATE'].value ? dataToSend['NEXT_EXE_DATE'] = this.TODate : dataToSend['NEXT_EXE_DATE'] = moment(this.angForm.controls['NEXT_EXE_DATE'].value).format('DD/MM/YYYY')
 
+    let INSTRUCTION_DATE = moment(this.angForm.controls['INSTRUCTION_DATE'].value, 'DD/MM/YYYY')
+    dataToSend['INSTRUCTION_DATE'] = moment(INSTRUCTION_DATE).format('DD/MM/YYYY')
+    let FROM_DATE = moment(this.angForm.controls['FROM_DATE'].value, 'DD/MM/YYYY')
+    dataToSend['FROM_DATE'] = moment(FROM_DATE).format('DD/MM/YYYY')
+    let NEXT_EXE_DATE = moment(this.angForm.controls['NEXT_EXE_DATE'].value, 'DD/MM/YYYY')
+    dataToSend['NEXT_EXE_DATE'] = moment(NEXT_EXE_DATE).format('DD/MM/YYYY')
     this._interestInstruction.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");

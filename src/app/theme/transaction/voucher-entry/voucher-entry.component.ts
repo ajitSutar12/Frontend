@@ -1997,7 +1997,7 @@ export class VoucherEntryComponent implements OnInit {
 
   onCloseModal() {
     this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300); 
+    setTimeout(() => this.visible = false, 300);
   }
   getTranMode() {
     let object = this.TranData.find(t => t.key === this.selectedCode);
@@ -2186,6 +2186,12 @@ export class VoucherEntryComponent implements OnInit {
         tran_mode: data.tran_mode[0].id,
       })
       this.selectedMode = data.tran_mode[0].id;
+      if (this.type == 'cash' && data.TRAN_DRCR == 'D') {
+        this.tokenshowhide = true
+      } else {
+        this.tokenshowhide = false
+
+      }
     })
 
   }
@@ -2421,5 +2427,10 @@ export class VoucherEntryComponent implements OnInit {
       // this.submitForm = true
       Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
+  }
+  getBranch() {
+    this.selectedScheme = null
+    this.selectedAccountno = null
+    this.introducerACNo = []
   }
 }

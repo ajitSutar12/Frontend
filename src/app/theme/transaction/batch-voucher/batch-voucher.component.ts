@@ -301,20 +301,20 @@ export class BatchVoucherComponent implements OnInit {
   async editClickHandler(id) {
     // debugger
     this._service.getFormData(id).subscribe(async (data) => {
-      console.log(data);
-      console.log(this.companycode);
+      // console.log(data);
+      // console.log(this.companycode);
       this.selectCompanyCode = data.batchvoucherData.COMP_CODE;
       await this.getCompanyData(this.selectCompanyCode);
       this.updateID = data.result.TRAN_NO;
       this.updatecheckdata = data
-      if (data.TRAN_STATUS == '0') {
+      if (data.batchvoucherData.TRAN_STATUS == '0') {
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
         this.approveShow = true;
         this.rejectShow = true
         this.unapproveShow = false
-      } else if (data.TRAN_STATUS != '0') {
+      } else if (data.batchvoucherData.TRAN_STATUS != '0') {
         this.approveShow = false;
         this.rejectShow = false
         this.showButton = false;
@@ -338,10 +338,7 @@ export class BatchVoucherComponent implements OnInit {
         chequeNo: data.batchvoucherData.CHEQUE_NO,
         ChequeDate: data.batchvoucherData.CHEQUE_DATE,
         voucherAmount: data.result.TRAN_AMOUNT,
-
-
       })
-
     })
   }
 
