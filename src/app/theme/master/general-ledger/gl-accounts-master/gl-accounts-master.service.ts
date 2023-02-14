@@ -37,8 +37,48 @@ export class GlAccountsMasterService {
   }
 
   //get code list
-  getCodeList(){
-    return this.http.get(this.url+'/gl-statement-code').pipe(catchError(this.handleError));
+  getCodeList() {
+    return this.http.get(this.url + '/gl-statement-code').pipe(catchError(this.handleError));
+  }
+
+
+  //Insertion Operation for gl Report
+  postToData(data: any): Observable<any> {
+    return this.http.post(this.url + '/gl-account-master/insertGLreportMaster', data).pipe(map((res) => res),
+      catchError((error) => {
+        Swal.fire('Please Input Proper Data !');
+        return throwError(error);
+      })
+    )
+  }
+
+  // For append data for gl Report
+  getFromData(id: any): Observable<any> {
+    return this.http.get(this.url + '/gl-account-master/editGLreportMaster/' + id).pipe(catchError(this.handleError));
+  }
+  //Updation Operation for gl Report
+  updateToData(data): Observable<any> {
+
+    return this.http.post(this.url + '/gl-account-master/updateGLreportMaster', data);
+  }
+
+  //Insertion Operation for gl Linking
+  postLData(data: any): Observable<any> {
+    return this.http.post(this.url + '/gl-account-master/insertLinking', data).pipe(map((res) => res),
+      catchError((error) => {
+        Swal.fire('Please Input Proper Data !');
+        return throwError(error);
+      })
+    )
+  }
+
+  // For append data for gl Linking
+  getFromLData(id: any): Observable<any> {
+    return this.http.get(this.url + '/gl-account-master/GLreportLink/' + id).pipe(catchError(this.handleError));
+  }
+  //Updation Operation for gl Linking
+  updateLData(data): Observable<any> {
+    return this.http.post(this.url + '/gl-account-master/updateLinking', data);
   }
 
 }
