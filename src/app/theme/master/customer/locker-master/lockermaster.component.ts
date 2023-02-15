@@ -549,7 +549,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
       AC_OPDATE: ['', [Validators.required]],
-      KEYWORD: ['', [Validators.pattern]],
+      KEYWORD: ['', [Validators.pattern, Validators.required]],
       RACKNO: ['', [Validators.required]],
       AC_OPR_CODE: ['', [Validators.required]],
       LOC_NO: ['', [Validators.required]],
