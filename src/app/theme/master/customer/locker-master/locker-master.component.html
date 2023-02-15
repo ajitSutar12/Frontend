@@ -141,7 +141,7 @@
                                                                             placeholder="dd/mm/yyyy" name="AC_OPDATE"
                                                                             id="AC_OPDATE" [(ngModel)]="openingDate"
                                                                             class="form-control" required
-                                                                            [maxDate]="maxDate" #date
+                                                                            [minDate]="maxDate" #date
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             disabled placement="left"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -205,16 +205,19 @@
                                                                             id="KEYWORD" pattern="^[A-Za-z0-9\./ -]+$"
                                                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
-                                                                            maxlength="25" formControlName="KEYWORD">
-                                                                        <label for="KEYWORD">Keyword</label>
+                                                                            maxlength="25" formControlName="KEYWORD"
+                                                                            required>
+                                                                        <label for="KEYWORD">Keyword <sub
+                                                                                class="required"> * </sub></label>
                                                                     </span>
                                                                 </div>
                                                                 <div class="form-group form-primary form-static-label"
                                                                     *ngIf="angForm.controls['KEYWORD'].invalid && (angForm.controls['KEYWORD'].dirty || angForm.controls['KEYWORD'].touched)"
                                                                     class="alert alert-danger">
                                                                     <div
-                                                                        *ngIf="angForm.controls['KEYWORD'].errors?.pattern">
-                                                                        Input allowed only A-Z a-z 0-9 - / . (Space)
+                                                                        *ngIf="angForm.controls['KEYWORD'].errors?.pattern || angForm.controls['KEYWORD'].errors?.required">
+                                                                        This field is required and Input allowed only
+                                                                        A-Z a-z 0-9 - / . (Space)
                                                                     </div>
                                                                 </div>
                                                             </div>

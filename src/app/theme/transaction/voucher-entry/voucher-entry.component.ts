@@ -1736,14 +1736,13 @@ export class VoucherEntryComponent implements OnInit {
       } else {
         this._service.specialInstruction(obj).subscribe(data => {
           if (data != 0) {
-            if (data.restriction == 1) {
+
+            if (data.restriction == '1') {
               this.selectedAccountno = null
               this.showlgindetails()
-
             } else {
               this.selectedAccountno = tempacno
             }
-
             Swal.fire({
               title: 'Warning',
               icon: 'warning',

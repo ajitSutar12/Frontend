@@ -4,8 +4,8 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class MembershipTypeDropdownService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'Direct', label: 'Direct' },
-        { value: 'Transfer', label: 'Transfer' },
+        { value: 'D', label: 'Direct' },
+        { value: 'T', label: 'Transfer' },
     ];
 
     getCharacters(): Array<IOption> {

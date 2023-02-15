@@ -155,7 +155,7 @@
                                         bindLabel="regValue" formControlName="AC_TITLE_REG" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="" #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)"
-                                        [selectOnTab]='true' autofocus>
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of regPrifix" [value]="values">
                                             {{values.regValue}} </ng-option>
                                     </ng-select>
