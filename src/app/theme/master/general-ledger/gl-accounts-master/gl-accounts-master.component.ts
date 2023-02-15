@@ -304,7 +304,7 @@ export class GlAccountsMasterComponent implements OnInit {
     this.resetForm();
   }
   //Method for update data 
-  updateData() {
+  updateData() {debugger
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.glAccountsMasterService.updateData(data).subscribe(() => {

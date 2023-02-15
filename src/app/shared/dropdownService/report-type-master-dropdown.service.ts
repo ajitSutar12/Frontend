@@ -10,7 +10,7 @@ export class ReportTMasterDropdownService {
     constructor(private http: HttpClient) { }
     public getReportTMasterList() {
         this.reportObject = []
-        return this.http.get<any>(this.url + '/document-master')
+        return this.http.get<any>(this.url + '/report-type-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.NAME, value: element.id };

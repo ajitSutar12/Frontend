@@ -5,671 +5,326 @@
                 <h5>GL Report Master</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <div class="card-block">
-                <ngb-tabset>
-                    <ngb-tab title="1.SUBSIDARY">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input  #autofocus type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Code" value="{{ message.Code }}"
-                                                            formControlName="Sub_Code">
-                                                        <label for="Code">Code</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Name" required=""
-                                                            value="{{ message.Name }}" pattern="^[A-Za-z\./ -]+$"
-                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                            formControlName="Sub_Name">
-                                                        <label for="Name">Name<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Sub_Name'].invalid && (angForm.controls['Sub_Name'].dirty || angForm.controls['Sub_Name'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Sub_Name'].errors?.pattern || angForm.controls['Sub_Name'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid" (click)="submit(angForm.value)">Add</button>
-                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                        </table>
+            <form [formGroup]="ngForm">
+                <div class="card-block">
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-1"> <label for="rtype">Report Type<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="label" appTheme [(ngModel)]="reportType" id="REPO_TYPE"
+                                            bindLabel="label" formControlName="REPO_TYPE" title="Compulsory Selection"
+                                            placeholder="Report Type">
+                                            <ng-option *ngFor="let values of glreport" [value]="values">
+                                                {{values.id}} {{values.label}}   
+                                            </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div> 
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['REPO_TYPE'].invalid && (ngForm.controls['REPO_TYPE'].dirty || ngForm.controls['REPO_TYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['REPO_TYPE'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="2.EXPENSES">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Code7" value="{{ message.Code7 }}"
-                                                            formControlName="Exp_Code">
-                                                        <label for="Code7">Code</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Name7" required=""
-                                                            value="{{ message.Name7 }}" pattern="^[A-Za-z\./ -]+$"
-                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                            formControlName="Exp_Name">
-                                                        <label for="Name7">Name<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Exp_Name'].invalid && (angForm.controls['Exp_Name'].dirty || angForm.controls['Exp_Name'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Exp_Name'].errors?.pattern || angForm.controls['Exp_Name'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid" (click)="submit(angForm.value)">Add</button>
-                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtExportButtonOptions1" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                        </table>
+                            <div class="col-md-1">
+                                <label for="code">Code <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="code" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="CODE" disabled>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['CODE'].invalid && (ngForm.controls['CODE'].dirty || ngForm.controls['CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['CODE'].errors?. maxlength || ngForm.controls['CODE'].errors?. minlength || ngForm.controls['CODE'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="3.DAILY LIQUIDITY">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <form action="javascript:" [formGroup]="angForm" novalidate  #myform="ngForm">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Code8" required="" pattern="^[0-9]+$"
-                                                            value="{{ message.Code8 }}" formControlName="Daily_Code">
-                                                        <label for="Code8">Code<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Daily_Code'].invalid && (angForm.controls['Daily_Code'].dirty || angForm.controls['Daily_Code'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Daily_Code'].errors?.pattern || angForm.controls['Daily_Code'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="" required=""
-                                                            value="{{ message.Name8 }}" pattern="^[A-Za-z\./ -]+$"
-                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                            formControlName="Daily_Name">
-                                                        <label for="">Name<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Daily_Name'].invalid && (angForm.controls['Daily_Name'].dirty || angForm.controls['Daily_Name'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Daily_Name'].errors?.pattern || angForm.controls['Daily_Name'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="AlternateCode"
-                                                            value="{{ message.AlternateCode }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9"
-                                                            formControlName="Daily_AlternateCode">
-                                                        <label for="AlternateCode">Alternate Code</label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Daily_AlternateCode'].invalid && (angForm.controls['Daily_AlternateCode'].dirty || angForm.controls['Daily_AlternateCode'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Daily_AlternateCode'].errors?.pattern">
-                                                        Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="HOLiquidityCode1"
-                                                            value="{{ message.HOLiquidityCode1 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9"
-                                                            formControlName="Daily_HOLiquidityCode1">
-                                                        <label for="HOLiquidityCode1">HO Liquidity Code1</label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Daily_HOLiquidityCode1'].invalid && (angForm.controls['Daily_HOLiquidityCode1'].dirty || angForm.controls['Daily_HOLiquidityCode1'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Daily_HOLiquidityCode1'].errors?.pattern">
-                                                        Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="AlterBalanceCode"
-                                                            value="{{ message.AlterBalanceCode }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9"
-                                                            formControlName="Daily_AlterBalanceCode">
-                                                        <label for="AlterBalanceCode">Alter Balance Code</label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Daily_AlterBalanceCode'].invalid && (angForm.controls['Daily_AlterBalanceCode'].dirty || angForm.controls['Daily_AlterBalanceCode'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Daily_AlterBalanceCode'].errors?.pattern">
-                                                        Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="HOLiquidityCode2"
-                                                            value="{{ message.HOLiquidityCode2 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9"
-                                                            formControlName="Daily_HOLiquidityCode2">
-                                                        <label for="HOLiquidityCode2">HO Liquidity Code2</label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Daily_HOLiquidityCode2'].invalid && (angForm.controls['Daily_HOLiquidityCode2'].dirty || angForm.controls['Daily_HOLiquidityCode2'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Daily_HOLiquidityCode2'].errors?.pattern">
-                                                        Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="SerialNo8"
-                                                            value="{{ message.SerialNo8 }}" formControlName="Daily_SerialNo8">
-                                                        <label for="SerialNo8">Serial No.</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <div class="border-checkbox-section">
-                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                        <input class="border-checkbox" type="checkbox" id="checkbox1" value="input_allowed"  formControlName="Daily_input_allowed"[checked]="isLinkingInputAllowed == true" checked>
-                                                        <label class="border-checkbox-label" for="checkbox1">Linking
-                                                            Input Allowed?</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <div class="border-checkbox-section">
-                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                        <input class="border-checkbox" type="checkbox" id="checkbox2" value="gl_report"   formControlName="Daily_gl_report" [checked]="isIsPrintinGLReport == true" checked>
-                                                        <label class="border-checkbox-label" for="checkbox2">Is Print in
-                                                            GL Report ?</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Percentage"
-                                                            value="{{ message.Percentage }}"
-                                                            formControlName="Daily_Percentage">
-                                                        <label for="Percentage">Percentage</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="PercentageOfcode"
-                                                            value="{{ message.PercentageOfcode }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9"
-                                                            formControlName="Daily_PercentageOfcode">
-                                                        <label for="PercentageOfcode">Percentage Of code</label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Daily_PercentageOfcode'].invalid && (angForm.controls['Daily_PercentageOfcode'].dirty || angForm.controls['Daily_PercentageOfcode'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Daily_PercentageOfcode'].errors?.pattern">
-                                                        Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid"(click)="submit(angForm.value)">Add</button>
-                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtExportButtonOptions2" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="4.CRR">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <form action="javascript:" [formGroup]="angForm" novalidate  #myform="ngForm">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Code9" required=""
-                                                            value="{{ message.Code9 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9" formControlName="CRR_Code">
-                                                        <label for="Code9">Code<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRR_Code'].invalid && (angForm.controls['CRR_Code'].dirty || angForm.controls['CRR_Code'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['CRR_Code'].errors?.pattern || angForm.controls['CRR_Code'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Name9" required=""
-                                                            value="{{ message.Name9 }}" pattern="^[A-Za-z\./ -]+$"
-                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                            formControlName="CRR_Name">
-                                                        <label for="Name9">Name<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRR_Name'].invalid && (angForm.controls['CRR_Name'].dirty || angForm.controls['CRR_Name'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['Name9'].errors?.pattern || angForm.controls['CRR_Name'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <div class="form-group form-primary form-static-label">
-                                                    <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Type*" required title="Complsory Selection" formControlName="CRR_Type">
-                                                    </ng-select>
-                                                    <label>{{ message.Type }}</label>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRR_Type'].invalid && (angForm.controls['CRR_Type'].dirty || angForm.controls['CRR_Type'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['CRR_Type'].errors?.required">
-                                                        This field is required
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="SerialNo9"
-                                                            value="{{ message.SerialNo9 }}" formControlName="CRR_SerialNo">
-                                                        <label for="SerialNo9">Serial No.</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid"(click)="submit(angForm.value)">Add</button>
-                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtExportButtonOptions3" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="5.SLR">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Code10" required=""
-                                                            value="{{ message.Code10 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9" formControlName="SLR_Code">
-                                                        <label for="Code10">Code<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SLR_Code'].invalid && (angForm.controls['SLR_Code'].dirty || angForm.controls['SLR_Code'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['SLR_Code'].errors?.pattern || angForm.controls['SLR_Code'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Name10" required=""
-                                                            value="{{ message.Name10 }}" pattern="^[A-Za-z\./ -]+$"
-                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                            formControlName="SLR_Name">
-                                                        <label for="Name10">Name<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SLR_Name'].invalid && (angForm.controls['SLR_Name'].dirty || angForm.controls['SLR_Name'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['SLR_Name'].errors?.pattern || angForm.controls['SLR_Name'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <div class="form-group form-primary form-static-label">
-                                                    <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Type*" required title="Complsory Selection" formControlName="SLR_Type">
-                                                    </ng-select>
-                                                    <label>{{ message.Type10}}</label>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SLR_Type'].invalid && (angForm.controls['SLR_Type'].dirty || angForm.controls['SLR_Type'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['SLR_Type'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="SerialNo90"
-                                                            value="{{ message.SerialNo90 }}"
-                                                            formControlName="SLR_SerialNo">
-                                                        <label for="SerialNo90">Serial No.</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid"(click)="submit(angForm.value)">Add</button>
-                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtExportButtonOptions4" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="6.CRAR">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <form action="javascript:" [formGroup]="angForm" novalidate  #myform="ngForm">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Code12" required=""
-                                                            value="{{ message.Code12 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9" formControlName="CRAR_Code">
-                                                        <label for="Code12">Code<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRAR_Code'].invalid && (angForm.controls['CRAR_Code'].dirty || angForm.controls['CRAR_Code'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['CRAR_Code'].errors?.pattern || angForm.controls['CRAR_Code'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Name1" required=""
-                                                            value="{{ message.Name1 }}" pattern="^[A-Za-z\./ -]+$"
-                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                            formControlName="CRAR_Name">
-                                                        <label for="Name1">Name<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRAR_Name'].invalid && (angForm.controls['CRAR_Name'].dirty || angForm.controls['CRAR_Name'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['CRAR_Name'].errors?.pattern || angForm.controls['CRAR_Name'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)"
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <div class="form-group form-primary form-static-label">
-                                                    <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Type*" required title="Complsory Selection" formControlName="CRAR_Type">
-                                                    </ng-select>
-                                                    <label>{{ message.Type3}}</label>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRAR_Type'].invalid && (angForm.controls['CRAR_Type'].dirty || angForm.controls['CRAR_Type'].touched)" class="alert alert-danger">
-                                                    <div *ngIf=" angForm.controls['CRAR_Type'].errors?.required">
-                                                        This field is required
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="border-checkbox-section">
-                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                        <input class="border-checkbox" type="checkbox" id="checkbox6" value="checkbox" formControlName="CRAR_profit" value="CRAR_profit"[checked]="isAddProfitLossAmount == true">
-                                                        <label class="border-checkbox-label" for="checkbox6">Add Profit
-                                                            & Loss Amount</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="SerialNo1"
-                                                            value="{{ message.SerialNo1 }}" formControlName="CRAR_SerialNo1">
-                                                        <label for="SerialNo1">Serial No.</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="PercentageOfcode1"
-                                                            value="{{ message.PercentageOfcode1 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9"
-                                                            formControlName="CRAR_PercentageOfcode1">
-                                                        <label for="PercentageOfcode1">Percentage Of code</label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRAR_PercentageOfcode1'].invalid && (angForm.controls['CRAR_PercentageOfcode1'].dirty || angForm.controls['CRAR_PercentageOfcode1'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['CRAR_PercentageOfcode1'].errors?.pattern">
-                                                        Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="border-checkbox-section">
-                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                        <input class="border-checkbox" type="checkbox" id="checkbox4" value="Input_allowed" formControlName="CRAR_Input_allowed"[checked]="isLinkingInputAllowed1 == true" checked>
-                                                        <label class="border-checkbox-label" for="checkbox4">Linking
-                                                            Input Allowed?</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <div class="border-checkbox-section">
-                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                        <input class="border-checkbox" type="checkbox" id="checkbox5" value="gl_report" formControlName="CRAR_gl_report"[checked]="isIsPrintinGLReport1 == true" checked>
-                                                        <label class="border-checkbox-label" for="checkbox5">Is Print in
-                                                            GL Report ?</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Percentage1"
-                                                            value="{{ message.Percentage1 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9"
-                                                            formControlName="CRAR_Percentage1">
-                                                        <label for="gl_Percentage1">Percentage</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="PercentageConsideration"
-                                                            value="{{ message.PercentageConsideration }}"
-                                                            formControlName="CRAR_gl_PercentageConsideration">
-                                                        <label for="PercentageConsideration">Percentage
-                                                            Consideration</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid"(click)="submit(angForm.value)">Add</button>
-                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtExportButtonOptions5" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                        </table>
+                            <div class="col-md-1">
+                                <label for="code">Name <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="name" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
+                                            formControlName="NAME">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['NAME'].invalid && (ngForm.controls['NAME'].dirty || ngForm.controls['NAME'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['NAME'].errors?. maxlength || ngForm.controls['NAME'].errors?. minlength || ngForm.controls['NAME'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-1"> <label for="type">Type<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="id" appTheme [(ngModel)]="selectedType" id="CODE_TYPE"
+                                            bindLabel="label" formControlName="CODE_TYPE" title="Compulsory Selection"
+                                            placeholder="Code Type">
+                                            <ng-option *ngFor="let values of codetype" [value]="values">
+                                                {{values.id}} {{values.name}}   
+                                            </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div> 
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['CODE_TYPE'].invalid && (ngForm.controls['CODE_TYPE'].dirty || ngForm.controls['CODE_TYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['CODE_TYPE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-5">
+                                <div class="checkbox checkbox-primary">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="ADD_PL_AMOUNT"
+                                            formControlName="ADD_PL_AMOUNT" />
+                                        <label class="border-checkbox-label" for="ADD_PL_AMOUNT">Add Profit and Loss
+                                            Amount</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
 
 
 
-                    <ngb-tab title="7.NIDHI">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Code3" required=""
-                                                            value="{{ message.Code3 }}" pattern="^[0-9]+$"
-                                                            title="Input allowed only 0-9" formControlName="NIDHI_Code3">
-                                                        <label for="Code3">Code<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NIDHI_Code3'].invalid && (angForm.controls['NIDHI_Code3'].dirty || angForm.controls['NIDHI_Code3'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['NIDHI_Code3'].errors?.pattern || angForm.controls['NIDHI_Code3'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="Name3" required=""
-                                                            value="{{ message.Name3 }}" pattern="^[A-Za-z\./ -]+$"
-                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                            formControlName="NIDHI_Name3">
-                                                        <label for="Name3">Name<sub class="required">* </sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NIDHI_Name3'].invalid && (angForm.controls['NIDHI_Name3'].dirty || angForm.controls['NIDHI_Name3'].touched)" class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['NIDHI_Name3'].errors?.pattern || angForm.controls['NIDHI_Name3'].errors?.required">
-                                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="AC_TYPE" class="form-control"
-                                                            placeholder=" " id="SerialNo3"
-                                                            value="{{ message.SerialNo3 }}" formControlName="NIDHI_SerialNo3">
-                                                        <label for="SerialNo3">Serial No.</label>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid"(click)="submit(angForm.value)">Add</button>
-                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtExportButtonOptions6" class="table table-striped table-bordered table-hover">
-                                        </table>
+                    </div>
+
+                    <br>
+
+
+                    <div class="solid">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="Serial No.">Serial No. <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="serial" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="SERIAL_NO">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['SERIAL_NO'].invalid && (ngForm.controls['SERIAL_NO'].dirty || ngForm.controls['SERIAL_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['SERIAL_NO'].errors?. maxlength || ngForm.controls['SERIAL_NO'].errors?. minlength || ngForm.controls['SERIAL_NO'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
-                </ngb-tabset>
-            </div>
+
+                            <div class="col-md-2">
+                                <label for="poc">Percentage of Code <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="pocode" class="form-control" placeholder=" "
+                                        maxlength="10"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="PERCENTAGE_OF_CODE">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].invalid && (ngForm.controls['PERCENTAGE_OF_CODE'].dirty || ngForm.controls['PERCENTAGE_OF_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="checkbox checkbox-primary">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
+                                            formControlName="INPUT_ALLOWED" />
+                                        <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input Allowed
+                                            ?</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <label for="poc">Percentage <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="pocode" class="form-control" placeholder=" "
+                                        (keyup)="checkmargin($event);getDecimal($event)"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
+                                            formControlName="PERCENTAGE">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['PERCENTAGE'].invalid && (ngForm.controls['PERCENTAGE'].dirty || ngForm.controls['PERCENTAGE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <label for="poc">Percentage of Cosideration <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="pocode" class="form-control" placeholder=" "
+                                        maxlength="10"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="PERCENTAGE_CONSIDARATION">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].invalid && (ngForm.controls['PERCENTAGE_CONSIDARATION'].dirty || ngForm.controls['PERCENTAGE_CONSIDARATION'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?. maxlength || ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?. minlength || ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="checkbox checkbox-primary">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
+                                            formControlName="IS_PRINT_IN_REPORT" />
+                                        <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print in GL
+                                            Report ?</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
+                                *ngIf="addButton">
+                                Add
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                *ngIf="updateButton">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card shadow">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="table-responsive">
+                                                <table id="glreportmaster" datatable [dtOptions]="dtExportButtonOptions"
+                                                 class="table table-striped table-bordered table-hover compact">
+                                                    <tbody *ngIf="glreportMaster.length != 0">
+                                                        <tr *ngFor="let data of glreportMaster; let indexOfelement = index">
+                                                            <td class="td_center"> <span
+                                                                    class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                    (click)="editClickHandler(data.id)" placement="top"
+                                                                    ngbTooltip="Edit"></span>
+                                                            </td>
+                                                            <td [ngClass]="data.REPO_TYPE === '' ? 'td_center' : 'td_right'">
+                                                                {{ data.REPO_TYPE === "" ? "-" : data.REPO_TYPE }}
+                                                            </td>
+                                                            <td [ngClass]="data.CODE === '' ? 'td_center' : 'td_right'">
+                                                                {{ data.CODE === "" ? "-" : data.CODE }}
+                                                            </td>
+                                                            <td [ngClass]="data.NAME === '' ? 'td_center' : 'td_right'">
+                                                                {{data.NAME === "" ? "-" : data.NAME}}
+                                                            </td>
+                                                            <td
+                                                                [ngClass]="data.CODE_TYPE === '' ? 'td_center' : 'td_right'">
+                                                                {{data.CODE_TYPE === "" ? "-" : data.CODE_TYPE}}
+                                                            </td>
+                                                            <td
+                                                                [ngClass]="data.SERIAL_NO === '' ? 'td_center' : 'td_right'">
+                                                                {{data.SERIAL_NO === "" ? "-" : data.SERIAL_NO}}
+                                                            </td>
+                                                            <td
+                                                                [ngClass]="data.PERCENTAGE === '' ? 'td_center' : 'td_right'">
+                                                                {{data.PERCENTAGE === "" ? "-" : data.PERCENTAGE}}
+                                                            </td>
+                                                            <td
+                                                                [ngClass]="data.PERCENTAGE_CONSIDARATION === '' ? 'td_center' : 'td_right'">
+                                                                {{data.PERCENTAGE_CONSIDARATION === "" ? "-" :
+                                                                data.PERCENTAGE_CONSIDARATION}}
+                                                            </td>
+                                                            <td
+                                                                [ngClass]="data.PERCENTAGE_OF_CODE === '' ? 'td_center' : 'td_right'">
+                                                                {{data.PERCENTAGE_OF_CODE === "" ? "-" :
+                                                                data.PERCENTAGE_OF_CODE}}
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <tbody *ngIf="glreportMaster?.length == 0">
+                                                        <tr>
+                                                            <td colspan="8" class="no-data-available"
+                                                                Style="text-align: center;">No
+                                                                data!</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
 </div>
