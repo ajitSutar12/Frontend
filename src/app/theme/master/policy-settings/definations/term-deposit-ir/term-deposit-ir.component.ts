@@ -29,7 +29,7 @@ class DataTableResponse {
   recordsTotal: number;
 }
 
-// For fetching values from backend
+// For fetching values from backend 
 interface TermDepositInterestRate {
   EFFECT_DATE: Date
   ACNOTYPE: string

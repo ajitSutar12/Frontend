@@ -17,7 +17,7 @@
                                     (click)="modalChange.show();shuffleHead(item.id,item.head_name)"><i
                                         class="fa fa-refresh" aria-hidden="true"></i>
                                 </button>
-
+ 
                                 <ul>
                                     <li *ngFor="let i of item.child">{{i.head_name}}
                                         <button class="btn btn-primary"
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button class="btn btn-info" (click)="submitNewCode()">Submit</button>
+                    <button class="btn btn-outline-primary btn-sm" (click)="submitNewCode()">Submit</button>
                 </div>
             </div>
         </perfect-scrollbar>
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button class="btn btn-info" (click)="updateNewCode()">Update</button>
+                    <button class="btn btn-outline-primary btn-sm" (click)="updateNewCode()">Update</button>
                 </div>
             </div>
         </perfect-scrollbar>
@@ -170,11 +170,11 @@
                                             <td class="td_center">{{data.head_name}}</td>
                                             <td class="td_center">{{data.position}}</td>
                                             <td class="td_center">
-                                                <input type="text" style="text-align:center" value="{{data.position}}"
-                                                    maxlength="8" #position
+                                                <input type="text" style="text-align:center" value="{{data.newPosition==null ?data.position :data.newPosition}}"
+                                                    maxlength="8" #position (keyup)="lengthArr($event)"
                                                     (change)="getColumnValue(data.id,position.value)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                            </td>
+                                            </td> 
                                         </tr>
                                     </tbody>
                                 </table>
@@ -188,7 +188,7 @@
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
             (click)="modalChange.hide()">Close</button>
-        <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode()">Shuffle and Update</button>&nbsp;
+        <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode();modalChange.hide()">Shuffle and Update</button>&nbsp;
 
     </div>
 </app-modal-basic>

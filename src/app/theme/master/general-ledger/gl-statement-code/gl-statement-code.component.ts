@@ -14,6 +14,7 @@ import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { newArray } from '@angular/compiler/src/util';
 import { toChildArray } from 'preact';
+import { id } from '@swimlane/ngx-datatable';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -90,6 +91,8 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   parentCodeArray = new Array();
   childArray: any;
   posArray
+  sortArray: any;
+
 
   //constructor
   constructor(
@@ -202,14 +205,14 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     this.parentCodeArray = [];
     this.glStatementCodeService.getCodeList().subscribe(data => {
       this.glCodeList = data;
-      console.log(this.glCodeList);
+      // console.log(this.glCodeList);
       this.glCodeList.forEach(element => {
         if (element.parent_node == 0) {
           this.parentCodeArray.push(element);
         }
       });
 
-      console.log(this.parentCodeArray);
+      // console.log(this.parentCodeArray);
       this.parentCodeArray.forEach((ele, index) => {
         let newArray = new Array();
 
@@ -222,11 +225,13 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
                 subArray.push(ele1)
               }
             });
-            element['child'] = subArray;
+            let subarr = this.sort_by_key(subArray, 'position')
+            element['child'] = subarr;
             newArray.push(element);
           }
         })
-        this.parentCodeArray[index]['child'] = newArray;
+        let parentCodeArray = this.sort_by_key(newArray, 'position')
+        this.parentCodeArray[index]['child'] = parentCodeArray;
 
       })
     })
@@ -460,7 +465,6 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
 
   shuffleHead(id, name) {
-    debugger
     this.parentCode = name;
     this.parentId = id;
 
@@ -473,7 +477,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     });
     this.childArray = list[0]['child']
 
-
+    // console.log(this.childArray)
 
     let position = this.childArray.filter(function (id) {
       if (id = 0) {
@@ -489,21 +493,81 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   getColumnValue(id, columnValue: number) {
-    if (this.childArray.length != 0) {
+    
+
+    let position
+    let ele1 = (this.childArray.filter(ele => ele['newPosition'] == Number(columnValue)))
+    // console.log(ele1.newPosition)
+   let  result = this.childArray.map(ele => ele.newPosition );
+
+    if (Number(columnValue) == result) {
+      Swal.fire('Warning!', 'Duplicate Position', 'warning');
+    }
+
+    
+      else if (this.childArray.length != 0) {
       if (this.childArray.some(item => item.id === id)) {
         this.childArray.forEach((element) => {
           if (element.id == id) {
-            element['newPosition'] = columnValue
+            // console.log(element)
+            element['newPosition'] = Number(columnValue)
+            position = element['position']
             return
           }
         })
       }
+
+
+      // if (this.childArray.some(item => item.id === ele1.id)) {
+
+      //   let element = this.childArray.filter(ele => ele['position'] == Number(columnValue))
+      //   element['newPosition'] = position
+      //   this.childArray.forEach((ele) => {
+      //     if (ele.id == ele1.id) {
+      //       ele['newPosition'] = position
+      //       console.log(ele,position)
+      //       return
+      //     }
+      //   }) 
+      // }
     }
+
+
+  }
+
+  lengthArr(ele:any)
+  {
+    let arrLength = this.childArray.length
+
+    if(ele.target.value > arrLength || ele.target.value == 0)
+    {
+
+      Swal.fire("Invalid Input", `Please Insert Values Below ${arrLength} and above 0`, "error");
+      ele.target.value == ""
+    }
+
+
   }
 
   shuffleCode() {
 
-    this.glStatementCodeService.updatePosition(this.childArray).subscribe(data => { })
-    Swal.fire('Success!', 'Position Shuffled', 'success');
+    this.glStatementCodeService.updatePosition(this.childArray).subscribe(data => {
+      this.treeview();
+      this.triggerhide.nativeElement.click();
+      Swal.fire('Success!', 'Position Shuffled', 'success');
+
+    })
+
+
   }
+
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = a[key];
+      let q = b[key];
+      return (p < q) ? -1 : ((p > q) ? 1 : 0)
+    });
+  }
+
+
 }

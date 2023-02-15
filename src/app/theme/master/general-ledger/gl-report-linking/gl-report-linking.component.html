@@ -2,103 +2,323 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>GL Report Master</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h5>GL Report Linking</h5>
+                <h6 style="float: right;"><sub class="required">*</sub>Required Fields</h6>
             </div>
-            <div class="card-block">
-                <ngb-tabset>
-                    <ngb-tab title="1.SUBSIDARY">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+            <form [formGroup]="angForm">
+                <div class="card-block">
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="sr.no.">Sr.No.<sub class="required">*</sub>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="SR_NO" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="SR_NO" disabled>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['SR_NO'].invalid && (angForm.controls['SR_NO'].dirty || angForm.controls['SR_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="angForm.controls['SR_NO'].errors?. maxlength || angForm.controls['SR_NO'].errors?. minlength || angForm.controls['SR_NO'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="2.EXPENSES">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                            
+
+                            <div class="col-md-2">
+                                <label for="glacname">GL Account<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-5">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select  appTheme [(ngModel)]="ngName" id="AC_NO" bindValue="AC_NO"
+                                            bindLabel="label" formControlName="AC_NO" title="Compulsory Selection"
+                                            placeholder="Code Type">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                {{values.AC_NO}} {{values.AC_NAME}}
+                                            </ng-option> 
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_NO'].errors?.required">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="3.DAILY LIQUIDITY">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="EFFECT_DATE">Effect From Date<sub class="required">* </sub></label>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="4.CRR">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE"
+                                            id="EFFECT_DATE" class="form-control " [maxDate]="maxDate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
+                                             #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()" placement="right"
+                                            formControlName="EFFECT_DATE"  bsDatepicker required>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
+                                        Enter Valid Date
                                     </div>
                                 </div>
                             </div>
 
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="5.SLR">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
+                            <div class="col-md-2">
+                                <label for="EFFECT_TO_DATE">Effect To Date<sub class="required">* </sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_TO_DATE"
+                                            id="EFFECT_TO_DATE" class="form-control "
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
+                                            #EFFECT_TO_DATE="bsDatepicker" (keydown.Tab)="EFFECT_TO_DATE.hide()" placement="right"
+                                            formControlName="EFFECT_TO_DATE"  bsDatepicker required>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['EFFECT_TO_DATE'].invalid && (angForm.controls['EFFECT_TO_DATE'].dirty || angForm.controls['EFFECT_TO_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['EFFECT_TO_DATE'].errors?.required">
+                                        Enter Valid Date
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="col-md-1">
+                                <label for="headName">Head Name<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngHeadname" id="AC_ACNOTYPE"
+                                            bindLabel="label"  formControlName="AC_ACNOTYPE" title="Compulsory Selection"
+                                            placeholder="Code Type">
+                                            <ng-option *ngFor="let values of headName" [value]="values">
+                                                {{values.id}} {{values.label}}      
+                                            </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_ACNOTYPE'].invalid && (angForm.controls['AC_ACNOTYPE'].dirty || angForm.controls['AC_ACNOTYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_ACNOTYPE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <label for="defaultType">Default Balance Type<sub class="required">*</sub>
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngType" id="DEFAULT_BALTYPE"
+                                            bindLabel="label"  bindValue="name" formControlName="DEFAULT_BALTYPE" title="Compulsory Selection"
+                                            placeholder="">
+                                            <ng-option *ngFor="let values of drcr" [value]="values">
+                                                {{values.name}}
+                                            </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['DEFAULT_BALTYPE'].invalid && (angForm.controls['DEFAULT_BALTYPE'].dirty || angForm.controls['DEFAULT_BALTYPE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['DEFAULT_BALTYPE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>                           
+
+                            <div class="col-md-1">
+                                <label for="reverseCode">Reverse Code<sub class="required">*</sub>
+                                </label>
+                            </div>
+                            <!-- <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" style="text-align: right;" name="REVERSE_CODE" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="REVERSE_CODE" >
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['REVERSE_CODE'].invalid && (angForm.controls['REVERSE_CODE'].dirty || angForm.controls['REVERSE_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="angForm.controls['REVERSE_CODE'].errors?. maxlength || angForm.controls['REVERSE_CODE'].errors?. minlength || angForm.controls['REVERSE_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>  -->
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngReverse" id="REVERSE_CODE"
+                                            bindLabel="label"  formControlName="REVERSE_CODE" title="Compulsory Selection"
+                                            placeholder="Code Type">
+                                            <ng-option *ngFor="let values of headName" [value]="values">
+                                                {{values.id}} {{values.label}}      
+                                            </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['REVERSE_CODE'].invalid && (angForm.controls['REVERSE_CODE'].dirty || angForm.controls['REVERSE_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['REVERSE_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-1">
+                                <label for="reverseCode">Sub Column<sub class="required">*</sub>
+                                </label>
+                            </div>
+                            <!-- <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text"  style="text-align: right;" name="SUB_COLUMN_NO" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            formControlName="SUB_COLUMN_NO" >
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['SUB_COLUMN_NO'].invalid && (angForm.controls['SUB_COLUMN_NO'].dirty || angForm.controls['SUB_COLUMN_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="angForm.controls['SUB_COLUMN_NO'].errors?. maxlength || angForm.controls['SUB_COLUMN_NO'].errors?. minlength || angForm.controls['SUB_COLUMN_NO'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>  -->
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngSub" id="SUB_COLUMN_NO"
+                                            bindLabel="label"  formControlName="SUB_COLUMN_NO" title="Compulsory Selection"
+                                            placeholder="Code Type">
+                                            <ng-option *ngFor="let values of headName" [value]="values">
+                                                {{values.id}} {{values.label}}      
+                                            </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['SUB_COLUMN_NO'].invalid && (angForm.controls['SUB_COLUMN_NO'].dirty || angForm.controls['SUB_COLUMN_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['SUB_COLUMN_NO'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
+                                    *ngIf="addButton">
+                                    Add
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                    *ngIf="updateButton">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card shadow">
+                                    <div class="card-block">
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
+                                                    <table datatable [dtOptions]="dtExportButtonOptions" 
+                                                        class="table table-striped table-bordered table-hover compact"
+                                                        id="customermastertable">
+                                                        <tbody *ngIf="glreportLink?.length != 0">
+                                                            <tr *ngFor="let data of glreportLink">
+                                                                <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                                        (click)="editClickHandler(data.id)" placement="bottom"
+                                                                        ngbTooltip="Edit"></span>
+                                                                </td>
+                                                                <td [ngClass]="data.SR_NO === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.SR_NO === "" ? "-" : data.SR_NO }}
+                                                                </td>
+                                                                <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.AC_NO === "" ? "-" : data.AC_NO }}
+                                                                </td>
+                                                                <!-- <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.AC_NAME === "" ? "-" : data.AC_NAME }}
+                                                                </td> -->
+                                                                <td [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.EFFECT_DATE === "" ? "-" : data.EFFECT_DATE }}
+                                                                </td>
+                                                                <td [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.EFFECT_TO_DATE === "" ? "-" : data.EFFECT_TO_DATE }}
+                                                                </td>
+                                                                <!-- <td [ngClass]="data.CODE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.CODE === "" ? "-" : data.CODE }}
+                                                                </td> -->
+                                                                <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.AC_ACNOTYPE === "" ? "-" : data.AC_ACNOTYPE }}
+                                                                </td>
+                                                                <td [ngClass]="data.DEFAULT_BALTYPE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.DEFAULT_BALTYPE === "" ? "-" : data.DEFAULT_BALTYPE }}
+                                                                </td>
+                                                                <td [ngClass]="data.REVERSE_CODE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.REVERSE_CODE === "" ? "-" : data.REVERSE_CODE }}
+                                                                </td>
+                                                                <td [ngClass]="data.SUB_COLUMN_NO === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.SUB_COLUMN_NO === "" ? "-" : data.SUB_COLUMN_NO }}
+                                                                </td>
+                                                             
+                    
+                    
+                                                            </tr>
+                                                        </tbody>
+                                                        <tbody *ngIf="glreportLink?.length == 0">
+                                                            <tr>
+                                                                <td colspan="6" class="no-data-available">No data!</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        
                                                     </table>
                                                 </div>
                                             </div>
@@ -106,70 +326,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="6.CRAR">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="7.NIDHI">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </ngb-tab>
-                    <ngb-tab title="8.CRLA">
-                        <ng-template ngbTabContent>
-                            <div [@fadeInOutTranslate] class="m-t-15">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover"
-                                                        style="width: 100%;">
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </ngb-tab>
-                </ngb-tabset>
-            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

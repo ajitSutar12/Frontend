@@ -148,7 +148,7 @@ export class BatchVoucherComponent implements OnInit {
 
   //cheque no captial function
   chequeNoData(event) {
-    debugger
+    // debugger
     this.angForm.patchValue({
       chequeNo: event.target.value.toUpperCase()
     })
@@ -157,7 +157,7 @@ export class BatchVoucherComponent implements OnInit {
   companyNameData: any;
   async getCompanyData(ele) {
     await this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
-      debugger
+      // debugger
       console.log(data);
       this.company_data = data;
       this.companyNameData = data.AC_NO + '/' + data.NAME;
@@ -199,7 +199,7 @@ export class BatchVoucherComponent implements OnInit {
 
   editFlag: boolean = false;
   async setFilterData(data) {
-    debugger
+    // debugger
     this.filterArray = [];
     for (let item of data) {
       let ac_type = this.schemeData.filter(ele => ele.id == item.TRAN_ACTYPE)
@@ -264,6 +264,7 @@ export class BatchVoucherComponent implements OnInit {
         dataObj['gridData'] = this.filterArray;
       dataObj['schemeData'] = this.company_data;
       dataObj['companyData'] = this.company_main_data;
+      dataObj['narration'] = this.particulars;
       dataObj['user'] = JSON.parse(localStorage.getItem('user'));
 
       this._service.submitData(dataObj).subscribe(data => {
@@ -338,7 +339,9 @@ export class BatchVoucherComponent implements OnInit {
         chequeNo: data.batchvoucherData.CHEQUE_NO,
         ChequeDate: data.batchvoucherData.CHEQUE_DATE,
         voucherAmount: data.result.TRAN_AMOUNT,
+        particulars: data.result.NARRATION
       })
+      this.totalAmt = data.result.TRAN_AMOUNT
     })
   }
 
@@ -348,7 +351,7 @@ export class BatchVoucherComponent implements OnInit {
 
   //approve account
   Approve() {
-    debugger
+    // debugger
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = {
       id: this.updateID,
@@ -360,7 +363,7 @@ export class BatchVoucherComponent implements OnInit {
         'Batch Voucher approved successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
     }, err => {
@@ -382,7 +385,7 @@ export class BatchVoucherComponent implements OnInit {
         'Batch Voucher rejected successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
     }, err => {
@@ -403,7 +406,7 @@ export class BatchVoucherComponent implements OnInit {
         'Voucher unapproved successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
     }, err => {
@@ -488,7 +491,7 @@ export class BatchVoucherComponent implements OnInit {
     })
   }
   closeModal() {
-    var button = document.getElementById('trigger');
+    var button = document.getElementById('triggerhide');
     button.click();
     this.reloadTablePassing.emit();
   }

@@ -6,9 +6,11 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { glTypeService } from '../../../../shared/elements/gl-type.service';
-import { SelectModule } from 'ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { ReportTMasterDropdownService } from 'src/app/shared/dropdownService/report-type-master-dropdown.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-master.service';
 
 @NgModule({
   imports: [
@@ -17,11 +19,11 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     DataTablesModule,
     NgbModule,
     FormsModule, ReactiveFormsModule,
-    SelectModule
+    NgSelectModule
   ],
   declarations: [GlReportMasterComponent],
   
-  providers:[glTypeService,{
+  providers:[glTypeService,ReportTMasterDropdownService,GlAccountsMasterService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
