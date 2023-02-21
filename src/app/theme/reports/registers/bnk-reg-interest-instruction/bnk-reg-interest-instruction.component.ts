@@ -118,7 +118,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
       let branch = obj.BRANCH_CODE;
       // let stdate = obj.START_DATE;
       // let etdate = obj.END_DATE;
-      let revoke = obj.REVOKE_INST;
+      let revoke = obj.REVOKE_INST; 
 
       if(revoke == null){
         revoke = 'Active';

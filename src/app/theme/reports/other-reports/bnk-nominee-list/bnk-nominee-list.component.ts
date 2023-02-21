@@ -41,7 +41,7 @@ branchOption: any[];
 clicked:boolean=false;
 showRepo: boolean = false;
 showLoading:boolean = false;
-iframeurl:any='';
+iframe5url:any='';
 
 
  //date
@@ -133,8 +133,10 @@ maxDate: Date;
     // let endingcode =obj.Ending_Account;
     
 
-   this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch+"&scheme='" + scheme+"&bankName=" + bankName + " ";
-   this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+   this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='"+ obj.date + "'&scheme='" + scheme + "'";
+   console.log(this.iframe5url);
+  //  this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='21-04-2021'&scheme='7'";
+   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});

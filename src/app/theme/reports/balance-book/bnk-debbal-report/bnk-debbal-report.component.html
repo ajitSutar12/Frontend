@@ -36,7 +36,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                    [(ngModel)]="scode" (change)="getIntro($event)">
+                                    [(ngModel)]="scode" (change)="getIntro($event);getTransferAccountList($event)">
                                     <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
                                         {{values.label}}</ng-option>
                                     </ng-select>
@@ -169,10 +169,10 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox"
-                                        id="Print Closed Accounts"
-                                        formControlName="Print_Closed_Accounts">
+                                        id="Print_Open"
+                                        formControlName="Print_Open">
                                     <label class="border-checkbox-label"
-                                        for="Print Closed Accounts">Print Opening Date</label>
+                                        for="Print_Open">Print Opening Date</label>
                                 </div>
                             </div>
                         </div>
@@ -180,10 +180,10 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox"
-                                        id="Print Closed Accounts"
-                                        formControlName="Print_Closed_Accounts">
+                                        id="Print_Anamat"
+                                        formControlName="Print_Anamat">
                                     <label class="border-checkbox-label"
-                                        for="Print Closed Accounts">Print Anamat Reson</label>
+                                        for="Print_Anamat">Print Anamat Reson</label>
                                 </div>
                             </div>
                         </div>

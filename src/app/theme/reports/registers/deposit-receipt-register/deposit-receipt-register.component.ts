@@ -125,7 +125,7 @@ export class DepositReceiptRegisterComponent implements OnInit {
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/DepositeReceiptRegister.php?sdate='" + startdate + "'&edate='" + enddate +  + "'&ac_type=" + scheme + "&branch="+ branch +"'&bankName=" + bankName + "" ;
+    this.iframe5url=this.report_url+"examples/deposit.php?sdate=' " + startdate + " '&edate='" + enddate + "'&ac_acnotype='" + enddate + "'&ac_type=" + enddate + "&print_date='" + enddate + "'" ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

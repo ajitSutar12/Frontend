@@ -1268,8 +1268,45 @@ const MENUITEMS = [
               {
                 state: 'custidwisedepositlist',
                 name: 'Customer Id wise Deposit List',
+                id: 237
+              },
+              {
+                state: 'tddetailrecurroverdue',
+                name: 'Term Deposite Detail List and Recurring Overdue',
+                id: 236
+              },
+              {
+                state: 'prematuredAcCloselist',
+                name: 'Prematured A/c Close List',
+                id: 238
+              },
+              {
+                state: 'renewalDepositList',
+                name: 'Renewal Deposit List',
                 id: 98
-              }
+              },
+              {
+                state: 'directorwiseDepositlist',
+                name: 'Directorwise Deposit List',
+                id: 239
+              },
+              {
+                state: 'custidwiseInterestList',
+                name: 'Customer Id Wise Interest List',
+                id: 240
+              },
+              {
+                state: 'custidwiseMaturedList',
+                name: 'Customer Id Wise Matured Deposit List',
+                id: 241
+              },
+              {
+                state: 'abtypeDepositList',
+                name: 'A/B Type Deposit List',
+                id: 242
+              },
+              
+              
 
             ]
 
