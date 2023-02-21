@@ -179,6 +179,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   Cust_ID: any[] //customer id from idmaster
   category: any[] //from category master
   signType: Array<IOption> = this.signTypeDropdownService.getCharacters();   //sign type default option
+  membershipType: Array<IOption> = this.membershipTypeDropdownService.getCharacters();   //sign type default option
   city //city from customer id from idmaster
   ncity
   cast: string // customer id from idmaster
@@ -230,10 +231,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getschemename: any
   getscheme
 
-  membershipType = [
-    { 'ID': 'Direct', 'NAME': 'Direct' },
-    { 'ID': 'Transfer', 'NAME': 'Transfer' },
-  ]
+  // membershipType = [
+  //   { 'ID': 'Direct', 'NAME': 'Direct' },
+  //   { 'ID': 'Transfer', 'NAME': 'Transfer' },
+  // ]
 
   AC_TYPE: boolean = false
   AC_CUSTID: boolean = false
