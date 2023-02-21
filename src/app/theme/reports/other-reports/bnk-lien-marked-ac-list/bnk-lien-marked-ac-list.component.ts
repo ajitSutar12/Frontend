@@ -107,7 +107,9 @@ view(event) {
   let scheme = obj.Scheme_code 
   let branch = obj.BRANCH_CODE
        
- this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch + bankName + "";
+ this.iframeurl= this.report_url+"examples/LineMarkedList.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&NAME='"+ bankName +"'";
+
+ console.log(this.iframeurl);
  this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
  
  

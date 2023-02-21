@@ -6,6 +6,7 @@ import { TermDepositsComponent } from './term-deposits.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
+
 @NgModule({
   declarations: [TermDepositsComponent],
   imports: [

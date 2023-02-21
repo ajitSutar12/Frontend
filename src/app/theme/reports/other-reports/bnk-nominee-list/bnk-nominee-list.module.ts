@@ -49,12 +49,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
-    SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
     },
+    SystemMasterParametersService,
     OwnbranchMasterService,
     SchemeCodeDropdownService,
     SchemeAccountNoService,

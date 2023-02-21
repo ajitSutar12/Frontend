@@ -9,7 +9,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { Router } from "@angular/router";
 import * as moment from 'moment';
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment"; 
 import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
@@ -39,12 +39,12 @@ ngForm:FormGroup
 branchOption: any[];
 clicked:boolean=false;
 showRepo: boolean = false;
-showLoading:boolean = false;
-
-
+showLoading:boolean = false; 
+transferSchemeDetails
+tScheme
  //date
 dates: any = null
-maxDate: Date;
+maxDate: Date; 
   minDate: Date;
   report_url = environment.report_url;
   constructor(
@@ -80,6 +80,14 @@ maxDate: Date;
    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
      this.dates = data.CURRENT_DATE;
    });
+   this.systemParameter.getFormData(1).subscribe(data => {
+    let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+    // this.fromdate = `01/04/${year - 1}`      
+    this.dates = data.CURRENT_DATE
+    
+    // this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+    // this.fromdate = this.fromdate._d
+  })
  
  })
    
@@ -93,6 +101,12 @@ maxDate: Date;
        this.ngForm.controls['BRANCH_CODE'].disable()
        this.ngbranch = result.branch.id
      }
+  }
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.tScheme = event.name
+   
+   
   }
 
   createForm() {
@@ -123,13 +137,16 @@ maxDate: Date;
    this.showRepo = true;
     let obj = this.ngForm.value
     let Date = moment(obj.date).format('DD/MM/YYYY');
+    let toDate = moment(Date, 'DD/MM/YYYY')
+    // let Date = obj.date
   let scheme = obj.Scheme_code
     
     let branch = obj.BRANCH_CODE;
-   
+    let schemeName = this.tScheme
     
 
-   this.iframe5url=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch +"&scheme='" + scheme+"&bankName=" + bankName + " ";
+   this.iframe5url=this.report_url+ "examples/MinorList1.php?&branch_name=" + branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
+   console.log(this.iframe5url);
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   }
   else {
@@ -153,8 +170,5 @@ maxDate: Date;
     this.clicked=false;
   }
   
-
-
-
   
 }

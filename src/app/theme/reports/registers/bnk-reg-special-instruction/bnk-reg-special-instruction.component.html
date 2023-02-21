@@ -40,7 +40,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
                                         class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
@@ -108,7 +108,7 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <app-iframe3 [url]='iframeurl'></app-iframe3>
+                                    <app-iframe3 [url]='iframe3url'></app-iframe3> 
                                 </div>
                             </div>
                         </div>

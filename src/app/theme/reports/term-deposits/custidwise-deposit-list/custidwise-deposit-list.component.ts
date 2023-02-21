@@ -32,6 +32,8 @@ ngForm: FormGroup;
  equal: any
  startfrom
  startto
+ isTdsForm: boolean = false;
+
  //iframe
  formSubmitted = false;
  clicked:boolean=false;
@@ -92,7 +94,8 @@ ngForm: FormGroup;
       CUST_ID: ["", [Validators.pattern, Validators.required]],
       START_DATE: ["", [Validators.required]],
       SUBMISSION:  new FormControl('SUBMISSION'),
-      Group_Profit_And_Loss_Account:['']
+      Show_Only_Top:[''],
+      INPUT: [""]
     });
 }
 src: any;
@@ -108,12 +111,14 @@ view(event) {
   if(this.ngForm.valid){
   let obj = this.ngForm.value
   this.showRepo = true;
-  let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
+  let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY'); 
   
   let custid = obj.CUST_ID
   let branch = obj.BRANCH_CODE
 
-  this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&custid=" + custid + "&branch="+ branch +"'&bankName=" + bankName + "" ;
+  // this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&custid=" + custid + "&branch="+ branch +"'&bankName=" + bankName + "" ;
+  this.iframe5url=this.report_url+"examples/CustomerIDWiseDepositList.php?START_DATE='" + date + "'&END_DATE='" + date + "'&BRANCH='"+ branchName +"'&AC_TYPE='7'&AC_ACNOTYPE='TD'&AC_OPDATE='10/08/2022'&FLAG1='0'&FLAG2='1'&FLAG3='2'&TRAN_DRCR='D'&CUST_ID='6698'";
+  console.log( this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   
  
@@ -127,6 +132,15 @@ else {
 close(){
 this.resetForm()
 }
+
+// if (data.Show_Only_Top == true) {
+//   this.isTdsForm = true;
+ 
+// }
+// else {
+//   this.isTdsForm = false;
+ 
+// }
 
 // Reset Function
 resetForm() {

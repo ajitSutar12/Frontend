@@ -46,7 +46,8 @@ dates: any = null
 maxDate: Date;
   minDate: Date;
   obj: any;
-
+  transferSchemeDetails: any;
+  tScheme
   constructor(
     private fb: FormBuilder,
     private systemParameter:SystemMasterParametersService,
@@ -107,7 +108,8 @@ maxDate: Date;
       TO_AC_NO: ['', [Validators.pattern, Validators.required]],
       radio: new FormControl('none'),
       Print_Closed_Accounts: [''],
-     
+      Print_Open:[''],
+      Print_Anamat:[''],
 
     });
   }
@@ -250,6 +252,11 @@ maxDate: Date;
    getBranch() {
     this.getIntroducer()
   }
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.tScheme = event.name
+  
+  }
   view(event){
  
       
@@ -260,6 +267,7 @@ maxDate: Date;
     let userData = JSON.parse(localStorage.getItem('user'));
   let bankName = userData.branch.syspara.BANK_NAME;
   let branchName = userData.branch.NAME;
+
 
     if(this.ngForm.valid){
       let obj = this.ngForm.value
@@ -272,8 +280,13 @@ maxDate: Date;
   let branch = obj.BRANCH_CODE
   let Rdio = obj.radio
   // let Rdiosort  = obj.radio_sort
+  let schemeName = this.tScheme
+
           
- this.iframeurl= this.report_url+ "examples/BalanceBook.php?&date='"+date+"'&Rdio='"+Rdio+"&scheme='" + scheme +"'&sdate='" + sdate +  "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&EndingAccount='" + EndingAccount  +"&bankName=" + bankName + "";
+ this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName="+ branchName +"&stdate='"+ date +"'&etdate='"+ date +"'&AC_TYPE='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";
+//  this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName='KOTOLI'&stdate='01/04/2016'&etdate='12/08/2022'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
+
+ console.log(this.iframeurl);
  this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

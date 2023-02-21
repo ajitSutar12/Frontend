@@ -1384,7 +1384,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (birthDate) {
       showAge = moment().diff(moment(birthDate, "DD-MM-YYYY"), 'years');
       if (showAge <= 18) {
-        this.angForm.controls['AC_MINOR'].setValue(true);
+        this.angForm.controls['AC_MINOR'].setValue(true ? '1' : '0');
         this.angForm.controls['AC_GRDNAME'].enable();
         this.angForm.controls['AC_GRDRELE'].enable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].enable();
@@ -1394,7 +1394,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.introducerReq = true
       }
       else if (showAge > 18) {
-        this.angForm.controls['AC_MINOR'].setValue(false);
+        this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
         this.angForm.controls['AC_GRDNAME'].disable();
         this.angForm.controls['AC_GRDRELE'].disable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].disable();

@@ -19,6 +19,7 @@ import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
+import { NgSelectComponent } from "@ng-select/ng-select";
 
 
 @Component({
@@ -43,7 +44,8 @@ branchOption: any[];
 clicked:boolean=false;
 showRepo: boolean = false;
 showLoading:boolean = false;
-
+transferSchemeDetails: any;
+tScheme
 
  //date
 dates: any = null
@@ -62,7 +64,7 @@ maxDate: Date;
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.minDate.setDate(this.minDate.getDate() - 1); 
     this.maxDate.setDate(this.maxDate.getDate())
   }
 
@@ -77,7 +79,7 @@ maxDate: Date;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+    return (scheme.name == 'AG'|| scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
   });
   this.scheme = filtered;
  
@@ -97,6 +99,12 @@ maxDate: Date;
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
     }
+  }
+
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.tScheme = event.name
+  
   }
  
   createForm() {
@@ -120,19 +128,26 @@ maxDate: Date;
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
+
     if(this.ngForm.valid){
 
    this.showRepo = true;
     let obj = this.ngForm.value
-    let Date = moment(obj.date).format('DD/MM/YYYY');
+
+ let Date = moment(obj.date).format('DD/MM/YYYY');
+ let toDate = moment(Date, 'DD/MM/YYYY')
   let scheme = obj.Scheme_code
-    
+
     let branch = obj.BRANCH_CODE;
+
+    let schemeName = this.tScheme
+
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
+ this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
 
-   this.iframe5url=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch +"&scheme='" + scheme+"&bankName=" + bankName + " ";
+  console.log(this.iframe5url);
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   }
   else {
@@ -152,6 +167,9 @@ maxDate: Date;
 
     this.showRepo = false;
     this.clicked=false;
+  }
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
   }
 }
 
