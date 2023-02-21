@@ -6,9 +6,9 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class ExucuteOnService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'Every Entry', label: 'Every Entry' },
-        { value: 'Debit Entry', label: 'Debit Entry' },
-        { value: 'Credit Entry', label: 'Credit Entry' }
+        { value: 'E', label: 'Every Entry' },
+        { value: 'D', label: 'Debit Entry' },
+        { value: 'C', label: 'Credit Entry' }
     ];
 
     getCharacters(): Array<IOption> {
