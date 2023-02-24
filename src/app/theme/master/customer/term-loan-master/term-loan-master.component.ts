@@ -61,7 +61,7 @@ interface TermLoanMaster {
   AC_NO: number
   AC_CUSTID: string
   AC_OPDATE: Date
-  AC_OPEN_OLD_DATE: Date 
+  AC_OPEN_OLD_DATE: Date
   REF_ACNO: string
   AC_INTCATA: string
   AC_SANCTION_AMOUNT: number
@@ -508,10 +508,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
 
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (schem) {
-        return (schem.scheme == 'LN')
-      });
-      this.intCat = allscheme;
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.scheme == 'LN')
+      // });
+      this.intCat = data;
     })
 
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
@@ -2322,16 +2322,16 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   compareamount() {
     let from = Number((document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value);
     let to = Number((document.getElementById("AC_SANCTION_AMOUNT") as HTMLInputElement).value);
-    if(to != 0){
-      if (from > to ) {
+    if (to != 0) {
+      if (from > to) {
         Swal.fire(
           'Warning!',
           'Drawing Power Should Be Less Than or Equal to Sanction Limit',
           'warning'
         );
         (document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value = "0"
-            }
+      }
     }
-   
+
   }
 }

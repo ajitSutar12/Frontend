@@ -401,10 +401,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
 
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (schem) {
-        return (schem.scheme == 'SH')
-      });
-      this.category = allscheme;
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.scheme == 'SH')
+      // });
+      this.category = data;
     })
 
     this.directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {

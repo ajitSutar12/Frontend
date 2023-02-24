@@ -533,6 +533,7 @@ export class VoucherEntryComponent implements OnInit {
         ele['date'] = null
       }
     }
+    obj['branch_code'] = this.selectedBranch;
     obj['InputHead'] = this.headData;
     obj['scheme'] = this.Submitscheme;
     obj['account_no'] = this.submitCustomer;

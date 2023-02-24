@@ -385,10 +385,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.joint_Cust_ID = data;
     })
     this._categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (schem) {
-        return (schem.scheme == 'SB')
-      });
-      this.category = allscheme;
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.scheme == 'SB')
+      // });
+      this.category = data;
     })
     this._operationMaster.getOperationMasterList().pipe(first()).subscribe(data => {
       this.operation = data;
@@ -397,10 +397,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.bal_category = data;
     })
     this._intrestCategory.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (schem) {
-        return (schem.scheme == 'SB')
-      });
-      this.int_category = allscheme;
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.scheme == 'SB')
+      // });
+      this.int_category = data;
     })
     this.savingMasterService.getcityList().pipe(first()).subscribe(data => {
       this.city = data;

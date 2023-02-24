@@ -21,10 +21,10 @@ export const environment = {
 
   // report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
   // report_url: 'http://139.59.63.215/bh_phpjasperxml-master/', //server bhairavnath report folder path
-  // report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
+  report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/' //server bhairavnath report test folder path
 
-  report_url: 'http://localhost/phpjasper/', //report folder path
+  // report_url: 'http://localhost/phpjasper/', //report folder path
   // report_url: 'http://localhost/phpjasper/examples/r', //report folder path
   // report_url: 'http://localhost/phpjasper/examples/v', //report folder path
   // report_url: 'http://localhost/phpjasper/examples/s', //report folder path
