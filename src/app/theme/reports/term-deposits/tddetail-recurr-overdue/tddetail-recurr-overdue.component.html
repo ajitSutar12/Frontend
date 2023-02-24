@@ -7,8 +7,10 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
+            <div class="card">
+                
             <form [formGroup]="ngForm" novalidate>
-                <div class="card-block">
+                <div class="card-block"> 
 
                     <div class="row">
                         <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
@@ -67,16 +69,16 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                        [(ngModel)]="dates" formControlName="date"
+                                        [(ngModel)]="dates" formControlName="DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['date'].invalid && (ngForm.controls['date'].dirty || ngForm.controls['date'].touched)"
+                                *ngIf="ngForm.controls['DATE'].invalid && (ngForm.controls['DATE'].dirty || ngForm.controls['DATE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="ngForm.controls['date'].errors?. maxlength || ngForm.controls['date'].errors?. minlength || ngForm.controls['date'].errors?.required">
+                                    *ngIf="ngForm.controls['DATE'].errors?. maxlength || ngForm.controls['DATE'].errors?. minlength || ngForm.controls['DATE'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
@@ -93,7 +95,7 @@
                                         Want to print the due date ?</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                     <div class="row">
                         <div class="col-md-9"></div>
@@ -113,7 +115,7 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+                                    <app-iframe5 [url]='iframe5url' ></app-iframe5>
 
                                 </div>
                             </div>
@@ -126,7 +128,7 @@
 
 
             </form>
-
+        </div>
 
         </div>
     </div>

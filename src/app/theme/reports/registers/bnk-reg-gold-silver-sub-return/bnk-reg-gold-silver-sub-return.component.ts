@@ -143,19 +143,32 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
       let scheme = obj.AC_TYPE;
 
 
-      let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      // let startDate = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
-      let enddate: any;
-      if (this.todate == obj.END_DATE) {
-        enddate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
-      } else {
-        enddate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
-      };
+      if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
+      {
+        obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
+      }
+      else{
+      let date = moment(this.fromdate).format('DD/MM/YYYY');
+      let tDate = moment(date, 'DD/MM/YYYY')
+      obj['START_DATE']=date 
+    }
+      if(this.todate == userData.branch.syspara.CURRENT_DATE)
+      {
+        obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
+      }
+      else{
+      let date = moment(this.todate).format('DD/MM/YYYY');
+      let tDate = moment(date, 'DD/MM/YYYY')
+      obj['END_DATE']=date 
+    }
+    
 
       let BRANCH_CODE = obj.BRANCH_CODE
 
-      this.iframeurl = this.report_url + "examples/goldsilver.php?stdate='" + startDate + "'&etdate='" + enddate + "'&bankName='" + bankName + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE="+ scheme +"&FLAG1=1&STATUS='S'&branchName="+ branchName +"&branch='"+ BRANCH_CODE +"'";
+      this.iframeurl = this.report_url + "examples/goldsilver.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE="+ scheme +"&FLAG1=1&STATUS='S'&branchName="+ branchName +"&branch='"+ BRANCH_CODE +"'";
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
       // console.log(this.iframeurl);

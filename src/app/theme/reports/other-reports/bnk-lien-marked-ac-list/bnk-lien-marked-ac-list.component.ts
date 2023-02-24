@@ -60,7 +60,7 @@ minDate: Date;
      // Scheme Code
      this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+        return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
       });
       this.scheme = filtered;
   
@@ -102,8 +102,19 @@ view(event) {
   if(this.ngForm.valid){
   let obj = this.ngForm.value
   this.showRepo = true;
-  let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-  var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+
+  if(this.defaultDate == userData.branch.syspara.CURRENT_DATE)
+  {
+    obj['FROM_DATE'] =userData.branch.syspara.CURRENT_DATE
+  }
+  else{
+  let date = moment(this.defaultDate).format('DD/MM/YYYY');
+  let tDate = moment(date, 'DD/MM/YYYY')
+  obj['FROM_DATE']=date 
+}
+  // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+  // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+
   let scheme = obj.Scheme_code 
   let branch = obj.BRANCH_CODE
        
