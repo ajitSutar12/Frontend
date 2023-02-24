@@ -516,10 +516,10 @@ export class CashCreditMasterComponent implements OnInit {
     })
 
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (schem) {
-        return (schem.scheme == 'CC')
-      });
-      this.intCat = allscheme;
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.scheme == 'CC')
+      // });
+      this.intCat = data;
     })
 
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
