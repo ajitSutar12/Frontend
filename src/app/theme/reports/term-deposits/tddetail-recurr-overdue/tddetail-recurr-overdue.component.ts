@@ -105,7 +105,7 @@ export class TddetailRecurrOverdueComponent implements OnInit {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["", [Validators.required]],
-      date: ['', [Validators.required]],
+      DATE: ['', [Validators.required]],
       Show_Only_Top:[]
 
     });
@@ -127,8 +127,15 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       this.showRepo = true;
       let obj = this.ngForm.value
 
-      let Date = moment(obj.date).format('DD/MM/YYYY');
-      let toDate = moment(Date, 'DD/MM/YYYY')
+      if(this.dates == userData.branch.syspara.CURRENT_DATE)
+      {
+        obj['DATE'] =userData.branch.syspara.CURRENT_DATE
+      }
+      else{
+      let date = moment(this.dates).format('DD/MM/YYYY');
+      let toDate = moment(date, 'DD/MM/YYYY')
+      obj['DATE']=date
+    }
       let scheme = obj.Scheme_code
 
       let branch = obj.BRANCH_CODE;
@@ -147,7 +154,7 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       // let endingcode =obj.Ending_Account; 
 
       // this.iframe5url = this.report_url + "examples/GuaranterList.php?&NAME= " + bankName + " &AC_TYPE= " + scheme + " &AC_ACNOTYPE=  '" + schemeName + "' &BRANCH_CODE= " + branch + " &PRINT_DATE='" + obj.date + "' ";
-      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch=" + bankName + "&edate='" + obj.date + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='AG'&ACACNOTYPE='TD'&AC_TYPE='7'&flag1='" + flag + "'";
+      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch=" + bankName + "&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='AG'&ACACNOTYPE='TD'&AC_TYPE='7'&flag1='" + flag + "'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
@@ -156,8 +163,8 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
-  close() {
-    this.resetForm()
+  close() { 
+    this.resetForm() 
 
   }
   onLoad() {

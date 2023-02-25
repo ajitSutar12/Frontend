@@ -79,7 +79,7 @@ maxDate: Date;
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+        return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
       });
       this.scheme = filtered;
   });
@@ -136,8 +136,6 @@ maxDate: Date;
          this.endingacc = data;
          this.EndingAccount = null
 
-
- 
          })
          break;
  
@@ -272,8 +270,19 @@ maxDate: Date;
     if(this.ngForm.valid){
       let obj = this.ngForm.value
       this.showRepo = true;
-  let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-  var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+
+      if(this.dates == userData.branch.syspara.CURRENT_DATE)
+      {
+        obj['date'] =userData.branch.syspara.CURRENT_DATE
+      }
+      else{
+      let date = moment(this.dates).format('DD/MM/YYYY');
+      let tDate = moment(date, 'DD/MM/YYYY')
+      obj['date']=date 
+    }
+  // let date = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+  // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+
   let scheme = obj.Scheme_code
   let Rstartingacc = obj.FROM_AC_NO
   let EndingAccount = obj.TO_AC_NO
@@ -283,7 +292,7 @@ maxDate: Date;
   let schemeName = this.tScheme
 
           
- this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName="+ branchName +"&stdate='"+ date +"'&etdate='"+ date +"'&AC_TYPE='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";
+ this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName="+ branchName +"&stdate='"+ obj.date +"'&etdate='"+ obj.date +"'&AC_TYPE='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";
 //  this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName='KOTOLI'&stdate='01/04/2016'&etdate='12/08/2022'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
 
  console.log(this.iframeurl);

@@ -938,11 +938,11 @@ const MENUITEMS = [
         icon: 'icon-home',
         id: 129,
         children: [
-          {
-            state: 'allReportsWithSearching',
-            name: 'All Reports With Searching',
-            id: 129
-          },
+          // {
+          //   state: 'allReportsWithSearching',
+          //   name: 'All Reports With Searching',
+          //   id: 129
+          // },
           ////////////////////////////
           {
             state: 'dailyReports',
@@ -1238,72 +1238,72 @@ const MENUITEMS = [
               {
                 state: 'maturedbutnotclosed',
                 name: 'matured but not closed',
-                id: 92
+                id: 242
               },
               {
                 state: 'depositpaidlist',
                 name: 'Deposit Paid List',
-                id: 93
+                id: 243
               },
               {
                 state: 'intratewisebalancelist',
                 name: 'Interest Rate Wise List',
-                id: 94
+                id: 244
               },
               {
                 state: 'custidwiseintpaidlist',
                 name: 'Customer Id Wise Interest Paid List',
-                id: 95
+                id: 245
               },
               {
                 state: 'custidwiseloaninterestCertificate',
                 name: 'Customer Id Wise Deposit/Loan Interest Certificate',
-                id: 96
+                id: 246
               },
               {
                 state: 'IntRatewiseMaturityList',
                 name: 'Interest Rate wise Maturity List',
-                id: 97
+                id: 247
               },
               {
                 state: 'custidwisedepositlist',
                 name: 'Customer Id wise Deposit List',
-                id: 237
+                id: 248
               },
               {
                 state: 'tddetailrecurroverdue',
                 name: 'Term Deposite Detail List and Recurring Overdue',
-                id: 236
+                id: 249
               },
               {
                 state: 'prematuredAcCloselist',
                 name: 'Prematured A/c Close List',
-                id: 238
+                id: 250
               },
               {
                 state: 'renewalDepositList',
                 name: 'Renewal Deposit List',
-                id: 98
+                id: 251
               },
               {
                 state: 'directorwiseDepositlist',
                 name: 'Directorwise Deposit List',
-                id: 239
+                id: 252
               },
               {
                 state: 'custidwiseInterestList',
                 name: 'Customer Id Wise Interest List',
-                id: 240
+                id: 253
               },
               {
                 state: 'custidwiseMaturedList',
                 name: 'Customer Id Wise Matured Deposit List',
-                id: 241
+                id: 254
               },
               {
                 state: 'abtypeDepositList',
                 name: 'A/B Type Deposit List',
-                id: 242
+                id: 255
               },
               
               
@@ -1312,85 +1312,107 @@ const MENUITEMS = [
 
           },
           //
-          {
-            state: 'denominationReports',
-            name: 'Denomination Reports',
-            id: 134
-          },
+          // {
+          //   state: 'denominationReports',
+          //   name: 'Denomination Reports',
+          //   id: 134
+          // },
+          
           //
-
-          //
-          {
-            state: 'loanReports',
-            name: 'Loan Reports',
-            id: 136
-          },
+          // {
+          //   state: 'loanReports',
+          //   name: 'Loan Reports',
+          //   id: 136
+          // },
           {
             state: 'LoanReport',
-            name: 'Loan Deposit Reports',
+            name: 'Term Loan/Cash Credit Reports',
             short_label: 'D',
             type: 'sub',
-            icon: 'icon-home',
-            id: 98,
-            children: [
+            id: 256,
+            children:[
               {
-                state: 'loancashcreditac',
-                name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
-                id: 99
+                state: 'loanoverduelist',
+                name: 'Loan Overdue List',
+                type: 'sub',
+                id: 257,
+                children:[
+                  {
+                    state: 'DDRelative-Report',
+                    name: 'Director/Director Relative Loan Report',
+                    id: 260
+                  },
+                  {
+                    state: 'DDRelative-Report-performa1',
+                    name: 'Director/Director Relative Loan Report-performa1',
+                    id: 261
+                  },
+                  {
+                    state: 'loanoverduereport',
+                    name: 'Loan Overdue Report',
+                    id: 261
+                  }
+                ]
               },
               {
-                state: 'Drecb-monthly-list',
-                name: 'Director Recommanded by wise Monthly Loan List',
-                id: 99
+                state: 'loansecurityreport',
+                name: 'Loan Security Reports',
+                type: 'sub',
+                id: 258,
+                children: [
+                  {
+                    state: 'loancashcreditac',
+                    name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
+                    id: 257
+                  },
+                  {
+                    state: 'Drecb-monthly-list',
+                    name: 'Director Recommanded by wise Monthly Loan List',
+                    id: 258
+                  },
+                  {
+                    state: 'lcd-expiry-list',
+                    name: 'Loan/Cash Credit Expiry List',
+                    id: 259
+                  },
+                
+                ]
               },
-              {
-                state: 'lcd-expiry-list',
-                name: 'Loan/Cash Credit Expiry List',
-                id: 99
-              },
-              {
-                state: 'DDRelative-Report',
-                name: 'Director/Director Relative Loan Report',
-                id: 99
-              },
-              {
-                state: 'DDRelative-Report-performa1',
-                name: 'Director/Director Relative Loan Report-performa1',
-                id: 99
-              }
-            ]
+
+            ],
+          
           },
 
           //
-          {
-            state: 'npaReports',
-            name: 'NPA Reports',
-            id: 137
-          },
-          //
-          {
-            state: 'sharesARR',
-            name: 'Shares ARR',
-            id: 138
-          },
-          //
-          {
-            state: 'sharesADR',
-            name: 'Shares ADR',
-            id: 139
-          },
-          //
-          {
-            state: 'nottice',
-            name: 'Nottice',
-            id: 140
-          },
-          //
-          {
-            state: 'Report_Frame',
-            name: 'Report Frame',
-            id: 225
-          },
+          // {
+          //   state: 'npaReports',
+          //   name: 'NPA Reports',
+          //   id: 137
+          // },
+          // //
+          // {
+          //   state: 'sharesARR',
+          //   name: 'Shares ARR',
+          //   id: 138
+          // },
+          // //
+          // {
+          //   state: 'sharesADR',
+          //   name: 'Shares ADR',
+          //   id: 139
+          // },
+          // //
+          // {
+          //   state: 'nottice',
+          //   name: 'Nottice',
+          //   id: 140
+          // },
+          // //
+          // {
+          //   state: 'Report_Frame',
+          //   name: 'Report Frame',
+          //   id: 225
+          // },
           //
           {
             state: 'PigmyReport',
@@ -1500,12 +1522,12 @@ const MENUITEMS = [
 
             ]
           },
-          //
-          {
-            state: 'misReports',
-            name: 'MIS Reports',
-            id: 142
-          },
+          // //
+          // {
+          //   state: 'misReports',
+          //   name: 'MIS Reports',
+          //   id: 142
+          // },
           //
           {
             state: 'finalReports',

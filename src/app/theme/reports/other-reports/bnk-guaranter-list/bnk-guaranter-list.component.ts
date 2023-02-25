@@ -79,7 +79,7 @@ maxDate: Date;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'AG'|| scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+    return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
   });
   this.scheme = filtered;
  
@@ -134,8 +134,19 @@ maxDate: Date;
    this.showRepo = true;
     let obj = this.ngForm.value
 
- let Date = moment(obj.date).format('DD/MM/YYYY');
- let toDate = moment(Date, 'DD/MM/YYYY')
+    if(this.dates == userData.branch.syspara.CURRENT_DATE)
+    {
+      obj['date'] =userData.branch.syspara.CURRENT_DATE
+    }
+    else{
+    let date = moment(this.dates).format('DD/MM/YYYY');
+    let tDate = moment(date, 'DD/MM/YYYY')
+    obj['date']=date 
+  }
+
+//  let Date = moment(obj.date).format('DD/MM/YYYY');
+//  let toDate = moment(Date, 'DD/MM/YYYY')
+
   let scheme = obj.Scheme_code
 
     let branch = obj.BRANCH_CODE;
@@ -147,8 +158,8 @@ maxDate: Date;
     
  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
 
-  console.log(this.iframe5url);
-   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  console.log(this.iframe5url); 
+   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});

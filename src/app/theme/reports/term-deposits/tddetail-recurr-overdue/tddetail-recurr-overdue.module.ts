@@ -1,38 +1,43 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { TddetailRecurrOverdueRoutingModule } from './tddetail-recurr-overdue-routing.module';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
-import { TddetailRecurrOverdueComponent } from './tddetail-recurr-overdue.component';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
+
+import { TddetailRecurrOverdueRoutingModule } from './tddetail-recurr-overdue-routing.module';
+import { TddetailRecurrOverdueComponent } from './tddetail-recurr-overdue.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
+
+
 @NgModule({
   imports: [
     CommonModule,
+    TddetailRecurrOverdueRoutingModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    PerfectScrollbarModule,
     NgSelectModule,
+    PerfectScrollbarModule,
+  
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module,
-    TddetailRecurrOverdueRoutingModule,
-  ],
+    Iframe5Module
+  ], 
   declarations: [TddetailRecurrOverdueComponent],
   exports:[TddetailRecurrOverdueComponent],
   providers: [
@@ -42,16 +47,19 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
+    SystemMasterParametersService,
+    OwnbranchMasterService,
+    SchemeCodeDropdownService,
+    SchemeAccountNoService,
+    SchemeTypeDropdownService,
+  
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
     },
-    OwnbranchMasterService,
-    SchemeCodeDropdownService,
-    SystemMasterParametersService
-
-  ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+  ]
+  
 })
 export class TddetailRecurrOverdueModule { } 
+
