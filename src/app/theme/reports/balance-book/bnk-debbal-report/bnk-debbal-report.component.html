@@ -11,7 +11,7 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-2"><label for="BRANCH_CODE">Branch<sub class="required">*</sub></label></div>
+                        <div class="col-md-1"><label for="BRANCH_CODE">Branch<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -31,7 +31,7 @@
                                 </div>
                            </div>
                         </div>
-                        <div class="col-md-2"> <label for="AC_ACNOTYPE">Scheme Code<sub class="required">*</sub></label></div>
+                        <div class="col-md-1"> <label for="AC_ACNOTYPE">Scheme Code<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -41,7 +41,7 @@
                                         {{values.label}}</ng-option>
                                     </ng-select>
                                    
-                                </span>
+                                </span> 
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for=" Date">Date<sub
+                        <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
                             class="required">*</sub></label>
                          </div>
                          <div class="col-sm-12 col-md-2">

@@ -11,7 +11,7 @@
                 <form [formGroup]="ngForm">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="Branch">Branch <sub
+                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">Scheme Code<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-2">
@@ -44,17 +44,17 @@
                                                 {{values.name}} {{values.label}} </ng-option>
                                         </ng-select>
 
-                                    </span>
+                                    </span> 
                                 </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                     class="alert alert-danger">
-                                    <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                    <div *ngIf="ngForm.controls['Scheme_code'].errors?.required"> 
                                         This field is required
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for=" Date">Date<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">

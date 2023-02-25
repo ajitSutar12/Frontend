@@ -30,7 +30,8 @@ export class DepositReceiptRegisterComponent implements OnInit {
    // for dropdown ng module
    ngbranch: any = null;
    schemeCode: any = null;
-
+   transferSchemeDetails: any;
+   tScheme
  //dropdown
  scheme: any[];
  branchOption: any[];
@@ -100,6 +101,12 @@ export class DepositReceiptRegisterComponent implements OnInit {
       this.ngbranch = result.branch.id
     }
   }
+  
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.tScheme = event.name
+  
+  }
   src: any;
   view(event) {
     
@@ -110,22 +117,38 @@ export class DepositReceiptRegisterComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME
 
+    let schemeName = this.tScheme
+
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let startdate =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    let enddate:any;
-    if (this.todate == obj.END_DATE) {
-      enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+
+    //for start Date
+    if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
+    {
+      obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
     }
-    else
-    { 
-      enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-    };
+    else{
+    let date = moment(this.fromdate).format('DD/MM/YYYY');
+    let tDate = moment(date, 'DD/MM/YYYY')
+    obj['START_DATE']=date 
+  }
+//for End Date
+  if(this.todate == userData.branch.syspara.CURRENT_DATE)
+  {
+    obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
+  }
+  else{
+  let date = moment(this.todate).format('DD/MM/YYYY');
+  let tDate = moment(date, 'DD/MM/YYYY')
+  obj['END_DATE']=date 
+}
+    
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/deposit.php?sdate=' " + startdate + " '&edate='" + enddate + "'&ac_acnotype='" + enddate + "'&ac_type=" + enddate + "&print_date='" + enddate + "'" ;
+    this.iframe5url=this.report_url+"examples/deposit.php?sdate=' " + obj.START_DATE + " '&edate='" + obj.END_DATE + "'&ac_acnotype='" + schemeName + "'&ac_type=" + scheme + "&print_date='" + obj.END_DATE + "'" ;
+    console.log(this.iframe5url)
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

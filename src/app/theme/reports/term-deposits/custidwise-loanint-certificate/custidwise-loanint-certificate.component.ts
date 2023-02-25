@@ -14,7 +14,7 @@ import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/cus
   templateUrl: './custidwise-loanint-certificate.component.html',
   styleUrls: ['./custidwise-loanint-certificate.component.scss']
 })
-export class CustidwiseLoanintCertificateComponent implements OnInit {
+export class CustidwiseLoanintCertificateComponent implements OnInit { 
 // Created Form Group
 ngForm: FormGroup;
 // Date variables
@@ -108,12 +108,15 @@ view(event) {
   if(this.ngForm.valid){
   let obj = this.ngForm.value
   this.showRepo = true;
-  let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
+  let date =  moment(obj.START_DATE).format('DD/MM/YYYY');
+  let tdate= moment(obj.END_DATE).format('DD/MM/YYYY');
   
   let custid = obj.CUST_ID
   let branch = obj.BRANCH_CODE
 
-  this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&custid=" + custid + "&branch="+ branch +"'&bankName=" + bankName + "" ;
+  this.iframe5url=this.report_url+"examples/custiddepositinterestcertificate.php?stdate='01/04/2016'&etdate='12/08/2022'&branchName='KOTOLI'&$var='C'&$var1='D'&AC_ACNOTYPE='TD'&FLAG1='0'&AC_CUSTID='9'&branch=1";
+  this.iframe5url=this.report_url+"examples/custiddepositinterestcertificate.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&branchName='" + branchName + "'&$var='C'&$var1='D'&AC_ACNOTYPE='TD'&FLAG1='0'&AC_CUSTID='9'&branch=1";
+
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   
  

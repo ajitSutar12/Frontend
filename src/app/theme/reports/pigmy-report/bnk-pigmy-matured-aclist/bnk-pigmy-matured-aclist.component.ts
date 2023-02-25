@@ -122,18 +122,38 @@ schemeCode: any = null;
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let startdate =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    let enddate:any;
-    if (this.todate == obj.END_DATE) {
-      enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-    }else{ 
-      enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-    };
+    // for start date
+    if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
+    {
+      obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
+    }
+    else{
+    let date = moment(this.fromdate).format('DD/MM/YYYY');
+    let tDate = moment(date, 'DD/MM/YYYY')
+    obj['START_DATE']=date 
+  }
+   // for end date
+   if(this.todate == userData.branch.syspara.CURRENT_DATE)
+   {
+     obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
+   }
+   else{
+   let date = moment(this.todate).format('DD/MM/YYYY');
+   let tDate = moment(date, 'DD/MM/YYYY')
+   obj['END_DATE']=date 
+ }
+    // let startdate =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    // let enddate:any;
+    // if (this.todate == obj.END_DATE) {
+    //   enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    // }else{ 
+    //   enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+    // };
     let scheme = obj.Scheme_code
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='" + startdate + "'&etdate='" + enddate + "'&AC_ACNOTYPE='" + schemeName+"'&AC_TYPE='"+scheme +"'&var='D'&branchName=" + branchName + "&branch='" + branch + "'";
+    this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName+"'&AC_TYPE='"+scheme +"'&var='D'&branchName=" + branchName + "&branch='" + branch + "'";
     console.log(this.iframe5url);
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
