@@ -41,7 +41,36 @@ children:[
   {
     path: 'custidwisedepositlist',
     loadChildren: () => import('./custidwise-deposit-list/custidwise-deposit-list.module').then(m => m.CustidwiseDepositListModule)
-  }
+  },
+  {
+    path: 'tddetailrecurroverdue',
+    loadChildren: () => import('./tddetail-recurr-overdue/tddetail-recurr-overdue.module').then(m => m.TddetailRecurrOverdueModule)
+  },
+  {
+    path: 'prematuredAcCloselist',
+    loadChildren: () => import('./prematured-ac-close/prematured-ac-close.module').then(m => m.PrematuredAcCloseModule)
+  },
+  {
+    path: 'renewalDepositList',
+    loadChildren: () => import('./renewal-deposit-list/renewal-deposit-list.module').then(m => m.RenewalDepositListModule)
+  },
+  {
+    path: 'directorwiseDepositlist',
+    loadChildren: () => import('./directorwise-deposit-list/directorwise-deposit-list.module').then(m => m.DirectorwiseDepositListModule)
+  },
+  {
+    path: 'custidwiseInterestList',
+    loadChildren: () => import('./custidwise-interest-list/custidwise-interest-list.module').then(m => m.CustidwiseInterestListModule)
+  },
+  {
+    path: 'custidwiseMaturedList',
+    loadChildren: () => import('./custidwise-matured-deposit-list/custidwise-matured-deposit-list.module').then(m => m.CustidwiseMaturedDepositListModule)
+  },
+  {
+    path: 'abtypeDepositList',
+    loadChildren: () => import('./abtypedeposit-list/abtypedeposit-list.module').then(m => m.AbtypedepositListModule)
+  },
+ 
 ]
 }
 ];

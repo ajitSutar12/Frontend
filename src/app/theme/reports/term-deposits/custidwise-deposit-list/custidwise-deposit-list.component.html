@@ -10,7 +10,7 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -31,9 +31,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Cust Id <sub
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Customer Id <sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="CUST_ID" bindValue="value" [(ngModel)]="ngcust"
@@ -52,7 +52,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2"> <label for="START_DATE">Starting Date<sub
+                        <div class="col-md-1"> <label for="START_DATE">Start Date<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
@@ -77,16 +77,35 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input type="checkbox" class="border-checkbox" id="Group_Profit_And_Loss_Account"
-                                        formControlName="Group_Profit_And_Loss_Account">
-                                    <label class="border-checkbox-label" for="Group_Profit_And_Loss_Account"> Group
-                                        Profit And Loss Account</label>
+                                    <input type="checkbox" class="border-checkbox" id="Show_Only_Top"
+                                        formControlName="Show_Only_Top">
+                                    <label class="border-checkbox-label" for="Show_Only_Top">
+                                        Show Only Top</label>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-2" id="TDSFORM" *ngIf="isTdsForm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="INPUT" id="INPUT" class="form-control"
+                                        formControlName="INPUT"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                </span> 
+                            </div>
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['INPUT'].invalid && (ngForm.controls['INPUT'].dirty || ngForm.controls['INPUT'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="ngForm.controls['INPUT'].errors?.required ||ngForm.controls['INPUT'].invalid">
+                                    This field is required.
+                                </div>
+                            </div> -->
+                        </div>
+
                         <div class="col-md-3">
                             <div class="form-radio">
                                 <div class="radio radio-inline">

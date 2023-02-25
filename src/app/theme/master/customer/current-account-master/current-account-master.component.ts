@@ -389,10 +389,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       // console.log(data)
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (schem) {
-        return (schem.scheme == 'CA')
-      });
-      this.category = allscheme;
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.scheme == 'CA')
+      // });
+      this.category = data;
     })
     this.directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.director = data;
@@ -411,10 +411,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.bal_category = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (schem) {
-        return (schem.scheme == 'CA')
-      });
-      this.int_category = allscheme;
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.scheme == 'CA')
+      // });
+      this.int_category = data;
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
