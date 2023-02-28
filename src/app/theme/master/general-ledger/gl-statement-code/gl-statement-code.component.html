@@ -2,7 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                General Code Statement
+                <h5> General Code Statement</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -17,7 +20,7 @@
                                     (click)="modalChange.show();shuffleHead(item.id,item.head_name)"><i
                                         class="fa fa-refresh" aria-hidden="true"></i>
                                 </button>
- 
+
                                 <ul>
                                     <li *ngFor="let i of item.child">{{i.head_name}}
                                         <button class="btn btn-primary"
@@ -170,11 +173,12 @@
                                             <td class="td_center">{{data.head_name}}</td>
                                             <td class="td_center">{{data.position}}</td>
                                             <td class="td_center">
-                                                <input type="text" style="text-align:center" value="{{data.newPosition==null ?data.position :data.newPosition}}"
+                                                <input type="text" style="text-align:center"
+                                                    value="{{data.newPosition==null ?data.position :data.newPosition}}"
                                                     maxlength="8" #position (keyup)="lengthArr($event)"
                                                     (change)="getColumnValue(data.id,position.value)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                            </td> 
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -188,7 +192,8 @@
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
             (click)="modalChange.hide()">Close</button>
-        <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode();modalChange.hide()">Shuffle and Update</button>&nbsp;
+        <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode();modalChange.hide()">Shuffle and
+            Update</button>&nbsp;
 
     </div>
 </app-modal-basic>
