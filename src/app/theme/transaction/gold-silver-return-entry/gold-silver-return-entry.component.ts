@@ -118,8 +118,9 @@ export class GoldSilverReturnEntryComponent implements OnInit {
 
   //get account no according scheme
   getAccountList() {
-    if (this.ngscheme != null) {
+    if (this.ngscheme != null && this.ngBranchCode != null) {
       this.accountedit = null
+      this.tableData = []
       let object = {
         AC_TYPE: this.ngscheme,
         BRANCH_CODE: this.ngBranchCode,

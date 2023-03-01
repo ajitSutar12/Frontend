@@ -66,7 +66,7 @@ export class SharesTransferComponent implements OnInit {
   timeLeft = 5;
   transferACNo
   private dataSub: Subscription = null;
-logDate
+  logDate
   autocompleteItems = ['a', 'b', 'c', 'd'];
   autocompleteItemsAsObjects = [
     { value: 'a', id: 0 },
@@ -345,16 +345,38 @@ logDate
       this.angForm.patchValue({
         branch_code: data.BRANCH_CODE,
         // AC_TYPE: data.TRAN_ACTYPE,
-        TRANS_AMOUNT: data.TRAN_AMOUNT,
+        TRANS_AMOUNT: parseFloat(data.TRAN_AMOUNT).toFixed(2),
         Fnarration: data.NARRATION,
         RESOLUTIONNO: data.RESULATION_NO,
         RDATE: data.RESULATION_DATE,
         tranno: data.TRAN_NO
       })
-      // this.getMemeberDetails(event)
       this.ngIntroducer = data.TRAN_ACNO
       this.schemeCode1 = Number(data.TRANSFER_ACTYPE_TO)
       this.ngIntroducers = data.TRANSFER_MEMBER_NO_TO
+      let objJECT = {
+        schemeCode: this.schemeCode,
+        bankacno: data.TRAN_ACNO,
+        issueDate: this.Issue_date
+      }
+      this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', objJECT).subscribe(data => {
+        if (data['isclosed'] == 1) {
+          Swal.fire("Oops!", "Selected account is closed!", "error");
+          this.ngIntroducer = null
+        } else if (Number(data['shareBal']) == 0) {
+          Swal.fire("Oops!", "Selected account has 0 balance!", "error");
+          this.ngIntroducer = null
+        } else {
+          this.shareBal = data['shareBal']
+          this.angForm.patchValue({
+            MDATE: data['MEMBERSHIP_DATE'],
+            T_NO_OF_SHARES: data['numberOfShares'],
+            T_SHARES_AMOUNT: data['shareBal'],
+            TRANS_AMOUNT: data['shareBal'],
+          })
+        }
+      })
+
       let obj = {
         schemeCode: this.schemeCode,
         bankacno: data.TRAN_ACNO,
@@ -515,7 +537,7 @@ logDate
     let resodate = moment(toDate).format('DD/MM/YYYY')
     var object =
     {
-      LOG_DATE:this.logDate,
+      LOG_DATE: this.logDate,
       id: this.updateID,
       BRANCH_CODE: formVal.branch_code,
       TRAN_ACTYPE: formVal.AC_TYPE,
@@ -548,6 +570,13 @@ logDate
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  selectAllContent($event) {
+    $event.target.select();
   }
 }
 
