@@ -3,6 +3,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../auth.service';
 import * as moment from 'moment';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment'
 
 @Component({
   selector: 'app-basic-login',
@@ -18,12 +20,16 @@ export class BasicLoginComponent implements OnInit {
   passType: string = 'password';
   resetPassword: boolean = false;
   forgetPassword: boolean = true;
-  constructor(private router: Router, private _authService: AuthService) { }
+  url = environment.base_url
+  bankname = null
+  constructor(private router: Router, private http: HttpClient, private _authService: AuthService) { }
 
   ngOnInit() {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
 
- 
+    this.http.get(this.url + '/system-master-parameters/').subscribe((data: any) => {
+      this.bankname = data[0].BANK_NAME
+    })
   }
   login() {
     let dataObject = {
