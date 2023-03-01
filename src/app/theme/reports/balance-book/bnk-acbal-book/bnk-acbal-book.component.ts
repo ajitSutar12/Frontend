@@ -145,7 +145,6 @@ export class BnkACBalBookComponent implements OnInit {
 
 
   getIntroducer() {
-    debugger
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
@@ -265,7 +264,7 @@ export class BnkACBalBookComponent implements OnInit {
 
 
   view(event) {
-    debugger
+
     this.showLoading = true;
     event.preventDefault();
     this.formSubmitted = true;
@@ -290,7 +289,7 @@ export class BnkACBalBookComponent implements OnInit {
       let scheme = obj.Scheme_code
       let Rstartingacc = obj.FROM_AC_NO
       let EndingAccount = obj.TO_AC_NO
-      let branch = obj.BRANCH_CODE
+      let branch = this.ngbranch
       let Rdio = obj.radio
       let Rdiosort = obj.radio_sort
 
