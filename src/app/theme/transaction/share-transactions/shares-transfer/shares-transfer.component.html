@@ -262,14 +262,13 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input style="text-align: right;" type="text" name="AC_PARTICULAR"
-                                                    (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                     class="form-control" placeholder=" " id="AC_PARTICULAR" value="0"
-                                                    pattern="\d{1,12}(\.\d{1,2})?" maxlength="15"
-                                                    (change)="checkActualAmt()"
+                                                    maxlength="15"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                    (keyup)="decimalAllContent($event)" maxlength="15"
-                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                    formControlName="TRANS_AMOUNT">
+                                                    (keyup)="decimalAllContent($event)"
+                                                    (focusout)="getDecimalPoint($event)"
+                                                    (focus)="selectAllContent($event)" (change)="checkActualAmt()"
+                                                    maxlength="15" required formControlName="TRANS_AMOUNT">
                                             </span>
                                         </div>
                                     </div>
@@ -307,7 +306,7 @@
                             Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
                             Approve</button>
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()" > 
+                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()">
                             Unapprove</button>
                         <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                         *ngIf="newbtnShow">

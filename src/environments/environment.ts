@@ -11,9 +11,9 @@ export const environment = {
   // base_url: 'http://139.59.63.215:7276',   //CBS test server
 
   // base_url: 'http://139.59.63.215:7276',  //CBS  BHAIRAVNATH server
-  base_url: 'http://139.59.63.215:4713',  //CBS  sidhanerli server
+  // base_url: 'http://139.59.63.215:4713',  //CBS  sidhanerli server
   // base_url: 'http://139.59.63.215:9152',  //CBS  BHAIRAVNATH site server
-  // base_url: 'http://localhost:7276',
+  base_url: 'http://localhost:7276',
   // base_url: 'http://localhost:3000',
   // base_url: 'http://localhost:4000',
 

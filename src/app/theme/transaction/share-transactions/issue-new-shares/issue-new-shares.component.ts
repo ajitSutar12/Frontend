@@ -453,6 +453,10 @@ export class IssueNewSharesComponent implements OnInit {
     var t = $event.target.value;
     $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
 
   getNarration(ele) {
     this.particular = ele;
@@ -503,6 +507,21 @@ export class IssueNewSharesComponent implements OnInit {
       this.schemeCode = Number(dailyshrtran.TRAN_ACTYPE)
       this.Issue_date = dailyshrtran.TRAN_DATE
       this.getIntroducer()
+      let obj = {
+        schemeCode: this.schemeCode,
+        customer: { bankacno: dailyshrtran.TRAN_ACNO },
+        issueDate: this.Issue_date
+      }
+      this.http.post(this.url + '/issue-new-share/getAccountSharesDetails', obj).subscribe(data => {
+        this.ngForm.patchValue({
+          MEMBERSHIP_DATE: data['MEMBERSHIP_DATE'],
+          FROM: data['SHARE_TO_NO'],
+          CERTIFICATE_NO: data['CERTIFICATE_NO'],
+          T_NO_OF_SHARES: data['numberOfShares'],
+          T_SHARES_AMOUNT: data['shareBal'],
+          FACE_VALUE: data['SHARES_FACE_VALUE']
+        })
+      })
       this.memberno = dailyshrtran.TRAN_ACNO
       this.ngForm.patchValue({
         T_TYPE: dailyshrtran.TRAN_TYPE == 'CS' ? 'CS' : 'TR',
