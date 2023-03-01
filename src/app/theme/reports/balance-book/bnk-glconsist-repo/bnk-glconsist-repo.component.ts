@@ -118,7 +118,7 @@ angForm: FormGroup;
     this.printpenal=true;
   }
   view(event) {
-    debugger
+    // debugger
     event.preventDefault();
 
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -139,7 +139,7 @@ angForm: FormGroup;
       };
 
       let schemed = obj.S_ACNOTYPE;
-      let branch = obj.BRANCH_CODE;
+      let branch = this.ngbranch;
       let schemewise = obj.REPOTYPE;
       let print = obj.Print;
       let penal = obj.Penal;
