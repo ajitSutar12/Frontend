@@ -19,8 +19,9 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="BranchCode"
-                                            #branchcode autofocus formControlName="BRANCH_CODE" bindLabel="label"
-                                            title="Compulsory Selection" placeholder="Branch" autofocus>
+                                            (change)="getTransferAccountList1()" #branchcode autofocus
+                                            formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                            placeholder="Branch" autofocus>
                                             <ng-option *ngFor="let values of   branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>

@@ -136,10 +136,12 @@ export class LockerRentTransactionsComponent implements OnInit {
   }
 
   getIntroducer() {
-    this.obj = [this.scheme, this.BranchCode]
-    this.schemeAccountNoService.getLokcerSchemeList1(this.obj).subscribe(data => {
-      this.introducerACNo = data;
-    })
+    if (this.scheme != null) {
+      this.obj = [this.scheme, this.BranchCode]
+      this.schemeAccountNoService.getLokcerSchemeList1(this.obj).subscribe(data => {
+        this.introducerACNo = data;
+      })
+    }
   }
 
   //get account no according scheme for transfer
@@ -262,15 +264,21 @@ export class LockerRentTransactionsComponent implements OnInit {
         TRAN_ACNO: this.acnumber
       }
       this.http.post(this.url + '/locker-rent-transaction/lockeraccountDetails', obj).subscribe(data => {
-        this.ngForm.patchValue({
-          KEY_NO: data['dpmasterData'].AC_KEYWORD,
-          LOC_SIZE: data['locerrent'].SIZE_NAME,
-          LOC_NO: data['lockerrackwise'].LOCKER_NO,
-          RACK_NO: data['lockerrackwise'].RACK_NO,
-          LAST_RENT_DATE: data['lastrentDate'],
-          RENT_AMOUNT: data['locerrent'].RENT,
-          DEF_RENT: data['locerrent'].RENT,
-        })
+        if (data['lockerAcCloseList'].length != 0) {
+          Swal.fire('Oops', 'Already Locker account closed', 'warning')
+          this.acnumber = null
+        }
+        else {
+          this.ngForm.patchValue({
+            KEY_NO: data['dpmasterData'].AC_KEYWORD,
+            LOC_SIZE: data['locerrent'].SIZE_NAME,
+            LOC_NO: data['lockerrackwise'].LOCKER_NO,
+            RACK_NO: data['lockerrackwise'].RACK_NO,
+            LAST_RENT_DATE: data['lastrentDate'],
+            RENT_AMOUNT: data['locerrent'].RENT,
+            DEF_RENT: data['locerrent'].RENT,
+          })
+        }
       })
     }
   }
@@ -308,6 +316,9 @@ export class LockerRentTransactionsComponent implements OnInit {
         'success'
       );
       this.createForm()
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      this.BranchCode = result.branch.id
     })
   }
   updateID
@@ -345,7 +356,21 @@ export class LockerRentTransactionsComponent implements OnInit {
       this.TRF_ACNOTYPE = Number(data.TRF_ACNOTYPE)
       this.acnumber = data.TRAN_ACNO
       data.TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
-      this.getAccountDetails()
+      let obj = {
+        BRANCH_CODE: this.BranchCode,
+        TRAN_ACNO: this.acnumber
+      }
+      this.http.post(this.url + '/locker-rent-transaction/lockeraccountDetails', obj).subscribe(data => {
+        this.ngForm.patchValue({
+          KEY_NO: data['dpmasterData'].AC_KEYWORD,
+          LOC_SIZE: data['locerrent'].SIZE_NAME,
+          LOC_NO: data['lockerrackwise'].LOCKER_NO,
+          RACK_NO: data['lockerrackwise'].RACK_NO,
+          LAST_RENT_DATE: data['lastrentDate'],
+          RENT_AMOUNT: data['locerrent'].RENT,
+          DEF_RENT: data['locerrent'].RENT,
+        })
+      })
       this.obj = [this.scheme1, this.BranchCode]
       this.acnumber1 = null
       switch (this.TRF_ACNOTYPE) {
@@ -439,5 +464,18 @@ export class LockerRentTransactionsComponent implements OnInit {
     })
 
   }
-
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
+  getTransferAccountList1() {
+    this.acnumber = null
+    if (this.scheme != null) {
+      this.obj = [this.scheme, this.BranchCode]
+      this.schemeAccountNoService.getLokcerSchemeList1(this.obj).subscribe(data => {
+        this.introducerACNo = data;
+      })
+    }
+  }
 } 
