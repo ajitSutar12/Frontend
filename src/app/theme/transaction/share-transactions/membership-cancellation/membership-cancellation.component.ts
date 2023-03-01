@@ -295,7 +295,7 @@ export class MembershipCancellationComponent implements OnInit {
         this.angForm.patchValue({
           MDATE: event.openDate,
           T_NO_OF_SHARES: data['numberOfShares'],
-          T_SHARES_AMOUNT: data['shareBal'],
+          T_SHARES_AMOUNT: (data['shareBal']).toFixed(2),
           TRANS_AMOUNT: data['shareBal'],
         })
       }

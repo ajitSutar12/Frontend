@@ -318,7 +318,7 @@
 
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label for="facevalue">Face Value<sub class="required">* </sub></label>
+                                        <label for="facevalue">Face Value Amount<sub class="required">* </sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -328,6 +328,7 @@
                                                     style="text-align: right;"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                     (keyup)="decimalAllContent($event)"
+                                                    (focusout)="getDecimalPoint($event)"
                                                     (focus)="selectAllContent($event)" (change)="getSharesAmount()">
                                             </span>
                                         </div>
@@ -605,7 +606,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <label for="t_debit">Total Debit<sub class="required">* </sub></label>
+                                                <label for="t_debit">Total Debit Amount<sub class="required">*
+                                                    </sub></label>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group input-group">
@@ -627,7 +629,8 @@
                                             </div>
 
                                             <div class="col-md-2">
-                                                <label for="t_credit">Total Credit<sub class="required">* </sub></label>
+                                                <label for="t_credit">Total Credit Amount<sub class="required">*
+                                                    </sub></label>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group input-group">
@@ -654,17 +657,22 @@
 
                                 <div class="row">
                                     <div class="col-sm" style="float: right;">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitShow" (click)="submit()">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitShow"
+                                            (click)="submit()">
                                             Submit
                                         </button>
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow" (click)="closeModal()">
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow"
+                                            (click)="closeModal()">
                                             Close</button>
-                                        
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
+                                            (click)="reject()">
                                             Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
+                                            (click)="approve()">
                                             Approve</button>
-                                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()" > 
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
+                                            (click)="unapprove()">
                                             Unapprove</button>
                                     </div>
                                 </div>

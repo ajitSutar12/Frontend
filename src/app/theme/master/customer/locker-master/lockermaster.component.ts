@@ -1568,5 +1568,10 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('something is wrong');
     })
   }
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
 }
 
