@@ -23,6 +23,7 @@ export class BatchVoucherComponent implements OnInit {
   @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+  @ViewChild('trigger') trigger: ElementRef<HTMLElement>;
   @ViewChild("fileInput") fileInput;
 
   date: any;
@@ -246,7 +247,7 @@ export class BatchVoucherComponent implements OnInit {
   //get Narration Details 
   getNarration(ele) {
     this.particulars = ele;
-    let el: HTMLElement = this.triggerhide.nativeElement;
+    let el: HTMLElement = this.trigger.nativeElement;
     el.click();
   }
 
@@ -308,14 +309,14 @@ export class BatchVoucherComponent implements OnInit {
       await this.getCompanyData(this.selectCompanyCode);
       this.updateID = data.result.TRAN_NO;
       this.updatecheckdata = data
-      if (data.batchvoucherData.TRAN_STATUS == '0') {
+      if (data.result.TRAN_STATUS == '0') {
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
         this.approveShow = true;
         this.rejectShow = true
         this.unapproveShow = false
-      } else if (data.batchvoucherData.TRAN_STATUS != '0') {
+      } else if (data.result.TRAN_STATUS != '0') {
         this.approveShow = false;
         this.rejectShow = false
         this.showButton = false;
@@ -355,6 +356,7 @@ export class BatchVoucherComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'));
     let obj = {
       id: this.updateID,
+      BRANCH_CODE: this.selectedBranch,
       user: user
     }
     this._service.approve(obj).subscribe(data => {
@@ -377,6 +379,7 @@ export class BatchVoucherComponent implements OnInit {
 
     let obj = {
       id: this.updateID,
+      BRANCH_CODE: this.selectedBranch,
       user: user
     }
     this._service.reject(obj).subscribe(data => {

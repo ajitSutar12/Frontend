@@ -14,7 +14,7 @@
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label"> 
+                                <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
                                             #selectBranch (focus)="onFocus(selectBranch)" appTheme [selectOnTab]='true'
@@ -257,9 +257,12 @@
                                     *ngIf="newbtnShow">
                                     Cancel
                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                     *ngIf="updateShow">
-                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
+                                    (click)="unApprove()">
+                                    Unapprove</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
                                     Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
