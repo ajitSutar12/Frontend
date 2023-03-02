@@ -1640,8 +1640,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
       else {
-        Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
-        this.multiJointAC.push(object);
+        Swal.fire('', "Please Select Customer Id", 'warning');
         this.jointID = null
         this.jointID = ''
         this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1649,7 +1648,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     } else {
       Swal.fire('', "Please Select Customer Id", 'warning');
-      this.multiJointAC.push(object);
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
