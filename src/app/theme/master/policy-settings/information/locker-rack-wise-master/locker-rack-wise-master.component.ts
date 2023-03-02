@@ -173,7 +173,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
-      debugger
+      // debugger
       this.angForm.controls['BRANCH_CODE'].enable()
 
       this.lockerSMaster.getLockerSMasterList().pipe(first()).subscribe(data => {

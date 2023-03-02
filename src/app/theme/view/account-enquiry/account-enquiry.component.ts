@@ -656,6 +656,7 @@ export class AccountEnquiryComponent implements OnInit {
     else {
       if (this.getschemename == 'SH') {
         this.ShareRecordShow = true
+        this.loanSchemeShow = false
         if (this.accountEvent.AC_RETIRE_DATE != null && this.accountEvent.AC_RETIRE_DATE != '' && this.accountEvent.AC_RETIRE_DATE != 'Invalid date') {
           this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data => {
             let retireDate = moment(this.accountEvent.AC_RETIRE_DATE, "DD/MM/YYYY");
