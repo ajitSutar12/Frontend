@@ -136,6 +136,10 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //display code according choice
   nomineeTrue: boolean = false;
   JointAccountsTrue: boolean = false;
+  jointShowButton: boolean = true
+  jointUpdateShow: boolean = false
+  jointACID: number
+  jointIndex: number
   PowerofAttorneyTrue: boolean = false;
   logDate
   // Store data from backend
@@ -156,6 +160,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   nomineeID: number
   nomineeIndex: number
   multiNominee = [];
+  multiJointAC = [];
   nomineeShowButton: boolean = true
   nomineeUpdateShow: boolean = false
   //add required validation to attorney fields
@@ -166,6 +171,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
+  joint_Cust_ID: any[] //customer id from idmaster
   category: any[] //from category master
   city //city from customer id from idmaster
   cast: string // customer id from idmaster
@@ -181,7 +187,10 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
+  jointID: any = null;
   timeLeft = 5;
+  joint
+  tempjoint
   id: string = '';
   // jointID: string = '';
   private dataSub: Subscription = null;
@@ -360,6 +369,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
+      this.joint_Cust_ID = data;
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
@@ -594,6 +604,10 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NAREA: ['', [Validators.pattern]],
       AC_NCTCODE: ['', [Validators.pattern]],
       AC_NPIN: ['', [Validators.pattern]],
+      //joint ac
+      JOINT_AC_CUSTID: ['',],
+      JOINT_ACNAME: ['', [Validators.pattern]],
+      OPERATOR: [true],
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -674,7 +688,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
         //nominee
         'NomineeData': this.multiNominee,
-        'Document': this.imageObject
+        'Document': this.imageObject,
+        //Joint Account
+        'JointAccountData': this.multiJointAC,
       }
       this.LockerMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
@@ -697,6 +713,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //To clear form
       this.resetForm();
       this.multiNominee = []
+      this.multiJointAC = []
       this.customerDoc = []
     }
     else {
@@ -737,6 +754,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
+      //get joint accounts to edit
+      this.multiJointAC = data.jointAccounts
       //get nominee to edit
       this.multiNominee = data.nomineeDetails
       this.selectedValue = data.AC_TYPE
@@ -801,6 +820,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['LOC_NO'] = this.ngLocno
     data['AC_INTCATA'] = this.ngIntCategory
     data['AC_DEPONO'] = this.ngDepoCategory
+    data['JointAccountData'] = this.multiJointAC
     // data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
     data['id'] = this.updateID;
@@ -822,6 +842,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         dtInstance.ajax.reload()
       });
       this.multiNominee = []
+      this.multiJointAC = []
       this.customerDoc = []
       this.switchNgBTab('Basic')
       this.resetForm();
@@ -839,6 +860,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = false;
     this.newbtnShow = false;
     this.multiNominee = []
+    this.multiJointAC = []
     this.customerDoc = []
     this.tempAddress = true
     this.acno = null
@@ -1572,6 +1594,171 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
+  }
+  getJointCustomer(event) {
+    this.joint = event.name
+    this.tempjoint = event.value
+    this.customerIdService.getFormData(event.value).subscribe(data => {
+      this.angForm.patchValue({
+        JOINT_ACNAME: data.AC_NAME
+      })
+    })
+  }
+  jointAccount($event) {
+    if ($event.target.checked) {
+      this.JointAccountsTrue = true
+    } else {
+      this.JointAccountsTrue = false
+    }
+  }
+  addJointAcccount() {
+    const formVal = this.angForm.value;
+    let value
+    if (formVal.OPERATOR == true) {
+      value = 'Yes'
+    } else {
+      value = 'No'
+    }
+    var object = {
+      JOINT_AC_CUSTID: this.joint,
+      JOINT_ACNAME: formVal.JOINT_ACNAME,
+      OPERATOR: value,
+    }
+    if (formVal.AC_CUSTID != "") {
+      if (object.JOINT_AC_CUSTID != undefined) {
+        if (this.newcustid != this.joint) {
+          if (this.multiJointAC.length == 0) {
+            this.multiJointAC.push(object);
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.jointID = null
+            this.jointID = ''
+            this.resetJointAC()
+          }
+          else {
+            if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
+
+              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
+              this.multiJointAC.push(object);
+              this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
+            } else {
+              this.multiJointAC.push(object);
+              this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
+            }
+          }
+        }
+        else {
+          Swal.fire('', "Please Select Different Customer id", 'warning');
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
+        }
+      }
+      else {
+        Swal.fire('', "Please Select Customer Id", 'warning');
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
+      }
+    } else {
+      Swal.fire('', "Please Select Customer Id", 'warning');
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
+    }
+
+  }
+
+
+  editJointAc(id) {
+    this.jointIndex = id
+    this.jointACID = this.multiJointAC[id].id;
+    this.jointID = this.multiJointAC[id].id;
+    this.JointAccountsTrue = true
+    this.jointShowButton = false;
+    this.jointUpdateShow = true;
+    this.angForm.patchValue({
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
+      JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      OPERATOR: this.multiJointAC[id].OPERATOR
+    })
+  }
+
+  updateJointAcccount() {
+    let index = this.jointIndex;
+    this.jointShowButton = true;
+    this.jointUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
+      JOINT_ACNAME: formVal.JOINT_ACNAME,
+      OPERATOR: formVal.OPERATOR,
+      id: this.jointACID
+    }
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.newcustid != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC[index] = object
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+            Swal.fire("This Customer is Already Exists", "error");
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
+          }
+          else {
+            this.multiJointAC[index] = object
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
+          }
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
+    }
+  }
+
+  delJointAc(id) {
+    this.multiJointAC.splice(id, 1)
+  }
+
+  resetJointAC() {
+    this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.patchValue({
+      JOINT_ACNAME: ''
+    })
+    this.jointID.clearFilter();
+  }
+
+  clearFilter() {
+    this.jointID = ''
   }
 }
 

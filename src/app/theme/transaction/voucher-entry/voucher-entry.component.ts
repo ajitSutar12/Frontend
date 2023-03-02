@@ -395,8 +395,12 @@ export class VoucherEntryComponent implements OnInit {
 
       case 'GL':
         this._ACMasterDropdownService.getACMasterList1().subscribe(data => {
-          console.log('data', data)
           this.introducerACNo = data;
+        })
+        break;
+      case 'LK':
+        this.savingMasterService.getLokcerSchemeList1(this.obj).subscribe(data1 => {
+          this.introducerACNo = data1;
         })
         break;
     }
@@ -1718,7 +1722,7 @@ export class VoucherEntryComponent implements OnInit {
 
     let data1: any = localStorage.getItem('user');
     let result = JSON.parse(data1);
-    let tempacno = this.submitCustomer.BANKACNO
+    let tempacno = this.submitCustomer.id
     let obj = {
       clearBalance: Number(this.ClearBalance),
       accountNo: this.submitCustomer?.BANKACNO,
@@ -2136,6 +2140,11 @@ export class VoucherEntryComponent implements OnInit {
 
         case 'AG':
           this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data1 => {
+            this.introducerACNo = data1;
+          })
+          break;
+        case 'LK':
+          this.savingMasterService.getLokcerSchemeList1(this.obj).subscribe(data1 => {
             this.introducerACNo = data1;
           })
           break;

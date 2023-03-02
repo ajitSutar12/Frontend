@@ -89,6 +89,9 @@ export class SavingMasterService {
     getPigmyAgentSchemeList1(schemeid): Observable<any> {
         return this.http.get(this.url + '/pigmy-agent-master/scheme/' + schemeid).pipe(catchError(this.handleError));
     }
+    getLokcerSchemeList1(schemeid): Observable<any> {
+        return this.http.get<any>(this.url + '/locker-master/scheme/' + schemeid).pipe(catchError(this.handleError));
+    }
     getInvestmentSchemeList1(schemeid): Observable<any> {
         return this.http.get(this.url + '/pigmy-agent-master/scheme/' + schemeid).pipe(catchError(this.handleError));
     }

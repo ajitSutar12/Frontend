@@ -825,7 +825,7 @@
                                     <!-- End of Address tab -->
 
                                     <!-- start of Nominee/joint acs tab  -->
-                                    <ngb-tab title="Nominee" id="nominee">
+                                    <ngb-tab title="Nominee/Joint Account" id="nominee">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -1372,7 +1372,193 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <div
+                                                                        class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox"
+                                                                            id="jointAccount"
+                                                                            (click)="jointAccount($event)" />
+                                                                        <label class="border-checkbox-label"
+                                                                            for="jointAccount"
+                                                                            [ngClass]="{ isActive: JointAccountsTrue }"><b
+                                                                                style="color: dodgerblue">JOINT
+                                                                                ACCOUNTS</b></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- displayed  JointAccounts form   -->
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <div *ngIf="JointAccountsTrue">
+                                                                    <div class="row">
+                                                                        <div class="col-sm">
+                                                                            <div
+                                                                                class="form-group form-primary form-static-label">
+                                                                                <span class="border-lable-flt">
+                                                                                    <ng-select appTheme
+                                                                                        [(ngModel)]="jointID"
+                                                                                        id="JOINT_AC_CUSTID"
+                                                                                        bindValue="value"
+                                                                                        formControlName="JOINT_AC_CUSTID"
+                                                                                        (change)="getJointCustomer($event)"
+                                                                                        [virtualScroll]="true"
+                                                                                        [virtualScroll]="true"
+                                                                                        [ngClass]="{
+                                                                            'form-submitted': formSubmitted
+                                                                          }" title="Compulsory Selection"
+                                                                                        placeholder="Customer Id"
+                                                                                        #AC_CUSTID
+                                                                                        (focus)="onFocus(AC_CUSTID)"
+                                                                                        [selectOnTab]='true'>
+                                                                                        <ng-option
+                                                                                            *ngFor="let values of Cust_ID"
+                                                                                            [value]="values">
+                                                                                            {{ values.label
+                                                                                            }}</ng-option>
+                                                                                    </ng-select>
+                                                                                    <label
+                                                                                        for="JOINT_AC_CUSTID">Customer
+                                                                                        Id<sub class="required">*
+                                                                                        </sub></label>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm">
+                                                                            <div class="form-group input-group">
+                                                                                <span class="border-lable-flt">
+                                                                                    <input type="text"
+                                                                                        name="JOINT_ACNAME"
+                                                                                        class="form-control"
+                                                                                        placeholder=" "
+                                                                                        id="JOINT_ACNAME"
+                                                                                        formControlName="JOINT_ACNAME"
+                                                                                        disabled />
+                                                                                    <label
+                                                                                        for="JOINT_ACNAME">Name</label>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm">
+                                                                            <div class="checkbox checkbox-primary">
+                                                                                <div
+                                                                                    class="border-checkbox-group border-checkbox-group-primary">
+                                                                                    <input class="border-checkbox"
+                                                                                        type="checkbox" name="OPERATOR"
+                                                                                        id="operator"
+                                                                                        formControlName="OPERATOR"
+                                                                                        checked />
+                                                                                    <label class="border-checkbox-label"
+                                                                                        for="operator">Operation<span
+                                                                                            class="required">
+                                                                                        </span></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-3">
+                                                                            <button type="button"
+                                                                                class="btn btn-outline-primary btn-sm"
+                                                                                *ngIf="jointShowButton"
+                                                                                (click)="addJointAcccount()">
+                                                                                Add Account
+                                                                            </button>
+                                                                            <button
+                                                                                class="btn btn-outline-primary btn-sm"
+                                                                                (click)="updateJointAcccount()"
+                                                                                *ngIf="jointUpdateShow">
+                                                                                Update Account
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="table-responsive">
+                                                                    <table
+                                                                        class="table table-striped table-bordered table-hover compact">
+                                                                        <thead>
+                                                                            <td style="max-width: 10px">Action</td>
+                                                                            <td style="max-width: 20px">Customer ID</td>
+                                                                            <td>Name</td>
+                                                                            <td style="max-width: 15px">Operation</td>
+                                                                        </thead>
+                                                                        <tbody *ngIf="multiJointAC?.length != 0">
+                                                                            <tr *ngFor="
+                                                                        let data of multiJointAC;
+                                                                        let indexOfelement = index
+                                                                      ">
+                                                                                <td>
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm">
+                                                                                            <span
+                                                                                                class="fa fa-fw fa-edit field-icon"
+                                                                                                id="editbutton" (click)="
+                                                                                editJointAc(indexOfelement)
+                                                                              " placement="top"
+                                                                                                ngbTooltip="Edit"></span>
+                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                            <span
+                                                                                                class="fa fa-fw fa-trash-o"
+                                                                                                id="deletebutton"
+                                                                                                (click)="
+                                                                                delJointAc(indexOfelement)
+                                                                              " placement="right"
+                                                                                                ngbTooltip="Delete"></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="td_right" [ngClass]="
+                                                                          data.JOINT_AC_CUSTID === ''
+                                                                            ? 'td_center'
+                                                                            : 'td_right'
+                                                                        ">
+                                                                                    {{
+                                                                                    data.JOINT_AC_CUSTID === ""
+                                                                                    ? "-"
+                                                                                    : data.JOINT_AC_CUSTID
+                                                                                    }}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="
+                                                                          data.JOINT_ACNAME === ''
+                                                                            ? 'td_center'
+                                                                            : 'td_right'
+                                                                        ">
+                                                                                    {{
+                                                                                    data.JOINT_ACNAME === ""
+                                                                                    ? "-"
+                                                                                    : data.JOINT_ACNAME
+                                                                                    }}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="
+                                                                          data.OPERATOR === ''
+                                                                            ? 'td_left'
+                                                                            : 'td_right'
+                                                                        ">
+                                                                                    {{
+                                                                                    data.OPERATOR === ""
+                                                                                    ? "-"
+                                                                                    : data.OPERATOR
+                                                                                    }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tbody *ngIf="multiJointAC?.length == 0">
+                                                                            <tr>
+                                                                                <td class="no-data-available"
+                                                                                    colspan="4"
+                                                                                    style="text-align: center">
+                                                                                    No data!
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right; margin-top: 6px;">
