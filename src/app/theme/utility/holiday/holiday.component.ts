@@ -37,7 +37,13 @@ export class HolidayComponent implements OnInit, OnDestroy {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          this._holiday.deleteData(res.dateStr).subscribe((data) => {
+          let data: any = localStorage.getItem('user');
+          let result1 = JSON.parse(data);
+          let obj = {
+            date: res.dateStr,
+            BRANCH_CODE: result1.branchId
+          }
+          this._holiday.deleteData(obj).subscribe((data) => {
             Swal.fire("Deleted!", "Holiday has been deleted.", "success");
           }),
             (error) => {
@@ -55,9 +61,12 @@ export class HolidayComponent implements OnInit, OnDestroy {
         showCancelButton: true,
       }).then((result) => {
         if (result.value) {
+          let data: any = localStorage.getItem('user');
+          let result1 = JSON.parse(data);
           const dataToSend = {
             T_DESC: result.value,
-            T_DATE: res.dateStr
+            T_DATE: res.dateStr,
+            BRANCH_CODE: result1.branchId
           }
           this._holiday.postData(dataToSend).subscribe(data => {
             Swal.fire({
@@ -75,9 +84,13 @@ export class HolidayComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getDataSubscription = interval(1000).subscribe((x => {
       let finYear
-      var sysDate = new Date()
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      var sysDate
+      let ssysDate = moment(result.branch.syspara.CURRENT_DATE, 'DD-MM-YYYY')
+      sysDate = (ssysDate['_d'])
       var year = sysDate.getFullYear();
-      var month = new Date().getMonth();
+      var month = sysDate.getMonth();
       month > 2 ? finYear = year : finYear = year - 1
       var full = []
       var fullDate = `01/04/${finYear}`;
@@ -90,7 +103,7 @@ export class HolidayComponent implements OnInit, OnDestroy {
       let end = moment(start).add(12, 'M');
       let starting = moment(start).format('DD.MM.YYYY')
       let ending = moment(end).format('DD.MM.YYYY')
-      this.mem = [starting, ending]
+      this.mem = [starting, ending, result.branchId]
       this.http.get(this.url + '/holiday/check/' + this.mem)
         .subscribe(res => {
           this.datesArr = res
