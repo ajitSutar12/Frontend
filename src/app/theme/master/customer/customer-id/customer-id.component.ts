@@ -202,6 +202,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   urlMap: SafeResourceUrl
   fileuploaded: boolean = false
   filenotuploaded: boolean = true
+  FinYear = ''
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -227,6 +228,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.createForm();
+    let finYear
+    let dat: any = localStorage.getItem('user');
+    let result1 = JSON.parse(dat);
+    var sysDate
+    let ssysDate = moment(result1.branch.syspara.CURRENT_DATE, 'DD-MM-YYYY')
+    sysDate = (ssysDate['_d'])
+    var year = sysDate.getFullYear();
+    var month = sysDate.getMonth();
+    month > 2 ? finYear = year : finYear = year - 1
+    this.FinYear = finYear + '-' + Number(finYear + 1)
 
     // let use = JSON.parse(localStorage.getItem('use'));
 
