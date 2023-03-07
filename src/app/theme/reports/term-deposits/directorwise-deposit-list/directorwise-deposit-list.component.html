@@ -1,5 +1,3 @@
-<p>directorwise-deposit-list works!</p>
- 
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -9,7 +7,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form [formGroup]="ngForm" novalidate> 
+            <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
@@ -38,24 +36,27 @@
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="CUST_ID" bindValue="value" [(ngModel)]="ngcust" [virtualScroll]="true"
-                                        formControlName="CUST_ID" bindLabel="label" placeholder="">
-                                        <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                    <ng-select id="F_DIRECTOR" bindValue="value" [(ngModel)]="ngdirectorFrom"
+                                        formControlName="F_DIRECTOR" bindLabel="label" title="Compulsory Selection"
+                                        placeholder="Director" #F_DIRECTOR (focus)="onFocus(F_DIRECTOR)"
+                                        [selectOnTab]='true'>
+                                        <ng-option *ngFor="let values of director" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['CUST_ID'].invalid && (ngForm.controls['CUST_ID'].dirty || ngForm.controls['CUST_ID'].touched)"
+                                *ngIf="ngForm.controls['F_DIRECTOR'].invalid && (ngForm.controls['F_DIRECTOR'].dirty || ngForm.controls['F_DIRECTOR'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="ngForm.controls['CUST_ID'].errors?.required">
+                                <div *ngIf="ngForm.controls['F_DIRECTOR'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
+
                         </div>
 
-                        <div class="col-md-2"> <label for="START_DATE">Starting Date<sub
-                                    class="required">*</sub></label>
+                        <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -77,10 +78,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-2"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label>
+                        <div class="col-md-1"> <label for="END_DATE">End Date<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -104,6 +103,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-sm-12 col-md-1">
@@ -122,7 +123,7 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <app-iframe5 [url]='iframe5url'></app-iframe5>
+                                    <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
                                 </div>
                             </div>
                         </div>

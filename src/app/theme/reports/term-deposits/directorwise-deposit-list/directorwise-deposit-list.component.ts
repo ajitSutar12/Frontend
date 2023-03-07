@@ -7,8 +7,8 @@ import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { DomSanitizer} from '@angular/platform-browser';
-import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
-import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-directorwise-deposit-list',
@@ -38,14 +38,17 @@ showRepo: boolean = false;
  //dropdown
  branchOption: any[];
  Cust_ID
+ ngdirectorFrom: any = null;
+
+director: any[]
  // for dropdown ng module
  ngbranch: any = null;
  ngcust: any = null;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private customerID: CustomerIDMasterDropdownService,
-    public customerIdService: CustomerIdService,
+    private directorMasterDropdown: DirectorMasterDropdownService,
+
     private sanitizer: DomSanitizer) { this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -58,10 +61,14 @@ showRepo: boolean = false;
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
      this.branchOption = data;
    });
-   //for customer Id
-   this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-    this.Cust_ID = data;
-  })
+  //  //for customer Id
+  //  this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+  //   this.Cust_ID = data;
+  // })
+   //director
+ this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
+  this.director = data;
+})
    //for starting and ending date
    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.todate = data.CURRENT_DATE;
@@ -89,10 +96,9 @@ showRepo: boolean = false;
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      CUST_ID: ["", [Validators.pattern, Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      
+      F_DIRECTOR: ["", [Validators.required]],
     });
 }
 end() {}
@@ -110,11 +116,32 @@ view(event) {
   let obj = this.ngForm.value
   this.showRepo = true;
   let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
-  
-  let custid = obj.CUST_ID
+
+  if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
+  {
+    obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
+  }
+  else{
+  let date = moment(this.todate).format('DD/MM/YYYY');
+  let tDate = moment(date, 'DD/MM/YYYY')
+  obj['START_DATE']=userData.branch.syspara.CURRENT_DATE
+}
+//for end date
+if(this.todate == userData.branch.syspara.CURRENT_DATE)
+{
+  obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
+}
+else{
+let date = moment(this.todate).format('DD/MM/YYYY');
+let tDate = moment(date, 'DD/MM/YYYY')
+obj['END_DATE']=date 
+}
+  let directorid = obj.F_DIRECTOR
   let branch = obj.BRANCH_CODE
 
-  this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&custid=" + custid + "&branch="+ branch +"'&bankName=" + bankName + "" ;
+
+  this.iframe5url=this.report_url+"examples/directorwisedeposit.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&branchName='"+ branchName +"'&ac_director='"+ directorid +"'&var='D'&branch='"+ branch +"'";
+  console.log( this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   
  
@@ -126,12 +153,18 @@ else {
 }
 
 close(){
+
 this.resetForm()
+
+}
+onFocus(ele: NgSelectComponent) {
+  ele.open()
 }
 
 // Reset Function
-resetForm() {
-this.ngForm.controls.CUST_ID.reset();
+resetForm() {debugger
+this.ngForm.controls.F_DIRECTOR.reset();
+
 this.showRepo = false;
 this.clicked=false;
 }

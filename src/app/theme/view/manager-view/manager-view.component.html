@@ -1098,44 +1098,37 @@
                                                         <div class="card border-primary">
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
-                                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                                        value="submit" (click)="view($event)"><i
-                                                                            class="fa fa-building-o"
+                                                                    <button type="button" id="userw" class="btn btn-primary btn-sm"
+                                                                        value="submit" (click)="view('userw')">
+                                                                        <i class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
-                                                                        User's
-                                                                        Work</button>
+                                                                        User's Work</button>
+                                                                    <button type="button" id="userL"
+                                                                        class="btn btn-success btn-sm" (click)="view('userL')" >
+                                                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                                        Users Login</button>
+                                                                    <button type="button" class="btn btn-info btn-sm">
+                                                                        <i class="fa fa-money" aria-hidden="true"></i>
+                                                                        User's Cash</button>
                                                                     <button type="button"
-                                                                        class="btn btn-success btn-sm"><i
-                                                                            class="fa fa-sign-in"
-                                                                            aria-hidden="true"></i>Users
-                                                                        Login</button>
-                                                                    <button type="button" class="btn btn-info btn-sm"><i
-                                                                            class="fa fa-money" aria-hidden="true"></i>
-                                                                        User's
-                                                                        Cash</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-warning btn-sm"> <i
-                                                                            class="fa fa-clock-o"
+                                                                        class="btn btn-warning btn-sm">
+                                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                                        Delay Works</button>
+                                                                    <button type="button" class="btn btn-danger btn-sm">
+                                                                        <i class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
-                                                                        Delay
-                                                                        Works</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-danger btn-sm"><i
-                                                                            class="fa fa-building-o"
-                                                                            aria-hidden="true"></i>Scheme
-                                                                        Log</button>
+                                                                        Scheme Log</button>
                                                                     <button type="button" class="btn btn-info btn-sm"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
                                                                         GL Pos. Detail</button>
                                                                     <button type="button"
-                                                                        class="btn btn-primary btn-sm"><i
-                                                                            class="fa fa-lock" aria-hidden="true"></i>
+                                                                        class="btn btn-primary btn-sm">
+                                                                        <i class="fa fa-lock" aria-hidden="true"></i>
                                                                         Nearest Secu</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-success btn-sm"> <i
-                                                                            class="fa fa-clock-o"
-                                                                            aria-hidden="true"></i>Incompletion</button>
+                                                                    <button type="button" class="btn btn-success btn-sm"> 
+                                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                                        Incompletion</button>
                                                                 </div>
 
                                                             </div>
@@ -1282,8 +1275,8 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <!-- <app-iframe1 [url]='iframe1url'></app-iframe1>  -->
-                                    <iframe class="iframe" [src]="iframe1url"></iframe>
+                                    <app-iframe1 [url]='iframe1url'></app-iframe1> 
+                                    <!-- <iframe class="iframe" [src]="iframe1url"></iframe> -->
                                 </div>
                             </div>
                         </div>

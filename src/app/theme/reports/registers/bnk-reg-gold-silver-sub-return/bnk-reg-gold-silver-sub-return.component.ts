@@ -50,6 +50,8 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
   transferSchemeDetails: any;
   tScheme
   showRepo: boolean = false;
+  ngbranch: any;
+  branchName: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -82,10 +84,14 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
       this.ngBranchCode = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
@@ -168,7 +174,7 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
 
       let BRANCH_CODE = obj.BRANCH_CODE
 
-      this.iframeurl = this.report_url + "examples/goldsilver.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE="+ scheme +"&FLAG1=1&STATUS='S'&branchName="+ branchName +"&branch='"+ BRANCH_CODE +"'";
+      this.iframeurl = this.report_url + "examples/goldsilver.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE="+ scheme +"&FLAG1=1&STATUS='S'&branchName="+ this.branchName +"&branch='"+ BRANCH_CODE +"'";
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
       // console.log(this.iframeurl);
@@ -190,6 +196,10 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
     // this.angForm.controls.SUBMISSION.reset();
     this.showRepo = false;
     this.clicked = false;
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 
 }

@@ -22,7 +22,7 @@ import { ReportFrameComponent } from "../../report-frame/report-frame.component"
 import { NgSelectComponent } from "@ng-select/ng-select";
 
 
-@Component({
+@Component({ 
   selector: 'app-renewal-deposit-list',
   templateUrl: './renewal-deposit-list.component.html',
   styleUrls: ['./renewal-deposit-list.component.scss']
@@ -53,6 +53,7 @@ dates: any = null
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -95,10 +96,14 @@ maxDate: Date;
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -137,6 +142,17 @@ maxDate: Date;
 
  let Date = moment(obj.date).format('DD/MM/YYYY');
  let toDate = moment(Date, 'DD/MM/YYYY')
+
+  //for start date
+  if(this.dates == userData.branch.syspara.CURRENT_DATE)
+  {
+    obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
+  }
+  else{
+  let date = moment(this.dates).format('DD/MM/YYYY');
+  let toDate = moment(date, 'DD/MM/YYYY')
+  obj['START_DATE']=date 
+}
   let scheme = obj.Scheme_code
 
     let branch = obj.BRANCH_CODE;
@@ -146,7 +162,7 @@ maxDate: Date;
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
- this.iframe5url=this.report_url+ "examples/renewalhistory.php?stdate='"+ obj.date +"'&etdate='"+ obj.date +"'&S_APPL='"+ bankName +"'&branchName='"+ branchName +"'&branch='"+ branch +"'"
+ this.iframe5url=this.report_url+ "examples/renewalhistory.php?stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&S_APPL='"+ bankName +"'&branchName='"+ this.branchName +"'&branch='"+ branch +"'"
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
@@ -170,6 +186,10 @@ maxDate: Date;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 

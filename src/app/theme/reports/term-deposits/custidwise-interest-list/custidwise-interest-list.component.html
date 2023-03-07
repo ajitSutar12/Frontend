@@ -10,12 +10,13 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                    (change)="getBranch($event)"
                                         formControlName="BRANCH_CODE" bindLabel="label" placeholder="">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -31,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Cust Id <sub
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Cust Id <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -53,8 +54,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2"> <label for="START_DATE">Starting Date
-                                <sub class="required">*</sub></label>
+                        <div class="col-md-1"> <label for="START_DATE">Starting Date<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -80,7 +80,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-2"> <label for="END_DATE">Ending Date
+                        <div class="col-md-1"> <label for="END_DATE">Ending Date
                                 <sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">

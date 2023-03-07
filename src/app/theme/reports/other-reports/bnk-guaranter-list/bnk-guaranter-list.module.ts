@@ -12,13 +12,13 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BnkGuaranterListComponent } from './bnk-guaranter-list.component';
-import {BnkGuaranterListRoutingModule} from './bnk-guaranter-list-routing.module';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
+import { BnkGuaranterListComponent } from './bnk-guaranter-list.component';
+import {BnkGuaranterListRoutingModule} from './bnk-guaranter-list-routing.module';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -26,7 +26,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule, 
+    BnkGuaranterListRoutingModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
@@ -36,7 +37,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkGuaranterListRoutingModule,
     Iframe5Module
   ],
 

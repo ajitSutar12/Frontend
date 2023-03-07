@@ -23,6 +23,7 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { IframecomponentModule } from './iframecomponent/iframecomponent.module';
+import { SharesReportsComponent } from './shares-reports/shares-reports.component';
 
 @NgModule({
   declarations: [],
