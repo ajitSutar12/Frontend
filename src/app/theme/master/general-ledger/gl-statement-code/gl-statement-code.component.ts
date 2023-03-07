@@ -15,6 +15,7 @@ import { first } from 'rxjs/operators';
 import { newArray } from '@angular/compiler/src/util';
 import { toChildArray } from 'preact';
 import { id } from '@swimlane/ngx-datatable';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -101,6 +102,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     private glStatementCodeService: GlStatementCodeService,
     private alternateCode: AlternetCodeDropdownService,
     private http: HttpClient,
+    private modalService: NgbModal,
     private fb: FormBuilder) {
   }
 
@@ -415,6 +417,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   submitNewCode() {
     if (this.newCode == undefined) {
       Swal.fire('Warning!', 'Please add new Code!', 'warning');
+      this.closeBtnClick()
     } else {
       let obj = {
         'parentid': this.parentId,
@@ -424,10 +427,12 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       this.glStatementCodeService.insertNewCode(obj).subscribe(data => {
         Swal.fire('Success!', 'new Code Added Successfully!', 'success');
         this.treeview();
-        this.triggerhide.nativeElement.click();
+        // this.triggerhide.nativeElement.click();
+
       }, err => {
         console.log(err);
       })
+      this.closeBtnClick()
     }
   }
 
@@ -442,6 +447,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
     if (this.newCode1 == undefined) {
       Swal.fire('Warning!', 'Please add new Code!', 'warning');
+      this.closeBtnClick()
     }
     else {
       let obj = {
@@ -449,20 +455,19 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
         'parentCode': this.newCode1
       }
       this.treeview();
-      this.triggerhide.nativeElement.click();
+      // this.triggerhide.nativeElement.click();
 
       this.glStatementCodeService.updateNewCode(obj).subscribe(data => {
-        Swal.fire('Success!', 'new Code Updated Successfully!', 'success');
+        Swal.fire('Success!', 'Name Updated Successfully!', 'success');
         this.treeview();
-        this.triggerhide.nativeElement.click();
+        // this.triggerhide.nativeElement.click();
       },
         err => {
           console.log(err);
         })
+      this.closeBtnClick()
     }
-
   }
-
 
   shuffleHead(id, name) {
     this.parentCode = name;
@@ -493,19 +498,19 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   getColumnValue(id, columnValue: number) {
-    
+
 
     let position
     let ele1 = (this.childArray.filter(ele => ele['newPosition'] == Number(columnValue)))
     // console.log(ele1.newPosition)
-   let  result = this.childArray.map(ele => ele.newPosition );
+    let result = this.childArray.map(ele => ele.newPosition);
 
     if (Number(columnValue) == result) {
       Swal.fire('Warning!', 'Duplicate Position', 'warning');
     }
 
-    
-      else if (this.childArray.length != 0) {
+
+    else if (this.childArray.length != 0) {
       if (this.childArray.some(item => item.id === id)) {
         this.childArray.forEach((element) => {
           if (element.id == id) {
@@ -535,12 +540,10 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
   }
 
-  lengthArr(ele:any)
-  {
+  lengthArr(ele: any) {
     let arrLength = this.childArray.length
 
-    if(ele.target.value > arrLength || ele.target.value == 0)
-    {
+    if (ele.target.value > arrLength || ele.target.value == 0) {
 
       Swal.fire("Invalid Input", `Please Insert Values Below ${arrLength} and above 0`, "error");
       ele.target.value == ""
@@ -553,9 +556,9 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
     this.glStatementCodeService.updatePosition(this.childArray).subscribe(data => {
       this.treeview();
-      this.triggerhide.nativeElement.click();
+      // this.triggerhide.nativeElement.click();
       Swal.fire('Success!', 'Position Shuffled', 'success');
-
+      this.closeBtnClick()
     })
 
 
@@ -569,5 +572,22 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-
+  addModalWindow(targetModal: NgbModal) {
+    this.modalService.open(targetModal, {
+      backdrop: 'static',
+      size: 'sm',
+    });
+  }
+  modalChangeWindow(targetModal: NgbModal) {
+    this.modalService.open(targetModal, {
+      backdrop: 'static',
+      size: 'lg'
+    });
+  }
+  closeBtnClick() {
+    this.modalService.dismissAll();
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
 }

@@ -73,6 +73,10 @@ export class VoucherEntryService {
   getledgerbalance(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/getledgerbalance', data).pipe(catchError(this.handleError));
   }
+  // ledger balance function
+  LedgerBal(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/LedgerBal', data).pipe(catchError(this.handleError));
+  }
 
   getPassedUnpassedBalance(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/getPassedUnpassedBalance', data).pipe(catchError(this.handleError));
