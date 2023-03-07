@@ -7,7 +7,8 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()"
+                #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-3">
@@ -15,8 +16,9 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
-                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' [virtualScroll]="true"
-                                        formControlName="BRANCH_CODE" autofocus>
+                                        (change)="getBranch()" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
+                                        [selectOnTab]='true' [virtualScroll]="true" formControlName="BRANCH_CODE"
+                                        autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -53,7 +55,7 @@
                                 </span>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
@@ -62,8 +64,8 @@
                                     <ng-select id="SECURITY_CODE" bindValue="value" [(ngModel)]="ngsecurityCode"
                                         formControlName="SECURITY_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="securityDetails($event)"
-                                        #SECURITY_CODE (focus)="onFocus(SECURITY_CODE)" [selectOnTab]='true' [virtualScroll]="true"
-                                        placeholder="Security Details">
+                                        #SECURITY_CODE (focus)="onFocus(SECURITY_CODE)" [selectOnTab]='true'
+                                        [virtualScroll]="true" placeholder="Security Details">
                                         <ng-option *ngFor="let values of security" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
