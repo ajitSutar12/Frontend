@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { GlStatementCodeService } from './gl-statement-code.service'
 import { SharedModule } from '../../../../shared/shared.module';
 import { GlStatementCodeComponent } from './gl-statement-code.component';
@@ -32,11 +32,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    HttpClientModule
-
+    HttpClientModule,
+    NgbModalModule
   ],
   declarations: [GlStatementCodeComponent],
-  providers: [StatementTypeService, AlternetCodeDropdownService, GlStatementCodeService,{
+  providers: [StatementTypeService, AlternetCodeDropdownService, GlStatementCodeService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
