@@ -15,11 +15,11 @@
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
-                                <div class="form-group form-primary form-static-label">
+                                <div class="form-group form-primary form-static-label"> 
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                             formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch"
-                                             >
+                                            (change)="getBranch($event)"  > 
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -42,7 +42,7 @@
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getTransferAccountList($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
-                                                {{values.label}} </ng-option>
+                                                {{values.id}}   {{values.label}} </ng-option>
                                         </ng-select>
 
                                     </span>

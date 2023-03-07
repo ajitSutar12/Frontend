@@ -5,9 +5,9 @@ import { LoanOverdueReportRoutingModule } from './loan-overdue-report-routing.mo
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-// import { SharedModule } from 'src/app/shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -21,19 +21,19 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
-    // SharedModule,
+    SharedModule,
 
   ],
-  // providers:[
-  //   {
-  //     provide: PERFECT_SCROLLBAR_CONFIG,
-  //     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+  providers:[
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
-  //   }, {
-  //     provide: HTTP_INTERCEPTORS,
-  //     useClass: UserAuthInterceptor,
-  //     multi: true
-  //   },
-  // ]
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
+  ]
 })
 export class LoanOverdueReportModule { }

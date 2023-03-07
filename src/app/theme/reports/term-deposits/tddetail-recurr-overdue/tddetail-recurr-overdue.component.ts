@@ -43,6 +43,8 @@ export class TddetailRecurrOverdueComponent implements OnInit {
   minDate: Date;
 
   report_url = environment.report_url;
+  ngbranch: any;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -154,7 +156,7 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       // let endingcode =obj.Ending_Account; 
 
       // this.iframe5url = this.report_url + "examples/GuaranterList.php?&NAME= " + bankName + " &AC_TYPE= " + scheme + " &AC_ACNOTYPE=  '" + schemeName + "' &BRANCH_CODE= " + branch + " &PRINT_DATE='" + obj.date + "' ";
-      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch=" + bankName + "&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='AG'&ACACNOTYPE='TD'&AC_TYPE='7'&flag1='" + flag + "'";
+      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch=" + bankName + "&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1='" + flag + "'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
@@ -180,5 +182,8 @@ export class TddetailRecurrOverdueComponent implements OnInit {
   onFocus(ele: NgSelectComponent) { 
     ele.open()
   }
-
+  // getBranch(event) {
+  //   this.ngbranch = event.value
+  //   this.branchName = event.branchName
+  // }
 }

@@ -52,6 +52,7 @@ dates: any = null
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -94,10 +95,14 @@ maxDate: Date;
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -143,19 +148,17 @@ maxDate: Date;
     let toDate = moment(date, 'DD/MM/YYYY')
     obj['DATE']=date 
   }
-//  let Date = moment(obj.date).format('DD/MM/YYYY');
-//  let toDate = moment(Date, 'DD/MM/YYYY')
+
   let scheme = obj.Scheme_code
 
     let branch = obj.BRANCH_CODE;
 
     let schemeName = this.tScheme
 
-    //  let startingcode= obj.Starting_Account;
-    // let endingcode =obj.Ending_Account;
+  
     
-//  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
- this.iframe5url=this.report_url+ "examples/ABtypemdepositelist.php?&Branch='"+branchName+"'&sdate='" + obj.DATE + "'&edate='10/08/2022'&TRAN_DRCR='D'&TRAN_STATUS='1'&AC_ACNOTYPE='"+ schemeName +"'&AC_TYPE="+ scheme +"";  
+
+ this.iframe5url=this.report_url+ "examples/ABtypemdepositelist.php?&Branch='"+branchName+"'&sdate='" + obj.DATE + "'&edate='" + obj.DATE + "'&TRAN_DRCR='D'&TRAN_STATUS='1'&AC_ACNOTYPE='"+ schemeName +"'&AC_TYPE="+ scheme +""; 
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
@@ -179,6 +182,10 @@ maxDate: Date;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 

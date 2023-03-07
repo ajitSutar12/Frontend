@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DDRelativeReportRoutingModule } from './ddrelative-report-routing.module';
-import { DDRelativeReportComponent } from '../ddrelative-report/ddrelative-report.component';
+import { DDRelativeReportComponent } from './ddrelative-report.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';

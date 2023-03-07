@@ -11,7 +11,13 @@ const routes: Routes = [
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
-    }
+    },
+    children:[
+      {
+          path: 'schemeWisedepoaccount',
+          loadChildren: () => import('./schemewise-deposite-ac-details/schemewise-deposite-ac-details.module').then(m => m.SchemewiseDepositeAcDetailsModule)
+        },
+      ]
   }
 ];
 

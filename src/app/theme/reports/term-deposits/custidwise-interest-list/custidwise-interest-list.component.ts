@@ -41,6 +41,7 @@ showRepo: boolean = false;
  // for dropdown ng module
  ngbranch: any = null;
  ngcust: any = null;
+  branchName: any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
@@ -79,10 +80,14 @@ showRepo: boolean = false;
    if (result.RoleDefine[0].Role.id == 1) {
      this.ngbranch = result.branch.id
      this.ngForm.controls['BRANCH_CODE'].enable()
+     this.branchName = result.branch.NAME
+
    }
    else {
      this.ngForm.controls['BRANCH_CODE'].disable()
      this.ngbranch = result.branch.id
+     this.branchName = result.branch.NAME
+
    }
   }
   //validation
@@ -109,14 +114,35 @@ view(event) {
   if(this.ngForm.valid){
   let obj = this.ngForm.value
   this.showRepo = true;
-  let date =  moment(obj.START_DATE).format('DD/MM/YYYY');
-  let tdate =  moment(obj.END_DATE).format('DD/MM/YYYY');
-  
   let custid = obj.CUST_ID
   let branch = obj.BRANCH_CODE
 
-  this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + date + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + branchName + "'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4='NULL'&branch=" + branch + "" ;
-  // this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='08/04/2016'&etdate='31/03/2017'&bankName='ABCBank'&branchName='KOTOLI'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4='NULL'&branch=1";
+  let date =  moment(obj.START_DATE).format('DD/MM/YYYY');
+  let tdate =  moment(obj.END_DATE).format('DD/MM/YYYY');
+   //for start date
+   if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
+   {
+     obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
+   }
+   else{
+   let date = moment(this.fromdate).format('DD/MM/YYYY');
+   let toDate = moment(date, 'DD/MM/YYYY')
+   obj['START_DATE']=date 
+ }
+//for end date
+ if(this.todate == userData.branch.syspara.CURRENT_DATE)
+ {
+   obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
+ }
+ else{
+ let date = moment(this.todate).format('DD/MM/YYYY');
+ let tDate = moment(date, 'DD/MM/YYYY')
+ obj['END_DATE']=date 
+}
+
+
+  this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4=''&branch=" + branch + "" ;
+  // this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + date + "'&etdate='" + date + "'&bankName='" + date + "'&branchName='" + date + "'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4='NULL'&branch=1";
   console.log(this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
  
@@ -128,7 +154,7 @@ else {
 }
 
 close(){
-this.resetForm()
+this.resetForm() 
 }
 
 // Reset Function
@@ -136,5 +162,9 @@ resetForm() {
 this.ngForm.controls.CUST_ID.reset();
 this.showRepo = false;
 this.clicked=false;
+}
+getBranch(event) {
+  this.ngbranch = event.value
+  this.branchName = event.branchName
 }
 }

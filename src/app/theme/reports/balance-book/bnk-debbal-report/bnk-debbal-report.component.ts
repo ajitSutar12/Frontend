@@ -83,11 +83,11 @@ maxDate: Date;
       });
       this.scheme = filtered;
   });
-  this.deadstockmasterService.getDeadstockList().pipe(first()).subscribe(data => {
-    this.startingacc = data;
-    this.endingacc = data;
+  // this.deadstockmasterService.getDeadstockList().pipe(first()).subscribe(data => {
+  //   this.startingacc = data;
+  //   this.endingacc = data;
    
-  });
+  // });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
@@ -295,7 +295,7 @@ maxDate: Date;
  this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName="+ branchName +"&stdate='"+ obj.date +"'&etdate='"+ obj.date +"'&AC_TYPE='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";
 //  this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName='KOTOLI'&stdate='01/04/2016'&etdate='12/08/2022'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
 
- console.log(this.iframeurl);
+ console.log(this.iframeurl); 
  this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

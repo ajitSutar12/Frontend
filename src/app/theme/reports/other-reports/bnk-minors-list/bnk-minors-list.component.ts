@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment"; 
 import { DomSanitizer } from '@angular/platform-browser';
-import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service"; 
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 import { first } from "rxjs/operators";
@@ -47,6 +47,8 @@ dates: any = null
 maxDate: Date; 
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
+
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -73,7 +75,7 @@ maxDate: Date;
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
      
    var filtered = data.filter(function (scheme) {
-     return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+     return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' ||  scheme.name == 'CA'  || scheme.name == 'TD'      );
    });
    this.scheme = filtered;
   
@@ -96,10 +98,14 @@ maxDate: Date;
      if (result.RoleDefine[0].Role.id == 1) {
        this.ngbranch = result.branch.id
        this.ngForm.controls['BRANCH_CODE'].enable()
+       this.branchName = result.branch.NAME
+
      }
      else {
        this.ngForm.controls['BRANCH_CODE'].disable()
        this.ngbranch = result.branch.id
+       this.branchName = result.branch.NAME
+
      }
   }
   getTransferAccountList(event) {
@@ -156,8 +162,8 @@ maxDate: Date;
     let schemeName = this.tScheme
     
 
-   this.iframe5url=this.report_url+ "examples/MinorList1.php?&branch_name=" + branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
-   console.log(this.iframe5url);
+   this.iframe5url=this.report_url+ "examples/MinorList1.php?&branch=" + branch + " &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
+   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   }
   else {
@@ -165,7 +171,6 @@ maxDate: Date;
   }
   }
 
-  
   close(){
     this.resetForm()
 
@@ -180,6 +185,9 @@ maxDate: Date;
     this.showRepo = false;
     this.clicked=false;
   }
-  
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
   
 }

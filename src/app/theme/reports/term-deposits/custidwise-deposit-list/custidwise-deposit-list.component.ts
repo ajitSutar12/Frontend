@@ -112,21 +112,21 @@ view(event) {
   this.showRepo = true;
 
   let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY'); 
-  // if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
-  //   {
-  //     obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
-  //   }
-  //   else{
-  //   let date = moment(this.fromdate).format('DD/MM/YYYY');
-  //   let tDate = moment(date, 'DD/MM/YYYY')
-  //   obj['START_DATE']=date 
-  // }
+  if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
+    {
+      obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
+    }
+    else{
+    let date = moment(this.fromdate).format('DD/MM/YYYY');
+    let tDate = moment(date, 'DD/MM/YYYY')
+    obj['START_DATE']=date 
+  }
   
   let custid = obj.CUST_ID
   let branch = obj.BRANCH_CODE
 
   // this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&custid=" + custid + "&branch="+ branch +"'&bankName=" + bankName + "" ;
-  this.iframe5url=this.report_url+"examples/CustomerIDWiseDepositList.php?START_DATE='" +date + "'&END_DATE='" + date + "'&BRANCH='"+ branchName +"'&AC_TYPE='7'&AC_ACNOTYPE='TD'&AC_OPDATE='"+date+"'&FLAG1='0'&FLAG2='1'&FLAG3='2'&TRAN_DRCR='D'&CUST_ID='6698'";
+  this.iframe5url=this.report_url+"examples/CustomerIDWiseDepositList.php?START_DATE='" +obj.START_DATE + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='"+ branchName +"'&AC_TYPE='7'&AC_ACNOTYPE='TD'&AC_OPDATE='"+obj.START_DATE +"'&FLAG1='0'&FLAG2='1'&FLAG3='2'&TRAN_DRCR='D'&CUST_ID='"+ custid +"'"; 
   console.log( this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   

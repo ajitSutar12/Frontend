@@ -10,7 +10,7 @@ const routes: Routes = [
         title: 'Director & Director relative Loan Report-Proforma-1 ',
         icon: 'icon-home',
         caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        status: false
+        status: false 
       }
   }
 ];

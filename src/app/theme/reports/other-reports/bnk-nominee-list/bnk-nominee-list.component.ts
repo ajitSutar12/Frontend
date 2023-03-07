@@ -49,6 +49,7 @@ dates: any = null
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -92,10 +93,14 @@ maxDate: Date;
      if (result.RoleDefine[0].Role.id == 1) {
        this.ngbranch = result.branch.id
        this.ngForm.controls['BRANCH_CODE'].enable()
+       this.branchName = result.branch.NAME
+
      }
      else {
        this.ngForm.controls['BRANCH_CODE'].disable()
        this.ngbranch = result.branch.id
+       this.branchName = result.branch.NAME
+
      }
     
   }
@@ -141,7 +146,7 @@ maxDate: Date;
     // let endingcode =obj.Ending_Account;
     
 
-   this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='"+ obj.date + "'&scheme='" + scheme + "'";
+   this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='"+ obj.date + "'&scheme='" + scheme + "'&branchname='" + this.branchName + "'";
    console.log(this.iframe5url);
   //  this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='21-04-2021'&scheme='7'";
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
@@ -166,6 +171,9 @@ maxDate: Date;
     this.showRepo = false;
     this.clicked=false;
   }
-  
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
 }
 
