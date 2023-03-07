@@ -10,7 +10,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment";
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser'; 
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
@@ -52,6 +52,8 @@ dates: any = null
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
+  bankName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -79,7 +81,10 @@ maxDate: Date;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+    return (
+      scheme.name == 'LN' || scheme.name == 'CC'
+      // || scheme.name == 'AG'|| scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS' 
+       );
   });
   this.scheme = filtered;
  
@@ -94,10 +99,14 @@ maxDate: Date;
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -140,7 +149,7 @@ maxDate: Date;
     }
     else{
     let date = moment(this.dates).format('DD/MM/YYYY');
-    let tDate = moment(date, 'DD/MM/YYYY')
+    let tDate = moment(date, 'DD/MM/YYYY') 
     obj['date']=date 
   }
 
@@ -156,7 +165,7 @@ maxDate: Date;
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
- this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
+ this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ this.branchName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
 
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
@@ -181,6 +190,10 @@ maxDate: Date;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 

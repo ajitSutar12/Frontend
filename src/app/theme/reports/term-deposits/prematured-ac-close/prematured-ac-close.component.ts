@@ -1,20 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-prematured-ac-close',
-//   templateUrl: './prematured-ac-close.component.html',
-//   styleUrls: ['./prematured-ac-close.component.scss']
-// })
-// export class PrematuredAcCloseComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void { 
-//   }
-
-// }
-
-
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
@@ -65,12 +48,13 @@ transferSchemeDetails: any;
 tScheme
 
  //date
-dates: any = null
+todate: any = null
 bsValue = new Date();
 
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -80,7 +64,7 @@ maxDate: Date;
     private sanitizer: DomSanitizer,
    
   ) {
-    this.dates = moment().format('DD/MM/YYYY');
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1); 
@@ -103,13 +87,13 @@ maxDate: Date;
   this.scheme = filtered;
  
   // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-  //   this.dates = data.CURRENT_DATE;
+  //   this.todate = data.CURRENT_DATE;
   // });
 
 })
 this.systemParameter.getFormData(1).subscribe(data => {
   let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-  this.dates = data.CURRENT_DATE
+  this.todate = data.CURRENT_DATE
   
   this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
   this.fromdate = this.fromdate._d
@@ -120,10 +104,14 @@ this.systemParameter.getFormData(1).subscribe(data => {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -137,8 +125,8 @@ this.systemParameter.getFormData(1).subscribe(data => {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["",[ Validators.required]],
-      date: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
+      END_DATE: ['', [Validators.required]],
      
     });
    
@@ -161,7 +149,27 @@ this.systemParameter.getFormData(1).subscribe(data => {
     let obj = this.ngForm.value
 
  let Date = moment(obj.date).format('DD/MM/YYYY');
- let toDate = moment(Date, 'DD/MM/YYYY')
+ let tDate = moment(Date, 'DD/MM/YYYY')
+   //for start date
+   if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
+   {
+     obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
+   }
+   else{
+   let date = moment(this.fromdate).format('DD/MM/YYYY');
+   let toDate = moment(date, 'DD/MM/YYYY')
+   obj['START_DATE']=date 
+ }
+//for end date
+ if(this.todate == userData.branch.syspara.CURRENT_DATE)
+ {
+   obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
+ }
+ else{
+ let date = moment(this.todate).format('DD/MM/YYYY');
+ let tDate = moment(date, 'DD/MM/YYYY')
+ obj['END_DATE']=date 
+}
   let scheme = obj.Scheme_code
 
     let branch = obj.BRANCH_CODE;
@@ -171,8 +179,8 @@ this.systemParameter.getFormData(1).subscribe(data => {
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
- this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
-
+//  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
+ this.iframe5url=this.report_url+ "examples/PrematuredAccountCloseList.php?START_DATE='"+ obj.START_DATE+"'&END_DATE='"+ obj.END_DATE +"'&BRANCH='"+ this.branchName +"'&AC_TYPE='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
@@ -196,6 +204,10 @@ this.systemParameter.getFormData(1).subscribe(data => {
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 

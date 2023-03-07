@@ -15,6 +15,7 @@ import { BnkODRegisterComponent } from './bnk-odregister/bnk-odregister.componen
 import { BnkRegDeadStockComponent } from './bnk-reg-dead-stock/bnk-reg-dead-stock.component';
 import { BnkIVOpenAndCloseRegComponent } from './bnk-ivopen-and-close-reg/bnk-ivopen-and-close-reg.component';
 import { BnkRegGoldSilverSubReturnComponent } from './bnk-reg-gold-silver-sub-return/bnk-reg-gold-silver-sub-return.component';
+import { LockerRentRegisterComponent } from './locker-rent-register/locker-rent-register.component';
 
 @NgModule({
   imports: [

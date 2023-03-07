@@ -276,11 +276,11 @@ export class ManagerViewComponent implements OnInit {
       this.showTransferPendingDetails = false;
       this.showRejectedPendingDetails = false;
     }
-    this.view()
+    this.view(this.id)
   }
 
   src: any;
-  view() {
+  view(id) {
     this.formSubmitted = true;
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
@@ -294,13 +294,18 @@ export class ManagerViewComponent implements OnInit {
     let rdio = 'none'
     let pcode = 'Both'
     let ccode = 1
-    this.iframe1url = this.report_url + "examples/ScrollBookBoth.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + this.ngBranchCode + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate=" + OpeningData;
-    console.log(this.iframe1url);
-    this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    // let Date = this.date;
-    // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-    console.log(this.iframe1url);
-    this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+
+    if (id === 'userw') {
+      this.iframe1url = this.report_url + "examples/ScrollBookBoth.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + this.ngBranchCode + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate=" + OpeningData;
+      console.log(this.iframe1url);
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+
+    }
+    else if (id === 'userL') { // let Date = this.date;
+      this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      console.log(this.iframe1url);
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+    }
   }
 
   mangerViewDetails

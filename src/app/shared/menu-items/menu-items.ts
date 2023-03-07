@@ -1219,6 +1219,11 @@ const MENUITEMS = [
                 name: 'Deposit Receipt Register',
                 id: 203
               },
+              {
+                state: 'lockerRentRegister',
+                name: 'Locker Rent Register',
+                id: 269
+              },
             ]
           },
           //
@@ -1298,26 +1303,70 @@ const MENUITEMS = [
               {
                 state: 'custidwiseMaturedList',
                 name: 'Customer Id Wise Matured Deposit List',
-                id: 254
+                id: 255
               },
               {
                 state: 'abtypeDepositList',
                 name: 'A/B Type Deposit List',
-                id: 255
+                id: 254
               },
-              
-              
+
+
 
             ]
 
           },
+
+          {
+            state: 'SharesReports',
+            name: 'Shares Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 270,
+            children: [
+              {
+                state: 'cityMemberList',
+                name: 'CityWise Member List',
+                id: 271
+              },
+
+              {
+                state: 'dividendPaidList',
+                name: 'Dividend Paid List Report',
+                id: 272
+              },
+              {
+                state: 'sharesIssueRegister',
+                name: 'Shares Issue Register',
+                id: 273
+              },
+              {
+                state: 'sharesReturnRegister',
+                name: 'Shares Return Register',
+                id: 274
+              },
+              {
+                state: 'sharesTransferRegister',
+                name: 'Shares Transfer Register',
+                id: 275
+              },
+              {
+                state: 'unpaidDividendList',
+                name: 'Unpaid Dividend List',
+                id: 276
+              },
+            ]
+          },
+
+
           //
           // {
           //   state: 'denominationReports',
           //   name: 'Denomination Reports',
           //   id: 134
           // },
-          
+
           //
           // {
           //   state: 'loanReports',
@@ -1330,57 +1379,84 @@ const MENUITEMS = [
             short_label: 'D',
             type: 'sub',
             id: 256,
-            children:[
+            children: [
               {
                 state: 'loanoverduelist',
                 name: 'Loan Overdue List',
                 type: 'sub',
                 id: 257,
-                children:[
-                  {
-                    state: 'DDRelative-Report',
-                    name: 'Director/Director Relative Loan Report',
-                    id: 260
-                  },
-                  {
-                    state: 'DDRelative-Report-performa1',
-                    name: 'Director/Director Relative Loan Report-performa1',
-                    id: 261
-                  },
-                  {
-                    state: 'loanoverduereport',
-                    name: 'Loan Overdue Report',
-                    id: 261
-                  }
-                ]
+
               },
               {
                 state: 'loansecurityreport',
                 name: 'Loan Security Reports',
                 type: 'sub',
                 id: 258,
-                children: [
-                  {
-                    state: 'loancashcreditac',
-                    name: 'Loan/Cash Credit A/c Open/Sanction Date Wise Report',
-                    id: 257
-                  },
-                  {
-                    state: 'Drecb-monthly-list',
-                    name: 'Director Recommanded by wise Monthly Loan List',
-                    id: 258
-                  },
-                  {
-                    state: 'lcd-expiry-list',
-                    name: 'Loan/Cash Credit Expiry List',
-                    id: 259
-                  },
-                
-                ]
+
+              },
+              {
+                state: 'citiwiseLoanBalancereport',
+                name: 'Citiwise Loan Balance Report',
+                type: 'sub',
+                id: 259,
+              },
+              {
+                state: 'lcdLessdraftReport',
+                name: 'Loan Cash Credit Less Draft Report',
+                type: 'sub',
+                id: 260,
+              },
+              {
+                state: 'lcdOverdraftReport',
+                name: 'Loan Cash Credit Over Draft Report',
+                type: 'sub',
+                id: 261,
+              },
+              {
+                state: 'lcd-renewal-list',
+                name: 'Loan Cash Credit Renewal List',
+                type: 'sub',
+                id: 262,
+              },
+              {
+                state: 'lcd-turnover-list',
+                name: 'Loan Cash Credit Turnover List',
+                type: 'sub',
+                id: 263,
+              },
+              {
+                state: 'penalinterestlist',
+                name: 'Penal Interest List',
+                type: 'sub',
+                id: 264,
+              },
+              {
+                state: 'pendingStockStatementlist',
+                name: 'Pending Stock Statement List',
+                type: 'sub',
+                id: 265,
+              },
+              {
+                state: 'receivedStockstatementList',
+                name: 'Received Stock Statement List',
+                type: 'sub',
+                id: 266,
+              },
+              {
+                state: 'recoverycwBalanceList',
+                name: 'Recovery Balance List',
+                type: 'sub',
+                id: 267,
+              },
+              {
+                state: 'receivableInstallInterest',
+                name: 'Receivable Installment and Intrest List',
+                type: 'sub',
+                id: 268,
               },
 
             ],
-          
+
           },
 
           //
@@ -1390,18 +1466,7 @@ const MENUITEMS = [
           //   id: 137
           // },
           // //
-          // {
-          //   state: 'sharesARR',
-          //   name: 'Shares ARR',
-          //   id: 138
-          // },
-          // //
-          // {
-          //   state: 'sharesADR',
-          //   name: 'Shares ADR',
-          //   id: 139
-          // },
-          // //
+          //
           // {
           //   state: 'nottice',
           //   name: 'Nottice',
@@ -1518,16 +1583,55 @@ const MENUITEMS = [
                 name: 'Non Guarantor (A-Type Members Only) List',
                 id: 199
               },
-
+              {
+                state: 'custidIntroducerList',
+                name: 'CustomerIdwise Introducer List',
+                id: 277
+              },
+              {
+                state: 'serviceChargeList',
+                name: 'Service Charges List',
+                id: 278
+              },
+              {
+                state: 'minorToMajorlist',
+                name: 'Minor To Major List',
+                id: 279
+              },
+              {
+                state: 'tranLessAclist',
+                name: 'Transactionless Account List',
+                id: 280
+              },
+              
 
             ]
           },
-          // //
-          // {
-          //   state: 'misReports',
-          //   name: 'MIS Reports',
-          //   id: 142
-          // },
+          //
+          {
+            state: 'misReports',
+            name: 'MIS Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home', 
+            id: 142,
+            children: [
+              {
+                state: 'schemeWisedepoaccount',
+                name: 'SchemeWise Deposit Account Details',
+                id: 277
+              },
+            ]
+          },
+          //
+          {
+            state: 'managerViewReports',
+            name: 'Manager View Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 142
+          },
           //
           {
             state: 'finalReports',

@@ -18,6 +18,10 @@ import { BnkDepAmountMovementDetailComponent } from './bnk-dep-amount-movement-d
 import { BnkLNAmountMovementDetailComponent } from './bnk-lnamount-movement-detail/bnk-lnamount-movement-detail.component';
 import { BnkGurDetailsListComponent } from './bnk-gur-details-list/bnk-gur-details-list.component';
 import { BnkNonGuaranteerViewComponent } from './bnk-non-guaranteer-view/bnk-non-guaranteer-view.component';
+import { TransactionlessAccountListComponent } from './transactionless-account-list/transactionless-account-list.component';
+import { MinorToMajorListComponent } from './minor-to-major-list/minor-to-major-list.component';
+import { ServiceChargesListComponent } from './service-charges-list/service-charges-list.component';
+import { CustidwiseIntroducerListComponent } from './custidwise-introducer-list/custidwise-introducer-list.component';
 
 
 @NgModule({

@@ -57,6 +57,10 @@ const routes: Routes = [
         path: 'DepositReceiptRegister',
         loadChildren: () => import('./deposit-receipt-register/deposit-receipt-register.module').then(m => m.DepositReceiptRegisterModule)
       },
+      {
+        path: 'lockerRentRegister',
+        loadChildren: () => import('./locker-rent-register/locker-rent-register.module').then(m => m.LockerRentRegisterModule)
+      },
     ]
   }
 ];

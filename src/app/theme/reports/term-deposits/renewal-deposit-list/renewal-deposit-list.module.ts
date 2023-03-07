@@ -17,7 +17,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
-
+ 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -26,19 +26,19 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [RenewalDepositListComponent],
   imports: [
     CommonModule,
-    // SharedModule,
+    RenewalDepositListRoutingModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    // PerfectScrollbarModule,
     NgSelectModule,
+    PerfectScrollbarModule,
+  
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    // Iframe5Module,
-
-    RenewalDepositListRoutingModule
+    Iframe5Module
   ], 
-  // exports:[RenewalDepositListComponent],
+  exports:[RenewalDepositListComponent],
   providers: [
     {
 

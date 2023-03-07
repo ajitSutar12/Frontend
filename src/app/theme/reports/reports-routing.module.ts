@@ -51,14 +51,10 @@ const routes: Routes = [
         loadChildren: () => import('./npa-reports/npaReports.module').then(m => m.NpaReportsModule)
       },
       //
+      
       {
-        path: 'sharesARR',
-        loadChildren: () => import('./shares-arr/sharesARR.module').then(m => m.SharesARRModule)
-      },
-      //
-      {
-        path: 'sharesADR',
-        loadChildren: () => import('./shares-adr/sharesADR.module').then(m => m.SharesADRModule)
+        path: 'SharesReports',
+        loadChildren: () => import('./shares-reports/shares-reports.module').then(m => m.SharesReportsModule)
       },
       //
       {
