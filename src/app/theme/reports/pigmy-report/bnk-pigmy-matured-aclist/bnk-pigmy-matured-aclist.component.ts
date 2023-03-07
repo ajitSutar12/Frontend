@@ -43,6 +43,7 @@ schemeCode: any = null;
   url = environment.base_url;
   report_url = environment.report_url;
   iframe5url: any = ' ';
+  branchName: any;
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -102,10 +103,14 @@ schemeCode: any = null;
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
   end() {}
@@ -152,8 +157,8 @@ schemeCode: any = null;
     let scheme = obj.Scheme_code
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
-  
-    this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName+"'&AC_TYPE='"+scheme +"'&var='D'&branchName=" + branchName + "&branch='" + branch + "'";
+    // this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='01/04/2001'&etdate='24/12/2021'&AC_ACNOTYPE='PG'&AC_TYPE='9'&var='D'&branchName='KOTOLI'&branch=1";
+    this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName+"'&AC_TYPE='"+scheme +"'&var='D'&branchName='" + this.branchName + "'&branch='" + branch + "'";
     console.log(this.iframe5url);
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
@@ -174,5 +179,9 @@ resetForm() {
   this.ngForm.controls.Scheme_code.reset();
   this.showRepo = false;
   this.clicked=false;
+}
+getBranch(event) {
+  this.ngbranch = event.value
+  this.branchName = event.branchName
 }
 }

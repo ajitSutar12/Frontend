@@ -50,7 +50,7 @@ export class GlStatementCodeService {
 
   //Update new Code
   updateNewCode(data: any): Observable<any> {
-    return this.http.post(this.url + '/gl-statement-code/newCode1', data);
+    return this.http.post(this.url + '/gl-statement-code/updatenode', data);
   }
 
   //update node position

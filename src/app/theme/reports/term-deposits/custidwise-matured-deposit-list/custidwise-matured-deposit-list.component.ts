@@ -45,6 +45,7 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
   // for dropdown ng module
   ngbranch: any = null;
   ngcust: any = null;
+  branchName: any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
@@ -98,7 +99,7 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
       CUST_ID: ["", [Validators.pattern, Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-
+      WANT_TO_PRINT: [""],
     });
   }
   end() { }
@@ -125,7 +126,9 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
 
       let obj = this.ngForm.value
       this.showRepo = true;
-      
+
+
+      //for start date
     if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
     {
       obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
@@ -135,7 +138,7 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
     let toDate = moment(date, 'DD/MM/YYYY')
     obj['START_DATE']=date 
   }
-
+//for end date
   if(this.todate == userData.branch.syspara.CURRENT_DATE)
   {
     obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
@@ -148,11 +151,20 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
       // let date = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let tdate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
+      let flag = obj.WANT_TO_PRINT;
+
+      if(flag == null){
+        flag = '0';
+      }else{
+        flag = '1';
+      }
+
+
       let custid = obj.CUST_ID
       let branch = obj.BRANCH_CODE
 
       // this.iframe5url = this.report_url + "examples/custidinterestlist.php?stdate='" + date + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + branchName + "'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4='NULL'&branch=" + branch + "";
-      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&S_ACNOTYPE='TD'&flag1=0&sign='-'";
+      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&S_ACNOTYPE='" + schemeName + "'&flag1=0&sign='-'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
@@ -173,4 +185,8 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
     this.showRepo = false;
     this.clicked = false;
   }
+  // getBranch(event) {
+  //   this.ngbranch = event.value
+  //   this.branchName = event.branchName
+  // }
 }

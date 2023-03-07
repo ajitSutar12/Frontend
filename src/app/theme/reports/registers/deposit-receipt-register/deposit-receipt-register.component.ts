@@ -43,6 +43,7 @@ export class DepositReceiptRegisterComponent implements OnInit {
    url = environment.base_url;
    report_url = environment.report_url;
    iframe5url: any = ' ';
+  branchName: any;
   constructor(    private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
@@ -95,10 +96,14 @@ export class DepositReceiptRegisterComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
   
@@ -165,8 +170,13 @@ close(){
 
 // Reset Function
 resetForm() {
-  this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.Scheme_code.reset(); 
   this.showRepo = false;
   this.clicked=false;
 }
+getBranch(event) {
+  this.ngbranch = event.value
+  this.branchName = event.branchName
+}
+
 }

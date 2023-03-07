@@ -53,6 +53,22 @@ const routes: Routes = [
         path: 'BnkNonGuaranteerView',
         loadChildren: () => import('./bnk-non-guaranteer-view/bnk-non-guaranteer-view.module').then(m => m.BnkNonGuaranteerViewModule)
       },
+      {
+        path: 'custidIntroducerList',
+        loadChildren: () => import('./custidwise-introducer-list/custidwise-introducer-list.module').then(m => m.CustidwiseIntroducerListModule)
+      },
+      {
+        path: 'serviceChargeList',
+        loadChildren: () => import('./service-charges-list/service-charges-list.module').then(m => m.ServiceChargesListModule)
+      },
+      {
+        path: 'minorToMajorlist',
+        loadChildren: () => import('./minor-to-major-list/minor-to-major-list.module').then(m => m.MinorToMajorListModule)
+      },
+      {
+        path: 'tranLessAclist',
+        loadChildren: () => import('./transactionless-account-list/transactionless-account-list.module').then(m => m.TransactionlessAccountListModule)
+      },
     ]
   }
 ];

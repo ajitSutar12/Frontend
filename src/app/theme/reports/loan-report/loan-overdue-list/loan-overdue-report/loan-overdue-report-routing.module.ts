@@ -10,22 +10,12 @@ const routes: Routes = [
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit', 
       status: true
-    },
-    // children:[
-    //   {
-    //       path: 'DDRelative-Report',
-    //       loadChildren: () => import('./ddrelative-report/ddrelative-report.module').then(m => m.DDRelativeReportModule)
-    //     },
-    //     {
-    //       path: 'DDRelative-Report-performa1',
-    //       loadChildren: () => import('./dd-relative-proform/dd-relative-proform.module').then(m => m.DdRelativeProformModule)
-    //     },
-    // ]
+    }
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)], 
   exports: [RouterModule]
 })
 export class LoanOverdueReportRoutingModule { } 

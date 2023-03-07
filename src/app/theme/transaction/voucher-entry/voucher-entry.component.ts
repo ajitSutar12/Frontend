@@ -1412,297 +1412,303 @@ export class VoucherEntryComponent implements OnInit {
             this.modalClass = 'modalHide';
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
-              // if (data != 0) {
-              //   // this.submitForm = true
-              // }
-              // else {
-              this._service.ClearVoucherSameBal(obj).subscribe(data => {
-                //debugger
-                if (data != 0) {
-                  this.SideDetails()
-                  this.angForm.controls['amt'].reset();
-                  this.angForm.controls['total_amt'].reset(0);
-                  this.swiper.nativeElement.focus();
-                  Swal.fire('Oops!', data.message, 'error');
-                  // this.submitForm = true
-                  this.modalClass = 'modalHide';
-                } else {
-                  this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
-                    //debugger
-                    if (data != 0) {
-                      this.SideDetails()
-                      this.angForm.controls['amt'].reset();
-                      this.angForm.controls['total_amt'].reset(0);
-                      this.swiper.nativeElement.focus();
-                      Swal.fire('Oops!', data.message, 'error');
-                      // this.submitForm = true
-                      this.modalClass = 'modalHide';
-                    } else {
-                      this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
-                        //debugger
-                        if (data != 0) {
-                          this.SideDetails()
-                          this.angForm.controls['amt'].reset();
-                          this.angForm.controls['total_amt'].reset(0);
-                          this.swiper.nativeElement.focus();
-                          Swal.fire('Oops!', data.message, 'error');
-                          // this.submitForm = true
-                          this.modalClass = 'modalHide';
-                        } else {
-                          this._service.InstructionFreezeAc(obj).subscribe(data => {
-                            //debugger
-                            if (data != 0) {
-                              this.SideDetails()
-                              this.angForm.controls['amt'].reset();
-                              this.angForm.controls['total_amt'].reset(0);
-                              this.swiper.nativeElement.focus();
-                              let el: HTMLElement = this.focusbutton.nativeElement;
-                              Swal.fire('Oops!', data.message, 'error');
-                              // this.submitForm = true
-                              this.modalClass = 'modalHide';
-                            } else {
-                              this._service.MinBalanceChecking(obj).subscribe(data => {
-                                //debugger
-                                if (data != 0) {
-                                  this.SideDetails()
-                                  this.angForm.controls['amt'].reset();
-                                  this.angForm.controls['total_amt'].reset(0);
-                                  this.swiper.nativeElement.focus();
-                                  Swal.fire('Oops!', data.message, 'error');
-                                  // this.submitForm = true
-                                  this.modalClass = 'modalHide';
-                                } else {
-                                  this._service.CheckClearBalAndAmt(obj).subscribe(data => {
-                                    //debugger
-                                    if (data != 0) {
-                                      this.SideDetails()
-                                      this.angForm.controls['amt'].reset();
-                                      this.angForm.controls['total_amt'].reset(0);
-                                      this.swiper.nativeElement.focus();
-                                      Swal.fire('Oops!', data.message, 'error');
-                                      // this.submitForm = true
-                                      this.modalClass = 'modalHide';
-                                    } else {
-                                      this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
-                                        //debugger
-                                        if (data != 0) {
-                                          this.SideDetails()
-                                          this.angForm.controls['amt'].reset();
-                                          this.angForm.controls['total_amt'].reset(0);
-                                          this.swiper.nativeElement.focus();
-                                          // let el: HTMLElement = this.focusbutton.nativeElement;
-                                          Swal.fire('Oops!', data.message, 'error');
-                                          // this.submitForm = true
-                                          this.modalClass = 'modalHide';
-                                        } else {
-                                          this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
-                                            //debugger
-                                            if (data != 0) {
-                                              this.SideDetails()
-                                              this.angForm.controls['amt'].reset();
-                                              this.angForm.controls['total_amt'].reset(0);
-                                              this.swiper.nativeElement.focus();
-                                              let el: HTMLElement = this.focusbutton.nativeElement;
-                                              Swal.fire('Oops!', data.message, 'error');
-                                              // this.submitForm = true
-                                              this.modalClass = 'modalHide';
-                                            } else {
-                                              this._service.DepositAndTotalInstallments(obj).subscribe(data => {
-                                                //debugger
-                                                if (data != 0) {
-                                                  this.SideDetails()
-                                                  this.angForm.controls['amt'].reset();
-                                                  this.angForm.controls['total_amt'].reset(0);
-                                                  this.swiper.nativeElement.focus();
-                                                  let el: HTMLElement = this.focusbutton.nativeElement;
-                                                  Swal.fire('Oops!', data.message, 'error');
-                                                  // this.submitForm = true
-                                                  this.modalClass = 'modalHide';
-                                                } else {
-                                                  this._service.DepositAndDepositAmount(obj).subscribe(data => {
-                                                    //debugger
-                                                    if (data != 0) {
-                                                      this.SideDetails()
-                                                      this.angForm.controls['amt'].reset();
-                                                      this.angForm.controls['total_amt'].reset(0);
-                                                      this.swiper.nativeElement.focus();
-                                                      Swal.fire('Oops!', data.message, 'error');
-                                                      // this.submitForm = true
-                                                      this.modalClass = 'modalHide';
-                                                    } else {
-                                                      this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
-                                                        //debugger
-                                                        if (data != 0) {
-                                                          this.SideDetails()
-                                                          this.angForm.controls['amt'].reset();
-                                                          this.angForm.controls['total_amt'].reset(0);
-                                                          this.swiper.nativeElement.focus();
-                                                          let el: HTMLElement = this.focusbutton.nativeElement;
-                                                          Swal.fire('Oops!', data.message, 'error');
-                                                          // this.submitForm = true
-                                                          this.modalClass = 'modalHide';
-                                                        } else {
-                                                          this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
-                                                            //debugger
-                                                            if (data != 0) {
-                                                              this.SideDetails()
-                                                              this.angForm.controls['amt'].reset();
-                                                              this.angForm.controls['total_amt'].reset(0);
-                                                              this.swiper.nativeElement.focus();
-                                                              let el: HTMLElement = this.focusbutton.nativeElement;
-                                                              Swal.fire('Oops!', data.message, 'error');
-                                                              // this.submitForm = true
-                                                              this.modalClass = 'modalHide';
-                                                            } else {
-                                                              this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
-                                                                //debugger
-                                                                if (data != 0) {
-                                                                  this.SideDetails()
-                                                                  this.angForm.controls['amt'].reset();
-                                                                  this.angForm.controls['total_amt'].reset(0);
-                                                                  this.swiper.nativeElement.focus();
-                                                                  let el: HTMLElement = this.focusbutton.nativeElement;
-                                                                  Swal.fire('Oops!', data.message, 'error');
-                                                                  // this.submitForm = true
-                                                                  this.modalClass = 'modalHide';
-                                                                } else {
-                                                                  this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
-                                                                    //debugger
-                                                                    if (data != 0) {
-                                                                      this.SideDetails()
-                                                                      this.angForm.controls['amt'].reset();
-                                                                      this.angForm.controls['total_amt'].reset(0);
-                                                                      this.swiper.nativeElement.focus();
-                                                                      Swal.fire('Oops!', data.message, 'error');
-                                                                      // this.submitForm = true
-                                                                      this.modalClass = 'modalHide';
-                                                                    } else {
-                                                                      this._service.ZeroBalance(obj).subscribe(data => {
-                                                                        //debugger
-                                                                        if (data != 0) {
-                                                                          this.SideDetails()
-                                                                          this.angForm.controls['amt'].reset();
-                                                                          this.angForm.controls['total_amt'].reset(0);
-                                                                          this.swiper.nativeElement.focus();
-                                                                          Swal.fire('Oops!', data.message, 'error');
-                                                                          // this.submitForm = true
-                                                                          this.modalClass = 'modalHide';
-                                                                        } else {
-                                                                          this._service.CashWithdraw(obj).subscribe(data => {
-                                                                            //debugger
-                                                                            if (data != 0) {
-                                                                              this.SideDetails()
-                                                                              this.angForm.controls['amt'].reset();
-                                                                              this.angForm.controls['total_amt'].reset(0);
-                                                                              this.swiper.nativeElement.focus();
-                                                                              Swal.fire('Oops!', data.message, 'error');
-                                                                              // this.submitForm = true
-                                                                              this.modalClass = 'modalHide';
-                                                                            } else {
-                                                                              this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
-                                                                                //debugger
-                                                                                if (data != 0) {
-                                                                                  this.SideDetails()
-                                                                                  this.angForm.controls['amt'].reset();
-                                                                                  this.angForm.controls['total_amt'].reset(0);
-                                                                                  this.swiper.nativeElement.focus();
-                                                                                  Swal.fire('Oops!', data.message, 'error');
-                                                                                  // this.submitForm = true
-                                                                                  this.modalClass = 'modalHide';
-                                                                                } else {
-                                                                                  this._service.withdrawClosingCondition(obj).subscribe(data => {
-                                                                                    //debugger
-                                                                                    if (data != 0) {
-                                                                                      this.SideDetails()
-                                                                                      this.angForm.controls['amt'].reset();
-                                                                                      this.angForm.controls['total_amt'].reset(0);
-                                                                                      // this.tran_mode.nativeElement.focus()
-                                                                                      this.tran_mode.focus()
-                                                                                      Swal.fire('Oops!', data.message, 'error');
-                                                                                      // this.submitForm = true
-                                                                                      this.modalClass = 'modalHide';
-                                                                                    }
-                                                                                    else {
-                                                                                      this.submitForm = false
-                                                                                      this.modalClass = 'modalHide';
-                                                                                      this.swiper.nativeElement.blur();
-                                                                                      if (this.headData.length == 0)
-                                                                                        this.submitbtn.nativeElement.focus();
-                                                                                    }
-                                                                                  }, err => {
-                                                                                    console.log(err);
-                                                                                  })
-                                                                                }
-                                                                              }, err => {
-                                                                                console.log(err);
-                                                                              })
-                                                                            }
-                                                                          }, err => {
-                                                                            console.log(err);
-                                                                          })
-                                                                        }
-                                                                      }, err => {
-                                                                        console.log(err);
-                                                                      })
-                                                                    }
-                                                                  }, err => {
-                                                                    console.log(err);
-                                                                  })
+              if (data != 0) {
+                this.SideDetails()
+                this.angForm.controls['amt'].reset();
+                this.angForm.controls['total_amt'].reset(0);
+                this.swiper.nativeElement.focus();
+                Swal.fire('Oops!', data.message, 'error');
+                // this.submitForm = true
+                this.modalClass = 'modalHide';
+              }
+              else {
+                this._service.ClearVoucherSameBal(obj).subscribe(data => {
+                  //debugger
+                  if (data != 0) {
+                    this.SideDetails()
+                    this.angForm.controls['amt'].reset();
+                    this.angForm.controls['total_amt'].reset(0);
+                    this.swiper.nativeElement.focus();
+                    Swal.fire('Oops!', data.message, 'error');
+                    // this.submitForm = true
+                    this.modalClass = 'modalHide';
+                  } else {
+                    this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
+                      //debugger
+                      if (data != 0) {
+                        this.SideDetails()
+                        this.angForm.controls['amt'].reset();
+                        this.angForm.controls['total_amt'].reset(0);
+                        this.swiper.nativeElement.focus();
+                        Swal.fire('Oops!', data.message, 'error');
+                        // this.submitForm = true
+                        this.modalClass = 'modalHide';
+                      } else {
+                        this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
+                          //debugger
+                          if (data != 0) {
+                            this.SideDetails()
+                            this.angForm.controls['amt'].reset();
+                            this.angForm.controls['total_amt'].reset(0);
+                            this.swiper.nativeElement.focus();
+                            Swal.fire('Oops!', data.message, 'error');
+                            // this.submitForm = true
+                            this.modalClass = 'modalHide';
+                          } else {
+                            this._service.InstructionFreezeAc(obj).subscribe(data => {
+                              //debugger
+                              if (data != 0) {
+                                this.SideDetails()
+                                this.angForm.controls['amt'].reset();
+                                this.angForm.controls['total_amt'].reset(0);
+                                this.swiper.nativeElement.focus();
+                                let el: HTMLElement = this.focusbutton.nativeElement;
+                                Swal.fire('Oops!', data.message, 'error');
+                                // this.submitForm = true
+                                this.modalClass = 'modalHide';
+                              } else {
+                                this._service.MinBalanceChecking(obj).subscribe(data => {
+                                  //debugger
+                                  if (data != 0) {
+                                    this.SideDetails()
+                                    this.angForm.controls['amt'].reset();
+                                    this.angForm.controls['total_amt'].reset(0);
+                                    this.swiper.nativeElement.focus();
+                                    Swal.fire('Oops!', data.message, 'error');
+                                    // this.submitForm = true
+                                    this.modalClass = 'modalHide';
+                                  } else {
+                                    this._service.CheckClearBalAndAmt(obj).subscribe(data => {
+                                      //debugger
+                                      if (data != 0) {
+                                        this.SideDetails()
+                                        this.angForm.controls['amt'].reset();
+                                        this.angForm.controls['total_amt'].reset(0);
+                                        this.swiper.nativeElement.focus();
+                                        Swal.fire('Oops!', data.message, 'error');
+                                        // this.submitForm = true
+                                        this.modalClass = 'modalHide';
+                                      } else {
+                                        this._service.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
+                                          //debugger
+                                          if (data != 0) {
+                                            this.SideDetails()
+                                            this.angForm.controls['amt'].reset();
+                                            this.angForm.controls['total_amt'].reset(0);
+                                            this.swiper.nativeElement.focus();
+                                            // let el: HTMLElement = this.focusbutton.nativeElement;
+                                            Swal.fire('Oops!', data.message, 'error');
+                                            // this.submitForm = true
+                                            this.modalClass = 'modalHide';
+                                          } else {
+                                            this._service.DepositeAmountAndIntallments(obj).subscribe(data => {
+                                              //debugger
+                                              if (data != 0) {
+                                                this.SideDetails()
+                                                this.angForm.controls['amt'].reset();
+                                                this.angForm.controls['total_amt'].reset(0);
+                                                this.swiper.nativeElement.focus();
+                                                let el: HTMLElement = this.focusbutton.nativeElement;
+                                                Swal.fire('Oops!', data.message, 'error');
+                                                // this.submitForm = true
+                                                this.modalClass = 'modalHide';
+                                              } else {
+                                                this._service.DepositAndTotalInstallments(obj).subscribe(data => {
+                                                  //debugger
+                                                  if (data != 0) {
+                                                    this.SideDetails()
+                                                    this.angForm.controls['amt'].reset();
+                                                    this.angForm.controls['total_amt'].reset(0);
+                                                    this.swiper.nativeElement.focus();
+                                                    let el: HTMLElement = this.focusbutton.nativeElement;
+                                                    Swal.fire('Oops!', data.message, 'error');
+                                                    // this.submitForm = true
+                                                    this.modalClass = 'modalHide';
+                                                  } else {
+                                                    this._service.DepositAndDepositAmount(obj).subscribe(data => {
+                                                      //debugger
+                                                      if (data != 0) {
+                                                        this.SideDetails()
+                                                        this.angForm.controls['amt'].reset();
+                                                        this.angForm.controls['total_amt'].reset(0);
+                                                        this.swiper.nativeElement.focus();
+                                                        Swal.fire('Oops!', data.message, 'error');
+                                                        // this.submitForm = true
+                                                        this.modalClass = 'modalHide';
+                                                      } else {
+                                                        this._service.PremcloseTdateTamtCom(obj).subscribe(data => {
+                                                          //debugger
+                                                          if (data != 0) {
+                                                            this.SideDetails()
+                                                            this.angForm.controls['amt'].reset();
+                                                            this.angForm.controls['total_amt'].reset(0);
+                                                            this.swiper.nativeElement.focus();
+                                                            let el: HTMLElement = this.focusbutton.nativeElement;
+                                                            Swal.fire('Oops!', data.message, 'error');
+                                                            // this.submitForm = true
+                                                            this.modalClass = 'modalHide';
+                                                          } else {
+                                                            this._service.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
+                                                              //debugger
+                                                              if (data != 0) {
+                                                                this.SideDetails()
+                                                                this.angForm.controls['amt'].reset();
+                                                                this.angForm.controls['total_amt'].reset(0);
+                                                                this.swiper.nativeElement.focus();
+                                                                let el: HTMLElement = this.focusbutton.nativeElement;
+                                                                Swal.fire('Oops!', data.message, 'error');
+                                                                // this.submitForm = true
+                                                                this.modalClass = 'modalHide';
+                                                              } else {
+                                                                this._service.ComVouamtClearbalAndStrs(obj).subscribe(data => {
+                                                                  //debugger
+                                                                  if (data != 0) {
+                                                                    this.SideDetails()
+                                                                    this.angForm.controls['amt'].reset();
+                                                                    this.angForm.controls['total_amt'].reset(0);
+                                                                    this.swiper.nativeElement.focus();
+                                                                    let el: HTMLElement = this.focusbutton.nativeElement;
+                                                                    Swal.fire('Oops!', data.message, 'error');
+                                                                    // this.submitForm = true
+                                                                    this.modalClass = 'modalHide';
+                                                                  } else {
+                                                                    this._service.DepositGreaterShareLimitAmt(obj).subscribe(data => {
+                                                                      //debugger
+                                                                      if (data != 0) {
+                                                                        this.SideDetails()
+                                                                        this.angForm.controls['amt'].reset();
+                                                                        this.angForm.controls['total_amt'].reset(0);
+                                                                        this.swiper.nativeElement.focus();
+                                                                        Swal.fire('Oops!', data.message, 'error');
+                                                                        // this.submitForm = true
+                                                                        this.modalClass = 'modalHide';
+                                                                      } else {
+                                                                        this._service.ZeroBalance(obj).subscribe(data => {
+                                                                          //debugger
+                                                                          if (data != 0) {
+                                                                            this.SideDetails()
+                                                                            this.angForm.controls['amt'].reset();
+                                                                            this.angForm.controls['total_amt'].reset(0);
+                                                                            this.swiper.nativeElement.focus();
+                                                                            Swal.fire('Oops!', data.message, 'error');
+                                                                            // this.submitForm = true
+                                                                            this.modalClass = 'modalHide';
+                                                                          } else {
+                                                                            this._service.CashWithdraw(obj).subscribe(data => {
+                                                                              //debugger
+                                                                              if (data != 0) {
+                                                                                this.SideDetails()
+                                                                                this.angForm.controls['amt'].reset();
+                                                                                this.angForm.controls['total_amt'].reset(0);
+                                                                                this.swiper.nativeElement.focus();
+                                                                                Swal.fire('Oops!', data.message, 'error');
+                                                                                // this.submitForm = true
+                                                                                this.modalClass = 'modalHide';
+                                                                              } else {
+                                                                                this._service.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                  //debugger
+                                                                                  if (data != 0) {
+                                                                                    this.SideDetails()
+                                                                                    this.angForm.controls['amt'].reset();
+                                                                                    this.angForm.controls['total_amt'].reset(0);
+                                                                                    this.swiper.nativeElement.focus();
+                                                                                    Swal.fire('Oops!', data.message, 'error');
+                                                                                    // this.submitForm = true
+                                                                                    this.modalClass = 'modalHide';
+                                                                                  } else {
+                                                                                    this._service.withdrawClosingCondition(obj).subscribe(data => {
+                                                                                      //debugger
+                                                                                      if (data != 0) {
+                                                                                        this.SideDetails()
+                                                                                        this.angForm.controls['amt'].reset();
+                                                                                        this.angForm.controls['total_amt'].reset(0);
+                                                                                        // this.tran_mode.nativeElement.focus()
+                                                                                        this.tran_mode.focus()
+                                                                                        Swal.fire('Oops!', data.message, 'error');
+                                                                                        // this.submitForm = true
+                                                                                        this.modalClass = 'modalHide';
+                                                                                      }
+                                                                                      else {
+                                                                                        this.submitForm = false
+                                                                                        this.modalClass = 'modalHide';
+                                                                                        this.swiper.nativeElement.blur();
+                                                                                        if (this.headData.length == 0)
+                                                                                          this.submitbtn.nativeElement.focus();
+                                                                                      }
+                                                                                    }, err => {
+                                                                                      console.log(err);
+                                                                                    })
+                                                                                  }
+                                                                                }, err => {
+                                                                                  console.log(err);
+                                                                                })
+                                                                              }
+                                                                            }, err => {
+                                                                              console.log(err);
+                                                                            })
+                                                                          }
+                                                                        }, err => {
+                                                                          console.log(err);
+                                                                        })
+                                                                      }
+                                                                    }, err => {
+                                                                      console.log(err);
+                                                                    })
 
-                                                                }
-                                                              }, err => {
-                                                                console.log(err);
-                                                              })
-                                                            }
-                                                          }, err => {
-                                                            console.log(err);
-                                                          })
-                                                        }
-                                                      }, err => {
-                                                        console.log(err);
-                                                      })
-                                                    }
-                                                  }, err => {
-                                                    console.log(err);
-                                                  })
+                                                                  }
+                                                                }, err => {
+                                                                  console.log(err);
+                                                                })
+                                                              }
+                                                            }, err => {
+                                                              console.log(err);
+                                                            })
+                                                          }
+                                                        }, err => {
+                                                          console.log(err);
+                                                        })
+                                                      }
+                                                    }, err => {
+                                                      console.log(err);
+                                                    })
 
-                                                }
-                                              }, err => {
-                                                console.log(err);
-                                              })
-                                            }
-                                          }, err => {
-                                            console.log(err);
-                                          })
-                                        }
-                                      }, err => {
-                                        console.log(err);
-                                      })
-                                    }
-                                  }, err => {
-                                    console.log(err);
-                                  })
-                                }
-                              }, err => {
-                                console.log(err);
-                              })
-                            }
-                          }, err => {
-                            console.log(err);
-                          })
-                        }
-                      }, err => {
-                        console.log(err);
-                      })
-                    }
-                  }, err => {
-                    console.log(err);
-                  })
-                }
-              }, err => {
-                console.log(err);
-              })
-              // }
+                                                  }
+                                                }, err => {
+                                                  console.log(err);
+                                                })
+                                              }
+                                            }, err => {
+                                              console.log(err);
+                                            })
+                                          }
+                                        }, err => {
+                                          console.log(err);
+                                        })
+                                      }
+                                    }, err => {
+                                      console.log(err);
+                                    })
+                                  }
+                                }, err => {
+                                  console.log(err);
+                                })
+                              }
+                            }, err => {
+                              console.log(err);
+                            })
+                          }
+                        }, err => {
+                          console.log(err);
+                        })
+                      }
+                    }, err => {
+                      console.log(err);
+                    })
+                  }
+                }, err => {
+                  console.log(err);
+                })
+              }
             }
               , err => {
                 console.log(err);

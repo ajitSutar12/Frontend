@@ -11,20 +11,7 @@ const routes: Routes = [
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit', 
       status: true
     },
-    children:[
-      {
-          path: 'DDRelative-Report',
-          loadChildren: () => import('./ddrelative-report/ddrelative-report.module').then(m => m.DDRelativeReportModule)
-        },
-        {
-          path: 'DDRelative-Report-performa1',
-          loadChildren: () => import('./dd-relative-proform/dd-relative-proform.module').then(m => m.DdRelativeProformModule)
-        },
-        {
-          path: 'loanoverduereport',
-          loadChildren: () => import('./loan-overdue-report/loan-overdue-report.module').then(m => m.LoanOverdueReportModule)
-        },
-    ]
+   
   }
 ];
 

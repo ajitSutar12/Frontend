@@ -16,6 +16,7 @@ import { SecurityCodeService } from '../../policy-settings/definations/security-
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { VoucherEntryService } from '../../../transaction/voucher-entry/voucher-entry.service'
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-security-details',
@@ -138,11 +139,8 @@ export class SecurityDetailsComponent implements OnInit {
 
     // };
 
-    this.runTimer();
-
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-
     })
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
@@ -150,56 +148,47 @@ export class SecurityDetailsComponent implements OnInit {
       });
       this.scheme = filtered;
     })
-
     this.securityMaster.getsecurityMasterList().pipe(first()).subscribe(data => {
       this.security = data;
     })
   }
 
 
-  // newItemEvent(scheme){
-  //   console.log(scheme)
-  // }
-
   schemechange(event) {
-
     this.getschemename = event.name
     this.schemeedit = event.value
     this.getIntroducer()
-
+  }
+  getBranch() {
+    this.getIntroducer()
   }
 
   obj: any
   getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
-
-    this.obj = [this.schemeedit, this.ngBranchCode]
-
-    switch (this.getschemename) {
-      case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-      case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
+    this.accountedit1 = null
+    this.ngsecurityCode = null
+    if (this.ngBranchCode == null)
+      Swal.fire('Please select branch')
+    else if (this.schemeedit == null)
+      Swal.fire('Please select Scheme')
+    else {
+      this.obj = [this.schemeedit, this.ngBranchCode]
+      switch (this.getschemename) {
+        case 'CC':
+          this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+        case 'LN':
+          this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+      }
     }
   }
-
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-
-  }
-
   createForm() {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
@@ -238,28 +227,28 @@ export class SecurityDetailsComponent implements OnInit {
   }
 
   Accountnochange(event) {
-
+    this.angForm.patchValue({
+      LEDGER_BAL: 0
+    })
     this.Accountno = event.bankacno;
     this.accountedit = event.bankacno
     this.accountedit1 = event.value
-
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     console.log(result.branch.syspara.CURRENT_DATE)
     let datadate = result.branch.syspara.CURRENT_DATE
     var addInFrom = moment(datadate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
     let obj = {
-      scheme: this.schemeedit,
-      acno: event.bankacno,
-      date: addInFrom
+      SCHEME: this.schemeedit,
+      BARNCH_CODE: this.ngBranchCode,
+      BANKACNO: event.bankacno,
+      DATE: addInFrom
     }
-    this._voucher.getledgerbalance(obj).subscribe(data => {
+    this._voucher.LedgerBal(obj).subscribe(data => {
       this.angForm.patchValue({
-
         'LEDGER_BAL': Math.abs(data)
       })
     })
-
   }
 
   OpenLink(val) {
@@ -847,7 +836,7 @@ export class SecurityDetailsComponent implements OnInit {
 
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 

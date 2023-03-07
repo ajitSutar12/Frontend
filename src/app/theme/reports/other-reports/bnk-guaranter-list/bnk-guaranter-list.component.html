@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header"> 
                 <h5>Guaranter List</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
@@ -17,7 +17,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                            formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
+                                            formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch"
+                                             (change)="getBranch($event)" >
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -41,7 +42,7 @@
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getTransferAccountList($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
-                                                {{values.name}} {{values.label}} </ng-option>
+                                                {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
 
                                     </span> 

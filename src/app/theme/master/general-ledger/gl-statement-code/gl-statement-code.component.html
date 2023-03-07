@@ -13,30 +13,30 @@
                         <ul class="tree">
                             <li *ngFor="let item of parentCodeArray">{{item.head_name}}
                                 <button class="btn btn-primary"
-                                    (click)="modalLarge.show();AddnewHead(item.id,item.head_name)"><i
+                                    (click)="addModalWindow(modalLarge);AddnewHead(item.id,item.head_name)"><i
                                         class="fa fa-plus-circle" aria-hidden="true"></i>
                                 </button>&nbsp;
                                 <button class="btn btn-secondary"
-                                    (click)="modalChange.show();shuffleHead(item.id,item.head_name)"><i
+                                    (click)="modalChangeWindow(modalChange);shuffleHead(item.id,item.head_name)"><i
                                         class="fa fa-refresh" aria-hidden="true"></i>
                                 </button>
 
                                 <ul>
                                     <li *ngFor="let i of item.child">{{i.head_name}}
                                         <button class="btn btn-primary"
-                                            (click)="modalLarge.show();AddnewHead(i.id,i.head_name)"><i
+                                            (click)="addModalWindow(modalLarge);AddnewHead(i.id,i.head_name)"><i
                                                 class="fa fa-plus-circle" aria-hidden="true"></i></button>&nbsp;
                                         <button class="btn btn-success"
-                                            (click)="modalEdit.show();EditnewHead(i.id,i.head_name)"><i
+                                            (click)="addModalWindow(modalEdit);EditnewHead(i.id,i.head_name)"><i
                                                 class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;
                                         <button class="btn btn-secondary"
-                                            (click)="modalChange.show();shuffleHead(i.id,i.head_name)"><i
+                                            (click)="modalChangeWindow(modalChange);shuffleHead(i.id,i.head_name)"><i
                                                 class="fa fa-refresh" aria-hidden="true"></i></button>&nbsp;
 
                                         <ul>
                                             <li *ngFor="let data of i.child" class="last">{{data.head_name}}
                                                 <button class="btn btn-success"
-                                                    (click)="modalEdit.show();AddnewHead(i.id,i.head_name)"><i
+                                                    (click)="addModalWindow(modalEdit);AddnewHead(i.id,i.head_name)"><i
                                                         class="fa fa-pencil" aria-hidden="true"></i></button>
 
                                             </li>
@@ -58,14 +58,15 @@
 
 <!-- For Add New Head  -->
 
-<app-modal-basic #modalLarge [dialogClass]="'modal-sm'">
-    <div class="app-modal-header">
+<!-- <app-modal-basic #modalLarge [dialogClass]="'modal-sm'"> -->
+<ng-template #modalLarge let-modal>
+    <div class="modal-header">
         <h4 class="modal-title">General New Head</h4>
-        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+        <button type="button" class="close basic-close" (click)="closeBtnClick()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="app-modal-body">
+    <div class="modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
             <div class="row">
                 <div class="col-12">
@@ -90,22 +91,23 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <div class="app-modal-footer">
+    <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalLarge.hide()">Close</button>
+            (click)="closeBtnClick()">Close</button>
     </div>
-</app-modal-basic>
+    <!-- </app-modal-basic> -->
+</ng-template>
 
 <!-- For Edit Modal -->
-
-<app-modal-basic #modalEdit [dialogClass]="'modal-sm'">
-    <div class="app-modal-header">
+<ng-template #modalEdit let-modal>
+    <!-- <app-modal-basic #modalEdit [dialogClass]="'modal-sm'"> -->
+    <div class="modal-header">
         <h4 class="modal-title">Edit In Head</h4>
-        <button type="button" class="close basic-close" (click)="modalEdit.hide()">
+        <button type="button" class="close basic-close" (click)="closeBtnClick()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="app-modal-body">
+    <div class="modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
             <div class="row">
                 <div class="col-12">
@@ -130,22 +132,23 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <div class="app-modal-footer">
+    <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalEdit.hide()">Close</button>
+            (click)="closeBtnClick()">Close</button>
     </div>
-</app-modal-basic>
+    <!-- </app-modal-basic> -->
+</ng-template>
 
 <!-- For Shuffle SubHead -->
 
-<app-modal-basic #modalChange [dialogClass]="'modal-lg'">
-    <div class="app-modal-header">
+<ng-template #modalChange let-modal>
+    <div class="modal-header">
         <h4 class="modal-title">Shuffle Sub Head</h4>
-        <button type="button" class="close basic-close" (click)="modalChange.hide()">
+        <button type="button" class="close basic-close" (click)="closeBtnClick()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="app-modal-body">
+    <div class="modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
             <div class="row">
                 <div class="col-4">
@@ -176,6 +179,7 @@
                                                 <input type="text" style="text-align:center"
                                                     value="{{data.newPosition==null ?data.position :data.newPosition}}"
                                                     maxlength="8" #position (keyup)="lengthArr($event)"
+                                                    (focus)="selectAllContent($event)"
                                                     (change)="getColumnValue(data.id,position.value)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                             </td>
@@ -189,11 +193,11 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <div class="app-modal-footer">
+    <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
-            (click)="modalChange.hide()">Close</button>
-        <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode();modalChange.hide()">Shuffle and
+            (click)="closeBtnClick()">Close</button>
+        <button class="btn btn-outline-primary btn-sm" (click)="shuffleCode();closeBtnClick()">Shuffle and
             Update</button>&nbsp;
 
     </div>
-</app-modal-basic>
+</ng-template>
