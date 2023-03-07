@@ -7,7 +7,7 @@
             <div class="card-block">
                 <div class="row">
                     <div class="col-8">
-                        <table class="table">
+                        <table class="table table-borderless">
                             <thead>
                                 <th>Rate</th>
                                 <th>No. of Acts</th>
@@ -16,7 +16,35 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Deposite Details</td>
+                                    <td style="text-decoration: underline;">Deposite Details</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr *ngFor="let item of depositData">
+                                    <td>{{item.INT_RATE}}</td>
+                                    <td>{{item.NO_OF_ACS}}</td>
+                                    <td>{{item.TOT_BALANCE}}</td>
+                                    <td>0.00</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Sub Total</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr> -->
+                                <tr></tr>
+                                <tr>
+                                    <td style="text-decoration: underline;">Loan Details</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr *ngFor="let item of loanData">
+                                    <td>{{item.INT_RATE}}</td>
+                                    <td>{{item.NO_OF_ACS}}</td>
+                                    <td>{{item.TOT_BALANCE}}</td>
+                                    <td>0.00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -24,15 +52,15 @@
                     <div class="col-4 text-danger">
                         <div class="row">
                            <div class="col-6" style="float:left">Average Loans@</div>
-                           <div class="col-6" >0.00%</div>
+                           <div class="col-6" >{{AverageLoan}}%</div>
                         </div>
                         <div class="row">
                             <div class="col-6" style="float:left">Average Deposits@</div>
-                            <div class="col-6" >0.00%</div>
+                            <div class="col-6" >{{AverageDepo}}%</div>
                         </div>
                         <div class="row">
                             <div class="col-6" style="float:left">Margin@</div>
-                            <div class="col-6" >0.00%</div>
+                            <div class="col-6" >{{Margin}}%</div>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md-5">
-                          <div class="row">
+                            <div class="row">
 
                                 <div class="col-md-2">
                                     <label for="Branch">Branch<sub class="required">* </sub></label>
@@ -18,9 +18,9 @@
 
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <ng-select id="BRANCH" appTheme bindValue="value"
+                                            <ng-select id="BRANCH" appTheme bindValue="name"
                                                 [(ngModel)]="branch_codeList" formControlName="BRANCH" bindLabel="label"
-                                                [virtualScroll]="true" title="Compulsory Selection" 
+                                                [virtualScroll]="true" title="Compulsory Selection"
                                                 placeholder="Branch Code" #BRANCH (focus)="onFocus(BRANCH)"
                                                 [selectOnTab]='true'>
                                                 <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -35,21 +35,17 @@
                                             This field is required
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-md-2"> <label for=" Date"> Date<sub class="required">*</sub></label>
                                 </div>
-                                <!-- <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" appTheme placeholder="dd/mm/yyyy" name="date" id="date"
-                                                [(ngModel)]="date" formControlName="DATE" class="form-control"
-                                                #DATE="bsDatepicker" (keydown.Tab)="DATE.hide()"
-                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" bsDatepicker required
-                                                autofocus>
+                                                formControlName="DATE" class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                 (ngModelChange)="getIntDetails($event)">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -59,16 +55,16 @@
                                             This field is required
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 
-                                <div class="col-sm-12 col-md-4">
+                                <!-- <div class="col-sm-12 col-md-4">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select  bindValue="TRAN_DATE" [(ngModel)]="date"
-                                                formControlName="DATE" bindLabel="TRAN_DATE" title="Compulsory Selection"
-                                                required placeholder="Interest Date" (change)="getIntDetails($event)" >
+                                            <ng-select bindValue="TRAN_DATE" [(ngModel)]="date" formControlName="DATE"
+                                                bindLabel="TRAN_DATE" title="Compulsory Selection" required
+                                                placeholder="Interest Date" (change)="getIntDetails($event)">
                                                 <ng-option *ngFor="let values of warrentDate" [value]="values">
-                                                    {{values.TRAN_DATE}} 
+                                                    {{values.TRAN_DATE}}
                                                 </ng-option>
                                             </ng-select>
                                         </span>
@@ -80,7 +76,7 @@
                                             This field is required.
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -92,12 +88,13 @@
                                 </div>
                                 <div class="col-md align-self-end" style="font-size: 15px; color: black">
 
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOANS - (FUND AVAILABLE FOR LOANS) x 100
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOANS - (FUND AVAILABLE FOR
+                                    LOANS) x 100
                                     <hr style="height:2px;border-width:0;color:gray;background-color:gray">
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     DEPOSITS
                                 </div>
-                                
+
                             </div>
                             <div class="row">
                                 <label class="col-md" style=" color: black">Funds Available For Loans COntains Two Part
@@ -106,23 +103,24 @@
 
                         </div>
                     </div>
-<hr style="height:2px;border-width:0;color:black;background-color:black">
+                    <hr style="height:2px;border-width:0;color:black;background-color:black">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <div class="row m-b-30">
                                 <div class="col-md-12 col-xl-12">
                                     <div class="md-tabs">
-                                        <ngb-tabset>
-                                            <ngb-tab title="DEPOSITS">
+                                        <ngb-tabset (tabChange)="fetchNews($event)">
+                                            <ngb-tab title="DEPOSITS" (click)="tab('Deposits')">
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
-                                                            <div class="card-block highlight">
+                                                            <div class="card-block highlight" style="overflow: auto;">
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
                                                                         <div class="table-responsive">
-                                                                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-                                                                                    class="table table-striped table-bordered table-hover compact">
+                                                                            <table datatable [dtOptions]="dtOptions"
+                                                                                [dtTrigger]="dtTrigger"
+                                                                                class="table table-striped table-bordered table-hover compact">
                                                                                 <thead>
                                                                                     <td class="td_right">Scheme Code</td>
                                                                                     <td>Scheme Name</td>
@@ -131,18 +129,18 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr *ngFor="let item of tableData">
-                                                                                       <td>{{item.TRAN_ACNOTYPE}}</td>
-                                                                                       <td>{{item.S_APPL}}</td>
-                                                                                       <td><input type="checkbox" ></td>
-                                                                                       <td>-</td>
+                                                                                        <td>{{item.acno}}</td>
+                                                                                        <td>{{item.name}}</td>
+                                                                                        <td><input type="checkbox" [checked]="item.depo" (change)="changeCheckbox(item,'Depo',$event)"></td>
+                                                                                        <td class="text-right">{{myMath.abs(item.depobal)}} {{item.depobal >0 ? 'DR' : 'CR'}}</td>
                                                                                     </tr>
                                                                                     <tr *ngIf="showMsg">
-                                                                                        <td colspan="12" class="no-data-available"
-                                                                                                style="text-align: center;">
-                                                                                                No data!
-                                                                                            </td>
+                                                                                        <td colspan="12"
+                                                                                            class="no-data-available"
+                                                                                            style="text-align: center;">
+                                                                                            No data!
+                                                                                        </td>
                                                                                     </tr>
-                                                                                    
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
@@ -157,8 +155,38 @@
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
-                                                            <div class="card-block highlight">
-
+                                                            <div class="card-block highlight" style="overflow: auto;">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="table-responsive">
+                                                                            <table datatable [dtOptions]="dtOptions"
+                                                                                [dtTrigger]="dtTrigger"
+                                                                                class="table table-striped table-bordered table-hover compact">
+                                                                                <thead>
+                                                                                    <td class="td_right">Scheme Code</td>
+                                                                                    <td>Scheme Name</td>
+                                                                                    <td>Accept</td>
+                                                                                    <td>Balance</td>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr *ngFor="let item of tableData">
+                                                                                        <td>{{item.acno}}</td>
+                                                                                        <td>{{item.name}}</td>
+                                                                                        <td><input type="checkbox" [checked]="item.loan" (change)="changeCheckbox(item,'Loan',$event)"></td>
+                                                                                        <td  class="text-right">{{myMath.abs(item.loanbal)}} {{item.loanbal >0 ? 'DR' : 'CR'}}</td>
+                                                                                    </tr>
+                                                                                    <tr *ngIf="showMsg">
+                                                                                        <td colspan="12"
+                                                                                            class="no-data-available"
+                                                                                            style="text-align: center;">
+                                                                                            No data!
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -168,19 +196,81 @@
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
-                                                            <div class="card-block highlight">
-
+                                                            <div class="card-block highlight" style="overflow: auto;">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="table-responsive">
+                                                                            <table datatable [dtOptions]="dtOptions"
+                                                                                [dtTrigger]="dtTrigger"
+                                                                                class="table table-striped table-bordered table-hover compact">
+                                                                                <thead>
+                                                                                    <td class="td_right">Scheme Code
+                                                                                    </td>
+                                                                                    <td>Scheme Name</td>
+                                                                                    <td>Accept</td>
+                                                                                    <td>Balance</td>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr *ngFor="let item of tableData">
+                                                                                        <td>{{item.acno}}</td>
+                                                                                        <td>{{item.name}}</td>
+                                                                                        <td><input type="checkbox" [checked]="item.partA" (change)="changeCheckbox(item,'PartA',$event)"></td>
+                                                                                        <td class="text-right">{{myMath.abs(item.partAbal)}} {{item.partAbal >0 ? 'DR' : 'CR'}}</td>
+                                                                                    </tr>
+                                                                                    <tr *ngIf="showMsg">
+                                                                                        <td colspan="12"
+                                                                                            class="no-data-available"
+                                                                                            style="text-align: center;">
+                                                                                            No data!
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </ng-template>
+                                            </ng-template>
                                             </ngb-tab>
                                             <ngb-tab title="PART B">
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
-                                                            <div class="card-block highlight">
-
+                                                            <div class="card-block highlight" style="overflow: auto;">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="table-responsive">
+                                                                            <table datatable [dtOptions]="dtOptions"
+                                                                                [dtTrigger]="dtTrigger"
+                                                                                class="table table-striped table-bordered table-hover compact">
+                                                                                <thead>
+                                                                                    <td class="td_right">Scheme Code
+                                                                                    </td>
+                                                                                    <td>Scheme Name</td>
+                                                                                    <td>Accept</td>
+                                                                                    <td>Balance</td>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr *ngFor="let item of tableData">
+                                                                                        <td>{{item.acno}}</td>
+                                                                                        <td>{{item.name}}</td>
+                                                                                        <td><input type="checkbox" [checked]="item.partB" (change)="changeCheckbox(item,'PartB',$event)"></td>
+                                                                                        <td  class="text-right">{{myMath.abs(item.partBbal)}} {{item.partBbal >0 ? 'DR' : 'CR'}}</td>
+                                                                                    </tr>
+                                                                                    <tr *ngIf="showMsg">
+                                                                                        <td colspan="12"
+                                                                                            class="no-data-available"
+                                                                                            style="text-align: center;">
+                                                                                            No data!
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -189,22 +279,17 @@
                                         </ngb-tabset>
                                     </div>
                                 </div>
-
                             </div>
-
-
-
                         </div>
-                        <div class="col-md-4 align-self-end">
+                        <div class="col-md-2 align-self-end">
                             <div class="row">
                                 <div class="col ">
                                     <button type="button" class="btn btn-outline-primary btn-sm">
                                         Report</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="update()">
                                         Update</button>
                                     <button type="button" class="btn btn-outline-primary btn-sm">
                                         Find CD Ratio</button>
-
                                 </div>
                             </div>
                         </div>
@@ -212,31 +297,29 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label for=""> Total (PART-B) = {{totalAmt}}</label>
+                            <label for=""> Total ({{ActiveTab}}) = {{myMath.abs(totalAmt)}} {{totalAmt >0 ? 'DR' : 'CR'}}</label>
                         </div>
                     </div>
                     <div class="row">
-                       
                         <div class="col-md-4">
                             <div class="checkbox checkbox-primary">
-                                <div
-                                    class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox"
-                                        id="Con_PRO" formControlName="Con_PRO"
-                                         />
-                                    <label class="border-checkbox-label"
-                                        for="Con_PRO">Consider Profit-Loss in Part-A</label>
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="Con_PRO"
+                                        formControlName="Con_PRO" (click)="profitloassAdd($event)"/>
+                                    <label class="border-checkbox-label" for="Con_PRO">Consider Profit-Loss in
+                                        Part-A</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label class="">Profit-Loss = {{totalAmt}} </label>
+                            <label class="">Profit-Loss = {{profitloss}} </label>
                         </div>
                     </div>
-
                 </div>
             </form>
-
         </div>
     </div>
 </div>
+
+
+<div [class]="modalClass"></div>
