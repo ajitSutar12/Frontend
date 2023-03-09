@@ -184,9 +184,10 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" "
-                                        id="OP_BALANCE" pattern="\d{1,20}(\.\d{2})?" maxlength="13"
-                                        title="Input allowed only  0-9" style="text-align: right;"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        id="OP_BALANCE" maxlength="13" title="Input allowed only  0-9"
+                                        style="text-align: right;" (keyup)="getDecimal($event)"
+                                        (focusout)="getDecimalPoint($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (focus)="selectAllContent($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         formControlName="OP_BALANCE" [required]="openingReq" disabled />
                                     <label for="OP_BALANCE">Opening Amount</label>
@@ -307,9 +308,10 @@
                                         [(ngModel)]="nglastdedate" disabled [maxDate]="maxDate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        [required]="openingReq" bsDatepicker #LAST_DEPR_DATE="bsDatepicker"
+                                        bsDatepicker #LAST_DEPR_DATE="bsDatepicker"
                                         (keydown.Tab)="LAST_DEPR_DATE.hide()"
                                         [ngClass]="{'form-submitted': formSubmitted}">
+                                    <!-- [required]="openingReq" -->
                                     <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
                                 </span>
                             </div>

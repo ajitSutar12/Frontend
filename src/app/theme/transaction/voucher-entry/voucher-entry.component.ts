@@ -222,11 +222,13 @@ export class VoucherEntryComponent implements OnInit {
 
     //Scheme Code
     this._service.getSchemeCodeList().subscribe(data => {
-      this.master = data;
+      var schemeList = data.filter(function (schemeName) {
+        return (schemeName.S_ACNOTYPE != 'LK')
+      });
+      this.master = schemeList;
       //debugger
-      this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
-      this.allSchemeCode = this.allSchemeCode.sort(this.dynamicSort("S_ACNOTYPE"));;
-
+      this.allSchemeCode = [...new Map(schemeList.map(item => [item['S_ACNOTYPE'], item])).values()]
+      this.allSchemeCode = this.allSchemeCode.sort(this.dynamicSort("S_ACNOTYPE"));
     })
 
     //Narration List
@@ -1413,13 +1415,26 @@ export class VoucherEntryComponent implements OnInit {
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
-                this.SideDetails()
-                this.angForm.controls['amt'].reset();
-                this.angForm.controls['total_amt'].reset(0);
-                this.swiper.nativeElement.focus();
-                Swal.fire('Oops!', data.message, 'error');
                 // this.submitForm = true
                 this.modalClass = 'modalHide';
+                Swal.fire({
+                  title: data.message,
+                  html: `<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>`,
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: 'No',
+                  confirmButtonText: 'Yes'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+
+                  } else {
+                    this.angForm.controls['amt'].reset();
+                    this.angForm.controls['total_amt'].reset(0);
+                    this.SideDetails()
+                  }
+                })
               }
               else {
                 this._service.ClearVoucherSameBal(obj).subscribe(data => {
