@@ -418,6 +418,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.approveShow = false;
         this.rejectShow = false;
       }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
       else if (data.SYSCHNG_LOGIN == null) {
         this.unapproveShow = false
         this.showButton = false;
@@ -456,7 +464,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           PURCHASE_RATE: data.PURCHASE_RATE,
           PURCHASE_QUANTITY: data.PURCHASE_QUANTITY,
           // PURCHASE_VALUE: data.PURCHASE_VALUE,
-          OP_BALANCE: data.OP_BALANCE,
+          OP_BALANCE: parseInt(data.OP_BALANCE).toFixed(2),
           OP_QUANTITY: data.OP_QUANTITY,
           LAST_DEPR_DATE: (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = null : date2 = data.LAST_DEPR_DATE,
           // ITEM_TYPE: data.ITEM_TYPE,
