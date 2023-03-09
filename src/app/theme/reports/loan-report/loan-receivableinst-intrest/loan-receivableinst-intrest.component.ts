@@ -79,7 +79,7 @@ maxDate: Date;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+    return (scheme.name == 'LN'|| scheme.name == 'CC');
   });
   this.scheme = filtered;
  
@@ -153,9 +153,8 @@ maxDate: Date;
     let schemeName = this.tScheme
 
     //  let startingcode= obj.Starting_Account;
-    // let endingcode =obj.Ending_Account;
+    // let endingcode =obj.Ending_Account; 
     
-//  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
  this.iframe5url=this.report_url+ "examples/receivable_installmentandinterest.php?date='"+ obj.date +"'&branchName='"+ branchName +"'&FLAG=1&AC_TYPE='12'&branch='"+ branch +"'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
