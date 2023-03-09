@@ -24,8 +24,8 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                                    (focus)="onFocus(branchcode)" appTheme [virtualScroll]="true" (change)="getBranch()"
-                                                    [selectOnTab]='true' #branchcode autofocus>
+                                                    (focus)="onFocus(branchcode)" appTheme [virtualScroll]="true"
+                                                    (change)="getBranch()" [selectOnTab]='true' #branchcode autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -434,7 +434,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Balance
+                        <h6 class="requiredlable">
+                            Balance
+                        </h6>
                     </div>
                     <div class="card-body">
                         <div class="row">

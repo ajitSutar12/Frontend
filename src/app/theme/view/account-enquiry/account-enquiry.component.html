@@ -1852,12 +1852,11 @@
                     </div>
                     <div class="row" *ngIf="customerIDArr.length == 0">
                         <div class=" col-12">
-                            <div class="preloader3 loader-block">
-                                <div class="circ1"></div>
-                                <div class="circ2"></div>
-                                <div class="circ3"></div>
-                                <div class="circ4"></div>
-                            </div>
+                            <div class="loader-block">
+                                <svg id="loader2" viewBox="0 0 100 100">
+                                  <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
+                                </svg>
+                              </div>
                         </div>
                     </div>
                     <div class="row" *ngIf="customerIDArr?.length != 0">
