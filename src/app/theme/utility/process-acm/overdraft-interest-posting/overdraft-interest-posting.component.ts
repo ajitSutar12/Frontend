@@ -5,7 +5,7 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-import {ACMasterDropdownService} from '../../../../shared/dropdownService/ac-master-dropdown.service'
+import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
@@ -26,14 +26,14 @@ export class OverdraftInterestPostingComponent implements OnInit {
 
   // dropdown variaqbles
   branch_code: any;
-  ngBranchCode:any=null
-  schemeedit:any=null
-  ngfromac:any=null
-  ngtoac:any=null
-  ngGlAC:any=null
+  ngBranchCode: any = null
+  schemeedit: any = null
+  ngfromac: any = null
+  ngtoac: any = null
+  ngGlAC: any = null
   scheme: any[];
-  fromAC:any[];
-  ToAC:any[];
+  fromAC: any[];
+  ToAC: any[];
   GLACNooption: any[];
   schemeACNo: any[];
 
@@ -49,11 +49,11 @@ export class OverdraftInterestPostingComponent implements OnInit {
     private ACMasterDropdownService: ACMasterDropdownService,
     private config: NgSelectConfig,
   ) {
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-   }
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
 
@@ -74,18 +74,18 @@ export class OverdraftInterestPostingComponent implements OnInit {
       });
   }
 
-  createForm(){
+  createForm() {
 
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.required]],
-      TO_AC:['',[Validators.required]],
-      CAL_DATE:['',[Validators.required]],
-      GL_ACNO:['',[Validators.required]],
-      PARTICULAR:[''],
-      TOTAL_CHARGE:[''],
-      AUTO_TRAN:[''],
+      TO_AC: ['', [Validators.required]],
+      CAL_DATE: ['', [Validators.required]],
+      GL_ACNO: ['', [Validators.required]],
+      PARTICULAR: [''],
+      TOTAL_CHARGE: [''],
+      AUTO_TRAN: [''],
 
     })
   }
@@ -94,7 +94,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
     this.schemeedit = null
     this.ngfromac = null
     this.ngtoac = null
-    
+
   }
   schemechange(event) {
 
@@ -119,13 +119,13 @@ export class OverdraftInterestPostingComponent implements OnInit {
           this.ToAC = data
         })
         break;
-        case 'SH':
+      case 'SH':
         this.schemeAccountNoService.getShareSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
         })
         break;
-        case 'CA':
+      case 'CA':
         this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
@@ -140,25 +140,25 @@ export class OverdraftInterestPostingComponent implements OnInit {
 
         })
         break;
-        case 'TD':
+      case 'TD':
         this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
         })
         break;
-        case 'DS':
+      case 'DS':
         this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
         })
         break;
-        case 'GS':
+      case 'GS':
         this.schemeAccountNoService.getAnamatSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
         })
         break;
-        case 'PG':
+      case 'PG':
         this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
@@ -174,24 +174,24 @@ export class OverdraftInterestPostingComponent implements OnInit {
 
         })
         break;
-        case 'AG':
+      case 'AG':
         this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
         })
         break;
-        case 'IV':
+      case 'IV':
         this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.fromAC = data;
           this.ToAC = data
         })
         break;
-        case 'GL':
-          this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
-            this.fromAC = data;
+      case 'GL':
+        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+          this.fromAC = data;
           this.ToAC = data
-          })
-          break;
+        })
+        break;
     }
   }
 
@@ -202,13 +202,16 @@ export class OverdraftInterestPostingComponent implements OnInit {
     $event.target.value = data;
   }
 
-  select(){
+  select() {
     if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
-     
-     
+
+
     }
   }
-  
+
+  submit() {
+
+  }
 
 }
