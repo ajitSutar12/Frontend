@@ -141,7 +141,7 @@ view(event) {
 }
 
 
-  this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4=''&branch=" + branch + "" ;
+  this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&CUST_ID=" + custid + "&branch=" + branch + "" ;
   // this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + date + "'&etdate='" + date + "'&bankName='" + date + "'&branchName='" + date + "'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4='NULL'&branch=1";
   console.log(this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

@@ -17,6 +17,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                        (change)="getBranch($event)"
                                             formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
@@ -91,7 +92,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                        class="form-control" [(ngModel)]="dates" [bsValue]="bsValue"
                                         [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

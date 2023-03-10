@@ -158,7 +158,7 @@ schemeCode: any = null;
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
     // this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='01/04/2001'&etdate='24/12/2021'&AC_ACNOTYPE='PG'&AC_TYPE='9'&var='D'&branchName='KOTOLI'&branch=1";
-    this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName+"'&AC_TYPE='"+scheme +"'&var='D'&branchName='" + this.branchName + "'&branch='" + branch + "'";
+    this.iframe5url=this.report_url+"examples/pigmymaturelist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName+"'&AC_TYPE='"+scheme +"'&var='D'&branchName='" + this.branchName + "'&branch='" + branch + "'&bankName='" + bankName + "'";
     console.log(this.iframe5url);
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     

@@ -88,8 +88,7 @@ export class LcdRenewalListComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC'
-        );
+        return (scheme.name == 'LN' || scheme.name == 'CC');
       });
       this.scheme = filtered;
 

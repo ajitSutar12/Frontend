@@ -81,7 +81,7 @@ export class SharesTransferRegisterComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'AG' || scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA' || scheme.name == 'LK' || scheme.name == 'AG' || scheme.name == 'IV' || scheme.name == 'GS');
+        return (scheme.name == 'SH');
       });
       this.scheme = filtered;
 
@@ -169,7 +169,6 @@ export class SharesTransferRegisterComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      // this.iframe5url = this.report_url + "examples/GuaranterList.php?&NAME= " + bankName + " &AC_TYPE= " + scheme + " &AC_ACNOTYPE=  '" + schemeName + "' &BRANCH_CODE= " + branch + " &PRINT_DATE='" + obj.date + "' ";
       this.iframe5url = this.report_url + "examples/shares_transfer_register.php?&BankName='" + bankName + "'&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_TYPE='" + scheme + "'&TRAN_TYPE1='TR'&TRAN_TYPE2='JV'&TRANDRCR='D'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

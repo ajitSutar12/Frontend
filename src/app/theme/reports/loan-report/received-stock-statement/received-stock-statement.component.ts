@@ -54,6 +54,7 @@ export class ReceivedStockStatementComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -81,7 +82,7 @@ export class ReceivedStockStatementComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'AG' || scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA' || scheme.name == 'LK' || scheme.name == 'AG' || scheme.name == 'IV' || scheme.name == 'GS');
+        return ( scheme.name == 'LN' || scheme.name == 'CC');
       });
       this.scheme = filtered;
 
@@ -103,10 +104,14 @@ export class ReceivedStockStatementComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -173,8 +178,7 @@ export class ReceivedStockStatementComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      //  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
-      this.iframe5url = this.report_url + "examples/ReceivedStockStatement.php?&Branch='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName + "'";
+      this.iframe5url = this.report_url + "examples/ReceivedStockStatement.php?&Branch='" + this.branchName+ "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
@@ -198,6 +202,10 @@ export class ReceivedStockStatementComponent implements OnInit {
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 
