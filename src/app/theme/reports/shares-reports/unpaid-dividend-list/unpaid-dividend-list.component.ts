@@ -59,6 +59,7 @@ dates: any = null
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -87,7 +88,7 @@ maxDate: Date;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+    return (scheme.name == 'SH');
   });
   this.scheme = filtered;
  
@@ -102,10 +103,14 @@ maxDate: Date;
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -300,7 +305,7 @@ maxDate: Date;
      let startingcode= obj.FROM_AC_NO;
     let endingcode =obj.TO_AC_NO;
     
- this.iframe5url=this.report_url+ "examples/unpaid_dividend_list.php?branchName="+ branchName +"&reportdate='"+  obj.date +"'&membno_from="+ startingcode +"&membno_to="+ endingcode +"&S_APPL='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";  
+ this.iframe5url=this.report_url+ "examples/unpaid_dividend_list.php?branchName="+ this.branchName +"&reportdate='"+  obj.date +"'&membno_from="+ startingcode +"&membno_to="+ endingcode +"&S_APPL='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";  
 
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
@@ -325,6 +330,10 @@ maxDate: Date;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 

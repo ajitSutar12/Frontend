@@ -59,6 +59,7 @@ export class CitywiseMemberListComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -88,7 +89,7 @@ export class CitywiseMemberListComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'AG' || scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA' || scheme.name == 'LK' || scheme.name == 'AG' || scheme.name == 'IV' || scheme.name == 'GS');
+        return (scheme.name == 'SH');
       });
       this.scheme = filtered;
 
@@ -115,10 +116,14 @@ export class CitywiseMemberListComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -164,11 +169,11 @@ export class CitywiseMemberListComponent implements OnInit {
       // let Date = moment(obj.date).format('DD/MM/YYYY');
       // let toDate = moment(Date, 'DD/MM/YYYY')
       //for start date
-      if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+      if (this.dates == userData.branch.syspara.CURRENT_DATE) {
         obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
       }
       else {
-        let date = moment(this.fromdate).format('DD/MM/YYYY');
+        let date = moment(this.dates).format('DD/MM/YYYY');
         let toDate = moment(date, 'DD/MM/YYYY')
         obj['START_DATE'] = date
       }
@@ -176,8 +181,7 @@ export class CitywiseMemberListComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      //  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
-      this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='" + bankName + "'&Branch='" + branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&CITY_CODE='" + cityCode + "'";
+      this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='" + bankName + "'&Branch='" + this.branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&CITY_CODE='" + cityCode + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
@@ -214,6 +218,10 @@ export class CitywiseMemberListComponent implements OnInit {
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 
