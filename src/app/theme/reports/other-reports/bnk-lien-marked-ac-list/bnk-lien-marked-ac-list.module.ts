@@ -14,14 +14,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BnkLienMarkedAcListComponent } from './bnk-lien-marked-ac-list.component';
+import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
-
-// const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-//   suppressScrollX: true
-// };
 @NgModule({
   declarations: [BnkLienMarkedAcListComponent],
   imports: [

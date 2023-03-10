@@ -1,20 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-shares-issue-register',
-//   templateUrl: './shares-issue-register.component.html',
-//   styleUrls: ['./shares-issue-register.component.scss']
-// })
-// export class SharesIssueRegisterComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
@@ -72,6 +55,7 @@ bsValue = new Date();
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -99,7 +83,7 @@ maxDate: Date;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'AG'|| scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA'  || scheme.name == 'LK' || scheme.name == 'AG'  || scheme.name == 'IV'  || scheme.name == 'GS'  );
+    return (scheme.name == 'SH');
   });
   this.scheme = filtered;
  
@@ -121,10 +105,14 @@ this.systemParameter.getFormData(1).subscribe(data => {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -172,8 +160,8 @@ this.systemParameter.getFormData(1).subscribe(data => {
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
- this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
-
+this.iframe5url=this.report_url+ "examples/ShareIssueRegister.php?START_DATE='"+ obj.START_DATE +"'&END_DATE='"+ obj.END_DATE +"'&BRANCH='"+ this.branchName +"'&AC_TYPE='"+ branch +"'";
+// this.iframe5url=this.report_url+ "examples/ShareIssueRegister.php?START_DATE='01/01/2001'&END_DATE='02/02/2023'&BRANCH='MIDCSHIROLI'&AC_TYPE='1'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
@@ -199,6 +187,10 @@ this.systemParameter.getFormData(1).subscribe(data => {
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 

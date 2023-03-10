@@ -1,20 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-custidwise-introducer-list',
-//   templateUrl: './custidwise-introducer-list.component.html',
-//   styleUrls: ['./custidwise-introducer-list.component.scss']
-// })
-// export class CustidwiseIntroducerListComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
- 
-// }
-
-
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
@@ -182,7 +165,7 @@ this.systemParameter.getFormData(1).subscribe(data => {
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
- this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
+//  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
 
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 

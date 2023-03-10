@@ -33,8 +33,8 @@ minDate: Date;
  report_url = environment.report_url;
  showRepo: boolean = false;
  clicked:boolean=false;
- iframeurl: any = ' ';
-  constructor(private fb: FormBuilder,
+ iframe5url: any = '';
+ constructor(private fb: FormBuilder,
     private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -118,10 +118,10 @@ view(event) {
   let scheme = obj.Scheme_code 
   let branch = obj.BRANCH_CODE
        
- this.iframeurl= this.report_url+"examples/LineMarkedList.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&NAME='"+ bankName +"'";
+ this.iframe5url= this.report_url+"examples/LineMarkedList.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&NAME='"+ bankName +"'";
 
- console.log(this.iframeurl);
- this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+ console.log(this.iframe5url);
+ this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
  
  
  

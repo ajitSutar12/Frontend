@@ -17,6 +17,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                        (change)="getBranch($event)"
                                             formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
@@ -86,7 +87,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                            [(ngModel)]="dates" formControlName="END_DATE"
+                                            [(ngModel)]="todate" formControlName="END_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
