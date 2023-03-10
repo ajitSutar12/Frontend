@@ -21,7 +21,7 @@ class DataTableResponse {
 
 interface GlreportMaster {
 
-  REPO_TYPE: string,
+  REPORT_TYPE: string,
   CODE: number,
   NAME: string,
   CODE_TYPE: string,
@@ -70,8 +70,8 @@ export class GlReportMasterComponent implements OnInit {
     { id: 'A', name: 'On Balance Sheet Item' },
     { id: 'B', name: 'Off Balance Sheet Item' },
     { id: 'C', name: 'Capital Funds and Risk Assets Ratio' },];
- 
-    //ngModel
+
+  //ngModel
   selectedType
   reportType
 
@@ -151,7 +151,7 @@ export class GlReportMasterComponent implements OnInit {
         },
         {
           title: "Report Type",
-          data: "REPO_TYPE",
+          data: "REPORT_TYPE",
         },
         {
           title: "Code",
@@ -186,26 +186,18 @@ export class GlReportMasterComponent implements OnInit {
       dom: "Blrtip",
 
     };
-
-
     this.createForm();
-
     this.reportTypeDropdown.getReportTMasterList().pipe(first())
       .subscribe((data) => {
         this.glreport = data;
       });
-
-     
-
   }
-
 
   createForm() {
     this.ngForm = this.fb.group({
-
       CODE: ["", [Validators.required]],
       NAME: ["", [Validators.required]],
-      REPO_TYPE: ["", [Validators.required]],
+      REPORT_TYPE: ["", [Validators.required]],
       CODE_TYPE: ["", [Validators.required]],
       ADD_PL_AMOUNT: [''],
       SERIAL_NO: ["", [Validators.required]],
@@ -214,18 +206,13 @@ export class GlReportMasterComponent implements OnInit {
       IS_PRINT_IN_REPORT: [''],
       PERCENTAGE: ["", [Validators.required]],
       PERCENTAGE_CONSIDARATION: ["", [Validators.required]],
-
-
     });
   }
 
   addData() {
-    
     const formVal = this.ngForm.value;
-
     var dataToSend = {
-
-      REPO_TYPE:formVal.REPO_TYPE,
+      REPORT_TYPE: formVal.REPORT_TYPE,
       CODE: formVal.CODE,
       NAME: formVal.NAME,
       CODE_TYPE: formVal.CODE_TYPE,
@@ -236,14 +223,7 @@ export class GlReportMasterComponent implements OnInit {
       IS_PRINT_IN_REPORT: (formVal.IS_PRINT_IN_REPORT == true ? '1' : '0'),
       PERCENTAGE: formVal.PERCENTAGE,
       PERCENTAGE_CONSIDARATION: formVal.PERCENTAGE_CONSIDARATION
-
-
     }
-
-    // this.glreportMaster.push(object);
-
-    // console.log(this.ngForm.value);
-
     this.glReportMasterService.postToData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -255,7 +235,6 @@ export class GlReportMasterComponent implements OnInit {
     })
     //To clear form
     this.resetForm();
-
   }
 
 
@@ -266,43 +245,33 @@ export class GlReportMasterComponent implements OnInit {
 
   //function for edit button clicked
   editClickHandler(id) {
-debugger
     this.addButton = false;
     this.updateButton = true;
     this.glReportMasterService.getFromData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngForm.patchValue({
-        REPO_TYPE:data.REPO_TYPE,
+        REPORT_TYPE: data.REPORT_TYPE,
         CODE: data.CODE,
         NAME: data.NAME,
-        CODE_TYPE:data.CODE_TYPE,
+        CODE_TYPE: data.CODE_TYPE,
         SERIAL_NO: data.SERIAL_NO,
         PERCENTAGE: data.PERCENTAGE,
         PERCENTAGE_CONSIDARATION: data.PERCENTAGE_CONSIDARATION,
         PERCENTAGE_OF_CODE: data.PERCENTAGE_OF_CODE,
-        ADD_PL_AMOUNT: (data.ADD_PL_AMOUNT ==  true ? '1' : '0'),
-        INPUT_ALLOWED: (data.INPUT_ALLOWED ==  true ? '1' : '0'),
-        IS_PRINT_IN_REPORT: (data.IS_PRINT_IN_REPORT ==  true ? '1' : '0'),
+        ADD_PL_AMOUNT: (data.ADD_PL_AMOUNT == 1 ? true : false),
+        INPUT_ALLOWED: (data.INPUT_ALLOWED == 1 ? true : false),
+        IS_PRINT_IN_REPORT: (data.IS_PRINT_IN_REPORT == 1 ? true : false),
       })
-
     })
   }
 
   //function toggle update to add button
   updateData() {
-      
-
     let data = this.ngForm.value;
     data['id'] = this.updateID;
-
-    // data ['CODE']= data.CODE,
-    // data['NAME']= data.NAME,
-    // data['CODE_TYPE']= data.CODE_TYPE,
-    // data['SERIAL_NO']= data.SERIAL_NO,
-    // data['PERCENTAGE']= data.PERCENTAGE,
-    // data['PERCENTAGE_CONSIDARATION']= data.PERCENTAGE_CONSIDARATION,
-    // data['PERCENTAGE_OF_CODE']= data.PERCENTAGE_OF_CODE,
-
+    data['ADD_PL_AMOUNT'] = data['ADD_PL_AMOUNT'] == true ? 1 : 0
+    data['INPUT_ALLOWED'] = data['INPUT_ALLOWED'] == true ? 1 : 0
+    data['IS_PRINT_IN_REPORT'] = data['IS_PRINT_IN_REPORT'] == true ? 1 : 0
     this.glReportMasterService.updateToData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.addButton = true;
@@ -312,14 +281,8 @@ debugger
       });
       this.resetForm();
     })
-
   }
 
-
-
-  onFocus(ele: NgSelectComponent) {
-    ele.open()
-  }
   checkmargin(ele: any) {
     //check  if given value  is below 100
     if (ele.target.value <= 100) {
@@ -327,7 +290,6 @@ debugger
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
       ele.target.value = 0
-  
     }
   }
 
@@ -335,4 +297,22 @@ debugger
     var t = event.target.value;
     event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+    console.log(ele);
+  }
+
+  onOpen(select: NgSelectComponent) {
+    //debugger
+    select.open()
+  }
+
+  onClose(select: NgSelectComponent) {
+    select.close()
+  }
+
 }
