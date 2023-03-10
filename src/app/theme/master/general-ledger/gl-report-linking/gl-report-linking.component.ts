@@ -27,7 +27,7 @@ interface GlreportLink {
   EFFECT_DATE: number,
   EFFECT_TO_DATE: number,
   CODE: number,
-  AC_ACNOTYPE: string,
+  CODE_TYPE: string,
   DEFAULT_BALTYPE: number,
   REVERSE_CODE: number,
   SUB_COLUMN_NO: number
@@ -58,31 +58,21 @@ export class GlReportLinkingComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-
   url = environment.base_url;
-
-
+  effectdate
   schemeACNo: any;
   updateID: number = 0;
-
-
   dtExportButtonOptions: any = {};//Datatable variable
   //filter variable
   filterData = {};
   page: number = 1;
-
-
   angForm: FormGroup;
-
   glreportLink: GlreportLink[];
-
   //ddl
   drcr: any = [
     { id: 1, name: 'DEBIT' },
     { id: 2, name: 'CREDIT' },];
 
-  
-  
   headName: any = [];
   //ngmodel
   ngName
@@ -102,20 +92,14 @@ export class GlReportLinkingComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
 
   ) {
-    // this.maxDate = new Date();
-    // // this.maxDate.setDate(this.maxDate.getDate());
-
-    // this.systemParameter.getFormData(1).subscribe(data => {
-    //   this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-    //   this.maxDate = this.maxDate._d
-    // })
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
   }
 
   ngOnInit(): void {
-
     this.createForm();
-
-
     this.dtExportButtonOptions = {
       pagingType: "full_numbers",
       paging: true,
@@ -166,7 +150,6 @@ export class GlReportLinkingComponent implements OnInit {
       columns: [
         {
           title: 'Action',
-
         },
         {
           title: 'Sr No',
@@ -190,11 +173,11 @@ export class GlReportLinkingComponent implements OnInit {
         },
         {
           title: 'Head Code',
-          data: 'AC_ACNOTYPE'
+          data: 'CODE_TYPE'
         },
         // {
         //   title: 'Head Name',
-        //   data: 'AC_ACNOTYPE'
+        //   data: 'CODE_TYPE'
         // },
         {
           title: 'Default Balance Type',
@@ -210,77 +193,49 @@ export class GlReportLinkingComponent implements OnInit {
         },
       ],
       dom: 'Blrtip',
-
     };
-
-    // this.reportTypeDropdown.getReportTMasterList().pipe(first())
-    // .subscribe((data) => {
-    //   this.headName = data;
-    // });
-
-
-
-    // this.schemeAccountNoService.getAnamatSchemeList1(this.obj).pipe(first()).subscribe(data => {
-    //   this.schemeACNo = data;
-    // })
-
     this.http.get<any>(this.url + '/gl-account-master/').subscribe(data => {
       this.schemeACNo = data;
     })
-
-    this.http.get<any>(this.url + '/gl-account-master/reportMasterList/').subscribe(data => {
+    this.http.post(this.url + '/gl-account-master/reportMasterList', '').subscribe(data => {
       this.headName = data;
     })
-
   }
-
-
   createForm() {
     this.angForm = this.fb.group({
-
       SR_NO: ["", [Validators.required]],
       AC_NO: ["", [Validators.required]],
       // AC_NAME: ["", [Validators.required]],
       EFFECT_DATE: ["", [Validators.required]],
       EFFECT_TO_DATE: ["", [Validators.required]],
       CODE: ["", [Validators.required]],
-      AC_ACNOTYPE: ["", [Validators.required]],
+      CODE_TYPE: ["", [Validators.required]],
       DEFAULT_BALTYPE: ["", [Validators.required]],
       REVERSE_CODE: ["", [Validators.required]],
-      SUB_COLUMN_NO: ["", [Validators.required]],
-
+      SUB_COLUMN_NO: ["", [Validators.required]]
     });
   }
 
-
   addData() {
-
     const formVal = this.angForm.value;
     var dataToSend = {
-
       SR_NO: formVal.SR_NO,
       AC_NO: formVal.AC_NO,
       // AC_NAME:  formVal.AC_NAME,
       EFFECT_DATE: moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
       EFFECT_TO_DATE: moment(formVal.EFFECT_TO_DATE).format('DD/MM/YYYY'),
       CODE: formVal.CODE,
-      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      CODE_TYPE: formVal.CODE_TYPE,
       DEFAULT_BALTYPE: formVal.DEFAULT_BALTYPE,
       REVERSE_CODE: formVal.REVERSE_CODE,
       SUB_COLUMN_NO: formVal.SUB_COLUMN_NO,
-
     }
-
-    // this.glreportLink.push(object);
     this.resetForm();
-
-    // console.log(this.ngForm.value);
     this.glLinkingMasterService.postLData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-
     }, (error) => {
       console.log(error)
     })
@@ -288,36 +243,38 @@ export class GlReportLinkingComponent implements OnInit {
 
   //function for edit button clicked
   editClickHandler(id) {
-
     this.addButton = false;
     this.updateButton = true;
     this.glLinkingMasterService.getFromLData(id).subscribe(data => {
       this.updateID = data.id;
+      this.effectdate = moment(data.EFFECT_DATE, 'DD/MM/YYYY')
+      this.effectdate = this.effectdate._d
       this.angForm.patchValue({
-
         SR_NO: data.SR_NO,
         AC_NO: data.AC_NO,
         // AC_NAME:  data.AC_NAME,
-        EFFECT_DATE: moment(data.EFFECT_DATE).format('DD/MM/YYYY'),
-        EFFECT_TO_DATE: moment(data.EFFECT_TO_DATE).format('DD/MM/YYYY'),
+        EFFECT_DATE: data.EFFECT_DATE,
+        EFFECT_TO_DATE: data.EFFECT_TO_DATE,
         CODE: data.CODE,
-        AC_ACNOTYPE: Number(data.AC_ACNOTYPE),
+        CODE_TYPE: Number(data.CODE_TYPE),
         DEFAULT_BALTYPE: data.DEFAULT_BALTYPE,
-        REVERSE_CODE: data.REVERSE_CODE,
+        REVERSE_CODE: Number(data.REVERSE_CODE),
         SUB_COLUMN_NO: data.SUB_COLUMN_NO,
-
       })
-
     })
   }
 
   //function toggle update to add button
   updateData() {
-
     //  this.addButton = true;
     // this.updateButton = false;
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    let EFFECT_DATE = moment(data.EFFECT_DATE, 'DD/MM/YYYY')
+    data['EFFECT_DATE'] = moment(EFFECT_DATE).format('DD/MM/YYYY')
+    let EFFECT_TODATE = moment(data.EFFECT_TO_DATE, 'DD/MM/YYYY')
+    data['EFFECT_TO_DATE'] = moment(EFFECT_TODATE).format('DD/MM/YYYY')
+
     this.glLinkingMasterService.updateLData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.addButton = true;
@@ -327,12 +284,10 @@ export class GlReportLinkingComponent implements OnInit {
       });
       this.resetForm();
     })
-
   }
 
   //reset form
   resetForm() {
     this.createForm()
   }
-
 }
