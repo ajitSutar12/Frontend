@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 import {
   FormGroup,
   FormBuilder,
-  Validators, 
+  Validators,
   FormControl,
 } from "@angular/forms";
 import { landandbuildingsService } from "./land-and-buildings.service";
@@ -25,7 +25,8 @@ import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
-
+import { LandUnitsService } from '../../../../../shared/dropdownService/landunits.service'
+import { NgSelectComponent } from '@ng-select/ng-select'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -98,11 +99,13 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   dtTrigger: Subject<any> = new Subject();
   page: number;
   filterData = {};
-
+  units
+  unitofarea
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private _land: landandbuildingsService,
+    private landUnits: LandUnitsService,
     public router: Router
   ) {
 
@@ -131,6 +134,8 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     this._land.getdatatable(obj).pipe(first()).subscribe((data) => {
       this.landMasters = data
     })
+    this.unitofarea = this.landUnits.getCharacters()
+
     this.dtTrigger.next();
 
     // Fetching Server side data
@@ -247,7 +252,9 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
       REG_NO: ["", [Validators.pattern, Validators.required]],
     });
   }
-
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
   submit(event) {
     let submissiondate
     let citysurveydate

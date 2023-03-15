@@ -33,6 +33,7 @@ export class CommissionSlabMasterComponent implements OnInit {
   amt1: any;
   maxDate: any;
   submitButton: boolean = true;
+  showDeleteBtn: boolean = true;
   UpdateButton: boolean = false;
   UpdateSubmitButton: boolean = false;
   // For reloading angular datatable after CRUD operation
@@ -197,6 +198,7 @@ export class CommissionSlabMasterComponent implements OnInit {
   editData(id) {
     this.submitButton = false
     this.UpdateButton = true
+    this.showDeleteBtn = false
     let object = {
       EFFECT_DATE: this.multiField1[id].EFFECT_DATE
     }
@@ -210,6 +212,7 @@ export class CommissionSlabMasterComponent implements OnInit {
   }
   reset() {
     this.angForm.controls['EFFECT_DATE'].reset();
+    this.showDeleteBtn = true
     this.multiField = []
 
   }
@@ -276,5 +279,10 @@ export class CommissionSlabMasterComponent implements OnInit {
     })
     this.ngOnInit()
   }
-
+  CancelData() {
+    this.submitButton = true
+    this.UpdateButton = false
+    this.reset()
+    this.ngOnInit()
+  }
 }
