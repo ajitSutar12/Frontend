@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: LcdOverdraftReportComponent ,
     data: {
-      title: 'Citywise Loan Balance Report ',
+      title: 'Cash Credit Over Draft Report ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false
