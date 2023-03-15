@@ -434,7 +434,6 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
         this.NET_EXC_INTAMT = 0
       }
-
       if (data[0].preMature == '1') {
         this.angForm.patchValue({
           InterestRate: Number(data[0].prematureRate) - Number(this.prematureRate)

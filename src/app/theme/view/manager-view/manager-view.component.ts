@@ -301,8 +301,11 @@ export class ManagerViewComponent implements OnInit {
     let pcode = 'Both'
     let ccode = 1
 
+
+
     if (id === 'userw') {
-      this.iframe1url = this.report_url + "examples/UserWorkingReportList.php?TRAN_DATE='" + Startdate + "'&BRANCH='" + this.branchName + "'$schm='CS'$schm1='TR'&schm2='CL'&schm3='JV'"
+    
+      this.iframe1url = this.report_url + "examples/UserWorkingReportList.php?TRAN_DATE='" + Startdate + "'&TRAN_DATE='" + Startdate + "'&BRANCH='" + this.branchName + "'&schm='CS'&schm1='TR'&schm2='CL'&schm3='JV'&BANK_NAME='" + bankName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
 
@@ -352,7 +355,6 @@ export class ManagerViewComponent implements OnInit {
     }
     else if (id === 'loanAnalysis') { 
       this.iframe1url = this.report_url + "examples/loananalysisquery.php/?&Branch='" + this.branchName + "'&sdate='" + Startdate + "'&edate='" + Startdate + "'&bankname='"+bankName+"'&transtatus='1'";
-      // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + Startdate + "'&branchName='" + this.branchName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -415,12 +417,12 @@ else if (id === 'fdPayment') {
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
-// else if (id === 'drBalance') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + Startdate + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
+else if (id === 'drBalance') { 
+        this.iframe1url = this.report_url + "examples/Debit_Balance_Report.php?branchName='" + this.branchName + "'&stdate='" + Startdate + "'&etdate='" + Startdate + "'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
+        // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + Startdate + "'&branchName='" + this.branchName + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
 else if (id === 'crBalance') { 
         this.iframe1url = this.report_url + "examples/Credit_Balance_List.php?&Branch='" + this.branchName + "'&edate='" + Startdate + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE1='LN'&AC_ACNOTYPE2='DS'&AC_ACNOTYPE3='CC'&QUOTES=''";
         // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + Startdate + "'&branchName='" + this.branchName + "'";

@@ -11,12 +11,13 @@
                 <form [formGroup]="ngForm">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
+                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub 
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                        (change)="getBranch($event)"
                                             formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>

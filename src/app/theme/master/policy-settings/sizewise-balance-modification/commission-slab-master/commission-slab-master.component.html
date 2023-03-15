@@ -183,6 +183,7 @@
                                                     (click)="editField(indexOfelement);fromamt.focus()"
                                                     placement="bottom" ngbTooltip="Edit"></span> &nbsp;
                                                 <span class="fa fa-fw fa-trash-o" id="deletebutton"
+                                                    *ngIf="showDeleteBtn"
                                                     (click)="delField(indexOfelement);fromamt.focus()"
                                                     placement="bottom" ngbTooltip="Delete"></span>
                                             </td>
@@ -209,6 +210,8 @@
                             (click)="submit()" appTheme>Submit </button>
                         <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                             *ngIf="UpdateButton">Update</button>
+                        <button class="btn btn-outline-primary btn-sm" (click)="CancelData()"
+                            *ngIf="UpdateButton">Cancel</button>
                     </div>
 
                 </div>
@@ -234,16 +237,16 @@
                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
                                 (click)="editData(indexOfelement);fromamt.focus()" placement="bottom"
                                 ngbTooltip="Edit"></span> &nbsp;
-                            <span class="fa fa-fw fa-trash-o" id="deletebutton"
+                            <!-- <span class="fa fa-fw fa-trash-o" id="deletebutton"
                                 (click)="delField(indexOfelement);fromamt.focus()" placement="bottom"
-                                ngbTooltip="Delete"></span>
+                                ngbTooltip="Delete"></span> -->
                         </td>
                         <td class="td_right">{{indexOfelement + 1}}</td>
                         <td class="td_right">{{data.EFFECT_DATE }}</td>
 
 
                     </tr>
-                </tbody> 
+                </tbody>
                 <tbody *ngIf="multiField1?.length == 0">
                     <tr>
                         <td colspan="12" class="no-data-available" style="text-align: center;">No
