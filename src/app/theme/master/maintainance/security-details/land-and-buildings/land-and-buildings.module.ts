@@ -14,6 +14,7 @@ import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 import { LandAndBuildingsRoutingModule } from './land-and-buildings-routing.module';
 import { DataTablesModule } from "angular-datatables";
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { LandUnitsService } from '../../../../../shared/dropdownService/landunits.service'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -32,7 +33,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DataTablesModule,
     ThemeModule
   ],
-  providers: [landandbuildingsService,
+  providers: [landandbuildingsService, LandUnitsService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
