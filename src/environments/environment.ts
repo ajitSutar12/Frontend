@@ -11,34 +11,21 @@ export const environment = {
   // base_url: 'http://139.59.63.215:7276',   //CBS test server
 
   // base_url: 'http://139.59.63.215:7276',  //CBS  BHAIRAVNATH server
-<<<<<<< Updated upstream
-
-  // base_url: 'http://139.59.63.215:4713',  //CBS  sidhanerli server
-  // base_url: 'http://139.59.63.215:9152',  //CBS  BHAIRAVNATH site server
-  base_url: 'http://localhost:7276',
-
-=======
   // base_url: 'http://139.59.63.215:4713',  //CBS  BHAIRAVNATH test server
   base_url: 'http://139.59.63.215:9152',  //CBS  BHAIRAVNATH site server
   // base_url: 'http://localhost:7276',
->>>>>>> Stashed changes
   // base_url: 'http://localhost:3000',
   // base_url: 'http://localhost:4000',
 
   // base_url: 'http://192.168.1.154:4000'  //sudam sir PC
 
-  report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
+  // report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
   // report_url: 'http://139.59.63.215/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/' //server bhairavnath report test folder path
   // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
-<<<<<<< Updated upstream
-// 
-  // report_url: 'http://localhost/phpjasper/', //report folder local path
-=======
 
   report_url: 'http://localhost/phpjasper/', //report folder local path
->>>>>>> Stashed changes
   // report_url: 'http://localhost/phpjasper/examples/r', //report folder path
   // report_url: 'http://localhost/phpjasper/examples/v', //report folder path
   // report_url: 'http://localhost/phpjasper/examples/s', //report folder path

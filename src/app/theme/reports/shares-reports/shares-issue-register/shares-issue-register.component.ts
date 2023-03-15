@@ -151,6 +151,23 @@ this.systemParameter.getFormData(1).subscribe(data => {
 
  let Date = moment(obj.date).format('DD/MM/YYYY');
  let toDate = moment(Date, 'DD/MM/YYYY')
+
+ if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+  obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
+}
+else {
+  let date = moment(this.fromdate).format('DD/MM/YYYY');
+  let tDate = moment(date, 'DD/MM/YYYY')
+  obj['START_DATE'] = date
+}
+if (this.dates == userData.branch.syspara.CURRENT_DATE) {
+  obj['END_DATE'] = userData.branch.syspara.CURRENT_DATE
+}
+else {
+  let date = moment(this.dates).format('DD/MM/YYYY');
+  let tDate = moment(date, 'DD/MM/YYYY')
+  obj['END_DATE'] = date
+}
   let scheme = obj.Scheme_code
 
     let branch = obj.BRANCH_CODE;
@@ -160,8 +177,7 @@ this.systemParameter.getFormData(1).subscribe(data => {
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
-this.iframe5url=this.report_url+ "examples/ShareIssueRegister.php?START_DATE='"+ obj.START_DATE +"'&END_DATE='"+ obj.END_DATE +"'&BRANCH='"+ this.branchName +"'&AC_TYPE='"+ branch +"'";
-// this.iframe5url=this.report_url+ "examples/ShareIssueRegister.php?START_DATE='01/01/2001'&END_DATE='02/02/2023'&BRANCH='MIDCSHIROLI'&AC_TYPE='1'";
+this.iframe5url=this.report_url+ "examples/ShareIssueRegister.php?START_DATE='"+ obj.START_DATE +"'&END_DATE='"+ obj.END_DATE +"'&BRANCH='"+ this.branchName +"'&AC_TYPE='"+ branch +"'&BANK_NAME='"+ bankName +"'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

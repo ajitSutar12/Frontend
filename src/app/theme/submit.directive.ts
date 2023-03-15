@@ -19,7 +19,7 @@ export class SubmitDirective {
 
 //     if (invalidControl) {
 //       invalidControl.focus();
-//     }
+//     } 
 
 //     }
 //     else 

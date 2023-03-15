@@ -53,6 +53,7 @@ export class RecoveryCwBalanceComponent implements OnInit {
   minDate: Date;
   reccode
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -95,10 +96,14 @@ export class RecoveryCwBalanceComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -122,6 +127,7 @@ export class RecoveryCwBalanceComponent implements OnInit {
   }
 
   view(event) {
+    debugger
 
 
     event.preventDefault();
@@ -158,7 +164,7 @@ export class RecoveryCwBalanceComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/CLERKWISE.php/?&branchname='"+ bankName +"'&sdate='"+ obj.date +"'&AC_TYPE='"+ bankName +"'&AC_RECOVERY_CLERK='"+ bankName +"'";
+      this.iframe5url = this.report_url + "examples/CLERKWISE.php/?&branchname='"+ this.branchName +"'&sdate='"+ obj.date +"'&AC_TYPE='"+ bankName +"'&AC_RECOVERY_CLERK='"+ bankName +"'";
       // this.iframe5url = this.report_url + "examples/CLERKWISE.php/?&branchname='kotoli'&sdate='01/04/2022'&AC_TYPE='50100'&AC_RECOVERY_CLERK='2'";
 
       console.log(this.iframe5url);
@@ -184,6 +190,10 @@ export class RecoveryCwBalanceComponent implements OnInit {
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 
 }
