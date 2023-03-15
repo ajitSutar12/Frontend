@@ -31,18 +31,18 @@ export class ThemeDirective {
       if (invalidControl.textContent == '') {
       
         this.select.focus()
-        return;
+        return; 
       }
     } 
 
-  //   
+    
 
-  // else if (invalidControl.tagName == 'SPAN') {
+  else if (invalidControl.tagName == 'SPAN') {
 
-  //   if (invalidControl.id == 'editbutton') { 
-  //     invalidControl.focusout();
-  //   }
-  // } 
+    if (invalidControl.id == 'editbutton') { 
+      invalidControl.focusout();
+    }
+  } 
 
 
   else  if (invalidControl.tagName == 'TEXTAREA') { 

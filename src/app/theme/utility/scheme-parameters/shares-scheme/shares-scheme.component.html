@@ -31,8 +31,7 @@
               angForm.controls['S_APPL'].errors?.required ||
               angForm.controls['S_APPL'].errors?.pattern ||
               angForm.controls['S_APPL'].errors?.min || 
-              angForm.controls['S_APPL'].errors?.max
-            ">
+              angForm.controls['S_APPL'].errors?.max">
                   This field is required and valid range 901 to 999
                 </div>
               </div>
@@ -90,23 +89,13 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <!-- <div class="form-group form-primary form-static-label">
-                <ng-select
-                  [ngClass]="'ng-select'"
-                  [options]="acMaster"
-                  [multiple]="false"
-                  placeholder="G.L. A/c No. *"
-                  required
-                  title="Compulsory Selection"
-                  formControlName="S_GLACNO"
-                >
-                </ng-select>
-              </div> -->
+            
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" [virtualScroll]="true"
-                    #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required placeholder="GL Account Number">
+                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
+                    placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -529,8 +518,8 @@
                 <tbody *ngIf="shareScheme?.length != 0">
                   <tr *ngFor="let data of shareScheme">
                     <td>
-                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id);gotoTop()"
-                        placement="bottom" ngbTooltip="Edit"></span>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                        (click)="editClickHandler(data.id);gotoTop()" placement="bottom" ngbTooltip="Edit"></span>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->

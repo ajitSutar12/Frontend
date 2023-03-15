@@ -111,8 +111,7 @@ maxDate: Date;
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.tScheme = event.name
-   
-   
+
   }
 
   createForm() {
