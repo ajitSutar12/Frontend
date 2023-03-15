@@ -9,24 +9,26 @@
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="rtype">Report Type<sub class="required">*</sub></label>
+                            <div class="col-sm-12 col-md-1"> <label for="rtype">Report Type<sub
+                                        class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select bindValue="label" appTheme [(ngModel)]="reportType" id="REPO_TYPE"
-                                            bindLabel="label" formControlName="REPO_TYPE" title="Compulsory Selection"
-                                            placeholder="Report Type">
+                                        <ng-select bindValue="label" appTheme [(ngModel)]="reportType" id="REPORT_TYPE"
+                                            bindLabel="label" formControlName="REPORT_TYPE" title="Compulsory Selection"
+                                            placeholder="Report Type" #REPOTYPE (focus)="onFocus(REPOTYPE)"
+                                            [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of glreport" [value]="values">
-                                                {{values.id}} {{values.label}}   
+                                                {{values.id}} {{values.label}}
                                             </ng-option>
                                         </ng-select>
                                     </span>
-                                </div> 
+                                </div>
                                 <div class="form-group form-primary form-static-label"
-                                    *ngIf="ngForm.controls['REPO_TYPE'].invalid && (ngForm.controls['REPO_TYPE'].dirty || ngForm.controls['REPO_TYPE'].touched)"
+                                    *ngIf="ngForm.controls['REPORT_TYPE'].invalid && (ngForm.controls['REPORT_TYPE'].dirty || ngForm.controls['REPORT_TYPE'].touched)"
                                     class="alert alert-danger">
-                                    <div *ngIf="ngForm.controls['REPO_TYPE'].errors?.required">
+                                    <div *ngIf="ngForm.controls['REPORT_TYPE'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
@@ -84,13 +86,14 @@
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="id" appTheme [(ngModel)]="selectedType" id="CODE_TYPE"
                                             bindLabel="label" formControlName="CODE_TYPE" title="Compulsory Selection"
-                                            placeholder="Code Type">
+                                            placeholder="Code Type" #CODETYPE (focus)="onFocus(CODETYPE)"
+                                            [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of codetype" [value]="values">
-                                                {{values.id}} {{values.name}}   
+                                                {{values.id}} {{values.name}}
                                             </ng-option>
                                         </ng-select>
                                     </span>
-                                </div> 
+                                </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="ngForm.controls['CODE_TYPE'].invalid && (ngForm.controls['CODE_TYPE'].dirty || ngForm.controls['CODE_TYPE'].touched)"
                                     class="alert alert-danger">
@@ -151,8 +154,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="pocode" class="form-control" placeholder=" "
-                                        maxlength="10"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            maxlength="10" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             formControlName="PERCENTAGE_OF_CODE">
                                     </span>
                                 </div>
@@ -189,7 +191,8 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="pocode" class="form-control" placeholder=" "
-                                        (keyup)="checkmargin($event);getDecimal($event)"
+                                            (keyup)="checkmargin($event);getDecimal($event)"
+                                            (focusout)="getDecimalPoint($event)"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
                                             formControlName="PERCENTAGE">
                                     </span>
@@ -212,8 +215,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="pocode" class="form-control" placeholder=" "
-                                        maxlength="10"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            maxlength="10" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             formControlName="PERCENTAGE_CONSIDARATION">
                                     </span>
                                 </div>
@@ -254,8 +256,7 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-12">
                             <div class="card shadow">
                                 <div class="card-block">
@@ -263,16 +264,18 @@
                                         <div class="col-sm">
                                             <div class="table-responsive">
                                                 <table id="glreportmaster" datatable [dtOptions]="dtExportButtonOptions"
-                                                 class="table table-striped table-bordered table-hover compact">
+                                                    class="table table-striped table-bordered table-hover compact">
                                                     <tbody *ngIf="glreportMaster.length != 0">
-                                                        <tr *ngFor="let data of glreportMaster; let indexOfelement = index">
+                                                        <tr
+                                                            *ngFor="let data of glreportMaster; let indexOfelement = index">
                                                             <td class="td_center"> <span
                                                                     class="fa fa-fw fa-edit field-icon" id="editbutton"
                                                                     (click)="editClickHandler(data.id)" placement="top"
                                                                     ngbTooltip="Edit"></span>
                                                             </td>
-                                                            <td [ngClass]="data.REPO_TYPE === '' ? 'td_center' : 'td_right'">
-                                                                {{ data.REPO_TYPE === "" ? "-" : data.REPO_TYPE }}
+                                                            <td
+                                                                [ngClass]="data.REPORT_TYPE === '' ? 'td_center' : 'td_right'">
+                                                                {{ data.REPORT_TYPE === "" ? "-" : data.REPORT_TYPE }}
                                                             </td>
                                                             <td [ngClass]="data.CODE === '' ? 'td_center' : 'td_right'">
                                                                 {{ data.CODE === "" ? "-" : data.CODE }}
@@ -321,10 +324,68 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                    </div> -->
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table id="glreportmaster" datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="glreportMaster.length != 0">
+                                    <tr *ngFor="let data of glreportMaster; let indexOfelement = index">
+                                        <td class="td_center"> <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="top"
+                                                ngbTooltip="Edit"></span>
+                                        </td>
+                                        <td [ngClass]="data.REPORT_TYPE === '' ? 'td_center' : 'td_right'">
+                                            {{ data.REPORT_TYPE === "" ? "-" : data.REPORT_TYPE }}
+                                        </td>
+                                        <td [ngClass]="data.CODE === '' ? 'td_center' : 'td_right'">
+                                            {{ data.CODE === "" ? "-" : data.CODE }}
+                                        </td>
+                                        <td [ngClass]="data.NAME === '' ? 'td_center' : 'td_right'">
+                                            {{data.NAME === "" ? "-" : data.NAME}}
+                                        </td>
+                                        <td [ngClass]="data.CODE_TYPE === '' ? 'td_center' : 'td_right'">
+                                            {{data.CODE_TYPE === "" ? "-" : data.CODE_TYPE}}
+                                        </td>
+                                        <td [ngClass]="data.SERIAL_NO === '' ? 'td_center' : 'td_right'">
+                                            {{data.SERIAL_NO === "" ? "-" : data.SERIAL_NO}}
+                                        </td>
+                                        <td [ngClass]="data.PERCENTAGE === '' ? 'td_center' : 'td_right'">
+                                            {{data.PERCENTAGE === "" ? "-" : data.PERCENTAGE}}
+                                        </td>
+                                        <td [ngClass]="data.PERCENTAGE_CONSIDARATION === '' ? 'td_center' : 'td_right'">
+                                            {{data.PERCENTAGE_CONSIDARATION === "" ? "-" :
+                                            data.PERCENTAGE_CONSIDARATION}}
+                                        </td>
+                                        <td [ngClass]="data.PERCENTAGE_OF_CODE === '' ? 'td_center' : 'td_right'">
+                                            {{data.PERCENTAGE_OF_CODE === "" ? "-" :
+                                            data.PERCENTAGE_OF_CODE}}
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                                <tbody *ngIf="glreportMaster?.length == 0">
+                                    <tr>
+                                        <td colspan="8" class="no-data-available" Style="text-align: center;">No
+                                            data!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

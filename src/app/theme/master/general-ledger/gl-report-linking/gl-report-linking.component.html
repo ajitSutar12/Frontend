@@ -9,7 +9,7 @@
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
                                 <label for="sr.no.">Sr.No.<sub class="required">*</sub>
                                 </label>
                             </div>
@@ -29,8 +29,7 @@
                                         This field is required
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div> -->
 
                             <div class="col-md-2">
                                 <label for="glacname">GL Account<sub class="required">*</sub></label>
@@ -38,12 +37,12 @@
                             <div class="col-sm-12 col-md-5">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select  appTheme [(ngModel)]="ngName" id="AC_NO" bindValue="AC_NO"
+                                        <ng-select appTheme [(ngModel)]="ngName" id="AC_NO" bindValue="AC_NO"
                                             bindLabel="label" formControlName="AC_NO" title="Compulsory Selection"
                                             placeholder="Code Type">
                                             <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.AC_NO}} {{values.AC_NAME}}
-                                            </ng-option> 
+                                            </ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -66,9 +65,9 @@
                                     <span class="border-lable-flt">
                                         <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE"
                                             id="EFFECT_DATE" class="form-control " [maxDate]="maxDate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
-                                             #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()" placement="right"
-                                            formControlName="EFFECT_DATE"  bsDatepicker required>
+                                            [(ngModel)]="effectdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
+                                            placement="right" formControlName="EFFECT_DATE" bsDatepicker required>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -87,10 +86,10 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_TO_DATE"
-                                            id="EFFECT_TO_DATE" class="form-control "
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
-                                            #EFFECT_TO_DATE="bsDatepicker" (keydown.Tab)="EFFECT_TO_DATE.hide()" placement="right"
-                                            formControlName="EFFECT_TO_DATE"  bsDatepicker required>
+                                            id="EFFECT_TO_DATE" class="form-control " [minDate]="effectdate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            #EFFECT_TO_DATE="bsDatepicker" (keydown.Tab)="EFFECT_TO_DATE.hide()"
+                                            placement="right" formControlName="EFFECT_TO_DATE" bsDatepicker required>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -102,7 +101,7 @@
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="col-md-1">
                                 <label for="headName">Head Name<sub class="required">*</sub></label>
@@ -110,19 +109,19 @@
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngHeadname" id="AC_ACNOTYPE"
-                                            bindLabel="label"  formControlName="AC_ACNOTYPE" title="Compulsory Selection"
-                                            placeholder="Code Type">
+                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngHeadname" id="CODE_TYPE"
+                                            bindLabel="NAME" bindValue="id" formControlName="CODE_TYPE"
+                                            title="Compulsory Selection" placeholder="Code Type">
                                             <ng-option *ngFor="let values of headName" [value]="values">
-                                                {{values.id}} {{values.label}}      
+                                                {{values.CODE}} {{values.NAME}}
                                             </ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['AC_ACNOTYPE'].invalid && (angForm.controls['AC_ACNOTYPE'].dirty || angForm.controls['AC_ACNOTYPE'].touched)"
+                                    *ngIf="angForm.controls['CODE_TYPE'].invalid && (angForm.controls['CODE_TYPE'].dirty || angForm.controls['CODE_TYPE'].touched)"
                                     class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AC_ACNOTYPE'].errors?.required">
+                                    <div *ngIf="angForm.controls['CODE_TYPE'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
@@ -140,8 +139,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" appTheme [(ngModel)]="ngType" id="DEFAULT_BALTYPE"
-                                            bindLabel="label"  bindValue="name" formControlName="DEFAULT_BALTYPE" title="Compulsory Selection"
-                                            placeholder="">
+                                            bindLabel="label" bindValue="name" formControlName="DEFAULT_BALTYPE"
+                                            title="Compulsory Selection" placeholder="">
                                             <ng-option *ngFor="let values of drcr" [value]="values">
                                                 {{values.name}}
                                             </ng-option>
@@ -155,7 +154,7 @@
                                         This field is required
                                     </div>
                                 </div>
-                            </div>                           
+                            </div>
 
                             <div class="col-md-1">
                                 <label for="reverseCode">Reverse Code<sub class="required">*</sub>
@@ -182,10 +181,10 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" appTheme [(ngModel)]="ngReverse" id="REVERSE_CODE"
-                                            bindLabel="label"  formControlName="REVERSE_CODE" title="Compulsory Selection"
-                                            placeholder="Code Type">
+                                            bindLabel="NAME" formControlName="REVERSE_CODE" bindValue="id"
+                                            title="Compulsory Selection" placeholder="Code Type">
                                             <ng-option *ngFor="let values of headName" [value]="values">
-                                                {{values.id}} {{values.label}}      
+                                                {{values.CODE}} {{values.NAME}}
                                             </ng-option>
                                         </ng-select>
                                     </span>
@@ -225,10 +224,10 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" appTheme [(ngModel)]="ngSub" id="SUB_COLUMN_NO"
-                                            bindLabel="label"  formControlName="SUB_COLUMN_NO" title="Compulsory Selection"
-                                            placeholder="Code Type">
+                                            bindLabel="NAME" bindValue="id" formControlName="SUB_COLUMN_NO"
+                                            title="Compulsory Selection" placeholder="Code Type">
                                             <ng-option *ngFor="let values of headName" [value]="values">
-                                                {{values.id}} {{values.label}}      
+                                                {{values.CODE}} {{values.NAME}}
                                             </ng-option>
                                         </ng-select>
                                     </span>
@@ -244,10 +243,7 @@
 
                         </div>
                         <div class="row">
-
-                            
                         </div>
-
                         <div class="row">
                             <div class="col-md">
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
@@ -260,8 +256,6 @@
                                 </button>
                             </div>
                         </div>
-
-
                         <div class="row">
                             <div class="col-12">
                                 <div class="card shadow">
@@ -269,48 +263,62 @@
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions" 
+                                                    <table datatable [dtOptions]="dtExportButtonOptions"
                                                         class="table table-striped table-bordered table-hover compact"
                                                         id="customermastertable">
                                                         <tbody *ngIf="glreportLink?.length != 0">
                                                             <tr *ngFor="let data of glreportLink">
-                                                                <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                                        (click)="editClickHandler(data.id)" placement="bottom"
-                                                                        ngbTooltip="Edit"></span>
+                                                                <td> <span class="fa fa-fw fa-edit field-icon"
+                                                                        id="editbutton"
+                                                                        (click)="editClickHandler(data.id)"
+                                                                        placement="bottom" ngbTooltip="Edit"></span>
                                                                 </td>
-                                                                <td [ngClass]="data.SR_NO === '' ? 'td_center' : 'td_right'">
+                                                                <td
+                                                                    [ngClass]="data.SR_NO === '' ? 'td_center' : 'td_right'">
                                                                     {{ data.SR_NO === "" ? "-" : data.SR_NO }}
                                                                 </td>
-                                                                <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                                                <td
+                                                                    [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
                                                                     {{ data.AC_NO === "" ? "-" : data.AC_NO }}
                                                                 </td>
                                                                 <!-- <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_right'">
                                                                     {{ data.AC_NAME === "" ? "-" : data.AC_NAME }}
                                                                 </td> -->
-                                                                <td [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.EFFECT_DATE === "" ? "-" : data.EFFECT_DATE }}
+                                                                <td
+                                                                    [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.EFFECT_DATE === "" ? "-" : data.EFFECT_DATE
+                                                                    }}
                                                                 </td>
-                                                                <td [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.EFFECT_TO_DATE === "" ? "-" : data.EFFECT_TO_DATE }}
+                                                                <td
+                                                                    [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.EFFECT_TO_DATE === "" ? "-" :
+                                                                    data.EFFECT_TO_DATE }}
                                                                 </td>
                                                                 <!-- <td [ngClass]="data.CODE === '' ? 'td_center' : 'td_right'">
                                                                     {{ data.CODE === "" ? "-" : data.CODE }}
                                                                 </td> -->
-                                                                <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.AC_ACNOTYPE === "" ? "-" : data.AC_ACNOTYPE }}
+                                                                <td
+                                                                    [ngClass]="data.CODE_TYPE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.CODE_TYPE === "" ? "-" : data.CODE_TYPE }}
                                                                 </td>
-                                                                <td [ngClass]="data.DEFAULT_BALTYPE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.DEFAULT_BALTYPE === "" ? "-" : data.DEFAULT_BALTYPE }}
+                                                                <td
+                                                                    [ngClass]="data.DEFAULT_BALTYPE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.DEFAULT_BALTYPE === "" ? "-" :
+                                                                    data.DEFAULT_BALTYPE }}
                                                                 </td>
-                                                                <td [ngClass]="data.REVERSE_CODE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.REVERSE_CODE === "" ? "-" : data.REVERSE_CODE }}
+                                                                <td
+                                                                    [ngClass]="data.REVERSE_CODE === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.REVERSE_CODE === "" ? "-" :
+                                                                    data.REVERSE_CODE }}
                                                                 </td>
-                                                                <td [ngClass]="data.SUB_COLUMN_NO === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.SUB_COLUMN_NO === "" ? "-" : data.SUB_COLUMN_NO }}
+                                                                <td
+                                                                    [ngClass]="data.SUB_COLUMN_NO === '' ? 'td_center' : 'td_right'">
+                                                                    {{ data.SUB_COLUMN_NO === "" ? "-" :
+                                                                    data.SUB_COLUMN_NO }}
                                                                 </td>
-                                                             
-                    
-                    
+
+
+
                                                             </tr>
                                                         </tbody>
                                                         <tbody *ngIf="glreportLink?.length == 0">
@@ -318,7 +326,7 @@
                                                                 <td colspan="6" class="no-data-available">No data!</td>
                                                             </tr>
                                                         </tbody>
-                                                        
+
                                                     </table>
                                                 </div>
                                             </div>
