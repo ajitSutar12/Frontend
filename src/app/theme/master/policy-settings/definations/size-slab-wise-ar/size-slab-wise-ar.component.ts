@@ -156,7 +156,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
             this.url + '/deposit-intrest-rate',
             dataTableParameters
           ).subscribe(resp => {
-           
+
             this.sizeSlabWise = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -181,23 +181,15 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
       dom: 'lrtip'
 
     };
-
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-
-      var filtered = data.filter(function (scheme) {
-
-        return (scheme.id == 'TD');
+      var filtered = data.filter(function (scheme1) {
+        return (scheme1.id == 'TD');
       });
       this.scheme = filtered;
-      // this.scheme = data;
     })
-
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-  
       this.intrestCategoryMaster = data;
-
     })
-
   }
 
   createForm() {
@@ -230,7 +222,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
           dtInstance.ajax.reload()
         });
       }, (error) => {
-      
+
       })
 
       //To clear form
@@ -327,7 +319,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
             'success'
           )
         }), (error) => {
-          
+
         }
         // to reload after delete of data
         this.rerender();
@@ -345,12 +337,12 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
   //check  if percentage  is below 50
   checkmargin(ele: any) {
     //check  if given value  is below 50
-  
+
     if (ele.target.value <= 50) {
     }
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
-      ele.target.value = 0 
+      ele.target.value = 0
 
     }
   }
@@ -420,7 +412,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
 
       }
       this.multiField.push(object);
-     
+
       this.resetField()
     }
 
@@ -472,10 +464,10 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }
