@@ -17,8 +17,8 @@
                                     <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
                                         (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme" [virtualScroll]="true" #AC_TYPE
-                                        (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' autofocus>
+                                        required placeholder="Scheme" [virtualScroll]="true" #AC_TYPE1
+                                        (focus)="onFocus(AC_TYPE1)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>

@@ -232,7 +232,9 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" "
                                         id="PURCHASE_RATE" value="" pattern="\d{1,20}(\.\d{2})?"
-                                        title="Input allowed only  0-9" maxlength="13" style="text-align: right;"
+                                        (change)="getPurchaseValue()" (keyup)="getDecimal($event)"
+                                        (focusout)="getDecimalPoint($event)" title="Input allowed only  0-9"
+                                        maxlength="13" style="text-align: right;"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         formControlName="PURCHASE_RATE" ng-init="firstnumber=0"
                                         [(ngModel)]="firstnumber" [required]="openingReq" disabled
@@ -258,7 +260,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" "
                                         id="PURCHASE_OP_QUANTITY" value="" pattern="^[0-9]+$"
-                                        title="Input allowed only  0-9" maxlength="4" style="text-align: right;"
+                                        (change)="getPurchaseValue()" title="Input allowed only  0-9" maxlength="4"
+                                        style="text-align: right;"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="PURCHASE_OP_QUANTITY" ng-init="secondnumber=0"
                                         [(ngModel)]="secondnumber" [required]="openingReq" disabled

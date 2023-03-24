@@ -456,15 +456,15 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.angForm.controls['PURCHASE_OP_QUANTITY'].enable()
         this.angForm.controls['PURCHASE_VALUE'].enable()
         this.angForm.controls['LAST_DEPR_DATE'].enable()
-        this.purValue = data.PURCHASE_VALUE
+        this.purValue = parseFloat(data.PURCHASE_VALUE).toFixed(2)
         this.angForm.patchValue({
           OP_BAL_DATE: (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? date1 = '' : date1 = data.OP_BAL_DATE,
           SUPPLIER_NAME: data.SUPPLIER_NAME,
           PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
-          PURCHASE_RATE: data.PURCHASE_RATE,
+          PURCHASE_RATE: parseFloat(data.PURCHASE_RATE).toFixed(2),
           PURCHASE_QUANTITY: data.PURCHASE_QUANTITY,
           // PURCHASE_VALUE: data.PURCHASE_VALUE,
-          OP_BALANCE: parseInt(data.OP_BALANCE).toFixed(2),
+          OP_BALANCE: parseFloat(data.OP_BALANCE).toFixed(2),
           OP_QUANTITY: data.OP_QUANTITY,
           LAST_DEPR_DATE: (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = null : date2 = data.LAST_DEPR_DATE,
           // ITEM_TYPE: data.ITEM_TYPE,
@@ -763,5 +763,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       left: 0,
       behavior: 'smooth'
     });
+  }
+  getPurchaseValue() {
+    debugger
+    let purchaseRate = this.angForm.controls['PURCHASE_RATE'].value
+    let purchaseQuantity = this.angForm.controls['PURCHASE_OP_QUANTITY'].value
+    let PurchaseValue = purchaseRate == undefined || purchaseQuantity == undefined ? 0 : Number(purchaseRate) * Number(purchaseQuantity)
+    this.angForm.patchValue({
+      PURCHASE_VALUE: Number(PurchaseValue).toFixed(2)
+    })
   }
 }
