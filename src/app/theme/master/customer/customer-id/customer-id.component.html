@@ -50,7 +50,7 @@
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="" #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true'
                                         autofocus>
-                                        <ng-option *ngFor="let values of prifix" [value]="values">
+                                        <ng-option *ngFor="let values of prifix" [value]="values"> 
                                             {{values.label}} </ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Title <sub class="required"> * </sub></label>

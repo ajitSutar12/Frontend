@@ -9,7 +9,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { Router } from "@angular/router";
 import * as moment from 'moment';
-import { environment } from "src/environments/environment";
+import { environment } from "../../../../../environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
@@ -41,6 +41,9 @@ ngForm:FormGroup
  scode: any = null;
  //ngfor
  scheme: any[];
+ getschemename: any;
+ startAcNo: any
+ endAcNo: any
 branchOption: any[];
 clicked:boolean=false;
 showRepo: boolean = false;
@@ -54,6 +57,7 @@ ecust
  //date
 dates: any = null
 bsValue = new Date();
+obj: any
 
 maxDate: Date;
   minDate: Date;
@@ -66,7 +70,8 @@ maxDate: Date;
     private systemParameter:SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-    private customerID: CustomerIDMasterDropdownService,
+    private customerID: CustomerIDMasterDropdownService,    private schemeAccountNoService: SchemeAccountNoService,
+
 
    
   ) {
@@ -113,13 +118,114 @@ this.systemParameter.getFormData(1).subscribe(data => {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
-      this.branchName = result.branch.NAME
+      this.branchName = result.branch.NAME 
 
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
       this.branchName = result.branch.NAME
+
+    }
+  }
+  getIntTrans(event) {
+    this.getschemename = event.name
+    this.getInterestTransfer()  
+  }
+
+  getInterestTransfer() {
+    // this.ngAcnoFrom = null
+    // this.ngAcnoTo = null
+    // this.startAcNo = [];
+    // this.endAcNo = [];
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.scode, branchCode]
+    switch (this.getschemename) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'SH':
+        this.schemeAccountNoService.getShareMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'GL':
+        this.schemeAccountNoService.getGeneralLedgerMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.schemeAccountNoService.getInvestmentMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.schemeAccountNoService.getAnamatMasterAcListForBalUpdation(this.obj).subscribe(data => {
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
 
     }
   }

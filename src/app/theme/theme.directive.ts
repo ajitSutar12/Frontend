@@ -15,10 +15,10 @@ export class ThemeDirective {
 
   @HostListener("focusout")
   onFormSubmit() {
-    // debugger
+    debugger
 
-    const invalidControl = this.el.nativeElement;
-    // debugger
+    const invalidControl = this.el.nativeElement; 
+    debugger
     if (invalidControl.tagName == 'INPUT') {
       if (invalidControl.value == ''  ) {
         invalidControl.focus();
@@ -28,9 +28,13 @@ export class ThemeDirective {
     //     invalidControl.focus();
     //  }
     } else if (invalidControl.tagName === 'NG-SELECT') {
-      if (invalidControl.textContent == '') {
+      if (invalidControl.textContent == "") {
       
-        this.select.focus()
+        invalidControl.focus();
+
+        // this.select.focus()
+        // // this.tagName.focus()
+
         return; 
       }
     } 

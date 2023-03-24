@@ -601,7 +601,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     if (intrate == "") {
 
       Swal.fire(
-        'Info',
+        'Info', 
         'Please Input Interest Rate ',
         'info'
       )

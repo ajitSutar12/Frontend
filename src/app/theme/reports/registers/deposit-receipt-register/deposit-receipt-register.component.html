@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Deposit Receipt Register </h5>
+                <h5>Term Deposit Receipt Register </h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
@@ -114,23 +114,23 @@
                                     <label>
                                         <input type="radio" name="radio_sort" value="account number"
                                             formControlName="radio_sort" [checked]="true">
-                                        <i class="helper"></i>Account Number </label>
+                                        <i class="helper"></i>Open Account</label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="radio_sort" value="name" formControlName="radio_sort">
-                                        <i class="helper"></i>Name </label>
+                                        <i class="helper"></i>Close Account </label>
                                 </div>
 
 
-                                <div class="radio radio-inline">
+                                <!-- <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="radio_sort" value="open date"
                                             formControlName="radio_sort">
                                         <i class="helper"></i>Open Date </label>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group form-primary form-static-label" *ngIf="
                                         ngForm.controls['radio_sort'].invalid &&
