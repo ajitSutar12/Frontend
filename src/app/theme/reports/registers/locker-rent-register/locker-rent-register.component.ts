@@ -1,22 +1,5 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-locker-rent-register',
-//   templateUrl: './locker-rent-register.component.html',
-//   styleUrls: ['./locker-rent-register.component.scss']
-// })
-// export class LockerRentRegisterComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import {  SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -83,7 +66,7 @@ export class LockerRentRegisterComponent implements OnInit {
       // Scheme Code
       this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe((data) => {
         var filtered = data.filter(function (scheme) {
-          return scheme.name == "TD";
+          return (scheme.name == "TD" || scheme.name == "LK" );
         });
         this.scheme= filtered;
         this.schemeCode = null;

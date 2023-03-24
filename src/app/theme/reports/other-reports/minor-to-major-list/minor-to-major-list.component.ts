@@ -167,8 +167,7 @@ export class MinorToMajorListComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/MinorToMajorList.php?sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&branch_name='" + this.branchName + "'&ac_type='" + scheme + "'&ac_acnotype='" + schemeName + "'&AC_EXPDT='" + obj.START_DATE + "'";
-      // this.iframe5url=this.report_url+ "examples/MinorToMajorList.php?sdate='24/12/2021'&edate='24/12/2021'&branch_name='WADGAON'&ac_type='8'&ac_acnotype='SB'&AC_EXPDT='24/12/2021'";
+      this.iframe5url = this.report_url + "examples/MinorToMajorList.php?sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&branch_name='" + this.branchName + "'&ac_type='" + scheme + "'&ac_acnotype='" + schemeName + "'&BANK_NAME='" + bankName + "'&print_date='" + obj.START_DATE + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

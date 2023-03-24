@@ -294,8 +294,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerID
       .getCustomerIDMasterList()
       .pipe(first())
-      .subscribe((data) => {
-        this.Cust_ID = data;
+      .subscribe((data1) => {
+        debugger
+        this.Cust_ID = data1;
       });
     this.getSystemParaDate()
   }
@@ -426,6 +427,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getScheme(value) {
+    debugger
+    this.code = value.value
     this.schemeCode = value.name
   }
 
