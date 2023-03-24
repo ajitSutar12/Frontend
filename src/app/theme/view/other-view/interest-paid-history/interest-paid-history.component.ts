@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 export class InterestPaidHistoryComponent implements OnInit, OnChanges {
   url = environment.base_url;
   //passing data from parent to child component
-  @Input() accBranch: any; 
+  @Input() accBranch: any;
   @Input() accScheme: any;
   @Input() accAcNo: any;
   @Input() accSchemeName: any;
@@ -77,7 +77,7 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
         return (scheme.name == 'TD');
         // return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'DS'  || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'AG' || scheme.name == 'IV');
       });
-      
+
       this.scheme = filtered;
     })
 
@@ -98,7 +98,7 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
       this.tilldate = data['CURRENT_DATE']
       this.sysparaDate = data['CURRENT_DATE']
     })
-  } 
+  }
 
   getBranch() {
     this.getschemename = null
@@ -110,6 +110,8 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
   getschemename: any
   getscheme(event) {
     this.getschemename = event.name
+    this.accno = null
+    this.Acc_No = []
     this.getAccountList()
   }
   getAccountList() {

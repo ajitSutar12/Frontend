@@ -480,7 +480,6 @@ export class MultiVoucherComponent implements OnInit {
 
   //submit Form
   Add() {
-
     if (Number(this.totalAmt) != 0 && this.totalAmt != undefined) {
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = this.angForm.value;
@@ -495,6 +494,7 @@ export class MultiVoucherComponent implements OnInit {
       obj['scheme'] = this.submitScheme;
       obj['account_no'] = this.submitAccountNo;
       obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
+      obj['branch_code'] = this.selectedBranch
       obj['total_amt'] = Number(this.angForm.controls['total_amt'].value).toFixed(2)
       if (this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN')) {
         let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
@@ -545,7 +545,6 @@ export class MultiVoucherComponent implements OnInit {
 
   submit() {
     if (this.totalCredit == this.totalDebit && Number(this.totalCredit) != 0 && Number(this.totalDebit) != 0) {
-
       this._service.insertVoucher(this.mainMaster).subscribe(data => {
         Swal.fire({
           icon: 'success',
