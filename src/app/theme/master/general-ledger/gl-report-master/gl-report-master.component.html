@@ -247,10 +247,12 @@
                     <div class="row">
                         <div class="col-md">
                             <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
+                            [disabled]="ngForm.invalid"
                                 *ngIf="addButton">
                                 Add
                             </button>
                             <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                            [disabled]="ngForm.invalid"
                                 *ngIf="updateButton">
                                 Update
                             </button>

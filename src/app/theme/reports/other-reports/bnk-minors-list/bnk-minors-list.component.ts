@@ -149,7 +149,7 @@ maxDate: Date;
     else{
     let date = moment(this.dates).format('DD/MM/YYYY');
     let tDate = moment(date, 'DD/MM/YYYY')
-    obj['date']=date 
+    obj['date']=date  
   }
 
     // let Date = moment(obj.date).format('DD/MM/YYYY');
