@@ -161,7 +161,7 @@ maxDate: Date;
     let schemeName = this.tScheme
     
 
-   this.iframe5url=this.report_url+ "examples/MinorList1.php?&branch=" + branch + " &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
+   this.iframe5url=this.report_url+ "examples/MinorList1.php?&branch=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
    console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   }

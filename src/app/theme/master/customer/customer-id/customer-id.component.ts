@@ -183,7 +183,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isImageSaved: boolean;
   cardImageBase64: string;
   selectedImagePreview: any;
-  selectedImgArrayDetails = [];
+  selectedImgArrayDetails = []; 
   isImgPreview: boolean = false
   imgBase64: any
   showImage: boolean = false;
@@ -495,7 +495,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  submit(event) {
+  submit(event) { debugger
     let birthdate
     let submitdate
     event.preventDefault();

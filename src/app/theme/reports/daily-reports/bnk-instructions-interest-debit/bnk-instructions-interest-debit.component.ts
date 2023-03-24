@@ -75,6 +75,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   // value: string;
   success:any;
   failure:any;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -130,10 +131,14 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.angForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
   end() {
@@ -171,8 +176,8 @@ debugger
       let success = obj.RADIO;
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
-      let sort = obj.SORT;
-      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
+      let sort = obj.SORT.value;
+      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + obj.SORT.value + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -195,7 +200,8 @@ debugger
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT;
 
-      this.iframe1url = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
+      this.iframe1url = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
+      console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
@@ -214,7 +220,10 @@ debugger
     this.showRepo = false;
     this.clicked=false;
   }
-
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
 
 
 

@@ -20,7 +20,7 @@
                                             formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
-                                        </ng-select>
+                                        </ng-select> 
                                     </span>
                                 </div>
 
@@ -39,7 +39,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="scode" (change)="getTransferAccountList($event)">
+                                            [(ngModel)]="scode" (change)="getTransferAccountList($event);getIntTrans($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
@@ -64,8 +64,8 @@
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="START_CUST" bindValue="value" bindLabel="label"
                                             [virtualScroll]="true" [(ngModel)]="scust" >
-                                            <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                                 {{values.label}} </ng-option>
+                                            <ng-option *ngFor="let values of startAcNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
 
                                     </span>
@@ -90,8 +90,8 @@
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="END_CUST" bindValue="value" bindLabel="label"
                                             [virtualScroll]="true" [(ngModel)]="ecust" >
-                                            <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                                 {{values.label}} </ng-option>
+                                            <ng-option *ngFor="let values of endAcNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
 
                                     </span>

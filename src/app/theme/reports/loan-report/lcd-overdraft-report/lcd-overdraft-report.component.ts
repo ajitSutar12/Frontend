@@ -134,8 +134,8 @@ export class LcdOverdraftReportComponent implements OnInit {
       Scheme_code: ["", [Validators.required]],
       date: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
-      F_DIRECTOR: ['', [Validators.required]],
-      T_DIRECTOR: ['', [Validators.required]],
+      F_DIRECTOR: [''],
+      T_DIRECTOR: [''],
       TDSDOCUMNET: ['']
     });
 

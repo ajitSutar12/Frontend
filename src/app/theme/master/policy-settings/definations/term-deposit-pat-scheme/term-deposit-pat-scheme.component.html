@@ -144,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" (click)="addField();month.focus()">Add </button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" [disabled]="angForm.invalid" (click)="addField();month.focus()">Add </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateField();month.focus()" *ngIf="UpdateShowButton">Update</button>
                                 </div>
                             </div>

@@ -60,6 +60,7 @@ export class LcdRenewalListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   director: any[];
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -114,10 +115,14 @@ export class LcdRenewalListComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -188,7 +193,7 @@ export class LcdRenewalListComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/LoanCashCreditRenewalList.php?START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH='" + branch + "'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'"
+      this.iframe5url = this.report_url + "examples/LoanCashCreditRenewalList.php?START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'"
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
@@ -226,7 +231,10 @@ export class LcdRenewalListComponent implements OnInit {
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
-
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
 }
 
 
