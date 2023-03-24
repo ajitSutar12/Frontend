@@ -232,14 +232,12 @@
                                 </div>
                                 <div class="col-sm">
                                     <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
+                                    [disabled]="angForm.invalid"
                                         (click)="addField();fromdays.focus()">Add</button>&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="UpdateShowButton"
                                         (click)="updateField();fromdays.focus()">Update</button>
                                 </div>
                             </div>
-
-
-
 
                             <div class="row">
                                 <div class="col-sm">

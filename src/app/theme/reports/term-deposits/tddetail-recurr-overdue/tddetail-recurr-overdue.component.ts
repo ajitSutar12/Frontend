@@ -71,7 +71,7 @@ export class TddetailRecurrOverdueComponent implements OnInit {
     })
 
     // Scheme Code
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => { 
 
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'TD');
@@ -88,12 +88,14 @@ export class TddetailRecurrOverdueComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.branch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.branch = result.branch.id
+      this.branchName = result.branch.NAME
     }
-
   }
 
   getTransferAccountList(event) {
@@ -155,9 +157,8 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account; 
 
-      // this.iframe5url = this.report_url + "examples/GuaranterList.php?&NAME= " + bankName + " &AC_TYPE= " + scheme + " &AC_ACNOTYPE=  '" + schemeName + "' &BRANCH_CODE= " + branch + " &PRINT_DATE='" + obj.date + "' ";
-      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch=" + bankName + "&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1='" + flag + "'";
-
+      // this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch=" + bankName + "&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1='" + flag + "'";
+      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1=" + flag + "";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
@@ -182,8 +183,8 @@ export class TddetailRecurrOverdueComponent implements OnInit {
   onFocus(ele: NgSelectComponent) { 
     ele.open()
   }
-  // getBranch(event) {
-  //   this.ngbranch = event.value
-  //   this.branchName = event.branchName
-  // }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
 }

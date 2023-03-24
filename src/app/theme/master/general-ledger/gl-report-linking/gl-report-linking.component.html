@@ -5,32 +5,11 @@
                 <h5>GL Report Linking</h5>
                 <h6 style="float: right;"><sub class="required">*</sub>Required Fields</h6>
             </div>
-            <form [formGroup]="angForm">
+            <form [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
-                            <!-- <div class="col-md-2">
-                                <label for="sr.no.">Sr.No.<sub class="required">*</sub>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="SR_NO" class="form-control" placeholder=" "
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="SR_NO" disabled>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['SR_NO'].invalid && (angForm.controls['SR_NO'].dirty || angForm.controls['SR_NO'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="angForm.controls['SR_NO'].errors?. maxlength || angForm.controls['SR_NO'].errors?. minlength || angForm.controls['SR_NO'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div> -->
-
+                            
                             <div class="col-md-2">
                                 <label for="glacname">GL Account<sub class="required">*</sub></label>
                             </div>
@@ -203,23 +182,7 @@
                                 <label for="reverseCode">Sub Column<sub class="required">*</sub>
                                 </label>
                             </div>
-                            <!-- <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text"  style="text-align: right;" name="SUB_COLUMN_NO" class="form-control" placeholder=" "
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="SUB_COLUMN_NO" >
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['SUB_COLUMN_NO'].invalid && (angForm.controls['SUB_COLUMN_NO'].dirty || angForm.controls['SUB_COLUMN_NO'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="angForm.controls['SUB_COLUMN_NO'].errors?. maxlength || angForm.controls['SUB_COLUMN_NO'].errors?. minlength || angForm.controls['SUB_COLUMN_NO'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>  -->
+                           
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
@@ -247,11 +210,13 @@
                         <div class="row">
                             <div class="col-md">
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
-                                    *ngIf="addButton">
+                                [disabled]="angForm.invalid"
+                                    *ngIf="addButton"  >
                                     Add
                                 </button>
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                    *ngIf="updateButton">
+                                [disabled]="angForm.invalid"
+                                    *ngIf="updateButton" >
                                     Update
                                 </button>
                             </div>

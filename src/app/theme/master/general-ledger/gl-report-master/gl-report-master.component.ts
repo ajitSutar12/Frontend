@@ -195,7 +195,7 @@ export class GlReportMasterComponent implements OnInit {
 
   createForm() {
     this.ngForm = this.fb.group({
-      CODE: ["", [Validators.required]],
+      CODE: ["",],
       NAME: ["", [Validators.required]],
       REPORT_TYPE: ["", [Validators.required]],
       CODE_TYPE: ["", [Validators.required]],

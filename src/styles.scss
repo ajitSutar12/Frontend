@@ -997,3 +997,13 @@ tr:hover {
 .form-control {
     color: #1d2022 !important;
 }
+.scroll {
+    width: 100%;
+    height: 500px;
+    // margin-top: 10px;
+    // margin: -13px;
+    // overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}

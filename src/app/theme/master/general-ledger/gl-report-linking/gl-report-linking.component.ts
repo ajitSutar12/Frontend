@@ -203,16 +203,16 @@ export class GlReportLinkingComponent implements OnInit {
   }
   createForm() {
     this.angForm = this.fb.group({
-      SR_NO: ["", [Validators.required]],
       AC_NO: ["", [Validators.required]],
-      // AC_NAME: ["", [Validators.required]],
       EFFECT_DATE: ["", [Validators.required]],
       EFFECT_TO_DATE: ["", [Validators.required]],
-      CODE: ["", [Validators.required]],
       CODE_TYPE: ["", [Validators.required]],
       DEFAULT_BALTYPE: ["", [Validators.required]],
       REVERSE_CODE: ["", [Validators.required]],
-      SUB_COLUMN_NO: ["", [Validators.required]]
+      SUB_COLUMN_NO: ["", [Validators.required]],
+      // SR_NO: ["", [Validators.required]],
+      // // AC_NAME: ["", [Validators.required]],
+      // // CODE: ["", [Validators.required]],
     });
   }
 

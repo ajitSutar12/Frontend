@@ -86,10 +86,14 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
   //validation
@@ -163,8 +167,8 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
       let custid = obj.CUST_ID
       let branch = obj.BRANCH_CODE
 
-      // this.iframe5url = this.report_url + "examples/custidinterestlist.php?stdate='" + date + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + branchName + "'&$var='C'&$var1='D'&$var2='LN'&$var3='DP'&$var4='NULL'&branch=" + branch + "";
-      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&S_ACNOTYPE='" + schemeName + "'&flag1=0&sign='-'";
+      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&S_ACNOTYPE='" + schemeName + "'&flag1=0&sign='-'";
+      // this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&S_ACNOTYPE='" + schemeName + "'&flag1=0&sign='-'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
@@ -185,8 +189,8 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
     this.showRepo = false;
     this.clicked = false;
   }
-  // getBranch(event) {
-  //   this.ngbranch = event.value
-  //   this.branchName = event.branchName
-  // }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
 }

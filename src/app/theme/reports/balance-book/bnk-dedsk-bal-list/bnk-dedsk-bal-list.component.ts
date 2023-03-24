@@ -67,6 +67,7 @@ report_url = environment.report_url;
 id: any;
 Cust_ID: any[] //customer id from idmaster
 newcustid: any = null;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -134,10 +135,14 @@ newcustid: any = null;
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
  
@@ -170,7 +175,7 @@ newcustid: any = null;
       let endingcode =obj.Ending_Account;
       
 
-     this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+branch+"&startingcode="+startingcode +"&endingcode="+ endingcode +"&bankName=" + bankName + "&branchName="+branchName;
+     this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+this.branch+"&startingcode="+startingcode +"&endingcode="+ endingcode +"&bankName=" + bankName + "&branchName="+branchName;
      this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
@@ -212,6 +217,9 @@ newcustid: any = null;
   else {
     Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
   }
+} 
+getBranch(event) {
+  this.ngbranch = event.value
+  this.branchName = event.branchName
 }
-
 }

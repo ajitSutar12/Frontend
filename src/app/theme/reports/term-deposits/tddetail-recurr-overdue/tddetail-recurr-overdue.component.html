@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <h5>Term Deposit Details List and Recurring Overdue </h5>
-                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable"> 
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
@@ -21,7 +21,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="branch"
-                                    
+                                    (change)="getBranch($event)"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' >
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
