@@ -308,10 +308,11 @@
                 <div *ngFor="let asideItems of menuItems.getAll();let i = index" class="d-color">
                   <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}
                   </div>
-                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title="tooltip goes here" [attr.item-border]="itemBorder"
-                    [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"
-                    *ngFor="let asideItem of menuListData" appAccordionLink group="{{asideItem.state}}">
-                    
+                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title="tooltip goes here"
+                    [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle"
+                    [attr.subitem-border]="subItemBorder" *ngFor="let asideItem of menuListData" appAccordionLink
+                    group="{{asideItem.state}}">
+
                     <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
                       group="{{asideItem.state}}">
                       <a [routerLinkActive]="['active']" class="ripple" href="{{asideItem.external}}"
@@ -491,19 +492,16 @@
   <div>
     <span class="text-muted">
       <div class="row">
-        <div class="col-md-3">
-          <h6 style="color:black; font-size: 13px;">Branch: {{barnchName}} Today Date: {{currentDate}}</h6>
-        </div>
-        <div class="col-md-8">
-          
+        <div class="col-md-7">
           <!-- <marquee behavior="scroll" direction="left" scrollamount="5">
             <label class="text"><b>Tomorrow there will be holiday to bank.........</b>
             </label>
           </marquee> -->
         </div>
+        <div class="col-md-5">
+          <h6 style="color:black; font-size: 13px; float: right;">Branch: {{barnchName}} Today Date: {{currentDate}}</h6>
+        </div>
       </div>
-
-
     </span>
   </div>
 </footer>

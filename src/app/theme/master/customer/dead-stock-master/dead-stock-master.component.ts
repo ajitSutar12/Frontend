@@ -423,8 +423,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
-        this.approveShow = false;
-        this.rejectShow = false;
+        this.approveShow = true;
+        this.rejectShow = true;
       }
       else if (data.SYSCHNG_LOGIN == null) {
         this.unapproveShow = false
@@ -742,7 +742,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   onOpen(select: NgSelectComponent) {
-    //debugger
     select.open()
   }
 
@@ -765,7 +764,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
   getPurchaseValue() {
-    debugger
     let purchaseRate = this.angForm.controls['PURCHASE_RATE'].value
     let purchaseQuantity = this.angForm.controls['PURCHASE_OP_QUANTITY'].value
     let PurchaseValue = purchaseRate == undefined || purchaseQuantity == undefined ? 0 : Number(purchaseRate) * Number(purchaseQuantity)
