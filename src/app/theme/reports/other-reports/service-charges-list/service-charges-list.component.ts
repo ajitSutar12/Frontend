@@ -186,7 +186,7 @@ export class ServiceChargesListComponent implements OnInit {
       // let endingcode =obj.Ending_Account;
 
       
-      this.iframe5url = this.report_url + "examples/Service_charges_list.php?&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&TRANDRCR='D'&TRAN_STATUS='1'&AC_ACNOTYPE='" + schemeName + "'"
+      this.iframe5url = this.report_url + "examples/Service_charges_list.php?&Branch='" + this.branchName + "'&BankName='" + bankName+ "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&TRANDRCR='D'&TRAN_STATUS='1'&AC_ACNOTYPE='" + schemeName + "'"
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
