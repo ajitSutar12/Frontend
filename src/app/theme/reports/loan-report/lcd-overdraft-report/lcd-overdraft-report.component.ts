@@ -62,6 +62,7 @@ export class LcdOverdraftReportComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -115,10 +116,14 @@ export class LcdOverdraftReportComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -189,8 +194,7 @@ export class LcdOverdraftReportComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      //  this.iframe5url=this.report_url+ "examples/GuaranterList.php?&NAME= "+ bankName +" &AC_TYPE= "+ scheme +" &AC_ACNOTYPE=  '"+ schemeName +"' &BRANCH_CODE= "+branch+" &PRINT_DATE='" + obj.date + "' ";  
-      this.iframe5url = this.report_url + "examples/cash_creadit_overdraft_report.php?&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&transtatus='1'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'";
+      this.iframe5url = this.report_url + "examples/cash_creadit_overdraft_report.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&transtatus='1'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
@@ -227,6 +231,10 @@ export class LcdOverdraftReportComponent implements OnInit {
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 }
 
