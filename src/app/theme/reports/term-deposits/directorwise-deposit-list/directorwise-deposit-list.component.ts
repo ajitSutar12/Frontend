@@ -140,7 +140,7 @@ obj['END_DATE']=date
   let branch = obj.BRANCH_CODE
 
 
-  this.iframe5url=this.report_url+"examples/directorwisedeposit.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&branchName='"+ branchName +"'&ac_director='"+ directorid +"'&var='D'&branch='"+ branch +"'";
+  this.iframe5url=this.report_url+"examples/directorwisedeposit.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&branchName='"+ branchName +"'&bankName='"+ bankName +"'&ac_director='"+ directorid +"'&var='D'&branch='"+ branch +"'";
   console.log( this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   

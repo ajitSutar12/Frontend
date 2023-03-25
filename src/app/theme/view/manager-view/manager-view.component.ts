@@ -349,7 +349,7 @@ export class ManagerViewComponent implements OnInit {
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (id === 'rateOfMargin') { 
-      this.iframe1url = this.report_url + "examples/interestratemargin.php?&Branch='" + this.branchName + "'&sdate='"+ Startdate+"'&edate='"+ Startdate+"'&trandrcr='D'&TRANSTATUS='1'&AC_ACNOTYPE4='TD'&AC_ACNOTYPE='AG'&AC_ACNOTYPE1='GS'&AC_ACNOTYPE2='IV'&DESCRIPTION1='Investment Details'&DESCRIPTION2='Deposit Details'&DESCRIPTION3='Loan Details'&flag1=1";
+      this.iframe1url = this.report_url + "examples/interestratemargin.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='"+ Startdate+"'&edate='"+ Startdate+"'&trandrcr='D'&TRANSTATUS='1'&AC_ACNOTYPE4='TD'&AC_ACNOTYPE='AG'&AC_ACNOTYPE1='GS'&AC_ACNOTYPE2='IV'&DESCRIPTION1='Investment Details'&DESCRIPTION2='Deposit Details'&DESCRIPTION3='Loan Details'&flag1=1";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -424,7 +424,7 @@ else if (id === 'drBalance') {
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 else if (id === 'crBalance') { 
-        this.iframe1url = this.report_url + "examples/Credit_Balance_List.php?&Branch='" + this.branchName + "'&edate='" + Startdate + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE1='LN'&AC_ACNOTYPE2='DS'&AC_ACNOTYPE3='CC'&QUOTES=''";
+        this.iframe1url = this.report_url + "examples/Credit_Balance_List.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&edate='" + Startdate + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE1='LN'&AC_ACNOTYPE2='DS'&AC_ACNOTYPE3='CC'&QUOTES=''";
         // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + Startdate + "'&branchName='" + this.branchName + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
@@ -435,7 +435,7 @@ else if (id === 'zeroBalance') {
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 else if (id === 'ccOverdraft') { 
-        this.iframe1url = this.report_url + "examples/CCOverdraftReport.php?&Branch='" + this.branchName + "'&sdate='" + Startdate + "'&edate='" + Startdate + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE='CC'";
+        this.iframe1url = this.report_url + "examples/CCOverdraftReport.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + Startdate + "'&edate='" + Startdate + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE='CC'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
