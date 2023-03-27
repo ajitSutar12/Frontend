@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 import { environment } from 'src/environments/environment';
 import {ACMasterDropdownService} from '../../../../shared/dropdownService/ac-master-dropdown.service'
 
@@ -40,6 +41,10 @@ export class ChargesPostingComponent implements OnInit {
     private config: NgSelectConfig,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private ACMasterDropdownService: ACMasterDropdownService,
+    private savingMasterService: SavingMasterService,
+    private _ACMasterDropdownService: ACMasterDropdownService,
+
+
   ) { 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -85,7 +90,8 @@ export class ChargesPostingComponent implements OnInit {
       GL_ACNO:['',[Validators.required]],
       TOTAL_CHARGE:[''],
       PARTICULAR:['Service Charges'],
-
+      FROM_AC:['',[Validators.required]],
+      TO_AC:['',[Validators.required]]
     });
   }
 
@@ -130,6 +136,113 @@ export class ChargesPostingComponent implements OnInit {
     }
     
     
+  }
+  obj:any;
+  ToAC:any;
+  fromAC:any;
+  
+  getIntroducer(item) {
+    debugger
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.ngscheme, branchCode]
+    switch (item.name) {
+      case 'SB':
+        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+          console.log(data);
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'SH':
+        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'CA':
+        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'LN':
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'TD':
+        this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'DS':
+        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'CC':
+        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'GS':
+        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'PG':
+        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'AG':
+        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'IV':
+        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'GL':
+        this._ACMasterDropdownService.getACMasterList1().subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+      case 'LK':
+        this.savingMasterService.getLokcerSchemeList1(this.obj).subscribe(data1 => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+    }
+  }
+
+  Posting(){
+    console.log(this.angForm.value);
   }
 
 }
