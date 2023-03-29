@@ -8,6 +8,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { ProcessAcmService } from '../process-acm.service';
 @Component({
   selector: 'app-transfer-to-glby-closing-ac',
   templateUrl: './transfer-to-glby-closing-ac.component.html',
@@ -33,12 +34,12 @@ export class TransferToGLbyClosingACComponent implements OnInit {
   totalCharges: any = null
   // Date variables
   todate: any = null;
-  fromdate:any=null
+  fromdate: any = null
   maxDate: any;
   minDate: any;
   bsValue = new Date();
   // variables for button
-  showButton: boolean =true;
+  showButton: boolean = true;
   updateShow: boolean;
   newbtnShow: boolean;
   constructor(
@@ -48,6 +49,7 @@ export class TransferToGLbyClosingACComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public ACMasterDropdownService: ACMasterDropdownService,
+    public _service: ProcessAcmService
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -70,9 +72,9 @@ export class TransferToGLbyClosingACComponent implements OnInit {
     })
 
   }
-  getACmastercode(event){
+  getACmastercode(event) {
     console.log(event)
-   
+
     this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
       this.ACMasterDropdown = data;
     })
@@ -85,9 +87,9 @@ export class TransferToGLbyClosingACComponent implements OnInit {
       FROM_DATE: ['', [Validators.required]],
       TO_DATE: ['', [Validators.required]],
       GL_AC: [''],
-      TOTAL_CHARGES:[''],
-      PARTICULAR:[''],
-      TRAN_PASSING:[''],
+      TOTAL_CHARGES: [''],
+      PARTICULAR: [''],
+      TRAN_PASSING: [''],
     })
   }
   getBranch() {
@@ -105,7 +107,7 @@ export class TransferToGLbyClosingACComponent implements OnInit {
   getIntroducer() {
     this.obj = [this.schemeedit, this.ngBranchCode]
     switch (this.getschemename) {
-   
+
       case 'SH':
         this.schemeAccountNoService.getShareSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
@@ -118,25 +120,47 @@ export class TransferToGLbyClosingACComponent implements OnInit {
         break
     }
   }
-    
+
   // checking date 
   counter = 0;
-  checkDate(event){
+  checkDate(event) {
 
-    this.counter = this.counter+1;
-    if(this.counter>2 && event.length!=0){
+    this.counter = this.counter + 1;
+    if (this.counter > 2 && event.length != 0) {
       let value1
-    let value2
-    value1 = moment(this.fromdate).format('DD/MM/YYYY');
-    // console.log(value1)
-    value2 = moment(this.todate).format('DD/MM/YYYY');
-    // console.log(value2)
-    if(moment(value1).isSame(value2)){
-      Swal.fire("from date should not be same as to date")
-      this.angForm.controls['TO_DATE'].reset()
+      let value2
+      value1 = moment(this.fromdate).format('DD/MM/YYYY');
+      // console.log(value1)
+      value2 = moment(this.todate).format('DD/MM/YYYY');
+      // console.log(value2)
+      if (moment(value1).isSame(value2)) {
+        Swal.fire("from date should not be same as to date")
+        this.angForm.controls['TO_DATE'].reset()
+      }
     }
-    }
-    
-  } 
+  }
 
+
+  //=====--------------* Transfer to GL Closing Account *----------========///
+  posting() {
+    let obj = this.angForm.value;
+    obj['user'] = JSON.parse(localStorage.getItem('user'));
+    console.log(obj);
+    Swal.fire({
+      title: '',
+      text: "Do you want to Transfer B-Type Members to HO ..?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      this._service.transferGLClosingAccount(obj).subscribe(data => {
+        if (data.msg != '') {
+          Swal.fire('Info!', data.msg, 'success');
+          this.angForm.reset();
+        }
+      })
+    })
+  }
 }

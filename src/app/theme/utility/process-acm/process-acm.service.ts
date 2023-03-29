@@ -26,4 +26,12 @@ export class ProcessAcmService {
   penalInterestCalculationProcess(data): Observable<any>{
     return this.http.post(this.url + '/voucher/PenalInterstCalculatinProcess',data);
   }
+
+  OverdraftPosting(data): Observable<any>{
+    return this.http.post(this.url+'/voucher/OverdraftPosting',data);
+  }
+
+  transferGLClosingAccount(data): Observable<any>{
+    return this.http.post(this.url+'/voucher/transferGLClosingAccount',data);
+  }
 }

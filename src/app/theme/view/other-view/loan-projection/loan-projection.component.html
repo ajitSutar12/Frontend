@@ -16,7 +16,8 @@
                   <span class="border-lable-flt">
                     <input style="text-align: right;" type="text" class="form-control" name="amount" id="amount"
                       formControlName="LOAN" maxlength="15"
-                      (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" (keyup)="decimalAllContent($event)">
+                      (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                      (keyup)="decimalAllContent($event)">
                   </span>
                 </div>
                 <div class="form-group form-primary form-static-label"
@@ -34,8 +35,7 @@
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
                     <input style="text-align: right;" type="text" class="form-control" formControlName="PERIOD"
-                      maxlength="03"
-                      (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                      maxlength="03" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                   </span>
                 </div>
                 <div class="form-group form-primary form-static-label"
@@ -101,20 +101,21 @@
                 <div class="form-group form-primary form-static-label">
                   <span class="border-lable-flt">
                     <ng-select type="text" id="ins" [(ngModel)]="posting" formControlName="POSTINGMETHOD"
-                      bindLabel="label" bindValue="value" title="Compulsory Selection"  required placeholder="Inst.Posting Method">
-                      <ng-option *ngFor="let values of repayModeOption1" [value]="values"  >
+                      bindLabel="label" bindValue="value" title="Compulsory Selection" required
+                      placeholder="Inst.Posting Method">
+                      <ng-option *ngFor="let values of repayModeOption1" [value]="values">
                         {{values.label}}</ng-option>
                     </ng-select>
                   </span>
                 </div>
 
                 <div class="form-group form-primary form-static-label"
-                *ngIf="angForm.controls['POSTINGMETHOD'].invalid && (angForm.controls['POSTINGMETHOD'].dirty || angForm.controls['POSTINGMETHOD'].touched)"
-                class="alert alert-danger">
-                <div *ngIf="angForm.controls['POSTINGMETHOD'].errors?.required">
-                  This field is required
+                  *ngIf="angForm.controls['POSTINGMETHOD'].invalid && (angForm.controls['POSTINGMETHOD'].dirty || angForm.controls['POSTINGMETHOD'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="angForm.controls['POSTINGMETHOD'].errors?.required">
+                    This field is required
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
             <div class="row">
@@ -123,13 +124,11 @@
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
-                    placeholder=" " pattern="\d{1,2}(\.\d{2})?" id="TDS_RATE" maxlength="5"
-                    title="Input allowed only  0-9" #margin (keyup)="checkmargin(margin.value)"
-                    formControlName=" TDS_RATE"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
+                    <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" "
+                      pattern="\d{1,2}(\.\d{2})?" id="TDS_RATE" maxlength="5" title="Input allowed only  0-9" #margin
+                      (keyup)="checkmargin(margin.value)" formControlName="TDS_RATE"
+                      (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
                   </span>
-                
                 </div>
                 <div class="form-group form-primary form-static-label"
                   *ngIf="angForm.controls['TDS_RATE'].invalid && (angForm.controls['TDS_RATE'].dirty || angForm.controls['TDS_RATE'].touched)"
@@ -138,7 +137,6 @@
                     This field is required
                   </div>
                 </div>
-
               </div>
 
               <div class="col-sm-12 col-md-2 "><label for="AC_PARTICULAR">Resolution Date</label>
@@ -146,11 +144,10 @@
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
-                    [(ngModel)]="Resolution_date" formControlName="RESOLUTION_DATE"
-                    class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}"
-                    [minDate]="resolutionDate" [maxDate]="maxDate" bsDatepicker
-                    required>
+                    <input type="text" placeholder="dd/mm/yyyy" name="date" id="date" [(ngModel)]="Resolution_date"
+                      formControlName="RESOLUTION_DATE" class="form-control"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" [minDate]="resolutionDate" [maxDate]="maxDate"
+                      bsDatepicker required>
                   </span>
                 </div>
               </div>
@@ -171,23 +168,13 @@
                     This field is required
                   </div>
                 </div>
-
               </div>
-
-
-
-
-
-
-
-
-
-
             </div>
-
-
-
-
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-outline-primary btn-sm" (click)="Process()">Process</button>
+              </div>
+            </div>
           </div>
         </div>
       </form>
@@ -213,8 +200,13 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td colspan="6" class="no-data-available">No data!</td>
+            <tr *ngFor="let item of resultData; let i =index">
+              <td>{{i+1}}</td>
+              <td>{{item.DrAmt}}</td>
+              <td>{{item.CrAmt}}</td>
+              <td>{{item.Bal}}</td>
+              <td>{{item.Product}}</td>
+              <td>{{item.Days}}</td>
             </tr>
           </tbody>
         </table>

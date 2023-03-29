@@ -119,6 +119,7 @@ export class PaymentDenominationComponent implements OnInit {
 
   submit(){
     // if(this.angForm.valid){
+      debugger
       let object = this.angForm.value;
       let user   = JSON.parse(localStorage.getItem('user'));
       object['currency'] = this.currencyData;
