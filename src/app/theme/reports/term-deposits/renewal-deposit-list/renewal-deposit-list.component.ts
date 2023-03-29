@@ -162,7 +162,7 @@ maxDate: Date;
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
- this.iframe5url=this.report_url+ "examples/renewalhistory.php?stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&S_APPL='"+ bankName +"'&branchName='"+ this.branchName +"'&branch='"+ branch +"'"
+ this.iframe5url=this.report_url+ "examples/renewalhistory.php?stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&S_APPL='"+ bankName +"'&branchName='"+ this.branchName +"'&bankName='"+ bankName +"'"
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
