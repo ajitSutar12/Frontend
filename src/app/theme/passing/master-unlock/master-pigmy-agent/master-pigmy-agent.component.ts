@@ -158,7 +158,7 @@ export class MasterPigmyAgentComponent implements OnInit {
   //get saving customer data
   getPigmyAgentData(data) {
     this.pigmyAgentData = data.id;
-    this.child.editClickHandler(data.id);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

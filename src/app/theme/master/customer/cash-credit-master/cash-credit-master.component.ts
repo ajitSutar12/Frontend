@@ -355,7 +355,7 @@ export class CashCreditMasterComponent implements OnInit {
     public sanitizer: DomSanitizer,
   ) {
     if (this.childMessage != undefined) {
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -1007,7 +1007,7 @@ export class CashCreditMasterComponent implements OnInit {
 
   //Method for append data into fields
 
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
     let date
     let opdate
@@ -1027,7 +1027,15 @@ export class CashCreditMasterComponent implements OnInit {
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -1708,7 +1716,7 @@ export class CashCreditMasterComponent implements OnInit {
   }
 
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id,0)
   }
 
   getExpiryDate() {
@@ -2112,8 +2120,8 @@ export class CashCreditMasterComponent implements OnInit {
   compareamount() {
     let from = Number((document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value);
     let to = Number((document.getElementById("AC_SANCTION_AMOUNT") as HTMLInputElement).value);
-    if(to != 0){
-      if (from > to ) {
+    if (to != 0) {
+      if (from > to) {
         Swal.fire(
           'Warning!',
           'Drawing Power Should Be Less Than or Equal to Sanction Limit',
@@ -2122,6 +2130,6 @@ export class CashCreditMasterComponent implements OnInit {
         (document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value = "0"
       }
     }
-   
+
   }
 }

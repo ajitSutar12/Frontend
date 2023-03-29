@@ -5,10 +5,10 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class FrequencyService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'Monthly', label: 'Monthly' },
-        { value: 'Quarterly', label: 'Quarterly' },
+        { value: 'M', label: 'Monthly' },
+        { value: 'Q', label: 'Quarterly' },
         { value: 'Fixed Quarterly', label: 'Fixed Quarterly' },
-        { value: 'Half Yearly', label: 'Half Yearly' },
+        { value: 'H', label: 'Half Yearly' },
     ];
 
     getCharacters(): Array<IOption> {

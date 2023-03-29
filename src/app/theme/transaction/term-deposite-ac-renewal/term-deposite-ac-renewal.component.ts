@@ -930,7 +930,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         'Account unapproved successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
     }, err => {

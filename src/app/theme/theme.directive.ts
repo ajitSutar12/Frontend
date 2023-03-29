@@ -14,12 +14,9 @@ export class ThemeDirective {
   constructor(private el: ElementRef) { }
 
   @HostListener("focusout")
-  onFormSubmit() {
-    debugger
-
+  onFormSubmit() {    
     const invalidControl = this.el.nativeElement; 
-    debugger
-    if (invalidControl.tagName == 'INPUT') {
+        if (invalidControl.tagName == 'INPUT') {
       if (invalidControl.value == ''  ) {
         invalidControl.focus();
       }

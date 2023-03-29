@@ -5,9 +5,9 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class ExecutionDayService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'Month Begin', label: 'Month Begin' },
-        { value: 'Month End', label: 'Month End' },
-        { value: 'Specific Day of Month', label: 'Specific Day of Month' },
+        { value: 'MB', label: 'Month Begin' },
+        { value: 'ME', label: 'Month End' },
+        { value: 'day', label: 'Specific Day of Month' },
     ];
 
     getCharacters(): Array<IOption> {

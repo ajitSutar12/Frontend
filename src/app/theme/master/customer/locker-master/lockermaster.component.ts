@@ -259,7 +259,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minDate.setDate(this.minDate.getDate());
     if (this.childMessage != undefined) {
 
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -722,7 +722,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     let opdate
     this.angForm.controls['AC_TYPE'].disable()
@@ -736,7 +736,15 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -989,7 +997,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id,0)
   }
 
   onCloseModal() {

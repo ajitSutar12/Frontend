@@ -232,7 +232,7 @@ export class MasterLoanComponent implements OnInit {
   //get saving customer data
   getLoanData(data) {
     this.loanData = data.id;
-    this.child.editClickHandler(data.id);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
