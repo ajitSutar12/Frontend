@@ -192,7 +192,7 @@ export class MasterLockerComponent implements OnInit, AfterViewInit {
   //get saving customer data
   getLockerData(data) {
     this.shareData = data.id;
-    this.child.editClickHandler(data.id);
+    this.child.editClickHandler(data.id,1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

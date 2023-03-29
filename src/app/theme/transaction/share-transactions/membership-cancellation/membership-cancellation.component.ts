@@ -566,6 +566,9 @@ export class MembershipCancellationComponent implements OnInit {
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
     })
   }
   reject() {
@@ -581,6 +584,9 @@ export class MembershipCancellationComponent implements OnInit {
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
+      var button = document.getElementById('trigger');
+      button.click();
+      this.reloadTablePassing.emit();
     })
   }
   unapprove() {

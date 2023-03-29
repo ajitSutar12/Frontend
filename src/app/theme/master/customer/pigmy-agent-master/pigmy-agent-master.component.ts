@@ -189,7 +189,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     private fb: FormBuilder) {
     if (this.childMessage != undefined) {
 
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
@@ -692,7 +692,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   updatecheckdata: any
 
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
@@ -705,7 +705,15 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -931,7 +939,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     })
   }
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id, 0)
   }
   NbirthDate: any
   cityName: boolean = false

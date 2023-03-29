@@ -141,7 +141,7 @@ export class MasterAnamatComponent implements OnInit {
         {
           data: "AC_NAME",
           title: "Member Name",
-        },      
+        },
         {
           data: "AC_AREA",
           title: "Detail Address",
@@ -168,7 +168,7 @@ export class MasterAnamatComponent implements OnInit {
   //get saving customer data
   getAnamatData(data) {
     this.anamatData = data.id;
-    this.child.editClickHandler(data.id);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

@@ -372,7 +372,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   }
   updatecheckdata
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.angForm.controls['AC_CLOSEDT'].enable()
     this.investmentService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
@@ -384,7 +384,15 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;

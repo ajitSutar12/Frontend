@@ -227,7 +227,7 @@ export class MasterSavingComponent implements OnInit {
   //get saving customer data
   getSavingData(data) {
     this.savingData = data.id;
-    this.child.editClickHandler(data.id);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

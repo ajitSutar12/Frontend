@@ -2397,4 +2397,10 @@ export class MultiVoucherComponent implements OnInit {
       Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
   }
+  getBranch() {
+    this.selectedScheme = null
+    this.selectedCode = null
+    this.customer = null
+    this.introducerACNo = []
+  }
 }

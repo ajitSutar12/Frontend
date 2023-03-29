@@ -267,7 +267,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     public sanitizer: DomSanitizer) {
     if (this.childMessage != undefined) {
 
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
@@ -281,6 +281,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.getSystemParaDate()
     this.createForm();
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -309,9 +312,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
         });
-        let data: any = localStorage.getItem('user');
-        let result = JSON.parse(data);
-        let branchCode = result.branch.id;
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
@@ -391,6 +391,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSub = this.signTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
+
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
@@ -457,6 +458,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNewCustomer(newCustomer) {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       this.id = newCustomer;
@@ -689,7 +693,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id, 0)
   }
 
   customer(event) {
@@ -1022,7 +1026,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   tempbranch: any
   updatecheckdata: any
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     let joindate
     let retairdate
@@ -1043,7 +1047,15 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;

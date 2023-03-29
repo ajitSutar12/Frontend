@@ -141,17 +141,17 @@ const MENUITEMS = [
               },
               {
                 state: 'sharesMaster',
-                name: 'Shares Master',
+                name: 'Shares Account Master',
                 id: 10
               },
               {
                 state: 'anamatGSM',
-                name: 'Anamat / General Sub Master',
+                name: 'Anamat / General Sub Account Master',
                 id: 11
               },
               {
                 state: 'savingMaster',
-                name: 'Saving Master',
+                name: 'Saving Account Master',
                 id: 12
               },
               {
@@ -161,27 +161,27 @@ const MENUITEMS = [
               },
               {
                 state: 'termDepositsMaster',
-                name: 'Term Deposits Master',
+                name: 'Term Deposit Account Master',
                 id: 14
               },
               {
                 state: 'cashCreditMaster',
-                name: 'Cash Credit Master',
+                name: 'Cash Credit Account Master',
                 id: 15
               },
               {
                 state: 'termLoanMaster',
-                name: 'Term Loan Master',
+                name: 'Term Loan Account Master',
                 id: 16
               },
               {
                 state: 'disputeLoanMaster',
-                name: 'Dispute Loan Master',
+                name: 'Dispute Loan Account Master',
                 id: 17
               },
               {
                 state: 'pigmyAgentMaster',
-                name: 'Pigmy Agent Master',
+                name: 'Pigmy Agent Account Master',
                 id: 18
               },
               {
@@ -191,7 +191,7 @@ const MENUITEMS = [
               },
               {
                 state: 'deadStockMaster',
-                name: 'Dead Stock Master',
+                name: 'Dead Stock Account Master',
                 id: 20
               },
               {
@@ -1603,7 +1603,7 @@ const MENUITEMS = [
                 name: 'Transactionless Account List',
                 id: 280
               },
-              
+
 
             ]
           },
@@ -1613,7 +1613,7 @@ const MENUITEMS = [
             name: 'MIS Reports',
             short_label: 'D',
             type: 'sub',
-            icon: 'icon-home', 
+            icon: 'icon-home',
             id: 142,
             children: [
               {

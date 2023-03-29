@@ -263,7 +263,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ) {
     if (this.childMessage != undefined) {
 
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage, 1);
     }
     // this.maxDate = new Date();
     this.minDate = new Date();
@@ -1630,7 +1630,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   updatecheckdata: any
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     let opdate
     let asondate
@@ -1646,7 +1646,15 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -1711,7 +1719,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id, 0)
   }
 
   //Method for update data 

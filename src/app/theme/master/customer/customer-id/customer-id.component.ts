@@ -184,7 +184,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isImageSaved: boolean;
   cardImageBase64: string;
   selectedImagePreview: any;
-  selectedImgArrayDetails = []; 
+  selectedImgArrayDetails = [];
   isImgPreview: boolean = false
   imgBase64: any
   showImage: boolean = false;
@@ -248,7 +248,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // let use = JSON.parse(localStorage.getItem('use'));
 
-
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: "full_numbers",
@@ -278,6 +280,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
         });
+        dataTableParameters['branchCode'] = result.branchId;
         dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -420,9 +423,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((data) => {
         this.occupation = data;
       });
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.CODE
     if (result.RoleDefine[0].Role.id == 1) {
       this.salaryDMaster
         .getSalaryDMasterList(branchCode)
@@ -502,7 +502,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  submit(event) { debugger
+  submit(event) {
+    debugger
     let birthdate
     let submitdate
     event.preventDefault();

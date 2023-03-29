@@ -49,7 +49,8 @@
                                         bindLabel="label" formControlName="AC_TITLE" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="" #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true'
-                                        >
+                                        autofocus>
+
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -146,9 +147,7 @@
                         </div>
                     </div>
                     <div class="row">
-
                         <div class="col-sm-2">
-
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="regValue" [(ngModel)]="ngTitlereg" id="AC_TITLE_REG"
@@ -170,7 +169,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="L_NAME_REG" class="form-control " placeholder=" "
@@ -190,7 +189,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="F_NAME_REG" class="form-control " placeholder=" "
@@ -209,7 +208,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME_REG" style="text-transform:uppercase"
@@ -228,6 +227,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
