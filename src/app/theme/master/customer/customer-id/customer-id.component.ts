@@ -218,10 +218,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     public router: Router,
     public sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
-    
+
   ) {
     this.maxDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate()); 
+    this.maxDate.setDate(this.maxDate.getDate());
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -229,7 +229,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       // {
       //   this.el.nativeElement.className = "form-control ng-untouched ng-valid"
       // };
-     
+
     })
   }
 
@@ -472,7 +472,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_OCODE: [""],
       AC_ADHARNO: ["", [Validators.pattern]],
       AC_RISKCATG: [""],
-      AC_BIRTH_DT: ["",],
+      AC_BIRTH_DT: ["", [Validators.required]],
       AC_HONO: ["", [Validators.pattern]],
       AC_WARD: ["", [Validators.pattern]],
       AC_ADDR: ["", [Validators.pattern]],
