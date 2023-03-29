@@ -49,8 +49,8 @@
                                         bindLabel="label" formControlName="AC_TITLE" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="" #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true'
-                                        autofocus>
-                                        <ng-option *ngFor="let values of prifix" [value]="values"> 
+                                        >
+                                        <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Title <sub class="required"> * </sub></label>
@@ -328,15 +328,22 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" appTheme placeholder="dd/mm/yyyy" name="AC_BIRTH_DT"
-                                        id="AC_BIRTH_DT" class="form-control "
+                                    <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="AC_BIRTH_DT"
+                                        id="AC_BIRTH_DT" class="form-control " minlength="8" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" #AC_BIRTH_DT="bsDatepicker"
-                                        (keydown.Tab)="AC_BIRTH_DT.hide()" placement="left"
+                                        (keydown.Tab)="AC_BIRTH_DT.hide()" placement="left" #AC_BIRTH
                                         formControlName="AC_BIRTH_DT" [bsValue]="bsValue" bsDatepicker required>
                                     <label for="AC_BIRTH_DT">Birth Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="AC_BIRTH.invalid && (AC_BIRTH.dirty || AC_BIRTH.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_BIRTH_DT'].errors?.required">  
+                                    Enter Valid Date
+                                </div>
+                            </div> -->
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_BIRTH_DT'].invalid && (angForm.controls['AC_BIRTH_DT'].dirty || angForm.controls['AC_BIRTH_DT'].touched)"
                                 class="alert alert-danger">
@@ -440,7 +447,7 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
+                                    <ng-select appTheme id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
                                         bindLabel="CITY_NAME" formControlName="AC_CTCODE" title="Compulsory Selection"
                                         #City (focus)="onFocus(City)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="City" required>

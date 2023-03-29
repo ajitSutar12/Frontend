@@ -302,10 +302,10 @@ maxDate: Date;
 
     let schemeName = this.tScheme
 
-     let startingcode= obj.FROM_AC_NO;
+     let startingcode= obj.FROM_AC_NO; 
     let endingcode =obj.TO_AC_NO;
     
- this.iframe5url=this.report_url+ "examples/unpaid_dividend_list.php?branchName="+ this.branchName +"&reportdate='"+  obj.date +"'&membno_from="+ startingcode +"&membno_to="+ endingcode +"&S_APPL='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";  
+ this.iframe5url=this.report_url+ "examples/unpaid_dividend_list.php?branchName="+ this.branchName +"&bankName="+bankName+"&etdate='"+  obj.date +"'&membno_from="+ startingcode +"&membno_to="+ endingcode +"&S_APPL='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";  
 
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
@@ -323,7 +323,10 @@ maxDate: Date;
 
   }
   resetForm() {
-  this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.FROM_AC_NO.reset();
+    this.ngForm.controls.TO_AC_NO.reset();
+  
 
     this.showRepo = false;
     this.clicked=false;
