@@ -442,7 +442,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
-      if (data.SYSCHNG_LOGIN != null ) {
+      if (data.SYSCHNG_LOGIN != null) {
         this.unapproveShow = true
         this.showButton = false;
         this.updateShow = false;
@@ -623,7 +623,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
         'Account unapproved successfully',
         'success'
       );
-      var button = document.getElementById('trigger');
+      var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
     }, err => {

@@ -152,7 +152,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private systemParameter: SystemMasterParametersService,
   ) {
     if (this.childMessage != undefined) {
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage,1);
     }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -404,7 +404,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   nglastdedate: any
   updatecheckdata: any
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id,status) {
 
     let date
     let date1
@@ -414,6 +414,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.unapproveShow = true
         this.showButton = false;
         this.updateShow = false;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
         this.newbtnShow = true;
         this.approveShow = false;
         this.rejectShow = false;
@@ -754,7 +762,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.reloadTablePassing.emit();
   }
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id,0)
   }
   gotoTop() {
     window.scroll({
