@@ -152,7 +152,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private systemParameter: SystemMasterParametersService,
   ) {
     if (this.childMessage != undefined) {
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage,1);
     }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -404,7 +404,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   nglastdedate: any
   updatecheckdata: any
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id,status) {
 
     let date
     let date1
@@ -418,13 +418,21 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
         this.approveShow = false;
         this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = true;
+        this.rejectShow = true;
       }
       else if (data.SYSCHNG_LOGIN == null) {
         this.unapproveShow = false
@@ -742,7 +750,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   onOpen(select: NgSelectComponent) {
-    //debugger
     select.open()
   }
 
@@ -755,7 +762,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.reloadTablePassing.emit();
   }
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id,0)
   }
   gotoTop() {
     window.scroll({
@@ -765,7 +772,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
   getPurchaseValue() {
-    debugger
     let purchaseRate = this.angForm.controls['PURCHASE_RATE'].value
     let purchaseQuantity = this.angForm.controls['PURCHASE_OP_QUANTITY'].value
     let PurchaseValue = purchaseRate == undefined || purchaseQuantity == undefined ? 0 : Number(purchaseRate) * Number(purchaseQuantity)

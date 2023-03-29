@@ -250,8 +250,8 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   //get syspara table data for date and pigmy auto voucher flag
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-      data.IS_RECEIPTNO_IN_PIGMYCHART == true ? this.isReceiptShow = true : this.isReceiptShow = false
-      data.PIGMY_IS_AUTO_VOUCHER == false ? this.pigmyAutoVoucher = false : this.pigmyAutoVoucher = true
+      data.IS_RECEIPTNO_IN_PIGMYCHART == 1 ? this.isReceiptShow = true : this.isReceiptShow = false
+      data.PIGMY_IS_AUTO_VOUCHER == 0 ? this.pigmyAutoVoucher = false : this.pigmyAutoVoucher = true
     })
   }
 

@@ -346,7 +346,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     var day = check.format('DD');
     var year = check.format('YYYY');
     let date = new Date(Number(year), Number(month), Number(day))
-    if (exe_day.value == 'Month Begin') {
+    if (exe_day.value == 'MB') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
       var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -360,7 +360,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         FROM_DATE: newDate
       })
     }
-    else if (exe_day.value == 'Month End') {
+    else if (exe_day.value == 'ME') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -417,7 +417,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     var fdate = startfull[0].split(/\//);
     var newformatDate = fdate[2] + '-' + fdate[1] + '-' + fdate[0]
     var date = new Date(newformatDate);
-    if (next_exe_day.value == 'Monthly') {
+    if (next_exe_day.value == 'M') {
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
       var day = new Date(date).getDate();
@@ -433,7 +433,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         NEXT_EXE_DATE: newDate
       })
     }
-    else if (next_exe_day.value == 'Quarterly') {
+    else if (next_exe_day.value == 'Q') {
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
       var day = new Date(date).getDate();
@@ -487,7 +487,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         NEXT_EXE_DATE: newDate
       })
     }
-    else if (next_exe_day.value == 'Half Yearly') {
+    else if (next_exe_day.value == 'H') {
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
       var day = new Date(date).getDate();

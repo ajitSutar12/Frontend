@@ -161,7 +161,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     if (this.childMessage != undefined) {
 
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
   }
@@ -488,7 +488,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
     this.anamatGSMService.getFormData(id).subscribe((data) => {
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -499,7 +499,15 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = true
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false;
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -638,7 +646,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id, 0)
   }
 
 

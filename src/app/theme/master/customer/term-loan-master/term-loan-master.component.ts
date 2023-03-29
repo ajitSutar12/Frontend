@@ -353,7 +353,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     public sanitizer: DomSanitizer,
   ) {
     if (this.childMessage != undefined) {
-      this.editClickHandler(this.childMessage);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -871,7 +871,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   //Method for append data into fields  
   tempbankacno
-  editClickHandler(id) {
+  editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
     let date
@@ -894,7 +894,15 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+        this.unapproveShow = false
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+        this.approveShow = false;
+        this.rejectShow = false
+      }
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -1330,7 +1338,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   disableForm(id) {
-    this.editClickHandler(id)
+    this.editClickHandler(id, 0)
   }
   // Method for Calculate Instllment
   calculation() {

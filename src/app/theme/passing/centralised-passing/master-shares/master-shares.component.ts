@@ -243,7 +243,7 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
   //get saving customer data
   getShareData(data) {
     this.shareData = data.id;
-    this.child.editClickHandler(data.id);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

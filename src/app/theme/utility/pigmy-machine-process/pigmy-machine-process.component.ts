@@ -45,7 +45,7 @@ export class PigmyMachineProcessComponent implements OnInit {
   obj
   tableArr: any
   mem
-  isChartNo: boolean = true
+  sysToMachine: boolean = false
 
   //Scheme type variable
   schemeType: string = 'AG'
@@ -168,14 +168,16 @@ export class PigmyMachineProcessComponent implements OnInit {
   getPigmyAgentAcnoList() {
     this.ngAgentCode = null
     this.agentACNO = [];
-    this.obj = [this.ngschemeCode, this.ngBranchCode]
-    this.schemeAccountNoService.getpigmyChartAcno(this.obj).subscribe(data => {
-      this.agentACNO = data;
-    })
+    if (this.ngschemeCode != null && this.ngBranchCode != null) {
+      this.obj = [this.ngschemeCode, this.ngBranchCode]
+      this.schemeAccountNoService.getpigmyChartAcno(this.obj).subscribe(data => {
+        this.agentACNO = data;
+      })
+    }
   }
 
   pigmyMachineRadio(value) {
-    value == 1 ? this.isChartNo = true : this.isChartNo = false
+    value == 2 ? this.sysToMachine = true : this.sysToMachine = false
   }
 
   // Method to insert data into database through NestJS
@@ -183,7 +185,6 @@ export class PigmyMachineProcessComponent implements OnInit {
     const formVal = this.angForm.value;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let branchCode = result.branch.id;
     var full = []
     var fullDate = formVal.TRAN_DATE;
     full = fullDate.split(' ');
@@ -192,18 +193,43 @@ export class PigmyMachineProcessComponent implements OnInit {
     var k = new Date(newDate);
     var expiryDate = moment(k).format('DD.MM.YYYY');
     let mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate]
-    this.http.get(this.url + '/pigmy-chart/machine/' + mem).subscribe((data) => {
-      console.log(data)
-      if (data != '') {
-        Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
-      }
-      else {
-        Swal.fire({
-          icon: 'info',
-          title: 'Pigmy Agent Do Not Have Account',
-        })
-      }
-    })
+    if (this.sysToMachine == true) {
+      this.http.get(this.url + '/pigmy-chart/systomachine/' + mem).subscribe((data1) => {
+        if (data1 != 0) {
+          Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
+        }
+        else {
+          Swal.fire({
+            icon: 'info',
+            title: 'Pigmy Agent Do Not Have Account',
+          })
+        }
+      })
+    } else {
+      this.http.get(this.url + '/pigmy-chart/machinetosys/' + mem).subscribe((data2: any) => {
+        if (data2.status == 1) {
+          Swal.fire({
+            title: 'Warning',
+            html: `<span style="text-justify: inter-word;">Records are already present for agent ${data2.data.AC_NO}.If you want to overwrite please click Yes button but this transaction make on your own risk</span>`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+            if (result.isConfirmed == true) {
+
+            } else {
+
+            }
+          })
+        }
+        else {
+          Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
+        }
+      })
+    }
 
     this.userID = result.USER_NAME
     if (result.RoleDefine[0].Role.id == 1) {
