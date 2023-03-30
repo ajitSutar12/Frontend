@@ -633,9 +633,9 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
+                                    <input appButton type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" minlength="10"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" minlength="8" 
                                         maxlength="10" [(ngModel)]="ngSubmitDate" placement="top"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="SUBMIT_DATE" [bsValue]="bsValue" #SUBMIT_DATE="bsDatepicker"

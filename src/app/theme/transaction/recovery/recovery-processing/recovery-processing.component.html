@@ -30,7 +30,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE"
-                                                            id="EFFECT_DATE" class="form-control" [(ngModel)]="effectdate"
+                                                            id="EFFECT_DATE" class="form-control" [(ngModel)]="effectdate" appButton minlength="8" maxlength="10"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                             formControlName="PROCESS_DATE"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -54,7 +54,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy"
                                             class="form-control" 
-                                            formControlName="TRAN_DATE"
+                                            formControlName="TRAN_DATE" appButton minlength="8" maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             >
                                     </span>

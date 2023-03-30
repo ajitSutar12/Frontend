@@ -80,7 +80,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE"
                                         id="PURCHASE_DATE" class="form-control" required
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="PURCHASE_DATE"
@@ -133,7 +134,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE"
+                                    <input type="text" appButton minlength="8" maxlength="10"
+                                         placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" [maxDate]="maxDate"
                                         #OP_BAL_DATE="bsDatepicker" (keydown.Tab)="OP_BAL_DATE.hide()"
@@ -305,7 +307,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="LAST_DEPR_DATE"
+                                    <input type="text" appButton minlength="8" maxlength="10"
+                                         placeholder="dd/mm/yyyy" name="LAST_DEPR_DATE"
                                         id="LAST_DEPR_DATE" class="form-control"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="LAST_DEPR_DATE"
                                         [(ngModel)]="nglastdedate" disabled [maxDate]="maxDate"

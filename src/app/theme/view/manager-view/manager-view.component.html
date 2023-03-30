@@ -36,7 +36,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
                                         class="form-control" [(ngModel)]="date" [bsValue]="bsValue" [maxDate]="maxDate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #DATE="bsDatepicker"
                                         (keydown.Tab)="DATE.hide()" [ngClass]="{'form-submitted': formSubmitted}"

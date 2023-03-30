@@ -30,7 +30,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
-                                        formControlName="DATETYPE" class="form-control"
+                                        formControlName="DATETYPE" class="form-control" appButton minlength="8" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" bsDatepicker
                                         required>
 

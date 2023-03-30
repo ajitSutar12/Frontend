@@ -316,7 +316,7 @@ export class ManagerViewComponent implements OnInit {
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (id === 'userCash') { 
-      this.iframe1url = this.report_url + "examples/usercashdenomination.php?branchName='" + this.branchName + "'&bankName='" + bankName + "'";
+      this.iframe1url = this.report_url + "examples/usercashdenomination.php?branchName='" + this.branchName + "'&date='" + Startdate + "'&bankName='" + bankName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -413,7 +413,7 @@ export class ManagerViewComponent implements OnInit {
       //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       // }
 else if (id === 'fdPayment') { 
-        this.iframe1url = this.report_url + "examples/fdpayment.php?branchName='" + this.branchName + "'&bankName='" + bankName + "'";
+        this.iframe1url = this.report_url + "examples/fdpayment.php?branchName='" + this.branchName + "'&date='" + Startdate + "'&bankName='" + bankName + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }

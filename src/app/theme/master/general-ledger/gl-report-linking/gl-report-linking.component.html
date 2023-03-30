@@ -42,8 +42,8 @@
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_DATE"
-                                            id="EFFECT_DATE" class="form-control " [maxDate]="maxDate"
+                                        <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="EFFECT_DATE"
+                                            id="EFFECT_DATE" class="form-control " [maxDate]="maxDate" minlength="8" maxlength="10"
                                             [(ngModel)]="effectdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
                                             placement="right" formControlName="EFFECT_DATE" bsDatepicker required>
@@ -64,9 +64,9 @@
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" appTheme placeholder="dd/mm/yyyy" name="EFFECT_TO_DATE"
+                                        <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="EFFECT_TO_DATE"
                                             id="EFFECT_TO_DATE" class="form-control " [minDate]="effectdate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" minlength="8" maxlength="10"
                                             #EFFECT_TO_DATE="bsDatepicker" (keydown.Tab)="EFFECT_TO_DATE.hide()"
                                             placement="right" formControlName="EFFECT_TO_DATE" bsDatepicker required>
                                     </span>

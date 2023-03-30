@@ -393,7 +393,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //disabledate on keyup
   disabledate(data: any) {
-    if (data != "") {
+    if (data != "") { 
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_CTCODE") as HTMLInputElement).value = ""
@@ -426,12 +426,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  getScheme(value) {
-    debugger
-    this.code = value.value
+  // getScheme(value) {
+  //   debugger
+  //   this.code = value.value
+  //   // this.schemeCode = value.name
+  // }
+  getSchemeCode(value) {
     this.schemeCode = value.name
   }
-
   // Method to insert data into database through NestJS
   submit(event) {
     event.preventDefault();

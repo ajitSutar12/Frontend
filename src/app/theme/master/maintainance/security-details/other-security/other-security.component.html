@@ -13,7 +13,8 @@
                 <span class="border-lable-flt">
                   <!-- <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="SUBMISSION_DATE"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                     type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="SUBMISSION_DATE"
                     class="form-control" [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]="maxDate"

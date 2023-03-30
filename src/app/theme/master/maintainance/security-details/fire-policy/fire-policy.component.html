@@ -14,7 +14,8 @@
                   <!-- <input type="text" class="form-control" placeholder=" " id="date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"  
                   formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                    type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
                     #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
@@ -39,7 +40,8 @@
                   <!-- <input type="text" class="form-control" placeholder=" " id="policy_due" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"  
                   formControlName="POLICY_DUE_DATE" onfocus="(this.type='date')" /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="POLICY_DUE_DATE" id="policy_due"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                     type="text" placeholder="dd/mm/yyyy" name="POLICY_DUE_DATE" id="policy_due"
                     class="form-control" [(ngModel)]="policyduedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="POLICY_DUE_DATE"
                     #POLICY_DUE_DATE="bsDatepicker"  (keydown.Tab)="POLICY_DUE_DATE.hide()"
@@ -232,7 +234,8 @@
                     <!-- <input type="text" class="form-control" placeholder=" " id="premium_due_date" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
                       max="31-12-9999" formControlName="PREMIUM_DUE_DATE" onfocus="(this.type='date')" /> -->
-                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="POLICY_DUE_DATE" id="premium_due_date"
+                    <input appTheme appButton minlength="8" maxlength="10"
+                     type="text" placeholder="dd/mm/yyyy" name="POLICY_DUE_DATE" id="premium_due_date"
                       class="form-control" [(ngModel)]="premiumduedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                       [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}"
                       #POLICY_DUE_DATE="bsDatepicker"  (keydown.Tab)="POLICY_DUE_DATE.hide()" 
