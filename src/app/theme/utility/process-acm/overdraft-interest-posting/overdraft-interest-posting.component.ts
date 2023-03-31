@@ -48,7 +48,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ACMasterDropdownService: ACMasterDropdownService,
     private config: NgSelectConfig,
-    private _service : ProcessAcmService
+    private _service: ProcessAcmService
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -205,28 +205,17 @@ export class OverdraftInterestPostingComponent implements OnInit {
   select() {
     if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
-<<<<<<< Updated upstream
-
-
     }
   }
 
   submit() {
-
-  }
-=======
-    }
-  }
-  
-  submit(){
-    let data = this.angForm.value; 
+    let data = this.angForm.value;
     data['user'] = JSON.parse(localStorage.getItem('user'));
-    this._service.OverdraftPosting(data).subscribe(ele=>{
-      if(ele.type == 'error'){
-        Swal.fire('Info!',ele.msg,'warning');
-      }else{
-        Swal.fire('Done!',ele.msg,'success');
->>>>>>> Stashed changes
+    this._service.OverdraftPosting(data).subscribe(ele => {
+      if (ele.type == 'error') {
+        Swal.fire('Info!', ele.msg, 'warning');
+      } else {
+        Swal.fire('Done!', ele.msg, 'success');
 
       }
     })
