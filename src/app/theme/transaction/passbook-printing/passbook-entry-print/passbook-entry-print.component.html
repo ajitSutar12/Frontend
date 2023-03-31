@@ -83,7 +83,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue" appButton minlength="8" maxlength="10"
                                         [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

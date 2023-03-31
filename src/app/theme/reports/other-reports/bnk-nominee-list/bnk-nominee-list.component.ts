@@ -146,7 +146,7 @@ maxDate: Date;
     // let endingcode =obj.Ending_Account;
     
 
-   this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='"+ obj.date + "'&scheme='" + scheme + "'&branchname='" + this.branchName + "'";
+   this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='"+ obj.date + "'&bankname='"+bankName + "'&branchcode='"+branch + "'&scheme='" + scheme + "'&branchname='" + this.branchName + "'";
    console.log(this.iframe5url);
   //  this.iframe5url=this.report_url+ "examples/Nominee_list.php/?&Date='21-04-2021'&scheme='7'";
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 

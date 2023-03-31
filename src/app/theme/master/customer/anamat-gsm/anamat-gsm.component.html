@@ -7,7 +7,7 @@
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
-            </div>
+            </div> 
             <div class="card-block">
                 <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
@@ -16,7 +16,7 @@
                                 <span class="border-lable-flt" >
                                     <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
-                                        (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        (change)="getSchemeCode($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme" [virtualScroll]="true" #AC_TYPE1
                                         (focus)="onFocus(AC_TYPE1)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
@@ -29,7 +29,7 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
+                                    <ng-select appTheme [(ngModel)]="id"  id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         style="width: 85%;" title="Compulsory Selection" [virtualScroll]="true"
                                          (change)="getCustomer($event.value)" required

@@ -14,7 +14,8 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE"  #autofocus /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]='maxDate'
                     #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
@@ -64,7 +65,8 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="DateofStorage" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="STORAGE_DATE"  /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="STORAGE_DATE" id="DateofStorage"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="STORAGE_DATE" id="DateofStorage"
                     class="form-control" [(ngModel)]="storagedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="STORAGE_DATE"
                     #STORAGE_DATE="bsDatepicker"  (keydown.Tab)="STORAGE_DATE.hide()" 

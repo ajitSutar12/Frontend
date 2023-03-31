@@ -64,7 +64,7 @@
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left"
                                             class="form-control" [(ngModel)]="dates" formControlName="date"
-                                            #date="bsDatepicker" (keydown.Tab)="date.hide()"
+                                            #date="bsDatepicker" (keydown.Tab)="date.hide()" appButton minlength="8" maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>

@@ -41,7 +41,7 @@
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
-                                                {{values.label}} </ng-option>
+                                                {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
 
                                     </span>
@@ -62,7 +62,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                            [(ngModel)]="dates" formControlName="date"
+                                            [(ngModel)]="dates" formControlName="date" appButton minlength="8" maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>

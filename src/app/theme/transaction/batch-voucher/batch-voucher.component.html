@@ -132,8 +132,8 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker minlength="10"
+                                        <input type="text" appButton placeholder="dd/mm/yyyy" class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker minlength="8"
                                             maxlength="10" formControlName="ChequeDate" [maxDate]="maxDate"
                                             [minDate]="minDate" #ChequeDate="bsDatepicker"
                                             (keydown.Tab)="ChequeDate.hide()" placement="top">

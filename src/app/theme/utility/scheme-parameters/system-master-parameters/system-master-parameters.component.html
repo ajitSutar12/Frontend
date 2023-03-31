@@ -129,7 +129,7 @@
                                                                         id="COMPANY_START_DATE" class="form-control"
                                                                         [(ngModel)]="ngbankstartdate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                        [maxDate]="maxDate"
+                                                                        [maxDate]="maxDate" appButton minlength="8" maxlength="10"
                                                                         #COMPANY_START_DATE="bsDatepicker"  (keydown.Tab)="COMPANY_START_DATE.hide()"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="COMPANY_START_DATE"
@@ -1254,7 +1254,7 @@
                                                                         [maxDate]="maxDate" placement="right"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #FROM_DATE="bsDatepicker"  (keydown.Tab)="FROM_DATE.hide()"
-                                                                        formControlName="FROM_DATE"
+                                                                        formControlName="FROM_DATE" appButton minlength="8" maxlength="10"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         bsDatepicker>
                                                                     <label for="FROM_DATE">From Date
@@ -1280,7 +1280,7 @@
                                                                         [maxDate]="maxDate" placement="right"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #TO_DATE="bsDatepicker"  (keydown.Tab)="TO_DATE.hide()"
-                                                                        formControlName="TO_DATE"
+                                                                        formControlName="TO_DATE" appButton minlength="8" maxlength="10"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         bsDatepicker>
                                                                     <label for="TO_DATE">To Date
@@ -2913,7 +2913,7 @@
                                                                                 [(ngModel)]="ngpigmycurrentdate"
                                                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                 #PIGMY_CURRENT_DATE="bsDatepicker"  (keydown.Tab)="PIGMY_CURRENT_DATE.hide()"
-                                                                                [maxDate]="maxDate"
+                                                                                [maxDate]="maxDate" appButton minlength="8" maxlength="10"
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 formControlName="PIGMY_CURRENT_DATE"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

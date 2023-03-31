@@ -122,9 +122,9 @@ view(event) {
     obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
   }
   else{
-  let date = moment(this.todate).format('DD/MM/YYYY');
+  let date = moment(this.fromdate).format('DD/MM/YYYY');
   let tDate = moment(date, 'DD/MM/YYYY')
-  obj['START_DATE']=userData.branch.syspara.CURRENT_DATE
+  obj['START_DATE']=date
 }
 //for end date
 if(this.todate == userData.branch.syspara.CURRENT_DATE)

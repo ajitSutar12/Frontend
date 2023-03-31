@@ -143,6 +143,7 @@
                                         <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
                                             [(ngModel)]="deathdate" formControlName="DEATH_DATE" class="form-control"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" [maxDate]="maxDate"
+                                            appButton minlength="8" maxlength="10"
                                             bsDatepicker required style="width: 75%;">
                                     </span>
                                 </div>
@@ -184,6 +185,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
                                             [(ngModel)]="paymentdate" formControlName="PAYMENT_DATE"
+                                            appButton minlength="8" maxlength="10"
                                             class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}"
                                             [maxDate]="maxDate" bsDatepicker required style="width: 75%;">
                                     </span>
@@ -204,6 +206,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
+                                        appButton minlength="8" maxlength="10"
                                             [(ngModel)]="resolutiondate" formControlName="RESOLUTION_DATE"
                                             class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}"
                                             [maxDate]="maxDate" bsDatepicker required style="width: 75%;">

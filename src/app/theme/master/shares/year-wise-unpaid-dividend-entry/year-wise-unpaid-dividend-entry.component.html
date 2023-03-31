@@ -69,7 +69,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE" class="form-control"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE" class="form-control"
                     required #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #WARRENT_DATE="bsDatepicker"  (keydown.Tab)="WARRENT_DATE.hide()"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="WARRENT_DATE" minlength="10"
@@ -229,7 +230,8 @@
                             (ngModelChange)="getCloseDate(data.id,data.shareDividend.id,data.AC_NO,closeDate.value)"
                             (focusout)="getCloseDate(data.id,data.shareDividend.id,data.AC_NO,closeDate.value)"> -->
 
-                          <input type="text" name="DIVIDEND_AMOUNT" id="DIVIDEND_AMOUNT" placeholder="dd/mm/yyyy"
+                          <input type="text" appButton minlength="8" maxlength="10"
+                           name="DIVIDEND_AMOUNT" id="DIVIDEND_AMOUNT" placeholder="dd/mm/yyyy"
                             class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
                             value="{{ data.shareDividend.MEMBER_CLOSE_DATE }}" #closeDate
                             (bsValueChange)="getCloseDate(data.id,data.shareDividend.id,data.AC_NO,closeDate.value)"

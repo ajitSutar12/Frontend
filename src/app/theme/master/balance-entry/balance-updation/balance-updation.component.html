@@ -63,7 +63,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         (change)="getTable()" #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
@@ -278,7 +279,8 @@
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PRODUCT.value,AC_PRODUCT.name)">
                                                     </td>
                                                     <td *ngIf="lastTranDate" class="td_center">
-                                                        <input type="text" name="AC_ACTDATE" id="tran_date"
+                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                             name="AC_ACTDATE" id="tran_date"
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             value="{{data.AC_ACTDATE == null || data.AC_ACTDATE == '' ? '' : data.AC_ACTDATE }}"
@@ -363,7 +365,8 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                     </td>
                                                     <td *ngIf="tdsopDate" class="td_center" class="td_right">
-                                                        <input type="text" name="LAST_TDS_DATE" id="LAST_TDS_DATE"
+                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                             name="LAST_TDS_DATE" id="LAST_TDS_DATE"
                                                             #LAST_TDS_DATE placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             value="{{data.LAST_TDS_DATE == null || data.LAST_TDS_DATE == '' ? '' : data.LAST_TDS_DATE }}"
@@ -425,7 +428,8 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                     </td>
                                                     <td *ngIf="balanceDate" class="td_center">
-                                                        <input type="text" name="AC_BALDATE" id="AC_BALDATE"
+                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                         name="AC_BALDATE" id="AC_BALDATE"
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             value="{{data.AC_BALDATE == null || data.AC_BALDATE == '' ? '' : data.AC_BALDATE }}"
@@ -477,7 +481,8 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
                                                     <td *ngIf="npaDate" class="td_center">
-                                                        <input type="text" name="OP_NPA_DATE" id="OP_NPA_DATE"
+                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                         name="OP_NPA_DATE" id="OP_NPA_DATE"
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             value="{{data.OP_NPA_DATE == null || data.OP_NPA_DATE == '' ? '' : data.OP_NPA_DATE }}"
