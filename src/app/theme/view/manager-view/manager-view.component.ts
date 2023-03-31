@@ -452,7 +452,7 @@ else if (id === 'ccOverdraft') {
       //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       // }
 else if (id === 'highRecPay') { 
-        this.iframe1url = this.report_url + "examples/HighRecPay.php?START_DATE='" + Startdate + "'&END_DATE='" + Startdate + "'&BRANCH='" + this.branchName + "'&AC_TYPE=1";
+        this.iframe1url = this.report_url + "examples/HighRecPay.php?START_DATE='" + Startdate + "'&BANK_NAME='" + bankName + "'&END_DATE='" + Startdate + "'&BRANCH='" + this.branchName + "'&AC_TYPE=1";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
