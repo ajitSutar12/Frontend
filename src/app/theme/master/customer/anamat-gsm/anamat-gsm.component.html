@@ -13,14 +13,22 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt" >
-                                    <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
+                                <span class="border-lable-flt">
+                                    <!-- <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
                                         (change)="getSchemeCode($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Scheme" [virtualScroll]="true" #AC_TYPE1
                                         (focus)="onFocus(AC_TYPE1)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
+                                    </ng-select> -->
+                                    <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
+                                        formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
+                                        [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted }" required
+                                        placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                                        (change)="getScheme($event)">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{ values.label }}</ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
                                 </span>
@@ -29,14 +37,13 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme [(ngModel)]="id"  id="AC_CUSTID" bindValue="value"
-                                        formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
-                                        style="width: 85%;" title="Compulsory Selection" [virtualScroll]="true"
-                                         (change)="getCustomer($event.value)" required
-                                        placeholder="Customer Id" #AC_CUSTID (focus)="onFocus(AC_CUSTID)"
-                                        [selectOnTab]='true'>
+                                    <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
+                                        formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }"
+                                        [virtualScroll]="true" (change)="getCustomer($event.value)" style="width: 85%"
+                                        title="Compulsory Selection" required placeholder="Customer Id" #CUSTID
+                                        (focus)="onFocus(CUSTID)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{ values.label }}</ng-option>
                                     </ng-select>
                                     <label for="AC_CUSTID">Customer ID<sub class="required"> * </sub></label>
                                     <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"

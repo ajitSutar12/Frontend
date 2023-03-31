@@ -128,7 +128,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   city: any[];//city from customer id from idmaster
 
   prifix: any;
-  AC_CUSTID: any;
+  AC_CUSTID1: any;
   // for new customer
   newCustomerID;
   updateID: number = 0;
@@ -278,8 +278,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.prifix = data;
     })
 
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data3 => {
+      this.scheme = data3
       this.code = this.scheme[0].value
       this.schemeCode = this.scheme[0].name
     })
@@ -295,7 +295,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       .getCustomerIDMasterList()
       .pipe(first())
       .subscribe((data1) => {
-        debugger
         this.Cust_ID = data1;
       });
     this.getSystemParaDate()
@@ -313,7 +312,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   checkCUST_No() {
-    if (this.AC_CUSTID = '') {
+    if (this.AC_CUSTID1 = '') {
     }
     else {
       Swal.fire("Invalid Input", "Please insert Customer ID", "error");
@@ -393,7 +392,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //disabledate on keyup
   disabledate(data: any) {
-    if (data != "") { 
+    if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_CTCODE") as HTMLInputElement).value = ""
@@ -426,12 +425,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // getScheme(value) {
-  //   debugger
-  //   this.code = value.value
-  //   // this.schemeCode = value.name
-  // }
-  getSchemeCode(value) {
+
+  getScheme(value) {
+    this.code = value.value
     this.schemeCode = value.name
   }
   // Method to insert data into database through NestJS

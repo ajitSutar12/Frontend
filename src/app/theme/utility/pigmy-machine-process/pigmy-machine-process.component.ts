@@ -192,7 +192,7 @@ export class PigmyMachineProcessComponent implements OnInit {
     var newDate = date[1] + '/' + date[0] + '/' + date[2]
     var k = new Date(newDate);
     var expiryDate = moment(k).format('DD.MM.YYYY');
-    let mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate]
+    let mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate, result.USER_NAME]
     if (this.sysToMachine == true) {
       this.http.get(this.url + '/pigmy-chart/systomachine/' + mem).subscribe((data1) => {
         if (data1 != 0) {
@@ -210,7 +210,7 @@ export class PigmyMachineProcessComponent implements OnInit {
         if (data2.status == 1) {
           Swal.fire({
             title: 'Warning',
-            html: `<span style="text-justify: inter-word;">Records are already present for agent ${data2.data.AC_NO}.If you want to overwrite please click Yes button but this transaction make on your own risk</span>`,
+            html: `<span style="text-justify: inter-word;">Records are already present for agent ${data2.data['AGENT_ACNO']}.If you want to overwrite please click Yes button but this transaction make on your own risk</span>`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -219,9 +219,11 @@ export class PigmyMachineProcessComponent implements OnInit {
             confirmButtonText: 'Yes'
           }).then((result) => {
             if (result.isConfirmed == true) {
-
+              this.http.get(this.url + '/pigmy-chart/overwritePigmyRecord/' + mem).subscribe((data3: any) => {
+                Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
+              })
             } else {
-
+              Swal.fire("Success!", "Process Cancelled!", "success");
             }
           })
         }
