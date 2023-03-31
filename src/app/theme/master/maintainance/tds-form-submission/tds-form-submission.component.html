@@ -58,7 +58,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE"
                                         id="SUBMIT_DATE" class="form-control" [(ngModel)]="ngSubmitDate"
                                         #SUBMIT_DATE="bsDatepicker" (keydown.Tab)="SUBMIT_DATE.hide()"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"

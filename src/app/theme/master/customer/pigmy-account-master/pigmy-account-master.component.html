@@ -191,7 +191,8 @@
                                                             <div class="col-sm-2">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input appTheme type="text"
+                                                                        <input appTheme appButton minlength="8" maxlength="10"
+                                                                             type="text"
                                                                             placeholder="dd/mm/yyyy" name="AC_OPDATE"
                                                                             id="AC_OPDATE" class="form-control" required
                                                                             [(ngModel)]="openingDate"
@@ -1003,7 +1004,8 @@
                                                             <div class="col-sm">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" placeholder="Datepicker"
+                                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                                             placeholder="Datepicker"
                                                                             name="AC_MBDATE" class="form-control"
                                                                             id="AC_MBDATE"
                                                                             max="{{datemax | date:'yyyy-MM-dd'}}" #date
@@ -1317,7 +1319,9 @@
                                                                             <div class="col-sm-2">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
-                                                                                        <input appTheme type="text"
+                                                                                        <input appTheme 
+                                                                                            appButton minlength="8" maxlength="10"
+                                                                                             type="text"
                                                                                             placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"

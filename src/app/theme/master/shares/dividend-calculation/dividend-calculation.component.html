@@ -99,7 +99,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="DIV_FROMDATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="DIV_FROMDATE"
                                         id="DIV_FROMDATE" [bsValue]="bsValue" [maxDate]="maxDate" class="form-control"
                                         [(ngModel)]="divfromdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         #DIV_FROMDATE="bsDatepicker" (keydown.Tab)="DIV_FROMDATE.hide()"
@@ -122,7 +123,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="DIV_TODATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="DIV_TODATE"
                                         id="DIV_TODATE" class="form-control" [(ngModel)]="divtodate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="todate"
                                         #DIV_TODATE="bsDatepicker" (keydown.Tab)="DIV_TODATE.hide()"
@@ -144,7 +146,8 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                        type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE"
                                         id="WARRENT_DATE" class="form-control" [(ngModel)]="warrentdate"
                                         placement="left" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [minDate]="minDate" #WARRENT_DATE="bsDatepicker"

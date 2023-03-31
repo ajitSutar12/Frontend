@@ -33,7 +33,8 @@
                                         id="EFFECT_DATE" required=""  max="{{datemax | date:'yyyy-MM-dd'}}"
                                          #date
                                        (focusout)="disabledate(date.value)"  id="EFFECT_DATE" formControlName="EFFECT_DATE"> -->
-                                       <input type="text" placeholder="dd/mm/yyyy" appTheme
+                                       <input type="text" appButton minlength="8" maxlength="10"
+                                        placeholder="dd/mm/yyyy" appTheme
                                        name="EFFECT_DATE" id="EFFECT_DATE"
                                        class="form-control" [(ngModel)]="effectdate"
                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"

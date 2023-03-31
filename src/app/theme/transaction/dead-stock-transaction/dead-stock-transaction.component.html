@@ -159,7 +159,7 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="RESOLUTION_DATE"
                                                     id="RESOLUTION_DATE" class="form-control"
-                                                    [(ngModel)]="ngresolutiondate"
+                                                    [(ngModel)]="ngresolutiondate" appButton minlength="8" maxlength="10"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
                                                     formControlName="RESOLUTION_DATE" appTheme

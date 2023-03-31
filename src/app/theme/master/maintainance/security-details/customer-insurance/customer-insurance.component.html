@@ -14,7 +14,8 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="InsuranceDate" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSURANCE_DATE"  #autofocus /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="INSURANCE_DATE" id="InsuranceDate"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                    type="text" placeholder="dd/mm/yyyy" name="INSURANCE_DATE" id="InsuranceDate"
                     class="form-control" [(ngModel)]="insurancedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="INSURANCE_DATE"
                     #INSURANCE_DATE="bsDatepicker"  (keydown.Tab)="INSURANCE_DATE.hide()"
@@ -95,7 +96,8 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="InsuranceExpiryDate" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSU_EXP_DATE"  /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="INSU_EXP_DATE" id="InsuranceExpiryDate"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                     type="text" placeholder="dd/mm/yyyy" name="INSU_EXP_DATE" id="InsuranceExpiryDate"
                     class="form-control" [(ngModel)]="insuranceexpirydate"
                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="INSU_EXP_DATE"

@@ -14,7 +14,8 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE"  #autofocus /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
                     [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
                     #EFFECT_DATE="bsDatepicker"  (keydown.Tab)="EFFECT_DATE.hide()" 
@@ -41,7 +42,8 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="policy_due" required="" max="31-12-9999"
                   [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="CERT_POLICY_DATE"  /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="CERT_POLICY_DATE" id="policy_due"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="CERT_POLICY_DATE" id="policy_due"
                     class="form-control" [(ngModel)]="certicatedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #CERT_POLICY_DATE="bsDatepicker"  (keydown.Tab)="CERT_POLICY_DATE.hide()" 
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="CERT_POLICY_DATE" [maxDate]="maxDate"
@@ -242,7 +244,8 @@
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" name="PREMIUM_DUE_DATE" formControlName="PREMIUM_DUE_DATE"
                      /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="PREMIUM_DUE_DATE" id="PREMIUM_DUE_DATE"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="PREMIUM_DUE_DATE" id="PREMIUM_DUE_DATE"
                     class="form-control" [(ngModel)]="premiumduedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #PREMIUM_DUE_DATE="bsDatepicker"  (keydown.Tab)="PREMIUM_DUE_DATE.hide()" placement="up"
                     [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="PREMIUM_DUE_DATE"
@@ -271,7 +274,8 @@
                     [min]="setdate" max="9999-12-31" name="maturity_date" [value]="resetmaturedate"
                     formControlName="MATURE_DUE_DATE"  id="date"
                     (focusout)="checkdate(maturity_date.value)" /> -->
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="MATURE_DUE_DATE" id="maturity_date"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="MATURE_DUE_DATE" id="maturity_date"
                     class="form-control" [(ngModel)]="maturityduedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #MATURE_DUE_DATE="bsDatepicker"  (keydown.Tab)="MATURE_DUE_DATE.hide()"
                     [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="MATURE_DUE_DATE"

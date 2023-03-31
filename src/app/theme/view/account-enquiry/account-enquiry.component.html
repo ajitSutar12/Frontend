@@ -99,7 +99,8 @@
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input appTheme type="text" placeholder="dd/mm/yyyy" name="DATE"
+                                                <input appTheme appButton minlength="8" maxlength="10"
+                                                 type="text" placeholder="dd/mm/yyyy" name="DATE"
                                                     id="DATE" class="form-control" [(ngModel)]="fromdate"
                                                     [bsValue]="bsValue" [minDate]="accountOpenDate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #DATE="bsDatepicker"

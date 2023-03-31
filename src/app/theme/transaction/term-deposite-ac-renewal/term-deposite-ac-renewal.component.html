@@ -312,7 +312,7 @@
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                 #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()" bsDatepicker
-                                                formControlName="IntUpto" [(ngModel)]="InterestDate"
+                                                formControlName="IntUpto" [(ngModel)]="InterestDate" appButton minlength="8" maxlength="10"
                                                 [disabled]="NormalCheck" (bsValueChange)="formatInterestDate()">
                                         </span>
                                     </div>
@@ -587,6 +587,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                            appButton minlength="8" maxlength="10"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appTheme bsDatepicker
                                                 (change)="getMaturityDate()" formControlName="new_ason_date"
                                                 [(ngModel)]="renewalAsOnDate" #new_ason_date="bsDatepicker"
@@ -696,6 +697,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                appButton minlength="8" maxlength="10"
                                                 #new_matu_date="bsDatepicker" (keydown.Tab)="new_matu_date.hide()"
                                                 formControlName="new_matu_date" placement="top">
                                         </span>

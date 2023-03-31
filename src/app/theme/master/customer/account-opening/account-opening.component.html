@@ -122,7 +122,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
                                         class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_OPDATE"
@@ -143,7 +144,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_ASON_DATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="AC_ASON_DATE"
                                         id="AC_ASON_DATE" class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}"
                                         #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_ASON_DATE"
@@ -209,7 +211,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_EXPDT" id="AC_EXPDT"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="AC_EXPDT" id="AC_EXPDT"
                                         class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_EXPDT"
@@ -294,7 +297,8 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="AC_CLOSEDT" id="AC_CLOSEDT"
+                                    <input type="text" appButton minlength="8" maxlength="10"
+                                         placeholder="dd/mm/yyyy" name="AC_CLOSEDT" id="AC_CLOSEDT"
                                         class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_CLOSEDT"

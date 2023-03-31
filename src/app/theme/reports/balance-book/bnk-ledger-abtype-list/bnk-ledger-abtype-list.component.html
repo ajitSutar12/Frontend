@@ -41,7 +41,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
-                                        class="form-control" [maxDate]="maxDate"
+                                        class="form-control" [maxDate]="maxDate" appButton minlength="8" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -64,7 +64,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
-                                        class="form-control" [maxDate]="maxDate"
+                                        class="form-control" [maxDate]="maxDate" appButton minlength="8" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="END_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

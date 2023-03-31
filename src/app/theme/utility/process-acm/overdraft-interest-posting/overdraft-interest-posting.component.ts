@@ -9,7 +9,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-
+import { ProcessAcmService } from '../process-acm.service';
 @Component({
   selector: 'app-overdraft-interest-posting',
   templateUrl: './overdraft-interest-posting.component.html',
@@ -48,6 +48,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ACMasterDropdownService: ACMasterDropdownService,
     private config: NgSelectConfig,
+    private _service : ProcessAcmService
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -60,8 +61,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
     this.createForm();
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-      this.ngBranchCode = data[0].value
-
+      this.ngBranchCode = data[0].value;
     })
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       this.scheme = data;
@@ -205,6 +205,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
   select() {
     if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
+<<<<<<< Updated upstream
 
 
     }
@@ -213,5 +214,21 @@ export class OverdraftInterestPostingComponent implements OnInit {
   submit() {
 
   }
+=======
+    }
+  }
+  
+  submit(){
+    let data = this.angForm.value; 
+    data['user'] = JSON.parse(localStorage.getItem('user'));
+    this._service.OverdraftPosting(data).subscribe(ele=>{
+      if(ele.type == 'error'){
+        Swal.fire('Info!',ele.msg,'warning');
+      }else{
+        Swal.fire('Done!',ele.msg,'success');
+>>>>>>> Stashed changes
 
+      }
+    })
+  }
 }

@@ -75,7 +75,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                     class="form-control" [(ngModel)]="fromdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                     #FROM_DATE="bsDatepicker" (keydown.Tab)="FROM_DATE.hide()"
@@ -94,7 +95,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE" class="form-control"
+                  <input appTheme appButton minlength="8" maxlength="10"
+                   type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE" class="form-control"
                     [(ngModel)]="todate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE" #TO_DATE="bsDatepicker"
                     (keydown.Tab)="TO_DATE.hide()"
@@ -163,7 +165,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" placeholder="dd/mm/yyyy" name="REVOKE_DATE" id="REVOKE_DATE" class="form-control"
+                  <input type="text" appButton minlength="8" maxlength="10"
+                     placeholder="dd/mm/yyyy" name="REVOKE_DATE" id="REVOKE_DATE" class="form-control"
                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                     [minDate]="maxDate" formControlName="REVOKE_DATE" bsDatepicker disabled>
