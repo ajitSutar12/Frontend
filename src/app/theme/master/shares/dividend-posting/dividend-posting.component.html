@@ -39,7 +39,8 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
+                                    <ng-select appTheme appButton minlength="8" maxlength="10"
+                                         id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
                                         formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
                                         #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true' [virtualScroll]="true"
                                         required placeholder="Warrent Date" (change)="getWarrentDetails($event)">

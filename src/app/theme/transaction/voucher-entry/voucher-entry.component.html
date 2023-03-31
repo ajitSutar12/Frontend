@@ -236,6 +236,7 @@
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
                                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                    appButton minlength="8" maxlength="10"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
                                                         [maxDate]="maxDate" [minDate]="minDate"
                                                         formControlName="chequeDate">
@@ -338,6 +339,7 @@
                                                                     class="form-control"
                                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                     bsDatepicker [(ngModel)]="IntersetHeadDate"
+                                                                    appButton minlength="8" maxlength="10"
                                                                     formControlName="Intdate"
                                                                     [minDate]="interestMinDate"
                                                                     [maxDate]="interestMaxDate"

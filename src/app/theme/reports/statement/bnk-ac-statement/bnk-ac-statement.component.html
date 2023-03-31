@@ -144,6 +144,7 @@
                                         class="form-control" [(ngModel)]="fromdate"  [bsValue]="bsValue"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" 
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                        appButton minlength="8" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker >
                                 </span>
@@ -164,7 +165,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
                                         class="form-control" [(ngModel)]="todate"  [bsValue]="bsValue"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="8" maxlength="10"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>

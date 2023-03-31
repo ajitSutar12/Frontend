@@ -105,7 +105,8 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" placeholder="dd/mm/yyyy" name="AC_FREEZE_DATE"
+                                    <input appTheme appButton minlength="8" maxlength="10"
+                                         type="text" placeholder="dd/mm/yyyy" name="AC_FREEZE_DATE"
                                         id="AC_FREEZE_DATE" class="form-control" [(ngModel)]="effectdate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
                                         #AC_FREEZE_DATE="bsDatepicker"  (keydown.Tab)="AC_FREEZE_DATE.hide()"

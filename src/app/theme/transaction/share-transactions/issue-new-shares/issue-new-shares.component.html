@@ -174,7 +174,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
-                                                    [(ngModel)]="Issue_date" formControlName="ISSUE_DATE"
+                                                    [(ngModel)]="Issue_date" formControlName="ISSUE_DATE" 
                                                     class="form-control" disabled>
 
 
@@ -350,6 +350,7 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="date" id="date"
                                                     [(ngModel)]="Resolution_date" formControlName="RESOLUTION_DATE"
+                                                    appButton minlength="8" maxlength="10"
                                                     class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}"
                                                     [minDate]="resolutionDate" [maxDate]="maxDate" bsDatepicker
                                                     required>

@@ -67,7 +67,7 @@
                                         class="form-control" [(ngModel)]="defaultDate" [bsValue]="bsValue"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="FROM_DATE"
+                                        formControlName="FROM_DATE" appButton minlength="8" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>

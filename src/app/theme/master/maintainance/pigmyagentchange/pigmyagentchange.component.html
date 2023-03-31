@@ -271,7 +271,8 @@
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" name="date" id="date1"
+                                        <input type="text" appButton minlength="8" maxlength="10"
+                                             placeholder="dd/mm/yyyy" name="date" id="date1"
                                             formControlName="RDATE1" [(ngModel)]="todate" class="form-control" [bsValue]="bsValue"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
                                             [maxDate]="maxDate" bsDatepicker >

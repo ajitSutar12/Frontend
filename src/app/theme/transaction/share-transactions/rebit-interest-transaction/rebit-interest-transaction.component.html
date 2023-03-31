@@ -164,6 +164,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" name="STARTING_DATE"
+                                            appButton minlength="8" maxlength="10"
                                                 id="STARTING_DATE" class="form-control" [(ngModel)]="startingdate"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                 formControlName="Starting_Date"
@@ -188,6 +189,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" name="STARTING_DATE"
+                                            appButton minlength="8" maxlength="10"
                                                 id="STARTING_DATE" class="form-control" [(ngModel)]="endingdate"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"[minDate]="maxDate"
                                                 formControlName="Ending_Date"
@@ -212,6 +214,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" name="STARTING_DATE"
+                                            appButton minlength="8" maxlength="10"
                                                 id="STARTING_DATE" class="form-control" [(ngModel)]="processdate"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                                 formControlName="Process_Date"

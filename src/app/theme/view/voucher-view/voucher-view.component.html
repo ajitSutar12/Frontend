@@ -43,7 +43,7 @@
                                         <!-- <input type="text" [(ngModel)]="ngdate" name="TRAN_DATE" class="form-control"
                                         formControlName="TRAN_DATE" disabled> -->
                                         <input appTheme type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
-                                            class="form-control" [bsValue]="bsValue" [maxDate]="maxDate"
+                                            class="form-control" [bsValue]="bsValue" [maxDate]="maxDate" appButton minlength="8" maxlength="10"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [(ngModel)]="ngdate"
                                             #TRAN_DATE="bsDatepicker"  (keydown.Tab)="TRAN_DATE.hide()"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
