@@ -28,6 +28,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 
   ],
   declarations: [DeadStockDepreciationComponent],
+  exports: [DeadStockDepreciationComponent],
   providers: [OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

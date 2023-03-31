@@ -206,7 +206,9 @@ export class DepreciationPassingComponent implements OnInit {
         NARRATION: this.angForm.controls['particulars'].value,
         USER: result.id,
         id: this.drepreciationData.id,
-        TRAN_NO: this.drepreciationData.TRAN_NO
+        TRAN_NO: this.drepreciationData.TRAN_NO,
+        RESO_DATE: moment(this.ngresolutiondate).format('DD/MM/YYYY'),
+        RESO_NO: this.angForm.controls['RESOLUTIONNO'].value
       }
       this.http.post(this.url + '/depreciation-process/approv', obj).subscribe(data => {
         this.itemArr = []

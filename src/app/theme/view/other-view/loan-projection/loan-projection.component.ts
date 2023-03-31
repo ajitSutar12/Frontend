@@ -11,6 +11,7 @@ import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.serv
 
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { OtherViewService } from '../other-view.service';
 
 @Component({
   selector: 'app-loan-projection',
@@ -22,15 +23,16 @@ export class LoanProjectionComponent implements OnInit {
 
   angForm: FormGroup;
   repay: string
+  resultData : any;
 
   installmentType: string
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
- 
+
   repayModeOption1: Array<IOption> = this.repayModeService.getCharacters();
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   maxDate: any;
   minDate: Date;
-  resolutionDate:any;
+  resolutionDate: any;
 
   Resolution_date
   debitcredit
@@ -43,51 +45,36 @@ export class LoanProjectionComponent implements OnInit {
     { id: 1, name: 'Monthly' },
     { id: 2, name: 'Yearly' },
   ];
-  TDS_RATE:number;
-  
-  
+  TDS_RATE: number;
 
-  
+  constructor(
+    private repayModeService: RepayModeService, 
+    private installmentMethodService: InstallmentMethodService, 
+    private fb: FormBuilder,
+    private _services: OtherViewService) { }
 
-  
-
-
-
-  constructor(private repayModeService: RepayModeService,private installmentMethodService: InstallmentMethodService, private fb: FormBuilder,){}
-  
 
   ngOnInit(): void {
     this.createForm()
-
-
-
-   
-    
   }
   createForm() {
     this.angForm = this.fb.group({
-     LOAN: ['', [Validators.required]],
-     PERIOD: ['', [Validators.required]],
-     DEBIT_CREDIT: ['', [Validators.required]],
-     INSTALLMENTTYPE: ['', [Validators.required]],
-     POSTINGMETHOD:['', [Validators.required]],
-     INTERESTR:['', [Validators.required]],
-     RDATE:['', [Validators.required]],
-     INSTALLMENTS:['', [Validators.required]],
-     INSTALLMENT_METHOD:['', [Validators.required]],
-     AC_REPAYMODE:['', [Validators.required]],
-     RESOLUTION_DATE:['', [Validators.required]],
-     TDS_RATE: ["", [Validators.pattern]],
-     
-     
-
-
-     
+      LOAN: ['', [Validators.required]],
+      PERIOD: ['', [Validators.required]],
+      DEBIT_CREDIT: ['', [Validators.required]],
+      INSTALLMENTTYPE: ['', [Validators.required]],
+      POSTINGMETHOD: ['', [Validators.required]],
+      INTERESTR: ['', [Validators.required]],
+      RDATE: ['', [Validators.required]],
+      INSTALLMENTS: ['', [Validators.required]],
+      INSTALLMENT_METHOD: ['', [Validators.required]],
+      AC_REPAYMODE: ['', [Validators.required]],
+      RESOLUTION_DATE: ['', [Validators.required]],
+      TDS_RATE: ["", [Validators.pattern]],
     })
   }
 
   decimalAllContent($event) {
-    
     var t = $event.target.value;
     $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     this.angForm.patchValue({
@@ -96,8 +83,16 @@ export class LoanProjectionComponent implements OnInit {
   }
 
   checkmargin(ele: any) {
+    let obj = this.angForm.value;
+    obj['user'] = JSON.parse(localStorage.getItem('user'));
     //check  if given value  is below 100
     if (ele <= 50) {
+      this._services.getInstallment(obj).subscribe(data=>{
+        console.log(data);
+        this.angForm.patchValue({
+          INSTALLMENTS : data
+        })
+      })
     } else {
       Swal.fire("Invalid Input", "Please insert values below 50", "error");
       this.angForm.patchValue({
@@ -106,9 +101,13 @@ export class LoanProjectionComponent implements OnInit {
     }
   }
 
-
-    
-
-
+  Process(){
+    let obj = this.angForm.value;
+    obj['user'] = JSON.parse(localStorage.getItem('user'));
+    this._services.loanProjection(obj).subscribe(data=>{
+      console.log(data);
+      this.resultData = data.result;
+    })
+  }
 }
-  
+
