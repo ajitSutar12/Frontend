@@ -14,10 +14,10 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
-                    placeholder=" " id="S_APPL" required="" #autofocus pattern="^[0-9]+$"
-                    title="Input allowed only  0-9" maxlength="3" minlength="3"
+                    placeholder=" " id="S_APPL" required="" appEdit pattern="^[0-9]+$"
+                    title="Input allowed only  0-9" maxlength="3" minlength="3" #autofocus
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="901" max="999"
-                    (focusout)="checkDuplicate($event)" formControlName="S_APPL" #autofocus />
+                    (focusout)="checkDuplicate($event)" formControlName="S_APPL"  />
 
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
@@ -518,8 +518,9 @@
                 <tbody *ngIf="shareScheme?.length != 0">
                   <tr *ngFor="let data of shareScheme">
                     <td>
-                      <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                        (click)="editClickHandler(data.id);gotoTop()" placement="bottom" ngbTooltip="Edit"></span>
+                      <!-- <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                        (click)="editClickHandler(data.id);gotoTop()" placement="bottom" ngbTooltip="Edit"></span> -->
+                        <button (click)="editClickHandler(data.id);gotoTop()">Edit</button>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->

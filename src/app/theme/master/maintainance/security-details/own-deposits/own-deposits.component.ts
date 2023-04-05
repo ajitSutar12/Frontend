@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  Input,
-  Output,
-  EventEmitter,
-} from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, } from "@angular/core";
 import { Subject } from "rxjs";
 import { IOption } from "ng-select";
 import { Subscription } from "rxjs/Subscription";
@@ -16,12 +7,7 @@ import { Ac2Service } from "../../../../../shared/elements/ac2.service";
 import Swal from "sweetalert2";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
-import {
-  FormGroup, 
-  FormBuilder,
-  Validators,
-  FormControl,
-} from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl, } from "@angular/forms";
 import { OwnDepositsComponentService } from "./own-deposit.service"; //Injecting service into component.
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
@@ -39,6 +25,7 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { number } from "ngx-custom-validators/src/app/number/validator";
 import { data } from "jquery";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -76,6 +63,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newOwnDepositEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
+  logDate: any;
+  transactions: any;
 
   newItemEvent(value) {
     this.newOwnDepositEvent.emit(value);
@@ -113,7 +102,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngacno: any = null;
   // for date
   submissiondate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   obj: any = { type: "own deposite form" };
   page: number;
@@ -130,16 +119,23 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _sheme: schemedropdownService,
     private http: HttpClient,
     public router: Router,
+    private systemParameter: SystemMasterParametersService,
 
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) {
 
-    this.maxDate = new Date();
+    // this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.minDate.setDate(this.minDate.getDate());
+    // this.maxDate.setDate(this.maxDate.getDate())
 
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.logDate = data.CURRENT_DATE
+    })
   }
 
   ngOnInit(): void {
@@ -163,15 +159,16 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._deposite.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.depositemasters = data
-    })
+    // let obj = {
+    //   scheme: this.scheme,
+    //   ac_no: this.Accountno,
+    //   acnotype: this.AC_ACNOTYPE,
+    //   branch: this.branchCode
+    // }
+    // this._deposite.getdatatable(obj).pipe(first()).subscribe((data) => {
+    //   this.depositemasters = data
+    // })
+    this.loadTable();
     this.dtTrigger.next();
 
     // this.dtExportButtonOptions = {
@@ -403,12 +400,14 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
           info.push(data.id)
           info.push("ownDeposit")
 
+
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
+          // this.dtTrigger.unsubscribe()
+          // this.dtTrigger.next()
           this.newItemEvent(info);
-
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
-
+          this.loadTable();
 
         },
         (error) => {
@@ -421,6 +420,27 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   }
+loadTable(){
+  let obj = {
+    scheme: this.scheme,
+    ac_no: this.Accountno,
+    acnotype: this.AC_ACNOTYPE,
+    branch: this.branchCode
+  }
+  this._deposite.getdatatable(obj).pipe(first()).subscribe((data) => {
+    this.depositemasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+    // this.depositemasters = data
+  })
+
+}
+
+sort_by_key(array: any, key: any) {
+  return array.sort(function (a: any, b: any) {
+    let p = moment(a[key], 'DD/MM/YYYY');
+    let q = moment(b[key], 'DD/MM/YYYY');
+    return (p > q) ? -1 : ((p < q) ? 1 : 0)
+  });
+}
 
   updatecheckdata: any
   //function for edit button clicked
@@ -457,6 +477,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.patchValue({
 
         AC_ACNOTYPE: data.AC_ACNOTYPE,
+        // AC_NO: data.AC_NO,
+
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
 
         RECEIPT_NO: data.RECEIPT_NO,
@@ -564,12 +586,12 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngscheme = null
     this.ngacno = null
 
-    let obj1 = {
-      'AccountType': null,
-      'AccountNo': null,
+    // let obj1 = {
+    //   'AccountType': null,
+    //   'AccountNo': null,
 
-    }
-    this.newOwnDepositEvent.emit(obj1);
+    // }
+    // this.newOwnDepositEvent.emit(obj1);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -584,7 +606,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {

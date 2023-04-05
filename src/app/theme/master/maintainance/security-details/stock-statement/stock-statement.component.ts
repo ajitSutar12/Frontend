@@ -64,6 +64,7 @@ export class StockStatementComponent
   @Output() newStockEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newStockEvent.emit(value);
   }
@@ -114,7 +115,7 @@ export class StockStatementComponent
   // for date 
   submissiondate: any = null
   statementdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   constructor(
@@ -129,6 +130,13 @@ export class StockStatementComponent
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
 
+    // this.systemParameter.getFormData(1).subscribe(data => {
+
+    //   this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+    //   this.maxDate = this.maxDate._d 
+    //   this.logDate = data.CURRENT_DATE
+    // })
+
   }
 
   ngOnInit(): void {
@@ -140,15 +148,7 @@ export class StockStatementComponent
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._stock.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.stockmasters = data
-    })
+    this.loadTable();
     this.dtTrigger.next();
 
     // this.dtExportButtonOptions = {
@@ -296,10 +296,11 @@ export class StockStatementComponent
           info.push(data.id)
           info.push("stockStatement")
 
+          this.loadTable();
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
 
         },
         (error) => {
@@ -310,6 +311,27 @@ export class StockStatementComponent
       this.resetForm();
     }
 
+  }
+  loadTable(){
+   
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._stock.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.stockmasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+  
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {

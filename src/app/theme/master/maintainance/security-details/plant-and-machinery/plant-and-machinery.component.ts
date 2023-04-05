@@ -26,6 +26,7 @@ import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -63,6 +64,7 @@ export class PlantAndMachineryComponent
   @Output() newPlantandMachiEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newPlantandMachiEvent.emit(value);
   }
@@ -85,7 +87,7 @@ export class PlantAndMachineryComponent
   // for date 
   submissiondate: any = null
   acquisitiondate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
 
@@ -103,14 +105,21 @@ export class PlantAndMachineryComponent
   constructor(
     private fb: FormBuilder,
     private _plant: plantmachineryService,
-    private http: HttpClient,
+    private http: HttpClient,private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+     // this.maxDate = new Date();
+     this.minDate = new Date();
+     this.minDate.setDate(this.minDate.getDate() - 1);
+     // this.maxDate.setDate(this.maxDate.getDate())
+ 
+     this.systemParameter.getFormData(1).subscribe(data => {
+ 
+       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+       this.maxDate = this.maxDate._d 
+       this.logDate = data.CURRENT_DATE
+     })
 
   }
 
@@ -124,15 +133,7 @@ export class PlantAndMachineryComponent
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._plant.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.plantmasters = data
-    })
+    this.loadTable();
     this.dtTrigger.next();
 
     // this.dtExportButtonOptions = {
@@ -287,10 +288,12 @@ export class PlantAndMachineryComponent
           info.push(data.id)
           info.push("plantMachinary")
 
+
+          this.loadTable();
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
 
         },
         (error) => {
@@ -301,6 +304,27 @@ export class PlantAndMachineryComponent
       this.resetForm();
     }
 
+  }
+  loadTable(){
+   
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._plant.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.plantmasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+  
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
   }
 
   //check  if margin values are below 100

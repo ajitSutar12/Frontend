@@ -41,7 +41,7 @@ ngForm:FormGroup
  scode: any = null;
  //ngfor
  scheme: any[];
- getschemename: any;
+ getschemename: any; 
  startAcNo: any
  endAcNo: any
 branchOption: any[];
@@ -295,7 +295,7 @@ this.systemParameter.getFormData(1).subscribe(data => {
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
-this.iframe5url=this.report_url+ "examples/custidwise_introducer_list.php?branchName='"+ this.branchName +"'&bankName='"+ bankName +"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.END_DATE +"'&S_APPL='201'";
+this.iframe5url=this.report_url+ "examples/custidwise_introducer_list.php?branchName='"+ this.branchName +"'&bankName='"+ bankName +"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.END_DATE +"'&S_APPL='"+scheme+"'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

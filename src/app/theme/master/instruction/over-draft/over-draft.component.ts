@@ -87,7 +87,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showButton: boolean = true;
   updateShow: boolean = false;
-  newbtnShow: boolean = false;
+  newbtnShow: boolean = true;
   page: number;
 
   bankAcno
@@ -204,8 +204,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       BRANCH_CODE: ["", [Validators.required]],
       AC_TYPE: ["", [Validators.required]],
       AC_NO: ["", [Validators.required]],
-      AC_SODAMT: ["", [Validators.pattern]],
       radioOverdraft: ["PeriodicallyOverDraft", [Validators.required]],
+      AC_SODAMT: ["", [Validators.pattern]],
       AC_ODAMT: ["", [Validators.pattern,]],
       AC_ODDAYS: [0, [Validators.pattern,]],
       AC_ODDATE: [""],
@@ -314,7 +314,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     let effectdate
     this.showButton = true;
     this.updateShow = false;
-    this.newbtnShow = false;
+    this.newbtnShow = true;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     if (this.updatecheckdata.AC_ODDATE != data.AC_ODDATE) {
@@ -333,18 +333,18 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   ac_type
   //get account no according scheme 
   getSchemeAcNO(event) {
+    this.ngscheme = null
+    this.schemeACNo = []
     this.actype = event.name
     this.ac_type = event.value
     this.angForm.patchValue({
-      AC_ODAMT: '',
-      AC_SODAMT: '',
+      AC_ODAMT: 0,
+      AC_SODAMT: 0,
       AC_ODDAYS: '',
       AC_ODDATE: '',
       radioOverdraft: 'PeriodicallyOverDraft'
     })
     this.OpenLink(1)
-    this.ngscheme = null
-    this.schemeACNo = []
     let obj = [this.acno, this.ngBranch]
     switch (event.name) {
       case 'SB':
@@ -523,7 +523,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     ele.open()
   }
 
-  onOpen(select: NgSelectComponent) {
+  onOpen(select: NgSelectComponent) { 
     //debugger
     select.open()
   }

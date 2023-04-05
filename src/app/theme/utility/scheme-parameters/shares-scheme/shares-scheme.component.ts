@@ -51,6 +51,7 @@ interface ShareScheme {
 export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  // @ViewChild('autofocus', { read: ElementRef }) myEditField: ElementRef;
 
   //api 
   url = environment.base_url;
@@ -330,7 +331,9 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
   }
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(id) {debugger
+    // this.myEditField.nativeElement.style.filer = 'blur(5)';
+
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -432,6 +435,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngAfterViewInit(): void {
     this.myInputField.nativeElement.focus();
+
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');

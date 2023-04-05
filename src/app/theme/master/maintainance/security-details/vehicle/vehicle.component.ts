@@ -24,6 +24,7 @@ import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -62,6 +63,7 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newVehicalEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newVehicalEvent.emit(value);
   }
@@ -85,7 +87,7 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   submissiondate: any = null
   rtoregdate: any = null
   acquisitiondate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   updateID: number; //variable for updating
@@ -103,14 +105,21 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _vehicle: VehicleService,
+    private _vehicle: VehicleService, private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
-    this.maxDate = new Date();
+    // this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    // this.maxDate.setDate(this.maxDate.getDate())
+ 
+    this.systemParameter.getFormData(1).subscribe(data => {
+ 
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d 
+      this.logDate = data.CURRENT_DATE
+    })
 
   }
 
@@ -123,15 +132,9 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._vehicle.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.vehiclemasters = data
-    })
+   
+    this.loadTable();
+
     this.dtTrigger.next();
 
 
@@ -295,10 +298,11 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
           info.push(data.id)
           info.push("vehicle")
 
+          this.loadTable();
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
 
         },
         (error) => {
@@ -312,7 +316,28 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   }
-
+  loadTable(){
+   
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._vehicle.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.vehiclemasters =this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+      
+  
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
+  }
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
