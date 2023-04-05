@@ -13,7 +13,6 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { SchemeCodeDropdownService } from '../../../shared/dropdownService/scheme-code-dropdown.service'
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAccountNo.service'
-
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +24,7 @@ import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAc
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
   ],
   declarations: [PigmyMachineProcessComponent],
   providers: [{
@@ -33,7 +32,7 @@ import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAc
     useClass: UserAuthInterceptor,
     multi: true
   }, SystemMasterParametersService, SchemeCodeDropdownService,
-    OwnbranchMasterService, SchemeAccountNoService,
+    OwnbranchMasterService, SchemeAccountNoService
   ]
 })
 export class PigmyMachineProcessModule { }

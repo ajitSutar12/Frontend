@@ -113,15 +113,16 @@ export class OtherSecurityComponent
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._security.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.securitymasters = data
-    })
+    // let obj = {
+    //   scheme: this.scheme,
+    //   ac_no: this.Accountno,
+    //   acnotype: this.AC_ACNOTYPE,
+    //   branch: this.branchCode
+    // }
+    // this._security.getdatatable(obj).pipe(first()).subscribe((data) => {
+    //   this.securitymasters = data
+    // })
+    this.loadTable();
     this.dtTrigger.next();
 
 
@@ -245,10 +246,12 @@ export class OtherSecurityComponent
           info.push(data.id)
           info.push("otherSecurity")
 
-          this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            //   dtInstance.ajax.reload()
+            // });
+            this.loadTable();
+            this.newItemEvent(info);
+
 
         },
         (error) => {
@@ -259,6 +262,29 @@ export class OtherSecurityComponent
       this.resetForm();
     }
 
+  }
+
+  loadTable(){
+   
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._security.getdatatable(obj).pipe(first()).subscribe((data) => {
+            this.securitymasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+      // this.securitymasters = data
+    })
+  
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
   }
   updatecheckdata: any
   //function for edit button clicked

@@ -15,7 +15,7 @@ export class SubmitDirective {
 
     const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');
 
-//  if (invalidControl11.tagName == 'FORM') {
+//  if (invalidControl11.tagName == 'FORM') { 
 
 //     if (invalidControl) {
 //       invalidControl.focus();

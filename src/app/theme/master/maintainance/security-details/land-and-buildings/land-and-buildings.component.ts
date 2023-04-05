@@ -27,6 +27,7 @@ import * as moment from 'moment';
 import { first } from "rxjs/operators";
 import { LandUnitsService } from '../../../../../shared/dropdownService/landunits.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -62,6 +63,7 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   @Output() newLandBuldingEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newLandBuldingEvent.emit(value);
   }
@@ -85,7 +87,7 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   // for date 
   submissiondate: any = null
   citysurveydate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   // Store data from backend
@@ -105,14 +107,21 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     private fb: FormBuilder,
     private http: HttpClient,
     private _land: landandbuildingsService,
-    private landUnits: LandUnitsService,
+    private landUnits: LandUnitsService,private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+   // this.maxDate = new Date();
+   this.minDate = new Date();
+   this.minDate.setDate(this.minDate.getDate() - 1);
+   // this.maxDate.setDate(this.maxDate.getDate())
+
+   this.systemParameter.getFormData(1).subscribe(data => {
+
+     this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+     this.maxDate = this.maxDate._d 
+     this.logDate = data.CURRENT_DATE
+   })
 
   }
 
@@ -124,18 +133,10 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
       pageLength: 5,
       dom: 'ftip'
     }
-
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._land.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.landMasters = data
-    })
     this.unitofarea = this.landUnits.getCharacters()
 
+   
+    this.loadTable()
     this.dtTrigger.next();
 
     // Fetching Server side data
@@ -288,10 +289,11 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
           info.push(data.id)
           info.push("landBuilding")
 
+          this.loadTable()
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
         },
         (error) => {
           console.log(error);
@@ -302,6 +304,27 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
 
+  loadTable(){
+   
+  
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._land.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.landMasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
+  }
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100

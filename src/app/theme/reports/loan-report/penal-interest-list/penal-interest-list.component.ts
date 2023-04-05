@@ -193,7 +193,7 @@ this.systemParameter.getFormData(1).subscribe(data => {
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
-this.iframe5url=this.report_url+ "examples/penal interest list.php/?&BranchName=' "+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&TRAN='LN'";
+this.iframe5url=this.report_url+ "examples/penal interest list.php/?&BranchName=' "+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&TRAN='LN'&TRAN_ACTYPE='"+scheme+"'&BRANCH_CODE='"+branch+"'&bankname='"+bankName+"' ";
 // this.iframe5url=this.report_url+ "examples/penal interest list.php/?&BranchName='kotoli'&sdate='01/04/2022'&edate='30/11/2022'&TRAN='LN'";
 
   console.log(this.iframe5url); 

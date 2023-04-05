@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms"; 
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Angular Datatable Directive
@@ -24,6 +24,7 @@ import { environment } from "../../../../../../environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -66,6 +67,7 @@ export class GovtSecurityAndLicComponent
   @Output() newgovtSecurityEvent = new EventEmitter<any>();
   datemax: any;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newgovtSecurityEvent.emit(value);
   }
@@ -115,7 +117,7 @@ export class GovtSecurityAndLicComponent
   certicatedate: any = null
   premiumduedate: any = null
   maturityduedate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   //filter variable
@@ -125,14 +127,22 @@ export class GovtSecurityAndLicComponent
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _govsecurity: governmentsecuritycomponentservice,
+    private _govsecurity: governmentsecuritycomponentservice,private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
-    this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    // this.maxDate.setDate(this.maxDate.getDate())
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d 
+      this.logDate = data.CURRENT_DATE
+    })
+
+
 
   }
 
@@ -145,15 +155,8 @@ export class GovtSecurityAndLicComponent
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._govsecurity.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.governmentmasters = data
-    })
+   
+    this.loadTable();
     this.dtTrigger.next();
     // this.dtExportButtonOptions = {
     //   pagingType: "full_numbers",
@@ -323,10 +326,11 @@ export class GovtSecurityAndLicComponent
           info.push(data.id)
           info.push("govSecurity")
 
+          this.loadTable();
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
 
         },
         (error) => {
@@ -338,6 +342,27 @@ export class GovtSecurityAndLicComponent
       this.formSubmitted = false;
     }
 
+  }
+  loadTable(){
+   
+
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._govsecurity.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.governmentmasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
   }
   updatecheckdata: any
   //function for edit button clicked

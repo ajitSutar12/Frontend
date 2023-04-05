@@ -24,6 +24,7 @@ import { environment } from "../../../../../../environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -61,6 +62,7 @@ export class FurnitureAndFixtureComponent
   @Output() newfurnitureFixEvent = new EventEmitter<any>();
   datemax: any;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newfurnitureFixEvent.emit(value);
   }
@@ -84,7 +86,7 @@ export class FurnitureAndFixtureComponent
   // for date 
   submissiondate: any = null
   acquistitiondate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
 
@@ -100,14 +102,22 @@ export class FurnitureAndFixtureComponent
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _furniture: furnitureandfixtureservice,
+    private _furniture: furnitureandfixtureservice,  private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+   // this.maxDate = new Date();
+   this.minDate = new Date();
+   this.minDate.setDate(this.minDate.getDate() - 1);
+   // this.maxDate.setDate(this.maxDate.getDate())
+
+   this.systemParameter.getFormData(1).subscribe(data => {
+
+     this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+     this.maxDate = this.maxDate._d 
+     this.logDate = data.CURRENT_DATE
+   })
+
 
   }
 
@@ -120,15 +130,8 @@ export class FurnitureAndFixtureComponent
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._furniture.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.furnituremasters = data
-    })
+    
+    this.loadTable();
     this.dtTrigger.next();
     // this.dtExportButtonOptions = {
     //   pagingType: "full_numbers",
@@ -269,10 +272,11 @@ export class FurnitureAndFixtureComponent
           info.push(data.id)
           info.push("furniture")
 
+          this.loadTable();
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
         },
         (error) => {
           console.log(error);
@@ -282,6 +286,27 @@ export class FurnitureAndFixtureComponent
       this.resetForm();
     }
 
+  }
+  loadTable(){
+   
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._furniture.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.furnituremasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+  
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
   }
 
   //check  if margin values are below 100

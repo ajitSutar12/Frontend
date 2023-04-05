@@ -12,45 +12,46 @@ export class ThemeDirective {
   @ContentChildren(NgSelectComponent) ngselect: QueryList<NgSelectComponent>;
 
   constructor(private el: ElementRef) { }
-
-  @HostListener("focusout")
-  onFormSubmit() {    
-    const invalidControl = this.el.nativeElement; 
-        if (invalidControl.tagName == 'INPUT') {
-      if (invalidControl.value == ''  ) {
+ @HostListener("click", ['$event'])
+  @HostListener("keydown", ['$event'])
+  // @HostListener("focusout")
+  onFormSubmit(event: MouseEvent | KeyboardEvent) {
+    const invalidControl = this.el.nativeElement;
+    if (invalidControl.tagName == 'INPUT') {
+      if (invalidControl.value == '') {
         invalidControl.focus();
       }
-    //  else 
-    //  if(invalidControl.value == '') {
-    //     invalidControl.focus();
-    //  }
+      //  else 
+      //  if(invalidControl.value == '') {
+      //     invalidControl.focus();
+      //  }
     } else if (invalidControl.tagName === 'NG-SELECT') {
       if (invalidControl.textContent == "") {
-      
+
         invalidControl.focus();
 
         // this.select.focus()
         // // this.tagName.focus()
 
-        return; 
+        return;
       }
-    } 
-
-    
-
-  else if (invalidControl.tagName == 'SPAN') {
-
-    if (invalidControl.id == 'editbutton') { 
-      invalidControl.focusout();
     }
-  } 
 
 
-  else  if (invalidControl.tagName == 'TEXTAREA') { 
-    if (invalidControl.value == '') {
-      invalidControl.focus();
+
+    else if (invalidControl.tagName == 'SPAN') {
+
+      if (invalidControl.id == 'editbutton') {
+        invalidControl.focusout();
+      }
+    }
+
+
+    else if (invalidControl.tagName == 'TEXTAREA') {
+      if (invalidControl.value == '') {
+        invalidControl.focus();
+      }
     }
   }
-}
 
 }
