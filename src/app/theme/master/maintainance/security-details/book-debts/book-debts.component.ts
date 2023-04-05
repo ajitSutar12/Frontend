@@ -27,6 +27,7 @@ import { data } from "jquery";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { SecurityDetailsComponent } from "../security-details.component";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 
 // Handling datatable data
@@ -65,6 +66,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newbookEvent = new EventEmitter<any>();
   datemax: any;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newbookEvent.emit(value);
   }
@@ -85,7 +87,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   submissiondate: any = null
   statementdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
 
@@ -111,17 +113,24 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _book: BookdebtsService,
+    private _book: BookdebtsService, private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
 
     console.log(this.scheme)
     console.log(this.Accountno)
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+   // this.maxDate = new Date();
+   this.minDate = new Date();
+   this.minDate.setDate(this.minDate.getDate() - 1);
+   // this.maxDate.setDate(this.maxDate.getDate())
+
+   this.systemParameter.getFormData(1).subscribe(data => {
+
+     this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+     this.maxDate = this.maxDate._d 
+     this.logDate = data.CURRENT_DATE
+   })
 
   }
 
@@ -137,15 +146,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._book.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.bookMaster = data
-    })
+   this.loadTable();
     this.dtTrigger.next();
 
     // // Fetching Server side data
@@ -320,11 +321,13 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           info.push(data.id)
           info.push("book")
 
+
+          this.loadTable();
           this.newItemEvent(info);
 
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
         },
         (error) => {
 
@@ -336,7 +339,28 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   }
-
+  loadTable(){
+   
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._book.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.bookMaster = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+   
+  
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
+  }
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100

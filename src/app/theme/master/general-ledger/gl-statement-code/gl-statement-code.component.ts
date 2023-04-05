@@ -545,7 +545,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
     if (ele.target.value > arrLength || ele.target.value == 0) {
 
-      Swal.fire("Invalid Input", `Please Insert Values Below ${arrLength} and above 0`, "error");
+      Swal.fire("Invalid Input", `Please Insert Values Equal To ${arrLength} and above 0`, "error");
       ele.target.value == ""
     }
 

@@ -28,6 +28,7 @@ import { first } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -59,6 +60,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   @Output() newcustomerInsuranceEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newcustomerInsuranceEvent.emit(value);
   }
@@ -88,7 +90,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   // for date 
   insurancedate: any = null
   insuranceexpirydate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   customerMaster: CustomerMaster[];
@@ -106,15 +108,22 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     private fb: FormBuilder,
     private _customerservice: customerinsuranceService,
     private http: HttpClient,
-    private _insurancedropdown: InsuranceMasterDropdownService,
+    private _insurancedropdown: InsuranceMasterDropdownService, private systemParameter: SystemMasterParametersService,
     public router: Router,
     private config: NgSelectConfig,) {
 
 
-    this.maxDate = new Date();
+    // this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    // this.maxDate.setDate(this.maxDate.getDate())
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d 
+      this.logDate = data.CURRENT_DATE
+    })
 
   }
 
@@ -127,16 +136,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._customerservice.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.customerMaster = data
-    })
-
+   
+    this.loadTable();
     // this.dtExportButtonOptions = {
     //   pagingType: "full_numbers",
     //   paging: true,
@@ -272,10 +273,11 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
           info.push(data.id)
           info.push("customerInsurance")
 
+          this.loadTable();
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
 
         },
         (error) => {
@@ -288,6 +290,29 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
 
 
   }
+
+  loadTable(){
+   
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._customerservice.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.customerMaster = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+  
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
+  }
+
 
   updatecheckdata: any
   //function for edit button clicked

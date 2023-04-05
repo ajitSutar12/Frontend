@@ -66,7 +66,7 @@ export class LockerRentRegisterComponent implements OnInit {
       // Scheme Code
       this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe((data) => {
         var filtered = data.filter(function (scheme) {
-          return (scheme.name == "TD" || scheme.name == "LK" );
+          return (scheme.name == "LK" );
         });
         this.scheme= filtered;
         this.schemeCode = null;

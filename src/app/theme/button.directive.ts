@@ -12,7 +12,7 @@ export class ButtonDirective {
 
   onFormSubmit() {
 
-    debugger
+    
     const invalidControl11 = this.el.nativeElement;
     // if(invalidControl11.tagName == 'BUTTON'){
     //   const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');
@@ -23,7 +23,7 @@ export class ButtonDirective {
     // }
     if (invalidControl11.tagName == 'INPUT') {
       // if (invalidControl11.className == "ng-invalid") {
-        debugger
+        
 
         // this.renderer.addClass(this.elementRef.nativeElement, 'ng-valid');  
         this.renderer.removeClass(this.elementRef.nativeElement, 'ng-invalid');
