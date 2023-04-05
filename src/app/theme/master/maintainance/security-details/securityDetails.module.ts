@@ -60,6 +60,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SecurityMasterdropdownService } from 'src/app/shared/dropdownService/security-master-dropdown.service';
 import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
 import { VoucherEntryService } from '../../../transaction/voucher-entry/voucher-entry.service'
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -137,6 +138,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService,
     SchemeAccountNoService,
     SecurityMasterdropdownService,
+    SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

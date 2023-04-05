@@ -9,7 +9,7 @@
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
-              <div class="form-group input-group">
+              <div class="form-group input-group"> 
                 <span class="border-lable-flt">
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
@@ -248,7 +248,7 @@
                    type="text" placeholder="dd/mm/yyyy" name="PREMIUM_DUE_DATE" id="PREMIUM_DUE_DATE"
                     class="form-control" [(ngModel)]="premiumduedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #PREMIUM_DUE_DATE="bsDatepicker"  (keydown.Tab)="PREMIUM_DUE_DATE.hide()" placement="up"
-                    [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="PREMIUM_DUE_DATE"
+                    [minDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="PREMIUM_DUE_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="PREMIUM_DUE_DATE">Premium Due Date<sub class="required">* </sub></label>
                 </span>
@@ -277,8 +277,8 @@
                   <input appTheme appButton minlength="8" maxlength="10"
                    type="text" placeholder="dd/mm/yyyy" name="MATURE_DUE_DATE" id="maturity_date"
                     class="form-control" [(ngModel)]="maturityduedate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                    #MATURE_DUE_DATE="bsDatepicker"  (keydown.Tab)="MATURE_DUE_DATE.hide()"
-                    [minDate]="minDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="MATURE_DUE_DATE"
+                    #MATURE_DUE_DATE="bsDatepicker"  (keydown.Tab)="MATURE_DUE_DATE.hide()" placement="up"
+                    [minDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="MATURE_DUE_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="maturity_date">Matured Due Date<sub class="required">* </sub></label>
                 </span>

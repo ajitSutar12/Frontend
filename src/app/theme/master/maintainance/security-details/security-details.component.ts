@@ -171,8 +171,8 @@ export class SecurityDetailsComponent implements OnInit {
     this.ngsecurityCode = null
     if (this.ngBranchCode == null)
       Swal.fire('Please select branch')
-    else if (this.schemeedit == null)
-      Swal.fire('Please select Scheme')
+    // else if (this.schemeedit == null)
+    //   Swal.fire('Please select Scheme')
     else {
       this.obj = [this.schemeedit, this.ngBranchCode]
       switch (this.getschemename) {
@@ -216,14 +216,14 @@ export class SecurityDetailsComponent implements OnInit {
     console.log('NEWITEM', newItem);
 
 
-    newItem.AccountType == null ? this.schemeedit = null : this.schemeedit = Number(newItem.AccountType)
-    newItem.SchemeType == null ? this.getschemename = null : this.getschemename = newItem.SchemeType
+    newItem.AccountType == null ? '' : this.schemeedit = Number(newItem.AccountType)
+    newItem.SchemeType == null ? '' : this.getschemename = newItem.SchemeType
 
 
     this.getIntroducer()
 
-    this.accountedit = newItem.AccountNo
-    newItem.AccountNo == null ? this.accountedit = null : this.accountedit = newItem.AccountNo
+    this.accountedit1 = newItem.AccountNo
+    newItem.AccountNo == null ? '' : this.accountedit = newItem.AccountNo
   }
 
   Accountnochange(event) {
@@ -232,7 +232,7 @@ export class SecurityDetailsComponent implements OnInit {
     })
     this.Accountno = event.bankacno;
     this.accountedit = event.bankacno
-    this.accountedit1 = event.value
+    // this.accountedit1 = event.value
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     console.log(result.branch.syspara.CURRENT_DATE)

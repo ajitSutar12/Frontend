@@ -27,6 +27,7 @@ import { Router } from "@angular/router";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -66,6 +67,7 @@ export class GoldAndSilverComponent
   //passing data form child to parent
   @Output() newGoldsilverEvent = new EventEmitter<any>();
   newbtnShow: boolean;
+  logDate: any;
   newItemEvent(value) {
     this.newGoldsilverEvent.emit(value);
   }
@@ -94,7 +96,7 @@ export class GoldAndSilverComponent
 
   // for date 
   submissiondate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   // Store data from backend
@@ -116,13 +118,22 @@ export class GoldAndSilverComponent
     private fb: FormBuilder,
     public _goldsilverService: goldandsilverService,
     private _golddrop: GoldsilverService,
-    private http: HttpClient,
+    private http: HttpClient, private systemParameter: SystemMasterParametersService,
     public router: Router,
     private config: NgSelectConfig,) {
-    this.maxDate = new Date();
+
+    // this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    // this.maxDate.setDate(this.maxDate.getDate())
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d 
+      this.logDate = data.CURRENT_DATE
+    })
+
   }
 
   ngOnInit(): void {
@@ -134,15 +145,7 @@ export class GoldAndSilverComponent
       dom: 'ftip'
     }
 
-    let obj = {
-      scheme: this.scheme,
-      ac_no: this.Accountno,
-      acnotype: this.AC_ACNOTYPE,
-      branch: this.branchCode
-    }
-    this._goldsilverService.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.goldMaster = data
-    })
+this.loadTable();
 
     // this.dtExportButtonOptions = {
     //   pagingType: "full_numbers",
@@ -325,10 +328,11 @@ export class GoldAndSilverComponent
           info.push(data.id)
           info.push("goldSilver")
 
+          this.loadTable();
           this.newItemEvent(info);
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          //   dtInstance.ajax.reload()
+          // });
         },
         (error) => {
           console.log(error);
@@ -337,8 +341,27 @@ export class GoldAndSilverComponent
       //To clear form
       this.resetForm();
     }
-
-
+  }
+  loadTable(){
+   
+  
+    let obj = {
+      scheme: this.scheme,
+      ac_no: this.Accountno,
+      acnotype: this.AC_ACNOTYPE,
+      branch: this.branchCode
+    }
+    this._goldsilverService.getdatatable(obj).pipe(first()).subscribe((data) => {
+      this.goldMaster = this.sort_by_key(data, 'SUBMISSION_DATE');
+    })
+  }
+  
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = moment(a[key], 'DD/MM/YYYY');
+      let q = moment(b[key], 'DD/MM/YYYY');
+      return (p > q) ? -1 : ((p < q) ? 1 : 0)
+    });
   }
 
   //check  if margin values are below 100

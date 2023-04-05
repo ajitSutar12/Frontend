@@ -188,7 +188,7 @@
                     formControlName="RELEASE_DATE"  id="date" /> -->
                   <input appTheme appButton minlength="8" maxlength="10"
                      type="text" placeholder="dd/mm/yyyy" name="RELEASE_DATE" id="released_on" class="form-control"
-                    [(ngModel)]="releaseddate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
+                    [(ngModel)]="releaseddate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate" 
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="RELEASE_DATE"
                     #RELEASE_DATE="bsDatepicker"  (keydown.Tab)="RELEASE_DATE.hide()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>

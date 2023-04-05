@@ -40,6 +40,12 @@ export class AppComponent implements OnInit {
         else if (combo === 'ctrl+fn+f3' || combo === 'f3') {
           this.router.navigate([]).then(result => { window.open(this.site + '/transaction/voucherEntry', '', "width=1200,height=500"); });
         }
+
+        // else if (combo === 'ctrl+fn+f3' || combo === 'f3') {
+        //   this.router.navigate([]).then(result => { window.open(this.site + `<app-voucher-entry></app-voucher-entry>`, '', "width=1200,height=500"); });
+        // }
+
+
         else if (combo === 'ctrl+fn+f4' || combo === 'f4') {
           this.router.navigate([]).then(result => { window.open(this.site + '/transaction/multiVoucher', '', "width=1200,height=500"); });
         }
