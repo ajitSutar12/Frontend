@@ -1028,7 +1028,7 @@ export class CashCreditMasterComponent implements OnInit {
         this.rejectShow = false;
       }
       if (data.SYSCHNG_LOGIN == null && status == 0) {
-        this.unapproveShow = true
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
@@ -1716,7 +1716,7 @@ export class CashCreditMasterComponent implements OnInit {
   }
 
   disableForm(id) {
-    this.editClickHandler(id,0)
+    this.editClickHandler(id, 0)
   }
 
   getExpiryDate() {

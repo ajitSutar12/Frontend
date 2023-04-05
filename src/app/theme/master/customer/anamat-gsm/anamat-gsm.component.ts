@@ -498,7 +498,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         this.rejectShow = false;
       }
       else if (data.SYSCHNG_LOGIN == null && status == 0) {
-        this.unapproveShow = true
+        this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
