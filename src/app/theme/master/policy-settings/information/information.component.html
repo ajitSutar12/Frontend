@@ -108,17 +108,17 @@
                             <li>
                                 <h6> <a (click)="OpenLink(33)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': depriciationTrue}" class="text-right f-w-600" id="pointer">33.Depriciation Category Master </a></h6>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <h6> <a (click)="OpenLink(34)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': salarydivisionTrue}" class="text-right f-w-600" id="pointer">34.Salary Division Master </a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(35)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': subsalarydivisionTrue}" class="text-right f-w-600" id="pointer">35. Sub Salary Division Master</a></h6>
+                            </li> -->
+                            <li>
+                                <h6> <a (click)="OpenLink(36)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': riskCategoryTrue}" class="text-right f-w-600" id="pointer">34. Risk Category</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(36)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': riskCategoryTrue}" class="text-right f-w-600" id="pointer">36. Risk Category</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(37)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': bankotherdetailsTrue}" class="text-right f-w-600" id="pointer">37. Bank Other Details</a></h6>
+                                <h6> <a (click)="OpenLink(37)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': bankotherdetailsTrue}" class="text-right f-w-600" id="pointer">35. Bank Other Details</a></h6>
                             </li>
                         </ul>
                     <!-- </perfect-scrollbar> -->
@@ -227,12 +227,12 @@
             <div *ngIf="depriciationTrue">
                 <app-depriciation-catagory-master></app-depriciation-catagory-master>
             </div>
-            <div *ngIf="salarydivisionTrue">
+            <!-- <div *ngIf="salarydivisionTrue">
                 <app-salary-division-master></app-salary-division-master>
             </div>
             <div *ngIf="subsalarydivisionTrue">
                 <app-sub-salary-division-master></app-sub-salary-division-master>
-            </div>
+            </div> -->
             <div *ngIf="riskCategoryTrue">
                 <app-risk-catagory></app-risk-catagory>
             </div>

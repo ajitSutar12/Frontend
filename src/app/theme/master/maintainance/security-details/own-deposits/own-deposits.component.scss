@@ -5,3 +5,43 @@
 //   .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
 //     border: solid 2px lightcoral;
 //   }
+// .table-responsive {
+//     display: inline-block;
+//     width: 100%;
+//     overflow-x: auto;
+//     padding-top: -46px;
+//     margin: -13px;
+//     margin-right: -28px;
+// }
+// .table-fixed {
+//     width: 100%;
+//   }
+// .table-fixed thead th {
+//     position: sticky;
+//     position: -webkit-sticky;
+//     top: 0;
+
+// }
+
+th,td {
+    padding: 1em .5em;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+  .table-responsive {
+    display: inline-block;
+    height: 350px;
+    overflow: auto
+  }
+  
+  table th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  span 
+  {
+    position: relative;
+  }
