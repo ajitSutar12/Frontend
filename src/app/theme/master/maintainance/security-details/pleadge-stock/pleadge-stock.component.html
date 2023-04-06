@@ -36,14 +36,14 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right" type="text" name="StorageMemoNo" class="form-control" placeholder=" " id="StorageMemoNo"
                     required="" maxlength="50" pattern="^[A-Za-z 0-9]+$" title="Input allowed only  0-9"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="STORAGE_MEMO_NO" />
-                  <label for="StorageMemoNo">Storage Memo No<sub class="required">* </sub></label>
+                  <label for="StorageMemoNo">Storage Memo Number<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -87,7 +87,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right" type="text" name="GoodsQuantity" class="form-control" placeholder=" " id="GoodsQuantity"

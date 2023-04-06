@@ -8,7 +8,7 @@
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
@@ -36,7 +36,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <!-- <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
@@ -64,7 +64,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right" type="text" name="raw_material" class="form-control" placeholder=" " id="raw_material"
@@ -84,7 +84,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+          
+          </div>
+          <div class="row">
+            <div class="col-sm col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right" type="text" name="rm_margin" class="form-control" placeholder=" " id="rm_margin"
@@ -104,9 +107,7 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm">
+            <div class="col-sm col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right" type="text" name="wp_goods" class="form-control" placeholder=" " id="wp_goods"
@@ -125,7 +126,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm  col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right" type="text" name="wp_margin" class="form-control" placeholder=" " id="wp_margin"
@@ -145,7 +146,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            
+          </div>
+          <div class="row">
+            <div class="col-sm  col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right" type="text" name="fg_cost" class="form-control" placeholder=" " id="fg_cost" required=""
@@ -168,9 +172,7 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm">
+            <div class="col-sm col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right" type="text" name="fg_margin" class="form-control" placeholder=" " id="fg_margin" required=""
@@ -194,7 +196,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm col-md-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
@@ -214,6 +216,9 @@
                 </div>
               </div>
             </div>
+            
+          </div>
+          <div class="row">
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
               <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
