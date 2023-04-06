@@ -124,7 +124,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Dropdown Options
   scheme: any[];//scheme code from schemast(S_ACNOTYPE)
-  Cust_ID: any[]; //customer id from idmaster
+  Cust_ID: any; //customer id from idmaster
   city: any[];//city from customer id from idmaster
 
   prifix: any;
@@ -141,9 +141,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   datemax: any;
 
   code: any = null
-  id: any = null
+  cust_id: any = null
   bsValue
-  AC_TYPE: boolean = false
+  AC_TYPE1: boolean = false
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
@@ -325,7 +325,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(first())
       .subscribe((data) => {
         this.Cust_ID = data;
-        this.id = newCustomer;
+        this.cust_id = newCustomer;
         this.getCustomer(newCustomer);
       });
   }
@@ -338,7 +338,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       if (data.occupMaster == null) {
         data.occupMaster = ""
       }
-      this.id = data.id
+      this.cust_id = data.id
 
       this.angForm.patchValue({
         AC_TITLE: data.AC_TITLE,
@@ -575,7 +575,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   resetForm() {
     this.createForm();
     this.code = null
-    this.id = null
+    this.cust_id = null
     this.getSystemParaDate()
   }
 
