@@ -733,36 +733,38 @@ const MENUITEMS = [
           //     },
           //   ]
           // },
-          {
-            state: 'recovery',
-            name: 'Recovery',
-            short_label: 'D',
-            type: 'sub',
-            icon: 'icon-home',
-            id: 75,
-            children: [
-              {
-                state: 'recoveryProcessing',
-                name: 'Recovery Processing',
-                id: 76
-              },
-              {
-                state: 'recoveryModification',
-                name: 'Recovery Modification',
-                id: 77
-              },
-              {
-                state: 'recoveryPosting',
-                name: 'Recovery Posting',
-                id: 78
-              },
-              {
-                state: 'recoveryDataImportExport',
-                name: 'Recovery Data Import Export',
-                id: 79
-              },
-            ]
-          },
+
+          // {
+          //   state: 'recovery',
+          //   name: 'Recovery',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   icon: 'icon-home',
+          //   id: 75,
+          //   children: [
+          //     {
+          //       state: 'recoveryProcessing',
+          //       name: 'Recovery Processing',
+          //       id: 76
+          //     },
+          //     {
+          //       state: 'recoveryModification',
+          //       name: 'Recovery Modification',
+          //       id: 77
+          //     },
+          //     {
+          //       state: 'recoveryPosting',
+          //       name: 'Recovery Posting',
+          //       id: 78
+          //     },
+          //     {
+          //       state: 'recoveryDataImportExport',
+          //       name: 'Recovery Data Import Export',
+          //       id: 79
+          //     },
+          //   ]
+          // },
+
           // {
           //   state: 'memberLoan',
           //   name: 'Member Loan',
@@ -1862,11 +1864,11 @@ const MENUITEMS = [
             name: 'Calculator',
             id: 171
           },
-          {
-            state: 'remindMe',
-            name: 'Remind Me',
-            id: 172
-          },
+          // {
+          //   state: 'remindMe',
+          //   name: 'Remind Me',
+          //   id: 172
+          // },
           {
             state: 'dataBackup',
             name: 'Data Backup',
