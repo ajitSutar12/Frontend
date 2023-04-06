@@ -194,7 +194,6 @@ export class PigmyMachineProcessComponent implements OnInit {
     var k = new Date(newDate);
     var expiryDate = moment(k).format('DD.MM.YYYY');
     let mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate, result.USER_NAME]
-
     if (this.sysToMachine == true) {
       this.http.get(this.url + '/pigmy-chart/systomachine/' + mem).subscribe((data1: any) => {
         if (data1.length != 0) {
@@ -218,36 +217,7 @@ export class PigmyMachineProcessComponent implements OnInit {
         expiryDate: expiryDate,
         user: result.USER_NAME
       }
-      this.openWindow(obj)
-      // this.http.get(nodeurl + '/receive').subscribe((nodeData) => {
-      //   obj['nodeData'] = nodeData
-      //   // this.closeTab()
-      //   this.http.post(this.url + '/pigmy-chart/machinetosys', obj).subscribe((data2: any) => {
-      //     if (data2.status == 1) {
-      //       Swal.fire({
-      //         title: 'Warning',
-      //         html: `<span style="text-justify: inter-word;">Records are already present for agent ${data2.data['AGENT_ACNO']}.If you want to overwrite please click Yes button but this transaction make on your own risk</span>`,
-      //         icon: 'warning',
-      //         showCancelButton: true,
-      //         confirmButtonColor: '#3085d6',
-      //         cancelButtonColor: '#d33',
-      //         cancelButtonText: 'No',
-      //         confirmButtonText: 'Yes'
-      //       }).then((result) => {
-      //         if (result.isConfirmed == true) {
-      //           this.http.post(this.url + '/pigmy-chart/overwritePigmyRecord', obj).subscribe((data3: any) => {
-      //             Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
-      //           })
-      //         } else {
-      //           Swal.fire("Success!", "Process Cancelled!", "success");
-      //         }
-      //       })
-      //     }
-      //     else {
-      //       Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
-      //     }
-      //   })
-      // })
+      this.openWindow(obj)     
     }
 
     this.userID = result.USER_NAME
@@ -263,17 +233,6 @@ export class PigmyMachineProcessComponent implements OnInit {
     //To clear form
     this.resetForm();
 
-  }
-
-  closeTab() {
-    const desiredPath = 'http://localhost:5000/receive'; // Replace with your desired path
-    const tabs = window.open('', '_self').opener.tabs; // Get all tabs
-    for (let i = 0; i < tabs.length; i++) {
-      if (tabs[i].location.pathname === desiredPath) {
-        tabs[i].close(); // Close the matching tab
-        break;
-      }
-    }
   }
 
   resetForm() {
@@ -301,26 +260,6 @@ export class PigmyMachineProcessComponent implements OnInit {
 
   openWindow(obj) {
     var xurl = "http://localhost:5000/receive?" + 'data=' + JSON.stringify(obj);
-    window.open(xurl)
-    // const url = "http://localhost:5000/receive?" + 'obj=' + obj;
-    // const win = window.open(url);
-    // window.addEventListener('message', (event) => {
-    //   if (event.origin === url) {
-    //     console.log(event.data);
-    //   }
-    // });
-  }
-
-  getData() {
-    const url = 'http://localhost:5000/my-data';
-    const childWindow = window.open(url, '_blank');
-
-    // Listen for the "message" event from the child window
-    window.addEventListener('message', (event) => {
-      if (event.origin === 'http://localhost:4200') {
-        console.log(event.data); // Log the response data
-        childWindow.close(); // Close the child window
-      }
-    });
-  }
+    window.open(xurl)  
+  } 
 }
