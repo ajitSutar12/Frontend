@@ -23,7 +23,7 @@
                                             {{values.label}}</ng-option>
                                     </ng-select> -->
                                     <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
-                                        formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
+                                        formControlName="AC_TYPE" [disabled]="AC_TYPE1" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted }" required
                                         placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
                                         (change)="getScheme($event)">
@@ -37,7 +37,7 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
+                                    <ng-select [(ngModel)]="cust_id" appTheme id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }"
                                         [virtualScroll]="true" (change)="getCustomer($event.value)" style="width: 85%"
                                         title="Compulsory Selection" required placeholder="Customer Id" #CUSTID
