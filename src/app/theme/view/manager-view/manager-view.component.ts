@@ -320,7 +320,7 @@ export class ManagerViewComponent implements OnInit {
 
     if (id === 'userw') {
     
-      this.iframe1url = this.report_url + "examples/UserWorkingReportList.php?TRAN_DATE='" + obj.START_DATE + "'&TRAN_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&schm='CS'&schm1='TR'&schm2='CL'&schm3='JV'&BANK_NAME='" + bankName + "'";
+      this.iframe1url = this.report_url + "examples/UserWorkingReportList.php?TRAN_DATE='" + obj.START_DATE + "'&TRAN_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&BANK_NAME='" + bankName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
 
@@ -336,7 +336,7 @@ export class ManagerViewComponent implements OnInit {
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (id === 'delayWork') { 
-      this.iframe1url = this.report_url + "examples/UserCounterWorkDelayTime.php?BRANCH='" + this.branchName + "'";
+      this.iframe1url = this.report_url + "examples/UserCounterWorkDelayTime.php?BRANCH='" + this.branchName + "'&BANK_NAME='"+bankName+"'&BRANCH_CODE='" + branch + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -359,7 +359,8 @@ export class ManagerViewComponent implements OnInit {
     //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     // }
     else if (id === 'Incompletion') { 
-      this.iframe1url = this.report_url + "examples/incompletemaster.php/?&branchname='"+this.branchName +"'&sdate='"+obj.START_DATE + "'";
+      this.iframe1url = this.report_url + "examples/incompletemaster.php/?&branchname='"+this.branchName +"'&sdate='"+obj.START_DATE + "'&BRANCH_CODE='"+branch+"'&bankname='"+bankName+"'";
+     
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -369,7 +370,7 @@ export class ManagerViewComponent implements OnInit {
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (id === 'loanAnalysis') { 
-      this.iframe1url = this.report_url + "examples/loananalysisquery.php/?&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&bankname='"+bankName+"'&transtatus='1'";
+      this.iframe1url = this.report_url + "examples/loananalysisquery.php/?&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&bankname='"+bankName+"'&transtatus='1'&BRANCH_CODE='"+branch+"'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -445,7 +446,7 @@ else if (id === 'crBalance') {
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 else if (id === 'zeroBalance') { 
-        this.iframe1url = this.report_url + "examples/zero_Balance_List.php/?&Branch='"+this.branchName +"'&date='" + obj.START_DATE + "'";
+        this.iframe1url = this.report_url + "examples/zero_Balance_List.php/?&Branch='"+this.branchName +"'&date='" + obj.START_DATE + "'&bankname='" + bankName + "'&BRANCH_CODE='"+branch+"'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
@@ -454,12 +455,11 @@ else if (id === 'ccOverdraft') {
           console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
-// else if (id === 'overDraft') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
+else if (id === 'overDraft') { 
+        this.iframe1url = this.report_url + "examples/Overdraft(OD).php?&branchname='" + this.branchName + "'&Date='" + obj.START_DATE + "'&branchcode='"+branch+"'&Bankname='" + bankName + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
 // else if (id === 'consistancy') { 
       //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
       //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
