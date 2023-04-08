@@ -147,9 +147,6 @@ export class BnkPigmyBlankChartComponent implements OnInit {
          this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
            this.startingacc = data;
            this.startingAccount = null
- 
-          
-          
          })
          break;
  

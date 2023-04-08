@@ -98,6 +98,8 @@ export class CashInitialisationEntryComponent implements OnInit {
       this.SelectedBranch = user.branchId;
        //Get Cashier List
       this._services.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
+        console.log(data);
+
         this.cashier_list = data;
       })
     })
