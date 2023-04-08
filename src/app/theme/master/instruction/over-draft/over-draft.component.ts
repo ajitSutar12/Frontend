@@ -62,7 +62,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   filterData = {};
 
   angForm: FormGroup;
-  dtExportButtonOptions: any = {};
+  dtExportButtonOptions: any = {}; 
   acno
   allScheme // all scheme
   schemeACNo //account no 
@@ -337,14 +337,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.schemeACNo = []
     this.actype = event.name
     this.ac_type = event.value
-    this.angForm.patchValue({
-      AC_ODAMT: 0,
-      AC_SODAMT: 0,
-      AC_ODDAYS: '',
-      AC_ODDATE: '',
-      radioOverdraft: 'PeriodicallyOverDraft'
-    })
-    this.OpenLink(1)
+  
     let obj = [this.acno, this.ngBranch]
     switch (event.name) {
       case 'SB':
@@ -377,6 +370,14 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
         })
         break;
     }
+    this.angForm.patchValue({
+      AC_ODAMT: 0,
+      AC_SODAMT: 0,
+      AC_ODDAYS: '',
+      AC_ODDATE: '',
+      radioOverdraft: 'PeriodicallyOverDraft'
+    })
+    this.OpenLink(1)
   }
   mem
   getBankAcno(event) {
@@ -494,7 +495,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.periodoverdraft = true
       this.TemporaryOverDraftTrue = false;
       this.angForm.controls['AC_ODAMT'].reset()
-      this.PeriodicAmount.nativeElement.focus();
+      // this.PeriodicAmount.nativeElement.focus();
     }
     else if (val == 2) {
       this.angForm.controls['AC_SODAMT'].reset()

@@ -41,7 +41,8 @@ th,td {
     position: sticky;
     top: 0;
   }
-  span 
+  .fa 
   {
-    position: relative;
+    overflow-x: auto;
+    overflow: auto !important;
   }
