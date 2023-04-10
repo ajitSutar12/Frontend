@@ -6,10 +6,10 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class RepayModeService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: '0', label: 'Monthly' },
-        { value: '1', label: 'Quarterly' },
-        { value: '2', label: 'Half Yearly' },
-        { value: '3', label: 'Yearly' },
+        { value: '1', label: 'Monthly' },
+        { value: '3', label: 'Quarterly' },
+        { value: '6', label: 'Half Yearly' },
+        { value: '12', label: 'Yearly' },
         { value: 'O', label: 'On Maturity' },
     ];
 

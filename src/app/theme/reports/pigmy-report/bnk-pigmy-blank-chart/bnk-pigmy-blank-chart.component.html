@@ -82,8 +82,9 @@
                                     <ng-select formControlName="Scheme_acc" bindValue="value" bindLabel="label"
                                         [(ngModel)]="startingAccount">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
-                                            {{values.label}} {{values.name}}</ng-option>
-                                        </ng-select>
+                                            {{values.label}} {{values.name}}
+                                        </ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
 
@@ -118,11 +119,8 @@
                             </div>
                         </div>
                     </div> 
-
-
                 </div>
             </form>
-
         </div>
     </div>
 </div>
