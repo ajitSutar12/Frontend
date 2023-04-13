@@ -129,6 +129,14 @@ export class LockerRentRegisterComponent implements OnInit {
     let obj = this.ngForm.value
     this.showRepo = true;
 
+    let flag = obj.radio_sort;
+
+    if(flag == 'rentreceipt'){
+      flag = '1';
+    }else{
+      flag = '0';
+    }
+
     //for start Date
     if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
     {
@@ -153,9 +161,8 @@ export class LockerRentRegisterComponent implements OnInit {
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
   
-    // this.iframe5url=this.report_url+"examples/deposit.php?sdate=' " + obj.START_DATE + " '&edate='" + obj.END_DATE + "'&ac_acnotype='" + schemeName + "'&ac_type=" + scheme + "&print_date='" + obj.END_DATE + "'" ;
-    this.iframe5url=this.report_url+"examples/LockerRentRegister.php?sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&bank_name='" + bankName + "'&ac_type='" + scheme + "'&ac_acnotype='" + schemeName + "'&branch_name='" + this.branchName + "'&FLAG1='1'&FLAG2='0'";
-    console.log(this.iframe5url)
+    this.iframe5url=this.report_url+"examples/LockerRentRegister.php?sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&bank_name='" + bankName + "'&ac_type='" + scheme + "'&ac_acnotype='" + schemeName + "'&branch_name='" + this.branchName + "'&branch_code='"+branch+"'&FLAG='"+ flag +"'";
+    console.log(this.iframe5url) 
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    

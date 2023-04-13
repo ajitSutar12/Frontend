@@ -69,6 +69,11 @@ const routes: Routes = [
         path: 'tranLessAclist',
         loadChildren: () => import('./transactionless-account-list/transactionless-account-list.module').then(m => m.TransactionlessAccountListModule)
       },
+      {
+        path: 'dormantAccountList',
+        loadChildren: () => import('./dormant-account/dormant-account.module').then(m => m.DormantAccountModule)
+      },
+      
     ]
   }
 ];

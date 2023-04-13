@@ -177,7 +177,7 @@ else {
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
-this.iframe5url=this.report_url+ "examples/ShareIssueRegister.php?START_DATE='"+ obj.START_DATE +"'&END_DATE='"+ obj.END_DATE +"'&BRANCH='"+ this.branchName +"'&AC_TYPE='"+ branch +"'&BANK_NAME='"+ bankName +"'";
+this.iframe5url=this.report_url+ "examples/ShareIssueRegister.php?START_DATE='"+ obj.START_DATE +"'&END_DATE='"+ obj.END_DATE +"'&BRANCH='"+ this.branchName +"'&AC_TYPE='" +scheme+ "'&BRANCH_CODE='"+ branch +"'&BANK_NAME='"+ bankName +"'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

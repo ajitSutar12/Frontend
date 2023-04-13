@@ -22,6 +22,7 @@ import { TransactionlessAccountListComponent } from './transactionless-account-l
 import { MinorToMajorListComponent } from './minor-to-major-list/minor-to-major-list.component';
 import { ServiceChargesListComponent } from './service-charges-list/service-charges-list.component';
 import { CustidwiseIntroducerListComponent } from './custidwise-introducer-list/custidwise-introducer-list.component';
+import { DormantAccountComponent } from './dormant-account/dormant-account.component';
 
 
 @NgModule({

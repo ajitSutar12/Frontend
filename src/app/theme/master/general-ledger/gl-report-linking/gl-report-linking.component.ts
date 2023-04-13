@@ -28,9 +28,9 @@ interface GlreportLink {
   EFFECT_TO_DATE: number,
   CODE: number,
   CODE_TYPE: string,
-  DEFAULT_BALTYPE: number,
-  REVERSE_CODE: number,
-  SUB_COLUMN_NO: number
+  // DEFAULT_BALTYPE: number,
+  // REVERSE_CODE: number,
+  // SUB_COLUMN_NO: number
 
 
 }
@@ -179,18 +179,18 @@ export class GlReportLinkingComponent implements OnInit {
         //   title: 'Head Name',
         //   data: 'CODE_TYPE'
         // },
-        {
-          title: 'Default Balance Type',
-          data: 'DEFAULT_BALTYPE'
-        },
-        {
-          title: 'Reverse Code',
-          data: 'REVERSE_CODE'
-        },
-        {
-          title: 'Sub Column',
-          data: 'SUB_COLUMN_NO'
-        },
+        // {
+        //   title: 'Default Balance Type',
+        //   data: 'DEFAULT_BALTYPE'
+        // },
+        // {
+        //   title: 'Reverse Code',
+        //   data: 'REVERSE_CODE'
+        // },
+        // {
+        //   title: 'Sub Column',
+        //   data: 'SUB_COLUMN_NO'
+        // },
       ],
       dom: 'Blrtip',
     };
@@ -207,9 +207,9 @@ export class GlReportLinkingComponent implements OnInit {
       EFFECT_DATE: ["", [Validators.required]],
       EFFECT_TO_DATE: ["", [Validators.required]],
       CODE_TYPE: ["", [Validators.required]],
-      DEFAULT_BALTYPE: ["", [Validators.required]],
-      REVERSE_CODE: ["", [Validators.required]],
-      SUB_COLUMN_NO: ["", [Validators.required]],
+      // DEFAULT_BALTYPE: ["", [Validators.required]],
+      // REVERSE_CODE: ["", [Validators.required]],
+      // SUB_COLUMN_NO: ["", [Validators.required]],
       // SR_NO: ["", [Validators.required]],
       // // AC_NAME: ["", [Validators.required]],
       // // CODE: ["", [Validators.required]],
@@ -226,9 +226,9 @@ export class GlReportLinkingComponent implements OnInit {
       EFFECT_TO_DATE: moment(formVal.EFFECT_TO_DATE).format('DD/MM/YYYY'),
       CODE: formVal.CODE,
       CODE_TYPE: formVal.CODE_TYPE,
-      DEFAULT_BALTYPE: formVal.DEFAULT_BALTYPE,
-      REVERSE_CODE: formVal.REVERSE_CODE,
-      SUB_COLUMN_NO: formVal.SUB_COLUMN_NO,
+      // DEFAULT_BALTYPE: formVal.DEFAULT_BALTYPE,
+      // REVERSE_CODE: formVal.REVERSE_CODE,
+      // SUB_COLUMN_NO: formVal.SUB_COLUMN_NO,
     }
     this.resetForm();
     this.glLinkingMasterService.postLData(dataToSend).subscribe(data1 => {
@@ -257,9 +257,9 @@ export class GlReportLinkingComponent implements OnInit {
         EFFECT_TO_DATE: data.EFFECT_TO_DATE,
         CODE: data.CODE,
         CODE_TYPE: Number(data.CODE_TYPE),
-        DEFAULT_BALTYPE: data.DEFAULT_BALTYPE,
-        REVERSE_CODE: Number(data.REVERSE_CODE),
-        SUB_COLUMN_NO: data.SUB_COLUMN_NO,
+        // DEFAULT_BALTYPE: data.DEFAULT_BALTYPE,
+        // REVERSE_CODE: Number(data.REVERSE_CODE),
+        // SUB_COLUMN_NO: data.SUB_COLUMN_NO,
       })
     })
   }

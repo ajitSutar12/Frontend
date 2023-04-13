@@ -16,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
-import { PrematuredAcCloseComponent } from './prematured-ac-close.component';
+import { PrematuredAcCloseComponent } from './prematured-ac-close.component'; 
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
