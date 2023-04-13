@@ -19,8 +19,7 @@ export class OtherViewService {
     return this.http.post(this.url + "/gl-account-master/aclist", data).pipe(
       map((res) => res),
       catchError((error) => {
-        
-        return throwError(error);``
+        return throwError(error);
       })
     );
   }
@@ -30,7 +29,6 @@ export class OtherViewService {
   }
 
   ledgerbalance(data:any):Observable<any>{
-    debugger
     return this.http.post(this.url+"/voucher/getledgerbalance",data);
   }
 
@@ -49,5 +47,5 @@ export class OtherViewService {
   getInstallment(data:any): Observable<any>{
     return this.http.post(this.url+'/voucher/getLoanInstallment',data);
   }
-  
+
 }
