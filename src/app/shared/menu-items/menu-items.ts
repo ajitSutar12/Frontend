@@ -1605,7 +1605,11 @@ const MENUITEMS = [
                 name: 'Transactionless Account List',
                 id: 280
               },
-
+              {
+                state: 'dormantAccountList',
+                name: 'Dormant Account List',
+                id: 281
+              },
 
             ]
           },

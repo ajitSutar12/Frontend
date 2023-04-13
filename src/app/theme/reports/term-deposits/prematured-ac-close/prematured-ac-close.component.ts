@@ -16,7 +16,7 @@ import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 import { first } from "rxjs/operators";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
-import { IOption } from "ng-select";
+import { IOption } from "ng-select"; 
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
