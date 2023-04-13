@@ -83,7 +83,7 @@ export class GoldSilverSecurityComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' );
+        return (scheme.name == 'LN' && scheme.IS_GOLD_LOAN == '1' );
       });
       this.scheme = filtered;
 
