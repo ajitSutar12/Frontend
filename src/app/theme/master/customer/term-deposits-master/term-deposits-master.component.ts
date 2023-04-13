@@ -1273,6 +1273,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var rate = this.angForm.controls['AC_INTRATE'].value
     var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * Number(amount) * Number(rate) / 1200
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
+    this.angForm.patchValue({
+      AC_MATUAMT: maturity
+    })
   }
 
   recurringCompoundInterest() {
@@ -1299,6 +1302,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       totalInterest = Math.round((totalInterest + (amount * ((1 + (rate * 1) / (12 * 100)) ** (this.i / 1)) - amount)))
     }
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(totalInterest)
+    this.angForm.patchValue({
+      AC_MATUAMT: maturity
+    })
   }
 
   getBranch() {
@@ -1683,6 +1689,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngCategory = data.AC_CATG
       this.ngOperation = data.AC_OPR_CODE
       this.ngIntCategory = data.AC_INTCATA
+      this.selectedValue = data.AC_TYPE
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,

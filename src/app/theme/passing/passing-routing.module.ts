@@ -13,17 +13,6 @@ const routes: Routes = [
         path: 'centralisedPassing',
         loadChildren: () => import('./centralised-passing/centralisedPassing.module').then(m => m.CentralisedPassingModule)
       },
-      //
-      {
-        path: 'sharesTransactionPassing',
-        loadChildren: () => import('./shares-transaction-passing/sharesTransactionPassing.module').then(m => m.SharesTransactionPassingModule)
-      },
-      //
-      {
-        path: 'unapproval',
-        loadChildren: () => import('./unapproval/unapproval.module').then(m => m.UnapprovalModule)
-      },
-      //
       {
         path: 'unapprove',
         loadChildren: () => import('./master-unlock/masterUnlock.module').then(m => m.MasterUnlockModule)
@@ -32,8 +21,8 @@ const routes: Routes = [
   }
 ];
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
-  })
-  export class PassingRoutingModule { }
-  
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class PassingRoutingModule { }
+

@@ -105,7 +105,7 @@ export class MasterSavingComponent implements OnInit {
   //get saving customer data
   getSavingData(data) {
     this.savingData = data.id;
-    this.child.editClickHandler(data.id,1);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
@@ -134,6 +134,7 @@ export class MasterSavingComponent implements OnInit {
       AC_TYPE: [null, [Validators.required]],
       FROM_AC: [null, [Validators.required]],
       TO_AC: [null, [Validators.required]],
+      ADDDEADSTOCKFLAG: [null, [Validators.required]],
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -249,6 +250,20 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/locker-master/getUnapproveList', obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
+        })
+        break;
+      case 'DEAD':
+        this.http.post(this.url + '/dead-stock-master/UnapproveList', obj).pipe(first()).subscribe((data: any) => {
+          let list = []
+          for (let ele of data) {
+            let obj = {
+              AC_NO: ele.id,
+              AC_NAME: ele.ITEM_NAME
+            }
+            list.push(obj)
+          }
+          this.ToAC = list
+          this.fromAC = list
         })
         break;
     }
@@ -418,8 +433,32 @@ export class MasterSavingComponent implements OnInit {
           }
         })
         break;
+      case 'DEAD':
+        this.http.post(this.url + '/dead-stock-master/unapporve', obj).subscribe(data => {
+          if (data == 0) {
+            Swal.fire(
+              'Unapproved',
+              'Accounts unapproved successfully',
+              'success'
+            );
+            this.createForm()
+          }
+        })
+        break;
     }
-
   }
-
+  addDeadstockmaster() {
+    this.http.get<any>(this.url + '/item-category-master').subscribe(data => {
+      console.log(data)
+      for (let ele of data) {
+        let obj = {
+          id: ele.CODE,
+          label: ele.NAME,
+          value: ele.id,
+          name: 'DEAD'
+        }
+        this.scheme.push(obj)
+      }
+    })
+  }
 }

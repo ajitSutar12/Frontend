@@ -467,19 +467,19 @@ const MENUITEMS = [
                 id: 60
               },
               {
-                state: 'dividendTransferPosting',
-                name: 'Dividend Transfer Posting',
-                id: 61
-              },
-              {
                 state: 'dividendCalculation',
                 name: 'Dividend Calculation',
                 id: 62
-              },
+              },                           
               {
                 state: 'dividendPosting',
                 name: 'Dividend Posting',
                 id: 63
+              },
+              {
+                state: 'dividendTransferPosting',
+                name: 'Dividend Transfer Posting',
+                id: 61
               },
             ]
 
