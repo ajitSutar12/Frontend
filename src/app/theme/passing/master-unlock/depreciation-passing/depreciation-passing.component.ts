@@ -73,7 +73,7 @@ export class DepreciationPassingComponent implements OnInit {
       this.narrationList = data
     });
 
-    this.http.get(this.url + '/depreciation-process/' + user.branchId).subscribe(data => {
+    this.http.get(this.url + '/depreciation-process/unapproveTable/' + user.branchId).subscribe(data => {
       this.drepreciationData = data
       this.itemArr = data['deadstockHead']
       this.totalAmt = data['TRAN_AMOUNT']
@@ -214,6 +214,28 @@ export class DepreciationPassingComponent implements OnInit {
         this.ngOnInit()
         Swal.fire(
           'Success', 'Deadstock depreciation approved successfully', 'success'
+        );
+      })
+    }
+    else {
+      Swal.fire("Oops!", "No Data To Approve!", "error");
+    }
+  }
+  unapprove() {
+    if (this.itemArr.length != 0) {
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let obj = {
+        LOG_DATE: this.drepreciationData.TRAN_DATE,
+        user: result.id,
+        id: this.drepreciationData.id
+      }
+      this.http.post(this.url + '/depreciation-process/unapprove', obj).subscribe(data => {
+        this.itemArr = []
+        this.drepreciationData = null
+        this.ngOnInit()
+        Swal.fire(
+          'Success', 'Deadstock depreciation unapproved successfully', 'success'
         );
       })
     }

@@ -216,7 +216,6 @@ export class OverdraftInterestPostingComponent implements OnInit {
         Swal.fire('Info!',ele.msg,'warning');
       }else{
         Swal.fire('Done!',ele.msg,'success');
-
       }
     })
   }

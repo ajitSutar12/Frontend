@@ -378,7 +378,6 @@ export class TermDepositAccountClosingComponent implements OnInit {
         Swal.fire('Oops', 'Account cannot close', 'error')
         return
       }
-      debugger
       this.DayOpBal = data[0].AC_SCHMAMT
       this.Pass = data[0].AC_MATUAMT
       this.INTRATE = data[0].AC_INTRATE

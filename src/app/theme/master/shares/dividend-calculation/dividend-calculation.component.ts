@@ -11,7 +11,7 @@ import {
   FormBuilder,
   Validators,
   FormControl,
-} from "@angular/forms"; 
+} from "@angular/forms";
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 import { first } from "rxjs/operators";
 import { NgSelectComponent, NgSelectConfig } from "@ng-select/ng-select";
@@ -27,6 +27,7 @@ import { DatePipe } from "@angular/common";
 import { DividendCalculationService } from "./dividend-calculation.service";
 import { catchError, map } from "rxjs/operators";
 import { throwError } from "rxjs";
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -111,7 +112,8 @@ export class DividendCalculationComponent implements OnInit {
   shareDividend;
   divMethod;
   isAddBonusInDividend;
-
+  branch_code
+  ngBranch
   constructor(
     private fb: FormBuilder,
     public SchemeCodeService: SchemeCodeService,
@@ -121,7 +123,8 @@ export class DividendCalculationComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private _service: DividendCalculationService,
     // public MembernoService: MembernoService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private ownbranchMasterService: OwnbranchMasterService
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -230,7 +233,9 @@ export class DividendCalculationComponent implements OnInit {
       ],
       dom: "Bfrtip",
     };
-
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
     this.schemeCodeDropdownService
       .getSchemeCodeList(this.schemeType)
       .pipe(first())
@@ -246,11 +251,11 @@ export class DividendCalculationComponent implements OnInit {
         // });
       });
     this.getDivTOYear();
-    // this.getAccountList();
   }
 
   createForm() {
     this.angForm = this.fb.group({
+      BRANCH_CODE: ["", [Validators.required]],
       AC_TYPE: ["", [Validators.required, Validators.pattern]],
       FROM_AC: ["", [Validators.required, Validators.pattern]],
       TO_AC: ["", [Validators.required, Validators.pattern]],
@@ -266,9 +271,6 @@ export class DividendCalculationComponent implements OnInit {
   getAccountList() {
     this.ngfromac = null;
     this.ngtoac = null;
-    let data1: any = localStorage.getItem("user");
-    let result = JSON.parse(data1);
-    let branchCode = result.branch.id;
     let trandate
     if (this.formFromDate != this.divfromdate) {
       trandate = moment(this.angForm.controls["DIV_FROMDATE"].value).format('DD/MM/YYYY')
@@ -283,7 +285,7 @@ export class DividendCalculationComponent implements OnInit {
     var newDate = date[1] + "/" + date[0] + "/" + date[2];
     var k = new Date(newDate);
     var expiryDate = moment(k).format("DD.MM.YYYY");
-    let obj = [this.ngscheme, branchCode, expiryDate];
+    let obj = [this.ngscheme, this.ngBranch, expiryDate];
     this.http
       .get(this.url + "/dividend-calculation/check/" + obj)
       .subscribe((data) => {
@@ -562,7 +564,7 @@ export class DividendCalculationComponent implements OnInit {
     // })
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   checkmargin(ele: any) {
@@ -572,7 +574,7 @@ export class DividendCalculationComponent implements OnInit {
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 25", "error");
       ele.target.value = 0
-  
+
     }
   }
 
@@ -583,7 +585,14 @@ export class DividendCalculationComponent implements OnInit {
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 99", "error");
       ele.target.value = 0
-  
+
     }
+  }
+  getBranch() {
+    this.ngfromac = null
+    this.ngtoac = null
+    this.ngscheme = null
+    this.fromAC = null
+    this.ToAC = null
   }
 }

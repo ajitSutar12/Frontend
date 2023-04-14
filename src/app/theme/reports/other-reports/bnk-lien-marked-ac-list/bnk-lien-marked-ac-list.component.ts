@@ -34,6 +34,7 @@ minDate: Date;
  showRepo: boolean = false;
  clicked:boolean=false;
  iframe5url: any = '';
+  branchName: any;
  constructor(private fb: FormBuilder,
     private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -74,10 +75,14 @@ minDate: Date;
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
  //validation
@@ -118,8 +123,7 @@ view(event) {
   let scheme = obj.Scheme_code 
   let branch = obj.BRANCH_CODE
        
- this.iframe5url= this.report_url+"examples/LineMarkedList.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&NAME='"+ bankName +"'";
-
+ this.iframe5url= this.report_url+"examples/LineMarkedList.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'"
  console.log(this.iframe5url);
  this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
  
@@ -142,7 +146,10 @@ this.ngForm.controls.Scheme_code.reset();
 this.showRepo = false;
 this.clicked=false;
 }
-
+getBranch(event) {
+  this.ngbranch = event.value
+  this.branchName = event.branchName
+}
 }
 
 
