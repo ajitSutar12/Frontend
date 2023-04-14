@@ -1552,14 +1552,14 @@ const MENUITEMS = [
               },
               {
                 state: 'BnkLienMarkedAcList',
-                name: 'Line mark Account List ',
+                name: 'Lein mark Account List ',
                 id: 193
               },
-              {
-                state: 'BnkDormantAcList',
-                name: 'Dormant Account List',
-                id: 194
-              },
+              // {
+              //   state: 'BnkDormantAcList',
+              //   name: 'Dormant Account List',
+              //   id: 194
+              // },
               {
                 state: 'BnkAmountMovement',
                 name: 'Transaction Amount Movement',

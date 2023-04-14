@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -49,7 +50,7 @@ export class BnkODRegisterComponent implements OnInit {
   bsValue = new Date();
   selectedCode: any;
   showRepo: boolean = false;
-
+  
   ngacno: any = null;
 
 
@@ -66,11 +67,13 @@ export class BnkODRegisterComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,
+    private schemeAccountNoService: SchemeAccountNoService,    private systemParameter: SystemMasterParametersService,
+
   ) {
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
   // Method to handle validation of form
@@ -81,9 +84,8 @@ export class BnkODRegisterComponent implements OnInit {
       OD_TEMP: new FormControl ('TemporaryOverDraft'),
       // Starting_Account: ['', [Validators.required]],
       // Ending_Account: ['', [Validators.required]],
-      sdate: ['',[Validators.required]],
-      edate: ['',[Validators.required]]
-
+      START_DATE: ["", [Validators.required]],
+      END_DATE: ["", [Validators.required]], 
 
 
     })
@@ -119,7 +121,17 @@ export class BnkODRegisterComponent implements OnInit {
   // iframe.addEventListener("load", function() {
   //     console.log("Finish");
   // });
-
+ //display date
+ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+  this.todate = data.CURRENT_DATE;
+});
+//for starting and ending date
+this.systemParameter.getFormData(1).subscribe(data => {
+  let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+  this.todate = data.CURRENT_DATE
+  this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+  this.fromdate = this.fromdate._d
+})
   }
 
 

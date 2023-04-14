@@ -169,7 +169,7 @@ export class SharesTransferRegisterComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/shares_transfer_register.php?&BankName='" + bankName + "'&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_TYPE='" + scheme + "'&TRAN_TYPE1='TR'&TRAN_TYPE2='JV'&TRANDRCR='D'";
+      this.iframe5url = this.report_url + "examples/shares_transfer_register.php?&BankName='" + bankName + "'&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&branch_code='"+ branch +"'&AC_TYPE='" + scheme + "'&TRAN_TYPE1='TR'&TRAN_TYPE2='JV'&TRANDRCR='D'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

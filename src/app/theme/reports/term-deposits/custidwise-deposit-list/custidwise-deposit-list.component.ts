@@ -125,7 +125,8 @@ view(event) {
   let custid = obj.CUST_ID
   let branch = obj.BRANCH_CODE
 
-  this.iframe5url=this.report_url+"examples/CustomerIDWiseDepositList.php?START_DATE='" +obj.START_DATE + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='"+ branchName +"'&AC_TYPE='7'&AC_ACNOTYPE='TD'&AC_OPDATE='"+obj.START_DATE +"'&FLAG1='0'&FLAG2='1'&FLAG3='2'&TRAN_DRCR='D'&CUST_ID='"+ custid +"'"; 
+  // this.iframe5url=this.report_url+"examples/CustomerIDWiseDepositList.php?START_DATE='" +obj.START_DATE + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='"+ branchName +"'&AC_TYPE='7'&AC_ACNOTYPE='TD'&AC_OPDATE='"+obj.START_DATE +"'&FLAG1='0'&FLAG2='1'&FLAG3='2'&TRAN_DRCR='D'&CUST_ID='"+ custid +"'"; 
+  this.iframe5url=this.report_url+"examples/CustomerIDWiseDepositList.php?START_DATE='" +obj.START_DATE + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='"+ branchName +"'&AC_TYPE='7'&AC_ACNOTYPE='TD'&AC_OPDATE='"+obj.START_DATE +"'&FLAG1=0&BRANCH_CODE="+ branch +"&TRAN_DRCR='D'&CUST_ID='"+ custid +"'&BANK_NAME='"+ bankName +"'"
   console.log( this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   
