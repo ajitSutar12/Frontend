@@ -689,7 +689,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.tableData = []
       this.transactions = null
       this.transactionData = null
-      this.dormantac = event.IS_DORMANT
+      this.dormantac = Number(event.IS_DORMANT) ==0 ? false :true
       this.guardianName = event.AC_GRDNAME
       this.opendate = event.AC_OPDATE
       this.bankacno = event.BANKACNO

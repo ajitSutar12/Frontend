@@ -7,7 +7,7 @@
           Fields marked with (<sub class="required"> * </sub>) are mandatory
         </h6>
       </div>
-      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate         #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch Code<sub class="required">*</sub></label>
@@ -104,9 +104,18 @@
                 </div>
               </div>
             </div>
-
           </div>
           <div class="row">
+            <div class="col-sm-4">
+              <div class="checkbox checkbox-primary">
+                <div class="border-checkbox-group border-checkbox-group-primary">
+                  <input class="border-checkbox" type="checkbox" id="ADDDEADSTOCK" formControlName="ADDDEADSTOCKFLAG"
+                    (change)="addDeadstockmaster()">
+                  <label class="border-checkbox-label" for="ADDDEADSTOCK">Add deadstock account<span class="required">
+                    </span></label>
+                </div>
+              </div>
+            </div>
             <div class="col-sm">
               <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid" appTheme
                 (click)="unlockFun();BRANCH_CODE.focus()">Unlock</button>

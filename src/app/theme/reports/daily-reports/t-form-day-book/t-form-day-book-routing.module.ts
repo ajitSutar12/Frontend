@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:TFormDayBookComponent,
     data: {
-      title: 'T Form Day Book Details/Summary',
+      title: 'T Form Day Book',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

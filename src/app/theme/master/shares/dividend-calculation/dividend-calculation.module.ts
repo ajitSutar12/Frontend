@@ -18,7 +18,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import { DividendCalculationService } from './dividend-calculation.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
-
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 
 @NgModule({
   imports: [
@@ -35,7 +35,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     ThemeModule
   ],
   declarations: [DividendCalculationComponent],
-  providers: [SchemeCodeService, SchemeAccountNoService, SchemeCodeDropdownService, MembernoService, BranchService,
+  providers: [SchemeCodeService, SchemeAccountNoService, SchemeCodeDropdownService, MembernoService, BranchService, OwnbranchMasterService,
     DatePipe, DividendCalculationService, {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
