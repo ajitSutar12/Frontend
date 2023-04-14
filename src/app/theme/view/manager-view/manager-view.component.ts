@@ -440,7 +440,7 @@ else if (id === 'drBalance') {
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 else if (id === 'crBalance') { 
-        this.iframe1url = this.report_url + "examples/Credit_Balance_List.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&edate='" + obj.START_DATE + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE1='LN'&AC_ACNOTYPE2='DS'&AC_ACNOTYPE3='CC'&QUOTES=''";
+        this.iframe1url = this.report_url + "examples/Credit_Balance_List.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&edate='" + obj.START_DATE + "'&branch_code='"+ branch +"'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE1='LN'&AC_ACNOTYPE2='DS'&AC_ACNOTYPE3='CC'&QUOTES=''";
         // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
@@ -451,7 +451,7 @@ else if (id === 'zeroBalance') {
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 else if (id === 'ccOverdraft') { 
-        this.iframe1url = this.report_url + "examples/CCOverdraftReport.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE='CC'";
+        this.iframe1url = this.report_url + "examples/CCOverdraftReport.php?&Branch='" + this.branchName + "'&branch_code='"+ branch +"'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE='CC'";
           console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }

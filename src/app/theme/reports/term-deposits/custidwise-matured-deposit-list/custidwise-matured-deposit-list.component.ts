@@ -167,7 +167,7 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
       let custid = obj.CUST_ID
       let branch = obj.BRANCH_CODE
 
-      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&S_ACNOTYPE='" + schemeName + "'&flag1='"+ flag +"'&sign='-'";
+      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&branch_code='"+branch+"'&S_ACNOTYPE='" + schemeName + "'&flag1='"+ flag +"'&sign='-'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 

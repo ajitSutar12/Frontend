@@ -181,7 +181,7 @@ export class CitywiseMemberListComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='" + bankName + "'&Branch='" + this.branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&CITY_CODE='" + cityCode + "'";
+      this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='" + bankName + "'&Branch='" + this.branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&branch_code='"+ branch +"'&CITY_CODE='" + cityCode + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
