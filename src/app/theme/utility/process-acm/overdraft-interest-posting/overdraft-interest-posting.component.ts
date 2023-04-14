@@ -207,16 +207,15 @@ export class OverdraftInterestPostingComponent implements OnInit {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
     }
   }
-
-  submit() {
-    let data = this.angForm.value;
+  
+  submit(){
+    let data = this.angForm.value; 
     data['user'] = JSON.parse(localStorage.getItem('user'));
-    this._service.OverdraftPosting(data).subscribe(ele => {
-      if (ele.type == 'error') {
-        Swal.fire('Info!', ele.msg, 'warning');
-      } else {
-        Swal.fire('Done!', ele.msg, 'success');
-
+    this._service.OverdraftPosting(data).subscribe(ele=>{
+      if(ele.type == 'error'){
+        Swal.fire('Info!',ele.msg,'warning');
+      }else{
+        Swal.fire('Done!',ele.msg,'success');
       }
     })
   }
