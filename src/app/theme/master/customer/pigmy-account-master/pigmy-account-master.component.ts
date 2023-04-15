@@ -28,6 +28,8 @@ import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -136,7 +138,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   //for modal
   showModalStatus: boolean = false;
   //title select variables
-
+  recomBy
   introducerReq: boolean = false
   isDisabled = true;
   characters: Array<IOption>;
@@ -230,6 +232,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   unapproveShow: boolean = false;
   maxDate: any
   AGENTBRANCH: any = null
+  Recommended: any[]
 
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
@@ -245,6 +248,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
+    private directorMasterDropdown: DirectorMasterDropdownService,
     public sanitizer: DomSanitizer,
     private datePipe: DatePipe,) {
     if (this.childMessage != undefined) {
@@ -404,6 +408,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.Cust_ID = data;
       this.joint_Cust_ID = data;
     })
+    this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
+      this.Recommended = data;
+    })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
       // var allscheme = data.filter(function (schem) {
       //   return (schem.scheme == 'PG')
@@ -447,6 +454,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   createForm() {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
+      AC_RECOMMEND_BY: ['', [Validators.required]],
       AC_ACNOTYPE: ['PG'],
       AC_NO: [''],
       AC_CUSTID: ['', [Validators.required, Validators.pattern]],
@@ -1079,6 +1087,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'AGENT_BRANCH': formVal.AGENT_BRANCH,
         'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
         'AGENT_ACNO': formVal.AGENT_ACNO,
+        'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
         //temp address 
         AC_ADDFLAG: formVal.AC_ADDFLAG,
         AC_ADDTYPE: this.addType,
@@ -1191,6 +1200,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngCategory = Number(data.AC_CATG)
       this.ngOperation = Number(data.AC_OPR_CODE)
       this.ngint_category = Number(data.AC_INTCATA)
+      this.recomBy = Number(data.AC_RECOMMEND_BY)
       this.AGENTBRANCH = data.AGENT_BRANCH
       if ((data.AGENT_ACTYPE != null && data.AGENT_ACNO != null) || (data.AGENT_ACTYPE != "" && data.AGENT_ACNO != "")) {
         this.agentno = Number(data.AGENT_ACTYPE)

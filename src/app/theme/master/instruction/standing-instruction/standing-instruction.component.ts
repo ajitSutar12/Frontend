@@ -261,7 +261,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       LAST_EXEC_DATE: ['',],
       REVOKE_DATE: ['',],
       MIN_BAL: ['',],
-      PAYINT_AMOUNT: ['',],
+      TRAN_AMOUNT: ['',],
       IS_AUTO_CUT_LNPGCOM: ['',],
       isAutoBalance: ['',],
     });
@@ -550,14 +550,14 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
   isAutoBalanceCheck(event) {
     if (event.target.checked) {
       this.angForm.controls['MIN_BAL'].enable()
-      this.angForm.controls['PAYINT_AMOUNT'].disable()
+      this.angForm.controls['TRAN_AMOUNT'].disable()
     }
     else {
       this.angForm.controls['MIN_BAL'].disable()
       this.angForm.patchValue({
         MIN_BAL: ''
       })
-      this.angForm.controls['PAYINT_AMOUNT'].enable()
+      this.angForm.controls['TRAN_AMOUNT'].enable()
     }
   }
 
@@ -586,7 +586,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
         'LAST_EXEC_DATE': formVal.LAST_EXEC_DATE,
         'REVOKE_DATE': formVal.REVOKE_DATE,
         'MIN_BAL': formVal.MIN_BAL,
-        'PAYINT_AMOUNT': formVal.PAYINT_AMOUNT,
+        'TRAN_AMOUNT': formVal.TRAN_AMOUNT,
         'IS_AUTO_CUT_LNPGCOM': formVal.IS_AUTO_CUT_LNPGCOM,
       };
       if (this.startDT == this.startDateT) {
@@ -732,7 +732,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
         'LAST_EXEC_DATE': data.LAST_EXEC_DATE,
         'REVOKE_DATE': data.REVOKE_DATE,
         'MIN_BAL': data.MIN_BAL,
-        'PAYINT_AMOUNT': data.PAYINT_AMOUNT,
+        'TRAN_AMOUNT': data.TRAN_AMOUNT,
         'IS_AUTO_CUT_LNPGCOM': data.IS_AUTO_CUT_LNPGCOM,
       })
     })

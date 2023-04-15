@@ -161,6 +161,7 @@ export class ServiceChargesListComponent implements OnInit {
       let scheme = obj.Scheme_code
       let branch = obj.BRANCH_CODE;
       let schemeName = this.tScheme
+      // let charges = obj.CHARGES
 
       let Date = moment(obj.date).format('DD/MM/YYYY');
       let tDate = moment(Date, 'DD/MM/YYYY')
@@ -186,7 +187,7 @@ export class ServiceChargesListComponent implements OnInit {
       // let endingcode =obj.Ending_Account;
 
       
-      this.iframe5url = this.report_url + "examples/Service_charges_list.php?&Branch='" + this.branchName + "'&BankName='" + bankName+ "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&TRANDRCR='D'&TRAN_STATUS='1'&AC_ACNOTYPE='" + schemeName + "'"
+      this.iframe5url = this.report_url + "examples/Service_charges_list.php?&Branch='" + this.branchName + "'&BankName='" + bankName+ "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&branch_code='" + branch + "'&AC_ACNOTYPE='" + schemeName + "'"
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

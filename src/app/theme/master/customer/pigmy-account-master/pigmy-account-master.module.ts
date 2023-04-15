@@ -36,6 +36,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/theme/theme.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -53,7 +54,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     ThemeModule
   ],
   declarations: [PigmyAccountMasterComponent],
-  exports:[PigmyAccountMasterComponent],
+  exports: [PigmyAccountMasterComponent],
   providers: [
     SchemeCodeService, OwnbranchMasterService,
     , CustomerIdService, CustomerIDMasterDropdownService,
@@ -62,6 +63,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     OperationMasterDropdownService, categoryMasterService,
     IntrestCategoryMasterDropdownService, SystemMasterParametersService, SchemeAccountNoService,
     PigmyAccountMasterService,
+    DirectorMasterDropdownService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
