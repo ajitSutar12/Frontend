@@ -145,10 +145,11 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input appTheme appButton minlength="8" maxlength="10"
-                                                                         type="text" placeholder="dd/mm/yyyy"
-                                                                        name="AC_OPDATE" id="AC_OPDATE"
-                                                                        class="form-control datepick" required #opendate
+                                                                    <input appTheme appButton minlength="8"
+                                                                        maxlength="10" type="text"
+                                                                        placeholder="dd/mm/yyyy" name="AC_OPDATE"
+                                                                        id="AC_OPDATE" class="form-control datepick"
+                                                                        required #opendate
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -323,6 +324,35 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-3">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select appTheme id="AC_RECOMMEND_BY"
+                                                                        bindValue="value" [(ngModel)]="recomBy"
+                                                                        formControlName="AC_RECOMMEND_BY"
+                                                                        bindLabel="label" title="Compulsory Selection"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        required placeholder="Recommended By"
+                                                                        #RECOMMEND_BY (focus)="onFocus(RECOMMEND_BY)"
+                                                                        [selectOnTab]='true'>
+                                                                        <ng-option *ngFor="let values of Recommended"
+                                                                            [value]="values">
+                                                                            {{values.label}}</ng-option>
+                                                                    </ng-select>
+                                                                    <label for="AC_RECOMMEND_BY">Recommended By<sub
+                                                                            class="required"> *
+                                                                        </sub></label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['AC_RECOMMEND_BY'].invalid && (angForm.controls['AC_RECOMMEND_BY'].dirty || angForm.controls['AC_RECOMMEND_BY'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf="angForm.controls['AC_RECOMMEND_BY'].errors?.required">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_REF_RECEIPTNO"
@@ -343,6 +373,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
@@ -365,8 +397,8 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10"
-                                                                         placeholder="dd/mm/yyyy"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_ASON_DATE" id="AC_ASON_DATE"
                                                                         class="form-control"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}" #date
@@ -439,8 +471,8 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10"
-                                                                         placeholder="dd/mm/yyyy"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_EXPDT" id="AC_EXPDT"
                                                                         class="form-control"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}" #date
@@ -1017,8 +1049,8 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10"
-                                                                         name="AC_MBDATE"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" name="AC_MBDATE"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_MBDATE"
                                                                         (focusout)="disabledate(date.value)"
@@ -1306,8 +1338,9 @@
                                                                         <div class="col-sm-2">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
-                                                                                    <input appTheme appButton minlength="8" maxlength="10"
-                                                                                         type="text"
+                                                                                    <input appTheme appButton
+                                                                                        minlength="8" maxlength="10"
+                                                                                        type="text"
                                                                                         placeholder="DD/MM/YYYY"
                                                                                         name="AC_NDATE"
                                                                                         class="form-control"
@@ -1957,8 +1990,8 @@
                                                                     <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
-                                                                                <input appTheme appButton minlength="8" maxlength="10"
-                                                                                    type="text"
+                                                                                <input appTheme appButton minlength="8"
+                                                                                    maxlength="10" type="text"
                                                                                     placeholder="DD/MM/YYYY"
                                                                                     name="DATE_APPOINTED"
                                                                                     class="form-control"
@@ -1998,8 +2031,8 @@
                                                                     <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
-                                                                                <input appTheme appButton minlength="8" maxlength="10"
-                                                                                     type="text"
+                                                                                <input appTheme appButton minlength="8"
+                                                                                    maxlength="10" type="text"
                                                                                     placeholder="DD/MM/YYYY"
                                                                                     name="DATE_EXPIRY"
                                                                                     class="form-control"

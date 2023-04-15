@@ -31,6 +31,8 @@ import { InterestInstructionService } from '../../instruction/interest-instructi
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -72,7 +74,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TermDepositMasterService,
     SystemMasterParametersService,
     DatePipe,
-    SchemeAccountNoService
+    SchemeAccountNoService,
+    DirectorMasterDropdownService
   ]
 })
 export class TermDepositsMasterModule { }
