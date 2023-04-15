@@ -321,20 +321,20 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" style="text-align: right;" name="PAYINT_AMOUNT"
-                                        class="form-control" placeholder=" " id="PAYINT_AMOUNT"
+                                    <input appTheme type="text" style="text-align: right;" name="TRAN_AMOUNT"
+                                        class="form-control" placeholder=" " id="TRAN_AMOUNT"
                                         (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                        title="Input allowed only  0-9" formControlName="PAYINT_AMOUNT">
-                                    <label for="PAYINT_AMOUNT">Transaction Amount<sub class="required">*
+                                        title="Input allowed only  0-9" formControlName="TRAN_AMOUNT">
+                                    <label for="TRAN_AMOUNT">Transaction Amount<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['PAYINT_AMOUNT'].invalid && (angForm.controls['PAYINT_AMOUNT'].dirty || angForm.controls['PAYINT_AMOUNT'].touched)"
+                                *ngIf="angForm.controls['TRAN_AMOUNT'].invalid && (angForm.controls['TRAN_AMOUNT'].dirty || angForm.controls['TRAN_AMOUNT'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['PAYINT_AMOUNT'].errors?.pattern || angForm.controls['PAYINT_AMOUNT'].errors?.required">
+                                    *ngIf="angForm.controls['TRAN_AMOUNT'].errors?.pattern || angForm.controls['TRAN_AMOUNT'].errors?.required">
                                     This field is required and Input allowed only 0-9
                                 </div>
                             </div>
