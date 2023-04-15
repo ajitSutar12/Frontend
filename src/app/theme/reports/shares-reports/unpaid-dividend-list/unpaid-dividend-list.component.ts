@@ -305,7 +305,7 @@ maxDate: Date;
      let startingcode= obj.FROM_AC_NO; 
     let endingcode =obj.TO_AC_NO;
     
- this.iframe5url=this.report_url+ "examples/unpaid_dividend_list.php?branchName="+ this.branchName +"&bankName="+bankName+"&etdate='"+  obj.date +"'&membno_from="+ startingcode +"&membno_to="+ endingcode +"&S_APPL='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";  
+ this.iframe5url=this.report_url+ "examples/unpaid_dividend_list.php?branchName="+ this.branchName +"&bankName="+bankName+"&stdate='"+  obj.date +"'&etdate='"+  obj.date +"'&membno_from="+ startingcode +"&membno_to="+ endingcode +"&S_APPL='"+ scheme +"'&branch_code='"+branch+"'&AC_ACNOTYPE='"+ schemeName +"'";  
 
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 

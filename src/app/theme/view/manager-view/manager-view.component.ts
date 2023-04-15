@@ -331,7 +331,7 @@ export class ManagerViewComponent implements OnInit {
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (id === 'userCash') { 
-      this.iframe1url = this.report_url + "examples/usercashdenomination.php?branchName='" + this.branchName + "'&date='" + obj.START_DATE + "'&bankName='" + bankName + "'";
+      this.iframe1url = this.report_url + "examples/usercashdenomination.php?branchName='" + this.branchName + "'&date='" + obj.START_DATE + "'&BRANCH_CODE='" + branch + "'&bankName='" + bankName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -434,7 +434,7 @@ else if (id === 'fdPayment') {
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 else if (id === 'drBalance') { 
-        this.iframe1url = this.report_url + "examples/Debit_Balance_Report.php?branchName='" + this.branchName + "'&bankName='" + bankName + "'&stdate='" + obj.START_DATE + "'&etdate='" + obj.START_DATE + "'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
+        this.iframe1url = this.report_url + "examples/Debit_Balance_Report.php?branchName='" + this.branchName + "'&bankName='" + bankName + "'&stdate='" + obj.START_DATE + "'&etdate='" + obj.START_DATE + "'&branch_code='"+ branch +"'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
         // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
