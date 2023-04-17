@@ -130,7 +130,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   nginstallment: any = null
 
 
-  installmentMethod: Array<IOption> = this.installmentMethodService.getCharacters();
+  installmentMethod: Array<IOption> = this.installmentMethodService.getPLAYER_TWOCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -1051,7 +1051,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -1072,14 +1072,14 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
       ele.target.value = 0
-  
+
     }
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }
