@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class MisReportsComponent implements OnInit {
  datemax: any;
    
-  constructor() { 
+  constructor() { debugger
               // this.datemax =new Date() ;
   // this.datemax = new Date().getFullYear()+'-'+("0"+new Date().getDate()).slice(-2)+'-'+("0"+(new Date().getMonth()+1)).slice(-2);
   this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);

@@ -61,6 +61,10 @@ const routes: Routes = [
         path: 'lockerRentRegister',
         loadChildren: () => import('./locker-rent-register/locker-rent-register.module').then(m => m.LockerRentRegisterModule)
       },
+      {
+        path: 'lockerRegister',
+        loadChildren: () => import('./locker-register/locker-register.module').then(m => m.LockerRegisterModule)
+      },
     ]
   }
 ];

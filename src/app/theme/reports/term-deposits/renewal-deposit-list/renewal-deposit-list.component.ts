@@ -162,8 +162,9 @@ maxDate: Date;
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
- this.iframe5url=this.report_url+ "examples/renewalhistory.php?stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&S_APPL='"+ bankName +"'&branchName='"+ this.branchName +"'&bankName='"+ bankName +"'&branch_code='"+branch+"' "
-  console.log(this.iframe5url); 
+//  this.iframe5url=this.report_url+ "examples/renewalhistory.php?stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&S_APPL='"+ bankName +"'&branchName='"+ this.branchName +"'&bankName='"+ bankName +"'&branch_code='"+branch+"' "
+ this.iframe5url=this.report_url+ "examples/renewalhistory.php?stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&AC_TYPE='"+ scheme +"'&bankName='"+ bankName +"'&branchName='"+ this.branchName +"'&branch_code='"+branch+"'&date='"+ obj.START_DATE +"'"
+ console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
