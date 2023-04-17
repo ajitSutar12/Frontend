@@ -689,7 +689,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.tableData = []
       this.transactions = null
       this.transactionData = null
-      this.dormantac = Number(event.IS_DORMANT) ==0 ? false :true
+      this.dormantac = Number(event.IS_DORMANT) == 0 ? false : true
       this.guardianName = event.AC_GRDNAME
       this.opendate = event.AC_OPDATE
       this.bankacno = event.BANKACNO
@@ -1359,7 +1359,8 @@ export class AccountEnquiryComponent implements OnInit {
       this.interestInstructionArr = []
       let obj = [
         this.ngscheme,
-        this.AC_NO
+        this.bankacno,
+        this.getschemename
       ]
       this.http.get<any>(this.url + '/ledger-view/lienInformaionView/' + obj).subscribe((data) => {
         this.lienInfoArr = data
