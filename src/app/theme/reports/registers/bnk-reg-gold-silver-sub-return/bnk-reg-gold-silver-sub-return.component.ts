@@ -36,6 +36,7 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
   ngBranchCode
   ngscheme
   allScheme: any[];
+  
   // Date variables
   todate: any = null;
   fromdate: any = null
@@ -52,6 +53,8 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
   showRepo: boolean = false;
   ngbranch: any;
   branchName: any;
+  allscheme: any[];
+  // scheme: any[];
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -99,11 +102,19 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
       // this.ngBranchCode = data[0].value
     })
 
+    // this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    //   var allscheme = data.filter(function (scheme) {
+    //     return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS')
+    //     // return (scheme.name == 'LN' && scheme.IS_DEPO_LOAN == '0' && scheme.IS_GOLD_LOAN == '1');
+    //   });
+    //   this.scheme = allscheme;
+    // })
+
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS')
+        return (scheme.name == 'LN' && scheme.IS_DEPO_LOAN == '0' && scheme.IS_GOLD_LOAN == '1');
       });
-      this.allScheme = allscheme;
+      this.allscheme = allscheme;
     })
 
     // this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {

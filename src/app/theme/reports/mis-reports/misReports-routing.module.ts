@@ -17,6 +17,10 @@ const routes: Routes = [
           path: 'schemeWisedepoaccount',
           loadChildren: () => import('./schemewise-deposite-ac-details/schemewise-deposite-ac-details.module').then(m => m.SchemewiseDepositeAcDetailsModule)
         },
+        {
+          path: 'excessCashBalance',
+          loadChildren: () => import('./excess-cash-balance/excess-cash-balance.module').then(m => m.ExcessCashBalanceModule)
+        },
       ]
   }
 ];

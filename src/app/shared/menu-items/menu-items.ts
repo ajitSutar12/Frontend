@@ -1226,6 +1226,11 @@ const MENUITEMS = [
                 name: 'Locker Rent Register',
                 id: 269
               },
+              {
+                state: 'lockerRegister',
+                name: 'Locker Register Report',
+                id: 282
+              },
             ]
           },
           //
@@ -1626,6 +1631,11 @@ const MENUITEMS = [
                 state: 'schemeWisedepoaccount',
                 name: 'SchemeWise Deposit Account Details',
                 id: 277
+              },
+              {
+                state: 'excessCashBalance',
+                name: 'Excess Cash Balance Report',
+                id: 283
               },
             ]
           },

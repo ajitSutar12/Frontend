@@ -7,6 +7,7 @@ import {SharedModule} from '../../../shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemewiseDepositeAcDetailsComponent } from './schemewise-deposite-ac-details/schemewise-deposite-ac-details.component';
+import { ExcessCashBalanceComponent } from './excess-cash-balance/excess-cash-balance.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { SchemewiseDepositeAcDetailsComponent } from './schemewise-deposite-ac-d
     SharedModule
 
   ],
-  declarations: [MisReportsComponent],
+  declarations: [MisReportsComponent,],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

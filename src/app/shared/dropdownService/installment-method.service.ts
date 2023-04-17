@@ -9,11 +9,22 @@ export class InstallmentMethodService {
         { value: '1', label: 'EMI' },
         { value: '2', label: 'Reducing' },
         { value: '2', label: 'Plain' },
-        { value: '3', label: 'With Interest' }       
+        { value: '3', label: 'With Interest' }
     ];
-   
+    public static readonly PLAYER_TWO: Array<IOption> = [
+        { value: 'E', label: 'EMI' },
+        { value: 'R', label: 'Reducing' },
+        { value: 'I', label: 'Plain' },
+        { value: 'Null', label: 'With Interest' }
+    ];
+
+
     getCharacters(): Array<IOption> {
         return this.cloneOptions(InstallmentMethodService.PLAYER_ONE);
+    }
+
+    getPLAYER_TWOCharacters(): Array<IOption> {
+        return this.cloneOptions(InstallmentMethodService.PLAYER_TWO);
     }
 
     loadCharacters(): Observable<Array<IOption>> {

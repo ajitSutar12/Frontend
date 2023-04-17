@@ -467,7 +467,7 @@ else if (id === 'overDraft') {
       //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       // }
 else if (id === 'highRecPay') { 
-        this.iframe1url = this.report_url + "examples/HighRecPay.php?START_DATE='" + obj.START_DATE + "'&BANK_NAME='" + bankName + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&AC_TYPE=1";
+        this.iframe1url = this.report_url + "examples/HighRecPay.php?START_DATE='" + obj.START_DATE + "'&BANK_NAME='" + bankName + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&BRANCH_CODE='"+branch+"'&AC_TYPE=1";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }

@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt" >
+                                <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
                                         (change)="getScheme(code);getSchemeCode($event)" [virtualScroll]="true"
@@ -128,9 +128,10 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input appTheme appButton minlength="8" maxlength="10" type="text" placeholder="dd/mm/yyyy"
-                                                                        name="AC_OPDATE" id="AC_OPDATE"
-                                                                        class="form-control" required
+                                                                    <input appTheme appButton minlength="8"
+                                                                        maxlength="10" type="text"
+                                                                        placeholder="dd/mm/yyyy" name="AC_OPDATE"
+                                                                        id="AC_OPDATE" class="form-control" required
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         disabled [maxDate]="maxDate"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -155,7 +156,8 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10" placeholder="dd/mm/yyyy"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPEN_OLD_DATE" id="AC_OPEN_OLD_DATE"
                                                                         class="form-control" [(ngModel)]="renewDate"
                                                                         (ngModelChange)="getExpiryDate()"
@@ -172,7 +174,8 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10" name="AC_BIRTH_DT"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" name="AC_BIRTH_DT"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_BIRTH_DT" max="9999-12-31"
                                                                         formControlName="AC_BIRTH_DT" disabled>
@@ -288,10 +291,12 @@
                                                                         placeholder=" " id="AC_SANCTION_AMOUNT"
                                                                         required="" title="Input allowed only  0-9"
                                                                         style="text-align: right;"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (keyup)="getDecimal($event)"
+                                                                        (focusout)="getDecimalPoint($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                         value="{{ AC_SANCTION_AMOUNT != null ?AC_SANCTION_AMOUNT : 0}}"
                                                                         [(ngModel)]="sanctionAmt"
-                                                                        formControlName="AC_SANCTION_AMOUNT" 
+                                                                        formControlName="AC_SANCTION_AMOUNT"
                                                                         (ngModelChange)="changeAmt();"
                                                                         [ngClass]="{'form-submitted': formSubmitted}">
                                                                     <label for="AC_SANCTION_AMOUNT">Sanction Amount
@@ -311,10 +316,12 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input appTheme appButton minlength="8" maxlength="10" type="text" placeholder="dd/mm/yyyy"
-                                                                        name="AC_SANCTION_DATE" id="AC_SANCTION_DATE"
-                                                                        class="form-control" required
-                                                                        [maxDate]="maxDate" [(ngModel)]="sanctionDate"
+                                                                    <input appTheme appButton minlength="8"
+                                                                        maxlength="10" type="text"
+                                                                        placeholder="dd/mm/yyyy" name="AC_SANCTION_DATE"
+                                                                        id="AC_SANCTION_DATE" class="form-control"
+                                                                        required [maxDate]="maxDate"
+                                                                        [(ngModel)]="sanctionDate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="AC_SANCTION_DATE"
@@ -351,8 +358,8 @@
                                                                         value="{{ AC_DRAWPOWER_AMT != null ?AC_DRAWPOWER_AMT.toFixed(2) : 0.00}}"
                                                                         formControlName="AC_DRAWPOWER_AMT"
                                                                         [ngClass]="{'form-submitted': formSubmitted}">
-                                                                    <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
-                                                                            class="required">*
+                                                                    <label for="AC_DRAWPOWER_AMT">Drawing Power
+                                                                        Amount<sub class="required">*
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -397,7 +404,8 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10" name="AC_EXPIRE_DATE"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" name="AC_EXPIRE_DATE"
                                                                         id="AC_EXPIRE_DATE" class="form-control"
                                                                         required [(ngModel)]="ngexpiry"
                                                                         placeholder="dd/mm/yyyy" [minDate]="maxDate"
@@ -893,7 +901,8 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10" placeholder="dd/mm/yyyy"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_COREG_DATE" id="AC_COREG_DATE"
                                                                         class="form-control" [(ngModel)]="ngredate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -958,7 +967,8 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8" maxlength="10" placeholder="dd/mm/yyyy"
+                                                                    <input type="text" appButton minlength="8"
+                                                                        maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_RESO_DATE" id="AC_RESO_DATE"
                                                                         class="form-control" [(ngModel)]="ngresodate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -1754,7 +1764,8 @@
                                                                         <div class="col-sm-2">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
-                                                                                    <input type="text" appButton minlength="8" maxlength="10"
+                                                                                    <input type="text" appButton
+                                                                                        minlength="8" maxlength="10"
                                                                                         placeholder="dd/mm/yyyy"
                                                                                         name="EXP_DATE" id="EXP_DATE"
                                                                                         class="form-control"
