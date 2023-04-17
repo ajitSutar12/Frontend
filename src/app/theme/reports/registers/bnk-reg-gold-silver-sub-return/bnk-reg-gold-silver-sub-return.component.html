@@ -38,7 +38,7 @@
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                       placeholder="Scheme" required  (change)="getTransferAccountList($event)">
-                                        <ng-option *ngFor="let values of allScheme" [value]="values">
+                                        <ng-option *ngFor="let values of allscheme" [value]="values">
                                             {{values.id}} {{values.label}} </ng-option> 
                                     </ng-select>
                                 </span>

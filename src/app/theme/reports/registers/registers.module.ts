@@ -16,6 +16,7 @@ import { BnkRegDeadStockComponent } from './bnk-reg-dead-stock/bnk-reg-dead-stoc
 import { BnkIVOpenAndCloseRegComponent } from './bnk-ivopen-and-close-reg/bnk-ivopen-and-close-reg.component';
 import { BnkRegGoldSilverSubReturnComponent } from './bnk-reg-gold-silver-sub-return/bnk-reg-gold-silver-sub-return.component';
 import { LockerRentRegisterComponent } from './locker-rent-register/locker-rent-register.component';
+import { LockerRegisterComponent } from './locker-register/locker-register.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { LockerRentRegisterComponent } from './locker-rent-register/locker-rent-
     RegistersRoutingModule ,
     SharedModule
   ],
-  declarations: [RegistersComponent],
+  declarations: [RegistersComponent,],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
