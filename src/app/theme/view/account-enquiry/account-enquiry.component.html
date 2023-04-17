@@ -99,10 +99,10 @@
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input appTheme appButton minlength="8" maxlength="10"
-                                                 type="text" placeholder="dd/mm/yyyy" name="DATE"
-                                                    id="DATE" class="form-control" [(ngModel)]="fromdate"
-                                                    [bsValue]="bsValue" [minDate]="accountOpenDate"
+                                                <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                                    placeholder="dd/mm/yyyy" name="DATE" id="DATE" class="form-control"
+                                                    [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                                    [minDate]="accountOpenDate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #DATE="bsDatepicker"
                                                     (keydown.Tab)="DATE.hide()"
                                                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="DATE"
@@ -1812,11 +1812,16 @@
                                     </thead>
                                     <tbody *ngIf="lienInfoArr?.length != 0">
                                         <tr *ngFor="let data of lienInfoArr; let indexOfelement=index;">
-                                            <td>{{data.AC_ACNOTYPE }}</td>
-                                            <td>{{data.AC_TYPE }}</td>
-                                            <td>{{data?.S_NAME}}</td>
+                                            <td>{{data?.masterData.AC_ACNOTYPE }}</td>
+                                            <!-- <td>{{data.AC_TYPE }}</td> -->
+                                            <td *ngIf="getschemename=='TD'">{{data?.masterData?.LNCCMaster.S_APPL}}</td>
+                                            <td *ngIf="getschemename=='LN' || getschemename == 'CC'">
+                                                {{data?.masterData?.DPMaster.S_APPL}}</td>
+                                            <td *ngIf="getschemename=='TD'">{{data?.masterData?.LNCCMaster.S_NAME}}</td>
+                                            <td *ngIf="getschemename=='LN' || getschemename == 'CC'">
+                                                {{data?.masterData?.DPMaster.S_NAME}}</td>
                                             <td>{{data.AC_NO}}</td>
-                                            <td>{{accountEvent?.AC_NAME}}</td>
+                                            <td>{{data?.masterData?.AC_NAME}}</td>
                                             <td>{{data.SECU_CODE}}</td>
                                             <td>{{data.REMARK}}</td>
                                         </tr>
@@ -1855,9 +1860,9 @@
                         <div class=" col-12">
                             <div class="loader-block">
                                 <svg id="loader2" viewBox="0 0 100 100">
-                                  <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
+                                    <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
                                 </svg>
-                              </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row" *ngIf="customerIDArr?.length != 0">

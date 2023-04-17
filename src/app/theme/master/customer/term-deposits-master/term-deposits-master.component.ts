@@ -37,6 +37,8 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -162,6 +164,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   selectedOption = '3';
   cityMasterServiceDropdown: any[];
   IntrestCategoryMasterDropdown: any[];
+  Recommended: any[]
   // isDisabled = true;
 
   imageObject = new Array();
@@ -201,7 +204,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //variable for checkbox and radio button 
   isOperation: boolean = false
-
+  recomBy
   //url to display document
   documentUrl = this.url + '/'
   //array of document of customer
@@ -256,6 +259,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     public OwnbranchMasterService: OwnbranchMasterService,
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private datePipe: DatePipe,
+    private directorMasterDropdown: DirectorMasterDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private _termDepositScheme: TermDepositSchemeService,
     private _InterestInstruction: InterestInstructionService,
@@ -435,6 +439,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // });
       this.IntrestCategoryMasterDropdown = data;
     })
+    this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
+      this.Recommended = data;
+    })
     this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       this.selectedValue = this.scheme[0].value
@@ -479,6 +486,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_CATG: ['', [Validators.required]],
       AC_OPR_CODE: ['', [Validators.required]],
       AC_INTCATA: ['', [Validators.required]],
+      AC_RECOMMEND_BY: ['', [Validators.required]],
       AC_PANNO: ['',],
       // AC_IS_RECOVERY: [false],
       AC_REF_RECEIPTNO: [''],
@@ -1568,7 +1576,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
         'AC_MATUAMT': formVal.AC_MATUAMT,
         'IS_DISCOUNTED_INT_RATE': (formVal.IS_DISCOUNTED_INT_RATE == true ? '1' : '0'),
-
+        'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
         //temp address 
         AC_ADDFLAG: formVal.AC_ADDFLAG,
         AC_ADDTYPE: this.addType,
@@ -1690,6 +1698,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngOperation = data.AC_OPR_CODE
       this.ngIntCategory = data.AC_INTCATA
       this.selectedValue = data.AC_TYPE
+      this.recomBy = Number(data.AC_RECOMMEND_BY)
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,
@@ -1797,6 +1806,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngOperation = null
       this.ngIntCategory = null
       this.resetForm();
+      this.ngOnInit()
     })
   }
 

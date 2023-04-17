@@ -232,7 +232,7 @@ export class CashCreditMasterComponent implements OnInit {
   installmentType: string
   mon
   result: any
-  drawingPower: number;
+  drawingPower;
   months: number
   sanctionAmt
   intRate: any
@@ -274,8 +274,8 @@ export class CashCreditMasterComponent implements OnInit {
   unapproveShow: boolean = false;
 
   logDate
-  repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
-  installment: Array<IOption> = this.installmentMethodService.getCharacters();
+  repayModeOption: Array<IOption> = this.repayModeService.getPLAYER_twoCharacters();
+  installment: Array<IOption> = this.installmentMethodService.getPLAYER_TWOCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
   selectedOption = 4;
   isDisabled = true;
@@ -1084,38 +1084,38 @@ export class CashCreditMasterComponent implements OnInit {
         this.angForm.controls['AC_DIRECTOR'].reset()
         this.angForm.controls['AC_DIRECTOR_RELATION'].reset();
       }
-      this.sanctionAmt = data.AC_SANCTION_AMOUNT
-      this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
-        this.drawingPower = data.AC_DRAWPOWER_AMT,
-        this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
-        this.intRate = data.AC_INTRATE
+      this.sanctionAmt = Number(data.AC_SANCTION_AMOUNT).toFixed(2)
+      this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE
+      this.drawingPower = Number(data.AC_DRAWPOWER_AMT).toFixed(2)
+      this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE
+      this.intRate = data.AC_INTRATE
       this.repay = data.AC_REPAYMODE
       this.installmentType = data.INSTALLMENT_METHOD
-      this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
-        this.ngredate = (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
-        this.renewDate = (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? redate = '' : redate = data.AC_OPEN_OLD_DATE,
-        this.angForm.patchValue({
-          AC_TYPE: data.AC_TYPE,
-          'BANKACNO': data.BANKACNO,
-          AC_NO: data.AC_NO,
-          AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-          AC_IS_RECOVERY: (data.AC_IS_RECOVERY == '1' ? true : false),
-          REF_ACNO: data.REF_ACNO,
-          AC_MONTHS: data.AC_MONTHS,
-          AC_INSTALLMENT: data.AC_INSTALLMENT,
-          AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
-          AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
-          IS_WEAKER: (data.IS_WEAKER == '1' ? true : false),
-          AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
-          AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
-          AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
-          AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
-          AC_COREG_NO: data.AC_COREG_NO,
-          AC_REMARK: data.AC_REMARK,
-          AC_COREG_AMT: data.AC_COREG_AMT,
-          AC_RESO_NO: data.AC_RESO_NO,
+      this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE
+      this.ngredate = (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE
+      this.renewDate = (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? redate = '' : redate = data.AC_OPEN_OLD_DATE
+      this.angForm.patchValue({
+        AC_TYPE: data.AC_TYPE,
+        'BANKACNO': data.BANKACNO,
+        AC_NO: data.AC_NO,
+        AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+        AC_IS_RECOVERY: (data.AC_IS_RECOVERY == '1' ? true : false),
+        REF_ACNO: data.REF_ACNO,
+        AC_MONTHS: data.AC_MONTHS,
+        AC_INSTALLMENT: data.AC_INSTALLMENT,
+        AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
+        AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
+        IS_WEAKER: (data.IS_WEAKER == '1' ? true : false),
+        AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
+        AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
+        AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
+        AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
+        AC_COREG_NO: data.AC_COREG_NO,
+        AC_REMARK: data.AC_REMARK,
+        AC_COREG_AMT: data.AC_COREG_AMT,
+        AC_RESO_NO: data.AC_RESO_NO,
 
-        })
+      })
     })
   }
 

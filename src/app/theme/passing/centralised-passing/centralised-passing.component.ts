@@ -11,7 +11,7 @@ import { CentralisedPassingService } from './centralised-passing.service';
 })
 export class CentralisedPassingComponent implements OnInit {
   mySubscription: Subscription
-  voucherTrue = false;
+  voucherTrue = true;
   batchvoucherTrue = false;
   multivoucherTrue = false;
   lockermasterTrue = false;
@@ -23,7 +23,7 @@ export class CentralisedPassingComponent implements OnInit {
   deadstocktransactionTrue = false;
   lockeraccloserentTrue = false;
   shareTransferTrue = false;
-  mastersharesTrue = true;
+  mastersharesTrue = false;
   masteranamatTrue = false;
   mastersavingTrue = false;
   mastercurrentTrue = false;

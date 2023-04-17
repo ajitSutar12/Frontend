@@ -240,7 +240,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   installmentType: string
   mon
   result: any
-  drawingPower: number;
+  drawingPower: string;
   months: number
   sanctionAmt
   intRate: any
@@ -290,8 +290,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   approveShow: boolean = false;
   unapproveShow: boolean = false;
   logDate
-  repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
-  installment: Array<IOption> = this.installmentMethodService.getCharacters();
+  repayModeOption: Array<IOption> = this.repayModeService.getPLAYER_twoCharacters();
+  installment: Array<IOption> = this.installmentMethodService.getPLAYER_TWOCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
   selectedOption = 4;
   isDisabled = true;
@@ -921,8 +921,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.multiSecurity = data.securityMaster
-      this.multiCoBorrower = data.CoborrowerMaster,
-        this.multiGuarantor = data.guaranterMaster
+      this.multiCoBorrower = data.CoborrowerMaster
+      this.multiGuarantor = data.guaranterMaster
       this.int_category = Number(data.AC_INTCATA)
       this.sanctionAutho = Number(data.AC_AUTHORITY)
       this.recomBy = Number(data.AC_RECOMMEND_BY)
@@ -950,11 +950,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.angForm.controls['AC_DIRECTOR'].reset()
         this.angForm.controls['AC_DIRECTOR_RELATION'].reset();
       }
-      this.sanctionAmt = data.AC_SANCTION_AMOUNT
+      this.sanctionAmt = Number(data.AC_SANCTION_AMOUNT).toFixed(2)
       this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
-        this.drawingPower = data.AC_DRAWPOWER_AMT,
-        // this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
-        this.intRate = data.AC_INTRATE
+        this.drawingPower = Number(data.AC_DRAWPOWER_AMT).toFixed(2)
+      // this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
+      this.intRate = data.AC_INTRATE
       this.repay = data.AC_REPAYMODE
       this.installmentType = data.INSTALLMENT_METHOD
       this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
@@ -1363,7 +1363,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else if (this.repay == 'H' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 6));
+      this.result = Math.round(((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) * 6));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
@@ -1371,7 +1371,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else if (this.repay == 'Y' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 12));
+      this.result = Math.round(((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) * 12));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
@@ -1379,7 +1379,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else if (this.repay == 'O' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.result = Math.round(((Math.floor(this.drawingPower))));
+      this.result = Math.round(((Math.floor(Number(this.drawingPower)))));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
@@ -1389,7 +1389,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     else if (this.repay == 'M' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 1;
-      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1)))));
+      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1)))));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
@@ -1399,7 +1399,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
       this.month = Math.floor(this.months) / 3;
 
-      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 3)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 3)))) ** (Math.floor(this.month) * (-1)))));
+      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 3)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 3)))) ** (Math.floor(this.month) * (-1)))));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
@@ -1408,7 +1408,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     else if (this.repay == 'H' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 6;
-      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1)))));
+      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1)))));
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
       })
@@ -1416,7 +1416,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     else if (this.repay == 'Y' && (this.installmentType == 'E')) {
 
       this.month = Math.floor(this.months) / 12;
-      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1)))));
+      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1)))));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
@@ -1430,8 +1430,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
 
-      this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
-      this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1));
+      this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
+      this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1));
 
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
@@ -1439,31 +1439,31 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else if (this.repay == 'Q' && (this.installmentType == 'WithInterest')) {
 
-      this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
-      this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3));
+      this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
+      this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3));
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
       })
     }
     else if (this.repay == 'H' && (this.installmentType == 'WithInterest')) {
 
-      this.intResult = (this.drawingPower * this.intRate / 1200);
-      this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 6));
+      this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
+      this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 6));
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
       })
     }
     else if (this.repay == 'Y' && (this.installmentType == 'WithInterest')) {
 
-      this.intResult = (this.drawingPower * this.intRate / 1200);
-      this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 12));
+      this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
+      this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 12));
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
       })
     }
     else if (this.repay == 'O' && (this.installmentType == 'WithInterest')) {
-      this.intResult = (this.drawingPower * this.intRate / 1200);
-      this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 0));
+      this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
+      this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 0));
       this.angForm.patchValue({
         AC_INSTALLMENT: this.result
       })
