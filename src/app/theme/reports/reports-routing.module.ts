@@ -69,9 +69,9 @@ const routes: Routes = [
       //
       {
         path: 'misReports',
-        loadChildren: () => import('./mis-reports/misReports.module').then(m => m.MisReportsModule)
+        loadChildren: () => import('./mis-reports/mis-reports.module').then(m => m.MisReportsModule)
       },
-      //
+      
       {
         path: 'finalReports',
         loadChildren: () => import('./final-reports/finalReports.module').then(m => m.FinalReportsModule)

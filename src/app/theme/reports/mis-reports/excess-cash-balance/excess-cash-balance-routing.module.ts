@@ -5,12 +5,12 @@ import { ExcessCashBalanceComponent } from './excess-cash-balance.component';
 const routes: Routes = [
   {
     path: '',
-    component: ExcessCashBalanceComponent,
+    component: ExcessCashBalanceComponent ,
     data: {
-      title: 'Excess Cash Balance ',
-    icon: 'icon-home',
-    caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit', 
-      status: true
+      title: 'Excess Cash Balance Report ',
+      icon: 'icon-home',
+      caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      status: false
     }
   }
 ];
