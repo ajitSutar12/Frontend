@@ -819,12 +819,20 @@ export class AccountEnquiryComponent implements OnInit {
           this.loanTotalReceivable = Math.abs(this.loanTotalReceivable)
           this.rebateIntrest = Math.round((Number(this.loantransactionData.rebateAmount) * Number(this.REBATE_INTRATE)) / 100)
           let wholeNumber = Number(this.loantransactionData.dueBalance) / Number(this.accountEvent?.AC_INSTALLMENT)
-          wholeNumber = 10.01
+          // wholeNumber = 10.01
           let wholeNumber1 = Math.round(wholeNumber)
           let fractionNumber = Number(this.loantransactionData.dueBalance) % Number(this.accountEvent?.AC_INSTALLMENT)
           let dueInstall = fractionNumber > 0 ? wholeNumber1 + 1 : wholeNumber1
           this.dueInstallmentLoan = this.loantransactionData == null ? 0 : dueInstall
           // this.dueInstallmentLoan = this.loantransactionData == null ? 0 : Number(this.loantransactionData.dueBalance) / Number(this.accountEvent?.AC_INSTALLMENT)
+          let obj = [
+            this.ngscheme,
+            this.bankacno,
+            this.getschemename
+          ]
+          this.http.get<any>(this.url + '/ledger-view/lienInformaionView/' + obj).subscribe((data) => {
+            this.lienInfoArr = data
+          })
         }
         else {
           this.ShareRecordShow = false
