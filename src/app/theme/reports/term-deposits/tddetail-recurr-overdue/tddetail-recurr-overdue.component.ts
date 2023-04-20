@@ -157,8 +157,7 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account; 
 
-      // this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch=" + bankName + "&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1='" + flag + "'";
-      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1=" + flag + "";
+      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&branch_code='" + branch + "'&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1=" + flag + "";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

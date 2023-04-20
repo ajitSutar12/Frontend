@@ -24,6 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { IframecomponentModule } from './iframecomponent/iframecomponent.module';
 import { SharesReportsComponent } from './shares-reports/shares-reports.component';
+import { MisReportsComponent } from './mis-reports/mis-reports.component';
 
 @NgModule({
   declarations: [],
