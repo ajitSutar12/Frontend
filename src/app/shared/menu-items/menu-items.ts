@@ -1231,6 +1231,12 @@ const MENUITEMS = [
                 name: 'Locker Register Report',
                 id: 282
               },
+              {
+                state: 'excessCashBalance',
+                name: 'Excess Cash Balance Report',
+                id: 283
+              },
+              
             ]
           },
           //
@@ -1627,11 +1633,11 @@ const MENUITEMS = [
             icon: 'icon-home',
             id: 142,
             children: [
-              {
-                state: 'schemeWisedepoaccount',
-                name: 'SchemeWise Deposit Account Details',
-                id: 277
-              },
+              // {
+              //   state: 'schemeWisedepoaccount',
+              //   name: 'SchemeWise Deposit Account Details',
+              //   id: 277
+              // },
               {
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',

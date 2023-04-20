@@ -24,7 +24,7 @@ import { LockerRegisterComponent } from './locker-register/locker-register.compo
     RegistersRoutingModule ,
     SharedModule
   ],
-  declarations: [RegistersComponent,],
+  declarations: [RegistersComponent, ],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
