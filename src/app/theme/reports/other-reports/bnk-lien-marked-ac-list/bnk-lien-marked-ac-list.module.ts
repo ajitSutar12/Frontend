@@ -30,7 +30,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module 
   ],
 exports:[BnkLienMarkedAcListComponent],
   providers:[    
@@ -38,13 +38,13 @@ exports:[BnkLienMarkedAcListComponent],
     OwnbranchMasterService,
     SchemeCodeDropdownService,
     SchemeTypeDropdownService,
+    SystemMasterParametersService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
-    SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

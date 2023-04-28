@@ -17,9 +17,16 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { VoucherEntryService } from '../voucher-entry/voucher-entry.service';
+import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 
 
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -33,17 +40,27 @@ import { VoucherEntryService } from '../voucher-entry/voucher-entry.service';
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-
+    Iframe5Module,
     
     
   ],
   declarations: [TermDepositReceiptPrintingComponent],
-  providers:[  SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService,VoucherEntryService,
+  exports:[TermDepositReceiptPrintingComponent],
+
+  providers:[  SchemeCodeDropdownService,SchemeAccountNoService,
+    OwnbranchMasterService,VoucherEntryService,SavingMasterService,
+    SystemMasterParametersService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: UserAuthInterceptor,
-   
-    multi: true
-  },]
+
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
+]
 })
 export class TermDepositReceiptPrintingModule { }

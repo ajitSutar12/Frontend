@@ -191,6 +191,7 @@ rowData= [];
   this.StatementCodeDropdownService.getStatementCodeList().pipe(first()).subscribe(data => {
    
     this.StatementCodeDropdown = data;
+    console.log(data);
   })
  }
 

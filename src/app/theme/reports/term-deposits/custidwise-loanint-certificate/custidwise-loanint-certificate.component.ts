@@ -148,8 +148,8 @@ view(event) {
   let branch = obj.BRANCH_CODE
   let schemeName = this.tScheme
 
-  // this.iframe5url=this.report_url+"examples/custiddepositinterestcertificate.php?stdate='01/04/2016'&etdate='12/08/2022'&branchName='KOTOLI'&$var='C'&$var1='D'&AC_ACNOTYPE='TD'&FLAG1='0'&AC_CUSTID='9'&branch=1";
-  this.iframe5url=this.report_url+"examples/custiddepositinterestcertificate.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&branchName='" + this.branchName + "'&$var='C'&$var1='D'&AC_ACNOTYPE='" + schemeName + "'&FLAG1='1'&AC_CUSTID='" + custid + "'&branch='" + branch + "'";
+  
+  this.iframe5url=this.report_url+"examples/custiddepositinterestcertificate.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&branchName='" + this.branchName + "'&$var='C'&$var1='D'&AC_ACNOTYPE='" + schemeName + "'&FLAG1='1'&AC_CUSTID='" + custid + "'&branch='" + branch + "'&bankName='"+bankName+"'&branch_code='"+branch+"'";
 
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   

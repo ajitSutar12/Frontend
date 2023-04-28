@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 
 @NgModule({
   declarations: [CustidwiseDepositListComponent],
@@ -32,7 +33,7 @@ import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/cus
   providers:[
     OwnbranchMasterService,
     CustomerIDMasterDropdownService,
-    CustomerIdService,
+    CustomerIdService,SavingMasterService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
