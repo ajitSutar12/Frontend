@@ -12,10 +12,11 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2"> 
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                    (change)="getBranch()"
                                         formControlName="BRANCH_CODE" bindLabel="label" placeholder="">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -36,10 +37,10 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="CUST_ID" bindValue="value" [(ngModel)]="ngcust"
-                                        formControlName="CUST_ID" bindLabel="label" placeholder="" [virtualScroll]="true" >
-                                        <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                            {{values.label}}</ng-option>
+                                    <ng-select id="CUST_ID" bindValue="AC_NO" [(ngModel)]="ngIntroducer"
+                                        formControlName="CUST_ID" bindLabel="AC_NO" placeholder="" [virtualScroll]="true" >
+                                        <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                            {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>

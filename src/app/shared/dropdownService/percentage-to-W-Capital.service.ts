@@ -6,8 +6,8 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class PercentageToWCapitalService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'Required', label: 'Required' },
-        { value: 'Non Required', label: 'Non Required' },
+        { value: '1', label: 'Required' },
+        { value: '0', label: 'Non Required' },
        
              
     ];
