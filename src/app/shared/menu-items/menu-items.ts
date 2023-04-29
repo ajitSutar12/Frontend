@@ -1275,7 +1275,7 @@ const MENUITEMS = [
               },
               {
                 state: 'custidwiseloaninterestCertificate',
-                name: 'Customer Id Wise Deposit/Loan Interest Certificate',
+                name: 'Customer Id Wise Deposit Interest Certificate',
                 id: 246
               },
               {
@@ -1439,7 +1439,7 @@ const MENUITEMS = [
               },
               {
                 state: 'penalinterestlist',
-                name: 'Penal Interest List',
+                name: 'Received Penal Interest List',
                 type: 'sub',
                 id: 264,
               },
