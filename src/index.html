@@ -85,6 +85,13 @@
     </app-root>
 </body>
 <script>
+    ////restart pc issue fixing code
+    // window.addEventListener('beforeunload', function () {
+    //     window.location.href = 'http://139.59.63.215/bhairavnath'
+    //     localStorage.removeItem('token');
+    //     localStorage.removeItem('user');
+    // });
+    //////////////
 
 
     // window.addEventListener("beforeunload", function (e) {    
@@ -151,7 +158,7 @@
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             // console.log('session out')
-        }
+        } 2
 
         function resetTimer() {
             clearTimeout(t);
@@ -159,7 +166,6 @@
         }
     }
     idleLogout();
-
 </script>
 
 </html>
