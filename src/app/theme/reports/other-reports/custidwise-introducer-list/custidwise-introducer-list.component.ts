@@ -292,10 +292,13 @@ this.systemParameter.getFormData(1).subscribe(data => {
     let branch = obj.BRANCH_CODE;
     let schemeName = this.tScheme
 
+    let MemFrom = obj.START_CUST
+    let MemTo= obj.END_CUST
+
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
-this.iframe5url=this.report_url+ "examples/custidwise_introducer_list.php?branchName='"+ this.branchName +"'&bankName='"+ bankName +"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.END_DATE +"'&S_APPL='"+scheme+"'";
+this.iframe5url=this.report_url+ "examples/custidwise_introducer_list.php?branchName='"+ this.branchName +"'&bankName='"+ bankName +"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.END_DATE +"'&S_APPL='"+scheme+"'&MEMFROM='"+MemFrom+"'&MEMTO='"+MemTo+"'&date='"+ obj.END_DATE +"'&branch_code='"+branch+"'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
@@ -317,6 +320,8 @@ this.iframe5url=this.report_url+ "examples/custidwise_introducer_list.php?branch
   }
   resetForm() {
   this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.START_CUST.reset();
+  this.ngForm.controls.END_CUST.reset();
 
     this.showRepo = false;
     this.clicked=false;

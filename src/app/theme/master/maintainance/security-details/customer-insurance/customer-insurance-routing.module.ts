@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: CustomerInsuranceComponent,
     data: {
-      title: 'Customer Insurance',
+      title: 'General Insurance',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
