@@ -470,7 +470,7 @@ const MENUITEMS = [
                 state: 'dividendCalculation',
                 name: 'Dividend Calculation',
                 id: 62
-              },                           
+              },
               {
                 state: 'dividendPosting',
                 name: 'Dividend Posting',
@@ -1242,7 +1242,7 @@ const MENUITEMS = [
                 name: 'Excess Cash Balance Report',
                 id: 283
               },
-              
+
             ]
           },
           //
@@ -1799,6 +1799,11 @@ const MENUITEMS = [
             state: 'pigmyMachineProcess',
             name: 'Pigmy Machine Process',
             id: 183
+          },
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 284
           },
           {
             state: 'deadStockP',

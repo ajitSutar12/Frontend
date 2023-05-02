@@ -1,28 +1,26 @@
-
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h5>Data Backup</h5>
             </div>
-            <form class="form-material">
+            <form>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <label class="custom-file">
-                                <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input">
-                                <span class="custom-file-control">Select Location For Data Backup</span>
-                              </label>
+                        <div class="col-sm-12">
+                            <button class="btn btn-outline-primary btn-sm" style="float: left;" *ngIf="showButton"
+                                (click)="download()">Prepare File to
+                                download</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-9">
-                        
-                          </div>
-                           <div class="col-sm">
-                             <h6><span class="required">* </span>: Required Fields</h6>
-                          </div>
-                       </div>
+                        <div class="col-sm-6">
+                            <a [href]="fileUrl" download *ngIf="!showButton"> <button
+                                    class="btn btn-outline-primary btn-sm" style="float: left;">
+                                    Download File
+                                </button></a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
