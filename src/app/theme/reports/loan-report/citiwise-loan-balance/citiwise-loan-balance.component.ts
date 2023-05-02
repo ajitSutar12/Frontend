@@ -168,11 +168,11 @@ this.systemParameter.getFormData(1).subscribe(data => {
  let Date = moment(obj.date).format('DD/MM/YYYY');
  let toDate = moment(Date, 'DD/MM/YYYY')
    //for start date
-   if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+   if (this.dates == userData.branch.syspara.CURRENT_DATE) {
     obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
   }
   else {
-    let date = moment(this.fromdate).format('DD/MM/YYYY');
+    let date = moment(this.dates).format('DD/MM/YYYY');
     let toDate = moment(date, 'DD/MM/YYYY')
     obj['START_DATE'] = date
   }

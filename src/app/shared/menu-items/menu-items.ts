@@ -697,6 +697,12 @@ const MENUITEMS = [
             // ]
           },
           {
+            state: 'voucherPrint',
+            name: 'Voucher Printing',
+            id: 285,
+           
+          },
+          {
             state: 'goldsilverreturnentry',
             name: 'Gold/Silver Return Entry',
             id: 191

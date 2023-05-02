@@ -105,6 +105,10 @@ const routes: Routes = [
         path: 'cashier',
         loadChildren: () => import('./cashier/cashier.module').then(m =>m.CashierModule)
       },
+      {
+        path: 'voucherPrint',
+        loadChildren: () => import('./voucher-printing/voucher-printing.module').then(m =>m.VoucherPrintingModule)
+      },
     ]
   }
 ];
