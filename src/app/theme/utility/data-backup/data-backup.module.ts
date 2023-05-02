@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DataBackupComponent } from './data-backup.component';
 import { DataBackupRoutingModule } from './data-backup-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
-import {FileUploadModule} from 'ng2-file-upload';
+import { SharedModule } from '../../../shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
@@ -13,11 +11,10 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   imports: [
     CommonModule,
     DataBackupRoutingModule,
-    SharedModule,
-    FileUploadModule
+    SharedModule
   ],
   declarations: [DataBackupComponent],
-  providers:[{
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

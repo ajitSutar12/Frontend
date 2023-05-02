@@ -42,6 +42,10 @@ const routes: Routes = [
         loadChildren: () => import('./pigmy-machine-process/pigmy-machine-process.module').then(m => m.PigmyMachineProcessModule)
       },
       {
+        path: 'pigmyAppProcess',
+        loadChildren: () => import('./pigmy-app-process/pigmy-app-process.module').then(m => m.PigmyAppProcessModule)
+      },
+      {
         path: 'deadStockP',
         loadChildren: () => import('./dead-stock-p/dead-stock-p.module').then(m => m.DeadStockPModule)
       },
@@ -127,7 +131,7 @@ const routes: Routes = [
       },
       {
         path: 'cashierMaintance',
-        loadChildren: ()=> import('./cashier-maintanace/cashier-maintanace.module').then(m=>m.CashierMaintanaceModule)
+        loadChildren: () => import('./cashier-maintanace/cashier-maintanace.module').then(m => m.CashierMaintanaceModule)
       }
     ]
   }
