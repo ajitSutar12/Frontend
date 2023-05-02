@@ -49,6 +49,7 @@ export class ProfitLossAccountComponent implements OnInit {
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+      this.branchOption.push({ value: '0', label: 'All' })
     })
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
