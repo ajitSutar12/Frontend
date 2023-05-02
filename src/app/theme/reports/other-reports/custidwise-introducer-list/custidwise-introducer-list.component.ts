@@ -320,6 +320,8 @@ this.iframe5url=this.report_url+ "examples/custidwise_introducer_list.php?branch
   }
   resetForm() {
   this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.START_CUST.reset();
+  this.ngForm.controls.END_CUST.reset();
 
     this.showRepo = false;
     this.clicked=false;

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: LoanReceivableinstIntrestComponent ,
     data: {
-      title: 'Loan Receivable Installment and Interest Report ',
+      title: 'Loan Receivable Installment  ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false
