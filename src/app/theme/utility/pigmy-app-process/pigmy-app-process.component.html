@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Pigmy App Process</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" (click)="pigmyMachineRadio(1)" checked>
+                                        <i class="helper"></i>Send<span class="required"> </span>
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" (click)="pigmyMachineRadio(2)">
+                                        <i class="helper"></i>Receive<span class="required"> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TRAN_DATE" class="form-control" formControlName="TRAN_DATE"
+                                        disabled>
+                                    <label for="TRAN_DATE">Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="BRANCH">Branch</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select bindValue="value" [(ngModel)]="ngschemeCode" id="AGENT_ACTYPE"
+                                        bindLabel="label" formControlName="AGENT_ACTYPE"
+                                        (change)="getPigmyAgentAcnoList()" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                    <label for="AGENT_ACTYPE">Scheme <sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AGENT_ACTYPE'].invalid && (angForm.controls['AGENT_ACTYPE'].dirty || angForm.controls['AGENT_ACTYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AGENT_ACTYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select bindValue="value" [(ngModel)]="ngAgentCode" id="AGENT_ACNO"
+                                        bindLabel="label" formControlName="AGENT_ACNO" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Agent">
+                                        <ng-option *ngFor="let values of agentACNO" [value]="values">
+                                            {{values.label}} {{values.name}} </ng-option>
+                                    </ng-select>
+                                    <label for="AGENT_ACNO">Agent<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AGENT_ACNO'].invalid && (angForm.controls['AGENT_ACNO'].dirty || angForm.controls['AGENT_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AGENT_ACNO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm" style="float: right;">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit()"> Process
+                            </button>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="resetForm()">
+                                Cancel </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
