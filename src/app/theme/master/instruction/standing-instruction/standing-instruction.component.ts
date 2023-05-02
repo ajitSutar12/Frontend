@@ -652,7 +652,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
             })
             break;
         }
-        this.ngAccno = Number(data.DR_AC_NO)
+        this.ngAccno = (data.DR_AC_NO)
       }
       if (data.standingInsCr != null) {
         this.crno = data.CR_ACTYPE
@@ -701,7 +701,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
             })
             break;
         }
-        this.ngCrAccno = Number(data.CR_AC_NO)
+        this.ngCrAccno = (data.CR_AC_NO)
       }
 
       if (data.MIN_BAL != '') {
