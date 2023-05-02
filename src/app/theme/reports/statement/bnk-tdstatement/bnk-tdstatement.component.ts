@@ -66,7 +66,9 @@ export class BnkTDStatementComponent implements OnInit {
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'TD' || scheme.name == 'GS' || scheme.name == 'AG');
+        return (scheme.name == 'SB' 
+        // || scheme.name == 'GS' || scheme.name == 'AG'
+        );
       });
       this.scheme = filtered;
 
@@ -128,7 +130,7 @@ export class BnkTDStatementComponent implements OnInit {
     this.obj = [this.schemeCode, branchCode]
     switch (this.getschemename) {
 
-      case 'TD':
+      case 'SB':
         this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.startingacc = data;
           this.startingAccount = null
@@ -138,23 +140,23 @@ export class BnkTDStatementComponent implements OnInit {
         })
         break;
 
-      case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.startingacc = data;
-          this.startingAccount = null
-          this.endingacc = data;
-          this.EndingAccount = null
-        })
-        break;
+      // case 'GS':
+      //   this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+      //     this.startingacc = data;
+      //     this.startingAccount = null
+      //     this.endingacc = data;
+      //     this.EndingAccount = null
+      //   })
+      //   break;
 
-      case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.startingacc = data;
-          this.startingAccount = null
-          this.endingacc = data;
-          this.EndingAccount = null
-        })
-        break;
+      // case 'AG':
+      //   this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+      //     this.startingacc = data;
+      //     this.startingAccount = null
+      //     this.endingacc = data;
+      //     this.EndingAccount = null
+      //   })
+      //   break;
     }
   }
 
