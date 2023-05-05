@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {AdminComponent} from './layout/admin/admin.component';
-import {AuthComponent} from './layout/auth/auth.component';
-import {DatatablekitComponent} from './datatablekit/datatablekit.component';
+import { AdminComponent } from './layout/admin/admin.component';
+import { AuthComponent } from './layout/auth/auth.component';
+import { DatatablekitComponent } from './datatablekit/datatablekit.component';
 import { AuthGuard } from './theme/auth/auth.guard';
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: '/auth/login/simple',
-        pathMatch: 'full',canActivate:[AuthGuard]
+        pathMatch: 'full', canActivate: [AuthGuard]
       },
       {
         path: 'dashboard',
@@ -164,9 +164,46 @@ const routes: Routes = [
     ]
   },
   {
-    path:'datatableKit',
+    path: 'datatableKit',
     component: DatatablekitComponent
-  }
+  },
+  {
+    path: 'ledgers',
+    loadChildren: () => import('../shortcutkey/ledgers/ledgers.module').then(m => m.LedgersModule)
+  },
+  {
+    path: 'accountenq',
+    loadChildren: () => import('../shortcutkey/accounts/accounts.module').then(m => m.AccountsModule)
+  },
+  {
+    path: 'custview',
+    loadChildren: () => import('../shortcutkey/customers/customers.module').then(m => m.CustomersModule)
+  },
+  {
+    path: 'managerview',
+    loadChildren: () => import('../shortcutkey/managers/managers.module').then(m => m.ManagersModule)
+  },
+  {
+    path: 'voucherview',
+    loadChildren: () => import('../shortcutkey/vouchers/vouchers.module').then(m => m.VouchersModule)
+  },
+  {
+    path: 'Vouchers',
+    loadChildren: () => import('../shortcutkey/v-entry/v-entry.module').then(m => m.VentryModule)
+  },
+  {
+    path: 'multivouchers',
+    loadChildren: () => import('../shortcutkey/m-voucher/m-voucher.module').then(m => m.MvoucherModule)
+  },
+  {
+    path: 'batchVouchers',
+    loadChildren: () => import('../shortcutkey/b-voucher/b-voucher.module').then(m => m.BvoucherModule)
+  },
+  {
+    path: 'centralpassing',
+    loadChildren: () => import('../shortcutkey/centralised-passing/cdPassing.module').then(m => m.CentralPassingModule)
+  },
+
 ];
 
 @NgModule({

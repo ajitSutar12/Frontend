@@ -38,7 +38,8 @@
                                                         </td>
                                                         <td
                                                             [ngClass]="data.tran_actype === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.tran_actype === "" ? "-" : data.tran_actype }}
+                                                            {{ data.SYSTRAN_TYPE == "IBT" ? data.S_APPL :
+                                                            data.tran_actype }}
                                                         </td>
                                                         <td
                                                             [ngClass]="data.TRAN_TYPE === '' ? 'td_center' : 'td_right'">
@@ -46,7 +47,8 @@
                                                         </td>
                                                         <td
                                                             [ngClass]="data.TRAN_ACNO === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.TRAN_ACNO === "" ? "-" : data.TRAN_ACNO }}
+                                                            {{ data.SYSTRAN_TYPE == "IBT" ? data.IBT_ACNO :
+                                                            data.TRAN_ACNO }}
                                                         </td>
                                                         <td
                                                             [ngClass]="data.USER_CODE === '' ? 'td_center' : 'td_right'">

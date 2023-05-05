@@ -70,8 +70,10 @@ export class PigmyAppProcessComponent implements OnInit {
   filterForm: FormGroup;
   //filter variable
   filterData = {};
+  maxDate
   dtTrigger: Subject<any> = new Subject<any>();
   formSubmitted: boolean = false
+  accountsList
   constructor(private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
@@ -85,6 +87,8 @@ export class PigmyAppProcessComponent implements OnInit {
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
     if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
       this.angForm.controls['BRANCH'].enable()
     }
     else {
@@ -96,27 +100,21 @@ export class PigmyAppProcessComponent implements OnInit {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
-
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data
-    })
   }
 
   createForm() {
     this.angForm = this.fb.group({
       TRAN_DATE: [''],
       BRANCH: ['', [Validators.required]],
-      AGENT_ACTYPE: ['', [Validators.required]],
-      CHART_NO: [1, [Validators.maxLength, Validators.minLength]],
-      TRAN_AMOUNT: [0],
-      AGENT_ACNO: ['', [Validators.required]]
+      startDate: ['',],
+      endDate: ['',]
     });
   }
 
   //get agent account number after branch selection
   getBranch(event) {
     this.branchCode = event.name
-    this.getPigmyAgentAcnoList()
+    this.getPigmyDate()
   }
 
   //select content of field
@@ -124,61 +122,50 @@ export class PigmyAppProcessComponent implements OnInit {
     $event.target.select();
   }
 
-  //fetch acno list according scheme and branch code
-  getPigmyAgentAcnoList() {
-    this.ngAgentCode = null
-    this.agentACNO = [];
-    if (this.ngschemeCode != null && this.ngBranchCode != null) {
-      this.obj = [this.ngschemeCode, this.ngBranchCode]
-      this.schemeAccountNoService.getpigmyChartAcno(this.obj).subscribe(data => {
-        this.agentACNO = data;
-      })
-    }
-  }
 
   pigmyMachineRadio(value) {
     value == 2 ? this.sysToMachine = true : this.sysToMachine = false
   }
 
+  getPigmyaccounts() {
+    let obj = {
+      expiryDate: this.angForm.controls['TRAN_DATE'].value,
+      branch: this.ngBranchCode
+    }
+    this.http.post(this.url + '/pigmy-chart/sendapp/', obj).subscribe(data => {
+      this.accountsList = data
+    })
+  }
+
   // Method to insert data into database through NestJS
   submit() {
-    const formVal = this.angForm.value;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    var full = []
-    var fullDate = formVal.TRAN_DATE;
-    full = fullDate.split(' ');
-    var date = full[0].split(/\//);
-    var newDate = date[1] + '/' + date[0] + '/' + date[2]
-    var k = new Date(newDate);
-    var expiryDate = moment(k).format('DD.MM.YYYY');
-    let mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate, result.USER_NAME]
     if (this.sysToMachine == true) {
-      this.http.get(this.url + '/pigmy-chart/systomachine/' + mem).subscribe((data1: any) => {
-        if (data1.length != 0) {
-          Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
-          var xurl = "http://localhost:5000/send?" + 'data=' + JSON.stringify(data1);
-          window.open(xurl)
+      for (let ele of this.accountsList) {
+        let obj = {
+          "type": "insert",
+          "table": "master",
+          "column_values": [
+            ele
+          ]
         }
-        else {
-          Swal.fire({
-            icon: 'info',
-            title: 'Pigmy Agent Do Not Have Account',
-          })
-        }
-      })
-    } else {
-      let nodeurl = 'http://localhost:5000'
-      let obj = {
-        scheme: this.ngschemeCode,
-        agent: this.ngAgentCode,
-        branch: this.ngBranchCode,
-        expiryDate: expiryDate,
-        user: result.USER_NAME
+        // this.http.post('http://68.183.93.209/pigmy_test/inserData.php', obj).subscribe(data => {
+        //   Swal.fire('Success', 'Data processed successfully', 'success')
+        // })
       }
-      this.openWindow(obj)
+    } else {
+      let obj = {
+        "u_flag": "getData",
+        "bank_code": result.branch.syspara.BANK_CODE,
+        "branch_code": this.ngBranchCode,
+        "start_date": this.angForm.controls['startDate'].value,
+        "end_date": this.angForm.controls['endDate'].value
+      }
+      // this.http.post('http://68.183.93.209/pigmy_test/getDataModified.php', obj).subscribe(data => {
+      //   Swal.fire('Success', 'Data processed successfully', 'success')
+      // })
     }
-
     this.userID = result.USER_NAME
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
@@ -188,10 +175,8 @@ export class PigmyAppProcessComponent implements OnInit {
       this.ngBranchCode = result.branch.id
       this.branchCode = result.branch.CODE
     }
-
     //To clear form
     this.resetForm();
-
   }
 
   resetForm() {
@@ -230,6 +215,15 @@ export class PigmyAppProcessComponent implements OnInit {
       this.angForm.patchValue({
         TRAN_DATE: data['PIGMY_CURRENT_DATE']
       })
+      this.maxDate = moment(data['PIGMY_CURRENT_DATE'], 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+
     })
+  }
+  receiveData() {
+
+  }
+  Process() {
+    this.sysToMachine == false ? this.getPigmyaccounts() : this.receiveData()
   }
 }
