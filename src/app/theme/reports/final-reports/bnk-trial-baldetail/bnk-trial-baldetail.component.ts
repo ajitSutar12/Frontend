@@ -38,6 +38,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
   report_url = environment.report_url;
   //Dropdown option variable
   ngbranch
+  branchCode
   branchOption: any;
   iframeurl: any = ' ';
   branchName
@@ -91,6 +92,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
+      this.branchCode = result.branch.CODE
       this.branchName = result.branch.NAME
       this.angForm.controls['BRANCH_CODE'].enable()
     }
@@ -98,13 +100,12 @@ export class BnkTrialBaldetailComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
       this.branchName = result.branch.NAME
+      this.branchCode = result.branch.CODE
     }
   }
 
 
   view(event) {
-    debugger
-
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
@@ -127,8 +128,8 @@ export class BnkTrialBaldetailComponent implements OnInit {
       var sdate = moment(obj.START_DATE).startOf('quarter').format('DD/MM/YYYY');
       let branched = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
-
-      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + branched + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + 101 + "&preViousStartdate='" + '31/03/2022' + "'" + "&branchName=" + this.branchName;;
+      let preViousStartdate = moment(obj.START_DATE).subtract(1, "days").format('DD/MM/YYYY');
+      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + branched + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + this.branchCode + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
@@ -142,12 +143,13 @@ export class BnkTrialBaldetailComponent implements OnInit {
   }
   // Reset Function
   resetForm() {
-    // this.createForm()
+    this.createForm()
     this.showRepo = false;
     this.clicked = false;
   }
   getBranch(event) {
     this.ngbranch = event.value
     this.branchName = event.branchName
+    this.branchCode = event.name
   }
 }
