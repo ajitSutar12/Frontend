@@ -36,6 +36,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule
   ],
   declarations: [ManagerViewComponent],
+  exports: [ManagerViewComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

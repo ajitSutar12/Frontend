@@ -101,7 +101,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedScheme" bindValue="id" appTheme
-                                                    (change)="getIntroducer($event)" formControlName="scheme"
+                                                    (change)="getIntroducer1($event)" formControlName="scheme"
                                                     #selectScheme (focus)="onFocus(selectScheme)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of allScheme" [value]="item">
                                                         {{item.S_APPL}} {{item.S_NAME}}
@@ -175,7 +175,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <textarea class="form-control" formControlName="particulars"
-                                                    [(ngModel)]="particulars" #narrationField></textarea>
+                                                    [(ngModel)]="particular" #narrationField></textarea>
                                                 <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
                                             </span>
                                         </div>
