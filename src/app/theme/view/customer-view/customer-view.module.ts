@@ -23,6 +23,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
     FormsModule, ReactiveFormsModule
   ],
   declarations: [CustomerViewComponent],
+  exports: [CustomerViewComponent],
   providers: [CustomerIDMasterDropdownService, LegderViewService, CustomerIdService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

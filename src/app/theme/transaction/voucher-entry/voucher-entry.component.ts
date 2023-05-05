@@ -2092,7 +2092,7 @@ export class VoucherEntryComponent implements OnInit {
       }
       this.updateID = data.id;
       this.selectedBranch = data.BRANCH_CODE
-      this.selectedCode = data.TRAN_ACNOTYPE
+      this.selectedCode = data.SYSTRAN_TYPE == 'IBT' ? data.IBT_ACNOTYPE : data.TRAN_ACNOTYPE
       this.selectedSchemeCode();
 
       this.headFlag = true;
