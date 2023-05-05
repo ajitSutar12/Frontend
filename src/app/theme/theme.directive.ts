@@ -12,9 +12,9 @@ export class ThemeDirective {
   @ContentChildren(NgSelectComponent) ngselect: QueryList<NgSelectComponent>;
 
   constructor(private el: ElementRef) { }
- @HostListener("click", ['$event'])
-  @HostListener("keydown", ['$event'])
-  // @HostListener("focusout")
+//  @HostListener("click", ['$event'])
+//   @HostListener("keydown", ['$event'])
+  @HostListener("focusout")
   onFormSubmit(event: MouseEvent | KeyboardEvent) {
     const invalidControl = this.el.nativeElement;
     if (invalidControl.tagName == 'INPUT') {
