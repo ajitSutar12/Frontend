@@ -30,7 +30,7 @@ import { VoucherPrintingComponent } from './voucher-printing/voucher-printing.co
 //  import { LockerComponent } from './locker/locker.component';
 // import { PigmyAccountClosingComponent } from './Savings/pigmy-account-closing/pigmy-account-closing.component';
 @NgModule({
-  declarations: [VoucherPrintingComponent],
+  declarations: [],
   imports: [
     CommonModule,
     TransactionRoutingModule

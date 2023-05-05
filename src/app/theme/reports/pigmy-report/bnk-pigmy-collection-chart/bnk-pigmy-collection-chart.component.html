@@ -17,10 +17,10 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" placeholder=""
-                                        (change)="getBranch()">
+                                        (change)="getBranch();getBranch1($event)">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
-                                    </ng-select>
+                                    </ng-select> 
                                 </span>
                             </div>
 
