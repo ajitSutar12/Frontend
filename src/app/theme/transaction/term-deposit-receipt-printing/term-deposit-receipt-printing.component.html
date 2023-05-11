@@ -24,7 +24,7 @@
                                                 <ng-select bindValue="value" bindLabel="label" [(ngModel)]="BranchCode"
                                                 (change)="getBranch($event)" formControlName="BRANCH_CODE" #branchcode autofocus>
                                                     <ng-option *ngFor="let values of branch_code" [value]="values">
-                                                        {{values.label}}</ng-option>
+                                                        {{values.label}}</ng-option> 
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -89,8 +89,9 @@
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <ng-select id="cdropdown" [(ngModel)]="lastno" formControlName="LAST_NO"
-                                                    bindValue="AC_NO" bindLabel="AC_NO" placeholder=" To A/c No">
+                                                <ng-select id="tdropdown" [(ngModel)]="lastno" formControlName="LAST_NO"
+                                                    bindValue="AC_NO" bindLabel="AC_NO"
+                                                    (focus)="getIntroducer()" placeholder=" To A/c No">
                                                     <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                                         {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option> 
                                                 </ng-select>
@@ -99,8 +100,7 @@
                                         <div class="form-group form-primary form-static-label"
                                             *ngIf="ngForm.controls['LAST_NO'].invalid && (ngForm.controls['LAST_NO'].dirty || ngForm.controls['LAST_NO'].touched)"
                                             class="alert alert-danger">
-                                            <div
-                                                *ngIf="ngForm.controls['LAST_NO'].errors?. maxlength || ngForm.controls['LAST_NO'].errors?. minlength || ngForm.controls['TRAN_NO'].errors?.required">
+                                            <div *ngIf="ngForm.controls['LAST_NO'].errors?.required">
                                                 This field is required
                                             </div>
                                         </div>

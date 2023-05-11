@@ -15,11 +15,11 @@
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
-                                <div class="form-group form-primary form-static-label"> 
+                                <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                             formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch"
-                                            (change)="getBranch($event)"  > 
+                                            (change)="getBranch($event)">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -42,7 +42,7 @@
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getTransferAccountList($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
-                                                {{values.id}}   {{values.label}} </ng-option>
+                                                {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
 
                                     </span>
@@ -64,7 +64,8 @@
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left"
                                             class="form-control" [(ngModel)]="dates" formControlName="date"
-                                            #date="bsDatepicker" (keydown.Tab)="date.hide()" appButton minlength="8" maxlength="10"
+                                            #date="bsDatepicker" (keydown.Tab)="date.hide()" appButton minlength="8"
+                                            maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -81,7 +82,115 @@
 
                         </div>
 
-                        <div class="row"></div>
+                        <div class="row">
+                            <div class="col-md-1"> <label style="font-size: 15px; color: black;">Type</label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="type" value="deposit" formControlName="R_TYPE"
+                                                id="deposit" (change)="isrtype(1)">
+                                            <i class="helper"></i>Deposit </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="type" value="loan" formControlName="R_TYPE"
+                                                id="loan" (change)="isrtype(2)">
+                                            <i class="helper"></i>Loan </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="type" value="pigmy" formControlName="R_TYPE"
+                                                id="pigmy" (change)="isrtype(3)">
+                                            <i class="helper"></i>Pigmy </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md" id="FORMA" *ngIf="isDeposit">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox checkbox-primary">
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input type="checkbox" class="border-checkbox" id="PRPAYABLEINT"
+                                                    value="PRPAYABLEINT" formControlName="PRPAYABLEINT">
+                                                <label class="border-checkbox-label" for="PRPAYABLEINT">Print Payable
+                                                    Intrest
+                                                    List</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="checkbox checkbox-primary">
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input type="checkbox" class="border-checkbox" id="PAGEWISETOTAL"
+                                                    value="PAGEWISETOTAL" formControlName="PAGEWISETOTAL">
+                                                <label class="border-checkbox-label" for="PAGEWISETOTAL">Print PageWise
+                                                    Total</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md" id="FORMB" *ngIf="isLoan">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="checkbox checkbox-primary">
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input type="checkbox" class="border-checkbox" id="PRRECEIVEINT"
+                                                    value="PRRECEIVEINT" formControlName="PRRECEIVEINT">
+                                                <label class="border-checkbox-label" for="PRRECEIVEINT">Print Receivable
+                                                    Overdue
+                                                    List</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="checkbox checkbox-primary">
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input type="checkbox" class="border-checkbox" id="PRRECEIVEINT1"
+                                                    value="PRRECEIVEINT1" formControlName="PRRECEIVEINT1">
+                                                <label class="border-checkbox-label" for="PRRECEIVEINT1">Print Receivable
+                                                    Intrest
+                                                    List</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="checkbox checkbox-primary">
+                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                <input type="checkbox" class="border-checkbox" id="PAGEWISETOTAL"
+                                                    value="PAGEWISETOTAL" formControlName="PAGEWISETOTAL1">
+                                                <label class="border-checkbox-label" for="PAGEWISETOTAL">Print PageWise
+                                                    Total</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+
+                                <div class="form-radio ">
+                                    <div class="radio radio-inline col-md-3">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="type1" value="detail" formControlName="T_TYPE">
+                                            <i class="helper"></i>Detail </label>
+                                    </div>
+                                    <div class="radio radio-inline col-md-3">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="type1" value="summary" formControlName="T_TYPE">
+                                            <i class="helper"></i>Summary </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
