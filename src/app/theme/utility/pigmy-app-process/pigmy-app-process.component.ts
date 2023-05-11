@@ -74,6 +74,10 @@ export class PigmyAppProcessComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   formSubmitted: boolean = false
   accountsList
+  receivedAccount
+  showloader: boolean = false
+  showProBar: boolean = false
+  completedCount = 0
   constructor(private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
@@ -134,6 +138,8 @@ export class PigmyAppProcessComponent implements OnInit {
     }
     this.http.post(this.url + '/pigmy-chart/sendapp/', obj).subscribe(data => {
       this.accountsList = data
+      this.showloader = false
+      Swal.fire('success', 'Data processed successfully.Now you can submit data', 'success')
     })
   }
 
@@ -141,7 +147,7 @@ export class PigmyAppProcessComponent implements OnInit {
   submit() {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    if (this.sysToMachine == true) {
+    if (this.sysToMachine == false) {
       for (let ele of this.accountsList) {
         let obj = {
           "type": "insert",
@@ -150,21 +156,24 @@ export class PigmyAppProcessComponent implements OnInit {
             ele
           ]
         }
-        // this.http.post('http://68.183.93.209/pigmy_test/inserData.php', obj).subscribe(data => {
-        //   Swal.fire('Success', 'Data processed successfully', 'success')
-        // })
+        // this.showProBar = true
+        // this.getCompletedPercentage()
+        // ele['completed'] = true
+        this.http.post('http://68.183.93.209/pigmy_test/inserData.php', obj).subscribe(res => {
+          // console.log('resp', res)
+          Swal.fire('Success', 'Data processed successfully', 'success')
+        })
       }
     } else {
       let obj = {
-        "u_flag": "getData",
-        "bank_code": result.branch.syspara.BANK_CODE,
+        records: this.receivedAccount,
         "branch_code": this.ngBranchCode,
-        "start_date": this.angForm.controls['startDate'].value,
-        "end_date": this.angForm.controls['endDate'].value
+        "start_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
+        "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
       }
-      // this.http.post('http://68.183.93.209/pigmy_test/getDataModified.php', obj).subscribe(data => {
-      //   Swal.fire('Success', 'Data processed successfully', 'success')
-      // })
+      this.http.post(this.url + '/pigmy-chart/receivefromapp/', obj).subscribe(data => {
+        Swal.fire('Success', 'Data processed successfully', 'success')
+      })
     }
     this.userID = result.USER_NAME
     if (result.RoleDefine[0].Role.id == 1) {
@@ -202,11 +211,6 @@ export class PigmyAppProcessComponent implements OnInit {
     })
   }
 
-  openWindow(obj) {
-    var xurl = "http://localhost:5000/receive?" + 'data=' + JSON.stringify(obj);
-    window.open(xurl)
-  }
-
   getPigmyDate() {
     let obj = {
       branch: this.ngBranchCode
@@ -217,13 +221,33 @@ export class PigmyAppProcessComponent implements OnInit {
       })
       this.maxDate = moment(data['PIGMY_CURRENT_DATE'], 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
-
     })
   }
   receiveData() {
-
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let obj = {
+      "u_flag": "getData",
+      // "bank_code": 1,
+      "bank_code": result.branch.syspara.BANK_CODE,
+      "branch_code": this.ngBranchCode,
+      "start_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
+      "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
+    }
+    this.http.post('http://68.183.93.209/pigmy_test/getDataModified.php', obj).subscribe(data => {
+      // console.log(data, 'receive')
+      this.receivedAccount = data
+      this.showloader = false
+      Swal.fire('Success', 'Data processed successfully', 'success')
+    })
   }
   Process() {
+    this.showloader = true
     this.sysToMachine == false ? this.getPigmyaccounts() : this.receiveData()
+  }
+
+  getCompletedPercentage(): number {
+    this.completedCount = this.accountsList.filter(r => r.completed).length;
+    return (this.completedCount / this.accountsList.length) * 100;
   }
 }

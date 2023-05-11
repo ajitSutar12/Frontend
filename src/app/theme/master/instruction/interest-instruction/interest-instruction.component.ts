@@ -633,18 +633,18 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     dataToSend['FROM_DATE'] = moment(FROM_DATE).format('DD/MM/YYYY')
     let NEXT_EXE_DATE = moment(this.angForm.controls['NEXT_EXE_DATE'].value, 'DD/MM/YYYY')
     dataToSend['NEXT_EXE_DATE'] = moment(NEXT_EXE_DATE).format('DD/MM/YYYY')
-    // this._interestInstruction.postData(dataToSend).subscribe(
-    //   (data) => {
-    //     Swal.fire("Success!", "Data Added Successfully !", "success");
-    //     // to reload after insertion of data
-    //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-    //       dtInstance.ajax.reload()
-    //     });
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    this._interestInstruction.postData(dataToSend).subscribe(
+      (data) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     //To clear form
     this.resetForm();
     // }

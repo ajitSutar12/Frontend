@@ -16,6 +16,7 @@ export class ThemeDirective {
 //   @HostListener("keydown", ['$event'])
   @HostListener("focusout")
   onFormSubmit(event: MouseEvent | KeyboardEvent) {
+    // debugger
     const invalidControl = this.el.nativeElement;
     if (invalidControl.tagName == 'INPUT') {
       if (invalidControl.value == '') {
