@@ -163,7 +163,7 @@ this.ngForm.controls.CUST_ID.reset();
 this.showRepo = false;
 this.clicked=false;
 }
-getBranch(event) {
+getBranch(event) { 
   this.ngbranch = event.value
   this.branchName = event.branchName
 }
