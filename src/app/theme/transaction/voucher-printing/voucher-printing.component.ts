@@ -254,20 +254,6 @@ export class VoucherPrintingComponent implements OnInit {
     }
   }
 
-
-
-  // isReceivedTds($event) {
-
-  //   if ($event.target.checked) {
-  //     this.isTdsForm = true;
-
-  //   } else {
-  //     this.isTdsForm = false;
-  //   }
-  // }
-
-  
-
   view(event) {
 
     event.preventDefault();

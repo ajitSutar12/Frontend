@@ -43,7 +43,6 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
     scheme
   isTdsForm: boolean;
   branch_code: any;
-  
   obj: any;
   introducerACNo: any;
   selectedBranch: any;
@@ -78,16 +77,12 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,    private systemParameter:SystemMasterParametersService,
 
-
-
-
-
   ) { }
 
   ngOnInit(): void {
     this.createForm()
 
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem('user')); 
 
     //branchcode
         this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
@@ -95,20 +90,23 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
           this.BranchCode = user.branchId;
         })
 
-this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-  this.scheme = data
+// this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+//   this.scheme = data
 
   
-  this.schemeCode = data[0].value
-  this.getIntroducer()
+//   this.schemeCode = data[0].value
+//   this.getIntroducer()
 
-})
+// })
 
 this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
   this.Scheme = data;
 });
 this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
-  this.allScheme = data;
+  var filtered = data.filter(function (scheme) {
+    return (scheme.name == 'TD'  );
+  });
+  this.allScheme = filtered;
 })
   //Narration List
   this._service.getNarrationMaster().subscribe(data => {
@@ -156,9 +154,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
       LAST_NO: ['', [Validators.required]],
       FROM_DATE : ['',],
       TO_DATE: ['', ],
-      // AC_NO: ['', [Validators.required]],
-      // PRINT_NO: ['', [Validators.required]],
-      // Fnarration : ['']
+      
     });
   }
   
@@ -166,106 +162,26 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
 
   getIntro(event) {
     this.getschemename = event.name
+     this.firstno = null
+          this.lastno = null
     this.getIntroducer()
+    
   }
 
   //get account no according scheme for introducer
   getIntroducer() { 
     this.obj = [this.schemeCode,this.BranchCode, ]
     switch (this.getschemename) {
-      case 'SB':
-        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-          
-        })
-        break;
-
-      case 'SH':
-        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
-      case 'CA':
-        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
-      case 'LN':
-        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
       case 'TD':
         this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
+          // this.firstno = null
+          // this.lastno = null
         })
         break;
-
-      case 'DS':
-        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
-      case 'CC':
-        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
-      case 'GS':
-        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
-      case 'PG':
-        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
-      case 'AG':
-        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
-
-      case 'IV':
-        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          this.firstno = null
-          this.lastno = null
-        })
-        break;
+    
     }
   }
-
-
-
   isReceivedTds($event) {
 
     if ($event.target.checked) {
@@ -307,10 +223,14 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
     // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
   
-    let scheme = obj.Scheme_code 
+    let scheme = obj.AC_TYPE 
     let branch = obj.BRANCH_CODE
+
+    let firstno = obj.FIRST_NO
+    let lastno = obj.LAST_NO
+
          
-   this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'"
+   this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ lastno +"'"
    console.log(this.iframe5url);
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
@@ -335,7 +255,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
   getBranch(event) {
     this.getIntroducer()
     this.ngbranch = event.value
-    this.branchName = event.branchName
+    this.branchName = event.branchName 
   }
 }
 
