@@ -49,7 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeTypeDropdownService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UserAuthInterceptor,
+      useClass: UserAuthInterceptor, 
       multi: true
     },
   ]

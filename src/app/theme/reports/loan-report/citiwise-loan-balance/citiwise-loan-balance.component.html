@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"> <label for="START_DATE">Start Date
+                            <div class="col-md-2"> <label for="START_DATE"> Date
                                     <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -62,11 +62,11 @@
                                     <span class="border-lable-flt">
                                         <input type="text" appButton minlength="8" maxlength="10"
                                          placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
-                                            class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            class="form-control" [(ngModel)]="dates" [bsValue]="bsValue"
+                                           [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             formControlName="START_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
+                                            bsDatepicker> 
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"

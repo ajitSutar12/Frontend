@@ -6,8 +6,8 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class DisplayToViewService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'TRUE', label: 'TRUE' },
-        { value: 'FALSE', label: 'FALSE' },
+        { value: '1', label: 'YES' },
+        { value: '0', label: 'NO' },
        
              
     ];

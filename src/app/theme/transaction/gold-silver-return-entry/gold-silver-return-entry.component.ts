@@ -202,6 +202,16 @@ export class GoldSilverReturnEntryComponent implements OnInit {
       this.rejectShow = true
       this.showButton = false
       this.unapproveShow = false
+      let obj = {
+        AC_TYPE: this.ngscheme,
+        BRANCH_CODE: this.ngBranchCode,
+        TYPE: 0,
+        RETURN_DATE: info.RETURN_DATE
+      }
+      this.http.post(this.url + '/gold-silver-return-entry/getAccountList', obj).subscribe((data: any) => {
+        this.schemeACNo = data
+      })
+
       let object = {
         AC_NO: this.accountedit,
         AC_TYPE: this.ngscheme,

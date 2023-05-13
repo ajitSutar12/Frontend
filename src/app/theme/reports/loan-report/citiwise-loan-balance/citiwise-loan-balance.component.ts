@@ -168,11 +168,11 @@ this.systemParameter.getFormData(1).subscribe(data => {
  let Date = moment(obj.date).format('DD/MM/YYYY');
  let toDate = moment(Date, 'DD/MM/YYYY')
    //for start date
-   if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+   if (this.dates == userData.branch.syspara.CURRENT_DATE) {
     obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
   }
   else {
-    let date = moment(this.fromdate).format('DD/MM/YYYY');
+    let date = moment(this.dates).format('DD/MM/YYYY');
     let toDate = moment(date, 'DD/MM/YYYY')
     obj['START_DATE'] = date
   }
@@ -186,7 +186,7 @@ let ctcode = obj.AC_CTCODE
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
-this.iframe5url=this.report_url+ "examples/citywise_loan_balance_report.php?branchName='KOTOLI'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&AC_TYPE='"+scheme +"'&S_APPL='"+schemeName +"'&AC_CTCODE='"+ ctcode +"'&bankName='"+bankName+"'&branch_code='"+branch+"'"
+this.iframe5url=this.report_url+ "examples/citywise_loan_balance_report.php?branchName='"+branchName+"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&AC_TYPE='"+scheme +"'&AC_ACNOTYPE='"+schemeName +"'&AC_CTCODE='"+ ctcode +"'&bankName='"+bankName+"'&branch_code='"+branch+"'"
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

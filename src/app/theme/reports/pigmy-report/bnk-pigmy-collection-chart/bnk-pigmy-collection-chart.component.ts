@@ -78,6 +78,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   iframe5url: any = ' ';
+  branchName: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -111,10 +112,14 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
   ngOnInit(): void {
@@ -199,7 +204,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
       
-   this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&ChartNo=" + ChartNo +"&schemeAccountNo='" + Scheme_acc +"'&bankName=" + bankName + " &branchName="+branchName ;
+   this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&ChartNo=" + ChartNo +"&schemeAccountNo='" + Scheme_acc +"'&bankName=" + bankName + " &branchName='" + this.branchName + "'" ;
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
   }
@@ -221,5 +226,9 @@ resetForm() {
   this.ngForm.controls.chart_no.reset();
   this.showRepo = false;
   this.clicked=false;
+}
+getBranch1(event) {
+  this.ngbranch = event.value
+  this.branchName = event.branchName
 }
 }

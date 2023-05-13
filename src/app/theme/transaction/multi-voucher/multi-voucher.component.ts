@@ -128,7 +128,7 @@ export class MultiVoucherComponent implements OnInit {
   selectBankName
 
   tranModeList: any;
-  particulars: any;
+  particular: any;
   date: any;
   isture: boolean = true;
   totalAmt: any = 0;
@@ -321,7 +321,124 @@ export class MultiVoucherComponent implements OnInit {
 
   //get account no according scheme for introducer
   submitScheme: any;
-  getIntroducer(item) {
+  getIntroducer(item, branch) {
+    this.tempschmetype = this.selectedCode
+    this.introducerACNo = [];
+    this.submitScheme = item;
+
+    if (this.tempscheme != this.selectedScheme) {
+      this.customer = null
+    }
+
+    this.obj = [item.id, branch]
+    switch (this.selectedCode) {
+      case 'SB':
+        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'SH':
+        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+      case 'GL':
+        this._ACMasterDropdownService.getACMasterList1().subscribe(data => {
+          console.log('data', data)
+          this.introducerACNo = data;
+        })
+        break;
+    }
+    let object = this.TranData.find(t => t.key === this.selectedCode);
+    if (this.type == 'cash') {
+      this.tranModeList = [];
+      object.data.cash.forEach(ele => {
+        let obj = this.TranModeCash.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+        if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(Number(this.DayOpBal)) > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
+        }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      })
+    } else {
+      this.tranModeList = [];
+      object.data.transfer.forEach(ele => {
+        let obj = this.TranModeTransfer.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+        if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(Number(this.DayOpBal)) > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
+        }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      })
+    }
+
+  }
+  getIntroducer1(item) {
     this.tempschmetype = this.selectedCode
     this.introducerACNo = [];
     this.submitScheme = item;
@@ -464,7 +581,7 @@ export class MultiVoucherComponent implements OnInit {
 
   //get Narration Details 
   getNarration(ele) {
-    this.particulars = ele;
+    this.particular = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
     this.narrationField.nativeElement.focus()
@@ -976,10 +1093,10 @@ export class MultiVoucherComponent implements OnInit {
     this.selectedCode = data.scheme_type;
     this.selectedSchemeCode()
     this.selectedScheme = data.scheme.id;
-    this.getIntroducer(data.scheme)
+    this.getIntroducer(data.scheme, data.BRANCH_CODE)
     this.customer = data.account_no.id;
     this.selectedMode = data.tran_mode.id;
-    this.particulars = data.particulars;
+    this.particular = data.NARRATION;
     this.submitAccountNo = data.account_no;
     this.submitScheme = data.scheme;
     this.submitTranMode = data.tran_mode;
@@ -988,7 +1105,7 @@ export class MultiVoucherComponent implements OnInit {
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
       amt: Number(data.amt).toFixed(2),
-      particulars: data.particulars,
+      // particulars: data.NARRATION,
       total_amt: data.total_amt
     })
     // this.changeMode(data.tran_mode);
@@ -1106,7 +1223,7 @@ export class MultiVoucherComponent implements OnInit {
       this.selectedCode = data[0].scheme.S_ACNOTYPE;
       this.selectedSchemeCode()
       this.selectedScheme = data[0].scheme.id;
-      this.getIntroducer(this.mainMaster[0].scheme);
+      this.getIntroducer(this.mainMaster[0].scheme, data[0].BRANCH_CODE);
       this.customer = data[0].account_no.id;
       this.submitAccountNo = data[0].account_no;
       this.selectedMode = data[0].tran_mode.id;

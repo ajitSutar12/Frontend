@@ -365,7 +365,8 @@ export class ManagerViewComponent implements OnInit {
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (id === 'rateOfMargin') { 
-      this.iframe1url = this.report_url + "examples/interestratemargin.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='"+ obj.START_DATE+"'&edate='"+ obj.START_DATE+"'&trandrcr='D'&TRANSTATUS='1'&AC_ACNOTYPE4='TD'&AC_ACNOTYPE='AG'&AC_ACNOTYPE1='GS'&AC_ACNOTYPE2='IV'&DESCRIPTION1='Investment Details'&DESCRIPTION2='Deposit Details'&DESCRIPTION3='Loan Details'&flag1=1";
+     
+      this.iframe1url = this.report_url + "examples/interestratemargin.php?&Branch='" + this.branchName + "'&branch_code1="+branch+"&branch_code2="+branch+"&BankName='" + bankName + "'&sdate='"+ obj.START_DATE+"'&edate='"+ obj.START_DATE+"'&AC_ACNOTYPE4='TD'&AC_ACNOTYPE='IV'&AC_ACNOTYPE1='AG'&AC_ACNOTYPE2='GS'"
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }

@@ -15,6 +15,7 @@ import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/cus
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 
 @Component({
   selector: 'app-passbook-entry-print',
@@ -45,7 +46,11 @@ showRepo: boolean = false;
   iframe5url: any = ' ';
  //dropdown
  branchOption: any[];
- Cust_ID
+ getschemename: any
+ obj: any;
+  introducerACNo: any;
+  firstno
+  bankAcno
  // for dropdown ng module
  ngbranch: any = null;
  ngcust: any = null;
@@ -58,6 +63,8 @@ showRepo: boolean = false;
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
     public customerIdService: CustomerIdService,private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private savingMasterService: SavingMasterService,
+
     private sanitizer: DomSanitizer) { this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -74,15 +81,12 @@ showRepo: boolean = false;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'TD');
+    return (scheme.name == 'TD' || scheme.name == 'SB'|| scheme.name == 'LN');
   });
   this.scheme = filtered;
  
  })
-   //for customer Id
-   this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-    this.Cust_ID = data;
-  })
+ 
    //for starting and ending date
    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.todate = data.CURRENT_DATE;
@@ -114,7 +118,7 @@ showRepo: boolean = false;
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      CUST_ID: ["", [Validators.pattern, Validators.required]],
+      FIRST_NO: ["", [Validators.pattern, Validators.required]],
       Scheme_code: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       
@@ -124,9 +128,50 @@ getTransferAccountList(event) {
   this.transferSchemeDetails = event
   this.tScheme = event.name
 }
+getIntro(event) {
+  this.getschemename = event.name
+  this.getIntroducer()
+}
+
+//get account no according scheme for introducer
+getIntroducer() { 
+  this.obj = [this.scode,this.ngbranch, ]
+  switch (this.getschemename) {
+    case 'SB':
+      this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+        this.introducerACNo = data;
+        this.firstno = null
+      })
+      break; 
+
+    
+    case 'LN':
+      this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+        this.introducerACNo = data;
+        this.firstno = null
+      })
+      break;
+
+    case 'TD':
+      this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+        this.introducerACNo = data;
+        this.firstno = null
+      })
+      break;
+
+    case 'CC':
+      this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+        this.introducerACNo = data;
+        this.firstno = null
+      })
+      break;
+
+  
+  }
+}
 end() {}
 src: any;
-view(event) {
+view(event) {debugger
   
   event.preventDefault();
   this.formSubmitted = true;
@@ -138,8 +183,10 @@ view(event) {
   if(this.ngForm.valid){
   let obj = this.ngForm.value
   this.showRepo = true;
-  let custid = obj.CUST_ID
+  let custid = obj.FIRST_NO
   let branch = obj.BRANCH_CODE
+  let scheme = obj.Scheme_code
+  let schemeName = this.tScheme
 
   let date =  moment(obj.START_DATE).format('DD/MM/YYYY');
   let tdate =  moment(obj.END_DATE).format('DD/MM/YYYY');
@@ -165,7 +212,8 @@ view(event) {
 }
 
 
-  this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&AC_CUSTID=" + custid + "&branch=" + branch + "" ;
+  // this.iframe5url=this.report_url+"examples/passbookprint.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&AC_CUSTID=" + custid + "&branch=" + branch + "&branch_code='"+branch+"'" ;
+  this.iframe5url=this.report_url+"examples/passbookprint.php?&STRAN_DATE='" + obj.START_DATE + "'&ETRAN_DATE='" + obj.END_DATE + "'&TRAN_ACNOTYPE1='"+ schemeName +"'&TRANACNO1='" + this.bankAcno + "'&TRANAC_TYPE1='"+ scheme +"'&TRAN_ACNOTYPE2='"+ schemeName +"'&TRANACNO2='" + this.bankAcno + "'&TRANAC_TYPE2='"+ scheme +"'&quotes=''&flag1=1";
   console.log(this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
  
@@ -182,13 +230,18 @@ this.resetForm()
 
 // Reset Function
 resetForm() {
-this.ngForm.controls.CUST_ID.reset();
+this.ngForm.controls.FIRST_NO.reset();
 this.showRepo = false;
 this.clicked=false;
 }
 getBranch(event) {
   this.ngbranch = event.value
   this.branchName = event.branchName
-}
+  // this.bankAcno = event.BankAcNo
 
+}
+getAcno(event){
+  this.bankAcno = event.BANKACNO
+
+}
 }

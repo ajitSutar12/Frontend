@@ -36,6 +36,7 @@ import { ThemeModule } from '../../theme.module';
     InterestPaidHistoryModule,
     ThemeModule
   ],
+  exports: [AccountEnquiryComponent],
   declarations: [AccountEnquiryComponent],
   providers: [SchemeCodeDropdownService, SystemMasterParametersService, SchemeAccountNoService, CustomerIdService, ACMasterDropdownService, OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,

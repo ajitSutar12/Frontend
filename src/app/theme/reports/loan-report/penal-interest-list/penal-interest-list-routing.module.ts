@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: PenalInterestListComponent ,
     data: {
-      title: 'Citywise Loan Balance Report ',
+      title: 'Term Loan/Cash Credit Report ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

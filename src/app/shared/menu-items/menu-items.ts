@@ -470,7 +470,7 @@ const MENUITEMS = [
                 state: 'dividendCalculation',
                 name: 'Dividend Calculation',
                 id: 62
-              },                           
+              },
               {
                 state: 'dividendPosting',
                 name: 'Dividend Posting',
@@ -695,6 +695,12 @@ const MENUITEMS = [
             //     id: 105
             //   },
             // ]
+          },
+          {
+            state: 'voucherPrint',
+            name: 'Voucher Printing',
+            id: 285,
+           
           },
           {
             state: 'goldsilverreturnentry',
@@ -1236,7 +1242,7 @@ const MENUITEMS = [
                 name: 'Excess Cash Balance Report',
                 id: 283
               },
-              
+
             ]
           },
           //
@@ -1275,7 +1281,7 @@ const MENUITEMS = [
               },
               {
                 state: 'custidwiseloaninterestCertificate',
-                name: 'Customer Id Wise Deposit/Loan Interest Certificate',
+                name: 'Customer Id Wise Deposit Interest Certificate',
                 id: 246
               },
               {
@@ -1439,7 +1445,7 @@ const MENUITEMS = [
               },
               {
                 state: 'penalinterestlist',
-                name: 'Penal Interest List',
+                name: 'Received Penal Interest List',
                 type: 'sub',
                 id: 264,
               },
@@ -1793,6 +1799,11 @@ const MENUITEMS = [
             state: 'pigmyMachineProcess',
             name: 'Pigmy Machine Process',
             id: 183
+          },
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 284
           },
           {
             state: 'deadStockP',

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 @Component({
   selector: 'app-custidwise-deposit-list',
   templateUrl: './custidwise-deposit-list.component.html',
@@ -33,6 +34,10 @@ ngForm: FormGroup;
  startfrom
  startto
  isTdsForm: boolean = false;
+ acno: any = null
+ code: any = null
+ obj: any
+ getschemename: any
 
  //iframe
  formSubmitted = false;
@@ -42,10 +47,13 @@ ngForm: FormGroup;
    url = environment.base_url;
    report_url = environment.report_url;
    iframe5url: any = ' ';
+  introducerACNo: any;
+  ngIntroducer: any;
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private customerID: CustomerIDMasterDropdownService,
+    private customerID: CustomerIDMasterDropdownService,    private savingMasterService: SavingMasterService,
+
     public customerIdService: CustomerIdService,
     private sanitizer: DomSanitizer) {this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -97,7 +105,107 @@ ngForm: FormGroup;
       Show_Only_Top:[''],
       INPUT: [""]
     });
+} 
+
+getBranch() {
+  this.getIntroducer()
 }
+
+// getIntro(event) {
+//   this.getschemename = event.name
+//   this.getIntroducer()
+// }
+
+//get account no according scheme for introducer
+getIntroducer() {
+  this.obj = [this.ngbranch]
+  this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          // this.ngIntroducer = null
+        })
+  // switch (this.getschemename) {
+  //   case 'SB':
+  //     this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'SH':
+  //     this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'CA':
+  //     this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'LN':
+  //     this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'TD':
+  //     this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'DS':
+  //     this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'CC':
+  //     this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'GS':
+  //     this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'PG':
+  //     this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'AG':
+  //     this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+
+  //   case 'IV':
+  //     this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+  //       this.introducerACNo = data;
+  //       this.ngIntroducer = null
+  //     })
+  //     break;
+  // }
+}
+
+
+
+
 src: any;
 view(event) {
   event.preventDefault();

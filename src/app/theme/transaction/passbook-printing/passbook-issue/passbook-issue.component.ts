@@ -167,7 +167,8 @@ view(event) {
 }
 
 
-  this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&AC_CUSTID=" + custid + "&branch=" + branch + "" ;
+  // this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&AC_CUSTID=" + custid + "&branch=" + branch + "&branch_code=" + branch + "" ;
+  this.iframe5url=this.report_url+"examples/passbookissue.php?&BRANCH_NAME='" + this.branchName + "'&BRANCH_CODE=" + branch + "&AC_ACNOTYPE='SB'&AC_TYPE='8'&BANKACNO='101101101100261'&ISSUE_DATE='01/12/2022'";
   console.log(this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
  

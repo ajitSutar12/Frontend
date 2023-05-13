@@ -39,9 +39,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="scode" (change)="getTransferAccountList($event)">
+                                        [(ngModel)]="scode" (change)="getIntro($event);getTransferAccountList($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
-                                            {{values.name}} {{values.label}} </ng-option>
+                                            {{values.id}} {{values.label}} </ng-option>
                                     </ng-select>
 
                                 </span>
@@ -56,25 +56,26 @@
                         </div>
                         <div class="col-sm-12 col-md-1"> <label for="scheme">Account No.<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select id="CUST_ID" bindValue="value" [(ngModel)]="ngcust"
-                                        [virtualScroll]="true" formControlName="CUST_ID" bindLabel="label"
-                                        placeholder="">
-                                        <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                            {{values.id}} {{values.label}}</ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['CUST_ID'].invalid && (ngForm.controls['CUST_ID'].dirty || ngForm.controls['CUST_ID'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="ngForm.controls['CUST_ID'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="cdropdown" [(ngModel)]="firstno"
+                                                    formControlName="FIRST_NO" bindValue="AC_NO" bindLabel="AC_NO"
+                                                    (change)="getAcno($event)"
+                                                    placeholder=" From A/c No">
+                                                    <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                                        {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['FIRST_NO'].invalid && (ngForm.controls['FIRST_NO'].dirty || ngForm.controls['FIRST_NO'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['FIRST_NO'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
 
                         <div class="col-md-1"> <label for="START_DATE">Starting Date<sub
                                     class="required">*</sub></label>

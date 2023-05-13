@@ -52,7 +52,7 @@ import { DepreciationPassingModule } from './depreciation-passing/depreciation-p
 import { MasterLockerModule } from './master-locker/master-locker.module';
 import { ShareTransferModule } from './share-transfer/share-transfer.module';
 import { MemberCancelModule } from './member-cancel/member-cancel.module'
-import { IssueNewShareModule} from './issue-new-share/issue-new-share.module';
+import { IssueNewShareModule } from './issue-new-share/issue-new-share.module';
 import { RentLockerModule } from './rent-locker/rent-locker.module'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -89,12 +89,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PassTermDepoistAcRenewalModule,
     DepreciationPassingModule,
     MasterLockerModule,
-    ShareTransferModule ,
+    ShareTransferModule,
     IssueNewShareModule,
     MemberCancelModule,
     RentLockerModule
   ],
   declarations: [CentralisedPassingComponent],
+  exports: [CentralisedPassingComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

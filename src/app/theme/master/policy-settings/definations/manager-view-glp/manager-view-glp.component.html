@@ -10,7 +10,7 @@
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block"> 
                     <div class="row">
-                        <div class="col-sm"> 
+                        <div class="col-sm">  
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="SR_NO" class="form-control" placeholder=" " #type
@@ -66,7 +66,7 @@
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
                                     #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
-                                      {{values.label}}</ng-option>
+                                         {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="STATEMENT_CODE">Statement Code<sub class="required"> * </sub></label>
                                 </span>
@@ -91,7 +91,7 @@
 
                             </div>
                              -->
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="DECRIPTION" appTheme bindValue="value" [(ngModel)]="ngdescription"
                                     formControlName="DECRIPTION" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
@@ -103,8 +103,8 @@
                                   <label for="DECRIPTION">Description<sub class="required"> * </sub></label>
                                 </span>
                             </div>
-                        </div>
-                        <div class="col-sm">
+                        </div> -->
+                        <!-- <div class="col-sm"> -->
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="PercentageToWCapital" [multiple]="false"
                                     placeholder="% to W.Capital *" required title="Compulsory Selection"

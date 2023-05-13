@@ -17,6 +17,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        (change)="getBranch($event)" 
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values" required>
                                             {{values.label}}</ng-option>

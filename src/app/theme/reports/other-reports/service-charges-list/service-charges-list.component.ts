@@ -82,7 +82,7 @@ export class ServiceChargesListComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'AG' || scheme.name == 'SB' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL' || scheme.name == 'CA' || scheme.name == 'LK' || scheme.name == 'AG' || scheme.name == 'IV' || scheme.name == 'GS');
+        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'CA' );
       });
       this.scheme = filtered;
 
@@ -161,7 +161,7 @@ export class ServiceChargesListComponent implements OnInit {
       let scheme = obj.Scheme_code
       let branch = obj.BRANCH_CODE;
       let schemeName = this.tScheme
-      // let charges = obj.CHARGES
+      let charges = obj.CHARGES
 
       let Date = moment(obj.date).format('DD/MM/YYYY');
       let tDate = moment(Date, 'DD/MM/YYYY')
@@ -187,7 +187,7 @@ export class ServiceChargesListComponent implements OnInit {
       // let endingcode =obj.Ending_Account;
 
       
-      this.iframe5url = this.report_url + "examples/Service_charges_list.php?&Branch='" + this.branchName + "'&BankName='" + bankName+ "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&branch_code='" + branch + "'&AC_ACNOTYPE='" + schemeName + "'"
+      this.iframe5url = this.report_url + "examples/Service_charges_list.php?&Branch='" + this.branchName + "'&BankName='" + bankName+ "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&branch_code='" + branch + "'&AC_ACNOTYPE='" + schemeName + "'&mincharges='"+charges+"'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
