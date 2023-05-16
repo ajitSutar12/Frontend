@@ -40,6 +40,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                        [virtualScroll]="true"
                                             [(ngModel)]="scode" (change)="getIntro($event);getTransferAccountList($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.name}} {{values.label}} </ng-option>

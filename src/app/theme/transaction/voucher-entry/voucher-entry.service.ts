@@ -228,5 +228,8 @@ export class VoucherEntryService {
     return this.http.post(this.url + '/voucher/getInputHeadBal', data);
   }
 
+  printingNo(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/printingNo', data);
+  }
 
 }
