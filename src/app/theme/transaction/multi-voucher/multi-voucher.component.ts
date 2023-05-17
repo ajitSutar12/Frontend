@@ -809,7 +809,7 @@ export class MultiVoucherComponent implements OnInit {
 
             // }
           }
-          this.updateheadbalance(this.date)
+          // this.updateheadbalance(this.date)
         }
       } else {
         this.headShow = false;

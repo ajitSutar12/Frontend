@@ -8,7 +8,7 @@ import { UserDefinationService } from '../user-defination/user-defination.servic
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
+import { MenuItems } from '../../../shared/menu-items/menu-items'
 @Component({
   selector: 'app-role-defination',
   templateUrl: './role-defination.component.html',
@@ -55,7 +55,7 @@ export class RoleDefinationComponent implements OnInit {
   roleID: string;
   ROLE: any;
   RoleResult: any;
-  constructor(private _service: RoleDefinationService, private _roleServices: UserDefinationService, private fb: FormBuilder,) {
+  constructor(private menuItems: MenuItems, private _service: RoleDefinationService, private _roleServices: UserDefinationService, private fb: FormBuilder,) {
     this._roleServices.getRoleList().subscribe(data => {
       debugger
       this.ROLE = data;
@@ -82,6 +82,8 @@ export class RoleDefinationComponent implements OnInit {
     this._service.getRoleList().subscribe(data => {
       this.RoleData = data;
     })
+    let list = this.menuSelection()
+    console.log(list, 'menu check')
   }
   onFilterChange(value: string): void {
 
@@ -164,7 +166,7 @@ export class RoleDefinationComponent implements OnInit {
                 newtree[x]['internalChildren'][y].checked = true
                 for (z = 0; z < newtree[y]['internalChildren'].length; z++) {
                   if (menu.find(data1 => data1 == newtree[x]['internalChildren'][y]['internalChildren'][z]?.value)) {
-                    console.log(newtree[x]['internalChildren'][y]['internalChildren'][z]?.value,'value z')
+                    console.log(newtree[x]['internalChildren'][y]['internalChildren'][z]?.value, 'value z')
                     newtree[x]['internalChildren'][y]['internalChildren'][z].checked = true
                   }
                 }
@@ -231,4 +233,62 @@ export class RoleDefinationComponent implements OnInit {
     });
   }
 
+  meunItemList
+  menuItem
+  menuSelection() {
+    //Menu item filter as per user role
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let menuData: string = '';
+    result.RoleDefine.forEach(ele => {
+      if (menuData == '') {
+        menuData = ele.Role.Rolehaspermission.Menus
+      } else {
+        menuData = menuData + ',' + ele.Role.Rolehaspermission.Menus
+      }
+    })
+    let arrayList1 = menuData.split(',');
+    var arrayList = arrayList1.map(function (x) {
+      return parseInt(x, 10);
+    });
+    arrayList.sort(function (a, b) { return b - a });
+    let menuItemList = this.menuItems.getAll();
+    this.meunItemList = menuItemList[0].main;
+    // var meunItemList = menuItemList[0].main;
+    this.meunItemList.forEach(function (element, index) {
+      // this.menuItemList[index]['class'] = "disableflag"
+      if (arrayList.includes(element.id)) {
+        element.checked = true
+        element.value = element.id
+        if (element.children.length != 0 && element.children != undefined) {
+          element.children.forEach(function (ele, index1) {
+            if (arrayList.includes(ele.id)) {
+              element.checked = true
+              element.value = element.id
+              if (ele.children.length != 0 && ele.children != undefined) {
+                ele.children.forEach(function (ele1, index2) {
+                  if (arrayList.includes(ele1.id)) {
+                    element.checked = true
+                    element.value = element.id
+                  } else {
+                    element.checked = false
+                    element.value = element.id
+                  }
+                });
+              }
+            } else {
+              element.checked = false
+              element.value = element.id
+            }
+          });
+        }
+      } else {
+        element.checked = false
+        element.value = element.id
+      }
+    });
+    this.menuItem = menuItemList;
+    console.log(this.menuItem, 'menuitem')
+    return this.menuItem
+  }
 }
