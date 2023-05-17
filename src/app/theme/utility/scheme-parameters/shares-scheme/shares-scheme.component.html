@@ -7,14 +7,14 @@
           Fields marked with (<sub class="required"> * </sub>) are mandatory
         </h6>
       </div>
-      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm" >
         <div class="card-block">
           <div class="row">
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
-                    placeholder=" " id="S_APPL" required="" appEdit pattern="^[0-9]+$"
+                    placeholder=" " id="S_APPL" required="" pattern="^[0-9]+$"
                     title="Input allowed only  0-9" maxlength="3" minlength="3" #autofocus
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="901" max="999"
                     (focusout)="checkDuplicate($event)" formControlName="S_APPL"  />

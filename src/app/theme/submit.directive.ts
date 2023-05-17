@@ -8,36 +8,34 @@ export class SubmitDirective {
   constructor(private el: ElementRef) { }
 
   @HostListener('click')
-  onFormSubmit() {  
-    // debugger
+  // @HostListener('keydown.Tab')
+  // @HostListener('keydown.shift.Tab')
+  onFormSubmit() {
 
-    // const invalidControl11 = this.el.nativeElement;
-
+    //////OLD CODE
     const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');
-
-//  if (invalidControl11.tagName == 'FORM') { 
-
-//     if (invalidControl) {
-//       invalidControl.focus();
-//     } 
-
-//     }
-//     else 
-    // if (invalidControl11.tagName == 'BUTTON') {
-
-      if (invalidControl) {
-        invalidControl.focus();
-      }
-  
-      // }
-      // else if (invalidControl11.tagName == 'SPAN') {
-
-      //   if (invalidControl) {
-      //     invalidControl.focusout();
-      //   }
-    
-      //   }
-
+    if (invalidControl) {
+      invalidControl.focus();
+    }
+    // if (invalidControl.tagName == 'INPUT') {
+    //   if (invalidControl.value == '') {
+    //     invalidControl.focus();
+    //   }
+    // } else if (invalidControl.tagName === 'NG-SELECT') {
+    //   if (invalidControl.textContent == "") {
+    //     invalidControl.focus();
+    //     return;
+    //   }
+    // } else if (invalidControl.tagName == 'SPAN') {
+    //   if (invalidControl.id == 'editbutton') {
+    //     invalidControl.focusout();
+    //   }
+    // }
+    // else if (invalidControl.tagName == 'TEXTAREA') {
+    //   if (invalidControl.value == '') {
+    //     invalidControl.focus();
+    //   }
+    // }
 
   }
 

@@ -12,47 +12,46 @@ export class ThemeDirective {
   @ContentChildren(NgSelectComponent) ngselect: QueryList<NgSelectComponent>;
 
   constructor(private el: ElementRef) { }
-//  @HostListener("click", ['$event'])
-//   @HostListener("keydown", ['$event'])
-  @HostListener("focusout")
-  onFormSubmit(event: MouseEvent | KeyboardEvent) {
+  @HostListener("mousedown", ['$event'])
+  @HostListener('keydown.tab', ['$event'])
+  // @HostListener('keydown.shift.Tab', ['$event'])
+  @HostListener("click", ['$event'])
+  onFormSubmit(event) {
     // debugger
     const invalidControl = this.el.nativeElement;
-    if (invalidControl.tagName == 'INPUT') {
-      if (invalidControl.value == '') {
-        invalidControl.focus();
+    if (event.type != 'mousedown' || invalidControl.id != 'editbutton') {
+      if (invalidControl.tagName == 'INPUT') {
+        if (invalidControl.value == '') {
+          invalidControl.focus();
+        }
+        //  else 
+        //  if(invalidControl.value == '') {
+        //     invalidControl.focus();
+        //  }
+      } else if (invalidControl.tagName === 'NG-SELECT') {
+        if (invalidControl.textContent == "") {
+
+          invalidControl.focus();
+
+          // this.select.focus()
+          // // this.tagName.focus()
+
+          return;
+        }
+      } else if (invalidControl.tagName == 'SPAN') {
+
+        if (invalidControl.id == 'editbutton') {
+          invalidControl.focusout();
+        }
       }
-      //  else 
-      //  if(invalidControl.value == '') {
-      //     invalidControl.focus();
-      //  }
-    } else if (invalidControl.tagName === 'NG-SELECT') {
-      if (invalidControl.textContent == "") {
-
-        invalidControl.focus();
-
-        // this.select.focus()
-        // // this.tagName.focus()
-
-        return;
+      else if (invalidControl.tagName == 'TEXTAREA') {
+        if (invalidControl.value == '') {
+          invalidControl.focus();
+        }
       }
     }
+    else {
 
-
-
-    else if (invalidControl.tagName == 'SPAN') {
-
-      if (invalidControl.id == 'editbutton') {
-        invalidControl.focusout();
-      }
-    }
-
-
-    else if (invalidControl.tagName == 'TEXTAREA') {
-      if (invalidControl.value == '') {
-        invalidControl.focus();
-      }
     }
   }
-
 }

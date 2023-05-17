@@ -453,8 +453,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       if (this.isInterestApplicable == '1') {
         this.angForm.patchValue({
           INTREST_RATE: data[0].INT_RATE,
-          TotalInterest: Number(Math.round(data[0].currentInterest)),
-          CalCulateAmt: Number(Math.round(data[0].currentInterest))
+          TotalInterest: Number(Math.abs(data[0].ledgerBal)) == 0 ? 0 : Number(this.customRound(data[0].currentInterest)),
+          CalCulateAmt: Number(Math.abs(data[0].ledgerBal)) == 0 ? 0 : Number(this.customRound(data[0].currentInterest))
         })
         this.intrateShow = data[0].INT_RATE
       }
@@ -511,7 +511,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       }
       this.angForm.patchValue({
         Months: months,
-        NET_INT: Math.abs(Math.round(netInt))
+        NET_INT: Math.abs(this.customRound(netInt))
       })
       this.getNetInterest()
       this.showCustomerDeatils()
@@ -1039,8 +1039,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         if (this.isInterestApplicable == '1') {
           this.angForm.patchValue({
             INTREST_RATE: data1[0].INT_RATE,
-            TotalInterest: Number(Math.round(data1[0].currentInterest)),
-            CalCulateAmt: Number(Math.round(data1[0].currentInterest))
+            TotalInterest: Number(this.customRound(data1[0].currentInterest)),
+            CalCulateAmt: Number(this.customRound(data1[0].currentInterest))
           })
           this.intrateShow = data1[0].INT_RATE
         }
@@ -1094,7 +1094,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         }
         this.angForm.patchValue({
           Months: months,
-          NET_INT: Math.abs(Math.round(netInt))
+          NET_INT: Math.abs(this.customRound(netInt))
         })
         this.getNetInterest()
         this.showCustomerDeatils()
@@ -1315,4 +1315,18 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       console.log('something is wrong');
     })
   }
+
+  customRound(number) {
+    var wholeNumber = Math.floor(number);
+    var decimalPart = number - wholeNumber;
+
+    if (decimalPart >= 0.5) {
+      wholeNumber++;
+    } else {
+      return wholeNumber;
+    }
+
+    return Math.round(number);
+  }
+
 }
