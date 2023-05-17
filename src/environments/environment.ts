@@ -31,13 +31,8 @@ export const environment = {
   // report_url: 'http://localhost/phpjasper/examples/s', //report folder path
 
   // sitename: 'http://139.59.63.215/bhn_cbs'  //server bhairavnath hotkey
-<<<<<<< Updated upstream
-  // sitename: 'http://139.59.63.215/bhairavnath' //server bhairavnath site hotkey
-  sitename: 'http://139.59.63.215/SIDHANERLI/CBS' //server sidhanerli site hotkey
-=======
   sitename: 'http://139.59.63.215/bhairavnath' //server bhairavnath site hotkey
   // sitename: 'http://139.59.63.215/SIDHANERLI/CBS' //server sidhanerli site hotkey
->>>>>>> Stashed changes
 
 };
 
