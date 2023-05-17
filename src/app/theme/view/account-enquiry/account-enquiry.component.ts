@@ -144,9 +144,9 @@ export class AccountEnquiryComponent implements OnInit {
       this.allScheme = allscheme;
     })
 
-    this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
-      this.allScheme.push(data)
-    })
+    // this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
+    //   this.allScheme.push(data)
+    // })
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -830,6 +830,7 @@ export class AccountEnquiryComponent implements OnInit {
             this.bankacno,
             this.getschemename
           ]
+          this.lienInfoArr = []
           this.http.get<any>(this.url + '/ledger-view/lienInformaionView/' + obj).subscribe((data) => {
             this.lienInfoArr = data
           })
@@ -1370,6 +1371,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.bankacno,
         this.getschemename
       ]
+      this.lienInfoArr = []
       this.http.get<any>(this.url + '/ledger-view/lienInformaionView/' + obj).subscribe((data) => {
         this.lienInfoArr = data
       })

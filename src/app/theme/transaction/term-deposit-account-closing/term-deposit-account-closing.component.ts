@@ -455,7 +455,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
         else {
           this.afterMaturedInt = true
-          var b = moment(this.maturityDate, "DD/MM/YYYY");
+          var b1 = moment(this.maturityDate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY');
+          var b = moment(b1, 'DD/MM/YYYY')
           var a = moment(this.date, "DD/MM/YYYY");
           let Days = b.diff(a, 'days');
           let total_int = Math.abs(Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 100))
@@ -465,17 +466,28 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
 
         if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '') {
-          var b = moment(this.maturityDate, "DD/MM/YYYY");
-          var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
-          let maturedDays = Math.abs(a.diff(b, 'days'))
-          let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
+          // var b = moment(this.date, "DD/MM/YYYY");
+          // var a = this.lastIntDate != '' && this.lastIntDate != null ? moment(this.lastIntDate, 'DD/MM/YYYY') : (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
+          // let maturedDays = Math.abs(a.diff(b, 'days'))
+          // let total_int = Number(this.angForm.controls['TOTAL_INT'].value) + Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
           this.angForm.patchValue({
             InterestRate: this.afterMatureIntRate,
-            MaturedDays: maturedDays,
-            TOTAL_INT: Math.round(total_int)
+            MaturedDays: data[0].totDays,
+            TOTAL_INT: Math.round(data[0].InterestAmount)
           })
-          this.intRateShow = this.afterMatureIntRate
-          this.afterMaturedInt = false
+          // this.intRateShow = this.afterMatureIntRate
+          // this.afterMaturedInt = false
+          // var b = moment(this.maturityDate, "DD/MM/YYYY");
+          // var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
+          // let maturedDays = Math.abs(a.diff(b, 'days'))
+          // let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
+          // this.angForm.patchValue({
+          //   InterestRate: this.afterMatureIntRate,
+          //   MaturedDays: maturedDays,
+          //   TOTAL_INT: Math.round(total_int)
+          // })
+          // this.intRateShow = this.afterMatureIntRate
+          // this.afterMaturedInt = false
         }
         else {
           this.afterMaturedInt = true
@@ -499,7 +511,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       let TDSAmt = Number(this.angForm.controls['TDS_AMT'].value)
       let surchargeAmt = Number(this.angForm.controls['SURCHARGE_AMT'].value)
       let penalAmt = Number(this.angForm.controls['PENAL_INT'].value)
-      let totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (ledgerAmt + netAmt - TDSAmt - surchargeAmt - penalAmt).toFixed(2) : (ledgerAmt - Math.abs(netAmt) - TDSAmt - surchargeAmt - penalAmt).toFixed(2)
+      let totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (Number(ledgerAmt) + Number(netAmt) - Number(TDSAmt) - Number(surchargeAmt) - Number(penalAmt)).toFixed(2) : (Number(ledgerAmt) - Number(Math.abs(netAmt)) - Number(TDSAmt) - Number(surchargeAmt) - Number(penalAmt)).toFixed(2)
       this.angForm.patchValue({
         NETPAYABLEAMT: totalNetAmt
       })
@@ -546,7 +558,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   getMonthDays() {
     let Days: number = 0
     if (this.asOnDate != null && this.asOnDate != "") {
-      var b = moment(this.asOnDate, "DD/MM/YYYY");
+      var b1 = moment(this.asOnDate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY');
+      var b = moment(b1, 'DD/MM/YYYY')
       let matureDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
       var a = moment(matureDate, "DD/MM/YYYY");
       Days = a.diff(b, 'days');
@@ -583,7 +596,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
     }
     else {
-      var b = moment(this.opDate, "DD/MM/YYYY");
+      var b1 = moment(this.opDate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY');
+      var b = moment(b1, "DD/MM/YYYY");
       let matureDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
       var a = moment(matureDate, "DD/MM/YYYY");
       Days = a.diff(b, 'days');

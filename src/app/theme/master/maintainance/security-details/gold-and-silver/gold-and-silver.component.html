@@ -70,7 +70,7 @@
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right"  type="text" name="GoldBagReceiptNo" class="form-control" placeholder=" " id="GoldBagReceiptNo"
                     [ngClass]="{'form-submitted': formSubmitted}"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" required="" pattern="^[0-9]+$"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 47 )" required="" pattern="^[0-9 /]+$"
                     title="Input allowed only  0-9" maxlength="25" formControlName="BAG_RECEIPT_NO" />
                   <label for="GoldBagReceiptNo">Gold Bag/Receipt Number<sub class="required">* </sub></label>
                 </span>
