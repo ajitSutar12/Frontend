@@ -26,7 +26,7 @@ import { ReportFrameComponent } from "../../../reports/report-frame/report-frame
   templateUrl: './interest-list.component.html',
   styleUrls: ['./interest-list.component.scss']
 })
-export class InterestListComponent implements OnInit {
+export class InterestListComponent implements OnInit { 
   iframe5url:any='';
   @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
 formSubmitted = false;
@@ -41,6 +41,10 @@ branchOption: any[];
 clicked:boolean=false;
 showRepo: boolean = false;
 showLoading:boolean = false; 
+isDeposit: boolean = false;
+isLoan: boolean = false;
+isPigmy: boolean = false;
+
 transferSchemeDetails
 tScheme
  //date
@@ -78,7 +82,7 @@ maxDate: Date;
    var filtered = data.filter(function (scheme) {
      return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' ||  scheme.name == 'CA'  || scheme.name == 'TD'      );
    });
-   this.scheme = filtered;
+   this.scheme = filtered; 
   
    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
      this.dates = data.CURRENT_DATE;
@@ -120,12 +124,33 @@ maxDate: Date;
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["",[ Validators.required]],
       date: ['', [Validators.required]],
-    
-     
+      R_TYPE: ['',],
+      T_TYPE: ['detail',],
+      PRPAYABLEINT: [],
+      PAGEWISETOTAL: [],
+      PRRECEIVEINT: [],
+      PAGEWISETOTAL1: [],
+      PRRECEIVEINT1: [],
     });
    
   }
  
+  isrtype(value) {
+    if (value == 1) {
+      this.isDeposit = true;
+      this.isLoan = false;
+
+    }
+    if (value == 2) {
+      this.isDeposit = false;
+      this.isLoan = true;
+    }
+    if (value == 3) {
+      this.isDeposit = false;
+      this.isLoan = false;
+    }
+   
+  }
 
   view(event) {
     
@@ -155,8 +180,8 @@ maxDate: Date;
 
     // let Date = moment(obj.date).format('DD/MM/YYYY');
     // let toDate = moment(Date, 'DD/MM/YYYY')
-    // let Date = obj.date
-  let scheme = obj.Scheme_code
+    // let Date = obj.date       
+    let scheme = obj.Scheme_code
     
     let branch = obj.BRANCH_CODE;
     let schemeName = this.tScheme

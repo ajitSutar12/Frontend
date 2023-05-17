@@ -1824,7 +1824,9 @@
                                             <td *ngIf="getschemename=='TD'">{{data?.masterData?.LNCCMaster.S_NAME}}</td>
                                             <td *ngIf="getschemename=='LN' || getschemename == 'CC'">
                                                 {{data?.masterData?.DPMaster.S_NAME}}</td>
-                                            <td>{{data.AC_NO}}</td>
+                                            <td *ngIf="getschemename=='TD'">{{data.AC_NO}}</td>
+                                            <td *ngIf="getschemename=='LN' || getschemename == 'CC'">{{data.DEPO_AC_NO}}
+                                            </td>
                                             <td>{{data?.masterData?.AC_NAME}}</td>
                                             <td>{{data.SECU_CODE}}</td>
                                             <td>{{data.REMARK}}</td>
