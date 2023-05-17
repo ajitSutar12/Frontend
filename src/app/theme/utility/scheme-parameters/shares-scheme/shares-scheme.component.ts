@@ -331,7 +331,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
   }
   //Method for append data into fields
-  editClickHandler(id) {debugger
+  editClickHandler(id) {
     // this.myEditField.nativeElement.style.filer = 'blur(5)';
 
     this.showButton = false;
