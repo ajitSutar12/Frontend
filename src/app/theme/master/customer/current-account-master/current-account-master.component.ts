@@ -32,6 +32,8 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { data } from 'jquery';
+import { title } from 'process';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -97,6 +99,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   @Input() childMessage: string;
   @Output() reloadTablePassing = new EventEmitter<string>();
   formSubmitted = false;
+
   //api 
   url = environment.base_url;
   urlMap: SafeResourceUrl
@@ -385,6 +388,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
+      console.log(this.scheme);
+      
       // this.selectedValue = this.scheme[0]?.value
       // console.log(data)
     })
@@ -418,6 +423,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
+      // console.log(this.allScheme)
     })
 
   }
@@ -433,6 +439,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.id = newCustomer;
       this.getCustomer(newCustomer);
     })
+  }
+  newFunction(event:any){
+   this.selectedValue = event.value;
+   this.AC_TYPE = this.selectedValue
+   
   }
 
   customer(event) {
@@ -614,7 +625,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_EMAIL: [''],
 
 
-      AC_INTROBRANCH: ['', []],
+      AC_INTROBRANCH: ['',[Validators.pattern]],
       AC_INTROID: [''],
       AC_INTRACNO: [''],
       AC_INTRNAME: ['', [Validators.pattern]],
@@ -666,9 +677,15 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.formSubmitted = true;
     let temdate
     let opdate
+    
+    
     if (this.angForm.valid) {
+      console.log(this.angForm.valid);
+
 
       const formVal = this.angForm.value;
+      console.log(this.angForm.value);
+      
       if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
       }
@@ -693,15 +710,19 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           schecode = element.name
         }
       })
-
+      console.log(this.selectedValue)
+      debugger
       let bankCode = Number(result.branch.syspara.BANK_CODE)
       const dataToSend = {
+      
         'branchCode': branchCode,
         'bankCode': bankCode,
         'schemeCode': schecode,
         'AC_PROPRITOR_NAME': formVal.AC_PROPRITOR_NAME,
         'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
         'AC_TYPE': formVal.AC_TYPE,
+        // 'AC_TYPE': this.selectedValue,
+
         'AC_CATG': formVal.AC_CATG,
         'AC_BALCATG': formVal.AC_BALCATG,
         'AC_OPR_CODE': formVal.AC_OPR_CODE,
@@ -735,6 +756,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'PowerOfAttorneyData': this.multiAttorney,
         'Document': this.imageObject
       }
+      console.log(formVal.AC_TYPE);
+      
       this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
@@ -744,6 +767,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
         })
         this.switchNgBTab('Basic')
+        this.imageObject = []
         this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -760,6 +784,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.multiAttorney = []
       this.customerDoc = []
       this.customerDoc = []
+
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
@@ -828,6 +853,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           }
         })
         switch (this.getschemename) {
+          case 'CA':
+            this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+              this.introducerACNo = data;
+            })
+            break;
           case 'SB':
             this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
@@ -840,11 +870,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
             })
             break;
 
-          case 'CA':
-            this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
 
           case 'LN':
             this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
@@ -990,7 +1015,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
 
   addNewData() {
+    debugger
     this.angForm.controls['AC_TYPE'].enable()
+    console.log(this.angForm.controls['AC_TYPE'].enable());
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -1008,6 +1035,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.switchNgBTab('Basic')
     this.resetForm();
     this.getSystemParaDate()
+
+    
+    
   }
   //Method for delete data
   delClickHandler(id: number) {
@@ -1071,7 +1101,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.switchNgBTab('Basic')
-    this.customerDoc = []
+    this.createForm();
     this.resetNominee();
     this.resetJointAC()
     this.resetAttorney()
@@ -1092,9 +1122,17 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.selectedValue = null
     // this.code = null
     this.tempAddress = true
+    this.AC_TYPE = null
+    this.customerID = null
+   this.schemeType =null
+   this.customerDoc = []
+   
+
     this.angForm.controls['AC_TYPE'].enable()
+    this.switchNgBTab('Basic')
     this.getSystemParaDate()
     this.createForm();
+
 
   }
 
