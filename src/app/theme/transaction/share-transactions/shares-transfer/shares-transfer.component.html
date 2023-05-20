@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -282,8 +283,8 @@
                                                 <span class="border-lable-flt">
                                                     <textarea class="form-control" formControlName="Fnarration"
                                                         [(ngModel)]="ngFnarration" disabled></textarea>
-                                                    <!-- <i class="fa fa-info-circle errspan"
-                                                        (click)="formnarration.show()"></i> -->
+                                                    <i class="fa fa-info-circle errspan"
+                                                        (click)="modalLarge.show()"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -292,7 +293,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> 
                 <div class="row">
                     <div class="col-sm" style="float: right;">
                         <button class="btn btn-outline-primary btn-sm" *ngIf="submitShow" (click)="submit()">
@@ -321,7 +322,7 @@
         </div>
     </div>
 </div>
-<!-- <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
@@ -351,13 +352,13 @@
      <div class="app-modal-footer">
         
       </div> 
-</app-modal-basic> -->
+</app-modal-basic>
 
 
-<!-- <app-modal-basic #formnarration [dialogClass]="'modal-md'">
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>
-        <button type="button" class="close basic-close" (click)="formnarration.hide()">
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -376,9 +377,9 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #narrationhide
-                        (click)="formnarration.hide()">Close</button>
+                        (click)="modalLarge.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>
     </div>
-</app-modal-basic> -->
+</app-modal-basic>

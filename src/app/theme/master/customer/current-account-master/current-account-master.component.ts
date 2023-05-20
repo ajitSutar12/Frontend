@@ -710,8 +710,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           schecode = element.name
         }
       })
-      console.log(this.selectedValue)
-      debugger
+
       let bankCode = Number(result.branch.syspara.BANK_CODE)
       const dataToSend = {
       
@@ -853,11 +852,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           }
         })
         switch (this.getschemename) {
-          case 'CA':
-            this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-              this.introducerACNo = data;
-            })
-            break;
+    
           case 'SB':
             this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
@@ -870,6 +865,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
             })
             break;
 
+             case 'CA':
+            this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+              this.introducerACNo = data;
+            })
+            break;
 
           case 'LN':
             this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
@@ -1015,7 +1015,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
 
   addNewData() {
-    debugger
+  
     this.angForm.controls['AC_TYPE'].enable()
     console.log(this.angForm.controls['AC_TYPE'].enable());
     this.showButton = true;
@@ -1101,7 +1101,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.switchNgBTab('Basic')
-    this.createForm();
+    this.customerDoc = []
     this.resetNominee();
     this.resetJointAC()
     this.resetAttorney()
@@ -1122,17 +1122,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.selectedValue = null
     // this.code = null
     this.tempAddress = true
-    this.AC_TYPE = null
-    this.customerID = null
-   this.schemeType =null
-   this.customerDoc = []
-   
-
     this.angForm.controls['AC_TYPE'].enable()
-    this.switchNgBTab('Basic')
     this.getSystemParaDate()
     this.createForm();
-
 
   }
 

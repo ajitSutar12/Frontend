@@ -167,6 +167,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       TRAN_NO: [0]
     })
     this.angForm.controls['scheme_type'].disable()
+
+    
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
@@ -1078,6 +1080,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     let obj = this.angForm.value;
     obj['current_date'] = this.date;
     obj['user'] = JSON.parse(localStorage.getItem('user'))
+    
     this._service.postData(obj).subscribe(data => {
       Swal.fire('Success!', 'Account Renewaled Successfully !', 'success');
       this.createForm()

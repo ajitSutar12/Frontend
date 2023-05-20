@@ -50,6 +50,7 @@ interface ShareScheme {
 })
 export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
+  demo:Boolean=false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // @ViewChild('autofocus', { read: ElementRef }) myEditField: ElementRef;
 
@@ -333,7 +334,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for append data into fields
   editClickHandler(id) {
     // this.myEditField.nativeElement.style.filer = 'blur(5)';
-
+    alert("Hello");
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -475,6 +476,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     let obj = {
       scheme: event.target.value
     }
+   
     if (obj.scheme != '') {
       if (Number(obj.scheme) >= 901 && Number(obj.scheme) <= 999) {
         this.sharesSchemeService.duplicatecheck(obj).subscribe(data => {
