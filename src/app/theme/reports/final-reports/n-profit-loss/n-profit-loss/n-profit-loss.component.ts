@@ -41,6 +41,11 @@ clicked:boolean=false;
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }
     })
 
   }
