@@ -87,7 +87,7 @@ export class TransferSharesComponent implements OnInit {
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
-        // this.mySubscription = interval(1000).subscribe((x => {
+        this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
             this.url + '/shares-transfer/Tranpassing',
@@ -100,7 +100,7 @@ export class TransferSharesComponent implements OnInit {
               data: []
             });
           });
-        // }));
+         }));
       },
       columnDefs: [{
         targets: '_all',
@@ -163,7 +163,7 @@ export class TransferSharesComponent implements OnInit {
     this.shareTransferData = data.id;
     this.child.editClickHandler(data.id);
     this.child.rejectShow = true;
-    this.child.approveShow = true;
+    this.child.approveShow = true; 
   }
 
   reloadTable() {

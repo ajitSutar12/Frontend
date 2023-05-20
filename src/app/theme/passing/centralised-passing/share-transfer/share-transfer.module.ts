@@ -12,22 +12,23 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true 
 };
 @NgModule({
-  declarations: [ShareTransferComponent], 
-  exports:[ShareTransferComponent],
+  
   imports: [
     CommonModule,
     DataTablesModule,
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    SharesTransferModule
+    SharesTransferModule,
 
   ],
+  declarations: [ShareTransferComponent], 
+  exports:[ShareTransferComponent],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
   },],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
+
 
 })
 export class ShareTransferModule { }
