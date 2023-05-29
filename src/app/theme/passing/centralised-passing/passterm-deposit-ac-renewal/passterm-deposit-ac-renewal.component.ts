@@ -54,7 +54,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
-      pageLength: 2,
+      pageLength: 10,
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {

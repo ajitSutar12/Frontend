@@ -98,13 +98,13 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input appTheme appButton minlength="8" maxlength="10"
-                                         type="text" placeholder="dd/mm/yyyy" name="FROM_DATE"
-                                            id="FROM_DATE" class="form-control" [(ngModel)]="fromdate"
-                                            [bsValue]="bsValue" [maxDate]="maxDate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="accountOpenDate"
-                                            [ngClass]="{'form-submitted': formSubmitted}" #FROM_DATE="bsDatepicker"
-                                            (keydown.Tab)="FROM_DATE.hide()" formControlName="FROM_DATE"
+                                        <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                            placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                            class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [minDate]="accountOpenDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                            #FROM_DATE="bsDatepicker" (keydown.Tab)="FROM_DATE.hide()"
+                                            formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker [disabled]="disableFields">
                                     </span>
@@ -135,9 +135,9 @@
                                 <!-- [minDate]="fromdate" [maxDate]="maxDate" -->
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input appTheme appButton minlength="8" maxlength="10"
-                                         type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                            class="form-control" [(ngModel)]="todate" [bsValue]="bsValue"
+                                        <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                            placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE" class="form-control"
+                                            [(ngModel)]="todate" [bsValue]="bsValue"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
                                             [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
                                             formControlName="TO_DATE" #TO_DATE="bsDatepicker"
@@ -165,7 +165,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" appButton minlength="8" maxlength="10"
-                                         placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
+                                            placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
                                             [(ngModel)]="opendate" class="form-control" formControlName="AC_OPDATE"
                                             disabled>
                                     </span>
@@ -209,9 +209,9 @@
     <div class=" col-12">
         <div class="loader-block">
             <svg id="loader2" viewBox="0 0 100 100">
-              <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
+                <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
             </svg>
-          </div>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -261,7 +261,7 @@
                             <td class="td_right"
                                 [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'rgb(3 131 33)'}">
                                 {{data.TRAN_DRCR=='C'?(data.TRAN_AMOUNT | number:'1.0':'en'):''}}</td>
-                            <td class="td_right">{{data.closeBalance}} {{data.DR_CR}}</td>
+                            <td class="td_right">{{ (data.closeBalance | number:'1.0':'en') }} {{data.DR_CR}}</td>
                             <td class="td_right">{{data.INTEREST_AMOUNT }}
                                 {{data.INTEREST_AMOUNT!=undefined?(data.INTEREST_AMOUNT!=null &&
                                 data.TRAN_DRCR=='D'?'Dr':'Cr'):''}}</td>
@@ -281,16 +281,16 @@
                             <td></td>
                             <td>Total</td>
                             <td></td>
-                            <td class="td_right">{{debitTotal}}</td>
-                            <td class="td_right">{{creditTotal}}</td>
+                            <td class="td_right">{{(debitTotal | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(creditTotal | number:'1.0':'en')}}</td>
                             <td>Balance</td>
-                            <td class="td_right">{{normalInt}}</td>
-                            <td class="td_right">{{recpayInt}}</td>
-                            <td class="td_right">{{overDueAmt}}</td>
-                            <td class="td_right">{{penalInt}}</td>
-                            <td class="td_right">{{recpenalInt}}</td>
-                            <td class="td_right">{{otherAmount}}</td>
-                            <td class="td_right">{{addedPenal}}</td>
+                            <td class="td_right">{{(normalInt | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(recpayInt | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(overDueAmt | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(penalInt | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(recpenalInt | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(otherAmount | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(addedPenal | number:'1.0':'en')}}</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -300,7 +300,8 @@
                             <td style="font-weight: 600px;">Total Deposit Amount</td>
                             <td></td>
                             <td></td>
-                            <td style="font-weight: 600px;" class="td_right">{{totalDepositAmount}}</td>
+                            <td style="font-weight: 600px;" class="td_right">{{(totalDepositAmount |
+                                number:'1.0':'en')}}</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -318,7 +319,8 @@
                             <td style=" font-size: 13px;"><strong> Grand Total</strong></td>
                             <td></td>
                             <td></td>
-                            <td style=" font-size: 13px;" class="td_right"><strong>{{grandTotal}}</strong></td>
+                            <td style=" font-size: 13px;" class="td_right"><strong>{{(grandTotal |
+                                    number:'1.0':'en')}}</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
