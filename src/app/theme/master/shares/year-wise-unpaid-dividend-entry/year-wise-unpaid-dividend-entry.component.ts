@@ -18,6 +18,7 @@ import { SalaryDMasterdropdownService } from "../../../../shared/dropdownService
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import * as moment from 'moment';
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { Console } from "console";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -127,7 +128,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   multiShare: any = []
   multiDividend = []
   mem: any
-  totalAmt: number = 0
+  totalAmt : Number = 0
 
   constructor(
     private http: HttpClient,
@@ -280,6 +281,8 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       // this.shareDatatable()
       this.http.get(this.url + '/year-wise-unpaid-dividend-entry/' + this.mem).subscribe((data) => {
         this.multiShare = data;
+        console.log(data);
+        
         this.multiShare.forEach(element => {
           if (element.shareDividend == null) {
             element.shareDividend = 0
@@ -298,6 +301,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //push close date in multiDividend array
   getCloseDate(shareID, shareDivId, acno, date) {
+    debugger
     if (date != '') {
       if (this.multiDividend.length != 0) {
         if (this.multiDividend.some(item => item.AC_NO === acno)) {
@@ -333,19 +337,22 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //push amount in multiDividend array
   getAmount(shareID, shareDivId, acno, amount) {
+    debugger
     if (amount != '') {
       if (this.multiDividend.length != 0) {
         if (this.multiDividend.some(item => item.AC_NO === acno)) {
           this.multiDividend.forEach((element) => {
             if (element.AC_NO == acno) {
-              this.totalAmt = this.totalAmt + Number(amount) - Number(element['DIVIDEND_AMOUNT'])
+              this.totalAmt = Number(this.totalAmt) + Number(amount) - Number(element['DIVIDEND_AMOUNT'])
               this.angForm.patchValue({
-                TOTAL_SHARES: this.totalAmt
+                TOTAL_SHARES: Number(this.totalAmt)
+                
               })
               element['DIVIDEND_AMOUNT'] = amount
             }
           })
         }
+       
         else {
           var object = {
             shareID: shareID,
@@ -354,12 +361,13 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
             DIVIDEND_AMOUNT: amount,
           }
           this.multiDividend.push(object)
-          this.totalAmt = this.totalAmt + Number(amount)
+          this.totalAmt = Number(this.totalAmt) + Number(amount)
           this.angForm.patchValue({
             TOTAL_SHARES: this.totalAmt
           })
         }
       }
+      
       else {
         var object = {
           shareID: shareID,
@@ -368,7 +376,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
           DIVIDEND_AMOUNT: amount,
         }
         this.multiDividend.push(object)
-        this.totalAmt = this.totalAmt + Number(amount)
+        this.totalAmt = Number(this.totalAmt) + Number(amount)
         this.angForm.patchValue({
           TOTAL_SHARES: this.totalAmt
         })
@@ -378,6 +386,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   // Method to insert data into database through NestJS
   submit() {
+    debugger
     let warrentDate
     const formVal = this.angForm.value;
     const dataToSend = {
@@ -389,8 +398,13 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       'DIV_FROM_YEAR': formVal.DIV_FROM_YEAR,
       'DIV_TO_YEAR': formVal.DIV_TO_YEAR,
       'TOTAL_SHARES': formVal.TOTAL_SHARES,
-      'ShareDividend': this.multiDividend
+      'ShareDividend': this.multiDividend,
+      
     };
+    console.log(this.angForm)
+    console.log('TOTAL_SHARES')
+ 
+
     this.YearwiseunpaidService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");

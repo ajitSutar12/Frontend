@@ -50,7 +50,7 @@ export class LockerRentTransactionsComponent implements OnInit {
   selectedBranch
   schemeCode
   Scheme
-  Schemea
+  Schew
   rentfromDate
 
   schemeACNo
@@ -116,19 +116,24 @@ export class LockerRentTransactionsComponent implements OnInit {
 
     // })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+     
       var allscheme = data.filter(function (scheme) {
         return (scheme.name == 'LK')
       });
       this.Scheme = allscheme;
+
       this.schemeCode = data[0].value
       this.getIntroducer()
     })
 
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var allschemea = data.filter(function (scheme) {
-        return (scheme.name == 'GL' || scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS')
+    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data1 => {
+      console.log(data1);
+      
+      var allsche = data1.filter(function (scheme) {
+        return (scheme.name == 'GL'  || scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS')
       });
-      this.Schemea = allschemea;
+      this.Schew = allsche.slice(5);
+      
     });
 
 
@@ -252,6 +257,11 @@ export class LockerRentTransactionsComponent implements OnInit {
       }
     })
   }
+  leger(event:any){
+   this.acnumber1 =event.value;
+   console.log(this.acnumber1);
+   
+  }
   decimalAllContent($event) {
     var t = $event.target.value;
     $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
@@ -309,6 +319,14 @@ export class LockerRentTransactionsComponent implements OnInit {
       TRF_ACTYPE: formVal.TRF_ACTYPE,
       TRF_ACNO: formVal.ACNT_NO,
     }
+    if(formVal.RENT_AMOUNT > formVal.LEDGER_BALANCE){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Balance is insufficient! for this Account',
+      })
+    }
+    else{
     this.http.post(this.url + "/locker-rent-transaction/insert", obj).subscribe(data => {
       Swal.fire(
         'Success',
@@ -320,6 +338,7 @@ export class LockerRentTransactionsComponent implements OnInit {
       let result = JSON.parse(data1);
       this.BranchCode = result.branch.id
     })
+  }
   }
   updateID
   editClickHandler(id) {

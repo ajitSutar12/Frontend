@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -65,11 +66,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
-</div>
+</div> 
 
-<app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+
+ <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
         <h4 class="modal-title">Shares Transfer</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
@@ -78,13 +80,14 @@
     </div>
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-
-            <app-shares-transfer [childMessage]="shareTransferData"
-                (reloadTablePassing)="reloadTable()"></app-shares-transfer> 
+    
+            <app-shares-transfer  [childMessage]="shareTransferData"
+            (reloadTablePassing)="reloadTable()"></app-shares-transfer>
         </perfect-scrollbar>
-    </div>
-    <div class="app-modal-footer">
+    </div> 
+
+     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" id="trigger" (click)="modalLarge.hide();"
             hidden>Close</button>
     </div>
-</app-modal-basic>
+</app-modal-basic>  

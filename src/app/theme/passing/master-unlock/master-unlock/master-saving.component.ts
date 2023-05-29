@@ -134,7 +134,7 @@ export class MasterSavingComponent implements OnInit {
       AC_TYPE: [null, [Validators.required]],
       FROM_AC: [null, [Validators.required]],
       TO_AC: [null, [Validators.required]],
-      ADDDEADSTOCKFLAG: [null, [Validators.required]],
+      ADDDEADSTOCKFLAG: [null],
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -457,6 +457,8 @@ export class MasterSavingComponent implements OnInit {
           value: ele.id,
           name: 'DEAD'
         }
+      let result=this.scheme.find(idmaster => idmaster['id'] ==  ele.CODE )
+      if(result==undefined)
         this.scheme.push(obj)
       }
     })

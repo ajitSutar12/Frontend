@@ -32,19 +32,19 @@ export class InterestPassingComponent implements OnInit {
     if (val == 3) {
       this.EditInterestCalculationTrue = false;
       this.CalculateInterestPassingTrue = true;
-      // this.CalculateInterestUnpassingTrue = false;
-      // this.CalculateInterestDeletionTrue = false;     
+      this.CalculateInterestUnpassingTrue = false;
+       this.CalculateInterestDeletionTrue = false;     
       this.EditOverdueInterestReceivableAmountTrue=false;
 
     }
-    // if (val == 4) {
-    //   this.EditInterestCalculationTrue = false;
-    //   this.CalculateInterestPassingTrue = false;
-    //   this.CalculateInterestUnpassingTrue = true;
-    //   this.CalculateInterestDeletionTrue = false;    
-    //   this.EditOverdueInterestReceivableAmountTrue=false;
+    if (val == 4) {
+      this.EditInterestCalculationTrue = false;
+      this.CalculateInterestPassingTrue = false;
+      this.CalculateInterestUnpassingTrue = true;
+      this.CalculateInterestDeletionTrue = false;    
+      this.EditOverdueInterestReceivableAmountTrue=false;
 
-    // }
+    }
     // if (val == 5) {
     //   this.EditInterestCalculationTrue = false;
     //   this.CalculateInterestPassingTrue = false;

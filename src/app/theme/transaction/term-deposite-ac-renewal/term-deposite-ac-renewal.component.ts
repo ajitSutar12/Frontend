@@ -121,7 +121,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this.angForm = this.fb.group({
       branch_code: ['', [Validators.required]],
       date: [''],
-      scheme_type: ['', [Validators.required]],
+      scheme_type: ['TD', [Validators.required]],
       scheme: ['', [Validators.required]],
       account_no: ['', [Validators.required]],
       NormalInt: [''],
@@ -1083,7 +1083,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     
     this._service.postData(obj).subscribe(data => {
       Swal.fire('Success!', 'Account Renewaled Successfully !', 'success');
-      this.createForm()
+      this.ngOnInit()
     }, err => {
       console.log(err?.error?.message)
     })

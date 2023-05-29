@@ -29,6 +29,7 @@ import { SchemeCodeDropdownService } from '../../../shared/dropdownService/schem
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.service';
 import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
+import { PipePipe } from './ratio-analysis/pipe.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -50,7 +51,7 @@ import { InstallmentMethodService } from 'src/app/shared/dropdownService/install
     },],
   declarations: [OtherViewComponent,
     //  InterestPaidHistoryComponent,
-    BudgetViewComponent, DepositLoanAnalysisComponent, RatioAnalysisComponent, ChequeBookDetailsComponent, DepositInterestProjectionComponent, UnclearChequeComponent, LoanProjectionComponent, LoanInstallmentInquiryComponent, MemberGuarantorViewComponent, LockerViewComponent, GraphLoanDepositPositionComponent, ComparitiveGraphLoanDepositPositionComponent, CdRationAnalysisComponent
+    BudgetViewComponent, DepositLoanAnalysisComponent, RatioAnalysisComponent, ChequeBookDetailsComponent, DepositInterestProjectionComponent, UnclearChequeComponent, LoanProjectionComponent, LoanInstallmentInquiryComponent, MemberGuarantorViewComponent, LockerViewComponent, GraphLoanDepositPositionComponent, ComparitiveGraphLoanDepositPositionComponent, CdRationAnalysisComponent, PipePipe
   ],
   // exports: [InterestPaidHistoryComponent]
 })

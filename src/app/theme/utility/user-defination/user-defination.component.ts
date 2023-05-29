@@ -19,6 +19,9 @@ import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { data, event } from 'jquery';
+import { id } from '@swimlane/ngx-datatable';
 
 // Handling datatable data
 class DataTableResponse {
@@ -78,6 +81,7 @@ export class UserDefinationComponent implements OnInit {
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
+  date:any
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -93,17 +97,21 @@ export class UserDefinationComponent implements OnInit {
   //for search functionality
   filterData = {};
   //Title
-  //  ROLE: Array<IOption> = this.userdefinationservice.getRoleList();
+  // ROLE: Array<IOption> = this.userdefinationservice.getRoleList();
   // ROLE: IOption[];
-  ROLE: any;
+  ROLEX: any;
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
-  selectedRole :Array<string> = ['1'];;
+  selectedRole :Array<string> = ['1'];F_NAME: any;
+  L_NAME: any;
+  brachId:any;
   timeLeft = 5;
   barnchData: any;
   userId: any;
+  // ROLE:any;
+  // din:Array<IOption>;
 
   showAdd: boolean = true;
   showEdit: boolean = false;
@@ -120,29 +128,35 @@ export class UserDefinationComponent implements OnInit {
     private _branchMasterServices: OwnbranchMasterService
 
   ) {
-    this._branchMasterServices.getOwnbranchList().subscribe(data => {
-      this.barnchData = data;
-    })
+    
+  
   }
 
   ngOnInit(): void {
-
+    
     this.userdefinationservice.getRoleList().subscribe(data => {
-      this.ROLE = data;
-      console.log(this.ROLE);
+      this.ROLEX = data;
+    
     });
+    this._branchMasterServices.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.barnchData = data;
+      
+    })
     this.createForm();
+
     // Fetching Server side data
     this.dtExportButtonOptions = {
+    
       pagingType: 'full_numbers',
       paging: true,
       pageLength: 10,
       serverSide: true,
       processing: true,
+      searching:true,
       ajax: (dataTableParameters: any, callback) => {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
+        dataTableParameters.maxNumber = dataTableParameters.start +dataTableParameters.length;
+
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
         dataTableParameters.columns.forEach(element => {
@@ -177,6 +191,7 @@ export class UserDefinationComponent implements OnInit {
             });
           });
       },
+      
       columns: [
         {
           title: 'Action',
@@ -230,14 +245,19 @@ export class UserDefinationComponent implements OnInit {
       ],
       dom: 'Blrtip',
     };
-    // this.UserdefinationServiceD.getuserdefinationList().pipe(first()).subscribe(data => {
-    //   this.userdef = data;
-    // })
+ 
     this.runTimer();
 
-    this.dataSub = this.UserdefinationServiceD.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    // this.dataSub = this.UserdefinationServiceD.loadCharacters().subscribe((options) => {
+    //   this.characters = options;
+    //   console.log(this.characters);
+      
+    // });
+    // this.userdefinationservice.getuserdefinationList().pipe(first()).subscribe(data => {
+    //   this.userdef = data;
+    //     console.log(this.userdef);
+      
+    //    })
   }
   createForm() {
 
@@ -261,6 +281,10 @@ export class UserDefinationComponent implements OnInit {
       // USER_CREATED_AT: ['', [ Validators.pattern]],
     });
   }
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+ 
   // Method to insert data into database through NestJS
   submit() {
     debugger
@@ -276,8 +300,11 @@ export class UserDefinationComponent implements OnInit {
       'PASSWORD': 'Admin@21',
       'STATUS': formVal.STATUS,
       'branchId': formVal.branchId
+     
       // 'USER_CREATED_AT': formVal.USER_CREATED_AT,
     }
+    console.log(dataToSend);
+    
 
     this.userdefinationservice.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -289,53 +316,83 @@ export class UserDefinationComponent implements OnInit {
     //To clear form
     this.angForm.reset();
   }
+  newFunction(event:any){
+   this.selectedRoleName = event.value;    
+   console.log(this.selectedRoleName);
+   
+   }
+    dater(event:any){
+      this.date = event.value
+      console.log(this.date);    
+    }
+
 
   //Method for append data into fields
   editClickHandler(id) {
-   
-    this.showAdd = false;
-    this.showEdit = true;
+   debugger
+    this.showAdd = true;
+    this.updateShow = true;
+    // // this.showEdit = true;
+    // this.userdefinationservice.getFormData(id).subscribe(data => {
+    //   console.log(data);
+       
+    // })
+  
     
     this.userdefinationservice.getFormData(id).subscribe(data=>{
-      console.log(data);
-      let array = new Array;
-      let selectedRoleName = '';
-      data.RoleDefine.forEach(ele=>{
-     
-        array.push(ele.RoleId.toString())
-        if(selectedRoleName == ''){
-          selectedRoleName = ele.Role.NAME;
-        }else{
-          selectedRoleName = selectedRoleName +', '+ele.Role.NAME;
-        }
-      })
-      this.selectedRoleName = selectedRoleName;
-      let list = array;
-      this.userId = data.id;
-      this.selectedRole = list;
-      this.angEditForm.patchValue({
-        'FULL_NAME' : data.F_NAME+' '+data.L_NAME,
-        'Edit_branchId' : data.branchId.toString(),
-        'STATUS1' : data.STATUS
-      })
-    })
-    // this.userdefinationservice.getFormData(id).subscribe(data => {
-    //   this.updateID = data.id;
-    //   this.angForm.setValue({
-    //     'F_NAME': data.F_NAME,
-    //     'L_NAME': data.L_NAME,
-    //     'DOB': data.DOB,
-    //     'MOB_NO': data.MOB_NO,
-    //     'EMAIL': data.EMAIL,
-    //     // 'ROLE': data.ROLE,
-    //     'USER_NAME': data.USER_NAME,
-    //     // 'PASSWORD': data.PASSWORD,
-    //     'STATUS': data.STATUS,
-    //     // 'USER_CREATED_AT': data.USER_CREATED_AT,
-
+      console.log(data,'edit');
+      // let array = new Array;
+      // let selectedRoleName = '';
+      // data.RoleDefine.forEach(ele=>{
+      
+      //   array.push(ele.RoleId.toString())
+      //   if(selectedRoleName == ''){
+      //     selectedRoleName = ele.Role.NAME;
+      //   }else{
+      //     selectedRoleName = selectedRoleName +', '+ele.Role.NAME;
+      //   }
+      // })
+      // this.selectedRoleName = selectedRoleName;
+      // let list = array;
+      // this.userId = data.id;
+      // this.selectedRole = list;
+      console.log(data.DOB);
+      
+      this.angForm.patchValue({
+       
+        
+        // 'FULL_NAME' : data.F_NAME+' '+data.L_NAME,
+    //     'Edit_branchId' : data.branchId.toString(),
+    //     'STATUS1' : data.STATUS
     //   })
     // })
+    // this.userdefinationservice.getFormData(id).subscribe(data => {
+      
+    //   console.log(data)
+    //   this.updateID = data.id;
+    //   this.angForm.patchValue({
+        'F_NAME': data.F_NAME,
+        'L_NAME': data.L_NAME,
+        'DOB': data.DOB,
+        'MOB_NO': data.MOB_NO,
+        'EMAIL': data.EMAIL,
+      //  'roleId': data.RoleDefine[0].Role.NAME,
+       'ROLE': data.RoleDefine[0].RoleId,
+      //  'selectedRoleName': data.RoleDefine[0].Role.NAME,
+     
+       'branchId':data.branchId,
+        'USER_NAME': data.USER_NAME,
+        // 'PASSWORD': data.PASSWORD,
+        'STATUS': data.STATUS,
+        // 'USER_CREATED_AT': data.USER_CREATED_AT,
+
+      })
+    })
   }
+
+  
+  
+
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
@@ -386,6 +443,7 @@ export class UserDefinationComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    debugger
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -445,6 +503,7 @@ export class UserDefinationComponent implements OnInit {
     this.showAdd = true;
     this.showEdit = false;
   }
+  
 }
 
 

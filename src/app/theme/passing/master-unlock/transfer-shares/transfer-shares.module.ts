@@ -15,21 +15,23 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 @NgModule({
   declarations: [TransferSharesComponent],
+  exports: [TransferSharesComponent],
   imports: [
     CommonModule,
     DataTablesModule,
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    SharesTransferModule
+    SharesTransferModule,
+    
   ],
-  exports: [TransferSharesComponent],
+  
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
   ],
-  // schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
+  //  schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TransferSharesModule { }

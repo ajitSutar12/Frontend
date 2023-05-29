@@ -30,7 +30,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule,
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [SchemeAccountNoService,SchemeCodeDropdownService,OwnbranchMasterService,
     {

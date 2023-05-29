@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { log } from 'console';
 @Component({
   selector: 'app-interest-paid-history',
   templateUrl: './interest-paid-history.component.html',
@@ -73,6 +74,7 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
     this.createForm()
     //Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+  //  debugger
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'TD');
         // return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'DS'  || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'AG' || scheme.name == 'IV');
@@ -115,9 +117,11 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
     this.getAccountList()
   }
   getAccountList() {
+    debugger
     this.obj = [this.schemeCode, this.ngBranchCode]
     this.accno = null
     switch (this.getschemename) {
+
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.Acc_No = data;
@@ -167,7 +171,8 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
   tableArr = []
   totalDebitInt = 0
   totalCreditInt = 0
-  getTable() {
+  getTable() {  
+  
     this.tableArr = []
     this.totalDebitInt = 0
     this.totalCreditInt = 0
@@ -181,6 +186,9 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
         toDate: this.tilldate == this.sysparaDate ? this.tilldate : moment(this.tilldate).format('DD/MM/YYYY')
       }
       this.http.post<any>(this.url + '/ledger-view/interestPaidHistory', obj).subscribe((data) => {
+        
+        console.log(data);
+        
         if (data.table.length == 0) {
           Swal.fire('info', 'No Records Found!', 'info')
         }
@@ -188,8 +196,10 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
           this.tableArr = data.table
           this.totalDebitInt = data.TotalDebitInt
           this.totalCreditInt = data.totalCreditInt
+      
         }
       })
     }
   }
+  
 }
