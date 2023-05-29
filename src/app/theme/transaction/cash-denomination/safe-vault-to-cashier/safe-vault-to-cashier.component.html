@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Cash In Denomination</h5>
+                        <h5>Safe Vault to Cashier</h5>
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                             Fields marked with (<sub class="required"> * </sub>) are mandatory
                         </h6>
@@ -74,7 +74,7 @@
                                 <div class="col-sm-12 col-md-3"> <label for="TRAN_DATE">Denomination Transaction
                                         Date<sub class="required">*</sub></label>
                                 </div>
-                                <div class="col-sm-12 col-md-2">
+                                <div class="col-sm-12 col-md-3">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
@@ -101,9 +101,14 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-12 col-xm-12">
-        <div class="row"  id="FORMA" *ngIf="DenominationChart">
-            <div class="card" style="width: 500px;">
+  
+
+
+
+</div>
+<div class="row mx-2">
+   
+            <div class="card" style="width: 500px;" id="FORMA" *ngIf="DenominationChart">
                 <div class="card-header">
                     <h5>Cash in Denomination</h5>
                 </div>
@@ -114,7 +119,7 @@
                                 <td class="td_center">{{data.currency}} X</td>
                                 <td ><input type="text"  style="width:100px;" (focusout)="calculation(data,indexOfelement,$event)" value="{{data.qty}}" disabled>=</td>
                                 <td><input type="text"  style="width:100px;" value="{{data.total}}" disabled></td>
-                                <td><input type="text" value="{{data.available}}"></td>
+                                <td><input type="text"  value="{{data.available}}"></td>
                             </tr>
                             <div></div>
                             <div class="h" style="width: 100px;"></div>
@@ -150,12 +155,6 @@
                 </div>
 
             </div>
-
-        </div>
-
-    </div>
-
-
 
 
 </div>
