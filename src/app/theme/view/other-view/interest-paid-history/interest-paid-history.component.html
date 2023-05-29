@@ -134,7 +134,7 @@
                             <td class="td_center">Payable Interest</td>
                         </tr>
                     </thead>
-                    <tbody *ngIf="tableArr?.length != 0">
+                    <tbody *ngIf="tableArr?.length != 0 " >
                         <tr *ngFor="let data of tableArr; 
                         let indexOfelement = index">
                             <td>{{data.TRAN_DATE}}</td>

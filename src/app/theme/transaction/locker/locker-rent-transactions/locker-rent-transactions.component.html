@@ -397,8 +397,8 @@
                                                             [(ngModel)]="scheme1" formControlName="TRF_ACTYPE"
                                                             bindLabel="label" (change)="getTransferAccountList($event)"
                                                             title="Compulsory Selection" placeholder="Scheme">
-                                                            <ng-option *ngFor="let item of Schemea" [value]="item">
-                                                                {{item.id}} {{item.label}}</ng-option>
+                                                            <ng-option *ngFor="let data of Schew" [value]="data">
+                                                                {{data.id}} {{data.label}}</ng-option>
                                                         </ng-select>
                                                     </span>
                                                 </div>
@@ -445,7 +445,7 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right ;" type="text"
                                                             name="ledgerbalance" class="form-control" placeholder=" "
-                                                            formControlName="LEDGER_BALANCE" maxlength="15"
+                                                            formControlName="LEDGER_BALANCE" maxlength="15" (change)="leger"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                             disabled>
                                                     </span>

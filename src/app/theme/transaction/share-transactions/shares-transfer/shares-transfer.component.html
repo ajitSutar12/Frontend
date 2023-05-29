@@ -355,10 +355,10 @@
 </app-modal-basic>
 
 
-<app-modal-basic #modalLarge [dialogClass]="'modal-md'">
+<app-modal-basic #formnarration [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>
-        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+        <button type="button" class="close basic-close" (click)="formnarration.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -377,7 +377,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #narrationhide
-                        (click)="modalLarge.hide()">Close</button>
+                        (click)="formnarration.hide()">Close</button>
                 </div>
             </div>
         </perfect-scrollbar>

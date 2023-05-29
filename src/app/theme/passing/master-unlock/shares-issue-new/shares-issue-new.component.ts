@@ -170,6 +170,8 @@ export class SharesIssueNewComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+      console.log(dtInstance.ajax.reload);
+      
     });
   }
 }

@@ -164,8 +164,8 @@ export class RentLockerComponent implements OnInit {
   getRentLockerData(data) {
     this.rentLockerData = data.id;
     this.child.editClickHandler(data.id);
-    // this.child.rejectShow = true;
-    // this.child.approveShow = true;
+     this.child.rejectShow = true;
+     this.child.approveShow = true;
   }
 
   reloadTable() {

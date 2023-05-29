@@ -160,6 +160,7 @@ export class CancelMemberComponent implements OnInit {
   }
   //get saving customer data
   getMemberCancelData(data) {
+ 
     this.memberCancelData = data.id;
     this.child.editClickHandler(data.id);
     this.child.rejectShow = true;
@@ -167,8 +168,10 @@ export class CancelMemberComponent implements OnInit {
   }
 
   reloadTable() {
+    
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+      console.log(dtInstance.ajax.reload);
     });
   }
 }
