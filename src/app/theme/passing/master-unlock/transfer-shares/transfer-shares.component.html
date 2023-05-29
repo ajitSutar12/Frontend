@@ -1,4 +1,4 @@
-hiiii
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -66,9 +66,10 @@ hiiii
                     </div>
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 </div> 
+
 
  <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
@@ -77,16 +78,16 @@ hiiii
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <!-- <div class="app-modal-body">
+    <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
-
-            <app-shares-transfer 
-                (reloadTablePassing)="reloadTable()"></app-shares-transfer>
-        </perfect-scrollbar>
-    </div> -->
     
-    <div class="app-modal-footer">
+            <app-shares-transfer  [childMessage]="shareTransferData"
+            (reloadTablePassing)="reloadTable()"></app-shares-transfer>
+        </perfect-scrollbar>
+    </div> 
+
+     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" id="trigger" (click)="modalLarge.hide();"
             hidden>Close</button>
     </div>
-</app-modal-basic>
+</app-modal-basic>  

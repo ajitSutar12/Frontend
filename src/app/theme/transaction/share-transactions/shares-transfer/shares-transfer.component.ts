@@ -121,6 +121,11 @@ export class SharesTransferComponent implements OnInit {
       this.narrationList = data
     });
   }
+  getNarration(ele) {
+    this.particulars = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
   getFormNarration(ele) {
     this.ngFnarration = ele;
     let el: HTMLElement = this.narrationhide.nativeElement;
@@ -323,6 +328,7 @@ export class SharesTransferComponent implements OnInit {
   //function for edit button clicked
   editClickHandler(id): void {
     this.http.get(this.url + '/shares-transfer/' + id).subscribe((data: any) => {
+      
       this.updateID = data.id
       if (data.TRAN_STATUS == 0) {
         this.approveShow = true;

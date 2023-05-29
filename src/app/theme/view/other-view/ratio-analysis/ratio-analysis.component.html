@@ -24,8 +24,10 @@
                                 <tr *ngFor="let item of depositData">
                                     <td>{{item.INT_RATE}}</td>
                                     <td>{{item.NO_OF_ACS}}</td>
-                                    <td>{{item.TOT_BALANCE}}</td>
-                                    <td>0.00</td>
+                                    <!-- <td><ul *ngFor="let data of amount"><li {{data}}></li></ul></td> -->
+                                    <td>{{item.TOT_BALANCE}}td>
+                                    <td>{{item.TOT_BALANCE1}}</td>
+
                                 </tr>
                                 <!-- <tr>
                                     <td>Sub Total</td>
@@ -44,7 +46,7 @@
                                     <td>{{item.INT_RATE}}</td>
                                     <td>{{item.NO_OF_ACS}}</td>
                                     <td>{{item.TOT_BALANCE}}</td>
-                                    <td>0.00</td>
+                                    <td>{{item.TOT_BALANCE1}}</td>
                                 </tr>
                             </tbody>
                         </table>
