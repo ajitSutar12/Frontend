@@ -61,7 +61,11 @@ export class BalanceSheetComponent implements OnInit {
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-      this.branchOption.push({ value: '0', label: 'Consolidate' })
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }
     });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
