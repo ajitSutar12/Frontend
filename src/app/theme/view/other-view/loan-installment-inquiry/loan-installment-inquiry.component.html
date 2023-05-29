@@ -72,21 +72,23 @@
               </div>
             </div>
 
+            
+
             <div class="col-sm-12 col-md-2"><label for="insta">Interest Rate</label>
             </div>
             <div class="col-md-1">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" "
-                    pattern="\d{1,2}(\.\d{2})?" id="TDS_RATE" maxlength="5" title="Input allowed only  0-9" #margin
-                    (keyup)="checkmargin(margin.value)" formControlName=" TDS_RATE"
+                  <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
+                    id="INT_RATE" maxlength="5" title="Input allowed only  0-9" #margin
+                    (focusout)="checkmargin(margin.value)" formControlName=" INT_RATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="angForm.controls['TDS_RATE'].invalid && (angForm.controls['TDS_RATE'].dirty || angForm.controls['TDS_RATE'].touched)"
+                *ngIf="angForm.controls['INT_RATE'].invalid && (angForm.controls['INT_RATE'].dirty || angForm.controls['INT_RATE'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="angForm.controls['TDS_RATE'].errors?.required">
+                <div *ngIf="angForm.controls['INT_RATE'].errors?.required">
                   This field is required
                 </div>
               </div>
@@ -117,15 +119,21 @@
             </div>
 
 
-            <div class="col-sm-12 col-md-2  "><label for="insta">Installment</label>
-            </div>
-
+            <div class="col-md-2"><label for="amount">Installment<sub class="required">*</sub></label></div>
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="Installment" class="form-control" placeholder=" " id="Installment" disabled>
-
+                  <input style="text-align: right;" type="text" class="form-control" name="amount"
+                    formControlName="INSTALLMENTS" maxlength="15"  
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" disabled>
                 </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['INSTALLMENTS'].invalid && (angForm.controls['INSTALLMENTS'].dirty || angForm.controls['INSTALLMENTS'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['INSTALLMENTS'].errors?.required">
+                  This field is required
+                </div>
               </div>
             </div>
 

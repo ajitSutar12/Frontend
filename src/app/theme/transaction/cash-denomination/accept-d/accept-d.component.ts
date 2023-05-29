@@ -36,17 +36,17 @@ export class AcceptDComponent implements OnInit {
   cashierName : any;
   currencyData =
   [
-    { currency: 2000, qty: 0, total: 0 },
-    { currency: 1000, qty: 0, total: 0 },
-    { currency: 500, qty: 0, total: 0  },
-    { currency: 200, qty: 0, total: 0  },
-    { currency: 100, qty: 0, total: 0  },
-    { currency: 50, qty: 0, total: 0  },
-    { currency: 20, qty: 0, total: 0  },
-    { currency: 10, qty: 0, total: 0  },
-    { currency: 5, qty: 0, total: 0  },
-    { currency: 2, qty: 0, total: 0  },
-    { currency: 1, qty: 0, total: 0  },
+    { currency: 2000, qty: "", total: 0 },
+    { currency: 1000, qty: "", total: 0 },
+    { currency: 500, qty: "", total: 0  },
+    { currency: 200, qty: "", total: 0  },
+    { currency: 100, qty: "", total: 0  },
+    { currency: 50, qty: "", total: 0  },
+    { currency: 20, qty: "", total: 0  },
+    { currency: 10, qty: "", total: 0  },
+    { currency: 5, qty: "", total: 0  },
+    { currency: 2, qty: "", total: 0  },
+    { currency: 1, qty: "", total: 0  },
   ]
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -93,7 +93,7 @@ export class AcceptDComponent implements OnInit {
       ACCOUNT_NO : ele.TRAN_ACNO,
       NARRATION : ele.NARRATION,
       TRANSACTION_AMT : ele.TRAN_AMOUNT,
-      TRANSACTION_TYPE : 'Credit Type'
+      TRANSACTION_TYPE : 'Credit'
     })
     this.cashierName = user.F_NAME +' '+user.L_NAME;
   }
@@ -137,10 +137,16 @@ export class AcceptDComponent implements OnInit {
         },err=>{
           console.log(err);
         })
-      }
+      } 
       
     // }else{
     //   Swal.fire('Oops...','Please fill all required field','warning');
     // }
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
   }
 }

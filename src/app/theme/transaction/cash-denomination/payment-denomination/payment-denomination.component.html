@@ -2,13 +2,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Cash Receipt Denomination</h5>
+                <h5>Payment cash Denomination</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                <div class="card-block">
+                <div class="card-block"> 
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">Transaction No<sub
                             class="required">*</sub></label></div>
@@ -68,13 +68,13 @@
                                     </div>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
+                            <!-- <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['SCHEME'].invalid && (angForm.controls['SCHEME'].dirty || angForm.controls['SCHEME'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['SCHEME'].errors?.required">
                                     This field is required.
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="ACCOUNT_NO">Account No<sub
                             class="required">*</sub></label></div>
@@ -96,13 +96,13 @@
                                     </div>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
+                            <!-- <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['ACCOUNT_NO'].invalid && (angForm.controls['ACCOUNT_NO'].dirty || angForm.controls['ACCOUNT_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ACCOUNT_NO'].errors?.required">
                                     This field is required.
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-sm-12 col-md-1"><label for="NARRATION">Particulars</label></div>
                         <div class="col-sm-12 col-md-2">
@@ -121,6 +121,7 @@
                                     <input type="text" style="text-align: right;" maxlength="12"
                                         pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
                                         formControlName="DENOMINATION_AMT"  [(ngModel)]="denomination"
+                                        (focusout)= "getDecimalPoint($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                 </span>
                             </div>
@@ -141,6 +142,7 @@
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                     title="Input allowed only  0-9"
                                     formControlName="TRANSACTION_AMT"
+                                    (focusout)= "getDecimalPoint($event)"
                                     [ngClass]="{'form-submitted': formSubmitted}" readonly>
                                 </span>
                             </div>
@@ -160,6 +162,7 @@
                                     <input style="text-align: right;" class="form-control"  name="TRANSACTION_AMT" formControlName="LEDGER_BAL"
                                     pattern="\d{1,20}(\.\d{1,2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                     title="Input allowed only  0-9" [ngClass]="{'form-submitted': formSubmitted}"
+                                    (focusout)= "getDecimalPoint($event)"
                                      type="text">
                                 </span>
                             </div>
@@ -192,7 +195,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" (click)="showCashModule()">
-                                Update Data
+                                Update
                             </button>
                         </div>
                         
@@ -213,7 +216,7 @@
                 <tr *ngFor="let data of currencyData; let indexOfelement = index">
                     <td class="td_center">{{data.currency}} X</td>
                     <td><input type="text"  style="width:100px;" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                        (keyup)="calculation(data,indexOfelement,$event)" value="{{data.qty}}">=</td>
+                        (keyup)="calculation(data,indexOfelement,$event)" value="{{data.qty}}" placeholder="0">=</td>
                     <td><input type="text"  style="width:100px;" value="{{data.total}}" disabled></td>
                     <!-- <td><input type="text" value="{{data.available}}"></td> -->
                 </tr>

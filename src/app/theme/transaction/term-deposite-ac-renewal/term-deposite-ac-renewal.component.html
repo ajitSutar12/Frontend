@@ -48,7 +48,13 @@
                             <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-2">
-                                <div class="form-group form-primary form-static-label">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" class="form-control" disabled readonly
+                                            formControlName="scheme_type">
+                                    </span>
+                                </div>
+                                <!-- <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
                                             formControlName="scheme_type" disable readonly>
@@ -56,7 +62,7 @@
                                                 {{item.S_ACNOTYPE}}</ng-option>
                                         </ng-select>
                                     </span>
-                                </div>
+                                </div> -->
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
                                     class="alert alert-danger">
@@ -312,8 +318,9 @@
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                 #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()" bsDatepicker
-                                                formControlName="IntUpto" [(ngModel)]="InterestDate" appButton minlength="8" maxlength="10"
-                                                [disabled]="NormalCheck" (bsValueChange)="formatInterestDate()">
+                                                formControlName="IntUpto" [(ngModel)]="InterestDate" appButton
+                                                minlength="8" maxlength="10" [disabled]="NormalCheck"
+                                                (bsValueChange)="formatInterestDate()">
                                         </span>
                                     </div>
                                 </div>
@@ -586,8 +593,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                            appButton minlength="8" maxlength="10"
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control" appButton
+                                                minlength="8" maxlength="10"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appTheme bsDatepicker
                                                 (change)="getMaturityDate()" formControlName="new_ason_date"
                                                 [(ngModel)]="renewalAsOnDate" #new_ason_date="bsDatepicker"
@@ -696,10 +703,10 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                appButton minlength="8" maxlength="10"
-                                                #new_matu_date="bsDatepicker" (keydown.Tab)="new_matu_date.hide()"
-                                                formControlName="new_matu_date" placement="top">
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker appButton
+                                                minlength="8" maxlength="10" #new_matu_date="bsDatepicker"
+                                                (keydown.Tab)="new_matu_date.hide()" formControlName="new_matu_date"
+                                                placement="top">
                                         </span>
                                     </div>
                                 </div>
