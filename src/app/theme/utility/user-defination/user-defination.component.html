@@ -11,14 +11,17 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="F_NAME" maxlength="2000" class="form-control"
-                                    #autofocus placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
+                                    <input type="text" name="F_NAME" maxlength="2000" class="form-control" #autofocus
+                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="F_NAME">
                                     <label for="label-name">First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['F_NAME'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required || angForm.controls['F_NAME'].errors?.maxlength">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['F_NAME'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required || angForm.controls['F_NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -32,8 +35,11 @@
                                     <label for="label-name">Last Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required || angForm.controls['L_NAME'].errors?.maxlength">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required || angForm.controls['L_NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -41,12 +47,23 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="DOB" class="form-control" placeholder=" "
-                                        id="DOB" max="9999-12-31" onfocus="(this.type='date')"
-                                        formControlName="DOB">
+                                    <input type="text"  placeholder="dd/mm/yyyy" name="DOB" class="form-control"  id="DOB" [(ngModel)]="date" (change)="dater()"[bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                    
+                                        minlength="8" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #DOB="bsDatepicker" [bsValue]="bsValue" bsDatepicker required
+                                        #DOB formControlName="DOB">
+
                                     <label for="DOB">Birth Date</label>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['DOB'].invalid && (angForm.controls['DOB'].dirty || angForm.controls['DOB'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['DOB'].errors?.required">
+                                        This field is required
+                                    </div>
+                             </div>
                         </div>
                     </div>
                     <div class="row">
@@ -59,8 +76,10 @@
                                     <label for="MOB_NO">Mobile<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['MOB_NO'].invalid && (angForm.controls['MOB_NO'].dirty || angForm.controls['MOB_NO'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['MOB_NO'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['MOB_NO'].invalid && (angForm.controls['MOB_NO'].dirty || angForm.controls['MOB_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.required || angForm.controls['MOB_NO'].errors?.pattern">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -74,18 +93,36 @@
                                     <label for="EMAIL">Email<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EMAIL'].invalid && (angForm.controls['EMAIL'].dirty || angForm.controls['EMAIL'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['EMAIL'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['EMAIL'].invalid && (angForm.controls['EMAIL'].dirty || angForm.controls['EMAIL'].touched)"
+                                class="alert alert-danger">
+                                <!-- *ngIf="angForm.controls['EMAIL'].errors?.pattern" -->
+                                <div *ngIf="angForm.controls['EMAIL'].errors?.pattern || angForm.controls['EMAIL'].errors?.required || angForm.controls['EMAIL'].errors?.pattern">
                                     Enter valid Email
                                 </div>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="ROLE" [multiple]="true" placeholder="Role" formControlName="ROLE">
-                                </ng-select>
+                                <!-- <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="ROLE"
+                                     [multiple]="true" placeholder="Role" formControlName="ROLE">
+                                </ng-select> --> 
+                                <!-- <ng-select placeholder="role" formControlName="ROLE"        bindValue="value" bindLable="label">
+                                    <ng-option *ngFor="let role of ROLE"
+                                        [value]="role">{{role.id}}{{role.label}}</ng-option>
+                                </ng-select> -->
+                                 <span class="border-lable-flt">
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedRoleName" (change)="newFunction()"
+                                                formControlName="ROLE"placeholder="Role"[selectOnTab]='true'
+                                                >
+                                                <ng-option *ngFor="let values of ROLEX" [value]="values">
+                                                    {{values.label}}</ng-option>
+                                            </ng-select>
+                                     </span> 
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)" class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)"
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ROLE'].errors?.required">
                                     This field is required
                                 </div>
@@ -98,29 +135,40 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="USER_NAME" maxlength="2000" class="form-control"
                                         placeholder=" " id="label-name" required="" pattern="^[A-Za-z0-9\./ -]+$"
-                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="USER_NAME">
+                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
+                                        formControlName="USER_NAME">
                                     <label for="USER_NAME">User Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['USER_NAME'].invalid && (angForm.controls['USER_NAME'].dirty || angForm.controls['USER_NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['USER_NAME'].errors?.pattern || angForm.controls['USER_NAME'].errors?.required || angForm.controls['USER_NAME'].errors?.maxlength">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['USER_NAME'].invalid && (angForm.controls['USER_NAME'].dirty || angForm.controls['USER_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['USER_NAME'].errors?.pattern || angForm.controls['USER_NAME'].errors?.required || angForm.controls['USER_NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z 0-9 - / . (Space)
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="col-md">
-                                <div class="form-group form-primary form-static-label" style="width: 108%;margin-left: -4%;">
-                                    <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="barnchData" [multiple]="false" placeholder="Branch" formControlName="branchId">
-                                    </ng-select>
+                            <div class="col-md-4">
+                                <div class="form-group form-primary form-static-label"
+                                    >
+                                    <span class="border-lable-flt">
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="branchId"
+                                                formControlName="branchId"placeholder="Branch"[selectOnTab]='true'
+                                                #brnch (focus)="onFocus(brnch)" >
+                                                <ng-option *ngFor="let values of barnchData" [value]="values">
+                                                    {{values.label}}</ng-option>
+                                            </ng-select>
+                                     </span>
                                 </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)" class="alert alert-danger">
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)"
+                                    class="alert alert-danger">
                                     <div *ngIf="angForm.controls['branchId'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> 
                         <!-- <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -143,16 +191,14 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="STATUS"
-                                            checked="checked" value="active"
+                                        <input type="radio" name="STATUS" checked="checked" value="active"
                                             formControlName="STATUS">
                                         <i class="helper"></i>Active
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="STATUS"
-                                            checked="checked" value="inactive"
+                                        <input type="radio" name="STATUS" checked="checked" value="inactive"
                                             formControlName="STATUS">
                                         <i class="helper"></i>Inactive
                                     </label>
@@ -165,27 +211,27 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light mx-1"  *ngIf="showButton" (click)="submit()"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light"  (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
                         </div>
 
                     </div>
-
                 </div>
             </form>
-
         </div>
     </div>
 </div>
 
-<div class="row" *ngIf="showEdit">
+<!-- <div class="row" *ngIf="showEdit">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h5>Edit Role and Branch</h5>
             </div>
             <div class="card-body">
-                <form [formGroup]="angEditForm" novalidate>
+                <form [formGroup]="angForm" novalidate>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group input-group">
@@ -199,11 +245,15 @@
                         </div>
                         <div class="col-md-3">
                             <div class="col-md">
-                                <div class="form-group form-primary form-static-label" style="width: 108%;margin-left: -4%;">
-                                    <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="barnchData" [multiple]="false" placeholder="Branch" formControlName="Edit_branchId">
+                                <div class="form-group form-primary form-static-label"
+                                    style="width: 108%;margin-left: -4%;">
+                                    <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="barnchData"
+                                        [multiple]="false" placeholder="Branch" formControlName="Edit_branchId">
                                     </ng-select>
                                 </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)" class="alert alert-danger">
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)"
+                                    class="alert alert-danger">
                                     <div *ngIf="angForm.controls['branchId'].errors?.required">
                                         This field is required
                                     </div>
@@ -212,12 +262,15 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [(ngModel)]="selectedRole" [options]="ROLE" [multiple]="true" placeholder="Role" formControlName="EDIT_ROLE">
+                                <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [(ngModel)]="selectedRole"
+                                    [options]="ROLE" [multiple]="true" placeholder="Role" formControlName="EDIT_ROLE">
                                 </ng-select>
                             </div>
                             <label>Existing Role : {{selectedRoleName}}</label>
-                            
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)" class="alert alert-danger">
+
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)"
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ROLE'].errors?.required">
                                     This field is required
                                 </div>
@@ -230,16 +283,14 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="STATUS1"
-                                            checked="checked" value="active"
+                                        <input type="radio" name="STATUS1" checked="checked" value="active"
                                             formControlName="STATUS1">
                                         <i class="helper"></i>Active
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="STATUS1"
-                                            checked="checked" value="inactive"
+                                        <input type="radio" name="STATUS1" checked="checked" value="inactive"
                                             formControlName="STATUS1">
                                         <i class="helper"></i>Inactive
                                     </label>
@@ -250,12 +301,13 @@
                 </form>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary"(click)="saveEdit()" [disabled]="!angEditForm.valid">Save</button>
-                <span style="margin-left: 5px;"><button class="btn btn-primary" (click)="closeEditForm()">Cancel</button></span>
+                <button class="btn btn-primary" (click)="saveEdit()" [disabled]="!angEditForm.valid">Save</button>
+                <span style="margin-left: 5px;"><button class="btn btn-primary"
+                        (click)="closeEditForm()">Cancel</button></span>
             </div>
         </div>
     </div>
-</div>
+</div>  -->
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -263,13 +315,16 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                                class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="userdef?.length != 0">
                                     <tr *ngFor="let data of userdef">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
-                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                              
+                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button>  -->
                                         </td>
-                                    
+
                                         <td>{{ data.F_NAME }}</td>
                                         <td>{{ data.L_NAME }}</td>
                                         <td>{{ data.DOB }}</td>

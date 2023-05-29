@@ -51,6 +51,8 @@ export class UserDefinationService {
           array.push(obj)
         });
         return array;
+        console.log(array);
+        
       }));
   }
 }

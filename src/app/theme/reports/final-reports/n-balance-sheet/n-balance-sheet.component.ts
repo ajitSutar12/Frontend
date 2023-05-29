@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
@@ -10,28 +10,28 @@ import Swal from "sweetalert2";
   selector: 'app-n-balance-sheet',
   templateUrl: './n-balance-sheet.component.html',
   styleUrls: ['./n-balance-sheet.component.scss'],
-  providers:[OwnbranchMasterService]
+  providers: [OwnbranchMasterService]
 })
 export class NBalanceSheetComponent implements OnInit {
-// Created Form Group
-angForm: FormGroup;
-todate: any = null;
-fromdate: any = null
-maxDate: Date;
-minDate: Date;
-bsValue = new Date();
+  // Created Form Group
+  angForm: FormGroup;
+  todate: any = null;
+  fromdate: any = null
+  maxDate: Date;
+  minDate: Date;
+  bsValue = new Date();
 
 
-iframeurl: any = ' ';
-showRepo: boolean = false;
-clicked:boolean=false;
+  iframeurl: any = ' ';
+  showRepo: boolean = false;
+  clicked: boolean = false;
   //Dropdown option variable
   ngbranch
   branchOption: any;
 
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private sanitizer: DomSanitizer,) { 
+    private sanitizer: DomSanitizer,) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -43,6 +43,11 @@ clicked:boolean=false;
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }
     })
 
   }
@@ -68,12 +73,12 @@ clicked:boolean=false;
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
       let branched1 = obj.BRANCH_CODE;
 
-      this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/NformBalanceSheet.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+branched1+"'&bankName='" + bankName + "'";
+      this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/NformBalanceSheet.php?stardate='" + stardate + "'&endate='" + endate + "'&branched1='" + branched1 + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -84,7 +89,7 @@ clicked:boolean=false;
   resetForm() {
     this.createForm()
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
 
 

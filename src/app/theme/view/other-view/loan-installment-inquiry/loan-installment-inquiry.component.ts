@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.service';
 import Swal from 'sweetalert2';
+import { OtherViewService } from '../other-view.service';
+import { data } from 'jquery';
 
 
 @Component({
@@ -27,7 +29,7 @@ export class LoanInstallmentInquiryComponent implements OnInit {
   ];
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   private dataSub: Subscription = null;
-  characters: Array<IOption>;
+  characters: Array<IOption>; 
 
   
 
@@ -35,7 +37,7 @@ export class LoanInstallmentInquiryComponent implements OnInit {
 
  
 
-  constructor( private fb: FormBuilder,private repayModeService: RepayModeService,) { }
+  constructor( private fb: FormBuilder,private repayModeService: RepayModeService,private _services: OtherViewService) { }
 
 
  
@@ -60,7 +62,8 @@ export class LoanInstallmentInquiryComponent implements OnInit {
       REPAYMENT: ['', [Validators.required]],
       INTERESTR: ['', [Validators.required]],
       AC_REPAYMODE: ['', [Validators.required]],
-      TDS_RATE: ["", [Validators.pattern]],
+      INSTALLMENTS: ['', [Validators.required]],
+      INT_RATE: ['', [Validators.required]],
     })
   }
 
@@ -74,9 +77,23 @@ export class LoanInstallmentInquiryComponent implements OnInit {
     })
   }
 
+
   checkmargin(ele: any) {
+    let obj = this.angForm.value;
+    obj['user'] = JSON.parse(localStorage.getItem('user'));
     //check  if given value  is below 100
+    
+    let  data1 = Number(obj.LOANAMT) / Number(obj.NOOFINST) 
+    let data2 = (Number(obj.LOANAMT) * Number(ele)) / ((Number(obj.NOOFINST) * 100 ))
+    let data = Number(data1)  + Number(data2)
     if (ele <= 50) {
+      // this._services.getInstallment(obj).subscribe(data=>{
+      //   console.log(data);
+    
+        this.angForm.patchValue({
+          INSTALLMENTS : data
+        })
+      // })
     } else {
       Swal.fire("Invalid Input", "Please insert values below 50", "error");
       this.angForm.patchValue({
@@ -84,6 +101,12 @@ export class LoanInstallmentInquiryComponent implements OnInit {
       })
     }
   }
-
+  // getDecimalPoint(event) {
+    
+  //       if (event.target.value != '')
+  //         event.target.value = parseFloat(event.target.value).toFixed(2);
+  //       else
+  //         event.target.value = 0
+  //     }
  
 }

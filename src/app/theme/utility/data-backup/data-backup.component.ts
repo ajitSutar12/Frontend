@@ -12,23 +12,26 @@ import Swal from 'sweetalert2';
 })
 export class DataBackupComponent implements OnInit {
   url = environment.base_url;
+
   showButton = true
+
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
+
   fileUrl = this.url + '/backup/backup.sql'
 
-  download() {
+  download() { 
     this.http.post(this.url + '/voucher/backupdb', '').subscribe(data => {
       if (data == 0) {
         Swal.fire('Opps', 'Failed', 'error');
         this.showButton = true
       } else {
         Swal.fire('success', 'File is ready to download', 'success');
-        this.showButton = false
+        this.showButton = false 
       }
-    });
+        });
+   
   }
 
 }

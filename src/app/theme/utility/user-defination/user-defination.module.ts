@@ -8,18 +8,23 @@ import { UserdefinationServiceD } from '../../../shared/dropdownService/user-def
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { UserDefinationService } from './user-defination.service'
 import { DataTablesModule } from 'angular-datatables';
-import {SelectModule} from 'ng-select';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+// import {SelectModule} from 'ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
     UserDefinationRoutingModule,
     SharedModule,
     FormsModule,
+    NgSelectModule,
     ReactiveFormsModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
   
 
   ],

@@ -26,6 +26,8 @@ import { TransferSharesModule } from './transfer-shares/transfer-shares.module';
 import { CancelMemberModule } from './cancel-member/cancel-member.module';
 import { SharesIssueNewModule } from './shares-issue-new/shares-issue-new.module';
 import { RentLockerModule } from './rent-locker/rent-locker.module';
+import { ShareTransferModule } from '../centralised-passing/share-transfer/share-transfer.module';
+import { CentralisedPassingModule } from '../centralised-passing/centralisedPassing.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -51,7 +53,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TransferSharesModule,
     CancelMemberModule,
     SharesIssueNewModule,
-    RentLockerModule
+    RentLockerModule,
+    ShareTransferModule,
+    CentralisedPassingModule,
+    
+    
+
+    
 
   ],
   declarations: [MasterUnlockComponent],

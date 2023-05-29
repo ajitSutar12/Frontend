@@ -12,7 +12,7 @@ import { CashDenominationService } from '../cash-denomination.service';
   templateUrl: './payment-denomination.component.html',
   styleUrls: ['./payment-denomination.component.scss']
 })
-export class PaymentDenominationComponent implements OnInit {
+export class PaymentDenominationComponent implements OnInit { 
   formSubmitted = false;
   //api
   url = environment.base_url;
@@ -92,7 +92,7 @@ export class PaymentDenominationComponent implements OnInit {
       ACCOUNT_NO : ele.TRAN_ACNO,
       NARRATION : ele.NARRATION,
       TRANSACTION_AMT : ele.TRAN_AMOUNT,
-      TRANSACTION_TYPE : 'Credit Type'
+      TRANSACTION_TYPE : 'Credit'
     })
     this.cashierName = user.F_NAME +' '+user.L_NAME;
   }
@@ -140,5 +140,10 @@ export class PaymentDenominationComponent implements OnInit {
     //   Swal.fire('Oops...','Please fill all required field','warning');
     // }
   }
-
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
 }

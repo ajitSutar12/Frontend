@@ -92,7 +92,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ShareTransferModule,
     IssueNewShareModule,
     MemberCancelModule,
-    RentLockerModule
+    RentLockerModule,
   ],
   declarations: [CentralisedPassingComponent],
   exports: [CentralisedPassingComponent],

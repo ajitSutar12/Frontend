@@ -19,6 +19,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import * as moment from 'moment';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { error } from 'console';
 @Component({
   selector: 'app-savings-pigmy-account-closing',
   templateUrl: './savings-pigmy-account-closing.component.html',
@@ -432,7 +433,22 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.modalClass = 'modalShow';
     this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data) => {
       this.modalClass = 'modalHide';
-      if (Number(data[0].LedgerBal) >= 0) {
+      if (data[0].ODGIVEN == true) {
+        Swal.fire('Oops', 'Overdraft given so Account cannot close', 'error')
+        this.accountedit = null
+        return
+      }
+      else if (data[0].ISFREEZ == true) {
+        Swal.fire('Oops', 'Freezed account so Account cannot close', 'error')
+        this.accountedit = null
+        return
+      }
+      else if (data[0].ISCLOSED == true) {
+        Swal.fire('Oops', 'Freezed account so Account cannot close', 'error')
+        this.accountedit = null
+        return
+      }
+      else if (Number(data[0].LedgerBal) >= 0) {
         Swal.fire('Oops', 'Account cannot close', 'error')
         return
       }
@@ -517,6 +533,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.showCustomerDeatils()
     }, (error) => {
       console.log(error, 'err')
+      this.modalClass = 'modalHide';
       Swal.fire('Oops!', error?.error?.message, 'error');
     })
   }
