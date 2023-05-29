@@ -517,6 +517,7 @@ export class MembershipCancellationComponent implements OnInit {
 
   // function for edit button clicked
   editClickHandler(id): void {
+    debugger
     this.http.get(this.url + '/dailyshrtran/' + id).subscribe((data: any) => {
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
@@ -526,15 +527,18 @@ export class MembershipCancellationComponent implements OnInit {
         this.rejectShow = false;
         this.unapproveShow = true;
         this.closeShow = true;
-        this.submitShow = false;
+        // this.submitShow = false;
       }
       else if (dailyshrtran.TRAN_STATUS == '0') {
         this.approveShow = true;
         this.rejectShow = true;
         this.unapproveShow = false;
         this.closeShow = true;
-        this.submitShow = false;
+        
       }
+      this.submitShow = false;
+
+      
       this.selectedBranch = dailyshrtran.BRANCH_CODE
       this.schemeCode = Number(dailyshrtran.TRAN_ACTYPE)
       this.Issue_date = dailyshrtran.TRAN_DATE

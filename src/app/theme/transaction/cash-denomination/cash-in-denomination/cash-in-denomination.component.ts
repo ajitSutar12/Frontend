@@ -53,6 +53,9 @@ export class CashInDenominationComponent implements OnInit {
       { currency: 5, qty: 0, total: 0 },
       { currency: 2, qty: 0, total: 0 },
       { currency: 1, qty: 0, total: 0 },
+      // {  qnty: 0, total: 0 },
+
+      
     ]
   Scheme: unknown;
   DenominationChart: boolean;
@@ -114,7 +117,9 @@ export class CashInDenominationComponent implements OnInit {
   calculation(data, index, element) {
     let currency = this.currencyData[index].currency;
     let qty = element.target.value;
-    let total = currency * qty;
+    let qnty = element.target.value;
+
+    let total = currency * qty ;
     this.currencyData[index].currency = currency;
     this.currencyData[index].qty = qty;
     this.currencyData[index].total = total;
@@ -166,5 +171,11 @@ export class CashInDenominationComponent implements OnInit {
       this.DenominationChart = true
     }
   }
+  getDecimalPoint(event) {
+        if (event.target.value != '')
+          event.target.value = parseFloat(event.target.value).toFixed(2);
+        else
+          event.target.value = 0
+      }
 }
 

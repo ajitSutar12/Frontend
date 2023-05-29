@@ -28,8 +28,8 @@ export class SafeVaultToCashierComponent implements OnInit {
   ];
   currencyData =
   [
-    { currency: 2000, qty: 0, total: 0 },
-    { currency: 1000, qty: 0, total: 0 },
+    { currency: 2000, qty: 0, total: 0  },
+    { currency: 1000, qty: 0, total: 0  },
     { currency: 500,  qty: 0, total: 0  },
     { currency: 200,  qty: 0, total: 0  },
     { currency: 100,  qty: 0, total: 0  },
@@ -51,7 +51,8 @@ export class SafeVaultToCashierComponent implements OnInit {
       CASHIER :['', [Validators.required]],
       TRAN_DATE:['', [Validators.required]],
       // DENOMINATION_AMT:['', [Validators.required]],
-      Branch:['',[Validators.required]]
+      Branch:['',[Validators.required]],
+      // Available:['']
     })
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({

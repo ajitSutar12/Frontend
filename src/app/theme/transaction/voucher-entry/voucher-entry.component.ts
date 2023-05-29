@@ -1101,7 +1101,7 @@ export class VoucherEntryComponent implements OnInit {
         if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
-          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4) 
 
       } else {
         this.tranModeList = [];
@@ -2239,7 +2239,7 @@ export class VoucherEntryComponent implements OnInit {
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
         'Approved',
-        'Voucher approved successfully',
+        'Voucher approved successfully', 
         'success'
       );
       var button = document.getElementById('trigger');

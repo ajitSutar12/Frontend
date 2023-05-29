@@ -9,6 +9,7 @@ export class RatioAnalysisComponent implements OnInit {
 
   dtExportButtonOptions: any = {};
   depositData:any;
+  amount:any
   loanData:any;
   AverageLoan = 0;
   AverageDepo = 0;
@@ -17,9 +18,20 @@ export class RatioAnalysisComponent implements OnInit {
   constructor(private otherviewservice : OtherViewService) { }
 
   ngOnInit(): void {
-    this.otherviewservice.ratioAnalysis().subscribe(data=>{
+    this.otherviewservice.ratioAnalysis().subscribe(data=> {
       console.log(data);
-      this.depositData = data.DepoData;
+     this.depositData = data.DepoData;
+    //  this.depositData.push(this.amount)
+    //   this.amount = data.DepoData.map(value => Math.abs(value.TOT_BALANCE));
+
+    //   const array = [1, 2, 3, 4, 5];
+    //   const hasEvenNumber = array.some((element) => element % 2 === 0);
+    //   console.log(hasEvenNumber); 
+          
+    //   console.log(this.depositData);
+    //   console.log(this.amount);
+      
+      
       this.loanData    = data.LoanData;
       this.AverageDepo = data.AverageDepo;
       this.AverageLoan = data.AverageLoan;
@@ -64,5 +76,5 @@ export class RatioAnalysisComponent implements OnInit {
     
   }
 
-
+  
 }
