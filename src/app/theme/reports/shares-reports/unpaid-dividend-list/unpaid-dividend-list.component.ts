@@ -79,6 +79,22 @@ maxDate: Date;
 
   ngOnInit(): void {
     this.createForm()
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
+    }
+    
    //branchlist
    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
     this.branchOption = data;
@@ -98,20 +114,7 @@ maxDate: Date;
 
 })
   
-  let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.ngbranch = result.branch.id
-      this.ngForm.controls['BRANCH_CODE'].enable()
-      this.branchName = result.branch.NAME
-
-    }
-    else {
-      this.ngForm.controls['BRANCH_CODE'].disable()
-      this.ngbranch = result.branch.id
-      this.branchName = result.branch.NAME
-
-    }
+ 
   }
 
   getIntro(event){
@@ -140,112 +143,7 @@ maxDate: Date;
         })
         break;
 
-
-    //  case 'SB':
-    //      this._schemeService.getSavingSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //      this.startingAccount = null
-    //      this.endingacc = data;
-    //      this.EndingAccount = null
-
-    //      })
-    //      break;
- 
-    //    case 'CA':
-    //      this._schemeService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //      this.startingAccount = null
-    //      this.endingacc = data;
-    //      this.EndingAccount = null
-
-    //      })
-    //      break;
- 
-    //    case 'LN':
-    //      this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //      this.startingAccount = null
-    //      this.endingacc = data;
-    //      this.EndingAccount = null
-
-    //      })
-    //      break;
- 
-    //    case 'TD':
-    //      this._schemeService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //      this.startingAccount = null
-    //      this.endingacc = data;
-    //      this.EndingAccount = null
-
-    //      })
-    //      break;
- 
-    //    case 'DS':
-    //      this._schemeService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //        this.startingAccount = null
-    //        this.endingacc = data;
-    //      this.EndingAccount = null
-
- 
-    //      })
-    //      break;
- 
-    //    case 'CC':
-    //      this._schemeService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //        this.startingAccount = null
-    //        this.endingacc = data;
-    //      this.EndingAccount = null
-
-    //      })
-    //      break;
- 
-    //    case 'GS':
-    //      this._schemeService.getAnamatSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //        this.startingAccount = null
-    //        this.endingacc = data;
-    //      this.EndingAccount = null
-
- 
-    //      })
-    //      break;
- 
-    //    case 'PG':
-    //      this._schemeService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //        this.startingAccount = null
-    //        this.endingacc = data;
-    //        this.EndingAccount = null
-  
- 
-    //      })
-    //      break;
- 
-    //    case 'AG':
-    //      this._schemeService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //      this.startingAccount = null
-    //      this.endingacc = data;
-    //      this.EndingAccount = null
-
- 
-    //      })
-    //      break;
- 
-    //    case 'IV':
-    //      this._schemeService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-    //        this.startingacc = data;
-    //      this.startingAccount = null
-    //      this.endingacc = data;
-    //      this.EndingAccount = null
-
- 
-    //      })
-    //      break;
-    }
+        }
      
    }
   getTransferAccountList(event) {
