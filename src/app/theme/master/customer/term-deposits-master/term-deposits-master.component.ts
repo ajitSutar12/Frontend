@@ -38,6 +38,7 @@ import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+import { data } from 'jquery';
 
 class DataTableResponse {
   data: any[];
@@ -68,6 +69,7 @@ interface TermDepositMaster {
   AC_SCHMAMT: string;
   AC_MATUAMT: string;
   IS_DISCOUNTED_INT_RATE: boolean;
+  REQ_RENEW:boolean;
   //address
   AC_ADDFLAG: boolean
   AC_THONO: string;
@@ -497,6 +499,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
       AC_MATUAMT: ['', [Validators.pattern]],
       IS_DISCOUNTED_INT_RATE: [''],
+      REQ_RENEW:[''],
       AC_BIRTH_DT: [''],
       AC_RENEW_DATE: [''],
       AC_HONO: ['',],
@@ -959,6 +962,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   CheckmonthDays() {
+    debugger
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
       if (data.UNIT_OF_PERIOD == "B") {
         this.angForm.controls['AC_MONTHS'].enable()
@@ -1012,17 +1016,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
 
 
-      if (data.MULTIPLE_OF_DAYS != null) {
-        if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
-          Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
-        }
-      }
-      if (data.MULTIPLE_OF_MONTH != null) {
-        if (((Number(this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
-          Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
-        }
-      }
-    })
+      // if (data.MULTIPLE_OF_DAYS != null) {
+      //   if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
+      //     Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
+      //   }
+      // }
+      // if (data.MULTIPLE_OF_MONTH != null) {
+      //   if ((Number((this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
+      //     Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
+      //   }
+      // }
+    })  
   }
   monthDays() {
     if (this.selectedValue != null) {
@@ -1500,6 +1504,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   // Method to insert data into database through NestJS
   submit() {
+    console.log(data);
+    
     this.formSubmitted = true;
     if (this.angForm.valid) {
       let opdate
@@ -1576,6 +1582,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
         'AC_MATUAMT': formVal.AC_MATUAMT,
         'IS_DISCOUNTED_INT_RATE': (formVal.IS_DISCOUNTED_INT_RATE == true ? '1' : '0'),
+         'REQ_RENEW':(formVal.REQ_RENEW == true ? '1' : '0'),
         'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
         //temp address 
         AC_ADDFLAG: formVal.AC_ADDFLAG,
@@ -1645,11 +1652,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id, status) {
+    debugger
     this.switchNgBTab('Basic')
     let opdate
     let asondate
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
+      console.log(data);
+      
       this.createForm()
       this.showInstruction = false
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -1718,6 +1728,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_ASON_DATE': data.AC_ASON_DATE,
         'AC_MATUAMT': data.AC_MATUAMT,
         'IS_DISCOUNTED_INT_RATE': (data.IS_DISCOUNTED_INT_RATE == '1' ? true : false),
+        'REQ_RENEW':(data.REQ_RENEW == '1' ? true : false),
         //minor and introducer
         'AC_MINOR': (data.AC_MINOR == '1' ? true : false),
         'AC_MBDATE': data.AC_MBDATE,
@@ -1761,6 +1772,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     data['id'] = this.updateID;
     // data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
     data['IS_DISCOUNTED_INT_RATE'] = (data.IS_DISCOUNTED_INT_RATE == true ? '1' : '0')
+    data['REQ_RENEW'] = (data.REQ_RENEW == true ? '1' : '0')
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
     // (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
     // (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),

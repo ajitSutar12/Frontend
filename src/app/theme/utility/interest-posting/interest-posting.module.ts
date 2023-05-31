@@ -13,7 +13,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CommonModule,
     InterestPostingRoutingModule,
     NgSelectModule,
-    SharedModule
+    SharedModule,
+    
   ],
   declarations: [InterestPostingComponent],
   providers:[{

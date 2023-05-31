@@ -35,6 +35,7 @@ export class CdRationAnalysisComponent implements OnInit {
     'partA': 0,
     'partB': 0
   }
+  show:boolean= false;
   // dtExportButtonOptions: any = {};
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private _service: EditInterestCalculationService, private http: HttpClient,
@@ -103,6 +104,9 @@ export class CdRationAnalysisComponent implements OnInit {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  find(){
+    this.show =true;
   }
 
   //-------------------------* Update All Tab data on cdratio table *-------------------------------//
