@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OtherViewService } from '../other-view.service';
+
 @Component({
   selector: 'app-ratio-analysis',
   templateUrl: './ratio-analysis.component.html',

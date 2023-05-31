@@ -21,7 +21,9 @@ import {SchemeAccountNoService} from '../../../../../shared/dropdownService/sche
     DataTablesModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
+    i
   ],
   declarations: [ EditInterestCalculationComponent],
   providers:[OwnbranchMasterService,SchemeCodeDropdownService,SchemeAccountNoService,{
