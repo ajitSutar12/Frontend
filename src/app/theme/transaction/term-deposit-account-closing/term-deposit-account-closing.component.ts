@@ -374,8 +374,23 @@ export class TermDepositAccountClosingComponent implements OnInit {
     })
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
       this.modalClass = 'modalHide';
+      if (data[0].ODGIVEN == true) {
+        Swal.fire('Oops', 'Overdraft given so Account cannot close', 'error')
+        this.customer = null
+        return
+      }
+      else if (data[0].ISFREEZ == true) {
+        Swal.fire('Oops', 'Freezed account so Account cannot close', 'error')
+        this.customer = null
+        return
+      }
+      else if (data[0].ISCLOSED == true) {
+        Swal.fire('Oops', 'Account is already closed so account cannot close', 'error')
+        this.customer = null
+        return
+      }
       if (Number(data[0].LedgerBal) > 0) {
-        Swal.fire('Oops', 'Account cannot close', 'error')
+        Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         return
       }
       this.DayOpBal = data[0].AC_SCHMAMT
