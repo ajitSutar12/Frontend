@@ -17,7 +17,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="TRANSACTION_NO" [(ngModel)]="ngTransactionNo"
                                         formControlName="TRANSACTION_NO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        [ngClass]="{'form-submitted': formSubmitted}"[selectOnTab]='true'
                                         placeholder="" (change)="getVoucherData($event)">
                                         <ng-option *ngFor="let values of voucherData" [value]="values">
                                             {{values.TRAN_NO}}||{{values.TRAN_ACNOTYPE}}||{{values.TRAN_ACNO}}||{{values.TRAN_AMOUNT}}
@@ -105,7 +105,7 @@
                             </div> -->
                         </div>
                         <div class="col-sm-12 col-md-1"><label for="NARRATION">Particulars</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <textarea class="form-control" [(ngModel)]="Particulars" readonly formControlName="NARRATION"></textarea>
