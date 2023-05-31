@@ -69,6 +69,8 @@ export class GlAccountsMasterComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
+
+  role:any;
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -106,6 +108,7 @@ export class GlAccountsMasterComponent implements OnInit {
 
     this.statement.getStatementCodeList().pipe(first()).subscribe(data => {
       this.statementCode = data;
+      this.role = this.statementCode.slice(0,4)
       console.log(this.statementCode);
       let step_2_data = new Array();
       let final_obj = new Array()
@@ -130,9 +133,10 @@ export class GlAccountsMasterComponent implements OnInit {
           final_obj.push(item);
         }
       }
+     
       this.statementCodeData = final_obj;
 
-      // console.log(this.statementCodeData);
+      console.log(this.statementCodeData);
     })
   }
 
@@ -238,6 +242,7 @@ export class GlAccountsMasterComponent implements OnInit {
     this.angForm = this.fb.group({
       AC_NO: [''],
       AC_NAME: ['', [Validators.required, Validators.pattern]],
+      AC_CODE:[''],
       AC_BCD: ['', [Validators.required]],
       IS_DIRECT_ENTRY_ALLOW: [true],
       IS_RED_BALANCE_AC: [false],

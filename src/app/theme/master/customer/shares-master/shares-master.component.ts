@@ -394,10 +394,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
+      console.log(this.Cust_ID);
+      
     })
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data
+      this.scheme = data 
+      console.log(this.scheme);
+      
       this.schemeCode = data[0].value
     })
 

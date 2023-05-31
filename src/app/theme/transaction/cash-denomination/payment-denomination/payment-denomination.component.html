@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">Transaction No<sub
                             class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TRANSACTION_NO" [(ngModel)]="ngTransactionNo"
@@ -33,9 +33,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-4">
-
-                        </div>
+                       
                         <div class="col-sm-12 col-md-1"> <label for="TOKEN_NO">Token No</label></div>
                         <div class="col-md-3">
                             <div class="form-group input-group">
@@ -105,7 +103,7 @@
                             </div> -->
                         </div>
                         <div class="col-sm-12 col-md-1"><label for="NARRATION">Particulars</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <textarea class="form-control" [(ngModel)]="Particulars" readonly formControlName="NARRATION"></textarea>
@@ -126,7 +124,8 @@
                                 </span>
                             </div>
                         </div> 
-                        <div class="col-sm-12 col-md-2"> <label>Cashier:          {{cashierName}}</label></div>
+                        <div class="col-sm-12 col-md-2"> <label>Cashier:</label></div>
+                        <div class="col-sm-12 col-md-2"> <label>{{cashierName}}</label></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_AMT">Transaction Amount<sub

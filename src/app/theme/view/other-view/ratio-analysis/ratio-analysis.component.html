@@ -22,11 +22,11 @@
                                     <td></td>
                                 </tr>
                                 <tr *ngFor="let item of depositData">
-                                    <td>{{item.INT_RATE}}</td>
+                                    <td>{{item.INT_RATE |pipe}}</td>
                                     <td>{{item.NO_OF_ACS}}</td>
                                     <!-- <td><ul *ngFor="let data of amount"><li {{data}}></li></ul></td> -->
-                                    <td>{{item.TOT_BALANCE}}td>
-                                    <td>{{item.TOT_BALANCE1}}</td>
+                                    <td>{{item.TOT_BALANCE | pipe}}</td>
+                                    <td>{{item.TOT_BALANCE1 | pipe |number : '1.0-2'   }}</td>
 
                                 </tr>
                                 <!-- <tr>
@@ -46,7 +46,7 @@
                                     <td>{{item.INT_RATE}}</td>
                                     <td>{{item.NO_OF_ACS}}</td>
                                     <td>{{item.TOT_BALANCE}}</td>
-                                    <td>{{item.TOT_BALANCE1}}</td>
+                                    <td>{{item.TOT_BALANCE1 |number : '1.0-2' }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6" style="float:left">Margin@</div>
-                            <div class="col-6" >{{Margin}}%</div>
+                            <div class="col-6" >{{Margin |pipe}}%</div>
                         </div>
                     </div>
                 </div>

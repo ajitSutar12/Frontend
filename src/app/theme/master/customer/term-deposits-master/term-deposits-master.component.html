@@ -568,7 +568,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="checkbox checkbox-primary">
                                                                 <div
                                                                     class="border-checkbox-group border-checkbox-group-primary">
@@ -583,19 +583,19 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="col-sm-2">
+                                                        <div class="col-sm-3">
                                                             <div class="checkbox checkbox-primary">
                                                                 <div
                                                                     class="border-checkbox-group border-checkbox-group-primary">
                                                                     <input type="checkbox" class="border-checkbox"
-                                                                        id="AC_IS_RECOVERY"
-                                                                        formControlName="AC_IS_RECOVERY">
+                                                                        id="REQ_RENEW"
+                                                                        formControlName="REQ_RENEW">
                                                                     <label class="border-checkbox-label"
-                                                                        for="AC_IS_RECOVERY">Recovery
+                                                                        for="REQ_RENEW">Is Auto Renewal Required
                                                                     </label>
                                                                 </div>
                                                             </div>
-                                                        </div> -->
+                                                        </div> 
                                                         <div class="col-sm-1" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="switchNgBTab('addressTab')">Next
@@ -2319,10 +2319,12 @@
                                                     <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                                                         <div class="app-modal-header">
                                                             <h4 class="modal-title">Interest Instruction</h4>
-                                                            <button type="button" class="close basic-close"
-                                                                (click)="modalLarge.hide()">
+                                                            
+                                                            <span type="button" class="close basic-close"
+                                                                (click)="modalLarge.hide()" [selectOnTab]='false' autofocus:null>
                                                                 <span aria-hidden="true">&times;</span>
-                                                            </button>
+                                                            </span>
+                                                        
                                                         </div>
                                                         <div class="app-modal-body">
                                                             <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
