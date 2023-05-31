@@ -35,17 +35,17 @@ export class PaymentDenominationComponent implements OnInit {
   cashierName : any;
   currencyData =
   [
-    { currency: 2000, qty: 0, total: 0 },
-    { currency: 1000, qty: 0, total: 0 },
-    { currency: 500, qty: 0, total: 0  },
-    { currency: 200, qty: 0, total: 0  },
-    { currency: 100, qty: 0, total: 0  },
-    { currency: 50, qty: 0, total: 0  },
-    { currency: 20, qty: 0, total: 0  },
-    { currency: 10, qty: 0, total: 0  },
-    { currency: 5, qty: 0, total: 0  },
-    { currency: 2, qty: 0, total: 0  },
-    { currency: 1, qty: 0, total: 0  },
+    { currency: 2000, qty: "", total: 0 },
+    { currency: 1000, qty: "", total: 0 },
+    { currency: 500, qty: "", total: 0  },
+    { currency: 200, qty: "", total: 0  },
+    { currency: 100, qty: "", total: 0  },
+    { currency: 50, qty: "", total: 0  },
+    { currency: 20, qty: "", total: 0  },
+    { currency: 10, qty: "", total: 0  },
+    { currency: 5, qty: "", total: 0  },
+    { currency: 2, qty: "", total: 0  },
+    { currency: 1, qty: "", total: 0  },
   ]
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -54,7 +54,6 @@ export class PaymentDenominationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger
     let user = JSON.parse(localStorage.getItem('user'))
     this.createForm()
     this._service.paymentVoucher(user).subscribe(data=>{
