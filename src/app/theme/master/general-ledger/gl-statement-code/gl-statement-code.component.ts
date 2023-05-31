@@ -93,6 +93,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   childArray: any;
   posArray
   sortArray: any;
+  
 
 
   //constructor
@@ -433,8 +434,10 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
         console.log(err);
       })
       this.closeBtnClick()
+
     }
   }
+
 
   //for edit head name
   EditnewHead(id, name) {
@@ -585,6 +588,10 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
   closeBtnClick() {
+ 
+    this.newCode1 = null;
+    this.newCode= null;
+    
     this.modalService.dismissAll();
   }
   selectAllContent($event) {

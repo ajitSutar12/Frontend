@@ -280,9 +280,21 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data3 => {
       this.scheme = data3
-      this.code = this.scheme[0].value
-      this.schemeCode = this.scheme[0].name
+      console.log(this.scheme);
+       //  this.code = this.scheme[0].value
+      //  console.log(this.code);
+        this.schemeCode = this.scheme[0].value
+        console.log(this.schemeCode);
+              
+        
     })
+    
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+      console.log(this.Cust_ID);
+      
+    })
+
 
     this.cityMasterService
       .getcityList()
@@ -291,12 +303,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         this.city = data;
       });
 
-    this.customerID
-      .getCustomerIDMasterList()
-      .pipe(first())
-      .subscribe((data1) => {
-        this.Cust_ID = data1;
-      });
+    // this.customerID
+      // .getCustomerIDMasterList()
+      // .pipe(first())
+      // .subscribe((data1) => {
+        // this.Cust_ID = data1;
+        // console.log(this.cust_id);
+        
+      // });
     this.getSystemParaDate()
   }
 
@@ -319,15 +333,27 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // addNewCustomer(newCustomer) {
+  //   this.customerID
+  //     .getCustomerIDMasterList()
+  //     .pipe(first())
+  //     .subscribe((data) => {
+  //       this.Cust_ID = data;
+  //       this.cust_id = newCustomer;
+  //       console.log(this.cust_id);
+        
+  //       this.getCustomer(newCustomer);
+  //     });
+  // }
   addNewCustomer(newCustomer) {
-    this.customerID
-      .getCustomerIDMasterList()
-      .pipe(first())
-      .subscribe((data) => {
-        this.Cust_ID = data;
-        this.cust_id = newCustomer;
-        this.getCustomer(newCustomer);
-      });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+      // this.id = newCustomer;
+      this.getCustomer(newCustomer);
+    })
   }
 
   getCustomer(id) {

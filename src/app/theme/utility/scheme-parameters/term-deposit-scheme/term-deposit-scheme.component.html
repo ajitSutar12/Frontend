@@ -96,8 +96,9 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglacno" formControlName="S_GLACNO"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" [virtualScroll]="true"
-                    #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required placeholder="GL Account Number">
+                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
+                    placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -142,7 +143,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -154,10 +155,10 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl" [virtualScroll]="true"
-                    formControlName="S_INT_CR_ACNO" bindLabel="label" title="Compulsory Selection" #S_INT_CR_ACNO
-                    (focus)="onFocus(S_INT_CR_ACNO)" [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
-                    required placeholder="Interest Credit GL Account ">
+                  <ng-select appTheme id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl"
+                    [virtualScroll]="true" formControlName="S_INT_CR_ACNO" bindLabel="label"
+                    title="Compulsory Selection" #S_INT_CR_ACNO (focus)="onFocus(S_INT_CR_ACNO)" [selectOnTab]='true'
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Credit GL Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -174,40 +175,41 @@
                 </div>
               </div>
             </div>
-              <div class="col-md-6">
-                <!-- <div class="form-group form-primary form-static-label">
+            <div class="col-md-6">
+              <!-- <div class="form-group form-primary form-static-label">
                   <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                     placeholder="Payable Int.A/c *" required title="Compulsory Selection"
                     formControlName="S_RECBL_PYBL_INT_ACNO">
                   </ng-select>
                 </div> -->
-                <div class="form-group form-primary form-static-label">
-                  <span class="border-lable-flt">
-                    <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
-                      formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                      #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true'
-                      [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Payable Interest Account ">
-                      <ng-option *ngFor="let values of acMaster" [value]="values">
-                        {{values.label}}</ng-option>
-                    </ng-select>
-                    <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account <sub class="required"> * </sub></label>
-                  </span>
-                </div>
-                <div class="form-group form-primary form-static-label" *ngIf="
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
+                    formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"
+                    [virtualScroll]="true" #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)"
+                    [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
+                    placeholder="Payable Interest Account ">
+                    <ng-option *ngFor="let values of acMaster" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+                  <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account <sub class="required"> * </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
                     angForm.controls['S_RECBL_PYBL_INT_ACNO'].invalid &&
                     (angForm.controls['S_RECBL_PYBL_INT_ACNO'].dirty ||
                       angForm.controls['S_RECBL_PYBL_INT_ACNO'].touched)
                   " class="alert alert-danger">
-                  <div *ngIf="
+                <div *ngIf="
                       angForm.controls['S_RECBL_PYBL_INT_ACNO'].errors?.required
                     ">
-                    This field is required
-                  </div>
+                  This field is required
                 </div>
               </div>
+            </div>
           </div>
-          
-            <div class="row">
+
+          <div class="row">
             <div class="col-md-6">
               <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -216,10 +218,10 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac" [virtualScroll]="true"
-                    formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection" #S_PENAL_ACNO
-                    (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
-                    required placeholder="Penal Interest Account ">
+                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
+                    [virtualScroll]="true" formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
+                    #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -245,10 +247,11 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble" [virtualScroll]="true"
-                    formControlName="S_RECBL_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
-                    #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true'
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Recble Penal Interest Account ">
+                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble"
+                    [virtualScroll]="true" formControlName="S_RECBL_PENAL_ACNO" bindLabel="label"
+                    title="Compulsory Selection" #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)"
+                    [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
+                    placeholder="Recble Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -305,9 +308,10 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="MATURED_BUT_NOT_PAID_GLAC" bindValue="value" [(ngModel)]="ngmaturebtntpd"
-                    formControlName="MATURED_BUT_NOT_PAID_GLAC" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                    #MATURED_BUT_NOT_PAID_GLAC (focus)="onFocus(MATURED_BUT_NOT_PAID_GLAC)" [selectOnTab]='true'
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Mature But Not Paid GL">
+                    formControlName="MATURED_BUT_NOT_PAID_GLAC" bindLabel="label" title="Compulsory Selection"
+                    [virtualScroll]="true" #MATURED_BUT_NOT_PAID_GLAC (focus)="onFocus(MATURED_BUT_NOT_PAID_GLAC)"
+                    [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
+                    placeholder="Mature But Not Paid GL">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -493,9 +497,7 @@
                 <div class="card-block">
                   <div class="row">
                     <div class="checkbox checkbox-primary">
-                      <div class="
-                          border-checkbox-group border-checkbox-group-primary
-                        ">
+                      <div class="border-checkbox-group border-checkbox-group-primary">
                         <input class="border-checkbox" type="checkbox" name="S_INT_APPLICABLE" id="S_INT_APPLICABLE"
                           formControlName="S_INT_APPLICABLE" (click)="Intrest_Applicable($event)" />
                         <label class="border-checkbox-label" for="S_INT_APPLICABLE">
@@ -748,8 +750,9 @@
                       <span class="border-lable-flt">
                         <ng-select id="COMPOUND_INT_BASIS" bindValue="value" [(ngModel)]="ngCompoundIntBasis"
                           formControlName="COMPOUND_INT_BASIS" bindLabel="label" title="Compulsory Selection"
-                          #COMPOUND_INT_BASIS (focus)="onFocus(COMPOUND_INT_BASIS)" [selectOnTab]='true' [virtualScroll]="true"
-                          [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Compound Interest">
+                          #COMPOUND_INT_BASIS (focus)="onFocus(COMPOUND_INT_BASIS)" [selectOnTab]='true'
+                          [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
+                          placeholder="Compound Interest">
                           <ng-option *ngFor="let values of alternateOption" [value]="values">
                             {{values.label}}</ng-option>
                         </ng-select>
@@ -969,9 +972,9 @@
                       <span class="border-lable-flt">
                         <ng-select id="INSTALLMENT_BASIS" bindValue="value" [(ngModel)]="nginstallmentbase"
                           [disabled]="INSTALLMENT_BASIS" formControlName="INSTALLMENT_BASIS" bindLabel="label"
-                          #INSTALLMENT_BASIS (focus)="onFocus(INSTALLMENT_BASIS)" [selectOnTab]='true' [virtualScroll]="true"
-                          title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
-                          placeholder="Installment Base">
+                          #INSTALLMENT_BASIS (focus)="onFocus(INSTALLMENT_BASIS)" [selectOnTab]='true'
+                          [virtualScroll]="true" title="Compulsory Selection"
+                          [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Installment Base">
                           <ng-option *ngFor="let values of simpleOption" [value]="values">
                             {{values.label}}</ng-option>
                         </ng-select>
@@ -1173,7 +1176,7 @@
                         <label for="S_MATUCALC">Maturity Calculation Multiple Amount</label>
                       </span>
                     </div>
-                    
+
                   </div>
                 </div>
                 <div class="row">
@@ -1415,6 +1418,44 @@
                     <div *ngIf="angForm.controls['MIN_MONTH'].errors?.pattern">
                       Input allowed only 0-9
                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="checkbox checkbox-primary">
+                    <div class="border-checkbox-group border-checkbox-group-primary">
+                      <input type="checkbox" class="border-checkbox" id="REQ_RENEW" formControlName="REQ_RENEW" [(ngModel)]="checkboxChecked" (change)="handleCheckboxChange()">
+                      <label class="border-checkbox-label" for="REQ_RENEW">Is Auto Renewal Required
+                      </label>
+                    </div>
+                  </div>
+                 
+                  <!-- <div class="checkbox checkbox-primary">
+                    <div class="
+                        border-checkbox-group border-checkbox-group-primary
+                      ">
+                      <input class="border-checkbox" type="checkbox" name="REQ_RENEW" id="REQ_RENEW"
+                        formControlName="REQ_RENEW"/>
+                      <label class="border-checkbox-label" for="REQ_RENEW">tsadhds
+                      </label>
+                      <div>
+                          <input type="radio" id="html" name="fav_language" value="HTML">
+                                <label for="html">HTML</label><br>
+                         <input type="radio" id="css" name="fav_language" value="CSS">
+                    <label for="css">CSS</label><br>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+                <div class="row">
+                  <div *ngIf="showdiv">
+                    <label>
+                      <input class="p-2 m-2 mx-2" type="radio"  name="option" value="option1" [(ngModel)]="radioSelected" [disabled]="!checkboxChecked" />
+                      Add in Principle
+                    </label>
+                    <label>
+                      <input class="p-2 m-2" type="radio"  name="option" value="option1" [(ngModel)]="radioSelected" [disabled]="!checkboxChecked" />
+                      Add in Payable interst
+                    </label>
                   </div>
                 </div>
               </div>
@@ -1877,7 +1918,7 @@
                   <div class="row" style="float: right;">
                     <div class="col-sm m-b-20">
                       <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
-                      (keydown.Tab)="focus()" appTheme  >
+                        (keydown.Tab)="focus()" appTheme>
                         Submit
                       </button>
                       <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
@@ -1915,13 +1956,13 @@
         <div class="row">
           <div class="col-sm">
             <div class="table-responsive">
-              <table  id="schemeparametertable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+              <table id="schemeparametertable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                 class="table table-striped table-bordered table-hover compact">
                 <tbody *ngIf="termDepositScheme?.length != 0">
                   <tr *ngFor="let data of termDepositScheme">
                     <td>
-                      <span appTheme class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id);gotoTop()"
-                        placement="bottom" ngbTooltip="Edit"></span>
+                      <span appTheme class="fa fa-fw fa-edit field-icon" id="editbutton"
+                        (click)="editClickHandler(data.id);gotoTop()" placement="bottom" ngbTooltip="Edit"></span>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->

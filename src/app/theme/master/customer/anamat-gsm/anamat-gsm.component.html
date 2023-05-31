@@ -22,14 +22,23 @@
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select> -->
-                                    <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
+                                    <!-- <ng-select bindValue="value" appTheme [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" [disabled]="AC_TYPE1" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted }" required
                                         placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
-                                        (change)="getScheme($event)">
+                                        (change)="getScheme($event)"  autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{ values.label }}</ng-option>
-                                    </ng-select>
+                                    </ng-select> -->
+                                    <ng-select bindValue="value" appTheme [(ngModel)]="schemeCode" id="AC_TYPE"
+                                    bindLabel="label" formControlName="AC_TYPE"
+                                    (change)="getScheme($event)" title="Compulsory Selection"
+                                    [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
+                                    placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                                    autofocus>
+                                    <ng-option *ngFor="let values of scheme" [value]="values">
+                                        {{values.label}} </ng-option>
+                                </ng-select>
                                     <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
                                 </span>
                             </div>
