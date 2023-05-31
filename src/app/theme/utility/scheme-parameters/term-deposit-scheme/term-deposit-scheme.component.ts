@@ -119,6 +119,9 @@ interface TermDepositScheme {
 })
 export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
+  checkboxChecked = false;
+  radioSelected = false;
+  showdiv = false;
   //api 
   url = environment.base_url;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
@@ -1652,5 +1655,12 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       left: 0, 
       behavior: 'smooth' 
     });
+  }
+  handleCheckboxChange() {
+    if (this.checkboxChecked == true) {
+      this.radioSelected = true;
+      this.showdiv = !this.showdiv;
+
+    }
   }
 }

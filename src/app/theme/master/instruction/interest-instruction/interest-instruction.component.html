@@ -3,8 +3,8 @@
         <div class="card">
             <div class="card-header">
                 <h5>Interest Instructions </h5>
-                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                <h6 style="float: right; font-size: 12px; color: black;"class="requiredlable">
+                    Fields marked with  (<sub class="required "> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -23,12 +23,13 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                 
                                         placeholder="dd/mm/yyyy" name="INSTRUCTION_DATE" id="INSTRUCTION_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" #INSTRUCTION_DATE="bsDatepicker"
                                         (keydown.Tab)="INSTRUCTION_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        formControlName="INSTRUCTION_DATE" bsDatepicker>
+                                        formControlName="INSTRUCTION_DATE" bsDatepicker autofocus> 
                                     <label for="INSTRUCTION_DATE">Date</label>
                                 </span>
                             </div>
@@ -105,7 +106,7 @@
                                         id="SI_FREQUENCY" formControlName="SI_FREQUENCY" title="Compulsory Selection"
                                         [virtualScroll]="true" (change)="setNextExeDate($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" #SI_FREQUENCY
-                                        (focus)="onFocus(SI_FREQUENCY)" [selectOnTab]='true' required
+                                        (focus)="onFocus(SI_FREQUENCY)" [selectOnTab]='false' required
                                         placeholder="Frequency">
                                         <ng-option *ngFor="let values of frequencyOption" [value]="values">
                                             {{values.label}}</ng-option>

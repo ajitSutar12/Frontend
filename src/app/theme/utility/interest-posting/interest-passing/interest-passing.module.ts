@@ -9,7 +9,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterestPassingComponent } from './interest-passing.component';
 import { InterestPassingRoutingModule } from './interest-passing-routing.module';
-import { EditInterestCalculationComponent } from './edit-interest-calculation/edit-interest-calculation.component';
+// import { EditInterestCalculationComponent } from './edit-interest-calculation/edit-interest-calculation.component';
+
 import { CalculateInterestPassingComponent } from './calculate-interest-passing/calculate-interest-passing.component';
 import { CalculateInterestUnpassingComponent } from './calculate-interest-unpassing/calculate-interest-unpassing.component';
 import { CalculateInterestDeletionComponent } from './calculate-interest-deletion/calculate-interest-deletion.component';
@@ -19,6 +20,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { EditoverdueInterestReceivableAmountComponent } from './editoverdue-interest-receivable-amount/editoverdue-interest-receivable-amount.component';
+import { EditInterestCalculationComponent } from './edit-interest-calculation/edit-interest-calculation.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -31,6 +33,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     NgSelectModule,
     ReactiveFormsModule,
+    
+    
   ],
   providers: [SchemeAccountNoService,SchemeCodeDropdownService,OwnbranchMasterService,
     {

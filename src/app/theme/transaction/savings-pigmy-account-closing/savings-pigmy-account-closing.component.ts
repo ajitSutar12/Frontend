@@ -444,12 +444,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         return
       }
       else if (data[0].ISCLOSED == true) {
-        Swal.fire('Oops', 'Freezed account so Account cannot close', 'error')
+        Swal.fire('Oops', 'Account is already closed so account cannot close', 'error')
         this.accountedit = null
         return
       }
       else if (Number(data[0].LedgerBal) >= 0) {
-        Swal.fire('Oops', 'Account cannot close', 'error')
+        Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         return
       }
       this.preMature = data[0].preMature
