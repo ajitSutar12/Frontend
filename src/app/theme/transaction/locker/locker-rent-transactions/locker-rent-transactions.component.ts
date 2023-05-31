@@ -116,7 +116,7 @@ export class LockerRentTransactionsComponent implements OnInit {
 
     // })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-     
+
       var allscheme = data.filter(function (scheme) {
         return (scheme.name == 'LK')
       });
@@ -128,12 +128,12 @@ export class LockerRentTransactionsComponent implements OnInit {
 
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data1 => {
       console.log(data1);
-      
+
       var allsche = data1.filter(function (scheme) {
-        return (scheme.name == 'GL'  || scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS')
+        return (scheme.name == 'GL' || scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS')
       });
       this.Schew = allsche.slice(5);
-      
+
     });
 
 
@@ -243,24 +243,28 @@ export class LockerRentTransactionsComponent implements OnInit {
       BARNCH_CODE: this.BranchCode
     }
     this.http.post(this.url + '/locker-rent-transaction/LedgerBal', obj).subscribe((data: any) => {
-      if (data >= 0)
+      if (data >= 0) {
+
         Swal.fire(
           'Oops',
           'Balance is insufficient!',
           'warning'
         );
+        this.ngForm.patchValue({
+          LEDGER_BALANCE: 0
+        })
+      }
       else {
-
         this.ngForm.patchValue({
           LEDGER_BALANCE: Math.abs(data)
         })
       }
     })
   }
-  leger(event:any){
-   this.acnumber1 =event.value;
-   console.log(this.acnumber1);
-   
+  leger(event: any) {
+    this.acnumber1 = event.value;
+    console.log(this.acnumber1);
+
   }
   decimalAllContent($event) {
     var t = $event.target.value;
@@ -319,26 +323,26 @@ export class LockerRentTransactionsComponent implements OnInit {
       TRF_ACTYPE: formVal.TRF_ACTYPE,
       TRF_ACNO: formVal.ACNT_NO,
     }
-    if(formVal.RENT_AMOUNT > formVal.LEDGER_BALANCE){
+    if (formVal.RENT_AMOUNT > formVal.LEDGER_BALANCE) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Balance is insufficient! for this Account',
       })
     }
-    else{
-    this.http.post(this.url + "/locker-rent-transaction/insert", obj).subscribe(data => {
-      Swal.fire(
-        'Success',
-        'Data Successfully Added!',
-        'success'
-      );
-      this.createForm()
-      let data1: any = localStorage.getItem('user');
-      let result = JSON.parse(data1);
-      this.BranchCode = result.branch.id
-    })
-  }
+    else {
+      this.http.post(this.url + "/locker-rent-transaction/insert", obj).subscribe(data => {
+        Swal.fire(
+          'Success',
+          'Data Successfully Added!',
+          'success'
+        );
+        this.createForm()
+        let data1: any = localStorage.getItem('user');
+        let result = JSON.parse(data1);
+        this.BranchCode = result.branch.id
+      })
+    }
   }
   updateID
   editClickHandler(id) {
