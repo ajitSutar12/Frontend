@@ -46,7 +46,7 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="cust_id" appTheme id="AC_CUSTID" bindValue="value"
+                                    <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }"
                                         [virtualScroll]="true" (change)="getCustomer($event.value)" style="width: 85%"
                                         title="Compulsory Selection" required placeholder="Customer Id" #CUSTID

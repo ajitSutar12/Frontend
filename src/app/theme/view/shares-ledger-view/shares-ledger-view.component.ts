@@ -356,6 +356,12 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     this.getAccountlist()
 
 
+
+
+  }
+  getdata() {
+    this.ngscheme = null;
+    this.accountedit = null;
   }
   // Fetching account from seleted scheme
   getAccountlist() {
@@ -384,9 +390,11 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
       case 'SH':
         this.schemeAccountNoService.getShareMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
+
         })
         break;
     }
+
   }
 
 
@@ -609,7 +617,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     }
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 

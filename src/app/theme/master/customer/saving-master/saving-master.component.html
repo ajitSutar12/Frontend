@@ -7,7 +7,7 @@
         <h6 style="float: right; font-size: 12px; color: black" class="requiredlable">
           Fields marked with (<sub class="required"> * </sub>) are mandatory
         </h6>
-      </div> 
+      </div>
       <div class="card-block">
         <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
           <div class="row">
@@ -921,7 +921,7 @@
                                   <ng-select id="AC_INTROBRANCH" bindValue="value" [(ngModel)]="code"
                                     formControlName="AC_INTROBRANCH" bindLabel="label" title="Compulsory Selection"
                                     [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted }"
-                                     (change)="getBranch()" placeholder="Branch" #INTROBRANCH
+                                    (change)="getBranch()" placeholder="Branch" #INTROBRANCH
                                     (focus)="onFocus(INTROBRANCH)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                       {{ values.label }}</ng-option>
@@ -951,8 +951,8 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="AC_INTRACNO" bindValue="AC_NO" [(ngModel)]="ngIntroducer"
                                     formControlName="AC_INTRACNO" bindLabel="AC_NO" title="Compulsory Selection"
-                                    [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted}" 
-                                      (focus)="getIntroducer()" [virtualScroll]="true" placeholder="Account Number"
+                                    [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted}"
+                                    (focus)="getIntroducer()" [virtualScroll]="true" placeholder="Account Number"
                                     #INTRACNO (focus)="onFocus(INTRACNO)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                       {{ values.AC_NO }} {{ values.AC_NAME }}
@@ -2038,8 +2038,8 @@
                       ">
                       {{ data.REF_ACNO === "" ? "-" : data.REF_ACNO }}
                     </td>
-                    <td [ngClass]="data.AC_MINOR === '' ? 'td_center' : 'td_left'">
-                      {{ data.AC_MINOR === "" ? "-" : data.AC_MINOR }}
+                    <td [ngClass]="data.AC_MINOR === '1' ? 'td_center' : 'td_left'">
+                      {{ data.AC_MINOR === "1" ? "Yes" : 'No' }}
                     </td>
                     <td [ngClass]="
                         data.AC_MBDATE === '' ? 'td_center' : 'td_center'

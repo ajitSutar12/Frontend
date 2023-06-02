@@ -194,9 +194,10 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this.getSystemParaDate()
   }
   addNewData() {
-    this.showButton = true;
-    this.newbtnShow = false
-    this.resetForm();
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
+
   }
   resetForm() {
     this.createForm()
