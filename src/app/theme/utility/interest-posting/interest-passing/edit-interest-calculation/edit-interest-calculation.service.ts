@@ -4,7 +4,7 @@ import "rxjs/Rx";
 import { HttpClient } from "@angular/common/http";
 import { catchError, map } from "rxjs/operators";
 import Swal from "sweetalert2";
-import {environment} from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment'
 
 @Injectable({
   providedIn: "root",
@@ -21,7 +21,7 @@ export class EditInterestCalculationService {
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
-        return throwError(error);``
+        return throwError(error); ``
       })
     );
   }
@@ -43,26 +43,30 @@ export class EditInterestCalculationService {
   }
 
   //get interest date data
-  interestDate():Observable<any>{
-    return this.http.post(this.url+'/voucher/IntrestDate','').pipe(catchError(this.handleError));
+  interestDate(): Observable<any> {
+    return this.http.post(this.url + '/voucher/IntrestDate', '').pipe(catchError(this.handleError));
   }
 
   //get Intrest tran data
-  interestTranData(data): Observable<any>{
-    return this.http.post(this.url+"/voucher/InterestTranData",data)
+  interestTranData(data): Observable<any> {
+    return this.http.post(this.url + "/voucher/InterestTranData", data)
   }
 
   //submit tran data
-  submitAlterData(data): Observable<any>{
-    return this.http.post(this.url+"/voucher/EditInterestTran",data);
+  submitAlterData(data): Observable<any> {
+    return this.http.post(this.url + "/voucher/EditInterestTran", data);
   }
 
   //get Interst tran data scheme wise
-  getDataForPassing(data): Observable<any>{
-    return this.http.post(this.url+"/voucher/getIntTranDataForPassing",data);
+  getDataForPassing(data): Observable<any> {
+    return this.http.post(this.url + "/voucher/getIntTranDataForPassing", data);
+  }
+  //get Interst tran data scheme wise
+  TranDateForunPassing(data): Observable<any> {
+    return this.http.post(this.url + "/voucher/TranDateForunPassing", data);
   }
 
-  createVoucher(data):Observable<any>{
-    return this.http.post(this.url+'/voucher/createVoucherPassingInterest',data);
+  createVoucher(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/createVoucherPassingInterest', data);
   }
 }

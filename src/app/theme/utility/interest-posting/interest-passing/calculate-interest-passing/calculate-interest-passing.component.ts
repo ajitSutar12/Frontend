@@ -25,19 +25,19 @@ export class CalculateInterestPassingComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   // date variables
-  ngintDate:any=null
+  ngintDate: any = null
   warrentDate
-  dtExportButtonOptions : any = {};
+  dtExportButtonOptions: any = {};
   selectedWarrentDate: any;
   selectedDivFromYear: any;
   selectedDivToYear: any;
-  showMsg:boolean = true;
+  showMsg: boolean = true;
 
-  tableData:any;
+  tableData: any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service : EditInterestCalculationService
+    private _service: EditInterestCalculationService
   ) { }
 
   ngOnInit(): void {
@@ -55,26 +55,26 @@ export class CalculateInterestPassingComponent implements OnInit {
   }
 
   createForm() {
-   
+
     this.angForm = this.fb.group({
-     
-      INT_DATE:['',[Validators.required]],
-      
+
+      INT_DATE: ['', [Validators.required]],
+
     });
   }
 
   getIntDetails(event) {
 
-    this._service.getDataForPassing(event).subscribe(data=>{
+    this._service.getDataForPassing(event).subscribe(data => {
       this.tableData = data;
       console.log(this.tableData)
-      if(this.tableData.length == 0){
+      if (this.tableData.length == 0) {
         this.showMsg = true;
-      }else{
+      } else {
         this.showMsg = false;
       }
-    },err=>{
-      
+    }, err => {
+
     })
   }
 
@@ -82,40 +82,43 @@ export class CalculateInterestPassingComponent implements OnInit {
 
   }
   delField() {
-    
+
   }
 
   AddDataList = new Array();
-  AddData(ac_type,acnotype,ele){
-    if(ele.target.checked){
-      if(this.AddDataList.length == 0){
+  AddData(ac_type, acnotype, ele) {
+    if (ele.target.checked) {
+      if (this.AddDataList.length == 0) {
         this.AddDataList.push(ac_type)
-      }else{
-         let result = this.AddDataList.filter(ele=>ele == ac_type);
-         if(result.length==0){
+      } else {
+        let result = this.AddDataList.filter(ele => ele == ac_type);
+        if (result.length == 0) {
           this.AddDataList.push(ac_type)
-         }
+        }
       }
-    }else{
-        let index = this.AddDataList.findIndex(ele=>ele == ac_type);
-        this.AddDataList.splice(index,1);
+    } else {
+      let index = this.AddDataList.findIndex(ele => ele == ac_type);
+      this.AddDataList.splice(index, 1);
     }
   }
 
-  submit(){
-    if(this.AddDataList.length == 0){
-      Swal.fire('Oops..!',"Please select scheme data","warning");
-    }else{
+  submit() {
+    if (this.AddDataList.length == 0) {
+      Swal.fire('Oops..!', "Please select scheme data", "warning");
+    } else {
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = {
-        data:this.AddDataList,
-        date:this.ngintDate,
-        user:user
+        data: this.AddDataList,
+        date: this.ngintDate,
+        user: user
       }
-      this._service.createVoucher(obj).subscribe(data=>{
-        Swal.fire('Success',"Passing and Voucher created successfully",'success');
+      this._service.createVoucher(obj).subscribe(data => {
+        Swal.fire('Success', "Passing and Voucher created successfully", 'success');
         this.AddDataList = [];
-      },err=>{
+        this.AddDataList = [];
+        this.tableData = [];
+        this.ngOnInit()
+      }, err => {
         console.log(err);
       })
     }

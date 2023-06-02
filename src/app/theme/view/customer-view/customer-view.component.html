@@ -20,18 +20,42 @@
                 <div class="col-12">
                   <div class="solid">
                     <div class="row">
+                      <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub class="required">*</sub></label>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group form-primary form-static-label">
+                          <span class="border-lable-flt">
+                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                              formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                              placeholder="Branch" required (change)="getBranch($event);">
+                              <ng-option *ngFor="let values of branchOption" [value]="values">
+                                {{values.label}}</ng-option>
+                            </ng-select>
+                          </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label"
+                          *ngIf=" angForm.controls['BRANCH_CODE'].invalid &&(angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                          class="alert alert-danger">
+                          <div
+                            *ngIf="angForm.controls['BRANCH_CODE'].errors?.required ||angForm.controls['BRANCH_CODE'].errors?.pattern">
+                            This is required field
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer ID<sub
                             class="required">*</sub></label>
                       </div>
                       <div class="col-sm col-md">
                         <div class="form-group form-primary form-static-label">
                           <span class="border-lable-flt">
-                            <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
+                            <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="id"
                               (keyup)="filterObject($event)" (change)="getCustomer($event)" formControlName="AC_CUSTID"
                               [ngClass]="{'form-submitted': formSubmitted}" placeholder="Please enter ID or name"
                               title="Compulsory Selection" required [loading]="loadingCustomer">
                               <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                {{values.label}}</ng-option>
+                                {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                             </ng-select>
                           </span>
                         </div>

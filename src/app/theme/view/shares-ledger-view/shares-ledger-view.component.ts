@@ -357,9 +357,9 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
 
 
 
-    
+
   }
-  getdata(){
+  getdata() {
     this.ngscheme = null;
     this.accountedit = null;
   }
@@ -390,11 +390,11 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
       case 'SH':
         this.schemeAccountNoService.getShareMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
-        
+
         })
         break;
     }
-    
+
   }
 
 
@@ -617,7 +617,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     }
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 
