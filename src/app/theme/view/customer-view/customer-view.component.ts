@@ -13,7 +13,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import Swal from 'sweetalert2';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
-
+import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
 
 @Component({
   selector: 'app-customer-view',
@@ -45,6 +45,8 @@ export class CustomerViewComponent implements OnInit {
   customerImg = 'assets/images/nouser.png';
   signture = 'assets/images/nosignature.png';
   customerList
+  ngbranch
+  branchOption: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -52,18 +54,25 @@ export class CustomerViewComponent implements OnInit {
     private customerIdService: LegderViewService,
     private config: NgSelectConfig,
     private _CustomerIdService: CustomerIdService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
   ) { }
 
   ngOnInit(): void {
     this.createForm();
-    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-      this.customerList = data
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }
     })
   }
 
   createForm() {
     this.angForm = this.fb.group({
       AC_CUSTID: ["", [Validators.required]],
+      BRANCH_CODE: ["", [Validators.required]],
       CLOSED_AC: [false],
       AC_NAME: ['',],
       AC_PANNO: ['',],
@@ -78,7 +87,14 @@ export class CustomerViewComponent implements OnInit {
     })
   }
 
-
+  getBranch(event) {
+    this.customerList = []
+    this.Cust_ID = []
+    this.ngcustomer = null
+    this.http.post(this.url + '/ledger-view/customerList', { branch_code: event.value }).subscribe(data => {
+      this.customerList = data
+    })
+  }
   //filter object
   filterObject(ele) {
     this.loadingCustomer = true
@@ -91,11 +107,12 @@ export class CustomerViewComponent implements OnInit {
       this.loadingCustomer = true
       // this.customerList.forEach(element => {
       for (let element of this.customerList) {
+        element['label'] = element.AC_NO + ' ' + element.AC_NAME
         if (JSON.stringify(element.label).includes(ele.target.value.toUpperCase())) {
           this.Cust_ID.push(element);
         }
-        this.loadingCustomer = false
       }
+      this.loadingCustomer = false
       // });
     }
   }
@@ -137,9 +154,9 @@ export class CustomerViewComponent implements OnInit {
     this.angForm.patchValue({
       CLOSED_AC: false
     })
-    this.ngcustomer = eve.value
+    this.ngcustomer = eve.id
 
-    this._CustomerIdService.getFormData(eve.value).subscribe(data => {
+    this._CustomerIdService.getFormData(eve.id).subscribe(data => {
       if (data.custdocument.length != 0) {
         data.custdocument.forEach(element => {
           if (element.DocumentMasterID == 1) {
@@ -154,7 +171,7 @@ export class CustomerViewComponent implements OnInit {
         this.signture = 'assets/images/nosignature.png'
       }
     })
-    this.customerIdService.getFormData(eve.value).subscribe(data => {
+    this.customerIdService.getFormData(eve.id).subscribe(data => {
       if (data.custAddress.length != 0) {
         data.custAddress.forEach(element => {
           if (element.AC_ADDTYPE == 'P')
