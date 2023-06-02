@@ -988,6 +988,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       // RS_PRODUCT_DAY_BASE: ['']
     });
   }
+  
   OpenLink(val) {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;

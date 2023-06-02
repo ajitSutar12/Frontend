@@ -936,10 +936,10 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
   addNewData() {
-    this.showButton = true;
-    this.updateShow = false;
-    this.newbtnShow = false;
-    this.resetForm();
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
+
   }
 
   resetForm() {

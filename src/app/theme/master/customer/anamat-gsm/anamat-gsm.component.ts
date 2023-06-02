@@ -137,7 +137,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   schemeCode
   timeLeft = 5;
 
-  // id: any = '';
+  id: any = null;
   datemax: any;
 
   code: any = null
@@ -289,8 +289,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         
     })
     
-    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-      this.Cust_ID = data;
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data4 => {
+      this.Cust_ID = data4;
       console.log(this.Cust_ID);
       
     })
@@ -351,7 +351,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     let branchCode = result.branch.id;
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
-      // this.id = newCustomer;
+       this.id = newCustomer;
       this.getCustomer(newCustomer);
     })
   }
@@ -385,6 +385,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           permadd = element
         }
       })
+           this.id =data.id;
       this.angForm.patchValue({
         AC_ADDFLAG: permadd?.AC_ADDFLAG,
         AC_HONO: permadd?.AC_HONO,
@@ -453,7 +454,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   getScheme(value) {
-    this.code = value.value
+    this.schemeCode=1
+    
     this.schemeCode = value.name
   }
   // Method to insert data into database through NestJS
