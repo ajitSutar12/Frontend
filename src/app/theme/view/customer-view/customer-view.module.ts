@@ -12,6 +12,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { LegderViewService } from '../ledger-view/ledger-view.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
+import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +26,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
   ],
   declarations: [CustomerViewComponent],
   exports: [CustomerViewComponent],
-  providers: [CustomerIDMasterDropdownService, LegderViewService, CustomerIdService,{
+  providers: [CustomerIDMasterDropdownService, LegderViewService, CustomerIdService, OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

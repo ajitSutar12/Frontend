@@ -448,7 +448,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         this.accountedit = null
         return
       }
-      else if (Number(data[0].LedgerBal) >= 0) {
+      else if (Number(data[0].ledgerBal) >= 0) {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         return
       }
