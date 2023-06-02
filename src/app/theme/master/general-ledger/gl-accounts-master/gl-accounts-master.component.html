@@ -40,8 +40,8 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select 
-                                name="date" formControlName="AC_CODE">
+                                <ng-select [(ngModel)]="ngBranchCode"
+                                  name="AC_CODE" formControlName="AC_CODE" (change)="getAccountList($event)"  [selectOnTab]="true" [searchable]="true" bindValue="id" bindLabel="head_name" placeholder="Select State of Origin"  >
                                       <ng-option *ngFor="let item of role" [value]="item">
                                              {{item.head_name}}</ng-option>
                                      </ng-select>
@@ -52,8 +52,9 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [(ngModel)]="selectedStatementcode"
-                                            name="date" formControlName="AC_BCD">
-                                    <ng-option *ngFor="let item of statementCodeData" [value]="item">
+                                             formControlName="AC_BCD"  [selectOnTab]="true" [searchable]="true"  placeholder= "" >
+    
+                                    <ng-option *ngFor="let item of scheme" [value]="item">
                                         {{item.head_name}}</ng-option>
                                 </ng-select>
 

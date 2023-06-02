@@ -71,7 +71,7 @@
                 <span class="border-lable-flt">
                   <input appTheme appButton minlength="8" maxlength="10"
                    type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE" class="form-control"
-                    required #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    required #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"#date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #WARRENT_DATE="bsDatepicker"  (keydown.Tab)="WARRENT_DATE.hide()"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="WARRENT_DATE" minlength="10"
                     maxlength="10" (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -99,10 +99,10 @@
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
-                <span class="border-lable-flt">
-                  <input appTheme type="text" name="DIV_FROM_YEAR" class="form-control" placeholder=" " id="DIV_FROM_YEAR"
+                          <span class="border-lable-flt">
+                  <input appTheme type="text" name="DIV_FROM_YEAR" class="form-control" placeholder=" " id="DIV_FROM_YEAR" [min]="year" 
                     formControlName="DIV_FROM_YEAR" pattern="^[0-9]+$" minlength="4" maxlength="4"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" (focusout)="getDivYearTo()" required>
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" (focusout)="getDivYearTo()" required >
                   <label for="DIV_FROM_YEAR">Dividend Year From <sub class="required">*</sub></label>
                 </span>
               </div>

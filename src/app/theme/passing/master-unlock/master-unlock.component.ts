@@ -53,7 +53,7 @@ export class MasterUnlockComponent implements OnInit {
   constructor(private _service: MasterUnlockService) { }
 
   ngOnInit(): void {
-    this.mySubscription = interval(1000).subscribe((x => {
+    this.mySubscription = interval(100).subscribe((x => {
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       let branchCode = result.branch.id;

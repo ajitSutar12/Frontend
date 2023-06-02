@@ -327,14 +327,9 @@ export class DeadStockPurchaseComponent implements OnInit {
   }
 
   addNewData() {
-    this.ngBranchCode = null
-    this.schemeedit = null
-    this.accountedit = null
-    this.showButton = true;
-    this.updateShow = false;
-    this.newbtnShow = false;
-    this.resetForm();
-
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
   }
   //get sys para current date
   getSystemParaDate() {
