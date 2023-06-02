@@ -94,7 +94,7 @@
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     #marginmaterialcost (keyup)="checkmargin(marginmaterialcost.value);getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     maxlength="3" title="Input allowed only  0-9" formControlName="RAW_MARGIN" />
-                  <label for="rm_margin">(Margin) Raw Material Cost </label>
+                  <label for="rm_margin">(Margin) Raw Material Cost % </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -178,9 +178,9 @@
                   <input appTheme style="text-align: right" type="text" name="fg_margin" class="form-control" placeholder=" " id="fg_margin" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    #margingoodscost (keyup)="checkmargin(margingoodscost.value);getDecimal($event)" (focusout)="getDecimalPoint($event)" 
+                    #margingoodscost (keyup)="checkmargin($event);getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     title="Input allowed only  0-9" formControlName="FINISHED_MARGIN" />
-                  <label for="fg_margin">(Margin) Finished Goods Cost<sub class="required">* </sub></label>
+                  <label for="fg_margin">(Margin) Finished Goods Cost %<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -250,7 +250,7 @@
                     <th style="text-transform: captalize;">Work In Progress</th>
                     <th style="text-transform: captalize;">Finished Goods</th>
                     <th style="text-transform: captalize;">W/P Margin</th>
-                    <th style="text-transform: captalize;">F/G Margin</th>
+                    <th style="text-transform: captalize;">F/G Margin %</th>
                     <th style="text-transform: captalize;">Remarks</th>
                   </thead>
                   <tbody *ngIf="stockmasters?.length != 0">
@@ -263,7 +263,7 @@
                       </td>
 
                       <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
-                      <td class="td_right">{{ data.STATEMENT_DATE }}</td>
+                      <!-- <td class="td_right">{{ data.STATEMENT_DATE }}</td> -->
                       <td class="td_right">{{ data.RAW_MATERIAL }}</td>
                       <td class="td_right">{{ data.RAW_MARGIN }}</td>
                       <td>{{ data.WORK_PROGRESS }}</td>
