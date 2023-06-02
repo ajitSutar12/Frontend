@@ -557,15 +557,10 @@ export class DeadStockTransactionComponent implements OnInit {
 
 
   addNewData() {
-    this.ngBranchCode = null
-    this.schemeedit = null
-    this.accountedit = null
-    this.showButton = true;
-    this.updateShow = false;
-    this.newbtnShow = false;
-    this.depTotal = 0
-    this.totalAmt = 0
-    this.resetForm();
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
+
 
   }
   updatecheckdata

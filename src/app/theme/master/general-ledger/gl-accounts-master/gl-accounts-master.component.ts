@@ -59,6 +59,8 @@ export class GlAccountsMasterComponent implements OnInit {
   Data: any;
   //variables for pagination
   page: number = 1;
+  getschemename
+  
   passenger: any;
   itemsPerPage = 10;
   totalItems: any;
@@ -69,8 +71,9 @@ export class GlAccountsMasterComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
-
+  scheme:any;
   role:any;
+  ngBranchCode:any;
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -123,6 +126,8 @@ export class GlAccountsMasterComponent implements OnInit {
           }
         }
       }
+      console.log(step_2_data);
+      
 
       for (let ele1 of step_2_data) {
         let data = this.statementCode.filter(ele => ele.parent_node == ele1.id)
@@ -133,13 +138,27 @@ export class GlAccountsMasterComponent implements OnInit {
           final_obj.push(item);
         }
       }
-     
-      this.statementCodeData = final_obj;
-
+      this.statementCodeData= final_obj;
       console.log(this.statementCodeData);
+      
+      //   this.scheme =  this.statementCodeData.filter(function (scheme) {
+      //   return (scheme.parent_node
+      //     == '5' || scheme.parent_node
+      //     == '1'|| scheme.parent_node
+      //     == '2'|| scheme.parent_node
+      //     == '3');
+      // });       
+      
+     this.scheme = this.statementCodeData
+    //  this.scheme = step_2_data;
+
+      console.log(this.scheme);
     })
   }
-
+  getAccountList(event:any){
+    this.selectedStatementcode = null;
+    
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -237,7 +256,22 @@ export class GlAccountsMasterComponent implements OnInit {
     };
 
   }
-
+  
+  // getAccountList(event) {
+ 
+  //   let obj = [this.selectedStatementcode, this.ngBranchCode]
+  //   switch (event.name) {
+  //     case '0':
+  //       this.statementCodeData =  this.statementCode.filter(function (scheme) {
+  //         return (scheme.parent_node
+  //           == '0' || scheme.parent_node
+  //         );
+  //       });
+          
+  //       break;
+  //   }
+  //   this.getschemename =event.value;
+  // }
   createForm() {
     this.angForm = this.fb.group({
       AC_NO: [''],

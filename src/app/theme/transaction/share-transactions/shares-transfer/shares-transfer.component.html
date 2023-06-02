@@ -126,7 +126,7 @@
                                             <span class="border-lable-flt">
                                                 <input style="text-align: right;" type="text" name="T_NO_OF_SHARES"
                                                     (keypress)="$event.charCode == 46 || ($event.charCode >= 48 && $event.charCode < 58)"
-                                                    class="form-control" placeholder=" " id="T_NO_OF_SHARES" value="0"
+                                                    class="form-control" placeholder=" " id="T_NO_OF_SHARES"
                                                     maxlength="15" required formControlName="T_NO_OF_SHARES" disabled>
                                             </span>
                                         </div>
@@ -285,39 +285,45 @@
                                                         [(ngModel)]="ngFnarration" disabled></textarea>
                                                     <i class="fa fa-info-circle errspan"
                                                         (click)="modalLarge.show()"></i>
+                                                        <!-- <textarea class="form-control" formControlName="particular" -->
+                                                        <!-- [(ngModel)]="particular"></textarea> -->
+                                                    <!-- <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i> -->
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm" style="float: right;">
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="submitShow" (click)="submit()">
+                                            Submit
+                                        </button>
+                
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow" (click)="closeModal()">
+                                            Close</button>
+                
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
+                                            Approve</button>
+                                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()">
+                                            Unapprove</button>
+                                        <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                                        *ngIf="newbtnShow">
+                                        Cancel
+                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                        *ngIf="updateShow">
+                                        Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                    </div>
+                                </div>
                             </div>
+                            
                         </div>
+                        
                     </div>
                 </form> 
-                <div class="row">
-                    <div class="col-sm" style="float: right;">
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="submitShow" (click)="submit()">
-                            Submit
-                        </button>
 
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow" (click)="closeModal()">
-                            Close</button>
-
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
-                            Approve</button>
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()">
-                            Unapprove</button>
-                        <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                        *ngIf="newbtnShow">
-                        Cancel
-                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                        *ngIf="updateShow">
-                        Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -352,10 +358,10 @@
      <div class="app-modal-footer">
         
       </div> 
-</app-modal-basic>
+</app-modal-basic> 
 
 
-<app-modal-basic #formnarration [dialogClass]="'modal-md'">
+ <app-modal-basic #formnarration [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>
         <button type="button" class="close basic-close" (click)="formnarration.hide()">
@@ -382,4 +388,64 @@
             </div>
         </perfect-scrollbar>
     </div>
+</app-modal-basic> 
+////
+
+
+<!-- <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Narration Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Paticulars</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
+                                {{item.NARRATION}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide"
+                        #triggerhide (click)="modalLarge.hide()">Close</button>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
 </app-modal-basic>
+
+<app-modal-basic #modalLarge1 [dialogClass]="'modal-md'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Narration Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge1.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Paticulars</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of narrationList" (click)="getNarration1(item.NARRATION)">
+                                {{item.NARRATION}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide1"
+                        #triggerhide1 (click)="modalLarge1.hide()">Close</button>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+</app-modal-basic> -->

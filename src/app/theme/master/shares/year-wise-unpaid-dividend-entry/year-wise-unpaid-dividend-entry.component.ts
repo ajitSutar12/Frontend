@@ -68,7 +68,8 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   // Created Form Group
   angForm: FormGroup;
-
+  chosenYearDate:Date;
+  selectedyear:any;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
   //datatable for values from shmaster
@@ -121,6 +122,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //todays date
   date = new Date();
+  
   // year: Date;
   year = new Date().getFullYear();
 
@@ -165,7 +167,16 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     //   this.ShareMasterObject = data;
     //   this.ShareMasterObjectB = data;
     // });
+ 
+   
   }
+  // getCurrentYear():number{
+  //   const currentYear = new Date().getFullYear();
+  //   return currentYear;
+          
+        
+    
+  // }
 
   //formcontrols with validation
   createForm() {
@@ -177,7 +188,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       DIV_FROM_YEAR: [""],
       DIV_TO_YEAR: [""],
       AC_NO: [""],
-      TOTAL_SHARES: [""],
+      TOTAL_SHARES: ["",Validators.required],
       MEMBER_CLOSE_DATE: [""],
       DIVIDEND_AMOUNT: [""],
       AC_NOFrom: [""],
@@ -258,13 +269,16 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //get dividend year to value based on dividend year from
   getDivYearTo() {
+    // alert("hello")
     let divYrFrom = Number(this.angForm.controls['DIV_FROM_YEAR'].value)
-    if (this.angForm.controls['DIV_FROM_YEAR'].value != '') {
+    if (this.angForm.controls['DIV_FROM_YEAR'].value < this.year) {
       this.angForm.patchValue({
         DIV_TO_YEAR: divYrFrom + 1
       })
     }
     else {
+       Swal.fire('Invalid Year', 'Please enter a valid year.', 'error');
+
       this.angForm.patchValue({
         DIV_TO_YEAR: ''
       })
@@ -383,6 +397,12 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       }
     }
   }
+  // validateInput(event) {
+  //   const inputValue = event.target.value;
+  //   const currentYear = new Date().getFullYear();
+  //   const validInput = Math.min(Math.max(parseInt(inputValue), 0), currentYear);
+  //   event.target.value = validInput;
+  // }
 
   // Method to insert data into database through NestJS
   submit() {
@@ -492,6 +512,12 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       }
     });
   }
+  // newFunction(event:any){
+  //   this.selectedyear = event.value
+ 
+    
+
+  // }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();

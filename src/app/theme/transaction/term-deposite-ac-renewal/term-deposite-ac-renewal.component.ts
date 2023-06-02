@@ -110,6 +110,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
     //Data
     this._service.interestCategory().subscribe(data => {
+      console.log(data);
+      
       var allscheme = data.filter(function (schem) {
         return (schem.ACNOTYPE == 'TD')
       });
@@ -549,6 +551,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       case 'TD':
         this._service.termDepositExpiryAccount(this.obj).subscribe(data => {
           this.introducerACNo = data;
+          console.log(this.introducerACNo);
+          
         })
         break;
     }
