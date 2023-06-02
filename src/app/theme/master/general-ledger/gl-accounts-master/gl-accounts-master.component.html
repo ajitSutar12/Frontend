@@ -52,8 +52,8 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [(ngModel)]="selectedStatementcode"
-                                            name="date" formControlName="AC_BCD"(change)="gedata($event)"  [selectOnTab]="true" [searchable]="true"  placeholder= "" >
-                                        
+                                             formControlName="AC_BCD"  [selectOnTab]="true" [searchable]="true"  placeholder= "" >
+    
                                     <ng-option *ngFor="let item of scheme" [value]="item">
                                         {{item.head_name}}</ng-option>
                                 </ng-select>

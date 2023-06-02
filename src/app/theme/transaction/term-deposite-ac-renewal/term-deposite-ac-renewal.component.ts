@@ -263,6 +263,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   i: number
   total = 0
 
+  
+
   getMaturityAmount() {
     if (this.isCalulateMaturityAmountFlag) {
       this.angForm.patchValue({
@@ -1082,6 +1084,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   submit() {
     let obj = this.angForm.value;
+    console.log(obj);
+    
     obj['current_date'] = this.date;
     obj['user'] = JSON.parse(localStorage.getItem('user'))
     

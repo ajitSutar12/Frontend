@@ -111,7 +111,7 @@ export class GlAccountsMasterComponent implements OnInit {
 
     this.statement.getStatementCodeList().pipe(first()).subscribe(data => {
       this.statementCode = data;
-      this.role = this.statementCode.slice(0,4)
+      // this.role = this.statementCode.slice(0,4)
       console.log(this.statementCode);
       let step_2_data = new Array();
       let final_obj = new Array()
@@ -141,13 +141,14 @@ export class GlAccountsMasterComponent implements OnInit {
       this.statementCodeData= final_obj;
       console.log(this.statementCodeData);
       
-      //   this.scheme =  this.statementCodeData.filter(function (scheme) {
-      //   return (scheme.parent_node
-      //     == '5' || scheme.parent_node
-      //     == '1'|| scheme.parent_node
-      //     == '2'|| scheme.parent_node
-      //     == '3');
-      // });       
+        this.role =  step_2_data.filter(function (scheme) {
+        return (scheme.parent_name
+          == 'Liabilities' || scheme.parent_name
+          == 'Asset'|| scheme.parent_name
+          == 'Income'|| scheme.parent_name
+          == 'Expenditure'
+          )
+      });       
       
      this.scheme = this.statementCodeData
     //  this.scheme = step_2_data;
@@ -288,7 +289,9 @@ export class GlAccountsMasterComponent implements OnInit {
 
   // Method to insert data into database through NestJS
   submit() {
-    const formVal = this.angForm.value;
+    const formVal = this.angForm.value; 
+    console.log(this.angForm.value);
+    
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;

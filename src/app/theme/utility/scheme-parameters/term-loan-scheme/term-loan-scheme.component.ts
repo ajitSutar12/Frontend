@@ -403,6 +403,8 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     });
     this.acMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
       this.acMaster = data;
+      console.log(this.acMaster);
+      
     })
   }
 
