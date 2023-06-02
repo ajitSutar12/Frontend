@@ -505,7 +505,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
     let position
     let ele1 = (this.childArray.filter(ele => ele['newPosition'] == Number(columnValue)))
-    // console.log(ele1.newPosition)
+    console.log(ele1.newPosition)
     let result = this.childArray.map(ele => ele.newPosition);
 
     if (Number(columnValue) == result) {
@@ -582,16 +582,20 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
   modalChangeWindow(targetModal: NgbModal) {
+    // this.getColumnValue(id, columnValue);
     this.modalService.open(targetModal, {
       backdrop: 'static',
       size: 'lg'
     });
   }
   closeBtnClick() {
- 
     this.newCode1 = null;
+    this.treeview();
     this.newCode= null;
-    
+    this.posArray =null;
+    this.childArray =null;
+    this.shuffleCode();
+   
     this.modalService.dismissAll();
   }
   selectAllContent($event) {

@@ -121,7 +121,9 @@ export class SharesTransferComponent implements OnInit {
       this.narrationList = data
     });
   }
+  
   getNarration(ele) {
+    alert("hello")
     this.particulars = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();

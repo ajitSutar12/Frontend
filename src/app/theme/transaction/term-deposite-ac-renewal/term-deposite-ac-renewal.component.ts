@@ -110,6 +110,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
     //Data
     this._service.interestCategory().subscribe(data => {
+      console.log(data);
+      
       var allscheme = data.filter(function (schem) {
         return (schem.ACNOTYPE == 'TD')
       });
@@ -260,6 +262,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   //compound interest
   i: number
   total = 0
+
+  
 
   getMaturityAmount() {
     if (this.isCalulateMaturityAmountFlag) {
@@ -549,6 +553,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       case 'TD':
         this._service.termDepositExpiryAccount(this.obj).subscribe(data => {
           this.introducerACNo = data;
+          console.log(this.introducerACNo);
+          
         })
         break;
     }
@@ -1078,6 +1084,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   submit() {
     let obj = this.angForm.value;
+    console.log(obj);
+    
     obj['current_date'] = this.date;
     obj['user'] = JSON.parse(localStorage.getItem('user'))
     

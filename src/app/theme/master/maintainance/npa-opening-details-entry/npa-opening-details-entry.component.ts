@@ -78,6 +78,8 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     };
     this.createForm()
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      console.log(data);
+      
       var allscheme = data.filter(function (scheme) {
         return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
       });
