@@ -99,7 +99,7 @@ export class VoucherEntryComponent implements OnInit {
 
   TranModeCash = [
     { id: 1, value: 'Deposit / Receipts', tran_drcr: 'C', tran_type: 'CS' },
-    { id: 2, value: 'Deposit Closing', tran_drcr: 'C', tran_type: 'CS' },
+    { id: 2, value: 'Deposit for Closing', tran_drcr: 'C', tran_type: 'CS' },
     { id: 3, value: 'Deposit Penal Interest', tran_drcr: 'D', tran_type: 'CS' },
     { id: 4, value: 'Withdrawals / Payments', tran_drcr: 'D', tran_type: 'CS' },
     { id: 5, value: 'Withdrawals for Closing', tran_drcr: 'D', tran_type: 'CS' },
@@ -1295,7 +1295,7 @@ export class VoucherEntryComponent implements OnInit {
   checkSanctionAmountWithAmount() {
     // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
     let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
-    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN'  )) {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
       this.angForm.patchValue({
@@ -1326,6 +1326,30 @@ export class VoucherEntryComponent implements OnInit {
       currentDate: this.date,
       totalAmt: this.angForm.controls['total_amt'].value,
       type: this.typeclearbal
+    }
+    if (Number(obj.value) >= 20000 && this.submitTranMode.tran_type == 'CS') {
+      Swal.fire({
+        title: 'Are you sure?',
+        html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed == false) {
+          this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset(0);
+          this.SideDetails()
+          this.swiper.nativeElement.focus();
+          this.submitForm = true
+        } else {
+          this.checkamtcondition($event)
+          this.checkSanctionAmountWithAmount()
+          this.swiper.nativeElement.blur();
+        }
+      })
     }
     if (Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS') {
       Swal.fire({
