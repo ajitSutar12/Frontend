@@ -69,6 +69,7 @@ export class BalanceSheetComponent implements OnInit {
     });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      
       this.fromdate = data.CURRENT_DATE;
     });
 
