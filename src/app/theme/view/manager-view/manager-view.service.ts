@@ -30,6 +30,10 @@ export class ManagerViewService {
       return this.http.get(this.url+'/system-master-parameters');
     }
 
+    getGlPosition():Observable<any>{
+      return this.http.get(this.url+'/manager-view-glp');
+    }
+    
     // //insert voucher entyr
     // insertVoucher(data):Observable<any>{
     //   return this.http.post(this.url+'/voucher',data);

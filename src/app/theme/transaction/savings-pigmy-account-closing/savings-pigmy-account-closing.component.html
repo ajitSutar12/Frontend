@@ -82,7 +82,7 @@
                                     <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-5">
-                                        <div class="form-group form-primary form-static-label">
+                                        <div class="form-group form-priminry form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select id="AC_NO" bindValue="bankacno" [(ngModel)]="accountedit"
                                                     (change)="getAccountDetails($event)" formControlName="AC_NO"
@@ -119,7 +119,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" formControlName="INTREST_RATE"
-                                                            class="form-control" disabled>
+                                                            class="form-control" value="{{INTRATE}}" disabled>
                                                     </span>
                                                 </div>
                                             </div>

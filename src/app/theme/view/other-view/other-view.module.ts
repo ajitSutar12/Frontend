@@ -30,6 +30,10 @@ import { OwnbranchMasterService } from '../../../shared/dropdownService/own-bran
 import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.service';
 import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
 import { PipePipe } from './ratio-analysis/pipe.pipe';
+import { TermDepositMasterService } from '../../master/customer/term-deposits-master/term-deposits-master.service';
+import { TermDepositSchemeService } from '../../utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,10 +44,11 @@ import { PipePipe } from './ratio-analysis/pipe.pipe';
     DatepickerModule.forRoot(),
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
-    InterestPaidHistoryModule
+    InterestPaidHistoryModule,
+  
   ],
   providers: [
-    SchemeAccountNoService, SchemeCodeDropdownService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,
+    SchemeAccountNoService,TermDepositSchemeService,SystemMasterParametersService, SchemeCodeDropdownService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
