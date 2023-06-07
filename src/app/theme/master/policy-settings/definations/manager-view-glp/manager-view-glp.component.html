@@ -60,13 +60,13 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="STATEMENT_CODE" appTheme bindValue="value" [(ngModel)]="ngstatement"
-                                    formControlName="STATEMENT_CODE" bindLabel="label" title="Compulsory Selection"
+                                  <ng-select id="STATEMENT_CODE" appTheme bindValue="id" [(ngModel)]="ngstatement"
+                                    formControlName="STATEMENT_CODE" bindLabel="head_name" title="Compulsory Selection"
                                     [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
                                     #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
-                                         {{values.label}}</ng-option>
+                                         {{values.head_name}}</ng-option>
                                   </ng-select>
                                   <label for="STATEMENT_CODE">Statement Code<sub class="required"> * </sub></label>
                                 </span>

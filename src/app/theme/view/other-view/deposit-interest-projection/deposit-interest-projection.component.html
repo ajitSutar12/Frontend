@@ -65,15 +65,15 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" placeholder="Deposit Amount" name="DepositAmount"
-                    id="DepositAmount" class="form-control" [(ngModel)]="depositAmount" formControlName="DEPO_AMT"
+                    id="DepositAmount" class="form-control" [(ngModel)]="depositAmount" formControlName="AC_SCHMAMT" 
                     maxlength="15" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    (keyup)="decimalAllContent($event)">
+                    (keyup)="decimalAllContent($event)"  (focusout)= "getDecimalPoint($event)" >
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['DEPO_AMT'].invalid && (ngForm.controls['DEPO_AMT'].dirty || ngForm.controls['DEPO_AMT'].touched)"
+                *ngIf="ngForm.controls['AC_SCHMAMT'].invalid && (ngForm.controls['AC_SCHMAMT'].dirty || ngForm.controls['AC_SCHMAMT'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['DEPO_AMT'].errors?.required">
+                <div *ngIf="ngForm.controls['AC_SCHMAMT'].errors?.required">
                   This field is required.
                 </div>
               </div>
@@ -86,16 +86,25 @@
 
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right ;" type="text" name="Month" class="form-control" placeholder=" "
+                  <!-- <input style="text-align: right ;" type="text" name="Month" class="form-control" placeholder=" "
                     id="Month" formControlName="MONTH" maxlength="3"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"> -->
+                    <input appTheme type="text" name="AC_MONTHS"
+                    class="form-control" placeholder=" "
+                    style="text-align: right;" id="AC_MONTHS"
+                    maxlength="3" pattern="^[0-9]+$"
+                    title="Input allowed only  0-9"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                    formControlName="AC_MONTHS"
+                    (change)="CheckmonthDays()"
+                    (ngModelChange)="setMaturityDate()">
 
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['MONTH'].invalid && (ngForm.controls['MONTH'].dirty || ngForm.controls['MONTH'].touched)"
+                *ngIf="ngForm.controls['AC_MONTHS'].invalid && (ngForm.controls['AC_MONTHS'].dirty || ngForm.controls['AC_MONTHS'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['MONTH'].errors?.required">
+                <div *ngIf="ngForm.controls['AC_MONTHS'].errors?.required">
                   This field is required.
                 </div>
               </div>
@@ -111,48 +120,64 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right ;" type="text" name="Days" class="form-control" placeholder=" "
+                  <!-- <input style="text-align: right ;" type="text" name="Days" class="form-control" placeholder=" "
                     id="Days" formControlName="DAYS" maxlength="3"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"> -->
+                    <input type="text" name="AC_DAYS"
+                    class="form-control" placeholder=" "
+                    id="AC_DAYS" style="text-align: right;"
+                    pattern="^[0-9]+$"
+                    title="Input allowed only  0-9" maxlength="4"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                    formControlName="AC_DAYS"
+                    (change)="CheckmonthDays()"
+                    (ngModelChange)="setMaturityDate()">
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['DAYS'].invalid && (ngForm.controls['DAYS'].dirty || ngForm.controls['DAYS'].touched)"
+                *ngIf="ngForm.controls['AC_DAYS'].invalid && (ngForm.controls['AC_DAYS'].dirty || ngForm.controls['AC_DAYS'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['DAYS'].errors?.required">
+                <div *ngIf="ngForm.controls['AC_DAYS'].errors?.required">
                   This field is required.
                 </div>
               </div>
             </div>
-
-
             <div class="col-sm-2">
-
-              <label for="InterestRate">Interest Rate<sub class="required">* </sub></label>
+              <label for="Date">Maturity Date <sub class="required">* </sub></label>
             </div>
-
             <div class="col-sm-3">
 
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right ;" type="text" name="InterestRate" class="form-control"
-                    placeholder=" " id="InterestRate" maxlength="5" formControlName="INT_RATE" #margin
-                    (keyup)="checkmargin(margin.value)"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    (keyup)="decimalAllContent($event)">
-
+                  <!-- <input type="text" placeholder="dd/mm/yyyy" appButton minlength="8" maxlength="10" name="MaturityDate" id="MaturityDate" class="form-control" [ngmodel]="Mdate"
+                    formControlName="MATUR_DATE" (change)="some($event)"  > -->
+                    <input type="text" appButton minlength="8"
+                    maxlength="10" placeholder="dd/mm/yyyy"
+                    name="AC_EXPDT" id="AC_EXPDT"
+                    class="form-control"
+                   
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    
+                    formControlName="AC_EXPDT" placement="up"
+                    #AC_EXPDT="bsDatepicker"
+                    (keydown.Tab)="AC_EXPDT.hide()"
+                    (bsValueChange)="monthDays()"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                    minlength="10" maxlength="10"
+                    [minDate]="maxDate" [bsValue]="bsValue"
+                    bsDatepicker>
+                 
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['INT_RATE'].invalid && (ngForm.controls['INT_RATE'].dirty || ngForm.controls['INT_RATE'].touched)"
+                *ngIf="ngForm.controls['AC_EXPDT'].invalid && (ngForm.controls['AC_EXPDT'].dirty || ngForm.controls['AC_EXPDT'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['INT_RATE'].errors?.required">
+                <div *ngIf="ngForm.controls['AC_EXPDT'].errors?.required">
                   This field is required.
                 </div>
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-sm-2">
               <label for="DepositDate">Deposit Date<sub class="required">* </sub></label>
@@ -173,29 +198,35 @@
                 </div>
               </div>
             </div>
-
-
-
-
             <div class="col-sm-2">
-              <label for="Date">Maturity Date <sub class="required">* </sub></label>
+
+              <label for="InterestRate">Interest Rate<sub class="required">* </sub></label>
             </div>
             <div class="col-sm-3">
 
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" placeholder="dd/mm/yyyy" appButton minlength="8" maxlength="10" name="MaturityDate" id="MaturityDate" class="form-control"
-                    formControlName="MATUR_DATE" bsDatepicker>
+                  <input style="text-align: right ;" type="text" name="InterestRate" class="form-control"
+                    placeholder=" " id="InterestRate" maxlength="5" formControlName="INT_RATE" #margin
+                    (keyup)="checkmargin(margin.value)"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    (keyup)="decimalAllContent($event)">
+
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['MATUR_DATE'].invalid && (ngForm.controls['MATUR_DATE'].dirty || ngForm.controls['MATUR_DATE'].touched)"
+                *ngIf="ngForm.controls['INT_RATE'].invalid && (ngForm.controls['INT_RATE'].dirty || ngForm.controls['INT_RATE'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['MATUR_DATE'].errors?.required">
+                <div *ngIf="ngForm.controls['INT_RATE'].errors?.required">
                   This field is required.
                 </div>
               </div>
             </div>
+
+
+
+           
+            
           </div>
           <div class="row">
             <div class="col-sm-2">
@@ -208,7 +239,7 @@
                   <input style="text-align: right ;" type="text" name="MaturityAmount" class="form-control"
                     placeholder=" " id="MaturityAmount" formControlName="MATUR_AMT" maxlength="15"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="decimalAllContent($event)">
+                    (keyup)="decimalAllContent($event)"  (focusout)= "getDecimalPoint($event)" >
 
                 </span>
               </div>

@@ -14,6 +14,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { DividendPostingService } from './dividend-posting.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +30,8 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     ThemeModule
   ],
   declarations: [DividendPostingComponent],
-  providers: [SchemeCodeService, SchemeCodeDropdownService, DividendPostingService, {
+     
+     providers: [SchemeCodeService,SystemMasterParametersService, SchemeCodeDropdownService, DividendPostingService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

@@ -71,7 +71,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-10">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select appTheme id="AC_NO" bindValue="AC_NO"
@@ -81,7 +81,7 @@
                                                     (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                                     title="Compulsory Selection" required placeholder="Account No.">
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                                        {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                                        {{values.AC_NO}} {{values.AC_NAME}} {{values.CITY_NAME}}</ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>

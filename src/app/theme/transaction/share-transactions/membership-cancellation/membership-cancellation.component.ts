@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
+import { event } from 'jquery';
 @Component({
   selector: 'app-membership-cancellation',
   templateUrl: './membership-cancellation.component.html',
@@ -214,7 +215,7 @@ export class MembershipCancellationComponent implements OnInit {
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.obj = [this.selectedTransScheme, this.selectedBranch]
-    this.ngacno = null
+     this.ngacno = null
     switch (event.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
@@ -366,8 +367,9 @@ export class MembershipCancellationComponent implements OnInit {
     this.intIndex = indexOfelement;
     this.jointShowButton = false;
     this.jointUpdateShow = true;
+    this.getTransferAccountList(event);
     this.angForm.patchValue({
-      Tscheme: this.multigrid[indexOfelement].TRAN_ACTYPE,
+      Tscheme: Number(this.multigrid[indexOfelement].TRAN_ACTYPE),
       TschemeAC: this.multigrid[indexOfelement].TRAN_ACNO,
       amount: this.multigrid[indexOfelement].TRAN_AMOUNT,
       TRANSFER_ACNO: this.multigrid[indexOfelement].TRANSFER_ACNO,
@@ -517,8 +519,9 @@ export class MembershipCancellationComponent implements OnInit {
 
   // function for edit button clicked
   editClickHandler(id): void {
-    debugger
     this.http.get(this.url + '/dailyshrtran/' + id).subscribe((data: any) => {
+  this.getTransferAccountDeatil(event)
+      
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
@@ -527,18 +530,15 @@ export class MembershipCancellationComponent implements OnInit {
         this.rejectShow = false;
         this.unapproveShow = true;
         this.closeShow = true;
-        // this.submitShow = false;
+        this.submitShow = false;
       }
       else if (dailyshrtran.TRAN_STATUS == '0') {
         this.approveShow = true;
         this.rejectShow = true;
         this.unapproveShow = false;
         this.closeShow = true;
-        
+        this.submitShow = false;
       }
-      this.submitShow = false;
-
-      
       this.selectedBranch = dailyshrtran.BRANCH_CODE
       this.schemeCode = Number(dailyshrtran.TRAN_ACTYPE)
       this.Issue_date = dailyshrtran.TRAN_DATE

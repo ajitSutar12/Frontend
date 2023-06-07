@@ -60,7 +60,7 @@ export class GlAccountsMasterComponent implements OnInit {
   //variables for pagination
   page: number = 1;
   getschemename
-  
+
   passenger: any;
   itemsPerPage = 10;
   totalItems: any;
@@ -71,9 +71,9 @@ export class GlAccountsMasterComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
-  scheme:any;
-  role:any;
-  ngBranchCode:any;
+  scheme: any;
+  role: any;
+  ngBranchCode: any;
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -82,10 +82,12 @@ export class GlAccountsMasterComponent implements OnInit {
   updateID: number = 0;
   statementCode: any;
   selectedStatementcode: any;
+  some: any;
 
   // Filter Variable
   filterData = {};
   statementCodeData: any;
+  recall: any;
 
   selectedAccount = 'Adam';
   accounts = [
@@ -108,15 +110,33 @@ export class GlAccountsMasterComponent implements OnInit {
     private statement: StatementCodeDropdownService,
     private fb: FormBuilder) {
 
-
+    // 
     this.statement.getStatementCodeList().pipe(first()).subscribe(data => {
       this.statementCode = data;
-      // this.role = this.statementCode.slice(0,4)
-      console.log(this.statementCode);
+      //  this.role = this.statementCode.slice(0,4)
+      console.log(this.statementCode, "statementcode");
+
+      this.role = this.statementCode.filter(function (scheme) {
+        return (scheme.parent_node
+          == '0'
+        )
+
+      });
+      console.log(this.role, "role");
       let step_2_data = new Array();
       let final_obj = new Array()
-      // debugger
+      //    this.statementCode.forEach((ele, index) => {
+      //       let newArray = new Array();
+
+      //       this.statementCode.forEach(element => {
+      //         let subArray = new Array();
+      //  if (element.parent_node == ele.id) {
+
+
+
+      debugger
       let parentData = this.statementCode.filter(ele => ele.parent_node == 0);
+
       for (let item of parentData) {
         let data = this.statementCode.filter(ele => ele.parent_node == item.id);
         if (data.length != 0) {
@@ -126,8 +146,9 @@ export class GlAccountsMasterComponent implements OnInit {
           }
         }
       }
-      console.log(step_2_data);
-      
+      console.log(step_2_data, "step2dta");
+
+      this.some = step_2_data;
 
       for (let ele1 of step_2_data) {
         let data = this.statementCode.filter(ele => ele.parent_node == ele1.id)
@@ -137,28 +158,68 @@ export class GlAccountsMasterComponent implements OnInit {
 
           final_obj.push(item);
         }
+
       }
-      this.statementCodeData= final_obj;
-      console.log(this.statementCodeData);
-      
-        this.role =  step_2_data.filter(function (scheme) {
-        return (scheme.parent_name
-          == 'Liabilities' || scheme.parent_name
-          == 'Asset'|| scheme.parent_name
-          == 'Income'|| scheme.parent_name
-          == 'Expenditure'
-          )
-      });       
-      
-     this.scheme = this.statementCodeData
-    //  this.scheme = step_2_data;
+
+
+
+      this.statementCodeData = final_obj;
+      console.log(this.statementCodeData, "statementcodedata");
+
+      this.scheme = this.statementCodeData;
 
       console.log(this.scheme);
-    })
+
+    }
+
+
+      // if(this.some.parent_name = this.ngBranchCode){
+      // if(this.statementCode.parent_node = 0){
+      //     this.scheme = this.statementCodeData
+      //   }
+      // }
+
+
+    )
   }
-  getAccountList(event:any){
+
+
+  getAccountList(event: any) {
     this.selectedStatementcode = null;
-    
+
+    let newArray = new Array();
+    this.statementCode.forEach(element => {
+      let subArray = new Array();
+      if (element.parent_node == event.id) {
+        this.statementCode.forEach(ele1 => {
+          if (ele1.parent_node == element.id) {
+            subArray.push(ele1)
+          }
+        });
+        let subarr = this.sort_by_key(subArray, 'position')
+        // element['child'] = subarr;
+        subarr.forEach(element => {
+          newArray.push(element)
+
+        });
+        console.log(subArray);
+        
+        newArray.push(element);
+        console.log(newArray, 'newarray')
+        this.scheme = newArray
+          
+        
+      }
+    })
+
+  }
+
+  sort_by_key(array: any, key: any) {
+    return array.sort(function (a: any, b: any) {
+      let p = a[key];
+      let q = b[key];
+      return (p < q) ? -1 : ((p > q) ? 1 : 0)
+    });
   }
 
   ngOnInit(): void {
@@ -257,9 +318,9 @@ export class GlAccountsMasterComponent implements OnInit {
     };
 
   }
-  
+
   // getAccountList(event) {
- 
+
   //   let obj = [this.selectedStatementcode, this.ngBranchCode]
   //   switch (event.name) {
   //     case '0':
@@ -268,7 +329,7 @@ export class GlAccountsMasterComponent implements OnInit {
   //           == '0' || scheme.parent_node
   //         );
   //       });
-          
+
   //       break;
   //   }
   //   this.getschemename =event.value;
@@ -277,7 +338,7 @@ export class GlAccountsMasterComponent implements OnInit {
     this.angForm = this.fb.group({
       AC_NO: [''],
       AC_NAME: ['', [Validators.required, Validators.pattern]],
-      AC_CODE:[''],
+      AC_CODE: [''],
       AC_BCD: ['', [Validators.required]],
       IS_DIRECT_ENTRY_ALLOW: [true],
       IS_RED_BALANCE_AC: [false],
@@ -289,9 +350,9 @@ export class GlAccountsMasterComponent implements OnInit {
 
   // Method to insert data into database through NestJS
   submit() {
-    const formVal = this.angForm.value; 
+    const formVal = this.angForm.value;
     console.log(this.angForm.value);
-    
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
@@ -346,7 +407,8 @@ export class GlAccountsMasterComponent implements OnInit {
     this.resetForm();
   }
   //Method for update data 
-  updateData() {debugger
+  updateData() {
+    debugger
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.glAccountsMasterService.updateData(data).subscribe(() => {

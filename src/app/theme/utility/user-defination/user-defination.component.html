@@ -47,12 +47,11 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text"  placeholder="dd/mm/yyyy" name="DOB" class="form-control"  id="DOB" [(ngModel)]="date" (change)="dater()"[bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                    
-                                        minlength="8" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                    <input type="text"  placeholder="dd/mm/yyyy" name="DOB" class="form-control"  id="DOB" [(ngModel)]="dater" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" maxlength="10"
+                                      [ngClass]="{'form-submitted': formSubmitted}"
                                         #DOB="bsDatepicker" [bsValue]="bsValue" bsDatepicker required
-                                        #DOB formControlName="DOB">
+                                        #DOB formControlName="DOB"
+                                        >
 
                                     <label for="DOB">Birth Date</label>
                                 </span>
@@ -112,7 +111,7 @@
                                         [value]="role">{{role.id}}{{role.label}}</ng-option>
                                 </ng-select> -->
                                  <span class="border-lable-flt">
-                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedRoleName" (change)="newFunction()"
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedRoleName" (change)="newFunction($event)"
                                                 formControlName="ROLE"placeholder="Role"[selectOnTab]='true'
                                                 >
                                                 <ng-option *ngFor="let values of ROLEX" [value]="values">
@@ -214,8 +213,8 @@
                         
                             <button class="btn btn-outline-primary btn-sm"  *ngIf="showButton" (click)="submit()"
                                 [disabled]="angForm.invalid">Add</button>&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-primary ripple light"  (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                            <button  class="btn btn-outline-primary btn-sm"  (click)="updateData()"
+                                *ngIf="updateShow">Update</button>&nbsp;&nbsp;&nbsp;
                         </div>
 
                     </div>
@@ -323,7 +322,7 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                               
-                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button>  -->
+                                             <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> 
                                         </td>
 
                                         <td>{{ data.F_NAME }}</td>
