@@ -78,6 +78,13 @@ export class ManagerViewComponent implements OnInit {
   url = environment.base_url;
   ngbranch: any;
   branchName: any;
+  retrivedata: any=[];
+  denomination: any=[];
+  glposition: any=[];
+  retrivedata1: any=[];
+
+  glDetails: any;
+
   constructor(
     private fb: FormBuilder,
     private config: NgSelectConfig,
@@ -163,6 +170,13 @@ export class ManagerViewComponent implements OnInit {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
       // this.ngBranchCode = data[0].value
+    })
+
+    //get Gl Position details
+      this._service.getGlPosition().pipe(first()).subscribe(data => {
+      this.glposition = data;
+      console.log(this.glposition)
+
     })
     this.getManagerView()
   }
@@ -479,6 +493,7 @@ else if (id === 'highRecPay') {
   }
 
   mangerViewDetails
+  
   disableBtn: boolean = false
   getManagerView() {
 
@@ -493,7 +508,36 @@ else if (id === 'highRecPay') {
       expiry == this.checkDate ? this.disableBtn = false : this.disableBtn = true
       this.http.post<any>(this.url + '/ledger-view/managerView', obj).subscribe((data) => {
         this.mangerViewDetails = data
+        let denomination = this.mangerViewDetails.denomination
+
+
+        denomination.forEach(entry =>{
+          this.retrivedata.push(entry);
+          // console.log(this.retrivedata)
+        })
       })
+
+     let obj1 = {
+      date: expiry, 
+      branch_code: this.ngBranchCode,
+
+     }
+     this.http.post<any>(this.url + '/reports/profitLoss', obj1).subscribe((data) => {
+      this.glDetails = data
+      console.log(this.glDetails);
+      
+      // let ledgerbal = this.glDetails.Lledger_balance
+      // console.log(ledgerbal);
+
+
+      this.glDetails.forEach(entry =>{
+        this.retrivedata1.push(entry);
+        // console.log(this.retrivedata1)
+      })
+    })
+
+
+      
     }
   }
   close() {

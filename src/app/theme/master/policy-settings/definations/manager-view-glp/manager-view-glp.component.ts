@@ -90,7 +90,7 @@ newbtnShow: boolean = false;
 addShowButton: boolean = true;
 UpdateShowButton: boolean = false
 multiField = [];
-
+cScheme
 //variable to get ID to update
 updateID: number = 0;
 page: number = 1;
@@ -217,7 +217,7 @@ rowData= [];
      'SR_NO': formVal.SR_NO,
      'TYPE': formVal.TYPE,
      'STATEMENT_CODE': formVal.STATEMENT_CODE,
-     'DECRIPTION': formVal.DECRIPTION,
+     'DECRIPTION':  this.cScheme,
      'IS_DISPLAY': formVal.IS_DISPLAY,
      'PERCENTAGE_TO_WORKING_CAPITAL': formVal.PERCENTAGE_TO_WORKING_CAPITAL,
    
@@ -300,13 +300,13 @@ rowData= [];
    this.ManagerViewGlpService.getFormData(id).subscribe(data => {
      this.updateID = data.id;
      this.ngstatement=Number(data.STATEMENT_CODE)
-     this.ngdescription=Number(data.DECRIPTION)
+     this.ngdescription=data.DECRIPTION
      this.angForm.patchValue({
          
       'SR_NO': data.SR_NO,
       'TYPE': data.TYPE,
       // 'STATEMENT_CODE': data.STATEMENT_CODE,
-      // 'DECRIPTION': data.DECRIPTION,
+      'DECRIPTION': data.DECRIPTION,
       'IS_DISPLAY': data.IS_DISPLAY,
       'PERCENTAGE_TO_WORKING_CAPITAL': data.PERCENTAGE_TO_WORKING_CAPITAL,
        
@@ -317,8 +317,21 @@ rowData= [];
 
 //Method for update data 
 updateData() {
- let data = this.angForm.value;
- data['id'] = this.updateID;
+  const formVal = this.angForm.value;
+  const data = {
+  	
+    
+    'SR_NO': formVal.SR_NO,
+    'TYPE': formVal.TYPE,
+    'STATEMENT_CODE': formVal.STATEMENT_CODE,
+    'DECRIPTION':  this.cScheme,
+    'IS_DISPLAY': formVal.IS_DISPLAY,
+    'PERCENTAGE_TO_WORKING_CAPITAL': formVal.PERCENTAGE_TO_WORKING_CAPITAL,
+  
+    
+  
+  }
+  data['id'] = this.updateID;
  this.ManagerViewGlpService.updateData(data).subscribe(() => {
    Swal.fire('Success!', 'Record Updated Successfully !', 'success');
    this.showButton = true;
@@ -365,4 +378,10 @@ gotoTop() {
     behavior: 'smooth' 
   });
 }
+
+getSchemeCo(event) {
+  
+  this.cScheme = event.head_name
+}
+
 }
