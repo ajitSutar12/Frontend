@@ -82,6 +82,8 @@ export class ManagerViewComponent implements OnInit {
   denomination: any = [];
   glposition: any = [];
   retrivedata1: any = [];
+  mangerViewGl : any = [];
+
   branchno
   glDetails: any;
 
@@ -495,7 +497,6 @@ export class ManagerViewComponent implements OnInit {
   }
 
   mangerViewDetails
-  mangerViewGl
   disableBtn: boolean = false
   getManagerView() {
 
@@ -543,7 +544,10 @@ export class ManagerViewComponent implements OnInit {
         this.mangerViewGl = data
         console.log(this.mangerViewGl)
 
-
+        // this.mangerViewGl.forEach(entry => {
+        //   this.retrivedata2.push(entry);
+        //   console.log(this.retrivedata2)
+        // })
       })
 
 

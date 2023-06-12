@@ -304,10 +304,13 @@
                                                                     <div class="card-block highlight ">
                                                                         <div class="row">
                                                                             <table class="table-responsive">
-                                                                                <tr *ngFor="let data of glposition">
-                                                                                    <!-- <td *ngFor="let data of retrivedata1">
-                                                                                    </td> -->
-                                                                                  {{data.DESCRIPTION}} 
+                                                                                <tr *ngFor="let data of mangerViewGl">
+                                                                                    <td>{{data.DESCRIPTION}} 
+                                                                                    </td>
+                                                                                    <td> </td>
+                                                                                    <td>
+                                                                                        {{data.balance}} 
+                                                                                    </td>
                                                                                         </tr> 
                                                                             </table>
 
