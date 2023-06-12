@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { OtherViewComponent } from './other-view.component';
 import { OtherViewRoutingModule } from './other-view-routing.module'
 import { SharedModule } from '../../../shared/shared.module';
@@ -30,8 +30,12 @@ import { OwnbranchMasterService } from '../../../shared/dropdownService/own-bran
 import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.service';
 import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
 import { PipePipe } from './ratio-analysis/pipe.pipe';
-import { TermDepositMasterService } from '../../master/customer/term-deposits-master/term-deposits-master.service';
+
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { TermDepositSchemeService } from '../../utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
+import { OtherViewService } from './other-view.service';
+
+import { TermDepositMasterService } from '../../master/customer/term-deposits-master/term-deposits-master.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
@@ -48,7 +52,8 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
   
   ],
   providers: [
-    SchemeAccountNoService,TermDepositSchemeService,SystemMasterParametersService, SchemeCodeDropdownService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,
+    SchemeAccountNoService,DatePipe,OtherViewService, SchemeCodeDropdownService,TermDepositSchemeService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,SystemMasterParametersService,
+TermDepositMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
