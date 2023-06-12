@@ -30,7 +30,7 @@
 
               </div>
               <div class="col-sm-12 col-md-2"> <label for="Period">
-                  Period<sub class="required">*</sub></label></div>
+                  Period in Months<sub class="required">*</sub></label></div>
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
@@ -125,9 +125,9 @@
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
                     <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" "
-                      pattern="\d{1,2}(\.\d{2})?" id="TDS_RATE" maxlength="5" title="Input allowed only  0-9" #margin
+                      id="TDS_RATE" maxlength="5" title="Input allowed only  0-9" #margin
                       (keyup)="checkmargin(margin.value)" formControlName="TDS_RATE"
-                      (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
+                      (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">  
                   </span>
                 </div>
                 <div class="form-group form-primary form-static-label"
@@ -152,7 +152,7 @@
                 </div>
               </div>
 
-              <div class="col-md-2"><label for="amount">Installment<sub class="required">*</sub></label></div>
+              <div class="col-md-2"><label for="amount">Installment Amount<sub class="required">*</sub></label></div>
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">

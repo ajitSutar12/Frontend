@@ -10,14 +10,14 @@ export class RepayModeService {
         { value: '3', label: 'Quarterly' },
         { value: '6', label: 'Half Yearly' },
         { value: '12', label: 'Yearly' },
-        { value: 'O', label: 'On Maturity' },
+        // { value: 'O', label: 'On Maturity' },
     ];
     public static readonly PLAYER_two: Array<IOption> = [
         { value: 'M', label: 'Monthly' },
         { value: 'Q', label: 'Quarterly' },
         { value: 'H', label: 'Half Yearly' },
         { value: 'Y', label: 'Yearly' },
-        { value: 'O', label: 'On Maturity' },
+        // { value: 'O', label: 'On Maturity' },
     ];
 
     getPLAYER_twoCharacters(): Array<IOption> {

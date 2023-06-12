@@ -23,6 +23,7 @@ export class PaymentDenominationComponent implements OnInit {
   ngTransactionNo:any
   ngscheme:any
   ngaccount:any
+  glDetails: any;
 
   denomination:any
   voucherData : any;
@@ -33,20 +34,20 @@ export class PaymentDenominationComponent implements OnInit {
   showCash :boolean = false;
   totalCash :any = 0;
   cashierName : any;
-  currencyData =
-  [
-    { currency: 2000, qty: "", total: 0 },
-    { currency: 1000, qty: "", total: 0 },
-    { currency: 500, qty: "", total: 0  },
-    { currency: 200, qty: "", total: 0  },
-    { currency: 100, qty: "", total: 0  },
-    { currency: 50, qty: "", total: 0  },
-    { currency: 20, qty: "", total: 0  },
-    { currency: 10, qty: "", total: 0  },
-    { currency: 5, qty: "", total: 0  },
-    { currency: 2, qty: "", total: 0  },
-    { currency: 1, qty: "", total: 0  },
+  currencyData =[
+    { currency: 2000, qty: 0, total: 0, available: 0 },
+    { currency: 1000, qty: 0, total: 0, available: 0 },
+    { currency: 500,  qty: 0, total: 0, available: 0 },
+    { currency: 200,  qty: 0, total: 0, available: 0 },
+    { currency: 100,  qty: 0, total: 0, available: 0 },
+    { currency: 50,   qty: 0, total: 0, available: 0 },
+    { currency: 20,   qty: 0, total: 0, available: 0 },
+    { currency: 10,   qty: 0, total: 0, available: 0 },
+    { currency: 5,    qty: 0, total: 0, available: 0 },
+    { currency: 2,    qty: 0, total: 0, available: 0 },
+    { currency: 1,    qty: 0, total: 0, available: 0 },
   ]
+  transactionAmt: any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
@@ -83,6 +84,21 @@ export class PaymentDenominationComponent implements OnInit {
   getVoucherData(ele){
     let user = JSON.parse(localStorage.getItem('user'))
 
+    let obj1 = {
+      ACNO: ele.TRAN_ACNO
+
+     }
+
+     this.http.post(this.url + '/voucher/denogetledgerbalance/', obj1).subscribe((data) => {
+      this.glDetails = data
+      // console.log(this.glDetails);
+
+      let ledgerBal = Math.abs( this.glDetails );
+      
+      // console.log(ledgerBal);
+
+
+
     debugger
     console.log(ele)
     this.angForm.patchValue({
@@ -94,6 +110,8 @@ export class PaymentDenominationComponent implements OnInit {
       TRANSACTION_TYPE : 'Credit'
     })
     this.cashierName = user.F_NAME +' '+user.L_NAME;
+
+  })
   }
 
   showCashModule(){
@@ -103,6 +121,7 @@ export class PaymentDenominationComponent implements OnInit {
   sum: number = 0
   calculation(data, index, element) {
     console.log(element.target.value);
+
     let currency = this.currencyData[index].currency;
     let qty = element.target.value;
     let total = currency * qty;
@@ -115,34 +134,67 @@ export class PaymentDenominationComponent implements OnInit {
     }, 0);
 
   }
-
-  submit(){
-    // if(this.angForm.valid){
-      debugger
-      let object = this.angForm.value;
-      let user   = JSON.parse(localStorage.getItem('user'));
-      object['currency'] = this.currencyData;
-      object['user']     = user;
-      console.log(object);
-      if(this.sum != this.denomination){
-        Swal.fire('Oops...','Cash Denomination not matched please check once again','warning');
-      }else{
-        this._service.paymentDinominationInsert(object).subscribe(data=>{
-          Swal.fire('Success','Cash Payment Denomincation Successfully Done','success');
+submit() {
+    const formVal = this.angForm.value;
+    var object =
+    {
+        data : this.angForm.value,
+        currency : this.currencyData,
+        user : JSON.parse(localStorage.getItem('user'))
+    }
+    if (formVal.DENOMINATION_AMT != this.sum) {
+      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+    }
+    else if( this.transactionAmt != this.denomination)
+        {
+          Swal.fire('Oops...','Please Check Transaction Amount and Denomination Amount','warning');
+  
+        }
+    else{
+      this._service.paymentDinominationInsert(object).subscribe(data=>{
+        Swal.fire('Success','Cash Accept Denomincation Successfully Done','success');
           this.angForm.reset();
           this.showCash = false;
-        },err=>{
-          console.log(err);
-        })
-      }
-    // }else{
-    //   Swal.fire('Oops...','Please fill all required field','warning');
-    // }
+        for(let item of this.currencyData){
+          item.available = 0;
+          item.qty       = 0;
+          item.total     = 0;
+        }
+        this.sum = 0;
+      },err=>{
+        console.log(err);
+      })
+      
+    }
   }
+  // submit(){
+  //   // if(this.angForm.valid){
+  //     debugger
+  //     let object = this.angForm.value;
+  //     let user   = JSON.parse(localStorage.getItem('user'));
+  //     object['currency'] = this.currencyData;
+  //     object['user']     = user;
+  //     console.log(object);
+  //     if(this.sum != this.denomination){
+  //       Swal.fire('Oops...','Cash Denomination not matched please check once again','warning');
+  //     }
+  //     else{
+  //       this._service.paymentDinominationInsert(object).subscribe(data=>{
+  //         Swal.fire('Success','Cash Payment Denomincation Successfully Done','success');
+  //         this.angForm.reset();
+  //         this.showCash = false;
+  //       },err=>{
+  //         console.log(err);
+  //       })
+  //     }
+  //   // }else{
+  //   //   Swal.fire('Oops...','Please fill all required field','warning');
+  //   // }
+  // }
   getDecimalPoint(event) {
     if (event.target.value != '')
       event.target.value = parseFloat(event.target.value).toFixed(2);
     else
       event.target.value = 0
-  }
+  } 
 }

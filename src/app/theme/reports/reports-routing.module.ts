@@ -48,7 +48,7 @@ const routes: Routes = [
       //
       {
         path: 'npaReports',
-        loadChildren: () => import('./npa-reports/npaReports.module').then(m => m.NpaReportsModule)
+        loadChildren: () => import('./npa-reports/npa-reports.module').then(m => m.NpaReportsModule)
       },
       //
       
