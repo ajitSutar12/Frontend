@@ -160,11 +160,14 @@ interface ShareTransfer {
   }
   //get saving customer data
   getMemberCancelData(data) {
+    console.log(data);
+    
     this.memberCancelData = data.id;
     this.child.editClickHandler(data.id);
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
+  
 
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

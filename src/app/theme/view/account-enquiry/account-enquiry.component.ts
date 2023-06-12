@@ -272,6 +272,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.coborrowerView = false
         this.http.get<any>(this.url + '/saving-master/balUpdate/' + obj).subscribe((data) => {
           this.schemeACNo = data
+          console.log(data);
         })
         break;
       case 'CA':
@@ -494,7 +495,9 @@ export class AccountEnquiryComponent implements OnInit {
         break;
       case 'DS':
         this.http.get<any>(this.url + '/dispute-loan-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
+          
         })
         break;
       case 'CC':

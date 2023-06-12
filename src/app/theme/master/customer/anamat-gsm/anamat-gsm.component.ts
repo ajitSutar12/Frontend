@@ -124,8 +124,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Dropdown Options
   scheme: any[];//scheme code from schemast(S_ACNOTYPE)
-  Cust_ID: any; //customer id from idmaster
+  Cust_ID: any[]; //customer id from idmaster
   city: any[];//city from customer id from idmaster
+  
+  joint_Cust_ID:any[];
+  newcustid:any=null;
 
   prifix: any;
   AC_CUSTID1: any;
@@ -140,8 +143,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   id: any = null;
   datemax: any;
 
-  code: any = null
-  cust_id: any = null
+  code: any;
+  cust_id: any;
   bsValue
   AC_TYPE1: boolean = false
   DatatableHideShow: boolean = true;
@@ -291,6 +294,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data4 => {
       this.Cust_ID = data4;
+      this.joint_Cust_ID = data4;
       console.log(this.Cust_ID);
       
     })
@@ -351,7 +355,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     let branchCode = result.branch.id;
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
-       this.id = newCustomer;
+       this.newcustid = newCustomer;
       this.getCustomer(newCustomer);
     })
   }
@@ -364,7 +368,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       if (data.occupMaster == null) {
         data.occupMaster = ""
       }
-      this.cust_id = data.id
+      this.newcustid = data.id
 
       this.angForm.patchValue({
         AC_TITLE: data.AC_TITLE,
@@ -385,7 +389,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           permadd = element
         }
       })
-           this.id =data.id;
+           this.newcustid =data.id;
       this.angForm.patchValue({
         AC_ADDFLAG: permadd?.AC_ADDFLAG,
         AC_HONO: permadd?.AC_HONO,

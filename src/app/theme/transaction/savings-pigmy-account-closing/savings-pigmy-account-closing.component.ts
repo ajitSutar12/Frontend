@@ -55,6 +55,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   ngglacno: any = null;
   selectedScheme: any = null
   multigrid = [];
+  closedAccountNumber:any;
 
   //variables for  add and update button
   showButton: boolean = true;
@@ -98,6 +99,9 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   logDate
+  obj: any
+  getschemename: any
+  isHideForSaving: boolean = true
   constructor(
     // public NarrationService: NarrationService,
     private fb: FormBuilder, private http: HttpClient,
@@ -150,12 +154,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       });
       this.allScheme = allscheme;
     })
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL')
-      });
-      this.scheme = allscheme;
-    })
+    // this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    //   var allscheme = data.filter(function (scheme) {
+    //     return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL')
+    //   });
+    //   this.scheme = allscheme;
+    // })
     this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
       this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
         this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
@@ -238,9 +242,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
 
-  obj: any
-  getschemename: any
-  isHideForSaving: boolean = true
+ 
   isInterestApplicable
   schemechange(event) {
     this.ngGlAcno = Number(event.SVR_CHARGE_GLCODE)
@@ -277,79 +279,79 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   transferSchemeDetails
   transferAccountDetails
   //get account no according scheme for transfer
-  getTransferAccountList(event) {
-    this.transferSchemeDetails = event
-    this.obj = [this.ngschemecode, this.ngBranchCode]
-    this.ngacno = null
-    this.transferAcnoType = event.name
-    switch (event.name) {
-      case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  // getTransferAccountList(event) {
+  //   this.transferSchemeDetails = event
+  //   this.obj = [this.ngschemecode, this.ngBranchCode]
+  //   this.ngacno = null
+  //   this.transferAcnoType = event.name
+  //   switch (event.name) {
+  //     case 'SB':
+  //       this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'SH':
-        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'SH':
+  //       this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'CA':
+  //       this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'LN':
+  //       this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'TD':
+  //       this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'DS':
+  //       this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'CC':
+  //       this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'GS':
+  //       this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'PG':
+  //       this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
+  //     case 'AG':
+  //       this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
 
-      case 'IV':
-        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.transferAcno = data;
-        })
-        break;
-    }
-  }
+  //     case 'IV':
+  //       this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+  //         this.transferAcno = data;
+  //       })
+  //       break;
+  //   }
+  // }
 
   getTransferAccountDeatil(event) {
     this.transferAccountDetails = event
@@ -923,9 +925,15 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         USER: result.id,
         multigrid: this.multigrid
       }
+
       this._service.postData(dataToSend).subscribe(data => {
         // this.getVoucherData();
-        Swal.fire('Success!', 'Account Closed Successfully !', 'success');
+        // Swal.fire('Success!', 'Account Closed Successfully !',  'success');
+
+          const successMessage = ` Account Closed successfully ! Voucher Number ${data}`;
+          Swal.fire('Success!', successMessage, 'success');
+        
+      
         this.multigrid = []
         this.resetForm()
       }, err => {
@@ -1010,6 +1018,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   //function for edit button clicked
   editClickHandler(id): void {
     this._service.getFormData(id).subscribe((data) => {
+      console.log(data);
+      
       let mem = [data.TRAN_ACNO, data.TRAN_ACNOTYPE, data.TRAN_ACTYPE]
       this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data1) => {
         if (data.TRAN_STATUS == '0') {

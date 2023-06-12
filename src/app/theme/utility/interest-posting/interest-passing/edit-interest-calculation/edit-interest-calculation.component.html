@@ -12,7 +12,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH">Branch<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="BRANCH">Branch<sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -79,8 +79,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">From A/c<sub class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_AC">From A/c<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="bankacno" [(ngModel)]="ngfromac" (change)="select()"
@@ -99,8 +99,8 @@
                                 </div>
                             </div>   
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">To A/c<sub class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-1"> <label for="TO_AC">To A/c<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="bankacno" [(ngModel)]="ngtoac" formControlName="TO_AC"

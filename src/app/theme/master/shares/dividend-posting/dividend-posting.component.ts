@@ -12,6 +12,9 @@ import { Subject } from 'rxjs-compat';
 import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
 import { DividendPostingService } from './dividend-posting.service'
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { date } from 'ngx-custom-validators/src/app/date/validator';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -67,7 +70,7 @@ export class DividendPostingComponent implements OnInit {
 
   dividendposting: DividendPosting[]
   //for date
-  maxDate: Date;
+  maxDate: Date ;
   minDate: Date;
   warrentdate: any = null
 
@@ -77,19 +80,25 @@ export class DividendPostingComponent implements OnInit {
   //Scheme type variable
   schemeType: string = 'SH'
   warrentDate
-  ngwarrentDate: any = null
+  ngwarrentDate: any
 
   private dataSub: Subscription = null;
 
   constructor(private fb: FormBuilder,
     private http: HttpClient,
     private config: NgSelectConfig,
+     private systemParameter: SystemMasterParametersService,
     private _service: DividendPostingService,
     private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
     this.maxDate = new Date();
+    this.ngwarrentDate = moment().format('DD/MM/YYYY');
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.minDate.setDate(this.minDate.getDate() );
+    this.maxDate.setDate(this.maxDate.getDate() -1)
+    console.log(this.maxDate);
+    console.log(this.minDate);
+    
+    
   }
 
   ngOnInit(): void {
@@ -171,9 +180,13 @@ export class DividendPostingComponent implements OnInit {
       this.scheme = data
       this.ngscheme = data[0].value
     })
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      
+      this.ngwarrentDate = data.CURRENT_DATE;
+    });
 
     this.http.get(this.url + '/dividend-calculation').subscribe((data) => {
-      this.warrentDate = data
+    this.ngwarrentDate = data
     })
 
   }
@@ -204,6 +217,8 @@ export class DividendPostingComponent implements OnInit {
         DIV_FROM_YEAR: this.selectedDivFromYear,
         DIV_TO_YEAR: this.selectedDivToYear
       }
+      console.log(dataToSend);
+      
 
       Swal.fire({
         title: 'Are you sure?',
