@@ -1,21 +1,21 @@
 .required {
-    color: red;
-  }
+  color: red;
+}
 
-  div.solid {
-    border-style: solid;
-    padding:2%;
-    width: 300px;
-  }
-  .h{
-    content: "";
-    width: 210px;
-    height: 2px;
-    display: block;
-    background: black;
-    position: absolute;
-    
-  }
+div.solid {
+  border-style: solid;
+  padding:2%;
+  width: 400px;
+}
+.h{
+  content: "";
+  width: 210px;
+  height: 2px;
+  display: block;
+  background: black;
+  position: absolute;
+  
+}
 
   .errspan {
     float: right;

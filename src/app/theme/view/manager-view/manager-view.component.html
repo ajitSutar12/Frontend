@@ -281,82 +281,13 @@
                                                                         <div class="row">
                                                                             <table class="table-responsive">
                                                                                 <tr>
-                                                                                    <td>2000</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
+                                                                                    <td *ngFor="let data of retrivedata">
+                                                                                        <pre> Name : {{data.name}} <br> Cashier Code : {{data.CASHIER_CODE}} <br> 2000 X {{data.DENO_2000}} = <br> 1000 X {{data.DENO_1000}} <br> 500 X {{data.DENO_500}} <br> 200 X {{data.DENO_200}} <br> 100 X {{data.DENO_100}} <br> 50 X {{data.DENO_50}} <br> 20 X {{data.DENO_20}} <br> 10 X {{data.DENO_10}} <br> 5 X {{data.DENO_5}} <br> 2 X {{data.DENO_2}} <br> 1 X {{data.DENO_1}} <br> Coins X {{data.DENO_COINS_CASH}} <br> TOTAL = {{data.TOTAL_AMOUNT}} </pre>
+                                                                                    
+                                                                                    </td>
                                                                                 </tr>
-                                                                                <tr>
-                                                                                    <td>1000</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>500</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>200</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>100</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>50</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>20</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>10</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>5</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>2</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>1</td>&nbsp;&nbsp;
-                                                                                    <td>*</td>&nbsp;&nbsp;
-                                                                                    <td>0</td>&nbsp;&nbsp;
-                                                                                    <td>=</td>&nbsp;&nbsp;
-                                                                                    <td>{{value}}</td>&nbsp;&nbsp;
-                                                                                </tr>
+                                                                                
+                                                                                
                                                                             </table>
                                                                         </div>
 
@@ -372,24 +303,22 @@
                                                                 <div class="tabcontent card border-primary">
                                                                     <div class="card-block highlight ">
                                                                         <div class="row">
+                                                                            <table class="table-responsive">
+                                                                                <tr *ngFor="let data of mangerViewGl">
+                                                                                    <td>{{data.DESCRIPTION}} 
+                                                                                    </td>
+                                                                                    <td> </td>
+                                                                                    <td>
+                                                                                        {{data.balance}} 
+                                                                                    </td>
+                                                                                        </tr> 
+                                                                            </table>
+
                                                                             <div class="col-md-4">Deposits</div>
                                                                             <div class="col-md-4">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
 
-                                                                                        <!-- <input type="text"
-                                                                                            name="DepositeDr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="DepositeDr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="DepositeDr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ DepositeDr != null ?DepositeDr.toFixed(2) : 0.00}}" /> -->
                                                                                         <div class="col-md">
                                                                                             00
                                                                                         </div>
@@ -399,19 +328,7 @@
                                                                             <div class="col-md-4">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="Depositeper"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="Depositeper"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="Depositeper"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ Depositeper != null ?Depositeper.toFixed(2) : 0.00}}" /> -->
+                                                                                       
                                                                                         <div class="col-md">
                                                                                             00
                                                                                         </div>
@@ -419,372 +336,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4">Rajrambapu Bank OD
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-
-                                                                                        <!-- <input type="text" name="BankOD"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="BankOD"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="BankOD"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ BankOD != null ?BankOD.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="BankODper"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="BankODper"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="BankODper"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ BankODper != null ?BankODper.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4">Ashta People Bank
-                                                                                Current
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-
-                                                                                        <!-- <input type="text"
-                                                                                            name="Bankcurrentdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="Bankcurrentdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="Bankcurrentdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ Bankcurrentdr != null ?Bankcurrentdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="Bankcurrentper"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="Bankcurrentper"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="Bankcurrentper"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ Bankcurrentper != null ?Bankcurrentper.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4">ICICI Bank Current
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcper"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="bankcper"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcper"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcper != null ?bankcper.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4">Rajarambapu Bank
-                                                                                Current</div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="TOTAL_DEBIT"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="TOTAL_DEBIT"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="TOTAL_DEBIT"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ TOTAL_DEBIT != null ?TOTAL_DEBIT.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4">Investment</div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4">Loans</div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4"></div>
-                                                                            <div class="col-md-4">
-                                                                                <label>CD Ratio</label>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4"></div>
-                                                                            <div class="col-md-4">
-                                                                                <label>Net Profit</label>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-4"></div>
-                                                                            <div class="col-md-4">
-                                                                                <label>Working Capital </label>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <div class="form-group input-group">
-                                                                                    <span class="border-lable-flt">
-                                                                                        <!-- <input type="text"
-                                                                                            name="bankcdr"
-                                                                                            class="form-control"
-                                                                                            placeholder=" " id="bankcdr"
-                                                                                            pattern="\d{1,20}(\.\d{2})?"
-                                                                                            maxlength="6"
-                                                                                            title="Input allowed only  0-9"
-                                                                                            formControlName="bankcdr"
-                                                                                            style="text-align: right;"
-                                                                                            (focusout)="decimalAllContent($event)"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                                                                        <div class="col-md">
-                                                                                            00
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                       
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -834,6 +386,78 @@
                                         aria-hidden="true"></i>
                                     Day Scroll</button>
                             </div>
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <label>CD Ratio</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <!-- <input type="text"
+                                                name="bankcdr"
+                                                class="form-control"
+                                                placeholder=" " id="bankcdr"
+                                                pattern="\d{1,20}(\.\d{2})?"
+                                                maxlength="6"
+                                                title="Input allowed only  0-9"
+                                                formControlName="bankcdr"
+                                                style="text-align: right;"
+                                                (focusout)="decimalAllContent($event)"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
+                                            <div class="col-md">
+                                                00
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8" >
+                                    <table class="table-responsive">
+                                        <div class="col-md-4" *ngFor="let data of retrivedata1">
+                                            {{data.Ehead_name}}
+                                        </div>
+                                        <tr >
+                                            <td >
+                                            </td>
+                                           
+                                                </tr>
+                                    </table>
+                                </div>
+                              
+                              
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <label>Working Capital </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <!-- <input type="text"
+                                                name="bankcdr"
+                                                class="form-control"
+                                                placeholder=" " id="bankcdr"
+                                                pattern="\d{1,20}(\.\d{2})?"
+                                                maxlength="6"
+                                                title="Input allowed only  0-9"
+                                                formControlName="bankcdr"
+                                                style="text-align: right;"
+                                                (focusout)="decimalAllContent($event)"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
+                                            <div class="col-md">
+                                                00
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="row">

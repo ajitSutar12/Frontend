@@ -559,6 +559,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   }
 
   getBranch() {
+    this.ngscheme = null;
+    this.accountedit = null;
     this.accountedit = null
     this.tableData = null
     this.schemeACNo = null

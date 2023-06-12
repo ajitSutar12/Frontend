@@ -43,9 +43,11 @@ export class OtherViewService {
   loanProjection(data:any): Observable<any>{
     return this.http.post(this.url+'/voucher/loanprojection',data);
   }
-
+  depositProjection(data:any): Observable<any>{
+    return this.http.post(this.url+'/voucher/depositProjection',data);
+  }
   getInstallment(data:any): Observable<any>{
     return this.http.post(this.url+'/voucher/getLoanInstallment',data);
   }
-
+  
 }

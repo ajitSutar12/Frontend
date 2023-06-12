@@ -316,15 +316,15 @@ export class UserDefinationComponent implements OnInit {
     //To clear form
     this.angForm.reset();
   }
-  newFunction(event:any){
-   this.selectedRoleName = event.value;    
-   console.log(this.selectedRoleName);
+  // newFunction(event:any){
+  //  this.selectedRoleName = event.value;    
+  //  console.log(this.selectedRoleName);
    
-   }
-    dater(event:any){
-      this.date = event.value
-      console.log(this.date);    
-    }
+  //  }
+    // dater(event:any){
+    //   this.date = event.value
+    //   console.log(this.date);    
+    // }
 
 
   //Method for append data into fields

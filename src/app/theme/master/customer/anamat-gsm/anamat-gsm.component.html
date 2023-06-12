@@ -30,30 +30,48 @@
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{ values.label }}</ng-option>
                                     </ng-select> -->
-                                    <ng-select bindValue="value" appTheme [(ngModel)]="schemeCode" id="AC_TYPE"
+                                    <ng-select bindValue="value" appTheme  id="AC_TYPE"
                                     bindLabel="label" formControlName="AC_TYPE"
                                     (change)="getScheme($event)" title="Compulsory Selection"
                                     [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                    placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                                    placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)"
                                     autofocus>
                                     <ng-option *ngFor="let values of scheme" [value]="values">
                                         {{values.label}} </ng-option>
                                 </ng-select>
-                                    <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
+                                    <label >Scheme <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
+                                    <!-- <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }"
                                         [virtualScroll]="true" (change)="getCustomer($event.value)" style="width: 85%"
                                         title="Compulsory Selection" required placeholder="Customer Id" #CUSTID
-                                        (focus)="onFocus(CUSTID)" [selectOnTab]='true'>
+                                        (focus)="onFocus(CUSTID)" >
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{ values.label }}</ng-option>
-                                    </ng-select>
+                                    </ng-select> -->
+                                    <!-- <ng-select [(ngModel)]="newcustid" appTheme id="AC_CUSTID" bindValue="value"
+                                    formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }" [virtualScroll]="true"
+                                    (change)="getcustomer($event)" (blur)="onBlur()"
+                                    style="width: 85%" title="Compulsory Selection" required
+                                    placeholder="Customer Id" #CUSTID (focus)="onFocus(CUSTID)" [selectOnTab]="true"
+                                    [closeOnSelect]="true">
+                           <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                             {{ values.label }}
+                           </ng-option>
+                         </ng-select> -->
+                                  <ng-select [(ngModel)]="newcustid" appTheme id="AC_CUSTID" bindValue="value"
+                                  formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }" [virtualScroll]="true"
+                                           style="width: 85%" title="Compulsory Selection" required
+                                    placeholder="Customer Id" #CUSTID (focus)="onFocus(CUSTID)" [selectOnTab]='true'>
+                                  <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                    {{ values.label }}</ng-option>
+                                      </ng-select>
+                                  
                                     <label for="AC_CUSTID">Customer ID<sub class="required"> * </sub></label>
                                     <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                         (click)="modalLarge.show()" placement="bottom"

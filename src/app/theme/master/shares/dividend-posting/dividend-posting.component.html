@@ -8,7 +8,8 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()"
+                #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
@@ -18,7 +19,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true" 
+                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
                                         required placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -37,7 +38,7 @@
                         <div class="col-sm-12 col-md-3"> <label for="WARRENT_DATE">Dividend Warrent Date<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
-                            <div class="form-group form-primary form-static-label">
+                            <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme appButton minlength="8" maxlength="10"
                                          id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
@@ -45,10 +46,34 @@
                                         #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true' [virtualScroll]="true"
                                         required placeholder="Warrent Date" (change)="getWarrentDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
+                                           <span> {{values.WARRENT_DATE}}</span><span class="boarder"> ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}} </span>)
+                                        </ng-option>
+                                    </ng-select> <!-- <ng-select appTheme appButton minlength="8" maxlength="10"
+                                         id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
+                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
+                                        #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true' [virtualScroll]="true"
+                                        required placeholder="Warrent Date" (change)="getWarrentDetails($event)">
+                                        <ng-option *ngFor="let values of warrentDate" [value]="values">
                                             {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
                                         </ng-option>
-                                    </ng-select>
-
+                                    </ng-select> -->
+                                    <!-- <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                        placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
+                                        class="form-control" required #date class="form-control"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #date
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #WARRENT_DATE="bsDatepicker"
+                                        (keydown.Tab)="WARRENT_DATE.hide()"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="WARRENT_DATE"
+                                        minlength="10" maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker> -->
+                                    
+                                            <!-- <input type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
+                                                class="form-control" [(ngModel)]="ngwarrentDate"
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="WARRENT_DATE" (change)="getWarrentDetails($event)"
+                                                [maxDate]="maxDate" appButton minlength="8" maxlength="10"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                bsDatepicker> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -60,7 +85,7 @@
                             </div>
                         </div>
                         <div class="col-sm-1">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                            <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
                                 [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Process</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
@@ -71,7 +96,7 @@
         </div>
     </div>
 </div>
-<!-- <div class="row">
+ <!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-block">
@@ -114,4 +139,4 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>  -->

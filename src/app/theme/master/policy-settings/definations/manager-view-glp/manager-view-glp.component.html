@@ -36,7 +36,7 @@
                                     [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Type"
                                     #type (focus)="onFocus(type)" [selectOnTab]='true' autofocus>
-                                    <ng-option *ngFor="let values of schemetype" [value]="values">
+                                    <ng-option *ngFor="let values of schemetype" [value]="values"> 
                                       {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="TYPE">Type<sub class="required"> * </sub></label>
@@ -51,22 +51,16 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="StatementCodeDropdown" [multiple]="false"
-                                    placeholder="Statement Code *" required title="Compulsory Selection"
-                                    formControlName="STATEMENT_CODE">
-                                </ng-select>
-
-                            </div> -->
+                           
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="STATEMENT_CODE" appTheme bindValue="value" [(ngModel)]="ngstatement"
-                                    formControlName="STATEMENT_CODE" bindLabel="label" title="Compulsory Selection"
-                                    [virtualScroll]="true"
+                                  <ng-select id="STATEMENT_CODE" appTheme bindValue="id" [(ngModel)]="ngstatement"
+                                    formControlName="STATEMENT_CODE" bindLabel="head_name" title="Compulsory Selection"
+                                    [virtualScroll]="true" (change)="getSchemeCo($event)"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
                                     #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
-                                         {{values.label}}</ng-option>
+                                        {{values.id}} {{values.head_name}}</ng-option> 
                                   </ng-select>
                                   <label for="STATEMENT_CODE">Statement Code<sub class="required"> * </sub></label>
                                 </span>
@@ -86,21 +80,21 @@
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="StatementCodeDropdown" [multiple]="false"
                                     placeholder="Description *" required title="Compulsory Selection"
-                                    formControlName="DECRIPTION">
+                                    formControlName="DESCRIPTION">
                                 </ng-select>
 
                             </div>
                              -->
                             <!-- <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="DECRIPTION" appTheme bindValue="value" [(ngModel)]="ngdescription"
-                                    formControlName="DECRIPTION" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
+                                  <ng-select id="DESCRIPTION" appTheme bindValue="value" [(ngModel)]="ngdescription"
+                                    formControlName="DESCRIPTION" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Description"
                                     #description (focus)="onFocus(description)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
-                                  <label for="DECRIPTION">Description<sub class="required"> * </sub></label>
+                                  <label for="DESCRIPTION">Description<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                         </div> -->
@@ -159,7 +153,7 @@
            
             <div class="row">
                 <div class="col-sm">
-                    <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();type.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
+                    <button class="btn btn-outline-primary btn-sm btn-submit"  (click)="submit();type.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
                     <button class="btn btn-outline-primary btn-sm" (click)="updateData();type.focus()" *ngIf="updateShow">Update</button>&nbsp;
                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData();type.focus()" *ngIf="newbtnShow">Cancel</button>
                 </div>
@@ -189,7 +183,7 @@
                                         <td class="td_right">{{ data.SR_NO }}</td>
                                         <td>{{ data.TYPE }}</td>
                                         <td class="td_right">{{ data.STATEMENT_CODE }}</td>
-                                        <td>{{ data.DECRIPTION }}</td>
+                                        <td>{{ data.DESCRIPTION }}</td>
                                         <td>{{ data.PERCENTAGE_TO_WORKING_CAPITAL }}</td>
                                         <td>{{ data.IS_DISPLAY }}</td>
                                         
@@ -208,7 +202,7 @@
                                         <th><input type="text" class="form-control" name="SR_NO"></th>
                                         <th><input type="text" class="form-control" name="TYPE"></th>
                                         <th><input type="text" class="form-control" name="STATEMENT_CODE"></th>
-                                        <th><input type="text" class="form-control" name="DECRIPTION"></th>
+                                        <th><input type="text" class="form-control" name="DESCRIPTION"></th>
                                         <th><input type="text" class="form-control" name="PERCENTAGE_TO_WORKING_CAPITAL"></th>
                                         <th><input type="text" class="form-control"name="IS_DISPLAY"></th>
                                   
