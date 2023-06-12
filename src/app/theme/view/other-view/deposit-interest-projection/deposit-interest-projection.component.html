@@ -18,7 +18,8 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="BranchCode" formControlName="BRANCH_CODE"
-                    bindLabel="label" (change)="getBranch()" title="Compulsory Selection" placeholder="Branch" autofocus>
+                    bindLabel="label" (change)="getBranch()" title="Compulsory Selection" placeholder="Branch"
+                    autofocus>
                     <ng-option *ngFor="let values of branch_code" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -38,42 +39,44 @@
             </div>
             <div class="col-sm-12 col-md-3">
               <div class="form-group form-primary form-static-label">
-                  <span class="border-lable-flt">
-                      <ng-select id="Scheme" formControlName="Scheme" placeholder="Scheme"
-                          bindValue="value" bindLabel="label" [(ngModel)]="schemeCode"
-                          >
-                          <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
-                              {{values.label}} </ng-option>
-                      </ng-select>
-                  </span>
-              </div>
-              <div class="form-group form-primary form-static-label"
-                  *ngIf="ngForm.controls['Scheme'].invalid && (ngForm.controls['Scheme'].dirty || ngForm.controls['Scheme'].touched)"
-                  class="alert alert-danger">
-                  <div *ngIf="ngForm.controls['Scheme'].errors?.required">
-                      This field is required.
-                  </div>
-              </div>
-          </div>
-
-          </div>
-          <div class="row">
-            <div class="col-sm-2 col-md-2"> <label for="Deposit Amount">Deposit Amount
-                <sub class="required">*</sub></label>
-            </div>
-            <div class="col-sm-2 col-md-3">
-              <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right ;" type="text" placeholder="Deposit Amount" name="DepositAmount"
-                    id="DepositAmount" class="form-control" [(ngModel)]="depositAmount" formControlName="DEPO_AMT"
-                    maxlength="15" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    (keyup)="decimalAllContent($event)"  (focusout)= "getDecimalPoint($event)" >
+                  <ng-select id="Scheme" formControlName="Scheme" placeholder="Scheme" bindValue="value"
+                    bindLabel="label" [(ngModel)]="schemeCode">
+                    <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
+                      {{values.label}} </ng-option>
+                  </ng-select>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['DEPO_AMT'].invalid && (ngForm.controls['DEPO_AMT'].dirty || ngForm.controls['DEPO_AMT'].touched)"
+                *ngIf="ngForm.controls['Scheme'].invalid && (ngForm.controls['Scheme'].dirty || ngForm.controls['Scheme'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['DEPO_AMT'].errors?.required">
+                <div *ngIf="ngForm.controls['Scheme'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <label for="DepositDate">Deposit Date<sub class="required">* </sub></label>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left" class="form-control"
+                    [(ngModel)]="dates" formControlName="DEPO_DATE" #date="bsDatepicker" (keydown.Tab)="date.hide()"
+                    appButton minlength="8" maxlength="10"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
+
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['DEPO_DATE'].invalid && (ngForm.controls['DEPO_DATE'].dirty || ngForm.controls['DEPO_DATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['DEPO_DATE'].errors?.required">
                   This field is required.
                 </div>
               </div>
@@ -87,15 +90,15 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" name="Month" class="form-control" placeholder=" "
-                    id="Month" formControlName="MONTH" maxlength="3"
+                    id="Month" formControlName="AC_MONTHS" maxlength="3"  (change)="CheckmonthDays()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
 
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['MONTH'].invalid && (ngForm.controls['MONTH'].dirty || ngForm.controls['MONTH'].touched)"
+                *ngIf="ngForm.controls['AC_MONTHS'].invalid && (ngForm.controls['AC_MONTHS'].dirty || ngForm.controls['AC_MONTHS'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['MONTH'].errors?.required">
+                <div *ngIf="ngForm.controls['AC_MONTHS'].errors?.required">
                   This field is required.
                 </div>
               </div>
@@ -112,27 +115,68 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" name="Days" class="form-control" placeholder=" "
-                    id="Days" formControlName="DAYS" maxlength="3"
+                    id="Days" formControlName="AC_DAYS" maxlength="3"  (change)="CheckmonthDays()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['DAYS'].invalid && (ngForm.controls['DAYS'].dirty || ngForm.controls['DAYS'].touched)"
+                *ngIf="ngForm.controls['AC_DAYS'].invalid && (ngForm.controls['AC_DAYS'].dirty || ngForm.controls['AC_DAYS'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['DAYS'].errors?.required">
+                <div *ngIf="ngForm.controls['AC_DAYS'].errors?.required">
                   This field is required.
                 </div>
               </div>
             </div>
 
-
             <div class="col-sm-2">
-
-              <label for="InterestRate">Interest Rate<sub class="required">* </sub></label>
+              <label for="Date">Maturity Date <sub class="required">* </sub></label>
             </div>
-
             <div class="col-sm-3">
 
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" placeholder="dd/mm/yyyy" appButton minlength="8" maxlength="10" name="MaturityDate"
+                    id="MaturityDate" class="form-control" formControlName="MATUR_DATE" bsDatepicker>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['MATUR_DATE'].invalid && (ngForm.controls['MATUR_DATE'].dirty || ngForm.controls['MATUR_DATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['MATUR_DATE'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-2 col-md-2"> <label for="Deposit Amount">Deposit Amount
+                <sub class="required">*</sub></label>
+            </div>
+            <div class="col-sm-2 col-md-3">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input style="text-align: right ;" type="text" placeholder="Deposit Amount" name="DepositAmount"
+                    id="DepositAmount" class="form-control" [(ngModel)]="depositAmount" formControlName="DEPO_AMT"
+                    (change)="setMaturityDate()" (focusout)="checkAmount()"
+                    maxlength="15" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    (keyup)="decimalAllContent($event)">
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="ngForm.controls['DEPO_AMT'].invalid && (ngForm.controls['DEPO_AMT'].dirty || ngForm.controls['DEPO_AMT'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="ngForm.controls['DEPO_AMT'].errors?.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <label for="InterestRate">Interest Rate<sub class="required">* </sub></label>
+            </div>
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" name="InterestRate" class="form-control"
@@ -146,56 +190,12 @@
               <div class="form-group form-primary form-static-label"
                 *ngIf="ngForm.controls['INT_RATE'].invalid && (ngForm.controls['INT_RATE'].dirty || ngForm.controls['INT_RATE'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['INT_RATE'].errors?.required">
+                <div *ngIf="ngForm.controls['INT_RATE'].errors?.required"> 
                   This field is required.
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-2">
-              <label for="DepositDate">Deposit Date<sub class="required">* </sub></label>
-            </div>
-            <div class="col-sm-3">
-
-              <div class="form-group input-group">
-                <span class="border-lable-flt">
-                  <input type="text" appButton minlength="8" maxlength="10" placeholder="dd/mm/yyyy" name="DepositDate" id="DepositDate" class="form-control"
-                    formControlName="DEPO_DATE" bsDatepicker>
-                </span>
-              </div>
-              <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['DEPO_DATE'].invalid && (ngForm.controls['DEPO_DATE'].dirty || ngForm.controls['DEPO_DATE'].touched)"
-                class="alert alert-danger">
-                <div *ngIf="ngForm.controls['DEPO_DATE'].errors?.required">
-                  This field is required.
-                </div>
-              </div>
-            </div>
-
-
-
-
-            <div class="col-sm-2">
-              <label for="Date">Maturity Date <sub class="required">* </sub></label>
-            </div>
-            <div class="col-sm-3">
-
-              <div class="form-group input-group">
-                <span class="border-lable-flt">
-                  <input type="text" placeholder="dd/mm/yyyy" appButton minlength="8" maxlength="10" name="MaturityDate" id="MaturityDate" class="form-control"
-                    formControlName="MATUR_DATE" bsDatepicker>
-                </span>
-              </div>
-              <div class="form-group form-primary form-static-label"
-                *ngIf="ngForm.controls['MATUR_DATE'].invalid && (ngForm.controls['MATUR_DATE'].dirty || ngForm.controls['MATUR_DATE'].touched)"
-                class="alert alert-danger">
-                <div *ngIf="ngForm.controls['MATUR_DATE'].errors?.required">
-                  This field is required.
-                </div>
-              </div>
-            </div>
+           
           </div>
           <div class="row">
             <div class="col-sm-2">
@@ -225,9 +225,9 @@
           <div class="row">
 
             <div class="col-sm">
-              <button class="btn  btn-outline-primary btn-sm">Process</button>
+              <button class="btn  btn-outline-primary btn-sm" (click)="Process()">Process</button>
 
-              <button class="btn  btn-outline-primary btn-sm">Print</button>
+              <button class="btn  btn-outline-primary btn-sm" >Print</button>
             </div>
           </div>
 

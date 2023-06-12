@@ -34,7 +34,7 @@ interface ManagerView {
   SR_NO: number;
   TYPE: string;
   STATEMENT_CODE: string;
-  DECRIPTION :string;
+  DESCRIPTION :string;
   IS_DISPLAY:string;
   PERCENTAGE_TO_WORKING_CAPITAL:string;
 }
@@ -173,7 +173,7 @@ rowData= [];
         data: 'STATEMENT_CODE'
       }, {
         title: 'Description',
-        data: 'DECRIPTION'
+        data: 'DESCRIPTION'
       }, {
         title: '% to W capital',
         data: 'PERCENTAGE_TO_WORKING_CAPITAL'
@@ -201,7 +201,7 @@ rowData= [];
     SR_NO	:[''],
      TYPE: ['',[ Validators.required]],
      STATEMENT_CODE: ['',[ Validators.required]],
-     DECRIPTION: ['',[ Validators.required]],
+     DESCRIPTION: ['',[ Validators.required]],
      IS_DISPLAY: [''],
      PERCENTAGE_TO_WORKING_CAPITAL: ['']
    });
@@ -217,19 +217,19 @@ rowData= [];
      'SR_NO': formVal.SR_NO,
      'TYPE': formVal.TYPE,
      'STATEMENT_CODE': formVal.STATEMENT_CODE,
-     'DECRIPTION':  this.cScheme,
+     'DESCRIPTION':  this.cScheme,
      'IS_DISPLAY': formVal.IS_DISPLAY,
      'PERCENTAGE_TO_WORKING_CAPITAL': formVal.PERCENTAGE_TO_WORKING_CAPITAL,
    
      
    
    }
-   this.ManagerViewGlpService.postData(dataToSend).subscribe(data1 => {
+   this.ManagerViewGlpService.postData(dataToSend).subscribe(data1 => { 
      Swal.fire('Success!', 'Data Added Successfully !', 'success');
      this.formSubmitted = false;
-     // to reload after insertion of data
-    //  this.rerender();
-      //To clear form
+  //    to reload after insertion of data
+  //    this.rerender();
+  //     To clear form
   //  this.angForm.reset();
   //  }, (error) => {
   //  })
@@ -300,13 +300,13 @@ rowData= [];
    this.ManagerViewGlpService.getFormData(id).subscribe(data => {
      this.updateID = data.id;
      this.ngstatement=Number(data.STATEMENT_CODE)
-     this.ngdescription=data.DECRIPTION
+     this.ngdescription=data.DESCRIPTION
      this.angForm.patchValue({
          
       'SR_NO': data.SR_NO,
       'TYPE': data.TYPE,
       // 'STATEMENT_CODE': data.STATEMENT_CODE,
-      'DECRIPTION': data.DECRIPTION,
+      'DESCRIPTION': data.DESCRIPTION,
       'IS_DISPLAY': data.IS_DISPLAY,
       'PERCENTAGE_TO_WORKING_CAPITAL': data.PERCENTAGE_TO_WORKING_CAPITAL,
        
@@ -324,7 +324,7 @@ updateData() {
     'SR_NO': formVal.SR_NO,
     'TYPE': formVal.TYPE,
     'STATEMENT_CODE': formVal.STATEMENT_CODE,
-    'DECRIPTION':  this.cScheme,
+    'DESCRIPTION':  this.cScheme,
     'IS_DISPLAY': formVal.IS_DISPLAY,
     'PERCENTAGE_TO_WORKING_CAPITAL': formVal.PERCENTAGE_TO_WORKING_CAPITAL,
   

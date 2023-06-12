@@ -919,11 +919,11 @@ const MENUITEMS = [
           //   name: 'Master Card',
           //   id: 126
           // },
-          // {
-          //   state: 'memberLiablityView',
-          //   name: 'Member Liablity View',
-          //   id: 127
-          // },
+          {
+            state: 'memberLiablityView',
+            name: 'Member Liablity View',
+            id: 127
+          },
           {
             state: 'otherView',
             name: 'Other View',
@@ -1479,12 +1479,58 @@ const MENUITEMS = [
           },
 
           //
-          // {
-          //   state: 'npaReports',
-          //   name: 'NPA Reports',
-          //   id: 137
-          // },
-          // //
+          {
+            state: 'npaReports',
+            name: 'NPA Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 137,
+            // children: [
+            //   {
+            //     state: 'BnkPigmyCollectionChart',
+            //     name: 'Pigmy Account wise Collection Chart',
+            //     id: 286
+            //   },
+            //   {
+            //     state: 'BnkPigmyCollectionChart',
+            //     name: 'Pigmy Account wise Collection Chart',
+            //     id: 287
+            //   },
+            //   {
+            //     state: 'BnkPigmyCollectionChart',
+            //     name: 'Pigmy Account wise Collection Chart',
+            //     id: 288
+            //   },
+            //   {
+            //     state: 'BnkPigmyCollectionChart',
+            //     name: 'Pigmy Account wise Collection Chart',
+            //     id: 289
+            //   },
+            //   // {
+            //   //   state: 'BnkPigmyCollectionChart',
+            //   //   name: 'Pigmy Account wise Collection Chart',
+            //   //   id: 290
+            //   // },
+            //   // {
+            //   //   state: 'BnkPigmyCollectionChart',
+            //   //   name: 'Pigmy Account wise Collection Chart',
+            //   //   id: 291
+            //   // },
+            //   // {
+            //   //   state: 'BnkPigmyCollectionChart',
+            //   //   name: 'Pigmy Account wise Collection Chart',
+            //   //   id: 292
+            //   // },
+            //   // {
+            //   //   state: 'BnkPigmyCollectionChart',
+            //   //   name: 'Pigmy Account wise Collection Chart',
+            //   //   id: 293
+            //   // },
+              
+            // ]
+          },
+          //
           //
           // {
           //   state: 'nottice',

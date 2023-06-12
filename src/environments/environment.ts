@@ -19,20 +19,20 @@ export const environment = {
 
   // base_url: 'http://192.168.1.154:4000'  //sudam sir PC
 
-  report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
+  // report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
   // report_url: 'http://139.59.63.215/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/' //server bhairavnath report test folder path
   // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
-  // report_url: 'http://localhost/phpjasper/', //report folder local path
+  report_url: 'http://localhost/phpjasper/', //report folder local path
   // report_url: 'http://localhost/phpjasper/examples/r', //report folder path
   // report_url: 'http://localhost/phpjasper/vaibhavi/', //report folder path
   // report_url: 'http://localhost/phpjasper/examples/s', //report folder path
 
   // sitename: 'http://139.59.63.215/bhn_cbs'  //server bhairavnath hotkey
-  // sitename: 'http://139.59.63.215/bhairavnath' //server bhairavnath site hotkey
-  sitename: 'http://139.59.63.215/SIDHANERLI/CBS' //server sidhanerli site hotkey
+  sitename: 'http://139.59.63.215/bhairavnath' //server bhairavnath site hotkey
+  // sitename: 'http://139.59.63.215/SIDHANERLI/CBS' //server sidhanerli site hotkey
 
 };
 
