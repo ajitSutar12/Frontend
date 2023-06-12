@@ -78,11 +78,11 @@ export class ManagerViewComponent implements OnInit {
   url = environment.base_url;
   ngbranch: any;
   branchName: any;
-  retrivedata: any=[];
-  denomination: any=[];
-  glposition: any=[];
-  retrivedata1: any=[];
-
+  retrivedata: any = [];
+  denomination: any = [];
+  glposition: any = [];
+  retrivedata1: any = [];
+  branchno
   glDetails: any;
 
   constructor(
@@ -158,6 +158,7 @@ export class ManagerViewComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].enable()
       this.ngBranchCode = result.branch.id
       this.branchName = result.branch.NAME
+      this.branchno = result.branch.CODE
 
     }
     else {
@@ -172,13 +173,14 @@ export class ManagerViewComponent implements OnInit {
       // this.ngBranchCode = data[0].value
     })
 
-    //get Gl Position details
-      this._service.getGlPosition().pipe(first()).subscribe(data => {
-      this.glposition = data;
-      console.log(this.glposition)
+    // //get Gl Position details
+    //   this._service.getGlPosition().pipe(first()).subscribe(data => {
+    //   this.glposition = data;
+    //   console.log(this.glposition)
 
-    })
+    // })
     this.getManagerView()
+    this.getBranch(event)
   }
 
   id: any = 'f1';
@@ -315,185 +317,185 @@ export class ManagerViewComponent implements OnInit {
     let pcode = 'Both'
     let ccode = 1
 
-    if(this.angForm.valid){
+    if (this.angForm.valid) {
 
       let obj = this.angForm.value
 
       let Date = moment(obj.date).format('DD/MM/YYYY');
       let toDate = moment(Date, 'DD/MM/YYYY')
-        //for start date
-        if (this.date == userData.branch.syspara.CURRENT_DATE) {
-         obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
-       }
-       else {
-         let date = moment(this.date).format('DD/MM/YYYY');
-         let toDate = moment(date, 'DD/MM/YYYY')
-         obj['START_DATE'] = date
-       }
+      //for start date
+      if (this.date == userData.branch.syspara.CURRENT_DATE) {
+        obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.date).format('DD/MM/YYYY');
+        let toDate = moment(date, 'DD/MM/YYYY')
+        obj['START_DATE'] = date
+      }
       let branch = obj.BRANCH_CODE;
 
-    if (id === 'userw') {
-    
-      this.iframe1url = this.report_url + "examples/UserWorkingReportList.php?TRAN_DATE='" + obj.START_DATE + "'&TRAN_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&BANK_NAME='" + bankName + "'";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
+      if (id === 'userw') {
 
-    }
-    else if (id === 'userL') { 
-      this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&asondate='" + obj.START_DATE + "'";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    }
-    else if (id === 'userCash') { 
-      this.iframe1url = this.report_url + "examples/usercashdenomination.php?branchName='" + this.branchName + "'&date='" + obj.START_DATE + "'&BRANCH_CODE='" + branch + "'&bankName='" + bankName + "'";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    }
-    else if (id === 'delayWork') { 
-      this.iframe1url = this.report_url + "examples/UserCounterWorkDelayTime.php?BRANCH='" + this.branchName + "'&BANK_NAME='"+bankName+"'&BRANCH_CODE='" + branch + "'";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    }
-    // else if (id === 'schemeLog') { 
-    //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-    //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-    //   console.log(this.iframe1url);
-    //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    // }
-    // else if (id === 'glPosDetail') { 
-    //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-    //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-    //   console.log(this.iframe1url);
-    //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    // }
-    // else if (id === 'Nearest') { 
-    //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-    //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-    //   console.log(this.iframe1url);
-    //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    // }
-    else if (id === 'Incompletion') { 
-      this.iframe1url = this.report_url + "examples/incompletemaster.php/?&branchname='"+this.branchName +"'&sdate='"+obj.START_DATE + "'&BRANCH_CODE='"+branch+"'&bankname='"+bankName+"'";
-     
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    }
-    else if (id === 'rateOfMargin') { 
-     
-      this.iframe1url = this.report_url + "examples/interestratemargin.php?&Branch='" + this.branchName + "'&branch_code1="+branch+"&branch_code2="+branch+"&BankName='" + bankName + "'&sdate='"+ obj.START_DATE+"'&edate='"+ obj.START_DATE+"'&AC_ACNOTYPE4='TD'&AC_ACNOTYPE='IV'&AC_ACNOTYPE1='AG'&AC_ACNOTYPE2='GS'"
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    }
-    else if (id === 'loanAnalysis') { 
-      this.iframe1url = this.report_url + "examples/loananalysisquery.php/?&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&bankname='"+bankName+"'&transtatus='1'&BRANCH_CODE='"+branch+"'";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    }
-    // else if (id === 'ratioAnalysis') { 
-    //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-    //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-    //   console.log(this.iframe1url);
-    //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    // }
-    // else if (id === 'dailyLiquidity') { 
-    //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-    //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-    //   console.log(this.iframe1url);
-    //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    // }
-    // else if (id === 'remindMe') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
- // else if (id === 'npaAnalysis') { 
-    //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-    //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-    //   console.log(this.iframe1url);
-    //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-    // }
-    // else if (id === 'overDue') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
-// else if (id === 'maturedTdLn') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
-// else if (id === 'insuranceDue') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
-// else if (id === 'Expenses') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
-// else if (id === 'excessCash') { 
-      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
-      //   console.log(this.iframe1url);
-      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      // }
-else if (id === 'fdPayment') { 
-        this.iframe1url = this.report_url + "examples/fdpayment.php?branchName='" + this.branchName + "'&BRANCH_CODE='"+branch+"'&date='" + obj.START_DATE + "'&bankName='" + bankName + "'";
+        this.iframe1url = this.report_url + "examples/UserWorkingReportList.php?TRAN_DATE='" + obj.START_DATE + "'&TRAN_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&BANK_NAME='" + bankName + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+
+      }
+      else if (id === 'userL') {
+        this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&asondate='" + obj.START_DATE + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
-else if (id === 'drBalance') { 
-        this.iframe1url = this.report_url + "examples/Debit_Balance_Report.php?branchName='" + this.branchName + "'&bankName='" + bankName + "'&stdate='" + obj.START_DATE + "'&etdate='" + obj.START_DATE + "'&branch_code='"+ branch +"'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
+      else if (id === 'userCash') {
+        this.iframe1url = this.report_url + "examples/usercashdenomination.php?branchName='" + this.branchName + "'&date='" + obj.START_DATE + "'&BRANCH_CODE='" + branch + "'&bankName='" + bankName + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
+      else if (id === 'delayWork') {
+        this.iframe1url = this.report_url + "examples/UserCounterWorkDelayTime.php?BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&BRANCH_CODE='" + branch + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
+      // else if (id === 'schemeLog') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'glPosDetail') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'Nearest') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      else if (id === 'Incompletion') {
+        this.iframe1url = this.report_url + "examples/incompletemaster.php/?&branchname='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&BRANCH_CODE='" + branch + "'&bankname='" + bankName + "'";
+
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
+      else if (id === 'rateOfMargin') {
+
+        this.iframe1url = this.report_url + "examples/interestratemargin.php?&Branch='" + this.branchName + "'&branch_code1=" + branch + "&branch_code2=" + branch + "&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&AC_ACNOTYPE4='TD'&AC_ACNOTYPE='IV'&AC_ACNOTYPE1='AG'&AC_ACNOTYPE2='GS'"
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
+      else if (id === 'loanAnalysis') {
+        this.iframe1url = this.report_url + "examples/loananalysisquery.php/?&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&bankname='" + bankName + "'&transtatus='1'&BRANCH_CODE='" + branch + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
+      // else if (id === 'ratioAnalysis') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'dailyLiquidity') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'remindMe') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'npaAnalysis') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'overDue') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'maturedTdLn') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'insuranceDue') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'Expenses') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      // else if (id === 'excessCash') { 
+      //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
+      //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
+      //   console.log(this.iframe1url);
+      //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      // }
+      else if (id === 'fdPayment') {
+        this.iframe1url = this.report_url + "examples/fdpayment.php?branchName='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&date='" + obj.START_DATE + "'&bankName='" + bankName + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
+      else if (id === 'drBalance') {
+        this.iframe1url = this.report_url + "examples/Debit_Balance_Report.php?branchName='" + this.branchName + "'&bankName='" + bankName + "'&stdate='" + obj.START_DATE + "'&etdate='" + obj.START_DATE + "'&branch_code='" + branch + "'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
         // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
-else if (id === 'crBalance') { 
-        this.iframe1url = this.report_url + "examples/Credit_Balance_List.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&edate='" + obj.START_DATE + "'&branch_code='"+ branch +"'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE1='LN'&AC_ACNOTYPE2='DS'&AC_ACNOTYPE3='CC'&QUOTES=''";
+      else if (id === 'crBalance') {
+        this.iframe1url = this.report_url + "examples/Credit_Balance_List.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&edate='" + obj.START_DATE + "'&branch_code='" + branch + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE1='LN'&AC_ACNOTYPE2='DS'&AC_ACNOTYPE3='CC'&QUOTES=''";
         // this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
-else if (id === 'zeroBalance') { 
-        this.iframe1url = this.report_url + "examples/zero_Balance_List.php/?&Branch='"+this.branchName +"'&date='" + obj.START_DATE + "'&bankname='" + bankName + "'&BRANCH_CODE='"+branch+"'";
+      else if (id === 'zeroBalance') {
+        this.iframe1url = this.report_url + "examples/zero_Balance_List.php/?&Branch='" + this.branchName + "'&date='" + obj.START_DATE + "'&bankname='" + bankName + "'&BRANCH_CODE='" + branch + "'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
-else if (id === 'ccOverdraft') { 
-        this.iframe1url = this.report_url + "examples/CCOverdraftReport.php?&Branch='" + this.branchName + "'&branch_code='"+ branch +"'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE='CC'";
-          console.log(this.iframe1url);
-        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-      }
-else if (id === 'overDraft') { 
-        this.iframe1url = this.report_url + "examples/Overdraft(OD).php?&branchname='" + this.branchName + "'&Date='" + obj.START_DATE + "'&branchcode='"+branch+"'&Bankname='" + bankName + "'";
+      else if (id === 'ccOverdraft') {
+        this.iframe1url = this.report_url + "examples/CCOverdraftReport.php?&Branch='" + this.branchName + "'&branch_code='" + branch + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.START_DATE + "'&trandrcr='D'&transtatus='1'&AC_ACNOTYPE='CC'";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
-// else if (id === 'consistancy') { 
+      else if (id === 'overDraft') {
+        this.iframe1url = this.report_url + "examples/Overdraft(OD).php?&branchname='" + this.branchName + "'&Date='" + obj.START_DATE + "'&branchcode='" + branch + "'&Bankname='" + bankName + "'";
+        console.log(this.iframe1url);
+        this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      }
+      // else if (id === 'consistancy') { 
       //   // this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + this.date + "&Branch=" + this.ngBranchCode + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
       //   this.iframe1url = this.report_url + "examples/loginreport.php?date='" + obj.START_DATE + "'&branchName='" + this.branchName + "'";
       //   console.log(this.iframe1url);
       //   this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       // }
-else if (id === 'highRecPay') { 
-        this.iframe1url = this.report_url + "examples/HighRecPay.php?START_DATE='" + obj.START_DATE + "'&BANK_NAME='" + bankName + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&BRANCH_CODE='"+branch+"'&AC_TYPE=1";
+      else if (id === 'highRecPay') {
+        this.iframe1url = this.report_url + "examples/HighRecPay.php?START_DATE='" + obj.START_DATE + "'&BANK_NAME='" + bankName + "'&END_DATE='" + obj.START_DATE + "'&BRANCH='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&AC_TYPE=1";
         console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
 
   mangerViewDetails
-  
+  mangerViewGl
   disableBtn: boolean = false
   getManagerView() {
 
@@ -511,33 +513,40 @@ else if (id === 'highRecPay') {
         let denomination = this.mangerViewDetails.denomination
 
 
-        denomination.forEach(entry =>{
+        denomination.forEach(entry => {
           this.retrivedata.push(entry);
           // console.log(this.retrivedata)
         })
       })
 
-     let obj1 = {
-      date: expiry, 
-      branch_code: this.ngBranchCode,
+      //for net profit
+      let obj1 = {
+        date: expiry,
+        branch_code: this.ngBranchCode,
 
-     }
-     this.http.post<any>(this.url + '/reports/profitLoss', obj1).subscribe((data) => {
-      this.glDetails = data
-      console.log(this.glDetails);
-      
-      // let ledgerbal = this.glDetails.Lledger_balance
-      // console.log(ledgerbal);
+      }
+      this.http.post<any>(this.url + '/reports/profitLoss', obj1).subscribe((data) => {
+        this.glDetails = data
+        console.log(this.glDetails);
 
-
-      this.glDetails.forEach(entry =>{
-        this.retrivedata1.push(entry);
-        // console.log(this.retrivedata1)
+        this.glDetails.forEach(entry => {
+          this.retrivedata1.push(entry);
+          // console.log(this.retrivedata1)
+        })
       })
-    })
+
+      let obj2 = {
+        currentDate: expiry,
+        branch: this.branchno
+      }
+      this.http.post(this.url + '/reports/managerviewGLbalance/', obj2).subscribe((data) => {
+        this.mangerViewGl = data
+        console.log(this.mangerViewGl)
 
 
-      
+      })
+
+
     }
   }
   close() {
@@ -552,7 +561,9 @@ else if (id === 'highRecPay') {
   }
   getBranch(event) {
     this.ngbranch = event.value
-    this.branchName = event.branchName 
+    this.branchName = event.branchName
+    this.branchno = event.name
+    this.getManagerView()
   }
 
 }

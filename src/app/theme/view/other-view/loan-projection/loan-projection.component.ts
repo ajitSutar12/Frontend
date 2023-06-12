@@ -51,7 +51,8 @@ export class LoanProjectionComponent implements OnInit {
     private repayModeService: RepayModeService, 
     private installmentMethodService: InstallmentMethodService, 
     private fb: FormBuilder,
-    private _services: OtherViewService) { }
+    private _services: OtherViewService  
+    ) { }
 
 
   ngOnInit(): void {

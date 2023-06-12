@@ -307,8 +307,8 @@
                                                                                 <tr *ngFor="let data of glposition">
                                                                                     <!-- <td *ngFor="let data of retrivedata1">
                                                                                     </td> -->
-                                                                                  {{data.DECRIPTION}} 
-                                                                                        </tr>
+                                                                                  {{data.DESCRIPTION}} 
+                                                                                        </tr> 
                                                                             </table>
 
                                                                             <div class="col-md-4">Deposits</div>
@@ -410,33 +410,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <label>Net Profit</label>
+                                <div class="col-md-8" >
+                                    <table class="table-responsive">
+                                        <div class="col-md-4" *ngFor="let data of retrivedata1">
+                                            {{data.Ehead_name}}
+                                        </div>
+                                        <tr >
+                                            <td >
+                                            </td>
+                                           
+                                                </tr>
+                                    </table>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <!-- <input type="text"
-                                                name="bankcdr"
-                                                class="form-control"
-                                                placeholder=" " id="bankcdr"
-                                                pattern="\d{1,20}(\.\d{2})?"
-                                                maxlength="6"
-                                                title="Input allowed only  0-9"
-                                                formControlName="bankcdr"
-                                                style="text-align: right;"
-                                                (focusout)="decimalAllContent($event)"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                            <div class="col-md">
-                                                00
-                                            </div>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                              
+                              
+                            </div> -->
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">

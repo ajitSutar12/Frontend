@@ -136,7 +136,7 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="TRANSACTION_AMT"
+                                    <input type="text" name="TRANSACTION_AMT"   [(ngModel)]="transactionAmt"
                                     class="form-control" placeholder=" "
                                     id="TRANSACTION_AMT" required=""
                                      style="text-align: right;"
@@ -162,7 +162,7 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" class="form-control"  name="TRANSACTION_AMT" formControlName="LEDGER_BAL"
                                     pattern="\d{1,20}(\.\d{1,2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                    (focusout)= "getDecimalPoint($event)"
+                                    (focusout)= "getDecimalPoint($event)" 
                                     title="Input allowed only  0-9" [ngClass]="{'form-submitted': formSubmitted}"
                                      type="text">
                                 </span>
@@ -206,46 +206,49 @@
         </div>
     </div>
 </div>
-
-<div class="card" style="width: 350px;" *ngIf="showCash">
-    <div class="card-header">
-        <h5>Cash in Denomination</h5>
-    </div> 
-    <div class="card-block">
-        <div class="solid">
-            <table>
-                <tr *ngFor="let data of currencyData; let indexOfelement = index">
-                    <td class="td_center">{{data.currency}} X</td>
-                    <td><input type="text"  style="width:100px;" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                        (keyup)="calculation(data,indexOfelement,$event)" value="{{data.qty}}" placeholder="0">=</td>
-                    <td><input type="text"  style="width:100px;" value="{{data.total}}" disabled></td>
-                    <!-- <td><input type="text" value="{{data.available}}"></td> -->
-                </tr>
-                <div></div>
-                <div class="h" style="width: 100px;"></div>
-                <div></div>
-                <tr>
-                    <td align="right">
-                        Total Cash :
-                    </td>
-                    <td>
-                        <input type="text" value="{{sum}}"  style="width:100px;">
-                    </td>
-                </tr>
-               
-            </table>
-            
+<div class="col-md-3" id="FORMA" *ngIf="showCash">
+    <div class="card" style="width: 450px;">
+        <div class="card-header">
+            <h5>Cash  Denomination</h5>
         </div>
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-sm">
-                <button class="btn btn-outline-primary btn-sm" (click)="submit()">
-                    Submit
-                </button>
-                
+        <div class="card-block">
+            <div class="solid">
+                <table>
+                    <tr *ngFor="let data of currencyData; let indexOfelement = index">
+                        <td class="td_center">{{data.currency}} X</td>
+                        <td><input type="text" (keyup)="calculation(data,indexOfelement,$event)"
+                            style="width: 100px;"   value="{{data.qty}}">=</td>
+                        <td><input type="text" class="text-right" style="width: 100px;" value="{{data.total}}" disabled></td>
+                        <td><input type="text" class="text-right" style="width: 60px;" value="{{data.available}}" disabled></td>
+                    </tr>
+
+                    <div></div>
+                    <div class="h" style="width: 350px;"></div>
+                    <div></div>
+                    <tr>
+                        <td align="right">
+                            Total Cash :
+                        </td>
+                        <td></td>
+                        <td>
+                            <input type="text" style="width: 100px;" value="{{sum}}">
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-    </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm">
+                    <button class="btn btn-outline-primary btn-sm" (click)="submit()">
+                        Submit
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
 
+    </div>
 </div>
