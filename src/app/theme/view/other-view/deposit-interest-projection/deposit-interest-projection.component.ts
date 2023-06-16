@@ -83,7 +83,7 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       Scheme: ['', [Validators.required]],
       DEPO_AMT: ['', [Validators.required]],
       AC_MONTHS : ['', [Validators.required]],
-      AC_DAYS : ['', [Validators.required]],
+      AC_DAYS : ['', []],
       INT_RATE : ['', [Validators.required]],
       DEPO_DATE : ['', [Validators.required]],
       MATUR_DATE : ['', [Validators.required]],
@@ -554,6 +554,7 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     let formVal = this.ngForm.value;
 
     let obj = {
+      cmDepositAmount: formVal.DEPO_AMT,
       cmIntRate : formVal.INT_RATE ,
       cmSchemeCd: formVal.Scheme ,
       cmDate: formVal.DEPO_DATE ,
@@ -566,7 +567,7 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     obj['user'] = JSON.parse(localStorage.getItem('user'));
     this._services.depositProjection(obj).subscribe(data=>{
       console.log(data);
-      this.resultData = data.result;
+      this.resultData = data; 
     })
   }
 
