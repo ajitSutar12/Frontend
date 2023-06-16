@@ -700,7 +700,7 @@ const MENUITEMS = [
             state: 'voucherPrint',
             name: 'Voucher Printing',
             id: 285,
-           
+
           },
           {
             state: 'goldsilverreturnentry',
@@ -1478,57 +1478,62 @@ const MENUITEMS = [
 
           },
 
-          //
+
           {
             state: 'npaReports',
             name: 'NPA Reports',
             short_label: 'D',
             type: 'sub',
-            icon: 'icon-home',
             id: 137,
-            // children: [
-            //   {
-            //     state: 'BnkPigmyCollectionChart',
-            //     name: 'Pigmy Account wise Collection Chart',
-            //     id: 286
-            //   },
-            //   {
-            //     state: 'BnkPigmyCollectionChart',
-            //     name: 'Pigmy Account wise Collection Chart',
-            //     id: 287
-            //   },
-            //   {
-            //     state: 'BnkPigmyCollectionChart',
-            //     name: 'Pigmy Account wise Collection Chart',
-            //     id: 288
-            //   },
-            //   {
-            //     state: 'BnkPigmyCollectionChart',
-            //     name: 'Pigmy Account wise Collection Chart',
-            //     id: 289
-            //   },
-            //   // {
-            //   //   state: 'BnkPigmyCollectionChart',
-            //   //   name: 'Pigmy Account wise Collection Chart',
-            //   //   id: 290
-            //   // },
-            //   // {
-            //   //   state: 'BnkPigmyCollectionChart',
-            //   //   name: 'Pigmy Account wise Collection Chart',
-            //   //   id: 291
-            //   // },
-            //   // {
-            //   //   state: 'BnkPigmyCollectionChart',
-            //   //   name: 'Pigmy Account wise Collection Chart',
-            //   //   id: 292
-            //   // },
-            //   // {
-            //   //   state: 'BnkPigmyCollectionChart',
-            //   //   name: 'Pigmy Account wise Collection Chart',
-            //   //   id: 293
-            //   // },
-              
-            // ]
+            children: [
+              //   {
+              //     state: 'BnkPigmyCollectionChart',
+              //     name: 'Pigmy Account wise Collection Chart',
+              //     id: 286
+              //   },
+              //   {
+              //     state: 'BnkPigmyCollectionChart',
+              //     name: 'Pigmy Account wise Collection Chart',
+              //     id: 287
+              //   },
+              //   {
+              //     state: 'BnkPigmyCollectionChart',
+              //     name: 'Pigmy Account wise Collection Chart',
+              //     id: 288
+              //   },
+              //   {
+              //     state: 'BnkPigmyCollectionChart',
+              //     name: 'Pigmy Account wise Collection Chart',
+              //     id: 289
+              //   },
+              {
+                state: 'citiwisenpa',
+                name: 'Citywise NPA Register',
+                type: 'sub',
+                id: 290,
+
+              },
+              {
+                state: 'analysisnpa',
+                name: 'NPA Analysis Report',
+                type: 'sub',
+                id: 291,
+
+              },
+              {
+                state: 'classificationsecnpa',
+                name: 'NPA Classification -Secured Or Unsecured.PNG',
+                type: 'sub',
+                id: 292,
+              },
+              {
+                state: 'classificationstandardnpa',
+                name: 'NPA Classification -Standard Or Non Standard.PNG',
+                type: 'sub',
+                id: 293,
+              },
+
+            ],
           },
           //
           //

@@ -699,7 +699,7 @@ export class VoucherEntryComponent implements OnInit {
     // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
     this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
     this._service.getHeadDetails(obj).subscribe(data => {
-      debugger
+      // debugger
       console.log(this.Submitscheme);
       if (data.length != 0) {
 
@@ -1187,7 +1187,7 @@ export class VoucherEntryComponent implements OnInit {
     }
   }
 
-  //cheque no captial function
+  //cheque no captial functionOops
   chequeNoData(event) {
     //debugger
     this.angForm.patchValue({

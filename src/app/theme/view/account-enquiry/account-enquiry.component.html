@@ -81,7 +81,11 @@
                                                     (focus)="onFocus(AC_NO)" [selectOnTab]='true'
                                                     title="Compulsory Selection" required placeholder="Account No.">
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                                        {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
+                                                        {{values.AC_NO}} {{values.AC_NAME}}
+                                                        <!-- <div *ngFor="let val of values.idmaster" > 
+                                                            {{val.AC_MOBILENO}}
+                                                        </div>  -->
+                                                    </ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>

@@ -27,7 +27,32 @@ const routes: Routes = [
         path: 'excessCashBalance',
         loadChildren: () => import('./directorwise-npa-reg/directorwise-npa-reg.module').then(m => m.DirectorwiseNpaRegModule)
       },
-    ]}
+      {
+
+        path: 'citiwisenpa',
+        loadChildren: () => import('./citiwise-npa-reg/citiwise-npa-reg.module').then(m => m.CitiwiseNpaRegModule)
+
+      },
+      {
+
+        path: 'analysisnpa',
+        loadChildren: () => import('./npa-analysis-report/npa-analysis-report.module').then(m => m.NpaAnalysisReportModule)
+
+      },
+      {
+
+        path: 'classificationsecnpa',
+        loadChildren: () => import('./npaclassification-secured-unsecurd/npaclassification-secured-unsecurd.module').then(m => m.NpaclassificationSecuredUnsecurdModule)
+
+      },
+      {
+
+        path: 'classificationstandardnpa',
+        loadChildren: () => import('./npaclassification-standard-nonstandard/npaclassification-standard-nonstandard.module').then(m => m.NpaclassificationStandardNonstandardModule)
+
+      },
+    ]
+  }
 ];
 
 @NgModule({

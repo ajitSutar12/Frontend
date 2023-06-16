@@ -6,7 +6,7 @@ import { AcwiseLoanoverdueListComponent } from './acwise-loanoverdue-list.compon
 
 
 @NgModule({
-  declarations: [AcwiseLoanoverdueListComponent],
+  declarations: [],
   imports: [
     CommonModule,
     AcwiseLoanoverdueListRoutingModule

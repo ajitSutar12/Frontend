@@ -20,8 +20,9 @@ export class RatioAnalysisComponent implements OnInit {
 
   ngOnInit(): void {
     this.otherviewservice.ratioAnalysis().subscribe(data=> {
-      console.log(data);
+ 
      this.depositData = data.DepoData;
+     console.log(this.depositData);
     //  this.depositData.push(this.amount)
     //   this.amount = data.DepoData.map(value => Math.abs(value.TOT_BALANCE));
 
