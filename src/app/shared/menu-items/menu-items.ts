@@ -1478,7 +1478,45 @@ const MENUITEMS = [
 
           },
 
+          
+          {
+            state: 'npaReports',
+            name: 'NPA Reports',
+            short_label: 'D',
+            type :'sub',
+            id: 137,
+            children: [
+              {
+                state: 'citiwisenpa',
+                name: 'Citywise NPA Register',
+                type: 'sub',
+                id: 290,
+
+              },
+              {
+                state: 'analysisnpa',
+                name: 'NPA Analysis Report',
+                type: 'sub',
+                id: 291,
+
+              },
+              {
+                state: 'classificationsecnpa',
+                name: 'NPA Classification -Secured Or Unsecured.PNG',
+                type: 'sub',
+                id: 292,
+              },
+              {
+                state: 'classificationstandardnpa',
+                name: 'NPA Classification -Standard Or Non Standard.PNG',
+                type: 'sub',
+                id: 293,
+              },
+            
+            ],
+          },
           //
+<<<<<<< Updated upstream
           {
             state: 'npaReports',
             name: 'NPA Reports',
@@ -1531,6 +1569,8 @@ const MENUITEMS = [
             // ]
           },
           //
+=======
+>>>>>>> Stashed changes
           //
           // {
           //   state: 'nottice',

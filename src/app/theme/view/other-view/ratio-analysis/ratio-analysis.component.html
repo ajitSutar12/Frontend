@@ -9,8 +9,8 @@
                     <div class="col-8">
                         <table class="table table-borderless">
                             <thead>
-                                <th>Rate</th>
-                                <th>No. of Acts</th>
+                                <th>Rate %</th>
+                                <th>No. of Account</th>
                                 <th>Total Amount</th>
                                 <th>Interest For A Day</th>
                             </thead>
@@ -25,8 +25,8 @@
                                     <td>{{item.INT_RATE |pipe}}</td>
                                     <td>{{item.NO_OF_ACS}}</td>
                                     <!-- <td><ul *ngFor="let data of amount"><li {{data}}></li></ul></td> -->
-                                    <td>{{item.TOT_BALANCE | pipe}}</td>
-                                    <td>{{item.TOT_BALANCE1 | pipe |number : '1.0-2'   }}</td>
+                                    <td>{{item.TOT_BALANCE | pipe |number:'0.2'}}</td>
+                                    <td>{{item.TOT_BALANCE1 | pipe |number: '1.0-2'}}</td>
 
                                 </tr>
                                 <!-- <tr>
@@ -45,7 +45,7 @@
                                 <tr *ngFor="let item of loanData">
                                     <td>{{item.INT_RATE}}</td>
                                     <td>{{item.NO_OF_ACS}}</td>
-                                    <td>{{item.TOT_BALANCE}}</td>
+                                    <td>{{item.TOT_BALANCE |number:'0.2'}}</td>
                                     <td>{{item.TOT_BALANCE1 |number : '1.0-2' }}</td>
                                 </tr>
                             </tbody>

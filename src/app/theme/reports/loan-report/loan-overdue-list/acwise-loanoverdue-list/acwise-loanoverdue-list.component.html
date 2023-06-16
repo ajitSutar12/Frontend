@@ -1,1 +1,281 @@
-<p>acwise-loanoverdue-list works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Accountwise Loanoverdue Report</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card">
+                <form [formGroup]="ngForm">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                            (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
+                                            placeholder="Branch">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"><label for=" Date">Scheme Code<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-3 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                            [(ngModel)]="scode" (change)="getTransferAccountList($event)">
+                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                {{values.id}} {{values.label}} </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Date<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                            [(ngModel)]="todate" formControlName="END_DATE" appButton minlength="8"
+                                            maxlength="10"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['END_DATE'].invalid && (ngForm.controls['END_DATE'].dirty || ngForm.controls['END_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['END_DATE'].errors?. maxlength || ngForm.controls['END_DATE'].errors?. minlength || ngForm.controls['END_DATE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Min. installment<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="" name="Min_save" id="Min_save"
+                                            class="form-control" [(ngModel)]="minvalue" formControlName="Min_save"
+                                            minlength="8" maxlength="10">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Min_save'].invalid && (ngForm.controls['Min_save'].dirty || ngForm.controls['Min_save'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['Min_save'].errors?. maxlength || ngForm.controls['Min_save'].errors?. minlength || ngForm.controls['Min_save'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Max. installment<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                     <input type="text" placeholder="" name="Max_save" id="Max_save"
+                                     class="form-control"
+                                        [(ngModel)]="maxvalue" formControlName="Max_save"  minlength="8" maxlength="10"
+                                         > 
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Max_save'].invalid && (ngForm.controls['Max_save'].dirty || ngForm.controls['Max_save'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['Max_save'].errors?. maxlength || ngForm.controls['Max_save'].errors?. minlength || ngForm.controls['Max_save'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div> 
+
+                        </div>
+                        <div class="row">
+                         <div class="col-md-12">
+                            <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
+                                <!-- start of basic tab -->
+                                <ngb-tab title="Range" id="Range" class="col-md-12 border">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="">
+                                                <div class="card-block highlight">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-2"> <label for="Start_code">Start code<sub
+                                                                    class="required">*</sub></label>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-3">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select id="Start_code" bindValue="value" [(ngModel)]="start"
+                                                                        (change)="getBranch($event)" formControlName="Start_code" bindLabel="label"
+                                                                        placeholder="Start_code">
+                                                                        <ng-option *ngFor="let values of " [value]="values">
+                                                                            {{values.label}}</ng-option>
+                                                                    </ng-select>
+                                                                </span>
+                                                            </div>
+                            
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="ngForm.controls['Start_code'].invalid && (ngForm.controls['Start_code'].dirty || ngForm.controls['Start_code'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div *ngIf="ngForm.controls['Start_code'].errors?.required">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-2"> <label for="Start_code">End code<sub
+                                                                    class="required">*</sub></label>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-3">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select id="End_code" bindValue="value" [(ngModel)]="end"
+                                                                        (change)="getBranch($event)" formControlName="End_code" bindLabel="label"
+                                                                        placeholder="End_code">
+                                                                        <ng-option *ngFor="let values of " [value]="values">
+                                                                            {{values.label}}</ng-option>
+                                                                    </ng-select>
+                                                                </span>
+                                                            </div>
+                            
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="ngForm.controls['End_code'].invalid && (ngForm.controls['End_code'].dirty || ngForm.controls['End_code'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div *ngIf="ngForm.controls['End_code'].errors?.required">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                            
+                            
+                                                    </div>
+                                                    <div class="col-sm" style="float: right; margin-top: 6px;">
+                                                        <button class="btn btn-outline-primary btn-sm"
+                                                            (click)="switchNgBTab('address')">Next
+                                                        </button>
+                                                    </div>
+                                                 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- end of basic tab -->
+                                <!-- start of Address tab -->
+                                <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight">
+                                                    <div class="row">
+                                                 
+                                                    </div>
+                                                   
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-sm" style="float: right;margin-top: 6px;">
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                (click)="switchNgBTab('introducer')">Next
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                             
+                                <!-- End of Documents tab  -->
+                            </ngb-tabset>
+                            
+                         </div>
+                          </div>
+                        
+                        <div class="row">
+                            <div class="col-sm col-md-6">
+                                <div class="checkbox checkbox-primary ">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input type="checkbox" class="border-checkbox" id="checkboxValue" value="checkbox1"
+                                            formControlName="checkboxValue">
+                                        <label class="border-checkbox-label" for="checkboxValue">Show Guarantor
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm col-md-6">
+                                <div class="checkbox checkbox-primary ">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input type="checkbox" class="border-checkbox" id="checkboxValue1"  value="checkbox2"
+                                            formControlName="checkboxValue1">
+                                        <label class="border-checkbox-label" for="npa_per">Calculate Overdue Only After Expiry
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                    (click)="view($event); clicked = true ">View</button>
+
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                    </div>
+                                    <div *ngIf="showRepo">
+                                        <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
