@@ -11,6 +11,7 @@ import { OtherViewService } from '../other-view.service';
 import { data } from 'jquery';
 
 
+
 @Component({
   selector: 'app-loan-installment-inquiry',
   templateUrl: './loan-installment-inquiry.component.html',
@@ -21,6 +22,7 @@ export class LoanInstallmentInquiryComponent implements OnInit {
   url = environment.base_url;
   repay: string
   TDS_RATE:number;
+  resultData : any;
 
   angForm: FormGroup;
   values1 = [
@@ -101,6 +103,12 @@ export class LoanInstallmentInquiryComponent implements OnInit {
       })
     }
   }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
   // getDecimalPoint(event) {
     
   //       if (event.target.value != '')
@@ -109,4 +117,16 @@ export class LoanInstallmentInquiryComponent implements OnInit {
   //         event.target.value = 0
   //     }
  
+  Process(){
+    let obj = this.angForm.value;
+    obj['user'] = JSON.parse(localStorage.getItem('user'));
+    this._services.getInstallment(obj).subscribe(data=>{
+      console.log(data);
+      this.resultData = data.result;
+    })
+  }
+  close(){
+    this.ngOnInit();
+  }
+
 }

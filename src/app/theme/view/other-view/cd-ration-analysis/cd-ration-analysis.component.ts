@@ -8,6 +8,8 @@ import { EditInterestCalculationService } from 'src/app/theme/utility/interest-p
 import { environment } from 'src/environments/environment';
 import { OtherViewService } from '../other-view.service';
 import * as moment from 'moment';
+import { DATE } from 'ngx-bootstrap/chronos/units/constants';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-cd-ration-analysis',
@@ -25,6 +27,7 @@ export class CdRationAnalysisComponent implements OnInit {
   tableData: any;
   showMsg: boolean = true;
   warrentDate
+  glDetails:any = new Array();
   totalAmt: any = 0.00;
   modalClass: string = 'modalHide';
   ActiveTab: string = 'DEPOSITS';
@@ -55,11 +58,14 @@ export class CdRationAnalysisComponent implements OnInit {
       this.warrentDate = data
       console.log(this.warrentDate)
     })
+   
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
     this.createForm();
+    this.getprofit();
+
   }
 
   getIntDetails(event) {
@@ -94,6 +100,7 @@ export class CdRationAnalysisComponent implements OnInit {
 
     })
   }
+  
 
   createForm() {
     this.angForm = this.fb.group({
@@ -239,4 +246,20 @@ export class CdRationAnalysisComponent implements OnInit {
       this.TabWiseTotal.partA = this.TabWiseTotal.partA - this.profitloss;
     }
   }
+  getbranch(event){
+    this.branch_codeList = event.id;
+
+  }
+
+  getprofit(){
+    let obj1 ={
+      BRANCH_CODE: this.branch_code,
+      TRAN_DATE: '30/09/2022'
+    }
+    this.http.post<any>(this.url + '/reports/profitLoss', obj1).subscribe((data) => {
+      this.glDetails = data
+      console.log(this.glDetails);
+    })
+}
+ 
 }

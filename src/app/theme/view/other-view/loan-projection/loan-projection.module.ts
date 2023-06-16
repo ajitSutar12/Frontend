@@ -8,7 +8,15 @@ import { LoanProjectionRoutingModule } from './loan-projection-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    LoanProjectionRoutingModule
+    LoanProjectionRoutingModule,
+    
   ]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    }],
+  exports: []
 })
 export class LoanProjectionModule { }

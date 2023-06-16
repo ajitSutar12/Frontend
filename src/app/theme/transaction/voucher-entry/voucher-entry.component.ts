@@ -1187,7 +1187,7 @@ export class VoucherEntryComponent implements OnInit {
     }
   }
 
-  //cheque no captial function
+  //cheque no captial functionOops
   chequeNoData(event) {
     //debugger
     this.angForm.patchValue({
