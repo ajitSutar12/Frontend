@@ -5,7 +5,6 @@ const routes: Routes = [
   {
     path: '',
     data: {
-<<<<<<< Updated upstream
       title: 'Npa Reports ',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
@@ -28,14 +27,6 @@ const routes: Routes = [
         path: 'excessCashBalance',
         loadChildren: () => import('./directorwise-npa-reg/directorwise-npa-reg.module').then(m => m.DirectorwiseNpaRegModule)
       },
-    ]}
-=======
-      title: 'Npa Reports',
-      icon: 'icon-home',
-      caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      status: true
-    },
-    children: [
       {
 
         path: 'citiwisenpa',
@@ -62,7 +53,6 @@ const routes: Routes = [
       },
     ]
   }
->>>>>>> Stashed changes
 ];
 
 @NgModule({

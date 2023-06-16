@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 import { DividendCalculationService } from './dividend-calculation.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 @NgModule({
   imports: [
@@ -35,7 +36,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
     ThemeModule
   ],
   declarations: [DividendCalculationComponent],
-  providers: [SchemeCodeService, SchemeAccountNoService, SchemeCodeDropdownService, MembernoService, BranchService, OwnbranchMasterService,
+  providers: [SchemeCodeService, SchemeAccountNoService, SchemeCodeDropdownService, MembernoService, BranchService, OwnbranchMasterService,SystemMasterParametersService,
     DatePipe, DividendCalculationService, {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

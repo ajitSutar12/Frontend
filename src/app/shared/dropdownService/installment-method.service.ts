@@ -7,7 +7,7 @@ import { IOption } from 'ng-select';
 export class InstallmentMethodService {
     public static readonly PLAYER_ONE: Array<IOption> = [
         { value: '1', label: 'EMI' },
-        { value: '2', label: 'Reducing' },
+        // { value: '2', label: 'Reducing' },
         { value: '2', label: 'Plain' },
         { value: '3', label: 'With Interest' }
     ];
