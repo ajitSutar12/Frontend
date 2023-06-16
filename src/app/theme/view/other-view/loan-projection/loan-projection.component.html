@@ -10,7 +10,7 @@
           <div class="solid">
             <div class="row">
               <div class="col-sm-12 col-md-2"> <label for="Loan">
-                Loan Ammount<sub class="required">*</sub></label></div>
+                  Loan Ammount<sub class="required">*</sub></label></div>
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
@@ -127,7 +127,7 @@
                     <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" "
                       id="TDS_RATE" maxlength="5" title="Input allowed only  0-9" #margin
                       (keyup)="checkmargin(margin.value)" formControlName="TDS_RATE"
-                      (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">  
+                      (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
                   </span>
                 </div>
                 <div class="form-group form-primary form-static-label"
@@ -189,9 +189,10 @@
         <table class="table">
           <thead>
             <tr>
-              <td class="td_center">Sr.NO</td>
-              <td class="td_center">Dr.Amount</td>
-              <td class="td_center">Cr.Amount</td>
+              <td class="td_center">Serial Number</td>
+              <td class="td_center">Installment Number</td>
+              <td class="td_center">Debit Amount</td>
+              <td class="td_center">Credit Amount</td>
               <td class="td_center">Balance </td>
               <td class="td_center">Products</td>
               <!-- <td class="td_center">Total Interest</td> -->
@@ -202,12 +203,13 @@
 
           <tbody>
             <tr *ngFor="let item of resultData; let i =index">
-              <td class="td_center">{{i+1}}</td>
-              <td class="td_center">{{item.DrAmt}}</td>
-              <td class="td_center">{{item.CrAmt}}</td>
-              <td class="td_center">{{item.Bal}}</td>
-              <td class="td_center">{{item.Product}}</td>
-              <td class="td_center">{{item.Days}}</td>
+              <td class="td_left">{{i+1}}</td>
+              <td class="td_left">{{item.instNo}}</td>
+              <td class="td_left">{{item.DrAmt}}</td>
+              <td class="td_left">{{item.CrAmt}}</td>
+              <td class="td_left">{{item.Bal}}</td>
+              <td class="td_left">{{item.Product}}</td>
+              <td class="td_left">{{item.Days}}</td>
             </tr>
           </tbody>
         </table>

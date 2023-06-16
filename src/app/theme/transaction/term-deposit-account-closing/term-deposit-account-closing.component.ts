@@ -563,7 +563,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
     let total_int = maturedIntAmt + Number(total_int1)
     this.angForm.patchValue({
       maturedIntAmt: Math.round(maturedIntAmt),
-      TOTAL_INT: Math.round(total_int)
+      TOTAL_INT: Math.round(total_int),
+      NET_INTAMT: Math.round(total_int)
     })
   }
   calQuarter: number = 0

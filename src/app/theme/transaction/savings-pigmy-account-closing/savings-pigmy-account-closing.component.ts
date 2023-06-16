@@ -55,7 +55,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   ngglacno: any = null;
   selectedScheme: any = null
   multigrid = [];
-  closedAccountNumber:any;
+  closedAccountNumber: any;
 
   //variables for  add and update button
   showButton: boolean = true;
@@ -101,6 +101,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   logDate
   obj: any
   getschemename: any
+  INT_RATESHOW = 0
   isHideForSaving: boolean = true
   constructor(
     // public NarrationService: NarrationService,
@@ -242,7 +243,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
 
- 
+
   isInterestApplicable
   schemechange(event) {
     this.ngGlAcno = Number(event.SVR_CHARGE_GLCODE)
@@ -458,6 +459,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.OpenDate = data[0].AC_OPDATE
       this.renewalDate = data[0].AC_ASON_DATE
       this.INTRATE = data[0].INT_RATE
+      this.INT_RATESHOW = data[0].intrate
       this.LastIntDate = data[0].AC_LINTEDT
       this.maturityDate = data[0].AC_EXPDT
       this.angForm.patchValue({
@@ -930,10 +932,10 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         // this.getVoucherData();
         // Swal.fire('Success!', 'Account Closed Successfully !',  'success');
 
-          const successMessage = ` Account Closed successfully ! Voucher Number ${data}`;
-          Swal.fire('Success!', successMessage, 'success');
-        
-      
+        const successMessage = ` Account Closed successfully ! Voucher Number ${data}`;
+        Swal.fire('Success!', successMessage, 'success');
+
+
         this.multigrid = []
         this.resetForm()
       }, err => {
@@ -1019,7 +1021,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   editClickHandler(id): void {
     this._service.getFormData(id).subscribe((data) => {
       console.log(data);
-      
+
       let mem = [data.TRAN_ACNO, data.TRAN_ACNOTYPE, data.TRAN_ACTYPE]
       this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data1) => {
         if (data.TRAN_STATUS == '0') {
