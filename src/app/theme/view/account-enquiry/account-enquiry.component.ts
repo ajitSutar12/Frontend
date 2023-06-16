@@ -517,9 +517,9 @@ export class AccountEnquiryComponent implements OnInit {
         break;
       case 'DS':
         this.http.get<any>(this.url + '/dispute-loan-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
-          
+
         })
         break;
       case 'CC':
@@ -1450,6 +1450,7 @@ export class AccountEnquiryComponent implements OnInit {
       else {
         this.productName = ''
       }
+      this.productViewArr = []
       this.productViewArr = this.transactionData.productView
     }
     else if (view == 'accountInfo') {
