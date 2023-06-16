@@ -191,7 +191,7 @@ export class LcdLessdraftReportComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/cash_credit_less_report.php/?&Branch='" + this.branchName + " '&sdate='" + obj.START_DATE+ "'&edate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE='" + scheme + "'&BRANCH_CODE='" + branch + "'&bankname='" + bankName + "'";
+      this.iframe5url = this.report_url + "examples/cash_credit_less_report.php/?&Branch='" + this.branchName + " '&sdate='" + obj.START_DATE+ "'&edate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE='" + scheme + "'&BRANCH_CODE='" + branch + "'&bankName='" + bankName + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

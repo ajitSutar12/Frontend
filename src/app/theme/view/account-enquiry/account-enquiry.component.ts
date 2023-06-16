@@ -22,6 +22,8 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 })
 export class AccountEnquiryComponent implements OnInit {
   angForm: FormGroup;
+  des:any;
+  demo:any=new Array();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -272,7 +274,21 @@ export class AccountEnquiryComponent implements OnInit {
         this.coborrowerView = false
         this.http.get<any>(this.url + '/saving-master/balUpdate/' + obj).subscribe((data) => {
           this.schemeACNo = data
-          console.log(data);
+          //  this.des =  this.schemeACNo.push(this.idmaster)
+             console.log(data);
+         
+          console.log(this.des);
+          
+          let some = this.schemeACNo.idmaster
+
+          some.forEach(entry =>{
+            this.demo.push(entry)
+          })
+
+          console.log(this.demo);
+          
+          console.log(some, "some");
+          
         })
         break;
       case 'CA':
@@ -313,6 +329,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.coborrowerView = false
         this.http.get<any>(this.url + '/current-account-master/balUpdate/' + obj).subscribe(data => {
           this.schemeACNo = data
+          console.log(data);
         })
         break;
       case 'AG':
@@ -353,6 +370,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.coborrowerView = false
         this.http.get<any>(this.url + '/pigmy-agent-master/balUpdate/' + obj).subscribe(data => {
           this.schemeACNo = data
+          console.log(data);
         })
         break;
       case 'GS':
@@ -382,6 +400,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.coborrowerView = false
         this.http.get<any>(this.url + '/anamat-gsm/balUpdate/' + obj).subscribe(data => {
           this.schemeACNo = data
+          console.log(data);
         })
         break;
       case 'PG':
@@ -418,7 +437,8 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/pigmy-account-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
         })
         break;
       case 'TD':
@@ -458,7 +478,8 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/term-deposits-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
         })
         break;
       case 'LN':
@@ -490,14 +511,15 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = true
         this.coborrowerView = true
         this.http.get<any>(this.url + '/term-loan-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
         })
         break;
       case 'DS':
         this.http.get<any>(this.url + '/dispute-loan-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
-          
+
         })
         break;
       case 'CC':
@@ -530,7 +552,8 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = true
         this.coborrowerView = true
         this.http.get<any>(this.url + '/cash-credit-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
         })
         break;
       case 'SH':
@@ -562,7 +585,8 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/share-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
         })
         break;
       case 'GL':
@@ -594,7 +618,8 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/gl-account-master').subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
         })
         this.GLRecordShow = true
         this.ShareRecordShow = false
@@ -636,7 +661,8 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/investment/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data
+          this.schemeACNo = data 
+          console.log(data);
         })
         break;
     }
@@ -1424,6 +1450,7 @@ export class AccountEnquiryComponent implements OnInit {
       else {
         this.productName = ''
       }
+      this.productViewArr = []
       this.productViewArr = this.transactionData.productView
     }
     else if (view == 'accountInfo') {

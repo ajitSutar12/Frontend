@@ -80,7 +80,7 @@ maxDate: Date;
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
      
    var filtered = data.filter(function (scheme) {
-     return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' ||  scheme.name == 'CA'  || scheme.name == 'TD'      );
+     return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' ||  scheme.name == 'CA'  || scheme.name == 'TD'|| scheme.name == 'IV'      );
    });
    this.scheme = filtered; 
   
@@ -186,10 +186,28 @@ maxDate: Date;
     let branch = obj.BRANCH_CODE;
     let schemeName = this.tScheme
     
+    // if (value == 1) {
 
-   this.iframe5url=this.report_url+ "examples/MinorList1.php?&BRANCH_CODE=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
-   console.log(this.iframe5url); 
-   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    //   // this.iframe5url=this.report_url+ "examples/MinorList1.php?&BRANCH_CODE=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
+    //   // console.log(this.iframe5url); 
+    //   // this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    //   Swal.fire('Success!', 'Deposit Works!', 'success');
+    // }
+    // else if (this.isLoan = true) {
+    //   // this.iframe5url=this.report_url+ "examples/MinorList1.php?&BRANCH_CODE=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
+    //   // console.log(this.iframe5url); 
+    //   // this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    //   Swal.fire('Success!', 'Loan Works!', 'success');
+
+    // }
+    // else if (this.isPigmy = true) {
+    //   // this.iframe5url=this.report_url+ "examples/MinorList1.php?&BRANCH_CODE=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
+    //   // console.log(this.iframe5url); 
+    //   // this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    //   Swal.fire('Success!', 'Pigmy Works!', 'success');
+
+    // }
+
   }
   else {
     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});

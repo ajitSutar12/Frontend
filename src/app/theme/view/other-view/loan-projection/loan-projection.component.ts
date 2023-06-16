@@ -110,5 +110,8 @@ export class LoanProjectionComponent implements OnInit {
       this.resultData = data.result;
     })
   }
+  close(){
+    this.ngOnInit();
+  }
 }
 

@@ -28,6 +28,8 @@ import { DividendCalculationService } from "./dividend-calculation.service";
 import { catchError, map } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -95,7 +97,7 @@ export class DividendCalculationComponent implements OnInit {
   divfromdate: any = null;
   divtodate: any = null;
   warrentdate: any = null;
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   fromdate: Date;
   todate: Date
@@ -124,12 +126,16 @@ export class DividendCalculationComponent implements OnInit {
     private _service: DividendCalculationService,
     // public MembernoService: MembernoService,
     private datePipe: DatePipe,
-    private ownbranchMasterService: OwnbranchMasterService
+    private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
-    this.maxDate.setDate(this.maxDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate, this.minDate = this.maxDate._d
+
+    })
+
 
     let finYear;
     var sysDate = new Date();
@@ -408,6 +414,7 @@ export class DividendCalculationComponent implements OnInit {
     this.http
       .get(this.url + "/dividend-calculation/divYrcheck/" + obj)
       .subscribe((data) => {
+        data["divCheck"] = "Already Processed"
         if (data["historyCheck"] == "Already Posted") {
           this.send["Flag"] = "history";
           Swal.fire("Warning!", "Dividend Already Posted !", "warning");
@@ -440,7 +447,7 @@ export class DividendCalculationComponent implements OnInit {
       this.angForm.controls["TO_AC"].value &&
       this.angForm.controls["TO_AC"].value != ""
     ) {
-      let mem = [memFrom, memTo, this.ngscheme];
+      let mem = [memFrom, memTo, this.ngscheme, this.ngBranch];
       this.http
         .get(this.url + "/dividend-calculation/accounts/" + mem)
         .subscribe((data) => {
