@@ -82,7 +82,7 @@ export class ServiceChargesListComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'CA' );
+        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'CA' || scheme.name == 'SB' );
       });
       this.scheme = filtered;
 

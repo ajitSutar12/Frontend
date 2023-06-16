@@ -36,17 +36,17 @@ export class AcceptDComponent implements OnInit {
   totalCash :any = 0;
   cashierName : any;
   currencyData =[
-    { currency: 2000, qty: 0, total: 0, available: 0 },
-    { currency: 1000, qty: 0, total: 0, available: 0 },
-    { currency: 500,  qty: 0, total: 0, available: 0 },
-    { currency: 200,  qty: 0, total: 0, available: 0 },
-    { currency: 100,  qty: 0, total: 0, available: 0 },
-    { currency: 50,   qty: 0, total: 0, available: 0 },
-    { currency: 20,   qty: 0, total: 0, available: 0 },
-    { currency: 10,   qty: 0, total: 0, available: 0 },
-    { currency: 5,    qty: 0, total: 0, available: 0 },
-    { currency: 2,    qty: 0, total: 0, available: 0 },
-    { currency: 1,    qty: 0, total: 0, available: 0 },
+    { currency: 2000, qty: "", total: 0, available: 0 },
+    { currency: 1000, qty: "", total: 0, available: 0 },
+    { currency: 500,  qty: "", total: 0, available: 0 },
+    { currency: 200,  qty: "", total: 0, available: 0 },
+    { currency: 100,  qty: "", total: 0, available: 0 },
+    { currency: 50,   qty: "", total: 0, available: 0 },
+    { currency: 20,   qty: "", total: 0, available: 0 },
+    { currency: 10,   qty: "", total: 0, available: 0 },
+    { currency: 5,    qty: "", total: 0, available: 0 },
+    { currency: 2,    qty: "", total: 0, available: 0 },
+    { currency: 1,    qty: "", total: 0, available: 0 },
   ]
   glDetails: any;
   constructor(
@@ -128,7 +128,7 @@ export class AcceptDComponent implements OnInit {
   sum: number = 0
   calculation(data, index, element) {
 
-    console.log(element.target.value); 
+    // console.log(element.target.value); 
     let currency = this.currencyData[index].currency;
     let qty = element.target.value;
     let total = currency * qty;
@@ -140,6 +140,31 @@ export class AcceptDComponent implements OnInit {
       return accumulator + object.total;
     }, 0);
 
+    //for Available Balance
+    // if (Number(qty) > Number(this.currencyData[index].available) )
+    // {
+    //     Swal.fire('Warning!', 'Please insert Correct Quantity', 'warning')
+    //     element.target.value = 0; 
+    //     let currency = this.currencyData[index].currency;
+    //     let available = element.target.value;
+    //     let total = currency * 0;
+    //     this.currencyData[index].currency = currency;
+    //     // this.currencyData[index].qty = 0;
+    //     this.currencyData[index].total = total;
+    //     this.sum = this.currencyData.reduce((accumulator, object) => {
+    //       return accumulator + object.total;
+    //     }, 0);
+    // }else{
+    //     let currency = this.currencyData[index].currency;
+    //     let available = element.target.value;
+    //     let total = currency * qty;
+    //     this.currencyData[index].currency = currency;
+    //     this.currencyData[index].qty = qty;
+    //     this.currencyData[index].total = total;
+    //     this.sum = this.currencyData.reduce((accumulator, object) => {
+    //       return accumulator + object.total;
+    //   }, 0);
+    // }
   }
 
   //for available count
@@ -203,18 +228,18 @@ export class AcceptDComponent implements OnInit {
   //   //   Swal.fire('Oops...','Please fill all required field','warning');
   //   // }
   // }
-  submit() {
+  submit() { 
     const formVal = this.angForm.value;
     var object =
     {
-        data : this.angForm.value,
+        TRANSACTION_NO : this.ngTransactionNo,
         currency : this.currencyData,
         user : JSON.parse(localStorage.getItem('user'))
     }
     if (formVal.DENOMINATION_AMT != this.sum) {
       Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
     }
-    else if( this.transactionAmt != this.denomination)
+    else if( Number(this.transactionAmt) != Number(this.denomination))
         {
           Swal.fire('Oops...','Please Check Transaction Amount and Denomination Amount','warning');
   
@@ -226,7 +251,7 @@ export class AcceptDComponent implements OnInit {
           this.showCash = false;
         for(let item of this.currencyData){
           item.available = 0;
-          item.qty       = 0;
+          item.qty       = "";
           item.total     = 0;
         }
         this.sum = 0;

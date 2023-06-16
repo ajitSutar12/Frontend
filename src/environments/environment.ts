@@ -25,7 +25,7 @@ export const environment = {
   // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/' //server bhairavnath report test folder path
   // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
-  // report_url: 'http://localhost/phpjasper/', //report folder local path
+  report_url: 'http://localhost/phpjasper/', //report folder local path
   // report_url: 'http://localhost/phpjasper/examples/r', //report folder path
   // report_url: 'http://localhost/phpjasper/vaibhavi/', //report folder path
   // report_url: 'http://localhost/phpjasper/examples/s', //report folder path

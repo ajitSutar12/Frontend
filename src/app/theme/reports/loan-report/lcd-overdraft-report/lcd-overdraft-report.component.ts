@@ -194,7 +194,7 @@ export class LcdOverdraftReportComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/cash_creadit_overdraft_report.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&branch_code='"+ branch +"'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'";
+      this.iframe5url = this.report_url + "examplese/cash_creadit_overdraft_report.php?&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH_CODE='"+ branch +"'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

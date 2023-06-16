@@ -1,12 +1,21 @@
+<<<<<<< Updated upstream
 import { DatePipe } from '@angular/common';
+=======
+import { HttpClient } from '@angular/common/http';
+>>>>>>> Stashed changes
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+<<<<<<< Updated upstream
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
+=======
+import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
+import { environment } from 'src/environments/environment';
+>>>>>>> Stashed changes
 import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
 
@@ -17,7 +26,7 @@ import { OtherViewService } from '../other-view.service';
 })
 export class DepositInterestProjectionComponent implements OnInit {
 
-
+  url = environment.base_url;
   ngForm: FormGroup;
 
 //ngmodel
@@ -38,6 +47,7 @@ expiryDate
   i: number;
   resultData: any;
   constructor(private fb: FormBuilder,private ownbranchMasterService: OwnbranchMasterService,
+<<<<<<< Updated upstream
     private systemParameter:SystemMasterParametersService,
     private _termDepositScheme: TermDepositSchemeService,
     private datePipe: DatePipe,
@@ -47,6 +57,11 @@ expiryDate
       this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate())  }
+=======
+    private schemeCodeDropdownService:SchemeCodeDropdownService,
+    private _termDepositScheme: TermDepositSchemeService,
+    private http:HttpClient) { }
+>>>>>>> Stashed changes
 
   ngOnInit(): void {
   
@@ -83,7 +98,7 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       Scheme: ['', [Validators.required]],
       DEPO_AMT: ['', [Validators.required]],
       AC_MONTHS : ['', [Validators.required]],
-      AC_DAYS : ['', [Validators.required]],
+      AC_DAYS : ['', []],
       INT_RATE : ['', [Validators.required]],
       DEPO_DATE : ['', [Validators.required]],
       MATUR_DATE : ['', [Validators.required]],
@@ -549,11 +564,13 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       })
     }
   }
+<<<<<<< Updated upstream
 
   Process(){
     let formVal = this.ngForm.value;
 
     let obj = {
+      cmDepositAmount: formVal.DEPO_AMT,
       cmIntRate : formVal.INT_RATE ,
       cmSchemeCd: formVal.Scheme ,
       cmDate: formVal.DEPO_DATE ,
@@ -566,10 +583,112 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     obj['user'] = JSON.parse(localStorage.getItem('user'));
     this._services.depositProjection(obj).subscribe(data=>{
       console.log(data);
-      this.resultData = data.result;
+      this.resultData = data; 
     })
   }
 
+=======
+CheckmonthDays(){
+  this._termDepositScheme.getFormData(this.branch_code).subscribe(data => {
+  this.ngForm.controls['MONTH'].enable()
+  this.ngForm.controls['DAYS'].enable()
+  if (Number(this.ngForm.controls['MONTH'].value) < Number(data.MIN_MONTH) && Number(this.ngForm.controls['DAYS'].value) < Number(data.MIN_DAYS)) {
+    Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+    this.ngForm.controls['MONTH'].reset()
+    this.ngForm.controls['DAYS'].reset()
+  }
+}
+)}
+
+monthDays() {
+  if (this.BranchCode != null) {
+    this._termDepositScheme.getFormData(this.BranchCode).subscribe(data => {
+      if (this.ngForm.controls['MATUR_DATE'].value != null && this.ngForm.controls['MATUR_DATE'].value != '') {
+        var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
+        var date2 = this.ngForm.controls['MATUR_DATE'].value;
+        var b = moment(date1, "DD-MM-YYYY");
+        var a = moment(date2, "DD-MM-YYYY");
+        var bd = moment(date1, "DD-MM-YYYY");
+        var ab = moment(date2, "DD-MM-YYYY");
+        var months = a.diff(b, 'months');
+        var days = a.diff(b, 'days');
+        b.add(months, 'months');
+
+        var Diffmonths = ab.diff(bd, 'months');
+        bd.add(months, 'months');
+
+        var Diffdays = ab.diff(bd, 'days');
+
+        if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
+          this.ngForm.patchValue({
+            MONTH: months,
+            DAYS: Diffdays,
+          })
+        }
+        else {
+          if (data.UNIT_OF_PERIOD == "B") {
+            this.ngForm.controls['MONTH'].enable()
+            this.ngForm.controls['DAYS'].enable()
+            this.ngForm.patchValue({
+              MONTH: months,
+              DAYS: Diffdays,
+            })
+            if (Number(this.ngForm.controls['MONTH'].value) < Number(data.MIN_MONTH) && Number(this.ngForm.controls['DAYS'].value) < Number(data.MIN_DAYS)) {
+              Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+              this.ngForm.controls['MONTH'].reset()
+              this.ngForm.controls['DAYS'].reset()
+              this.ngForm.controls['MATUR_DATE'].reset()
+            }
+            else {
+              this.ngForm.patchValue({
+                MONTH: months,
+                DAYS: Diffdays
+              })
+            }
+          }
+          else if (data.UNIT_OF_PERIOD == "D") {
+            this.ngForm.patchValue({
+              MONTH: '',
+              DAYS: days,
+            })
+            this.ngForm.controls['MONTH'].disable()
+            this.ngForm.controls['DAYS'].enable()
+            if (Number(this.ngForm.controls['DAYS'].value) < Number(data.MIN_DAYS)) {
+              Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+              this.ngForm.controls['DAYS'].reset()
+              this.ngForm.controls['MATUR_DATE'].reset()
+            }
+          }
+          else if (data.UNIT_OF_PERIOD == "M") {
+            this.ngForm.patchValue({
+              DAYS: '',
+              MONTH: months,
+            })
+            this.ngForm.controls['MONTH'].enable()
+            this.ngForm.controls['DAYS'].disable()
+            if (Number(this.ngForm.controls['MONTH'].value) < Number(data.MIN_MONTH)) {
+              Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+              this.ngForm.controls['MONTH'].reset()
+              this.ngForm.controls['MATUR_DATE'].reset()
+            }
+          }
+        }
+      }
+    })
+  }
+  let obj = {
+    scheme: this.BranchCode,
+  
+    days: Number(this.ngForm.controls['DAYS'].value),
+    month: Number(this.ngForm.controls['MONTH'].value)
+  }
+  this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
+    this.ngForm.patchValue({
+      AC_INTRATE: data
+    })
+  })
+}
+>>>>>>> Stashed changes
 }
 
 

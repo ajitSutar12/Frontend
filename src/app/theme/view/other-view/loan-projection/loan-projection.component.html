@@ -173,6 +173,7 @@
             <div class="row">
               <div class="col-md-12">
                 <button class="btn btn-outline-primary btn-sm" (click)="Process()">Process</button>
+                <button class="btn btn-outline-primary btn-sm" (click)="close()">close</button>
               </div>
             </div>
           </div>
@@ -201,12 +202,12 @@
 
           <tbody>
             <tr *ngFor="let item of resultData; let i =index">
-              <td>{{i+1}}</td>
-              <td>{{item.DrAmt}}</td>
-              <td>{{item.CrAmt}}</td>
-              <td>{{item.Bal}}</td>
-              <td>{{item.Product}}</td>
-              <td>{{item.Days}}</td>
+              <td class="td_center">{{i+1}}</td>
+              <td class="td_center">{{item.DrAmt}}</td>
+              <td class="td_center">{{item.CrAmt}}</td>
+              <td class="td_center">{{item.Bal}}</td>
+              <td class="td_center">{{item.Product}}</td>
+              <td class="td_center">{{item.Days}}</td>
             </tr>
           </tbody>
         </table>
