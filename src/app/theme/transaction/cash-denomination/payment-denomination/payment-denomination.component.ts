@@ -35,17 +35,17 @@ export class PaymentDenominationComponent implements OnInit {
   totalCash :any = 0;
   cashierName : any;
   currencyData =[
-    { currency: 2000, qty: 0, total: 0, available: 0 },
-    { currency: 1000, qty: 0, total: 0, available: 0 },
-    { currency: 500,  qty: 0, total: 0, available: 0 },
-    { currency: 200,  qty: 0, total: 0, available: 0 },
-    { currency: 100,  qty: 0, total: 0, available: 0 },
-    { currency: 50,   qty: 0, total: 0, available: 0 },
-    { currency: 20,   qty: 0, total: 0, available: 0 },
-    { currency: 10,   qty: 0, total: 0, available: 0 },
-    { currency: 5,    qty: 0, total: 0, available: 0 },
-    { currency: 2,    qty: 0, total: 0, available: 0 },
-    { currency: 1,    qty: 0, total: 0, available: 0 },
+    { currency: 2000, qty: "", total: 0, available: 0 },
+    { currency: 1000, qty: "", total: 0, available: 0 },
+    { currency: 500,  qty: "", total: 0, available: 0 },
+    { currency: 200,  qty: "", total: 0, available: 0 },
+    { currency: 100,  qty: "", total: 0, available: 0 },
+    { currency: 50,   qty: "", total: 0, available: 0 },
+    { currency: 20,   qty: "", total: 0, available: 0 },
+    { currency: 10,   qty: "", total: 0, available: 0 },
+    { currency: 5,    qty: "", total: 0, available: 0 },
+    { currency: 2,    qty: "", total: 0, available: 0 },
+    { currency: 1,    qty: "", total: 0, available: 0 },
   ]
   transactionAmt: any;
   constructor(
@@ -138,7 +138,8 @@ submit() {
     const formVal = this.angForm.value;
     var object =
     {
-        data : this.angForm.value,
+        // data : this.angForm.value,
+        TRANSACTION_NO : this.ngTransactionNo,
         currency : this.currencyData,
         user : JSON.parse(localStorage.getItem('user'))
     }
@@ -157,7 +158,7 @@ submit() {
           this.showCash = false;
         for(let item of this.currencyData){
           item.available = 0;
-          item.qty       = 0;
+          item.qty       = ""; 
           item.total     = 0;
         }
         this.sum = 0;

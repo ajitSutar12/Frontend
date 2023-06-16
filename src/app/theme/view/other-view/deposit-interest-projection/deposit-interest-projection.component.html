@@ -124,7 +124,7 @@
                 class="alert alert-danger">
                 <div *ngIf="ngForm.controls['AC_DAYS'].errors?.required">
                   This field is required.
-                </div>
+                </div> 
               </div>
             </div>
 
@@ -238,6 +238,7 @@
   </div>
 </div>
 
+
 <div class="row">
   <div class="col-sm-12">
     <div class="col-12">
@@ -256,8 +257,13 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td colspan="6" class="no-data-available">No data!</td>
+            <tr *ngFor="let item of resultData; let i =index">
+              <td>{{i+1}}</td>
+              <td>{{item.colDate}}</td>
+              <td>{{item.colPeriod}}</td>
+              <td>{{item.colCrIntAmt}}</td>
+              <td>{{item.colBal}}</td>
+              <td>{{item.Days}}</td>
             </tr>
           </tbody>
         </table>
