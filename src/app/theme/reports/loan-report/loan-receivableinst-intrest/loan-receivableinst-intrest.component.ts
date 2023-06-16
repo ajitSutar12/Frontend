@@ -155,7 +155,7 @@ maxDate: Date;
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account; 
     
- this.iframe5url=this.report_url+ "examples/receivable_installmentandinterest.php?date='"+ obj.date +"'&branchName='"+ branchName +"'&FLAG=1&scheme_name='"+schemeName+"'&branch='"+ branch +"'&bankName='"+bankName +"'";
+ this.iframe5url=this.report_url+ "examplese/receivable_installmentandinterest.php?date='"+ obj.date +"'&branchName='"+ branchName +"'&FLAG=1&scheme_name='"+schemeName+"'&branch='"+ branch +"'&bankName='"+bankName +"'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

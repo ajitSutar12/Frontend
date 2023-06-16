@@ -71,7 +71,7 @@
                                         <ng-select formControlName="Starting_Account" bindValue="value"
                                             bindLabel="label" [(ngModel)]="startingAccount" placeholder="Starting Code">
                                             <ng-option *ngFor="let values of startingacc" [value]="values">
-                                                {{values.label}}</ng-option>
+                                                {{values.value}} {{values.label}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -95,7 +95,7 @@
                                         <ng-select formControlName="Ending_Account" bindValue="value" bindLabel="label"
                                             [(ngModel)]="EndingAccount" (change)="loadAcno()" placeholder="Ending Code">
                                             <ng-option *ngFor="let values of endingacc" [value]="values">
-                                                {{values.label}}</ng-option>
+                                                {{values.value}} {{values.label}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
