@@ -20,8 +20,7 @@
 
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="Branch" bindLabel="label" title="Compulsory Selection"
-                                      placeholder="" required
-                                        (change)="getBranch()">
+                                        placeholder="" required (change)="getBranch()">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -43,10 +42,11 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
 
-                                    <ng-select bindValue="value" [(ngModel)]="ngbranch"
-                                    formControlName="Cashier_Code" bindLabel="label"
-                                    placeholder="" required >
-                                        <ng-option *ngFor="let values of branchOption" [value]="values">{{values.label}}</ng-option>
+                                    <ng-select bindValue="id" [(ngModel)]="cashiar" formControlName="Cashier_Code"
+                                        bindLabel="label" placeholder="" required>
+                                        <ng-option *ngFor="let values of Cashiercode"
+                                            [value]="values">{{values.CASHIER_CODE
+                                            }}</ng-option>
 
                                     </ng-select>
                                 </span>
@@ -66,17 +66,19 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="CURRENT_DATE" id="CURRENT_DATE"
-                                        class="form-control" [(ngModel)]="fromdate"  [bsValue]="bsValue"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="8" maxlength="10"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="CURRENT_DATE"
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="8"
+                                        maxlength="10" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="CURRENT_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CURRENT_DATE'].invalid &&
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['CURRENT_DATE'].invalid &&
                                      (angForm.controls['CURRENT_DATE'].dirty ||angForm.controls['CURRENT_DATE'].touched) " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CURRENT_DATE'].errors?.required">
-                                        This field is required
+                                    This field is required
                                 </div>
 
                             </div>
@@ -84,7 +86,7 @@
 
                     </div>
                     <div class="row">
-                       
+
                         <div class="col-sm-12 col-md-2">
                             <label for=""> Scroll Type<sub class="required">*</sub></label>
                         </div>
@@ -93,19 +95,21 @@
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="Scroll_Type" value="cash"  formControlName="Scroll_Type"  [checked]="true">
+                                        <input type="radio" name="Scroll_Type" value="cash"
+                                            formControlName="Scroll_Type" [checked]="true">
                                         <i class="helper"></i>Cash </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="Scroll_Type" value="transfer"  formControlName="Scroll_Type">
+                                        <input type="radio" name="Scroll_Type" value="transfer"
+                                            formControlName="Scroll_Type">
                                         <i class="helper"></i>Transfer</label>
                                 </div>
 
 
-                                
+
 
                                 <div class="form-group form-primary form-static-label" *ngIf="
                                 angForm.controls['Scroll_Type'].invalid &&
@@ -118,7 +122,7 @@
 
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-sm-12 col-md-2">
                             <label for="">Print Side<sub class="required">*</sub></label>
                         </div>
@@ -127,14 +131,16 @@
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="Print_Code" value="Debit"  formControlName="Print_Code"  [checked]="true">
+                                        <input type="radio" name="Print_Code" value="Debit" formControlName="Print_Code"
+                                            [checked]="true">
                                         <i class="helper"></i>Debit </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="Print_Code" value="Credit"  formControlName="Print_Code">
+                                        <input type="radio" name="Print_Code" value="Credit"
+                                            formControlName="Print_Code">
                                         <i class="helper"></i>Credit </label>
                                 </div>
 
@@ -157,7 +163,7 @@
                                 </div>
                             </div>
                         </div>
-        
+
                     </div>
                     <div class="row">
                         <div class=" col-sm-12 col-md-2">
@@ -168,21 +174,22 @@
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" value="none"   formControlName="radio"  [checked]="true">
+                                        <input type="radio" name="radio" value="none" formControlName="radio"
+                                            [checked]="true">
                                         <i class="helper"></i>None </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" value="blank line"  formControlName="radio">
+                                        <input type="radio" name="radio" value="blank line" formControlName="radio">
                                         <i class="helper"></i>Blank Line </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" value="dash line"  formControlName="radio">
+                                        <input type="radio" name="radio" value="dash line" formControlName="radio">
                                         <i class="helper"></i>Dash Line </label>
                                 </div>
 
@@ -197,16 +204,17 @@
 
                                 </div>
                             </div>
-                        </div>   
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked" 
-                            (click)="view($event);clicked = true">View</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                [disabled]="clicked" (click)="view($event);clicked = true">View</button>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Close</button>
                         </div>
                     </div>
 
@@ -217,11 +225,11 @@
                                     <div class="card-header">
                                         <h5>Report Frame</h5>
                                         <div *ngIf="showRepo">
-                                            
-                                                <app-iframe1 [url]='iframe1url'></app-iframe1>
-                                           
+
+                                            <app-iframe1 [url]='iframe1url'></app-iframe1>
+
                                         </div>
-                    
+
                                     </div>
                                 </div>
                             </div>
