@@ -1486,26 +1486,26 @@ const MENUITEMS = [
             type: 'sub',
             id: 137,
             children: [
-              //   {
-              //     state: 'BnkPigmyCollectionChart',
-              //     name: 'Pigmy Account wise Collection Chart',
-              //     id: 286
-              //   },
-              //   {
-              //     state: 'BnkPigmyCollectionChart',
-              //     name: 'Pigmy Account wise Collection Chart',
-              //     id: 287
-              //   },
-              //   {
-              //     state: 'BnkPigmyCollectionChart',
-              //     name: 'Pigmy Account wise Collection Chart',
-              //     id: 288
-              //   },
-              //   {
-              //     state: 'BnkPigmyCollectionChart',
-              //     name: 'Pigmy Account wise Collection Chart',
-              //     id: 289
-              //   },
+                {
+                 state: 'npaRegister',
+                  name: 'NPA Register',
+                  id: 286
+               },
+                {
+                  state: 'npaRegPercentage',
+                  name: 'NPA Register Percentage',
+                  id: 287
+                },
+                {
+                  state: 'nonNpaRecovery',
+                  name: 'Not NPA Report',
+                  id: 288
+                },
+                {
+                  state: 'directorwise',
+                  name: 'Directorwise Recommanded by',
+                  id: 289
+                },
               {
                 state: 'citiwisenpa',
                 name: 'Citywise NPA Register',

@@ -203,7 +203,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   urlMap: SafeResourceUrl
   fileuploaded: boolean = false
   filenotuploaded: boolean = true
-  FinYear = ''
+  FinYear = '';
+  autofacus:boolean = false;
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -733,7 +734,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   customerDoc
   //Method for append data into fields
   editClickHandler(id) {
-    // debugger
+    debugger
+    this.autofacus = false;
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
