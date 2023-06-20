@@ -28,7 +28,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    PerfectScrollbarModule,
+    PerfectScrollbarModule, 
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
@@ -53,6 +53,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService,
     SchemeAccountNoService,
     SchemeTypeDropdownService
-  ]
+  ],
 })
 export class NpaRegisterModule { }

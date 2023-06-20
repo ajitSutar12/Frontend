@@ -2,13 +2,55 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NonNpaRecoveryRoutingModule } from './non-npa-recovery-routing.module';
+import { NonNpaRecoveryComponent } from './non-npa-recovery.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
+
 
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
-    NonNpaRecoveryRoutingModule
-  ]
+    NonNpaRecoveryRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    PerfectScrollbarModule, 
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    Iframe5Module
+  ],
+  declarations: [NonNpaRecoveryComponent],
+  exports:[NonNpaRecoveryComponent],
+  providers: [
+    {
+
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: PERFECT_SCROLLBAR_CONFIG,
+
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
+    SystemMasterParametersService,
+    OwnbranchMasterService,
+    SchemeCodeDropdownService,
+    SchemeAccountNoService,
+    SchemeTypeDropdownService
+  ],
 })
 export class NonNpaRecoveryModule { }

@@ -61,6 +61,8 @@ export class NpaAnalysisReportComponent implements OnInit {
   obj1: any[];
   savingMasterService: any;
   introducerACNo: any;
+  ToAC: any[];
+  fromAC: any[];
   
     constructor(
       private fb: FormBuilder,
@@ -68,6 +70,7 @@ export class NpaAnalysisReportComponent implements OnInit {
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
+      private schemeAccountNoService: SchemeAccountNoService,
      
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -101,6 +104,7 @@ export class NpaAnalysisReportComponent implements OnInit {
     // });
   
   })
+
   this.systemParameter.getFormData(1).subscribe(data => {
     let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
     this.todate = data.CURRENT_DATE

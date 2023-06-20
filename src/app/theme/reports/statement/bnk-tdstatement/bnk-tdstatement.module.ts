@@ -28,7 +28,9 @@ import {Iframe2Module} from '../iframe2/iframe2.module';
 
   declarations: [BnkTDStatementComponent],
   exports:[BnkTDStatementComponent],
-  providers:[{
+  providers:[
+    
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
