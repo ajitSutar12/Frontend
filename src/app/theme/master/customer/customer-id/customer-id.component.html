@@ -74,7 +74,7 @@
                                         (ngModelChange)="lname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
                                         #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
-                                        formControlName="L_NAME" required>
+                                        formControlName="L_NAME" [autofocus]="autofacus" required>
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
 
                                 </span>
@@ -886,7 +886,7 @@
                                     id="customermastertable">
                                     <tbody *ngIf="customerMaster?.length != 0">
                                         <tr *ngFor="let data of customerMaster">
-                                            <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"  onclick="this.blur()"
                                                     (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                                     ngbTooltip="Edit"></span>
                                             </td>

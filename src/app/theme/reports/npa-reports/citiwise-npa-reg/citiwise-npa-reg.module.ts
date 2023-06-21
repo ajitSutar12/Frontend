@@ -20,6 +20,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
 import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.service';
 import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
+import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { InstallmentMethodService } from 'src/app/shared/dropdownService/install
   providers: [OwnbranchMasterService, 
     SchemeCodeDropdownService, 
     SchemeAccountNoService,TermDepositSchemeService,SystemMasterParametersService, SchemeCodeDropdownService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,
-    SystemMasterParametersService,
+    SystemMasterParametersService,cityMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

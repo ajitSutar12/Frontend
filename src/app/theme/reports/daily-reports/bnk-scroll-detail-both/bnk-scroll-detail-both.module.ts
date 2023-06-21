@@ -15,6 +15,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkScrollDetailBothComponent } from './bnk-scroll-detail-both.component';
 import {BnkScrollDetailBothRoutingModule} from './bnk-scroll-detail-both-routing.module'
 import{Iframe1Module} from '../iframe1/iframe1.module';
+import { CastMasterService } from 'src/app/shared/dropdownService/cast-master-dropdown.service';
+import { CashDenominationService } from 'src/app/theme/transaction/cash-denomination/cash-denomination.service';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -45,6 +47,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     },
     SystemMasterParametersService,
+    CashDenominationService,
 
 
     {

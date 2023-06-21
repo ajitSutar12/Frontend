@@ -12,10 +12,32 @@
                     <div class="card-block">
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Scheme Code">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="Branch">Branch <sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                            formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch"
+                                            (change)="getBranch()">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for="Scheme Code">Scheme Code<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -35,10 +57,11 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for="Member No.">Starting Account<sub
+                            <div class="col-md-2"></div>
+                            <div class="col-sm-12 col-md-2"> <label for="Member No.">Starting Account<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Starting_Account" bindValue="value"
@@ -58,10 +81,10 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for="Member No.">Ending Account<sub
+                            <div class="col-sm-12 col-md-2"> <label for="Member No.">Ending Account<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Ending_Account" bindValue="value" bindLabel="label"
@@ -81,15 +104,17 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for="Form Date">Starting Date<sub
+                            <div class="col-md-2"></div>
+                            <div class="col-sm-12 col-md-2"> <label for="Form Date">Starting Date<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Starting_Date"
-                                            id="Starting_Date" class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            [(ngModel)]="startingdate" formControlName="Starting_Date" appButton minlength="8" maxlength="10"
+                                            id="Starting_Date" class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [(ngModel)]="startingdate"
+                                            formControlName="Starting_Date" appButton minlength="8" maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -103,17 +128,17 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Form Date">Ending Date<sub
+                      
+                            <div class="col-sm-12 col-md-2"> <label for="Form Date">Ending Date<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Ending_Date" id="Ending_Date"
                                             class="form-control" [(ngModel)]="endingdate" formControlName="Ending_Date"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="8" maxlength="10"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="8"
+                                            maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -152,29 +177,29 @@
 
 
                         <div class="row"></div>
-                    <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                         (click)="View($event); clicked = true  ">View</button>
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                    [disabled]="clicked" (click)="View($event); clicked = true  ">View</button>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            </div>
                         </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Report Frame</h5>
-                                </div>
-                                <div *ngIf="showRepo">
-                                    <app-iframe2 [url]='iframeurl'></app-iframe2>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                    </div>
+                                    <div *ngIf="showRepo">
+                                        <app-iframe2 [url]='iframeurl'></app-iframe2>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                     </div>
                 </form>
