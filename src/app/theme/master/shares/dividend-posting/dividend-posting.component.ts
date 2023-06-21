@@ -186,7 +186,7 @@ export class DividendPostingComponent implements OnInit {
     });
 
     this.http.get(this.url + '/dividend-calculation').subscribe((data) => {
-    this.ngwarrentDate = data
+    this.warrentDate = data
     })
 
   }

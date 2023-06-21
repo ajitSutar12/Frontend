@@ -117,26 +117,11 @@ export class GlAccountsMasterComponent implements OnInit {
       console.log(this.statementCode, "statementcode");
 
       this.role = this.statementCode.filter(function (scheme) {
-        return (scheme.parent_node
-          == '0'
-        )
-
+        return (scheme.parent_node == '0')
       });
-      console.log(this.role, "role");
       let step_2_data = new Array();
       let final_obj = new Array()
-      //    this.statementCode.forEach((ele, index) => {
-      //       let newArray = new Array();
-
-      //       this.statementCode.forEach(element => {
-      //         let subArray = new Array();
-      //  if (element.parent_node == ele.id) {
-
-
-
-      debugger
       let parentData = this.statementCode.filter(ele => ele.parent_node == 0);
-
       for (let item of parentData) {
         let data = this.statementCode.filter(ele => ele.parent_node == item.id);
         if (data.length != 0) {
@@ -146,47 +131,26 @@ export class GlAccountsMasterComponent implements OnInit {
           }
         }
       }
-      console.log(step_2_data, "step2dta");
 
       this.some = step_2_data;
-
       for (let ele1 of step_2_data) {
         let data = this.statementCode.filter(ele => ele.parent_node == ele1.id)
         for (let item of data) {
           item['gl_code'] = ele1.head_name;
           item['child'] = { state: 'Active' }
-
           final_obj.push(item);
         }
-
       }
-
-
-
       this.statementCodeData = final_obj;
-      console.log(this.statementCodeData, "statementcodedata");
-
-      this.scheme = this.statementCodeData;
-
-      console.log(this.scheme);
+      // this.scheme = this.statementCodeData;
 
     }
-
-
-      // if(this.some.parent_name = this.ngBranchCode){
-      // if(this.statementCode.parent_node = 0){
-      //     this.scheme = this.statementCodeData
-      //   }
-      // }
-
-
     )
   }
 
 
   getAccountList(event: any) {
     this.selectedStatementcode = null;
-
     let newArray = new Array();
     this.statementCode.forEach(element => {
       let subArray = new Array();
@@ -200,15 +164,9 @@ export class GlAccountsMasterComponent implements OnInit {
         // element['child'] = subarr;
         subarr.forEach(element => {
           newArray.push(element)
-
         });
-        console.log(subArray);
-        
         newArray.push(element);
-        console.log(newArray, 'newarray')
         this.scheme = newArray
-          
-        
       }
     })
 
@@ -319,21 +277,6 @@ export class GlAccountsMasterComponent implements OnInit {
 
   }
 
-  // getAccountList(event) {
-
-  //   let obj = [this.selectedStatementcode, this.ngBranchCode]
-  //   switch (event.name) {
-  //     case '0':
-  //       this.statementCodeData =  this.statementCode.filter(function (scheme) {
-  //         return (scheme.parent_node
-  //           == '0' || scheme.parent_node
-  //         );
-  //       });
-
-  //       break;
-  //   }
-  //   this.getschemename =event.value;
-  // }
   createForm() {
     this.angForm = this.fb.group({
       AC_NO: [''],
