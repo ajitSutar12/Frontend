@@ -124,7 +124,7 @@ maxDate: Date;
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["",[ Validators.required]],
       date: ['', [Validators.required]],
-      R_TYPE: ['',],
+      R_TYPE: ['deposit',],
       T_TYPE: ['detail',],
       PRPAYABLEINT: [],
       PAGEWISETOTAL: [],
@@ -137,7 +137,7 @@ maxDate: Date;
  
   isrtype(value) {
     if (value == 1) {
-      this.isDeposit = true;
+      this.isDeposit = true; 
       this.isLoan = false;
 
     }
@@ -186,27 +186,26 @@ maxDate: Date;
     let branch = obj.BRANCH_CODE;
     let schemeName = this.tScheme
     
-    // if (value == 1) {
+    if (obj.R_TYPE == 'deposit') {
 
-    //   // this.iframe5url=this.report_url+ "examples/MinorList1.php?&BRANCH_CODE=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
-    //   // console.log(this.iframe5url); 
-    //   // this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-    //   Swal.fire('Success!', 'Deposit Works!', 'success');
-    // }
-    // else if (this.isLoan = true) {
-    //   // this.iframe5url=this.report_url+ "examples/MinorList1.php?&BRANCH_CODE=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
-    //   // console.log(this.iframe5url); 
-    //   // this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-    //   Swal.fire('Success!', 'Loan Works!', 'success');
+      this.iframe5url=this.report_url+ "examples/TermDepositInterestList1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&branchName='" + this.branchName + "'&branch_code='" + branch + "'";
+     
+      console.log(this.iframe5url); 
+      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else if (obj.R_TYPE == 'loan') {
 
-    // }
-    // else if (this.isPigmy = true) {
-    //   // this.iframe5url=this.report_url+ "examples/MinorList1.php?&BRANCH_CODE=" + branch + "&BANK_NAME=" + bankName + "  &branch_name=" + this.branchName + "&ac_type='"+scheme +"'&AC_ACNOTYPE='" + schemeName+"'&print_date='" + obj.date + "'"
-    //   // console.log(this.iframe5url); 
-    //   // this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-    //   Swal.fire('Success!', 'Pigmy Works!', 'success');
+      this.iframe5url=this.report_url+ "examples/LoanInterestList1.php?Branchname='" + this.branchName + "'&date='" + obj.date + "'&Branch='" + bankName + "'&branch_code=" + branch + "";
+      console.log(this.iframe5url); 
+      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
-    // }
+    }
+    else if (obj.R_TYPE == 'pigmy') {
+      this.iframe5url=this.report_url+ "examples/pigmy1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&Branch='" + this.branchName + "'&branch_code='" + branch + "'";
+      console.log(this.iframe5url); 
+      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+    }
 
   }
   else {
