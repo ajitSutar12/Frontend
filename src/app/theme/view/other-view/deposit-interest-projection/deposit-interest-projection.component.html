@@ -90,7 +90,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" name="Month" class="form-control" placeholder=" "
-                    id="Month" formControlName="AC_MONTHS" maxlength="3"  (change)="CheckmonthDays()" 
+                    id="Month" formControlName="AC_MONTHS" maxlength="3" (change)="CheckmonthDays()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
 
                 </span>
@@ -115,7 +115,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" name="Days" class="form-control" placeholder=" "
-                    id="Days" formControlName="AC_DAYS" maxlength="3"  (change)="CheckmonthDays()" 
+                    id="Days" formControlName="AC_DAYS" maxlength="3" (change)="CheckmonthDays()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                 </span>
               </div>
@@ -124,7 +124,7 @@
                 class="alert alert-danger">
                 <div *ngIf="ngForm.controls['AC_DAYS'].errors?.required">
                   This field is required.
-                </div> 
+                </div>
               </div>
             </div>
 
@@ -136,7 +136,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" appButton minlength="8" maxlength="10" name="MaturityDate"
-                    id="MaturityDate" class="form-control" formControlName="MATUR_DATE" bsDatepicker>
+                    id="MaturityDate" class="form-control" formControlName="MATUR_DATE" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
@@ -147,7 +148,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
 
           <div class="row">
@@ -160,8 +161,8 @@
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" placeholder="Deposit Amount" name="DepositAmount"
                     id="DepositAmount" class="form-control" [(ngModel)]="depositAmount" formControlName="DEPO_AMT"
-                    (change)="setMaturityDate()" (focusout)="checkAmount()"
-                    maxlength="15" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    (change)="setMaturityDate()" (focusout)="checkAmount()" maxlength="15"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     (keyup)="decimalAllContent($event)">
                 </span>
               </div>
@@ -190,12 +191,12 @@
               <div class="form-group form-primary form-static-label"
                 *ngIf="ngForm.controls['INT_RATE'].invalid && (ngForm.controls['INT_RATE'].dirty || ngForm.controls['INT_RATE'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="ngForm.controls['INT_RATE'].errors?.required"> 
+                <div *ngIf="ngForm.controls['INT_RATE'].errors?.required">
                   This field is required.
                 </div>
               </div>
             </div>
-           
+
           </div>
           <div class="row">
             <div class="col-sm-2">
@@ -227,7 +228,7 @@
             <div class="col-sm">
               <button class="btn  btn-outline-primary btn-sm" (click)="Process()">Process</button>
 
-              <button class="btn  btn-outline-primary btn-sm" >Print</button>
+              <button class="btn  btn-outline-primary btn-sm">Print</button>
             </div>
           </div>
 

@@ -22,6 +22,7 @@ import { environment } from '../../../../environments/environment';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { data, event } from 'jquery';
 import { id } from '@swimlane/ngx-datatable';
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -292,7 +293,7 @@ export class UserDefinationComponent implements OnInit {
     const dataToSend = {
       'F_NAME': formVal.F_NAME,
       'L_NAME': formVal.L_NAME,
-      'DOB': formVal.DOB,
+      'DOB': moment(formVal.DOB).format('DD/MM/YYYY'),
       'MOB_NO': formVal.MOB_NO,
       'EMAIL': formVal.EMAIL,
       'roleId': formVal.ROLE,
@@ -310,6 +311,7 @@ export class UserDefinationComponent implements OnInit {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.rerender();
+      this.createForm()
     }, (error) => {
       console.log(error)
     })
@@ -329,63 +331,27 @@ export class UserDefinationComponent implements OnInit {
 
   //Method for append data into fields
   editClickHandler(id) {
-   debugger
+   this.showButton=false
     this.showAdd = true;
     this.updateShow = true;
-    // // this.showEdit = true;
-    // this.userdefinationservice.getFormData(id).subscribe(data => {
-    //   console.log(data);
-       
-    // })
-  
-    
+    // this.showEdit = true;    
     this.userdefinationservice.getFormData(id).subscribe(data=>{
       console.log(data,'edit');
-      // let array = new Array;
-      // let selectedRoleName = '';
-      // data.RoleDefine.forEach(ele=>{
-      
-      //   array.push(ele.RoleId.toString())
-      //   if(selectedRoleName == ''){
-      //     selectedRoleName = ele.Role.NAME;
-      //   }else{
-      //     selectedRoleName = selectedRoleName +', '+ele.Role.NAME;
-      //   }
-      // })
-      // this.selectedRoleName = selectedRoleName;
-      // let list = array;
-      // this.userId = data.id;
-      // this.selectedRole = list;
-      console.log(data.DOB);
-      
+      this.updateID = data.id;
       this.angForm.patchValue({
-       
-        
-        // 'FULL_NAME' : data.F_NAME+' '+data.L_NAME,
-    //     'Edit_branchId' : data.branchId.toString(),
-    //     'STATUS1' : data.STATUS
-    //   })
-    // })
-    // this.userdefinationservice.getFormData(id).subscribe(data => {
-      
-    //   console.log(data)
-    //   this.updateID = data.id;
-    //   this.angForm.patchValue({
         'F_NAME': data.F_NAME,
         'L_NAME': data.L_NAME,
         'DOB': data.DOB,
         'MOB_NO': data.MOB_NO,
         'EMAIL': data.EMAIL,
-      //  'roleId': data.RoleDefine[0].Role.NAME,
+       'roleId': data.RoleDefine[0].RoleId,
        'ROLE': data.RoleDefine[0].RoleId,
       //  'selectedRoleName': data.RoleDefine[0].Role.NAME,
-     
-       'branchId':data.branchId,
+            'branchId':data.branchId,
         'USER_NAME': data.USER_NAME,
         // 'PASSWORD': data.PASSWORD,
         'STATUS': data.STATUS,
         // 'USER_CREATED_AT': data.USER_CREATED_AT,
-
       })
     })
   }
@@ -397,11 +363,13 @@ export class UserDefinationComponent implements OnInit {
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['roleId'] = this.angForm.controls['ROLE'].value;
     this.userdefinationservice.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
+      this.createForm()
       this.angForm.reset();
     })
   }
