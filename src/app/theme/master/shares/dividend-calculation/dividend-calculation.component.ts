@@ -414,7 +414,7 @@ export class DividendCalculationComponent implements OnInit {
     this.http
       .get(this.url + "/dividend-calculation/divYrcheck/" + obj)
       .subscribe((data) => {
-        data["divCheck"] = "Already Processed"
+        // data["divCheck"] = "Already Processed"
         if (data["historyCheck"] == "Already Posted") {
           this.send["Flag"] = "history";
           Swal.fire("Warning!", "Dividend Already Posted !", "warning");
@@ -433,6 +433,9 @@ export class DividendCalculationComponent implements OnInit {
               this.send["Flag"] = "Insert";
             }
           });
+        }
+        else if (data["divCheck"] == "new") {
+          this.send["Flag"] = "Insert";
         }
       });
   }
@@ -463,6 +466,7 @@ export class DividendCalculationComponent implements OnInit {
                   ? ""
                   : element.BANKACNO,
               BRANCH_CODE: element.BRANCH_CODE,
+              AC_OPDATE: element.AC_OPDATE
             };
             this.divArr.push(object);
           });

@@ -123,7 +123,7 @@ export class VoucherEntryComponent implements OnInit {
     { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
     { key: 'SH', data: { cash: [1, 4, 5, 7, 14], transfer: [1, 4, 5, 7, 14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
-    { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
+    { key: 'PG', data: { cash: [1, 4, 10], transfer: [1, 4, 10] } },
     { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
   ]
 
@@ -1101,7 +1101,7 @@ export class VoucherEntryComponent implements OnInit {
         if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
           this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
         if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
-          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4) 
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
 
       } else {
         this.tranModeList = [];
@@ -1295,7 +1295,7 @@ export class VoucherEntryComponent implements OnInit {
   checkSanctionAmountWithAmount() {
     // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
     let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
-    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN'  )) {
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
       this.angForm.patchValue({
@@ -2263,7 +2263,7 @@ export class VoucherEntryComponent implements OnInit {
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
         'Approved',
-        'Voucher approved successfully', 
+        'Voucher approved successfully',
         'success'
       );
       var button = document.getElementById('trigger');
