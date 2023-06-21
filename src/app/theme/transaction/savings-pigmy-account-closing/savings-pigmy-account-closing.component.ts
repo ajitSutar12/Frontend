@@ -406,6 +406,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   preMature
   modalClass: string = 'modalHide';
   NET_EXC_INTAMT = 0
+  ledgerBalance = 0
   getAccountDetails(event) {
     this.bankacno = event.bankacno
     this.customerId = event.customerId
@@ -457,6 +458,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       }
       this.preMature = data[0].preMature
       this.OpenDate = data[0].AC_OPDATE
+      this.ledgerBalance = Math.abs(data[0].ledgerBal)
       this.renewalDate = data[0].AC_ASON_DATE
       this.INTRATE = data[0].INT_RATE
       this.INT_RATESHOW = data[0].intrate
@@ -1053,6 +1055,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         }
         this.preMature = data1[0].preMature
         this.OpenDate = data1[0].AC_OPDATE
+        this.ledgerBalance =  Math.abs(data[0].ledgerBal)
         this.renewalDate = data1[0].AC_ASON_DATE
         this.INTRATE = data1[0].INT_RATE
         this.LastIntDate = data1[0].AC_LINTEDT

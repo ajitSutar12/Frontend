@@ -22,8 +22,8 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 })
 export class AccountEnquiryComponent implements OnInit {
   angForm: FormGroup;
-  des:any;
-  demo:any=new Array();
+  des: any;
+  demo: any = new Array();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -275,20 +275,20 @@ export class AccountEnquiryComponent implements OnInit {
         this.http.get<any>(this.url + '/saving-master/balUpdate/' + obj).subscribe((data) => {
           this.schemeACNo = data
           //  this.des =  this.schemeACNo.push(this.idmaster)
-             console.log(data);
-         
+          console.log(data);
+
           console.log(this.des);
-          
+
           let some = this.schemeACNo.idmaster
 
-          some.forEach(entry =>{
+          some.forEach(entry => {
             this.demo.push(entry)
           })
 
           console.log(this.demo);
-          
+
           console.log(some, "some");
-          
+
         })
         break;
       case 'CA':
@@ -437,7 +437,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/pigmy-account-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
         })
         break;
@@ -478,7 +478,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/term-deposits-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
         })
         break;
@@ -511,7 +511,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = true
         this.coborrowerView = true
         this.http.get<any>(this.url + '/term-loan-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
         })
         break;
@@ -552,7 +552,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = true
         this.coborrowerView = true
         this.http.get<any>(this.url + '/cash-credit-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
         })
         break;
@@ -585,7 +585,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/share-master/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
         })
         break;
@@ -618,7 +618,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/gl-account-master').subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
         })
         this.GLRecordShow = true
@@ -661,7 +661,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.receivableInterestView = false
         this.coborrowerView = false
         this.http.get<any>(this.url + '/investment/balUpdate/' + obj).subscribe(data => {
-          this.schemeACNo = data 
+          this.schemeACNo = data
           console.log(data);
         })
         break;
@@ -785,9 +785,10 @@ export class AccountEnquiryComponent implements OnInit {
   loanTotalReceivable = 0
   rebateIntrest = 0
   dueInstallmentLoan = 0
-
+  modalClass: string = 'modalHide';
   getTransactionDetails() {
     if (this.accountedit != null && this.fromdate != null && this.fromdate != '') {
+      this.modalClass = 'modalShow';
       let obj = {
         scheme: this.schemeCode,
         bankacno: this.bankacno,
@@ -807,6 +808,7 @@ export class AccountEnquiryComponent implements OnInit {
         branch: this.ngBranchCode
       }
       this.http.post<any>(this.url + '/ledger-view/accountView', obj).subscribe((data) => {
+        this.modalClass = 'modalHide';
         if (this.getschemename == 'GL') {
           this.accountData = null
           this.transactionData = null
@@ -875,8 +877,10 @@ export class AccountEnquiryComponent implements OnInit {
           this.PIGMY_ACTYPE = data.pigmyScheme
           this.introducerName = data.introducer
         }
+        this.modalClass = 'modalHide';
       }, (error) => {
         console.log(error, 'err')
+        this.modalClass = 'modalHide';
         Swal.fire('Oops!', error?.error?.message, 'error');
       })
     }

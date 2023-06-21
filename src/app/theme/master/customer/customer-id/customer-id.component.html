@@ -74,7 +74,7 @@
                                         (ngModelChange)="lname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
                                         #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
-                                        formControlName="L_NAME" [autofocus]="autofacus" required>
+                                        formControlName="L_NAME" required>
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
 
                                 </span>
@@ -512,7 +512,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9,
+                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9
                                 </div>
                             </div>
                         </div>
