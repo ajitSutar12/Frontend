@@ -127,7 +127,7 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
         START_DATE: ['', [Validators.required]],
-       
+        OD_TEMP: [''],
        
       });
      
@@ -176,13 +176,23 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
   
       let branch = obj.BRANCH_CODE;
   
-      let schemeName = this.tScheme
+      let schemeName = this.tScheme;
+      let flag =obj.OD_TEMP;
   
       //  let startingcode= obj.Starting_Account;
-      // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
-    console.log(this.iframe5url); 
-     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
+    //   // let endingcode =obj.Ending_Account;
+    //   this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
+    // console.log(this.iframe5url);
+    if(flag == 0){
+      this.iframe5url=this.report_url+ "examples/NPA_Standard_NonStandard.php?AC_TYPE=6,7&BRANCH_CODE=2&FLAG=0&'&BRANCH='KOTOLI'&BANK_NAME='DEMO'&PRINT_DATE='1/1/2023'"
+      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
+
+    }else{
+      this.iframe5url=this.report_url+ "examples/NPA_Standard_NonStandard.php?AC_TYPE=6,7&BRANCH_CODE=2&FLAG=0&'&BRANCH='KOTOLI'&BANK_NAME='DEMO'&PRINT_DATE='1/1/2023'"
+      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
+    }
+  
+   
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});

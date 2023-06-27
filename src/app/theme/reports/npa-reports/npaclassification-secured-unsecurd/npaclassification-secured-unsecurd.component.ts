@@ -128,7 +128,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
         // BRANCH_CODE: ['', [Validators.required]],
         // Scheme_code: ["",[ Validators.required]],
         START_DATE: ['', [Validators.required]],
-        // END_DATE: ['', [Validators.required]],
+        npa_per: [''],
        
       });
      
@@ -176,12 +176,16 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     let scheme = obj.Scheme_code
   
       let branch = obj.BRANCH_CODE;
+      let flag = obj.npa_per;
   
       let schemeName = this.tScheme
   
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
+      // this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
+
+
+      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE=2&FLAG="+flag+"&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Date+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }

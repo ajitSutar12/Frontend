@@ -42,6 +42,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     fromdate: any = null
     ngbranch: any = null;
     scode: any = null;
+    ecode:any = null;
     //ngfor
     scheme: any[];
     branchOption: any[];
@@ -59,6 +60,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     minDate: Date;
     report_url = environment.report_url;
     branchName: any;
+  obj1: any[];
   
     constructor(
       private fb: FormBuilder,
@@ -66,6 +68,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       private systemParameter: SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
+      private schemeAccountNoService: SchemeAccountNoService,
   
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -89,6 +92,29 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
           return (scheme.name == 'LN' && scheme.IS_GOLD_LOAN == '1' );
         });
         this.scheme = filtered;
+        console.log(this.scheme);
+        
+        let info: any = localStorage.getItem('user');
+        let result = JSON.parse(info);
+        let branchCode = result.branch.id;
+        // let code = 12;
+        this.obj1 = [this.scode, branchCode]
+        switch (this.tScheme){
+          case 'LN':
+            
+              this.schemeAccountNoService.getTermLoanMasterAcListForBalUpdation(this.obj1).pipe(first()).subscribe(data => {
+                this.scode = data
+            this.ecode = data
+            console.log(data);
+          //     })
+          // this.schemeAccountNoService.getTermLoanSchemeList1(this.obj1).subscribe(data => {
+          //   this.scode = data
+          //   this.ecode = data
+          //   console.log(data);
+            
+          })
+          break;
+        }
   
         // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
         //   this.todate = data.CURRENT_DATE;
@@ -132,8 +158,12 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         END_DATE: ['', [Validators.required]],
         Min_save: ['', [Validators.required]],
         Max_save: ['', [Validators.required]],
-        Start_code: ['', [Validators.required]],
-        End_code: ['', [Validators.required]],
+        Start_code: [''],
+        End_code: [''],
+        npa_per: [''],
+        checkboxValue:[''],
+
+
   
       });
   
@@ -180,11 +210,16 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         let scheme = obj.Scheme_code
         let branch = obj.BRANCH_CODE;
         let schemeName = this.tScheme
+        let Dates = obj.END_DATE;
+        let flag = obj.npa_per;
   
         //  let startingcode= obj.Starting_Account;
         // let endingcode =obj.Ending_Account;
   
-        this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE+ "'&END_DATE='" + obj.END_DATE+ "'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&AC_TYPE='" +scheme+ "'&AC_ACNOTYPE='" + schemeName+ "'";
+        // this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE+ "'&END_DATE='" + obj.END_DATE+ "'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&AC_TYPE='" +scheme+ "'&AC_ACNOTYPE='" + schemeName+ "'";
+
+
+        this.iframe5url = this.report_url + "examples/AccountWiseLoanOverDueList.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&date1='"+Dates+"'&BranchName='"+this.branchName+"'&schemeCode='"+scheme+"'&bankName='"+bankName+"'"
   
         console.log(this.iframe5url);
         this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

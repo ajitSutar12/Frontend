@@ -20,6 +20,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { date } from "ngx-custom-validators/src/app/date/validator";
 
 @Component({
   selector: 'app-recommended-directorwise',
@@ -132,12 +133,12 @@ export class RecommendedDirectorwiseComponent implements OnInit {
         END_DATE: ['', [Validators.required]],
         Min_save: ['', [Validators.required]],
         Max_save: ['', [Validators.required]],
-        radiovalue: ['', [Validators.required]],
-        Start_code: ['', [Validators.required]],
-        End_code: ['', [Validators.required]],
-        checkboxValue:['', [Validators.required]],
-        checkboxValue1:['', [Validators.required]],
-        checkboxValue2:['', [Validators.required]],
+        radio: ['', [Validators.required]],
+        Start_code: [''],
+        End_code: [''],
+        checkboxValue:[''],
+        checkboxValue1:[''],
+        checkboxValue2:[''],
   
       });
   
@@ -184,11 +185,17 @@ export class RecommendedDirectorwiseComponent implements OnInit {
         let scheme = obj.Scheme_code
         let branch = obj.BRANCH_CODE;
         let schemeName = this.tScheme
+        let flag = obj.radio;
   
         //  let startingcode= obj.Starting_Account;
         // let endingcode =obj.Ending_Account;
   
-        this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE+ "'&END_DATE='" + obj.END_DATE+ "'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&AC_TYPE='" +scheme+ "'&AC_ACNOTYPE='" + schemeName+ "'";
+        // this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE+ "'&END_DATE='" + obj.END_DATE+ "'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&AC_TYPE='" +scheme+ "'&AC_ACNOTYPE='" + schemeName+ "'";
+
+
+
+        this.iframe5url = this.report_url + "examples/DirectorWiseLoanOverDue.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&date1='"+this.todate+"'&BranchName='"+this.branchName+"'&schemeCode='"+scheme+"'&bankName='"+bankName+"'"
+
   
         console.log(this.iframe5url);
         this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
