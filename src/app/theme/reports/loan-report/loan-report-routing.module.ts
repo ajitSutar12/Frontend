@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoanOverdueListModule } from './loan-overdue-list/loan-overdue-list.module';
 
 const routes: Routes = [{
   path: '',
   data: {
-    title: 'Loan Report ',
+    title: 'Loan Report',
   icon: 'icon-home',
   caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
   status: true
 },
 children:[
+
 {
-    path: 'loanoverduelist',
-    loadChildren: () => import('./loan-overdue-list/loan-overdue-list.module').then(m => m.LoanOverdueListModule)
-  },
+  path:'loanoverduelist',
+  loadChildren: () => import('./loan-overdue-list/loan-overdue-list.module').then(m =>m.LoanOverdueListModule)
+},
   {
     path: 'loansecurityreport',
     loadChildren: () => import('./loan-security-report/loan-security-report.module').then(m => m.LoanSecurityReportModule)

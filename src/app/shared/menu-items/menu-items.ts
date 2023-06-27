@@ -1498,7 +1498,7 @@ const MENUITEMS = [
                 },
                 {
                   state: 'nonNpaRecovery',
-                  name: 'Not NPA Report',
+                  name: 'To be Recovery Non NPA Report',
                   id: 288
                 },
                 {

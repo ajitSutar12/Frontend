@@ -55,7 +55,6 @@ export class BnkScrollDetailBothComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private _services: CashDenominationService,
-
   ) {
     this.fromdate = moment().format('DD/MM/YYYY'); 
     this.maxDate = new Date();
