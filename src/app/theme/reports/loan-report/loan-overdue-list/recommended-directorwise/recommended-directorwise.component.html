@@ -15,13 +15,13 @@
                                 <div class="form-radio">
                                     <div class="radio radio-inline">
                                         <label>
-                                            <input type="radio" name="radio" formControlName="radio" value="TEMP"
+                                            <input type="radio" name="radio" formControlName="radio" value="0"
                                                 [checked]="true">
                                             <i class="helper"></i>All </label>
                                     </div>
                                     <div class="radio radio-inline">
                                         <label>
-                                            <input type="radio" name="radio" formControlName="radio" value="PERIODICAL">
+                                            <input type="radio" name="radio" formControlName="radio" value="1">
                                             <i class="helper"></i>Overdue</label>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="" name="Min_save" id="Min_save"
+                                        <input type="number" placeholder="" name="Min_save" id="Min_save"
                                             class="form-control" [(ngModel)]="minvalue" formControlName="Min_save"
                                             minlength="8" maxlength="10">
                                     </span>
@@ -155,7 +155,7 @@
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="" name="Max_save" id="Max_save"
+                                        <input type="number" placeholder="" name="Max_save" id="Max_save"
                                             class="form-control" [(ngModel)]="maxvalue" formControlName="Max_save"
                                             minlength="8" maxlength="10">
                                     </span>

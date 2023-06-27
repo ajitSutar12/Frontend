@@ -158,8 +158,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
         END_DATE: ['', [Validators.required]],
         Scity: ['', [Validators.required]],
         Ecity: ['', [Validators.required]],
-        AC_CTCODE: ['', [Validators.required]],
-       
+        npa_per: [''],    
       });
      
     }
@@ -208,12 +207,13 @@ export class CitiwiseNpaRegComponent implements OnInit {
     let scheme = obj.Scheme_code
   
       let branch = obj.BRANCH_CODE;
-  
+  let FROMCT = obj.Scity;
+  let TOCT = obj.Ecity;
       let schemeName = this.tScheme
   
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
+      this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'&SCITY='"+FROMCT+"'&ECITY='"+TOCT+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }

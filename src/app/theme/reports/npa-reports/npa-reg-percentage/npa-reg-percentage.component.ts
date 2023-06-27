@@ -1,6 +1,6 @@
 
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -22,6 +22,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { newArray } from '@angular/compiler/src/util';
 import { Component, OnInit, ViewChild } from "@angular/core";
 
+
 @Component({
   selector: 'app-npa-reg-percentage',
   templateUrl: './npa-reg-percentage.component.html',
@@ -33,6 +34,10 @@ export class NpaRegPercentageComponent implements OnInit {
     @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
   formSubmitted = false;
   ngCity: any = null
+  radioValue: boolean = false;  
+  Selection: boolean = false;  
+  isChecked: boolean = true;
+  url = environment.base_url;
   
   //fromgroup
   ngForm:FormGroup
@@ -63,6 +68,8 @@ export class NpaRegPercentageComponent implements OnInit {
     minDate: Date;
     report_url = environment.report_url;
     branchName: any;
+  glDetails: any;
+  fordate: Date;
   
     constructor(
       private fb: FormBuilder,
@@ -70,9 +77,11 @@ export class NpaRegPercentageComponent implements OnInit {
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
+      private http: HttpClient,
      
     ) {
-      this.todate = moment().format('DD/MM/YYYY');
+      this.todate = moment().format('31/03/2024');
+      this.fordate = new Date('31/03/2024');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1); 
@@ -121,7 +130,7 @@ export class NpaRegPercentageComponent implements OnInit {
     let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
     this.todate = data.CURRENT_DATE
     
-    this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+    this.fromdate = moment(`31/03/${year + 1}`, "DD/MM/YYYY")
     this.fromdate = this.fromdate._d
   })
     
@@ -139,6 +148,19 @@ export class NpaRegPercentageComponent implements OnInit {
         this.branchName = result.branch.NAME
   
       }
+
+
+      let obj1 = {
+        date: this.fordate,
+        // branch_code: this.ngbranch,
+
+      }
+      this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
+        this.glDetails = data
+   
+            console.log(this.glDetails, "dasds")
+        })
+    
     }
   
     getTransferAccountList(event) {
@@ -151,12 +173,11 @@ export class NpaRegPercentageComponent implements OnInit {
       this.ngForm = this.fb.group({
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
-        START_DATE: ['', [Validators.required]],
         END_DATE: ['', [Validators.required]],
-        Scity: ['', [Validators.required]],
-        Ecity: ['', [Validators.required]],
-        AC_CTCODE: ['', [Validators.required]],
-        NPA_Date: ['', [Validators.required]],
+        OD_TEMP: [''],
+        Non_Standard: [''],
+        Standard: [''],
+        NPA_Date: [''],
        
       });
      
@@ -241,4 +262,5 @@ export class NpaRegPercentageComponent implements OnInit {
       this.ngbranch = event.value
       this.branchName = event.branchName
     }
+    
   }

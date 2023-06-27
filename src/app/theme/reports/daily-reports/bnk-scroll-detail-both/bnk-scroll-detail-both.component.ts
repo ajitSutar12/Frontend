@@ -14,7 +14,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { NgSelectConfig } from "@ng-select/ng-select";
-import { CastMasterService } from "src/app/shared/dropdownService/cast-master-dropdown.service";
+
 import { data } from "jquery";
 import { CashDenominationService } from "src/app/theme/transaction/cash-denomination/cash-denomination.service";
 
@@ -55,7 +55,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private _services: CashDenominationService,
-    private castMasterService : CastMasterService,
+    
 
   ) {
     this.fromdate = moment().format('DD/MM/YYYY'); 

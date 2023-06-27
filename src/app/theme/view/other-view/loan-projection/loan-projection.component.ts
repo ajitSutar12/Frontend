@@ -32,7 +32,7 @@ export class LoanProjectionComponent implements OnInit {
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   maxDate: any;
   minDate: Date;
-  resolutionDate: any;
+  resolutionDate: Date;
 
   Resolution_date
   debitcredit
@@ -52,7 +52,9 @@ export class LoanProjectionComponent implements OnInit {
     private installmentMethodService: InstallmentMethodService, 
     private fb: FormBuilder,
     private _services: OtherViewService  
-    ) { }
+    ) {
+       this.resolutionDate =new Date();
+     }
 
 
   ngOnInit(): void {
@@ -91,7 +93,7 @@ export class LoanProjectionComponent implements OnInit {
       this._services.getInstallment(obj).subscribe(data=>{
         console.log(data);
         this.angForm.patchValue({
-          INSTALLMENTS : data
+          INSTALLMENTS : data + ".00"
         })
       })
     } else {
@@ -112,6 +114,18 @@ export class LoanProjectionComponent implements OnInit {
   }
   close(){
     this.ngOnInit();
+  }
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+    else
+      event.target.value = 0
+  }
+  getpercentagePoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value) + "%";
+    else
+      event.target.value = 0
   }
 }
 

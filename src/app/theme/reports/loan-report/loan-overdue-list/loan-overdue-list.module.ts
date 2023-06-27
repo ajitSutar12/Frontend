@@ -8,19 +8,20 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { ThemeModule } from 'src/app/theme/theme.module';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5-routing.module';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
-import { LoanOverdueListComponent } from './loan-overdue-list.component';
-import { LoanOverdueReportComponent } from './loan-overdue-report/loan-overdue-report.component';
-import { AcwiseLoanoverdueListComponent } from './acwise-loanoverdue-list/acwise-loanoverdue-list.component';
-import { RecommendedDirectorwiseComponent } from './recommended-directorwise/recommended-directorwise.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
-
+import { LoanOverdueReportComponent } from './loan-overdue-report/loan-overdue-report.component';
+import { LoanOverdueListComponent } from './loan-overdue-list.component';
+import { AcwiseLoanoverdueListComponent }from './acwise-loanoverdue-list/acwise-loanoverdue-list.component';
+import { RecommendedDirectorwiseComponent }from './recommended-directorwise/recommended-directorwise.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -35,7 +36,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
     SharedModule,
-    BrowserAnimationsModule,
+
+    // BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
    
   ],
   providers:[
@@ -53,6 +57,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService,
     SchemeAccountNoService,
     SchemeTypeDropdownService,
+    // Iframe5Module,
   ],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ],
 })
