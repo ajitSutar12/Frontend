@@ -138,108 +138,108 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dtTrigger.next();
 
 
-    // this.dtExportButtonOptions = {
-    //   pagingType: "full_numbers",
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     let datatableRequestParam: any;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
+    this.dtExportButtonOptions = {
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
 
-    //     dataTableParameters.columns.forEach((element) => {
-    //       if (element.search.value != "") {
-    //         let string = element.search.value;
-    //         this.filterData[element.data] = string;
-    //       } else {
-    //         let getColumnName = element.data;
-    //         let columnValue = element.value;
-    //         if (this.filterData.hasOwnProperty(element.data)) {
-    //           let value = this.filterData[getColumnName];
-    //           if (columnValue != undefined || value != undefined) {
-    //             delete this.filterData[element.data];
-    //           }
-    //         }
-    //       }
-    //     });
-    //     dataTableParameters["filterData"] = this.filterData;
-    //     this.http
-    //       .post<DataTableResponse>(
-    //         this.url + "/vehicle",
-    //         dataTableParameters
-    //       )
-    //       .subscribe((resp) => {
-    //         this.vehiclemasters = resp.data;
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsTotal,
-    //           data: [],
-    //         });
-    //       });
-    //   },
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/vehicle",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.vehiclemasters = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
+            });
+          });
+      },
 
-    //   columns: [
-    //     {
-    //       title: "Action",
-    //       render: function (data: any, type: any, full: any) {
-    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-    //       },
-    //     },
-    //     {
-    //       title: "Submission Date",
-    //       data: "SUBMISSION_DATE",
-    //     },
-    //     {
-    //       title: "RTO Registration Date",
-    //       data: "RTO_REG_DATE",
-    //     },
-    //     {
-    //       title: "Vehicle Make.",
-    //       data: "VEHICLE_MAKE",
-    //     },
-    //     {
-    //       title: "Year of Manufacture",
-    //       data: "MANUFACTURE_YEAR",
-    //     },
-    //     {
-    //       title: "Vehicle No.",
-    //       data: "VEHICLE_NO",
-    //     },
-    //     {
-    //       title: "Chassis No",
-    //       data: "CHASSIS_NO",
-    //     },
-    //     {
-    //       title: "Date of Acquisition",
-    //       data: "AQUISITION_DATE",
-    //     },
-    //     {
-    //       title: "New Vehicle",
-    //       data: "NEW_VEHICLE",
-    //     },
-    //     {
-    //       title: "Supplier Name",
-    //       data: "SUPPLIER_NAME",
-    //     },
-    //     {
-    //       title: "Purchase Price",
-    //       data: "PURCHASE_PRICE",
-    //     },
-    //     {
-    //       title: "Margin %",
-    //       data: "MARGIN",
-    //     },
-    //     {
-    //       title: "Remarks",
-    //       data: "REMARK",
-    //     },
-    //   ],
-    //   dom: "Blrtip",
-    // };
+      columns: [
+        {
+          title: "Action",
+          render: function (data: any, type: any, full: any) {
+            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          },
+        },
+        {
+          title: "Submission Date",
+          data: "SUBMISSION_DATE",
+        },
+        {
+          title: "RTO Registration Date",
+          data: "RTO_REG_DATE",
+        },
+        {
+          title: "Vehicle Make.",
+          data: "VEHICLE_MAKE",
+        },
+        {
+          title: "Year of Manufacture",
+          data: "MANUFACTURE_YEAR",
+        },
+        {
+          title: "Vehicle No.",
+          data: "VEHICLE_NO",
+        },
+        {
+          title: "Chassis No",
+          data: "CHASSIS_NO",
+        },
+        {
+          title: "Date of Acquisition",
+          data: "AQUISITION_DATE",
+        },
+        {
+          title: "New Vehicle",
+          data: "NEW_VEHICLE",
+        },
+        {
+          title: "Supplier Name",
+          data: "SUPPLIER_NAME",
+        },
+        {
+          title: "Purchase Price",
+          data: "PURCHASE_PRICE",
+        },
+        {
+          title: "Margin %",
+          data: "MARGIN",
+        },
+        {
+          title: "Remarks",
+          data: "REMARK",
+        },
+      ],
+      dom: "Blrtip",
+    };
   }
 
   createForm() {

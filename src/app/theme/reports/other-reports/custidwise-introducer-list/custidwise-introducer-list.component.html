@@ -41,7 +41,7 @@
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getTransferAccountList($event);getIntTrans($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
+                                                {{values.id}} {{values.label}} </ng-option> 
                                         </ng-select>
 
                                     </span>
@@ -60,14 +60,15 @@
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-3">
+                              
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select formControlName="START_CUST" bindValue="value" bindLabel="label"
-                                            [virtualScroll]="true" [(ngModel)]="scust" >
-                                            <ng-option *ngFor="let values of startAcNo" [value]="values">
-                                                {{values.label}} {{values.name}}</ng-option>
+                                        <ng-select id="START_CUST" bindValue="value" [(ngModel)]="ngcust"
+                                            [virtualScroll]="true" formControlName="START_CUST" bindLabel="label"
+                                            placeholder="">
+                                            <ng-option *ngFor="let values of Cust_ID" [value]="values"> 
+                                                {{values.label}}</ng-option>
                                         </ng-select>
-
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -86,14 +87,15 @@
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-3">
+                               
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select formControlName="END_CUST" bindValue="value" bindLabel="label"
-                                            [virtualScroll]="true" [(ngModel)]="ecust" >
-                                            <ng-option *ngFor="let values of endAcNo" [value]="values">
-                                                {{values.label}} {{values.name}}</ng-option>
+                                        <ng-select id="END_CUST" bindValue="value" [(ngModel)]="ngcust2"
+                                            [virtualScroll]="true" formControlName="END_CUST" bindLabel="label"
+                                            placeholder="">
+                                            <ng-option *ngFor="let values of Cust_ID" [value]="values"> 
+                                                {{values.label}}</ng-option>
                                         </ng-select>
-
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
