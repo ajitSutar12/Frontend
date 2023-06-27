@@ -15,7 +15,7 @@
                             <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" binfdlable="lable"
@@ -40,10 +40,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-2 col-md-2">
+                            <div class="col-sm-2 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -88,33 +88,32 @@
                                 </div>
                             </div>
                         </div>
-                       
                         <div class="row">
-                            <div class="col-sm">
-                                <div class="checkbox checkbox-primary">
-                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input type="checkbox" class="border-checkbox" id="npa_per"
-                                            formControlName="npa_per">
-                                        <label class="border-checkbox-label" for="npa_per">Print NPA Standard Account
-                                        </label>
+                            <div class="col-sm-12 col-md-8">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="0"
+                                                [checked]="true">
+                                            <i class="helper"></i>none </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
+                                                value="1" [checked]="true">
+                                            <i class="helper"></i>Print NPA Standard Account</label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
+                                                value="2" [checked]="true">
+                                            <i class="helper"></i>Print Only Process NPA  Account</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="checkbox checkbox-primary">
-                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input type="checkbox" class="border-checkbox" id="checkboxValue"
-                                            formControlName="checkboxValue">
-                                        <label class="border-checkbox-label" for="checkboxValue">Print Only Process NPA  Account
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
 
                         </div>
-
-
+                       
                         <div class="row">
                             <div class="col-md-9"></div>
                             <div class="col-md-2">

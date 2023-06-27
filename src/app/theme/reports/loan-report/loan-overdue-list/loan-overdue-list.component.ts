@@ -6,7 +6,10 @@ import { Router } from '@angular/router';
   templateUrl: './loan-overdue-list.component.html',
   styleUrls: ['./loan-overdue-list.component.scss']
 })
-export class LoanOverdueListComponent implements OnInit {
+// export class LoanOverdueListComponent {
+
+// }
+ export class LoanOverdueListComponent implements OnInit {
 
   loanoverdueTrue: boolean = true;
   accountwiseTrue: boolean = false;
@@ -32,7 +35,7 @@ export class LoanOverdueListComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // 
+
     if (val == 1) {
       this.loanoverdueTrue = true;
       this.accountwiseTrue = false;

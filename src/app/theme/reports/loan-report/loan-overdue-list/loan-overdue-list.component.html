@@ -1,5 +1,5 @@
 
-<div class="row">
+ <div class="row">
     <div class="col-sm-3">
         <div class="card">
             <div class="card-header">
@@ -9,13 +9,14 @@
                 <div class="col-md-12"> 
                     <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
                         <ul class="basic-list">
-                             <li>
+                             <!-- <li>
                                 <h6> <a (click)="OpenLink(1)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': loanoverdueTrue}" class="text-right f-w-600" id="pointer">1. Loan Overdue Report</a></h6>
                             </li>
-                            <li>
+                           <li>
                                 <h6> <a (click)="OpenLink(2)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': accountwiseTrue}" class="text-right f-w-600" id="pointer">2. Accountwise Loan Overdue Report</a></h6>
-                            </li>
+                            </li> -->
                            <!-- <li>
+                                <li>
                                 <h6> <a (click)="OpenLink(3)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': installmentwiseTrue}" class="text-right f-w-600" id="pointer">3. Installmentwise Loan Over due Report</a></h6>
                             </li>
                             <li>
@@ -30,10 +31,11 @@
                             <li>
                                 <h6> <a (click)="OpenLink(7)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': directorlorTrue}" class="text-right f-w-600" id="pointer">7. Directorwise Loan Overdue Report</a></h6>
                             </li> -->
-                          <li>
+                             <li>
                                 <h6> <a (click)="OpenLink(8)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': directorrecommendedTrue}" class="text-right f-w-600" id="pointer">8. Directorwise Recommended Report </a></h6>
-                            </li>
-                            <!-- <li>
+                            </li>  
+                           <!-- <li>
+
                                 <h6> <a (click)="OpenLink(9)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': duePeriodlTrue}" class="text-right f-w-600" id="pointer">9. Due Periodiwise Loan Report</a></h6>
                             </li>
                             <li>
@@ -56,11 +58,9 @@
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(16)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': ddrelODPerfoTrue}" class="text-right f-w-600" id="pointer">16. Director and Director Relative Loan Report - Performa |</a></h6>
-<<<<<<< Updated upstream
-                            </li> 
-=======
-                            </li> --> 
->>>>>>> Stashed changes
+
+                            </li>  -->
+
                             
                         </ul>
                     </perfect-scrollbar>  
@@ -71,15 +71,15 @@
     <div class="col-sm-9">
         <div class="card-block">
             <div *ngIf="loanoverdueTrue">
-                 <!-- <app-narration></app-narration>  -->
+                 <!-- <app-narration></app-narration>   -->
                  <app-loan-overdue-report></app-loan-overdue-report>
                 
             </div>
-            <div *ngIf="accountwiseTrue">
-                <!-- <app-bank-master></app-bank-master> -->
+               <div *ngIf="accountwiseTrue">
+                 <!-- < <app-bank-master></app-bank-master> -->
                 <app-acwise-loanoverdue-list></app-acwise-loanoverdue-list>
             </div>
-            <div *ngIf="installmentwiseTrue">
+                   <!--  <div *ngIf="installmentwiseTrue">
                 <app-clearing-branch-master></app-clearing-branch-master>
             </div>
             <div *ngIf="otherreceiveInstallTrue">
@@ -93,12 +93,12 @@
             </div>
             <div *ngIf="directorlorTrue">
                 <app-cast-master></app-cast-master>
-            </div>
+            </div> -->
             <div *ngIf="directorrecommendedTrue">
-                <!-- <app-occupation-master></app-occupation-master> -->
+                 <!-- <app-occupation-master></app-occupation-master>  -->
                 <app-recommended-directorwise></app-recommended-directorwise>
-            </div>
-            <div *ngIf="duePeriodlTrue">
+           </div>
+             <!--<div *ngIf="duePeriodlTrue">
                 <app-director-master></app-director-master>
             </div>
             <div *ngIf="loanduelistbetnTrue">
@@ -121,9 +121,9 @@
             </div>
             <div *ngIf="ddrelODPerfoTrue">
                 <app-court-master></app-court-master>
-            </div>
+            </div> -->
         
         </div>
 
     </div>
-</div>
+</div> 

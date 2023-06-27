@@ -5,7 +5,6 @@
                 <h5>CD Ratio Analysis</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <div class="blink" *ngIf="show">Iam Blinking</div>  
             <form action="javascript:" appSubmit [formGroup]="angForm">
                 <div class="card-block">
                     <div class="row">
@@ -98,13 +97,15 @@
 
                             </div>
                             <div class="row">
-                                <label class="col-md" style=" color: black">Funds Available For Loans COntains Two Part
+                                <label class="col-md" style=" color: black">Funds Available For Loans Contains Two Part
                                     A & b and calculated as A - B</label>
                             </div>
 
                         </div>
                     </div>
+                   
                     <hr style="height:2px;border-width:0;color:black;background-color:black">
+                    
                     <div class="row">
                         <div class="col-md-10">
                             <div class="row ">
@@ -298,7 +299,7 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label for=""> Total ({{ActiveTab}}) = {{myMath.abs(totalAmt) |number : '1.0-2'}} {{totalAmt >0 ? 'DR' : 'CR'}}</label>
+                            <label for=""> Total ({{ActiveTab}}) = {{myMath.abs(totalAmt) |number : '1.0-2'}} {{totalAmt >0 ? 'DR' : 'CR'}}</label> 
                         </div>
                     </div>
                     <div class="row">

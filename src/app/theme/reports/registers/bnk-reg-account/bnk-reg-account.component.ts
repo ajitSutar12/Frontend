@@ -77,7 +77,7 @@ export class BnkRegAccountComponent implements OnInit {
       ACCLOSE: [],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
-      GROUP_BY: ['', [Validators.required]],
+      // GROUP_BY: ['', [Validators.required]],
     })
   }
   ngOnInit(): void {
@@ -147,6 +147,7 @@ export class BnkRegAccountComponent implements OnInit {
       }else{ 
         etdate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
       };
+
 
       let scheme = obj.AC_TYPE;
       let Branch = obj.BRANCH_CODE;

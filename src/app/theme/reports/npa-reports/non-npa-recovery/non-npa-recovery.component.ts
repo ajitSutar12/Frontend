@@ -117,7 +117,7 @@ export class NonNpaRecoveryComponent implements OnInit {
     let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
     this.todate = data.CURRENT_DATE
     
-    this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+    this.fromdate = moment(`01/04/${year + 1}`, "DD/MM/YYYY")
     this.fromdate = this.fromdate._d
   })
     
@@ -147,10 +147,10 @@ export class NonNpaRecoveryComponent implements OnInit {
       this.ngForm = this.fb.group({
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
-        START_DATE: ['', [Validators.required]],
+        // START_DATE: ['', [Validators.required]],
         END_DATE: ['', [Validators.required]],
       
-        AC_CTCODE: ['', [Validators.required]],
+        npa_per: [''],
        
       });
      
@@ -198,15 +198,20 @@ export class NonNpaRecoveryComponent implements OnInit {
      }
   
     let scheme = obj.Scheme_code
-  
+      let flag = obj.npa_per;
       let branch = obj.BRANCH_CODE;
-  
+      let Dates =   obj.END_DATE;
+      // moment(this.Dates)
       let schemeName = this.tScheme
   
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
-    console.log(this.iframe5url); 
+    //   this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
+    // console.log(this.iframe5url); 
+
+    this.iframe5url=this.report_url+ "examples/ToBeRecoveryforNonNPAReport.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&BranchName='"+this.branchName+"'&dt='"+Dates+"'&schemeCode='"+scheme+"'&bankName='"+bankName+"'";
+
+
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
     else {

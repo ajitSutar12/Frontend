@@ -133,7 +133,7 @@ export class BalanceSheetComponent implements OnInit {
           this.balSheetdataset = data;
           console.log(this.balSheetdataset);
 
-          this.iframeurl = this.report_url + "example/BalanceSheet.php?&date=" + date + "&branch_code=" + branch_code + "&bankName=" + bankName + "" + "&branchName=" + this.branchName;
+          this.iframeurl = this.report_url + "examples/BalanceSheet.php?&date=" + date + "&branch_code=" + branch_code + "&bankName=" + bankName + "" + "&branchName=" + this.branchName;
           console.log(this.iframeurl);
           this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
         })

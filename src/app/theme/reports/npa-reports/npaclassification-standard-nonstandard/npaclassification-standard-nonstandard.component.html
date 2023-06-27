@@ -10,25 +10,7 @@
             <div class="card">
                 <form [formGroup]="ngForm" novalidate>
                     <div class="card-block">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-8">
-                                <div class="form-radio">
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="TEMP"
-                                                [checked]="true">
-                                            <i class="helper"></i>Standard </label>
-                                    </div>
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
-                                                value="PERIODICAL">
-                                            <i class="helper"></i>Non Standard</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                       
                         <div class="row">
 
 
@@ -95,6 +77,25 @@
                                     <div
                                         *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
                                         This field is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="0"
+                                                [checked]="true">
+                                            <i class="helper"></i>Standard </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP"
+                                                value="1">
+                                            <i class="helper"></i>Non Standard</label>
                                     </div>
                                 </div>
                             </div>

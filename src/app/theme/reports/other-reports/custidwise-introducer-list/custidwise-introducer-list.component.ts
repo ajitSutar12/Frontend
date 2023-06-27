@@ -52,8 +52,10 @@ transferSchemeDetails: any;
 tScheme
 isTdsForm: boolean = false;
 Cust_ID
-scust
-ecust
+// scust
+// ecust
+ngcust
+ngcust2
  //date
 dates: any = null
 bsValue = new Date();
@@ -90,7 +92,7 @@ maxDate: Date;
   })
    //for customer Id
    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-    this.Cust_ID = data;
+    this.Cust_ID = data; 
   })
  // Scheme Code
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
