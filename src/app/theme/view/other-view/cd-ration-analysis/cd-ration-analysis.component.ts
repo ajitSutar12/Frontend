@@ -39,6 +39,7 @@ export class CdRationAnalysisComponent implements OnInit {
     'partB': 0
   }
   show:boolean= false;
+  cdratiototal: number;
   // dtExportButtonOptions: any = {};
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private _service: EditInterestCalculationService, private http: HttpClient,
@@ -114,6 +115,7 @@ export class CdRationAnalysisComponent implements OnInit {
   }
   find(){
     this.show =true;
+    this.cdratiototal =  (this.TabWiseTotal.loan - ((this.TabWiseTotal.partA - this.TabWiseTotal.partB) * 100)) / this.TabWiseTotal.depo
   }
 
   //-------------------------* Update All Tab data on cdratio table *-------------------------------//
@@ -204,7 +206,7 @@ export class CdRationAnalysisComponent implements OnInit {
     }
 
     if(this.ActiveTab == 'DEPOSITS'){
-      this.totalAmt  = this.TabWiseTotal.depo;
+      this.totalAmt  = this.TabWiseTotal.depo; 
     }else if(this.ActiveTab == 'LOANS'){
       this.totalAmt  = this.TabWiseTotal.loan;
     }else if(this.ActiveTab == 'PART A'){
@@ -214,6 +216,7 @@ export class CdRationAnalysisComponent implements OnInit {
     }
   }
 
+  
   //-----------------------* Tab On Click *---------------------------//
   tab(type){
     console.log(type);

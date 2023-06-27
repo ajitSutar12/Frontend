@@ -17,7 +17,6 @@ import { LoanOverdueListComponent } from './loan-overdue-list.component';
 import { LoanOverdueReportComponent } from './loan-overdue-report/loan-overdue-report.component';
 import { AcwiseLoanoverdueListComponent } from './acwise-loanoverdue-list/acwise-loanoverdue-list.component';
 import { RecommendedDirectorwiseComponent } from './recommended-directorwise/recommended-directorwise.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -35,7 +34,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
     SharedModule,
-    BrowserAnimationsModule,
    
   ],
   providers:[

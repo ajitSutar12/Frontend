@@ -146,11 +146,11 @@ export class NpaRegisterComponent implements OnInit {
       this.ngForm = this.fb.group({
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
-        START_DATE: ['', [Validators.required]],
+        // START_DATE: ['', [Validators.required]],
         END_DATE: ['', [Validators.required]],
-        Scity: ['', [Validators.required]],
-        Ecity: ['', [Validators.required]],
-        AC_CTCODE: ['', [Validators.required]],
+        // Scity: ['', [Validators.required]],
+        // Ecity: ['', [Validators.required]],
+        // AC_CTCODE: ['', [Validators.required]],
        
       });
      

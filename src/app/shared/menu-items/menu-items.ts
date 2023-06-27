@@ -1362,7 +1362,7 @@ const MENUITEMS = [
               },
               {
                 state: 'sharesReturnRegister',
-                name: 'Shares Return Register',
+                name: 'Membership Cancellation',
                 id: 274
               },
               {

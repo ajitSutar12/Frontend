@@ -358,7 +358,10 @@ debugger
     let print = obj.PRINT_ACCOUNT;
     let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement.php?&stadate='" + stadate +"'&edate='"+edate+"'&sdate='"+sdate+"'&branch="+branch+"&scheme="+scheme+"&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='"+edate+"'&sdate='"+sdate+"'&branch="+branch+"&scheme="+scheme+"&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
+    
+    
+
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
   }
