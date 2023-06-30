@@ -138,6 +138,7 @@ export class BnkRegSpecialInstructionComponent implements OnInit {
     }
  
     this.iframeurl = this.report_url+"examples/SpecialInstuction.php?stdate='" + stdate +"'&etdate='" + etdate + "'&branch='"+branch+ "'&revoke='"+revoke+"'&bankName='" + bankName + "'";
+    console.log(this.iframeurl)
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

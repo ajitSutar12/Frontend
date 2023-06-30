@@ -66,6 +66,7 @@ export class BnkAcStatementComponent implements OnInit {
     scheme
     iframeurl: any = ' ';
     clicked:boolean=false;
+  bankAcno: any;
  
 
   constructor(
@@ -138,6 +139,8 @@ export class BnkAcStatementComponent implements OnInit {
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngBranchCode = result.branch.id
       this.angForm.controls['BRANCH'].enable()
+
+
     }
     else {
       this.angForm.controls['BRANCH'].disable()
@@ -147,6 +150,7 @@ export class BnkAcStatementComponent implements OnInit {
 
   //function to get ac no according branch
   getBranch() {
+
     this.getInterestTransfer()
   }
   //get acnotype from selected scheme
@@ -358,7 +362,7 @@ debugger
     let print = obj.PRINT_ACCOUNT;
     let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='"+edate+"'&sdate='"+sdate+"'&branch="+branch+"&scheme="+scheme+"&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='"+edate+"'&sdate='"+sdate+"'&branch="+branch+"&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
     
     
 
@@ -384,5 +388,6 @@ resetForm() {
   this.showRepo = false;
   this.clicked=false;
 }
+
 
 }
