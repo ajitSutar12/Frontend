@@ -5,7 +5,7 @@
                 <h5>CD Ratio Analysis</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <div class="blink" *ngIf="show">Iam Blinking</div>  
+            <div class="blink" *ngIf="show">{{cdratiototal | number : '1.0-2'}}</div>
             <form action="javascript:" appSubmit [formGroup]="angForm">
                 <div class="card-block">
                     <div class="row">
@@ -21,9 +21,9 @@
                                         <span class="border-lable-flt">
                                             <ng-select id="BRANCH" appTheme bindValue="name"
                                                 [(ngModel)]="branch_codeList" formControlName="BRANCH" bindLabel="label"
-                                                [virtualScroll]="true" title="Compulsory Selection" (change)="getbranch($event.id)"
-                                                placeholder="Branch Code" #BRANCH (focus)="onFocus(BRANCH)"
-                                                [selectOnTab]='true'>
+                                                [virtualScroll]="true" title="Compulsory Selection"
+                                                (change)="getbranch($event.id)" placeholder="Branch Code" #BRANCH
+                                                (focus)="onFocus(BRANCH)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let values of branch_code" [value]="values">
                                                     {{values.label}}</ng-option>
                                             </ng-select>
@@ -44,9 +44,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" appTheme appButton minlength="8" maxlength="10" placeholder="dd/mm/yyyy" name="date" id="date"
-                                                formControlName="DATE" class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                 (ngModelChange)="getIntDetails($event)">
+                                            <input type="text" appTheme appButton minlength="8" maxlength="10"
+                                                placeholder="dd/mm/yyyy" name="date" id="date" formControlName="DATE"
+                                                class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                bsDatepicker (ngModelChange)="getIntDetails($event)">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -98,13 +99,15 @@
 
                             </div>
                             <div class="row">
-                                <label class="col-md" style=" color: black">Funds Available For Loans COntains Two Part
+                                <label class="col-md" style=" color: black">Funds Available For Loans Contains Two Part
                                     A & b and calculated as A - B</label>
                             </div>
 
                         </div>
                     </div>
+
                     <hr style="height:2px;border-width:0;color:black;background-color:black">
+
                     <div class="row">
                         <div class="col-md-10">
                             <div class="row ">
@@ -123,7 +126,8 @@
                                                                                 [dtTrigger]="dtTrigger"
                                                                                 class="table table-striped table-bordered table-hover compact">
                                                                                 <thead>
-                                                                                    <td class="td_right">Scheme Code</td>
+                                                                                    <td class="td_right">Scheme Code
+                                                                                    </td>
                                                                                     <td>Scheme Name</td>
                                                                                     <td>Accept</td>
                                                                                     <td>Balance</td>
@@ -132,8 +136,14 @@
                                                                                     <tr *ngFor="let item of tableData">
                                                                                         <td>{{item.acno}}</td>
                                                                                         <td>{{item.name}}</td>
-                                                                                        <td><input type="checkbox" [checked]="item.depo" (change)="changeCheckbox(item,'Depo',$event)"></td>
-                                                                                        <td class="text-right">{{myMath.abs(item.depobal)}} {{item.depobal >0 ? 'DR' : 'CR'}}</td>
+                                                                                        <td><input type="checkbox"
+                                                                                                [checked]="item.depo"
+                                                                                                (change)="changeCheckbox(item,'Depo',$event)">
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            {{myMath.abs(item.depobal)}}
+                                                                                            {{item.depobal >0 ? 'DR' :
+                                                                                            'CR'}}</td>
                                                                                     </tr>
                                                                                     <tr *ngIf="showMsg">
                                                                                         <td colspan="12"
@@ -164,7 +174,8 @@
                                                                                 [dtTrigger]="dtTrigger"
                                                                                 class="table table-striped table-bordered table-hover compact">
                                                                                 <thead>
-                                                                                    <td class="td_right">Scheme Code</td>
+                                                                                    <td class="td_right">Scheme Code
+                                                                                    </td>
                                                                                     <td>Scheme Name</td>
                                                                                     <td>Accept</td>
                                                                                     <td>Balance</td>
@@ -173,8 +184,14 @@
                                                                                     <tr *ngFor="let item of tableData">
                                                                                         <td>{{item.acno}}</td>
                                                                                         <td>{{item.name}}</td>
-                                                                                        <td><input type="checkbox" [checked]="item.loan" (change)="changeCheckbox(item,'Loan',$event)"></td>
-                                                                                        <td  class="text-right">{{myMath.abs(item.loanbal)}} {{item.loanbal >0 ? 'DR' : 'CR'}}</td>
+                                                                                        <td><input type="checkbox"
+                                                                                                [checked]="item.loan"
+                                                                                                (change)="changeCheckbox(item,'Loan',$event)">
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            {{myMath.abs(item.loanbal)}}
+                                                                                            {{item.loanbal >0 ? 'DR' :
+                                                                                            'CR'}}</td>
                                                                                     </tr>
                                                                                     <tr *ngIf="showMsg">
                                                                                         <td colspan="12"
@@ -215,8 +232,14 @@
                                                                                     <tr *ngFor="let item of tableData">
                                                                                         <td>{{item.acno}}</td>
                                                                                         <td>{{item.name}}</td>
-                                                                                        <td><input type="checkbox" [checked]="item.partA" (change)="changeCheckbox(item,'PartA',$event)"></td>
-                                                                                        <td class="text-right">{{myMath.abs(item.partAbal)}} {{item.partAbal >0 ? 'DR' : 'CR'}}</td>
+                                                                                        <td><input type="checkbox"
+                                                                                                [checked]="item.partA"
+                                                                                                (change)="changeCheckbox(item,'PartA',$event)">
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            {{myMath.abs(item.partAbal)}}
+                                                                                            {{item.partAbal >0 ? 'DR' :
+                                                                                            'CR'}}</td>
                                                                                     </tr>
                                                                                     <tr *ngIf="showMsg">
                                                                                         <td colspan="12"
@@ -233,7 +256,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </ng-template>
+                                                </ng-template>
                                             </ngb-tab>
                                             <ngb-tab title="PART B">
                                                 <ng-template ngbTabContent>
@@ -257,8 +280,14 @@
                                                                                     <tr *ngFor="let item of tableData">
                                                                                         <td>{{item.acno}}</td>
                                                                                         <td>{{item.name}}</td>
-                                                                                        <td><input type="checkbox" [checked]="item.partB" (change)="changeCheckbox(item,'PartB',$event)"></td>
-                                                                                        <td  class="text-right">{{myMath.abs(item.partBbal)}} {{item.partBbal >0 ? 'DR' : 'CR'}}</td>
+                                                                                        <td><input type="checkbox"
+                                                                                                [checked]="item.partB"
+                                                                                                (change)="changeCheckbox(item,'PartB',$event)">
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            {{myMath.abs(item.partBbal)}}
+                                                                                            {{item.partBbal >0 ? 'DR' :
+                                                                                            'CR'}}</td>
                                                                                     </tr>
                                                                                     <tr *ngIf="showMsg">
                                                                                         <td colspan="12"
@@ -298,7 +327,8 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label for=""> Total ({{ActiveTab}}) = {{myMath.abs(totalAmt) |number : '1.0-2'}} {{totalAmt >0 ? 'DR' : 'CR'}}</label>
+                            <label for=""> Total ({{ActiveTab}}) = {{myMath.abs(totalAmt) |number : '1.0-2'}} {{totalAmt
+                                >0 ? 'DR' : 'CR'}}</label>
                         </div>
                     </div>
                     <div class="row">
@@ -306,7 +336,7 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="Con_PRO"
-                                        formControlName="Con_PRO" (click)="profitloassAdd($event)"/>
+                                        formControlName="Con_PRO" (click)="profitloassAdd($event)" />
                                     <label class="border-checkbox-label" for="Con_PRO">Consider Profit-Loss in
                                         Part-A</label>
                                 </div>

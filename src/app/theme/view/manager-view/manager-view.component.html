@@ -16,9 +16,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                    (change)="getBranch($event)" 
-                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -36,9 +36,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme appButton minlength="8" maxlength="10"
-                                         type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
-                                        class="form-control" [(ngModel)]="date" [bsValue]="bsValue" [maxDate]="maxDate"
+                                    <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                        placeholder="dd/mm/yyyy" name="DATE" id="DATE" class="form-control"
+                                        [(ngModel)]="date" [bsValue]="bsValue" [maxDate]="maxDate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #DATE="bsDatepicker"
                                         (keydown.Tab)="DATE.hide()" [ngClass]="{'form-submitted': formSubmitted}"
                                         formControlName="SYSPARADATE" (bsValueChange)="getManagerView()"
@@ -263,16 +263,16 @@
                     </div>
                     <br>
                     <div class="row" style="background-color: #eef4f6;">
-                        <div class="col-sm-12 col-md-6" >
+                        <div class="col-sm-12 col-md-6">
                             <div class="row">
                                 <div class="col-sm-12">
 
-                                    <div class="row m-b-30" >
+                                    <div class="row m-b-30">
                                         <div class="col-md-12 col-xl-12">
                                             <div class="md-tabs">
                                                 <ngb-tabset>
-                                                   
- 
+
+
                                                     <ngb-tab title="Denomination">
                                                         <ng-template ngbTabContent>
                                                             <div [@fadeInOutTranslate] class="m-t-15">
@@ -281,13 +281,14 @@
                                                                         <div class="row">
                                                                             <table class="table-responsive">
                                                                                 <tr>
-                                                                                    <td *ngFor="let data of retrivedata">
+                                                                                    <td
+                                                                                        *ngFor="let data of retrivedata">
                                                                                         <pre> Name : {{data.name}} <br> Cashier Code : {{data.CASHIER_CODE}} <br> 2000 X {{data.DENO_2000}} = <br> 1000 X {{data.DENO_1000}} <br> 500 X {{data.DENO_500}} <br> 200 X {{data.DENO_200}} <br> 100 X {{data.DENO_100}} <br> 50 X {{data.DENO_50}} <br> 20 X {{data.DENO_20}} <br> 10 X {{data.DENO_10}} <br> 5 X {{data.DENO_5}} <br> 2 X {{data.DENO_2}} <br> 1 X {{data.DENO_1}} <br> Coins X {{data.DENO_COINS_CASH}} <br> TOTAL = {{data.TOTAL_AMOUNT}} </pre>
-                                                                                    
+
                                                                                     </td>
                                                                                 </tr>
-                                                                                
-                                                                                
+
+
                                                                             </table>
                                                                         </div>
 
@@ -305,16 +306,16 @@
                                                                         <div class="row">
                                                                             <table class="table-responsive">
                                                                                 <tr *ngFor="let data of mangerViewGl">
-                                                                                    <td>{{data.DESCRIPTION}} 
+                                                                                    <td>{{data.DESCRIPTION}}
                                                                                     </td>
                                                                                     <td> </td>
                                                                                     <td>
-                                                                                        {{data.balance}} 
+                                                                                        {{data.balance}}
                                                                                     </td>
-                                                                                        </tr> 
+                                                                                </tr>
                                                                             </table>
 
-                                                                            <div class="col-md-4">Deposits</div>
+                                                                            <!-- <div class="col-md-4">Deposits</div>
                                                                             <div class="col-md-4">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
@@ -334,9 +335,9 @@
                                                                                         </div>
                                                                                     </span>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
                                                                         </div>
-                                                                       
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -392,69 +393,30 @@
                                     <label>CD Ratio</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <!-- <input type="text"
-                                                name="bankcdr"
-                                                class="form-control"
-                                                placeholder=" " id="bankcdr"
-                                                pattern="\d{1,20}(\.\d{2})?"
-                                                maxlength="6"
-                                                title="Input allowed only  0-9"
-                                                formControlName="bankcdr"
-                                                style="text-align: right;"
-                                                (focusout)="decimalAllContent($event)"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                            <div class="col-md">
-                                                00
-                                            </div>
-                                        </span>
-                                    </div>
+
                                 </div>
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-8" >
-                                    <table class="table-responsive">
-                                        <div class="col-md-4" *ngFor="let data of retrivedata1">
-                                            {{data.Ehead_name}}
-                                        </div>
-                                        <tr >
-                                            <td >
-                                            </td>
-                                           
-                                                </tr>
-                                    </table>
+                                <div class="col-md-4">
+                                    <label> {{ehead}}</label>
                                 </div>
-                              
-                              
-                            </div> -->
+                                <div class="col-md-4">
+                                    <label>
+                                        {{eheadt}}
+                                    </label>
+                                </div>
+
+
+                                <!-- [(ngModel)]="ehead" -->
+                            </div>
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
                                     <label>Working Capital </label>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <!-- <input type="text"
-                                                name="bankcdr"
-                                                class="form-control"
-                                                placeholder=" " id="bankcdr"
-                                                pattern="\d{1,20}(\.\d{2})?"
-                                                maxlength="6"
-                                                title="Input allowed only  0-9"
-                                                formControlName="bankcdr"
-                                                style="text-align: right;"
-                                                (focusout)="decimalAllContent($event)"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" /> -->
-                                            <div class="col-md">
-                                                00
-                                            </div>
-                                        </span>
-                                    </div>
+
                                 </div>
                             </div>
 
@@ -472,25 +434,27 @@
                                                         <div class="card border-primary">
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
-                                                                    <button type="button" id="userw" class="btn btn-primary btn-sm"
-                                                                        value="submit" (click)="view('userw')">
+                                                                    <button type="button" id="userw"
+                                                                        class="btn btn-primary btn-sm" value="submit"
+                                                                        (click)="view('userw')">
                                                                         <i class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
                                                                         User's Work</button>
                                                                     <button type="button" id="userL"
-                                                                        class="btn btn-success btn-sm" (click)="view('userL')" >
+                                                                        class="btn btn-success btn-sm"
+                                                                        (click)="view('userL')">
                                                                         <i class="fa fa-sign-in" aria-hidden="true"></i>
                                                                         Users Login</button>
                                                                     <button type="button" class="btn btn-info btn-sm"
-                                                                    (click)="view('userCash')" >
+                                                                        (click)="view('userCash')">
                                                                         <i class="fa fa-money" aria-hidden="true"></i>
                                                                         User's Cash</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('delayWork')">
-                                                                        <i class="fa fa-clock-o" aria-hidden="true"></i> 
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('delayWork')">
+                                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                                         Delay Works</button>
-                                                                    <button type="button" class="btn btn-danger btn-sm" 
-                                                                        (click)="view('schemeLog')" >
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        (click)="view('schemeLog')">
                                                                         <i class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
                                                                         Scheme Log</button>
@@ -499,12 +463,12 @@
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
                                                                         GL Pos. Detail</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('Nearest')">
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('Nearest')">
                                                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                                                         Nearest Secu</button>
                                                                     <button type="button" class="btn btn-success btn-sm"
-                                                                     (click)="view('Incompletion')"> 
+                                                                        (click)="view('Incompletion')">
                                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                                         Incompletion</button>
                                                                 </div>
@@ -520,32 +484,32 @@
                                                         <div class="card border-primary">
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('rateOfMargin')"><i
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('rateOfMargin')"><i
                                                                             class="fa fa-building-o"
                                                                             aria-hidden="true"></i>Rate of
                                                                         Margin</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-success btn-sm" (click)="view('loanAnalysis')"><i
+                                                                    <button type="button" class="btn btn-success btn-sm"
+                                                                        (click)="view('loanAnalysis')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>Loan
                                                                         Analysis</button>
-                                                                    <button type="button" class="btn btn-info btn-sm" 
-                                                                                    (click)="view('ratioAnalysis')"><i
+                                                                    <button type="button" class="btn btn-info btn-sm"
+                                                                        (click)="view('ratioAnalysis')"><i
                                                                             class="fa fa-money"
                                                                             aria-hidden="true"></i>Ratio
                                                                         Analysis</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('dailyLiquidity')"><i
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('dailyLiquidity')"><i
                                                                             class="fa fa-sun-o" aria-hidden="true"></i>
                                                                         Daily Liquidity</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-danger btn-sm" (click)="view('remindMe')"><i
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        (click)="view('remindMe')"><i
                                                                             class="fa fa-clock-o"
                                                                             aria-hidden="true"></i>Remind Me
                                                                         !</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-inverse btn-sm" (click)="view('npaAnalysis')"><i
+                                                                    <button type="button" class="btn btn-inverse btn-sm"
+                                                                        (click)="view('npaAnalysis')"><i
                                                                             class="fa fa-line-chart"
                                                                             aria-hidden="true"></i>
                                                                         NPA Analysis</button>
@@ -562,29 +526,30 @@
                                                         <div class="card border-primary">
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('overDue')"><i
-                                                                            class="fa fa-opera" aria-hidden="true"></i>
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('overDue')"><i class="fa fa-opera"
+                                                                            aria-hidden="true"></i>
                                                                         Overdue</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-success btn-sm" (click)="view('maturedTdLn')"><i
+                                                                    <button type="button" class="btn btn-success btn-sm"
+                                                                        (click)="view('maturedTdLn')"><i
                                                                             class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
                                                                         Matured TD/LN</button>
-                                                                    <button type="button" class="btn btn-info btn-sm" (click)="view('insuranceDue')"><i
+                                                                    <button type="button" class="btn btn-info btn-sm"
+                                                                        (click)="view('insuranceDue')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
                                                                         Insurance Due</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-danger btn-sm" (click)="view('Expenses')"><i
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        (click)="view('Expenses')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
                                                                         Expenses</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('excessCash')"><i
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('excessCash')"><i
                                                                             class="fa fa-sun-o" aria-hidden="true"></i>
                                                                         Excess Cash</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-inverse btn-sm" (click)="view('fdPayment')"><i
+                                                                    <button type="button" class="btn btn-inverse btn-sm"
+                                                                        (click)="view('fdPayment')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
                                                                         FD Payment</button>
                                                                 </div>
@@ -600,36 +565,37 @@
                                                         <div class="card border-primary">
                                                             <div class="card-block highlight ">
                                                                 <div class="row mx-2 my-2">
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('drBalance')"><i
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('drBalance')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
                                                                         Dr.Balances</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-success btn-sm" (click)="view('crBalance')"><i
+                                                                    <button type="button" class="btn btn-success btn-sm"
+                                                                        (click)="view('crBalance')"><i
                                                                             class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
                                                                         Cr.Balances</button>
-                                                                    <button type="button" class="btn btn-info btn-sm" (click)="view('zeroBalance')"><i
+                                                                    <button type="button" class="btn btn-info btn-sm"
+                                                                        (click)="view('zeroBalance')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
                                                                         Zero
                                                                         Balance</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('ccOverdraft')"><i
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('ccOverdraft')"><i
                                                                             class="fa fa-opera" aria-hidden="true"></i>
                                                                         CC
                                                                         Overdraft</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-danger btn-sm" (click)="view('overDraft')"><i
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        (click)="view('overDraft')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
                                                                         Overdraft(OD)</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-inverse btn-sm" (click)="view('consistancy')"><i
+                                                                    <button type="button" class="btn btn-inverse btn-sm"
+                                                                        (click)="view('consistancy')"><i
                                                                             class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
                                                                         Consistency</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary btn-sm" (click)="view('highRecPay')"><i
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        (click)="view('highRecPay')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
                                                                         Hight
@@ -645,10 +611,11 @@
                                         <div class="row">
                                             <div class="col-md-10"></div>
                                             <div class="col-md-2">
-                                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                                <button class="btn btn-outline-primary btn-sm"
+                                                    (click)="close()">Close</button>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -661,7 +628,7 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <app-iframe1 [url]='iframe1url'></app-iframe1> 
+                                    <app-iframe1 [url]='iframe1url'></app-iframe1>
                                     <!-- <iframe class="iframe" [src]="iframe1url"></iframe> -->
                                 </div>
                             </div>

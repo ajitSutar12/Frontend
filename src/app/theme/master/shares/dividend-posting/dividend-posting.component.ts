@@ -162,7 +162,7 @@ export class DividendPostingComponent implements OnInit {
           title: 'Warrant Date',
           data: 'WARRENT_DATE'
         },],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
 
     };
 
@@ -186,7 +186,7 @@ export class DividendPostingComponent implements OnInit {
     });
 
     this.http.get(this.url + '/dividend-calculation').subscribe((data) => {
-    this.ngwarrentDate = data
+    this.warrentDate = data
     })
 
   }

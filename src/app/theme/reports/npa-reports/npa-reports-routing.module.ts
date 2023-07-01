@@ -24,7 +24,7 @@ const routes: Routes = [
         loadChildren: () => import('./non-npa-recovery/non-npa-recovery.module').then(m => m.NonNpaRecoveryModule)
       },
       {
-        path: 'excessCashBalance',
+        path: 'directorwise',
         loadChildren: () => import('./directorwise-npa-reg/directorwise-npa-reg.module').then(m => m.DirectorwiseNpaRegModule)
       },
       {

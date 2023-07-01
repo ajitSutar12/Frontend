@@ -109,7 +109,9 @@
                                 </div>
                             </div>
                         </div>
-                          <div class="row">
+                           <div class="row">
+                           
+
                             <div class="col-sm-12 col-md-1"> <label for=" Date">Start City<sub
                                         class="required">*</sub></label>
                             </div>
@@ -117,9 +119,9 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                          <ng-select formControlName="Scity" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="startcity" (change)="getTransferAccountList($event)">
-                                            <ng-option *ngFor="let values of selectcity" [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
+                                         (change)="getTransferAccountList($event)" [items]="city" bindValue="id" [(ngModel)]="nCity"
+                                            bindLabel="CITY_NAME">
+                                        
                                         </ng-select>
 
                                     </span>
@@ -138,9 +140,9 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Ecity"
-                                            [(ngModel)]="endcity" >
-                                            <ng-option *ngFor="let values of " [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
+                                            [(ngModel)]="endcity"[items]="city" bindValue="id" [(ngModel)]="ngCity"
+                                            bindLabel="CITY_NAME" >
+                                            
                                         </ng-select>
 
                                     </span>
@@ -155,7 +157,7 @@
                                 </div>
                             </div>
 
-                        </div>  
+                        </div> 
                         <div class="row">
                             <div class="col-sm">
                                 <div class="checkbox checkbox-primary">
@@ -169,6 +171,7 @@
                             </div>
 
                         </div>
+
 
                         <div class="row">
                             <div class="col-md-9"></div>

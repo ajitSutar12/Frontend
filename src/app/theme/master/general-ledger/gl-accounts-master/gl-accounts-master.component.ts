@@ -117,26 +117,11 @@ export class GlAccountsMasterComponent implements OnInit {
       console.log(this.statementCode, "statementcode");
 
       this.role = this.statementCode.filter(function (scheme) {
-        return (scheme.parent_node
-          == '0'
-        )
-
+        return (scheme.parent_node == '0')
       });
-      console.log(this.role, "role");
       let step_2_data = new Array();
       let final_obj = new Array()
-      //    this.statementCode.forEach((ele, index) => {
-      //       let newArray = new Array();
-
-      //       this.statementCode.forEach(element => {
-      //         let subArray = new Array();
-      //  if (element.parent_node == ele.id) {
-
-
-
-      debugger
       let parentData = this.statementCode.filter(ele => ele.parent_node == 0);
-
       for (let item of parentData) {
         let data = this.statementCode.filter(ele => ele.parent_node == item.id);
         if (data.length != 0) {
@@ -146,47 +131,26 @@ export class GlAccountsMasterComponent implements OnInit {
           }
         }
       }
-      console.log(step_2_data, "step2dta");
 
       this.some = step_2_data;
-
       for (let ele1 of step_2_data) {
         let data = this.statementCode.filter(ele => ele.parent_node == ele1.id)
         for (let item of data) {
           item['gl_code'] = ele1.head_name;
           item['child'] = { state: 'Active' }
-
           final_obj.push(item);
         }
-
       }
-
-
-
       this.statementCodeData = final_obj;
-      console.log(this.statementCodeData, "statementcodedata");
-
-      this.scheme = this.statementCodeData;
-
-      console.log(this.scheme);
+      // this.scheme = this.statementCodeData;
 
     }
-
-
-      // if(this.some.parent_name = this.ngBranchCode){
-      // if(this.statementCode.parent_node = 0){
-      //     this.scheme = this.statementCodeData
-      //   }
-      // }
-
-
     )
   }
 
 
   getAccountList(event: any) {
     this.selectedStatementcode = null;
-
     let newArray = new Array();
     this.statementCode.forEach(element => {
       let subArray = new Array();
@@ -200,15 +164,31 @@ export class GlAccountsMasterComponent implements OnInit {
         // element['child'] = subarr;
         subarr.forEach(element => {
           newArray.push(element)
-
         });
-        console.log(subArray);
-        
         newArray.push(element);
-        console.log(newArray, 'newarray')
         this.scheme = newArray
-          
-        
+      }
+    })
+
+  }
+  forEditgetAccountList(event: any) {
+    this.selectedStatementcode = null;
+    let newArray = new Array();
+    this.statementCode.forEach(element => {
+      let subArray = new Array();
+      if (element.parent_node == event) {
+        this.statementCode.forEach(ele1 => {
+          if (ele1.parent_node == element.id) {
+            subArray.push(ele1)
+          }
+        });
+        let subarr = this.sort_by_key(subArray, 'position')
+        // element['child'] = subarr;
+        subarr.forEach(element => {
+          newArray.push(element)
+        });
+        newArray.push(element);
+        this.scheme = newArray
       }
     })
 
@@ -319,21 +299,6 @@ export class GlAccountsMasterComponent implements OnInit {
 
   }
 
-  // getAccountList(event) {
-
-  //   let obj = [this.selectedStatementcode, this.ngBranchCode]
-  //   switch (event.name) {
-  //     case '0':
-  //       this.statementCodeData =  this.statementCode.filter(function (scheme) {
-  //         return (scheme.parent_node
-  //           == '0' || scheme.parent_node
-  //         );
-  //       });
-
-  //       break;
-  //   }
-  //   this.getschemename =event.value;
-  // }
   createForm() {
     this.angForm = this.fb.group({
       AC_NO: [''],
@@ -359,6 +324,7 @@ export class GlAccountsMasterComponent implements OnInit {
     const dataToSend = {
       'BRANCH_CODE': branchCode,
       'AC_NAME': formVal.AC_NAME,
+      'PARENT_NODE': formVal.AC_CODE,
       'AC_BCD': formVal.AC_BCD,
       'IS_DIRECT_ENTRY_ALLOW': formVal.IS_DIRECT_ENTRY_ALLOW,
       'IS_RED_BALANCE_AC': formVal.IS_RED_BALANCE_AC,
@@ -385,18 +351,23 @@ export class GlAccountsMasterComponent implements OnInit {
     this.newbtnShow = true;
     this.glAccountsMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      let stateData = this.statementCodeData.filter(ele => ele.id == data.AC_BCD);
+      this.forEditgetAccountList(data.PARENT_NODE)
+      let stateData = this.statementCode.filter(ele => ele.id == Number(data.AC_BCD));
+      let parentData = this.statementCode.filter(ele => ele.id == Number(data.PARENT_NODE));
+      this.ngBranchCode =  parentData[0]
       this.selectedStatementcode = stateData[0];
       this.angForm.patchValue({
         'AC_NO': data.AC_NO,
         'AC_NAME': data.AC_NAME,
         // 'AC_BCD': data.AC_BCD,
+        // 'AC_CODE': Number(data.PARENT_NODE),
         'IS_DIRECT_ENTRY_ALLOW': data.IS_DIRECT_ENTRY_ALLOW,
         'IS_RED_BALANCE_AC': data.IS_RED_BALANCE_AC,
         'AC_IS_CASH_IN_TRANSIT': data.AC_IS_CASH_IN_TRANSIT,
         'IS_TAXABLEFOR_GST': data.IS_TAXABLEFOR_GST,
         'IS_ACTIVE': data.IS_ACTIVE
       })
+      // this.selectedStatementcode = Number(data.AC_BCD)
     })
   }
 
@@ -411,6 +382,7 @@ export class GlAccountsMasterComponent implements OnInit {
     debugger
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['PARENT_NODE'] = data.AC_CODE
     this.glAccountsMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;

@@ -14,6 +14,8 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { NgSelectConfig } from "@ng-select/ng-select";
+import { data } from "jquery";
+import { CashDenominationService } from "src/app/theme/transaction/cash-denomination/cash-denomination.service";
 
 
 @Component({
@@ -37,6 +39,12 @@ export class BnkScrollDetailBothComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   iframe1url: any = ' ';
+  Cashiercode: any[];
+  branch_list: any;
+  SelectedBranch: any;
+  cashiar:any;
+  branchno: any;
+
  
   constructor(
     private fb: FormBuilder,
@@ -45,7 +53,8 @@ export class BnkScrollDetailBothComponent implements OnInit {
     private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private _services: CashDenominationService,
   ) {
     this.fromdate = moment().format('DD/MM/YYYY'); 
     this.maxDate = new Date();
@@ -55,10 +64,32 @@ export class BnkScrollDetailBothComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  
     this.createForm();
-    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.branchOption = data;
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data2 => {
+     
+      this.branchOption = data2;
+      
+     
     });
+    // this.castMasterService.getcastList().pipe(first()).subscribe(data => {
+    //   this.Cashiercode = data;
+    //   console.log(data);
+    // });
+    let user = JSON.parse(localStorage.getItem('user'));
+    this._services.getOwnbranchList().subscribe(data=>{
+      console.log(data);
+      
+      this.branch_list = data;
+      this.SelectedBranch = user.branchId;
+    this._services.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
+      console.log(data);
+
+      this.Cashiercode = data;
+      console.log(data);
+      
+    })
+  })
 
     //get date from syspara current_date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
@@ -113,6 +144,8 @@ export class BnkScrollDetailBothComponent implements OnInit {
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME
+    this.branchno = userData.branch.CODE
+
 
     if(this.angForm.controls['Print_Code'].value=="Debit" && this.angForm.valid){
     this.showRepo = true;
@@ -137,7 +170,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
   let pcode = obj.Print_Code
   let rdio  = obj.radio
 
-    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData  ;
+    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&branchcode='"+this.branchno+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData  ;
     this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
  }
  else if(this.angForm.controls['Print_Code'].value=="Credit" && this.angForm.valid){
@@ -164,7 +197,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
   let pcode = obj.Print_Code
   let rdio  = obj.radio
 
-  this.iframe1url=this.report_url+"examples/ScrollBookCredit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData  ;
+  this.iframe1url=this.report_url+"examples/ScrollBookCredit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&branchcode='"+this.branchno+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData  ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
 }
 else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid){
@@ -221,7 +254,7 @@ else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid)
      this.clicked=false;
   }
 
-  
+    
 
 
 }

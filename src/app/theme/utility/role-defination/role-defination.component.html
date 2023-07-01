@@ -24,6 +24,14 @@
                                 <ng-select [ngClass]="'ng-select'" formControlName="ROLE" [(ngModel)]="selectedRole"
                                     [options]="ROLE" [multiple]="false" placeholder="Select Role">
                                 </ng-select>
+
+                                <!-- <ng-select [(ngModel)]="selectedRole" id="AC_NO" formControlName="ROLE"
+                                    title="Compulsory Selection" placeholder="Select Role">
+                                    <ng-option *ngFor="let values of ROLE" [value]="values">
+                                        {{values.label}}
+                                    </ng-option>
+                                </ng-select> -->
+
                             </div>
                         </div>
                     </div>

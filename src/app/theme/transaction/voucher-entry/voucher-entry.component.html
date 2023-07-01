@@ -236,7 +236,7 @@
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
                                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                    appButton minlength="8" maxlength="10"
+                                                        appButton minlength="8" maxlength="10"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
                                                         [maxDate]="maxDate" [minDate]="minDate"
                                                         formControlName="chequeDate">
@@ -392,7 +392,7 @@
                                 <div class="col-sm" style="float: right;">
                                     <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
                                         *ngIf="showButton" (keydown.Tab)="focus()" appTheme #submitbtn
-                                        (click)="submit();branchcode.focus()">
+                                        (click)="submit();branchcode.focus()" [disabled]="disableSubmit">
                                         Submit
                                     </button>
                                     <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"

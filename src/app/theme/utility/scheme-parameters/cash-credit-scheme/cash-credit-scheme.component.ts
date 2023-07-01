@@ -579,7 +579,7 @@ export class CashCreditSchemeComponent implements OnInit {
       this.ngpenalintac = Number(data.S_PENAL_ACNO)
       this.ngrecblepenalintac = Number(data.S_RECBL_PENAL_ACNO)
       this.ngrecbleoverdueint = Number(data.S_RECBL_ODUE_INT_ACNO)
-      this.ngoverdraftint = Number(data.OVERDRAFT_INTEREST_APPLICABLE)
+      this.ngoverdraftint = (data.OVERDRAFT_INTEREST_APPLICABLE)
       this.angForm.patchValue({
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_APPL: data.S_APPL,
@@ -621,14 +621,23 @@ export class CashCreditSchemeComponent implements OnInit {
         this.IS_DEPO_LOAN = true
         this.IS_GOLD_LOAN = false
         this.IS_BOTH = false
+        this.angForm.patchValue({
+          IS_DEPO_LOAN: '1'
+        })
       } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '1') {
         this.IS_DEPO_LOAN = false
         this.IS_GOLD_LOAN = true
         this.IS_BOTH = false
+        this.angForm.patchValue({
+          IS_DEPO_LOAN: '0'
+        })
       } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '0') {
         this.IS_DEPO_LOAN = false
         this.IS_GOLD_LOAN = false
         this.IS_BOTH = true
+        this.angForm.patchValue({
+          IS_DEPO_LOAN: '2'
+        })
       }
 
       if (data.S_INT_APPLICABLE == '1') {
@@ -705,7 +714,13 @@ export class CashCreditSchemeComponent implements OnInit {
           .setAttribute("disabled", "true");
         this.angForm.controls.S_PENAL_INT_RATE.reset();
       }
+
     });
+    this.InterestApplicableTrue = true;
+    this.PenalInterestApplicableTrue = false;
+    this.OverDraftInteresttypeTrue = false;
+    this.otherSettingsTrue = false;
+    this.cashCredittypeTrue = false
   }
   //Method for update data
   updateData() {
@@ -935,7 +950,7 @@ export class CashCreditSchemeComponent implements OnInit {
       }
     }
   }
-   onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -956,14 +971,14 @@ export class CashCreditSchemeComponent implements OnInit {
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
       ele.target.value = 0
-  
+
     }
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

@@ -37,8 +37,8 @@ export class NpaAnalysisReportComponent implements OnInit {
    fromdate: any = null
    ngbranch: any = null; 
    scode: any = null;
-   Acno:any;
-   Anac:any;
+   GL_CODE:any;
+   AGL_CODE:any;
    //ngfor
    scheme: any[];
   branchOption: any[];
@@ -60,7 +60,9 @@ export class NpaAnalysisReportComponent implements OnInit {
   Accnumber: any;
   obj1: any[];
   savingMasterService: any;
-  introducerACNo: any;
+  introducerGL_CODE: any;
+  ToAC: any[];
+  fromAC: any[];
   
     constructor(
       private fb: FormBuilder,
@@ -68,6 +70,7 @@ export class NpaAnalysisReportComponent implements OnInit {
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
+      private schemeAccountNoService: SchemeAccountNoService,
      
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -90,9 +93,10 @@ export class NpaAnalysisReportComponent implements OnInit {
   
    // Scheme Code
    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      console.log(data);
       
     var filtered = data.filter(function (scheme) {
-      return ( scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
+      return ( scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS' || scheme.name == 'GL');
     });
     this.scheme = filtered;
    
@@ -101,6 +105,7 @@ export class NpaAnalysisReportComponent implements OnInit {
     // });
   
   })
+
   this.systemParameter.getFormData(1).subscribe(data => {
     let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
     this.todate = data.CURRENT_DATE
@@ -128,35 +133,55 @@ export class NpaAnalysisReportComponent implements OnInit {
     getTransferAccountList(event) {
       this.transferSchemeDetails = event
       this.tScheme = event.name
+      this.getIntroducer()
     
     }
     getIntroducer() {
-      this.obj1 = [this.ngbranch, this.scode]
-      switch (this.Accnumber) {
-       
-        case 'LN':
-          this.savingMasterService.getTermLoanSchemeList1(this.obj1).subscribe(data => {
-            this.introducerACNo = data;
+
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      let code = 10;
+      this.obj1 = [code, branchCode]
+      switch (this.tScheme) {
+  
+  
+        case 'GL':
+          this.schemeAccountNoService.getGeneralLedgerList1(this.obj1).subscribe(data => {
+            this.ToAC = data
+            this.fromAC = data
             console.log(data);
             
-          
           })
           break;
-  
+          
+        case 'LN':
+          this.schemeAccountNoService.getGeneralLedgerList1(this.obj1).subscribe(data => {
+            this.ToAC = data
+            this.fromAC = data
+            console.log(data);
+            
+          })
+          break;
+          
         case 'CC':
-          this.savingMasterService.getCashCreditSchemeList1(this.obj1).subscribe(data => {
-            this.introducerACNo = data;
+          this.schemeAccountNoService.getGeneralLedgerList1(this.obj1).subscribe(data => {
+            this.ToAC = data
+            this.fromAC = data
+            console.log(data);
+            
+          })
+          break;
+          
+        case 'DS':
+          this.schemeAccountNoService.getGeneralLedgerList1(this.obj1).subscribe(data => {
+            this.ToAC = data
+            this.fromAC = data
+            console.log(data);
             
           })
           break;
   
-        case 'DS':
-          this.savingMasterService.getAnamatSchemeList1(this.obj1).subscribe(data => {
-            this.introducerACNo = data;
-           
-          })
-          break;
-       
       }
     }
    
@@ -164,10 +189,9 @@ export class NpaAnalysisReportComponent implements OnInit {
       this.ngForm = this.fb.group({
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
- 
         END_DATE: ['', [Validators.required]],
-        Acno: ['', [Validators.required]],
-        Anac: ['', [Validators.required]],
+        GL_CODE: ['', [Validators.required]],
+        AGL_CODE: ['', [Validators.required]],
        
       });
      
@@ -220,7 +244,9 @@ export class NpaAnalysisReportComponent implements OnInit {
   
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
+      // this.iframe5url=this.report_url+ "examples/deposit.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&GL_CODETYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
+
+      this.iframe5url=this.report_url+ "examples/NPA_Analysis_Report1.php?BRANCH_CODE=1,2&FLAG=0&DATE1='31/03/2022'&DATE2='31/03/2021'&VAR1='12'&VAR2='13'&BRANCH_NAME='KOTOLI'&BANK_NAME='DEMO'"
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }

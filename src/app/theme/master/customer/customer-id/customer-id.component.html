@@ -512,7 +512,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9,
+                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9
                                 </div>
                             </div>
                         </div>
@@ -886,7 +886,7 @@
                                     id="customermastertable">
                                     <tbody *ngIf="customerMaster?.length != 0">
                                         <tr *ngFor="let data of customerMaster">
-                                            <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"  onclick="this.blur()"
                                                     (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
                                                     ngbTooltip="Edit"></span>
                                             </td>

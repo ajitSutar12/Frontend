@@ -56,27 +56,28 @@
                         </div>
                         <div class="col-sm-12 col-md-1"> <label for="scheme">Account No.<sub
                                     class="required">*</sub></label></div>
-                                    <div class="col-md-3">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <ng-select id="cdropdown" [(ngModel)]="firstno"
-                                                    formControlName="FIRST_NO" bindValue="AC_NO" bindLabel="AC_NO"
-                                                    (change)="getAcno($event)"
-                                                    placeholder=" From A/c No">
-                                                    <ng-option *ngFor="let values of introducerACNo" [value]="values">
-                                                        {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
-                                                </ng-select>
-                                            </span>
-                                        </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="ngForm.controls['FIRST_NO'].invalid && (ngForm.controls['FIRST_NO'].dirty || ngForm.controls['FIRST_NO'].touched)"
-                                            class="alert alert-danger">
-                                            <div *ngIf="ngForm.controls['FIRST_NO'].errors?.required">
-                                                This field is required
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <ng-select id="cdropdown" [(ngModel)]="firstno" formControlName="FIRST_NO"
+                                        bindValue="AC_NO" bindLabel="AC_NO" (change)="getAcno($event)"
+                                        placeholder=" From A/c No">
+                                        <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                            {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['FIRST_NO'].invalid && (ngForm.controls['FIRST_NO'].dirty || ngForm.controls['FIRST_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="ngForm.controls['FIRST_NO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-md-1"> <label for="START_DATE">Starting Date<sub
                                     class="required">*</sub></label>
                         </div>
@@ -84,9 +85,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue" appButton minlength="8" maxlength="10"
-                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        formControlName="START_DATE"
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue" appButton
+                                        minlength="8" maxlength="10" [maxDate]="maxDate" disabled
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="START_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -100,10 +101,36 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-
+                        <div class="col-md-2"> <label for="">Number of lines printed<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="PS_LINES_PRINTED"
+                                        class="form-control" placeholder=" "
+                                        [ngClass]="{'form-submitted': formSubmitted}" appTheme
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        id="PS_LINES_PRINTED" required="" pattern="^[0-9]+$" maxlength="4"
+                                        title="Input allowed only  0-9" formControlName="PS_LINES_PRINTED" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2"> <label for="">Number of lines on single page<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="LINES_PER_PASSBOOKPAGE"
+                                        class="form-control" placeholder=" "
+                                        [ngClass]="{'form-submitted': formSubmitted}" appTheme
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        id="LINES_PER_PASSBOOKPAGE" required="" pattern="^[0-9]+$" maxlength="4"
+                                        title="Input allowed only  0-9" formControlName="LINES_PER_PASSBOOKPAGE" />
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9"></div>

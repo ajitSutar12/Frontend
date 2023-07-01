@@ -296,12 +296,14 @@ export class TermDepositAccountClosingComponent implements OnInit {
   prematureRate = '0'
   interestUptoCalDate
   afterMatureIntRate
+  FIXED_MATURITY_AMT
 
   dormant
   schemechange(event) {
     this.getschemename = event.name
     this.selectedScheme = event.value
     this.isInterestApplicable = event.intapp
+    this.FIXED_MATURITY_AMT = event.FIXED_MATURITY_AMT
     this.monthDays = event.monthDays
     this.Quarterly = event.Quarterly
     this.prematureRate = event.prematureRate
@@ -331,6 +333,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   opDate
   asOnDate
   maturityDate
+  maturityDate1
   recNo
   operator
   months
@@ -389,6 +392,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.customer = null
         return
       }
+      else if (data[0].ISLIEN == true) {
+        Swal.fire('Oops', 'Account is liened so account cannot close', 'error')
+        this.customer = null
+        return
+      }
       if (Number(data[0].LedgerBal) > 0) {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         return
@@ -399,7 +407,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.lastIntDate = data[0].AC_LINTEDT
       this.opDate = data[0].AC_OPDATE
       this.asOnDate = data[0].AC_ASON_DATE
-      this.maturityDate = data[0].AC_EXPDT
+      this.maturityDate = data[0].AC_LINTEDT != null ? data[0].AC_LINTEDT : data[0].AC_EXPDT
+      this.maturityDate1 = data[0].AC_EXPDT
       this.recNo = data[0].AC_REF_RECEIPTNO
       this.operator = data[0].operation
       this.months = data[0].AC_MONTHS
@@ -425,36 +434,36 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
         this.intRateShow = 0
       }
-      if (data[0].post_Interest < 0) {
-        this.angForm.patchValue({
-          // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
-          NET_INTAMT: Number(data[0].post_Interest).toFixed(0),
-          POSTED_INT: 0,
-        })
-        this.NET_EXC_INTAMT = Number(data[0].post_Interest)
-      }
-      else if (data[0].post_Interest > 0) {
-        this.angForm.patchValue({
-          POSTED_INT: Number(data[0].post_Interest).toFixed(0),
-          NET_INTAMT: 0
-          // EXCESS_INT: 0
-        })
-        this.NET_EXC_INTAMT = 0
-      }
-      else {
-        this.angForm.patchValue({
-          POSTED_INT: 0,
-          NET_INTAMT: 0
-          // EXCESS_INT: 0
-        })
-        this.NET_EXC_INTAMT = 0
-      }
       if (data[0].preMature == '1') {
         this.angForm.patchValue({
           InterestRate: Number(data[0].prematureRate) - Number(this.prematureRate)
         })
         this.afterMaturedInt = false
         this.intRateShow = Number(data[0].prematureRate) - Number(this.prematureRate)
+        if (data[0].post_Interest < 0) {
+          this.angForm.patchValue({
+            // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
+            NET_INTAMT: Number(data[0].post_Interest).toFixed(0),
+            POSTED_INT: 0,
+          })
+          this.NET_EXC_INTAMT = Number(data[0].post_Interest)
+        }
+        else if (data[0].post_Interest > 0) {
+          this.angForm.patchValue({
+            POSTED_INT: Number(data[0].post_Interest).toFixed(0),
+            NET_INTAMT: 0
+            // EXCESS_INT: 0
+          })
+          this.NET_EXC_INTAMT = 0
+        }
+        else {
+          this.angForm.patchValue({
+            POSTED_INT: 0,
+            NET_INTAMT: 0
+            // EXCESS_INT: 0
+          })
+          this.NET_EXC_INTAMT = 0
+        }
         this.getMonthDays()
       }
       else {
@@ -470,11 +479,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
         else {
           this.afterMaturedInt = true
-          var b1 = moment(this.maturityDate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY');
+          // var b1 = moment(this.maturityDate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY');
+          var b1 = moment(this.maturityDate, "DD/MM/YYYY")
           var b = moment(b1, 'DD/MM/YYYY')
           var a = moment(this.date, "DD/MM/YYYY");
-          let Days = b.diff(a, 'days');
-          let total_int = Math.abs(Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 100))
+          let Days = a.diff(b1, 'days');
+          let total_int = Math.abs(Number(Math.abs(data[0].LedgerBal)) * Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 36500))
           this.angForm.patchValue({
             TOTAL_INT: Math.round(total_int)
           })
@@ -512,6 +522,17 @@ export class TermDepositAccountClosingComponent implements OnInit {
           this.angForm.patchValue({
             MaturedDays: maturedDays,
           })
+        }
+        if (this.FIXED_MATURITY_AMT == '1' && this.interestUptoCalDate == '0') {
+          if (Number(this.Pass) < Number(Math.abs(data[0].LedgerBal))) {
+            let excessInt = Number(Math.abs(data[0].LedgerBal)) - Number(this.Pass)
+            this.angForm.patchValue({
+              POSTED_INT: excessInt,
+              NET_INTAMT: 0,
+              TOTAL_INT: 0
+            })
+            this.afterMaturedInt = false
+          }
         }
       }
       let total_int = this.angForm.controls['TOTAL_INT'].value
@@ -558,7 +579,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
   getMaturedIntRate() {
     let total_int1 = Number(this.angForm.controls['TOTAL_INT'].value) - Number(this.angForm.controls['maturedIntAmt'].value)
-    let maturedIntAmt = Math.abs(Number(this.angForm.controls['MaturedDays'].value) * (parseFloat(this.angForm.controls['maturedInterest'].value) / 100))
+    let ledgerAmt = Number(this.angForm.controls['LEDGER_BAL'].value)
+    let maturedIntAmt = Math.abs(ledgerAmt * Number(this.angForm.controls['MaturedDays'].value) * (parseFloat(this.angForm.controls['maturedInterest'].value) / 36500))
     // let total_int = maturedIntAmt - Number(this.angForm.controls['maturedInterest'].value) + Number(this.angForm.controls['TOTAL_INT'].value)
     let total_int = maturedIntAmt + Number(total_int1)
     this.angForm.patchValue({

@@ -82,6 +82,10 @@
                                                     title="Compulsory Selection" required placeholder="Account No.">
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}
+                                                        <!-- {{values.idmaster?.custAddress.length==0 ?'---' : values.custAddress}} -->
+                                                        {{ values.idmaster.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                        :
+                                                        values.idmaster.custAddress[0]?.city?.CITY_NAME }}
                                                         <!-- <div *ngFor="let val of values.idmaster" > 
                                                             {{val.AC_MOBILENO}}
                                                         </div>  -->
@@ -1182,6 +1186,10 @@
                                 <li class="mb-75" *ngIf="getschemename !='GL'">
                                     <label class="fw-bolder me-25">Status:</label>
                                     <span class="badge bg-light-success">Active</span>
+                                </li>
+                                <li class="mb-75" *ngIf="idmaster">
+                                    <label class="fw-bolder me-25">Account Number:</label>
+                                    <span style="color: green;">{{accountEvent?.BANKACNO}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="idmaster">
                                     <label class="fw-bolder me-25">Customer ID:</label>
@@ -2357,3 +2365,4 @@
             (click)="modalLarge.hide()">Close</button>
     </div>
 </app-modal-basic>
+<div [class]="modalClass"><!-- Place at bottom of page --> </div>

@@ -20,6 +20,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { newArray } from '@angular/compiler/src/util';
+import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 
 @Component({
   selector: 'app-citiwise-npa-reg',
@@ -30,6 +31,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
     iframe5url:any='';
     @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
   formSubmitted = false;
+  ngCity: any = null
   
   //fromgroup
   ngForm:FormGroup
@@ -38,10 +40,11 @@ export class CitiwiseNpaRegComponent implements OnInit {
   Scity:any;
   startcity:any;
   endcity:any;
+  nCity:any;
    // for dropdown ng module
    fromdate: any = null
    ngbranch: any = null; 
-   scode: any = null;
+   scode: any = null; 
    //ngfor
    scheme: any[];
   branchOption: any[];
@@ -59,6 +62,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
     minDate: Date;
     report_url = environment.report_url;
     branchName: any;
+  city: any;
   
     constructor(
       private fb: FormBuilder,
@@ -66,6 +70,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
+      private cityMaster: cityMasterService,
      
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -111,6 +116,10 @@ export class CitiwiseNpaRegComponent implements OnInit {
   
   })
   
+  this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
+    this.city = data;
+  });
+
   this.systemParameter.getFormData(1).subscribe(data => {
     let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
     this.todate = data.CURRENT_DATE
@@ -149,12 +158,12 @@ export class CitiwiseNpaRegComponent implements OnInit {
         END_DATE: ['', [Validators.required]],
         Scity: ['', [Validators.required]],
         Ecity: ['', [Validators.required]],
-       
+        npa_per: [''],    
       });
      
     }
     
-    view(event) {
+    view(event){
      
   
       event.preventDefault();
@@ -168,7 +177,9 @@ export class CitiwiseNpaRegComponent implements OnInit {
       if(this.ngForm.valid){
   
      this.showRepo = true;
+   
       let obj = this.ngForm.value
+        let cityCode = obj.AC_CTCODE;
   
       let Date = moment(obj.date).format('DD/MM/YYYY');
       let tDate = moment(Date, 'DD/MM/YYYY')
@@ -196,12 +207,13 @@ export class CitiwiseNpaRegComponent implements OnInit {
     let scheme = obj.Scheme_code
   
       let branch = obj.BRANCH_CODE;
-  
+  let FROMCT = obj.Scity;
+  let TOCT = obj.Ecity;
       let schemeName = this.tScheme
   
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
+      this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'&SCITY='"+FROMCT+"'&ECITY='"+TOCT+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }

@@ -406,7 +406,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         },
 
       ],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
     };
     this.runTimer();
     this.dataSub = this.StatementTypeService.loadCharacters().subscribe((options) => {

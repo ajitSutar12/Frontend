@@ -15,13 +15,13 @@ export class OtherViewComponent implements OnInit {
   depositinterestprojectionTrue = false;
   ratioanalysisTrue = false;
   depositloananalysisTrue = false;
-  budgetviewTrue= false;
+  budgetviewTrue = false;
   memberguarntorviewTrue = false;
- lockerviewTrue = false;
+  lockerviewTrue = false;
   graphloandepositpositionTrue = false;
   comaparitivegraphloandepositpositionTrue = false;
   cdratioanalysisTrue = false;
- 
+
 
   constructor(private_router: Router) {
   }
@@ -39,7 +39,7 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
@@ -55,13 +55,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 3) {
       this.interestpaidhistoryTrue = false;
@@ -72,13 +72,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 4) {
       this.interestpaidhistoryTrue = false;
@@ -89,13 +89,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 5) {
       this.interestpaidhistoryTrue = false;
@@ -106,13 +106,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 6) {
       this.interestpaidhistoryTrue = false;
@@ -123,13 +123,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = true;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 7) {
       this.interestpaidhistoryTrue = false;
@@ -140,13 +140,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = true;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 8) {
       this.interestpaidhistoryTrue = false;
@@ -157,13 +157,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = true;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 9) {
       this.interestpaidhistoryTrue = false;
@@ -174,13 +174,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= true;
+      this.budgetviewTrue = true;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 10) {
       this.interestpaidhistoryTrue = false;
@@ -191,13 +191,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = true;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 11) {
       this.interestpaidhistoryTrue = false;
@@ -208,13 +208,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = true;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-     
+
     }
     if (val == 12) {
       this.interestpaidhistoryTrue = false;
@@ -225,13 +225,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = true;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 13) {
       this.interestpaidhistoryTrue = false;
@@ -242,13 +242,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = true;
       this.cdratioanalysisTrue = false;
-      
+
     }
     if (val == 14) {
       this.interestpaidhistoryTrue = false;
@@ -259,13 +259,13 @@ export class OtherViewComponent implements OnInit {
       this.depositinterestprojectionTrue = false;
       this.ratioanalysisTrue = false;
       this.depositloananalysisTrue = false;
-      this.budgetviewTrue= false;
+      this.budgetviewTrue = false;
       this.memberguarntorviewTrue = false;
       this.lockerviewTrue = false;
       this.graphloandepositpositionTrue = false;
       this.comaparitivegraphloandepositpositionTrue = false;
       this.cdratioanalysisTrue = true;
-      
+
     }
   }
 

@@ -155,14 +155,14 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   public userData: any;
 
-  public barnchName : any;
+  public barnchName: any;
   public bankName: any;
   public profilePath: any;
 
-  public currentDate : any;
-  public branchID : any;
-  disableFlag : string = 'disableflag';
-  disableList : any = [];
+  public currentDate: any;
+  public branchID: any;
+  disableFlag: string = 'disableflag';
+  disableList: any = [];
 
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
@@ -183,7 +183,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(public menuItems: MenuItems,private _authService : AuthService,private _dayEndService : DayEndService) {
+  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService) {
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -276,30 +276,30 @@ export class AdminComponent implements OnInit, OnDestroy {
     //console.log(ele)
   }
 
-  roleWiseMenuAssign(){
+  roleWiseMenuAssign() {
     let flag = this.disableFlag;
     let diablelist = this.disableList;
     //Menu item filter as per user role
 
-    let data: any    = localStorage.getItem('user');
-    let result       = JSON.parse(data);
-    this.userData    = result;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    this.userData = result;
     this.currentDate = result.branch.syspara.CURRENT_DATE;
-    this.branchID    = result.branchId;
-    
-    let menuData:string = '';
-    result.RoleDefine.forEach(ele=>{
-      if(menuData == ''){
+    this.branchID = result.branchId;
+
+    let menuData: string = '';
+    result.RoleDefine.forEach(ele => {
+      if (menuData == '') {
         menuData = ele.Role.Rolehaspermission.Menus
-      }else{
-        menuData = menuData + ','+ele.Role.Rolehaspermission.Menus
+      } else {
+        menuData = menuData + ',' + ele.Role.Rolehaspermission.Menus
       }
     })
     let resultArray = result.RoleDefine[0].Role.Rolehaspermission.Menus;
 
     this.barnchName = result.branch.NAME;
-    this.bankName   = result.branch.syspara.BANK_NAME;
-    this.profilePath = environment.base_url+'/'+result.PROFILE_PATH;
+    this.bankName = result.branch.syspara.BANK_NAME;
+    this.profilePath = environment.base_url + '/' + result.PROFILE_PATH;
     //console.log(resultArray);
 
     let arrayList1 = menuData.split(',');
@@ -314,10 +314,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.meunItemList = menuItemList[0].main;
     var meunItemList = menuItemList[0].main;
     this.meunItemList.forEach(function (element, index) {
-      
-      if(diablelist.includes(element.id)){
+
+      if (diablelist.includes(element.id)) {
         element['class'] = 'disableflag';
-      }else{
+      } else {
         element['class'] = 'disableFlagActive';
       }
       // this.menuItemList[index]['class'] = "disableflag"
@@ -345,7 +345,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     });
     this.menuItem = menuItemList;
-    
+
     //console.log(this.menuItem[0].main)
     // this.menuItem[0].main.forEach(ele=>{
     //   if(ele == null){
@@ -377,23 +377,23 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+
     this.roleWiseMenuAssign()
     this.setBackgroundPattern('theme1');
- 
+
     interval(2000).subscribe(x => {
 
-        this._dayEndService.checkDayHandOverStatus({date : this.currentDate , branch_id : this.branchID}).subscribe(data=>{
-          if(data.flag == 1){
-            this.disableList = [66,109];
-            this.roleWiseMenuAssign()
-          }else{
-            this.disableList = [];
-            this.roleWiseMenuAssign(  )
-          }
-        },err=>{
-          console.log(err);
-        })
+      this._dayEndService.checkDayHandOverStatus({ date: this.currentDate, branch_id: this.branchID }).subscribe(data => {
+        if (data.flag == 1) {
+          this.disableList = [66, 109];
+          this.roleWiseMenuAssign()
+        } else {
+          this.disableList = [];
+          this.roleWiseMenuAssign()
+        }
+      }, err => {
+        console.log(err);
+      })
     });
   }
 
@@ -549,7 +549,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toggleOpened(e) {
-    
+
     if (this.windowWidth <= 992) {
       this.toggleOn = this.verticalNavType === 'offcanvas' ? true : this.toggleOn;
       if (this.navRight === 'nav-on') {
@@ -731,18 +731,20 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  logout(){
+  logout() {
     window.close();
     let user = JSON.parse(localStorage.getItem('user'));
-
-    this._authService.logout(user.id).subscribe(data=>{
-
-    })
+    this._authService.logout(user.id).subscribe(data => { })
+    let userData: any = localStorage.getItem('user');
+    let result = JSON.parse(userData);
+    let obj = {
+      USERID: result.id,
+      BRANCH_CODE: result.branchId,
+      REMARK: null
+    }
+    this._authService.LOGOFFHISTORY(obj).subscribe(data => { })
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
-    
-
   }
 
 }

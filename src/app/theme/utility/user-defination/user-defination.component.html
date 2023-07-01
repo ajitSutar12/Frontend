@@ -47,22 +47,21 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text"  placeholder="dd/mm/yyyy" name="DOB" class="form-control"  id="DOB" [(ngModel)]="dater" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" maxlength="10"
-                                      [ngClass]="{'form-submitted': formSubmitted}"
-                                        #DOB="bsDatepicker" [bsValue]="bsValue" bsDatepicker required
-                                        #DOB formControlName="DOB"
-                                        >
+                                    <input type="text" placeholder="dd/mm/yyyy" name="DOB" class="form-control" id="DOB"
+                                        [(ngModel)]="dater" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        maxlength="10" [ngClass]="{'form-submitted': formSubmitted}" #DOB="bsDatepicker"
+                                        [bsValue]="bsValue" bsDatepicker required #DOB formControlName="DOB">
 
                                     <label for="DOB">Birth Date</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['DOB'].invalid && (angForm.controls['DOB'].dirty || angForm.controls['DOB'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['DOB'].errors?.required">
-                                        This field is required
-                                    </div>
-                             </div>
+                                *ngIf="angForm.controls['DOB'].invalid && (angForm.controls['DOB'].dirty || angForm.controls['DOB'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['DOB'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -70,16 +69,17 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="MOB_NO" class="form-control" placeholder=" "
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9" id="MOB_NO"
-                                        formControlName="MOB_NO">
+                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9" id="MOB_NO"
+                                        formControlName="MOB_NO" maxlength="10" minlength="10">
                                     <label for="MOB_NO">Mobile<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['MOB_NO'].invalid && (angForm.controls['MOB_NO'].dirty || angForm.controls['MOB_NO'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.required || angForm.controls['MOB_NO'].errors?.pattern">
-                                    Input allowed only 0-9
+                                <div
+                                    *ngIf="angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.required || angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.minlength  || angForm.controls['MOB_NO'].errors?.maxlength">
+                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,8 @@
                                 *ngIf="angForm.controls['EMAIL'].invalid && (angForm.controls['EMAIL'].dirty || angForm.controls['EMAIL'].touched)"
                                 class="alert alert-danger">
                                 <!-- *ngIf="angForm.controls['EMAIL'].errors?.pattern" -->
-                                <div *ngIf="angForm.controls['EMAIL'].errors?.pattern || angForm.controls['EMAIL'].errors?.required || angForm.controls['EMAIL'].errors?.pattern">
+                                <div
+                                    *ngIf="angForm.controls['EMAIL'].errors?.pattern || angForm.controls['EMAIL'].errors?.required || angForm.controls['EMAIL'].errors?.pattern">
                                     Enter valid Email
                                 </div>
                             </div>
@@ -105,19 +106,19 @@
                             <div class="form-group form-primary form-static-label">
                                 <!-- <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="ROLE"
                                      [multiple]="true" placeholder="Role" formControlName="ROLE">
-                                </ng-select> --> 
+                                </ng-select> -->
                                 <!-- <ng-select placeholder="role" formControlName="ROLE"        bindValue="value" bindLable="label">
                                     <ng-option *ngFor="let role of ROLE"
                                         [value]="role">{{role.id}}{{role.label}}</ng-option>
                                 </ng-select> -->
-                                 <span class="border-lable-flt">
-                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedRoleName" (change)="newFunction($event)"
-                                                formControlName="ROLE"placeholder="Role"[selectOnTab]='true'
-                                                >
-                                                <ng-option *ngFor="let values of ROLEX" [value]="values">
-                                                    {{values.label}}</ng-option>
-                                            </ng-select>
-                                     </span> 
+                                <span class="border-lable-flt">
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedRoleName"
+                                        (change)="newFunction($event)" formControlName="ROLE" placeholder="Role"
+                                        [selectOnTab]='true'>
+                                        <ng-option *ngFor="let values of ROLEX" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)"
@@ -148,26 +149,25 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-primary form-static-label"
-                                    >
-                                    <span class="border-lable-flt">
+                        <div class="col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
                                     <ng-select bindValue="value" bindLabel="label" [(ngModel)]="branchId"
-                                                formControlName="branchId"placeholder="Branch"[selectOnTab]='true'
-                                                #brnch (focus)="onFocus(brnch)" >
-                                                <ng-option *ngFor="let values of barnchData" [value]="values">
-                                                    {{values.label}}</ng-option>
-                                            </ng-select>
-                                     </span>
+                                        formControlName="branchId" placeholder="Branch" [selectOnTab]='true' #brnch
+                                        (focus)="onFocus(brnch)">
+                                        <ng-option *ngFor="let values of barnchData" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['branchId'].errors?.required">
+                                    This field is required
                                 </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['branchId'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div> 
+                            </div>
+                        </div>
                         <!-- <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -189,14 +189,14 @@
                         <div class="col-md">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="STATUS" checked="checked" value="active"
                                             formControlName="STATUS">
                                         <i class="helper"></i>Active
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" name="STATUS" checked="checked" value="inactive"
                                             formControlName="STATUS">
                                         <i class="helper"></i>Inactive
@@ -210,10 +210,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                        
-                            <button class="btn btn-outline-primary btn-sm"  *ngIf="showButton" (click)="submit()"
+
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
                                 [disabled]="angForm.invalid">Add</button>&nbsp;&nbsp;&nbsp;
-                            <button  class="btn btn-outline-primary btn-sm"  (click)="updateData()"
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>&nbsp;&nbsp;&nbsp;
                         </div>
 
@@ -319,10 +319,15 @@
                                 class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="userdef?.length != 0">
                                     <tr *ngFor="let data of userdef">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
-                                              
-                                             <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> 
+                                        <td>
+                                            <!-- <button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp; -->
+
+                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span>
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
 
                                         <td>{{ data.F_NAME }}</td>

@@ -307,7 +307,7 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
           data: 'AC_NO',
         },
       ],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
       // buttons: [
       //   'copy',
       //   'print',

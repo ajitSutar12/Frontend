@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoanOverdueListComponent} from './loan-overdue-list.component'
+import { LoanOverdueListComponent } from './loan-overdue-list.component';
+
 const routes: Routes = [
   {
     path: '',
-    component:LoanOverdueListComponent  , 
+    component: LoanOverdueListComponent, 
     data: {
       title: 'Loan Overdue List',
       icon: 'icon-home',
@@ -13,6 +14,7 @@ const routes: Routes = [
     },
    
   }
+
 ];
 
 @NgModule({
