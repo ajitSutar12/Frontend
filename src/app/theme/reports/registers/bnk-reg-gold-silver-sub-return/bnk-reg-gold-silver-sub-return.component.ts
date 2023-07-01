@@ -161,7 +161,7 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
 
       let flag = obj.SUBMISSION;
 
-      if(flag == 'SUBMISSION'){
+      if(flag == 'SUBMISSION'){ 
         flag = '1';
       }else{
         flag = '0';

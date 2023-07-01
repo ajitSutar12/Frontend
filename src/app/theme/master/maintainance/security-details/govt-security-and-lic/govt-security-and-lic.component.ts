@@ -158,112 +158,112 @@ export class GovtSecurityAndLicComponent
    
     this.loadTable();
     this.dtTrigger.next();
-    // this.dtExportButtonOptions = {
-    //   pagingType: "full_numbers",
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     let datatableRequestParam: any;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
+    this.dtExportButtonOptions = {
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
 
-    //     dataTableParameters.columns.forEach((element) => {
-    //       if (element.search.value != "") {
-    //         let string = element.search.value;
-    //         this.filterData[element.data] = string;
-    //       } else {
-    //         let getColumnName = element.data;
-    //         let columnValue = element.value;
-    //         if (this.filterData.hasOwnProperty(element.data)) {
-    //           let value = this.filterData[getColumnName];
-    //           if (columnValue != undefined || value != undefined) {
-    //             delete this.filterData[element.data];
-    //           }
-    //         }
-    //       }
-    //     });
-    //     dataTableParameters["filterData"] = this.filterData;
-    //     this.http
-    //       .post<DataTableResponse>(
-    //         this.url + "/govt-security-and-lic",
-    //         dataTableParameters
-    //       )
-    //       .subscribe((resp) => {
-    //         this.governmentmasters = resp.data;
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/govt-security-and-lic",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.governmentmasters = resp.data;
 
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsTotal,
-    //           data: [],
-    //         });
-    //       });
-    //   },
-    //   columns: [
-    //     {
-    //       title: "Action",
-    //       render: function (data: any, type: any, full: any) {
-    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-    //       },
-    //     },
-    //     {
-    //       title: "Submission Date",
-    //       data: "SUBMISSION_DATE",
-    //     },
-    //     {
-    //       title: "Cert/Policy Date",
-    //       data: "CERT_POLICY_DATE",
-    //     },
-    //     {
-    //       title: "Cert/Policy No.",
-    //       data: "CERT_POLICY_NO",
-    //     },
-    //     {
-    //       title: "Margin %",
-    //       data: "MARGIN",
-    //     },
-    //     {
-    //       title: "Assured Name",
-    //       data: "ASSURED_NAME",
-    //     },
-    //     {
-    //       title: "Paid Up Amount",
-    //       data: "PAIDUP_AMT",
-    //     },
-    //     {
-    //       title: "Sum of Assured",
-    //       data: "SUM_ASSURED",
-    //     },
-    //     {
-    //       title: "Premium Amount",
-    //       data: "PREMIUM",
-    //     },
-    //     {
-    //       title: "Surrender Value",
-    //       data: "SURRENDER_VALUE",
-    //     },
-    //     {
-    //       title: "Premium Due Date",
-    //       data: "PREMIUM_DUE_DATE",
-    //     },
-    //     {
-    //       title: "Matured Due Date",
-    //       data: "MATURE_DUE_DATE",
-    //     },
-    //     {
-    //       title: "Nominee",
-    //       data: "NOMINEE",
-    //     },
-    //     {
-    //       title: "Remarks",
-    //       data: "REMARK",
-    //     },
-    //   ],
-    //   dom: "Blrtip",
-    // };
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
+            });
+          });
+      },
+      columns: [
+        {
+          title: "Action",
+          render: function (data: any, type: any, full: any) {
+            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          },
+        },
+        {
+          title: "Submission Date",
+          data: "SUBMISSION_DATE",
+        },
+        {
+          title: "Cert/Policy Date",
+          data: "CERT_POLICY_DATE",
+        },
+        {
+          title: "Cert/Policy No.",
+          data: "CERT_POLICY_NO",
+        },
+        {
+          title: "Margin %",
+          data: "MARGIN",
+        },
+        {
+          title: "Assured Name",
+          data: "ASSURED_NAME",
+        },
+        {
+          title: "Paid Up Amount",
+          data: "PAIDUP_AMT",
+        },
+        {
+          title: "Sum of Assured",
+          data: "SUM_ASSURED",
+        },
+        {
+          title: "Premium Amount",
+          data: "PREMIUM",
+        },
+        {
+          title: "Surrender Value",
+          data: "SURRENDER_VALUE",
+        },
+        {
+          title: "Premium Due Date",
+          data: "PREMIUM_DUE_DATE",
+        },
+        {
+          title: "Matured Due Date",
+          data: "MATURE_DUE_DATE",
+        },
+        {
+          title: "Nominee",
+          data: "NOMINEE",
+        },
+        {
+          title: "Remarks",
+          data: "REMARK",
+        },
+      ],
+      dom: "Blrtip",
+    };
   }
 
   createForm() {

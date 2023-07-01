@@ -203,7 +203,7 @@
                                                     <tr>
                                                         <td>Interest Amount</td>
                                                         <td>
-                                                            <input style="width:50% ; text-align: right;"
+                                                            <input style="width:50% ; text-align: right;" disabled
                                                                 class="form-control" (focus)="selectAllContent($event)"
                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                 maxlength="12" formControlName="maturedIntAmt"
@@ -215,7 +215,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Total Interest Amount @   {{intRateShow | number:'1.2-2'}} %</label>
+                                                <label>Total Interest Amount @ {{intRateShow | number:'1.2-2'}}
+                                                    %</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -478,8 +479,8 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" placeholder="dd/mm/yyyy"
-                                                                    class="form-control" placement="top"
-                                                                    appButton minlength="8" maxlength="10"
+                                                                    class="form-control" placement="top" appButton
+                                                                    minlength="8" maxlength="10"
                                                                     #ChequeDate="bsDatepicker"
                                                                     (keydown.Tab)="ChequeDate.hide()"
                                                                     [maxDate]="maxDate" [minDate]="minDate"
@@ -842,7 +843,7 @@
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
-                                            style="margin-left: auto;order: 2;font-size: 12px;">{{maturityDate}}
+                                            style="margin-left: auto;order: 2;font-size: 12px;">{{maturityDate1}}
                                         </div>
                                     </div>
                                 </div>

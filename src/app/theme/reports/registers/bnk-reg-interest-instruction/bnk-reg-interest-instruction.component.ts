@@ -128,7 +128,9 @@ export class BnkRegInterestInstructionComponent implements OnInit {
 
 
       this.iframe3url = this.report_url+"examples/InterestInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&branch='" + branch + "'&revoke='" + revoke + "'&bankName='" + bankName + "' &branchName ='"+branchName;
+      console.log(this.iframe3url);
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
+
 
       // let ageCaldate
     }

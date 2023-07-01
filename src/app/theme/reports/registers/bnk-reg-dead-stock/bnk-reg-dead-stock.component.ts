@@ -93,7 +93,7 @@ export class BnkRegDeadStockComponent implements OnInit {
       Ending_Account: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
-      GROUP_BY: ['', [Validators.required]],
+      GROUP_BY: ['', ],
       PRINT_NEW_PAGE: [''],
 
     })

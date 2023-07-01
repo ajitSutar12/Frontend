@@ -7,17 +7,16 @@
           Fields marked with (<sub class="required"> * </sub>) are mandatory
         </h6>
       </div>
-      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm" >
+      <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
-                    placeholder=" " id="S_APPL" required="" pattern="^[0-9]+$"
-                    title="Input allowed only  0-9" maxlength="3" minlength="3" #autofocus
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="901" max="999"
-                    (focusout)="checkDuplicate($event)" formControlName="S_APPL"  />
+                    placeholder=" " id="S_APPL" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                    maxlength="3" minlength="3" #autofocus (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                    min="901" max="999" (focusout)="checkDuplicate($event)" formControlName="S_APPL" />
 
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
@@ -88,8 +87,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-6"> 
-            
+            <div class="col-sm-6">
+
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
@@ -520,15 +519,15 @@
                     <td>
                       <span class="fa fa-fw fa-edit field-icon" id="editbutton"
                         (click)="editClickHandler(data.id);gotoTop()" placement="bottom" ngbTooltip="Edit"></span>
-                        <!-- <button (click)="editClickHandler(data.id);gotoTop()">Edit</button> -->
+                      <!-- <button (click)="editClickHandler(data.id);gotoTop()">Edit</button> -->
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
                     <td>{{ data.S_ACNOTYPE }}</td>
                     <td>{{ data.S_APPL }}</td>
-                    <td>{{ data.S_SHNAME }}</td>
                     <td>{{ data.S_NAME }}</td>
+                    <td>{{ data.S_SHNAME }}</td>
                     <td>{{ data.S_GLACNO }}</td>
                     <td>{{ data.MEMBER_TYPE }}</td>
                     <td>{{ data.IS_AUTO_NO }}</td>

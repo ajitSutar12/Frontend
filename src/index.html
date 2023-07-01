@@ -87,23 +87,36 @@
 <script>
 
 
-    // window.addEventListener("beforeunload", function (e) {    
-    // //   if(e.target.URL == 'http://localhost:4200/auth/login/simple'){
-    //   if(e.target.URL == 'http://139.59.86.29/CBS/auth/login/simple'){
-    //       return true;
-    //   }else{
-    //     var user = JSON.parse(localStorage.getItem('usre'));
-
+    // window.addEventListener("beforeunload", function (e) {
+    //     debugger
+    //     alert('working');
+    //     //   if(e.target.URL == 'http://localhost:4200/auth/login/simple'){
+    //     // if (e.target.URL == 'http://139.59.86.29/CBS/auth/login/simple') {
+    //     //     return true;
+    //     // } else {
+    //     var user = JSON.parse(localStorage.getItem('user'));
+    //     console.log({ id: user.id })
+    //     alert('working');
     //     $.ajax({
-    //         url : 'localhost:4000/user-defination/logout',
-    //         method : 'POST',
-    //         data : {id:user.id},
-    //         success : function(result){
-    //             aleart('working');
+    //         url: 'localhost:7276/user-defination/logout',
+    //         type: 'POST',
+    //         data: { id: user.id },
+    //         dataType: "json",
+    //         contentType: "application/json",
+    //         success: function (result) {
+    //             alert('working');
     //         }
     //     })
+
+    //     //         $.ajax({
+    //     //   type: "POST",
+    //     //   url: url,
+    //     //   data: data,
+    //     //   success: success,
+    //     //   dataType: dataType
+    //     // });
     //     return
-    //   }
+    //     // }
 
     // });
 
@@ -152,6 +165,7 @@
             // localStorage.removeItem('token');
             // localStorage.removeItem('user');
             // console.log('session out')
+            let user = JSON.parse(localStorage.getItem('user'));
         }
 
         function resetTimer() {

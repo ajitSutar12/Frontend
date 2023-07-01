@@ -637,7 +637,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         //   data: 'TD_RECEIPT_METHOD'
         // },
       ],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
     };
     this.runTimer();
     this.dataSub = this.installmentBaseService.loadCharacters().subscribe((options) => {

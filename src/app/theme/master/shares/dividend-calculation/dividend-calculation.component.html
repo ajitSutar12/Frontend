@@ -114,14 +114,14 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                    <input appTheme appButton minlength="10" maxlength="10" type="text"
                                         placeholder="dd/mm/yyyy" name="DIV_FROMDATE" id="DIV_FROMDATE"
                                         [bsValue]="bsValue" class="form-control" [(ngModel)]="divfromdate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #DIV_FROMDATE="bsDatepicker"
                                         (keydown.Tab)="DIV_FROMDATE.hide()" [maxDate]="fromdate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="DIV_FROMDATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        (bsValueChange)="checkDivYear()" bsDatepicker>
+                                        (change)="checkDivYear()" bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -137,13 +137,13 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                    <input appTheme appButton minlength="10" maxlength="10" type="text"
                                         placeholder="dd/mm/yyyy" name="DIV_TODATE" id="DIV_TODATE" class="form-control"
                                         [(ngModel)]="divtodate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="todate" #DIV_TODATE="bsDatepicker" (keydown.Tab)="DIV_TODATE.hide()"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="DIV_TODATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        (bsValueChange)="checkDivYear()" bsDatepicker>
+                                        (change)="checkDivYear()" bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"

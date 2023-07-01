@@ -66,7 +66,7 @@ export class UnpaidDividendEntryComponent implements OnInit {
           title: 'To Year',
           data: 'ToYear'
         }],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
       buttons: [
         'copy',
         'print',

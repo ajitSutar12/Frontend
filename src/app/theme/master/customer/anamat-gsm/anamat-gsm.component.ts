@@ -126,9 +126,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   scheme: any[];//scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[]; //customer id from idmaster
   city: any[];//city from customer id from idmaster
-  
-  joint_Cust_ID:any[];
-  newcustid:any=null;
+
+  joint_Cust_ID: any[];
+  newcustid: any = null;
 
   prifix: any;
   AC_CUSTID1: any;
@@ -283,20 +283,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data3 => {
       this.scheme = data3
-      console.log(this.scheme);
-       //  this.code = this.scheme[0].value
+      this.code = this.scheme[0].value
       //  console.log(this.code);
-        this.schemeCode = this.scheme[0].value
-        console.log(this.schemeCode);
-              
-        
+      this.schemeCode = this.scheme[0].name
     })
-    
+
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data4 => {
       this.Cust_ID = data4;
       this.joint_Cust_ID = data4;
-      console.log(this.Cust_ID);
-      
     })
 
 
@@ -308,13 +302,13 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     // this.customerID
-      // .getCustomerIDMasterList()
-      // .pipe(first())
-      // .subscribe((data1) => {
-        // this.Cust_ID = data1;
-        // console.log(this.cust_id);
-        
-      // });
+    // .getCustomerIDMasterList()
+    // .pipe(first())
+    // .subscribe((data1) => {
+    // this.Cust_ID = data1;
+    // console.log(this.cust_id);
+
+    // });
     this.getSystemParaDate()
   }
 
@@ -345,7 +339,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   //       this.Cust_ID = data;
   //       this.cust_id = newCustomer;
   //       console.log(this.cust_id);
-        
+
   //       this.getCustomer(newCustomer);
   //     });
   // }
@@ -355,7 +349,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     let branchCode = result.branch.id;
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
-       this.newcustid = newCustomer;
+      this.newcustid = newCustomer;
       this.getCustomer(newCustomer);
     })
   }
@@ -389,7 +383,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           permadd = element
         }
       })
-           this.newcustid =data.id;
+      this.newcustid = data.id;
       this.angForm.patchValue({
         AC_ADDFLAG: permadd?.AC_ADDFLAG,
         AC_HONO: permadd?.AC_HONO,
@@ -458,8 +452,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   getScheme(value) {
-    this.schemeCode=1
-    
     this.schemeCode = value.name
   }
   // Method to insert data into database through NestJS

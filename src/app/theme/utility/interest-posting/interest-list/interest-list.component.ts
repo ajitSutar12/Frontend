@@ -80,7 +80,7 @@ maxDate: Date;
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
      
    var filtered = data.filter(function (scheme) {
-     return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' ||  scheme.name == 'CA'  || scheme.name == 'TD'|| scheme.name == 'IV'      );
+     return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' ||  scheme.name == 'CA'  || scheme.name == 'TD'|| scheme.name == 'IV'|| scheme.name == 'LN' || scheme.name == 'CC'      );
    });
    this.scheme = filtered; 
   

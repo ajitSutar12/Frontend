@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 // import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,7 @@ import { elementAt } from 'rxjs-compat/operator/elementAt';
 import { CurrentSchemeService } from './interest-calculation.service';
 import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
+import { async } from 'rxjs/internal/scheduler/async';
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -28,38 +29,38 @@ export class InterestCalculationComponent implements OnInit {
   // date variables
   maxDate: Date;
   minDate: Date;
-  intuptodate:any=null
+  intuptodate: any = null
   InterestArr = []
- // Formgroup variable
- angForm: FormGroup;
+  // Formgroup variable
+  angForm: FormGroup;
   isSchemeWise: boolean;
   isAccountWise: boolean;
   isSelectiveAccountWise: boolean;
 
   // dropdown variables
-  ngBranchCode:any=null
-  ngscheme:any=null
-  ngfromac:any=null
-  ngtoac:any=null
-  scheme:any;
+  ngBranchCode: any = null
+  ngscheme: any = null
+  ngfromac: any = null
+  ngtoac: any = null
+  scheme: any;
 
-  fromAc:any
-  toAc:any
+  fromAc: any
+  toAc: any
 
-  
+
   branch_code: any;
   arrTable: any;
   showButton: boolean = true;
-  showTable: boolean=false;
+  showTable: boolean = false;
   mem: any[];
   getschemename: any;
   schemeACNo: any[];
   UpdateData: [];
-  schemeDataList : any;
-  codeList :any;
-  selectedSchemeData : any;
-  schemewiseRadio:boolean=true;
-  modalClass : string = 'modalHide';
+  schemeDataList: any;
+  codeList: any;
+  selectedSchemeData: any;
+  schemewiseRadio: boolean = true;
+  modalClass: string = 'modalHide';
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -68,13 +69,13 @@ export class InterestCalculationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private _serviceScheme : CurrentSchemeService
+    private _serviceScheme: CurrentSchemeService
   ) {
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-   }
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     $('#loading').hide();
@@ -82,148 +83,165 @@ export class InterestCalculationComponent implements OnInit {
     this.getSystemParaDate()
     this.createForm();
 
-    this.http.get(this.url + '/scheme-parameters/FlagInterest').subscribe((data) => {
-      debugger
-      this.scheme = data
-    })
+    // this.http.get(this.url + '/scheme-parameters/FlagInterest').subscribe((data) => {
+    //   this.scheme = data
+    // })
 
-    this._serviceScheme.getSchemeCodeList().subscribe(data=>{
+    this._serviceScheme.getSchemeCodeList().subscribe(data => {
       this.schemeDataList = data;
       this.codeList = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
-      console.log(this.codeList,'Codelist')
-    },err=>{
-      console.log('Scheme Parameter Not Loading :',err);
+      console.log(this.codeList, 'Codelist')
+    }, err => {
+      console.log('Scheme Parameter Not Loading :', err);
     })
-    
+
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.intapp == '1' );
+        return (scheme.intapp == '1');
       });
-      console.log('filter',filtered);
+      console.log('filter', filtered);
       this.scheme = filtered;
     })
-    
+
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
-    
+
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      INT_UPTO_DATE:['',[Validators.required]],
-      Ledger_Date:[''],
-      INT_CAL:[''],
-      BRANCH:['',[Validators.required]],
-      AC_TYPE:['',[Validators.required]],
-      FROM_AC:['',[Validators.required]],
-      TO_AC:['',[Validators.required]],
-      AC_NO:['',[Validators.required]],
-      BRANCH1:['',[Validators.required]],
-      AC_TYPE1:['',[Validators.required]],
+      INT_UPTO_DATE: ['', [Validators.required]],
+      Ledger_Date: [''],
+      INT_CAL: [''],
+      BRANCH: ['', [Validators.required]],
+      AC_TYPE: ['', [Validators.required]],
+      FROM_AC: ['', [Validators.required]],
+      TO_AC: ['', [Validators.required]],
+      AC_NO: ['', [Validators.required]],
+      BRANCH1: ['', [Validators.required]],
+      AC_TYPE1: ['', [Validators.required]],
 
     });
   }
 
-  getSelectedCodeScheme(ele){
-    debugger
+  getSelectedCodeScheme(ele) {
     let code = ele;
-    this.selectedSchemeData = this.schemeDataList.filter(c =>c.S_ACNOTYPE == code)
+    this.selectedSchemeData = this.schemeDataList.filter(c => c.S_ACNOTYPE == code)
   }
   submit() {
     debugger
-     var FormValue = this.angForm.value;
-     if(FormValue.INT_CAL == ""){
-      Swal.fire("Oops...","Please choose any option for Interest Calculation","error");
+    var FormValue = this.angForm.value;
+    if (FormValue.INT_CAL == "") {
+      Swal.fire("Oops...", "Please choose any option for Interest Calculation", "error");
       return;
-     }else if(FormValue.INT_CAL == 'Form1'){
-        if(FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || this.selectedSchemeDataForOption1.length == 0){
-          Swal.fire("Oops...","Please select required field value","error");
-          return;
-        }else{
-          this.modalClass = 'modalShow';
-          this.showButton = false;
-          let apiObj = {
-            option : 0,
-            obj : {
-              SchemeCode : this.selectedSchemeDataForOption1
-            },
-            schemeType : FormValue.AC_TYPE,
-            branch_code : FormValue.BRANCH,
-            date : FormValue.INT_UPTO_DATE
-          }
-
-          //Send Data for Interest Calculation Scheme Wise;
-          this._service.IntrestCalculation(apiObj).subscribe(data=>{
-            this.modalClass = 'modalHide';
-            Swal.fire("Success","Interest Calculation and Posting Successfully Completed","success");
-          },err=>{
-            console.log(err);
-          })
-        }
-     }else if(FormValue.INT_CAL == 'Form2'){
-        if(FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || FormValue.FROM_AC =='' || FormValue.TO_AC ==''){
-          Swal.fire("Oops...","Please select required field value","error");
-        }else{
-          this.modalClass = 'modalShow';
-          this.showButton = false;
-          let apiObj = {
-            option : 1,
-            obj : {
-              SchemeCode : [FormValue.AC_TYPE],
-              Range : {
-                StartAcNO  : FormValue.FROM_AC,
-                EndAcNo    : FormValue.TO_AC
-              }
-            },
-            schemeType : FormValue.AC_TYPE,
-            branch_code : FormValue.BRANCH,
-            date : FormValue.INT_UPTO_DATE
-          }
-
-          //Send Data for Interest Calculation Scheme Wise;
-          this._service.IntrestCalculation(apiObj).subscribe(data=>{
-            this.modalClass = 'modalHide';
-            Swal.fire("Success","Interest Calculation and Posting Successfully Completed","success");
-          },err=>{
-            console.log(err);
-          })
-        }
-    }else{
-      if(FormValue.BRANCH1 == '' || FormValue.AC_TYPE1 == '' || this.InterestArr.length == 0){
-        Swal.fire("Oops...","Please select required field value","error");
-      }else{
+    } else if (FormValue.INT_CAL == 'Form1') {
+      if (FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || this.selectedSchemeDataForOption1.length == 0) {
+        Swal.fire("Oops...", "Please select required field value", "error");
+        return;
+      } else {
         this.modalClass = 'modalShow';
         this.showButton = false;
-        let AccountData =  this.InterestArr.map(x=>`'${x}'`).join(',')
-
         let apiObj = {
-          option : 2,
-          obj : {
-            SchemeCode : [FormValue.AC_TYPE1],
-            SelectiveData : AccountData
+          option: 0,
+          obj: {
+            SchemeCode: this.selectedSchemeDataForOption1
           },
-          schemeType : FormValue.AC_TYPE1,
-          branch_code : FormValue.BRANCH,
-          date : FormValue.INT_UPTO_DATE
+          schemeType: FormValue.AC_TYPE,
+          branch_code: FormValue.BRANCH,
+          date: FormValue.INT_UPTO_DATE
         }
 
         //Send Data for Interest Calculation Scheme Wise;
-        this._service.IntrestCalculation(apiObj).subscribe(data=>{
+        this._service.IntrestCalculation(apiObj).subscribe((data) => {
           this.modalClass = 'modalHide';
-          Swal.fire("Success","Interest Calculation and Posting Successfully Completed","success");
-        },err=>{
+          Swal.fire("Success", "Interest Calculation and Posting Successfully Completed", "success");
+          this.ngOnInit()
+          this.showButton = true;
+        },
+          // err => {
+          //   console.log(err);
+          //   this.modalClass = 'modalHide';
+          //   this.showButton = true;
+          // })
+          (error) => {
+            console.log(error, 'err')
+            this.modalClass = 'modalHide';
+            Swal.fire('Oops!', error?.error?.message, 'error');
+            this.showButton = true;
+          })
+      }
+    } else if (FormValue.INT_CAL == 'Form2') {
+      if (FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || FormValue.FROM_AC == '' || FormValue.TO_AC == '') {
+        Swal.fire("Oops...", "Please select required field value", "error");
+      } else {
+        this.modalClass = 'modalShow';
+        this.showButton = false;
+        let apiObj = {
+          option: 1,
+          obj: {
+            SchemeCode: [FormValue.AC_TYPE],
+            Range: {
+              StartAcNO: FormValue.FROM_AC,
+              EndAcNo: FormValue.TO_AC
+            }
+          },
+          schemeType: FormValue.AC_TYPE,
+          branch_code: FormValue.BRANCH,
+          date: FormValue.INT_UPTO_DATE
+        }
+
+        //Send Data for Interest Calculation Scheme Wise;
+        this._service.IntrestCalculation(apiObj).subscribe(data => {
+          this.modalClass = 'modalHide';
+          Swal.fire("Success", "Interest Calculation and Posting Successfully Completed", "success");
+          this.ngOnInit()
+          this.showButton = true;
+        }, (error) => {
+          console.log(error, 'err')
+          this.modalClass = 'modalHide';
+          Swal.fire('Oops!', error?.error?.message, 'error');
+          this.showButton = true;
+        })
+      }
+    } else {
+      if (FormValue.BRANCH1 == '' || FormValue.AC_TYPE1 == '' || this.InterestArr.length == 0) {
+        Swal.fire("Oops...", "Please select required field value", "error");
+      } else {
+        this.modalClass = 'modalShow';
+        this.showButton = false;
+        let AccountData = this.InterestArr.map(x => `'${x}'`).join(',')
+
+        let apiObj = {
+          option: 2,
+          obj: {
+            SchemeCode: [FormValue.AC_TYPE1],
+            SelectiveData: AccountData
+          },
+          schemeType: FormValue.AC_TYPE1,
+          branch_code: FormValue.BRANCH,
+          date: FormValue.INT_UPTO_DATE
+        }
+
+        //Send Data for Interest Calculation Scheme Wise;
+        this._service.IntrestCalculation(apiObj).subscribe(data => {
+          this.modalClass = 'modalHide';
+          Swal.fire("Success", "Interest Calculation and Posting Successfully Completed", "success");
+          this.ngOnInit()
+          this.showButton = true;
+        }, err => {
           console.log(err);
+          this.showButton = true;
         })
       }
     }
   }
-  select(){
+  select() {
     this.InterestArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
-    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
-     
+    if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value) {
+
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/interest-calculation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
@@ -245,7 +263,7 @@ export class InterestCalculationComponent implements OnInit {
     }
   }
   resetForm() {
-    
+
   }
 
   //clear scheme and account no
@@ -265,22 +283,22 @@ export class InterestCalculationComponent implements OnInit {
     this.ngtoac = null
 
     switch (event.name) {
-      
+
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
 
         })
-        
+
         break;
 
       case 'CA':
         this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
         })
         break;
 
@@ -288,7 +306,7 @@ export class InterestCalculationComponent implements OnInit {
         this.schemeAccountNoService.getTermLoanSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
         })
         break;
 
@@ -296,7 +314,7 @@ export class InterestCalculationComponent implements OnInit {
         this.schemeAccountNoService.getTermDepositSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
         })
         break;
 
@@ -304,7 +322,7 @@ export class InterestCalculationComponent implements OnInit {
         this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
         })
         break;
 
@@ -312,7 +330,7 @@ export class InterestCalculationComponent implements OnInit {
         this.schemeAccountNoService.getCashCreditSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
           console.log(this.schemeACNo)
         })
         break;
@@ -321,7 +339,7 @@ export class InterestCalculationComponent implements OnInit {
         this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
         })
         break;
 
@@ -329,7 +347,7 @@ export class InterestCalculationComponent implements OnInit {
         this.schemeAccountNoService.getInvestmentSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
         })
         break;
 
@@ -337,16 +355,16 @@ export class InterestCalculationComponent implements OnInit {
         this.schemeAccountNoService.getInvestmentSchemeList1(obj).subscribe(data => {
           this.fromAc = data;
           this.toAc = data
-          this.schemeACNo=data
+          this.schemeACNo = data
         })
         break;
     }
-  
+
     console.log(event.name)
     console.log(this.fromAc)
     console.log(this.toAc)
 
-    
+
   }
   //load table according account range
   AccountWiseData = new Array()
@@ -354,31 +372,31 @@ export class InterestCalculationComponent implements OnInit {
     debugger
     // this.InterestArr = []
     this.showTable = true
-    let searchData = this.InterestArr.filter(ele=>ele.AC_NO === event.value);
-    if(searchData.length != 0){
-      Swal.fire('Oops...!','Your selected Account Already Exists in Table','error');
-    }else{
-      let obj ={
-        AC_NO : event.bankacno,
-        AC_NAME : event.name
+    let searchData = this.InterestArr.filter(ele => ele.AC_NO === event.value);
+    if (searchData.length != 0) {
+      Swal.fire('Oops...!', 'Your selected Account Already Exists in Table', 'error');
+    } else {
+      let obj = {
+        AC_NO: event.bankacno,
+        AC_NAME: event.name
       }
       this.AccountWiseData.push(obj);
       this.InterestArr.push(event.bankacno)
     }
-    
-      
-    
+
+
+
   }
 
   isSelect(value) {
     if (value == 1) {
       this.isSchemeWise = true;
-      this.isAccountWise=false;
-      this.isSelectiveAccountWise=false;
-      this.ngBranchCode=null
-      this.ngscheme=null
-      this.ngfromac=null
-      this.ngtoac=null
+      this.isAccountWise = false;
+      this.isSelectiveAccountWise = false;
+      this.ngBranchCode = null
+      this.ngscheme = null
+      this.ngfromac = null
+      this.ngtoac = null
       // this.angForm.controls['BRANCH'].reset()
       // this.angForm.controls['AC_TYPE'].reset()
       // this.angForm.controls['FROM_AC'].reset()
@@ -386,26 +404,26 @@ export class InterestCalculationComponent implements OnInit {
       // this.angForm.controls['BRANCH1'].reset()
       // this.angForm.controls['AC_TYPE1'].reset()
       // this.angForm.controls['AC_NO'].reset()
-      
+
     }
     if (value == 2) {
       this.isSchemeWise = false;
-      this.isAccountWise=true;
-      this.isSelectiveAccountWise=false;
+      this.isAccountWise = true;
+      this.isSelectiveAccountWise = false;
       this.angForm.controls['BRANCH1'].reset()
       this.angForm.controls['AC_TYPE1'].reset()
       this.angForm.controls['AC_NO'].reset()
-      
+
     }
     if (value == 3) {
       this.isSchemeWise = false;
-      this.isAccountWise=false;
-      this.isSelectiveAccountWise=true;
+      this.isAccountWise = false;
+      this.isSelectiveAccountWise = true;
       this.angForm.controls['BRANCH'].reset()
       this.angForm.controls['FROM_AC'].reset()
       this.angForm.controls['TO_AC'].reset()
     }
-    
+
   }
 
   //  //update checkbox status in array
@@ -429,7 +447,7 @@ export class InterestCalculationComponent implements OnInit {
   //       var object = {
   //         INT_UPTO_DATE: uptodate,
   //         Ledger_Date: ledgerdate,
-          
+
   //       }
   //       this.InterestArr.push(object)
   //     }
@@ -438,13 +456,13 @@ export class InterestCalculationComponent implements OnInit {
   //     var object = {
   //       INT_UPTO_DATE: uptodate,
   //       Ledger_Date: ledgerdate,
-        
+
   //     }
   //     this.InterestArr.push(object)
   //   }
   // }
 
-  
+
 
 
   //get sys para current date
@@ -459,22 +477,22 @@ export class InterestCalculationComponent implements OnInit {
 
   selectedSchemeDataForOption1 = new Array();
   //Add into SchemeList
-  AddSchemeData(ele,data){
+  AddSchemeData(ele, data) {
     console.log(ele);
     console.log(data);
 
-    if(ele.target.checked){
+    if (ele.target.checked) {
       // this.selectedSchemeData.push(data);
-      if(this.selectedSchemeDataForOption1.length == 0){
+      if (this.selectedSchemeDataForOption1.length == 0) {
         this.selectedSchemeDataForOption1.push(data.id)
-      }else{
-        let result = this.selectedSchemeDataForOption1.filter(ele=>ele == data.id);
-        if(result.length == 0){
+      } else {
+        let result = this.selectedSchemeDataForOption1.filter(ele => ele == data.id);
+        if (result.length == 0) {
           this.selectedSchemeDataForOption1.push(data.id)
         }
       }
-    }else{
-      let index = this.selectedSchemeDataForOption1.findIndex(ele=>ele === data.id)
+    } else {
+      let index = this.selectedSchemeDataForOption1.findIndex(ele => ele === data.id)
       delete this.selectedSchemeDataForOption1[index];
       console.log(this.selectedSchemeDataForOption1);
     }

@@ -75,7 +75,7 @@ export class DepositReceiptPrintComponent implements OnInit {
           title: 'To Date',
           data: 'ToDate'
         }],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
       buttons: [
         'copy',
         'print',

@@ -29,6 +29,8 @@ import { HttpClient } from '@angular/common/http';
   ]
 })
 export class ManagerViewComponent implements OnInit {
+
+  
   // variable for validation
   formSubmitted = false;
   // Created Form Group
@@ -83,10 +85,10 @@ export class ManagerViewComponent implements OnInit {
   glposition: any = [];
   retrivedata1: any = [];
   mangerViewGl : any = [];
-
   branchno
   glDetails: any;
-
+  ehead
+  eheadt
   constructor(
     private fb: FormBuilder,
     private config: NgSelectConfig,
@@ -231,7 +233,7 @@ export class ManagerViewComponent implements OnInit {
     } else {
       this.showAllPendingDetails = false;
       this.showCashPendingDetails = false;
-      this.showTransferPendingDetails = false;
+      this.showTransferPendingDetails = false; 
       this.showRejectedPendingDetails = false;
       this.showDayScrollPendingDetails = false;
     }
@@ -527,13 +529,15 @@ export class ManagerViewComponent implements OnInit {
 
       }
       this.http.post<any>(this.url + '/reports/profitLoss', obj1).subscribe((data) => {
-        this.glDetails = data
-        console.log(this.glDetails);
+        this.glDetails = data[data.length-1]
+        console.log(this.glDetails)
+        this.ehead = this.glDetails.head_name
+        this.eheadt = this.glDetails.head_total
+       
 
-        this.glDetails.forEach(entry => {
-          this.retrivedata1.push(entry);
-          // console.log(this.retrivedata1)
-        })
+        
+          
+        // })
       })
 
       let obj2 = {

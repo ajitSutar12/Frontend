@@ -147,111 +147,111 @@ export class GoldAndSilverComponent
 
 this.loadTable();
 
-    // this.dtExportButtonOptions = {
-    //   pagingType: "full_numbers",
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     let datatableRequestParam: any;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
+    this.dtExportButtonOptions = {
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
 
-    //     dataTableParameters.columns.forEach((element) => {
-    //       if (element.search.value != "") {
-    //         let string = element.search.value;
-    //         this.filterData[element.data] = string;
-    //       } else {
-    //         let getColumnName = element.data;
-    //         let columnValue = element.value;
-    //         if (this.filterData.hasOwnProperty(element.data)) {
-    //           let value = this.filterData[getColumnName];
-    //           if (columnValue != undefined || value != undefined) {
-    //             delete this.filterData[element.data];
-    //           }
-    //         }
-    //       }
-    //     });
-    //     dataTableParameters["filterData"] = this.filterData;
-    //     this.http
-    //       .post<DataTableResponse>(
-    //         this.url + "/gold-and-silver",
-    //         dataTableParameters
-    //       )
-    //       .subscribe((resp) => {
-    //         this.goldMaster = resp.data;
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsTotal,
-    //           data: [],
-    //         });
-    //       });
-    //   },
-    //   columns: [
-    //     {
-    //       title: "Action",
-    //       render: function (data: any, type: any, full: any) {
-    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-    //       },
-    //     },
-    //     {
-    //       title: "Item Type",
-    //       data: "ITEM_TYPE",
-    //     },
-    //     {
-    //       title: "Submission Date",
-    //       data: "SUBMISSION_DATE",
-    //     },
-    //     {
-    //       title: "Bag Receipt No.",
-    //       data: "BAG_RECEIPT_NO",
-    //     },
-    //     {
-    //       title: "Gold Box No.",
-    //       data: "GOLD_BOX_NO",
-    //     },
-    //     {
-    //       title: "Margin %",
-    //       data: "MARGIN",
-    //     },
-    //     {
-    //       title: "Article Name",
-    //       data: "ARTICLE_NAME",
-    //     },
-    //     {
-    //       title: "Total Weight",
-    //       data: "TOTAL_WEIGHT_GMS",
-    //     },
-    //     {
-    //       title: "Clear Weight",
-    //       data: "CLEAR_WEIGHT_GMS",
-    //     },
-    //     {
-    //       title: "Rate",
-    //       data: "RATE",
-    //     },
-    //     {
-    //       title: "Total Value",
-    //       data: "TOTAL_VALUE",
-    //     },
-    //     {
-    //       title: "Details",
-    //       data: "REMARK",
-    //     },
-    //     {
-    //       title: "Nominee",
-    //       data: "NOMINEE",
-    //     },
-    //     {
-    //       title: "Nominee Relation",
-    //       data: "NOMINEE_RELATION",
-    //     },
-    //   ],
-    //   dom: "Blrtip",
-    // };
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/gold-and-silver",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.goldMaster = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
+            });
+          });
+      },
+      columns: [
+        {
+          title: "Action",
+          render: function (data: any, type: any, full: any) {
+            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          },
+        },
+        {
+          title: "Item Type",
+          data: "ITEM_TYPE",
+        },
+        {
+          title: "Submission Date",
+          data: "SUBMISSION_DATE",
+        },
+        {
+          title: "Bag Receipt No.",
+          data: "BAG_RECEIPT_NO",
+        },
+        {
+          title: "Gold Box No.",
+          data: "GOLD_BOX_NO",
+        },
+        {
+          title: "Margin %",
+          data: "MARGIN",
+        },
+        {
+          title: "Article Name",
+          data: "ARTICLE_NAME",
+        },
+        {
+          title: "Total Weight",
+          data: "TOTAL_WEIGHT_GMS",
+        },
+        {
+          title: "Clear Weight",
+          data: "CLEAR_WEIGHT_GMS",
+        },
+        {
+          title: "Rate",
+          data: "RATE",
+        },
+        {
+          title: "Total Value",
+          data: "TOTAL_VALUE",
+        },
+        {
+          title: "Details",
+          data: "REMARK",
+        },
+        {
+          title: "Nominee",
+          data: "NOMINEE",
+        },
+        {
+          title: "Nominee Relation",
+          data: "NOMINEE_RELATION",
+        },
+      ],
+      dom: "Blrtip",
+    };
 
     this.runTimer();
     this.dataSub = this._golddrop.loadCharacters().subscribe((options) => {

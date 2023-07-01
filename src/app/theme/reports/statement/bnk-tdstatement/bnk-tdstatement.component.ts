@@ -218,14 +218,15 @@ export class BnkTDStatementComponent implements OnInit{
      let scheme=obj.Scheme_code;
   
  
-    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
+    this.iframe2url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
                     " &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
-    this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
+                    console.log( this.iframe2url);
+    this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url); 
     
    }
    else {
-     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-   }
+         Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+        }
    
  }
    //load acno according start and end acno
