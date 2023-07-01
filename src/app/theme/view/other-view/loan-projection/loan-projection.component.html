@@ -15,7 +15,7 @@
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
                     <input style="text-align: right;" type="text" class="form-control" name="amount" id="amount"
-                      formControlName="LOAN" maxlength="15" (focusout)= "getDecimalPoint($event)" 
+                      formControlName="LOAN" maxlength="15" (focusout)="getDecimalPoint($event)"
                       (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                       (keyup)="decimalAllContent($event)">
                   </span>
@@ -125,8 +125,8 @@
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
                     <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" "
-                      id="TDS_RATE" maxlength="5" title="Input allowed only  0-9" #margin (focusout)= "getpercentagePoint($event)"
-                      (keyup)="checkmargin(margin.value)" formControlName="TDS_RATE"
+                      id="TDS_RATE" maxlength="5" title="Input allowed only  0-9" #margin
+                      (change)="checkmargin(margin.value)" formControlName="TDS_RATE"
                       (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
                   </span>
                 </div>
@@ -144,10 +144,10 @@
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input type="text" placeholder="dd/mm/yyyy" name="date" id="date" [(ngModel)]="Resolution_date"   
+                    <input type="text" placeholder="dd/mm/yyyy" name="date" id="date" [(ngModel)]="Resolution_date"
                       formControlName="RESOLUTION_DATE" class="form-control"
-                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" [minDate]="resolutionDate" [maxDate]="resolutionDate" [minDate]="resolutionDate" 
-                      bsDatepicker required>
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" [minDate]="resolutionDate"
+                      [maxDate]="resolutionDate" [minDate]="resolutionDate" bsDatepicker required>
                   </span>
                 </div>
               </div>
@@ -156,8 +156,8 @@
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input style="text-align: right;" type="text" class="form-control" (focusout)= "getDecimalPoint($event)"  name="amount"
-                      formControlName="INSTALLMENTS" maxlength="15"
+                    <input style="text-align: right;" type="text" class="form-control"
+                      (focusout)="getDecimalPoint($event)" name="amount" formControlName="INSTALLMENTS" maxlength="15"
                       (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" disabled>
                   </span>
                 </div>

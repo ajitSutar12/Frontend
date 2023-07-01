@@ -39,7 +39,7 @@ export class MasterCardComponent implements OnInit {
         title: 'Salary',
         data: 'salary'
       }],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
       buttons: [
         'copy',
         'print',

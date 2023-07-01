@@ -83,7 +83,7 @@ export class MasterInvestmentsComponent implements OnInit {
     //     title: 'Salary',
     //     data: 'salary'
     //   }],
-    //   dom: 'Bfrtip',
+    //   dom: "Blrtip",
     //   buttons: [
     //     'copy',
     //     'print',

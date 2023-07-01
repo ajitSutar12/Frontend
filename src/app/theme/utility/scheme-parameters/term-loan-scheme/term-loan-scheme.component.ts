@@ -404,7 +404,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     this.acMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
       this.acMaster = data;
       console.log(this.acMaster);
-      
+
     })
   }
 
@@ -601,6 +601,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
 
       'MIN_DUE_INSTALLMENTS': formVal.MIN_DUE_INSTALLMENTS,
     }
+    console.log(dataToSend)
     this.termLoanSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
@@ -649,7 +650,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         // 'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
         // 'S_RECBL_ODUE_INT_ACNO': data.S_RECBL_ODUE_INT_ACNO,
         // 'S_OUTSTANDING_INT_ACNO': data.S_OUTSTANDING_INT_ACNO,
-        'IS_DEPO_LOAN': data.IS_DEPO_LOAN,
+        // 'IS_DEPO_LOAN': data.IS_DEPO_LOAN,
         'S_INT_APPLICABLE': (data.S_INT_APPLICABLE == '1' ? true : false),
         'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC == '1' ? true : false),
         'S_RECEIVABLE_INT_ALLOW': (data.S_RECEIVABLE_INT_ALLOW == '1' ? true : false),
@@ -691,14 +692,23 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         this.IS_DEPO_LOAN = true
         this.IS_GOLD_LOAN = false
         this.IS_BOTH = false
+        this.angForm.patchValue({
+          IS_DEPO_LOAN: '1'
+        })
       } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '1') {
         this.IS_DEPO_LOAN = false
         this.IS_GOLD_LOAN = true
         this.IS_BOTH = false
+        this.angForm.patchValue({
+          IS_DEPO_LOAN: '0'
+        })
       } else if (data.IS_DEPO_LOAN == '0' && data.IS_GOLD_LOAN == '0') {
         this.IS_DEPO_LOAN = false
         this.IS_GOLD_LOAN = false
         this.IS_BOTH = true
+        this.angForm.patchValue({
+          IS_DEPO_LOAN: '2'
+        })
       }
 
       if (data.S_INT_APPLICABLE == '1') {
@@ -760,6 +770,12 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         this.angForm.controls.POST_PENALINT_IN_INTEREST.reset();
       }
     })
+    this.loanTypeTrue = true;
+    this.interestApplicableTrue = false;
+    this.panelInterestTrue = false;
+    this.graceMoratoriumTrue = false;
+    this.loanOtherSettingsTrue = false;
+    this.installmentSettingsTrue = false;
   }
 
   //Method for update data 
@@ -1027,7 +1043,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       this.IS_GOLD_LOAN = false
       this.IS_BOTH = true
       this.angForm.patchValue({
-        'IS_DEPO_LOAN': 0,
+        'IS_DEPO_LOAN': 2,
         'IS_GOLD_LOAN': 0
       })
     }

@@ -180,7 +180,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Code"
                                         (change)="getSchemeAcno($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
-                                            {{values.value}} {{values.label}}</ng-option>
+                                            {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
