@@ -56,10 +56,7 @@ export class RoleDefinationComponent implements OnInit {
   ROLE: any;
   RoleResult: any;
   constructor(private menuItems: MenuItems, private _service: RoleDefinationService, private _roleServices: UserDefinationService, private fb: FormBuilder,) {
-    this._roleServices.getRoleList().subscribe(data => {
-      debugger
-      this.ROLE = data;
-    });
+
 
     this._service.getRoleMenuList().subscribe(data => {
       this.RoleResult = data;
@@ -78,6 +75,10 @@ export class RoleDefinationComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 2
     };
+    this._roleServices.getRoleList().subscribe(data => {
+      debugger
+      this.ROLE = data;
+    });
     this.items = this._service.getBooks();
     this._service.getRoleList().subscribe(data => {
       this.RoleData = data;

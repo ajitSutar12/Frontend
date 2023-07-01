@@ -171,6 +171,28 @@ export class GlAccountsMasterComponent implements OnInit {
     })
 
   }
+  forEditgetAccountList(event: any) {
+    this.selectedStatementcode = null;
+    let newArray = new Array();
+    this.statementCode.forEach(element => {
+      let subArray = new Array();
+      if (element.parent_node == event) {
+        this.statementCode.forEach(ele1 => {
+          if (ele1.parent_node == element.id) {
+            subArray.push(ele1)
+          }
+        });
+        let subarr = this.sort_by_key(subArray, 'position')
+        // element['child'] = subarr;
+        subarr.forEach(element => {
+          newArray.push(element)
+        });
+        newArray.push(element);
+        this.scheme = newArray
+      }
+    })
+
+  }
 
   sort_by_key(array: any, key: any) {
     return array.sort(function (a: any, b: any) {
@@ -302,6 +324,7 @@ export class GlAccountsMasterComponent implements OnInit {
     const dataToSend = {
       'BRANCH_CODE': branchCode,
       'AC_NAME': formVal.AC_NAME,
+      'PARENT_NODE': formVal.AC_CODE,
       'AC_BCD': formVal.AC_BCD,
       'IS_DIRECT_ENTRY_ALLOW': formVal.IS_DIRECT_ENTRY_ALLOW,
       'IS_RED_BALANCE_AC': formVal.IS_RED_BALANCE_AC,
@@ -328,18 +351,23 @@ export class GlAccountsMasterComponent implements OnInit {
     this.newbtnShow = true;
     this.glAccountsMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      let stateData = this.statementCodeData.filter(ele => ele.id == data.AC_BCD);
+      this.forEditgetAccountList(data.PARENT_NODE)
+      let stateData = this.statementCode.filter(ele => ele.id == Number(data.AC_BCD));
+      let parentData = this.statementCode.filter(ele => ele.id == Number(data.PARENT_NODE));
+      this.ngBranchCode =  parentData[0]
       this.selectedStatementcode = stateData[0];
       this.angForm.patchValue({
         'AC_NO': data.AC_NO,
         'AC_NAME': data.AC_NAME,
         // 'AC_BCD': data.AC_BCD,
+        // 'AC_CODE': Number(data.PARENT_NODE),
         'IS_DIRECT_ENTRY_ALLOW': data.IS_DIRECT_ENTRY_ALLOW,
         'IS_RED_BALANCE_AC': data.IS_RED_BALANCE_AC,
         'AC_IS_CASH_IN_TRANSIT': data.AC_IS_CASH_IN_TRANSIT,
         'IS_TAXABLEFOR_GST': data.IS_TAXABLEFOR_GST,
         'IS_ACTIVE': data.IS_ACTIVE
       })
+      // this.selectedStatementcode = Number(data.AC_BCD)
     })
   }
 
@@ -354,6 +382,7 @@ export class GlAccountsMasterComponent implements OnInit {
     debugger
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['PARENT_NODE'] = data.AC_CODE
     this.glAccountsMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;

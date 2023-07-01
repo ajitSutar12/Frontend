@@ -275,29 +275,31 @@ export class DividendCalculationComponent implements OnInit {
 
   //get account no according scheme
   getAccountList() {
-    this.ngfromac = null;
-    this.ngtoac = null;
-    let trandate
-    if (this.formFromDate != this.divfromdate) {
-      trandate = moment(this.angForm.controls["DIV_FROMDATE"].value).format('DD/MM/YYYY')
+    if (this.ngBranch != null && this.ngscheme != null) {
+      this.ngfromac = null;
+      this.ngtoac = null;
+      let trandate
+      if (this.formFromDate != this.divfromdate) {
+        trandate = moment(this.angForm.controls["DIV_TODATE"].value).format('DD/MM/YYYY')
+      }
+      else {
+        trandate = this.formEndDate
+      }
+      var full = [];
+      var fullDate = trandate;
+      full = fullDate.split(" ");
+      var date = full[0].split(/\//);
+      var newDate = date[1] + "/" + date[0] + "/" + date[2];
+      var k = new Date(newDate);
+      var expiryDate = moment(k).format("DD.MM.YYYY");
+      let obj = [this.ngscheme, this.ngBranch, expiryDate];
+      this.http
+        .get(this.url + "/dividend-calculation/check/" + obj)
+        .subscribe((data) => {
+          this.ToAC = data;
+          this.fromAC = data;
+        });
     }
-    else {
-      trandate = this.formFromDate
-    }
-    var full = [];
-    var fullDate = trandate;
-    full = fullDate.split(" ");
-    var date = full[0].split(/\//);
-    var newDate = date[1] + "/" + date[0] + "/" + date[2];
-    var k = new Date(newDate);
-    var expiryDate = moment(k).format("DD.MM.YYYY");
-    let obj = [this.ngscheme, this.ngBranch, expiryDate];
-    this.http
-      .get(this.url + "/dividend-calculation/check/" + obj)
-      .subscribe((data) => {
-        this.ToAC = data;
-        this.fromAC = data;
-      });
   }
 
   getShareDividend(event) {
@@ -374,70 +376,73 @@ export class DividendCalculationComponent implements OnInit {
 
 
   checkDivYear() {
+    this.getAccountList()
     //Date range
     let startDate
     let endDate
     let divdatef = this.angForm.controls["DIV_FROMDATE"].value
     let divdatet = this.angForm.controls["DIV_TODATE"].value
-    if (this.formFromDate != this.divfromdate) {
-      startDate = moment(this.angForm.controls["DIV_FROMDATE"].value).format('DD/MM/YYYY')
+    if (divdatef != '' && divdatet != '') {
+      if (this.formFromDate != this.divfromdate) {
+        startDate = moment(this.angForm.controls["DIV_FROMDATE"].value).format('DD/MM/YYYY')
+      }
+      else {
+        startDate = this.formFromDate
+      }
+      if (this.formEndDate != this.divtodate) {
+        endDate = moment(this.angForm.controls["DIV_TODATE"].value).format('DD/MM/YYYY')
+      }
+      else {
+        endDate = this.formEndDate
+      }
+      var full = [];
+      // startDate = moment(this.divfromdate).format("DD/MM/YYYY");
+      // endDate = moment(this.divtodate).format("DD/MM/YYYY");
+      var startDT = startDate;
+
+      full = startDT.split(" ");
+      var sdate = full[0].split(/\//);
+
+      this.startYr = sdate[2];
+      this.DIV_FROM_MONTH = sdate[1];
+
+      var full = [];
+      var endDT = endDate;
+      full = endDT.split(" ");
+      var date = full[0].split(/\//);
+
+      this.endYr = date[2];
+      this.DIV_TO_MONTH = date[1];
+
+      let obj = [this.startYr, this.endYr];
+      this.http
+        .get(this.url + "/dividend-calculation/divYrcheck/" + obj)
+        .subscribe((data) => {
+          // data["divCheck"] = "Already Processed"
+          if (data["historyCheck"] == "Already Posted") {
+            this.send["Flag"] = "history";
+            Swal.fire("Warning!", "Dividend Already Posted !", "warning");
+          } else if (data["divCheck"] == "Already Processed") {
+            Swal.fire({
+              text: "Dividend Already Processed.Do You Want To Overwrite?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#229954",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, Overwrite it!",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.send["Flag"] = "Overwrite";
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                this.send["Flag"] = "Insert";
+              }
+            });
+          }
+          else if (data["divCheck"] == "new") {
+            this.send["Flag"] = "Insert";
+          }
+        });
     }
-    else {
-      startDate = this.formFromDate
-    }
-    if (this.formEndDate != this.divtodate) {
-      endDate = moment(this.angForm.controls["DIV_TODATE"].value).format('DD/MM/YYYY')
-    }
-    else {
-      endDate = this.formEndDate
-    }
-    var full = [];
-    // startDate = moment(this.divfromdate).format("DD/MM/YYYY");
-    // endDate = moment(this.divtodate).format("DD/MM/YYYY");
-    var startDT = startDate;
-
-    full = startDT.split(" ");
-    var sdate = full[0].split(/\//);
-
-    this.startYr = sdate[2];
-    this.DIV_FROM_MONTH = sdate[1];
-
-    var full = [];
-    var endDT = endDate;
-    full = endDT.split(" ");
-    var date = full[0].split(/\//);
-
-    this.endYr = date[2];
-    this.DIV_TO_MONTH = date[1];
-
-    let obj = [this.startYr, this.endYr];
-    this.http
-      .get(this.url + "/dividend-calculation/divYrcheck/" + obj)
-      .subscribe((data) => {
-        // data["divCheck"] = "Already Processed"
-        if (data["historyCheck"] == "Already Posted") {
-          this.send["Flag"] = "history";
-          Swal.fire("Warning!", "Dividend Already Posted !", "warning");
-        } else if (data["divCheck"] == "Already Processed") {
-          Swal.fire({
-            text: "Dividend Already Processed.Do You Want To Overwrite?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#229954",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Overwrite it!",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.send["Flag"] = "Overwrite";
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              this.send["Flag"] = "Insert";
-            }
-          });
-        }
-        else if (data["divCheck"] == "new") {
-          this.send["Flag"] = "Insert";
-        }
-      });
   }
 
   getAccNumbers() {
@@ -446,11 +451,24 @@ export class DividendCalculationComponent implements OnInit {
     var memFrom = this.angForm.controls["FROM_AC"].value;
     var memTo = this.angForm.controls["TO_AC"].value;
     if (
-      this.angForm.controls["FROM_AC"].value <
-      this.angForm.controls["TO_AC"].value &&
+      this.angForm.controls["FROM_AC"].value <= this.angForm.controls["TO_AC"].value &&
       this.angForm.controls["TO_AC"].value != ""
     ) {
-      let mem = [memFrom, memTo, this.ngscheme, this.ngBranch];
+      let trandate
+      if (this.formFromDate != this.divfromdate) {
+        trandate = moment(this.angForm.controls["DIV_TODATE"].value).format('DD/MM/YYYY')
+      }
+      else {
+        trandate = this.formEndDate
+      }
+      var full = [];
+      var fullDate = trandate;
+      full = fullDate.split(" ");
+      var date = full[0].split(/\//);
+      var newDate = date[1] + "/" + date[0] + "/" + date[2];
+      var k = new Date(newDate);
+      var expiryDate = moment(k).format("DD.MM.YYYY");
+      let mem = [memFrom, memTo, this.ngscheme, this.ngBranch, expiryDate];
       this.http
         .get(this.url + "/dividend-calculation/accounts/" + mem)
         .subscribe((data) => {
@@ -478,15 +496,12 @@ export class DividendCalculationComponent implements OnInit {
   arrTable;
 
   submit() {
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
     const formVal = this.angForm.value;
     let data: any = localStorage.getItem("user");
     let result = JSON.parse(data);
     const dataToSend = {
-      DIV_FROMDATE: formVal.DIV_FROMDATE,
-      DIV_TODATE: formVal.DIV_TODATE,
+      DIV_FROMDATE: this.formFromDate == formVal.DIV_FROMDATE ? formVal.DIV_FROMDATE : moment(formVal.DIV_FROMDATE).format('DD/MM/YYYY'),
+      DIV_TODATE: this.formEndDate == formVal.DIV_TODATE ? formVal.DIV_TODATE : moment(formVal.DIV_TODATE).format('DD/MM/YYYY'),
       USER: result.USER_NAME,
       divMethod: this.divMethod,
       Dividend: formVal.Dividend,
@@ -501,6 +516,7 @@ export class DividendCalculationComponent implements OnInit {
       send: this.send,
       isAddBonus: this.isAddBonusInDividend,
     };
+    console.log(dataToSend)
     if (this.send != 'history') {
       this._service.postData(dataToSend).subscribe((data) => {
         this.formSubmitted = false;

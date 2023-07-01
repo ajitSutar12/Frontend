@@ -200,7 +200,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
           title: 'Short Name',
           data: 'SHORT_NAME'
         },],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
     };
 
     this.acmaster.getACMasterList().pipe(first()).subscribe(data => {
@@ -486,7 +486,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     }
 
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 }

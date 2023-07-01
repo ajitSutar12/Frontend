@@ -39,7 +39,7 @@ export class MasterLockerDepositComponent implements OnInit {
         title: 'Salary',
         data: 'salary'
       }],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
       buttons: [
         'copy',
         'print',
