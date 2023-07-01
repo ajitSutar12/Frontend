@@ -1615,4 +1615,5 @@ export class AccountEnquiryComponent implements OnInit {
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
+
 }

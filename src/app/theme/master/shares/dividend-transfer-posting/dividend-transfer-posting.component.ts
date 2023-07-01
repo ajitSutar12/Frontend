@@ -89,7 +89,7 @@ export class DividendTransferPostingComponent implements OnInit {
           title: 'Account No',
           data: 'AccountNo'
         }],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
       buttons: [
         'copy',
         'print',
@@ -152,12 +152,13 @@ export class DividendTransferPostingComponent implements OnInit {
 
   //get account no according scheme
   getAccountList() {
-    this.ngtoac = null
-    this.http.get(this.url + '/gl-account-master/divAccount/' + this.ngscheme).subscribe((data) => {
-      console.log(data)
-      this.schemeACNo = data
-    })
-
+    if (this.ngscheme != null) {
+      this.ngtoac = null
+      this.http.get(this.url + '/gl-account-master/divAccount/' + this.ngscheme).subscribe((data) => {
+        // console.log(data)
+        this.schemeACNo = data
+      })
+    }
   }
   isTransferReserve: boolean = false
   //update checkbox status in array
@@ -172,15 +173,15 @@ export class DividendTransferPostingComponent implements OnInit {
       this.angForm.controls['AC_NO'].disable()
       this.ngscheme = null
       this.ngtoac = null
-      this.isTransferReserve = true
+      this.isTransferReserve = false
     }
   }
 
 
   submit() {
-    console.log(this.angForm.valid);
+    // console.log(this.angForm.valid);
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
+      // console.log(this.angForm.value);
     }
     const formVal = this.angForm.value;
     let data: any = localStorage.getItem('user');
@@ -194,8 +195,9 @@ export class DividendTransferPostingComponent implements OnInit {
       USER: result.USER_NAME,
       isTransferReserve: this.isTransferReserve
     }
+    // console.log(dataToSend, 'submit')
     this._service.postData(dataToSend).subscribe(data1 => {
-      console.log(data1, 'posting data')
+      // console.log(data1, 'posting data')
       data1.length != 0 ? Swal.fire('Success!', 'Data Added Successfully !', 'success') : Swal.fire('Info!', 'No Any Records Found!', 'info');
     }, (error) => {
       console.log(error)
@@ -273,7 +275,7 @@ export class DividendTransferPostingComponent implements OnInit {
       }
     })
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 }

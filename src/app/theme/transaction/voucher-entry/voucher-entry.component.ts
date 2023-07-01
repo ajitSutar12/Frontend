@@ -162,6 +162,7 @@ export class VoucherEntryComponent implements OnInit {
   dtTrigger: any;
   dtElement: any;
   loginUser: any;
+  disableSubmit: any = false;
   modalClass: string = 'modalHide';
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
@@ -555,7 +556,9 @@ export class VoucherEntryComponent implements OnInit {
     }
     console.log(obj);
     if (Number(this.totalAmt) != 0 && this.totalAmt != undefined && this.totalAmt != '' && this.totalAmt != '0.00' && this.totalAmt != 'NaN.00') {
+      this.disableSubmit = true
       this._service.insertVoucher(obj).subscribe(data => {
+        this.disableSubmit = false
         // this.getVoucherData();
         // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
         Swal.fire({
@@ -609,9 +612,11 @@ export class VoucherEntryComponent implements OnInit {
         this.showChequeDetails = false;
       }, err => {
         console.log(err);
+        this.disableSubmit = false
       })
     } else {
       this.swiper.nativeElement.focus()
+      this.disableSubmit = false
       Swal.fire('Oops!', 'Invalid Amount Details', 'error');
     }
   }

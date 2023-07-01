@@ -102,7 +102,7 @@ ngOnInit(): void {
       data: 'security_details'
     },
   ],
-    dom: 'Bfrtip',
+    dom: "Blrtip",
     buttons: [
       'copy',
       'print',

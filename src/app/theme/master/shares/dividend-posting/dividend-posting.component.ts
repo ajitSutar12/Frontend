@@ -162,7 +162,7 @@ export class DividendPostingComponent implements OnInit {
           title: 'Warrant Date',
           data: 'WARRENT_DATE'
         },],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
 
     };
 

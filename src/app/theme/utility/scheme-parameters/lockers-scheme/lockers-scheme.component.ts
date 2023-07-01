@@ -176,7 +176,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           data: 'LOCKER_DEPOSIT_APPLICABLE'
         }
       ],
-      dom: 'Bfrtip',
+      dom: "Blrtip",
     };
     this.acMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
       this.acMaster = data;

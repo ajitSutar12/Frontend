@@ -10,46 +10,80 @@
 
                         <ul class="basic-list">
                             <li>
-                                <h6> <a (click)="OpenLink(1)" routerLinkActive="active" class="text-right f-w-600" id="pointer">1. Interest Paid History</a></h6>
+                                <!-- routerLinkActive="active" class="text-right f-w-600"
+                                        id="pointer" routerLink="/passing/centralisedPassing"
+                                        [ngClass]="{'isActive': voucherTrue}" -->
+                                <h6> <a (click)="OpenLink(1)" routerLinkActive="active" routerLink="/view/otherView"
+                                        [ngClass]="{'isActive': interestpaidhistoryTrue}" class="text-right f-w-600"
+                                        id="pointer">1.
+                                        Interest Paid History</a></h6>
+                            </li>
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': chequebookdetailsTrue}"
+                                        id="pointer">2. Cheque Book Details</a></h6>
+                            </li> -->
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(3)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': unclearchequesTrue}"
+                                        id="pointer">3. Unclear Cheques</a></h6>
+                            </li> -->
+                            <li>
+                                <h6> <a (click)="OpenLink(4)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': loanprojectionTrue}"
+                                        id="pointer">2. Loan Projection</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600" id="pointer">2. Cheque Book Details</a></h6>
+                                <h6> <a (click)="OpenLink(5)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView"
+                                        [ngClass]="{'isActive': loaninstallmentinquiryTrue}" id="pointer">3. Loan
+                                        Installment Enquiry</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(3)" routerLinkActive="active" class="text-right f-w-600" id="pointer">3. Unclear Cheques</a></h6>
+                                <h6> <a (click)="OpenLink(6)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView"
+                                        [ngClass]="{'isActive': depositinterestprojectionTrue}" id="pointer">4. Deposit
+                                        Interest Projection</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(4)" routerLinkActive="active" class="text-right f-w-600" id="pointer">4. Loan Projection</a></h6>
+                                <h6> <a (click)="OpenLink(7)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': ratioanalysisTrue}"
+                                        id="pointer">5. Ratio Analysis</a></h6>
                             </li>
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(8)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': depositloananalysisTrue}"
+                                        id="pointer">8. Deposit Loan Analysis</a></h6>
+                            </li> -->
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(9)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': budgetviewTrue}"
+                                        id="pointer">9. Budget View</a></h6>
+                            </li> -->
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(10)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': memberguarntorviewTrue}"
+                                        id="pointer">10. Member Guarantor View</a></h6>
+                            </li> -->
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(11)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': lockerviewTrue}"
+                                        id="pointer">11. Locker View</a></h6>
+                            </li> -->
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(12)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': graphloandepositpositionTrue}"
+                                        id="pointer">12. Graph Loan Deposit Position</a></h6>
+                            </li> -->
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(13)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': comaparitivegraphloandepositpositionTrue}"
+                                        id="pointer">13. Comparitive Graph-Loan Deposit Position</a></h6>
+                            </li> -->
                             <li>
-                                <h6> <a (click)="OpenLink(5)" routerLinkActive="active" class="text-right f-w-600" id="pointer">5. Loan Installment Enquiry</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(6)" routerLinkActive="active" class="text-right f-w-600" id="pointer">6. Deposit Interest Projection</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(7)" routerLinkActive="active" class="text-right f-w-600" id="pointer">7. Ratio Analysis</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(8)" routerLinkActive="active" class="text-right f-w-600" id="pointer">8. Deposit Loan Analysis</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(9)" routerLinkActive="active" class="text-right f-w-600" id="pointer">9. Budget View</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(10)" routerLinkActive="active" class="text-right f-w-600" id="pointer">10. Member Guarantor View</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(11)" routerLinkActive="active" class="text-right f-w-600" id="pointer">11. Locker View</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(12)" routerLinkActive="active" class="text-right f-w-600" id="pointer">12. Graph Loan Deposit Position</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(13)" routerLinkActive="active" class="text-right f-w-600" id="pointer">13. Comparitive Graph-Loan Deposit Position</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(14)" routerLinkActive="active" class="text-right f-w-600" id="pointer">14. CD Ratio Analysis</a></h6>
+                                <h6> <a (click)="OpenLink(14)" routerLinkActive="active" class="text-right f-w-600"
+                                        routerLink="/view/otherView" [ngClass]="{'isActive': cdratioanalysisTrue}"
+                                        id="pointer">6. CD Ratio Analysis</a></h6>
                             </li>
                         </ul>
                     </perfect-scrollbar>

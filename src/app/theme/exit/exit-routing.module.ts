@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ExitComponent } from './exit.component';
 
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '',
-        redirectTo: '/auth/login/simple',
-        pathMatch: 'full'
-      },
-    ]
+    component: ExitComponent
+    // children: [
+    //   {
+    //     path: '',
+    //     redirectTo: '/auth/login/simple',
+    //     pathMatch: 'full'
+    //   },
+    // ]
   }
 ];
 

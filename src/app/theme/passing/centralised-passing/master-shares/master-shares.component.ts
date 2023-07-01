@@ -111,7 +111,7 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
     //     title: 'Salary',
     //     data: 'salary'
     //   }],
-    //   dom: 'Bfrtip',
+    //   dom: "Blrtip",
     //   buttons: [
     //     'copy',
     //     'print',
