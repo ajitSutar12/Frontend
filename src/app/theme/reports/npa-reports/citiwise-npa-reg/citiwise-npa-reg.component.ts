@@ -52,7 +52,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
   showRepo: boolean = false;
   showLoading:boolean = false;
   transferSchemeDetails: any;
-  tScheme
+  tScheme:any;
   
    //date
   todate: any = null
@@ -63,6 +63,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
     report_url = environment.report_url;
     branchName: any;
   city: any;
+  InterestArr: [];
   
     constructor(
       private fb: FormBuilder,
@@ -147,6 +148,8 @@ export class CitiwiseNpaRegComponent implements OnInit {
     getTransferAccountList(event) {
       this.transferSchemeDetails = event
       this.tScheme = event.name
+      console.log(this.tScheme);
+      
     
     }
    
@@ -154,7 +157,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
       this.ngForm = this.fb.group({
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
-        START_DATE: ['', [Validators.required]],
+        START_DATE: [''],
         END_DATE: ['', [Validators.required]],
         Scity: ['', [Validators.required]],
         Ecity: ['', [Validators.required]],
@@ -162,6 +165,53 @@ export class CitiwiseNpaRegComponent implements OnInit {
       });
      
     }
+
+
+    // checkInterestFlag(id, acno, flag) {
+    //   let isIntUpdate: boolean = false
+    //   if (flag.target.checked) {
+    //     isIntUpdate = true
+    //   }
+    //   else {
+    //     isIntUpdate = false
+    //   }
+    //   if (this.InterestArr.length != 0) {
+    //     if (this.InterestArr.some(item => item.AC_NO === acno)) {
+    //       this.InterestArr.forEach((element) => {
+    //         if (element.AC_NO == acno) {
+    //           element['IS_POST_INT_AC'] = isIntUpdate
+    //         }
+    //       })
+    //     }
+    //     else {
+    //       var object = {
+    //         AC_NO: acno,
+    //         id: id,
+    //         IS_POST_INT_AC: isIntUpdate
+    //       }
+    //       this.InterestArr.push(object)
+    //     }
+    //   }
+    //   else {
+    //     var object = {
+    //       AC_NO: acno,
+    //       id: id,
+    //       IS_POST_INT_AC: isIntUpdate
+    //     }
+    //     this.InterestArr.push(object)
+    //   }
+    // }
+    // //checks all checkbox
+    // selectAll() {
+    //   const checkedTrue = true
+    //   this.InterestArr.forEach(item => item.IS_POST_INT_AC = checkedTrue);
+    // }
+  
+    // //unchecks all checkbox
+    // deselectAll() {
+    //   const checkedFalse = false
+    //   this.InterestArr.forEach(item => item.IS_POST_INT_AC = checkedFalse);
+    // }
     
     view(event){
      
@@ -209,12 +259,15 @@ export class CitiwiseNpaRegComponent implements OnInit {
       let branch = obj.BRANCH_CODE;
   let FROMCT = obj.Scity;
   let TOCT = obj.Ecity;
-      let schemeName = this.tScheme
+      let schemeName = this.tScheme;
   
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'&SCITY='"+FROMCT+"'&ECITY='"+TOCT+"'";
+       this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"'&BRANCH_CODE='"+branch+"'&FROM='"+FROMCT+"'&TO='"+TOCT+"'";
     console.log(this.iframe5url); 
+
+
+    // this.iframe5url=this.report_url+ "examples/citywiseNPA.php?AC_TYPE="+scheme+"&BRANCH_CODE="+branch+"&FROM="+FROMCT+"&TO="+TOCT+""
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
     else {

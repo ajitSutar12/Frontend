@@ -8,12 +8,12 @@
                 </h6>
             </div>
             <div class="card">
-                <form [formGroup]="ngForm">
-                    <div class="card-block">
+                <form [formGroup]="ngForm ">
+                    <div class="card-block scrollable">
                         <div class="row">
                             <div class="col-sm-12 col-md-1"> <label for="Branch">Branch<sub
                                         class="required">*</sub></label></div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
@@ -36,7 +36,7 @@
                             <div class="col-sm-12 col-md-2"><label for=" Date">Scheme Code<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-3 col-md-2">
+                            <div class="col-sm-3 col-md-2   ">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -67,7 +67,7 @@
                                             maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
-                                       </span>
+                                    </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="ngForm.controls['END_DATE'].invalid && (ngForm.controls['END_DATE'].dirty || ngForm.controls['END_DATE'].touched)"
@@ -108,10 +108,9 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                     <input type="number" placeholder="" name="Max_save" id="Max_save"
-                                     class="form-control"
-                                        [(ngModel)]="maxvalue" formControlName="Max_save"  minlength="8" maxlength="10"
-                                         > 
+                                        <input type="number" placeholder="" name="Max_save" id="Max_save"
+                                            class="form-control" [(ngModel)]="maxvalue" formControlName="Max_save"
+                                            minlength="8" maxlength="10">
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -122,110 +121,139 @@
                                         This field is required
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
 
                         </div>
                         <div class="row">
-                         <div class="col-md-12">
-                            <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
-                                <!-- start of basic tab -->
-                                <ngb-tab title="Range" id="Range" class="col-md-12 border">
-                                    <ng-template ngbTabContent>
-                                        <div [@fadeInOutTranslate] class="m-t-15">
-                                            <div class="">
-                                                <div class="card-block highlight">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-md-2"> <label for="Start_code">Start code<sub
-                                                                    class="required">*</sub></label>
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-3">
-                                                            <div class="form-group form-primary form-static-label">
-                                                                <span class="border-lable-flt">
-                                                                    <ng-select id="Start_code" bindValue="value" [(ngModel)]="start"
-                                                                        (change)="getBranch($event)" formControlName="Start_code" bindLabel="label"
-                                                                        placeholder="Start_code">
-                                                                        <ng-option *ngFor="let values of scode" [value]="values">
-                                                                            {{values.label}}</ng-option>
-                                                                    </ng-select>
-                                                                </span>
+                            <div class="col-md-12">
+                                <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont" (tabChange)="onTabChange($event)">
+                                    <!-- start of basic tab -->
+                                    <ngb-tab title="Range" id="Range" class="col-md-12 border">
+                                        <ng-template ngbTabContent>
+                                            <div [@fadeInOutTranslate] class="m-t-15">
+                                                <div class="">
+                                                    <div class="card-block highlight">
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-2"> <label
+                                                                    for="Start_code">Start code<sub
+                                                                        class="required">*</sub></label>
                                                             </div>
-                            
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="ngForm.controls['Start_code'].invalid && (ngForm.controls['Start_code'].dirty || ngForm.controls['Start_code'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div *ngIf="ngForm.controls['Start_code'].errors?.required">
-                                                                    This field is required
+                                                            <div class="col-sm-12 col-md-4">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="FROM_AC" bindValue="bankbankacno"
+                                                                            [(ngModel)]="start"
+                                                                            (change)="getAccountList($event)"
+                                                                            formControlName="FROM_AC" bindLabel="label"
+                                                                            placeholder="FROM_AC">
+                                                                            <ng-option *ngFor="let values of fromAc"
+                                                                                [value]="values">
+                                                                                {{values.label}}
+                                                                                {{values.name}}</ng-option>
+                                                                        </ng-select>
+                                                                    </span>
+                                                                </div>
+
+                                                                <div class="form-group form-primary form-static-label"
+                                                                    *ngIf="ngForm.controls['FROM_AC'].invalid && (ngForm.controls['FROM_AC'].dirty || ngForm.controls['Start_code'].touched)"
+                                                                    class="alert alert-danger">
+                                                                    <div
+                                                                        *ngIf="ngForm.controls['FROM_AC'].errors?.required">
+                                                                        This field is required
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-2"> <label for="Start_code">End code<sub
-                                                                    class="required">*</sub></label>
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-3">
-                                                            <div class="form-group form-primary form-static-label">
-                                                                <span class="border-lable-flt">
-                                                                    <ng-select id="End_code" bindValue="value" [(ngModel)]="end"
-                                                                        (change)="getBranch($event)" formControlName="End_code" bindLabel="label"
-                                                                        placeholder="End_code">
-                                                                        <ng-option *ngFor="let values of ecode" [value]="values">
-                                                                            {{values.label}}</ng-option>
-                                                                    </ng-select>
-                                                                </span>
+                                                            <div class="col-sm-12 col-md-2"> <label for="Start_code">End
+                                                                    code<sub class="required">*</sub></label>
                                                             </div>
-                            
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="ngForm.controls['End_code'].invalid && (ngForm.controls['End_code'].dirty || ngForm.controls['End_code'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div *ngIf="ngForm.controls['End_code'].errors?.required">
-                                                                    This field is required
+                                                            <div class="col-sm-12 col-md-4">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="TO_AC" bindValue="bankbankacno"
+                                                                            [(ngModel)]="end" formControlName="TO_AC"
+                                                                            (change)="getAccountList1($event)"
+                                                                            bindLabel="label" placeholder="TO_AC">
+                                                                            <ng-option *ngFor="let values of toAc"
+                                                                                [value]="values">
+                                                                                {{values.label}}
+                                                                                {{values.name}}</ng-option>
+                                                                        </ng-select>
+                                                                    </span>
+                                                                </div>
+
+
+                                                                <div class="form-group form-primary form-static-label"
+                                                                    *ngIf="ngForm.controls['TO_AC'].invalid && (ngForm.controls['TO_AC'].dirty || ngForm.controls['End_code'].touched)"
+                                                                    class="alert alert-danger">
+                                                                    <div
+                                                                        *ngIf="ngForm.controls['TO_AC'].errors?.required">
+                                                                        This field is required
+                                                                    </div>
                                                                 </div>
                                                             </div>
+
+
                                                         </div>
-                            
-                            
-                                                    </div>
-                                                    <div class="col-sm" style="float: right; margin-top: 6px;">
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            (click)="switchNgBTab('address')">Next
-                                                        </button>
-                                                    </div>
-                                                 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-tab>
-                                <!-- end of basic tab -->
-                                <!-- start of Address tab -->
-                                <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective">
-                                    <ng-template ngbTabContent>
-                                        <div [@fadeInOutTranslate] class="m-t-15">
-                                            <div class="card border-primary">
-                                                <div class="card-block highlight">
-                                                    <div class="row">
-                                                 
-                                                    </div>
-                                                   
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-sm" style="float: right;margin-top: 6px;">
+                                                        <div class="col-sm" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('introducer')">Next
+                                                                (click)="switchNgBTab('address')">Next
                                                             </button>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-tab>
-                             
-                                <!-- End of Documents tab  -->
-                            </ngb-tabset>
-                            
-                         </div>
-                          </div>
-                        
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <!-- end of basic tab -->
+                                    <!-- start of Address tab -->
+                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective">
+                                        <ng-template ngbTabContent>
+                                            <div [@fadeInOutTranslate] class="m-t-15">
+                                                <div class="card border-primary">
+                                                    <div class="card-block highlight dev" style="overflow: auto;">
+
+                                                        <div class="row">
+                                                            <table class="border">
+                                                                <tr class="fs-1 h-3">
+                                                                    <th style="width:400px;"
+                                                                        class="bg-primary fs-1 td_center">Accountnumber
+                                                                    </th>
+                                                                    <th style="width: 400px;"
+                                                                        class="bg-primary fs-1 td_left">Name</th>
+                                                                    <th style="width: 100px;"
+                                                                        class="bg-primary fs-1 td_center">chaeakbox</th>
+                                                                </tr>
+                                                                <tr *ngFor="let values of toAc">
+                                                                    <td class="td_center">{{values.bankacno}}</td>
+                                                                    <td class="td_left">{{values.name}}</td>
+                                                                    <td class="td_center">
+                                                                         <!-- <input type="checkbox"  (change)="checkInterestFlag(values.id,values.label,$event)" >  -->
+                                                                        <input type="checkbox" class="border-checkbox"
+                                                            
+                                                                            (change)="checkInterestFlag(values.id,values.bankacno,$event)">
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </table>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+
+                                    <!-- End of Documents tab  -->
+                                </ngb-tabset>
+
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-sm col-md-6">
                                 <div class="checkbox checkbox-primary ">
@@ -233,24 +261,25 @@
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue" value="1"
                                             formControlName="checkboxValue">
                                         <label class="border-checkbox-label" for="checkboxValue">Show Guarantor
-                                            </label>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm col-md-6">
                                 <div class="checkbox checkbox-primary ">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input type="checkbox" class="border-checkbox" id="npa_per"  value="0"
+                                        <input type="checkbox" class="border-checkbox" id="npa_per" value="0"
                                             formControlName="npa_per">
-                                        <label class="border-checkbox-label" for="npa_per">Calculate Overdue Only After Expiry
-                                            </label>
+                                        <label class="border-checkbox-label" for="npa_per">Calculate Overdue Only After
+                                            Expiry
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-9"></div>
+                            <div class="cosl-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
                                     (click)="view($event); clicked = true ">View</button>
@@ -267,7 +296,9 @@
                                         <h5>Report Frame</h5>
                                     </div>
                                     <div *ngIf="showRepo">
+
                                         <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
 
                                     </div>
                                 </div>

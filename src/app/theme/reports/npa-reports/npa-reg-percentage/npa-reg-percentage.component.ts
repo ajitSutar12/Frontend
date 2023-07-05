@@ -130,7 +130,7 @@ export class NpaRegPercentageComponent implements OnInit {
     let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
     this.todate = data.CURRENT_DATE
     
-    this.fromdate = moment(`31/03/${year + 1}`, "DD/MM/YYYY")
+    this.fromdate = moment(`31/03/${year - 1}`, "DD/MM/YYYY")
     this.fromdate = this.fromdate._d
   })
     
@@ -150,18 +150,10 @@ export class NpaRegPercentageComponent implements OnInit {
       }
 
 
-      let obj1 = {
-        date: this.fordate,
-        // branch_code: this.ngbranch,
-
-      }
-      this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
-        this.glDetails = data
-   
-            console.log(this.glDetails, "dasds")
-        })
+ 
     
     }
+    datas
   
     getTransferAccountList(event) {
       this.transferSchemeDetails = event
@@ -180,7 +172,23 @@ export class NpaRegPercentageComponent implements OnInit {
         NPA_Date: [''],
        
       });
-     
+      
+    }
+    getnpa(event:any){
+      let obj1 = {
+
+        date:  moment(this.fordate).format('DD/MM/YYYY')
+       
+        // branch_code: this.ngbranch,
+        
+
+      }
+      this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
+        this.glDetails = data
+   
+            console.log(this.glDetails, "dasds")
+        })
+
     }
     
     view(event){

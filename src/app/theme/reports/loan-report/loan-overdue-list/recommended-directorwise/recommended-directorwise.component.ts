@@ -21,6 +21,8 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { date } from "ngx-custom-validators/src/app/date/validator";
+import { DepositLoanInterestRateEditChangeService } from "src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service";
+import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
 
 @Component({
   selector: 'app-recommended-directorwise',
@@ -39,6 +41,7 @@ export class RecommendedDirectorwiseComponent implements OnInit {
     maxvalue:any;
     start:any;
     end:any;
+    dtTrigger: Subject<any> = new Subject<any>();
     // for dropdown ng module
     fromdate: any = null
     ngbranch: any = null;
@@ -60,6 +63,17 @@ export class RecommendedDirectorwiseComponent implements OnInit {
     minDate: Date;
     report_url = environment.report_url;
     branchName: any;
+  obj: any[];
+  startAcNo: any;
+  endAcNo: any;
+  getschemename: any;
+  memTo: any;
+  memFrom: any;
+  branch: any;
+  mem: any[];
+  acno: any;
+  acno2: any;
+  director: any[];
   
     constructor(
       private fb: FormBuilder,
@@ -67,6 +81,8 @@ export class RecommendedDirectorwiseComponent implements OnInit {
       private systemParameter: SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
+      private _interestRateChange: DepositLoanInterestRateEditChangeService,
+      private directorMasterDropdown: DirectorMasterDropdownService,
   
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -87,7 +103,7 @@ export class RecommendedDirectorwiseComponent implements OnInit {
       this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
   
         var filtered = data.filter(function (scheme) {
-          return (scheme.name == 'LN' && scheme.IS_GOLD_LOAN == '1' );
+          return (scheme.name == 'LN'||scheme.name == 'CC' ||scheme.name == 'DS' );
         });
         this.scheme = filtered;
   
@@ -118,12 +134,65 @@ export class RecommendedDirectorwiseComponent implements OnInit {
         this.branchName = result.branch.NAME
   
       }
+      
+      this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
+        this.director = data;
+        console.log(this.director);
+        
+      })
     }
   
     getTransferAccountList(event) {
+      console.log(event);
+      
       this.transferSchemeDetails = event
-      this.tScheme = event.name
+      this.tScheme = event.value
+      this.getAccount()
   
+    }
+
+    getAccountList(event) {
+      this.acno = event.bankacno
+ 
+  
+    }
+    getAccountList1(event) {
+      this.acno2 = event.bankacno
+      
+  
+    }
+    getAccount() {
+      // this.ngAcnoFrom = null
+      // this.ngAcnoTo = null
+      // this.startAcNo = [];
+      // this.endAcNo = [];
+      // this.tableArr = []
+      this.obj = [this.scode, this.ngbranch]
+      switch (this.tScheme) {
+        case 'LN':
+          this._interestRateChange.getTermLoanSchemeList1(this.obj).subscribe(data => {
+            this.startAcNo = data;
+            this.endAcNo = data;
+          })
+          break;
+          break;
+          case 'CC':
+            this._interestRateChange.getCashCreditSchemeList1(this.obj).subscribe(data => {
+              this.startAcNo =data    
+               this.endAcNo = data
+            console.log(data);
+          })
+          break;
+          case 'DS':
+            this._interestRateChange.getTermDepositSchemeList1(this.obj).subscribe(data => {
+              this.startAcNo =data    
+               this.endAcNo = data
+            console.log(data);
+          })
+          break;
+  
+  
+      }
     }
   
     createForm() {
@@ -133,7 +202,7 @@ export class RecommendedDirectorwiseComponent implements OnInit {
         END_DATE: ['', [Validators.required]],
         Min_save: ['', [Validators.required]],
         Max_save: ['', [Validators.required]],
-        radio: ['', [Validators.required]],
+        radio: ['0', [Validators.required]],
         Start_code: [''],
         End_code: [''],
         checkboxValue:[''],
@@ -142,6 +211,27 @@ export class RecommendedDirectorwiseComponent implements OnInit {
   
       });
   
+    }
+
+    loadAcno() {
+      this.memFrom = this.ngForm.controls['Start_code'].value
+      this.memTo = this.ngForm.controls['End_code'].value
+      this.branch = this.ngForm.controls['BRANCH_Code'].value
+      if (this.ngForm.controls['Start_code'].value <= this.ngForm.controls['End_code'].value) {
+        this.dtTrigger.unsubscribe();
+        this.mem = [this.memFrom, this.memTo, this.branch, this.scheme]
+    
+        // if (this.getschemename == 'LN') {
+        //   this.http.get(this.url + '/term-loan-master/interest/' + this.mem).subscribe((data) => {
+        //     this.tableArr = data;
+        //     this.gridData = data;
+        //   });
+        // }
+        this.dtTrigger.next();
+      }
+      else {
+        Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      }
     }
   
     view(event) {
@@ -181,11 +271,15 @@ export class RecommendedDirectorwiseComponent implements OnInit {
           let tDate = moment(date, 'DD/MM/YYYY')
           obj['END_DATE'] = date
         }
-  
+        let date2 =obj.END_DATE;
         let scheme = obj.Scheme_code
         let branch = obj.BRANCH_CODE;
         let schemeName = this.tScheme
         let flag = obj.radio;
+        let frominstallment =obj.Min_save;
+        let toinstallment =obj.Max_save;
+        let Acno1 = obj.Start_code;
+        let Acno2 = obj.End_code;
   
         //  let startingcode= obj.Starting_Account;
         // let endingcode =obj.Ending_Account;
@@ -194,8 +288,9 @@ export class RecommendedDirectorwiseComponent implements OnInit {
 
 
 
-        this.iframe5url = this.report_url + "examples/DirectorWiseLoanOverDue.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&date1='"+this.todate+"'&BranchName='"+this.branchName+"'&schemeCode='"+scheme+"'&bankName='"+bankName+"'"
-
+        // this.iframe5url = this.report_url + "examples/DirectorWiseLoanOverDue.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&date1='"+date2+"'&BranchName='"+this.branchName+"'&schemeCode='"+scheme+"'&bankName='"+bankName+"'"
+          
+        this.iframe5url = this.report_url + "examples/DirectorWiseLoanOverDue.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&date1='"+date2+"'&BranchName='"+this.branchName+"'&schemeCode='"+scheme+"'&DIRECTORMASTERFROM="+Acno1+"&DIRETORMASTERTO="+Acno2+"&DUEINSTALLMENTFROM="+frominstallment+"&DUEINSTALLMENTO="+toinstallment+"&bankName='"+bankName+"'"
   
         console.log(this.iframe5url);
         this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

@@ -31,6 +31,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  },]
+  },
+  ]
 })
 export class CashInDenominationModule { }

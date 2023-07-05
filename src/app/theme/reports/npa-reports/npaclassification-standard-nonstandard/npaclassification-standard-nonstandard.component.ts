@@ -175,6 +175,7 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
     let scheme = obj.Scheme_code
   
       let branch = obj.BRANCH_CODE;
+      let TDate = obj.START_DATE;
   
       let schemeName = this.tScheme;
       let flag =obj.OD_TEMP;
@@ -183,14 +184,12 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
     //   // let endingcode =obj.Ending_Account;
     //   this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
     // console.log(this.iframe5url);
-    if(flag == 0){
-      this.iframe5url=this.report_url+ "examples/NPA_Standard_NonStandard.php?AC_TYPE=6,7&BRANCH_CODE=2&FLAG=0&'&BRANCH='KOTOLI'&BANK_NAME='DEMO'&PRINT_DATE='1/1/2023'"
+  
+      this.iframe5url=this.report_url+ "examples/NPA_Standard_NonStandard.php?AC_TYPE="+scheme+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+TDate+"'"
       this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 
-    }else{
-      this.iframe5url=this.report_url+ "examples/NPA_Standard_NonStandard.php?AC_TYPE=6,7&BRANCH_CODE=2&FLAG=0&'&BRANCH='KOTOLI'&BANK_NAME='DEMO'&PRINT_DATE='1/1/2023'"
-      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
-    }
+ 
+    
   
    
     }
