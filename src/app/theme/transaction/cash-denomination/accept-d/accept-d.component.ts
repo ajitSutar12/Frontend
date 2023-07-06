@@ -262,7 +262,15 @@ export class AcceptDComponent implements OnInit {
     }
   }
 
-
+  cancel()
+  {
+    this.currencyData.forEach(entry => {
+      entry.qty = '0';
+      entry.total = 0;
+      this.sum = 0;
+    })
+  }
+  
   getDecimalPoint(event) {
     if (event.target.value != '')
       event.target.value = parseFloat(event.target.value).toFixed(2); 

@@ -66,11 +66,13 @@ export class BnkAcStatementComponent implements OnInit {
     scheme
     iframeurl: any = ' ';
     clicked:boolean=false;
-  bankAcno: any;
+    getbankAcNo: any;
+    getbankAcNo2: any;
+
  
 
   constructor(
-    private fb: FormBuilder,
+    private  fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
@@ -156,107 +158,146 @@ export class BnkAcStatementComponent implements OnInit {
   //get acnotype from selected scheme
   getIntTrans(event) {
     this.getschemename = event.name
+    this.getbankAcNo =  event.bankacno
     this.getInterestTransfer()
   }
 
+  getIntTrans1(event) {
+    this.getbankAcNo2 =  event.bankacno
+  }
   //fetch acno list according scheme and branch code
+  // getInterestTransfer() {
+  //   // this.ngAcnoFrom = null
+  //   // this.ngAcnoTo = null
+  //   // this.startAcNo = [];
+  //   // this.endAcNo = [];
+  //   let data: any = localStorage.getItem('user');
+  //   let result = JSON.parse(data);
+  //   let branchCode = result.branch.id;
+  //   this.obj = [this.ngscheme, branchCode]
+  //   switch (this.getschemename) {
+  //     case 'SB':
+  //       this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'SH':
+  //       this.schemeAccountNoService.getShareMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'LN':
+  //       this.schemeAccountNoService.getTermLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'CC':
+  //       this.schemeAccountNoService.getCashCreditMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'DS':
+  //       this.schemeAccountNoService.getDisputeLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'TD':
+  //       this.schemeAccountNoService.getTermDepositMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'AG':
+  //       this.schemeAccountNoService.getPigmyAgentMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'GL':
+  //       this.schemeAccountNoService.getGeneralLedgerMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'IV':
+  //       this.schemeAccountNoService.getInvestmentMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'CA':
+  //       this.schemeAccountNoService.getCurrentMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'PG':
+  //       this.schemeAccountNoService.getPigmyAccountMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //     case 'GS':
+  //       this.schemeAccountNoService.getAnamatMasterAcListForBalUpdation(this.obj).subscribe(data => {
+  //         this.startAcNo = data;
+  //         this.endAcNo = data;
+  //       })
+  //       break;
+
+  //   }
+  // }
   getInterestTransfer() {
-    // this.ngAcnoFrom = null
-    // this.ngAcnoTo = null
-    // this.startAcNo = [];
-    // this.endAcNo = [];
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
-    this.obj = [this.ngscheme, branchCode]
+    this.obj = [this.schemeCode, branchCode]
     switch (this.getschemename) {
-      case 'SB':
-        this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
 
-      case 'SH':
-        this.schemeAccountNoService.getShareMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
-
-      case 'LN':
-        this.schemeAccountNoService.getTermLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
-
-      case 'CC':
-        this.schemeAccountNoService.getCashCreditMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
-
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
 
       case 'TD':
-        this.schemeAccountNoService.getTermDepositMasterAcListForBalUpdation(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.startAcNo = data;
+          this.ngAcnoFrom = null
           this.endAcNo = data;
+          this.ngAcnoTo = null
         })
         break;
-
-      case 'AG':
-        this.schemeAccountNoService.getPigmyAgentMasterAcListForBalUpdation(this.obj).subscribe(data => {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.startAcNo = data;
+          this.ngAcnoFrom = null
           this.endAcNo = data;
+          this.ngAcnoTo = null
         })
         break;
-
-      case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerMasterAcListForBalUpdation(this.obj).subscribe(data => {
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
           this.startAcNo = data;
+          this.ngAcnoFrom = null
           this.endAcNo = data;
-        })
-        break;
-
-      case 'IV':
-        this.schemeAccountNoService.getInvestmentMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
-
-      case 'CA':
-        this.schemeAccountNoService.getCurrentMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
-
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
-        })
-        break;
-
-      case 'GS':
-        this.schemeAccountNoService.getAnamatMasterAcListForBalUpdation(this.obj).subscribe(data => {
-          this.startAcNo = data;
-          this.endAcNo = data;
+          this.ngAcnoTo = null
         })
         break;
 
     }
   }
-
  //load acno according start and end acno
  loadAcno() {
   this.memFrom = this.angForm.controls['AC_NOFrom'].value
@@ -330,7 +371,6 @@ end(){
 }
 
 View(event) {
-debugger
   event.preventDefault();
 
   let userData = JSON.parse(localStorage.getItem('user'));
@@ -341,6 +381,7 @@ debugger
     this.showRepo = true;
     let obj = this.angForm.value
 
+    
     // check the conition of the default(syspara) date and date parameter and set the format
     let edate:any;
     if (this.todate == obj.TO_DATE) {
@@ -354,15 +395,15 @@ debugger
     var sdate = moment(obj.FROM_DATE).subtract(1, "day").format('DD/MM/YYYY');
     let branch = obj.BRANCH;
     let scheme = obj.AC_TYPE;
-    let fromacc = obj.AC_NOFrom;
-    let toacc = obj.AC_NOTo;
+    let fromacc = this.getbankAcNo;
+    let toacc = this.getbankAcNo2;
     let custid = obj.AC_CUSTID;
     let custidwise = obj.Customer_Id_Wise;
     let rangewise = obj.Customer_Id_Wise;
     let print = obj.PRINT_ACCOUNT;
     let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='"+edate+"'&sdate='"+sdate+"'&branch="+branch+"&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branch="+branch+"&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
     
     
 
@@ -375,7 +416,7 @@ debugger
 
 }
 close(){
-  this.resetForm()
+  this.resetForm() 
 }
 
 // Reset Function

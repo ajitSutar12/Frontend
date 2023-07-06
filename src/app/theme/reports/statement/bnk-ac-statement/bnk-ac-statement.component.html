@@ -60,7 +60,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom"
-                                        formControlName="AC_NOFrom" bindLabel="label" placeholder="Range Starting Code">
+                                        formControlName="AC_NOFrom" bindLabel="label" placeholder="Range Starting Code"
+                                        (change)="getIntTrans($event)" >
                                         <ng-option *ngFor="let values of startAcNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -80,7 +81,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="label"
-                                        formControlName="AC_NOTo" (change)="loadAcno()" placeholder="Range Ending Code">
+                                        formControlName="AC_NOTo" (change)="loadAcno()" placeholder="Range Ending Code"
+                                        (change)="getIntTrans1($event)" >
                                         <ng-option *ngFor="let values of endAcNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -175,7 +177,7 @@
                                 <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
                                         This field is required
                                 </div>
-
+ 
                             </div>
                         </div>
                     </div>

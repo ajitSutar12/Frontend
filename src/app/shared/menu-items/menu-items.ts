@@ -1829,14 +1829,15 @@ const MENUITEMS = [
                 name: 'Interest Calculation',
                 id: 153
               },
-              {
-                state: 'interestList',
-                name: 'Interest List',
-                id: 154
-              },
+             
               {
                 state: 'interestPassing',
                 name: 'Interest Passing',
+                id: 154
+              },
+              {
+                state: 'interestList',
+                name: 'Interest List',
                 id: 155
               },
             ]

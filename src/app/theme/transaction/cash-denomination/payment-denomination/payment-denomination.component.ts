@@ -94,6 +94,8 @@ export class PaymentDenominationComponent implements OnInit {
       // console.log(this.glDetails);
 
       let ledgerBal = Math.abs( this.glDetails );
+
+      console.log(ledgerBal);
       
       // console.log(ledgerBal);
 
@@ -107,7 +109,9 @@ export class PaymentDenominationComponent implements OnInit {
       ACCOUNT_NO : ele.TRAN_ACNO,
       NARRATION : ele.NARRATION,
       TRANSACTION_AMT : ele.TRAN_AMOUNT,
-      TRANSACTION_TYPE : 'Credit'
+      TRANSACTION_TYPE : 'Debit',
+      LEDGER_BAL : ledgerBal ,
+
     })
     this.cashierName = user.F_NAME +' '+user.L_NAME;
 
@@ -146,7 +150,7 @@ submit() {
     if (formVal.DENOMINATION_AMT != this.sum) {
       Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
     }
-    else if( this.transactionAmt != this.denomination)
+    else if( Number(this.transactionAmt) != Number(this.denomination))
         {
           Swal.fire('Oops...','Please Check Transaction Amount and Denomination Amount','warning');
   
@@ -167,6 +171,14 @@ submit() {
       })
       
     }
+  }
+  cancel()
+  {
+    this.currencyData.forEach(entry => {
+      entry.qty = '0';
+      entry.total = 0;
+      this.sum = 0;
+    })
   }
   // submit(){
   //   // if(this.angForm.valid){
