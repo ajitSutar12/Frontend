@@ -12,6 +12,7 @@ import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.serv
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-loan-projection',
@@ -46,12 +47,14 @@ export class LoanProjectionComponent implements OnInit {
     { id: 2, name: 'Yearly' },
   ];
   TDS_RATE: number;
+  todate: any;
 
   constructor(
     private repayModeService: RepayModeService, 
     private installmentMethodService: InstallmentMethodService, 
     private fb: FormBuilder,
-    private _services: OtherViewService  
+    private _services: OtherViewService ,
+    private systemParameter: SystemMasterParametersService,
     ) {
        this.resolutionDate =new Date();
      }
@@ -59,6 +62,12 @@ export class LoanProjectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm()
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      this.Resolution_date = data.CURRENT_DATE
+
+      
+    })
   }
   createForm() {
     this.angForm = this.fb.group({

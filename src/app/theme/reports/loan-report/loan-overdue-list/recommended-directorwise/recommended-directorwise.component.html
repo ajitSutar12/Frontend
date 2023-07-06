@@ -84,10 +84,10 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="Start_code" bindValue="value" [(ngModel)]="start"
-                                            (change)="getBranch($event)" formControlName="Start_code" bindLabel="label"
+                                             formControlName="Start_code" bindLabel="label"
                                             placeholder="Start_code">
-                                            <ng-option *ngFor="let values of " [value]="values">
-                                                {{values.label}}</ng-option>
+                                            <ng-option *ngFor="let values of director" [value]="values">
+                                                {{values.value}} {{values.label}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -107,10 +107,10 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="End_code" bindValue="value" [(ngModel)]="end"
-                                            (change)="getBranch($event)" formControlName="End_code" bindLabel="label"
+                                             formControlName="End_code" bindLabel="label" 
                                             placeholder="End_code">
-                                            <ng-option *ngFor="let values of " [value]="values">
-                                                {{values.label}}</ng-option>
+                                            <ng-option *ngFor="let values of director" [value]="values">
+                                                {{values.value}} {{values.label}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -212,7 +212,7 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue1"  value="checkbox2"
                                             formControlName="checkboxValue1">
-                                        <label class="border-checkbox-label" for="npa_per">Print current Body Member only ?
+                                        <label class="border-checkbox-label" for="checkboxValue1">Print current Body Member only ?
                                             </label>
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue2" value="checkbox3"
                                             formControlName="checkboxValue2">
-                                        <label class="border-checkbox-label" for="npa_per">Print Current Interest ?
+                                        <label class="border-checkbox-label" for="checkboxValue2">Print Current Interest ?
                                             </label>
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event); clicked = true ">View</button>
+                                    (click)="view($event); clicked = true">View</button>
 
                             </div>
                             <div class="col-md-1">
