@@ -47,7 +47,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="scode" (change)="getTransferAccountList($event)">
+                                            [(ngModel)]="scode" (change)="getTransferAccountList($event)    ">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
@@ -73,7 +73,7 @@
                                         <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
                                             [(ngModel)]="fordate" formControlName="END_DATE" appButton minlength="8"
-                                            maxlength="10"
+                                            maxlength="10"(change)="getnpa($event)"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -96,7 +96,7 @@
                             <div class="col-sm-2 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select formControlName="NPA_Date" [(ngModel)]="nasf">
+                                        <ng-select formControlName="NPA_Date" [(ngModel)]="nasf" (change)="getnpa($event)">
                                             <ng-option *ngFor="let values of glDetails" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>

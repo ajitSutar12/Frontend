@@ -48,6 +48,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getTransferAccountList($event)">
+                                            [(ngModel)]="scode" (change)="($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
@@ -119,7 +120,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                          <ng-select formControlName="Scity" bindValue="value" bindLabel="label"
-                                         (change)="getTransferAccountList($event)" [items]="city" bindValue="id" [(ngModel)]="nCity"
+                                          [items]="city" bindValue="id" [(ngModel)]="nCity"
                                             bindLabel="CITY_NAME">
                                         
                                         </ng-select>

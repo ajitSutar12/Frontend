@@ -35,8 +35,9 @@ export class DepositLoanInterestRateEditChangeService {
     return this.http.get<any>(this.url + '/term-loan-master/lnacint/' + schemeid)
       .pipe(map(ele => {
         ele.forEach(element => {
-          let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
+          let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id,bankacno:element.BANKACNO };
           this.schemeObject.push(obj)
+      
         });
         return this.schemeObject;
       }));
