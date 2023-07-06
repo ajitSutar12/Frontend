@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -9,6 +10,14 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
 import { DomSanitizer } from '@angular/platform-browser';
+=======
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-instwise-loanoverdue-list',
@@ -17,6 +26,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class InstwiseLoanoverdueListComponent implements OnInit {
   angForm : FormGroup;
+<<<<<<< Updated upstream
   iframe5url: any = '';
 
   @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
@@ -33,11 +43,21 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
   tab: any;
   tscheme: any;
 
+=======
+
+  
+  iframe5url: any = '';
+  showRepo: boolean = false;
+  showLoading: boolean = false;
+>>>>>>> Stashed changes
 
 
   constructor(
     private fb: FormBuilder,
+<<<<<<< Updated upstream
     private sanitizer: DomSanitizer,
+=======
+>>>>>>> Stashed changes
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
   ) { }
@@ -72,11 +92,14 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
 
     })
   }
+<<<<<<< Updated upstream
   getscheme(event){
     this.tscheme = event.value
     
 
   }
+=======
+>>>>>>> Stashed changes
 
   onLoad() {
     this.showLoading = false;
@@ -94,6 +117,7 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
     });
   }
 
+<<<<<<< Updated upstream
   view(event) {
     console.log("hello");
     
@@ -169,5 +193,8 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
+=======
+  
+>>>>>>> Stashed changes
 
 }

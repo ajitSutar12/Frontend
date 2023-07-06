@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { Component, OnInit, ViewChild } from '@angular/core';
+=======
+import { Component, OnInit } from '@angular/core';
+>>>>>>> Stashed changes
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -6,9 +10,12 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+<<<<<<< Updated upstream
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
+=======
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-loan-due-list-btd',
@@ -16,6 +23,7 @@ import * as moment from 'moment';
   styleUrls: ['./loan-due-list-btd.component.scss']
 })
 export class LoanDueListBtdComponent implements OnInit {
+<<<<<<< Updated upstream
   
     angForm : FormGroup;
   
@@ -54,19 +62,52 @@ export class LoanDueListBtdComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
   
+=======
+  angForm : FormGroup;
+
+  iframe5url: any = '';
+  showRepo: boolean = false;
+  showLoading: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+  ) { }
+
+  //ngfor variable
+  schemeCode
+  branchCode
+
+  //ngmodel variable
+  selectedscheme
+  selectedbranch
+
+  ngOnInit(): void {
+    this.createForm();
+
+>>>>>>> Stashed changes
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchCode = data;
       
     })
+<<<<<<< Updated upstream
   
      // Scheme Code
      this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
   
+=======
+
+     // Scheme Code
+     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+
+>>>>>>> Stashed changes
       var filtered = data.filter(function (schemeCode) {
         return (schemeCode.name == 'LN' || schemeCode.name == 'CC' || schemeCode.name == 'DS');
       });
       this.schemeCode = filtered;
       //console.log(this.scheme);
+<<<<<<< Updated upstream
   
     })
   }
@@ -80,6 +121,12 @@ export class LoanDueListBtdComponent implements OnInit {
   
   }
   
+=======
+
+    })
+  }
+
+>>>>>>> Stashed changes
   createForm(){
     this.angForm = this.fb.group({
       scheme: ['',[Validators.required]],
@@ -91,6 +138,7 @@ export class LoanDueListBtdComponent implements OnInit {
       
     });
   }
+<<<<<<< Updated upstream
   
   
   view(event:any) {
@@ -159,3 +207,13 @@ export class LoanDueListBtdComponent implements OnInit {
   
   }
   
+=======
+
+  onLoad() {
+    this.showLoading = false;
+
+  }
+
+
+}
+>>>>>>> Stashed changes

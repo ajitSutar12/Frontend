@@ -40,7 +40,11 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedscheme" #scheme formControlName="scheme"
+<<<<<<< Updated upstream
                                         bindValue="value" bindLabel="label" (change)="getscheme($event)">
+=======
+                                        bindValue="value" bindLabel="label">
+>>>>>>> Stashed changes
                                         <ng-option *ngFor="let item of schemeCode" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
@@ -148,10 +152,17 @@
                         <div class="col-12">
                             <button class="btn  btn-outline-primary btn-sm">Close</button>
 
+<<<<<<< Updated upstream
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
                             (click)="view($event); clicked = true ">View</button>
                         </div>
                     </div>
+=======
+                            <button class="btn  btn-outline-primary btn-sm">Report</button>
+                        </div>
+                    </div>
+
+>>>>>>> Stashed changes
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -159,10 +170,14 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
+<<<<<<< Updated upstream
 
                                     <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
 
 
+=======
+                                    <app-iframe [url]='iframe5url' (load)="onLoad()"></app-iframe>
+>>>>>>> Stashed changes
                                 </div>
                             </div>
                         </div>
