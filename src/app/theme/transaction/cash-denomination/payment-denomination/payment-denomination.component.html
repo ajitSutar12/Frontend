@@ -230,8 +230,8 @@
                             Total Cash :
                         </td>
                         <td></td>
-                        <td class="text-right">
-                            <input type="text" style="width: 100px;" value="{{sum}}">
+                        <td >
+                            <input class="text-right" type="text" style="width: 100px;" value="{{sum}}">
                         </td>
                     </tr>
                 </table>
@@ -243,7 +243,7 @@
                     <button class="btn btn-outline-primary btn-sm" (click)="submit()">
                         Submit
                     </button>
-                    <button class="btn btn-outline-primary btn-sm">
+                    <button class="btn btn-outline-primary btn-sm" (click)="cancel()">
                         Cancel
                     </button>
                 </div>

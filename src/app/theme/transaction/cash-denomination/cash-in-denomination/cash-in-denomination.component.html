@@ -19,7 +19,7 @@
                                         <span class="border-lable-flt">
                                             <ng-select id="d/c" [(ngModel)]="SelectedBranch" formControlName="Branch"
                                                 bindLabel="label" bindValue="name" title="Compulsory Selection"
-                                                placeholder="">
+                                                placeholder=""  (change)="changes($event)" >
                                                 <ng-option *ngFor="let values of branch_list" [value]="values.value">
                                                     {{values.label}}</ng-option>
                                             </ng-select>
@@ -47,7 +47,7 @@
                                                 <!-- <ng-option *ngFor="let item of cashier_list" [value]="item">
                                                     {{item.id}} {{item.label}}</ng-option> -->
                                                 <ng-option *ngFor="let values of cashier_list" [value]="values"
-                                                    [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.CASHIER_CODE}}</ng-option>
+                                                    [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.F_NAME}} {{values.L_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>

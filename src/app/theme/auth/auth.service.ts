@@ -45,6 +45,13 @@ export class AuthService {
   LOGOFFHISTORY(data: any): Observable<any> {
     return this.http.post<any>(this.base_url + '/user-defination/logoffhistory', data);
   }
+  findOutLogin(data: any): Observable<any> {
+    return this.http.post<any>(this.base_url + '/user-defination/findLogin', data);
+  }
+
+  showNotificationuserwise(data: any): Observable<any> {
+    return this.http.post<any>(this.base_url + '/user-defination/showNotificationuserwise', data);
+  }
 
   // isLoggedIn(){
   //   return !!localStorage.getItem('token')

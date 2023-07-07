@@ -9,6 +9,8 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import Swal from 'sweetalert2';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { first } from 'rxjs/operators';
+
+import { CashierUmService } from 'src/app/theme/utility/cashier-um/cashier-um.service';
 import { CashDenominationService } from '../cash-denomination.service';
 
 @Component({
@@ -69,7 +71,9 @@ export class CashInDenominationComponent implements OnInit {
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private _service: CashDenominationService
+    private _services: CashDenominationService,
+  
+    private _service : CashierUmService,
 
   ) {
     this.maxDate = new Date();
@@ -90,15 +94,30 @@ export class CashInDenominationComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.Scheme = data;
     });
+    this._service.getUserDetails().subscribe(data=>{
+      
+      this.cashier_list = data;
+    
+      console.log(this.cashier_list);
+  },err=>{
+    console.log(err);
+  })
 
-    this._service.getOwnbranchList().subscribe(data=>{
+    this._services.getOwnbranchList().subscribe(data=>{
       this.branch_list = data;
       this.SelectedBranch = user.branchId;
        //Get Cashier List
-      this._service.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
-        this.cashier_list = data;
-      })
+      // this._service.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
+      //   this.cashier_list = data;
+         console.log(data);
+        
+      // })
     })
+  }
+  changes(event:any){
+ this.SelectedBranch  =event.value;
+  this.cashier = null
+
   }
 
   createForm() {

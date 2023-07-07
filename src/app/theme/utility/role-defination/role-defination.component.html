@@ -8,30 +8,12 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3">
-                            <!-- <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <ng-select id="ROLE" bindValue="value" [(ngModel)]="selectedRole"
-                                formControlName="ROLE" bindLabel="label" title="Compulsory Selection" required
-                                placeholder="Select Role">
-                                <ng-option *ngFor="let values of ROLE" [value]="values">
-                                    {{values.label}}</ng-option>
-                            </ng-select>
-                                <label for="Role">Select Role<sub class="required"> * </sub></label>
-                            </span>
-                        </div> -->
+                        <div class="col-sm-3">                           
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" formControlName="ROLE" [(ngModel)]="selectedRole"
-                                    [options]="ROLE" [multiple]="false" placeholder="Select Role">
+                                    [items]="RoleData" [multiple]="false" placeholder="Select Role" bindValue="value"
+                                    bindLabel="label"  [selectOnTab]='true'>
                                 </ng-select>
-
-                                <!-- <ng-select [(ngModel)]="selectedRole" id="AC_NO" formControlName="ROLE"
-                                    title="Compulsory Selection" placeholder="Select Role">
-                                    <ng-option *ngFor="let values of ROLE" [value]="values">
-                                        {{values.label}}
-                                    </ng-option>
-                                </ng-select> -->
-
                             </div>
                         </div>
                     </div>
@@ -41,6 +23,7 @@
                                 <ngx-treeview [config]="config" [items]="items" (items)="values = $event"
                                     (change)="onFilterChange($event)" (selectedChange)="onSelectedChange($event)">
                                 </ngx-treeview>
+
                             </div>
                         </div>
                     </div>

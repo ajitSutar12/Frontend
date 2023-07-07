@@ -34,7 +34,7 @@ export class RoleDefinationService {
           text: 'General Ledger', value: 2, checked: false, children: [
             { text: 'GL Statement Code', value: 3, checked: false, },
             { text: 'GL Account Master', value: 4, checked: false, },
-            { text: 'GL Report Master', value: 5, checked: false, },
+            { text: 'GL Report Master', value: 5, checked: false, }, 
             { text: 'GL Report Linking', value: 6, checked: false, },
             { text: 'Budget Master', value: 7, checked: false, },
           ]

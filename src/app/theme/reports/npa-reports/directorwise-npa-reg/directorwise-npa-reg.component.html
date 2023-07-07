@@ -114,7 +114,7 @@
                                         <ng-select formControlName="Acno" bindValue="value" bindLabel="label"
                                             [(ngModel)]="Accnumber">
                                             <ng-option *ngFor="let values of director" [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
+                                                {{values.value}} {{values.label}} </ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -136,7 +136,7 @@
                                         <ng-select formControlName="Anac" bindValue="value" bindLabel="label"
                                             [(ngModel)]="Anamat">
                                             <ng-option *ngFor="let values of director" [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
+                                                {{values.value}} {{values.label}} </ng-option>
                                         </ng-select>
                                     </span>
                                 </div>

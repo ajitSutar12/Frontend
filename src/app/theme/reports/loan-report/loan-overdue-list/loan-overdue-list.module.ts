@@ -23,6 +23,13 @@ import { LoanOverdueReportComponent } from './loan-overdue-report/loan-overdue-r
 import { LoanOverdueListComponent } from './loan-overdue-list.component';
 import { AcwiseLoanoverdueListComponent }from './acwise-loanoverdue-list/acwise-loanoverdue-list.component';
 import { RecommendedDirectorwiseComponent }from './recommended-directorwise/recommended-directorwise.component';
+import { DepositLoanInterestRateEditChangeService } from 'src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service';
+import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
+import {InstwiseLoanoverdueListComponent} from './instwise-loanoverdue-list/instwise-loanoverdue-list.component';
+// import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
+import {LoanDueListBtdComponent} from './loan-due-list-btd/loan-due-list-btd.component';
+import {LoanDueListBtodComponent} from './loan-due-list-btod/loan-due-list-btod.component';
+import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -30,18 +37,19 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [LoanOverdueReportComponent,LoanOverdueListComponent,AcwiseLoanoverdueListComponent,RecommendedDirectorwiseComponent],
+  declarations: [LoanOverdueReportComponent,InstwiseLoanoverdueListComponent,LoanDueListBtdComponent,LoanDueListBtodComponent,LoanOverdueListComponent,AcwiseLoanoverdueListComponent,RecommendedDirectorwiseComponent],
   imports: [
     CommonModule,
     LoanOverdueListRoutingModule,
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
+    
     SharedModule,
     // BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-
+    Iframe5Module,
    
   ],
   providers:[
@@ -59,7 +67,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService,
     SchemeAccountNoService,
     SchemeTypeDropdownService,
-    // Iframe5Module,
+    DepositLoanInterestRateEditChangeService,
+    DirectorMasterDropdownService,
+    
+   
   ],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ],
 })
