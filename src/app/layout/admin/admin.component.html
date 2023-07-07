@@ -78,9 +78,17 @@
                   <h6>Notifications</h6>
                   <!-- <label class="label label-danger">New</label> -->
                 </li>
-                <li class="ripple">
+                <li class="ripple" *ngFor="let data of notifications">
                   <div class="media">
-                    <!-- <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image"> -->
+                    <div class="media-body">
+                      <!-- <h5 class="notification-user">Some Text</h5> -->
+                      <p class="notification-msg">{{data.DETAILS}}</p>
+                      <!-- <span class="notification-time">30 minutes ago</span> -->
+                    </div>
+                  </div>
+                </li>
+                <!-- <li class="ripple">
+                  <div class="media">
                     <div class="media-body">
                       <h5 class="notification-user">Some Text</h5>
                       <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -90,7 +98,6 @@
                 </li>
                 <li class="ripple">
                   <div class="media">
-                    <!-- <img class="d-flex align-self-center img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder image"> -->
                     <div class="media-body">
                       <h5 class="notification-user">Some Text</h5>
                       <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -100,14 +107,13 @@
                 </li>
                 <li class="ripple">
                   <div class="media">
-                    <!-- <img class="d-flex align-self-center img-radius" src="assets/images/avatar-3.jpg" alt="Generic placeholder image"> -->
                     <div class="media-body">
                       <h5 class="notification-user">Some Text</h5>
                       <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
                       <span class="notification-time">30 minutes ago</span>
                     </div>
                   </div>
-                </li>
+                </li> -->
 
               </ul>
             </li>
@@ -499,7 +505,8 @@
           </marquee> -->
         </div>
         <div class="col-md-5">
-          <h6 style="color:black; font-size: 13px; float: right;">Branch: {{barnchName}} Today Date: {{currentDate}}</h6>
+          <h6 style="color:black; font-size: 13px; float: right;">Branch: {{barnchName}} Today Date: {{currentDate}}
+          </h6>
         </div>
       </div>
     </span>

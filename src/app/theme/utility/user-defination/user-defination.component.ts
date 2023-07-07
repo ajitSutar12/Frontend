@@ -411,7 +411,7 @@ export class UserDefinationComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    debugger
+    // debugger
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -470,6 +470,24 @@ export class UserDefinationComponent implements OnInit {
   closeEditForm(){
     this.showAdd = true;
     this.showEdit = false;
+  }
+
+ 
+  checkUserName(){
+    debugger
+    let obj={
+      USER_NAME:this.angForm.controls['USER_NAME'].value
+    }
+    this.userdefinationservice.checkUserName(obj).subscribe(data=>{
+      if(data){
+        Swal.fire('Warning!', 'Username is already exist!', 'warning');    
+        this.angForm.patchValue({
+          USER_NAME:''
+        })
+      }       
+    },err=>{
+      Swal.fire(err.error.error, err.error.message, 'error');
+    })
   }
   
 }

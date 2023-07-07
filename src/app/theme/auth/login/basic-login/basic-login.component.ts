@@ -22,6 +22,7 @@ export class BasicLoginComponent implements OnInit {
   forgetPassword: boolean = true;
   url = environment.base_url
   bankname = null
+  currentDate
   constructor(private router: Router, private http: HttpClient, private _authService: AuthService) { }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class BasicLoginComponent implements OnInit {
 
     this.http.get(this.url + '/system-master-parameters/').subscribe((data: any) => {
       this.bankname = data[0].BANK_NAME
+      this.currentDate = data[0].CURRENT_DATE
     })
   }
   login() {
@@ -37,6 +39,7 @@ export class BasicLoginComponent implements OnInit {
       "password": this.password
     }
     this._authService.login(dataObject).subscribe(data => {
+
       let userid = data.user.id
       console.log(data, 'data of user');
       localStorage.setItem('token', data.access_token);
@@ -56,15 +59,30 @@ export class BasicLoginComponent implements OnInit {
           confirmButtonText: 'OK'
         })
       }
-      else if (moment(dateData).isAfter(nowDate)) {
+      else if (moment(data.user.EXP_DATE, 'DD/MM/YYYY') > moment(this.currentDate, 'DD/MM/YYYY')) {
         // window.open('/CBS/dashboard/default', "_blank", "toolbar=yes,scrollbars=yes,fullscreen=1,resizable=yes,top=00,left=1000,width=5000,height=1000");
         // window.open('/CBS/dashboard/default','','toolbar=0,titlebar=0,fullscreen=1,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=600,left = 82,top = 54');
         // window.open('/dashboard/default', "_blank", "toolbar=yes,scrollbars=yes,fullscreen=1,resizable=yes,top=00,left=1000,width=5000,height=1000");
-        this.router.navigate(['/dashboard/default']);
-        this._authService.loginuserupdate(userid).subscribe(data => { })
         let userData: any = localStorage.getItem('user');
         let result = JSON.parse(userData);
-        console.log('result', result)
+        let object = {
+          USERID: userid,
+          BRANCH_CODE: result.branchId
+        }
+        this._authService.findOutLogin(object).subscribe(login => {
+          if (login) {
+            this.router.navigate(['/dashboard/default']);           
+          }
+          else {
+            this.router.navigate(['/user/profile']);
+          }
+          let expfromdate = moment(data.user.EXP_DATE, 'DD/MM/YYYY').subtract(10, 'days').format('DD/MM/YYYY')
+          let exptodate = moment(data.user.EXP_DATE, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY')
+          if (moment(expfromdate, 'DD/MM/YYYY') <= moment(this.currentDate, 'DD/MM/YYYY') && moment(this.currentDate, 'DD/MM/YYYY') <= moment(exptodate, 'DD/MM/YYYY')) {
+            Swal.fire('Warning', `Your password will expire on ${data.user.EXP_DATE}. Please update your password before expire.`,'warning')
+          }
+        })
+        this._authService.loginuserupdate(userid).subscribe(data => { })
         this.http.get<any>('https://ipapi.co/json/').subscribe(
           (response) => {
             let obj = {
@@ -78,9 +96,6 @@ export class BasicLoginComponent implements OnInit {
             console.error(error);
           }
         );
-
-
-
       } else {
         this.resetPassword = true;
         this.forgetPassword = false;
