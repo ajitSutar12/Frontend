@@ -143,6 +143,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       let userData = JSON.parse(localStorage.getItem('user'));
       let bankName = userData.branch.syspara.BANK_NAME;
       let branchName = userData.branch.NAME;
+      this.branchName = "OFFICE KOTOLI"
   
   
       if(this.ngForm.valid){
@@ -174,9 +175,15 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
      }
   
     let scheme = obj.Scheme_code
+    let Dates = obj.START_DATE;
   
-      let branch = obj.BRANCH_CODE;
+      let branch = '1';
       let flag = obj.npa_per;
+      if(flag == true){
+        flag = '1'
+      }else{
+        flag ='0'
+      }
   
       let schemeName = this.tScheme
   
@@ -185,7 +192,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       // this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
 
 
-      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE=2&FLAG="+flag+"&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Date+"'";
+      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE="+branch+"&FLAG="+flag+"&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Dates+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }

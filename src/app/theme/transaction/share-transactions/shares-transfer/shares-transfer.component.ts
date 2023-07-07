@@ -38,6 +38,7 @@ export class SharesTransferComponent implements OnInit {
   url = environment.base_url;
   selectedBranch
   branchOption: any;
+  showdata:boolean = false;
   scheme
   schemeCode
   schemeCode1
@@ -133,7 +134,7 @@ export class SharesTransferComponent implements OnInit {
     let el: HTMLElement = this.narrationhide.nativeElement;
     el.click();
   }
-  getBranch() {
+  getBranch() {                                                                 
     this.getIntroducer()
   }
   getIntroducer() {

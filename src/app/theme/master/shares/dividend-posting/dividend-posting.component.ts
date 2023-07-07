@@ -177,21 +177,32 @@ export class DividendPostingComponent implements OnInit {
 
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      console.log(data);
+      
       this.scheme = data
       this.ngscheme = data[0].value
+ 
+
+
     })
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       
       this.ngwarrentDate = data.CURRENT_DATE;
     });
 
+
+
     this.http.get(this.url + '/dividend-calculation').subscribe((data) => {
+  
+      
     this.warrentDate = data
     })
 
   }
 
+ getintro(){
 
+ }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -314,6 +325,9 @@ export class DividendPostingComponent implements OnInit {
 
   onFocus(ele: NgSelectComponent) {  
     ele.open()
+  }
+  changes(event:any){
+    this.ngwarrentDate = null;
   }
 
 }

@@ -126,9 +126,11 @@
                         </div>
                         <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                (click)="submit($event)">Calculate</button>
+                                (click)="submit($event)">Edit</button>
                             <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitData"
-                                (click)="AlterData()">Submit</button>
+                                (click)="AlterData()">Update</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm" 
+                                (click)="resetForm()">Cancel</button>
                         </div>
 
                     </div>

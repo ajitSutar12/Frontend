@@ -20,7 +20,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
                                             class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                          
+                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             formControlName="START_DATE" appButton minlength="8" maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
@@ -68,7 +68,7 @@
                                     <div class="card-header">
                                         <h5>Report Frame</h5>
                                     </div>
-                                    <div >
+                                    <div *ngIf="showRepo">
                                         <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
 
                                     </div> 

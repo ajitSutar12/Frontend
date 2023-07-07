@@ -199,6 +199,11 @@ export class NonNpaRecoveryComponent implements OnInit {
   
     let scheme = obj.Scheme_code
       let flag = obj.npa_per;
+      if(flag == true){
+        flag = '1'
+      }else{
+        flag ='0'
+      }
       let branch = obj.BRANCH_CODE;
       let Dates =   obj.END_DATE;
       // moment(this.Dates)

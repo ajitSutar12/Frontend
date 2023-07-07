@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" appTheme type="text" name="INT_RATE"
@@ -146,7 +146,7 @@
                                                 pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
                                                 id="INT_RATE" maxlength="5" title="Input allowed only  0-9"
                                                 formControlName="INT_RATE">
-                                            <label for="INT_RATE">Interest Rate<sub class="required">*
+                                            <label for="INT_RATE">Interest Rate %<sub class="required">*
                                                 </sub>
                                             </label>
                                         </span>
@@ -169,7 +169,7 @@
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 (keyup)="checkmargin($event)" id="PENAL_INT_RATE" maxlength="5"
                                                 title="Input allowed only  0-9" formControlName="PENAL_INT_RATE">
-                                            <label for="PENAL_INT_RATE">Penal Interest Rate<sub class="required">*
+                                            <label for="PENAL_INT_RATE">Penal Interest Rate %<sub class="required">*
                                                 </sub>
                                             </label>
                                         </span>

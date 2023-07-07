@@ -30,7 +30,7 @@ export class BnkTDStatementComponent implements OnInit{
   endingdate: any = null
 
   ngForm: FormGroup;
-  iframe2url:any='';
+  iframe5url:any='';
   clicked:boolean=false;
   //api
   url = environment.base_url;
@@ -218,10 +218,12 @@ export class BnkTDStatementComponent implements OnInit{
      let scheme=obj.Scheme_code;
   
  
-    this.iframe2url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
-                    " &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
-                    console.log( this.iframe2url);
-    this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url); 
+    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
+    "&PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
+    console.log( this.iframe5url);
+
+
+    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     
    }
    else {

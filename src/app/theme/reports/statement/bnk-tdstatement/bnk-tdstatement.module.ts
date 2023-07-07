@@ -9,7 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkTDStatementComponent } from './bnk-tdstatement.component';
 import {BnkTDStatementRoutingModule} from './bnk-tdstatement-routing.module'
 import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {Iframe2Module} from '../iframe2/iframe2.module';
+import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import {Iframe2Module} from '../iframe2/iframe2.module';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     BnkTDStatementRoutingModule,
-    Iframe2Module
+    Iframe5Module
 
   ],
 

@@ -237,6 +237,11 @@ export class NpaAnalysisReportComponent implements OnInit {
      }
   
     let scheme = obj.Scheme_code
+    let VAR1 = obj.GL_CODE;
+    let VAR2 = obj.AGL_CODE;
+    let TDate = obj.END_DATE;
+    let SDate = moment(TDate, "DD/MM/YYYY").subtract(1, "year").format("DD/MM/YYYY");
+
   
       let branch = obj.BRANCH_CODE;
   
@@ -246,7 +251,9 @@ export class NpaAnalysisReportComponent implements OnInit {
       // let endingcode =obj.Ending_Account;
       // this.iframe5url=this.report_url+ "examples/deposit.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&GL_CODETYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
 
-      this.iframe5url=this.report_url+ "examples/NPA_Analysis_Report1.php?BRANCH_CODE=1,2&FLAG=0&DATE1='31/03/2022'&DATE2='31/03/2021'&VAR1='12'&VAR2='13'&BRANCH_NAME='KOTOLI'&BANK_NAME='DEMO'"
+      this.iframe5url=this.report_url+ "examples/NPA_Analysis_Report1.php?BRANCH_CODE="+branch
+
+      +"&FLAG=0&DATE1='"+TDate+"'&DATE2='"+SDate+"'&VAR1='"+VAR1+"'&VAR2='"+VAR2+"'&BRANCH_NAME='"+this.branchName+"'&BANK_NAME='"+bankName+"'"
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
