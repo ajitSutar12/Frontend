@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RoleDefinationComponent } from './role-defination.component';
 import { RoleDefinatioRoutingModule } from './role-defination-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { UserDefinationService } from '../user-defination/user-defination.service';
-import {SelectModule} from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { DataTablesModule } from "angular-datatables";
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
@@ -20,11 +20,11 @@ import { TreeviewModule } from 'ngx-treeview';
     ReactiveFormsModule,
     TreeviewModule.forRoot(),
     FormsModule,
-    SelectModule,
+    NgSelectModule,
     DataTablesModule
   ],
   declarations: [RoleDefinationComponent],
-  providers:[UserDefinationService,
+  providers: [UserDefinationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

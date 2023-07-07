@@ -37,14 +37,19 @@ export class UserDefinationService {
   }
 
   //update Role and Branch
-  updateRoleBranch(data: any): Observable<any>{
-    return this.http.post(this.url+'/user-defination/updateRoleBranch',data).pipe(catchError(this.handleError));
+  updateRoleBranch(data: any): Observable<any> {
+    return this.http.post(this.url + '/user-defination/updateRoleBranch', data).pipe(catchError(this.handleError));
+  }
+
+  //update Role and Branch
+  checkUserName(data: any): Observable<any> {
+    return this.http.post(this.url + '/user-defination/checkUserName', data).pipe(catchError(this.handleError));
   }
 
   //get user list
   getRoleList(): Observable<any> {
     let array = new Array();
-    return this.http.post<any>(this.url + '/user-defination/roles',{})
+    return this.http.post<any>(this.url + '/user-defination/roles', {})
       .pipe(map(ele => {
         ele.forEach(element => {
           let obj = { label: element.NAME, value: element.id };
@@ -52,7 +57,7 @@ export class UserDefinationService {
         });
         return array;
         console.log(array);
-        
+
       }));
   }
 }

@@ -323,11 +323,11 @@ export class AdminComponent implements OnInit, OnDestroy {
       // this.menuItemList[index]['class'] = "disableflag"
       if (arrayList.includes(element.id)) {
 
-        if (element.children != [] && element.children != undefined) {
+        if (element?.children != [] && element.children != undefined) {
 
           element.children.forEach(function (ele, index1) {
             if (arrayList.includes(ele.id)) {
-              if (ele.children != [] && ele.children != undefined) {
+              if (ele?.children != [] && ele.children != undefined) {
                 ele.children.forEach(function (ele1, index2) {
                   if (arrayList.includes(ele1.id)) {
                   } else {
@@ -375,10 +375,21 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
     this.menuListData = arrSor.reverse();
   }
+  notifications
 
   ngOnInit() {
 
     this.roleWiseMenuAssign()
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let usercode = {
+      USERCODE: result.id
+    }
+    this._authService.showNotificationuserwise(usercode).subscribe(data => {
+      this.notifications = data
+    })
+
     this.setBackgroundPattern('theme1');
 
     interval(2000).subscribe(x => {
