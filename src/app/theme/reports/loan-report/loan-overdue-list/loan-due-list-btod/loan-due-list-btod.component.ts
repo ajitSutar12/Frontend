@@ -1,23 +1,14 @@
-<<<<<<< Updated upstream
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
-=======
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
->>>>>>> Stashed changes
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-<<<<<<< Updated upstream
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
-=======
->>>>>>> Stashed changes
 
 @Component({
   selector: 'app-loan-due-list-btod',
@@ -28,7 +19,6 @@ export class LoanDueListBtodComponent implements OnInit {
   angForm : FormGroup;
 
   iframe5url: any = '';
-<<<<<<< Updated upstream
   url = environment.base_url;
   @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
   formSubmitted = false;
@@ -42,19 +32,12 @@ export class LoanDueListBtodComponent implements OnInit {
   clicked: boolean;
   tScheme: any;
   
-=======
-  showRepo: boolean = false;
-  showLoading: boolean = false;
->>>>>>> Stashed changes
 
 
   constructor(
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
-<<<<<<< Updated upstream
     private sanitizer: DomSanitizer,
-=======
->>>>>>> Stashed changes
     private schemeCodeDropdownService: SchemeCodeDropdownService,
   ) { }
 
@@ -86,14 +69,11 @@ ngOnInit(): void {
 
   })
 }
-<<<<<<< Updated upstream
 getscheme(event){
   this.tScheme = event.value
   
 
 }
-=======
->>>>>>> Stashed changes
 
 onLoad() {
   this.showLoading = false;
@@ -113,7 +93,6 @@ createForm(){
 }
 
 
-<<<<<<< Updated upstream
 view(event:any) {
     
   event.preventDefault();
@@ -178,6 +157,4 @@ else {
 }
 }
 
-=======
->>>>>>> Stashed changes
 }
