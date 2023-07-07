@@ -257,22 +257,22 @@
                             <!-- #10ad34 credit colour-->
                             <td class="td_right"
                                 [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'rgb(3 131 33)'}">
-                                {{data.TRAN_DRCR=='D'? (data.TRAN_AMOUNT | number:'2.0':'en') :''}}</td>
+                                {{data.TRAN_DRCR=='D'? (data.TRAN_AMOUNT | number:'2.2-2':'en') :''}}</td>
                             <td class="td_right"
                                 [ngStyle]="{'color': (data.TRAN_DRCR == 'D') ? '#eb2727':'rgb(3 131 33)'}">
-                                {{data.TRAN_DRCR=='C'?(data.TRAN_AMOUNT | number:'1.0':'en'):''}}</td>
-                            <td class="td_right">{{ (data.closeBalance | number:'1.0':'en') }} {{data.DR_CR}}</td>
-                            <td class="td_right">{{data.INTEREST_AMOUNT }}
+                                {{data.TRAN_DRCR=='C'?(data.TRAN_AMOUNT | number:'1.2-2':'en'):''}}</td>
+                            <td class="td_right">{{ (data.closeBalance | number:'1.2-2':'en') }} {{data.DR_CR}}</td>
+                            <td class="td_right">{{data.INTEREST_AMOUNT | number:'1.2-2':'en' }}
                                 {{data.INTEREST_AMOUNT!=undefined?(data.INTEREST_AMOUNT!=null &&
                                 data.TRAN_DRCR=='D'?'Dr':'Cr'):''}}</td>
-                            <td class="td_right">{{data.RECPAY_INT_AMOUNT}}
+                            <td class="td_right">{{data.RECPAY_INT_AMOUNT | number:'1.2-2':'en'}}
                                 {{data.RECPAY_INT_AMOUNT!=undefined? (data.RECPAY_INT_AMOUNT!=null &&
                                 data.TRAN_DRCR=='D'?'Dr':'Cr'):''}}</td>
-                            <td class="td_right">{{data.OTHER10_AMOUNT}}</td>
-                            <td class="td_right">{{data.PENAL_INTEREST}}</td>
-                            <td class="td_right">{{data.REC_PENAL_INT_AMOUNT}}</td>
-                            <td class="td_right">{{data.otherAmt}}</td>
-                            <td class="td_right">{{data.ADDED_PENAL_INTEREST}}</td>
+                            <td class="td_right">{{data.OTHER10_AMOUNT | number:'1.2-2':'en'}}</td>
+                            <td class="td_right">{{data.PENAL_INTEREST | number:'1.2-2':'en'}}</td>
+                            <td class="td_right">{{data.REC_PENAL_INT_AMOUNT | number:'1.2-2':'en'}}</td>
+                            <td class="td_right">{{data.otherAmt | number:'1.2-2':'en'}}</td>
+                            <td class="td_right">{{data.ADDED_PENAL_INTEREST| number:'1.2-2':'en' }}</td>
                             <td class="td_right">{{data.TRAN_NO}}</td>
                             <td>{{data.OFFICER_CODE}}</td>
                         </tr>
@@ -281,16 +281,16 @@
                             <td></td>
                             <td>Total</td>
                             <td></td>
-                            <td class="td_right">{{(debitTotal | number:'1.0':'en')}}</td>
-                            <td class="td_right">{{(creditTotal | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(debitTotal | number:'1.2-2':'en')}}</td>
+                            <td class="td_right">{{(creditTotal | number:'1.2-2':'en')}}</td>
                             <td>Balance</td>
-                            <td class="td_right">{{(normalInt | number:'1.0':'en')}}</td>
-                            <td class="td_right">{{(recpayInt | number:'1.0':'en')}}</td>
-                            <td class="td_right">{{(overDueAmt | number:'1.0':'en')}}</td>
-                            <td class="td_right">{{(penalInt | number:'1.0':'en')}}</td>
-                            <td class="td_right">{{(recpenalInt | number:'1.0':'en')}}</td>
-                            <td class="td_right">{{(otherAmount | number:'1.0':'en')}}</td>
-                            <td class="td_right">{{(addedPenal | number:'1.0':'en')}}</td>
+                            <td class="td_right">{{(normalInt | number:'1.2-2':'en')}}</td>
+                            <td class="td_right">{{(recpayInt | number:'1.2-2':'en')}}</td>
+                            <td class="td_right">{{(overDueAmt | number:'1.2-2':'en')}}</td>
+                            <td class="td_right">{{(penalInt | number:'1.2-2':'en')}}</td>
+                            <td class="td_right">{{(recpenalInt | number:'1.2-2':'en')}}</td>
+                            <td class="td_right">{{(otherAmount | number:'1.2-2':'en')}}</td>
+                            <td class="td_right">{{(addedPenal | number:'1.2-2':'en')}}</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -301,7 +301,7 @@
                             <td></td>
                             <td></td>
                             <td style="font-weight: 600px;" class="td_right">{{(totalDepositAmount |
-                                number:'1.0':'en')}}</td>
+                                number:'1.2-2':'en')}}</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -320,7 +320,7 @@
                             <td></td>
                             <td></td>
                             <td style=" font-size: 13px;" class="td_right"><strong>{{(grandTotal |
-                                    number:'1.0':'en')}}</strong></td>
+                                    number:'1.2-2':'en')}}</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>

@@ -136,7 +136,7 @@
                                     <input type="text" name="USER_NAME" maxlength="2000" class="form-control"
                                         placeholder=" " id="label-name" required="" pattern="^[A-Za-z0-9\./ -]+$"
                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
-                                        formControlName="USER_NAME">
+                                        formControlName="USER_NAME" (focusout)="checkUserName()">
                                     <label for="USER_NAME">User Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
