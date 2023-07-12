@@ -31,7 +31,7 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="table-responsive">
-                                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions"
+                                            <table id="mastertable1" datatable [dtOptions]="dtExportButtonOptions"
                                                 class="table table-striped table-bordered table-hover compact">
                                                 <tbody *ngIf="pigmyAccountMaster?.length != 0">
                                                     <tr *ngFor="let data of pigmyAccountMaster">
@@ -166,25 +166,25 @@
                                                         <td colspan="8" class="no-data-available">No data!</td>
                                                     </tr>
                                                 </tbody>
-                                                <!-- <tfoot #filters class="filters">
-                                    <tr class="testing">
-                                        <th></th>
-                                        <th><input type="text" class="form-control" name="AC_TYPE"></th>
-                                        <th><input type="text" class="form-control" name="AC_NO"></th>
-                                        <th><input type="text" class="form-control" name="AC_CUSTID"></th>
-                                        <th><input type="text" class="form-control" name="AC_NAME"></th>
-                                        <th><input type="text" class="form-control" name="REF_ACNO"></th>
-                                        <th><input type="text" class="form-control" name="AC_ADDR"> </th>
-                                        <th><input type="text" class="form-control" name="AC_CTCODE"> </th>
-                                        <th><input type="text" class="form-control" name="AC_OPDATE"></th>
-                                        <th><input type="text" class="form-control" name="AC_EXPDT"></th>
-                                        <th><input type="text" class="form-control" name="AC_MONTHS"></th>
-                                        <th><input type="text" class="form-control" name="AC_SCHMAMT"></th>
-                                        <th><input type="text" class="form-control" name="AGENT_ACNO"></th>
-                                        <th><input type="text" class="form-control" name="AC_MINOR"></th>
-                                        <th><input type="text" class="form-control" name="PG_COMM_TYPE"></th>
-                                    </tr>
-                                </tfoot> -->
+                                                <tfoot #filters class="filters">
+                                                    <tr class="testing">
+                                                        <th></th>
+                                                        <th><input type="text" class="form-control" name="AC_TYPE"></th>
+                                                        <th><input type="text" class="form-control" name="BANKACNO"></th>
+                                                        <th><input type="text" class="form-control" name="AC_CUSTID"></th>
+                                                        <th><input type="text" class="form-control" name="AC_NAME"></th>
+                                                        <th><input type="text" class="form-control" name="REF_ACNO"></th>
+                                                        <th><input type="text" class="form-control" name="AC_ADDR"> </th>
+                                                        <th><input type="text" class="form-control" name="AC_CTCODE"> </th>
+                                                        <th><input type="text" class="form-control" name="AC_OPDATE"></th>
+                                                        <th><input type="text" class="form-control" name="AC_EXPDT"></th>
+                                                        <th><input type="text" class="form-control" name="AC_MONTHS"></th>
+                                                        <th><input type="text" class="form-control" name="AC_SCHMAMT"></th>
+                                                        <th><input type="text" class="form-control" name="AGENT_ACNO"></th>
+                                                        <th><input type="text" class="form-control" name="AC_MINOR"></th>
+                                                        <th><input type="text" class="form-control" name="PG_COMM_TYPE"></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>

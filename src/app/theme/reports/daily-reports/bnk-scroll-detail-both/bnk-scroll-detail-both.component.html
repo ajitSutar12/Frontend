@@ -44,9 +44,8 @@
 
                                     <ng-select bindValue="id" [(ngModel)]="cashiar" formControlName="Cashier_Code"
                                         bindLabel="label" placeholder="" required>
-                                        <ng-option *ngFor="let values of Cashiercode"
-                                            [value]="values">{{values.CASHIER_CODE
-                                            }}</ng-option>
+                                        <ng-option *ngFor="let values of cashier_list"
+                                            [value]="values">{{values.id}} {{values.F_NAME}} {{values.L_NAME}}</ng-option>
 
                                     </ng-select>
                                 </span>
@@ -165,7 +164,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class=" col-sm-12 col-md-2">
                             <label for="DATE">Line Spacing<sub class="required">*</sub></label>
                         </div>
@@ -205,7 +204,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">

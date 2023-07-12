@@ -17,6 +17,7 @@ import {BnkScrollDetailBothRoutingModule} from './bnk-scroll-detail-both-routing
 import{Iframe1Module} from '../iframe1/iframe1.module';
 import { CastMasterService } from 'src/app/shared/dropdownService/cast-master-dropdown.service';
 import { CashDenominationService } from 'src/app/theme/transaction/cash-denomination/cash-denomination.service';
+import { CashierUmService } from 'src/app/theme/utility/cashier-um/cashier-um.service';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -47,7 +48,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     },
     SystemMasterParametersService,
-    CashDenominationService,
+    CashDenominationService,CashierUmService,
 
 
     {

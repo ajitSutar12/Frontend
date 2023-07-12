@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -62,7 +62,7 @@ interface TermDepositMaster {
   templateUrl: './master-deposits.component.html',
   styleUrls: ['./master-deposits.component.scss']
 })
-export class MasterDepositsComponent implements OnInit {
+export class MasterDepositsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(TermDepositsMasterComponent) child: TermDepositsMasterComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
@@ -251,7 +251,7 @@ export class MasterDepositsComponent implements OnInit {
   //get saving customer data
   getTermDepositData(data) {
     this.termDepositData = data.id;
-    this.child.editClickHandler(data.id,1);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
@@ -263,6 +263,26 @@ export class MasterDepositsComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#termmastertable1 tfoot tr').appendTo('#termmastertable1 thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -30,7 +30,7 @@ interface rentLocker {
   templateUrl: './rent-locker.component.html',
   styleUrls: ['./rent-locker.component.scss']
 })
-export class RentLockerComponent implements OnInit {
+export class RentLockerComponent implements OnInit, AfterViewInit {
 
 
   @ViewChild(LockerRentTransactionsComponent) child: LockerRentTransactionsComponent;
@@ -163,13 +163,34 @@ export class RentLockerComponent implements OnInit {
   getRentLockerData(data) {
     this.rentLockerData = data.id;
     this.child.editClickHandler(data.id);
-     this.child.rejectShow = true;
+    this.child.rejectShow = true;
     this.child.approveShow = true;
   }
 
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

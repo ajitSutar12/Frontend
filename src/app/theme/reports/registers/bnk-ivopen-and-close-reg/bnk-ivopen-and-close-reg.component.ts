@@ -51,7 +51,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
   ngtoac: any;
   showRepo: boolean = false;
   scheme_code: any;
-
+  tScheme
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -75,7 +75,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       // AC_OPEN:  new FormControl('AC_OPEN'),
-      AC_OPEN: ['AC_OPEN'],
+      AC_OPEN: ['AC_OPEN',],
       PRINT_CLOSEAC: ['',],
     })
   }
@@ -113,7 +113,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
 
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'IV' || scheme.name == 'SB');
+        return (scheme.name == 'IV' );
       });
       this.schemeList = filtered;
       this.ngIntroducer = null;
@@ -124,6 +124,10 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
     // })
 
 
+  }
+  getTransferAccountList(event)
+  {
+    this.tScheme = event.label
   }
   src: any;
   View(event) {
@@ -152,7 +156,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
       let Branch = obj.BRANCH_CODE
       let GROUP_BY = obj.GROUP_BY
       let type = this.schemeList.filter(ele => ele.value == scheme);
-
+      let schemeName = this.tScheme
 
 
       // this.iframeurl = this.report_url+"examples/InvestmentRegister.php?startDate_='"+startDate+"'&endDate_='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
