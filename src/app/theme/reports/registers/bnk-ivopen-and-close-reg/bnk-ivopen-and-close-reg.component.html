@@ -36,7 +36,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="scheme_code" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="ngIntroducer">
+                                        [(ngModel)]="ngIntroducer" (change)="getTransferAccountList($event)">
                                         <ng-option *ngFor="let values of schemeList" [value]="values"> {{values.id}}
                                             {{values.label}} </ng-option>
                                     </ng-select>

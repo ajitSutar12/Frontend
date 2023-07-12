@@ -44,18 +44,18 @@ export class CashInDenominationComponent implements OnInit {
 
   currencyData =
     [
-      { currency: 2000, qty: 0, total: 0 },
-      { currency: 1000, qty: 0, total: 0 },
-      { currency: 500, qty: 0, total: 0 },
-      { currency: 200, qty: 0, total: 0 },
-      { currency: 100, qty: 0, total: 0 },
-      { currency: 50, qty: 0, total: 0 },
-      { currency: 20, qty: 0, total: 0 },
-      { currency: 10, qty: 0, total: 0 },
-      { currency: 5, qty: 0, total: 0 },
-      { currency: 2, qty: 0, total: 0 },
-      { currency: 1, qty: 0, total: 0 },
-      // {  qnty: 0, total: 0 },
+      { currency: 2000, qty: "", total: 0, available: 0 },
+      { currency: 1000, qty: "", total: 0, available: 0 },
+      { currency: 500,  qty: "", total: 0, available: 0 },
+      { currency: 200,  qty: "", total: 0, available: 0 },
+      { currency: 100,  qty: "", total: 0, available: 0 },
+      { currency: 50,   qty: "", total: 0, available: 0 },
+      { currency: 20,   qty: "", total: 0, available: 0 },
+      { currency: 10,   qty: "", total: 0, available: 0 },
+      { currency: 5,    qty: "", total: 0, available: 0 },
+      { currency: 2,    qty: "", total: 0, available: 0 },
+      { currency: 1,    qty: "", total: 0, available: 0 },
+      { currency: 'Coin',    qty: "", total: 0, available: 0 },
 
       
     ]
@@ -138,7 +138,7 @@ export class CashInDenominationComponent implements OnInit {
     let qty = element.target.value;
     let qnty = element.target.value;
 
-    let total = currency * qty ;
+    let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty) ) ;
     this.currencyData[index].currency = currency;
     this.currencyData[index].qty = qty;
     this.currencyData[index].total = total;
@@ -162,7 +162,7 @@ export class CashInDenominationComponent implements OnInit {
       Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
     }
     else {
-      this._service.cashInDenomination(object).subscribe(data=>{
+      this._services.cashInDenomination(object).subscribe(data=>{
         Swal.fire(
           'Great!',
           'Your Form is Submitted Successfully..!',
@@ -180,6 +180,11 @@ export class CashInDenominationComponent implements OnInit {
     this.angForm.controls['DENOMINATION_AMT'].reset()
     this.angForm.controls['TRANSACTION_NO'].reset()
     // this.angForm.sum.reset()
+    this.currencyData.forEach(entry => {
+      entry.qty = '';
+      entry.total = 0; 
+      this.sum = 0;
+    })
   }
   isFormA(value) {
     if (Number(this.angForm.controls['DENOMINATION_AMT'].value) == 0) {
@@ -195,6 +200,6 @@ export class CashInDenominationComponent implements OnInit {
           event.target.value = parseFloat(event.target.value).toFixed(2);
         else
           event.target.value = 0
-      }
+      } 
 }
 
