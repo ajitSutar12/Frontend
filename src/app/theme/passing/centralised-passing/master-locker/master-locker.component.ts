@@ -177,12 +177,26 @@ export class MasterLockerComponent implements OnInit, AfterViewInit {
     };
   }
 
+
+
   ngAfterViewInit(): void {
-
-
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
+      $('#mastertable1 tfoot tr').appendTo('#mastertable1 thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 
@@ -192,7 +206,7 @@ export class MasterLockerComponent implements OnInit, AfterViewInit {
   //get saving customer data
   getLockerData(data) {
     this.shareData = data.id;
-    this.child.editClickHandler(data.id,1);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

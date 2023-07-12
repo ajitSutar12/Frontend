@@ -60,7 +60,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-  newbtnShow: boolean = false;
+  newbtnShow: boolean = true;
   dataSub: Subscription;
   characters: IOption[];
   sysparaData: any;
@@ -951,11 +951,24 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     var button = document.getElementById('triggerhide');
     button.click();
     this.reloadTablePassing.emit();
+    this.resetForm()
 
   }
 
   resetForm() {
+    this.ngOnInit()
     this.createForm()
+    this.preMature = null
+    this.OpenDate = ''
+    this.ledgerBalance = 0
+    this.renewalDate = ''
+    this.INTRATE = 0
+    this.INT_RATESHOW = 0
+    this.LastIntDate = ''
+    this.maturityDate = ''
+    var button = document.getElementById('triggerhide');
+    button.click();
+    this.reloadTablePassing.emit();
   }
   //function toggle update to add button
   updateData() {
@@ -1055,7 +1068,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         }
         this.preMature = data1[0].preMature
         this.OpenDate = data1[0].AC_OPDATE
-        this.ledgerBalance =  Math.abs(data[0].ledgerBal)
+        this.ledgerBalance = Math.abs(data[0].ledgerBal)
         this.renewalDate = data1[0].AC_ASON_DATE
         this.INTRATE = data1[0].INT_RATE
         this.LastIntDate = data1[0].AC_LINTEDT

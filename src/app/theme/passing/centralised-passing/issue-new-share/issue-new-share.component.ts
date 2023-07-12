@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -32,7 +32,7 @@ interface issueNewShare {
   templateUrl: './issue-new-share.component.html',
   styleUrls: ['./issue-new-share.component.scss']
 })
-export class IssueNewShareComponent implements OnInit {
+export class IssueNewShareComponent implements OnInit, AfterViewInit {
 
   @ViewChild(IssueNewSharesComponent) child: IssueNewSharesComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
@@ -172,6 +172,26 @@ export class IssueNewShareComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

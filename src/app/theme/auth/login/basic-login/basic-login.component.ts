@@ -59,7 +59,7 @@ export class BasicLoginComponent implements OnInit {
           confirmButtonText: 'OK'
         })
       }
-      else if (moment(data.user.EXP_DATE, 'DD/MM/YYYY') > moment(this.currentDate, 'DD/MM/YYYY')) {
+      else if (moment(data.user.EXP_DATE, 'DD/MM/YYYY') >= moment(this.currentDate, 'DD/MM/YYYY')) {
         // window.open('/CBS/dashboard/default', "_blank", "toolbar=yes,scrollbars=yes,fullscreen=1,resizable=yes,top=00,left=1000,width=5000,height=1000");
         // window.open('/CBS/dashboard/default','','toolbar=0,titlebar=0,fullscreen=1,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=600,left = 82,top = 54');
         // window.open('/dashboard/default', "_blank", "toolbar=yes,scrollbars=yes,fullscreen=1,resizable=yes,top=00,left=1000,width=5000,height=1000");
@@ -71,7 +71,7 @@ export class BasicLoginComponent implements OnInit {
         }
         this._authService.findOutLogin(object).subscribe(login => {
           if (login) {
-            this.router.navigate(['/dashboard/default']);           
+            this.router.navigate(['/dashboard/default']);
           }
           else {
             this.router.navigate(['/user/profile']);
@@ -79,7 +79,7 @@ export class BasicLoginComponent implements OnInit {
           let expfromdate = moment(data.user.EXP_DATE, 'DD/MM/YYYY').subtract(10, 'days').format('DD/MM/YYYY')
           let exptodate = moment(data.user.EXP_DATE, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY')
           if (moment(expfromdate, 'DD/MM/YYYY') <= moment(this.currentDate, 'DD/MM/YYYY') && moment(this.currentDate, 'DD/MM/YYYY') <= moment(exptodate, 'DD/MM/YYYY')) {
-            Swal.fire('Warning', `Your password will expire on ${data.user.EXP_DATE}. Please update your password before expire.`,'warning')
+            Swal.fire('Warning', `Your password will expire on ${data.user.EXP_DATE}. Please update your password before expire.`, 'warning')
           }
         })
         this._authService.loginuserupdate(userid).subscribe(data => { })
@@ -96,7 +96,7 @@ export class BasicLoginComponent implements OnInit {
             console.error(error);
           }
         );
-      } else {
+      } else if (moment(data.user.EXP_DATE, 'DD/MM/YYYY') < moment(this.currentDate, 'DD/MM/YYYY')) {
         this.resetPassword = true;
         this.forgetPassword = false;
         Swal.fire('Oops!', 'Your password is expired please reset your password', 'error');

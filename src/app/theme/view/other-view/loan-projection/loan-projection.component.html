@@ -47,13 +47,14 @@
                 </div>
 
               </div>
-              <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Repayment Mode</label>
+              <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Repayment Mode<sub class="required">*</sub></label>
               </div>
               <div class="col-sm-2">
                 <div class="form-group form-primary form-static-label">
                   <span class="border-lable-flt">
                     <ng-select id="AC_REPAYMODE" bindValue="value" [(ngModel)]="repay" formControlName="AC_REPAYMODE"
-                      bindLabel="label" title="Compulsory Selection" required placeholder="Repay Mode">
+                      bindLabel="label" title="Compulsory Selection" required placeholder="Repay Mode"
+                      (change)="checkPeriod()">
                       <ng-option *ngFor="let values of repayModeOption" [value]="values">
                         {{values.label}}</ng-option>
                     </ng-select>
@@ -71,7 +72,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Installment Type</label>
+              <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Installment Type<sub class="required">*</sub></label>
               </div>
 
               <div class="col-sm-2">
@@ -79,7 +80,7 @@
                   <span class="border-lable-flt">
                     <ng-select id="INSTALLMENT_METHOD" bindValue="value" [(ngModel)]="installmentType"
                       formControlName="INSTALLMENT_METHOD" bindLabel="label" title="Compulsory Selection" required
-                      placeholder="Installment Type">
+                      placeholder="Type">
                       <ng-option *ngFor="let values of installment" [value]="values">
                         {{values.label}}</ng-option>
                     </ng-select>
@@ -95,14 +96,13 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-2 "><label for="insta">Interest Posting Method</label>
+              <div class="col-sm-12 col-md-2 "><label for="insta">Interest Posting Method<sub class="required">*</sub></label>
               </div>
               <div class="col-sm-2">
                 <div class="form-group form-primary form-static-label">
                   <span class="border-lable-flt">
                     <ng-select type="text" id="ins" [(ngModel)]="posting" formControlName="POSTINGMETHOD"
-                      bindLabel="label" bindValue="value" title="Compulsory Selection" required
-                      placeholder="Inst.Posting Method">
+                      bindLabel="label" bindValue="value" title="Compulsory Selection" required placeholder="Method">
                       <ng-option *ngFor="let values of repayModeOption1" [value]="values">
                         {{values.label}}</ng-option>
                     </ng-select>
@@ -119,7 +119,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-12 col-md-2  "><label for="insta">Interest Rate %</label>
+              <div class="col-sm-12 col-md-2  "><label for="insta">Interest Rate %<sub class="required">*</sub></label>
               </div>
               <div class="col-md-2">
                 <div class="form-group input-group">
@@ -139,15 +139,14 @@
                 </div>
               </div>
 
-              <div class="col-sm-12 col-md-2 "><label for="AC_PARTICULAR"> Date</label>
+              <div class="col-sm-12 col-md-2 "><label for="AC_PARTICULAR">Date<sub class="required">*</sub></label>
               </div>
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
                     <input type="text" placeholder="dd/mm/yyyy" name="date" id="date" [(ngModel)]="Resolution_date"
                       formControlName="RESOLUTION_DATE" class="form-control"
-                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" [minDate]="resolutionDate"
-                      [maxDate]="resolutionDate" [minDate]="resolutionDate" bsDatepicker required>
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" [minDate]="resolutionDate" bsDatepicker required>
                   </span>
                 </div>
               </div>

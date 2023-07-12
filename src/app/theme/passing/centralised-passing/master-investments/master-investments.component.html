@@ -32,7 +32,7 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="table-responsive">
-                                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions"
+                                            <table id="mastertable1" datatable [dtOptions]="dtExportButtonOptions"
                                                 class="table table-striped table-bordered table-hover">
                                                 <tbody *ngIf="investmentMaster?.length != 0">
                                                     <tr *ngFor="let data of investmentMaster">
@@ -43,49 +43,36 @@
                                                                 (click)="modalLarge.show();getInvestmentData(data)"></span>
                                                         </td>
                                                         <td
-                                                            [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
-                                                            {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" :
-                                                            data.DPMaster.S_APPL
-                                                            }}
-                                                        </td>
-                                                        <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.AC_NO === "" ? "-" : data.AC_NO }}
-                                                        </td>
-                                                        <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_left'">
-                                                            {{data.AC_NAME === ''? '-' : data.AC_NAME}}</td>
-                                                        <td
-                                                            [ngClass]="data.INVEST_BANK === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.INVEST_BANK === "" ? "-" : data.INVEST_BANK }}
-                                                        </td>
-                                                        <td
-                                                            [ngClass]="data.INVEST_BRANCH === '' ? 'td_center' : 'td_right'">
-                                                            {{ data.INVEST_BRANCH === "" ? "-" : data.INVEST_BRANCH }}
-                                                        </td>
-                                                        <td
-                                                            [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
-                                                            {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
-                                                        <td
-                                                            [ngClass]="data.AC_ASON_DATE === '' ? 'td_center' : 'td_center'">
-                                                            {{data.AC_ASON_DATE === ''? '-' : data.AC_ASON_DATE}}</td>
-                                                        <td
-                                                            [ngClass]="data.AC_EXPDT === '' ? 'td_center' : 'td_center'">
-                                                            {{data.AC_EXPDT === ''? '-' : data.AC_EXPDT}}</td>
-                                                        <td
-                                                            [ngClass]="data.AC_REF_RECEIPTNO === '' ? 'td_center' : 'td_right'">
-                                                            {{data.AC_REF_RECEIPTNO === ''? '-' :
-                                                            data.AC_REF_RECEIPTNO}}</td>
-                                                        <td
-                                                            [ngClass]="data.AC_INTRATE === '' ? 'td_center' : 'td_right'">
-                                                            {{data.AC_INTRATE === ''? '-' : data.AC_INTRATE}}</td>
-                                                        <td
-                                                            [ngClass]="data.AC_SCHMAMT === '' ? 'td_center' : 'td_right'">
-                                                            {{data.AC_SCHMAMT === ''? '-' : data.AC_SCHMAMT}}</td>
-                                                        <td
-                                                            [ngClass]="data.AC_MATUAMT === '' ? 'td_center' : 'td_right'">
-                                                            {{data.AC_MATUAMT === ''? '-' : data.AC_MATUAMT}}</td>
-                                                        <!-- <td
-                                                            [ngClass]="data.AC_CLOSEDT === '' ? 'td_center' : 'td_center'">
-                                                            {{data.AC_CLOSEDT === ''? '-' : data.AC_CLOSEDT}}</td> -->
+                                                        [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
+                                                        {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.DPMaster.S_APPL }}
+                                                    </td>
+                                                    <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                                        {{ data.AC_NO === "" ? "-" : data.BANKACNO }}
+                                                    </td>
+                                                    <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_left'">
+                                                        {{data.AC_NAME === ''? '-' : data.AC_NAME}}</td>
+                                                    <td [ngClass]="data.INVEST_BANK === '' ? 'td_center' : 'td_right'">
+                                                        {{ data.INVEST_BANK === "" ? "-" : data.INVEST_BANK }}
+                                                    </td>
+                                                    <td [ngClass]="data.INVEST_BRANCH === '' ? 'td_center' : 'td_right'">
+                                                        {{ data.INVEST_BRANCH === "" ? "-" : data.INVEST_BRANCH }}
+                                                    </td>
+                                                    <td [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
+                                                        {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
+                                                    <td [ngClass]="data.AC_ASON_DATE === '' ? 'td_center' : 'td_center'">
+                                                        {{data.AC_ASON_DATE === ''? '-' : data.AC_ASON_DATE}}</td>
+                                                    <td [ngClass]="data.AC_EXPDT === '' ? 'td_center' : 'td_center'">
+                                                        {{data.AC_EXPDT === ''? '-' : data.AC_EXPDT}}</td>
+                                                    <td [ngClass]="data.AC_REF_RECEIPTNO === '' ? 'td_center' : 'td_right'">
+                                                        {{data.AC_REF_RECEIPTNO === ''? '-' : data.AC_REF_RECEIPTNO}}</td>
+                                                    <td [ngClass]="data.AC_INTRATE === '' ? 'td_center' : 'td_right'">
+                                                        {{data.AC_INTRATE === ''? '-' : data.AC_INTRATE}}</td>
+                                                    <td [ngClass]="data.AC_SCHMAMT === '' ? 'td_center' : 'td_right'">
+                                                        {{data.AC_SCHMAMT === ''? '-' : data.AC_SCHMAMT}}</td>
+                                                    <td [ngClass]="data.AC_MATUAMT === '' ? 'td_center' : 'td_right'">
+                                                        {{data.AC_MATUAMT === ''? '-' : data.AC_MATUAMT}}</td>
+                                                    <!-- <td [ngClass]="data.AC_CLOSEDT === '' ? 'td_center' : 'td_center'">
+                                                        {{data.AC_CLOSEDT === ''? '-' : data.AC_CLOSEDT}}</td> -->
                                                     </tr>
                                                 </tbody>
                                                 <tbody *ngIf="investmentMaster?.length == 0">
@@ -93,7 +80,34 @@
                                                         <td colspan="6" class="no-data-available">No data!</td>
                                                     </tr>
                                                 </tbody>
-
+                                                <tfoot #filters class="filters">
+                                                    <tr class="testing">
+                                                        <th></th>
+                                                        <th><input type="text" class="form-control" name="AC_TYPE"></th>
+                                                        <th><input type="text" class="form-control" name="BANKACNO">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="AC_NAME"></th>
+                                                        <th><input type="text" class="form-control" name="INVEST_BANK">
+                                                        </th>
+                                                        <th><input type="text" class="form-control"
+                                                                name="INVEST_BRANCH"> </th>
+                                                        <th><input type="text" class="form-control" name="AC_OPDATE">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="AC_ASON_DATE">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="AC_EXPDT">
+                                                        </th>
+                                                        <th><input type="text" class="form-control"
+                                                                name="AC_REF_RECEIPTNO"></th>
+                                                        <th><input type="text" class="form-control" name="AC_INTRATE">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="AC_SCHMAMT">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="AC_MATUAMT">
+                                                        </th>
+                                                        <!-- <th><input type="text" class="form-control" name="AC_CLOSEDT"></th> -->
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -140,7 +154,7 @@
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-            (click)="modalLarge.hide();" hidden>Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide" (click)="modalLarge.hide();"
+            hidden>Close</button>
     </div>
 </app-modal-basic>

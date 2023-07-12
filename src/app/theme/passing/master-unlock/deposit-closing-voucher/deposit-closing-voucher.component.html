@@ -60,6 +60,24 @@
                                                         <td colspan="7" class="no-data-available">No data!</td>
                                                     </tr>
                                                 </tbody>
+                                                <tfoot #filters class="filters">
+                                                    <tr class="testing">
+                                                        <th></th>
+                                                        <th><input type="text" class="form-control" name="TRAN_NO"></th>
+                                                        <th><input type="text" class="form-control"
+                                                                name="IS_PREMATURE_CLOSE"></th>
+                                                        <th><input type="text" class="form-control" name="TOKEN_NO">
+                                                        </th>
+                                                        <th><input type="text" class="form-control"
+                                                                name="NET_PAYABLE_AMOUNT"></th>
+                                                        <th><input type="text" class="form-control" name="TRAN_ACTYPE">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="TRAN_ACNO">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="USER_CODE">
+                                                        </th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -86,7 +104,7 @@
         </perfect-scrollbar>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-sm" id="trigger"
-            (click)="modalLarge.hide();" hidden>Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" id="trigger" (click)="modalLarge.hide();"
+            hidden>Close</button>
     </div>
 </app-modal-basic>
