@@ -24,7 +24,7 @@ export class LoanProjectionComponent implements OnInit {
 
   angForm: FormGroup;
   repay: string
-  resultData : any;
+  resultData: any;
 
   installmentType: string
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
@@ -32,8 +32,8 @@ export class LoanProjectionComponent implements OnInit {
   repayModeOption1: Array<IOption> = this.repayModeService.getCharacters();
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   maxDate: any;
-  minDate: Date;
-  resolutionDate: Date;
+  minDate;
+  resolutionDate;
 
   Resolution_date
   debitcredit
@@ -50,24 +50,30 @@ export class LoanProjectionComponent implements OnInit {
   todate: any;
 
   constructor(
-    private repayModeService: RepayModeService, 
-    private installmentMethodService: InstallmentMethodService, 
+    private repayModeService: RepayModeService,
+    private installmentMethodService: InstallmentMethodService,
     private fb: FormBuilder,
-    private _services: OtherViewService ,
+    private _services: OtherViewService,
     private systemParameter: SystemMasterParametersService,
-    ) {
-       this.resolutionDate =new Date();
-     }
+  ) {
+    this.resolutionDate = new Date();
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.minDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.resolutionDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.resolutionDate = this.resolutionDate._d
+      this.maxDate = this.maxDate._d
+      this.minDate = this.minDate._d
+    })
+  }
 
 
   ngOnInit(): void {
     this.createForm()
-    this.systemParameter.getFormData(1).subscribe(data => {
-      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-      this.Resolution_date = data.CURRENT_DATE
-
-      
-    })
+    // this.systemParameter.getFormData(1).subscribe(data => {
+    // let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+    // this.Resolution_date = data.CURRENT_DATE
+    // })
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -99,10 +105,10 @@ export class LoanProjectionComponent implements OnInit {
     obj['user'] = JSON.parse(localStorage.getItem('user'));
     //check  if given value  is below 100
     if (ele <= 50) {
-      this._services.getInstallment(obj).subscribe(data=>{
+      this._services.getInstallment(obj).subscribe(data => {
         console.log(data);
         this.angForm.patchValue({
-          INSTALLMENTS : data + ".00"
+          INSTALLMENTS: data + ".00"
         })
       })
     } else {
@@ -113,16 +119,17 @@ export class LoanProjectionComponent implements OnInit {
     }
   }
 
-  Process(){
+  Process() {
     let obj = this.angForm.value;
     obj['user'] = JSON.parse(localStorage.getItem('user'));
-    this._services.loanProjection(obj).subscribe(data=>{
+    this._services.loanProjection(obj).subscribe(data => {
       console.log(data);
       this.resultData = data.result;
     })
   }
-  close(){
+  close() {
     this.ngOnInit();
+    this.resultData = []
   }
   getDecimalPoint(event) {
     if (event.target.value != '')
@@ -135,6 +142,28 @@ export class LoanProjectionComponent implements OnInit {
       event.target.value = parseFloat(event.target.value) + "%";
     else
       event.target.value = 0
+  }
+  checkPeriod() {
+    if (this.repay == '1' && Number(this.angForm.controls['PERIOD'].value) < 1) {
+      this.angForm.patchValue({
+        PERIOD: 1
+      })
+    }
+    else if (this.repay == '3' && Number(this.angForm.controls['PERIOD'].value) < 3) {
+      this.angForm.patchValue({
+        PERIOD: 3
+      })
+    }
+    else if (this.repay == '6' && Number(this.angForm.controls['PERIOD'].value) < 6) {
+      this.angForm.patchValue({
+        PERIOD: 6
+      })
+    }
+    else if (this.repay == '12' && Number(this.angForm.controls['PERIOD'].value) < 12) {
+      this.angForm.patchValue({
+        PERIOD: 12
+      })
+    }
   }
 }
 

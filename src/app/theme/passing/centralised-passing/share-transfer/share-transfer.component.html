@@ -56,6 +56,19 @@
                                                         <td colspan="7" class="no-data-available">No data!</td>
                                                     </tr>
                                                 </tbody>
+                                                <tfoot #filters class="filters">
+                                                    <tr class="testing">
+                                                        <th></th>
+                                                        <th><input type="text" class="form-control" name="TRAN_NO"></th>
+                                                        <th><input type="text" class="form-control" name="TRAN_AMOUNT">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="TRAN_TIME">
+                                                        <th><input type="text" class="form-control" name="TRAN_ACTYPE">
+                                                        <th><input type="text" class="form-control" name="TRAN_ACNO">
+                                                        <th><input type="text" class="form-control" name="USER_CODE">
+                                                        </th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -79,7 +92,7 @@
         <perfect-scrollbar style="overflow-y: auto;">
 
             <app-shares-transfer [childMessage]="shareTransferData"
-                (reloadTablePassing)="reloadTable()"></app-shares-transfer> 
+                (reloadTablePassing)="reloadTable()"></app-shares-transfer>
             <!-- <app-shares-transfer></app-shares-transfer> -->
         </perfect-scrollbar>
     </div>

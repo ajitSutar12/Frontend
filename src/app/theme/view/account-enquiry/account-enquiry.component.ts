@@ -1616,4 +1616,54 @@ export class AccountEnquiryComponent implements OnInit {
     ele.open()
   }
 
+  // onScroll() {
+  //   // Fetch the next page of items from the endpoint
+  //   this.fetchItems().subscribe((newItems) => {
+  //     this.schemeACNo = this.schemeACNo.concat(newItems);
+  //     this.currentPage++;
+  //   });
+  // }
+
+  currentPage = 1;
+  pageSize = 10; // Number of items to load per page
+
+
+  fetchItems() {
+    // Implement your HTTP request to fetch items from the endpoint
+    // You can use HttpClient or a service that handles the API call
+    // Adjust the endpoint URL and parameters according to your API design
+
+    const endpoint = this.url + '/term-deposits-master/balUpdate/'; // Replace with your actual endpoint URL
+    let schemeid = [this.ngscheme, this.ngBranchCode]
+    let obj = {
+      schemeid: schemeid,
+      page: this.currentPage.toString(),
+      pageSize: this.pageSize.toString()
+    }
+    return this.http.post<any[]>(endpoint, obj).subscribe(data => {
+      this.schemeACNo = this.schemeACNo.concat(data);
+      this.currentPage++;
+    })
+
+  }
+
+  loadItems() {
+    let schemeid = [this.ngscheme, this.ngBranchCode]
+    let obj = {
+      schemeid: schemeid,
+      page: this.currentPage.toString(),
+      pageSize: this.pageSize.toString()
+    }
+    const endpoint = this.url + '/term-deposits-master/balUpdate/'; // Replace with your actual endpoint URL
+    this.http.post(endpoint, obj).subscribe((data) => {
+      console.log(data,'td rec')
+      this.schemeACNo = this.schemeACNo.concat(data);
+      this.currentPage++;
+    });
+  }
+
+  onScroll() {
+    this.loadItems();
+  }
+
 }

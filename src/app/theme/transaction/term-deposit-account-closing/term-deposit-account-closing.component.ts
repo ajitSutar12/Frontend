@@ -1615,7 +1615,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
-    this.newbtnShow = false;
+    this.newbtnShow = true;
     this.resetForm();
   }
 
@@ -1733,7 +1733,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   public visible = false;
   showButton: boolean = true;
   updateShow: boolean = false;
-  newbtnShow: boolean = false;
+  newbtnShow: boolean = true;
   unapproveShow: boolean = false;
   unApprove() {
     let user = JSON.parse(localStorage.getItem('user'));
@@ -1795,5 +1795,27 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.introducerACNo = null
     this.customer = null
     this.getIntroducer()
+  }
+
+  ResetForm() {
+    this.ngOnInit()
+    this.resetForm()
+    this.DayOpBal = 0
+    this.Pass = 0
+    this.INTRATE = 0
+    this.lastIntDate = ''
+    this.opDate = ''
+    this.asOnDate = ''
+    this.maturityDate = ''
+    this.maturityDate1 = ''
+    this.recNo = 0
+    this.operator = ''
+    this.months = 0
+    this.days = 0
+    this.interestCategory = ''
+    this.preMature = false
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = true;
   }
 }

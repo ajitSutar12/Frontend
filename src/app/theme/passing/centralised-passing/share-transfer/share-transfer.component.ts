@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -31,7 +31,7 @@ interface SharesTransfer {
   templateUrl: './share-transfer.component.html',
   styleUrls: ['./share-transfer.component.scss']
 })
-export class ShareTransferComponent implements OnInit {
+export class ShareTransferComponent implements OnInit, AfterViewInit {
   @ViewChild(SharesTransferComponent) child: SharesTransferComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
 
@@ -50,7 +50,7 @@ export class ShareTransferComponent implements OnInit {
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  shareTransferData: any 
+  shareTransferData: any
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -122,7 +122,7 @@ export class ShareTransferComponent implements OnInit {
           title: 'Time',
           data: 'TRAN_TIME'
         },
-       
+
         {
           title: 'Scheme Type',
           data: 'TRAN_ACTYPE'
@@ -169,6 +169,26 @@ export class ShareTransferComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

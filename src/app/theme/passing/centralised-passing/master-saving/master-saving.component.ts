@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -53,7 +53,7 @@ interface SavingMaster {
 })
 
 
-export class MasterSavingComponent implements OnInit {
+export class MasterSavingComponent implements OnInit, AfterViewInit {
   @ViewChild(SavingMasterComponent) child: SavingMasterComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
@@ -238,4 +238,24 @@ export class MasterSavingComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#savingmastertable1 tfoot tr').appendTo('#savingmastertable1 thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
 }

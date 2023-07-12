@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -52,7 +52,7 @@ interface CurrentAccountMaster {
   templateUrl: './master-current.component.html',
   styleUrls: ['./master-current.component.scss']
 })
-export class MasterCurrentComponent implements OnInit {
+export class MasterCurrentComponent implements OnInit ,AfterViewInit{
   @ViewChild(CurrentAccountMasterComponent) child: CurrentAccountMasterComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
@@ -219,6 +219,26 @@ export class MasterCurrentComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable1 tfoot tr').appendTo('#mastertable1 thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

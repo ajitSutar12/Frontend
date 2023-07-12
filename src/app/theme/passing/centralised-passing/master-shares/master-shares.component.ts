@@ -229,11 +229,19 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
-
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('#sharemastertable1 tfoot tr').appendTo('#sharemastertable1 thead');
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
     });
   }
 
