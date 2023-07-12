@@ -16,6 +16,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { NgSelectConfig } from "@ng-select/ng-select";
 import { data } from "jquery";
 import { CashDenominationService } from "src/app/theme/transaction/cash-denomination/cash-denomination.service";
+import { CashierUmService } from "src/app/theme/utility/cashier-um/cashier-um.service";
 
 
 @Component({
@@ -44,6 +45,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
   SelectedBranch: any;
   cashiar:any;
   branchno: any;
+  cashier_list :any;
 
  
   constructor(
@@ -54,7 +56,8 @@ export class BnkScrollDetailBothComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-    private _services: CashDenominationService,
+    private _services: CashDenominationService,    private _service : CashierUmService,
+
   ) {
     this.fromdate = moment().format('DD/MM/YYYY'); 
     this.maxDate = new Date();
@@ -91,6 +94,15 @@ export class BnkScrollDetailBothComponent implements OnInit {
     })
   })
 
+  this._service.getUserDetails().subscribe(data=>{
+      
+    this.cashier_list = data;
+  
+    console.log(this.cashier_list);
+},err=>{
+  console.log(err);
+})
+
     //get date from syspara current_date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.fromdate = data.CURRENT_DATE;
@@ -120,7 +132,7 @@ export class BnkScrollDetailBothComponent implements OnInit {
         Cashier_Code: [''],
         Print_Code: new FormControl('Debit'),
         CURRENT_DATE:  ['',[Validators.required]],
-        radio: new FormControl('none'),
+        // radio: new FormControl('none'),
       });
 
       let data: any = localStorage.getItem('user');
@@ -168,9 +180,9 @@ export class BnkScrollDetailBothComponent implements OnInit {
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
   let pcode = obj.Print_Code
-  let rdio  = obj.radio
+  // let rdio  = obj.radio
 
-    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&branchcode='"+this.branchno+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData  ;
+    this.iframe1url=this.report_url+"examples/ScrollBookDebit.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&branchcode='"+this.branchno+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&bankName="+bankName+"&opDate="+OpeningData  ;
     this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 
  }
  else if(this.angForm.controls['Print_Code'].value=="Credit" && this.angForm.valid){

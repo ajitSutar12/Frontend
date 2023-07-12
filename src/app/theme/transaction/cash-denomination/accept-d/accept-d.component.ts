@@ -47,6 +47,8 @@ export class AcceptDComponent implements OnInit {
     { currency: 5,    qty: "", total: 0, available: 0 },
     { currency: 2,    qty: "", total: 0, available: 0 },
     { currency: 1,    qty: "", total: 0, available: 0 },
+    { currency: 'Coin',    qty: "", total: 0, available: 0 },
+
   ]
   glDetails: any;
   constructor(
@@ -131,7 +133,7 @@ export class AcceptDComponent implements OnInit {
     // console.log(element.target.value); 
     let currency = this.currencyData[index].currency;
     let qty = element.target.value;
-    let total = currency * qty;
+    let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty) ) ;
     this.currencyData[index].currency = currency;
     this.currencyData[index].qty = qty;
     this.currencyData[index].total = total;
@@ -265,8 +267,8 @@ export class AcceptDComponent implements OnInit {
   cancel()
   {
     this.currencyData.forEach(entry => {
-      entry.qty = '0';
-      entry.total = 0;
+      entry.qty = '';
+      entry.total = 0; 
       this.sum = 0;
     })
   }
