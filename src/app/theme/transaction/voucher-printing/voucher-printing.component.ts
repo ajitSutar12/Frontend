@@ -282,7 +282,7 @@ export class VoucherPrintingComponent implements OnInit {
       let scheme = obj.Scheme_code
       let branch = obj.BRANCH_CODE
 
-      this.iframe5url = this.report_url + "examples/TDReceiptPrint.php/?&Date='" + obj.FROM_DATE + "'&scheme='" + scheme + "'&branchname='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&Bankname='" + bankName + "'";
+      // this.iframe5url = this.report_url + "examples/TDReceiptPrint.php/?&Date='" + obj.FROM_DATE + "'&scheme='" + scheme + "'&branchname='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&Bankname='" + bankName + "'";
       this.iframe5url = this.report_url + "examples/vocharprinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&Vochar_No='2'&Branch='Kolhapur'&branch_code=1";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

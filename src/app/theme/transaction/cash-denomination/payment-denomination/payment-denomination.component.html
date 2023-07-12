@@ -215,7 +215,10 @@
             <div class="solid">
                 <table>
                     <tr *ngFor="let data of currencyData; let indexOfelement = index">
-                        <td class="td_center">{{data.currency}} X</td>
+
+                        <td class="td_center" *ngIf="data.currency === 'Coin'">Coins</td>
+                        <td class="td_center" *ngIf="data.currency !== 'Coin'">{{data.currency}} X</td>
+
                         <td><input type="text" (keyup)="calculation(data,indexOfelement,$event)"
                             style="width: 100px;" placeholder="0"   value="{{data.qty}}">=</td>
                         <td><input type="text" class="text-right" style="width: 100px;" value="{{data.total}}" disabled></td>

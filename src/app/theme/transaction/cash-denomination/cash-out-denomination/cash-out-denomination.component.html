@@ -41,11 +41,8 @@
                                         <span class="border-lable-flt">
                                             <ng-select id="CASHIER"  [(ngModel)]="cashier"
                                                 formControlName="CASHIER" title="Compulsory Selection"
-                                                [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus tabindex="0" (change)="changeData($event)" 
-                                                bindvalue="value" bindlable="lable">
-                                                <!-- <ng-option *ngFor="let item of cashier_list" [value]="item">
-                                                    {{item.id}} {{item.label}}</ng-option> -->
-                                                    <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.value}} {{values.label}}</ng-option>
+                                                [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus tabindex="0" (change)="changeData($event)">
+                                                <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.F_NAME}} {{values.L_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -137,7 +134,8 @@
                 <div class="solid">
                     <table>
                         <tr *ngFor="let data of currencyData; let indexOfelement = index">
-                            <td class="td_center">{{data.currency}} X</td>
+                            <td class="td_center" *ngIf="data.currency === 'Coin'">Coins</td>
+                            <td class="td_center" *ngIf="data.currency !== 'Coin'">{{data.currency}} X</td> 
                             <td><input type="text" (keyup)="calculation(data,indexOfelement,$event)"
                                 style="width: 100px;"   value="{{data.qty}}">=</td>
                             <td><input type="text" class="text-right" style="width: 100px;" value="{{data.total}}" disabled></td>
@@ -151,8 +149,9 @@
                             <td align="right">
                                 Total Cash :
                             </td>
+                            <td></td>
                             <td>
-                                <input type="text" style="width: 100px;" value="{{sum}}">
+                                <input type="text" class="text-right" style="width: 100px;" value="{{sum}}">
                             </td>
                         </tr>
                     </table>
@@ -164,7 +163,7 @@
                         <button class="btn btn-outline-primary btn-sm" (click)="submit()">
                             Submit
                         </button>
-                        <button class="btn btn-outline-primary btn-sm">
+                        <button class="btn btn-outline-primary btn-sm" (click)="reset()">
                             Cancel
                         </button>
                     </div>

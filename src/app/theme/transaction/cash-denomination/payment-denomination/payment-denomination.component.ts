@@ -32,6 +32,7 @@ export class PaymentDenominationComponent implements OnInit {
   accountno:any;
   Particulars:any;
   showCash :boolean = false;
+
   totalCash :any = 0;
   cashierName : any;
   currencyData =[
@@ -46,6 +47,8 @@ export class PaymentDenominationComponent implements OnInit {
     { currency: 5,    qty: "", total: 0, available: 0 },
     { currency: 2,    qty: "", total: 0, available: 0 },
     { currency: 1,    qty: "", total: 0, available: 0 },
+    { currency: 'Coin',    qty: "", total: 0, available: 0 },
+
   ]
   transactionAmt: any;
   constructor(
@@ -120,6 +123,7 @@ export class PaymentDenominationComponent implements OnInit {
 
   showCashModule(){
     this.showCash = true;
+
   }
 
   sum: number = 0
@@ -128,7 +132,9 @@ export class PaymentDenominationComponent implements OnInit {
 
     let currency = this.currencyData[index].currency;
     let qty = element.target.value;
-    let total = currency * qty;
+
+
+    let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty) ) ;
     this.currencyData[index].currency = currency;
     this.currencyData[index].qty = qty;
     this.currencyData[index].total = total;
@@ -154,11 +160,12 @@ submit() {
         {
           Swal.fire('Oops...','Please Check Transaction Amount and Denomination Amount','warning');
   
-        }
+        } 
     else{
       this._service.paymentDinominationInsert(object).subscribe(data=>{
         Swal.fire('Success','Cash Accept Denomincation Successfully Done','success');
           this.angForm.reset();
+          this.ngOnInit()
           this.showCash = false;
         for(let item of this.currencyData){
           item.available = 0;
@@ -175,7 +182,7 @@ submit() {
   cancel()
   {
     this.currencyData.forEach(entry => {
-      entry.qty = '0';
+      entry.qty = '';
       entry.total = 0;
       this.sum = 0;
     })

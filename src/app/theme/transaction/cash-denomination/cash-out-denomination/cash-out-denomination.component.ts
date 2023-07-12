@@ -38,17 +38,19 @@ export class CashOutDenominationComponent implements OnInit {
   SelectedBranch :any;
   branch_list:any;
   currencyData =[
-    { currency: 2000, qty: 0, total: 0, available: 0 },
-    { currency: 1000, qty: 0, total: 0, available: 0 },
-    { currency: 500,  qty: 0, total: 0, available: 0 },
-    { currency: 200,  qty: 0, total: 0, available: 0 },
-    { currency: 100,  qty: 0, total: 0, available: 0 },
-    { currency: 50,   qty: 0, total: 0, available: 0 },
-    { currency: 20,   qty: 0, total: 0, available: 0 },
-    { currency: 10,   qty: 0, total: 0, available: 0 },
-    { currency: 5,    qty: 0, total: 0, available: 0 },
-    { currency: 2,    qty: 0, total: 0, available: 0 },
-    { currency: 1,    qty: 0, total: 0, available: 0 },
+    { currency: 2000, qty: "", total: 0, available: 0 },
+    { currency: 1000, qty: "", total: 0, available: 0 },
+    { currency: 500,  qty: "", total: 0, available: 0 },
+    { currency: 200,  qty: "", total: 0, available: 0 },
+    { currency: 100,  qty: "", total: 0, available: 0 },
+    { currency: 50,   qty: "", total: 0, available: 0 },
+    { currency: 20,   qty: "", total: 0, available: 0 },
+    { currency: 10,   qty: "", total: 0, available: 0 },
+    { currency: 5,    qty: "", total: 0, available: 0 },
+    { currency: 2,    qty: "", total: 0, available: 0 },
+    { currency: 1,    qty: "", total: 0, available: 0 },
+    { currency: 'Coin',    qty: "", total: 0, available: 0 },
+
   ]
   Scheme: unknown;
 
@@ -114,9 +116,9 @@ export class CashOutDenominationComponent implements OnInit {
         element.target.value = 0; 
         let currency = this.currencyData[index].currency;
         let available = element.target.value;
-        let total = currency * 0;
+        let total = Number(currency) * 0;
         this.currencyData[index].currency = currency;
-        this.currencyData[index].qty = 0;
+        this.currencyData[index].qty = "";
         this.currencyData[index].total = total;
         this.sum = this.currencyData.reduce((accumulator, object) => {
           return accumulator + object.total;
@@ -124,7 +126,7 @@ export class CashOutDenominationComponent implements OnInit {
     }else{
         let currency = this.currencyData[index].currency;
         let available = element.target.value;
-        let total = currency * qty;
+        let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty) ) ;
         this.currencyData[index].currency = currency;
         this.currencyData[index].qty = qty;
         this.currencyData[index].total = total;
@@ -154,7 +156,7 @@ export class CashOutDenominationComponent implements OnInit {
         this.angForm.reset();
         for(let item of this.currencyData){
           item.available = 0;
-          item.qty       = 0;
+          item.qty       = "";
           item.total     = 0;
         }
         this.sum = 0;
@@ -188,5 +190,14 @@ export class CashOutDenominationComponent implements OnInit {
     this.currencyData[8].available = ele.DENO_5;
     this.currencyData[9].available = ele.DENO_2;
     this.currencyData[10].available = ele.DENO_1;
+  }
+  reset() {
+    this.angForm.controls['DENOMINATION_AMT'].reset()
+    this.angForm.controls['TRANSACTION_NO'].reset()
+    this.currencyData.forEach(entry => {
+      entry.qty = '';
+      entry.total = 0; 
+      this.sum = 0;
+    })
   }
 }
