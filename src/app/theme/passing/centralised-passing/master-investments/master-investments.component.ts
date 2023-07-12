@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -37,7 +37,7 @@ interface InvestmentMaster {
   templateUrl: './master-investments.component.html',
   styleUrls: ['./master-investments.component.scss']
 })
-export class MasterInvestmentsComponent implements OnInit {
+export class MasterInvestmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(AccountOpeningComponent) child: AccountOpeningComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
@@ -222,5 +222,24 @@ export class MasterInvestmentsComponent implements OnInit {
       dtInstance.ajax.reload()
     });
   }
-
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable1 tfoot tr').appendTo('#mastertable1 thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
 }

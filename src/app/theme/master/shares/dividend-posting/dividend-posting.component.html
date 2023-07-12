@@ -40,13 +40,15 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme appButton minlength="8" maxlength="10"
-                                         id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
-                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
-                                        #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true' [virtualScroll]="true"
-                                        required placeholder="Warrent Date" (change)="getWarrentDetails($event)">
+                                    <ng-select appTheme appButton minlength="8" maxlength="10" id="WARRENT_DATE"
+                                        bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
+                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE"
+                                        title="Compulsory Selection" #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)"
+                                        [selectOnTab]='true' [virtualScroll]="true" required placeholder="Warrent Date"
+                                        (change)="getWarrentDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
-                                           <span> {{values.WARRENT_DATE}}</span><span class="boarder"> ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}} </span>)
+                                            <span> {{values.WARRENT_DATE}}</span><span class="boarder">
+                                                ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}} </span>)
                                         </ng-option>
                                     </ng-select> <!-- <ng-select appTheme appButton minlength="8" maxlength="10"
                                          id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
@@ -67,8 +69,8 @@
                                         minlength="10" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker> -->
-                                    
-                                            <!-- <input type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
+
+                                    <!-- <input type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
                                                 class="form-control" [(ngModel)]="ngwarrentDate"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="WARRENT_DATE" (change)="getWarrentDetails($event)"
                                                 [maxDate]="maxDate" appButton minlength="8" maxlength="10"
@@ -85,8 +87,9 @@
                             </div>
                         </div>
                         <div class="col-sm-1">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Process</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
+                                *ngIf="showButton" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
+                                appTheme>Post</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>
@@ -96,7 +99,7 @@
         </div>
     </div>
 </div>
- <!-- <div class="row">
+<!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-block">

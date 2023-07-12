@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -28,7 +28,7 @@ interface CashCreditAcRenewal {
   templateUrl: './passcash-credit-ac-renewal.component.html',
   styleUrls: ['./passcash-credit-ac-renewal.component.scss']
 })
-export class PasscashCreditAcRenewalComponent implements OnInit {
+export class PasscashCreditAcRenewalComponent implements OnInit, AfterViewInit {
   @ViewChild(CashCreditAcRenewalComponent) child: CashCreditAcRenewalComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
@@ -150,6 +150,26 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

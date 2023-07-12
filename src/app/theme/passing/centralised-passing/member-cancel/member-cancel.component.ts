@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
-import {MembershipCancellationComponent} from '../../../transaction/share-transactions/membership-cancellation/membership-cancellation.component'
+import { MembershipCancellationComponent } from '../../../transaction/share-transactions/membership-cancellation/membership-cancellation.component'
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -26,11 +26,11 @@ interface ShareTransfer {
 
 
 @Component({
-    selector: 'app-member-cancel', 
-    templateUrl: './member-cancel.component.html',
-    styleUrls: ['./member-cancel.component.scss']
-  })
-  export class MemberCancelComponent implements OnInit {
+  selector: 'app-member-cancel',
+  templateUrl: './member-cancel.component.html',
+  styleUrls: ['./member-cancel.component.scss']
+})
+export class MemberCancelComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MembershipCancellationComponent) child: MembershipCancellationComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
@@ -50,7 +50,7 @@ interface ShareTransfer {
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  memberCancelData: any 
+  memberCancelData: any
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -122,7 +122,7 @@ interface ShareTransfer {
           title: 'Time',
           data: 'TRAN_TIME'
         },
-       
+
         {
           title: 'Scheme Type',
           data: 'TRAN_ACTYPE'
@@ -161,17 +161,37 @@ interface ShareTransfer {
   //get saving customer data
   getMemberCancelData(data) {
     console.log(data);
-    
+
     this.memberCancelData = data.id;
     this.child.editClickHandler(data.id);
     this.child.rejectShow = true;
     this.child.approveShow = true;
   }
-  
+
 
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

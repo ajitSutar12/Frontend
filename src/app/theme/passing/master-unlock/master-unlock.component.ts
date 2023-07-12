@@ -102,6 +102,7 @@ export class MasterUnlockComponent implements OnInit {
       this.memberCancelTrue = false;
       this.issueNewShareTrue = false;
       this.lockerRentTrue = false;
+      this.lockeraccloserentTrue = false;
     }
     else if (val == 21) {
       this.voucherTrue = true;
@@ -330,6 +331,27 @@ export class MasterUnlockComponent implements OnInit {
       this.goldsilverreturnTrue = false;
       this.deprciationProcessTrue = false;
       this.termdepositacrenewalTrue = true;
+      this.shareTransferTrue = false;
+      this.memberCancelTrue = false;
+      this.issueNewShareTrue = false;
+      this.lockerRentTrue = false;
+    }
+    else if (val == 32) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = true;
+      this.shareTransactionTrue = false
+      this.mastersavingTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.deprciationProcessTrue = false;
+      this.termdepositacrenewalTrue = false;
       this.shareTransferTrue = false;
       this.memberCancelTrue = false;
       this.issueNewShareTrue = false;

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -31,7 +31,7 @@ interface issueNewShare {
   templateUrl: './shares-issue-new.component.html',
   styleUrls: ['./shares-issue-new.component.scss']
 })
-export class SharesIssueNewComponent implements OnInit {
+export class SharesIssueNewComponent implements OnInit, AfterViewInit {
 
   @ViewChild(IssueNewSharesComponent) child: IssueNewSharesComponent;
   @ViewChild('trigger') myDiv: ElementRef<HTMLElement>;
@@ -51,9 +51,9 @@ export class SharesIssueNewComponent implements OnInit {
   savingData: any;
   constructor(private http: HttpClient,) { }
 
-  issueNewShareData: any 
+  issueNewShareData: any
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -123,7 +123,7 @@ export class SharesIssueNewComponent implements OnInit {
           title: 'Time',
           data: 'TRAN_TIME'
         },
-       
+
         {
           title: 'Scheme Type',
           data: 'TRAN_ACTYPE'
@@ -171,7 +171,27 @@ export class SharesIssueNewComponent implements OnInit {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
       console.log(dtInstance.ajax.reload);
-      
+
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

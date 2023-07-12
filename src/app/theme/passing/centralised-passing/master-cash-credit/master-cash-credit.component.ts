@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -64,7 +64,7 @@ interface CashCreditMaster {
   templateUrl: './master-cash-credit.component.html',
   styleUrls: ['./master-cash-credit.component.scss']
 })
-export class MasterCashCreditComponent implements OnInit {
+export class MasterCashCreditComponent implements OnInit, AfterViewInit {
   @ViewChild(CashCreditMasterComponent) child: CashCreditMasterComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
@@ -227,7 +227,7 @@ export class MasterCashCreditComponent implements OnInit {
   //get saving customer data
   getCashCreditData(data) {
     this.cashCreditData = data.id;
-    this.child.editClickHandler(data.id,1);
+    this.child.editClickHandler(data.id, 1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
@@ -237,5 +237,24 @@ export class MasterCashCreditComponent implements OnInit {
       dtInstance.ajax.reload()
     });
   }
-
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable1 tfoot tr').appendTo('#mastertable1 thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
 }

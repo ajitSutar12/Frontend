@@ -16,7 +16,7 @@
                   <input style="text-align: right;" type="text" class="form-control" name="amount" id="amount"
                     formControlName="LOANAMT" maxlength="15"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    (keyup)="decimalAllContent($event)" (focusout)= "getDecimalPoint($event)" >
+                    (keyup)="decimalAllContent($event)" (focusout)="getDecimalPoint($event)">
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
@@ -29,7 +29,7 @@
 
             </div>
             <div class="col-sm-12 col-md-2"> <label for="Period">
-                No. of Instalments<sub class="required">*</sub></label></div>
+                Period in Months<sub class="required">*</sub></label></div>
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -55,7 +55,7 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select id="AC_REPAYMODE" bindValue="value" [(ngModel)]="repay" formControlName="AC_REPAYMODE"
-                    bindLabel="label" title="Compulsory Selection" required placeholder="Repay Mode">
+                    bindLabel="label" title="Compulsory Selection" required placeholder="Repay Mode" (change)="checkPeriod()">
                     <ng-option *ngFor="let values of repayModeOption" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -71,8 +71,31 @@
                 </div>
               </div>
             </div>
+            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Installment Type</label>
+            </div>
 
-            
+            <div class="col-sm-2">
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select id="INSTALLMENT_METHOD" bindValue="value" [(ngModel)]="installmentType"
+                    formControlName="INSTALLMENT_METHOD" bindLabel="label" title="Compulsory Selection" required
+                    placeholder="Installment Type">
+                    <ng-option *ngFor="let values of installment" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+
+                </span>
+              </div>
+
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['INSTALLMENT_METHOD'].invalid && (angForm.controls['INSTALLMENT_METHOD'].dirty || angForm.controls['INSTALLMENT_METHOD'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['INSTALLMENT_METHOD'].errors?.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
+
 
             <div class="col-sm-12 col-md-2"><label for="insta">Interest Rate %</label>
             </div>
@@ -81,7 +104,7 @@
                 <span class="border-lable-flt">
                   <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
                     id="INT_RATE" maxlength="5" title="Input allowed only  0-9" #margin
-                    (focusout)="checkmargin(margin.value)" formControlName=" INT_RATE"
+                    (focusout)="checkmargin(margin.value)" formControlName="INT_RATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
                 </span>
               </div>
@@ -98,7 +121,7 @@
 
           <div class="row">
 
-           
+
             <!-- <div class="col-md-4"> 
               <div class="form-radio">
 
@@ -124,7 +147,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input style="text-align: right;" type="text" class="form-control" name="amount"
-                    formControlName="INSTALLMENTS" maxlength="15"  
+                    formControlName="INSTALLMENTS" maxlength="15"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" disabled>
                 </span>
               </div>
@@ -142,7 +165,7 @@
                 <button class="btn btn-outline-primary btn-sm" (click)="Process()">View</button>
                 <button class="btn btn-outline-primary btn-sm" (click)="close()">close</button>
               </div>
-            </div>  
+            </div>
 
           </div>
 
@@ -153,7 +176,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-12">
     <div class="col-12">
       <div class="table-responsive">
@@ -165,16 +188,12 @@
               <td class="td_center">Interst Amount</td>
               <td class="td_center">Principle Amount </td>
               <td class="td_center">EMI Installments</td>
-              <!-- <td class="td_center">Total Interest</td> -->
               <td class="td_center">Closing Balance</td>
 
             </tr>
           </thead>
 
           <tbody>
-            <!-- <tr>
-              <td colspan="6" class="no-data-available">No data!</td>
-            </tr> -->
             <tr *ngFor="let item of resultData; let i =index">
               <td class="td_center">{{i+1}}</td>
               <td class="td_center">{{item.DrAmt}}</td>
@@ -188,4 +207,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
