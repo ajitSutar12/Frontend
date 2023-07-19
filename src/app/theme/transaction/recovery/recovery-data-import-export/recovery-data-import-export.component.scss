@@ -1,3 +1,25 @@
 .required {
     color: red;
   }
+
+div.solid {
+    border-style: solid;
+    padding: 2%;
+    border-color: #817d7de3;
+    border-style: ridge;
+    // padding: 0.4%;
+    // margin-bottom: 3px;
+    // padding-right: 12px;
+}
+
+div.solid h3 {
+    text-align: left;
+    margin-top: -4%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+}
+
+div.solid h3 span {
+    background-color: white;
+}

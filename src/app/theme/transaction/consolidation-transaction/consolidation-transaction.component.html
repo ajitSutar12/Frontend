@@ -1,0 +1,117 @@
+<!-- <p>consolidation-transaction works!</p> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Consolidation Transaction</h5>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                        [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive1">
+                                    <label class="border-checkbox-label" for="checkbox1">Dividend
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox2"
+                                        [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive2">
+                                    <label class="border-checkbox-label" for="checkbox2">Member Visit
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox3"
+                                        [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive3">
+                                    <label class="border-checkbox-label" for="checkbox3">Interest on Deposit
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox4"
+                                        [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive4">
+                                    <label class="border-checkbox-label" for="checkbox4">Rebate Interest
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <button class="btn  btn-outline-primary btn-sm">Show Accounts</button>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="T_TYPE" value="CS" formControlName="T_TYPE">
+                                        <i class="helper"></i>Members with bank account</label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="T_TYPE" value="TR" formControlName="T_TYPE">
+                                        <i class="helper"></i>Members without bank account</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Transfer G.L. Code<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedScheme" #scheme formControlName="Scheme"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of gl_Scheme" [value]="item">
+                                            {{item.label}} {{item.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn  btn-outline-primary btn-sm">Exit</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Report</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Unselect All</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Select All</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

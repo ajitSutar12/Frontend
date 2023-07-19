@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { CashierUmService } from '../../utility/cashier-um/cashier-um.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +17,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
     SharedModule
   ],
   declarations: [CashDenominationComponent],
-  providers:[    SystemMasterParametersService,SchemeCodeDropdownService,
+  providers:[    SystemMasterParametersService,SchemeCodeDropdownService,CashierUmService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

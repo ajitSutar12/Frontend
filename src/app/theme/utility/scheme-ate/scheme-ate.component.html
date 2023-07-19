@@ -1,109 +1,146 @@
-
-
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h5>Scheme Amount Transfer</h5>
             </div>
-            <form class="form-material">
+            <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                    <div class="col-sm">
-                        <div class="form-group form-primary form-static-label">
-                            <input type="text" name="footer-email" class="form-control" required="">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Transfer Scheme From<span class="required"> *</span></label>
+                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Transfer Scheme From<sub
+                                    class="required">*</sub></label>
                         </div>
-                         </div>
-                         <div class="col-sm">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Transfer Scheme To<span class="required"> *</span></label>
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedTSfrom" #scheme formControlName="trSfrom"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of ts_From" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
                             </div>
-                             </div>
-                             <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">A/c From<span class="required"> *</span></label>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['trSfrom'].invalid && (angForm.controls['trSfrom'].dirty || angForm.controls['trSfrom'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['trSfrom'].errors?.required">
+                                    This field is required.
                                 </div>
-                                 </div>
-                     </div>
-                    </div>
-                    <div class="card-block">
-                        <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">A/c To<span class="required"> *</span></label>
                             </div>
-                             </div>
-                             <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Transfer Amount<span class="required"> *</span></label>
-                                </div>
-                                 </div>
-                                 <div class="col-sm">
-                                    <button class="btn btn-primary ripple light">Add</button>
 
-                                     </div>
-                         </div>
-                         <div class="row">
-                            <div class="col-lg-9">
-                            
-                              </div>
-                               <div class="col-sm">
-                                 <h6><span class="required">* </span>: Required Fields</h6>
-                              </div>
-                           </div>
                         </div>
-                      </form>
-                       <!-- Datatable -->
-         
 
-           
-                     </div>
-                     </div>
-                     </div>
-                    
-                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-block">
-                                    <div class="row">
-                                        <div class="col-sm">
-                                            <div class="table-responsive">
-                                                <table datatable [dtOptions]="dtExportButtonOptions"
-                                                    class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                    
+                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Transfer Scheme To<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedTSto" #scheme formControlName="trSto"
+                                        bindValue="value" bindLabel="label"
+                                        (change)="getIntro($event);getTransferAccountList($event)">
+                                        <ng-option *ngFor="let item of ts_To" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['trSto'].invalid && (angForm.controls['trSto'].dirty || angForm.controls['trSto'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['trSto'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">A/c From<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedAcfrom" #scheme formControlName="acfrom"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of ac_From" [value]="item">
+                                            {{item.label}} {{item.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['acfrom'].invalid && (angForm.controls['acfrom'].dirty || angForm.controls['acfrom'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['acfrom'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">A/c To<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedActo" #scheme formControlName="acto"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of ac_To" [value]="item">
+                                            {{item.label}} {{item.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['acto'].invalid && (angForm.controls['acto'].dirty || angForm.controls['acto'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['acto'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Transfer Amount<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
+                                        id="INSTALLMENT_NO" maxlength="10" formControlName="tramt"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['tramt'].invalid && (angForm.controls['tramt'].dirty || angForm.controls['tramt'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['tramt'].errors?.pattern || angForm.controls['tramt'].errors?.required || angForm.controls['tramt'].errors?.maxlength">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-block">
-                                    <div class="row">
-                                        <div class="col-sm">
-                                            <div class="table-responsive">
-                                                <table datatable [dtOptions]="dtExportButtonOptions"
-                                                    class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                    
-                            </div>
+                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Update</button>
                         </div>
                     </div>
+                </div>
+
+            </form>
+
+
+
+
+        </div>
+    </div>
+</div>

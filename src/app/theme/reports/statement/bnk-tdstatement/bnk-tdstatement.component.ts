@@ -215,10 +215,12 @@ export class BnkTDStatementComponent implements OnInit{
      let PrintClosedAccount=obj.Print_Closed_Account;
      let PrintAddedPenalInterest=obj.Print_Added_Penal_Interest;
      let PrintConciseReporteme=obj.Print_Concise_Report;
-     let scheme=obj.Scheme_code;
+     let scheme=this.getschemename;
+     let schemeCode=obj.Scheme_code;
+
   
  
-    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
+    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= '"+scheme+"'&schemeCode= "+schemeCode+
     "&PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
     console.log( this.iframe5url);
 
@@ -265,7 +267,7 @@ export class BnkTDStatementComponent implements OnInit{
   
     resetForm() {
       // this.createForm()
-      this.ngForm.controls.BRANCH_CODE.reset();
+      // this.ngForm.controls.BRANCH_CODE.reset();
       this.ngForm.controls.Scheme_code.reset();
       this.ngForm.controls.Starting_Account.reset();
       this.ngForm.controls.Ending_Account.reset();

@@ -56,7 +56,7 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="STATEMENT_CODE" appTheme bindValue="id" [(ngModel)]="ngstatement"
                                     formControlName="STATEMENT_CODE" bindLabel="head_name" title="Compulsory Selection"
-                                    [virtualScroll]="true" (change)="getSchemeCo($event)"
+                                    [virtualScroll]="true" (change)="getSchemeCo($event);getStatement($event)"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
                                     #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">

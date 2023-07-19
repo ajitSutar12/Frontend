@@ -61,7 +61,7 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="Cashier" formControlName="cashier_data"
                                                     title="Compulsory Selection" placeholder="">
-                                                    <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' && values.TOTAL_AMOUNT == 0 ? true : false">{{values.CASHIER_CODE}}</ng-option>
+                                                    <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' && values.TOTAL_AMOUNT == 0 ? true : false">{{values.CASHIER_CODE}} {{values.NAME}}</ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
