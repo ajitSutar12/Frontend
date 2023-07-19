@@ -86,7 +86,6 @@
 </body>
 <script>
 
-
     // window.addEventListener("beforeunload", function (e) {
     //     debugger
     //     alert('working');
@@ -96,46 +95,61 @@
     //     // } else {
     //     var user = JSON.parse(localStorage.getItem('user'));
     //     console.log({ id: user.id })
-    //     alert('working');
-    //     $.ajax({
-    //         url: 'localhost:7276/user-defination/logout',
-    //         type: 'POST',
-    //         data: { id: user.id },
-    //         dataType: "json",
-    //         contentType: "application/json",
-    //         success: function (result) {
-    //             alert('working');
-    //         }
-    //     })
+    //     alert('working');    //    
     //     return
     //     // }
 
     // });
-
-
-    // window.onbeforeunload = function (e) {
-    //     e.returnValue = 'onbeforeunload';
-    //     func();
-    //     return 'onbeforeunload';
-    // };
-
-    // function func() {
-    //     var user = JSON.parse(localStorage.getItem('user'));
-    //     $.ajax({
-    //         // url: 'http://localhost:4200/user-defination/logout',
-    //         // url : 'http://192.168.1.179:4000/user-defination/logout',
-    //         url: 'http://139.59.86.29:4000/user-defination/logout',
-    //         method: 'POST',
-    //         data: { id: user.id },
-    //         success: function (result) {
-    //             aleart('working');
-    //         }
-    //     })
-    // }
+    function ConfirmClose() { }
+    function HandleOnClose() { }
     // function stateChanged() {
     //     if (request.readyState == 4 || request.readyState == "complete")
     //         alert("Succes!");
     // }
+    // window.addEventListener("beforeunload", function (e) {
+    //     console.log('unload')
+    //     try {
+    //         const decodedToken = decodeJwtToken(localStorage.getItem('token'));
+    //         const currentTime = Math.floor(Date.now() / 1000);
+    //         // Check if the token has an expiration time
+    //         if (decodedToken.exp !== undefined && decodedToken.exp < currentTime) {
+    //             // console.log(decodedToken.exp < currentTime, 'decodedToken.exp < currentTime')
+
+    //             let data = localStorage.getItem('user');
+    //             let result = JSON.parse(data);
+    //             let obj = {
+    //                 USERID: result.id,
+    //                 BRANCH_CODE: result.branchId,
+    //                 REMARK: 'SESSION LOGOUT',
+    //                 id: result.id,
+    //             }
+    //             $.ajax({
+    //                 url: 'http://localhost:7276/user-defination/logout',
+    //                 // url: 'http://139.59.63.215:9152/user-defination/logout',
+    //                 // url: 'http://139.59.63.215:4713/user-defination/logout',
+    //                 method: 'POST',
+    //                 data: obj,
+    //                 success: function (result) { }
+    //             })
+    //             $.ajax({
+    //                 url: 'http://localhost:7276/user-defination/logoffhistory',
+    //                 // url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
+    //                 // url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
+    //                 method: 'POST',
+    //                 data: obj,
+    //                 success: function (result) { }
+    //             })
+    //             localStorage.removeItem('token');
+    //             localStorage.removeItem('user');
+    //         }
+    //     } catch (error) {
+    //         localStorage.removeItem('token');
+    //         localStorage.removeItem('user');
+    //         console.error('Error decoding token:', error);
+    //     }
+    //     window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
+    // })
+
     function idleLogout() {
         var t;
         window.onload = resetTimer;
@@ -147,26 +161,96 @@
         window.onkeydown = resetTimer;
         window.addEventListener('scroll', resetTimer, true); // improved; see comments
 
+        function decodeJwtToken(token) {
+            if (token) {
+                const payloadBase64 = token?.split('.')[1];
+                const decodedPayload = atob(payloadBase64);
+                const parsedPayload = JSON.parse(decodedPayload);
+                // console.log(parsedPayload)
+                return parsedPayload;
+            }
+        }
+
         function yourFunction() {
+            // console.log('inactive')
+            try {
+                const decodedToken = decodeJwtToken(localStorage.getItem('token'));
+                const currentTime = Math.floor(Date.now() / 1000);
+                // Check if the token has an expiration time
+                if (decodedToken.exp !== undefined && decodedToken.exp < currentTime) {
+                    // console.log(decodedToken.exp < currentTime, 'decodedToken.exp < currentTime')
+                    let data = localStorage.getItem('user');
+                    let result = JSON.parse(data);
+                    let obj = {
+                        USERID: result.id,
+                        BRANCH_CODE: result.branchId,
+                        REMARK: 'SESSION LOGOUT',
+                        id: result.id,
+                    }
+                    $.ajax({
+                        url: 'http://localhost:7276/user-defination/logout',
+                        // url: 'http://139.59.63.215:9152/user-defination/logout',
+                        // url: 'http://139.59.63.215:4713/user-defination/logout',
+                        method: 'POST',
+                        data: obj,
+                        success: function (result) { }
+                    })
+                    $.ajax({
+                        url: 'http://localhost:7276/user-defination/logoffhistory',
+                        // url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
+                        // url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
+                        method: 'POST',
+                        data: obj,
+                        success: function (result) { }
+                    })
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                }
+            } catch (error) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                console.error('Error decoding token:', error);
+            }
             // your function for too long inactivity goes here
             // window.location.href = 'http://localhost:4200/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/bhn_cbs/auth/login/simple';
             window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/SIDHANERLI/CBS/auth/login/simple';
             window.close()
-            // localStorage.removeItem('token');
-            // localStorage.removeItem('user');
-            // console.log('session out')
-            let user = JSON.parse(localStorage.getItem('user'));
         }
 
         function resetTimer() {
+            try {
+                const decodedToken = decodeJwtToken(localStorage.getItem('token'));
+                const currentTime = Math.floor(Date.now() / 1000);
+                // console.log('active', decodedToken.exp - 100, currentTime)
+                // Check if the token has an expiration time
+                if (decodedToken.exp !== undefined && decodedToken.exp - 100 < currentTime) {
+                    // console.log(localStorage.getItem('token'), 'token item')
+                    let data = localStorage.getItem('user');
+                    let result = JSON.parse(data);
+                    let refreshToken = localStorage.getItem('token')
+                    let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
+                    $.ajax({
+                        url: 'http://localhost:7276/refresh-token',
+                        // url: 'http://139.59.63.215:9152/refresh-token',
+                        // url: 'http://139.59.63.215:4713/refresh-token',
+                        method: 'POST',
+                        data: payload,
+                        success: function (result) {
+                            localStorage.setItem('token', result.accessToken)
+                        }
+                    })
+                }
+                // return true; // Treat the token as expired if no expiration time is present
+            } catch (error) {
+                console.error('Error decoding token:', error);
+            }
             clearTimeout(t);
             t = setTimeout(yourFunction, 900000);  // time is in milliseconds
         }
     }
     idleLogout();
-
 </script>
 
 </html>

@@ -21,7 +21,7 @@ export class ThemeDirective {
 @HostListener("focusout")
 onFormSubmit(event) {
    
-debugger
+// debugger
     const invalidControl = this.el.nativeElement;
     
     

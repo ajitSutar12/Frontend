@@ -56,4 +56,34 @@ export class AuthService {
   // isLoggedIn(){
   //   return !!localStorage.getItem('token')
   // }
+
+  private readonly accessTokenKey = 'token';
+  private readonly refreshTokenKey = 'refresh_token';
+
+
+
+  getAccessToken(): string {
+    return localStorage.getItem(this.accessTokenKey);
+  }
+
+  setAccessToken(token: string): void {
+    localStorage.setItem(this.accessTokenKey, token);
+  }
+
+  getRefreshToken(): string {
+    return localStorage.getItem(this.refreshTokenKey);
+  }
+
+  setRefreshToken(token: string): void {
+    localStorage.setItem(this.refreshTokenKey, token);
+  }
+
+  refreshAccessToken(refreshToken: string): Observable<any> {
+    const refreshTokenPayload = { refreshToken };
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    const payload = { username: result.USER_NAME, sub: result.id, refreshToken };
+
+    return this.http.post<any>(this.base_url + `/refresh-token`, payload);
+  }
 }
