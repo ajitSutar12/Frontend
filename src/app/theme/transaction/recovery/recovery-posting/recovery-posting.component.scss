@@ -1,3 +1,18 @@
 .required {
     color: red;
   }
+
+
+  .errspan {
+    float: right;
+    margin-right: 21px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 2;
+    color: red;
+  } 
+
+  .form-control:disabled{
+    background-color: white !important;
+    color: black !important;
+  }

@@ -39,7 +39,7 @@ export class TrasferredMemberOBComponent implements OnInit {
         title: 'Salary',
         data: 'salary'
       }],
-      dom: "Blrtip",
+      dom: 'Bfrtip',
       buttons: [
         'copy',
         'print',

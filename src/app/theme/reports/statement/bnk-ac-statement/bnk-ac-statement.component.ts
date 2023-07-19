@@ -164,13 +164,15 @@ export class BnkAcStatementComponent implements OnInit {
 
   getIntTrans1(event) {
     this.getbankAcNo2 =  event.bankacno
+    this.getInterestTransfer()
+
   }
-  //fetch acno list according scheme and branch code
+  // fetch acno list according scheme and branch code
   // getInterestTransfer() {
   //   // this.ngAcnoFrom = null
   //   // this.ngAcnoTo = null
-  //   // this.startAcNo = [];
-  //   // this.endAcNo = [];
+  //   this.startAcNo = [];
+  //   this.endAcNo = [];
   //   let data: any = localStorage.getItem('user');
   //   let result = JSON.parse(data);
   //   let branchCode = result.branch.id;
@@ -179,7 +181,11 @@ export class BnkAcStatementComponent implements OnInit {
   //     case 'SB':
   //       this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(this.obj).subscribe(data => {
   //         this.startAcNo = data;
+  //         this.ngAcnoFrom = null
   //         this.endAcNo = data;
+  //         this.ngAcnoTo = null
+
+
   //       })
   //       break;
 
@@ -267,7 +273,7 @@ export class BnkAcStatementComponent implements OnInit {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
-    this.obj = [this.schemeCode, branchCode]
+    this.obj = [this.ngscheme, branchCode]
     switch (this.getschemename) {
 
 

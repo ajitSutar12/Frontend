@@ -90,7 +90,10 @@ const routes: Routes = [
         path: 'LoanReport',
         loadChildren: () => import('./loan-report/loan-report.module').then(m => m.LoanReportModule)
       },
-      
+      {
+        path: 'RecoveryReport',
+        loadChildren: () => import('./recovery-reports/recovery-reports.module').then(m => m.RecoveryReportsModule)
+      },
       //
       {
         path: 'iframecomponent',

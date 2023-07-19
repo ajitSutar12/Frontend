@@ -1,0 +1,246 @@
+<!-- <p>inward-register works!</p> -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Inward Register</h5>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedBranch1" #scheme formControlName="branch"
+                                        bindValue="value" bindLabel="label" (change)="getbranch($event)">
+                                        <ng-option *ngFor="let item of branchCode" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['branch'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Inward Number
+                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
+                                        id="INSTALLMENT_NO" maxlength="10" formControlName="inwardNo"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        disabled>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['inwardNo'].invalid && (angForm.controls['inwardNo'].dirty || angForm.controls['inwardNo'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['inwardNo'].errors?.pattern || angForm.controls['inwardNo'].errors?.required || angForm.controls['inwardNo'].errors?.maxlength">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="Date">Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                        formControlName="date" appButton minlength="8" maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker [maxDate]="maxDate">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['date'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedshMemNo" #scheme formControlName="memno"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of member_No" [value]="item">
+                                            {{item.label}} {{item.name}} </ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['memno'].invalid && (angForm.controls['memno'].dirty || angForm.controls['memno'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['memno'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" id="cb">
+                    <h1><span>Inward Details</span></h1>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch
+                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="INSTALLMENT_NO" [(ngModel)]="selectedBranch"
+                                        class="form-control" placeholder=" " id="INSTALLMENT_NO" maxlength="10"
+                                        formControlName="dbranch">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['dbranch'].invalid && (angForm.controls['dbranch'].dirty || angForm.controls['dbranch'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['dbranch'].errors?.pattern || angForm.controls['dbranch'].errors?.required || angForm.controls['dbranch'].errors?.maxlength">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Loan Scheme<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedLScheme" #scheme formControlName="lscheme"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of loan_Scheme" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['lscheme'].invalid && (angForm.controls['lscheme'].dirty || angForm.controls['lscheme'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['lscheme'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                        [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive">
+                                    <label class="border-checkbox-label" for="checkbox1">Other
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
+                                        id="INSTALLMENT_NO" maxlength="10" formControlName="otherif"
+                                        [hidden]="!angForm.controls.checkActive.value">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['otherif'].invalid && (angForm.controls['otherif'].dirty || angForm.controls['otherif'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['otherif'].errors?.pattern || angForm.controls['otherif'].errors?.required || angForm.controls['otherif'].errors?.maxlength">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="cb1">
+                        <h1><span>Narration Help</span></h1>
+                        <div class="solid">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-1">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="INSTALLMENT_NO" class="form-control"
+                                                placeholder=" " id="INSTALLMENT_NO" maxlength="3" formControlName="nhNo"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['nhNo'].invalid && (angForm.controls['nhNo'].dirty || angForm.controls['nhNo'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['nhNo'].errors?.pattern || angForm.controls['nhNo'].errors?.required || angForm.controls['nhNo'].errors?.maxlength">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-sm-12 col-md-1"><label for="AC_PARTICULAR">Particulars</label>
+                                </div> -->
+                                <div class="col-md-5">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <textarea class="form-control" formControlName="particulars"
+                                                [(ngModel)]="nhelp"></textarea>
+                                            <!-- <i class="fa fa-info-circle errspan"></i> -->
+                                        </span>
+                                    </div>
+                                    <!-- <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['particulars'].invalid && (angForm.controls['particulars'].dirty || angForm.controls['particulars'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['particulars'].errors?.pattern || angForm.controls['particulars'].errors?.required || angForm.controls['particulars'].errors?.maxlength">
+                                            This field is required.
+                                        </div>
+                                    </div> -->
+
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn  btn-outline-primary btn-sm">Add Narration</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="btnrow">
+                    <div class="col-12">
+                        <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                        <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+
+                        <button class="btn  btn-outline-primary btn-sm">Update</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

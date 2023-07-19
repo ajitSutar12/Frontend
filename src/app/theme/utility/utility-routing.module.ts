@@ -132,6 +132,18 @@ const routes: Routes = [
       {
         path: 'cashierMaintance',
         loadChildren: () => import('./cashier-maintanace/cashier-maintanace.module').then(m => m.CashierMaintanaceModule)
+      },
+      {
+        path: 'gmaMemberUpdation',
+        loadChildren: () => import('./gma-member-updation/gma-member-updation.module').then(m => m.GmaMemberUpdationModule)
+      },
+      {
+        path: 'amtTransferTransaction',
+        loadChildren: () => import('./amt-transfer-transaction/amt-transfer-transaction.module').then(m => m.AmtTransferTransactionModule)
+      },
+      {
+        path: 'recAmtTrToGL',
+        loadChildren: () => import('./recurring-attg/recurring-attg.module').then(m => m.RecurringAttgModule)
       }
     ]
   }

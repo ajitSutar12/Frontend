@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SubSalaryDMasterdropdownService } from 'src/app/shared/dropdownService/subsalary-division-master-dropdown.service';
 
 @Component({
   selector: 'app-recovery-modification',
@@ -6,49 +12,107 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recovery-modification.component.scss']
 })
 export class RecoveryModificationComponent implements OnInit {
+  
+  angForm : FormGroup;
+  obj: any[];
 
-  dtExportButtonOptions: any = {};
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+    public schemeCodeDropdownService: SchemeCodeDropdownService,
+    private salaryDMasterdropdownService: SalaryDMasterdropdownService,
+    private subSalaryDMasterdropdownService: SubSalaryDMasterdropdownService,
+    private _schemeService: SchemeAccountNoService
+
+  ) { }
+
+  //ngfor variables
+  s_Div
+  ss_Div
+  Schemecode
+  m_from
+  m_to
+
+  //ngmodel variables
+  selectedsDiv
+  selectedssDiv
+  selectedScheme
+  selectedmfrom
+  selectedmto
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: "Blrtip",
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.createForm();
+
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+
+      var filtered = data.filter(function (Schemecode) {
+        return (Schemecode.name == 'SH');
+      });
+      this.Schemecode = filtered;
+      this.getIntroducer()
+    })
+
+    this.salaryDMasterdropdownService.getSalaryMasterList().pipe(first()).subscribe(data => {
+      this.s_Div = data;
+    })
+
+    this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
+      this.ss_Div = data;
+    })
     
   }
 
+
+  getIntro(event){
+    this.getschemename = event.name
+    this.getIntroducer()
+  }
+
+  getschemename: any
+  getIntroducer() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.selectedScheme,branchCode]
+
+    
+    switch (this.getschemename) {
+
+      case 'SH':
+        this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.m_from = data;
+          this.m_to = data;
+          
+          //console.log(data,"gj");
+          
+        //this.startingAccount = null
+        
+
+
+        })
+        break;
+
+
+    
+    }
+     
+   }
+
+
+  createForm(){
+    this.angForm = this.fb.group({
+      T_TYPE: ['CS'],
+      month: ['',[Validators.required]],
+      year: ['',[Validators.required]],
+      sdivision: ['',[Validators.required]],
+      subsdiv: ['',[Validators.required]],
+      scheme: ['',[Validators.required]],
+      mfrom: ['',[Validators.required]],
+      mto: ['',[Validators.required]],
+      member: ['',[Validators.required]],
+      
+
+      
+    });
+  }
 
 }

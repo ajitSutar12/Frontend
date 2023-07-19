@@ -36,7 +36,14 @@ const routes: Routes = [
         path: 'unpaidDividendList',
         loadChildren: () => import('./unpaid-dividend-list/unpaid-dividend-list.module').then(m => m.UnpaidDividendListModule)
       },
-      
+      {
+        path: 'monthlyRecoveryPrint',
+        loadChildren: () => import('./monthly-recovery-print/monthly-recovery-print.module').then(m => m.MonthlyRecoveryPrintModule)
+      },
+      {
+        path: 'monthlyRecoverySubsidiary',
+        loadChildren: () => import('./monthly-recovery-subsidiary/monthly-recovery-subsidiary.module').then(m => m.MonthlyRecoverySubsidiaryModule)
+      }
     ]
   }
 ];

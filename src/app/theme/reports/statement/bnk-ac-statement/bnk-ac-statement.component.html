@@ -54,12 +54,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"> <label for="AC_NOFrom">Range Starting Code<sub
+                        <div class="col-md-2"> <label for="AC_NOFrom"> Starting Account No.<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom"
+                                    <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" [virtualScroll]="true"
                                         formControlName="AC_NOFrom" bindLabel="label" placeholder="Range Starting Code"
                                         (change)="getIntTrans($event)" >
                                         <ng-option *ngFor="let values of startAcNo" [value]="values">
@@ -75,12 +75,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"> <label for="AC_NOFrom">Range Ending Code<sub
+                        <div class="col-md-2"> <label for="AC_NOFrom"> Ending Account No.<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="label"
+                                    <ng-select id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="label" [virtualScroll]="true"
                                         formControlName="AC_NOTo" (change)="loadAcno()" placeholder="Range Ending Code"
                                         (change)="getIntTrans1($event)" >
                                         <ng-option *ngFor="let values of endAcNo" [value]="values">

@@ -90,7 +90,18 @@ const routes: Routes = [
         path: 'shortballist',
         loadChildren: () => import('./short-bal-list/short-bal-list.module').then(m => m.ShortBalListModule)
       },
-    
+      {
+        path: 'ledgBwiseDLdetails',
+        loadChildren: () => import('./ledg-bwise-dl-details/ledg-bwise-dl-details.module').then(m => m.LedgBwiseDlDetailsModule)
+      },
+      {
+        path: 'AmtSizeWiseBalList',
+        loadChildren: () => import('./amtsize-wise-bal-list/amtsize-wise-bal-list.module').then(m => m.AmtsizeWiseBalListModule)
+      },
+      {
+        path: 'ledgBwiseBtypeMember',
+        loadChildren: () => import('./ledg-bwise-btype-member/ledg-bwise-btype-member.module').then(m => m.LedgBwiseBtypeMemberModule)
+      },
     ]
   }
 ];

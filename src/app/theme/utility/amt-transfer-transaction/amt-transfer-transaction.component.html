@@ -1,0 +1,164 @@
+<!-- <p>amt-transfer-transaction works!</p> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Amount Transfer Transaction</h5>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="T_TYPE" value="debit-credit" formControlName="T_TYPE">
+                                        <i class="helper"></i>Debit-Credit Transaction</label>
+                                </div>
+
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="T_TYPE" value="credit-debit" formControlName="T_TYPE">
+                                        <i class="helper"></i>Credit-Debit Transaction</label>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label" *ngIf="
+                                        angForm.controls['T_TYPE'].invalid &&
+                                        (angForm.controls['T_TYPE'].dirty ||
+                                        angForm.controls['T_TYPE'].touched)
+                                      " class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['T_TYPE'].errors?.required">
+                                        This field is required
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Debit Scheme<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedDScheme" #scheme formControlName="dscheme"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of d_Scheme" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['dscheme'].invalid && (angForm.controls['dscheme'].dirty || angForm.controls['dscheme'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['dscheme'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Credit Scheme<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedCScheme" #scheme formControlName="cscheme"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of c_Scheme" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['cscheme'].invalid && (angForm.controls['cscheme'].dirty || angForm.controls['cscheme'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['cscheme'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="R_TYPE" value="BA" formControlName="R_TYPE"
+                                            [checked]="true">
+                                        <i class="helper"></i>Balance Amount</label>
+                                </div>
+
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="R_TYPE" value="PR" formControlName="R_TYPE">
+                                        <i class="helper"></i>Payable/Receivable Interest</label>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label" *ngIf="
+                                        angForm.controls['R_TYPE'].invalid &&
+                                        (angForm.controls['R_TYPE'].dirty ||
+                                        angForm.controls['R_TYPE'].touched)
+                                      " class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['R_TYPE'].errors?.required">
+                                        This field is required
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Transaction Particulars</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <textarea class="form-control" formControlName="particulars"
+                                        [(ngModel)]="particulars"></textarea>
+                                    <i class="fa fa-info-circle errspan"></i>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Calculate</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <app-iframe [url]='iframeurl'></app-iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

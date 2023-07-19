@@ -87,6 +87,12 @@ export class TDSFormSubmissionComponent implements OnInit {
     this.ngcustomer = event
   }
 
+  getTdscust(event)
+  {
+    let value = this.TDSformsubmission.filter(ele => ele.STATEMENT_CODE == this.ngcustomer)
+
+  }
+
   //checks percentage of interest rate
   checkInt(event) {
     if (Number(event) > 20) {

@@ -711,113 +711,128 @@ const MENUITEMS1 = [
             name: 'Gold/Silver Return Entry',
             id: 191
           },
-          // {
-          //   state: 'memberDAPDT',
-          //   name: 'Member Dividend And Payable Dividend Transaction ',
-          //   id: 70
-          // },
-          // {
-          //   state: 'memberTransfer',
-          //   name: 'Member Transfer',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   icon: 'icon-home',
-          //   id: 71,
-          //   children: [
-          //     {
-          //       state: 'MemberTransferTransaction',
-          //       name: 'Member Transfer Transaction',
-          //       id: 72
-          //     },
+          {
+            state: 'memberDAPDT',
+            name: 'Member Dividend And Payable Dividend Transaction ',
+            id: 70
+          },
+          {
+            state: 'memberTransfer',
+            name: 'Member Transfer',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 71,
+            children: [
+              {
+                state: 'MemberTransferTransaction',
+                name: 'Member Transfer Transaction',
+                id: 72
+              },
 
-          //     {
-          //       state: 'BranchAndSalaryDC',
-          //       name: 'Branch And Salary Division Changes',
-          //       id: 73
-          //     },
+              {
+                state: 'BranchAndSalaryDC',
+                name: 'Branch And Salary Division Changes',
+                id: 73
+              },
 
-          //     {
-          //       state: 'TrasferredMemberOB',
-          //       name: 'Trasferred Member Opening Balances',
-          //       id: 74
-          //     },
-          //   ]
-          // },
+              // {
+              //   state: 'TrasferredMemberOB',
+              //   name: 'Trasferred Member Opening Balances',
+              //   id: 74
+              // },
+            ]
+          },
 
-          // {
-          //   state: 'recovery',
-          //   name: 'Recovery',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   icon: 'icon-home',
-          //   id: 75,
-          //   children: [
-          //     {
-          //       state: 'recoveryProcessing',
-          //       name: 'Recovery Processing',
-          //       id: 76
-          //     },
-          //     {
-          //       state: 'recoveryModification',
-          //       name: 'Recovery Modification',
-          //       id: 77
-          //     },
-          //     {
-          //       state: 'recoveryPosting',
-          //       name: 'Recovery Posting',
-          //       id: 78
-          //     },
-          //     {
-          //       state: 'recoveryDataImportExport',
-          //       name: 'Recovery Data Import Export',
-          //       id: 79
-          //     },
-          //   ]
-          // },
+          {
+            state: 'recovery',
+            name: 'Recovery',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 75,
+            children: [
+              {
+                state: 'recoveryProcessing',
+                name: 'Recovery Processing',
+                id: 76
+              },
+              {
+                state: 'recoveryModification',
+                name: 'Recovery Modification',
+                id: 77
+              },
+              {
+                state: 'recoveryPosting',
+                name: 'Recovery Posting',
+                id: 78
+              },
+              {
+                state: 'recoveryDataImportExport',
+                name: 'Recovery Data Import Export',
+                id: 79
+              },
+            ]
+          },
 
-          // {
-          //   state: 'memberLoan',
-          //   name: 'Member Loan',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   id: 80,
-          //   children: [
-          //     {
-          //       state: 'loanApplication',
-          //       name: 'Loan Application',
-          //       id: 81
-          //     },
-          //     {
-          //       state: 'loanSanction',
-          //       name: 'Loan Sanction',
-          //       id: 82
-          //     }
-          //   ]
-          // },
+          {
+            state: 'memberLoan',
+            name: 'Member Loan',
+            short_label: 'D',
+            type: 'sub',
+            id: 80,
+            children: [
+              {
+                state: 'loanApplication',
+                name: 'Loan Application',
+                id: 81
+              },
+              {
+                state: 'loanSanction',
+                name: 'Loan Sanction',
+                id: 82
+              }
+            ]
+          },
           // {
           //   state: 'dDTransaction',
           //   name: 'DD Transaction',
           //   id: 83
           // },
-          // {
-          //   state: 'dividendPay',
-          //   name: 'Dividend Pay',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   id: 85,
-          //   children: [
-          //     {
-          //       state: 'dividendPaidMarkSD',
-          //       name: 'Dividend Paid Mark(Salary Division)',
-          //       id: 86
-          //     },
-          //     {
-          //       state: 'dividendPaidSD',
-          //       name: 'Dividend Pay(Salary Division)',
-          //       id: 87
-          //     },
-          //   ]
-          // },
+          {
+            state: 'dividendPay',
+            name: 'Dividend Pay',
+            short_label: 'D',
+            type: 'sub',
+            id: 85,
+            children: [
+              {
+                state: 'dividendPaidMarkSD',
+                name: 'Dividend Paid Mark(Salary Division)',
+                id: 86
+              },
+              {
+                state: 'dividendPaidSD',
+                name: 'Dividend Pay(Salary Division)',
+                id: 87
+              },
+            ]
+          },
+          {
+            state: 'cashRecoveryTransaction',
+            name: 'Cash Recovery Transaction',
+            id: 294
+          },
+          {
+            state: 'consolidationTransaction',
+            name: 'Consolidation Transaction',
+            id: 295
+          },
+          {
+            state: 'inwardRegister',
+            name: 'Inward Register',
+            id: 301
+          },
         ]
       },
       {
@@ -913,16 +928,16 @@ const MENUITEMS1 = [
             name: 'Guarantor View',
             id: 124
           },
-          // {
-          //   state: 'memberView',
-          //   name: 'Member View',
-          //   id: 125
-          // },
-          // {
-          //   state: 'masterCard',
-          //   name: 'Master Card',
-          //   id: 126
-          // },
+          {
+            state: 'memberView',
+            name: 'Member View',
+            id: 125
+          },
+          {
+            state: 'masterCard',
+            name: 'Master Card',
+            id: 126
+          },
           {
             state: 'memberLiablityView',
             name: 'Member Liablity View',
@@ -1379,6 +1394,16 @@ const MENUITEMS1 = [
                 name: 'Unpaid Dividend List',
                 id: 276
               },
+              {
+                state: 'monthlyRecoveryPrint',
+                name: 'Monthly Recovery Print',
+                id: 296
+              },
+              {
+                state: 'monthlyRecoverySubsidiary',
+                name: 'Monthly Recovery Subsidiary',
+                id: 297
+              }
             ]
           },
 
@@ -1767,6 +1792,23 @@ const MENUITEMS1 = [
 
             ]
           },
+          {
+            state: 'RecoveryReport',
+            name: 'Recovery Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 302,
+            children: [
+              {
+                state: 'memberAckReport',
+                name: 'Member Acknowledgement Report',
+                id: 303
+              },
+
+             
+            ]
+          },
         ]
       },
       {
@@ -1921,11 +1963,11 @@ const MENUITEMS1 = [
             name: 'Cashier User Maintainance',
             id: 165
           },
-          // {
-          //   state: 'sharesCCTS',
-          //   name: 'Shares Contribution Credit To Shares',
-          //   id: 166
-          // },
+          {
+            state: 'sharesCCTS',
+            name: 'Shares Contribution Credit To Shares',
+            id: 166
+          },
           // {
           //   state: 'silverJACTS',
           //   name: 'Silver Jubilee Amount Credit To Shares',
@@ -1981,6 +2023,22 @@ const MENUITEMS1 = [
             name: 'Demand Draft Data Export/ Import',
             id: 177
           },
+          {
+            state: 'gmaMemberUpdation',
+            name: 'General Meeting Appear Meeting Updation',
+            id: 298
+          },
+          {
+            state: 'amtTransferTransaction',
+            name: 'Amount Transfer Transaction', 
+            id: 299
+          },
+          {
+            state: 'recAmtTrToGL',
+            name: 'Recurring Amount Transfer to GL',
+            id: 300
+          },
+
         ]
       },
       {
@@ -2704,6 +2762,7 @@ const MENUITEMS1 = [
   //     ]
   //  }
 ];
+
 const MENUITEMS = [
   {
     label: '',
@@ -3384,113 +3443,128 @@ const MENUITEMS = [
             name: 'Gold/Silver Return Entry',
             id: 191
           },
-          // {
-          //   state: 'memberDAPDT',
-          //   name: 'Member Dividend And Payable Dividend Transaction ',
-          //   id: 70
-          // },
-          // {
-          //   state: 'memberTransfer',
-          //   name: 'Member Transfer',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   icon: 'icon-home',
-          //   id: 71,
-          //   children: [
-          //     {
-          //       state: 'MemberTransferTransaction',
-          //       name: 'Member Transfer Transaction',
-          //       id: 72
-          //     },
+          {
+            state: 'memberDAPDT',
+            name: 'Member Dividend And Payable Dividend Transaction ',
+            id: 70
+          },
+          {
+            state: 'memberTransfer',
+            name: 'Member Transfer',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 71,
+            children: [
+              {
+                state: 'MemberTransferTransaction',
+                name: 'Member Transfer Transaction',
+                id: 72
+              },
 
-          //     {
-          //       state: 'BranchAndSalaryDC',
-          //       name: 'Branch And Salary Division Changes',
-          //       id: 73
-          //     },
+              {
+                state: 'BranchAndSalaryDC',
+                name: 'Branch And Salary Division Changes',
+                id: 73
+              },
 
-          //     {
-          //       state: 'TrasferredMemberOB',
-          //       name: 'Trasferred Member Opening Balances',
-          //       id: 74
-          //     },
-          //   ]
-          // },
+              // {
+              //   state: 'TrasferredMemberOB',
+              //   name: 'Trasferred Member Opening Balances',
+              //   id: 74
+              // },
+            ]
+          },
 
-          // {
-          //   state: 'recovery',
-          //   name: 'Recovery',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   icon: 'icon-home',
-          //   id: 75,
-          //   children: [
-          //     {
-          //       state: 'recoveryProcessing',
-          //       name: 'Recovery Processing',
-          //       id: 76
-          //     },
-          //     {
-          //       state: 'recoveryModification',
-          //       name: 'Recovery Modification',
-          //       id: 77
-          //     },
-          //     {
-          //       state: 'recoveryPosting',
-          //       name: 'Recovery Posting',
-          //       id: 78
-          //     },
-          //     {
-          //       state: 'recoveryDataImportExport',
-          //       name: 'Recovery Data Import Export',
-          //       id: 79
-          //     },
-          //   ]
-          // },
+          {
+            state: 'recovery',
+            name: 'Recovery',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 75,
+            children: [
+              {
+                state: 'recoveryProcessing',
+                name: 'Recovery Processing',
+                id: 76
+              },
+              {
+                state: 'recoveryModification',
+                name: 'Recovery Modification',
+                id: 77
+              },
+              {
+                state: 'recoveryPosting',
+                name: 'Recovery Posting',
+                id: 78
+              },
+              {
+                state: 'recoveryDataImportExport',
+                name: 'Recovery Data Import Export',
+                id: 79
+              },
+            ]
+          },
 
-          // {
-          //   state: 'memberLoan',
-          //   name: 'Member Loan',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   id: 80,
-          //   children: [
-          //     {
-          //       state: 'loanApplication',
-          //       name: 'Loan Application',
-          //       id: 81
-          //     },
-          //     {
-          //       state: 'loanSanction',
-          //       name: 'Loan Sanction',
-          //       id: 82
-          //     }
-          //   ]
-          // },
+          {
+            state: 'memberLoan',
+            name: 'Member Loan',
+            short_label: 'D',
+            type: 'sub',
+            id: 80,
+            children: [
+              {
+                state: 'loanApplication',
+                name: 'Loan Application',
+                id: 81
+              },
+              {
+                state: 'loanSanction',
+                name: 'Loan Sanction',
+                id: 82
+              }
+            ]
+          },
           // {
           //   state: 'dDTransaction',
           //   name: 'DD Transaction',
           //   id: 83
           // },
-          // {
-          //   state: 'dividendPay',
-          //   name: 'Dividend Pay',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   id: 85,
-          //   children: [
-          //     {
-          //       state: 'dividendPaidMarkSD',
-          //       name: 'Dividend Paid Mark(Salary Division)',
-          //       id: 86
-          //     },
-          //     {
-          //       state: 'dividendPaidSD',
-          //       name: 'Dividend Pay(Salary Division)',
-          //       id: 87
-          //     },
-          //   ]
-          // },
+          {
+            state: 'dividendPay',
+            name: 'Dividend Pay',
+            short_label: 'D',
+            type: 'sub',
+            id: 85,
+            children: [
+              {
+                state: 'dividendPaidMarkSD',
+                name: 'Dividend Paid Mark(Salary Division)',
+                id: 86
+              },
+              {
+                state: 'dividendPaidSD',
+                name: 'Dividend Pay(Salary Division)',
+                id: 87
+              },
+            ]
+          },
+          {
+            state: 'cashRecoveryTransaction',
+            name: 'Cash Recovery Transaction',
+            id: 294
+          },
+          {
+            state: 'consolidationTransaction',
+            name: 'Consolidation Transaction',
+            id: 295
+          },
+          {
+            state: 'inwardRegister',
+            name: 'Inward Register',
+            id: 301
+          },
         ]
       },
       {
@@ -3586,16 +3660,16 @@ const MENUITEMS = [
             name: 'Guarantor View',
             id: 124
           },
-          // {
-          //   state: 'memberView',
-          //   name: 'Member View',
-          //   id: 125
-          // },
-          // {
-          //   state: 'masterCard',
-          //   name: 'Master Card',
-          //   id: 126
-          // },
+          {
+            state: 'memberView',
+            name: 'Member View',
+            id: 125
+          },
+          {
+            state: 'masterCard',
+            name: 'Master Card',
+            id: 126
+          },
           {
             state: 'memberLiablityView',
             name: 'Member Liablity View',
@@ -3803,45 +3877,61 @@ const MENUITEMS = [
               {
                 state: 'CatbalList',
                 name: 'Categorywise Balance List',
-                id: 225
+                id: 307
               },
               {
                 state: 'DebbalReport',
                 name: 'Debit Balance Report',
-                id: 225
+                id: 308
               },
 
               // {
               //   state:'Bnkbalcon',
               //   name:'balance confirmation certificate',
-              //   id:225
+              //   id:309
               // },
               // {
               //    state:'Srtballist',
               //    name:'Short Balance List',
-              //    id:225
+              //    id:310
               // },
 
               {
                 state: 'AmountBalList',
                 name: 'AmountWise Balance List',
-                id: 225
+                id: 311
               },
               {
                 state: 'DeadStockDepCatList',
                 name: 'Deadstock Depriciation Categorywise List',
-                id: 225
+                id: 312
               },
               {
                 state: 'BalConCertificate',
                 name: 'Balance Confirmation Ceritificate',
-                id: 225
+                id: 313
               },
               {
                 state: 'shortballist',
                 name: 'Short Balance List',
-                id: 225
+                id: 314
               },
+              {
+                state: 'ledgBwiseDLdetails',
+                name: 'Ledger Balancewise Deposit/Loan Details',
+                id: 304
+              },
+              {
+                state: 'AmtSizeWiseBalList',
+                name: 'Amountwise Sizewise Balance List', 
+                id: 305
+              },
+              {
+                state: 'ledgBwiseBtypeMember',
+                name: 'Ledger Balance Wise B Type Member (Deposit/Loans)',
+                id: 306
+              },
+
 
             ]
           },
@@ -4052,6 +4142,16 @@ const MENUITEMS = [
                 name: 'Unpaid Dividend List',
                 id: 276
               },
+              {
+                state: 'monthlyRecoveryPrint',
+                name: 'Monthly Recovery Print',
+                id: 296
+              },
+              {
+                state: 'monthlyRecoverySubsidiary',
+                name: 'Monthly Recovery Subsidiary',
+                id: 297
+              }
             ]
           },
 
@@ -4440,6 +4540,23 @@ const MENUITEMS = [
 
             ]
           },
+          {
+            state: 'RecoveryReport',
+            name: 'Recovery Reports',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 302,
+            children: [
+              {
+                state: 'memberAckReport',
+                name: 'Member Acknowledgement Report',
+                id: 303
+              },
+
+             
+            ]
+          },
         ]
       },
       {
@@ -4594,11 +4711,11 @@ const MENUITEMS = [
             name: 'Cashier User Maintainance',
             id: 165
           },
-          // {
-          //   state: 'sharesCCTS',
-          //   name: 'Shares Contribution Credit To Shares',
-          //   id: 166
-          // },
+          {
+            state: 'sharesCCTS',
+            name: 'Shares Contribution Credit To Shares',
+            id: 166
+          },
           // {
           //   state: 'silverJACTS',
           //   name: 'Silver Jubilee Amount Credit To Shares',
@@ -4654,6 +4771,22 @@ const MENUITEMS = [
             name: 'Demand Draft Data Export/ Import',
             id: 177
           },
+          {
+            state: 'gmaMemberUpdation',
+            name: 'General Meeting Appear Meeting Updation',
+            id: 298
+          },
+          {
+            state: 'amtTransferTransaction',
+            name: 'Amount Transfer Transaction', 
+            id: 299
+          },
+          {
+            state: 'recAmtTrToGL',
+            name: 'Recurring Amount Transfer to GL',
+            id: 300
+          },
+
         ]
       },
       {
