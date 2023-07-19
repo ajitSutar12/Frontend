@@ -164,9 +164,9 @@ export class BalanceUpdationComponent implements OnInit {
   }
 
   ///Scrolling function
-  @HostListener('window:scroll', ['$event']) getScrollHeight(event) {
-    console.log('scroll function is working');
-  }
+  // @HostListener('window:scroll', ['$event']) getScrollHeight(event) {
+  //   console.log('scroll function is working');
+  // }
 
   ngOnInit(): void {
     this.createForm();

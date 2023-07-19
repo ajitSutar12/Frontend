@@ -152,6 +152,7 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
             dataTableParameters
           ).subscribe(resp => {
             this.managerView = resp.data;
+            console.log(this.managerView)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -288,6 +289,18 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
       this.dtTrigger.next();
     });
   }
+
+  getStatement(event) {
+    let value = this.managerView.filter(ele => ele.STATEMENT_CODE == this.ngstatement)
+console.log(value) 
+if(value.length != 0)
+{
+  this.ngstatement = null
+  Swal.fire('Warning', 'Data is Already Submitted', 'warning');
+
+}
+
+}
 
   //Method for append data into fields
   editClickHandler(id) {

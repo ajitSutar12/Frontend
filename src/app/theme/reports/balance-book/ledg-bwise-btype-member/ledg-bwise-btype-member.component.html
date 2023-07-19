@@ -1,0 +1,195 @@
+<!-- <p>ledg-bwise-btype-member works!</p> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Ledger Balance Wise B Type Member (Deposit/Loans)</h5>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedScheme" #scheme formControlName="scode"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of Schemecode" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['scode'].invalid && (angForm.controls['scode'].dirty || angForm.controls['scode'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['scode'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="Date">Starting Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                        formControlName="sdate" appButton minlength="8" maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker [maxDate]="maxDate">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['sdate'].invalid && (angForm.controls['sdate'].dirty || angForm.controls['sdate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['sdate'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="Date">Ending Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                        formControlName="edate" appButton minlength="8" maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker [maxDate]="maxDate">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['edate'].invalid && (angForm.controls['edate'].dirty || angForm.controls['edate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['edate'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                        [checked]="isChecked == true" formControlName="checkActive1">
+                                    <label class="border-checkbox-label" for="checkbox1">Director Wise
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH"
+                                [hidden]="!angForm.controls.checkActive1.value">From Director<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedFdir" #scheme formControlName="fdirector"
+                                        bindValue="value" bindLabel="label"
+                                        [hidden]="!angForm.controls.checkActive1.value">
+                                        <ng-option *ngFor="let item of From_dir" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['fdirector'].invalid && (angForm.controls['fdirector'].dirty || angForm.controls['fdirector'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['fdirector'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH"
+                                [hidden]="!angForm.controls.checkActive1.value">To Director<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedTdir" #scheme formControlName="tdirector"
+                                        bindValue="value" bindLabel="label"
+                                        [hidden]="!angForm.controls.checkActive1.value">
+                                        <ng-option *ngFor="let item of To_dir" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['tdirector'].invalid && (angForm.controls['tdirector'].dirty || angForm.controls['tdirector'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['tdirector'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="T_TYPE" value="DI" formControlName="T_TYPE">
+                                        <i class="helper"></i>Deposit Information</label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label class="inputRadio">
+                                        <input type="radio" name="T_TYPE" value="LI" formControlName="T_TYPE">
+                                        <i class="helper"></i>Loan Informaion</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox2"
+                                        [checked]="isChecked == true" formControlName="checkActive2">
+                                    <label class="border-checkbox-label" for="checkbox2">Print Closed Accounts?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <app-iframe [url]='iframe5url'></app-iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

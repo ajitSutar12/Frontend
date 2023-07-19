@@ -1,0 +1,265 @@
+<!-- <p>monthly-recovery-print works!</p> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Monthly Recovery Print</h5>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="solid">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="T_TYPE" value="sd-wise" formControlName="T_TYPE">
+                                            <i class="helper"></i>Salary Division Wise</label>
+                                    </div>
+
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="T_TYPE" value="ps-wise" formControlName="T_TYPE">
+                                            <i class="helper"></i>Page Sum Wise</label>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label" *ngIf="
+                                            angForm.controls['T_TYPE'].invalid &&
+                                            (angForm.controls['T_TYPE'].dirty ||
+                                            angForm.controls['T_TYPE'].touched)
+                                          " class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['T_TYPE'].errors?.required">
+                                            This field is required
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="solid">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="P_TYPE" value="mem-no" formControlName="P_TYPE">
+                                            <i class="helper"></i>Member No.</label>
+                                    </div>
+
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="P_TYPE" value="emp-no" formControlName="P_TYPE">
+                                            <i class="helper"></i>Employee No.</label>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label" *ngIf="
+                                            angForm.controls['P_TYPE'].invalid &&
+                                            (angForm.controls['P_TYPE'].dirty ||
+                                            angForm.controls['P_TYPE'].touched)
+                                          " class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['P_TYPE'].errors?.required">
+                                            This field is required
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Division Code<sub
+                                            class="required">*</sub></label>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedDivcode" #scheme formControlName="dcode"
+                                                bindValue="value" bindLabel="label">
+                                                <ng-option *ngFor="let item of div_code" [value]="item">
+                                                    {{item.id}} {{item.label}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['dcode'].invalid && (angForm.controls['dcode'].dirty || angForm.controls['dcode'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['dcode'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Month
+                                        <sub class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="INSTALLMENT_NO" class="form-control"
+                                                placeholder=" " id="INSTALLMENT_NO" maxlength="2"
+                                                formControlName="month"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['month'].invalid && (angForm.controls['month'].dirty || angForm.controls['month'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['month'].errors?.pattern || angForm.controls['month'].errors?.required || angForm.controls['month'].errors?.maxlength">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Year
+                                        <sub class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="INSTALLMENT_NO" class="form-control"
+                                                placeholder=" " id="INSTALLMENT_NO" maxlength="10"
+                                                formControlName="year"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['year'].invalid && (angForm.controls['year'].dirty || angForm.controls['year'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['year'].errors?.pattern || angForm.controls['year'].errors?.required || angForm.controls['year'].errors?.maxlength">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="solid">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="R_TYPE" value="all" formControlName="R_TYPE">
+                                            <i class="helper"></i>All</label>
+                                    </div>
+
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="R_TYPE" value="un-posted"
+                                                formControlName="R_TYPE">
+                                            <i class="helper"></i>Un posted</label>
+                                    </div>
+
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input type="radio" name="R_TYPE" value="posted" formControlName="R_TYPE">
+                                            <i class="helper"></i>Posted</label>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label" *ngIf="
+                                            angForm.controls['R_TYPE'].invalid &&
+                                            (angForm.controls['R_TYPE'].dirty ||
+                                            angForm.controls['R_TYPE'].touched)
+                                          " class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['R_TYPE'].errors?.required">
+                                            This field is required
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="solid">
+                                <h3><span>Member No</span></h3>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">From<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select [(ngModel)]="selectedMemfrom" #scheme formControlName="mfrom"
+                                                    bindValue="value" bindLabel="label">
+                                                    <ng-option *ngFor="let item of m_from" [value]="item">
+                                                        {{item.label}} {{item.name}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['mfrom'].invalid && (angForm.controls['mfrom'].dirty || angForm.controls['mfrom'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['mfrom'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">To<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select [(ngModel)]="selectedMemto" #scheme formControlName="mto"
+                                                    bindValue="value" bindLabel="label">
+                                                    <ng-option *ngFor="let item of m_to" [value]="item">
+                                                        {{item.label}} {{item.name}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['mto'].invalid && (angForm.controls['mto'].dirty || angForm.controls['mto'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['mto'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                            <button class="btn  btn-outline-primary btn-sm" (click)="alertWithSuccess()">Print</button>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <app-iframe [url]='iframeurl'></app-iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

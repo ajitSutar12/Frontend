@@ -26,48 +26,51 @@
                                     <div class="col-sm-2 col-md-2"> <label for="date">Process Date<sub
                                                 class="required">*
                                             </sub></label></div>
-                                            <div class="col-sm-2 ">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE"
-                                                            id="EFFECT_DATE" class="form-control" [(ngModel)]="effectdate" appButton minlength="8" maxlength="10"
-                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                            formControlName="PROCESS_DATE"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                            bsDatepicker>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group input-group"
-                                                    *ngIf="angForm.controls['PROCESS_DATE'].invalid && (angForm.controls['PROCESS_DATE'].dirty || angForm.controls['PROCESS_DATE'].touched)"
-                                                    class="alert alert-danger">
-                                                    <div
-                                                        *ngIf="angForm.controls['PROCESS_DATE'].errors?. maxlength || angForm.controls['PROCESS_DATE'].errors?. minlength || angForm.controls['PROCESS_DATE'].errors?.required">
-                                                        This field is required
-                                                    </div>
-                                                </div>
+                                    <div class="col-sm-2 ">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE"
+                                                    id="EFFECT_DATE" class="form-control" [(ngModel)]="effectdate"
+                                                    appButton minlength="8" maxlength="10"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    formControlName="PROCESS_DATE"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                                            </span>
+                                        </div>
+                                        <div class="form-group input-group"
+                                            *ngIf="angForm.controls['PROCESS_DATE'].invalid && (angForm.controls['PROCESS_DATE'].dirty || angForm.controls['PROCESS_DATE'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="angForm.controls['PROCESS_DATE'].errors?. maxlength || angForm.controls['PROCESS_DATE'].errors?. minlength || angForm.controls['PROCESS_DATE'].errors?.required">
+                                                This field is required
                                             </div>
-
-                                    <div class="col-sm-12 col-md-1"> <label for="date">Transaction Date<sub class="required">*
-                                    </sub></label></div>
-                            <div class="col-sm-2 ">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy"
-                                            class="form-control" 
-                                            formControlName="TRAN_DATE" appButton minlength="8" maxlength="10"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            >
-                                    </span>
-                                </div>
-                                <div class="form-group input-group"
-                                    *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="angForm.controls['TRAN_DATE'].errors?. maxlength || angForm.controls['TRAN_DATE'].errors?. minlength || angForm.controls['TRAN_DATE'].errors?.required">
-                                        This field is required
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+
+                                    <div class="col-sm-12 col-md-1"> <label for="date">Transaction Date<sub
+                                                class="required">*
+                                            </sub></label></div>
+                                    <div class="col-sm-2 ">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                    name="TRANS_DATE" id="TRANS_DATE" [(ngModel)]="transdate"
+                                                    formControlName="TRAN_DATE" appButton minlength="8" maxlength="10"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                                            </span>
+                                        </div>
+                                        <div class="form-group input-group"
+                                            *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="angForm.controls['TRAN_DATE'].errors?. maxlength || angForm.controls['TRAN_DATE'].errors?. minlength || angForm.controls['TRAN_DATE'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class=" col-sm-5">
                                         <div class="form-radio">
@@ -95,11 +98,12 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select formControlName="ACNOTYPE" title="Compulsory Selection"
-                                                    required placeholder="Shared Scheme"
-                                                    [(ngModel)]="acnos" bindValue="value" bindLabel="label" (change)="getIntro($event)"
+                                                    required placeholder="Shared Scheme" [(ngModel)]="acnos"
+                                                    bindValue="value" bindLabel="label" (change)="getIntro($event)"
                                                     placeholder="Shared Scheme">
-                                                    <ng-option   *ngFor="let values of SchemeCodeDropdownDropdown" [value]="values">
-                                                    {{values.label}}</ng-option>
+                                                    <ng-option *ngFor="let values of SchemeCodeDropdownDropdown"
+                                                        [value]="values">
+                                                        {{values.label}}</ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -259,9 +263,9 @@
                                     <div class="col-sm-3">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select formControlName="DR_G_L_SCHEME" bindValue="value" [(ngModel)]="ngscheme" bindLabel="label"
-                                                (change)="getAccountList()" title="Compulsory Selection"
-                                                    placeholder="Debit.G.L.Scheme">
+                                                <ng-select formControlName="DR_G_L_SCHEME" bindValue="value"
+                                                    [(ngModel)]="ngscheme" bindLabel="label" (change)="getAccountList()"
+                                                    title="Compulsory Selection" placeholder="Debit.G.L.Scheme">
                                                     <ng-option *ngFor="let values of scheme" [value]="values">
                                                         {{values.label}}</ng-option>
                                                 </ng-select>
@@ -281,9 +285,9 @@
                                     <div class="col-sm-3">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select formControlName="DR_G_L_CODE" [(ngModel)]="ngtoac" 
-                                                bindLabel="label"
-                                                    title="Compulsory Selection" placeholder="Debit.G.L.Code">
+                                                <ng-select formControlName="DR_G_L_CODE" [(ngModel)]="ngtoac"
+                                                    bindLabel="label" title="Compulsory Selection"
+                                                    placeholder="Debit.G.L.Code">
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                                 </ng-select>
@@ -300,7 +304,8 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label></div>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label>
+                                    </div>
                                     <div class="col-md-5">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -309,7 +314,7 @@
                                                 <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
                                             </span>
                                         </div>
-    
+
                                     </div>
                                 </div>
                             </div>
@@ -322,13 +327,13 @@
                                     <button class="btn btn-outline-primary btn-sm">
                                         Posting</button>
                                 </div>
-                                
+
                             </div>
 
-                            
 
 
-                           
+
+
 
                             <div class="row">
                                 <div class="col-sm-12">

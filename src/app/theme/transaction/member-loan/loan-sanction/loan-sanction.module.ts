@@ -2,19 +2,46 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
-import { LoanSanctionComponent } from './loan-sanction.component'
+
+
 import{LoanSanctionRoutingModule} from './loan-sanction-routing.module'
-import {DataTablesModule} from 'angular-datatables';
 
+import {DataTablesModule} from 'angular-datatables';
+import { LoanSanctionComponent } from './loan-sanction.component'
+
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 
 @NgModule({
   imports: [
     CommonModule,
     LoanSanctionRoutingModule,
-    DataTablesModule
+    NgbModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DataTablesModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+
   ],
-  declarations: [ LoanSanctionComponent]
+  declarations: [ LoanSanctionComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },
+  SchemeCodeDropdownService,
+  SchemeAccountNoService
+
+]
 })
 export class LoanSanctionnModule { }

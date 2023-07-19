@@ -5,7 +5,8 @@ import { BasicLoginRoutingModule } from './basic-login-routing.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../auth.service';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,6 +15,7 @@ import { AuthService } from '../../auth.service';
     FormsModule
   ],
   declarations: [BasicLoginComponent],
-  providers:[AuthService]
+  providers: [AuthService,
+  ]
 })
 export class BasicLoginModule { }

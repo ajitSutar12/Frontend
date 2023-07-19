@@ -44,6 +44,7 @@ export class RecoveryProcessingComponent implements OnInit {
   //DatePicker
   datemax: any;
   effectdate: any = null
+  transdate:any
   maxDate: Date;
   minDate: Date;
 
