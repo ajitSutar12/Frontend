@@ -25,7 +25,7 @@ export class BnkODRegisterComponent implements OnInit {
   formSubmitted = false;
 
   // loader:boolean=false;
-  clicked:boolean=false;
+  clicked: boolean = false;
   // branch name 
   selectedBranch: number;
   branch_codeList: any = null
@@ -35,8 +35,8 @@ export class BnkODRegisterComponent implements OnInit {
   ngscheme
 
   //dropdwon
-  Startingcode:any=null;
-  Endingcode:any=null;
+  Startingcode: any = null;
+  Endingcode: any = null;
   schemeCode: any = null;
   obj: any;
   startingCode: any[];
@@ -50,15 +50,15 @@ export class BnkODRegisterComponent implements OnInit {
   bsValue = new Date();
   selectedCode: any;
   showRepo: boolean = false;
-  
+
   ngacno: any = null;
 
 
-     //account
-     memFrom
-     memTo
-     branch
-     mem:any
+  //account
+  memFrom
+  memTo
+  branch
+  mem: any
   //api
   url = environment.base_url;
   constructor(
@@ -67,7 +67,7 @@ export class BnkODRegisterComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,    private systemParameter: SystemMasterParametersService,
+    private schemeAccountNoService: SchemeAccountNoService, private systemParameter: SystemMasterParametersService,
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -81,11 +81,11 @@ export class BnkODRegisterComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ['', [Validators.required]],
-      OD_TEMP: new FormControl ('TemporaryOverDraft'),
+      OD_TEMP: new FormControl('TEMP'),
       // Starting_Account: ['', [Validators.required]],
       // Ending_Account: ['', [Validators.required]],
       START_DATE: ["", [Validators.required]],
-      END_DATE: ["", [Validators.required]], 
+      END_DATE: ["", [Validators.required]],
 
 
     })
@@ -109,109 +109,109 @@ export class BnkODRegisterComponent implements OnInit {
     })
 
 
-  // Scheme Code
-  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    var filtered = data.filter(function (scheme) {
-      return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS' || scheme.name =='SB');
+    // Scheme Code
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS' || scheme.name == 'SB');
+      });
+      this.scheme = filtered;
+
+    })
+    // const iframe = document.getElementById("test");
+    // iframe.addEventListener("load", function() {
+    //     console.log("Finish");
+    // });
+    //display date
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
     });
-    this.scheme = filtered;
-
-  })
-  // const iframe = document.getElementById("test");
-  // iframe.addEventListener("load", function() {
-  //     console.log("Finish");
-  // });
- //display date
- this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-  this.todate = data.CURRENT_DATE;
-});
-//for starting and ending date
-this.systemParameter.getFormData(1).subscribe(data => {
-  let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-  this.todate = data.CURRENT_DATE
-  this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
-  this.fromdate = this.fromdate._d
-})
+    //for starting and ending date
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      this.todate = data.CURRENT_DATE
+      this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+      this.fromdate = this.fromdate._d
+    })
   }
 
 
 
-   //For Starting account and Ending Account dropdown
-   getschemename: any
+  //For Starting account and Ending Account dropdown
+  getschemename: any
 
-   getBranch() {
-     this.getIntroducer()
-   }
-   getIntro(event) {
-     this.getschemename = event.name
-     this.getIntroducer()
-   }
- 
- 
-   getIntroducer() {
- 
-     let data: any = localStorage.getItem('user');
-     let result = JSON.parse(data);
-     let branchCode = result.branch.id;
-     this.obj = [this.schemeCode, branchCode]
-     switch (this.getschemename) {
- 
- 
-       case 'LN':
-         this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-           this.startingCode = data;
-           this.Startingcode = null
-           this.endingCode = data;
-           this.Endingcode = null
-         })
-         break;
-       case 'CC':
-         this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+  getBranch() {
+    this.getIntroducer()
+  }
+  getIntro(event) {
+    this.getschemename = event.name
+    this.getIntroducer()
+  }
+
+
+  getIntroducer() {
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.schemeCode, branchCode]
+    switch (this.getschemename) {
+
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
           this.startingCode = data;
           this.Startingcode = null
           this.endingCode = data;
           this.Endingcode = null
-         })
-         break;
-       case 'DS':
-         this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+        })
+        break;
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
           this.startingCode = data;
           this.Startingcode = null
           this.endingCode = data;
           this.Endingcode = null
-         })
-         break;
- 
-     }
-   }
+        })
+        break;
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.startingCode = data;
+          this.Startingcode = null
+          this.endingCode = data;
+          this.Endingcode = null
+        })
+        break;
 
- //load acno according start and end acno
- loadAcno() {
-  this.memFrom = this.angForm.controls['Starting_Account'].value
-  this.memTo = this.angForm.controls['Ending_Account'].value
-  this.branch = this.angForm.controls['BRANCH_CODE'].value
-  if (this.angForm.controls['Starting_Account'].value < this.angForm.controls['Ending_Account'].value) {
-    this.mem = [this.memFrom, this.memTo, this.branch]
-   
-    if (this.getschemename == 'LN') {
-      this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
-      });
     }
-    else if (this.getschemename == 'CC') {
-      this.http.get(this.url + '/cash-credit-master/scheme/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'DS') {
-      this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
-      });
-    }
-   
-  
   }
-  else {
-    Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+
+  //load acno according start and end acno
+  loadAcno() {
+    this.memFrom = this.angForm.controls['Starting_Account'].value
+    this.memTo = this.angForm.controls['Ending_Account'].value
+    this.branch = this.angForm.controls['BRANCH_CODE'].value
+    if (this.angForm.controls['Starting_Account'].value < this.angForm.controls['Ending_Account'].value) {
+      this.mem = [this.memFrom, this.memTo, this.branch]
+
+      if (this.getschemename == 'LN') {
+        this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
+        });
+      }
+      else if (this.getschemename == 'CC') {
+        this.http.get(this.url + '/cash-credit-master/scheme/' + this.mem).subscribe((data) => {
+        });
+      }
+      else if (this.getschemename == 'DS') {
+        this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
+        });
+      }
+
+
+    }
+    else {
+      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+    }
   }
-}
 
   src: any;
   view(event) {
@@ -219,11 +219,11 @@ this.systemParameter.getFormData(1).subscribe(data => {
     // this.loader=true;
     event.preventDefault();
     this.formSubmitted = true;
-  //  loader = true;
+    //  loader = true;
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME
-    
+
     if (this.angForm.valid) {
 
       this.showRepo = true;
@@ -233,14 +233,35 @@ this.systemParameter.getFormData(1).subscribe(data => {
       let endingcode = obj.Ending_Account;
       let schemecode = obj.Scheme_code;
       let tem_perOD = obj.OD_TEMP;
-      let sdate     = obj.sdate;
-      let edate     = obj.edate;
-     
-      this.iframe3url = this.report_url+`examples/ODRegister.php?startingcode='${startingcode}'&endingcode='${endingcode}'&branch='${branch}'&schemecode='${schemecode}'&flag='${tem_perOD}'&bankName='${bankName}'&startDate='${sdate}'&endDate='${edate}'&NAME=''`; 
+      let sdate = obj.sdate;
+      let edate = obj.edate;
+
+      //for start date
+      if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+        obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.fromdate).format('DD/MM/YYYY');
+        let toDate = moment(date, 'DD/MM/YYYY')
+        obj['START_DATE'] = date
+      }
+      //for end date
+      if (this.todate == userData.branch.syspara.CURRENT_DATE) {
+        obj['END_DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.todate).format('DD/MM/YYYY');
+        let tDate = moment(date, 'DD/MM/YYYY')
+        obj['END_DATE'] = date
+      }
+
+
+      this.iframe3url = this.report_url + "examples/ODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&flag='" + tem_perOD + "'&bankName='" + bankName + "'&startDate='" + obj.START_DATE + "'&endDate='" + obj.END_DATE + "'&NAME=''";
+
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
     // setTimeout(()=>{
@@ -255,16 +276,16 @@ this.systemParameter.getFormData(1).subscribe(data => {
 
   resetForm() {
     // this.createForm()
-    // this.angForm.controls.Scheme_code.reset();
+    this.angForm.controls.Scheme_code.reset();
     // // this.angForm.controls.OD_TEMP.reset();
-    // this.angForm.controls.Starting_Account.reset();
-    // this.angForm.controls.Ending_Account.reset();
-    this.angForm.reset()
+    this.angForm.controls.START_DATE.reset();
+    this.angForm.controls.END_DATE.reset();
+    // this.angForm.reset()
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
 
-  loadIframe(){
+  loadIframe() {
     console.log('iframe data load')
   }
 

@@ -199,7 +199,7 @@ export class BnkGlAcStatementComponent implements OnInit {
       let endingcode = obj.TO_AC;
       let MonthwiseSummary =obj.Month_wise_Summary
 
-      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='" + sdate+ "'&branch=" + branch + "&branchName=" + branchName + "&startingcode=" + startingcode + "&endingcode=" + endingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
+      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='" + sdate+ "'&branch=" + branch + "&branchC='101'&branchName=" + branchName + "&startingcode=" + startingcode + "&endingcode=" + endingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {
@@ -238,7 +238,7 @@ close(){
     this.angForm.controls.FROM_AC.reset();
     this.angForm.controls.TO_AC.reset();
     // this.angForm.controls.BRANCH.reset();
-    this.showRepo = false;
+    this.showRepo = false; 
     this.clicked=false;
   }
 }

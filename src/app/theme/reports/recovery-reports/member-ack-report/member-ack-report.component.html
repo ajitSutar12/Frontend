@@ -1,0 +1,249 @@
+<!-- <p>member-ack-report works!</p> -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Member Acknowledgement Report</h5>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
+                                <!-- start of scheme selection tab -->
+                                <ngb-tab title="Scheme Selection" id="SS">
+                                    <ng-template ngbTabContent>
+                                        <div class="card border-primary">
+                                            <div class="card-block highlight" style="overflow: auto;">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-4"><label for="AC_PARTICULAR">Select
+                                                            the scheme you don't want</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="table-responsive">
+                                                            <table
+                                                                class="table table-striped table-bordered table-hover compact">
+                                                                <tr class="fs-1 h-3">
+                                                                    <th style="width:400px;"
+                                                                        class="bg-primary fs-1 td_center">
+                                                                        Scheme Code
+                                                                    </th>
+                                                                    <th style="width: 400px;"
+                                                                        class="bg-primary fs-1 td_left"> Scheme
+                                                                        Name
+                                                                    </th>
+                                                                    <th style="width: 400px;"
+                                                                        class="bg-primary fs-1 td_center">
+                                                                        Unwanted Scheme</th>
+                                                                </tr>
+                                                                <tr *ngFor="let values of scheme">
+                                                                    <td class="td_center">{{values.id}}
+                                                                    </td>
+                                                                    <td class="td_left">{{values.label}}</td>
+                                                                    <td class="td_center">
+                                                                        <input type="checkbox" class="border-checkbox"
+                                                                            (change)="checkInterestFlag(values.id,values.label,$event)">
+
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <!-- <div class="card border-primary">
+                                                            <div class="card-block highlight dev"
+                                                                style="overflow: auto;">
+
+                                                                <div class="row">
+                                                                    <table class="border">
+                                                                        <tr class="fs-1 h-3">
+                                                                            <th style="width:400px;"
+                                                                                class="bg-primary fs-1 td_center">
+                                                                                Scheme Code
+                                                                            </th>
+                                                                            <th style="width: 400px;"
+                                                                                class="bg-primary fs-1 td_left"> Scheme
+                                                                                Name
+                                                                            </th>
+                                                                            <th style="width: 400px;"
+                                                                                class="bg-primary fs-1 td_center">
+                                                                                Unwanted Scheme</th>
+                                                                        </tr>
+                                                                        <tr *ngFor="let values of scheme">
+                                                                            <td class="td_center">{{values.id}}
+                                                                            </td>
+                                                                            <td class="td_left">{{values.label}}</td>
+                                                                            <td class="td_center">
+                                                                                <input type="checkbox"
+                                                                                    class="border-checkbox"
+                                                                                    (change)="checkInterestFlag(values.id,values.label,$event)">
+
+                                                                            </td>
+
+                                                                        </tr>
+
+                                                                    </table>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- end of scheme selection tab -->
+
+                                <!-- start of selection details tab -->
+                                <ngb-tab title="Selection Details" id="SD">
+                                    <ng-template ngbTabContent>
+                                        <div class="card border-primary">
+                                            <div class="card-block highlight">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-3">
+                                                        <div class="form-radio">
+                                                            <div class="radio radio-inline">
+                                                                <label class="inputRadio">
+                                                                    <input type="radio" name="T_TYPE" value="H"
+                                                                        formControlName="T_TYPE">
+                                                                    <i class="helper"></i>Horizontal</label>
+                                                            </div>
+                                                            <div class="radio radio-inline">
+                                                                <label class="inputRadio">
+                                                                    <input type="radio" name="T_TYPE" value="V"
+                                                                        formControlName="T_TYPE">
+                                                                    <i class="helper"></i>Vertical</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Salary
+                                                            Division<sub class="required">*</sub></label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select [(ngModel)]="selectedsDiv" #scheme
+                                                                    formControlName="sdivision" bindValue="value"
+                                                                    bindLabel="label">
+                                                                    <ng-option *ngFor="let item of s_Div"
+                                                                        [value]="item">
+                                                                        {{item.id}} {{item.label}}</ng-option>
+                                                                </ng-select>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['sdivision'].invalid && (angForm.controls['sdivision'].dirty || angForm.controls['sdivision'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['sdivision'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-sm-12 col-md-2"> <label for="Date">
+                                                            Date<sub class="required">*</sub></label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-3">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" placeholder="dd/mm/yyyy" name="Date"
+                                                                    id="Date"
+                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                    class="form-control" formControlName="date"
+                                                                    appButton minlength="8" maxlength="10"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                    bsDatepicker [maxDate]="maxDate">
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['date'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">A/c No
+                                                            From<sub class="required">*</sub></label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select [(ngModel)]="selectedAcFrom" #scheme
+                                                                    formControlName="acfrom" bindValue="value"
+                                                                    bindLabel="label">
+                                                                    <ng-option *ngFor="let item of AC_from"
+                                                                        [value]="item">
+                                                                        {{item.label}} {{item.name}}</ng-option>
+                                                                </ng-select>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['acfrom'].invalid && (angForm.controls['acfrom'].dirty || angForm.controls['acfrom'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['acfrom'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">A/c No
+                                                            To<sub class="required">*</sub></label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select [(ngModel)]="selectedAcTo" #scheme
+                                                                    formControlName="acto" bindValue="value"
+                                                                    bindLabel="label">
+                                                                    <ng-option *ngFor="let item of AC_to"
+                                                                        [value]="item">
+                                                                        {{item.label}} {{item.name}}</ng-option>
+                                                                </ng-select>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['acto'].invalid && (angForm.controls['acto'].dirty || angForm.controls['acto'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div *ngIf="angForm.controls['acto'].errors?.required">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- end of selection details tab -->
+                            </ngb-tabset>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

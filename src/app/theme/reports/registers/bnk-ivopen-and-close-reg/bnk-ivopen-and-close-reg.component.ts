@@ -155,12 +155,12 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
       let scheme = obj.scheme_code;
       let Branch = obj.BRANCH_CODE
       let GROUP_BY = obj.GROUP_BY
-      let type = this.schemeList.filter(ele => ele.value == scheme);
+      let type = this.schemeList.filter(ele => ele.value == scheme); 
       let schemeName = this.tScheme
 
 
       // this.iframeurl = this.report_url+"examples/InvestmentRegister.php?startDate_='"+startDate+"'&endDate_='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
-      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branch="+Branch+"&AC_DATA="+obj.AC_OPEN
+      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&ACNOTYPE='" + schemeName+ "' &AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branch="+Branch+"&AC_DATA="+obj.AC_OPEN
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

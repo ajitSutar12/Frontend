@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Cash Recovery Transaction</h5>
+            </div>
+
+            <form [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Customer Id<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedCId" #scheme formControlName="customerid"
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option *ngFor="let item of Cust_ID" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['customerid'].invalid && (angForm.controls['customerid'].dirty || angForm.controls['customerid'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['customerid'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedBranch" #scheme formControlName="branch"
+                                        bindValue="value" bindLabel="label" (change)="getBranch($event)">
+                                        <ng-option *ngFor="let item of branch_code" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['branch'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                        [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive">
+                                    <label class="border-checkbox-label" for="checkbox1">Show only Active
+                                        Accounts?</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme Code<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedScode" #scheme formControlName="scode"
+                                        bindValue="value" bindLabel="label"
+                                        (change)="getIntro($event);getTransferAccountList($event)">
+                                        <ng-option *ngFor="let item of schemeCode" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['scode'].invalid && (angForm.controls['scode'].dirty || angForm.controls['scode'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['scode'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Member Number<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedMemno" #scheme formControlName="memberno"
+                                        bindValue="bankacno" bindLabel="NAME">
+                                        <ng-option *ngFor="let item of memNo" [value]="item">
+                                            {{item.label}} {{item.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['memberno'].invalid && (angForm.controls['memberno'].dirty || angForm.controls['memberno'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['memberno'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-1"> <label for="INSTALLMENT_NO">Total Amount<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
+                                        id="INSTALLMENT_NO" maxlength="15" formControlName="totalamount"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['totalamount'].invalid && (angForm.controls['totalamount'].dirty || angForm.controls['totalamount'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['totalamount'].errors?.pattern || angForm.controls['totalamount'].errors?.required || angForm.controls['totalamount'].errors?.maxlength">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+        <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+
+        <button class="btn  btn-outline-primary btn-sm">Update</button>
+    </div>
+</div>

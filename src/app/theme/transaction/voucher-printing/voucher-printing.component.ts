@@ -296,11 +296,11 @@ export class VoucherPrintingComponent implements OnInit {
 
   }
   close() {
-    this.resetForm()
+    this.reset()
   }
 
   // Reset Function
-  resetForm() {
+  reset() {
     this.ngForm.controls.AC_TYPE.reset();
     this.showRepo = false;
     this.clicked = false;

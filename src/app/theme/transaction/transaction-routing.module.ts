@@ -109,6 +109,18 @@ const routes: Routes = [
         path: 'voucherPrint',
         loadChildren: () => import('./voucher-printing/voucher-printing.module').then(m =>m.VoucherPrintingModule)
       },
+      {
+        path: 'cashRecoveryTransaction',
+        loadChildren: () => import('./cash-recovery-transaction/cash-recovery-transaction.module').then(m =>m.CashRecoveryTransactionModule)
+      },
+      {
+        path: 'consolidationTransaction',
+        loadChildren: () => import('./consolidation-transaction/consolidation-transaction.module').then(m => m.ConsolidationTransactionModule)
+      },
+      {
+        path: 'inwardRegister',
+        loadChildren: () => import('./inward-register/inward-register.module').then(m => m.InwardRegisterModule)
+      },
     ]
   }
 ];

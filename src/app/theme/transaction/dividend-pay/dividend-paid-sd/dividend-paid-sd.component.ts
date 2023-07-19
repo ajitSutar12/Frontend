@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
 
 @Component({
   selector: 'app-dividend-paid-sd',
@@ -6,47 +11,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dividend-paid-sd.component.scss']
 })
 export class DividendPaidSDComponent implements OnInit {
-  dtExportButtonOptions: any = {};
-  constructor() { }
+  angForm : FormGroup;
+  constructor(
+    private fb: FormBuilder,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private salaryDMasterdropdownService: SalaryDMasterdropdownService,
+
+  ) { }
+
+  //ngfor variables
+  branchCode
+  s_Div
+
+  //ngmodel variables
+  selectedbranch
+  selectedSDiv
+  particulars
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: "Blrtip",
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.createForm();
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchCode = data;
+    })
+
+    this.salaryDMasterdropdownService.getSalaryMasterList().pipe(first()).subscribe(data => {
+      this.s_Div = data;
+    })
     
   }
 
+
+  createForm(){
+    this.angForm = this.fb.group({
+      traNo: ['',[Validators.required]],
+      T_TYPE: ['CS'],
+      branch: ['',[Validators.required]],
+      date: ['',[Validators.required]],
+      sdiv: ['',[Validators.required]],
+      particulars: ['',[Validators.required]],
+    });
+  }
 }

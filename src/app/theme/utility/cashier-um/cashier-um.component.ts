@@ -22,7 +22,7 @@ export class CashierUMComponent implements OnInit {
       flag: [1,[Validators.required]],
       safevault: ["",[Validators.required]],
       user: ["",[Validators.required]],
-      teller: ["",[Validators.required]]
+      teller: ["",[Validators.required]],
     })
 
     this.angForm.controls.flag.setValue('1');
