@@ -11,7 +11,7 @@
         <div class="card-block">
           <div class="row">
 
-            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch
+            <!-- <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch
                 <sub class="required">*</sub></label>
             </div>
             <div class="col-sm-12 col-md-3">
@@ -32,7 +32,7 @@
                   This field is required.
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="col-sm-12 col-md-2"> <label for="Scheme">Scheme
                 <sub class="required">*</sub></label>
@@ -56,8 +56,7 @@
               </div>
             </div>
 
-          </div>
-          <div class="row">
+
             <div class="col-sm-2">
               <label for="DepositDate">Deposit Date<sub class="required">* </sub></label>
             </div>
@@ -67,8 +66,8 @@
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left" class="form-control"
-                    [(ngModel)]="dates" formControlName="DEPO_DATE" #date="bsDatepicker" (keydown.Tab)="date.hide()"
-                    appButton minlength="8" maxlength="10"
+                    formControlName="DEPO_DATE" #date="bsDatepicker" (keydown.Tab)="date.hide()" appButton
+                    minlength="10" maxlength="10" [minDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
 
                 </span>
@@ -81,7 +80,8 @@
                 </div>
               </div>
             </div>
-
+          </div>
+          <div class="row">
             <div class="col-sm-2">
               <label for="Month">Month<sub class="required">* </sub></label>
             </div>
@@ -103,11 +103,6 @@
                 </div>
               </div>
             </div>
-
-          </div>
-
-          <div class="row">
-
             <div class="col-sm-2">
               <label for="Days">Days<sub class="required">* </sub></label>
             </div>
@@ -127,7 +122,8 @@
                 </div>
               </div>
             </div>
-
+          </div>
+          <div class="row">
             <div class="col-sm-2">
               <label for="Date">Maturity Date <sub class="required">* </sub></label>
             </div>
@@ -148,11 +144,6 @@
                 </div>
               </div>
             </div>
-
-          </div>
-
-          <div class="row">
-
             <div class="col-sm-2 col-md-2"> <label for="Deposit Amount">Deposit Amount
                 <sub class="required">*</sub></label>
             </div>
@@ -161,7 +152,7 @@
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" placeholder="Deposit Amount" name="DepositAmount"
                     id="DepositAmount" class="form-control" [(ngModel)]="depositAmount" formControlName="DEPO_AMT"
-                    (change)="setMaturityDate()" (focusout)="checkAmount()" maxlength="15"
+                    (change)="setMaturityDate()" (focusout)="checkAmount();getDecimalPoint($event)" maxlength="15"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     (keyup)="decimalAllContent($event)">
                 </span>
@@ -174,6 +165,8 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-2">
               <label for="InterestRate">Interest Rate<sub class="required">* </sub></label>
             </div>
@@ -196,9 +189,6 @@
                 </div>
               </div>
             </div>
-
-          </div>
-          <div class="row">
             <div class="col-sm-2">
               <label for="MaturityAmount">Maturity Amount<sub class="required">* </sub></label>
             </div>
@@ -228,7 +218,7 @@
             <div class="col-sm">
               <button class="btn  btn-outline-primary btn-sm" (click)="Process()">Process</button>
 
-              <button class="btn  btn-outline-primary btn-sm">Print</button>
+              <button class="btn  btn-outline-primary btn-sm" (click)="resetForm()">Cancel</button>
             </div>
           </div>
 
@@ -247,24 +237,24 @@
         <table class="table">
           <thead>
             <tr>
-              <td class="td_center">Sr.NO</td>
+              <td class="td_right">Sr.NO</td>
               <td class="td_center">Due Date</td>
-              <td class="td_center">Period</td>
-              <td class="td_center">Credit Interest </td>
-              <td class="td_center">Closing Balance</td>
-              <td class="td_center">Products</td>
+              <td class="td_right">Period</td>
+              <td class="td_right">Credit Interest </td>
+              <td class="td_right">Closing Balance</td>
+              <td class="td_right">Products</td>
 
             </tr>
           </thead>
 
           <tbody>
             <tr *ngFor="let item of resultData; let i =index">
-              <td>{{i+1}}</td>
-              <td>{{item.colDate}}</td>
-              <td>{{item.colPeriod}}</td>
-              <td>{{item.colCrIntAmt}}</td>
-              <td>{{item.colBal}}</td>
-              <td>{{item.Days}}</td>
+              <td class="td_right">{{i+1}}</td>
+              <td class="td_center">{{item.colDate}}</td>
+              <td class="td_right">{{item.colPeriod}}</td>
+              <td class="td_right">{{item.colCrIntAmt | number: '1.0-2' }}</td>
+              <td class="td_right">{{item.colBal | number: '1.0-2'}}</td>
+              <td class="td_right">{{item.Days}}</td>
             </tr>
           </tbody>
         </table>

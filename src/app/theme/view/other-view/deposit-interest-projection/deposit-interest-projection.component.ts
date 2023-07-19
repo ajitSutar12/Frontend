@@ -20,73 +20,77 @@ export class DepositInterestProjectionComponent implements OnInit {
 
   ngForm: FormGroup;
 
-//ngmodel
-BranchCode
-scheme
-depositAmount
-schemeCode
+  //ngmodel
+  BranchCode
+  scheme
+  depositAmount
+  schemeCode
 
-dates: any = null
-maxDate: Date; 
-expiryDate
+  dates: any = null
+  maxDate: any;
+  expiryDate
   dtExportButtonOptions: any = {};
-  branch_code: any;
+  // branch_code: any;
   http: any;
   url: string;
   tilldate: any;
   result: number;
   i: number;
   resultData: any;
-  constructor(private fb: FormBuilder,private ownbranchMasterService: OwnbranchMasterService,
-    private systemParameter:SystemMasterParametersService,
+  constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
     private _termDepositScheme: TermDepositSchemeService,
     private datePipe: DatePipe,
-    private _services: OtherViewService ,
+    private _services: OtherViewService,
 
-    private schemeCodeDropdownService:SchemeCodeDropdownService) {  
-      this.dates = moment().format('DD/MM/YYYY');
-    this.maxDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate())  }
+    private schemeCodeDropdownService: SchemeCodeDropdownService) {
+    this.dates = moment().format('DD/MM/YYYY');
+    // this.maxDate = new Date();
+    // this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
+  }
 
   ngOnInit(): void {
-  
+
     this.createForm()
 
     let user = JSON.parse(localStorage.getItem('user'));
 
-//branchcode
-    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.branch_code = data;
-      // this.BranchCode = user.branchId;
-    })
+    //branchcode
+    // this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+    //   this.branch_code = data;
+    //   // this.BranchCode = user.branchId;
+    // })
 
-//scheme
-this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => { 
-  var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'TD');
-   
-  });
-  
-  this.scheme = filtered;
-})
-this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-  this.dates = data.CURRENT_DATE;
-});
+    //scheme
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'TD');
+
+      });
+
+      this.scheme = filtered;
+    })
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.dates = data.CURRENT_DATE;
+    });
 
   }
 
-  createForm()
-  {
+  createForm() {
     this.ngForm = this.fb.group({
-    
-      BRANCH_CODE: ['', [Validators.required]],
+
+      // BRANCH_CODE: ['', [Validators.required]],
       Scheme: ['', [Validators.required]],
       DEPO_AMT: ['', [Validators.required]],
-      AC_MONTHS : ['', [Validators.required]],
-      AC_DAYS : ['', []],
-      INT_RATE : ['', [Validators.required]],
-      DEPO_DATE : ['', [Validators.required]],
-      MATUR_DATE : ['', [Validators.required]],
+      AC_MONTHS: ['', [Validators.required]],
+      AC_DAYS: ['', []],
+      INT_RATE: ['', [Validators.required]],
+      DEPO_DATE: ['', [Validators.required]],
+      MATUR_DATE: ['', [Validators.required]],
       MATUR_AMT: ['', [Validators.required]],
 
     });
@@ -98,8 +102,8 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     // let value = Number($event.target.value);
     //   let data = value.toFixed(2);
     //   $event.target.value = data;
-      var t = $event.target.value;
-      $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    var t = $event.target.value;
+    $event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
   }
   getDecimalPoint(event) {
     if (event.target.value != '')
@@ -110,12 +114,11 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
   getschemename: any
   getBranch() {
     this.getschemename = null
-   
+
     this.schemeCode = null
   }
 
   CheckmonthDays() {
-    debugger
     this._termDepositScheme.getFormData(this.schemeCode).subscribe(data => {
       if (data.UNIT_OF_PERIOD == "B") {
         this.ngForm.controls['AC_MONTHS'].enable()
@@ -179,7 +182,7 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       //     Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
       //   }
       // }
-    })  
+    })
   }
   setMaturityDate() {
     this.schemedata(this.schemeCode)
@@ -187,28 +190,28 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       MATUR_AMT: this.ngForm.controls['DEPO_AMT'].value == '' || this.ngForm.controls['DEPO_AMT'].value == null ? 0 : this.ngForm.controls['DEPO_AMT'].value
     })
   }
-   //simple interest
-   installmentType
-   simpleInterestCalculation() {
- 
-     var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-     var date2 = this.ngForm.controls['AC_EXPDT'].value;
- 
-     // date1 = moment(date1).format('DD/MM/YYYY');
-     // date2 = moment(date2).format('DD/MM/YYYY');
- 
-     var startDate = moment(date1, "DD/MM/YYYY");
-     var endDate = moment(date2, "DD/MM/YYYY");
- 
-     var result = endDate.diff(startDate, 'days');
-     this.result = Math.round(Math.floor(this.ngForm.controls['DEPO_AMT'].value) * (Math.floor(result)) * Math.floor(this.ngForm.controls['INT_RATE'].value) / 36500 + Math.floor(this.ngForm.controls['DEPO_AMT'].value))
-     this.ngForm.patchValue({
-       MATUR_AMT: this.result
-     })
-   }
-   // data scheme master
-   schemedata(id) {
-    this._termDepositScheme.getFormData(id).subscribe(data => { 
+  //simple interest
+  installmentType
+  simpleInterestCalculation() {
+
+    var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
+    var date2 = this.ngForm.controls['AC_EXPDT'].value;
+
+    // date1 = moment(date1).format('DD/MM/YYYY');
+    // date2 = moment(date2).format('DD/MM/YYYY');
+
+    var startDate = moment(date1, "DD/MM/YYYY");
+    var endDate = moment(date2, "DD/MM/YYYY");
+
+    var result = endDate.diff(startDate, 'days');
+    this.result = Math.round(Math.floor(this.ngForm.controls['DEPO_AMT'].value) * (Math.floor(result)) * Math.floor(this.ngForm.controls['INT_RATE'].value) / 36500 + Math.floor(this.ngForm.controls['DEPO_AMT'].value))
+    this.ngForm.patchValue({
+      MATUR_AMT: this.result
+    })
+  }
+  // data scheme master
+  schemedata(id) {
+    this._termDepositScheme.getFormData(id).subscribe(data => {
       // this.recurringCompoundInterest()
       if (data.IS_CAL_MATURITY_AMT != '1') {
         // this.setMaturityDate()
@@ -478,7 +481,7 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       }
     })
   }
-  
+
   recurringSimpleInterest() {
 
     var noOfInstallment = Math.floor(this.ngForm.controls['AC_MONTHS'].value) / 1;
@@ -538,39 +541,42 @@ this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     })
   }
 
-   //check  if margin values are below 100
-   checkmargin(ele: any) {
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
     //check  if given value  is below 100
     if (ele <= 50) {
     } else {
-      Swal.fire("Invalid Input", "Please insert values below 50", "error"); 
+      Swal.fire("Invalid Input", "Please insert values below 50", "error");
       this.ngForm.patchValue({
         TDS_RATE: 0
       })
     }
   }
 
-  Process(){
+  Process() {
     let formVal = this.ngForm.value;
 
     let obj = {
       cmDepositAmount: formVal.DEPO_AMT,
-      cmIntRate : formVal.INT_RATE ,
-      cmSchemeCd: formVal.Scheme ,
-      cmDate: formVal.DEPO_DATE ,
-      cmMonths: formVal.AC_MONTHS ,
-      cmDays : formVal.AC_DAYS
-      }
+      cmIntRate: formVal.INT_RATE,
+      cmSchemeCd: formVal.Scheme,
+      cmDate: formVal.DEPO_DATE,
+      cmMonths: formVal.AC_MONTHS,
+      cmDays: formVal.AC_DAYS
+    }
 
-      
+
 
     obj['user'] = JSON.parse(localStorage.getItem('user'));
-    this._services.depositProjection(obj).subscribe(data=>{
+    this._services.depositProjection(obj).subscribe(data => {
       console.log(data);
-      this.resultData = data; 
+      this.resultData = data;
     })
   }
 
+  resetForm() {
+    this.createForm()
+  }
 }
 
 

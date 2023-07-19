@@ -215,7 +215,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
         }
       });
 
-       console.log(this.parentCodeArray);
+      //  console.log(this.parentCodeArray);
       this.parentCodeArray.forEach((ele, index) => {
         let newArray = new Array();
 
@@ -235,7 +235,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
         })
         let parentCodeArray = this.sort_by_key(newArray, 'position')
         this.parentCodeArray[index]['child'] = parentCodeArray;
-        console.log(parentCodeArray);
+        // console.log(parentCodeArray);
         
 
       })

@@ -9,10 +9,10 @@
                     <div class="col-8">
                         <table class="table table-borderless">
                             <thead>
-                                <th>Rate %</th>
-                                <th>No. of Account</th>
-                                <th>Total Amount</th>
-                                <th>Interest For A Day</th>
+                                <th class="td_right">Rate %</th>
+                                <th class="td_right">No. of Accounts</th>
+                                <th class="td_right">Total Amount</th>
+                                <th class="td_right">Interest For A Day</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -22,11 +22,11 @@
                                     <td></td>
                                 </tr>
                                 <tr *ngFor="let item of depositData">
-                                    <td>{{item.INT_RATE |pipe}}</td>
-                                    <td>{{item.NO_OF_ACS}}</td>
+                                    <td class="td_right">{{item.INT_RATE }}</td>
+                                    <td class="td_right">{{item.NO_OF_ACS}}</td>
                                     <!-- <td><ul *ngFor="let data of amount"><li {{data}}></li></ul></td> -->
-                                    <td>{{item.TOT_BALANCE | pipe |number:'0.2'}}</td>
-                                    <td>{{item.TOT_BALANCE1 | pipe |number: '1.0-2'}}</td>
+                                    <td class="td_right"> {{item.TOT_BALANCE | number:'0.2'}}</td>
+                                    <td class="td_right">{{item.TOT_BALANCE1 | number: '1.0-2'}}</td>
 
                                 </tr>
                                 <!-- <tr>
@@ -43,26 +43,26 @@
                                     <td></td>
                                 </tr>
                                 <tr *ngFor="let item of loanData">
-                                    <td>{{item.INT_RATE}}</td>
-                                    <td>{{item.NO_OF_ACS}}</td>
-                                    <td>{{item.TOT_BALANCE |number:'0.2'}}</td>
-                                    <td>{{item.TOT_BALANCE1 |number : '1.0-2' }}</td>
+                                    <td class="td_right">{{item.INT_RATE}}</td>
+                                    <td class="td_right">{{item.NO_OF_ACS}}</td>
+                                    <td class="td_right">{{item.TOT_BALANCE |number:'0.2'}}</td>
+                                    <td class="td_right">{{item.TOT_BALANCE1 |number : '1.0-2' }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-4 text-danger">
                         <div class="row">
-                           <div class="col-6" style="float:left">Average Loans@</div>
-                           <div class="col-6" >{{AverageLoan}}%</div>
+                            <div class="col-6" style="float:left">Average Loans@</div>
+                            <div class="col-6">{{AverageLoan}}%</div>
                         </div>
                         <div class="row">
                             <div class="col-6" style="float:left">Average Deposits@</div>
-                            <div class="col-6" >{{AverageDepo}}%</div>
+                            <div class="col-6">{{AverageDepo}}%</div>
                         </div>
                         <div class="row">
                             <div class="col-6" style="float:left">Margin@</div>
-                            <div class="col-6" >{{Margin |pipe}}%</div>
+                            <div class="col-6">{{Margin |pipe}}%</div>
                         </div>
                     </div>
                 </div>
