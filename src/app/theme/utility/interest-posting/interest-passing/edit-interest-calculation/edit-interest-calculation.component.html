@@ -12,7 +12,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="BRANCH">Branch<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH">Branch<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -35,7 +35,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="INT_DATE">Interest Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="INT_DATE">Interest Date<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -58,9 +58,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme Code<sub
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
@@ -81,9 +83,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="FROM_AC">From A/c<sub
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">From A/c<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="bankacno" [(ngModel)]="ngfromac"
@@ -103,9 +105,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="TO_AC">To A/c<sub class="required">*</sub></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">To A/c<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="bankacno" [(ngModel)]="ngtoac" (change)="select()"
@@ -124,12 +128,14 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 (click)="submit($event)">Edit</button>
                             <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitData"
                                 (click)="AlterData()">Update</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm" 
+                            <button type="button" class="btn btn-outline-primary btn-sm"
                                 (click)="resetForm()">Cancel</button>
                         </div>
 

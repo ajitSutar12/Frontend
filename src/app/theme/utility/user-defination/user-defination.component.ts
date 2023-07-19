@@ -23,6 +23,8 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { data, event } from 'jquery';
 import { id } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 // Handling datatable data
 class DataTableResponse {
@@ -107,7 +109,7 @@ export class UserDefinationComponent implements OnInit {
   selectedCharacter = '3';
   selectedRole :Array<string> = ['1'];F_NAME: any;
   L_NAME: any;
-  brachId:any;
+  branchId:any;
   timeLeft = 5;
   barnchData: any;
   userId: any;
@@ -120,18 +122,21 @@ export class UserDefinationComponent implements OnInit {
   private dataSub: Subscription = null;
   selectedRoleName: string;
 
-
+  maxDate
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private userdefinationservice: UserDefinationService,
     private UserdefinationServiceD: UserdefinationServiceD,
     private _branchMasterServices: OwnbranchMasterService
+    , private systemParameter: SystemMasterParametersService,
 
   ) {
-    
-  
-  }
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d    
+    })
+    }
 
   ngOnInit(): void {
     
@@ -247,8 +252,6 @@ export class UserDefinationComponent implements OnInit {
       dom: 'Blrtip',
     };
  
-    this.runTimer();
-
     // this.dataSub = this.UserdefinationServiceD.loadCharacters().subscribe((options) => {
     //   this.characters = options;
     //   console.log(this.characters);
@@ -446,17 +449,7 @@ export class UserDefinationComponent implements OnInit {
       this.dtTrigger.next();
     });
   }
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
-
-
-  saveEdit(){
+    saveEdit(){
     let data = this.angEditForm.value;
     data['id'] = this.userId;
     this.userdefinationservice.updateRoleBranch(data).subscribe(data=>{
@@ -474,7 +467,7 @@ export class UserDefinationComponent implements OnInit {
 
  
   checkUserName(){
-    debugger
+    
     let obj={
       USER_NAME:this.angForm.controls['USER_NAME'].value
     }
@@ -488,6 +481,13 @@ export class UserDefinationComponent implements OnInit {
     },err=>{
       Swal.fire(err.error.error, err.error.message, 'error');
     })
+  }
+  resetForm(){
+    this.createForm()
+    this.branchId=null
+    this.selectedRoleName=null
+    this.showButton = true;
+    this.updateShow = false;
   }
   
 }

@@ -393,19 +393,22 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setBackgroundPattern('theme1');
 
     interval(2000).subscribe(x => {
-
-      this._dayEndService.checkDayHandOverStatus({ date: this.currentDate, branch_id: this.branchID }).subscribe(data => {
-        if (data.flag == 1) {
-          this.disableList = [66, 109];
-          this.roleWiseMenuAssign()
-        } else {
-          this.disableList = [];
-          this.roleWiseMenuAssign()
-        }
-      }, err => {
-        console.log(err);
-      })
+      let data: any = localStorage.getItem('user');
+      if (data) {
+        this._dayEndService.checkDayHandOverStatus({ date: this.currentDate, branch_id: this.branchID }).subscribe(data => {
+          if (data.flag == 1) {
+            this.disableList = [66, 109];
+            this.roleWiseMenuAssign()
+          } else {
+            this.disableList = [];
+            this.roleWiseMenuAssign()
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
     });
+
   }
 
   onResize(event) {
@@ -466,7 +469,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toggleHeaderNavRight() {
-    debugger
+    // debugger
     this.navRight = this.navRight === 'nav-on' ? 'nav-off' : 'nav-on';
     this.chatTopPosition = this.chatTopPosition === 'nav-on' ? '112px' : '';
     if (this.navRight === 'nav-off' && this.innerChatSlideInOut === 'in') {
