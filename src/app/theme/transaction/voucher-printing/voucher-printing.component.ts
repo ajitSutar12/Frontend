@@ -69,6 +69,32 @@ export class VoucherPrintingComponent implements OnInit {
   defaultDate: any;
   ngbranch: any;
   branchName: any;
+  voucherNo
+
+  ttypes = [
+
+    { label: 'Cash',value: 'CS' },
+    { label: 'Transfer',value: 'TR' },
+  ]
+
+  vtypes = [
+
+    { label: 'Locker Rent',value: 'LR' },
+    { label: 'Cancellation',value: 'CN' },
+    { label: 'Voucher',value: 'VC' },
+    { label: 'Multi-Voucher',value: 'MV' },
+    { label: 'Deposit Closing',value: 'DC' },
+    { label: 'Renewal',value: 'RW' },
+    { label: 'Shares Issue',value: 'SHI' },
+    { label: 'SharesTransfer',value: 'SHT' }, 
+    { label: 'Sell',value: 'SEL' },
+    { label: 'Purches',value: 'PUR' },
+    { label: 'Depreciation',value: 'DPR' },
+    { label: 'Breakage',value: 'BRK' }, 
+    { label: 'Gain',value: 'GIN' },
+    { label: 'Loss',value: 'LOS' },
+    { label: 'Transfer',value: 'TRE' }, 
+  ]
 
   constructor(
     private fb: FormBuilder,
@@ -147,8 +173,8 @@ export class VoucherPrintingComponent implements OnInit {
       DATE: ['', [Validators.required]],
       VOUCHER_NO: ['', [Validators.required]],
       // AC_TYPE: ['', [Validators.required]],
-      // VOUCHER_TYPE: ['', [Validators.required]],
-      // TRAN_TYPE: ['', [Validators.required]],
+      VOUCHER_TYPE: ['', [Validators.required]],
+      TRAN_TYPE: ['', [Validators.required]],
     });
   }
 
@@ -252,7 +278,7 @@ export class VoucherPrintingComponent implements OnInit {
         })
         break;
     }
-  }
+  } 
 
   view(event) {
 
@@ -282,8 +308,10 @@ export class VoucherPrintingComponent implements OnInit {
       let scheme = obj.Scheme_code
       let branch = obj.BRANCH_CODE
 
+      
+
       // this.iframe5url = this.report_url + "examples/TDReceiptPrint.php/?&Date='" + obj.FROM_DATE + "'&scheme='" + scheme + "'&branchname='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&Bankname='" + bankName + "'";
-      this.iframe5url = this.report_url + "examples/vocharprinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&Vochar_No='2'&Branch='Kolhapur'&branch_code=1";
+      this.iframe5url = this.report_url + "examples/vocharprinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&Vochar_No='2'&Branch='"+branchName+"'&branch_code="+branch+"";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
