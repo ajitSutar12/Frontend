@@ -291,16 +291,16 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   getStatement(event) {
+    
     let value = this.managerView.filter(ele => ele.STATEMENT_CODE == this.ngstatement)
-console.log(value) 
-if(value.length != 0)
-{
-  this.ngstatement = null
-  Swal.fire('Warning', 'Data is Already Submitted', 'warning');
+    console.log(value)
+    if (value.length != 0) {
+      this.ngstatement = null
+      Swal.fire('Warning', 'Data is Already Submitted', 'warning');
 
-}
+    }
 
-}
+  }
 
   //Method for append data into fields
   editClickHandler(id) {
