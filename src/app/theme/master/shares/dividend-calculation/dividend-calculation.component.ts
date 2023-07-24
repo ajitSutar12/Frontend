@@ -116,6 +116,7 @@ export class DividendCalculationComponent implements OnInit {
   isAddBonusInDividend;
   branch_code
   ngBranch
+  tablelist
   constructor(
     private fb: FormBuilder,
     public SchemeCodeService: SchemeCodeService,
@@ -156,91 +157,94 @@ export class DividendCalculationComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
-    this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/dividend-calculation",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.dividendcalculation = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/dividend-calculation",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.dividendcalculation = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
 
-      columns: [
-        {
-          title: "Action",
-        },
-        {
-          title: "Scheme Code",
-          data: "AC_TYPE",
-        },
-        {
-          title: "Membership From",
-          data: "FROM_AC",
-        },
-        {
-          title: "Membership To",
-          data: "TO_AC",
-        },
-        {
-          title: "Div.Date From",
-          data: "DIV_FROMDATE",
-        },
-        {
-          title: "Div.Date To",
-          data: "DIV_TODATE",
-        },
-        {
-          title: "Warrent Date",
-          data: "WARRENT_DATE",
-        },
-        {
-          title: "Dividend %",
-          data: "Dividend",
-        },
-        {
-          title: "Bonus %",
-          data: "Bonus",
-        },
-      ],
-      dom: "Bfrtip",
-    };
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //     },
+    //     {
+    //       title: "Scheme Code",
+    //       data: "AC_TYPE",
+    //     },
+    //     {
+    //       title: "Membership From",
+    //       data: "FROM_AC",
+    //     },
+    //     {
+    //       title: "Membership To",
+    //       data: "TO_AC",
+    //     },
+    //     {
+    //       title: "Div.Date From",
+    //       data: "DIV_FROMDATE",
+    //     },
+    //     {
+    //       title: "Div.Date To",
+    //       data: "DIV_TODATE",
+    //     },
+    //     {
+    //       title: "Warrent Date",
+    //       data: "WARRENT_DATE",
+    //     },
+    //     {
+    //       title: "Dividend %",
+    //       data: "Dividend",
+    //     },
+    //     {
+    //       title: "Bonus %",
+    //       data: "Bonus",
+    //     },
+    //   ],
+    //   dom: "Bfrtip",
+    // };
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
+    })
+    this.http.get(this.url + '/dividend-calculation/table').subscribe(data => {
+      this.tablelist = data
     })
     this.schemeCodeDropdownService
       .getSchemeCodeList(this.schemeType)
@@ -502,7 +506,7 @@ export class DividendCalculationComponent implements OnInit {
     const dataToSend = {
       DIV_FROMDATE: this.formFromDate == formVal.DIV_FROMDATE ? formVal.DIV_FROMDATE : moment(formVal.DIV_FROMDATE).format('DD/MM/YYYY'),
       DIV_TODATE: this.formEndDate == formVal.DIV_TODATE ? formVal.DIV_TODATE : moment(formVal.DIV_TODATE).format('DD/MM/YYYY'),
-      USER: result.USER_NAME,
+      USER: result.id,
       divMethod: this.divMethod,
       Dividend: formVal.Dividend,
       Bonus: formVal.Bonus,

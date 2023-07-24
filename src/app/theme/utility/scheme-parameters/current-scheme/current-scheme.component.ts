@@ -282,9 +282,9 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       S_INT_ACNO: ['', [Validators.required]],
       S_INT_APPLICABLE: [],
       POST_TO_INDIVIDUAL_AC: [],
-      S_PRODUCT_DAY_BASE: ['', [Validators.required, Validators.pattern, Validators.max(31)]],
-      S_PRODUCT_DAY_BASE_END: ['', [Validators.required, Validators.pattern, Validators.max(31)]],
-      MIN_INT_LIMIT: ['', [Validators.pattern]], 
+      S_PRODUCT_DAY_BASE: ['', [Validators.pattern, Validators.max(31)]],
+      S_PRODUCT_DAY_BASE_END: ['', [Validators.pattern, Validators.max(31)]],
+      MIN_INT_LIMIT: ['', [Validators.pattern]],
       STAND_INSTRUCTION_ALLOW: [],
       ROUNDOFF_FACTOR: ['', [Validators.pattern]],
       CHEQUEBOOK_MIN_BAL: ['', [Validators.pattern]],
@@ -616,7 +616,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       }
     }
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -636,15 +636,15 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
       ele.target.value = 0
-  
+
     }
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
-   
+
 }

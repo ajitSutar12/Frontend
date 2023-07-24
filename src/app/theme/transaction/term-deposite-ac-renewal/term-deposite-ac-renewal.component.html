@@ -17,8 +17,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
-                                            #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true' appTheme
-                                            autofocus>
+                                            change="getbranch()" #branchcode (focus)="onFocus(branchcode)"
+                                            [selectOnTab]='true' appTheme autofocus>
                                             <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                 {{item.label}}</ng-option>
                                         </ng-select>
@@ -570,7 +570,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input style="text-align: right;" type="text" class="form-control"
-                                                formControlName="renewal_tran_no">
+                                                formControlName="renewal_tran_no" disabled>
                                         </span>
                                     </div>
                                 </div>
@@ -749,3 +749,4 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"> </div>

@@ -11,14 +11,13 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
-                            class="required">*</sub></label></div>
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" 
-                                        placeholder="Branch">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -33,14 +32,13 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-3">
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Scheme">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -58,7 +56,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" (click)="Process()">Process</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="Process()"
+                                [disabled]="angForm.invalid">Process</button>
                         </div>
                     </div>
                 </div>
@@ -67,3 +66,4 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"><!-- Place at bottom of page --> </div>

@@ -480,10 +480,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
         else {
           this.afterMaturedInt = true
           // var b1 = moment(this.maturityDate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY');
+          var a1 = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
           var b1 = moment(this.maturityDate, "DD/MM/YYYY")
           var b = moment(b1, 'DD/MM/YYYY')
           var a = moment(this.date, "DD/MM/YYYY");
-          let Days = a.diff(b1, 'days');
+          let Days = a1.diff(b1, 'days');
           let total_int = Math.abs(Number(Math.abs(data[0].LedgerBal)) * Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 36500))
           this.angForm.patchValue({
             TOTAL_INT: Math.round(total_int)
@@ -515,10 +516,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
           // this.afterMaturedInt = false
         }
         else {
+          var a1 = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
           this.afterMaturedInt = true
           var b = moment(this.maturityDate, "DD/MM/YYYY");
           var a = moment(this.date, "DD/MM/YYYY")
-          let maturedDays = Math.abs(a.diff(b, 'days'))
+          let maturedDays = Math.abs(a1.diff(b, 'days'))
           this.angForm.patchValue({
             MaturedDays: maturedDays,
           })

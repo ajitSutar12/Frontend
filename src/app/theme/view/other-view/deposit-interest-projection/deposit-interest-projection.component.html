@@ -168,7 +168,7 @@
           </div>
           <div class="row">
             <div class="col-sm-2">
-              <label for="InterestRate">Interest Rate<sub class="required">* </sub></label>
+              <label for="InterestRate">Interest Rate %<sub class="required">* </sub></label>
             </div>
             <div class="col-sm-3">
               <div class="form-group input-group">
@@ -199,7 +199,7 @@
                   <input style="text-align: right ;" type="text" name="MaturityAmount" class="form-control"
                     placeholder=" " id="MaturityAmount" formControlName="MATUR_AMT" maxlength="15"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="decimalAllContent($event)">
+                    (keyup)="decimalAllContent($event)" disabled>
 
                 </span>
               </div>

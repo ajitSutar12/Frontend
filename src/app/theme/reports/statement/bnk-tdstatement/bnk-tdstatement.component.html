@@ -65,7 +65,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Starting_Account" bindValue="value"
-                                            bindLabel="label" [(ngModel)]="startingAccount">
+                                            bindLabel="label" [(ngModel)]="startingAccount"  (change)="getAcno1($event)">
                                             <ng-option *ngFor="let values of startingacc" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
@@ -88,7 +88,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Ending_Account" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="EndingAccount">
+                                            [(ngModel)]="EndingAccount"(change)="getAcno2($event)">
                                             <ng-option *ngFor="let values of endingacc" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>

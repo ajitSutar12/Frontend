@@ -153,6 +153,8 @@ export class MembershipCancellationComponent implements OnInit {
   }
 
   getIntroducer() {
+    this.ngIntroducer = null
+    this.introducerACNo = []
     this.obj = [this.schemeCode, this.selectedBranch]
     this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
       this.introducerACNo = data;
@@ -215,7 +217,7 @@ export class MembershipCancellationComponent implements OnInit {
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.obj = [this.selectedTransScheme, this.selectedBranch]
-     this.ngacno = null
+    this.ngacno = null
     switch (event.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
@@ -520,8 +522,8 @@ export class MembershipCancellationComponent implements OnInit {
   // function for edit button clicked
   editClickHandler(id): void {
     this.http.get(this.url + '/dailyshrtran/' + id).subscribe((data: any) => {
-  this.getTransferAccountDeatil(event)
-      
+      this.getTransferAccountDeatil(event)
+
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
