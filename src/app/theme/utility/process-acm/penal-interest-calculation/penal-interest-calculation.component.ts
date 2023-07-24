@@ -24,16 +24,16 @@ export class PenalInterestCalculationComponent implements OnInit {
 
   // dropdown variaqbles
   branch_code: any;
-  ngBranchCode:any=null
-  ngscheme:any=null
+  ngBranchCode: any = null
+  ngscheme: any = null
   scheme: any[];
-
+  modalClass: string = 'modalHide';
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private processacm: ProcessAcmService,
-    
+
     private config: NgSelectConfig,
   ) { }
 
@@ -47,30 +47,28 @@ export class PenalInterestCalculationComponent implements OnInit {
     })
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'CC' || scheme.name == 'SB'|| scheme.name == 'TD'|| scheme.name == 'LN'|| scheme.name == 'CA');
+        return (scheme.name == 'CC' || scheme.name == 'LN');
       });
       this.scheme = allscheme;
     })
-   
+
 
   }
 
-  createForm(){
-
+  createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
     })
   }
 
-  Process(){
-    debugger
+  Process() {
     let obj = this.angForm.value;
     let user = localStorage.getItem('user');
     obj['user'] = JSON.parse(user);
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't process Penal Interest!",
+      text: "Do you want to process Penal Interest!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -78,14 +76,16 @@ export class PenalInterestCalculationComponent implements OnInit {
       confirmButtonText: 'Yes, Process Start It!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.processacm.penalInterestCalculation(obj).subscribe(data=>{
-          if(data.status == 'Ok'){
-            this.processacm.penalInterestCalculationProcess(obj).subscribe(ele=>{
-                if(ele.status == 'done'){
-                  Swal.fire('Penal Insertest Process Done!');
-                }
+        this.modalClass = 'modalShow';
+        this.processacm.penalInterestCalculation(obj).subscribe(data => {
+          if (data.status == 'Ok') {
+            this.processacm.penalInterestCalculationProcess(obj).subscribe(ele => {
+              if (ele.status == 'done') {
+                Swal.fire('Penal Insertest Process Done!');
+              }
+              this.modalClass = 'modalHide';
             })
-          }else{
+          } else {
             Swal.fire({
               title: 'Interest Calcluation',
               text: "Processed For Some Of The Selected Accounts!<br>D o  Y o u  W a n t  T o   C o n t i n u e",
@@ -95,10 +95,12 @@ export class PenalInterestCalculationComponent implements OnInit {
               cancelButtonColor: '#d33',
               confirmButtonText: 'Yes'
             }).then((result) => {
-              this.processacm.penalInterestCalculationProcess(obj).subscribe(ele=>{
-                  if(ele.status == 'done'){
-                    Swal.fire('Penal Insertest Process Done!');
-                  }
+              this.modalClass = 'modalShow';
+              this.processacm.penalInterestCalculationProcess(obj).subscribe(ele => {
+                if (ele.status == 'done') {
+                  Swal.fire('Penal Insertest Process Done!');
+                  this.modalClass = 'modalHide';
+                }
               })
             })
           }

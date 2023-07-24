@@ -3,14 +3,14 @@
         <div class="card">
             <div class="card-header">Day End Brach Wise</div>
             <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered table-hover compact">
                     <thead>
-                        <th>Sr.No.</th>
-                        <th>Branch Name</th>
-                        <th>HandOver Status</th>
-                        <th>Day End Status</th>
-                        <th>Action <span style="float:right"><a href="javascript:void(0)" class="label label-info"
-                                    (click)="refresh()">Refresh</a></span></th>
+                        <td>Sr.No.</td>
+                        <td>Branch Name</td>
+                        <td>HandOver Status</td>
+                        <td>Day End Status</td>
+                        <td>Action <span style="float:right"><a href="javascript:void(0)" class="label label-info"
+                                    (click)="refresh()">Refresh</a></span></td>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of branchHandOverList;let i = index">
