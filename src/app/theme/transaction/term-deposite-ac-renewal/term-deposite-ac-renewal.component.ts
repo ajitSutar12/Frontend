@@ -53,7 +53,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   payableTranferShow: boolean = false;
   InterestDate: any;
   current_date: any;
-
+  modalClass: string = 'modalHide';
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
@@ -110,12 +110,12 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
     //Data
     this._service.interestCategory().subscribe(data => {
-      console.log(data);
-      
-      var allscheme = data.filter(function (schem) {
-        return (schem.ACNOTYPE == 'TD')
-      });
-      this.InterestCategoryData = allscheme;
+      // console.log(data);
+
+      // var allscheme = data.filter(function (schem) {
+      //   return (schem.ACNOTYPE == 'TD')
+      // });
+      this.InterestCategoryData = data;
     })
   }
 
@@ -170,7 +170,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     })
     this.angForm.controls['scheme_type'].disable()
 
-    
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
@@ -220,8 +220,9 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       BANKACNO: this.customer.BANKACNO,
       Date: this.date,
     }
+    this.modalClass = 'modalShow';
     this._service.getAccountDeatils(obj).subscribe(data => {
-      console.log('data', data)
+      // console.log('data', data)
       this.angForm.patchValue({
         old_total_int_paid: Number(data.totalinterest).toFixed(2),
         new_rate: data.InterestRate,
@@ -235,6 +236,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.funInterestRate = data.InterestRate
       this.ledgerBalance = Math.abs(data.ledgerBal)
       this.getMaturityAmount()
+      this.modalClass = 'modalHide';
     })
 
   }
@@ -263,7 +265,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   i: number
   total = 0
 
-  
+
 
   getMaturityAmount() {
     if (this.isCalulateMaturityAmountFlag) {
@@ -546,15 +548,16 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   //get account no according scheme for introducer
   async getIntroducer() {
-    this.customerAc = null
+    this.customer = null
     this.introducerACNo = [];
     this.obj = [this.selectedScheme.id, this.selectedBranch]
+    this.modalClass = 'modalShow';
     switch (this.selectedCode) {
       case 'TD':
         this._service.termDepositExpiryAccount(this.obj).subscribe(data => {
           this.introducerACNo = data;
-          console.log(this.introducerACNo);
-          
+          this.modalClass = 'modalHide';
+          // console.log(this.introducerACNo);          
         })
         break;
     }
@@ -831,7 +834,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         new_receipt: data.NEW_RECEIPTNO,
         renewal_tran_no: data.TRAN_NO,
         IntUpto: data.INTEREST_DATE,
-        new_category: data.NEW_INT_CATA
+        new_category: Number(data.NEW_INT_CATA)
       })
       this.getTotalDays()
       this.angForm.patchValue({
@@ -1085,12 +1088,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   submit() {
     let obj = this.angForm.value;
     console.log(obj);
-    
+
     obj['current_date'] = this.date;
     obj['user'] = JSON.parse(localStorage.getItem('user'))
-    
+
     this._service.postData(obj).subscribe(data => {
       Swal.fire('Success!', 'Account Renewaled Successfully !', 'success');
+      this.createForm()
       this.ngOnInit()
     }, err => {
       console.log(err?.error?.message)
@@ -1119,5 +1123,9 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     var button = document.getElementById('triggerhide');
     button.click();
     this.reloadTablePassing.emit();
+  }
+  getbranch() {
+    this.selectedScheme = null
+    this.customer = null
   }
 }

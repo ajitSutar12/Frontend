@@ -6,6 +6,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { ProcessAcmService } from '../process-acm.service';
@@ -20,7 +21,7 @@ export class TransferToGLbyClosingACComponent implements OnInit {
   formSubmitted = false;
   // Created Form Group
   angForm: FormGroup;
-
+  modalClass: string = 'modalHide';
   // dropdown variables
   scheme
   ngscheme: any = null
@@ -49,12 +50,14 @@ export class TransferToGLbyClosingACComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public ACMasterDropdownService: ACMasterDropdownService,
-    public _service: ProcessAcmService
+    public _service: ProcessAcmService,
+    private systemParameter: SystemMasterParametersService,
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -148,18 +151,23 @@ export class TransferToGLbyClosingACComponent implements OnInit {
     console.log(obj);
     Swal.fire({
       title: '',
-      text: "Do you want to Transfer B-Type Members to HO ..?",
+      text: "Do you want to continue?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes'
     }).then((result) => {
+      this.modalClass = 'modalShow';
       this._service.transferGLClosingAccount(obj).subscribe(data => {
-        if (data.msg != '') {
-          Swal.fire('Info!', data.msg, 'success');
-          this.angForm.reset();
+        if (data.type == 'error') {
+          Swal.fire('Info!', data.msg, 'warning');
         }
+        else if (data.msg != '') {
+          Swal.fire('Info!', data.msg, 'success');
+        }
+        this.angForm.reset();
+        this.modalClass = 'modalHide';
       })
     })
   }

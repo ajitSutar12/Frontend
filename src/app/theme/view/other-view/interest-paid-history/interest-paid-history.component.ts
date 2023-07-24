@@ -74,7 +74,7 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
     this.createForm()
     //Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-  //  debugger
+      //  debugger
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'TD');
         // return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'DS'  || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'AG' || scheme.name == 'IV');
@@ -117,7 +117,6 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
     this.getAccountList()
   }
   getAccountList() {
-    debugger
     this.obj = [this.schemeCode, this.ngBranchCode]
     this.accno = null
     switch (this.getschemename) {
@@ -133,7 +132,7 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
         })
         break;
       case 'TD':
-        this.schemeAccountNoService.getTermDepositMasterAcListForBalUpdation(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.Acc_No = data;
         })
         break;
@@ -171,8 +170,8 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
   tableArr = []
   totalDebitInt = 0
   totalCreditInt = 0
-  getTable() {  
-  
+  getTable() {
+
     this.tableArr = []
     this.totalDebitInt = 0
     this.totalCreditInt = 0
@@ -186,9 +185,9 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
         toDate: this.tilldate == this.sysparaDate ? this.tilldate : moment(this.tilldate).format('DD/MM/YYYY')
       }
       this.http.post<any>(this.url + '/ledger-view/interestPaidHistory', obj).subscribe((data) => {
-        
-        console.log(data);
-        
+
+        // console.log(data);
+
         if (data.table.length == 0) {
           Swal.fire('info', 'No Records Found!', 'info')
         }
@@ -196,10 +195,10 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
           this.tableArr = data.table
           this.totalDebitInt = data.TotalDebitInt
           this.totalCreditInt = data.totalCreditInt
-      
+
         }
       })
     }
   }
-  
+
 }

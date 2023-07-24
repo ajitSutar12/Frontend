@@ -209,7 +209,7 @@
             } catch (error) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
-                console.error('Error decoding token:', error);
+                // console.error('Error decoding token:', error);
             }
             // your function for too long inactivity goes here
             // window.location.href = 'http://localhost:4200/auth/login/simple';
@@ -244,7 +244,7 @@
                 }
                 // return true; // Treat the token as expired if no expiration time is present
             } catch (error) {
-                console.error('Error decoding token:', error);
+                // console.error('Error decoding token:', error);
             }
             clearTimeout(t);
             t = setTimeout(yourFunction, 900000);  // time is in milliseconds

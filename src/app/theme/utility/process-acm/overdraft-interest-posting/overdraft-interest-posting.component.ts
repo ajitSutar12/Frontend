@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ProcessAcmService } from '../process-acm.service';
+import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-overdraft-interest-posting',
   templateUrl: './overdraft-interest-posting.component.html',
@@ -23,7 +26,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
 
   // Formgroup variable
   angForm: FormGroup;
-
+  modalClass: string = 'modalHide';
   // dropdown variaqbles
   branch_code: any;
   ngBranchCode: any = null
@@ -38,7 +41,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
   schemeACNo: any[];
 
   // date variables
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   constructor(
@@ -48,12 +51,14 @@ export class OverdraftInterestPostingComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ACMasterDropdownService: ACMasterDropdownService,
     private config: NgSelectConfig,
-    private _service: ProcessAcmService
+    private _service: ProcessAcmService,
+    private systemParameter: SystemMasterParametersService,
   ) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -203,20 +208,23 @@ export class OverdraftInterestPostingComponent implements OnInit {
   }
 
   select() {
-    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
+    if (this.angForm.controls['FROM_AC'].value > this.angForm.controls['TO_AC'].value && this.ngtoac != '' && this.ngtoac != null) {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
     }
   }
-  
-  submit(){
-    let data = this.angForm.value; 
+
+  submit() {
+    let data = this.angForm.value;
     data['user'] = JSON.parse(localStorage.getItem('user'));
-    this._service.OverdraftPosting(data).subscribe(ele=>{
-      if(ele.type == 'error'){
-        Swal.fire('Info!',ele.msg,'warning');
-      }else{
-        Swal.fire('Done!',ele.msg,'success');
+    this.modalClass = 'modalShow';
+    this._service.OverdraftPosting(data).subscribe(ele => {
+      if (ele.type == 'error') {
+        Swal.fire('Info!', ele.msg, 'warning');
+      } else {
+        Swal.fire('Done!', ele.msg, 'success');
       }
+      this.angForm.reset();
+      this.modalClass = 'modalHide';
     })
   }
 }

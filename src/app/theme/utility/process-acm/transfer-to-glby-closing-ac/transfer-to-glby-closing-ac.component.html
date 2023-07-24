@@ -12,13 +12,12 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" 
-                                        placeholder="Branch">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -34,13 +33,14 @@
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        (change)="schemechange($event)"  (change)="getACmastercode($event)"placeholder="Scheme">
+                                        (change)="schemechange($event)" (change)="getACmastercode($event)"
+                                        placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -55,16 +55,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">GL Account<sub class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">GL Account<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="GL_AC" bindValue="value" [(ngModel)]="schemeedit"
-                                (change)="schemechange($event)" formControlName="GL_AC" bindLabel="label"
-                                title="Compulsory Selection" required placeholder="GL Account Code">
-                                <ng-option *ngFor="let values of ACMasterDropdown" [value]="values">
-                                    {{values.label}}</ng-option>
-                            </ng-select>
+                                        (change)="schemechange($event)" formControlName="GL_AC" bindLabel="label"
+                                        title="Compulsory Selection" required placeholder="GL Account Code">
+                                        <ng-option *ngFor="let values of ACMasterDropdown" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -75,18 +78,20 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE" [maxDate]="maxDate"
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                        [maxDate]="maxDate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker >
+                                        bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -97,14 +102,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date</label></div>
-                        <div class="col-sm-12 col-md-2">
+
+                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                        class="form-control" [(ngModel)]="todate"  (bsValueChange)="checkDate($event)"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"  [minDate]="fromdate"
-                                        [bsValue]="bsValue"
+                                        class="form-control" [(ngModel)]="todate" (bsValueChange)="checkDate($event)"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                        [minDate]="fromdate" [bsValue]="bsValue"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
@@ -118,43 +125,43 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2  "><label for="TOTAL_CHARGES">Total Charges</label>
+                        <!-- <div class="col-sm-12 col-md-2  "><label for="TOTAL_CHARGES">Total Charges</label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text"  style="text-align: right;" name="TOTAL_CHARGES" class="form-control"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                    <input type="text" style="text-align: right;" name="TOTAL_CHARGES"
+                                        class="form-control"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         placeholder=" " id="TOTAL_CHARGES" [(ngModel)]="totalCharges"
                                         title="Input allowed only  0-9 - / . (Space)" required
                                         formControlName="TOTAL_CHARGES">
                                 </span>
                             </div>
-                        </div>
-
+                        </div> -->
                     </div>
                     <div class="row">
-                    <div class="col-sm-12 col-md-2  "><label for="PARTICULAR">Particulars</label>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                                <input type="text" name="PARTICULAR" class="form-control"
-                                    placeholder=" " id="PARTICULAR" 
-                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode <= 32)"
-                                    style="text-transform: capitalize;font-size: 15px;"
-                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                    formControlName="PARTICULAR">
-                            </span>
+                        <div class="col-sm-12 col-md-2  "><label for="PARTICULAR">Particulars</label>
                         </div>
-                        <div class="form-group form-primary form-static-label"
-                        *ngIf="angForm.controls['PARTICULAR'].invalid && (angForm.controls['GL_AC'].dirty || angForm.controls['GL_AC'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="angForm.controls['PARTICULAR'].errors?.required">
-                            This field is required.
+                        <div class="col-md-5">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PARTICULAR" class="form-control" placeholder=" "
+                                        id="PARTICULAR"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode <= 32)"
+                                        style="text-transform: capitalize;font-size: 15px;"
+                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                        formControlName="PARTICULAR">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['PARTICULAR'].invalid && (angForm.controls['GL_AC'].dirty || angForm.controls['GL_AC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['PARTICULAR'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    </div>
                         <div class="col-sm-12 col-md-4">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -166,7 +173,8 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="posting()">Posting</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" [disabled]="angForm.invalid"
+                                (click)="posting()">Posting</button>
                         </div>
                     </div>
                 </div>
@@ -174,3 +182,4 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"><!-- Place at bottom of page --> </div>

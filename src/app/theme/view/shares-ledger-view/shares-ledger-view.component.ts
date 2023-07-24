@@ -185,7 +185,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
       this.transactions = this.sort_by_key(data, 'TRAN_DATE')
-      console.log(this.transactions, 'Tran data')
+      // console.log(this.transactions, 'Tran data')
       // if (this.transactions.length != 0) {
       let divBal = 0
       let obj = {
@@ -277,7 +277,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
           }
         }
       });
-      console.log(this.tableData, 'table')
+      // console.log(this.tableData, 'table')
       //grand total amount
       this.grandTotal = this.creditTotal + grandOpening
       // }
@@ -473,7 +473,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
       closeBal = Math.abs(data[0]?.openingBal)
       data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
       this.transactions = this.sort_by_key(data, 'TRAN_DATE');
-      console.log(this.transactions, 'Tran data')
+      // console.log(this.transactions, 'Tran data')
       // if (this.transactions.length != 0) {
       let divBal = 0
       let obj = {
@@ -567,7 +567,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
           }
         });
       }
-      console.log(this.tableData, 'table')
+      // console.log(this.tableData, 'table')
       //grand total amount
       this.grandTotal = this.creditTotal + grandOpening
       // }
