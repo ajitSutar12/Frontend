@@ -54,6 +54,9 @@ export class BnkTDStatementComponent implements OnInit{
   startingAccount: any = null;
   EndingAccount: any = null;
 
+  getbankAcNo1: any;
+  getbankAcNo2: any;
+
   showRepo:boolean=false;
   todate: any;
   fromdate: moment.Moment;
@@ -85,7 +88,7 @@ export class BnkTDStatementComponent implements OnInit{
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return ( scheme.name == 'SB' || scheme.name == 'TD');
+        return ( scheme.name == 'TD');
       });
       this.scheme = filtered;
 
@@ -144,7 +147,12 @@ export class BnkTDStatementComponent implements OnInit{
     this.getschemename = event.name
     this.getIntroducer()
   }
-
+  getAcno1(event) {
+    this.getbankAcNo1 =  event.bankacno
+  }
+  getAcno2(event) {
+    this.getbankAcNo2 =  event.bankacno
+  }
 
   getIntroducer() {
 
@@ -163,14 +171,14 @@ export class BnkTDStatementComponent implements OnInit{
           this.EndingAccount = null
         })
         break;
-      case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.startingacc = data;
-          this.startingAccount = null
-          this.endingacc = data;
-          this.EndingAccount = null
-        })
-        break;
+      // case 'SB':
+      //   this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+      //     this.startingacc = data;
+      //     this.startingAccount = null
+      //     this.endingacc = data;
+      //     this.EndingAccount = null
+      //   })
+      //   break;
       // case 'TD':
       //   this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
       //     this.startingacc = data;
@@ -209,8 +217,10 @@ export class BnkTDStatementComponent implements OnInit{
 
      var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY'); 
      let branch = obj.BRANCH_CODE;
-      let startingcode= obj.Starting_Account;
-     let endingcode =obj.Ending_Account;
+     
+    let startingcode= this.getbankAcNo1;
+     let endingcode =this.getbankAcNo2;
+
      let PrintEveryAccountonNewPage=obj.Print_Every_Account_on_New_Page;
      let PrintClosedAccount=obj.Print_Closed_Account;
      let PrintAddedPenalInterest=obj.Print_Added_Penal_Interest;

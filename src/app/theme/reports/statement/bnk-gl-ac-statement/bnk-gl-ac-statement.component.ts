@@ -129,7 +129,7 @@ export class BnkGlAcStatementComponent implements OnInit {
       BRANCH: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
-      Month_wise_Summary: ['', [Validators.required]],
+      Month_wise_Summary: ['', []],
     });
   }
 

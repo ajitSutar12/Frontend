@@ -184,7 +184,7 @@ export class ManagerViewComponent implements OnInit {
 
     // })
     this.getManagerView()
-    this.getBranch(event)
+    // this.getBranch(event)
   }
 
   id: any = 'f1';

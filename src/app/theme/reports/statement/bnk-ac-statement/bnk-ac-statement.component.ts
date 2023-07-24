@@ -132,8 +132,8 @@ export class BnkAcStatementComponent implements OnInit {
       AC_TYPE: ['', ],
       AC_CUSTID: ['', ],
       Customer_Id_Wise:[''],
-      PRINT_ACCOUNT:[''],
-      PRINT_CLOSED:[''],
+      // PRINT_ACCOUNT:[''],
+      // PRINT_CLOSED:[''],
     });
 
     let data: any = localStorage.getItem('user');
@@ -406,10 +406,10 @@ View(event) {
     let custid = obj.AC_CUSTID;
     let custidwise = obj.Customer_Id_Wise;
     let rangewise = obj.Customer_Id_Wise;
-    let print = obj.PRINT_ACCOUNT;
-    let printclose = obj.PRINT_CLOSED;
+    // let print = obj.PRINT_ACCOUNT;
+    // let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branch="+branch+"&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&print='"+print+"'&printclose='"+printclose+"&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branch="+branchName+"&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + " ";
     
     
 
