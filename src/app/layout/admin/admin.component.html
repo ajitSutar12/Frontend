@@ -314,7 +314,7 @@
                 <div *ngFor="let asideItems of menuItems.getAll();let i = index" class="d-color">
                   <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}
                   </div>
-                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title="tooltip goes here"
+                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title=""
                     [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle"
                     [attr.subitem-border]="subItemBorder" *ngFor="let asideItem of menuListData" appAccordionLink
                     group="{{asideItem.state}}">

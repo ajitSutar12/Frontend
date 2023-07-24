@@ -187,7 +187,7 @@ export class DepositInterestProjectionComponent implements OnInit {
   setMaturityDate() {
     this.schemedata(this.schemeCode)
     this.ngForm.patchValue({
-      MATUR_AMT: this.ngForm.controls['DEPO_AMT'].value == '' || this.ngForm.controls['DEPO_AMT'].value == null ? 0 : this.ngForm.controls['DEPO_AMT'].value
+      MATUR_AMT: Number(this.ngForm.controls['DEPO_AMT'].value == '' || this.ngForm.controls['DEPO_AMT'].value == null ? 0 : this.ngForm.controls['DEPO_AMT'].value).toFixed(2)
     })
   }
   //simple interest
@@ -206,7 +206,7 @@ export class DepositInterestProjectionComponent implements OnInit {
     var result = endDate.diff(startDate, 'days');
     this.result = Math.round(Math.floor(this.ngForm.controls['DEPO_AMT'].value) * (Math.floor(result)) * Math.floor(this.ngForm.controls['INT_RATE'].value) / 36500 + Math.floor(this.ngForm.controls['DEPO_AMT'].value))
     this.ngForm.patchValue({
-      MATUR_AMT: this.result
+      MATUR_AMT: Number(this.result).toFixed(2)
     })
   }
   // data scheme master
@@ -216,7 +216,7 @@ export class DepositInterestProjectionComponent implements OnInit {
       if (data.IS_CAL_MATURITY_AMT != '1') {
         // this.setMaturityDate()
         this.ngForm.patchValue({
-          MATUR_AMT: this.ngForm.controls['DEPO_AMT'].value == '' || this.ngForm.controls['DEPO_AMT'].value == null ? 0 : this.ngForm.controls['DEPO_AMT'].value
+          MATUR_AMT: Number(this.ngForm.controls['DEPO_AMT'].value == '' || this.ngForm.controls['DEPO_AMT'].value == null ? 0 : this.ngForm.controls['DEPO_AMT'].value).toFixed(2)
         })
       }
       else {
@@ -265,7 +265,7 @@ export class DepositInterestProjectionComponent implements OnInit {
             maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * Number(this.ngForm.controls['INT_RATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
 
             this.ngForm.patchValue({
-              MATUR_AMT: maturityAmount
+              MATUR_AMT: Number(maturityAmount).toFixed(2)
             })
           } else if (data.S_INTCALTP == "M" && data.S_INTCALC_METHOD == "S") {
 
@@ -289,7 +289,7 @@ export class DepositInterestProjectionComponent implements OnInit {
             var Interest = (tmpAmt1 + tmpAmt2)
             var Maturity = Math.round(Number(this.ngForm.controls['DEPO_AMT'].value) + Interest)
             this.ngForm.patchValue({
-              MATUR_AMT: Maturity
+              MATUR_AMT: Number(Maturity).toFixed(2)
             })
           } else if (data.S_INTCALTP == "M" && data.S_INTCALC_METHOD == "C") {
             this.ngForm.patchValue({
@@ -316,7 +316,7 @@ export class DepositInterestProjectionComponent implements OnInit {
             var Interest = (tmpAmt1 + tmpAmt2)
             var Maturity = Math.round(Number(this.ngForm.controls['DEPO_AMT'].value) + Interest)
             this.ngForm.patchValue({
-              MATUR_AMT: Maturity
+              MATUR_AMT: Number(Maturity).toFixed(2)
             })
           } else if (data.S_INTCALTP == "B" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "C") {
             var Quarters = Math.floor(this.ngForm.controls['AC_MONTHS'].value) / 3;
@@ -465,7 +465,7 @@ export class DepositInterestProjectionComponent implements OnInit {
             var Interest = (tmpAmt1 + tmpAmt2)
             var Maturity = Math.round(Number(this.ngForm.controls['DEPO_AMT'].value) + Interest)
             this.ngForm.patchValue({
-              MATUR_AMT: Maturity
+              MATUR_AMT: Number(Maturity).toFixed(2)
             })
           } else if (data.S_INTCALTP == "B" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "C") {
             this.recurringCompoundInterest()
@@ -475,7 +475,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         }
         else if (data.INTEREST_RULE == "1") {
           this.ngForm.patchValue({
-            MATUR_AMT: Number(this.ngForm.controls['DEPO_AMT'].value) * Number(data.S_MATUCALC)
+            MATUR_AMT: (Number(this.ngForm.controls['DEPO_AMT'].value) * Number(data.S_MATUCALC)).toFixed(2)
           })
         }
       }
@@ -490,7 +490,7 @@ export class DepositInterestProjectionComponent implements OnInit {
     var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * Number(amount) * Number(rate) / 1200
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
     this.ngForm.patchValue({
-      MATUR_AMT: maturity
+      MATUR_AMT: Number(maturity).toFixed(2)
     })
   }
   recurringCompoundInterest() {
@@ -518,7 +518,7 @@ export class DepositInterestProjectionComponent implements OnInit {
     }
     var maturity = (Number(amount) * Number(noOfInstallment)) + Number(totalInterest)
     this.ngForm.patchValue({
-      MATUR_AMT: maturity
+      MATUR_AMT: Number(maturity).toFixed(2)
     })
   }
   checkAmount() {
@@ -534,7 +534,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         }
       } else {
         this.ngForm.patchValue({
-          MATUR_AMT: formVal.MATUR_AMT
+          MATUR_AMT: Number(formVal.MATUR_AMT).toFixed(2)
         })
       }
 

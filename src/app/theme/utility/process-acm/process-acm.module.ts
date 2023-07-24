@@ -24,6 +24,7 @@ import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-maste
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ChargesPostingComponent } from './charges-posting/charges-posting.component';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -49,7 +50,7 @@ import { SavingMasterService } from 'src/app/theme/master/customer/saving-master
     TransferToGLbyClosingACComponent,
     PayrolldatatransferComponent,
     PayrollexportfileprocessComponent, ChargesPostingComponent],
-  providers: [OwnbranchMasterService, SchemeCodeDropdownService, ACMasterDropdownService, SchemeAccountNoService,SavingMasterService, {
+  providers: [OwnbranchMasterService, SystemMasterParametersService, SchemeCodeDropdownService, ACMasterDropdownService, SchemeAccountNoService, SavingMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

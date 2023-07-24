@@ -56,59 +56,6 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">Member From<sub
-                                    class="required">*</sub></label>
-                        </div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select appTheme id="FROM_AC" bindValue="AC_NO" [(ngModel)]="ngfromac"
-                                        formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
-                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
-                                        placeholder="From Account">
-                                        <ng-option *ngFor="let values of fromAC" [value]="values">
-                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
-                                    </ng-select>
-
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                                    This field is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">Member To<sub
-                                    class="required">*</sub></label>
-                        </div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select appTheme id="TO_AC" bindValue="AC_NO" [(ngModel)]="ngtoac"
-                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
-                                        (change)="getAccNumbers()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
-                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="To Account">
-                                        <ng-option *ngFor="let values of ToAC" [value]="values">
-                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
-                                    </ng-select>
-
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['TO_AC'].errors?.required">
-                                    This field is required.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="DIV_FROMDATE">Dividend Date From<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
@@ -179,6 +126,59 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">Member From<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select appTheme id="FROM_AC" bindValue="AC_NO" [(ngModel)]="ngfromac"
+                                        formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
+                                        placeholder="From Account">
+                                        <ng-option *ngFor="let values of fromAC" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">Member To<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select appTheme id="TO_AC" bindValue="AC_NO" [(ngModel)]="ngtoac"
+                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                        (change)="getAccNumbers()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="To Account">
+                                        <ng-option *ngFor="let values of ToAC" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TO_AC'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="Dividend">Dividend %<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
@@ -232,6 +232,47 @@
 
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm">
+        <div class="table-responsive fixTableHead">
+            <table class="table table-striped table-bordered table-hover compact">
+                <thead>
+                    <tr>
+                        <td>Warrent Date</td>
+                        <td>Scheme</td>
+                        <td>Dividend From Year</td>
+                        <td>Dividend To Year</td>
+                        <td>From Account</td>
+                        <td>To Account</td>
+                        <td>Dividend Amount</td>
+                        <td>Bouns Amount</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody *ngIf="tablelist?.length != 0">
+                    <tr *ngFor="let data of tablelist">
+                        <td>{{data.WARRENT_DATE}}</td>
+                        <td>{{data.S_APPL}}</td>
+                        <td>{{data.DIV_FROM_YEAR}}</td>
+                        <td>{{data.DIV_TO_YEAR}}</td>
+                        <td>{{data.FROM_AC_NO}}</td>
+                        <td>{{data.TO_AC_NO}}</td>
+                        <td>{{data.DIVIDEND_AMOUNT}}</td>
+                        <td>{{data.BONUS_AMOUNT}}</td>
+                        <td>{{data.DIVIDEND_STATUS=='0'? 'UP':'PS'}}</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="tablelist?.length == 0">
+                    <tr>
+                        <td colspan="12" class="no-data-available" style="text-align: center;">
+                            No data!
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -272,9 +272,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-    this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
-      this.allScheme.push(data)
-    })
+    // this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
+    //   this.allScheme.push(data)
+    // })
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
@@ -311,7 +311,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     }
   }
 
-  schemechange(event) { 
+  schemechange(event) {
     this.getschemename = event.name
     this.ngscheme = event.value
     this.schemeACNo = null
@@ -338,47 +338,47 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     let obj = [this.ngscheme, this.ngbranch]
     switch (this.getschemename) {
       case 'SB':
-        this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getSavingMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'CA':
-        this.schemeAccountNoService.getCurrentMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCurrentMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'AG':
-        this.schemeAccountNoService.getPigmyAgentMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAgentMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'GS':
-        this.schemeAccountNoService.getAnamatMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getAnamatMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'PG':
-        this.schemeAccountNoService.getPigmyAccountMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAccountMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'TD':
-        this.schemeAccountNoService.getTermDepositMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'LN':
-        this.schemeAccountNoService.getTermLoanMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermLoanMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'DS':
-        this.schemeAccountNoService.getDisputeLoanMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getDisputeLoanMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
       case 'CC':
-        this.schemeAccountNoService.getCashCreditMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCashCreditMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
@@ -388,7 +388,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
         })
         break;
       case 'IV':
-        this.schemeAccountNoService.getInvestmentMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getInvestmentMasterAcListForLedger(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data
         })
         break;
