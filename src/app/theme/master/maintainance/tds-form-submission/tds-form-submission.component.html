@@ -17,6 +17,7 @@
                                     <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
                                         id="FIN_YEAR" maxlength="9" (keyup)="addhyphen(finyear.value)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        (change)="getTds($event)"
                                         formControlName="FIN_YEAR" [(ngModel)]="ngfinyear" autofocus>
                                 </span>
                             </div>
@@ -37,10 +38,10 @@
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true' 
                                         [virtualScroll]="true" title="Compulsory Selection" required
-                                        placeholder="Customer Id" (change)="getCustomer($event.value)">
+                                        placeholder="Customer Id" (change)="getCustomer($event.value);getTds($event)">
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
-                                    </ng-select>
+                                    </ng-select> 
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"

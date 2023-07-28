@@ -28,6 +28,11 @@ url=environment.base_url
   getFormData(id: any): Observable<any> {
     return this.http.get(this.url + '/manager-view-glp/' + id).pipe(catchError(this.handleError));
   }
+
+   // For StatementCode data
+   getStatementData(): Observable<any> {
+    return this.http.get(this.url + '/manager-view-glp/').pipe(catchError(this.handleError));
+  }
   //Updation Operation
   updateData(data): Observable<any> {
     return this.http.put(this.url + '/manager-view-glp/update', data);

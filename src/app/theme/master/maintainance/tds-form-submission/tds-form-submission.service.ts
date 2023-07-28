@@ -36,4 +36,9 @@ export class TDSFormSubmissionService {
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/tds-form/delete/' + id).pipe(catchError(this.handleError));
   }
+
+   // For append data
+   getTdsData(): Observable<any> {
+    return this.http.get(this.url + '/tds-form').pipe(catchError(this.handleError));
+  }
 }

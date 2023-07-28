@@ -21,6 +21,7 @@ import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { data } from 'jquery';
 
 // Handling datatable data 
 class DataTableResponse {
@@ -79,6 +80,7 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
   ngdescription: any = null
   ngcapital: any = null
   ngdisplay: any = null
+  Statement
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -194,6 +196,8 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
       this.StatementCodeDropdown = data;
       console.log(data);
     })
+
+
   }
 
   createForm() {
@@ -291,14 +295,18 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   getStatement(event) {
-    
-    let value = this.managerView.filter(ele => ele.STATEMENT_CODE == this.ngstatement)
-    console.log(value)
-    if (value.length != 0) {
-      this.ngstatement = null
-      Swal.fire('Warning', 'Data is Already Submitted', 'warning');
+    this.ManagerViewGlpService.getStatementData().subscribe(data => {
 
-    }
+      let value = data.filter(ele => ele.STATEMENT_CODE == this.ngstatement)
+      console.log(value)
+      if (value.length != 0) {
+        this.ngstatement = null
+        Swal.fire('Warning', 'Data is Already Submitted', 'warning');
+
+      }
+
+    })
+
 
   }
 
@@ -325,6 +333,8 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
 
       })
     })
+
+
   }
 
 

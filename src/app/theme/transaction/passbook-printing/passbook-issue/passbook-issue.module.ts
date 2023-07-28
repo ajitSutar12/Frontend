@@ -22,6 +22,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -58,7 +59,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeCodeDropdownService,
     SystemMasterParametersService,
     CustomerIDMasterDropdownService,
-    CustomerIdService,
+    CustomerIdService,SchemeAccountNoService,
 
   ], 
 })
