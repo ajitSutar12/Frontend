@@ -11,7 +11,7 @@ import { ConnectionService } from 'ng-connection-service';
 import { Observable, Observer, fromEvent, merge, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import Swal from "sweetalert2";
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 import { AuthService } from '../app/theme/auth/auth.service'
 
 
@@ -91,15 +91,15 @@ export class UserAuthInterceptor implements HttpInterceptor {
       }));
   }
 
-  isTokenExpired(token: string): boolean {
-    try {
-      const decodedToken: any = jwt_decode(token);
-      const currentTime = Math.floor(Date.now() / 1000);
-      return decodedToken.exp < currentTime;
-    } catch (error) {
-      // Handle token decoding error
-      console.error('Error decoding token:', error);
-      // return true; // Treat the token as expired in case of an error
-    }
-  }
+  // isTokenExpired(token: string): boolean {
+  //   try {
+  //     const decodedToken: any = jwt_decode(token);
+  //     const currentTime = Math.floor(Date.now() / 1000);
+  //     return decodedToken.exp < currentTime;
+  //   } catch (error) {
+  //     // Handle token decoding error
+  //     console.error('Error decoding token:', error);
+  //     // return true; // Treat the token as expired in case of an error
+  //   }
+  // }
 }

@@ -114,11 +114,8 @@ export class BnkLNamtStatementComponent implements OnInit {
       Ending_Account: ['', [Validators.required]],
       Starting_Date: ['', [Validators.required]],
       Ending_Date: ['', [Validators.required]],
-      Print_Every_Account_on_New_Page: [''],
       Print_Closed_Account: [''],
-      Print_Added_Penal_Interest: [''],
-      Print_Concise_Report: [''],
-    });
+       });
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);

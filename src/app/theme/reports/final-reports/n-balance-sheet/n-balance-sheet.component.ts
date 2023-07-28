@@ -5,6 +5,7 @@ import { first } from "rxjs/operators";
 import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-n-balance-sheet',
@@ -28,6 +29,7 @@ export class NBalanceSheetComponent implements OnInit {
   //Dropdown option variable
   ngbranch
   branchOption: any;
+  report_url = environment.report_url;
 
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -73,8 +75,8 @@ export class NBalanceSheetComponent implements OnInit {
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
       let branched1 = obj.BRANCH_CODE;
 
-      this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/NformBalanceSheet.php?stardate='" + stardate + "'&endate='" + endate + "'&branched1='" + branched1 + "'&bankName='" + bankName + "'";
-      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+      this.iframeurl =  this.report_url + "examples/NformBalanceSheet.php?stardate='" + stardate + "'&endate='" + endate + "'&branched1='" + branched1 + "'&bankName='" + bankName + "'";
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl); 
 
     }
     else {

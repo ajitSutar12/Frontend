@@ -15,6 +15,7 @@ import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/cus
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 @Component({
   selector: 'app-passbook-issue',
@@ -48,17 +49,23 @@ showRepo: boolean = false;
  //dropdown
  branchOption: any[];
  Cust_ID
+ getschemename: any;
+
  // for dropdown ng module
  ngbranch: any = null;
- ngcust: any = null;
+ ngcust: any;
+ ngAcno
   branchName: any;
   scheme: any[];
   tScheme: any;
+  obj: any[];
+  startAcNo: any[];
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
     public customerIdService: CustomerIdService,private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
     private sanitizer: DomSanitizer) { this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -75,15 +82,15 @@ showRepo: boolean = false;
  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
     
   var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'TD');
+    return (scheme.name == 'TD' || scheme.name == 'SB' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH');
   });
   this.scheme = filtered;
  
  })
-   //for customer Id
-   this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-    this.Cust_ID = data;
-  })
+  //  //for customer Id
+  //  this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+  //   this.Cust_ID = data;
+  // })
    //for starting and ending date
    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.todate = data.CURRENT_DATE;
@@ -114,8 +121,8 @@ showRepo: boolean = false;
   //validation
   createForm() {
     this.ngForm = this.fb.group({
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      CUST_ID: ["", [Validators.pattern, Validators.required]],
+      BRANCH_CODE: ["", [ Validators.required]],
+      CUST_ID: ["", [ Validators.required]],
       Scheme_code: ["", [Validators.required]],
       
       
@@ -124,7 +131,48 @@ showRepo: boolean = false;
 getTransferAccountList(event) {
   this.transferSchemeDetails = event
   this.tScheme = event.name
+  this.getInterestTransfer()
+
+
 }
+// 
+ getInterestTransfer() {
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.scode, branchCode]
+    switch (this.tScheme) {
+
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.startAcNo = data;
+           })
+        break;
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.startAcNo = data;
+           })
+        break;
+      case 'SH':
+        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {  
+          this.startAcNo = data;
+           })
+        break;  
+        case 'LN':
+          this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+            this.startAcNo = data;
+             })
+          break;
+          case 'CC':
+            this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+              this.startAcNo = data;
+               })
+            break;
+    }
+  }
+
 end() {}
 src: any;
 view(event) {
@@ -138,8 +186,10 @@ view(event) {
 
   if(this.ngForm.valid){
   let obj = this.ngForm.value
+  let scheme = obj.Scheme_code
+
   this.showRepo = true;
-  let custid = obj.CUST_ID
+  let custid = this.ngAcno
   let branch = obj.BRANCH_CODE
   let schemeName = this.tScheme
 
@@ -165,10 +215,22 @@ view(event) {
  let tDate = moment(date, 'DD/MM/YYYY')
  obj['END_DATE']=date 
 }
+let flag
 
-
+if(this.tScheme == 'SH'){
+  flag = '0'
+}
+else if (this.tScheme == 'LN')
+{
+  flag = '1'
+}
+else{
+  flag = '2'
+}
   // this.iframe5url=this.report_url+"examples/custidinterestlist.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'&AC_CUSTID=" + custid + "&branch=" + branch + "&branch_code=" + branch + "" ;
-  this.iframe5url=this.report_url+"examples/passbookissue.php?&BRANCH_NAME='" + this.branchName + "'&BRANCH_CODE=" + branch + "&AC_ACNOTYPE='SB'&AC_TYPE='8'&BANKACNO='101101101100261'&ISSUE_DATE='01/12/2022'";
+
+  this.iframe5url=this.report_url+"examples/passbookissue.php?&BRANCH_NAME='" + this.branchName + "'&BRANCH_CODE=" + branch + "&AC_ACNOTYPE='"+schemeName+"'&AC_TYPE='"+scheme+"'&BANKACNO='"+custid+"'&ISSUE_DATE='01/12/2022'&flag="+flag+""; 
+
   console.log(this.iframe5url);
   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
  
@@ -193,6 +255,9 @@ getBranch(event) {
   this.ngbranch = event.value
   this.branchName = event.branchName
 }
-
+// getIntTrans(event) {
+//     this.ngAcno =  event.bankacno
+  
+//   }
 
 }
