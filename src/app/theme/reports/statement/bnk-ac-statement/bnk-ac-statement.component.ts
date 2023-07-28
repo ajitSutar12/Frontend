@@ -167,107 +167,7 @@ export class BnkAcStatementComponent implements OnInit {
     this.getInterestTransfer()
 
   }
-  // fetch acno list according scheme and branch code
-  // getInterestTransfer() {
-  //   // this.ngAcnoFrom = null
-  //   // this.ngAcnoTo = null
-  //   this.startAcNo = [];
-  //   this.endAcNo = [];
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   let branchCode = result.branch.id;
-  //   this.obj = [this.ngscheme, branchCode]
-  //   switch (this.getschemename) {
-  //     case 'SB':
-  //       this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.ngAcnoFrom = null
-  //         this.endAcNo = data;
-  //         this.ngAcnoTo = null
-
-
-  //       })
-  //       break;
-
-  //     case 'SH':
-  //       this.schemeAccountNoService.getShareMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'LN':
-  //       this.schemeAccountNoService.getTermLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'CC':
-  //       this.schemeAccountNoService.getCashCreditMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'DS':
-  //       this.schemeAccountNoService.getDisputeLoanMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'TD':
-  //       this.schemeAccountNoService.getTermDepositMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'AG':
-  //       this.schemeAccountNoService.getPigmyAgentMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'GL':
-  //       this.schemeAccountNoService.getGeneralLedgerMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'IV':
-  //       this.schemeAccountNoService.getInvestmentMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'CA':
-  //       this.schemeAccountNoService.getCurrentMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'PG':
-  //       this.schemeAccountNoService.getPigmyAccountMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //     case 'GS':
-  //       this.schemeAccountNoService.getAnamatMasterAcListForBalUpdation(this.obj).subscribe(data => {
-  //         this.startAcNo = data;
-  //         this.endAcNo = data;
-  //       })
-  //       break;
-
-  //   }
-  // }
+ 
   getInterestTransfer() {
 
     let data: any = localStorage.getItem('user');
@@ -275,8 +175,7 @@ export class BnkAcStatementComponent implements OnInit {
     let branchCode = result.branch.id;
     this.obj = [this.ngscheme, branchCode]
     switch (this.getschemename) {
-
-
+      
       case 'TD':
         this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.startAcNo = data;

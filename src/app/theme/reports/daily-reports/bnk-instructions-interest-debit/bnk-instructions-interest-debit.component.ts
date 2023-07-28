@@ -152,7 +152,6 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     // }
   }
   view(event) {
-debugger
     this.formSubmitted = true;
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -174,7 +173,29 @@ debugger
 
       let branched = obj.BRANCH_CODE;
       let success = obj.RADIO;
-      let frequency = obj.FREQUENCY;
+      let flag = obj.FREQUENCY;
+      let frequency
+
+      if(flag == 'Monthly')
+      {
+        frequency = 'M'
+      }
+      else if(flag == 'Querterly')
+      {
+        frequency = 'Q'
+      }
+      else if(flag == 'Fixed Querterly')
+      {
+        frequency = 'F'
+      }else if(flag == 'Half Yearly')
+      {
+        frequency = 'H'
+      }else if(flag == 'None')
+      {
+        frequency = 'N'
+      }
+
+
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT.value;
       this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + obj.SORT.value + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";

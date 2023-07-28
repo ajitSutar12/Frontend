@@ -14,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 import { ReportFrameComponent } from "../../reports/report-frame/report-frame.component";
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -70,30 +71,33 @@ export class VoucherPrintingComponent implements OnInit {
   ngbranch: any;
   branchName: any;
   voucherNo
+  glDetails: any;
+
+  url = environment.base_url;
 
   ttypes = [
 
-    { label: 'Cash',value: 'CS' },
-    { label: 'Transfer',value: 'TR' },
+    { label: 'Cash', value: 'CS' },
+    { label: 'Transfer', value: 'TR' },
   ]
 
   vtypes = [
 
-    { label: 'Locker Rent',value: 'LR' },
-    { label: 'Cancellation',value: 'CN' },
-    { label: 'Voucher',value: 'VC' },
-    { label: 'Multi-Voucher',value: 'MV' },
-    { label: 'Deposit Closing',value: 'DC' },
-    { label: 'Renewal',value: 'RW' },
-    { label: 'Shares Issue',value: 'SHI' },
-    { label: 'SharesTransfer',value: 'SHT' }, 
-    { label: 'Sell',value: 'SEL' },
-    { label: 'Purches',value: 'PUR' },
-    { label: 'Depreciation',value: 'DPR' },
-    { label: 'Breakage',value: 'BRK' }, 
-    { label: 'Gain',value: 'GIN' },
-    { label: 'Loss',value: 'LOS' },
-    { label: 'Transfer',value: 'TRE' }, 
+    { label: 'Locker Rent', value: 'LR' },
+    { label: 'Cancellation', value: 'CN' },
+    { label: 'Voucher', value: 'VC' },
+    { label: 'Multi-Voucher', value: 'MV' },
+    { label: 'Deposit Closing', value: 'DC' },
+    { label: 'Renewal', value: 'RW' },
+    { label: 'Shares Issue', value: 'SHI' },
+    { label: 'SharesTransfer', value: 'SHT' },
+    { label: 'Sell', value: 'SEL' },
+    { label: 'Purches', value: 'PUR' },
+    { label: 'Depreciation', value: 'DPR' },
+    { label: 'Breakage', value: 'BRK' },
+    { label: 'Gain', value: 'GIN' },
+    { label: 'Loss', value: 'LOS' },
+    { label: 'Transfer', value: 'TRE' },
   ]
 
   constructor(
@@ -106,6 +110,8 @@ export class VoucherPrintingComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer, private systemParameter: SystemMasterParametersService,
+    private http: HttpClient,
+
 
   ) {
     this.dates = moment().format('DD/MM/YYYY');
@@ -163,6 +169,9 @@ export class VoucherPrintingComponent implements OnInit {
       this.branchName = result.branch.NAME
 
     }
+
+
+
   }
 
 
@@ -172,7 +181,6 @@ export class VoucherPrintingComponent implements OnInit {
       BRANCH_CODE: ['', [Validators.required]],
       DATE: ['', [Validators.required]],
       VOUCHER_NO: ['', [Validators.required]],
-      // AC_TYPE: ['', [Validators.required]],
       VOUCHER_TYPE: ['', [Validators.required]],
       TRAN_TYPE: ['', [Validators.required]],
     });
@@ -272,13 +280,13 @@ export class VoucherPrintingComponent implements OnInit {
 
       case 'IV':
         this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data; 
+          this.introducerACNo = data;
           this.firstno = null
           this.lastno = null
         })
         break;
     }
-  } 
+  }
 
   view(event) {
 
@@ -293,25 +301,23 @@ export class VoucherPrintingComponent implements OnInit {
       let obj = this.ngForm.value
       this.showRepo = true;
 
-      if(this.dates == userData.branch.syspara.CURRENT_DATE)
-  {
-    obj['DATE'] =userData.branch.syspara.CURRENT_DATE
-  }
-  else{
-  let date = moment(this.dates).format('DD/MM/YYYY');
-  let tDate = moment(date, 'DD/MM/YYYY')
-  obj['DATE']=date 
-}
+      if (this.dates == userData.branch.syspara.CURRENT_DATE) {
+        obj['DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.dates).format('DD/MM/YYYY');
+        let tDate = moment(date, 'DD/MM/YYYY')
+        obj['DATE'] = date
+      }
       // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
       // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
 
       let scheme = obj.Scheme_code
       let branch = obj.BRANCH_CODE
+      let voucherNo = obj.VOUCHER_NO
 
-      
 
-      // this.iframe5url = this.report_url + "examples/TDReceiptPrint.php/?&Date='" + obj.FROM_DATE + "'&scheme='" + scheme + "'&branchname='" + this.branchName + "'&BRANCH_CODE='" + branch + "'&Bankname='" + bankName + "'";
-      this.iframe5url = this.report_url + "examples/vocharprinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&Vochar_No='2'&Branch='"+branchName+"'&branch_code="+branch+"";
+      this.iframe5url = this.report_url + "examples/vocharprinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&Vochar_No='"+voucherNo+"'&Branch='" + branchName + "'&branch_code=" + branch + "";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
@@ -329,7 +335,10 @@ export class VoucherPrintingComponent implements OnInit {
 
   // Reset Function
   reset() {
-    this.ngForm.controls.AC_TYPE.reset();
+    this.ngForm.controls.VOUCHER_NO.reset();
+    this.ngForm.controls.VOUCHER_TYPE.reset();
+    this.ngForm.controls.TRAN_TYPE.reset();
+
     this.showRepo = false;
     this.clicked = false;
   }
@@ -337,6 +346,28 @@ export class VoucherPrintingComponent implements OnInit {
     this.getIntroducer()
     this.ngbranch = event.value
     this.branchName = event.branchName
+  }
+
+  getType(event) {
+    this.vtype = event.value
+  
+  }
+  getType1(event){
+    this.tranType = event.value
+
+    //for voucher Number
+    let obj1 = {
+      type: this.vtype,
+      branch: this.ngbranch,
+      tran_type: this.tranType
+
+    
+
+    }
+    this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
+      this.glDetails = data
+      console.log(this.glDetails)
+    }) 
   }
 }
 

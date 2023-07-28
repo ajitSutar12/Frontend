@@ -157,10 +157,26 @@ export class TDSFormSubmissionComponent implements OnInit {
     this.showButton = true;
     this.resetForm();
   }
-  resetForm() {
+  resetForm() { 
     this.createForm()
     this.ngcustomer = null
     this.isTdsFormA = false;
+  }
+
+  getTds(event) {
+    this.TDSformsubmission.getTdsData().subscribe(data => {
+
+      let value = data.filter(ele => ele.FIN_YEAR == this.ngfinyear &&  ele.idmasterID == this.ngcustomer )
+
+      console.log(value)
+      if (value.length != 0 ) {
+        this.ngcustomer = null
+        Swal.fire('Warning', 'Data is Already Submitted', 'warning');
+
+      } 
+
+    })
+
   }
 
   isForm15A(value) {

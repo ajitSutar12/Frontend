@@ -5,6 +5,7 @@ import { first } from "rxjs/operators";
 import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-n-profit-loss',
   templateUrl: './n-profit-loss.component.html',
@@ -19,6 +20,7 @@ fromdate: any = null
 maxDate: Date;
 minDate: Date;
 bsValue = new Date();
+report_url = environment.report_url;
 
 iframeurl: any = ' ';
 showRepo: boolean = false;
@@ -70,7 +72,7 @@ clicked:boolean=false;
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
       let branched1 = obj.BRANCH_CODE;
 
-      this.iframeurl = "http://localhost/NewReport/phpjasperxml-master/examples/NformBalanceSheet.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+branched1+"'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+branched1+"'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
