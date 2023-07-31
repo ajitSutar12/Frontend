@@ -220,7 +220,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
             }
             else if (element.TRAN_DATE != null && element.TRAN_DATE != '' && element.REBIT_PAID_DATE == null) {
               element['TRAN_DATE'] = element.TRAN_DATE
-              element['TRAN_DRCR'] = 'C'
+              // element['TRAN_DRCR'] = 'C'
               element['TRAN_TYPE'] = 'UP'
               element['drcr'] = 'Cr'
               // element['isRebit'] = true
@@ -509,7 +509,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
               }
               else if (element.TRAN_DATE != null && element.TRAN_DATE != '' && element.REBIT_PAID_DATE == null) {
                 element['TRAN_DATE'] = element.TRAN_DATE
-                element['TRAN_DRCR'] = 'C'
+                // element['TRAN_DRCR'] = 'C'
                 element['TRAN_TYPE'] = 'UP'
                 element['drcr'] = 'Cr'
                 // element['isRebit'] = true

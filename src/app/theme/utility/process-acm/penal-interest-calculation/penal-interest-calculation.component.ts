@@ -38,11 +38,11 @@ export class PenalInterestCalculationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    let user = JSON.parse(localStorage.getItem('user'));
     this.createForm();
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-      this.ngBranchCode = data[0].value
+      this.ngBranchCode = user.branchId
 
     })
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {

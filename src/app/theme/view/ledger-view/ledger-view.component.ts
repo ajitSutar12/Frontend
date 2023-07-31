@@ -264,7 +264,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     // })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'GL')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL')
       });
       this.scheme = allscheme;
     })

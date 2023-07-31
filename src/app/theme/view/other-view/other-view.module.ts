@@ -34,9 +34,16 @@ import { TermDepositSchemeService } from '../../utility/scheme-parameters/term-d
 import { OtherViewService } from './other-view.service';
 import { TermDepositMasterService } from '../../master/customer/term-deposits-master/term-deposits-master.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   imports: [
+    PerfectScrollbarModule,
     CommonModule,
     OtherViewRoutingModule,
     SharedModule,
@@ -46,11 +53,17 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
     InterestPaidHistoryModule,
-  
+
   ],
   providers: [
-    SchemeAccountNoService,DatePipe,OtherViewService, SchemeCodeDropdownService,TermDepositSchemeService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,SystemMasterParametersService,
-TermDepositMasterService,
+    {
+
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+
+    },
+    SchemeAccountNoService, DatePipe, OtherViewService, SchemeCodeDropdownService, TermDepositSchemeService, OwnbranchMasterService, RepayModeService, InstallmentMethodService, SystemMasterParametersService,
+    TermDepositMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
