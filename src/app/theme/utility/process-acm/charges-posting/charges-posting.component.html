@@ -10,6 +10,27 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
@@ -37,14 +58,14 @@
                         <div class="col-sm-12 col-md-2"><label for="Starting Account">Starting Account <sub
                                     class="required"> *
                                 </sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="BANKACNO" formControlName="FROM_AC"
                                         bindLabel="label" title="Compulsory Selection" required
                                         placeholder="Starting Account">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
-                                            {{values.label}} {{values.AC_NO}}</ng-option>
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
 
                                 </span>
@@ -60,13 +81,13 @@
                         <div class="col-sm-12 col-md-2"> <label for="Ending Account">Ending Account<sub
                                     class="required"> *
                                 </sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="BANKACNO" formControlName="TO_AC" bindLabel="label"
                                         title="Compulsory Selection" required placeholder="Ending Account">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
-                                            {{values.label}} {{values.AC_NO}}</ng-option>
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
 
                                 </span>
@@ -91,7 +112,7 @@
                                         <i class="helper"></i>Service Charges
                                     </label>
                                 </div>
-                                <div class="radio radio-inline">
+                                <div class="radio radio-inline" *ngIf="showminBalance">
                                     <label>
                                         <input type="radio" value="Minimum Balance Charges" #charges2
                                             formControlName="FORM_TYPE" id="form2" name="FORM_TYPE"
@@ -99,7 +120,7 @@
                                         <i class="helper"></i>Minimum Balance Charges
                                     </label>
                                 </div>
-                                <div class="radio radio-inline">
+                                <div class="radio radio-inline" *ngIf="showminBalance">
                                     <label>
                                         <input type="radio" value="Dormant Charges" #charges3
                                             formControlName="FORM_TYPE" id="form3" name="FORM_TYPE"
@@ -162,7 +183,8 @@
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             [maxDate]="maxDate"
                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                            formControlName="TRANFROM_DATE"
+                                                            formControlName="TRANFROM_DATE" minlength="10"
+                                                            maxlength="10"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
 
@@ -186,7 +208,7 @@
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             [maxDate]="maxDate"
                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                            formControlName="TRANTO_DATE"
+                                                            formControlName="TRANTO_DATE" minlength="10" maxlength="10"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
 
@@ -236,16 +258,17 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-2"> <label for="DORMANTFROM_DATE">Transaction
                                                     Date From<sub class="required">*</sub></label></div>
-                                            <div class="col-sm-12 col-md-2">
+                                            <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                             name="DORMANTFROM_DATE" id="DORMANTFROM_DATE"
-                                                            class="form-control"
+                                                            class="form-control" minlength="10" maxlength="10"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             [maxDate]="maxDate"
                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                            formControlName="DORMANTFROM_DATE"
+                                                            formControlName="DORMANTFROM_DATE" minlength="10"
+                                                            maxlength="10"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
 
@@ -261,12 +284,12 @@
                                             </div>
                                             <div class="col-sm-12 col-md-2"> <label for="DORMANTTO_DATE">Transaction
                                                     Date To<sub class="required">*</sub></label></div>
-                                            <div class="col-sm-12 col-md-2">
+                                            <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                             name="DORMANTTO_DATE" id="DORMANTTO_DATE"
-                                                            class="form-control"
+                                                            class="form-control" minlength="10" maxlength="10"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             [maxDate]="maxDate"
                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -310,9 +333,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm">
+                                            <!-- <div class="col-sm">
                                                 <button class="btn btn-outline-primary btn-sm"> Show Report</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
@@ -415,9 +438,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm-12 col-md-2"> <label for="TRAN_PERIOD">Transaction
-                                                    Period<sub class="required">*</sub></label></div>
-                                            <div class="col-sm-12 col-md-2">
+                                                    Period From<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" placeholder="dd/mm/yyyy" name="TRAN_PERIOD"
@@ -425,7 +450,7 @@
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             [maxDate]="maxDate"
                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                            formControlName="TRAN_PERIOD"
+                                                            formControlName="TRAN_PERIOD" minlength="10" maxlength="10"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
 
@@ -439,9 +464,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-2"> <label for="TRANPERIOD_TO">To<sub
+                                            <div class="col-sm-12 col-md-1"> <label for="TRANPERIOD_TO">To<sub
                                                         class="required">*</sub></label></div>
-                                            <div class="col-sm-12 col-md-2">
+                                            <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" placeholder="dd/mm/yyyy" name="TRANPERIOD_TO"
@@ -449,7 +474,8 @@
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             [maxDate]="maxDate"
                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                            formControlName="TRANPERIOD_TO"
+                                                            formControlName="TRANPERIOD_TO" minlength="10"
+                                                            maxlength="10"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
 
@@ -474,14 +500,14 @@
 
                                                                 <label>
                                                                     <input type="radio" formControlName="TYPE"
-                                                                        name="TYPE" value="type1" id="TYPE1">
+                                                                        name="TYPE" value="D" id="TYPE1">
                                                                     <i class="helper"></i>Debit
                                                                 </label>
                                                             </div>
                                                             <div class="radio radio-inline">
                                                                 <label>
                                                                     <input type="radio" formControlName="TYPE"
-                                                                        name="TYPE" value="type2" id="TYPE2">
+                                                                        name="TYPE" value="C" id="TYPE2">
                                                                     <i class="helper"></i>Credit
                                                                 </label>
                                                             </div>
@@ -509,7 +535,7 @@
 
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-4"> <label for="GL_ACNO">Charges GL Account Number<sub
+                        <div class="col-sm-12 col-md-4"> <label for="GL_ACNO">Charges credit to GL Account Number<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
@@ -545,7 +571,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-md-2"><label for="TOTAL_CHARGE">Total Charges</label></div>
+                        <!-- <div class="col-sm-12 col-md-2"><label for="TOTAL_CHARGE">Total Charges</label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -556,7 +582,7 @@
                                         disabled>
                                 </span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -568,3 +594,4 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"><!-- Place at bottom of page --> </div>

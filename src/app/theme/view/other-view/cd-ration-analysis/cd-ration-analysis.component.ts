@@ -10,6 +10,8 @@ import { OtherViewService } from '../other-view.service';
 import * as moment from 'moment';
 import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 import { data } from 'jquery';
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cd-ration-analysis',
@@ -27,7 +29,7 @@ export class CdRationAnalysisComponent implements OnInit {
   tableData: any;
   showMsg: boolean = true;
   warrentDate
-  glDetails: any = new Array();
+  glDetails: any
   totalAmt: any = 0.00;
   modalClass: string = 'modalHide';
   ActiveTab: string = 'DEPOSITS';
@@ -38,34 +40,28 @@ export class CdRationAnalysisComponent implements OnInit {
     'partA': 0,
     'partB': 0
   }
+  maxDate
   show: boolean = false;
   cdratiototal: number;
+  ngbranch_code
   // dtExportButtonOptions: any = {};
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private _service: EditInterestCalculationService, private http: HttpClient,
-    private other_service: OtherViewService
-
-  ) { }
+    private other_service: OtherViewService,
+    private systemParameter: SystemMasterParametersService,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+    })
+  }
 
   ngOnInit(): void {
-
-
-    this.http.get(this.url + '/interest-passing').subscribe((data) => {
-      this.warrentDate = data
-    })
-
-    this._service.interestDate().subscribe((data) => {
-      this.warrentDate = data
-      console.log(this.warrentDate)
-    })
-
-
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
     this.createForm();
-    this.getprofit();
-
+    // this.getprofit();
   }
 
   getIntDetails(event) {
@@ -74,15 +70,14 @@ export class CdRationAnalysisComponent implements OnInit {
     let date = moment(result.DATE).format('DD/MM/YYYY');
     let obj = {
       date: date,
-      branch: result.BRANCH
+      branch: result.BRANCH,
+      branch_code: this.branch_codeList
     }
     this.other_service.postData(obj).subscribe(data => {
       this.modalClass = 'modalHide';
       this.tableData = data;
-      this.other_service.profitloss(obj).subscribe(data => {
-        this.profitloss = data;
-      })
-      console.log(this.tableData)
+      this.getprofit(obj)
+      // console.log(this.tableData)
       if (this.tableData.length == 0) {
         this.showMsg = true;
       } else {
@@ -94,6 +89,8 @@ export class CdRationAnalysisComponent implements OnInit {
         this.TabWiseTotal.partA = item.partAbal < 0 ? this.TabWiseTotal.partA + Math.abs(item.partAbal) : this.TabWiseTotal.partA - Math.abs(item.partAbal);
         this.TabWiseTotal.partB = item.partBbal < 0 ? this.TabWiseTotal.partB + Math.abs(item.partBbal) : this.TabWiseTotal.partB - Math.abs(item.partBbal);
       }
+      this.ActiveTab = 'DEPOSITS'
+      this.totalAmt = this.TabWiseTotal.depo;
     })
   }
 
@@ -110,21 +107,40 @@ export class CdRationAnalysisComponent implements OnInit {
   }
   find() {
     this.show = true;
-    this.cdratiototal = (this.TabWiseTotal.loan - ((this.TabWiseTotal.partA - this.TabWiseTotal.partB) * 100)) / this.TabWiseTotal.depo
+    let ab = this.TabWiseTotal.partA - this.TabWiseTotal.partB
+    let loanab = this.TabWiseTotal.loan - ab
+    let ratio = loanab * 100
+    this.cdratiototal = ratio / this.TabWiseTotal.depo
+    // this.cdratiototal = (this.TabWiseTotal.loan - (this.TabWiseTotal.partA - this.TabWiseTotal.partB) * 100) / this.TabWiseTotal.depo
   }
 
   //-------------------------* Update All Tab data on cdratio table *-------------------------------//
   update() {
     let formData = this.angForm.value;
-    let data = {
-      table: this.tableData,
-      branch: formData.BRANCH
+    if (this.tableData) {
+      let data = {
+        table: this.tableData,
+        branch: formData.BRANCH
+      }
+      this.modalClass = 'modalShow';
+      this.other_service.updateCdData(data).subscribe(data => {
+        this.modalClass = 'modalHide';
+        Swal.fire('Success', 'CD ratio updated successfully', 'success')
+        this.angForm.reset()
+        this.profitloss = 0
+        this.tableData = []
+        this.cdratiototal = 0
+        this.totalAmt = 0
+        this.TabWiseTotal = {
+          'depo': 0,
+          'loan': 0,
+          'partA': 0,
+          'partB': 0
+        }
+      }, err => {
+        console.log(err);
+      })
     }
-    this.other_service.updateCdData(data).subscribe(data => {
-
-    }, err => {
-      console.log(err);
-    })
   }
   //-----------------------* End Update Changes *-----------------------//
   //-----------------------* Checkbox Change Events *------------------//
@@ -142,51 +158,74 @@ export class CdRationAnalysisComponent implements OnInit {
       if (item.acno == data.acno) {
         if (ele.target.checked) {
           if (type == 'Depo') {
-            debugger
+
             item.depo = true;
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.depobal = data;
-              this.totalFun()
+              // this.totalFun()    
+              this.TabWiseTotal.depo = item.depobal < 0 ? this.TabWiseTotal.depo + Math.abs(item.depobal) : this.TabWiseTotal.depo - Math.abs(item.depobal);
+              this.ActiveTab = 'DEPOSITS'
+              this.totalAmt = this.TabWiseTotal.depo;
             })
           } else if (type == 'Loan') {
             item.loan = true;
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.loanbal = data;
-              this.totalFun()
+              this.TabWiseTotal.loan = this.TabWiseTotal.loan + item.loanbal;
+              // this.totalFun()
+              this.ActiveTab = 'LOANS';
+              this.totalAmt = this.TabWiseTotal.loan;
             })
           } else if (type == 'PartA') {
             item.partA = true;
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.partAbal = data;
-              this.totalFun()
+              this.TabWiseTotal.partA = item.partAbal < 0 ? this.TabWiseTotal.partA + Math.abs(item.partAbal) : this.TabWiseTotal.partA - Math.abs(item.partAbal);
+              this.ActiveTab = 'PART A';
+              this.totalAmt = this.TabWiseTotal.partA;
+              // this.totalFun()
             })
           } else {
             item.partB = true;
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.partBbal = data;
-              this.totalFun()
+              this.TabWiseTotal.partB = item.partBbal < 0 ? this.TabWiseTotal.partB + Math.abs(item.partBbal) : this.TabWiseTotal.partB - Math.abs(item.partBbal);
+              this.ActiveTab = 'PART B';
+              this.totalAmt = this.TabWiseTotal.partB;
+              // this.totalFun()
             })
           }
         } else {
           if (type == 'Depo') {
             item.depo = false;
+            // this.totalFun()
+            this.TabWiseTotal.depo = item.depobal < 0 ? this.TabWiseTotal.depo - Math.abs(item.depobal) : this.TabWiseTotal.depo + Math.abs(item.depobal);
             item.depobal = 0;
-            this.totalFun()
+            this.ActiveTab = 'DEPOSITS'
+            this.totalAmt = this.TabWiseTotal.depo;
           } else if (type == 'Loan') {
             item.loan = false;
+            this.TabWiseTotal.loan = this.TabWiseTotal.loan - item.loanbal;
             item.loanbal = 0;
-            this.totalFun()
+            this.ActiveTab = 'LOANS';
+            this.totalAmt = this.TabWiseTotal.loan;
+            // this.totalFun()
           } else if (type == 'PartA') {
             item.partA = false;
+            this.TabWiseTotal.partA = item.partAbal < 0 ? this.TabWiseTotal.partA - Math.abs(item.partAbal) : this.TabWiseTotal.partA + Math.abs(item.partAbal);
             item.partAbal = 0;
-            this.totalFun()
+            // this.totalFun()
+            this.ActiveTab = 'PART A';
+            this.totalAmt = this.TabWiseTotal.partA;
           } else {
             item.partB = false;
+            this.TabWiseTotal.partB = item.partBbal < 0 ? this.TabWiseTotal.partB - Math.abs(item.partBbal) : this.TabWiseTotal.partB + Math.abs(item.partBbal);
             item.partBbal = 0;
-            this.totalFun()
+            this.ActiveTab = 'PART B';
+            this.totalAmt = this.TabWiseTotal.partB;
+            // this.totalFun()
           }
         }
-
       }
     }
   }
@@ -242,20 +281,20 @@ export class CdRationAnalysisComponent implements OnInit {
     } else {
       this.TabWiseTotal.partA = this.TabWiseTotal.partA - this.profitloss;
     }
+    if (this.ActiveTab == 'PART A') {
+      this.totalAmt = this.TabWiseTotal.partA;
+    }
   }
   getbranch(event) {
-    this.branch_codeList = event.id;
+    this.branch_codeList = event.value;
 
   }
 
-  getprofit() {
-    let obj1 = {
-      BRANCH_CODE: this.branch_code,
-      TRAN_DATE: '30/09/2022'
-    }
+  getprofit(obj1) {
     this.http.post<any>(this.url + '/reports/profitLoss', obj1).subscribe((data) => {
-      this.glDetails = data
-      console.log(this.glDetails);
+      this.glDetails = data[data.length - 1].head_name
+      this.profitloss = Number(data[data.length - 1].head_total)
+      // console.log(this.glDetails);
     })
   }
 

@@ -93,6 +93,8 @@ export class UserDefinationComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number = 0;
+  username=''
+  editData
   url = environment.base_url;
   companyCode: any;
   schemeCode: any;
@@ -189,7 +191,6 @@ export class UserDefinationComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.userdef = resp.data;
-            console.log(this.userdef);
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -339,8 +340,9 @@ export class UserDefinationComponent implements OnInit {
     this.updateShow = true;
     // this.showEdit = true;    
     this.userdefinationservice.getFormData(id).subscribe(data=>{
-      console.log(data,'edit');
+      this.editData=data
       this.updateID = data.id;
+      this.username=data.USER_NAME
       this.angForm.patchValue({
         'F_NAME': data.F_NAME,
         'L_NAME': data.L_NAME,
@@ -349,13 +351,13 @@ export class UserDefinationComponent implements OnInit {
         'EMAIL': data.EMAIL,
        'roleId': data.RoleDefine[0].RoleId,
        'ROLE': data.RoleDefine[0].RoleId,
-      //  'selectedRoleName': data.RoleDefine[0].Role.NAME,
             'branchId':data.branchId,
-        'USER_NAME': data.USER_NAME,
-        // 'PASSWORD': data.PASSWORD,
-        'STATUS': data.STATUS,
-        // 'USER_CREATED_AT': data.USER_CREATED_AT,
-      })
+            'USER_NAME': data.USER_NAME,
+            // 'PASSWORD': data.PASSWORD,
+            'STATUS': data.STATUS,
+            // 'USER_CREATED_AT': data.USER_CREATED_AT,
+          })
+          this.angForm.controls['USER_NAME'].disable()
     })
   }
 
@@ -367,12 +369,15 @@ export class UserDefinationComponent implements OnInit {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['roleId'] = this.angForm.controls['ROLE'].value;
+    data['USER_NAME']=this.username
+    data['DOB']= this.editData.DOB==data.DOB ? data.DOB: moment(data.DOB).format('DD/MM/YYYY')
     this.userdefinationservice.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
       this.createForm()
+      this.angForm.controls['USER_NAME'].enable()
       this.angForm.reset();
     })
   }
@@ -483,6 +488,7 @@ export class UserDefinationComponent implements OnInit {
     })
   }
   resetForm(){
+    this.angForm.controls['USER_NAME'].enable()
     this.createForm()
     this.branchId=null
     this.selectedRoleName=null

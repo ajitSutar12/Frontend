@@ -134,7 +134,7 @@
                         <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="USER_NAME" maxlength="2000" class="form-control"
+                                    <input type="text" name="USER_NAME" maxlength="10" class="form-control"
                                         placeholder=" " id="label-name" required="" pattern="^[A-Za-z0-9\./ -]+$"
                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                         formControlName="USER_NAME" (focusout)="checkUserName()">
@@ -337,7 +337,7 @@
                                         <td>{{ data.DOB }}</td>
                                         <td>{{ data.MOB_NO }}</td>
                                         <td>{{ data.EMAIL }}</td>
-                                        <td>{{ data.RoleDefine[0].Role.NAME }}</td>
+                                        <td>{{ data?.RoleDefine[0]?.Role.NAME }}</td>
                                         <td>{{ data.USER_NAME }}</td>
                                         <!-- <td>{{ data.PASSWORD }}</td> -->
                                         <td>{{ data.STATUS }}</td>

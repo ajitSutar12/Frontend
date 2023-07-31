@@ -219,7 +219,7 @@
                     </span>
                   </div>
                   <input type="file" name="Profile" class="form-control" placeholder=" " id="Profile"
-                  formControlName="Profile" (change)="selectedImage($event)">
+                    formControlName="Profile" (change)="selectedImage($event)">
                 </div>
 
               </div>
@@ -277,6 +277,17 @@
             </div>
             <div class="row">
               <div class="col-sm-3">
+                <label for="Create_Password"> User name<sub class="required">* </sub></label>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group input-group">
+                  <span class="border-lable-flt">
+                    <input type="text" name="USER_NAME" class="form-control" placeholder=" " disabled
+                      title="Input allowed only  0-9" id="USER_NAME" formControlName="USER_NAME">
+                  </span>
+                </div>
+              </div>
+              <div class="col-sm-3">
                 <label for="currentPassword">Current Password</label>
               </div>
               <div class="col-md-3">
@@ -286,11 +297,11 @@
                       id="currentPassword" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
                       [NgPasswordValidator]="options" (valid)="isValid($event)" (keyup)="onInput($event)"
                       formControlName="currentPassword">
-
                   </span>
                 </div>
-
               </div>
+            </div>
+            <div class="row">
               <div class="col-sm-3">
                 <label for="Create_Password"> New Password<sub class="required">* </sub></label>
               </div>
@@ -307,9 +318,6 @@
                 </div>
 
               </div>
-
-            </div>
-            <div class="row">
               <div class="col-sm-3">
                 <label for="confirmPassword">Confirm Password</label>
               </div>
@@ -334,7 +342,7 @@
                     <button type="button" id="submit" (click)="updateProfile()" name="submit"
                       class="btn btn-outline-primary btn-sm">Update</button>
                   </span>
-                
+
                 </div>
               </div>
             </div>

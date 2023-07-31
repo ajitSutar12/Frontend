@@ -85,6 +85,7 @@ export class UserProfileComponent implements OnInit {
         LastName: userObject.L_NAME,
         email: userObject.EMAIL,
         phone: userObject.MOB_NO,
+        USER_NAME: userObject.USER_NAME
       })
     })
     this.angEditForm = this.fb.group({
@@ -93,10 +94,11 @@ export class UserProfileComponent implements OnInit {
       LastName: [''],
       email: [''],
       phone: [''],
-      currentPassword: [''],
-      newPassword: [''],
-      confirmPassword: [''],
+      currentPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
       Profile: [''],
+      USER_NAME: [''],
     });
 
 
@@ -280,7 +282,7 @@ export class UserProfileComponent implements OnInit {
       this._userService.editlocal(data.id).subscribe(data => {
         debugger
         // localStorage.setItem('token', data.access_token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('user', JSON.stringify(data));
         // if (data.user) {
         //   this.router.navigate(['/dashboard']);
         let data1: any = localStorage.getItem('user');

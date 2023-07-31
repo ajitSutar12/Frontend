@@ -19,11 +19,11 @@
 
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <ng-select id="BRANCH" appTheme bindValue="name"
-                                                [(ngModel)]="branch_codeList" formControlName="BRANCH" bindLabel="label"
-                                                [virtualScroll]="true" title="Compulsory Selection"
-                                                (change)="getbranch($event.id)" placeholder="Branch Code" #BRANCH
-                                                (focus)="onFocus(BRANCH)" [selectOnTab]='true'>
+                                            <ng-select id="BRANCH" appTheme bindValue="name" [(ngModel)]="ngbranch_code"
+                                                formControlName="BRANCH" bindLabel="label" [virtualScroll]="true"
+                                                title="Compulsory Selection" (change)="getbranch($event)"
+                                                placeholder="Branch Code" #BRANCH (focus)="onFocus(BRANCH)"
+                                                [selectOnTab]='true'>
                                                 <ng-option *ngFor="let values of branch_code" [value]="values">
                                                     {{values.label}}</ng-option>
                                             </ng-select>
@@ -44,10 +44,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" appTheme appButton minlength="8" maxlength="10"
-                                                placeholder="dd/mm/yyyy" name="date" id="date" formControlName="DATE"
-                                                class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                bsDatepicker (ngModelChange)="getIntDetails($event)">
+                                            <input type="text" appTheme appButton minlength="10" maxlength="10"
+                                                [maxDate]="maxDate" placeholder="dd/mm/yyyy" name="date" id="date"
+                                                formControlName="DATE" class="form-control"
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                (ngModelChange)="getIntDetails($event)">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -57,7 +58,7 @@
                                             This field is required
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
 
                                 <!-- <div class="col-sm-12 col-md-4">
                                     <div class="form-group form-primary form-static-label">
@@ -142,7 +143,7 @@
                                                                                         </td>
                                                                                         <td class="text-right">
                                                                                             {{myMath.abs(item.depobal)}}
-                                                                                            {{item.depobal >0 ? 'DR' :
+                                                                                            {{item.depobal > 0 ? 'DR' :
                                                                                             'CR'}}</td>
                                                                                     </tr>
                                                                                     <tr *ngIf="showMsg">
@@ -314,8 +315,8 @@
                         <div class="col-md-2 align-self-end">
                             <div class="row">
                                 <div class="col ">
-                                    <button type="button" class="btn btn-outline-primary btn-sm">
-                                        Report</button>
+                                    <!-- <button type="button" class="btn btn-outline-primary btn-sm">
+                                        Report</button> -->
                                     <button type="button" class="btn btn-outline-primary btn-sm" (click)="update()">
                                         Update</button>
                                     <button type="button" class="btn btn-outline-primary btn-sm" (click)="find()">
@@ -328,7 +329,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label for=""> Total ({{ActiveTab}}) = {{myMath.abs(totalAmt) |number : '1.0-2'}} {{totalAmt
-                                >0 ? 'DR' : 'CR'}}</label>
+                                > 0 ? 'CR' : 'DR'}}</label>
                         </div>
                     </div>
                     <div class="row">
@@ -342,8 +343,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="">Profit-Loss = {{profitloss}} </label>
+                        <div class="col-md-4" *ngIf="profitloss != 0">
+                            <label class="">{{glDetails}} = {{profitloss}} </label>
                         </div>
                     </div>
                 </div>
@@ -353,4 +354,4 @@
 </div>
 
 
-<!-- <div [class]="modalClass"></div> -->
+<div [class]="modalClass"></div>
