@@ -121,46 +121,46 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
     this.accno = null
     switch (this.getschemename) {
 
-      case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.Acc_No = data;
-        })
-        break;
-      case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.Acc_No = data;
-        })
-        break;
+      // case 'SB':
+      //   this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+      //     this.Acc_No = data;
+      //   })
+      //   break;
+      // case 'CA':
+      //   this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+      //     this.Acc_No = data;
+      //   })
+      //   break;
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositMasterAcListForLedger(this.obj).subscribe(data => {
           this.Acc_No = data;
         })
         break;
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.Acc_No = data;
-        })
-        break;
-      case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.Acc_No = data;
-        })
-        break;
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.Acc_No = data;
-        })
-        break;
-      case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.Acc_No = data;
-        })
-        break;
-      case 'IV':
-        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.Acc_No = data;
-        })
-        break;
+      // case 'DS':
+      //   this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+      //     this.Acc_No = data;
+      //   })
+      //   break;
+      // case 'GS':
+      //   this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+      //     this.Acc_No = data;
+      //   })
+      //   break;
+      // case 'PG':
+      //   this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+      //     this.Acc_No = data;
+      //   })
+      //   break;
+      // case 'AG':
+      //   this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+      //     this.Acc_No = data;
+      //   })
+      //   break;
+      // case 'IV':
+      //   this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+      //     this.Acc_No = data;
+      //   })
+      //   break;
     }
   }
 

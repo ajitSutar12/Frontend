@@ -62,10 +62,10 @@ export class TransferToGLbyClosingACComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm()
-
+    let user = JSON.parse(localStorage.getItem('user'));
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-      this.ngBranchCode = data[0].value
+      this.ngBranchCode = user.branchId
     })
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
@@ -148,7 +148,7 @@ export class TransferToGLbyClosingACComponent implements OnInit {
   posting() {
     let obj = this.angForm.value;
     obj['user'] = JSON.parse(localStorage.getItem('user'));
-    console.log(obj);
+    // console.log(obj);
     Swal.fire({
       title: '',
       text: "Do you want to continue?",
