@@ -1556,7 +1556,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkPigmyCollectionChart',
-                name: 'Pigmy Agentwise Collection Chart',
+                name: 'Pigmy Account wise Collection Chart',
                 id: 255
               },
               {
@@ -4256,7 +4256,7 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkPigmyCollectionChart',
-                name: 'Pigmy Agentwise Collection Chart',
+                name: 'Pigmy Account wise Collection Chart',
                 id: 255
               },
               {
