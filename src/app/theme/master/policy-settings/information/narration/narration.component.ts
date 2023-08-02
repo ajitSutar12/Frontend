@@ -146,7 +146,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-      NARRATION: ['', [Validators.pattern, Validators.required]],
+      NARRATION: ['', [Validators.required]],
     });
   }
   
@@ -203,7 +203,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     this.narrationService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Narration Updated Successfully !', 'success');
       this.showButton = true;
-      this.updateShow = false;
+      this.updateShow = false;6
       this.newbtnShow = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
