@@ -295,7 +295,7 @@
                                                     (focus)="selectAllContent($event)" appTheme
                                                     (keydown.Tab)="decimalAllContent(amt.value); checkCondition(amt.value); checkSanctionAmountWithAmount()"
                                                     (change)="decimalAllContent(amt.value); checkCondition(amt.value); checkSanctionAmountWithAmount();checkIfZero(amt.value)"
-                                                    required formControlName="amt" #swiper (keyup)="getAmt(amt.value)"
+                                                    required formControlName="amt" #swiper (keyup)="getDecimal($event);getAmt(amt.value)"
                                                     (focusout)="focusSubmit();getDecimalPoint($event);">
                                             </span>
                                         </div>

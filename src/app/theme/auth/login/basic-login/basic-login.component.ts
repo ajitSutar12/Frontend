@@ -23,6 +23,7 @@ export class BasicLoginComponent implements OnInit {
   url = environment.base_url
   bankname = null
   currentDate
+  maxAttempts = 3
   constructor(private router: Router, private http: HttpClient, private _authService: AuthService) { }
 
   ngOnInit() {
@@ -39,17 +40,10 @@ export class BasicLoginComponent implements OnInit {
       "password": this.password
     }
     this._authService.login(dataObject).subscribe(data => {
-
       let userid = data.user.id
-      console.log(data, 'data of user');
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('system_master', JSON.stringify(data.system_master))
-      let passwordExpDate = data.user.EXP_DATE;
-      let nowDate = moment().format('YYYY-MM-DD');
-      let dateData = moment(passwordExpDate).format('YYYY-MM-DD');
-      console.log(dateData);
-      console.log(nowDate);
       if (data.user.LOG_STATUS == '1') {
         Swal.fire({
           title: '',
@@ -101,16 +95,25 @@ export class BasicLoginComponent implements OnInit {
         this.forgetPassword = false;
         Swal.fire('Oops!', 'Your password is expired please reset your password', 'error');
       }
+      this.failedLoginAttempts[this.mobileno] = 0;
     }, err => {
 
       if (err.error.statusCode == 401) {
-        Swal.fire({
-          title: '',
-          text: "Your access denied",
-          icon: 'error',
-          confirmButtonColor: '#229954',
-          confirmButtonText: 'OK'
-        })
+        this.incrementFailedLoginAttempts(this.mobileno);
+        let loginAttempts = this.getFailedLoginAttempts(this.mobileno);
+        if (loginAttempts >= this.maxAttempts) {
+          this._authService.updateinactiveUser(dataObject).subscribe(data => { })
+          Swal.fire('OOPs', 'User blocked...Please contact to Admin', 'error')
+          this.failedLoginAttempts[this.mobileno] = 0;
+        }
+        else
+          Swal.fire({
+            title: '',
+            text: "Your access denied",
+            icon: 'error',
+            confirmButtonColor: '#229954',
+            confirmButtonText: 'OK'
+          })
       } else if (err.error.statusCode == 400) {
         Swal.fire({
           title: '',
@@ -138,5 +141,18 @@ export class BasicLoginComponent implements OnInit {
     else {
       this.passType = 'password';
     }
+  }
+  private failedLoginAttempts: { [username: string]: number } = {};
+
+  incrementFailedLoginAttempts(username: string): void {
+    if (!this.failedLoginAttempts[username]) {
+      this.failedLoginAttempts[username] = 1;
+    } else {
+      this.failedLoginAttempts[username]++;
+    }
+  }
+
+  getFailedLoginAttempts(username: string): number {
+    return this.failedLoginAttempts[username] || 0;
   }
 }

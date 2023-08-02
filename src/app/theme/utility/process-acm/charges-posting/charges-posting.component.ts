@@ -395,5 +395,15 @@ export class ChargesPostingComponent implements OnInit {
       Swal.fire('OOps', error?.error?.message, 'error')
     })
   }
-
+  getDecimalPoint(event) {
+    if (event.target.value != '')
+      event.target.value = parseFloat(event.target.value).toFixed(2);
+  }
+  getDecimal(event) {
+    var t = event.target.value;
+    event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+  selectAllContent($event) {
+    $event.target.select();
+  }
 }

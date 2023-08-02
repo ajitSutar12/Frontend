@@ -105,7 +105,7 @@
                         <div class="col-sm">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" formControlName="FORM_TYPE" #charges1 name="FORM_TYPE"
                                             value="Service Charges" id="FORM_TYPE" (change)="isForm(1,charges1.value)"
                                             checked>
@@ -113,7 +113,7 @@
                                     </label>
                                 </div>
                                 <div class="radio radio-inline" *ngIf="showminBalance">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" value="Minimum Balance Charges" #charges2
                                             formControlName="FORM_TYPE" id="form2" name="FORM_TYPE"
                                             (change)="isForm(2,charges2.value)">
@@ -121,7 +121,7 @@
                                     </label>
                                 </div>
                                 <div class="radio radio-inline" *ngIf="showminBalance">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" value="Dormant Charges" #charges3
                                             formControlName="FORM_TYPE" id="form3" name="FORM_TYPE"
                                             (change)="isForm(3,charges3.value)">
@@ -129,7 +129,7 @@
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <label>
+                                    <label class="inputRadio">
                                         <input type="radio" value="Charges Per Entry" #charges4
                                             formControlName="FORM_TYPE" id="form4" name="FORM_TYPE"
                                             (change)="isForm(4,charges4.value)">
@@ -152,9 +152,10 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input style="text-align: right;" type="text" name="CHARGES_AMT"
-                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                                    id="CHARGES_AMT" max="10" title="Input allowed only  0-9" #INT
-                                                    formControlName="CHARGES_AMT"
+                                                    class="form-control" placeholder=" " 
+                                                    id="CHARGES_AMT" maxlength="15" title="Input allowed only  0-9" #INT
+                                                    formControlName="CHARGES_AMT" (focus)="selectAllContent($event)"
+                                                    (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                             </span>
@@ -231,9 +232,12 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" type="text"
                                                             name="BALCHARGES_AMT" class="form-control" placeholder=" "
-                                                            pattern="\d{1,20}(\.\d{2})?" id="BALCHARGES_AMT" max="10"
+                                                            maxlength="15" id="BALCHARGES_AMT" 
                                                             title="Input allowed only  0-9" #INT
                                                             formControlName="BALCHARGES_AMT"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                     </span>
@@ -316,10 +320,13 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" type="text"
                                                             name="DORMANTCHARGES_AMT" class="form-control"
-                                                            placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                                            id="DORMANTCHARGES_AMT" max="10"
+                                                            placeholder=" " maxlength="15"
+                                                            id="DORMANTCHARGES_AMT" 
                                                             title="Input allowed only  0-9" #INT
                                                             formControlName="DORMANTCHARGES_AMT"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                     </span>
@@ -347,14 +354,14 @@
                                             <div class="col-sm">
                                                 <div class="form-radio">
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" formControlName="BALANCE" name="BALANCE"
                                                                 value="bal1" id="BAL1">
                                                             <i class="helper"></i>Minimum Balance
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
-                                                        <label>
+                                                        <label class="inputRadio">
                                                             <input type="radio" formControlName="BALANCE" name="BALANCE"
                                                                 value="bal2" id="BAL2">
                                                             <i class="helper"></i>Maximum Balance
@@ -372,9 +379,11 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" type="text" name="BAL_AMT"
                                                             class="form-control" placeholder=" "
-                                                            pattern="\d{1,20}(\.\d{2})?" id="BAL_AMT" max="10"
+                                                            maxlength="15" id="BAL_AMT" 
                                                             title="Input allowed only  0-9" #INT
-                                                            formControlName="BAL_AMT"
+                                                            formControlName="BAL_AMT" (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                     </span>
@@ -396,9 +405,12 @@
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" type="text"
                                                             name="ENTRY_CHARGES" class="form-control" placeholder=" "
-                                                            pattern="\d{1,20}(\.\d{2})?" id="ENTRY_CHARGES" max="10"
+                                                            maxlength="15" id="ENTRY_CHARGES" 
                                                             title="Input allowed only  0-9" #INT
                                                             formControlName="ENTRY_CHARGES"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                     </span>
@@ -421,10 +433,12 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input style="text-align: right;" type="text" name="MIN_CHARGES"
-                                                            class="form-control" placeholder=" "
-                                                            pattern="\d{1,20}(\.\d{2})?" id="MIN_CHARGES" max="10"
-                                                            title="Input allowed only  0-9" #INT
+                                                            class="form-control" placeholder=" " maxlength="15"
+                                                            id="MIN_CHARGES" title="Input allowed only  0-9" #INT
                                                             formControlName="MIN_CHARGES"
+                                                            (focus)="selectAllContent($event)"
+                                                            (keyup)="getDecimal($event)"
+                                                            (focusout)="getDecimalPoint($event)"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                     </span>
@@ -494,32 +508,29 @@
                                             <div class="col-sm-12">
                                                 <div class="row">
                                                     <div class="col-sm">
-
                                                         <div class="form-radio">
                                                             <div class="radio radio-inline">
-
-                                                                <label>
+                                                                <label class="inputRadio">
                                                                     <input type="radio" formControlName="TYPE"
                                                                         name="TYPE" value="D" id="TYPE1">
                                                                     <i class="helper"></i>Debit
                                                                 </label>
                                                             </div>
                                                             <div class="radio radio-inline">
-                                                                <label>
+                                                                <label class="inputRadio">
                                                                     <input type="radio" formControlName="TYPE"
                                                                         name="TYPE" value="C" id="TYPE2">
                                                                     <i class="helper"></i>Credit
                                                                 </label>
                                                             </div>
                                                             <div class="radio radio-inline">
-                                                                <label>
+                                                                <label class="inputRadio">
                                                                     <input type="radio" formControlName="TYPE"
                                                                         name="TYPE" value="type3" id="TYPE3">
                                                                     <i class="helper"></i>All
                                                                 </label>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -527,13 +538,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
-
-
-
                     <div class="row">
                         <div class="col-sm-12 col-md-4"> <label for="GL_ACNO">Charges credit to GL Account Number<sub
                                     class="required">*</sub></label></div>
