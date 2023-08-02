@@ -24,7 +24,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 export class BnkGlAcStatementComponent implements OnInit {
 
   iframe2url: any = '';
-  clicked:boolean=false;
+  clicked: boolean = false;
   //api
   url = environment.base_url;
   report_url = environment.report_url;
@@ -34,11 +34,11 @@ export class BnkGlAcStatementComponent implements OnInit {
   makeForm: any;
 
   angForm: FormGroup;
-   //account
-   memFrom
-   memTo
-   branch
-   mem:any
+  //account
+  memFrom
+  memTo
+  branch
+  mem: any
 
   showButton: boolean = true;
   CloseShow: boolean = true;
@@ -61,8 +61,9 @@ export class BnkGlAcStatementComponent implements OnInit {
   edate: any = null
   maxDate: Date;
   minDate: Date;
-  
+
   bsValue = new Date();
+  branchName: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -105,7 +106,7 @@ export class BnkGlAcStatementComponent implements OnInit {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
       // this.fromdate = `01/04/${year - 1}`      
       this.todate = data.CURRENT_DATE
-      
+
       this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.fromdate = this.fromdate._d
     })
@@ -114,18 +115,22 @@ export class BnkGlAcStatementComponent implements OnInit {
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngBranchCode = result.branch.id
-      this.angForm.controls['BRANCH_CODE'].enable()
+      this.angForm.controls['BRANCH'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
-      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.controls['BRANCH'].disable()
       this.ngBranchCode = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
   createForm() {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.required]],
-      TO_AC: ['', [Validators.required]],
+      // TO_AC: ['', [Validators.required]],
       BRANCH: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
@@ -137,8 +142,14 @@ export class BnkGlAcStatementComponent implements OnInit {
   //For Starting account and Ending Account dropdown
   getschemename: any
 
-  getBranch() {
+  getBranch(event) {
+    this.ngBranchCode = event.value
+    this.branchName = event.branchName
+
+  }
+  getBranch1(){
     this.getIntroducer()
+
   }
   getIntro(event) {
     this.getschemename = event.name
@@ -175,70 +186,70 @@ export class BnkGlAcStatementComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
-    let branchName = userData.branch.NAME
-    
+    // let branchName = userData.branch.NAME
+
     if (this.angForm.valid) {
 
       this.showRepo = true;
-     
+
       let obj = this.angForm.value
       let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
-      let enddate:any;
+      let enddate: any;
       if (this.todate == obj.END_DATE) {
-        enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        enddate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        enddate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        enddate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
       var sdate = moment(obj.START_DATE).subtract(1, "day").format('DD/MM/YYYY');
       let branch = obj.BRANCH;
       let scheme = obj.AC_TYPE
       let startingcode = obj.FROM_AC;
-      let endingcode = obj.TO_AC;
-      let MonthwiseSummary =obj.Month_wise_Summary
+      // let endingcode = obj.TO_AC;
+      let MonthwiseSummary = obj.Month_wise_Summary
 
-      this.iframe2url = this.report_url+"examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='" + sdate+ "'&branch=" + branch + "&branchC='101'&branchName=" + branchName + "&startingcode=" + startingcode + "&endingcode=" + endingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
+      this.iframe2url = this.report_url + "examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&sdate='" + sdate + "'&branch=" + branch + "&branchName=" + this.branchName + "&startingcode=" + startingcode + "&endingcode=" + startingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }
 
   //load acno according start and end acno
- loadAcno() {
-  this.memFrom = this.angForm.controls['FROM_AC'].value
-  this.memTo = this.angForm.controls['TO_AC'].value
-  this.branch = this.angForm.controls['BRANCH'].value
-  if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
-    this.mem = [this.memFrom, this.memTo, this.branch]
-   
-    if (this.getschemename == 'GL') {
-      this.http.get(this.url + '/gl-account-master/scheme/' + this.mem).subscribe((data) => {
-      });
+  loadAcno() {
+    this.memFrom = this.angForm.controls['FROM_AC'].value
+    // this.memTo = this.angForm.controls['TO_AC'].value
+    this.branch = this.angForm.controls['BRANCH'].value
+    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
+      this.mem = [this.memFrom, this.memTo, this.branch]
+
+      if (this.getschemename == 'GL') {
+        this.http.get(this.url + '/gl-account-master/scheme/' + this.mem).subscribe((data) => {
+        });
+      }
+
+
     }
-   
-  
-  }
-  else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
-  }
-}
-
-close(){
-  this.resetForm()
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
   }
 
- resetForm() {
+  close() {
+    this.resetForm()
+  }
+
+  resetForm() {
     // this.createForm()
-    this.angForm.controls.AC_TYPE.reset();
+    // this.angForm.controls.AC_TYPE.reset();
     this.angForm.controls.FROM_AC.reset();
-    this.angForm.controls.TO_AC.reset();
+    // this.angForm.controls.TO_AC.reset();
     // this.angForm.controls.BRANCH.reset();
-    this.showRepo = false; 
-    this.clicked=false;
+    this.showRepo = false;
+    this.clicked = false;
   }
 }

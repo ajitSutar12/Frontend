@@ -68,6 +68,8 @@ export class BnkAcStatementComponent implements OnInit {
     clicked:boolean=false;
     getbankAcNo: any;
     getbankAcNo2: any;
+  branchName: any;
+  introducerACNo
 
  
 
@@ -118,6 +120,21 @@ export class BnkAcStatementComponent implements OnInit {
       this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.fromdate = this.fromdate._d
     })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngBranchCode = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchName = result.branch.NAME
+
+    }
     
   }
 
@@ -125,7 +142,7 @@ export class BnkAcStatementComponent implements OnInit {
     this.angForm = this.fb.group({
 
       AC_NOFrom: ['', [Validators.required]],
-      AC_NOTo: ['', [Validators.required]],
+      // AC_NOTo: ['', [Validators.required]],
       BRANCH: ['', [Validators.required]],
       FROM_DATE: ['', [Validators.required]],
       TO_DATE: ['', [Validators.required]],
@@ -156,7 +173,7 @@ export class BnkAcStatementComponent implements OnInit {
     this.getInterestTransfer()
   }
   //get acnotype from selected scheme
-  getIntTrans(event) {
+  getIntTrans(event) { 
     this.getschemename = event.name
     this.getbankAcNo =  event.bankacno
     this.getInterestTransfer()
@@ -165,38 +182,40 @@ export class BnkAcStatementComponent implements OnInit {
   getIntTrans1(event) {
     this.getbankAcNo2 =  event.bankacno
     this.getInterestTransfer()
-
+    this.getschemename = event.name
+    this.introducerACNo = []
+    this.startAcNo = null
   }
  
   getInterestTransfer() {
 
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    this.obj = [this.ngscheme, branchCode]
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // let branchCode = result.branch.id;
+    this.obj = [this.ngscheme, this.ngBranchCode]
     switch (this.getschemename) {
       
       case 'TD':
         this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.startAcNo = data;
+          this.introducerACNo = data;
           this.ngAcnoFrom = null
-          this.endAcNo = data;
+          this.introducerACNo = data;
           this.ngAcnoTo = null
         })
         break;
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.startAcNo = data;
+          this.introducerACNo = data;
           this.ngAcnoFrom = null
-          this.endAcNo = data;
+          this.introducerACNo = data;
           this.ngAcnoTo = null
         })
         break;
       case 'DS':
         this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.startAcNo = data;
+          this.introducerACNo = data;
           this.ngAcnoFrom = null
-          this.endAcNo = data;
+          this.introducerACNo = data;
           this.ngAcnoTo = null
         })
         break;
@@ -204,65 +223,65 @@ export class BnkAcStatementComponent implements OnInit {
     }
   }
  //load acno according start and end acno
- loadAcno() {
-  this.memFrom = this.angForm.controls['AC_NOFrom'].value
-  this.memTo = this.angForm.controls['AC_NOTo'].value
-  this.branch = this.angForm.controls['BRANCH'].value
-  if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
-    this.mem = [this.memFrom, this.memTo, this.branch]
-    if (this.getschemename == 'SB') {
-      this.http.get(this.url + '/saving-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'SH') {
-      this.http.get(this.url + '/share-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'LN') {
-      this.http.get(this.url + '/term-loan-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'CC') {
-      this.http.get(this.url + '/cash-credit-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'DS') {
-      this.http.get(this.url + '/dispute-loan-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'TD') {
-      this.http.get(this.url + '/term-deposits-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'AG') {
-      this.http.get(this.url + '/pigmy-agent-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'GL') {
-      this.http.get(this.url + '/gl-account-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'IV') {
-      this.http.get(this.url + '/investment/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'CA') {
-      this.http.get(this.url + '/current-account-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'PG') {
-      this.http.get(this.url + '/pigmy-account-master/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-    else if (this.getschemename == 'GS') {
-      this.http.get(this.url + '/anamat-gsm/balUpdate/' + this.mem).subscribe((data) => {
-      });
-    }
-  }
-  else {
-    Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
-  }
-}
+//  loadAcno() {
+//   this.memFrom = this.angForm.controls['AC_NOFrom'].value
+//   // this.memTo = this.angForm.controls['AC_NOTo'].value
+//   this.branch = this.angForm.controls['BRANCH'].value
+//   if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
+//     this.mem = [this.memFrom, this.memTo, this.branch]
+//     if (this.getschemename == 'SB') {
+//       this.http.get(this.url + '/saving-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'SH') {
+//       this.http.get(this.url + '/share-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'LN') {
+//       this.http.get(this.url + '/term-loan-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'CC') {
+//       this.http.get(this.url + '/cash-credit-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'DS') {
+//       this.http.get(this.url + '/dispute-loan-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'TD') {
+//       this.http.get(this.url + '/term-deposits-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'AG') {
+//       this.http.get(this.url + '/pigmy-agent-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'GL') {
+//       this.http.get(this.url + '/gl-account-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'IV') {
+//       this.http.get(this.url + '/investment/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'CA') {
+//       this.http.get(this.url + '/current-account-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'PG') {
+//       this.http.get(this.url + '/pigmy-account-master/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//     else if (this.getschemename == 'GS') {
+//       this.http.get(this.url + '/anamat-gsm/balUpdate/' + this.mem).subscribe((data) => {
+//       });
+//     }
+//   }
+//   else {
+//     Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+//   }
+// }
 
 end(){
   this.startfrom = this.angForm.controls['FROM_DATE'].value
@@ -308,7 +327,7 @@ View(event) {
     // let print = obj.PRINT_ACCOUNT;
     // let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branch="+branchName+"&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+toacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+branch+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + " ";
     
     
 
@@ -328,7 +347,7 @@ close(){
 resetForm() {
   // this.createForm()
   this.angForm.controls.AC_NOFrom.reset();
-  this.angForm.controls.AC_NOTo.reset();
+  // this.angForm.controls.AC_NOTo.reset();
   this.angForm.controls.AC_TYPE.reset();
   this.angForm.controls.AC_CUSTID.reset();
   this.showRepo = false;
