@@ -53,6 +53,9 @@ export class AuthService {
     return this.http.post<any>(this.base_url + '/user-defination/showNotificationuserwise', data);
   }
 
+  updateinactiveUser(data: any): Observable<any> {
+    return this.http.post<any>(this.base_url + '/user-defination/updateinactiveUser', data);
+  }
   // isLoggedIn(){
   //   return !!localStorage.getItem('token')
   // }
