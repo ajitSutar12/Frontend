@@ -32,24 +32,24 @@ export class CashOutDenominationComponent implements OnInit {
   ngtrandate: any = null
   trandate
   denoamt
-  cashier:any;
+  cashier: any;
   DenominationChart: boolean;
-  cashier_list :any;
-  SelectedBranch :any;
-  branch_list:any;
-  currencyData =[
+  cashier_list: any;
+  SelectedBranch: any;
+  branch_list: any;
+  currencyData = [
     { currency: 2000, qty: "", total: 0, available: 0 },
     { currency: 1000, qty: "", total: 0, available: 0 },
-    { currency: 500,  qty: "", total: 0, available: 0 },
-    { currency: 200,  qty: "", total: 0, available: 0 },
-    { currency: 100,  qty: "", total: 0, available: 0 },
-    { currency: 50,   qty: "", total: 0, available: 0 },
-    { currency: 20,   qty: "", total: 0, available: 0 },
-    { currency: 10,   qty: "", total: 0, available: 0 },
-    { currency: 5,    qty: "", total: 0, available: 0 },
-    { currency: 2,    qty: "", total: 0, available: 0 },
-    { currency: 1,    qty: "", total: 0, available: 0 },
-    { currency: 'Coin',    qty: "", total: 0, available: 0 },
+    { currency: 500, qty: "", total: 0, available: 0 },
+    { currency: 200, qty: "", total: 0, available: 0 },
+    { currency: 100, qty: "", total: 0, available: 0 },
+    { currency: 50, qty: "", total: 0, available: 0 },
+    { currency: 20, qty: "", total: 0, available: 0 },
+    { currency: 10, qty: "", total: 0, available: 0 },
+    { currency: 5, qty: "", total: 0, available: 0 },
+    { currency: 2, qty: "", total: 0, available: 0 },
+    { currency: 1, qty: "", total: 0, available: 0 },
+    { currency: 'Coin', qty: "", total: 0, available: 0 },
 
   ]
   Scheme: unknown;
@@ -79,11 +79,11 @@ export class CashOutDenominationComponent implements OnInit {
     });
     let user = JSON.parse(localStorage.getItem('user'));
 
-    this._service.getOwnbranchList().subscribe(data=>{
+    this._service.getOwnbranchList().subscribe(data => {
       this.branch_list = data;
       this.SelectedBranch = user.branchId;
-       //Get Cashier List
-      this._service.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
+      //Get Cashier List
+      this._service.getList({ branch_id: this.SelectedBranch }).subscribe(data => {
         this.cashier_list = data;
       })
     })
@@ -101,7 +101,7 @@ export class CashOutDenominationComponent implements OnInit {
       OPEN_CASH: ['', [Validators.pattern]],
       TOTAL_AMT: ['', [Validators.pattern]],
       TOTAL_WITHDRAWAL: ['', [Validators.pattern]],
-      Branch:['',[Validators.required]]
+      Branch: ['', [Validators.required]]
 
     })
 
@@ -110,28 +110,27 @@ export class CashOutDenominationComponent implements OnInit {
   sum: number = 0
   calculation(data, index, element) {
     let qty = element.target.value;
-    if (Number(qty) > Number(this.currencyData[index].available) )
-    {
-        Swal.fire('Warning!', 'Please insert Correct Quantity', 'warning')
-        element.target.value = 0; 
-        let currency = this.currencyData[index].currency;
-        let available = element.target.value;
-        let total = Number(currency) * 0;
-        this.currencyData[index].currency = currency;
-        this.currencyData[index].qty = "";
-        this.currencyData[index].total = total;
-        this.sum = this.currencyData.reduce((accumulator, object) => {
-          return accumulator + object.total;
-        }, 0);
-    }else{
-        let currency = this.currencyData[index].currency;
-        let available = element.target.value;
-        let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty) ) ;
-        this.currencyData[index].currency = currency;
-        this.currencyData[index].qty = qty;
-        this.currencyData[index].total = total;
-        this.sum = this.currencyData.reduce((accumulator, object) => {
-          return accumulator + object.total;
+    if (Number(qty) > Number(this.currencyData[index].available)) {
+      Swal.fire('Warning!', 'Please insert Correct Quantity', 'warning')
+      element.target.value = 0;
+      let currency = this.currencyData[index].currency;
+      let available = element.target.value;
+      let total = Number(currency) * 0;
+      this.currencyData[index].currency = currency;
+      this.currencyData[index].qty = "";
+      this.currencyData[index].total = total;
+      this.sum = this.currencyData.reduce((accumulator, object) => {
+        return accumulator + object.total;
+      }, 0);
+    } else {
+      let currency = this.currencyData[index].currency;
+      let available = element.target.value;
+      let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty));
+      this.currencyData[index].currency = currency;
+      this.currencyData[index].qty = qty;
+      this.currencyData[index].total = total;
+      this.sum = this.currencyData.reduce((accumulator, object) => {
+        return accumulator + object.total;
       }, 0);
     }
   }
@@ -140,30 +139,31 @@ export class CashOutDenominationComponent implements OnInit {
     const formVal = this.angForm.value;
     var object =
     {
-        data : this.angForm.value,
-        currency : this.currencyData,
-        user : JSON.parse(localStorage.getItem('user'))
+      data: this.angForm.value,
+      currency: this.currencyData,
+      user: JSON.parse(localStorage.getItem('user'))
     }
     if (formVal.DENOMINATION_AMT != this.sum) {
       Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
-    }else{
-      this._service.cashOutDenomination(object).subscribe(data=>{
+    } else {
+      this._service.cashOutDenomination(object).subscribe(data => {
         Swal.fire(
           'Good job!',
           'Your Form is Submitted Successfully..!',
           'success'
         );
         this.angForm.reset();
-        for(let item of this.currencyData){
+        for (let item of this.currencyData) {
           item.available = 0;
-          item.qty       = "";
-          item.total     = 0;
+          item.qty = "";
+          item.total = 0;
         }
         this.sum = 0;
-      },err=>{
+        this.ngOnInit()
+      }, err => {
         console.log(err);
       })
-      
+
     }
   }
 
@@ -172,12 +172,12 @@ export class CashOutDenominationComponent implements OnInit {
       this.DenominationChart = false
     }
     // if (value == 2)
-    else { 
+    else {
       this.DenominationChart = true
-    }                 
+    }
   }
 
-  changeData(ele){     
+  changeData(ele) {
     console.log(ele)
     this.currencyData[0].available = ele.DENO_2000;
     this.currencyData[1].available = ele.DENO_1000;
@@ -190,13 +190,15 @@ export class CashOutDenominationComponent implements OnInit {
     this.currencyData[8].available = ele.DENO_5;
     this.currencyData[9].available = ele.DENO_2;
     this.currencyData[10].available = ele.DENO_1;
+    this.currencyData[11].available = ele.DENO_COINS_AMT
+
   }
   reset() {
-    this.angForm.controls['DENOMINATION_AMT'].reset()
-    this.angForm.controls['TRANSACTION_NO'].reset()
+    // this.angForm.controls['DENOMINATION_AMT'].reset()
+    // this.angForm.controls['TRANSACTION_NO'].reset()
     this.currencyData.forEach(entry => {
       entry.qty = '';
-      entry.total = 0; 
+      entry.total = 0;
       this.sum = 0;
     })
   }

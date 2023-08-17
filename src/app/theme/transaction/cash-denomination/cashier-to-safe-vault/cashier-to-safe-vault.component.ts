@@ -19,6 +19,7 @@ export class CashierToSafeVaultComponent implements OnInit {
   formSubmitted
   DenominationChart: boolean;
   cashier_list :any;
+  safeCashier :any;
   SelectedBranch :any;
   branch_list:any;
 
@@ -66,6 +67,7 @@ export class CashierToSafeVaultComponent implements OnInit {
        //Get Cashier List
       this._service.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
         this.cashier_list = data;
+        this.safeCashier = this.cashier_list.filter( el => el.CASHIER_CODE !== 'SAFE VAULT'); 
       })
     })
   }
@@ -138,6 +140,7 @@ export class CashierToSafeVaultComponent implements OnInit {
       }
     })
   }
+  
 
   changeData(ele){
     this.DenominationChart =true;
