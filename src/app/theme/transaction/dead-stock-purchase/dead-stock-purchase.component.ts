@@ -584,13 +584,14 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.schemeedit = Number(data.TRANSFER_ACTYPE)
       this.ngBranchCode = data.BRANCH_CODE
       this.getschemename = data.TRANSFER_ACNOTYPE
+      this.GL_ACNO = data.ACNOTYPE == 'GL' ? data.AC_NO : data.TRAN_GLACNO
       this.getIntroducer()
       this.angForm.patchValue({
         Total_AMT: Number(data.TRAN_AMOUNT),
         ACNOTYPE: data.TRANSFER_ACNOTYPE,
         AC_TYPE: Number(data.TRANSFER_ACTYPE),
         AC_NO: Number(data.TRANSFER_ACNO),
-        TRAN_GLACNO: data.ACNOTYPE == 'GL' ? data.AC_NO : data.GL_ACNO,
+        TRAN_GLACNO: data.ACNOTYPE == 'GL' ? data.AC_NO : data.TRAN_GLACNO,
         CHEQUE_DATE: data.CHEQUE_DATE,
         CHEQUE_NUM: data.CHEQUE_NO,
         SUPPLIER_NAME: data.TRAN_SUPPLIER_NAME,

@@ -20,6 +20,7 @@ import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,12 +73,12 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   filter: any;
   filterForm: FormGroup;
   // for dropdown ngmodule
-  ngintcat:any=null
-  ngscheme:any=null
+  ngintcat: any = null
+  ngscheme: any = null
   // Variables for hide/show add and update and new button
   showButton: boolean = true;
   updateShow: boolean = false;
-  newbtnShow: boolean = false; 
+  newbtnShow: boolean = false;
   addShowButton: boolean = true
   UpdateShowButton: boolean = false
   multiField = [];
@@ -86,7 +87,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
 
   //filter variable
   filterData = {};
-  
+
   allScheme: any[]
 
   //scheme dropdown variables
@@ -99,8 +100,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
-  effectdate:any=null
-  maxDate: Date;
+  effectdate: any = null
+  maxDate: any;
   minDate: Date;
   constructor(
     private http: HttpClient,
@@ -108,14 +109,15 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private fb: FormBuilder,
+    private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,) {
-      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-    
-     }
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -182,7 +184,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     };
     this.runTimer();
 
-   
+
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
@@ -199,30 +201,30 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.angForm = this.fb.group({
       ACNOTYPE: ['', [Validators.required]],
       INT_CATEGORY: ['', [Validators.required]],
-      EFFECT_DATE: ['', [ Validators.maxLength(10), Validators.minLength(4)]],
+      EFFECT_DATE: ['', [Validators.maxLength(10), Validators.minLength(4)]],
       FROM_AMOUNT: ['', [Validators.pattern]],
       TO_AMOUNT: ['', [Validators.pattern]],
-      INT_RATE: ['', [ Validators.pattern]],
+      INT_RATE: ['', [Validators.pattern]],
       PENAL_INT_RATE: ['', [Validators.pattern]],
     });
   }
-      //disabledate on keyup
-      disabledate(data:any){
-    
-        if(data != ""){
-          if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
-            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
-                
-          }
-        } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
       }
+    }
+  }
   // Method to insert data into database through NestJS
-  
+
   submit() {
     let effectdate
-    if(this.multiField.length!=0){
-      this.formSubmitted=true;
+    if (this.multiField.length != 0) {
+      this.formSubmitted = true;
       const formVal = this.angForm.value;
       const dataToSend = {
         'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
@@ -231,9 +233,9 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         'INT_CATEGORY': formVal.INT_CATEGORY,
         'FieldData': this.multiField,
       }
-      
 
-      
+
+
       this.interestRateForLoanandCCService.postData(dataToSend).subscribe(data1 => {
         Swal.fire('Success!', 'Data Added Successfully !', 'success');
         this.formSubmitted = false;
@@ -244,19 +246,19 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       })
       //To clear form
       this.resetForm();
-      this.multiField = [] 
-    }  
-    else{
+      this.multiField = []
+    }
+    else {
       Swal.fire(
         'Warning',
         'Please Input Slab Details ',
         'warning'
-        )
+      )
     }
-     
-    
+
+
   }
-  updatecheckdata:any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
     let effectdate
@@ -264,10 +266,10 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.updateShow = true;
     this.newbtnShow = true;
     this.interestRateForLoanandCCService.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
       this.multiField = data.rate
-      this.ngintcat=Number(data.INT_CATEGORY)
+      this.ngintcat = Number(data.INT_CATEGORY)
       this.angForm.patchValue({
         'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         //'EFFECT_DATE': data.EFFECT_DATE,
@@ -277,7 +279,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       })
     })
   }
- 
+
 
   //Method for update data 
   updateData() {
@@ -285,9 +287,9 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
-      }
+    }
     this.interestRateForLoanandCCService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -309,31 +311,31 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.resetForm();
   }
   //check  if percentage  is below 50
-checkmargin(ele:any){ 
-  //check  if given value  is below 50
-  if(ele.target.value <= 50){
-  }
-  else{
-    Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
-    ele.target.value = 0 
+  checkmargin(ele: any) {
+    //check  if given value  is below 50
+    if (ele.target.value <= 50) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      ele.target.value = 0
 
-  }
-}
-compareamount() {
-  let from = Number((document.getElementById("FROM_AMOUNT") as HTMLInputElement).value);
-  let to = Number((document.getElementById("toamt") as HTMLInputElement).value);
-  if(to != 0){
-    if (from > to) {
-      Swal.fire(
-        'Warning!',
-        'From Amount Should Be Less Than Upto Amount',
-        'warning'
-      );
-      (document.getElementById("toamt") as HTMLInputElement).value = ""
     }
   }
- 
-}
+  compareamount() {
+    let from = Number((document.getElementById("FROM_AMOUNT") as HTMLInputElement).value);
+    let to = Number((document.getElementById("toamt") as HTMLInputElement).value);
+    if (to != 0) {
+      if (from > to) {
+        Swal.fire(
+          'Warning!',
+          'From Amount Should Be Less Than Upto Amount',
+          'warning'
+        );
+        (document.getElementById("toamt") as HTMLInputElement).value = ""
+      }
+    }
+
+  }
 
   //Method for delete data
   delClickHandler(id: number) {
@@ -368,7 +370,7 @@ compareamount() {
         )
       }
     })
-  } 
+  }
 
   ngAfterViewInit(): void {
     // this.myInputField.nativeElement.focus();
@@ -395,8 +397,8 @@ compareamount() {
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngscheme=null
-    this.ngintcat=null
+    this.ngscheme = null
+    this.ngintcat = null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -423,22 +425,22 @@ compareamount() {
   addField() {
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
-    if(penint==""){
+    if (penint == "") {
       Swal.fire(
         'Info',
         'Please Add Panel Interest',
         'info'
-        )
+      )
     }
-    if(intrate == ""){
+    if (intrate == "") {
       Swal.fire(
         'Info',
         'Please Input Interest Rate',
         'info'
-        )
+      )
     }
-    
-    if(intrate && penint != ""){
+
+    if (intrate && penint != "") {
       const formVal = this.angForm.value;
       var object = {
         FROM_AMOUNT: formVal.FROM_AMOUNT,
@@ -450,7 +452,7 @@ compareamount() {
       this.multiField.push(object);
       this.resetField()
     }
-    
+
   }
   resetField() {
     this.angForm.controls['FROM_AMOUNT'].reset();
@@ -491,7 +493,7 @@ compareamount() {
   delField(id) {
     this.multiField.splice(id, 1)
   }
-  
+
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
@@ -506,10 +508,10 @@ compareamount() {
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 } 

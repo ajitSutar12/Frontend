@@ -11,27 +11,34 @@ import { environment } from '../../../../environments/environment';
 export class DayBeginService {
 
   [x: string]: any;
-    // API 
-    url = environment.base_url;
-    constructor(private http: HttpClient) { }
+  // API 
+  url = environment.base_url;
+  constructor(private http: HttpClient) { }
 
-   //Insertion Operation
-   postData(data: any): Observable<any> {
+  //Insertion Operation
+  postData(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/dayBegin', data).pipe(map((res) => res),
-        catchError((error) => {
-            //Swal.fire('Please Input Proper Data!');
-            return throwError(error);
-        })
+      catchError((error) => {
+        //Swal.fire('Please Input Proper Data!');
+        return throwError(error);
+      })
     )
-   }
-   getSysparaDetails():Observable<any>{
-    return this.http.get(this.url + '/system-master-parameters').pipe(map((res)=>res),catchError((error)=>{
+  }
+  getSysparaDetails(): Observable<any> {
+    return this.http.get(this.url + '/system-master-parameters').pipe(map((res) => res), catchError((error) => {
       return throwError(error)
     }))
   }
 
   //get current data for day begin
-  getDayBeginDate():Observable<any>{
-    return this.http.post(this.url + '/voucher/dayBeginDate',{});
+  getDayBeginDate(): Observable<any> {
+    return this.http.post(this.url + '/voucher/dayBeginDate', {});
+  }
+
+  logout(id: any): Observable<any> {
+    return this.http.post<any>(this.base_url + '/user-defination/logout', { id: id });
+  }
+  LOGOFFHISTORY(data: any): Observable<any> {
+    return this.http.post<any>(this.base_url + '/user-defination/logoffhistory', data);
   }
 }

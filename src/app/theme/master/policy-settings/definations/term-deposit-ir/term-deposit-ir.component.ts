@@ -107,7 +107,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   //for date 
   datemax: any;
   effectdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
   //scheme dropdown variables
@@ -131,11 +131,11 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     private config: NgSelectConfig,) {
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     // console.log(this.datemax);
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -271,8 +271,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       //To clear form
       this.resetForm();
       this.multiField = []
-      this.ACNOTYPE.focused=true
-      this.ACNOTYPE.isOpen=true
+      this.ACNOTYPE.focused = true
+      this.ACNOTYPE.isOpen = true
     }
     else {
       Swal.fire(
@@ -487,8 +487,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       });
       this.multiField = [];
       this.resetForm();
-      this.ACNOTYPE.focused=true
-      this.ACNOTYPE.isOpen=true
+      this.ACNOTYPE.focused = true
+      this.ACNOTYPE.isOpen = true
     })
   }
 
@@ -502,9 +502,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = false;
     this.multiField = [];
     this.resetForm();
-    
-    this.ACNOTYPE.focused=true
-    this.ACNOTYPE.isOpen=true
+
+    this.ACNOTYPE.focused = true
+    this.ACNOTYPE.isOpen = true
   }
 
   //Method for delete data
@@ -601,7 +601,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     if (intrate == "") {
 
       Swal.fire(
-        'Info', 
+        'Info',
         'Please Input Interest Rate ',
         'info'
       )
@@ -721,10 +721,10 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 

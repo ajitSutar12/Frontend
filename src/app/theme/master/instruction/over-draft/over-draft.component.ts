@@ -62,7 +62,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   filterData = {};
 
   angForm: FormGroup;
-  dtExportButtonOptions: any = {}; 
+  dtExportButtonOptions: any = {};
   acno
   allScheme // all scheme
   schemeACNo //account no 
@@ -337,7 +337,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.schemeACNo = []
     this.actype = event.name
     this.ac_type = event.value
-  
+
     let obj = [this.acno, this.ngBranch]
     switch (event.name) {
       case 'SB':
@@ -391,7 +391,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_ODDAYS: data[0]?.AC_ODDAYS,
           AC_ODDATE: data[0]?.AC_ODDATE,
         })
-        if (data[0].AC_SODAMT != '' && data[0].AC_SODAMT != null) {
+        if (data[0].AC_SODAMT != 0 && data[0].AC_SODAMT != null && data[0].AC_ODDAYS != 0) {
           this.angForm.patchValue({
             radioOverdraft: 'PeriodicallyOverDraft'
           })
@@ -402,7 +402,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
           })
         }
 
-        if (data[0].AC_SODAMT != '' && data[0].AC_SODAMT != null) {
+        if (data[0].AC_SODAMT != '' && data[0].AC_SODAMT != null && data[0].AC_ODDAYS != 0) {
           this.PeriodicallyOverDraftTrue = true
           this.TemporaryOverDraftTrue = false
         }
@@ -524,7 +524,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     ele.open()
   }
 
-  onOpen(select: NgSelectComponent) { 
+  onOpen(select: NgSelectComponent) {
     //debugger
     select.open()
   }

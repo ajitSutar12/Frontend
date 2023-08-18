@@ -16,6 +16,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -94,7 +95,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   //todays date
   date = new Date();
   effectdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   // column search
   filterData = {};
@@ -108,13 +109,15 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private FreezeAccountService: FreezeAccountService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
     private config: NgSelectConfig,) {
     this.setdate()
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -517,7 +520,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     });
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {

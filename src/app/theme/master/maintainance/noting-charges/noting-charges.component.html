@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="row">
                         <div class="col-sm-5">
@@ -82,9 +82,10 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
-                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                        (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
+                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true" (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)"
+                                        [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="To A/C">
                                         <ng-option *ngFor="let values of toAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -124,9 +125,10 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AMOUNT_TYPE" bindValue="FIELD_AMOUNT"
                                         [(ngModel)]="ngchargestype" formControlName="AMOUNT_TYPE"
-                                        bindLabel="DESCRIPTION" (change)="getCommanNarration($event)" [virtualScroll]="true"
-                                        title="Compulsory Selection" #AMOUNT_TYPE (focus)="onFocus(AMOUNT_TYPE)"
-                                        [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
+                                        bindLabel="DESCRIPTION" (change)="getCommanNarration($event)"
+                                        [virtualScroll]="true" title="Compulsory Selection" #AMOUNT_TYPE
+                                        (focus)="onFocus(AMOUNT_TYPE)" [selectOnTab]='true'
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Charges Type">
                                         <ng-option *ngFor="let values of chargesType" [value]="values">
                                             {{values.DESCRIPTION}}</ng-option>
@@ -206,7 +208,9 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-1">
+                    </div>
+                    <div class="row" style="float: right;">
+                        <div class="col-sm-2">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit()" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
@@ -214,66 +218,67 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div *ngIf="showTable">
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtTrigger]="dtTrigger"
-                                            class="table table-striped table-bordered table-hover compact">
-                                            <thead>
-                                                <tr>
-                                                    <td class="td_right">Account Number</td>
-                                                    <td>Account Name</td>
-                                                    <td class="td_center">Charges Amount</td>
-                                                    <td class="td_right">Narration</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="text" class="form-control"
-                                                            (keyup)="filterObject($event,'AC_NO')"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            style="text-transform:uppercase;"
-                                                            (keyup)="filterObject($event,'AC_NAME')"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </thead>
-                                            <tbody *ngIf="notingChargesArr?.length != 0">
-                                                <tr *ngFor="let data of notingChargesArr;
-                                            let indexOfelement = index">
-                                                    <td class="td_right">{{data.AC_NO}}</td>
-                                                    <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
-                                                        data.AC_NAME}}</td>
-                                                    <td class="td_right">
-                                                        <input style="text-align: right;" type="text"
-                                                            class="form-control" (focus)="selectAllContent($event)"
-                                                            name="chargesAmt" id="chargesAmt" #chargesAmt
-                                                            value="{{data.TRAN_AMOUNT}}" (keypress)=" ($event.charCode>= 48 && $event.charCode <
-                                                            58)"
-                                                            (focusout)="getChargesAmount(data.id,data.AC_NO,data.BANKACNO,chargesAmt.value,Narration.value)">
-                                                    </td>
-                                                    <td class="td_right">
-                                                        <input type="text" class="form-control" name="Narration"
-                                                            id="Narration" #Narration value="{{data.NARRATION}}"
-                                                            (focusout)="getNarration(data.id,data.AC_NO,data.BANKACNO,Narration.value,chargesAmt.value)">
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody *ngIf="notingChargesArr?.length == 0">
-                                                <tr>
-                                                    <td colspan="6" class="no-data-available"
-                                                        style="text-align: center;">
-                                                        No data!
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <label for=""></label>
+                        <label for=""></label>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        <div *ngIf="showTable">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table datatable [dtTrigger]="dtTrigger"
+                        class="table table-striped table-bordered table-hover compact">
+                        <thead>
+                            <tr>
+                                <td class="td_right">Account Number</td>
+                                <td>Account Name</td>
+                                <td class="td_center">Charges Amount</td>
+                                <td class="td_right">Narration</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="form-control" (keyup)="filterObject($event,'AC_NO')"></td>
+                                <td><input type="text" class="form-control" style="text-transform:uppercase;"
+                                        (keyup)="filterObject($event,'AC_NAME')"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="notingChargesArr?.length != 0">
+                            <tr *ngFor="let data of notingChargesArr;
+                        let indexOfelement = index">
+                                <td class="td_right">{{data.AC_NO}}</td>
+                                <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
+                                    data.AC_NAME}}</td>
+                                <td class="td_right">
+                                    <input style="text-align: right;" type="text" class="form-control"
+                                        (focus)="selectAllContent($event)" name="chargesAmt" id="chargesAmt" #chargesAmt
+                                        value="{{data.TRAN_AMOUNT}}" (keypress)=" ($event.charCode>= 48 && $event.charCode <
+                                        58)"
+                                        (focusout)="getChargesAmount(data.id,data.AC_NO,data.BANKACNO,chargesAmt.value,Narration.value)">
+                                </td>
+                                <td class="td_right">
+                                    <input type="text" class="form-control" name="Narration" id="Narration" #Narration
+                                        value="{{data.NARRATION}}"
+                                        (focusout)="getNarration(data.id,data.AC_NO,data.BANKACNO,Narration.value,chargesAmt.value)">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="notingChargesArr?.length == 0">
+                            <tr>
+                                <td colspan="6" class="no-data-available" style="text-align: center;">
+                                    No data!
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div [class]="modalClass"> </div>

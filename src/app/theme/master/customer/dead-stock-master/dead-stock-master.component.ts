@@ -152,7 +152,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private systemParameter: SystemMasterParametersService,
   ) {
     if (this.childMessage != undefined) {
-      this.editClickHandler(this.childMessage,1);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -288,9 +288,9 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       SUPPLIER_NAME: ["", [Validators.required, Validators.pattern]],
       PURCHASE_OP_QUANTITY: [""],
       PURCHASE_RATE: ["", [Validators.pattern]],
-      PURCHASE_QUANTITY: [[Validators.pattern]],
-      PURCHASE_VALUE: ["", [Validators.pattern]],
-      OP_BALANCE: [[Validators.pattern]],
+      PURCHASE_QUANTITY: [0, [Validators.pattern]],
+      PURCHASE_VALUE: [0, [Validators.pattern]],
+      OP_BALANCE: [0, [Validators.pattern]],
       OP_QUANTITY: ["", [Validators.pattern]],
       LAST_DEPR_DATE: ["",],
       GL_ACNO: ["", [Validators.required]],
@@ -377,6 +377,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
               '<b>ITEM NAME : </b>' + data1.ITEM_NAME + ',' + '<br>' +
               '<b>ITEM CODE : </b>' + data1.ITEM_CODE + '<br>'
           })
+          this.ngOnInit()
           this.formSubmitted = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload();
@@ -404,7 +405,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   nglastdedate: any
   updatecheckdata: any
   //Method for append data into fields
-  editClickHandler(id,status) {
+  editClickHandler(id, status) {
 
     let date
     let date1
@@ -562,6 +563,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     data['PURCHASE_VALUE'] = this.firstnumber * this.secondnumber
     this.deadstockmasterService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
+      this.ngOnInit()
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -762,7 +764,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.reloadTablePassing.emit();
   }
   disableForm(id) {
-    this.editClickHandler(id,0)
+    this.editClickHandler(id, 0)
   }
   gotoTop() {
     window.scroll({

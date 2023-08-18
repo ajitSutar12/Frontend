@@ -454,6 +454,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       }
       else if (Number(data[0].ledgerBal) >= 0) {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
+        this.accountedit = null
         return
       }
       this.preMature = data[0].preMature
@@ -1062,13 +1063,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
           this.unapproveShow = false
         }
         this.updatecheckdata = data
-        if (Number(data1[0].LedgerBal) >= 0) {
+        if (Number(data1[0].ledgerBal) >= 0) {
           Swal.fire('Oops', 'Account cannot close', 'error')
           return
         }
         this.preMature = data1[0].preMature
         this.OpenDate = data1[0].AC_OPDATE
-        this.ledgerBalance = Math.abs(data[0].ledgerBal)
+        this.ledgerBalance = Math.abs(data.LEDGER_BAL)
         this.renewalDate = data1[0].AC_ASON_DATE
         this.INTRATE = data1[0].INT_RATE
         this.LastIntDate = data1[0].AC_LINTEDT
@@ -1374,4 +1375,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     return Math.round(number);
   }
 
+  getBranch() {
+    this.ngscheme = null
+  }
 }

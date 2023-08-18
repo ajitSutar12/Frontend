@@ -17,6 +17,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -70,7 +71,7 @@ export class DepreciationRateMasterComponent implements OnInit {
   filter: any;
   filterForm: FormGroup;
 
-  ngcategory:any=null
+  ngcategory: any = null
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -82,26 +83,27 @@ export class DepreciationRateMasterComponent implements OnInit {
   category: any[];
   //for date 
   datemax: any;
-  effectdate:any=null
-  maxDate: Date;
+  effectdate: any = null
+  maxDate: any;
   minDate: Date;
 
 
-  
+
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
     public categoryMaster: DepriciationCatDropdownMasterService,
     private dereciationService: DereciationService,
+    private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,) {
-          // this.datemax =new Date() ;
-          // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-          this.maxDate = new Date();
-          this.minDate = new Date();
-          this.minDate.setDate(this.minDate.getDate() - 1);
-          this.maxDate.setDate(this.maxDate.getDate())
-        
+    // this.datemax =new Date() ;
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -189,21 +191,21 @@ export class DepreciationRateMasterComponent implements OnInit {
   }
 
 
-    //disabledate on keyup
-    disabledate(data:any){
-    
-      if(data != ""){
-        if(data > this.datemax){
-          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-          (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
-              
-        }
-      } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
+      }
     }
+  }
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
-    this.formSubmitted=true;
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
@@ -223,7 +225,7 @@ export class DepreciationRateMasterComponent implements OnInit {
     this.resetForm();
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
     let effectdate
@@ -231,9 +233,9 @@ export class DepreciationRateMasterComponent implements OnInit {
     this.updateShow = true;
     this.newbtnShow = true;
     this.dereciationService.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
-      this.ngcategory=Number(data.CATEGORY)
+      this.ngcategory = Number(data.CATEGORY)
       this.angForm.patchValue({
         'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         // 'EFFECT_DATE': data.EFFECT_DATE,
@@ -244,25 +246,25 @@ export class DepreciationRateMasterComponent implements OnInit {
   }
 
   //check  if percentage  is below 100
-  checkmargin(ele:any){ 
+  checkmargin(ele: any) {
     //check  if given value  is below 100
-    if(    ele.target.value <= 100){
+    if (ele.target.value <= 100) {
     }
-    else{
+    else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
-      ele.target.value = 0 
+      ele.target.value = 0
 
     }
   }
-  
+
   //Method for update data 
   updateData(id) {
     let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
-      }
+    }
     this.dereciationService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -275,7 +277,7 @@ export class DepreciationRateMasterComponent implements OnInit {
     })
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -349,7 +351,7 @@ export class DepreciationRateMasterComponent implements OnInit {
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngcategory=null
+    this.ngcategory = null
   }
 
   rerender(): void {
@@ -365,10 +367,10 @@ export class DepreciationRateMasterComponent implements OnInit {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 

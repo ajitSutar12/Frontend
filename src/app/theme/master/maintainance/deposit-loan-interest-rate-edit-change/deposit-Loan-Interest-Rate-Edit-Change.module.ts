@@ -14,6 +14,8 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { DepositLoanInterestRateEditChangeService } from './deposit-loan-interest-rate-edit-change.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -31,7 +33,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  }, SchemeCodeDropdownService,
+  }, SchemeCodeDropdownService, SystemMasterParametersService,
     OwnbranchMasterService, SchemeAccountNoService, DepositLoanInterestRateEditChangeService],
   declarations: [DepositLoanInterestRateEditChangeComponent]
 })

@@ -19,7 +19,7 @@ import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -96,7 +96,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
   showDialog = false;
   //for date control
   effectdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   schemeType: string = 'TD'
   scheme: any
@@ -113,11 +113,13 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     private http: HttpClient,
     private fb: FormBuilder,
     public SizeSlabWiseService: SizeSlabWiseService,
+    private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
     this.createForm();
   }
 

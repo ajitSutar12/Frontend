@@ -139,7 +139,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   schemeType: string = 'GS'
   schemeCode
   timeLeft = 5;
-
+  maxDate
   id: any = null;
   datemax: any;
 
@@ -167,6 +167,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.editClickHandler(this.childMessage, 1);
     }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.logDate = data.CURRENT_DATE
+    })
   }
 
   ngOnInit(): void {
@@ -546,6 +551,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         this.newbtnShow = true;
       }
       this.updateID = data.id;
+      this.newcustid = (data.AC_CUSTID)
       this.getCustomer(data.AC_CUSTID)
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
@@ -569,7 +575,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
+    let branchCode = result.branch.id;
     data["id"] = this.updateID;
+    data['branchCode'] = branchCode
     let opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
     data["AC_OPDATE"] = opdate;
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0'),

@@ -21,6 +21,7 @@ import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -95,7 +96,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   //for date 
   datemax: any;
   effectdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
 
@@ -114,14 +115,15 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private TermemeDepositeSchMasterDropdownService: TermemeDepositeSchMasterDropdownService,
     private fb: FormBuilder,
+    private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private config: NgSelectConfig,) {
     // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -314,11 +316,11 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   //check  if percentage  is below 50
   checkmargin(ele: any) {
     //check  if given value  is below 50
-    if (ele.target.value <= 50) { 
+    if (ele.target.value <= 50) {
     }
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
-      ele.target.value = 0 
+      ele.target.value = 0
 
     }
   }
@@ -502,20 +504,20 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     })
   }
 
-  delField(id) { 
+  delField(id) {
     this.multiField.splice(id, 1)
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
-  
+
 
 
 }

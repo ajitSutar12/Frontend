@@ -11,6 +11,8 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 @Component({
   selector: 'app-deposit-loan-interest-rate-edit-change',
   templateUrl: './deposit-loan-interest-rate-edit-change.component.html',
@@ -26,8 +28,8 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   formSubmitted = false;
 
   showButton: boolean = true;
-  updateShow: boolean = false; 
-  minDate: Date;
+  updateShow: boolean = false;
+  minDate: any;
   bsValue
   schemeCode: any = null
   ngAcnoFrom: any = null
@@ -49,13 +51,16 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   InterestRate: string
   gridData: any;
 
-
+  modalClass: string = 'modalHide';
   constructor(private fb: FormBuilder, private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private http: HttpClient, private _schemeAccountNoService: SchemeAccountNoService,
     private _ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
     private _interestRateChange: DepositLoanInterestRateEditChangeService) {
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.minDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.minDate = this.minDate._d
+    })
   }
 
   ngOnInit(): void {
@@ -76,7 +81,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
       this.ngBranchCode = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['BRANCH'].disable()
@@ -84,7 +89,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
         'BRANCH': result.branch.id
       })
       this.ngBranchCode = result.branch.id
-      
+
     }
   }
 
@@ -223,11 +228,14 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   }
   //table show or hide
   viewCurrentInt() {
+    this.modalClass = 'modalShow';
     if (this.angForm.controls['AC_NOFrom'].value <= this.angForm.controls['AC_NOTo'].value) {
+      this.modalClass = 'modalHide';
       this.showTable = true
     }
     else {
       Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      this.modalClass = 'modalHide';
       this.showTable = false
     }
   }
@@ -315,7 +323,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
       this.ngBranchCode = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['BRANCH'].disable()
@@ -323,7 +331,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
         'BRANCH': result.branch.id
       })
       this.ngBranchCode = result.branch.id
-      
+
     }
   }
 
@@ -331,7 +339,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {

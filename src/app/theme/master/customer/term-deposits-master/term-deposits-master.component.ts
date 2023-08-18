@@ -1621,6 +1621,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
         })
+        this.ngOnInit()
         this.formSubmitted = false;
         this.switchNgBTab('Basic')
         //To clear form
@@ -1652,7 +1653,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id, status) {
-    debugger
+    // debugger
     this.switchNgBTab('Basic')
     let opdate
     let asondate
@@ -1802,6 +1803,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     this.TermDepositMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.ngOnInit()
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

@@ -12,10 +12,10 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
-                                 <span class="border-lable-flt">
+                                <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
-                                        #BRANCH (focus)="onFocus(BRANCH)" [selectOnTab]='true' [virtualScroll]="true"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection" #BRANCH
+                                        (focus)="onFocus(BRANCH)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
                                         placeholder="Branch" autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="row">
                         <div class="col-sm-5">
@@ -62,9 +62,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true' [virtualScroll]="true"
-                                    
-                                       >
+                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true' [virtualScroll]="true">
                                         <ng-option *ngFor="let values of fromAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -82,10 +80,11 @@
                         <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
-                                        bindLabel="label" title="Compulsory Selection" (change)="getTable()"
-                                        #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true' [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/c">
+                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
+                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                        (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="To A/c">
                                         <ng-option *ngFor="let values of toAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -102,7 +101,8 @@
                         </div>
                         <div class="col-sm-1">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                [disabled]="angForm.invalid" (click)="submit()"  (keydown.Tab)="focus()" appTheme>Update</button>
+                                [disabled]="angForm.invalid" (click)="submit()" (keydown.Tab)="focus()"
+                                appTheme>Update</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow">Update</button>
                         </div>
                     </div>
@@ -118,10 +118,13 @@
                                                 <td>Account Name</td>
                                                 <td class="td_center">Is Post Interest?</td>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" (keyup)="filterObject($event,'AC_NO')"></td>
-                                                    <td><input type="text" class="form-control" style="text-transform:uppercase;" (keyup)="filterObject($event,'AC_NAME')"></td>
+                                                    <td><input type="text" class="form-control"
+                                                            (keyup)="filterObject($event,'AC_NO')"></td>
+                                                    <td><input type="text" class="form-control"
+                                                            style="text-transform:uppercase;"
+                                                            (keyup)="filterObject($event,'AC_NAME')"></td>
                                                     <td></td>
-                                                   
+
                                                 </tr>
                                             </thead>
                                             <tbody *ngIf="InterestArr?.length != 0">
@@ -166,3 +169,4 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"> </div>
