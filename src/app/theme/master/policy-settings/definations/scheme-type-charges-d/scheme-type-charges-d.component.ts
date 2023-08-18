@@ -16,6 +16,7 @@ import { IOption } from 'ng-select';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
@@ -69,9 +70,9 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   active = 1;
   activeKeep = 1;
   // for dropdown ngmodule
-  ngschemetype:any=null
-  ngchargestype:any=null
-  ngchargesgl:any=null
+  ngschemetype: any = null
+  ngchargestype: any = null
+  ngchargesgl: any = null
 
   // Variables for search 
   filterObject: { name: string; type: string; }[];
@@ -101,10 +102,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   private dataSub: Subscription = null;
   accontType: any;
 
-    //for date control
+  //for date control
   datemax: any;
-  effectdate:any=null
-  maxDate: Date;
+  effectdate: any = null
+  maxDate: any;
   minDate: Date;
   submitTranMode: any;
   tran_mode: any;
@@ -118,13 +119,14 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     private schemeTypeDropdown: SchemeTypeDropdownService,
     private schemeTypeChargesService: SchemeTypeChargesService,
     private aCMasterService: ACMasterDropdownService,
+    private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,) {
-      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-     
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -185,7 +187,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
           title: 'Scheme Type',
           data: 'ACNOTYPE'
         },
-        
+
 
         {
           title: 'Charges Type',
@@ -234,53 +236,53 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       CHARGES_GL_ACNO: ['', [Validators.required]],
     });
   }
-      //disabledate on keyup
-      disabledate(data:any){
-    
-        if(data != ""){
-          if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
-            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
-                
-          }
-        } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
       }
+    }
+  }
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
-    if(this.multiField.length!=0){
-      this.formSubmitted=true;
+    if (this.multiField.length != 0) {
+      this.formSubmitted = true;
       const formVal = this.angForm.value;
       const dataToSend = {
         'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
-      // 'EFFECT_DATE': formVal.EFFECT_DATE,
-      'ACNOTYPE': formVal.ACNOTYPE,
-      'CHARGES_TYPE': formVal.CHARGES_TYPE,
-      'CHARGES_GL_ACNO': formVal.CHARGES_GL_ACNO,
-      'FieldData': this.multiField,
+        // 'EFFECT_DATE': formVal.EFFECT_DATE,
+        'ACNOTYPE': formVal.ACNOTYPE,
+        'CHARGES_TYPE': formVal.CHARGES_TYPE,
+        'CHARGES_GL_ACNO': formVal.CHARGES_GL_ACNO,
+        'FieldData': this.multiField,
+      }
+      this.schemeTypeChargesService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+      })
+      //To clear form
+      this.resetForm();
+      this.multiField = []
     }
-    this.schemeTypeChargesService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-    })
-    //To clear form
-    this.resetForm();
-    this.multiField = [] 
-    }
-    else{
+    else {
       Swal.fire(
         'Warning',
         'Please Input Slab Details ',
         'warning'
-        )
+      )
     }
-    
+
   }
-  updatecheckdata:any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
     let effectdate
@@ -288,10 +290,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     this.updateShow = true;
     this.newbtnShow = true;
     this.schemeTypeChargesService.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
       this.multiField = data.rate
-      this.ngchargesgl=Number(data.CHARGES_GL_ACNO)
+      this.ngchargesgl = Number(data.CHARGES_GL_ACNO)
       this.angForm.patchValue({
         'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         // 'EFFECT_DATE': data.EFFECT_DATE,
@@ -316,9 +318,9 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
-      }
+    }
     this.schemeTypeChargesService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -377,7 +379,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
           if (this['value'] != '') {
-            that 
+            that
               .search(this['value'])
               .draw();
           } else {
@@ -399,10 +401,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngschemetype=null
-    this.ngchargestype=null
-    this.ngchargesgl=null
-    
+    this.ngschemetype = null
+    this.ngchargestype = null
+    this.ngchargesgl = null
+
   }
 
   rerender(): void {
@@ -413,38 +415,38 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       this.dtTrigger.next();
     });
   }
- 
+
   addField() {
     let trange = (document.getElementById("TO_RANGE") as HTMLInputElement).value;
     let camount = (document.getElementById("CHARGES_AMT") as HTMLInputElement).value;
-    if(camount == ""){
+    if (camount == "") {
       Swal.fire(
         'Info',
         'Please Input Charges Amount ',
         'info')
     }
-    if(trange==""){
-      Swal.fire('Info','Please Input To Range','info')
+    if (trange == "") {
+      Swal.fire('Info', 'Please Input To Range', 'info')
     }
-    
-    
-    if( trange != "" && camount != ""){
+
+
+    if (trange != "" && camount != "") {
       const formVal = this.angForm.value;
       var object = {
         FROM_RANGE: formVal.FROM_RANGE,
         TO_RANGE: formVal.TO_RANGE,
         CHARGES_AMT: formVal.CHARGES_AMT,
+      }
+      this.multiField.push(object);
+      this.resetField()
     }
-    this.multiField.push(object);
-    this.resetField()
-    }
-    
+
   }
-    resetField() {
-      this.angForm.controls['FROM_RANGE'].reset();
-      this.angForm.controls['TO_RANGE'].reset();
-      this.angForm.controls['CHARGES_AMT'].reset();
-    }
+  resetField() {
+    this.angForm.controls['FROM_RANGE'].reset();
+    this.angForm.controls['TO_RANGE'].reset();
+    this.angForm.controls['CHARGES_AMT'].reset();
+  }
   intIndex: number
   intID: number
   updateField() {
@@ -489,11 +491,11 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     if (event.target.value != '')
       event.target.value = parseFloat(event.target.value).toFixed(2);
   }
-  
+
   comparerange() {
     let from = Number((document.getElementById("FROM_RANGE") as HTMLInputElement).value);
     let to = Number((document.getElementById("TO_RANGE") as HTMLInputElement).value);
-    if(to != 0){
+    if (to != 0) {
       if (from > to) {
         Swal.fire(
           'Warning!',
@@ -504,14 +506,14 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
 
       }
     }
-   
+
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 

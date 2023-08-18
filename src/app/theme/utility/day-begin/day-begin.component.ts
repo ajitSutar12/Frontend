@@ -14,7 +14,7 @@ import { DayBeginService } from './day-begin.service';
 })
 export class DayBeginComponent implements OnInit {
 
-  
+
   formSubmitted = false;
   //api
   url = environment.base_url;
@@ -23,31 +23,31 @@ export class DayBeginComponent implements OnInit {
   angForm: FormGroup;
 
   // date variales
-  ngdate:any=null
-  dtExportButtonOptions : any = {};
-  daybeginProcess:boolean = false;
-  
+  ngdate: any = null
+  dtExportButtonOptions: any = {};
+  daybeginProcess: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
-    private router : Router,
+    private router: Router,
     private systemParameter: SystemMasterParametersService,
     private _service: DayBeginService
-    
+
   ) { }
 
   ngOnInit(): void {
     this.createForm()
     this.getSystemParaDate()
-    
 
-    
+
+
   }
   createForm() {
     this.angForm = this.fb.group({
-      DATE:[''],
+      DATE: [''],
     })
-    
+
   }
 
   //get sys para current date
@@ -58,9 +58,9 @@ export class DayBeginComponent implements OnInit {
   }
 
   //Day Begain Function below
-  dayBegin(){
+  dayBegin() {
     //get login details
-    let user  = localStorage.getItem('user');
+    let user = localStorage.getItem('user');
     let current_date = this.ngdate;
 
     Swal.fire({
@@ -74,12 +74,12 @@ export class DayBeginComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         let obj = {
-          user : JSON.parse(user),
-          date : current_date
+          user: JSON.parse(user),
+          date: current_date
         }
         this.daybeginProcess = true;
-        this._service.postData(obj).subscribe(data=>{
-          Swal.fire("Success!",current_date+" Day Begin Successfully","success");
+        this._service.postData(obj).subscribe(data => {
+          Swal.fire("Success!", current_date + " Day Begin Successfully", "success");
           this.daybeginProcess = false;
           Swal.fire({
             title: 'Need To Re-Login',
@@ -89,26 +89,29 @@ export class DayBeginComponent implements OnInit {
             confirmButtonColor: '#229954',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Re-Login!'
-          }).then((result)=>{
-            if(result.isConfirmed){
-              let user = JSON.parse(localStorage.getItem('user'));
-              localStorage.removeItem('token');
-              localStorage.removeItem('user');
-              this.router.navigate(['/auth/login/simple/'])
-            }else{
-              let user = JSON.parse(localStorage.getItem('user'));
-              localStorage.removeItem('token');
-              localStorage.removeItem('user');
-              this.router.navigate(['/auth/login/simple/'])
-            } 
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // let user = JSON.parse(localStorage.getItem('user'));
+              // localStorage.removeItem('token');
+              // localStorage.removeItem('user');
+              // this.router.navigate(['/auth/login/simple/'])
+              this.logout()
+
+            } else {
+              // let user = JSON.parse(localStorage.getItem('user'));
+              // localStorage.removeItem('token');
+              // localStorage.removeItem('user');
+              // this.router.navigate(['/auth/login/simple/'])
+              this.logout()
+            }
           })
-        },err=>{
-            Swal.fire(
-              "Error",
-              err.error.message,
-              "error"
-            )
-            this.daybeginProcess = false
+        }, err => {
+          Swal.fire(
+            "Error",
+            err.error.message,
+            "error"
+          )
+          this.daybeginProcess = false
         })
       } else if (
         result.dismiss === Swal.DismissReason.cancel
@@ -122,6 +125,22 @@ export class DayBeginComponent implements OnInit {
 
       }
     })
+  }
+
+  logout() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    this._service.logout(user.id).subscribe(data => { })
+    let userData: any = localStorage.getItem('user');
+    let result = JSON.parse(userData);
+    let obj = {
+      USERID: result.id,
+      BRANCH_CODE: result.branchId,
+      REMARK: null
+    }
+    this._service.LOGOFFHISTORY(obj).subscribe(data => { })
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.router.navigate(['/auth/login/simple/'])
   }
 
 }

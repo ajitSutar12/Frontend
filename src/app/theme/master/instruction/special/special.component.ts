@@ -281,7 +281,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
         dataToSend['FROM_DATE'] = (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date' || formVal.FROM_DATE == null || formVal.FROM_DATE == undefined) ? fromdate = '' : fromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY')
       }
       if (this.sysDate == formVal.TO_DATE)
-        dataToSend['FROM_DATE'] = this.sysDate
+        dataToSend['TO_DATE'] = this.sysDate
       else {
         dataToSend['TO_DATE'] = (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date' || formVal.TO_DATE == null || formVal.TO_DATE == undefined) ? todate = '' : todate = moment(formVal.TO_DATE).format('DD/MM/YYYY')
       }
@@ -600,14 +600,14 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

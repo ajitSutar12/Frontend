@@ -397,8 +397,9 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.customer = null
         return
       }
-      if (Number(data[0].LedgerBal) > 0) {
+      if (Number(data[0].LedgerBal) >= 0) {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
+        this.customer = null
         return
       }
       this.DayOpBal = data[0].AC_SCHMAMT

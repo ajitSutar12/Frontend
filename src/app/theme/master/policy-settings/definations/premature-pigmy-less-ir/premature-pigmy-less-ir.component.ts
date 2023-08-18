@@ -17,6 +17,7 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -101,22 +102,23 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   //for date 
   datemax: any;
   effectdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-
+    private systemParameter: SystemMasterParametersService,
     public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService,
     private config: NgSelectConfig,) {
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
 
   }
 
@@ -245,8 +247,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       //To clear form
       this.resetForm();
       this.multiField = []
-      this.AC_ACNOTYPE.focused=true
-      this.AC_ACNOTYPE.isOpen=true
+      this.AC_ACNOTYPE.focused = true
+      this.AC_ACNOTYPE.isOpen = true
     }
     else {
       Swal.fire(
@@ -304,8 +306,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       });
       this.multiField = []
       this.resetForm();
-      this.AC_ACNOTYPE.focused=true
-      this.AC_ACNOTYPE.isOpen=true
+      this.AC_ACNOTYPE.focused = true
+      this.AC_ACNOTYPE.isOpen = true
     })
   }
   //comparing from amount and to amount
@@ -331,7 +333,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     }
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
-      ele.target.value = 0 
+      ele.target.value = 0
 
     }
   }
@@ -437,8 +439,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     this.newbtnShow = false;
     this.multiField = [];
     this.resetForm();
-    this.AC_ACNOTYPE.focused=true
-    this.AC_ACNOTYPE.isOpen=true
+    this.AC_ACNOTYPE.focused = true
+    this.AC_ACNOTYPE.isOpen = true
   }
   addField() {
 
@@ -504,10 +506,10 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

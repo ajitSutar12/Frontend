@@ -42,6 +42,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   InterestArr = []
   filterArray: any[];
   gridData: any;
+  modalClass: string = 'modalHide';
   constructor(
     private http: HttpClient, private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -178,10 +179,12 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     var memTo = this.angForm.controls['TO_AC'].value
     if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value) {
       this.showTable = true
+      this.modalClass = 'modalShow';
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/interest-posting-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
         this.gridData = data;
+        this.modalClass = 'modalHide';
         this.arrTable.forEach(element => {
           var object = {
             AC_NO: element.AC_NO,

@@ -6,16 +6,17 @@
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
-            </div> 
-            <form action="javascript:" appSubmit [formGroup]="npaOpeningForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            </div>
+            <form action="javascript:" appSubmit [formGroup]="npaOpeningForm" novalidate (ngSubmit)="submit()"
+                #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
-                                        #BRANCH (focus)="onFocus(BRANCH)" [selectOnTab]='true' [virtualScroll]="true"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection" #BRANCH
+                                        (focus)="onFocus(BRANCH)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
                                         placeholder="Branch" autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -37,8 +38,8 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
-                                        #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required #AC_TYPE
+                                        (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
                                         (change)="getAccountList($event)" placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
@@ -54,7 +55,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="row">
                         <div class="col-sm-5">
@@ -81,10 +82,11 @@
                         <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
-                                        bindLabel="label" title="Compulsory Selection" (change)="getTable()"
-                                        #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true' [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
+                                    <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
+                                        formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                        (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="To A/C">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -103,7 +105,7 @@
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 [disabled]="npaOpeningForm.invalid">Update</button>
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="updateData()"
-                                *ngIf="updateShow"  (keydown.Tab)="focus()" appTheme>Update</button>
+                                *ngIf="updateShow" (keydown.Tab)="focus()" appTheme>Update</button>
                         </div>
                     </div>
                     <div class="row">
@@ -143,7 +145,7 @@
                                                             data.AC_NAME}}</td>
                                                         <td class="td_center">
                                                             <input type="text" appButton minlength="8" maxlength="10"
-                                                                 name="AC_ACTDATE" id="AC_ACTDATE"
+                                                                name="AC_ACTDATE" id="AC_ACTDATE"
                                                                 placeholder="dd/mm/yyyy" class="form-control"
                                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                 value="{{data.AC_ACTDATE == null || data.AC_ACTDATE == '' ? '' : data.AC_ACTDATE }}"
@@ -206,3 +208,4 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"> </div>

@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { TDSFormSubmissionService } from './tds-form-submission.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 // For fetching values from backend
 interface TDSFormSubmission {
   id: number;
@@ -44,7 +46,7 @@ export class TDSFormSubmissionComponent implements OnInit {
   isTdsFormA: boolean = false;
   // for date 
   ngSubmitDate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   // dropdown variables
   ngcustomer: any = null;
@@ -58,11 +60,13 @@ export class TDSFormSubmissionComponent implements OnInit {
     private_router: Router,
     private TDSformsubmission: TDSFormSubmissionService,
     private customerID: CustomerIDMasterDropdownService,
+    private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -87,8 +91,7 @@ export class TDSFormSubmissionComponent implements OnInit {
     this.ngcustomer = event
   }
 
-  getTdscust(event)
-  {
+  getTdscust(event) {
     let value = this.TDSformsubmission.filter(ele => ele.STATEMENT_CODE == this.ngcustomer)
 
   }
@@ -157,7 +160,7 @@ export class TDSFormSubmissionComponent implements OnInit {
     this.showButton = true;
     this.resetForm();
   }
-  resetForm() { 
+  resetForm() {
     this.createForm()
     this.ngcustomer = null
     this.isTdsFormA = false;
@@ -166,14 +169,14 @@ export class TDSFormSubmissionComponent implements OnInit {
   getTds(event) {
     this.TDSformsubmission.getTdsData().subscribe(data => {
 
-      let value = data.filter(ele => ele.FIN_YEAR == this.ngfinyear &&  ele.idmasterID == this.ngcustomer )
+      let value = data.filter(ele => ele.FIN_YEAR == this.ngfinyear && ele.idmasterID == this.ngcustomer)
 
       console.log(value)
-      if (value.length != 0 ) {
+      if (value.length != 0) {
         this.ngcustomer = null
         Swal.fire('Warning', 'Data is Already Submitted', 'warning');
 
-      } 
+      }
 
     })
 

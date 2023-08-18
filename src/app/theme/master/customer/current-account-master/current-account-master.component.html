@@ -14,10 +14,11 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
-                                    <ng-select appTheme bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE" (change)="newFunction($event)"
-                                        formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
-                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'> 
+                                    <ng-select appTheme bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE"
+                                        (change)="newFunction($event)" formControlName="AC_TYPE"
+                                        title="Compulsory Selection" [disabled]="AC_TYPE" [virtualScroll]="true"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
+                                        #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -168,7 +169,8 @@
                                                             <div class="col-sm-2">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" appButton minlength="8" maxlength="10" placeholder="dd/mm/yyyy"
+                                                                        <input type="text" appButton minlength="8"
+                                                                            maxlength="10" placeholder="dd/mm/yyyy"
                                                                             name="AC_OPDATE" id="AC_OPDATE"
                                                                             [(ngModel)]="openingDate"
                                                                             class="form-control" required
@@ -198,7 +200,8 @@
                                                             <div class="col-sm">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" appButton minlength="8" maxlength="10" placeholder="Datepicker"
+                                                                        <input type="text" appButton minlength="8"
+                                                                            maxlength="10" placeholder="Datepicker"
                                                                             name="AC_BIRTH_DT" class="form-control"
                                                                             id="AC_BIRTH_DT"
                                                                             max="{{datemax | date:'yyyy-MM-dd'}}" #date
@@ -401,8 +404,7 @@
                                                                             style="text-align: right;"
                                                                             (focusout)="decimalAllContent($event);getDecimalPoint($event)"
                                                                             (keyup)="getDecimal($event)"
-                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                                                            value="{{ AC_SCHMAMT != null ?AC_SCHMAMT.toFixed(2) : 0.00}}" />
+                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" />
                                                                         <label for="AC_SCHMAMT">Installment
                                                                             Amount</label>
                                                                     </span>
@@ -410,8 +412,7 @@
                                                                 <div class="form-group form-primary form-static-label"
                                                                     *ngIf="angForm.controls['AC_SCHMAMT'].invalid && (angForm.controls['AC_SCHMAMT'].dirty || angForm.controls['AC_SCHMAMT'].touched)"
                                                                     class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_SCHMAMT'].errors?.pattern">
+                                                                    <div>
                                                                         Input allowed only 0-9
                                                                     </div>
                                                                 </div>
@@ -1079,7 +1080,9 @@
                                                                             <div class="col-sm-2">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
-                                                                                        <input type="text" appTheme appButton minlength="8" maxlength="10"
+                                                                                        <input type="text" appTheme
+                                                                                            appButton minlength="8"
+                                                                                            maxlength="10"
                                                                                             placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
@@ -1749,7 +1752,9 @@
                                                                         <div class="col-sm-2">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
-                                                                                    <input type="text" appTheme appButton minlength="8" maxlength="10"
+                                                                                    <input type="text" appTheme
+                                                                                        appButton minlength="8"
+                                                                                        maxlength="10"
                                                                                         placeholder="Datepicker"
                                                                                         name="DATE_APPOINTED"
                                                                                         placeholder="dd/mm/yyyy"
@@ -1789,7 +1794,9 @@
                                                                         <div class="col-sm-2">
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
-                                                                                    <input type="text" appTheme appButton minlength="8" maxlength="10"
+                                                                                    <input type="text" appTheme
+                                                                                        appButton minlength="8"
+                                                                                        maxlength="10"
                                                                                         placeholder="Datepicker"
                                                                                         name="DATE_EXPIRY"
                                                                                         placeholder="dd/mm/yyyy"
