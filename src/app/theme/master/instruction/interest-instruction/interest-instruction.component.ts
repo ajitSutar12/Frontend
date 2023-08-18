@@ -672,12 +672,12 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         this.ngAccno = null
         switch (data.interestDr.S_ACNOTYPE) {
           case 'TD':
-            this.schemeAccountNoService.getTermDepositSchemeList1(obj).subscribe(datadr => {
-              this.termSchemeAC = datadr;
+            this.schemeAccountNoService.getTermDepositSchemeList1(obj).subscribe(datatd => {
+              this.termSchemeAC = datatd;
+              this.ngAccno = Number(data.DR_AC_NO)
             })
             break;
         }
-        this.ngAccno = (data.DR_AC_NO)
       }
       if (data.interestCr != null) {
         this.crno = data.CR_ACTYPE
@@ -687,57 +687,66 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
           case 'TD':
             this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
           case 'SB':
             this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
 
           case 'CA':
             this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
 
           case 'LN':
             this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
 
           case 'TD':
             this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
 
           case 'DS':
             this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
 
           case 'CC':
             this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
 
           case 'GS':
             this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
 
           case 'PG':
             this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).subscribe(datacr => {
               this.crACno = datacr;
+              this.ngCrAccno = (data.CR_AC_NO)
             })
             break;
         }
-        this.ngCrAccno = (data.CR_AC_NO)
+
       }
       else {
         this.angForm.patchValue({

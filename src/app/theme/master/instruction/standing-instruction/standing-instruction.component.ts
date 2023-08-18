@@ -704,7 +704,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
         this.ngCrAccno = (data.CR_AC_NO)
       }
 
-      if (data.MIN_BAL != '') {
+      if (data.MIN_BAL != 0) {
         this.angForm.patchValue({
           isAutoBalance: true
         })

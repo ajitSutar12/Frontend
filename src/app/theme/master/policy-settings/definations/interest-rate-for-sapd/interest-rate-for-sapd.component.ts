@@ -11,7 +11,7 @@ import { SavingandPigmyInterestRatesService } from './interest-rate-for-sapd.ser
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription'; 
+import { Subscription } from 'rxjs/Subscription';
 //Service file of dropdown
 import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
@@ -20,6 +20,7 @@ import { environment } from '../../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -95,7 +96,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   //for date 
   datemax: any;
   effectdate: any = null
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
 
 
@@ -111,13 +112,15 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private fb: FormBuilder,
+    private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,) {
     // this.datemax =new Date() ;
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
 
   }
 
@@ -247,10 +250,10 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   checkmargin(ele: any) {
     //check  if given value  is below 50
     if (ele.target.value <= 50) {
-    } 
+    }
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
-      ele.target.value = 0 
+      ele.target.value = 0
 
 
     }
@@ -393,10 +396,10 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

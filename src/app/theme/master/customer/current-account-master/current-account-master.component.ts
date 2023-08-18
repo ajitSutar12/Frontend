@@ -274,7 +274,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.minDate.setDate(this.minDate.getDate());
     if (this.childMessage != undefined) {
 
-      this.editClickHandler(this.childMessage,1);
+      this.editClickHandler(this.childMessage, 1);
     }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -389,7 +389,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       console.log(this.scheme);
-      
+
       // this.selectedValue = this.scheme[0]?.value
       // console.log(data)
     })
@@ -440,10 +440,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.getCustomer(newCustomer);
     })
   }
-  newFunction(event:any){
-   this.selectedValue = event.value;
-   this.AC_TYPE = this.selectedValue
-   
+  newFunction(event: any) {
+    this.selectedValue = event.value;
+    this.AC_TYPE = this.selectedValue
+
   }
 
   customer(event) {
@@ -625,7 +625,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_EMAIL: [''],
 
 
-      AC_INTROBRANCH: ['',[Validators.pattern]],
+      AC_INTROBRANCH: ['', [Validators.pattern]],
       AC_INTROID: [''],
       AC_INTRACNO: [''],
       AC_INTRNAME: ['', [Validators.pattern]],
@@ -677,15 +677,15 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.formSubmitted = true;
     let temdate
     let opdate
-    
-    
+
+
     if (this.angForm.valid) {
       console.log(this.angForm.valid);
 
 
       const formVal = this.angForm.value;
       console.log(this.angForm.value);
-      
+
       if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
       }
@@ -713,7 +713,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
       let bankCode = Number(result.branch.syspara.BANK_CODE)
       const dataToSend = {
-      
+
         'branchCode': branchCode,
         'bankCode': bankCode,
         'schemeCode': schecode,
@@ -756,7 +756,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'Document': this.imageObject
       }
       console.log(formVal.AC_TYPE);
-      
+
       this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
@@ -791,7 +791,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
 
   //Method for append data into fields
-  editClickHandler(id,status) {
+  editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     let opdate
     this.angForm.controls['AC_TYPE'].disable()
@@ -805,7 +805,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null && status==0) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -813,7 +813,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null && data.status==1) {
+      else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -852,7 +852,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           }
         })
         switch (this.getschemename) {
-    
+
           case 'SB':
             this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
@@ -865,7 +865,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
             })
             break;
 
-             case 'CA':
+          case 'CA':
             this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
             })
@@ -976,7 +976,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
     data['id'] = this.updateID;
-    data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == '1' ? true : false)
+    data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == '1' ? 1 : 0)
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
@@ -984,6 +984,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.currentAccountMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.ngOnInit()
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -994,8 +995,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.multiJointAC = []
       this.multiAttorney = []
       this.customerDoc = []
-      this.switchNgBTab('Basic')
       this.resetForm();
+      this.createForm()
+      this.switchNgBTab('Basic')
     })
   }
   //reset function while update
@@ -1015,7 +1017,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
 
   addNewData() {
-  
+
     this.angForm.controls['AC_TYPE'].enable()
     console.log(this.angForm.controls['AC_TYPE'].enable());
     this.showButton = true;
@@ -1035,9 +1037,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.switchNgBTab('Basic')
     this.resetForm();
     this.getSystemParaDate()
+    this.ngOnInit()
 
-    
-    
+
+
   }
   //Method for delete data
   delClickHandler(id: number) {
@@ -1156,7 +1159,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
 
   disableForm(id) {
-    this.editClickHandler(id,0)
+    this.editClickHandler(id, 0)
   }
 
   onCloseModal() {

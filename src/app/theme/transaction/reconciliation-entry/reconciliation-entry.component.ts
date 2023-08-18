@@ -80,7 +80,7 @@ export class ReconciliationEntryComponent implements OnInit {
   branch_code
   ngBranchCode: any = null
   showTable: boolean = false
-
+  modalClass: string = 'modalHide';
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -175,8 +175,10 @@ export class ReconciliationEntryComponent implements OnInit {
 
     let obj = [this.glaccount, this.ngBranchCode, this.angForm.controls['ENTRIES'].value, this.angForm.controls['FROM_DATE'].value, this.angForm.controls['TO_DATE'].value]
     if (this.angForm.controls['FROM_DATE'].value != null && this.angForm.controls['TO_DATE'].value != null && this.angForm.controls['FROM_DATE'].value != '' && this.angForm.controls['TO_DATE'].value != '') {
+      this.modalClass = 'modalShow';
       this.http.get(this.url + '/reconciliation-entry/allAccount/' + obj).subscribe((data) => {
         this.arrTable = data;
+        this.modalClass = 'modalHide';
         this.arrTable?.forEach(element => {
           let obj = {
             id: element.id,

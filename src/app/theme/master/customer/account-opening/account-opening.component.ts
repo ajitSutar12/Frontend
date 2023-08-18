@@ -321,7 +321,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
       'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == null || formVal.AC_OPDATE == 'Invalid date') ? '' : moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
       'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == null || formVal.AC_ASON_DATE == 'Invalid date') ? '' : moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
-      'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == null || formVal.AC_EXPDT == 'Invalid date') ? '' : moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
+      'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == null || formVal.AC_EXPDT == 'Invalid date') ? '' : formVal.AC_EXPDT,
       'AC_MONTHS': formVal.AC_MONTHS,
       'AC_DAYS': formVal.AC_DAYS,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
@@ -331,7 +331,14 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       // 'AC_CLOSEDT': formVal.AC_CLOSEDT
     }
     this.investmentService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      // Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire({
+        icon: 'success',
+        title: 'Account Created successfully!',
+        html:
+          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      })
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()

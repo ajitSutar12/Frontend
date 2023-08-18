@@ -204,7 +204,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   fileuploaded: boolean = false
   filenotuploaded: boolean = true
   FinYear = '';
-  autofacus:boolean = false;
+  autofacus: boolean = false;
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -497,14 +497,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       FORM_TYPE: [""],
       TDS_RATE: ["", [Validators.pattern]],
       TDS_LIMIT: ["", [Validators.pattern]],
-
+      BRANCH_CODE: []
     });
     this.documentUpload()
   }
 
   // Method to insert data into database through NestJS
   submit(event) {
-    debugger
+    // debugger
     let birthdate
     let submitdate
     event.preventDefault();
@@ -516,7 +516,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.SUBMIT_DATE = false
     }
     if (this.angForm.valid) {
-
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branchId
       const formVal = this.angForm.value;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
@@ -561,7 +563,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'FORM_TYPE': formVal.FORM_TYPE,
         'TDS_RATE': formVal.TDS_RATE,
         'TDS_LIMIT': formVal.TDS_LIMIT,
-        'Document': this.imageObject
+        'Document': this.imageObject,
+        BRANCH_CODE: branchCode
       }
 
       this.customerIdService.postData(dataToSend).subscribe(
@@ -846,6 +849,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let date
     let sudate
     let data = this.angForm.value;
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
+    let branchCode = result.branchId
     data["id"] = this.updateID;
     data['TDS_REQUIRED'] = (data.TDS_REQUIRED == true ? '1' : '0')
     data['SMS_REQUIRED'] = (data.SMS_REQUIRED == true ? '1' : '0')
@@ -861,6 +867,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['L_NAME_REG'] = data.L_NAME_REG?.toUpperCase()
     data['AC_NAME_REG'] = (data.L_NAME_REG + ' ' + data.F_NAME_REG + ' ' + data.M_NAME_REG)?.toUpperCase()
     data['AC_ADD_REG'] = data.AC_ADD_REG
+    data['BRANCH_CODE'] = branchCode
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
@@ -875,11 +882,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
               let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
-              Swal.fire({
-                icon: 'info',
-                title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
-              })
-              this.angForm.controls['AC_ADHARNO'].reset();
+              if (id.id != this.updateID) {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
+                })
+                this.angForm.controls['AC_ADHARNO'].reset();
+              }
             }
           }
         }

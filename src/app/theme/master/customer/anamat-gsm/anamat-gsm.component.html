@@ -64,8 +64,9 @@
                            </ng-option>
                          </ng-select> -->
                                     <ng-select [(ngModel)]="newcustid" appTheme id="AC_CUSTID" bindValue="value"
-                                        formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }"
-                                        [virtualScroll]="true" style="width: 85%" title="Compulsory Selection" required
+                                        formControlName="AC_CUSTID" (change)="getCustomer($event.value)"
+                                        [ngClass]="{ 'form-submitted': formSubmitted }" [virtualScroll]="true"
+                                        style="width: 85%" title="Compulsory Selection" required
                                         placeholder="Customer Id" #CUSTID (focus)="onFocus(CUSTID)"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
@@ -261,7 +262,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        disabled [ngClass]="{'form-submitted': formSubmitted}"
+                                        disabled [ngClass]="{'form-submitted': formSubmitted}" [maxDate]="maxDate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="AC_OPDATE" [(ngModel)]="openingDate" bsDatepicker
                                         #AC_OPDATE="bsDatepicker" placement="left" (keydown.Tab)="AC_OPDATE.hide()">

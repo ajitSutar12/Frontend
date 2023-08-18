@@ -13,6 +13,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { FreezeAccountComponent } from './freeze-account.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -30,6 +31,6 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  }, freezeAccountService, SchemeCodeDropdownService, SchemeAccountNoService, FreezeAccountService]
+  }, freezeAccountService, SchemeCodeDropdownService, SchemeAccountNoService, FreezeAccountService, SystemMasterParametersService]
 })
 export class FreezeAccountModule { }

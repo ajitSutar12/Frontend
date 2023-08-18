@@ -11,6 +11,7 @@ import { TdsInterestRateService } from './tds-interest-rate.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
@@ -57,7 +58,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   itemsPerPage = 10;
   totalItems: any;
 
-  ngfinyear:any=null
+  ngfinyear: any = null
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
@@ -73,22 +74,23 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   schemeCode: any;
   //for search functionality
   filterData = {};
-    //for date 
-    datemax: any;
-    effectdate:any=null
-  maxDate: Date;
+  //for date 
+  datemax: any;
+  effectdate: any = null
+  maxDate: any;
   minDate: Date;
-    
+
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
+    private systemParameter: SystemMasterParametersService,
     private tdsInterestRate: TdsInterestRateService) {
-      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
-    
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -174,17 +176,17 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       SURCHARGE_RATE: ['', [Validators.pattern]]
     });
   }
-      //disabledate on keyup
-      disabledate(data:any){
-    
-        if(data != ""){
-          if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
-                
-          }
-        } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
       }
+    }
+  }
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
@@ -217,7 +219,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     this.resetForm();
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
     let effectdate
@@ -225,7 +227,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     this.updateShow = true;
     this.newbtnShow = true;
     this.tdsInterestRate.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
       this.angForm.setValue({
         'FIN_YEAR': data.FIN_YEAR,
@@ -239,7 +241,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     })
   }
 
-   //method for adding hyphen in date
+  //method for adding hyphen in date
   addhyphen(data: any) {
     let date = new Date().getFullYear() + 1;
     let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
@@ -260,9 +262,9 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
-      }
+    }
     this.tdsInterestRate.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -352,15 +354,15 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-  } 
-   //check  if percentage  is below 50
-   checkmargin(ele: any) {
+  }
+  //check  if percentage  is below 50
+  checkmargin(ele: any) {
     //check  if given value  is below 50
     if (ele.target.value <= 50) {
     }
-    else { 
+    else {
       Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
-      ele.target.value = 0 
+      ele.target.value = 0
 
     }
   }
@@ -374,10 +376,10 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       event.target.value = parseFloat(event.target.value).toFixed(2);
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 } 

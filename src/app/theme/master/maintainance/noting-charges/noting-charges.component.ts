@@ -58,7 +58,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   url = environment.base_url;
   formSubmitted = false;
   angForm: FormGroup;
-
+  modalClass: string = 'modalHide';
   dtOptions: DataTables.Settings = {};
   // dtTrigger: Subject<any> = new Subject<any>();
 
@@ -79,7 +79,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   ngchargestype: any = null
   ngtransferglacno: any = null
 
-  maxDate: Date;
+  maxDate: any;
   minDate: Date;
   notingdate: any = null
 
@@ -122,10 +122,11 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     private acMasterDropdownService: ACMasterDropdownService,
     private _service: NotingChargesService,
     private http: HttpClient,) {
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.minDate = this.maxDate
+    })
   }
 
   ngOnInit(): void {
@@ -172,7 +173,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       TRAN_DATE: [''],
       TRAN_AMOUNT: ['', [Validators.pattern]],
       addInPrinciple: [false],
-      TRAN_DRCR: ['', [Validators.required]],
+      TRAN_DRCR: ['D', [Validators.required]],
       GL_ENTRY: [false]
 
     });
@@ -436,7 +437,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       let result = JSON.parse(data);
       const dataToSend = {
         TRAN_DATE: formVal.TRAN_DATE,
-        USER: result.USER_NAME,
+        USER: result.id,
         TRAN_GLACNO: this.ngglacno,
         notingChargesArr: this.notingChargesArr,
         TRAN_AMOUNT: formVal.TRAN_AMOUNT,
@@ -458,12 +459,15 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       this._service.postData(dataToSend).subscribe(data => {
         this.formSubmitted = false;
         if (data == '') {
+          this.modalClass = 'modalShow';
           dataToSend['DailyFlag'] = 'Insert'
           this._service.dailyTableInsert(dataToSend).subscribe(data => {
+            this.modalClass = 'modalHide';
             Swal.fire('Success!', 'Data Added Successfully !', 'success');
           })
         }
         else {
+          this.modalClass = 'modalHide';
           Swal.fire({
             text: "Today's Charges Posting Already Done.Do You Want To Overwrite?",
             icon: "warning",
@@ -473,8 +477,10 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
             confirmButtonText: "Yes, Overwrite it!",
           }).then((result) => {
             if (result.isConfirmed) {
+              this.modalClass = 'modalShow';
               dataToSend['DailyFlag'] = 'Overwrite'
               this._service.dailyTableInsert(dataToSend).subscribe((data) => {
+                this.modalClass = 'modalHide';
                 Swal.fire("Overwritten!", "success");
               }),
                 (error) => {
@@ -552,7 +558,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     this.showButton = true;
     this.updateShow = false;
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {

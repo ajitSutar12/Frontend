@@ -25,9 +25,10 @@
                                             <span class="border-lable-flt">
                                                 <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                                     formControlName="BRANCH_CODE" bindLabel="label"
-                                                    title="Compulsory Selection" #branchcode appTheme
-                                                    (focus)="onFocus(branchcode)" [selectOnTab]='true' autofocus
-                                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                                    (change)="getBranch()" title="Compulsory Selection" #branchcode
+                                                    appTheme (focus)="onFocus(branchcode)" [selectOnTab]='true'
+                                                    autofocus [ngClass]="{'form-submitted': formSubmitted}"
+                                                    placeholder="Branch">
                                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                                         {{values.label}}</ng-option>
                                                 </ng-select>
@@ -253,7 +254,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><span style="font-weight: 800; font-size: 16px;">+</span> Net Interest Amount</label>
+                                                <label><span style="font-weight: 800; font-size: 16px;">+</span> Net
+                                                    Interest Amount</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -309,7 +311,8 @@
                                         </div>
                                         <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
-                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> Commission Amount</label>
+                                                <label><span style="font-weight: 800; font-size: 16px;">-</span>
+                                                    Commission Amount</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -349,7 +352,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> Penal Interest Amount</label>
+                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> Penal
+                                                    Interest Amount</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">

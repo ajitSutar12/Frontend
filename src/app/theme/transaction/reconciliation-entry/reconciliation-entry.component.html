@@ -84,10 +84,10 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
                                             class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue" appTheme
-                                            #FROM_DATE="bsDatepicker" (keydown.Tab)="FROM_DATE.hide()" appButton minlength="8" maxlength="10"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                            (bsValueChange)="getTable()" [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="FROM_DATE"
+                                            #FROM_DATE="bsDatepicker" (keydown.Tab)="FROM_DATE.hide()" appButton
+                                            minlength="8" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [maxDate]="maxDate" (bsValueChange)="getTable()"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -108,10 +108,10 @@
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE" appTheme
                                             #TO_DATE="bsDatepicker" (keydown.Tab)="TO_DATE.hide()" class="form-control"
-                                            [(ngModel)]="todate" (bsValueChange)="getTable()" appButton minlength="8" maxlength="10"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                            [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="TO_DATE"
+                                            [(ngModel)]="todate" (bsValueChange)="getTable()" appButton minlength="8"
+                                            maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [minDate]="fromdate" [maxDate]="maxDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -139,7 +139,7 @@
                             <label></label>
                         </div>
                     </div>
-                    <div class="row" *ngIf="entryArr?.length == 0 && todate!=null && todate!=''">
+                    <!-- <div class="row" *ngIf="entryArr?.length == 0 && todate!=null && todate!=''">
                         <div class=" col-12">
                             <div class="loader-block">
                                 <svg id="loader2" viewBox="0 0 100 100">
@@ -147,7 +147,7 @@
                                 </svg>
                               </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-sm-12">
                             <div *ngIf="showTable">
@@ -176,7 +176,8 @@
                                                     <td>{{data.TRAN_DRCR=='C'? data.TRAN_AMOUNT : ''}}</td>
                                                     <td class="td_center">
                                                         <input type="text" name="STATEMENT_DATE" id="STATEMENT_DATE"
-                                                            placeholder="dd/mm/yyyy" class="form-control" appButton minlength="8" maxlength="10"
+                                                            placeholder="dd/mm/yyyy" class="form-control" appButton
+                                                            minlength="8" maxlength="10"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                             value="{{data.STATEMENT_DATE == null || data.STATEMENT_DATE == '' ? '' : data.STATEMENT_DATE }}"
                                                             #STATEMENT_DATE
@@ -274,3 +275,4 @@
         </div>
     </div>
 </div>
+<div [class]="modalClass"> </div>

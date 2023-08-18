@@ -17,7 +17,7 @@ class DataTableResponse {
   draw: number;
   recordsFiltered: number;
   recordsTotal: number;
-} 
+}
 
 @Component({
   selector: 'app-npa-opening-details-entry',
@@ -64,6 +64,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   gridData: any;
   Code: any;
   filtername: any;
+  modalClass: string = 'modalHide';
   constructor(private fb: FormBuilder, private http: HttpClient,
     private _npaService: NpaOpeningDetailsEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -79,7 +80,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     this.createForm()
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       console.log(data);
-      
+
       var allscheme = data.filter(function (scheme) {
         return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
       });
@@ -153,10 +154,12 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     var memTo = this.npaOpeningForm.controls['TO_AC'].value
     if (this.npaOpeningForm.controls['FROM_AC'].value <= this.npaOpeningForm.controls['TO_AC'].value) {
       this.showTable = true
+      this.modalClass = 'modalShow';
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/term-loan-master/npaopening/' + this.mem).subscribe((data) => {
         this.arrTable = data;
         this.gridData = data;
+        this.modalClass = 'modalHide';
       });
     }
     else {
@@ -368,7 +371,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       this.arrTable = []
       this.npaEntryArray = []
     }
-    else{
+    else {
       Swal.fire("Warning!", "Please Enter Valid Data !", "error");
     }
   }
@@ -446,7 +449,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 
