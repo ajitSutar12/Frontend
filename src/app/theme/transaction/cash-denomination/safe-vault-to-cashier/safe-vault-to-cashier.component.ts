@@ -19,6 +19,10 @@ export class SafeVaultToCashierComponent implements OnInit {
   formSubmitted
   DenominationChart: boolean;
   cashier_list: any;
+  safeCashier: any;
+  safeCashier1: any;
+
+  denoamt
   SelectedBranch: any;
   branch_list: any;
 
@@ -29,18 +33,18 @@ export class SafeVaultToCashierComponent implements OnInit {
   ];
   currencyData =
     [
-      { currency: 2000, qty: 0, total: 0 },
-      { currency: 1000, qty: 0, total: 0 },
-      { currency: 500, qty: 0, total: 0 },
-      { currency: 200, qty: 0, total: 0 },
-      { currency: 100, qty: 0, total: 0 },
-      { currency: 50, qty: 0, total: 0 },
-      { currency: 20, qty: 0, total: 0 },
-      { currency: 10, qty: 0, total: 0 },
-      { currency: 5, qty: 0, total: 0 },
-      { currency: 2, qty: 0, total: 0 },
-      { currency: 1, qty: 0, total: 0 },
-      { currency: 'Coin', qty: 0, total: 0 },
+      { currency: 2000, qty: "", total: 0, available: 0 },
+      { currency: 1000, qty: "", total: 0, available: 0 },
+      { currency: 500, qty: "", total: 0, available: 0 },
+      { currency: 200, qty: "", total: 0, available: 0 },
+      { currency: 100, qty: "", total: 0, available: 0 },
+      { currency: 50, qty: "", total: 0, available: 0 },
+      { currency: 20, qty: "", total: 0, available: 0 },
+      { currency: 10, qty: "", total: 0, available: 0 },
+      { currency: 5, qty: "", total: 0, available: 0 },
+      { currency: 2, qty: "", total: 0, available: 0 },
+      { currency: 1, qty: "", total: 0, available: 0 },
+      { currency: 'Coin', qty: "", total: 0, available: 0 },
     ]
 
 
@@ -54,9 +58,9 @@ export class SafeVaultToCashierComponent implements OnInit {
     this.angForm = this.fb.group({
       CASHIER: ['', [Validators.required]],
       TRAN_DATE: ['', [Validators.required]],
-      // DENOMINATION_AMT:['', [Validators.required]],
+      DENOMINATION_AMT: ['', [Validators.required]],
       Branch: ['', [Validators.required]],
-      Available:['']
+      Available: ['']
     })
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
@@ -67,28 +71,19 @@ export class SafeVaultToCashierComponent implements OnInit {
     this._service.getOwnbranchList().subscribe(data => {
       this.branch_list = data;
       this.SelectedBranch = user.branchId;
-        //Get Cashier List
-        this._service.getList({branch_id : this.SelectedBranch}).subscribe(data=>{
-          console.log(data);
-  
-          this.cashier_list = data;
-        })
+      //Get Cashier List
+      this._service.getList({ branch_id: this.SelectedBranch }).subscribe(data => {
+        this.cashier_list = data;
+        this.safeCashier = this.cashier_list.filter(el => el.CASHIER_CODE !== 'SAFE VAULT');
+        this.safeCashier1 = this.cashier_list.filter(el => el.CASHIER_CODE == 'SAFE VAULT');
+
+
+      })
 
     })
-    // //Get Cashier List
-    // this._services.getUserDetails().subscribe(data => {
-
-    //   this.cashier_list = data;
-
-    //   console.log(this.cashier_list);
-    // })
 
     this.reset();
   }
-
-
-
-
 
   decimalAllContent($event) {
 
@@ -110,82 +105,115 @@ export class SafeVaultToCashierComponent implements OnInit {
   }
 
 
+  // sum: number = 0
+  // calculation(data, index, element) {
+
+  //   console.log(element.target.value);
+  //   let currency = this.currencyData[index].currency;
+  //   let qty = element.target.value;
+  //   let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty));
+  //   this.currencyData[index].currency = currency;
+  //   this.currencyData[index].qty = qty;
+  //   this.currencyData[index].total = total;
+
+
+  //   this.sum = this.currencyData.reduce((accumulator, object) => {
+  //     return accumulator + object.total;
+  //   }, 0);
+
+  // }
+
   sum: number = 0
   calculation(data, index, element) {
-
-    console.log(element.target.value);
-    let currency = this.currencyData[index].currency;
     let qty = element.target.value;
-    let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty));
-    this.currencyData[index].currency = currency;
-    this.currencyData[index].qty = qty;
-    this.currencyData[index].total = total;
-
-
-    this.sum = this.currencyData.reduce((accumulator, object) => {
-      return accumulator + object.total;
-    }, 0);
-
+    if (Number(qty) > Number(this.currencyData[index].available)) {
+      Swal.fire('Warning!', 'Please insert Correct Quantity', 'warning')
+      element.target.value = 0;
+      let currency = this.currencyData[index].currency;
+      let available = element.target.value;
+      let total = Number(currency) * 0;
+      this.currencyData[index].currency = currency;
+      this.currencyData[index].qty = "";
+      this.currencyData[index].total = total;
+      this.sum = this.currencyData.reduce((accumulator, object) => {
+        return accumulator + object.total;
+      }, 0);
+    } else {
+      let currency = this.currencyData[index].currency;
+      let available = element.target.value;
+      let total = (currency == 'Coin' ? Number(qty) : Number(currency) * Number(qty));
+      this.currencyData[index].currency = currency;
+      this.currencyData[index].qty = qty;
+      this.currencyData[index].total = total;
+      this.sum = this.currencyData.reduce((accumulator, object) => {
+        return accumulator + object.total;
+      }, 0);
+    }
   }
   submit() {
     let object = this.angForm.value;
+    const formVal = this.angForm.value;
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be transfer cash to Safe Vault!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, transfer it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._service.cashiertosafevault(object).subscribe(data => {
-          Swal.fire(
-            'Transferd!',
-            'Your cash has been transfered.',
-            'success'
-          )
-          this.angForm.reset();
-          this.DenominationChart = false;
-        }, err => {
-          console.log(err);
-        })
-      }
-    })
+    if (formVal.DENOMINATION_AMT != this.sum) {
+      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+    }
+    else {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be transfer Safe Vault to Cashier!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, transfer it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this._service.cashiertosafevault(object).subscribe(data => {
+            Swal.fire(
+              'Transferd!',
+              'Your cash has been transfered.',
+              'success'
+            )
+            this.angForm.reset();
+            this.DenominationChart = false;
+          }, err => {
+            console.log(err);
+          })
+        }
+      })
+    }
   }
   reset() {
     // this.angForm.sum.reset()
     this.currencyData.forEach(entry => {
-      
+
       // this.available = 0;
     })
   }
   changeData(ele) {
-    this.DenominationChart = true;
-    console.log(ele);
-    this.currencyData[0].qty = ele.DENO_2000
-    this.currencyData[1].qty = ele.DENO_1000
-    this.currencyData[2].qty = ele.DENO_500
-    this.currencyData[3].qty = ele.DENO_200
-    this.currencyData[4].qty = ele.DENO_100
-    this.currencyData[5].qty = ele.DENO_50
-    this.currencyData[6].qty = ele.DENO_20
-    this.currencyData[7].qty = ele.DENO_10
-    this.currencyData[8].qty = ele.DENO_5
-    this.currencyData[9].qty = ele.DENO_2
-    this.currencyData[10].qty = ele.DENO_1
-    this.currencyData[11].qty = ele.DENO_COINS_AMT
+    // console.log(ele);
+    this.currencyData[0].available = this.safeCashier1[0].DENO_2000;
+    this.currencyData[1].available = this.safeCashier1[0].DENO_1000;
+    this.currencyData[2].available = this.safeCashier1[0].DENO_500;
+    this.currencyData[3].available = this.safeCashier1[0].DENO_200;
+    this.currencyData[4].available = this.safeCashier1[0].DENO_100;
+    this.currencyData[5].available = this.safeCashier1[0].DENO_50;
+    this.currencyData[6].available = this.safeCashier1[0].DENO_20;
+    this.currencyData[7].available = this.safeCashier1[0].DENO_10;
+    this.currencyData[8].available = this.safeCashier1[0].DENO_5;
+    this.currencyData[9].available = this.safeCashier1[0].DENO_2;
+    this.currencyData[10].available = this.safeCashier1[0].DENO_1;
+    this.currencyData[11].available = this.safeCashier1[0].DENO_COINS_AMT
 
-    // this.currencyData[0].qty
+    // // this.currencyData[0].qty
 
-    for (let item of this.currencyData) {
-      // item.total = Number(item.currency) * Number(item.qty);
-      let total = (Number(item.qty) == ele.DENO_COINS_AMT ? Number(item.qty) : Number(item.currency) * Number(item.qty));
+    // for (let item of this.currencyData) {
+    //   // item.total = Number(item.currency) * Number(item.qty);
+    //   let total = (Number(item.qty) == ele.DENO_COINS_AMT ? Number(item.qty) : Number(item.currency) * Number(item.qty));
 
-    }
-    this.sum = this.currencyData.reduce((accumulator, object) => {
-      return accumulator + object.total;
-    }, 0);
+    // }
+    // this.sum = this.currencyData.reduce((accumulator, object) => {
+    //   return accumulator + object.total;
+    // }, 0);
   }
 }

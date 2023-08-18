@@ -42,7 +42,7 @@
                                             <ng-select id="CASHIER"  [(ngModel)]="cashier"
                                                 formControlName="CASHIER" title="Compulsory Selection"
                                                 [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus tabindex="0" (change)="changeData($event)">
-                                                <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.F_NAME}} {{values.L_NAME}}</ng-option>
+                                                <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.name}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    <div class="col-md-3" id="FORMA" *ngIf="DenominationChart">
+    <div class="col-md-3" id="FORMA" *ngIf="DenominationChart" >
         <div class="card" style="width: 450px;">
             <div class="card-header">
                 <h5>Cash Out Denomination</h5>

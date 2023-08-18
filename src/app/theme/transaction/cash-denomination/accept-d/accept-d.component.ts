@@ -47,7 +47,7 @@ export class AcceptDComponent implements OnInit {
     { currency: 5,    qty: "", total: 0, available: 0 },
     { currency: 2,    qty: "", total: 0, available: 0 },
     { currency: 1,    qty: "", total: 0, available: 0 },
-    { currency: 'Coin',    qty: "", total: 0, available: 0 },
+    { currency: 'Coin',qty: "", total: 0, available: 0 },
 
   ]
   glDetails: any;
@@ -117,10 +117,6 @@ export class AcceptDComponent implements OnInit {
 
    
     })
-
-
-  
-
   }
 
   showCashModule(){
@@ -230,6 +226,21 @@ export class AcceptDComponent implements OnInit {
   //   //   Swal.fire('Oops...','Please fill all required field','warning');
   //   // }
   // }
+
+  changeData(ele) {
+    console.log(ele)
+    this.currencyData[0].available = ele.DENO_2000;
+    this.currencyData[1].available = ele.DENO_1000;
+    this.currencyData[2].available = ele.DENO_500;
+    this.currencyData[3].available = ele.DENO_200;
+    this.currencyData[4].available = ele.DENO_100;
+    this.currencyData[5].available = ele.DENO_50;
+    this.currencyData[6].available = ele.DENO_20;
+    this.currencyData[7].available = ele.DENO_10;
+    this.currencyData[8].available = ele.DENO_5;
+    this.currencyData[9].available = ele.DENO_2;
+    this.currencyData[10].available = ele.DENO_1;
+  }
   submit() { 
     const formVal = this.angForm.value;
     var object =
@@ -273,6 +284,18 @@ export class AcceptDComponent implements OnInit {
     })
   }
   
+  refreshdata()
+  {
+    this.angForm.controls['TRANSACTION_NO'].reset()
+    this.angForm.controls['TOKEN_NO'].reset()
+    this.angForm.controls['SCHEME'].reset()
+    this.angForm.controls['ACCOUNT_NO'].reset()
+    this.angForm.controls['NARRATION'].reset()
+    this.angForm.controls['DENOMINATION_AMT'].reset()
+    this.angForm.controls['TRANSACTION_AMT'].reset()
+    this.angForm.controls['LEDGER_BAL'].reset()
+    this.angForm.controls['TRANSACTION_TYPE'].reset()
+  }
   getDecimalPoint(event) {
     if (event.target.value != '')
       event.target.value = parseFloat(event.target.value).toFixed(2); 

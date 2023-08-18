@@ -35,7 +35,7 @@
                                 </div>
 
 
-                                <div class="col-sm-12 col-md-2"> <label for="CASHIER">Cashier<sub
+                                <!-- <div class="col-sm-12 col-md-2"> <label for="CASHIER">Cashier<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group form-primary form-static-label">
@@ -44,8 +44,7 @@
                                                 title="Compulsory Selection"
                                                 [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus
                                                 tabindex="0">
-                                                <!-- <ng-option *ngFor="let item of cashier_list" [value]="item">
-                                                    {{item.id}} {{item.label}}</ng-option> -->
+                                                
                                                 <ng-option *ngFor="let values of cashier_list" [value]="values"
                                                     [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.F_NAME}} {{values.L_NAME}}</ng-option> 
                                             </ng-select> 
@@ -58,7 +57,29 @@
                                             This field is required.
                                         </div>
                                     </div>
+                                </div> -->
+
+                                <div class="col-sm-12 col-md-2"> <label for="CASHIER">Cashier<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="CASHIER"  [(ngModel)]="cashier"
+                                        formControlName="CASHIER" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus tabindex="0" (change)="changeData($event)">
+                                        <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['CASHIER'].invalid && (angForm.controls['CASHIER'].dirty || angForm.controls['CASHIER'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['CASHIER'].errors?.required">
+                                    This field is required.
                                 </div>
+                            </div>
+                        </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">Denomination
@@ -131,9 +152,9 @@
         </div>
     </div>
 
-    <div class="col-md-4" id="FORMA" *ngIf="DenominationChart">
+    <div class="col-md-6" id="FORMA" *ngIf="DenominationChart">
 
-        <div class="card " style="width: 350px;">
+        <div class="card " style="width: 450px;">
             <div class="card-header">
                 <h5>Cash in Denomination</h5>
             </div>
@@ -148,13 +169,14 @@
                                     style="width: 100px;" value="{{data.qty}}" placeholder="0">=</td>
 
                             <td><input type="text" style="width: 100px;" value="{{data.total}}" disabled></td>
+                            <td><input type="text" class="text-right" style="width: 60px;" value="{{data.available}}" disabled></td>
                         </tr>
                         <!-- <tr>
                             <td class="td_center">Coins</td>
                            
                         </tr> -->
                         <div></div>
-                        <div class="h" style="width: 300px;"></div>
+                        <div class="h" style="width: 350px;"></div>
                         <div></div>
                         <tr>
                             <td align="right">

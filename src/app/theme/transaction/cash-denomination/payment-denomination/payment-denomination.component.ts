@@ -163,7 +163,7 @@ submit() {
         } 
     else{
       this._service.paymentDinominationInsert(object).subscribe(data=>{
-        Swal.fire('Success','Cash Accept Denomincation Successfully Done','success');
+        Swal.fire('Success','Cash Payment Denomincation Successfully Done','success');
           this.angForm.reset();
           this.ngOnInit()
           this.showCash = false;
@@ -186,6 +186,18 @@ submit() {
       entry.total = 0;
       this.sum = 0;
     })
+  }
+  refreshdata()
+  {
+    this.angForm.controls['TRANSACTION_NO'].reset()
+    this.angForm.controls['TOKEN_NO'].reset()
+    this.angForm.controls['SCHEME'].reset()
+    this.angForm.controls['ACCOUNT_NO'].reset()
+    this.angForm.controls['NARRATION'].reset()
+    this.angForm.controls['DENOMINATION_AMT'].reset()
+    this.angForm.controls['TRANSACTION_AMT'].reset()
+    this.angForm.controls['LEDGER_BAL'].reset()
+    this.angForm.controls['TRANSACTION_TYPE'].reset()
   }
   // submit(){
   //   // if(this.angForm.valid){
