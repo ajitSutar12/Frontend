@@ -165,7 +165,7 @@
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right" type="text" name="TotalWeightinGram" class="form-control" placeholder=" "
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                    id="TotalWeightinGram" required="" pattern="\d{1,20}(\.\d{3})?" title="Input allowed only  0-9"
+                    id="TotalWeightinGram" required="" pattern="\d{1,20}(\.\d{4})?" title="Input allowed only  0-9"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="TOTAL_WEIGHT_GMS" />
                   <label for=" TotalWeightinGram">Total Weight in Gram<sub class="required">* </sub></label>
                 </span>
@@ -179,7 +179,7 @@
                     angForm.controls['TOTAL_WEIGHT_GMS'].errors?.pattern ||
                     angForm.controls['TOTAL_WEIGHT_GMS'].errors?.required
                   ">
-                  This field is required and Input allowed only . 0-9(after decimal 3 digits)
+                  This field is required and Input allowed only . 0-9(after decimal 4 digits)
                 </div>
               </div>
             </div>

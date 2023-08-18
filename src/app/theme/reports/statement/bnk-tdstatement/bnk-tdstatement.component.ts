@@ -115,10 +115,10 @@ export class BnkTDStatementComponent implements OnInit{
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ['', [Validators.required]],
       Starting_Account: ['', [Validators.required]],
-      Ending_Account: ['', [Validators.required]],
+      // Ending_Account: ['', [Validators.required]],
       Starting_Date: ['', [Validators.required]],
       Ending_Date: ['', [Validators.required]],
-      Print_Every_Account_on_New_Page: [''],
+      // Print_Every_Account_on_New_Page: [''],
       Print_Closed_Account: [''],
       Print_Added_Penal_Interest: [''],
       Print_Concise_Report: [''],
@@ -230,7 +230,7 @@ export class BnkTDStatementComponent implements OnInit{
 
   
  
-    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= '"+scheme+"'&schemeCode= "+schemeCode+
+    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&scheme= '"+scheme+"'&schemeCode= "+schemeCode+
     "&PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
     console.log( this.iframe5url);
 
@@ -243,33 +243,33 @@ export class BnkTDStatementComponent implements OnInit{
         }
    
  }
-   //load acno according start and end acno
-   loadAcno() {
-    this.memFrom = this.ngForm.controls['Starting_Account'].value
-    this.memTo = this.ngForm.controls['Ending_Account'].value
-    this.branch = this.ngForm.controls['BRANCH_CODE'].value
-    if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
-      this.mem = [this.memFrom, this.memTo, this.branch]
+  //  //load acno according start and end acno
+  //  loadAcno() {
+  //   this.memFrom = this.ngForm.controls['Starting_Account'].value
+  //   this.memTo = this.ngForm.controls['Ending_Account'].value
+  //   this.branch = this.ngForm.controls['BRANCH_CODE'].value
+  //   if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
+  //     this.mem = [this.memFrom, this.memTo, this.branch]
      
-      if (this.getschemename == 'LN') {
-        this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
-        });
-      }
-      else if (this.getschemename == 'CC') {
-        this.http.get(this.url + '/cash-credit-master/scheme/' + this.mem).subscribe((data) => {
-        });
-      }
-      else if (this.getschemename == 'DS') {
-        this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
-        });
-      }
+  //     if (this.getschemename == 'LN') {
+  //       this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
+  //       });
+  //     }
+  //     else if (this.getschemename == 'CC') {
+  //       this.http.get(this.url + '/cash-credit-master/scheme/' + this.mem).subscribe((data) => {
+  //       });
+  //     }
+  //     else if (this.getschemename == 'DS') {
+  //       this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
+  //       });
+  //     }
      
     
-    }
-    else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
-    }
-  }
+  //   }
+  //   else {
+  //     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  //   }
+  // }
 
   close(){
     this.resetForm()
@@ -280,7 +280,7 @@ export class BnkTDStatementComponent implements OnInit{
       // this.ngForm.controls.BRANCH_CODE.reset();
       this.ngForm.controls.Scheme_code.reset();
       this.ngForm.controls.Starting_Account.reset();
-      this.ngForm.controls.Ending_Account.reset();
+      // this.ngForm.controls.Ending_Account.reset();
       this.showRepo = false;
       this.clicked=false;
     }

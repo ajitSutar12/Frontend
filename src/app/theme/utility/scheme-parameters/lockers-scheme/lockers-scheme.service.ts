@@ -21,7 +21,7 @@ export class LockersSchemeService {
     return this.http.post(this.url + '/lockers-scheme/insert', data).pipe(map((res) => res),
       catchError((error) => {
         let errorMessage = 'Please add valid length';
-        Swal.fire('Kindly Add Valid Length !');
+        Swal.fire('Please Input Proper Data!');
         return throwError(errorMessage);
       })
     )

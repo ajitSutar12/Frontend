@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Cash In Denomination</h5>
+                        <h5>Cashier to Safe Vault Denomination</h5>
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                             Fields marked with (<sub class="required"> * </sub>) are mandatory
                         </h6>
@@ -42,9 +42,7 @@
                                             <ng-select id="CASHIER"  [(ngModel)]="cashier"
                                                 formControlName="CASHIER" title="Compulsory Selection"
                                                  placeholder="" autofocus tabindex="0" (change)="changeData($event)">
-                                                <!-- <ng-option *ngFor="let item of cashier_list" [value]="item">
-                                                    {{item.id}} {{item.label}}</ng-option> -->
-                                                    <ng-option *ngFor="let values of cashier_list" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.CASHIER_CODE}}</ng-option>
+                                                 <ng-option *ngFor="let values of safeCashier" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.name}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -126,6 +124,7 @@
                                 <td align="right">
                                     Total Cash :
                                 </td>
+                                <td></td>
                                 <td>
                                     <input type="text" value="{{sum}}"  style="width:100px;" disabled>
                                 </td>
