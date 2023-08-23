@@ -64,7 +64,7 @@ export class VoucherEntryComponent implements OnInit {
   ClearBalance: any = 0;
   AfterVoucher: any = 0;
   InputHeadAmt: number = 0.00;
-
+  pigmyamount = 0
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
@@ -452,11 +452,11 @@ export class VoucherEntryComponent implements OnInit {
 
     let formDT = moment(startdate, 'DD/MM/YYYY')
     var addInFrom: any;
-    if (this.Submitscheme.S_ACNOTYPE == 'PG') {
-      addInFrom = startdate;
-    } else {
-      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
-    }
+    // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+    //   addInFrom = startdate;
+    // } else {
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
@@ -1079,11 +1079,11 @@ export class VoucherEntryComponent implements OnInit {
 
     let formDT = moment(startdate, 'DD/MM/YYYY')
     var addInFrom: any;
-    if (this.Submitscheme.S_ACNOTYPE == 'PG') {
-      addInFrom = startdate;
-    } else {
-      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
-    }
+    // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+    //   addInFrom = startdate;
+    // } else {
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
@@ -2390,55 +2390,56 @@ export class VoucherEntryComponent implements OnInit {
 
     let formDT = moment(startdate, 'DD/MM/YYYY')
     var addInFrom: any;
-    if (this.Submitscheme.S_ACNOTYPE == 'PG') {
-      addInFrom = startdate;
-    } else {
-      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
-    }
+    // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+    //   addInFrom = startdate;
+    // } else {
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
       date: addInFrom
     }
-
-    this._service.getledgerbalance(obj).subscribe(data => {
-      //debugger
-      this.DayOpBal = Math.abs(data);
-      this.DayOpBal = Number(this.DayOpBal).toFixed(2)
-      if (data < 0) {
-        this.extensionopenbal = 'Cr'
-      } else {
-        this.extensionopenbal = 'Dr'
-      }
-      //debugger
-      this.tempDayOpBal = data;
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
-      }
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
-      this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
-        this.Pass = Math.abs(data1.passedamt).toFixed(2)
-        this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
-        this.passextension = (data1.passextension != undefined ? data1.passextension : '')
-        this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
-        // this.ClearBalance = this.DayOpBal + this.Pass
-        var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
-        var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
-        var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
-
-        let value = open + pass;
-        if (value < 0) {
-          this.ClearBalance = Math.abs(value).toFixed(2)
-          this.typeclearbal = 'Dr'
+    this._service.getpigmychartBalance(obj).subscribe(data2 => {
+      this._service.getledgerbalance(obj).subscribe(data => {
+        //debugger
+        this.DayOpBal = Math.abs(data);
+        this.DayOpBal = Number(this.DayOpBal).toFixed(2)
+        if (data < 0) {
+          this.extensionopenbal = 'Cr'
         } else {
-          this.ClearBalance = Math.abs(value).toFixed(2)
-          this.typeclearbal = 'Cr'
+          this.extensionopenbal = 'Dr'
         }
+        //debugger
+        this.tempDayOpBal = data;
+        if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+        }
+        if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
+        this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
+          this.Pass = Math.abs(data1.passedamt).toFixed(2)
+          this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
+          this.passextension = (data1.passextension != undefined ? data1.passextension : '')
+          this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
+          // this.ClearBalance = this.DayOpBal + this.Pass
+          var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+          var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
+          var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
+          this.pigmyamount = data2
+          let value = open + pass + data2;
+          if (value < 0) {
+            this.ClearBalance = Math.abs(value).toFixed(2)
+            this.typeclearbal = 'Dr'
+          } else {
+            this.ClearBalance = Math.abs(value).toFixed(2)
+            this.typeclearbal = 'Cr'
+          }
+        })
       })
     })
   }

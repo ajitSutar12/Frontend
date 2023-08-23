@@ -564,7 +564,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
           await this.pigmyChartTable.push(object)
         })
         this.showTable = true
-        this.totalAmt = this.angForm.controls['TRAN_AMOUNT'].value
+        this.totalAmt = Number(this.angForm.controls['TRAN_AMOUNT'].value)
         this.angForm.patchValue({
           TRAN_AMOUNT: this.totalAmt
         })
