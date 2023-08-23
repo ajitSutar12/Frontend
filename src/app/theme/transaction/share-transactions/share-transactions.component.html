@@ -24,7 +24,7 @@
                                         routerLinkActive="active" [ngClass]="{'isActive': membershipcancellationTrue}"
                                         class="text-right f-w-600" id="pointer">3. Membership Cancellation</a></h6>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <h6> <a (click)="OpenLink(4)" routerLink="/transaction/shareTransactions"
                                         routerLinkActive="active" [ngClass]="{'isActive': foundpaymenttransactionTrue}"
                                         class="text-right f-w-600" id="pointer">4. Fund Payment Transaction</a></h6>
@@ -39,7 +39,7 @@
                                 <h6> <a (click)="OpenLink(6)" routerLink="/transaction/shareTransactions"
                                         routerLinkActive="active" [ngClass]="{'isActive': rebitintresttransactionTrue}"
                                         class="text-right f-w-600" id="pointer">6. Rebit Intrest Transactions</a></h6>
-                            </li>
+                            </li> -->
 
                         </ul>
                     </perfect-scrollbar>
@@ -58,7 +58,7 @@
             <div *ngIf="membershipcancellationTrue">
                 <app-membership-cancellation></app-membership-cancellation>
             </div>
-            <div *ngIf="foundpaymenttransactionTrue">
+            <!-- <div *ngIf="foundpaymenttransactionTrue">
                 <app-found-payment-transaction></app-found-payment-transaction>
             </div>
             <div *ngIf="openingsharesteTrue">
@@ -66,7 +66,7 @@
             </div>
             <div *ngIf="rebitintresttransactionTrue">
                 <app-rebit-interest-transaction></app-rebit-interest-transaction>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

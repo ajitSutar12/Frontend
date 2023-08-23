@@ -109,7 +109,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  }
  createForm() {
    this.angForm = this.fb.group({
-    radio: new FormControl('none'),
+    // radio: new FormControl('none'),
     Branch:["", [ Validators.required]],
      scheme_code: ["", [ Validators.required]],
      DATE: [""],
