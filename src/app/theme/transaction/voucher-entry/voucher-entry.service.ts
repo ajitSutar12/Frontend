@@ -74,6 +74,10 @@ export class VoucherEntryService {
     return this.http.post(this.url + '/voucher/getledgerbalance', data).pipe(catchError(this.handleError));
   }
   // ledger balance function
+  getpigmychartBalance(data: any): Observable<any> {
+    return this.http.post(this.url + '/voucher/getpigmychartBalance', data).pipe(catchError(this.handleError));
+  }
+  // ledger balance function
   LedgerBal(data: any): Observable<any> {
     return this.http.post(this.url + '/voucher/LedgerBal', data).pipe(catchError(this.handleError));
   }

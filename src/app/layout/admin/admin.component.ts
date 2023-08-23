@@ -397,7 +397,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       if (data) {
         this._dayEndService.checkDayHandOverStatus({ date: this.currentDate, branch_id: this.branchID }).subscribe(data => {
           if (data.flag == 1) {
-            this.disableList = [66, 109];
+            this.disableList = [75, 132];
             this.roleWiseMenuAssign()
           } else {
             this.disableList = [];

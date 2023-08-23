@@ -295,7 +295,8 @@
                                                     (focus)="selectAllContent($event)" appTheme
                                                     (keydown.Tab)="decimalAllContent(amt.value); checkCondition(amt.value); checkSanctionAmountWithAmount()"
                                                     (change)="decimalAllContent(amt.value); checkCondition(amt.value); checkSanctionAmountWithAmount();checkIfZero(amt.value)"
-                                                    required formControlName="amt" #swiper (keyup)="getDecimal($event);getAmt(amt.value)"
+                                                    required formControlName="amt" #swiper
+                                                    (keyup)="getDecimal($event);getAmt(amt.value)"
                                                     (focusout)="focusSubmit();getDecimalPoint($event);">
                                             </span>
                                         </div>
@@ -459,6 +460,24 @@
                                     <div class="fw-bolder transaction-title text-primary"
                                         style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
                                             aria-hidden="true"></i> {{DayOpBal}} {{extensionopenbal}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="submitCustomer?.AC_ACNOTYPE == 'PG'">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Pigmy Amount
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-primary"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{pigmyamount}} Cr</div>
                                 </div>
                             </div>
                             <div class="col-md-12">

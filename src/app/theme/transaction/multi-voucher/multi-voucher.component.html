@@ -204,8 +204,8 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                        [maxDate]="maxDate" [minDate]="minDate" appButton minlength="8" maxlength="10"
-                                                        formControlName="chequeDate">
+                                                        [maxDate]="maxDate" [minDate]="minDate" appButton minlength="8"
+                                                        maxlength="10" formControlName="chequeDate">
                                                 </span>
                                             </div>
                                         </div>
@@ -520,6 +520,24 @@
                                     <div class="fw-bolder transaction-title text-primary"
                                         style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
                                             aria-hidden="true"></i> {{DayOpBal}} {{extensionopenbal}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="submitAccountNo?.AC_ACNOTYPE == 'PG'">
+                                <div class="transaction-item">
+                                    <div class="d-flex">
+                                        <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="transaction-percentage">
+                                            <h6 class="transaction-title" style="font-size: 12px;">Pigmy Amount
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="fw-bolder transaction-title text-primary"
+                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                            aria-hidden="true"></i> {{pigmyamount}} Cr</div>
                                 </div>
                             </div>
                             <div class="col-md-12">

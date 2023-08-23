@@ -1063,10 +1063,10 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
           this.unapproveShow = false
         }
         this.updatecheckdata = data
-        if (Number(data1[0].ledgerBal) >= 0) {
-          Swal.fire('Oops', 'Account cannot close', 'error')
-          return
-        }
+        // if (Number(data1[0].ledgerBal) >= 0) {
+        //   Swal.fire('Oops', 'Account cannot close', 'error')
+        //   return
+        // }
         this.preMature = data1[0].preMature
         this.OpenDate = data1[0].AC_OPDATE
         this.ledgerBalance = Math.abs(data.LEDGER_BAL)
