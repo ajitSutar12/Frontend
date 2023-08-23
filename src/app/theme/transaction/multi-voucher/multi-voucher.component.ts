@@ -75,7 +75,7 @@ export class MultiVoucherComponent implements OnInit {
   index: number;
   AmountEqual: boolean = false;
   //object created to get data when row is clicked
-
+  pigmyamount = 0
   TranModeTransfer = [
     { id: 1, value: 'Credit Transfer', tran_drcr: 'C', tran_type: 'TR' },
     { id: 2, value: 'Credit Transfer for Closing', tran_drcr: 'C', tran_type: 'TR' },
@@ -1405,43 +1405,45 @@ export class MultiVoucherComponent implements OnInit {
       date: addInFrom
     }
     //
-    this._vservice.getledgerbalance(obj).subscribe(data => {
-      this.DayOpBal = Math.abs(data);
-      this.DayOpBal = Number(this.DayOpBal).toFixed(2)
-      if (data < 0) {
-        this.extensionopenbal = 'Cr'
-      } else {
-        this.extensionopenbal = 'Dr'
-      }
-      this.tempDayOpBal = data;
-      if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(Number(this.DayOpBal)) > 0) {
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
-      }
-      if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
-        //
-        this.Pass = Math.abs(data1.passedamt).toFixed(2)
-        this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
-        this.passextension = (data1.passextension != undefined ? data1.passextension : '')
-        this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
-        // this.ClearBalance = this.DayOpBal + this.Pass
-        var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
-        var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
-        var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
-
-        let value = open + pass
-        if (value < 0) {
-          this.ClearBalance = Math.abs(value).toFixed(2)
-          this.typeclearbal = 'Dr'
+    this._service.getpigmychartBalance(obj).subscribe(data2 => {
+      this._vservice.getledgerbalance(obj).subscribe(data => {
+        this.DayOpBal = Math.abs(data);
+        this.DayOpBal = Number(this.DayOpBal).toFixed(2)
+        if (data < 0) {
+          this.extensionopenbal = 'Cr'
         } else {
-          this.ClearBalance = Math.abs(value).toFixed(2)
-          this.typeclearbal = 'Cr'
+          this.extensionopenbal = 'Dr'
         }
+        this.tempDayOpBal = data;
+        if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(Number(this.DayOpBal)) > 0) {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+        }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
+          //
+          this.Pass = Math.abs(data1.passedamt).toFixed(2)
+          this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
+          this.passextension = (data1.passextension != undefined ? data1.passextension : '')
+          this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
+          // this.ClearBalance = this.DayOpBal + this.Pass
+          var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+          var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
+          var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
+          this.pigmyamount = data2
+          let value = open + pass + data2;
+          if (value < 0) {
+            this.ClearBalance = Math.abs(value).toFixed(2)
+            this.typeclearbal = 'Dr'
+          } else {
+            this.ClearBalance = Math.abs(value).toFixed(2)
+            this.typeclearbal = 'Cr'
+          }
+        })
       })
     })
   }
