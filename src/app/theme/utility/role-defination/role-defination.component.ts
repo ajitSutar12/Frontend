@@ -159,7 +159,8 @@ export class RoleDefinationComponent implements OnInit {
         this.ngOnInit()
       })
     } else {
-      alert('please select All requied data')
+      Swal.fire('Warning!', 'please select All requied data !', 'warning');
+
     }
   }
   updateid
