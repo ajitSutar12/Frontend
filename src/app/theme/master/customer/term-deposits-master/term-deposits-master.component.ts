@@ -925,21 +925,22 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //simple interest
   installmentType
   simpleInterestCalculation() {
+    if (this.angForm.controls['AC_EXPDT'].value != '' && this.angForm.controls['AC_EXPDT'].value != null) {
+      var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+      var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-    var date1 = this.angForm.controls['AC_ASON_DATE'].value;
-    var date2 = this.angForm.controls['AC_EXPDT'].value;
+      // date1 = moment(date1).format('DD/MM/YYYY');
+      // date2 = moment(date2).format('DD/MM/YYYY');
 
-    // date1 = moment(date1).format('DD/MM/YYYY');
-    // date2 = moment(date2).format('DD/MM/YYYY');
+      var startDate = moment(date1, "DD/MM/YYYY");
+      var endDate = moment(date2, "DD/MM/YYYY");
 
-    var startDate = moment(date1, "DD/MM/YYYY");
-    var endDate = moment(date2, "DD/MM/YYYY");
-
-    var result = endDate.diff(startDate, 'days');
-    this.result = Math.round(Math.floor(this.angForm.controls['AC_SCHMAMT'].value) * (Math.floor(result)) * Math.floor(this.angForm.controls['AC_INTRATE'].value) / 36500 + Math.floor(this.angForm.controls['AC_SCHMAMT'].value))
-    this.angForm.patchValue({
-      AC_MATUAMT: this.result
-    })
+      var result = endDate.diff(startDate, 'days');
+      this.result = Math.round(Math.floor(this.angForm.controls['AC_SCHMAMT'].value) * (Math.floor(result)) * Math.floor(this.angForm.controls['AC_INTRATE'].value) / 36500 + Math.floor(this.angForm.controls['AC_SCHMAMT'].value))
+      this.angForm.patchValue({
+        AC_MATUAMT: this.result
+      })
+    }
   }
 
   checkAmount() {
@@ -1504,7 +1505,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   // Method to insert data into database through NestJS
   submit() {
-    console.log(data);
+    console.log(this.receiptNo);
 
     this.formSubmitted = true;
     if (this.angForm.valid) {
@@ -1573,7 +1574,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_OPR_CODE': formVal.AC_OPR_CODE,
         'AC_INTCATA': formVal.AC_INTCATA,
         // 'AC_IS_RECOVERY': (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
-        'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
+        'AC_REF_RECEIPTNO': this.receiptNo,
         'AC_ASON_DATE': asondate,
         // 'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asondate = '' : asondate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
         'AC_MONTHS': formVal.AC_MONTHS,
@@ -1613,6 +1614,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'Document': this.imageObject,
         intInstructionObject: this.intInstructionObject
       }
+      // console.log(dataToSend)
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
@@ -1629,6 +1631,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.multiNominee = []
         this.multiJointAC = []
         this.multiAttorney = []
+        this.receiptNo = null
         this.customerDoc = []
         this.nomineeTrue = false
         this.JointAccountsTrue = false
@@ -2588,7 +2591,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         // IS_RECURRING_TYPE: string;
         // IS_CALLDEPOSIT_TYPE: string; 
         // REINVESTMENT: string;
-        if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0')) {
+        if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') || data.IS_CALLDEPOSIT_TYPE == '1') {
           if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "S") {
             this.simpleInterestCalculation()
           } else if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "C") {
@@ -2901,6 +2904,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       console.log('something is wrong');
     })
   }
+  receiptNo
 
   getReceiptNumber() {
     let obj = {
@@ -2910,6 +2914,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.angForm.patchValue({
         AC_REF_RECEIPTNO: data
       })
+      this.receiptNo = data
       data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
     })
   }

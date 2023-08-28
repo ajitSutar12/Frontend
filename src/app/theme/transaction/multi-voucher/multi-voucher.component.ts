@@ -120,8 +120,8 @@ export class MultiVoucherComponent implements OnInit {
     { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
     { key: 'SH', data: { cash: [1, 4, 5, 7, 14], transfer: [1, 4, 5, 7, 14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
-    { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
-    { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
+    { key: 'PG', data: { cash: [1, 4, 10], transfer: [1, 4, 10] } },
+    { key: 'TD', data: { cash: [1, 4, 6, 10], transfer: [1, 4, 6, 9, 10] } },
   ]
 
   bankName
@@ -1191,7 +1191,8 @@ export class MultiVoucherComponent implements OnInit {
     //
     this._service.getFormData(id).subscribe((data) => {
       //
-      console.log(data);
+      this.angForm.disable()
+      // console.log(data);
       this.updateID = data[0].TRAN_NO
       this.updatecheckdata = data
       if (data[0].TRAN_STATUS == '0') {
@@ -1273,6 +1274,7 @@ export class MultiVoucherComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.angForm.enable()
       this.reloadTablePassing.emit();
 
     }, err => {
@@ -1294,6 +1296,7 @@ export class MultiVoucherComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.angForm.enable()
       this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
@@ -1316,6 +1319,7 @@ export class MultiVoucherComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.angForm.enable()
       this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
@@ -1324,11 +1328,12 @@ export class MultiVoucherComponent implements OnInit {
 
   addNewData() {
     this.createForm()
+    this.angForm.enable()
   }
 
   tempschmetype
   resetscheme() {
-    console.log(this.tempschmetype)
+    // console.log(this.tempschmetype)
     if (this.tempschmetype != this.selectedCode) {
       this.selectedScheme = null
       this.customer = null

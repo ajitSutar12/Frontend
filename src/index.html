@@ -188,17 +188,17 @@
                         id: result.id,
                     }
                     $.ajax({
-                        url: 'http://localhost:7276/user-defination/logout',
+                        // url: 'http://localhost:7276/user-defination/logout',
                         // url: 'http://139.59.63.215:9152/user-defination/logout',
-                        // url: 'http://139.59.63.215:4713/user-defination/logout',
+                        url: 'http://139.59.63.215:4713/user-defination/logout',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
                     })
                     $.ajax({
-                        url: 'http://localhost:7276/user-defination/logoffhistory',
+                        // url: 'http://localhost:7276/user-defination/logoffhistory',
                         // url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
-                        // url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
+                        url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -214,8 +214,8 @@
             // your function for too long inactivity goes here
             // window.location.href = 'http://localhost:4200/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/bhn_cbs/auth/login/simple';
-            window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
-            // window.location.href = 'http://139.59.63.215/SIDHANERLI/CBS/auth/login/simple';
+            // window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
+            window.location.href = 'http://139.59.63.215/SIDHANERLI/CBS/auth/login/simple';
             window.close()
         }
 
@@ -232,9 +232,9 @@
                     let refreshToken = localStorage.getItem('token')
                     let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
                     $.ajax({
-                        url: 'http://localhost:7276/refresh-token',
+                        // url: 'http://localhost:7276/refresh-token',
                         // url: 'http://139.59.63.215:9152/refresh-token',
-                        // url: 'http://139.59.63.215:4713/refresh-token',
+                        url: 'http://139.59.63.215:4713/refresh-token',
                         method: 'POST',
                         data: payload,
                         success: function (result) {

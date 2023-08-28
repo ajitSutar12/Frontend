@@ -624,7 +624,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         })
         this.formSubmitted = false;
         // to reload after insertion of data
-
+        this.switchNgBTab('Details')
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
@@ -653,6 +653,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.ngNcity = null
     this.resetNominee();
     this.createForm();
+    this.switchNgBTab('Details')
 
 
   }
@@ -694,6 +695,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   //Method for append data into fields
   editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
+    this.switchNgBTab('Details')
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
       let opdate
@@ -884,6 +886,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
+      this.switchNgBTab('Details')
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });

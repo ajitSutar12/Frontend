@@ -101,11 +101,13 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select [(ngModel)]="customer" formControlName="account_no"
-                                            (change)="getVoucherData()" appTheme #accountNumber
+                                            *ngIf="!showAccount" (change)="getVoucherData()" appTheme #accountNumber
                                             (focus)="onFocus(accountNumber)" [selectOnTab]='true'>
                                             <ng-option *ngFor="let item of introducerACNo" [value]="item">{{item.AC_NO}}
                                                 {{item.AC_NAME}}</ng-option>
                                         </ng-select>
+                                        <input type="text" name="account_no" *ngIf="showAccount" class="form-control"
+                                            placeholder=" " disabled formControlName="account_no" />
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -319,8 +321,8 @@
                                                 [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                 #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()" bsDatepicker
                                                 formControlName="IntUpto" [(ngModel)]="InterestDate" appButton
-                                                minlength="8" maxlength="10" [disabled]="NormalCheck"
-                                                (bsValueChange)="formatInterestDate()">
+                                                minlength="10" maxlength="10" [disabled]="NormalCheck"
+                                                (change)="formatInterestDate()" (bsValueChange)="formatInterestDate()">
                                         </span>
                                     </div>
                                 </div>
@@ -594,7 +596,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control" appButton
-                                                minlength="8" maxlength="10"
+                                                minlength="10" maxlength="10"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appTheme bsDatepicker
                                                 (change)="getMaturityDate()" formControlName="new_ason_date"
                                                 [(ngModel)]="renewalAsOnDate" #new_ason_date="bsDatepicker"
@@ -704,7 +706,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker appButton
-                                                minlength="8" maxlength="10" #new_matu_date="bsDatepicker"
+                                                minlength="10" maxlength="10" #new_matu_date="bsDatepicker"
                                                 (keydown.Tab)="new_matu_date.hide()" formControlName="new_matu_date"
                                                 placement="top">
                                         </span>

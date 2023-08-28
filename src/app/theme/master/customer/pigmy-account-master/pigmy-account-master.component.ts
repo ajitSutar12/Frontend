@@ -1076,7 +1076,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
         'AC_MEMBNO': formVal.AC_MEMBNO,
         'AC_OPDATE': temdate,
-        'AC_RENEW_DATE': (formVal.AC_RENEW_DATE == '' || formVal.AC_RENEW_DATE == 'Invalid date') ? redate = '' : redate = moment(formVal.AC_RENEW_DATE).format('DD/MM/YYYY'),
+        'AC_RENEW_DATE': (formVal.AC_RENEW_DATE == '' || formVal.AC_RENEW_DATE == undefined || formVal.AC_RENEW_DATE == 'Invalid date') ? null : moment(formVal.AC_RENEW_DATE).format('DD/MM/YYYY'),
         'AC_EXPDT': expiry,
         'AC_OCODE': formVal.AC_OCODE,
         'AC_CATG': parseInt(formVal.AC_CATG),
@@ -1126,7 +1126,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         })
         this.formSubmitted = false;
         // to reload after insertion of data
-
+        this.switchNgBTab('Basic')
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
@@ -1401,6 +1401,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
+      this.switchNgBTab('Basic')
       this.multiNominee = []
       this.multiJointAC = []
       this.customerDoc = []
@@ -1447,6 +1448,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   ngMonth: any
   // Reset Function
   resetForm() {
+    this.switchNgBTab('Basic')
     this.getSystemParaDate() //function to set date
     this.JointAccountsTrue = false
     this.nomineeTrue = false

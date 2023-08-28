@@ -941,6 +941,7 @@ export class CashCreditMasterComponent implements OnInit {
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
+          this.switchNgBTab('Basic')
         });
       }, (error) => {
         console.log(error)
@@ -1003,12 +1004,14 @@ export class CashCreditMasterComponent implements OnInit {
     this.ngresodate = null
     // this.angForm.controls['AC_COREG_DATE'].reset()
     this.getSystemParaDate()
+    this.switchNgBTab('Basic')
   }
 
   //Method for append data into fields
 
   editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
+    this.switchNgBTab('Basic')
     let date
     let opdate
     let redate
@@ -1206,6 +1209,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
+      this.switchNgBTab('Basic')
       this.multiSecurity = [];
       this.multiCoBorrower = [];
       this.multiSecurity = []
