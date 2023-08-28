@@ -322,12 +322,11 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
       // this.menuItemList[index]['class'] = "disableflag"
       if (arrayList.includes(element.id)) {
-
-        if (element?.children != [] && element.children != undefined) {
+        if (element?.children?.length != 0 && element.children != undefined) {
 
           element.children.forEach(function (ele, index1) {
             if (arrayList.includes(ele.id)) {
-              if (ele?.children != [] && ele.children != undefined) {
+              if (ele?.children?.length != 0 && ele.children != undefined) {
                 ele.children.forEach(function (ele1, index2) {
                   if (arrayList.includes(ele1.id)) {
                   } else {

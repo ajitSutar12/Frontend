@@ -62,6 +62,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   InterestCategoryData: any;
   maxDate: Date;
   payableShow: boolean = true;
+  showAccount: boolean = false;
 
   constructor(private fb: FormBuilder,
     private multiService: MultiVoucherService,
@@ -120,13 +121,14 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
 
   createForm() {
+    this.showAccount = false
     this.angForm = this.fb.group({
       branch_code: ['', [Validators.required]],
       date: [''],
       scheme_type: ['TD', [Validators.required]],
       scheme: ['', [Validators.required]],
       account_no: ['', [Validators.required]],
-      NormalInt: [''],
+      NormalInt: [0],
       NormalIntCheck: [''],
       payableInterestcheck: [''],
       IntUpto: [''],
@@ -187,7 +189,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
 
   formatInterestDate() {
-    this.InterestDate = moment(this.InterestDate).format('DD/MM/YYYY')
+    if (this.InterestDate != '' && this.InterestDate != null) {
+      this.InterestDate = moment(this.InterestDate, 'DD/MM/YYYY')
+      this.InterestDate = moment(this.InterestDate).format('DD/MM/YYYY')
+      this.getInterestAmount()
+    }
   }
 
   customerAc
@@ -208,12 +214,14 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       'new_rate': this.customer.AC_INTRATE,
       'new_last_date': this.customer.AC_LINTEDT,
       'new_maturity_amt': Number(this.customer.AC_MATUAMT).toFixed(2),
+
     })
 
     //Calculate Total Days
-    let total = Number(this.customer.AC_MONTHS) / 12 * 365;
-    this.TotalDays = Math.round(total + Number(this.customer.AC_DAYS));
-    this.getMaturityDate()
+    // let total = Number(this.customer.AC_MONTHS) / 12 * 365;
+    // this.TotalDays = Math.round(total + Number(this.customer.AC_DAYS));
+    // this.getMaturityDate()
+    this.getTotalDays()
     let obj = {
       Scheme: this.selectedScheme.S_APPL,
       AC_TYPE: this.selectedScheme.id,
@@ -221,6 +229,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       Date: this.date,
     }
     this.modalClass = 'modalShow';
+    this.NormalCheck = true;
+    // this.InterestDate = null;
+    this.angForm.patchValue({
+      NormalInt: null,
+      NormalIntRadio: '',
+      NormalIntCheck: false
+    })
     this._service.getAccountDeatils(obj).subscribe(data => {
       // console.log('data', data)
       this.angForm.patchValue({
@@ -238,7 +253,33 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.getMaturityAmount()
       this.modalClass = 'modalHide';
     })
+  }
 
+  getInterestAmount() {
+    let obj = {
+      Scheme: this.selectedScheme.S_APPL,
+      AC_TYPE: this.selectedScheme.id,
+      BANKACNO: this.customer.BANKACNO,
+      Date: this.InterestDate,
+    }
+    this._service.getInterestAmount(obj).subscribe(data => {
+      this.funAmtNormalInterest = Number(data)
+      this.payableShow = true;
+      this.transferShowNormal = false;
+      if (this.isNormalIntAdded) {
+        let depositeAmount = this.angForm.controls['new_deposit'].value;
+        let intValue = this.angForm.controls['NormalInt'].value;
+        let Int = Number(depositeAmount) - Number(intValue);
+        this.angForm.patchValue({
+          'new_deposit': Int,
+          NormalIntRadio: 'cash'
+        })
+        this.isNormalIntAdded = false
+      }
+      this.angForm.patchValue({
+        NormalInt: this.funAmtNormalInterest
+      })
+    })
   }
 
 
@@ -533,8 +574,15 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
   getTotalDays() {
     //Calculate Total Days
-    let total = Number(this.angForm.controls['new_month'].value) / 12 * 365;
-    this.TotalDays = Math.round(total + Number(this.angForm.controls['new_day'].value));
+    // let total = Number(this.angForm.controls['new_month'].value) / 12 * 365;
+    let total = Number(this.angForm.controls['new_month'].value);
+    let date = moment(this.renewalAsOnDate, 'DD/MM/YYYY').add(total, 'month').format('DD/MM/YYYY')
+    let date1 = moment(date, 'DD/MM/YYYY').add(Number(this.angForm.controls['new_day'].value), 'days').format('DD/MM/YYYY')
+    var startDate = moment(this.renewalAsOnDate, "DD/MM/YYYY");
+    var endDate = moment(date1, "DD/MM/YYYY");
+    var result = endDate.diff(startDate, 'days');
+    // this.TotalDays = Math.round(total + Number(this.angForm.controls['new_day'].value));
+    this.TotalDays = result
     this.getMaturityDate()
     this.getMaturityAmount()
   }
@@ -790,30 +838,37 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       // this.selectedScheme = Number(data.AC_TYPE)
       this.selectedScheme = data.selectedScheme
       this.customer = data.customer
+      let cust = data.customer.AC_NO + ' ' + data.customer.AC_NAME
       let obj = {
         Scheme: this.selectedScheme.S_APPL,
         AC_TYPE: this.selectedScheme.id,
         BANKACNO: this.customer.BANKACNO,
         Date: this.date,
       }
-      this._service.getAccountDeatils(obj).subscribe(data => {
+      this._service.getAccountDeatils(obj).subscribe(data1 => {
         this.angForm.patchValue({
-          old_total_int_paid: data.totalinterest,
-          new_rate: data.InterestRate,
-          new_deposit: Math.abs(data.ledgerBal),
-          AC_RENEWAL_COUNTER: data.renewalCount
+          old_total_int_paid: data1.totalinterest,
+          // new_rate: data.InterestRate,
+          // new_deposit: Math.abs(data.ledgerBal),
+          AC_RENEWAL_COUNTER: data1.renewalCount
         })
-        this.funAmtNormalInterest = data.normalInterest
-        this.funAmtPayableInterest = data.paybableInterest
-        this.isCalulateMaturityAmountFlag = data.isCalulateMaturityAmountFlag
-        this.funInterestRate = data.InterestRate
-        this.ledgerBalance = data.ledgerBal
+        this.funAmtNormalInterest = data1.normalInterest
+        this.funAmtPayableInterest = data1.paybableInterest
+        this.isCalulateMaturityAmountFlag = data1.isCalulateMaturityAmountFlag
+        this.funInterestRate = data1.InterestRate
+        this.ledgerBalance = data1.ledgerBal
       })
       this.updateID = data.id
       this.angForm.patchValue({
+        old_deposit_Amt: data.OLD_AC_SCHMAMT,
+        old_Ac_op_date: data.OLD_AC_OPEN_DATE,
         branch_code: data.BRANCH_CODE,
         old_month: data.OLD_MONTH,
+        old_days: data.OLD_DAYS,
         old_ac_expdt: data.OLD_EXPIRY_DATE,
+        old_ac_matuamt: data.OLD_MATUAMT,
+        old_intrate: data.OLD_INTEREST_RATE,
+        old_ac_ason_date: data.OLD_ASON_DATE,
         date: data.RENEWAL_DATE,
         scheme_type: data.AC_ACNOTYPE,
         new_deposit: Math.abs(data.RENEWAL_AMOUNT),
@@ -834,7 +889,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         new_receipt: data.NEW_RECEIPTNO,
         renewal_tran_no: data.TRAN_NO,
         IntUpto: data.INTEREST_DATE,
-        new_category: Number(data.NEW_INT_CATA)
+        new_category: Number(data.NEW_INT_CATA),
       })
       this.getTotalDays()
       this.angForm.patchValue({
@@ -842,8 +897,10 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         new_rate: data.NEW_INTEREST_RATE,
         new_matu_date: data.NEW_EXPIRY_DATE,
         scheme: data.selectedScheme.S_APPL + ' ' + data.selectedScheme.S_NAME,
-        account_no: data.customer.AC_NO + ' ' + data.customer.AC_NAME,
+        account_no: cust,
       })
+      this.showAccount = true
+      this.customer = data.customer
     })
   }
 
@@ -873,6 +930,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         this.resetForm()
         var button = document.getElementById('triggerhide');
         button.click();
+        this.showAccount = false
       },
       (error) => {
         console.log(error);
@@ -897,6 +955,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         'Term Deposit Account Renewal approved successfully',
         'success'
       );
+      this.showAccount = false
       var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
@@ -920,6 +979,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         'Term Deposit Account Renewal rejected successfully',
         'success'
       );
+      this.showAccount = false
       var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
@@ -941,6 +1001,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         'Account unapproved successfully',
         'success'
       );
+      this.showAccount = false
       var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
@@ -950,6 +1011,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
 
   resetForm() {
+    this.showAccount = false
     this.createForm()
   }
 
@@ -1003,7 +1065,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   getnormalCheck(ele) {
     if (ele.target.checked) {
       this.NormalCheck = false;
-      this.InterestDate = moment(this.current_date, 'DD/MM/YYYY').subtract(1, 'day').format('DD/MM/YYYY');
+      // this.InterestDate = moment(this.current_date, 'DD/MM/YYYY').subtract(1, 'day').format('DD/MM/YYYY');
+      this.InterestDate = this.customer?.AC_EXPDT
       this.angForm.patchValue({
         NormalInt: this.funAmtNormalInterest,
         NormalIntRadio: 'cash'
@@ -1096,6 +1159,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       Swal.fire('Success!', 'Account Renewaled Successfully !', 'success');
       this.createForm()
       this.ngOnInit()
+      this.TotalDays = 0
     }, err => {
       console.log(err?.error?.message)
     })

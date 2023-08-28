@@ -124,7 +124,7 @@ export class VoucherEntryComponent implements OnInit {
     { key: 'SH', data: { cash: [1, 4, 5, 7, 14], transfer: [1, 4, 5, 7, 14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
     { key: 'PG', data: { cash: [1, 4, 10], transfer: [1, 4, 10] } },
-    { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
+    { key: 'TD', data: { cash: [1, 4, 6, 10], transfer: [1, 4, 6, 9, 10] } },
   ]
 
   bankName = [
@@ -2100,6 +2100,7 @@ export class VoucherEntryComponent implements OnInit {
 
     this._service.getFormData(id).subscribe((data) => {
       //debugger
+      this.angForm.disable()
       this.updatecheckdata = data
       if (data.TRAN_STATUS == '0') {
         this.showButton = false;
@@ -2240,10 +2241,10 @@ export class VoucherEntryComponent implements OnInit {
       this.getTranMode()
 
       // this.resetscheme();
-      this.checkAccountCondition();
+      // this.checkAccountCondition();
       this.showlgindetails();
       this.SideDetails();
-      this.checktranCondition();
+      // this.checktranCondition();
       // this.updateheadbalance()
       this.angForm.patchValue({
         tran_mode: data.tran_mode[0].id,
@@ -2278,6 +2279,7 @@ export class VoucherEntryComponent implements OnInit {
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
+      this.angForm.enable()
     }, err => {
       console.log('something is wrong');
     })
@@ -2297,6 +2299,7 @@ export class VoucherEntryComponent implements OnInit {
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
+      this.angForm.enable()
     }, err => {
       console.log('something is wrong');
     })
@@ -2318,12 +2321,14 @@ export class VoucherEntryComponent implements OnInit {
       );
       var button = document.getElementById('trigger');
       button.click();
+      this.angForm.enable()
       this.reloadTablePassing.emit();
     }, err => {
       console.log('something is wrong');
     })
   }
   closeModal() {
+    this.angForm.enable()
     var button = document.getElementById('trigger');
     button.click();
     this.reloadTablePassing.emit();
@@ -2331,6 +2336,7 @@ export class VoucherEntryComponent implements OnInit {
 
   addNewData() {
     this.createForm()
+    this.angForm.enable()
   }
   SideView: boolean = false
   ShowLNCC: boolean = false

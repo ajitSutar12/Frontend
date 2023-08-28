@@ -35,6 +35,9 @@ export class TermDepositeAcRenewalService {
   getAccountDeatils(obj) {
     return this.http.post(this.url + '/cash-credit-ac-renewal/TDAccountDeatils', obj).pipe(catchError(this.handleError));
   }
+  getInterestAmount(obj) {
+    return this.http.post(this.url + '/cash-credit-ac-renewal/getInterestAmount', obj).pipe(catchError(this.handleError));
+  }
   //Updation Operation
   updateData(data): Observable<any> {
     return this.http.put(this.url + "/cash-credit-ac-renewal/updateTermDeposit", data);
