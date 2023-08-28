@@ -392,6 +392,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.customer = null
         return
       }
+      else if (data[0].PASSINGPENDING == true) {
+        Swal.fire('Oops', 'Account is already closed but passing pending', 'error')
+        this.customer = null
+        return
+      }
       else if (data[0].ISLIEN == true) {
         Swal.fire('Oops', 'Account is liened so account cannot close', 'error')
         this.customer = null

@@ -804,6 +804,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
+          this.switchNgBTab('Basic')
         });
       }, (error) => {
         console.log(error)
@@ -838,6 +839,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   // Reset Function
   resetForm() {
+    this.switchNgBTab('Basic')
     this.createForm();
     this.resetGuarantor()
     this.resetCoBorrower()
@@ -1070,6 +1072,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
+      this.switchNgBTab('Basic')
       this.multiSecurity = [];
       this.multiCoBorrower = [];
       this.multiSecurity = []

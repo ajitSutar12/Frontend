@@ -17,7 +17,7 @@ export class RepayModeService {
         { value: 'Q', label: 'Quarterly' },
         { value: 'H', label: 'Half Yearly' },
         { value: 'Y', label: 'Yearly' },
-        // { value: 'O', label: 'On Maturity' },
+        { value: 'O', label: 'On Maturity' },
     ];
 
     getPLAYER_twoCharacters(): Array<IOption> {
