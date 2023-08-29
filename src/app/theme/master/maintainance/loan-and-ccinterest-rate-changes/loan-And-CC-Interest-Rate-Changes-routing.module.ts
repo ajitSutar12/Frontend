@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: LoanAndCCInterestRateChangesComponent,
     data: {
-      title: 'Loan And CC Interest Rate Changes',
+      title: 'Loan & CC Int Rate Chng',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

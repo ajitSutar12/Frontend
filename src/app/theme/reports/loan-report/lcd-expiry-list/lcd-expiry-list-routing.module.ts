@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
   component: LcdExpiryListComponent ,
   data: {
-    title: 'Loan/Cash Credit Expiry List ',
+    title: 'LN/Cash Cr Exp-Li ',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: false

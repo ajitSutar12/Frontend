@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: MemberDAPDTComponent,
     data: {
-      title: 'Member Dividend and Payable Dividend Transaction',
+      title: 'Mem Div & Payable DivTran',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

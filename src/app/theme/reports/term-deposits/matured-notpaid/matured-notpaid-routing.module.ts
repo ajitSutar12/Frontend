@@ -6,7 +6,7 @@ const routes: Routes = [{
   path: '',
   component:  MaturedNotpaidComponent,
   data: {
-    title: 'matured but not paid',
+    title: 'matured not paid',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

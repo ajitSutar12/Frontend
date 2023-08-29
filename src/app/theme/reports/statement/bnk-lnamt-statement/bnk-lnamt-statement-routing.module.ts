@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkLNamtStatementComponent,
     data: {
-      title: 'Term Loan stament with other amount',
+      title: 'T LN stmt with other amt',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

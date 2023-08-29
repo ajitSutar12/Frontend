@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: SharesCCTSComponent,
     data: {
-      title: 'Shares Contribution Credit To Shares',
+      title: 'Shares CCTS',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

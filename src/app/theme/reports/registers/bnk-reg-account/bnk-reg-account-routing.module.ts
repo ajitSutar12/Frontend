@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkRegAccountComponent,
     data: {
-      title: 'Account Opening & Closing Register',
+      title: 'Acc Open & Close Reg',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

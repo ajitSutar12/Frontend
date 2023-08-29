@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: RecurringAttgComponent,
     data: {
-      title: 'Recurring Amount Transfer To GL',
+      title: 'Recurring Amount TTGL',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

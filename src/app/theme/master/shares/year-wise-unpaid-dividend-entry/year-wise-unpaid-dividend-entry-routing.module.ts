@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: YearWiseUnpaidDividendEntryComponent,
     data: {
-      title: 'Year Wise Unpaid Dividend Entry',
+      title: 'Year Wise Unpaid Divd Ent',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
