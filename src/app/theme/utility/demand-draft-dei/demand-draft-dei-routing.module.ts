@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: DemandDraftDEIComponent,
     data: {
-      title: 'Demand Draft Data Export/ Import',
+      title: 'Demand Draft Data Ex/Im',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

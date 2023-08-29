@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: DayBookIEComponent,
     data: {
-      title: 'Daybook Import/ Export',
+      title: 'Daybook Import/Export',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

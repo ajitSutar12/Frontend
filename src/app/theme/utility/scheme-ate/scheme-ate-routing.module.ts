@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  SchemeATEComponent ,
     data: {
-      title: 'Scheme Amount Transfer Entry',
+      title: 'Scheme ATE',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
