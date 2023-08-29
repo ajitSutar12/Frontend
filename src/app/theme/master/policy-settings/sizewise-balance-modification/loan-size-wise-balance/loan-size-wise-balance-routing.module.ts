@@ -7,7 +7,7 @@ const routes: Routes = [
     path: 'loanSizeWiseBalanceComponent',
     component: LoanSizeWiseBalanceComponent,
     data: {
-      title: 'Loan Size Wise Balance',
+      title: 'Loan Size Wise Baln',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ReconciliationTransactionEntryComponent,
     data: {
-      title: 'Reconciliation Opening Transaction Entry',
+      title: 'Recontion Ope Transt Ent',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
