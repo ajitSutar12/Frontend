@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: GmaMemberUpdationComponent,
     data: {
-      title: 'General Meeting Appear Member Updation',
+      title: 'General Meeting Appear',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
