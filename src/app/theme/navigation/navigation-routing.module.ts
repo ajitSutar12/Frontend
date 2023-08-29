@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: NavigationComponent,
     data: {
-      title: 'variants of nav bar',
+      title: 'variants of navBar',
       icon: 'icon-layout-cta-right',
       caption: 'variants color of nav bar',
       status: true

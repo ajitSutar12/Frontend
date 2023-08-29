@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: LcdOverdraftReportComponent ,
     data: {
-      title: 'Cash Credit Over Draft Report ',
+      title: 'Cash Cr Over DrafReport ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false
