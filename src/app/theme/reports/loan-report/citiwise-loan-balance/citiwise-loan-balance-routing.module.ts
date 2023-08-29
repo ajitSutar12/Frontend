@@ -6,7 +6,7 @@ const routes: Routes = [
   path: '',
   component: CitiwiseLoanBalanceComponent ,
   data: {
-    title: 'Citywise Loan Balance Report ',
+    title: 'Citywise LN BalRepo ',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: false

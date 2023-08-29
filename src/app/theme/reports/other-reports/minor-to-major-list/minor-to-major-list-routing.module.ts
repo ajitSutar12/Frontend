@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  MinorToMajorListComponent,
     data: {
-      title: 'Minor to Major List',
+      title: 'Minor-Major List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

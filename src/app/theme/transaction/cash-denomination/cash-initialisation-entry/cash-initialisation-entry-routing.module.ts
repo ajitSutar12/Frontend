@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: CashInitialisationEntryComponent,
     data: {
-      title: 'Cash Initialisation Entry',
+      title: 'Cash Initi Entry',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

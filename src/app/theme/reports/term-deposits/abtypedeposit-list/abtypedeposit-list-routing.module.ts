@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:AbtypedepositListComponent  , 
     data: {
-      title: 'A/B Type Deposit List',
+      title: 'A/B Typ DepoList',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit', 
       status: true

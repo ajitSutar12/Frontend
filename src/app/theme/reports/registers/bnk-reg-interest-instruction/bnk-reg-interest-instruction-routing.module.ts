@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkRegInterestInstructionComponent,
     data: {
-      title: 'Interest Instruction Register (Active/Revoke)',
+      title: 'Intst Instruct Reg (Act/Rev)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

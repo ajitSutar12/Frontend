@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkLedgerABTypeListComponent,
     data: {
-      title: 'Leadger Balance List A,B type Member Loan and Deposit',
+      title: 'Leadger Bal-Li A,B typ Member LN & Depo',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

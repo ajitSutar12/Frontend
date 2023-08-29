@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: NpaOpeningDetailsEntryComponent,
     data: {
-      title: 'NPA Opening Details Entry',
+      title: 'NPA Open Details Ent',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
