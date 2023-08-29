@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: SafeVaultToCashierComponent,
     data: {
-      title: 'Safe Vault To Cashier',
+      title: 'Safe Vault-Cashier',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

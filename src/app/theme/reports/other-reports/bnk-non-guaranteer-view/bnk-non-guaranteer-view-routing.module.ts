@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkNonGuaranteerViewComponent,
     data: {
-      title: 'Non Guarantor (A-Type Members Only) List',
+      title: 'Non Guarantor (A-Type)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
