@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: BalanceOLCDComponent,
     data: {
-      title: 'Balance Of Loan, Cash Credit, Dispute Loan',
+      title: 'Baln Of Lon, Cash Cr, Dispute Lon',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

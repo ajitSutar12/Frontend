@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  TransactionlessAccountListComponent,
     data: {
-      title: 'Transactionless Account List',
+      title: 'Transactionless Acc List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

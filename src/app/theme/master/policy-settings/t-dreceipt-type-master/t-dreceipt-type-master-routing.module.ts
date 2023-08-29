@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: TDReceiptTypeMasterComponent,
     data: {
-      title: 'TD Receipt Type Master',
+      title: 'TD Receipt Type Mast',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
