@@ -522,6 +522,7 @@ export class MembershipCancellationComponent implements OnInit {
   // function for edit button clicked
   editClickHandler(id): void {
     this.http.get(this.url + '/dailyshrtran/' + id).subscribe((data: any) => {
+      this.angForm.disable()
       this.getTransferAccountDeatil(event)
 
       let dailyshrtran = data.dailyshrtran
@@ -569,6 +570,7 @@ export class MembershipCancellationComponent implements OnInit {
       BRANCH_CODE: this.selectedBranch
     }
     this.http.post(this.url + '/dailyshrtran/approve', object).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
@@ -587,6 +589,7 @@ export class MembershipCancellationComponent implements OnInit {
       BRANCH_CODE: this.selectedBranch
     }
     this.http.post(this.url + '/dailyshrtran/reject', object).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
@@ -609,6 +612,7 @@ export class MembershipCancellationComponent implements OnInit {
       BRANCH_CODE: this.selectedBranch
     }
     this.http.post(this.url + '/dailyshrtran/unapprove', object).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'success', "Data Unapproved Successfully!!", 'success'
       );

@@ -105,7 +105,7 @@ export class TFormDayBookComponent implements OnInit {
   src: any;
   view(event) {
 
-    debugger
+    // debugger
     event.preventDefault();
     this.formSubmitted = true;
 

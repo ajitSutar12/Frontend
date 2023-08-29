@@ -305,6 +305,7 @@ export class BatchVoucherComponent implements OnInit {
     this._service.getFormData(id).subscribe(async (data) => {
       // console.log(data);
       // console.log(this.companycode);
+      this.angForm.disable()
       this.selectCompanyCode = data.batchvoucherData.COMP_CODE;
       await this.getCompanyData(this.selectCompanyCode);
       this.updateID = data.result.TRAN_NO;
@@ -360,6 +361,7 @@ export class BatchVoucherComponent implements OnInit {
       user: user
     }
     this._service.approve(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Approved',
         'Batch Voucher approved successfully',
@@ -383,6 +385,7 @@ export class BatchVoucherComponent implements OnInit {
       user: user
     }
     this._service.reject(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Rejected',
         'Batch Voucher rejected successfully',
@@ -404,6 +407,7 @@ export class BatchVoucherComponent implements OnInit {
       BRANCH_CODE: this.selectedBranch
     }
     this._service.unapporveBatchVoucher(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Unapproved',
         'Voucher unapproved successfully',
