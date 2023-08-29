@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: DeadStockPurchaseComponent,
     data: {
-      title: 'Dead Stock Purchase',
+      title: 'DeadStock Purchase',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

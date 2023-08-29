@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ConsolidationTransactionComponent,
     data: {
-      title: 'Consolidation Transaction',
+      title: 'Consolidation Tran',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
