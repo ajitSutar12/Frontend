@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:CustidwiseInterestListComponent  , 
     data: {
-      title: 'CustomerIdwise Interest List',
+      title: 'CustIdwise Int List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

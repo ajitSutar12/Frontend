@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: SocialHeaderFooterRegComponent,
     data: {
-      title: 'Social Header & Footer Registration'
+      title: 'Social Header & Footer Reg'
     }
   }
 ];
