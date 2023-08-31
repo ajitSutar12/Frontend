@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  BnkCatbalListComponent ,
     data: {
-      title: 'CatWise Bal-List',
+      title: 'Category Balance List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

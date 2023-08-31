@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: DeadStockTransactionComponent,
     data: {
-      title: 'DeadStock Tran',
+      title: 'DeadStock Transaction',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

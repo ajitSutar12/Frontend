@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  AmtsizeWiseBalListComponent,
     data: {
-      title: 'Amt-Size-wise Bal-Li',
+      title: 'Amount Balance List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
