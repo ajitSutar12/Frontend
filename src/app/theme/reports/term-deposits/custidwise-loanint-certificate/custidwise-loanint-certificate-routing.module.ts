@@ -6,7 +6,7 @@ const routes: Routes = [{
   path: '',
   component:CustidwiseLoanintCertificateComponent  ,
   data: {
-    title: 'Customer Id Wise Loan/Interest Certificate',
+    title: 'CustIdWise LN/Int Certi',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

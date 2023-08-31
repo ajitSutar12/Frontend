@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: LcdRenewalListComponent ,
     data: {
-      title: 'Loan Cash Credit Renewal List Report ',
+      title: 'LN Cash Cr RenLiRepo ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

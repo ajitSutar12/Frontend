@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: CounterWorkDayEndComponent,
     data: {
-      title: 'Counter Work Day End',
+      title: 'Counter Work DayEnd',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

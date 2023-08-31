@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  DividendPaidMarkSDComponent,
     data: {
-      title: 'Dividend Paid Mark Salary Division',
+      title: 'Dividend Paid MSD',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

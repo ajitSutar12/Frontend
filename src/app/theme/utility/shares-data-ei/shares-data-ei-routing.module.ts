@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: SharesDataEIComponent,
     data: {
-      title: 'Sheres Data Export/Import',
+      title: 'Sheres Data Ex/Im',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

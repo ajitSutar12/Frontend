@@ -452,6 +452,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         this.accountedit = null
         return
       }
+      else if (data[0].PASSINGPENDING == true) {
+        Swal.fire('Oops', 'Account is already closed but passing pending', 'error')
+        this.accountedit = null
+        return
+      }
       else if (Number(data[0].ledgerBal) >= 0) {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         this.accountedit = null
@@ -1036,8 +1041,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   //function for edit button clicked
   editClickHandler(id): void {
     this._service.getFormData(id).subscribe((data) => {
-      console.log(data);
-
+      // console.log(data);
+      this.angForm.disable()
       let mem = [data.TRAN_ACNO, data.TRAN_ACNOTYPE, data.TRAN_ACTYPE]
       this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data1) => {
         if (data.TRAN_STATUS == '0') {
@@ -1249,6 +1254,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       USER: result.id
     }
     this._service.approve(dataToSend).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Approved',
         'Saving and Pigmy Account Closing approved successfully',
@@ -1272,6 +1278,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       USER: result.id
     }
     this._service.reject(dataToSend).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Rejected',
         'Saving and Pigmy Account Closing rejected successfully',
@@ -1349,6 +1356,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       LOG_DATE: this.logDate
     }
     this._service.unapprove(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Unapproved',
         'Account unapproved successfully',

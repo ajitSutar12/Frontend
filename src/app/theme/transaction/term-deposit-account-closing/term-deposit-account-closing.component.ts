@@ -1358,6 +1358,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   updatecheckdata
   editClickHandler(id) {
     this._TDService.getFormData(id).subscribe((data1) => {
+      this.angForm.disable()
       this.updatecheckdata = data1
       if (data1.TRAN_STATUS == '0') {
         this.showButton = false;
@@ -1610,6 +1611,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       this._TDService.updateData(dataToSend).subscribe(data => {
         // this.getVoucherData();
+        this.angForm.enable()
         Swal.fire('Success!', 'Account Close Updated Successfully !', 'success');
         this.multigrid = []
         this.resetForm()
@@ -1622,6 +1624,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
   addNewData() {
     this.showButton = true;
+    this.angForm.enable()
     this.updateShow = false;
     this.newbtnShow = true;
     this.resetForm();
@@ -1669,6 +1672,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       dataToSend['CHEQUE_DATE'] = formValue.ChequeDate
     }
     this._TDService.approve(dataToSend).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Approved',
         'Term Deposit Account Closing Approved Successfully',
@@ -1724,6 +1728,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       dataToSend['CHEQUE_DATE'] = formValue.ChequeDate
     }
     this._TDService.reject(dataToSend).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Rejected',
         'Term Deposit Account Closing Rejected Successfully',
@@ -1756,6 +1761,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         'Account unapproved successfully',
         'success'
       );
+      this.angForm.enable()
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

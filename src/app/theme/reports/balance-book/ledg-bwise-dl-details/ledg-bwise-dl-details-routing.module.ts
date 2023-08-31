@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  LedgBwiseDlDetailsComponent,
     data: {
-      title: 'Ledger Balancewise Deposit/Loan Details',
+      title: 'Ledger BalWise Depo/LN Dtls',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

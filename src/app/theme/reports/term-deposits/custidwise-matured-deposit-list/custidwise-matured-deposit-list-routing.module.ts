@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:CustidwiseMaturedDepositListComponent  , 
     data: {
-      title: 'CustomerIdwise Matured Deposit List',
+      title: 'CustIdwise Matured DepoList',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

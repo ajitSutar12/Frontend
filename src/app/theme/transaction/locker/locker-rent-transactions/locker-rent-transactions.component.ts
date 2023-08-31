@@ -347,6 +347,7 @@ export class LockerRentTransactionsComponent implements OnInit {
   updateID
   editClickHandler(id) {
     this.http.get(this.url + '/locker-rent-transaction/' + id).subscribe((data: any) => {
+      this.ngForm.disable()
       this.updateID = id
       if (data.TRAN_STATUS == 0) {
         this.approveShow = true;
@@ -437,6 +438,7 @@ export class LockerRentTransactionsComponent implements OnInit {
       TRANSACTIONMODE: formVal.TRN_TYPE,
     }
     this.http.post(this.url + '/locker-rent-transaction/approve', obj).subscribe(data => {
+      this.ngForm.enable()
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
@@ -456,6 +458,7 @@ export class LockerRentTransactionsComponent implements OnInit {
       USER_CODE: result.id
     }
     this.http.post(this.url + '/locker-rent-transaction/reject', obj).subscribe(data => {
+      this.ngForm.enable()
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
@@ -476,6 +479,7 @@ export class LockerRentTransactionsComponent implements OnInit {
       user: result.id
     }
     this.http.post(this.url + '/locker-rent-transaction/unapprove ', obj).subscribe(data => {
+      this.ngForm.enable()
       Swal.fire(
         'success', "Data Unapproved Successfully!!", 'success'
       );
