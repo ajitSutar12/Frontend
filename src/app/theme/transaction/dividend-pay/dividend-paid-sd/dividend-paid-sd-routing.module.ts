@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: DividendPaidSDComponent,
     data: {
-      title: 'Dividend Paid Salary Division',
+      title: 'Dividend Paid SD',
      
       status: false
     },

@@ -6,7 +6,7 @@ const routes: Routes = [ {
   path: '',
   component: IntratewiseBalancelistComponent ,
   data: {
-    title: 'matured but not closed',
+    title: 'matured not closed',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

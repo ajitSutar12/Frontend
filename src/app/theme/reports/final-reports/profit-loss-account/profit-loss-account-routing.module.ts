@@ -6,7 +6,7 @@ const routes: Routes = [{
   path: '',
   component:  ProfitLossAccountComponent,
   data: {
-    title: 'Profit and loss account ',
+    title: 'Prof and loss acc',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

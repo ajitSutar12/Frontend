@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: SilverJACTSComponent,
     data: {
-      title: 'Silver Jubilee Amount Credit To Shares',
+      title: 'Silver JACTS',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

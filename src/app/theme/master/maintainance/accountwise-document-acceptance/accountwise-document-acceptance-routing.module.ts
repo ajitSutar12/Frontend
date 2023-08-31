@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: AccountwiseDocumentAcceptanceComponent,
     data: {
-      title: 'Account Wise Document Acceptance',
+      title: 'Acc Wise Doc Accept',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

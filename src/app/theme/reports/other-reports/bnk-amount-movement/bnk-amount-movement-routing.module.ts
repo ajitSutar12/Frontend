@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkAmountMovementComponent,
     data: {
-      title: 'Transaction Amount Movement',
+      title: 'Transt Amount Movement',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

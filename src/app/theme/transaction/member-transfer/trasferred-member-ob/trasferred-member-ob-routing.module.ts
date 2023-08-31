@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  TrasferredMemberOBComponent,
     data: {
-      title: 'Trasferred Member Opening Balance',
+      title: 'Trasferred Member OB',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

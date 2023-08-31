@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  BranchAndSalaryDCComponent,
     data: {
-      title: 'Branch And Salary Division Changes',
+      title: 'Branch & Salary DC',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

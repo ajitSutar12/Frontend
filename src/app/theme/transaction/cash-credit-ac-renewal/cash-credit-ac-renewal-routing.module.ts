@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: CashCreditAcRenewalComponent,
     data: {
-      title: 'Cash Credit AC Renewal',
+      title: 'Cash CR AC Renewal',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
