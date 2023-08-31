@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: AllReportsWithSearchingComponent,
     data: {
-      title: 'All Reports With Searching',
+      title: 'All Reports Search',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

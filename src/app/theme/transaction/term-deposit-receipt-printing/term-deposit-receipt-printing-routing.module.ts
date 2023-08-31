@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: TermDepositReceiptPrintingComponent,
     data: {
-      title: 'TermDepositReceiptPrinting',
+      title: 'T-Depo Recp Print',
       status: false
     },
     // children: [

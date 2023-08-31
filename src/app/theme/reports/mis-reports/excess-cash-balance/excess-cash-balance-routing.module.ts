@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ExcessCashBalanceComponent ,
     data: {
-      title: 'Excess Cash Balance Report ',
+      title: 'Excess Cash Bal Rpt ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

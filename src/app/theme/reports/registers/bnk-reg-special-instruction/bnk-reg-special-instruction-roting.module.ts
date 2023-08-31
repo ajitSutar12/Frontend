@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkRegSpecialInstructionComponent,
     data: {
-      title: 'Special Instruction Register (Active/Revoke)',
+      title: 'Spec Inst Reg (Act/Rev)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  MasikBDWComponent ,
     data: {
-      title: 'Masik Bachat Deposit Withdrawl',
+      title: 'Masik BDW',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

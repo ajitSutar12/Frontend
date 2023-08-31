@@ -193,6 +193,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
 
   //function for edit button clicked
   editClickHandler(info) {
+    this.angForm.disable()
     this.ngscheme = info.AC_TYPE
     this.ngBranchCode = info.BRANCH_CODE
     this.getAccountList()
@@ -269,6 +270,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         USER_CODE: result.id
       }
       this.http.post(this.url + '/gold-silver-return-entry/reject', object).subscribe((data: any) => {
+        this.angForm.enable()
         Swal.fire("Success!", "Data Rejected Successfully !", "success");
         // this.createForm()
         this.tableData = []
@@ -294,6 +296,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         USER_CODE: result.id
       }
       this.http.post(this.url + '/gold-silver-return-entry/approve', object).subscribe((data: any) => {
+        this.angForm.enable()
         Swal.fire("Success!", "Data Approved Successfully !", "success");
         // this.createForm()
         this.tableData = []
@@ -320,6 +323,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         LOG_DATE: this.logDate
       }
       this.http.post(this.url + '/gold-silver-return-entry/unapprove', object).subscribe((data: any) => {
+        this.angForm.enable()
         Swal.fire("Success!", "Data Unapproved Successfully !", "success");
         // this.createForm()
         this.tableData = []
