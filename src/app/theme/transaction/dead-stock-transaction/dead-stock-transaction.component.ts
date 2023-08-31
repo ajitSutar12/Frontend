@@ -565,8 +565,9 @@ export class DeadStockTransactionComponent implements OnInit {
   }
   updatecheckdata
   editClickHandler(id) {
-    debugger
+    // debugger
     this._service.getFormData(id).subscribe((data) => {
+      this.angForm.disable()
       this.updatecheckdata = data
       if (data.TRAN_STATUS == '0') {
         this.showButton = false;
@@ -677,6 +678,7 @@ export class DeadStockTransactionComponent implements OnInit {
         dataToSend['RESO_DATE'] = formVal.RESOLUTION_DATE
       }
       this._service.approve(dataToSend).subscribe(data => {
+        this.angForm.enable()
         Swal.fire(
           'Success',
           'Deadstock Transaction approved successfully', 'success'
@@ -702,6 +704,7 @@ export class DeadStockTransactionComponent implements OnInit {
       user: user.id
     }
     this._service.reject(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Success',
         'Deadstock Transaction rejected successfully', 'success'
@@ -758,6 +761,7 @@ export class DeadStockTransactionComponent implements OnInit {
       LOG_DATE: this.logDate
     }
     this._service.unapprove(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Unapproved',
         'Account unapproved successfully',
