@@ -487,6 +487,7 @@ export class IssueNewSharesComponent implements OnInit {
   editClickHandler(id): void {
     //  debugger
     this.http.get(this.url + '/issue-new-share/' + id).subscribe((data: any) => {
+      this.ngForm.disable()
       let dailyshrtran = data.dailyshrtran
       let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
@@ -554,6 +555,7 @@ export class IssueNewSharesComponent implements OnInit {
       BRANCH_CODE: this.selectedBranch
     }
     this.http.post(this.url + '/issue-new-share/approve', object).subscribe(data => {
+      this.ngForm.enable()
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
@@ -574,6 +576,7 @@ export class IssueNewSharesComponent implements OnInit {
       BRANCH_CODE: this.selectedBranch
     }
     this.http.post(this.url + '/issue-new-share/reject', object).subscribe(data => {
+      this.ngForm.enable()
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
@@ -599,6 +602,7 @@ export class IssueNewSharesComponent implements OnInit {
       LOG_DATE: this.logDate
     }
     this.http.post(this.url + '/issue-new-share/unapprove', object).subscribe(data => {
+      this.ngForm.enable()
       Swal.fire(
         'success', "Data Unapproved Successfully!!", 'success'
       );

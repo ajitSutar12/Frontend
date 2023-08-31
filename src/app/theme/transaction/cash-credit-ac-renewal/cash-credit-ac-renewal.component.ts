@@ -443,6 +443,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
   editClickHandler(id) {
     this._service.getFormData(id).subscribe((data) => {
+      this.angForm.disable()
       if (data.SYSCHNG_LOGIN != null) {
         this.unapproveShow = true
         this.showButton = false;
@@ -571,6 +572,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       dataToSend['AC_EXPIRE_DATE'] = (formVal.AC_EXPIRE_DATE == '' || formVal.AC_EXPIRE_DATE == 'Invalid date' || formVal.AC_EXPIRE_DATE == null || formVal.AC_EXPIRE_DATE == undefined) ? expiryDate = '' : expiryDate = moment(formVal.AC_EXPIRE_DATE).format('DD/MM/YYYY')
     }
     this._service.approve(dataToSend).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Approved',
         'Cash Credit Account Renew approved successfully',
@@ -593,6 +595,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       user: user.id
     }
     this._service.reject(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Rejected',
         'Cash Credit Account Renew rejected successfully',
@@ -619,6 +622,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       LOG_DATE: this.logDate
     }
     this._service.unapprove(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Unapproved',
         'Account unapproved successfully',

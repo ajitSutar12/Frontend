@@ -236,22 +236,45 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       NormalIntRadio: '',
       NormalIntCheck: false
     })
+    this.PayableCheck = true;
+    this.angForm.patchValue({
+      payableInt: null,
+      PayableIntRadio: '',
+      payableInterestcheck: false
+    })
     this._service.getAccountDeatils(obj).subscribe(data => {
-      // console.log('data', data)
-      this.angForm.patchValue({
-        old_total_int_paid: Number(data.totalinterest).toFixed(2),
-        new_rate: data.InterestRate,
-        new_deposit: Math.abs(data.ledgerBal).toFixed(2),
-        AC_RENEWAL_COUNTER: data.renewalCount,
-        old_last_trn_date: data.lastTransactionDate
-      })
-      this.funAmtNormalInterest = data.normalInterest
-      this.funAmtPayableInterest = data.paybableInterest
-      this.isCalulateMaturityAmountFlag = data.isCalulateMaturityAmountFlag
-      this.funInterestRate = data.InterestRate
-      this.ledgerBalance = Math.abs(data.ledgerBal)
-      this.getMaturityAmount()
       this.modalClass = 'modalHide';
+      if (data['PASSINGPENDING'] == true) {
+        Swal.fire('Oops', 'Account is already renewaled but passing pending', 'error')
+        this.angForm.patchValue({
+          'new_month': 0,
+          'new_day': 0,
+          'new_deposit': 0,
+          'new_rate': 0,
+          'new_last_date': null,
+          'new_maturity_amt': 0,
+
+        })
+        this.customer = null
+        return
+      }
+      else {
+        // console.log('data', data)
+        this.angForm.patchValue({
+          old_total_int_paid: Number(data.totalinterest).toFixed(2),
+          new_rate: data.InterestRate,
+          new_deposit: Math.abs(data.ledgerBal).toFixed(2),
+          AC_RENEWAL_COUNTER: data.renewalCount,
+          old_last_trn_date: data.lastTransactionDate
+        })
+        this.funAmtNormalInterest = data.normalInterest
+        this.funAmtPayableInterest = data.paybableInterest
+        this.isCalulateMaturityAmountFlag = data.isCalulateMaturityAmountFlag
+        this.funInterestRate = data.InterestRate
+        this.ledgerBalance = Math.abs(data.ledgerBal)
+        this.getMaturityAmount()
+        this.modalClass = 'modalHide';
+      }
     })
   }
 
@@ -316,7 +339,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       //   // calculate
       this._service.getTermDepositAccountDeatils(this.selectedScheme.id).subscribe(data => {
         if (data.IS_CAL_MATURITY_AMT == '1') {
-          if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') || data.INTEREST_RULE == "1") {
+          if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') || data.INTEREST_RULE == "1" || data.IS_CALLDEPOSIT_TYPE == '1') {
             if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "S") {
               this.simpleInterestCalculation()
             } else if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "C") {
@@ -788,6 +811,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   editClickHandler(id) {
 
     this._service.getTermFormData(id).subscribe((data) => {
+      this.angForm.disable()
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN != null) {
         this.unapproveShow = true
@@ -926,6 +950,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     dataToSend['id'] = this.updateID
     this._service.updateData(dataToSend).subscribe(
       (data) => {
+        this.angForm.enable()
         Swal.fire("Success!", "Data Updated Successfully !", "success");
         this.resetForm()
         var button = document.getElementById('triggerhide');
@@ -950,6 +975,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       BANKACNO: this.customer.BANKACNO
     }
     this._service.approve(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Approved',
         'Term Deposit Account Renewal approved successfully',
@@ -974,6 +1000,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       TRAN_NO: this.angForm.controls['TRAN_NO'].value
     }
     this._service.reject(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Rejected',
         'Term Deposit Account Renewal rejected successfully',
@@ -996,6 +1023,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       LOG_DATE: this.logDate
     }
     this._service.unapprove(obj).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'Unapproved',
         'Account unapproved successfully',
