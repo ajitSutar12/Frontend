@@ -11,14 +11,13 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" 
-                                        placeholder="">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -33,14 +32,13 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -55,10 +53,11 @@
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
@@ -78,16 +77,13 @@
                                     This field is required.
                                 </div>
                             </div>
-
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue" 
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -102,14 +98,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                        class="form-control" [(ngModel)]="todate"  (bsValueChange)="checkDate($event)"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"  [maxDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
+                                        class="form-control" [(ngModel)]="todate" (bsValueChange)="checkDate($event)"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="TO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -142,7 +141,7 @@
                                             <td class="td_right">NPA Provision</td>
                                             <td>NPA Percentage</td>
                                             <td class="td_right">To Be Recovered</td>
-                                            
+
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -151,9 +150,10 @@
                                                 <td></td>
                                                 <td>
                                                     <ng-select id="NPA_CLASS" [items]="npaClass" name="type"
-                                                    bindLabel="label" formControlName="NPA_CLASS"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" 
-                                                    [(ngModel)]="ngnpaclass" placeholder="Transaction Type" required>
+                                                        bindLabel="label" formControlName="NPA_CLASS"
+                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                        [(ngModel)]="ngnpaclass" placeholder="Transaction Type"
+                                                        required>
                                                     </ng-select>
                                                 </td>
                                                 <td>
