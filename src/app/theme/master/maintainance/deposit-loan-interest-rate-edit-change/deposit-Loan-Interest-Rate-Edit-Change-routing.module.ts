@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: DepositLoanInterestRateEditChangeComponent,
     data: {
-      title: 'Dept Loan Int Rate Chng',
+      title: 'Deposite Loan Interest ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
