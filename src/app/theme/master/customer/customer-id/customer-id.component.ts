@@ -737,7 +737,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   customerDoc
   //Method for append data into fields
   editClickHandler(id) {
-    debugger
     this.autofacus = false;
     this.showButton = false;
     this.updateShow = true;
@@ -868,6 +867,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_NAME_REG'] = (data.L_NAME_REG + ' ' + data.F_NAME_REG + ' ' + data.M_NAME_REG)?.toUpperCase()
     data['AC_ADD_REG'] = data.AC_ADD_REG
     data['BRANCH_CODE'] = branchCode
+    data['AC_PANNO'] = data.AC_PANNO
+
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
@@ -887,7 +888,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
                   icon: 'info',
                   title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
                 })
-                this.angForm.controls['AC_ADHARNO'].reset();
+                // this.angForm.controls['AC_ADHARNO'].reset();
               }
             }
           }
@@ -1264,45 +1265,45 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  checkAdhar() {
-    let adhar: any[];
-    this.customerIdService.getData().subscribe(data => {
-      if (data?.length != 0) {
-        if (this.angForm.controls['AC_ADHARNO'].value != '' && this.angForm.controls['AC_ADHARNO'].value != null) {
+  // checkAdhar() {
+  //   let adhar: any[];
+  //     this.customerIdService.getData().subscribe(data => {
+  //     if (data?.length != 0) {
+  //       if (this.angForm.controls['AC_ADHARNO'].value != '' && this.angForm.controls['AC_ADHARNO'].value != null) {
 
-          if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+  //         if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
 
-            if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-              let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
-              Swal.fire({
-                icon: 'info',
-                title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
-              })
-              this.angForm.controls['AC_ADHARNO'].reset();
-            }
-          }
-        }
-        else {
-          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
-            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
-              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
-                if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())
-                  if (id.id != this.angForm.controls['AC_NO'].value) {
-                    Swal.fire({
-                      icon: 'info',
-                      title: 'This Customer is Already Exists Having Customer ID ' + id.id
-                    })
-                    this.resetForm();
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    })
-  }
+  //           if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+  //             let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
+  //             Swal.fire({
+  //               icon: 'info',
+  //               title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
+  //             })
+  //             this.angForm.controls['AC_ADHARNO'].reset();
+  //           }
+  //         }
+  //       }
+  //       else {
+  //         if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+  //           if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+  //             if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
+  //               if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+  //                 let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())
+  //                 if (id.id != this.angForm.controls['AC_NO'].value) {
+  //                   Swal.fire({
+  //                     icon: 'info',
+  //                     title: 'This Customer is Already Exists Having Customer ID ' + id.id
+  //                   })
+  //                   this.resetForm();
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
 
   // checkPancard() {
   //   this.customerIdService.getData().subscribe(data => {
@@ -1321,6 +1322,48 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   //     }
   //   })
   // }
+
+  checkAdhar() {
+    if (this.showButton) {
+      let adhar: any[];
+      this.customerIdService.getData().subscribe(data => {
+        if (data?.length != 0) {
+          if (this.angForm.controls['AC_ADHARNO'].value != '' && this.angForm.controls['AC_ADHARNO'].value != null) {
+
+            if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+
+              if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+                let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
+                Swal.fire({
+                  icon: 'info',
+                  title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
+                })
+                this.angForm.controls['AC_ADHARNO'].reset();
+              }
+            }
+          }
+          else {
+            if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+              if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+                if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
+                  if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+                    let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())
+                    if (id.id != this.angForm.controls['AC_NO'].value) {
+                      Swal.fire({
+                        icon: 'info',
+                        title: 'This Customer is Already Exists Having Customer ID ' + id.id
+                      })
+                      this.resetForm();
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      })
+    }
+  }
 
   validation(event) {
     if (event != (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {

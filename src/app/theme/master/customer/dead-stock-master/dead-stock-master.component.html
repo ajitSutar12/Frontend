@@ -115,7 +115,7 @@
                                         #DEPR_CATEGORY (focus)="onFocus(DEPR_CATEGORY)" [selectOnTab]='true'
                                         placeholder="Depriciation Category">
                                         <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.value}} {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="DEPR_CATEGORY">Depreciation Category <sub class="required"> *
                                         </sub></label>
@@ -337,7 +337,7 @@
                                         placeholder="GL Account Number" #GL_ACNO (focus)="onFocus(GL_ACNO)"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of GLACNooption" [value]="values">
-                                            {{values.label}}</ng-option>
+                                          {{values.value}}  {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="GL_ACNO">GL Account Number<sub class="required"> * </sub></label>
                                 </span>
@@ -365,9 +365,9 @@
                                 *ngIf="newbtnShow">
                                 Cancel
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();ITEM_TYPE.focus()"
+                            <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData();ITEM_TYPE.focus()"
                                 *ngIf="updateShow">
-                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                             <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                 (click)="reject();ITEM_TYPE.focus()">
                                 Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;

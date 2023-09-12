@@ -45,11 +45,11 @@
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngTitle" id="AC_TITLE"
+                                    <ng-select class="sticky-drpodown" appTheme bindValue="value" [(ngModel)]="ngTitle" id="AC_TITLE"
                                         bindLabel="label" formControlName="AC_TITLE" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="" #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true'
-                                        autofocus>
+                                        autofocus >
 
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
@@ -312,7 +312,7 @@
                                         pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
                                         style="text-transform:uppercase;"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
-                                        maxlength="10" id="AC_PANNO" formControlName="AC_PANNO">
+                                        minlength="10" maxlength="10" id="AC_PANNO" formControlName="AC_PANNO"  >
                                     <label for="AC_PANNO">Pan Number</label>
                                     <!-- (focusout)=" checkPancard()" -->
                                 </span>
@@ -321,8 +321,8 @@
                                 *ngIf="angForm.controls['AC_PANNO'].invalid && (angForm.controls['AC_PANNO'].dirty || angForm.controls['AC_PANNO'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['AC_PANNO'].errors?.pattern || angForm.controls['AC_PANNO'].errors?.maxlength">
-                                    Enter Uppercase letters and digits only
+                                    *ngIf="angForm.controls['AC_PANNO'].errors?.pattern || angForm.controls['AC_PANNO'].errors?.minlength">
+                                    Enter Uppercase letters and digits only(It should have 10 letters and digits)
                                 </div>
                             </div>
                         </div>
