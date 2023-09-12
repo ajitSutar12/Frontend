@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-2"><label for="BRANCH_CODE">Branch<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
@@ -35,7 +35,7 @@
 
                         <div class="col-md-2"> <label for="SCHEME_CODE">Scheme Code<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -56,9 +56,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><label for="AC_TYPE">Range Starting Code<sub class="required"> *
-                                </sub></label></div>
-                        <div class="col-md-2">
+                        <div class="col-md-2"><label for="AC_TYPE">Range Starting Code<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="FROM_AC_NO" bindValue="value" bindLabel="label"
@@ -77,10 +77,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC_NO">Range Ending Code<sub class="required">
-                                    *
-                                </sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC_NO">Range Ending Code<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="TO_AC_NO" bindValue="value" bindLabel="label"
@@ -100,15 +99,18 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">Date<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="defaultDate" appButton minlength="8" maxlength="10"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                        formControlName="FROM_DATE" required bsDatepicker />
+                                        class="form-control" [(ngModel)]="defaultDate" appButton minlength="8"
+                                        maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="maxDate" formControlName="FROM_DATE" required bsDatepicker />
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -120,9 +122,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-6">
                             <div class="form-radio">
 
                                 <div class="radio radio-inline">
@@ -159,7 +159,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="Print Closed Accounts"
@@ -194,7 +194,7 @@
                                         </div>
 
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
