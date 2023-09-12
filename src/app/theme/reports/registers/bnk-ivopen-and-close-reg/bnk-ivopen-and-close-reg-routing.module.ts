@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkIVOpenAndCloseRegComponent,
     data: {
-      title: 'Inv Reg(Open/Closed)',
+      title: 'Investment(Open/Closed)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

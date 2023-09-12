@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkExpectIntInstructCreditComponent,
     data: {
-      title: 'INT INSTURCT(Expe CR)',
+      title: 'Interest (Expeted Credit)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
