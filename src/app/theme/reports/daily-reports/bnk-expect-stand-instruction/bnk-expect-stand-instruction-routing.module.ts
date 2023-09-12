@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkExpectStandInstructionComponent,
     data: {
-      title: 'Std Instru(Expe CR)',
+      title: 'Standard (Expeted debit)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
