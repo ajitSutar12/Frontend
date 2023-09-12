@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: BalanceOSCDAComponent,
     data: {
-      title: 'Baln of Sav, Curr, Dt, Agt ',
+      title: 'Saving,Current,Debit ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

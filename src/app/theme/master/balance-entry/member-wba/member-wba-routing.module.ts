@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: MemberWBAComponent,
     data: {
-      title: 'Member Wise Balance Addition',
+      title: 'Member Wise Addition',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
