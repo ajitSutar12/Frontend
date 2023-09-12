@@ -12,13 +12,12 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" 
-                                        placeholder="Branch">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -32,15 +31,18 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- </div>
+                    <div class="row"> -->
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        (change)="schemechange($event)"  (change)="getACmastercode()" placeholder="Scheme">
+                                        (change)="schemechange($event)" (change)="getACmastercode()"
+                                        placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -55,13 +57,15 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="NPA_DATE">NPA Provision Date</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="NPA_DATE" id="NPA_DATE"
                                         class="form-control" [(ngModel)]="NPAdate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" 
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="NPA_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
@@ -76,11 +80,9 @@
                             </div>
                         </div>
 
-                    </div>
 
-                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="FROM_AC">From Account Number</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
@@ -89,7 +91,7 @@
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -100,8 +102,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="TO_AC">To Account Number</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
@@ -120,19 +124,20 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-4">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="RECOVER_AMT"
                                         formControlName="RECOVER_AMT">
-                                    <label class="border-checkbox-label" for="RECOVER_AMT">Is To Be Recover Amount Process 
+                                    <label class="border-checkbox-label" for="RECOVER_AMT">Is To Be Recover Amount
+                                        Process
                                         ?</label>
                                 </div>
                             </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <button class="btn btn-outline-primary btn-sm" *ngIf="showButton">Posting</button>
-                    </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton">Posting</button>
+                        </div>
                     </div>
                 </div>
             </form>

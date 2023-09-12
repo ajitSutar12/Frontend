@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  AnamatGSMComponent,
     data: {
-      title: 'Anamat / General Sub Master',
+      title: 'Anamat/General Sub Master',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

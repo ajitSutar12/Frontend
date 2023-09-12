@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: RecoveryDataImportExportComponent,
     data: {
-      title: 'Recovery Data Im/Ex',
+      title: 'Recovery Data Import/Export',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkInstructionsInterestDebitComponent,
     data: {
-      title: 'INT INST(Fail/Succ)',
+      title: 'Interest(Failure/Success)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

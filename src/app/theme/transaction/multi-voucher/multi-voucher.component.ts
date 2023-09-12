@@ -1362,6 +1362,7 @@ export class MultiVoucherComponent implements OnInit {
   overdraftAmt
 
   SideDetails() {
+    debugger
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
     this.angForm.controls['amt'].reset()
@@ -1410,7 +1411,7 @@ export class MultiVoucherComponent implements OnInit {
       date: addInFrom
     }
     //
-    this._service.getpigmychartBalance(obj).subscribe(data2 => {
+    this._vservice.getpigmychartBalance(obj).subscribe(data2 => {
       this._vservice.getledgerbalance(obj).subscribe(data => {
         this.DayOpBal = Math.abs(data);
         this.DayOpBal = Number(this.DayOpBal).toFixed(2)
@@ -1797,8 +1798,19 @@ export class MultiVoucherComponent implements OnInit {
                                                                                 this.submitForm = true
                                                                                 this.modalClass = 'modalHide';
                                                                                 Swal.fire('Oops!', data.message, 'error');
+                                                                                // } else {
+                                                                                //   this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                //     if (data != 0) {
+                                                                                //       this.SideDetails()
+                                                                                //       this.angForm.controls['amt'].reset();
+                                                                                //       this.angForm.controls['total_amt'].reset(0);
+                                                                                //       this.amt.nativeElement.focus();
+                                                                                //       this.submitForm = true
+                                                                                //       this.modalClass = 'modalHide';
+                                                                                //       Swal.fire('Oops!', data.message, 'error');
                                                                               } else {
                                                                                 this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                  debugger
                                                                                   if (data != 0) {
                                                                                     this.SideDetails()
                                                                                     this.angForm.controls['amt'].reset();
@@ -1808,40 +1820,30 @@ export class MultiVoucherComponent implements OnInit {
                                                                                     this.modalClass = 'modalHide';
                                                                                     Swal.fire('Oops!', data.message, 'error');
                                                                                   } else {
-                                                                                    this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                    this._vservice.withdrawClosingCondition(obj).subscribe(data => {
                                                                                       if (data != 0) {
                                                                                         this.SideDetails()
                                                                                         this.angForm.controls['amt'].reset();
                                                                                         this.angForm.controls['total_amt'].reset(0);
-                                                                                        this.amt.nativeElement.focus();
+                                                                                        this.selectMode.focus()
                                                                                         this.submitForm = true
                                                                                         this.modalClass = 'modalHide';
                                                                                         Swal.fire('Oops!', data.message, 'error');
-                                                                                      } else {
-                                                                                        this._vservice.withdrawClosingCondition(obj).subscribe(data => {
-                                                                                          if (data != 0) {
-                                                                                            this.SideDetails()
-                                                                                            this.angForm.controls['amt'].reset();
-                                                                                            this.angForm.controls['total_amt'].reset(0);
-                                                                                            this.selectMode.focus()
-                                                                                            this.submitForm = true
-                                                                                            this.modalClass = 'modalHide';
-                                                                                            Swal.fire('Oops!', data.message, 'error');
-                                                                                          }
-                                                                                          else {
-                                                                                            this.submitForm = false
-                                                                                            this.amt.nativeElement.blur()
-                                                                                          }
-                                                                                        })
                                                                                       }
-                                                                                    }, err => {
-                                                                                      console.log(err);
+                                                                                      else {
+                                                                                        this.submitForm = false
+                                                                                        this.amt.nativeElement.blur()
+                                                                                      }
                                                                                     })
                                                                                   }
                                                                                 }, err => {
                                                                                   console.log(err);
                                                                                 })
                                                                               }
+                                                                              //   }, err => {
+                                                                              //     console.log(err);
+                                                                              //   })
+                                                                              // }
                                                                             }, err => {
                                                                               console.log(err);
                                                                             })

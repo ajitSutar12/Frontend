@@ -66,7 +66,14 @@ const routes: Routes = [
         loadChildren: () => import('./vouchers-printing/vouchers-printing.module').then(m => m.VouchersPrintingModule)
       },
     
-    
+      {
+        path: 'otherSubsidiary',
+        loadChildren: () => import('./other-sbsidiary/other-sbsidiary.module').then(m => m.OtherSbsidiaryModule)
+      },
+      {
+        path: 'SubsidiarySummery',
+        loadChildren: () => import('./sbsidiary-summery/sbsidiary-summery.module').then(m => m.SbsidiarySummeryModule)
+      },
     ]
   }
 ];

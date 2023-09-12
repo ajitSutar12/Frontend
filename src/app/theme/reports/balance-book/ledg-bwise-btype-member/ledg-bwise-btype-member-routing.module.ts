@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  LedgBwiseBtypeMemberComponent,
     data: {
-      title: 'Ledger BalWise B Typ Mem(Depo/LNs)',
+      title: 'Ledger Balance B Type',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

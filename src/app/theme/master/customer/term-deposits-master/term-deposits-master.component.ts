@@ -469,12 +469,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   createForm() {
+    debugger
     this.getSystemParaDate()
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['TD'],
       AC_NO: [''],
-      AC_INTRATE: [0],
+      AC_INTRATE: [],
       AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: [''],
       AC_NAME: [''],
@@ -963,7 +964,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   CheckmonthDays() {
-    debugger
+    
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
       if (data.UNIT_OF_PERIOD == "B") {
         this.angForm.controls['AC_MONTHS'].enable()
@@ -1104,18 +1105,26 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           }
         }
       })
-    }
-    let obj = {
-      scheme: this.selectedValue,
-      AC_INTCATA: this.ngIntCategory,
-      days: Number(this.angForm.controls['AC_DAYS'].value),
-      month: Number(this.angForm.controls['AC_MONTHS'].value)
-    }
-    this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
-      this.angForm.patchValue({
-        AC_INTRATE: data
+      let obj = {
+        scheme: this.selectedValue,
+        AC_INTCATA: this.ngIntCategory,
+        days: Number(this.angForm.controls['AC_DAYS'].value),
+        month: Number(this.angForm.controls['AC_MONTHS'].value)
+      }
+      this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
+        debugger
+        let int:any;
+        if(this.angForm.controls['AC_INTRATE'].value != '' && data == 0){
+          int = this.angForm.controls['AC_INTRATE'].value;
+        }else{
+          int = data
+        }
+        this.angForm.patchValue({
+          AC_INTRATE: int
+        })
       })
-    })
+    }
+    
   }
   //compound interest
   i: number
@@ -1656,7 +1665,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id, status) {
-    // debugger
+    debugger
     this.switchNgBTab('Basic')
     let opdate
     let asondate
@@ -1665,7 +1674,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       console.log(data);
 
       this.createForm()
-      this.showInstruction = false
+      this.showInstruction = true
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1744,9 +1753,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_INTRNAME': data.AC_INTRNAME,
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
-        AC_INTRATE: data.AC_INTRATE
+        'AC_INTRATE': data.AC_INTRATE,
       })
-      this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
+      // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
   disableForm(id) {
@@ -1787,7 +1796,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
-      data['AC_OPDATE'] = this.openingDate
+      data['AC_OPDATE'] = this.openingDate 
     }
 
 
@@ -2569,7 +2578,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
-  setMaturityDate() {
+  setMaturityDate() { 
     this.schemedata(this.selectedValue)
     this.angForm.patchValue({
       AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value == '' || this.angForm.controls['AC_SCHMAMT'].value == null ? 0 : this.angForm.controls['AC_SCHMAMT'].value
@@ -2578,6 +2587,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {
+      debugger
       // this.recurringCompoundInterest()
       if (data.IS_CAL_MATURITY_AMT != '1') {
         // this.setMaturityDate()
