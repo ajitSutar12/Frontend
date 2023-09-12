@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: MemberDAPDTComponent,
     data: {
-      title: 'Mem Div & Payable DivTran',
+      title: 'Member Div & Payable Div',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

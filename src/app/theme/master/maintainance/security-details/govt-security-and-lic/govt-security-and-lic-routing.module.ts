@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: GovtSecurityAndLicComponent,
     data: {
-      title: 'Gover Secu And Lic',
+      title: 'Govt Security & Lic',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

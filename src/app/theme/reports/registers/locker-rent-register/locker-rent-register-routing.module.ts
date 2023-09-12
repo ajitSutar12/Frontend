@@ -7,7 +7,7 @@ const routes: Routes = [
   path: '',
   component:  LockerRentRegisterComponent,
   data: {
-    title: 'Stand Inst Reg (Act/Rev)',
+    title: 'Locker Rent Register',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true
