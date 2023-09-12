@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { LoanReportRoutingModule } from './loan-report-routing.module';
 import { LoanReportComponent } from './loan-report.component';
+import { LoanExpiredListComponent } from './loan-expired-list/loan-expired-list.component';
 
 
 
 @NgModule({
-  declarations: [LoanReportComponent],
+  declarations: [LoanReportComponent, ],
   imports: [
     CommonModule,
     LoanReportRoutingModule

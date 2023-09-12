@@ -316,7 +316,7 @@ this.voucherNo
       let branch = obj.BRANCH_CODE
       let voucherNo = obj.VOUCHER_NO
       let voucherType = obj.VOUCHER_TYPE
-      let tranType = obj.TRAN_TYPE
+      let tranType = obj.TRAN_TYPE 
 
       this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&Vouchar_No='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branch_code=" + branch + "";
       console.log(this.iframe5url);

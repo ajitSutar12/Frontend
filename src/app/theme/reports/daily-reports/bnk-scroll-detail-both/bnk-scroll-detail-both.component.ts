@@ -234,7 +234,7 @@ else if(this.angForm.controls['Print_Code'].value=="Both" && this.angForm.valid)
   let branch = obj.Branch  
   let ccode = obj.Cashier_Code
   let pcode = obj.Print_Code
-  let rdio  = obj.radio
+  let rdio  = obj.radio 
 
   this.iframe1url=this.report_url+"examples/ScrollBookBoth.php?Startdate='"+Startdate+"'&stype='"+stype+ "'&branch='"+branch+"'&ccode='"+ccode+"'&pcode='"+pcode+"'&rdio='"+rdio+"&bankName="+bankName+"&opDate="+OpeningData ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url); 

@@ -530,9 +530,9 @@ export class VoucherEntryComponent implements OnInit {
     if (this.angForm.status == "INVALID") {
       this.angForm.markAllAsTouched();
     }
-    else if (Number(this.angForm.controls['amt'].value) == 0) {
-      Swal.fire('Oops!', 'Amount cannot be 0', 'error');
-    }
+    // else if (Number(this.angForm.controls['amt'].value) == 0) {
+    //   Swal.fire('Oops!', 'Amount cannot be 0', 'error');
+    // }
     else {
       //debugger
       let user = JSON.parse(localStorage.getItem('user'));
@@ -657,6 +657,7 @@ export class VoucherEntryComponent implements OnInit {
     this.angForm.patchValue({
       amt: 0
     })
+    this.totalAmt = 0
     this.submitForm = true
     this.headData = []
     this.submitTranMode = item;
