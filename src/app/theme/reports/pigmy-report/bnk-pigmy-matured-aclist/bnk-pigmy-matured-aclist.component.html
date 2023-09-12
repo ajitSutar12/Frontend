@@ -10,14 +10,13 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
+                        <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-2"> 
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                    (change)="getBranch($event)"
-                                        formControlName="BRANCH_CODE" bindLabel="label">
+                                        (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -32,17 +31,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"><label for="">Scheme Code<sub class="required">*</sub>
+                        <div class="col-sm-12 col-md-2"><label for="">Scheme Code<sub class="required">*</sub>
                             </label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                         [(ngModel)]="schemeCode" (change)="getTransferAccountList($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
-                                            {{values.label}}  {{values.name}}</ng-option>
+                                            {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                </span> 
+                                </span>
                             </div>
 
                             <div class="form-group form-primary form-static-label"
@@ -53,11 +52,11 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- </div><div class="row"> -->
-                        <div class="col-md-1"> <label for="START_DATE">Start Date<sub
-                                    class="required">*</sub></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
@@ -77,9 +76,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"> <label for="END_DATE">End Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="END_DATE">End Date<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"

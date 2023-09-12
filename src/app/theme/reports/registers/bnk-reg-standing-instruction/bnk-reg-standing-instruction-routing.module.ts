@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  BnkRegStandingInstructionComponent,
     data: {
-      title: 'Stand Inst Reg (Act/Rev)',
+      title: 'Standing Register(Active/Revoke)',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

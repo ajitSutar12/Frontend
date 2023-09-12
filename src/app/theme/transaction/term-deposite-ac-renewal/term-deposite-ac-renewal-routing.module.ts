@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component: TermDepositeAcRenewalComponent,
     data: {
-      title: 'T-Depo Acc Renewal',
+      title: 'T-Deposite Acc Renewal',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
