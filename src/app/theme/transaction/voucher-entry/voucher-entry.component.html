@@ -191,7 +191,7 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" class="form-control"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                    formControlName="token" maxlength="4"
+                                                    formControlName="token" maxlength="4" #token
                                                     (focusout)="checkTokenCondition($event)">
                                             </span>
                                         </div>
