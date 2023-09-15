@@ -1362,7 +1362,7 @@ export class MultiVoucherComponent implements OnInit {
   overdraftAmt
 
   SideDetails() {
-    debugger
+    // debugger
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
     this.angForm.controls['amt'].reset()
@@ -1810,7 +1810,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                 //       Swal.fire('Oops!', data.message, 'error');
                                                                               } else {
                                                                                 this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
-                                                                                  debugger
+                                                                                  // debugger
                                                                                   if (data != 0) {
                                                                                     this.SideDetails()
                                                                                     this.angForm.controls['amt'].reset();

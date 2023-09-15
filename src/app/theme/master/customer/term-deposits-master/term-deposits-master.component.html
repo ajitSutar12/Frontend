@@ -430,7 +430,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         formControlName="AC_MONTHS"
                                                                         (change)="CheckmonthDays()"
-                                                                        (ngModelChange)="setMaturityDate()"> 
+                                                                        (ngModelChange)="setMaturityDate()">
                                                                     <label for="AC_MONTHS">Months<sub class="required">*
                                                                         </sub></label>
                                                                 </span>
@@ -551,7 +551,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_MATUAMT"
                                                                         class="form-control" placeholder=" "
-                                                                        style="text-align: right;" id="AC_MATUAMT" 
+                                                                        style="text-align: right;" id="AC_MATUAMT"
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9" maxlength="13"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
@@ -588,14 +588,13 @@
                                                                 <div
                                                                     class="border-checkbox-group border-checkbox-group-primary">
                                                                     <input type="checkbox" class="border-checkbox"
-                                                                        id="REQ_RENEW"
-                                                                        formControlName="REQ_RENEW">
+                                                                        id="REQ_RENEW" formControlName="REQ_RENEW">
                                                                     <label class="border-checkbox-label"
                                                                         for="REQ_RENEW">Is Auto Renewal Required
                                                                     </label>
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                         <div class="col-sm-1" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="switchNgBTab('addressTab')">Next
@@ -2316,15 +2315,100 @@
                                                                 ngbTooltip="Add Interest Instruction"></span>
                                                         </div>
                                                     </div>
+                                                    <div *ngIf="updatecheckdata?.intinstruction.length!=0">
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <div class="table-responsive">
+                                                                    <table
+                                                                        class="table table-striped table-bordered table-hover compact">
+                                                                        <thead>
+                                                                            <td> INSTRUCTION NO</td>
+                                                                            <td> INSTRUCTION DATE</td>
+                                                                            <td> FROM DATE</td>
+                                                                            <td> NEXT EXECUTION DATE</td>
+                                                                            <td> TRAN TYPE</td>
+                                                                            <td> LAST EXECUTION DATE</td>
+                                                                            <td> DR ACTYPE</td>
+                                                                            <td> DR ACNO</td>
+                                                                            <td> DR PARTICULARS</td>
+                                                                            <td> CR ACTYPE</td>
+                                                                            <td> CR ACNO</td>
+                                                                            <td> CR PARTICULARS</td>
+                                                                            <td> FREQUENCY</td>
+                                                                            <td> REVOKE DATE</td>
+                                                                            <td> NARRATION</td>
+                                                                            <td> DEFAULT INTEREST APPLICABLE
+                                                                            </td>
+                                                                        </thead>
+                                                                        <tbody
+                                                                            *ngIf="updatecheckdata?.intinstruction?.length != 0">
+                                                                            <tr
+                                                                                *ngFor="let data of updatecheckdata?.intinstruction; let indexOfelement=index;">
+                                                                                <td class="td_right">
+                                                                                    {{data.INSTRUCTION_NO}}</td>
+                                                                                <td class="td_center">
+                                                                                    {{data.INSTRUCTION_DATE}}</td>
+                                                                                <td class="td_center">{{data.FROM_DATE}}
+                                                                                </td>
+                                                                                <td class="td_center">
+                                                                                    {{data.NEXT_EXE_DATE}}</td>
+                                                                                <td>{{data.TRAN_TYPE}}</td>
+                                                                                <td class="td_center">
+                                                                                    {{data.LAST_EXEC_DATE == null ? '-'
+                                                                                    :data.LAST_EXEC_DATE}}</td>
+                                                                                <td class="td_right">{{data.DR_ACTYPE ==
+                                                                                    null ? '-':data.interestDr.S_APPL}}
+                                                                                </td>
+                                                                                <td class="td_right">{{data.interestDr==
+                                                                                    null ? '-':data.DR_AC_NO}}</td>
+                                                                                <td>{{data.DR_PARTICULARS ==null ||
+                                                                                    data.DR_PARTICULARS == '' ? '-'
+                                                                                    :data.DR_PARTICULARS}}</td>
+                                                                                <td class="td_right">{{data.CR_ACTYPE ==
+                                                                                    null ? '-':data.interestCr.S_APPL}}
+                                                                                </td>
+                                                                                <td class="td_right">{{data.interestCr==
+                                                                                    null ? '-':data.CR_AC_NO}}</td>
+                                                                                <td>{{data.CR_PARTICULARS ==null ||
+                                                                                    data.CR_PARTICULARS == '' ? '-'
+                                                                                    :data.CR_PARTICULARS}}</td>
+                                                                                <td>{{data.SI_FREQUENCY}}</td>
+                                                                                <td class="td_center">{{data.REVOKE_DATE
+                                                                                    == null || data.REVOKE_DATE == '' ?
+                                                                                    '-' :data.REVOKE_DATE}}</td>
+                                                                                <td>{{data.ADV_NARRATION ==null ||
+                                                                                    data.ADV_NARRATION == '' ? '-'
+                                                                                    :data.ADV_NARRATION}}</td>
+                                                                                <td class="td_center">
+                                                                                    {{data.DEFAULT_INTEREST_APPLICABLE
+                                                                                    == true ? 'Yes'
+                                                                                    :'No'}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tbody
+                                                                            *ngIf="updatecheckdata?.intinstruction?.length == 0">
+                                                                            <tr>
+                                                                                <td colspan="12"
+                                                                                    class="no-data-available"
+                                                                                    style="text-align: center;">No data!
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                                                         <div class="app-modal-header">
                                                             <h4 class="modal-title">Interest Instruction</h4>
-                                                            
+
                                                             <span type="button" class="close basic-close"
-                                                                (click)="modalLarge.hide()" [selectOnTab]='false' autofocus:null>
+                                                                (click)="modalLarge.hide()" [selectOnTab]='false'
+                                                                autofocus:null>
                                                                 <span aria-hidden="true">&times;</span>
                                                             </span>
-                                                        
+
                                                         </div>
                                                         <div class="app-modal-body">
                                                             <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->

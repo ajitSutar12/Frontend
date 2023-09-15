@@ -34,6 +34,7 @@ export class VoucherEntryComponent implements OnInit {
   @ViewChild('submitbtn') submitbtn: ElementRef;
   @ViewChild('INTAMT') INTAMT: ElementRef;
   @ViewChild('NOTINTAMT') NOTINTAMT: ElementRef;
+  @ViewChild('token') token: ElementRef;
   @ViewChild('bankNameField') bankNameField: ElementRef;
   @ViewChild('narrationField') narrationField: ElementRef;
   // @ViewChild('tran_mode') tran_mode: ElementRef;
@@ -529,6 +530,9 @@ export class VoucherEntryComponent implements OnInit {
     //debugger
     if (this.angForm.status == "INVALID") {
       this.angForm.markAllAsTouched();
+    }
+    else if (this.submitTranMode.tran_drcr == 'D' && (this.angForm.controls['token'].value == 0 || this.angForm.controls['token'].value == null || this.angForm.controls['token'].value == '')) {
+      Swal.fire('warning', 'Please enter token number', 'warning')
     }
     // else if (Number(this.angForm.controls['amt'].value) == 0) {
     //   Swal.fire('Oops!', 'Amount cannot be 0', 'error');
@@ -2004,28 +2008,38 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   checkTokenCondition(event) {
-    let obj = {
-      value: Number(event.target.value),
-      clearBalance: Number(this.ClearBalance),
-      accountNo: this.submitCustomer.BANKACNO,
-      schemeType: this.selectedCode,
-      scheme: this.Submitscheme.S_APPL,
-      tran: this.submitTranMode.tran_drcr,
-      tranMode: this.submitTranMode.id,
-      tran_type: this.submitTranMode.tran_type,
-      odAmount: this.overdraftAmt,
-      currentDate: this.date
-    }
-
-
-    this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Oops!', data.message, 'error');
+    if (Number(event.target.value) != 0 && (event.target.value) != '' && (event.target.value) != null) {
+      let obj = {
+        value: Number(event.target.value),
+        clearBalance: Number(this.ClearBalance),
+        accountNo: this.submitCustomer.BANKACNO,
+        schemeType: this.selectedCode,
+        scheme: this.Submitscheme.S_APPL,
+        tran: this.submitTranMode.tran_drcr,
+        tranMode: this.submitTranMode.id,
+        tran_type: this.submitTranMode.tran_type,
+        odAmount: this.overdraftAmt,
+        currentDate: this.date
       }
-    }, err => {
-      console.log(err);
-    })
-
+      this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Oops!', data.message, 'error');
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+    else {
+      // Swal.fire('warning', 'Please enter token number', 'warning')
+      Swal.fire({
+        // position: 'top-end',
+        icon: 'warning',
+        title: 'Please enter token number',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.token.nativeElement.focus();
+    }
   }
 
   ngAfterViewInit(): void {

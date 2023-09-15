@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -31,7 +31,7 @@ interface MultiVoucher {
   templateUrl: './passmulti-voucher.component.html',
   styleUrls: ['./passmulti-voucher.component.scss']
 })
-export class PassmultiVoucherComponent implements OnInit {
+export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
   @ViewChild(MultiVoucherComponent) child: MultiVoucherComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
   dtExportButtonOptions: any = {};
@@ -110,7 +110,7 @@ export class PassmultiVoucherComponent implements OnInit {
           title: 'Action',
         },
         {
-          title: 'Record Number ',
+          title: 'Voucher Number ',
           data: 'TRAN_NO'
         },
         {
@@ -146,6 +146,26 @@ export class PassmultiVoucherComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }
