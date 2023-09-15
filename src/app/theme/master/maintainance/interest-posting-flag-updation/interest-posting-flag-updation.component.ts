@@ -177,7 +177,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     this.InterestArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
-    if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value) {
+    if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value && (this.angForm.controls['TO_AC'].value != '' && this.angForm.controls['TO_AC'].value != null)) {
       this.showTable = true
       this.modalClass = 'modalShow';
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
@@ -196,7 +196,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
         });
       });
     }
-    else {
+    else if (this.angForm.controls['TO_AC'].value != '' && this.angForm.controls['TO_AC'].value != null) {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
       this.InterestArr = []
       this.angForm.patchValue({

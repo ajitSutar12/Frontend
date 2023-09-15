@@ -674,7 +674,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
           case 'TD':
             this.schemeAccountNoService.getTermDepositSchemeList1(obj).subscribe(datatd => {
               this.termSchemeAC = datatd;
-              this.ngAccno = Number(data.DR_AC_NO)
+              this.ngAccno = (data.DR_AC_NO)
             })
             break;
         }

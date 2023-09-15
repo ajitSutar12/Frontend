@@ -469,7 +469,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   createForm() {
-    debugger
+    // debugger
     this.getSystemParaDate()
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
@@ -926,7 +926,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //simple interest
   installmentType
   simpleInterestCalculation() {
-    if (this.angForm.controls['AC_EXPDT'].value != '' && this.angForm.controls['AC_EXPDT'].value != null) {
+    if (this.angForm.controls['AC_EXPDT'].value != '' && this.angForm.controls['AC_EXPDT'].value != null && Number(this.angForm.controls['AC_SCHMAMT'].value != '')) {
       var date1 = this.angForm.controls['AC_ASON_DATE'].value;
       var date2 = this.angForm.controls['AC_EXPDT'].value;
 
@@ -937,7 +937,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       var endDate = moment(date2, "DD/MM/YYYY");
 
       var result = endDate.diff(startDate, 'days');
-      this.result = Math.round(Math.floor(this.angForm.controls['AC_SCHMAMT'].value) * (Math.floor(result)) * Math.floor(this.angForm.controls['AC_INTRATE'].value) / 36500 + Math.floor(this.angForm.controls['AC_SCHMAMT'].value))
+      this.result = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) * (Math.floor(result)) * Number(this.angForm.controls['AC_INTRATE'].value) / 36500 + Number(this.angForm.controls['AC_SCHMAMT'].value))
       this.angForm.patchValue({
         AC_MATUAMT: this.result
       })
@@ -964,7 +964,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   CheckmonthDays() {
-    
+
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
       if (data.UNIT_OF_PERIOD == "B") {
         this.angForm.controls['AC_MONTHS'].enable()
@@ -1112,11 +1112,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         month: Number(this.angForm.controls['AC_MONTHS'].value)
       }
       this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
-        debugger
-        let int:any;
-        if(this.angForm.controls['AC_INTRATE'].value != '' && data == 0){
+        // debugger
+        let int: any;
+        if (this.angForm.controls['AC_INTRATE'].value != '' && data == 0) {
           int = this.angForm.controls['AC_INTRATE'].value;
-        }else{
+        } else {
           int = data
         }
         this.angForm.patchValue({
@@ -1124,7 +1124,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         })
       })
     }
-    
+
   }
   //compound interest
   i: number
@@ -1665,7 +1665,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id, status) {
-    debugger
+    // debugger
     this.switchNgBTab('Basic')
     let opdate
     let asondate
@@ -1796,7 +1796,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
-      data['AC_OPDATE'] = this.openingDate 
+      data['AC_OPDATE'] = this.openingDate
     }
 
 
@@ -2578,7 +2578,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
-  setMaturityDate() { 
+  setMaturityDate() {
     this.schemedata(this.selectedValue)
     this.angForm.patchValue({
       AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value == '' || this.angForm.controls['AC_SCHMAMT'].value == null ? 0 : this.angForm.controls['AC_SCHMAMT'].value
@@ -2587,7 +2587,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {
-      debugger
+      // debugger
       // this.recurringCompoundInterest()
       if (data.IS_CAL_MATURITY_AMT != '1') {
         // this.setMaturityDate()
