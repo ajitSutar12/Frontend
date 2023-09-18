@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: NPAClassificationSlabMasterComponent,
     data: {
-      title: 'NPA Classi Slab Mast',
+      title: 'NPA Slab Master',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

@@ -270,7 +270,7 @@ export class GlAccountsMasterComponent implements OnInit {
         },
         {
           title: 'Statement Code',
-          data: 'AC_BCD'
+          data: 'head_name'
         },
         {
           title: 'Is Red Balance Account',

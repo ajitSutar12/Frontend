@@ -1431,7 +1431,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: 0
       })
     }
-    else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
+    // else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'M' && (this.installmentType == 'Null')) {
 
       this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
       this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1));
@@ -1440,7 +1441,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Q' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'Q' && (this.installmentType == 'Null')) {
 
       this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
       this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3));
@@ -1448,7 +1449,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'H' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'H' && (this.installmentType == 'Null')) {
 
       this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
       this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 6));
@@ -1456,7 +1457,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Y' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'Y' && (this.installmentType == 'Null')) {
 
       this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
       this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 12));
@@ -1464,7 +1465,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'O' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'O' && (this.installmentType == 'Null')) {
       this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
       this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 0));
       this.angForm.patchValue({
