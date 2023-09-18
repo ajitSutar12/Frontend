@@ -61,6 +61,10 @@ children:[
     path: 'receivableInstallInterest',
     loadChildren: () => import('./loan-receivableinst-intrest/loan-receivableinst-intrest.module').then(m => m.LoanReceivableinstIntrestModule)
   },
+  {
+    path: 'loanExpiredList',
+    loadChildren: () => import('./loan-expired-list/loan-expired-list.module').then(m => m.LoanExpiredListModule)
+  },
 ]
 }
 ];

@@ -162,8 +162,8 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
 
   getIntro(event) {
     this.getschemename = event.name
-     this.firstno = null
-          this.lastno = null
+    //  this.firstno = null
+    //       this.lastno = null
     this.getIntroducer()
     
   }
@@ -197,7 +197,12 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
   }
-
+  getIntTrans(event) {
+  this.firstno =  event.BANKACNO
+  }
+  getIntTrans1(event) {
+    this.lastno =  event.BANKACNO
+    }
   view(event) {
 
     event.preventDefault();
@@ -226,8 +231,8 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     let scheme = obj.AC_TYPE 
     let branch = obj.BRANCH_CODE
 
-    let firstno = obj.FIRST_NO
-    let lastno = obj.LAST_NO
+    let firstno = this.firstno 
+    let lastno = this.lastno 
 
          
    this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ lastno +"'"

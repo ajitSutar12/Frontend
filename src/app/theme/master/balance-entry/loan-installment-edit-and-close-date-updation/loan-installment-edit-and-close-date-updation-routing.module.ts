@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: LoanInstallmentEditAndCloseDateUpdationComponent,
     data: {
-      title: 'Recntion Ope Transt Ent',
+      title: 'Opening Transtaction Entry',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

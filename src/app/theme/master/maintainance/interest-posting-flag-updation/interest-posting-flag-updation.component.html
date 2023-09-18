@@ -61,8 +61,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
-                                        formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true' [virtualScroll]="true">
+                                        (change)="getTable()" formControlName="FROM_AC" bindLabel="label"
+                                        title="Compulsory Selection" #FROM_AC (focus)="onFocus(FROM_AC)"
+                                        [selectOnTab]='true' [virtualScroll]="true">
                                         <ng-option *ngFor="let values of fromAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
