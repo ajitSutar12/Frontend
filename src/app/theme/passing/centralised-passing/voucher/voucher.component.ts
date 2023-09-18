@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -31,7 +31,7 @@ interface VoucherEntry {
   templateUrl: './voucher.component.html',
   styleUrls: ['./voucher.component.scss']
 })
-export class VoucherComponent implements OnInit {
+export class VoucherComponent implements OnInit, AfterViewInit {
   @ViewChild(VoucherEntryComponent) child: VoucherEntryComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
 
@@ -112,7 +112,7 @@ export class VoucherComponent implements OnInit {
           title: 'Action',
         },
         {
-          title: 'Record Number ',
+          title: 'Voucher Number ',
           data: 'TRAN_NO'
         },
         {
@@ -176,6 +176,26 @@ export class VoucherComponent implements OnInit {
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
     });
   }
 }

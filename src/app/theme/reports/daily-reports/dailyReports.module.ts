@@ -19,6 +19,8 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 // import { SubsidiarySummaryComponent } from './subsidiary-summary/subsidiary-summary.component';
 import { VouchersPrintingComponent } from './vouchers-printing/vouchers-printing.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SbsidiarySummeryComponent } from './sbsidiary-summery/sbsidiary-summery.component';
+import { OtherSbsidiaryComponent } from './other-sbsidiary/other-sbsidiary.component';
 
 
 @NgModule({
@@ -29,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
     // ChartModule
   ],
-  declarations: [DailyReportsComponent],
+  declarations: [DailyReportsComponent, ],
   providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
